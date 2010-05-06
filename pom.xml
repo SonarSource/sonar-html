@@ -1,38 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.codehaus.sonar-plugins</groupId>
-    <artifactId>parent</artifactId>
-    <version>5</version>
-    <relativePath>../parent</relativePath>
-  </parent>
-  <groupId>org.codehaus.sonar-plugins</groupId>
-  <artifactId>sonar-web-plugin</artifactId>
-  <version>0.1-SNAPSHOT</version>
-  <name>Sonar Web plugin</name>
+	<groupId>org.codehaus.sonar-plugins</groupId>
+	<artifactId>sonar-web-plugin</artifactId>
+	<packaging>jar</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<name>Sonar Web Plugin</name>
 
-  
+	<inceptionYear>2010</inceptionYear>
+	<organization>
+		<name>Matthijs Galesloot</name>
+	</organization>
 
-  <properties>
-    <sonar.version>2.2-SNAPSHOT</sonar.version>
-  </properties>
+	<parent>
+		<groupId>org.codehaus.sonar-plugins</groupId>
+		<artifactId>parent</artifactId>
+		<version>5</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.sonar</groupId>
+			<artifactId>sonar-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.sonar</groupId>
+			<artifactId>sonar-channel</artifactId>
+			<version>2.2-SNAPSHOT</version>
+		</dependency>
 
 
-  <dependencies>
-    <!-- unit tests -->
+		<!-- unit tests -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+
+    <!-- unit tests 
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
       <scope>test</scope>
     </dependency>
+    -->
   </dependencies>
 
-  <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
-    <url>http://svn.codehaus.org/sonar-plugins</url>
-  </scm>
+	<build>
+		<plugins>
+			<plugin>
+				<!-- complete META-INF/MANIFEST.MF -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Plugin-Class>org.sonar.plugins.web.WebPlugin</Plugin-Class>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- temporary set fail = false for easily testing sonar:sonar -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<configuration>
+					<fail>false</fail>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<properties>
+		<sonar.version>2.2-SNAPSHOT</sonar.version>
+
+		<sonar.jdbc.url>
+			jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
+        </sonar.jdbc.url>
+		<sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
+		<sonar.jdbc.username>sonar</sonar.jdbc.username>
+		<sonar.jdbc.password>sonar</sonar.jdbc.password>
+	</properties>
+
+	<scm>
+		<connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
+		<developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
+		<url>http://svn.codehaus.org/sonar-plugins</url>
+	</scm>
 </project>
