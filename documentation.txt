@@ -1,0 +1,18 @@
+Sonar Web Plugin
+Author: Matthijs Galesloot 
+
+1. Package: org.sonar.plugins.web
+Implementation of the extension classes (sensor, importer, rules repo ...) for the web language. 
+
+1. Package: org.sonar.plugins.web.language
+Basic implementation of the web language using the sonar framework. 
+
+2. Package: org.sonar.plugins.web.lex
+Implementation of a simple lexical analyzer for Html files.  
+The lexer uses the sonar channel framework. 
+
+3. Package: org.sonar.plugins.web.rules 
+Implementation of rules
+
+4. Package: org.sonar.plugins.web.dashboard
+TODO - Provide a dashboard in Java projects showing basic metrics of web files. 
