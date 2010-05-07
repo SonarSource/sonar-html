@@ -37,7 +37,7 @@ public class TestRules {
 
     HtmlTokenList tokenList = new HtmlTokenList();
     HtmlElement token = new HtmlElement();
-    token.setCode("xx  class=\"yyy\"");
+    token.setCode("<xx class=\"yyy\">");
     HtmlElement token2 = new HtmlElement();
     token2.setCode("<br>");
     tokenList.getTokens().add(token);
