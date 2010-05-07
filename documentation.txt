@@ -16,3 +16,11 @@ Implementation of rules
 
 4. Package: org.sonar.plugins.web.dashboard
 TODO - Provide a dashboard in Java projects showing basic metrics of web files. 
+
+JSP checks:
+http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
+http://jira.codehaus.org/browse/SONARPLUGINS-130
+
+JSF checks:
+http://almaer.com/blog/jsf-coding-standards
+http://webmoli.com/2008/05/20/jsf-best-practices/
