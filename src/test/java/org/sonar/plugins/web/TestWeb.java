@@ -16,8 +16,6 @@
 
 package org.sonar.plugins.web;
 
-import static junit.framework.Assert.assertTrue;
-
 import java.io.File;
 import java.io.FileReader;
 import java.net.URISyntaxException;
@@ -27,6 +25,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.api.CoreProperties;
 import org.sonar.api.resources.DefaultProjectFileSystem;
@@ -34,9 +33,12 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.language.Web;
 
+import static junit.framework.Assert.assertTrue;
+
 /**
  * @author Matthijs Galesloot
  */
+@Ignore
 public class TestWeb {
 
   private static final File webPom = new File("c:/workspaces/mgba/src/trunk/04_Implementation/04_Sources/gbav/gbav-ba-web/pom-web.xml");
@@ -52,8 +54,8 @@ public class TestWeb {
 
   @Test
   public void testSensor() {
-    WebRulesRepository webRulesRepository = new WebRulesRepository(Web.INSTANCE); 
-    WebSensor sensor = new WebSensor(webRulesRepository.getProvidedProfiles().get(0)); 
+    WebRulesRepository webRulesRepository = new WebRulesRepository(Web.INSTANCE);
+    WebSensor sensor = new WebSensor(webRulesRepository.getProvidedProfiles().get(0));
 
     final Project project = loadProjectFromPom(testPom);
     MockSensorContext sensorContext = new MockSensorContext();
@@ -93,7 +95,7 @@ public class TestWeb {
       project.setLanguage(Web.INSTANCE);
     }
 
-    pom.addCompileSourceRoot( pom.getBuild().getSourceDirectory() );
+    pom.addCompileSourceRoot(pom.getBuild().getSourceDirectory());
 
     return project;
   }
