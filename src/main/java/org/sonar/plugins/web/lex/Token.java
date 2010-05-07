@@ -124,7 +124,9 @@ public class Token {
         
       InputSource source = new InputSource(new StringReader(code));
       parser.parse(source, fragment);
-      element = (Element) fragment.getFirstChild();
+      if (fragment.getFirstChild() != null && fragment.getFirstChild() instanceof Element) {
+        element = (Element) fragment.getFirstChild();
+      }
     } catch (SAXException e) {
       WebUtils.LOG.warn(null, e);
     } catch (IOException e) {
