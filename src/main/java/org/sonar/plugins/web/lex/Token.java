@@ -21,10 +21,7 @@ import java.io.StringReader;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.html.dom.HTMLDocumentImpl;
-import org.cyberneko.html.HTMLConfiguration;
 import org.cyberneko.html.parsers.DOMFragmentParser;
-import org.objectweb.asm.tree.analysis.SourceInterpreter;
-import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
 import org.sonar.plugins.web.WebUtils;
 import org.w3c.dom.DocumentFragment;
@@ -87,41 +84,41 @@ public class Token {
   }
 
   private Element element;
-  private boolean parsed; 
-  
+  private boolean parsed;
+
   public String getAttribute(String attributeName) {
 
-    if (!parsed) {
-      parseElement(); 
+    if ( !parsed) {
+      parseElement();
     }
-    
+
     if (element != null && element.hasAttribute(attributeName)) {
       return element.getAttribute(attributeName);
     }
-    
+
     return null;
   }
-  
+
   public String getNodeName() {
-    if (!parsed) {
-      parseElement(); 
+    if ( !parsed) {
+      parseElement();
     }
-    
+
     if (element != null) {
       return element.getNodeName();
     }
-    
+
     return null;
   }
 
   private void parseElement() {
     try {
-      parsed = true; 
-      
+      parsed = true;
+
       DOMFragmentParser parser = new DOMFragmentParser();
       HTMLDocument document = new HTMLDocumentImpl();
       DocumentFragment fragment = document.createDocumentFragment();
-        
+
       InputSource source = new InputSource(new StringReader(code));
       parser.parse(source, fragment);
       if (fragment.getFirstChild() != null && fragment.getFirstChild() instanceof Element) {

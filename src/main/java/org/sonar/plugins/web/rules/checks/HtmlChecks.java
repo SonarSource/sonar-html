@@ -43,7 +43,7 @@ public final class HtmlChecks {
   private static List<HtmlCheck> htmlChecks;
 
   /**
-   * Instantiate checks as defined in the RulesProfile. 
+   * Instantiate checks as defined in the RulesProfile.
    * 
    * @param profile
    */

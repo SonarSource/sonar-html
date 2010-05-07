@@ -28,15 +28,15 @@ public abstract class HtmlVisitor {
   private SensorContext sensorContext;
 
   public void destroy() {
-    
+
   }
-  
+
   public void endDocument(SensorContext sensorContext, WebFile resource) {
 
   }
-  
+
   public void endElement(Token token) {
-    
+
   }
 
   protected WebFile getResource() {
@@ -48,15 +48,15 @@ public abstract class HtmlVisitor {
   }
 
   public void init() {
-    
+
   }
-  
+
   public void startDocument(SensorContext sensorContext, WebFile resource) {
     this.sensorContext = sensorContext;
     this.resource = resource;
   }
 
   public void startElement(Token token) {
-    
+
   }
 }

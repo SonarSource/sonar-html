@@ -20,7 +20,6 @@ import java.io.File;
 
 import org.sonar.api.design.Dependency;
 import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.lex.HtmlElement;
@@ -33,11 +32,11 @@ import org.sonar.squid.api.SourceCodeEdgeUsage;
  * 
  * @author Matthijs Galesloot
  */
-public class WebDependency extends HtmlVisitor {
+public class WebDependencyDetector extends HtmlVisitor {
 
   private final ProjectFileSystem projectFileSystem;
 
-  public WebDependency(ProjectFileSystem projectFileSystem) {
+  public WebDependencyDetector(ProjectFileSystem projectFileSystem) {
     this.projectFileSystem = projectFileSystem;
   }
 
@@ -57,16 +56,21 @@ public class WebDependency extends HtmlVisitor {
           fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + fileName;
         } else {
           fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + "/"
-              + getResource().getParent().getName().replace(".", "/") + "/" + fileName;
+              + getResource().getParent().getName() + "/" + fileName;
         }
-
-        Resource resource2 = WebFile.fromIOFile(new File(fileName), projectFileSystem.getSourceDirs());
-
-        WebUtils.LOG.debug("dependency: " + resource2.getLongName());
-        Dependency dependency = new Dependency(getResource(), resource2);
-        dependency.setUsage(SourceCodeEdgeUsage.USES.name());
-        dependency.setWeight(1);
-        getSensorContext().saveDependency(dependency);
+        
+        File dependencyFile = new File(fileName);
+        if (dependencyFile.exists()) {
+          WebFile dependencyResource = WebFile.fromIOFile(dependencyFile, projectFileSystem.getSourceDirs());
+  
+          WebUtils.LOG.debug("dependency: " + dependencyResource.getLongName());
+          Dependency dependency = new Dependency(getResource(), dependencyResource);
+          dependency.setUsage(SourceCodeEdgeUsage.USES.name());
+          dependency.setWeight(1);
+          getSensorContext().saveDependency(dependency);
+        } else {
+          WebUtils.LOG.warn("dependency to non-existing file: " + fileName);
+        }
       }
     }
   }

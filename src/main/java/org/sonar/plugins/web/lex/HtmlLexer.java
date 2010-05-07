@@ -42,7 +42,7 @@ public final class HtmlLexer {
   new BasicTokenizer(HtmlComment.class, "<!DOCTYPE", ">"),
   /* JSP Directives */
   new BasicTokenizer(JspDirective.class, "<%", "%>"),
-  /* Tags */
+  /* XML and HTML Tags */
   new BasicTokenizer(HtmlElement.class, "<", ">"),
   /* Text (for everything else) */
   new TextTokenizer());
@@ -63,7 +63,7 @@ public final class HtmlLexer {
 
     // clean up
     codeReader.close();
-    
+
     // notify the visitors for end of document
     for (HtmlVisitor visitor : visitors) {
       visitor.endDocument(sensorContext, resource);

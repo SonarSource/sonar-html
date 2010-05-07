@@ -17,24 +17,30 @@
 package org.sonar.plugins.web;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.sonar.api.batch.GeneratesViolations;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
+import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
-import org.sonar.plugins.web.lex.HtmlComment;
+import org.sonar.plugins.web.language.WebRecognizer;
 import org.sonar.plugins.web.lex.HtmlLexer;
 import org.sonar.plugins.web.lex.HtmlTokenList;
-import org.sonar.plugins.web.lex.Token;
 import org.sonar.plugins.web.rules.checks.HtmlCheck;
 import org.sonar.plugins.web.rules.checks.HtmlChecks;
-import org.sonar.plugins.web.rules.checks.WebDependency;
-import org.sonar.squid.api.SourceFile;
+import org.sonar.plugins.web.rules.checks.WebDependencyDetector;
+import org.sonar.squid.measures.Metric;
+import org.sonar.squid.text.Source;
 
 /**
  * @author Matthijs Galesloot
@@ -56,74 +62,53 @@ public final class WebSensor implements Sensor, GeneratesViolations {
 
   public void analyse(Project project, SensorContext sensorContext) {
 
+    // configure the lexer
     HtmlLexer lexer = new HtmlLexer();
-    HtmlTokenList tokenList = new HtmlTokenList();
-    lexer.addVisitor(tokenList);
     for (HtmlCheck check : HtmlChecks.getChecks(profile)) {
       lexer.addVisitor(check);
     }
-    lexer.addVisitor(new WebDependency(project.getFileSystem()));
+    lexer.addVisitor(new HtmlTokenList());
+    lexer.addVisitor(new WebDependencyDetector(project.getFileSystem()));
 
     for (File webFile : project.getFileSystem().getSourceFiles(Web.INSTANCE)) {
-      tokenList.clear();
 
       try {
         WebFile resource = WebFile.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
-
-        lexer.parse(sensorContext, resource, webFile);
-
-        // for (Token token : tokenList.getTokens()) {
-        // Node node = token.getNode();
-        // System.out.print(node.toHtml());
-        // }
-        computeMetrics(resource, tokenList, sensorContext);
+        
+        switch(resource.getFileType()) {
+          case JavaScript:
+          case Html:
+          case Css: 
+            analyzeClientScript(webFile, resource, project.getFileSystem(), sensorContext);
+            break; 
+          default: 
+            analyzeServerScript(webFile, resource, lexer, project.getFileSystem(), sensorContext);
+            break;
+        }
       } catch (Exception e) {
         WebUtils.LOG.error("Could not analyze the file " + webFile.getAbsolutePath(), e);
       }
     }
   }
 
-  private void computeMetrics(Resource resource, HtmlTokenList tokenList, SensorContext sensorContext) {
-    int linesOfCode = 0;
-    int commentLines = 0;
-    int blankLines = 0;
+  private void analyzeClientScript(File webFile, WebFile webResource, ProjectFileSystem projectFileSystem, SensorContext sensorContext)
+      throws IOException {
+    Reader reader = null;
+    try {
+      reader = new StringReader(FileUtils.readFileToString(webFile, projectFileSystem.getSourceCharset().name()));
+      Source source = new Source(reader, new WebRecognizer(), "");
+      double linesOfCode = source.getMeasure(Metric.LINES);
+      sensorContext.saveMeasure(webResource, CoreMetrics.LINES, linesOfCode);
+      sensorContext.saveMeasure(webResource, CoreMetrics.NCLOC, linesOfCode);
 
-    for (int i = 0; i < tokenList.getTokens().size(); i++) {
-      Token token = tokenList.getTokens().get(i);
-
-      int thisTokenLines = token.getLinesOfCode();
-      linesOfCode += thisTokenLines;
-
-      if (token.isBlank()) {
-        blankLines += thisTokenLines;
-      } else {
-
-        int appendedBlankLines = 0;
-        if (i < tokenList.getTokens().size() - 1 && tokenList.getTokens().get(i + 1).isBlank()) {
-          appendedBlankLines = tokenList.getTokens().get(i + 1).getLinesOfCode();
-          linesOfCode += appendedBlankLines;
-          i++;
-        }
-
-        if (token instanceof HtmlComment) {
-          commentLines += thisTokenLines;
-          if (appendedBlankLines > 0) {
-            // WebUtils.LOG.debug("Comment followed by: ##" + tokenList.getTokens().get(i + 1).getCode() + "##");
-
-            commentLines++;
-          }
-        }
-        if (appendedBlankLines > 1) {
-          blankLines += appendedBlankLines - 1;
-        }
-      }
+    } finally {
+      IOUtils.closeQuietly(reader);
     }
+  }
 
-    sensorContext.saveMeasure(resource, CoreMetrics.LINES, (double) linesOfCode);
-    sensorContext.saveMeasure(resource, CoreMetrics.NCLOC, (double) linesOfCode - commentLines - blankLines);
-    sensorContext.saveMeasure(resource, CoreMetrics.COMMENT_LINES, (double) commentLines);
-
-    WebUtils.LOG.debug("WebSensor: " + resource.getLongName() + ":" + linesOfCode + "," + commentLines + "," + blankLines);
+  private void analyzeServerScript(File webFile, WebFile resource, HtmlLexer lexer, ProjectFileSystem projectFileSystem,
+      SensorContext sensorContext) throws FileNotFoundException {
+    lexer.parse(sensorContext, resource, webFile);
   }
 
   @Override

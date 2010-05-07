@@ -21,7 +21,7 @@ import org.sonar.squid.recognizer.CodeRecognizer;
 /**
  * @author Matthijs Galesloot
  */
-final class WebRecognizer extends CodeRecognizer {
+public final class WebRecognizer extends CodeRecognizer {
 
   public WebRecognizer() {
     super(1.0, new WebFootprint());

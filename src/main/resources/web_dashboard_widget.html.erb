@@ -1,8 +1,14 @@
-<div class="dashbox">
-  <h3>Web Lines of code</h3>
-  <p>
-    <span class="big">
-      <%= format_measure('xhtml-loc') -%> <%= tendency_icon(measure('xhtml-loc')) %>
-    </span>
-  </p>
+<% if measure('html_loc' ) %>
+<div class="dashbox" id="widget_web" >
+  
+  <h3>HTML</h3>
+  <p><span><%= format_measure('html_loc', :suffix => ' lines') %></span><%= tendency_icon('html_loc') %></p>
+
+  <h3>Javascript</h3>
+  <p><span><%= format_measure('javascript_loc', :suffix => ' lines') %></span><%= tendency_icon('javascript_loc') %></p>
+  
+  <h3>CSS</h3>
+  <p><span><%= format_measure('css_loc', :suffix => ' lines') %></span><%= tendency_icon('css_loc') %></p>
+  
 </div>
+<% end %>

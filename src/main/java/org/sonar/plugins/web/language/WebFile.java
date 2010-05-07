@@ -31,92 +31,6 @@ import org.sonar.api.utils.WildcardPattern;
  */
 public class WebFile extends Resource<WebPackage> {
 
-  private String filename;
-  private String longName;
-  private String packageKey;
-  private WebPackage parent = null;
-
-  public WebFile(String key) {
-    super();
-
-    String realKey = StringUtils.trim(key);
-
-    if (realKey.contains(".")) {
-      this.filename = StringUtils.substringAfterLast(realKey, ".");
-      this.packageKey = StringUtils.substringBeforeLast(realKey, ".");
-      this.longName = realKey;
-
-    } else {
-      this.filename = realKey;
-      this.longName = realKey;
-      this.packageKey = WebPackage.DEFAULT_PACKAGE_NAME;
-      realKey = new StringBuilder().append(WebPackage.DEFAULT_PACKAGE_NAME).append(".").append(realKey).toString();
-    }
-    setKey(realKey);
-  }
-
-  public WebFile(String packageKey, String className) {
-    super();
-
-    this.filename = className.trim();
-    final String key;
-    if (StringUtils.isBlank(packageKey)) {
-      this.packageKey = WebPackage.DEFAULT_PACKAGE_NAME;
-      this.longName = this.filename;
-      key = new StringBuilder().append(this.packageKey).append(".").append(this.filename).toString();
-    } else {
-      this.packageKey = packageKey.trim();
-      key = new StringBuilder().append(this.packageKey).append(".").append(this.filename).toString();
-      this.longName = key;
-    }
-    setKey(key);
-  }
-
-  @Override
-  public WebPackage getParent() {
-    if (parent == null) {
-      parent = new WebPackage(packageKey);
-    }
-    return parent;
-  }
-
-  @Override
-  public String getDescription() {
-    return null;
-  }
-
-  @Override
-  public Language getLanguage() {
-    return Web.INSTANCE;
-  }
-
-  @Override
-  public String getName() {
-    return filename;
-  }
-
-  @Override
-  public String getLongName() {
-    return longName;
-  }
-
-  @Override
-  public String getScope() {
-    return Resource.SCOPE_ENTITY;
-  }
-
-  @Override
-  public String getQualifier() {
-    return Resource.QUALIFIER_FILE;
-  }
-
-  @Override
-  public boolean matchFilePattern(String antPattern) {
-    String patternWithoutFileSuffix = StringUtils.substringBeforeLast(antPattern, ".");
-    WildcardPattern matcher = WildcardPattern.create(patternWithoutFileSuffix, ".");
-    return matcher.match(getKey());
-  }
-
   public static WebFile fromIOFile(File file, List<File> sourceDirs) {
     if (file == null) {
       return null;
@@ -128,13 +42,94 @@ public class WebFile extends Resource<WebPackage> {
 
       if (relativePath.indexOf('/') >= 0) {
         pacname = StringUtils.substringBeforeLast(relativePath, "/");
-        pacname = StringUtils.replace(pacname, "/", ".");
         classname = StringUtils.substringAfterLast(relativePath, "/");
       }
-      // classname = StringUtils.substringBeforeLast(classname, ".");
       return new WebFile(pacname, classname);
     }
     return null;
+  }
+  private final String filename;
+  private final String longName;
+  private final String packageKey;
+  private WebPackage parent = null;
+
+  private final FileType fileType;
+
+  public WebFile(String packageKey, String fileName) {
+    super();
+
+    this.filename = fileName.trim();
+    final String key;
+    if (StringUtils.isBlank(packageKey)) {
+      this.packageKey = WebPackage.DEFAULT_PACKAGE_NAME;
+      this.longName = this.filename;
+      key = new StringBuilder().append(this.packageKey).append("/").append(this.filename).toString();
+    } else {
+      this.packageKey = packageKey.trim();
+      key = new StringBuilder().append(this.packageKey).append("/").append(this.filename).toString();
+      this.longName = key;
+    }
+
+    if (StringUtils.endsWithIgnoreCase(filename, ".js")) {
+      fileType = FileType.JavaScript;
+    } else if (StringUtils.endsWithIgnoreCase(filename, ".html")) {
+      fileType = FileType.Html;
+    } else if (StringUtils.endsWithIgnoreCase(fileName, ".css")) {
+      fileType = FileType.Css;
+    } else {
+      fileType = FileType.ServerPage;
+    }
+
+    setKey(key);
+  }
+
+  @Override
+  public String getDescription() {
+    return null;
+  }
+
+  public FileType getFileType() {
+    return fileType;
+  }
+
+  @Override
+  public Language getLanguage() {
+    return Web.INSTANCE;
+  }
+
+  @Override
+  public String getLongName() {
+    return longName;
+  }
+
+  @Override
+  public String getName() {
+    return filename;
+  }
+
+  @Override
+  public WebPackage getParent() {
+    if (parent == null) {
+      parent = new WebPackage(packageKey);
+    }
+    return parent;
+  }
+
+  @Override
+  public String getQualifier() {
+    return Resource.QUALIFIER_FILE;
+  }
+
+  @Override
+  public String getScope() {
+    return Resource.SCOPE_ENTITY;
+  }
+
+  @Override
+  public boolean matchFilePattern(String antPattern) {
+    String patternWithoutFileSuffix = StringUtils.substringBeforeLast(antPattern, ".");
+    WildcardPattern matcher = WildcardPattern.create(patternWithoutFileSuffix, ".");
+    return matcher.match(getKey());
   }
 
   @Override

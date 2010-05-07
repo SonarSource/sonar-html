@@ -25,6 +25,7 @@ import org.sonar.plugins.web.dashboard.WebDashboardWidget;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebDirectoryDecorator;
 import org.sonar.plugins.web.language.WebFilesDecorator;
+import org.sonar.plugins.web.language.WebMetricsDecorator;
 
 /**
  * @author Matthijs Galesloot
@@ -50,11 +51,15 @@ public class WebPlugin implements Plugin {
 
     list.add(Web.class);
     list.add(WebRulesRepository.class);
-    list.add(WebSensor.class);
     list.add(WebSourceImporter.class);
+    list.add(WebMetrics.class);
+    // sensor
+    list.add(WebSensor.class);
+    // decorators
     list.add(WebFilesDecorator.class);
     list.add(WebDirectoryDecorator.class);
-
+    list.add(WebMetricsDecorator.class);
+    // portal 
     list.add(WebDashboardWidget.class);
 
     return list;
