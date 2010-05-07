@@ -17,6 +17,7 @@
 package org.sonar.plugins.web.rules.checks;
 
 import org.apache.commons.lang.StringUtils;
+import org.sonar.plugins.web.lex.HtmlElement;
 import org.sonar.plugins.web.lex.Token;
 
 /**
@@ -26,7 +27,7 @@ public class JspScriptletCheck extends HtmlCheck {
 
   @Override
   public void startElement(Token token) {
-    if (StringUtils.startsWithIgnoreCase(token.getCode(), "<jsp:scriptlet>")) {
+    if (token instanceof HtmlElement && StringUtils.containsIgnoreCase(token.getNodeName(), "scriptlet")) {
       createViolation(token);
     }
   }

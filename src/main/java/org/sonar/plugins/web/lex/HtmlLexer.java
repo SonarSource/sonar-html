@@ -49,7 +49,7 @@ public final class HtmlLexer {
 
   public void parse(SensorContext sensorContext, WebFile resource, File file) throws FileNotFoundException {
 
-    // initialize the visitors on a new document
+    // notify the visitors for a new document
     for (HtmlVisitor visitor : visitors) {
       visitor.startDocument(sensorContext, resource);
     }
@@ -63,6 +63,11 @@ public final class HtmlLexer {
 
     // clean up
     codeReader.close();
+    
+    // notify the visitors for end of document
+    for (HtmlVisitor visitor : visitors) {
+      visitor.endDocument(sensorContext, resource);
+    }
   }
 
   private List<HtmlVisitor> visitors = new ArrayList<HtmlVisitor>();

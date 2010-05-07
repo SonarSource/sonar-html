@@ -34,6 +34,7 @@ import org.sonar.plugins.web.lex.Token;
 import org.sonar.plugins.web.rules.checks.HtmlCheck;
 import org.sonar.plugins.web.rules.checks.HtmlChecks;
 import org.sonar.plugins.web.rules.checks.WebDependency;
+import org.sonar.squid.api.SourceFile;
 
 /**
  * @author Matthijs Galesloot

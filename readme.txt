@@ -9,6 +9,7 @@ Currently the following file extensions are supported: "html", "xhtml", "js", "c
  
 1. Installation 
 - Copy sonar-channel-2.2-SNAPSHOT.jar to the folder extensions\plugins
+- Copy nekohtml-1.9.14.jar to the folder extensions\plugins
 - Copy sonar-web-plugin-0.1-SNAPSHOT.jar to the folder extensions\plugins
 - Restart sonar 
 
