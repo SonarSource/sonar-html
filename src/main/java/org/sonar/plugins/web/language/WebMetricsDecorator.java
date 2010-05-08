@@ -64,7 +64,7 @@ public class WebMetricsDecorator implements Decorator {
           if (child.getMeasure(CoreMetrics.LINES) == null) {
             WebUtils.LOG.warn(child.getResource().getName() + ": no LOC" );
           } else {
-            WebFile webFile = (WebFile) child.getResource();
+            WebFile webFile = (WebFile) child.getResource();  
             switch (webFile.getFileType()) {
               case Css:
                 cssLinesOfCode += child.getMeasure(CoreMetrics.LINES).getIntValue();

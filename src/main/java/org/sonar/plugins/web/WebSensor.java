@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -35,10 +36,12 @@ import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.language.WebRecognizer;
 import org.sonar.plugins.web.lex.HtmlLexer;
-import org.sonar.plugins.web.lex.HtmlTokenList;
+import org.sonar.plugins.web.lex.Token;
 import org.sonar.plugins.web.rules.checks.HtmlCheck;
 import org.sonar.plugins.web.rules.checks.HtmlChecks;
-import org.sonar.plugins.web.rules.checks.WebDependencyDetector;
+import org.sonar.plugins.web.visitor.HtmlCountLines;
+import org.sonar.plugins.web.visitor.HtmlScanner;
+import org.sonar.plugins.web.visitor.WebDependencyDetector;
 import org.sonar.squid.measures.Metric;
 import org.sonar.squid.text.Source;
 
@@ -64,25 +67,28 @@ public final class WebSensor implements Sensor, GeneratesViolations {
 
     // configure the lexer
     HtmlLexer lexer = new HtmlLexer();
+   
+    // configure scanner
+    HtmlScanner scanner = new HtmlScanner();
     for (HtmlCheck check : HtmlChecks.getChecks(profile)) {
-      lexer.addVisitor(check);
+      scanner.addVisitor(check);
     }
-    lexer.addVisitor(new HtmlTokenList());
-    lexer.addVisitor(new WebDependencyDetector(project.getFileSystem()));
+    scanner.addVisitor(new HtmlCountLines());
+    scanner.addVisitor(new WebDependencyDetector(project.getFileSystem()));
 
     for (File webFile : project.getFileSystem().getSourceFiles(Web.INSTANCE)) {
 
       try {
         WebFile resource = WebFile.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
-        
-        switch(resource.getFileType()) {
+
+        switch (resource.getFileType()) {
           case JavaScript:
           case Html:
-          case Css: 
+          case Css:
             analyzeClientScript(webFile, resource, project.getFileSystem(), sensorContext);
-            break; 
-          default: 
-            analyzeServerScript(webFile, resource, lexer, project.getFileSystem(), sensorContext);
+            break;
+          default:
+            scanner.scan(lexer.parse(webFile), sensorContext, resource);
             break;
         }
       } catch (Exception e) {
@@ -105,12 +111,7 @@ public final class WebSensor implements Sensor, GeneratesViolations {
       IOUtils.closeQuietly(reader);
     }
   }
-
-  private void analyzeServerScript(File webFile, WebFile resource, HtmlLexer lexer, ProjectFileSystem projectFileSystem,
-      SensorContext sensorContext) throws FileNotFoundException {
-    lexer.parse(sensorContext, resource, webFile);
-  }
-
+  
   @Override
   public String toString() {
     return getClass().getSimpleName();

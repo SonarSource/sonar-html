@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.rules.checks;
+package org.sonar.plugins.web.visitor;
 
 import java.io.File;
 
@@ -23,7 +23,6 @@ import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.lex.HtmlElement;
-import org.sonar.plugins.web.lex.HtmlVisitor;
 import org.sonar.plugins.web.lex.Token;
 import org.sonar.squid.api.SourceCodeEdgeUsage;
 

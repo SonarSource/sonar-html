@@ -59,7 +59,7 @@ public class WebPlugin implements Plugin {
     list.add(WebFilesDecorator.class);
     list.add(WebDirectoryDecorator.class);
     list.add(WebMetricsDecorator.class);
-    // portal 
+    // portal
     list.add(WebDashboardWidget.class);
 
     return list;

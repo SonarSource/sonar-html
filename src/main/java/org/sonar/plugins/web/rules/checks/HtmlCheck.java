@@ -19,8 +19,8 @@ package org.sonar.plugins.web.rules.checks;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.WebPlugin;
-import org.sonar.plugins.web.lex.HtmlVisitor;
 import org.sonar.plugins.web.lex.Token;
+import org.sonar.plugins.web.visitor.HtmlVisitor;
 
 /**
  * @author Matthijs Galesloot

@@ -23,10 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.sonar.api.batch.SensorContext;
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
-import org.sonar.plugins.web.language.WebFile;
 
 /**
  * @author Matthijs Galesloot
@@ -47,41 +45,21 @@ public final class HtmlLexer {
   /* Text (for everything else) */
   new TextTokenizer());
 
-  public void parse(SensorContext sensorContext, WebFile resource, File file) throws FileNotFoundException {
-
-    // notify the visitors for a new document
-    for (HtmlVisitor visitor : visitors) {
-      visitor.startDocument(sensorContext, resource);
-    }
-
+  public List<Token> parse(File file) throws FileNotFoundException {
+    
     // CodeReader reads the file stream
     CodeReader codeReader = new CodeReader(new FileReader(file));
 
+    // ArrayList collects the tokens
+    List<Token> tokenList = new ArrayList();
+    
     // ChannelDispatcher manages the tokenizers
-    ChannelDispatcher<HtmlLexer> channelDispatcher = new ChannelDispatcher<HtmlLexer>(tokenizers);
-    channelDispatcher.consum(codeReader, this);
+    ChannelDispatcher<List<Token>> channelDispatcher = new ChannelDispatcher<List<Token>>(tokenizers);
+    channelDispatcher.consum(codeReader, tokenList);
 
     // clean up
     codeReader.close();
 
-    // notify the visitors for end of document
-    for (HtmlVisitor visitor : visitors) {
-      visitor.endDocument(sensorContext, resource);
-    }
-  }
-
-  private List<HtmlVisitor> visitors = new ArrayList<HtmlVisitor>();
-
-  public void addVisitor(HtmlVisitor visitor) {
-    visitors.add(visitor);
-  }
-
-  /**
-   * Callback from ChannelDispatcher --> Tokenizer[]
-   */
-  public void produce(Token token) {
-    for (HtmlVisitor visitor : visitors) {
-      visitor.startElement(token);
-    }
+    return tokenList;
   }
 }

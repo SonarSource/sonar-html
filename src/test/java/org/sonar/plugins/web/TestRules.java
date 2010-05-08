@@ -18,11 +18,13 @@ package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.sonar.api.rules.Rule;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.HtmlElement;
-import org.sonar.plugins.web.lex.HtmlTokenList;
 import org.sonar.plugins.web.lex.Token;
 import org.sonar.plugins.web.rules.checks.HtmlCheck;
 import org.sonar.plugins.web.rules.checks.HtmlChecks;
@@ -35,12 +37,12 @@ public class TestRules {
   @Test
   public void testRegularExpression() {
 
-    HtmlTokenList tokenList = new HtmlTokenList();
+    List<Token> tokenList = new ArrayList<Token>();
     HtmlElement token = new HtmlElement();
     token.setCode("<xx class=\"yyy\">");
     HtmlElement token2 = new HtmlElement();
     token2.setCode("<br>");
-    tokenList.getTokens().add(token);
+    tokenList.add(token);
     // tokenList.collect(token2);
 
     MockSensorContext context = new MockSensorContext();
@@ -49,7 +51,7 @@ public class TestRules {
     for (HtmlCheck check : HtmlChecks.getChecks(repository.getProvidedProfiles().get(0))) {
       check.startDocument(context, null);
     }
-    for (Token t : tokenList.getTokens()) {
+    for (Token t : tokenList) {
       for (HtmlCheck check : HtmlChecks.getChecks(repository.getProvidedProfiles().get(0))) {
         check.startElement(t);
       }

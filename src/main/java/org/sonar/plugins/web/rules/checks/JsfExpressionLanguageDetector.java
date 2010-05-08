@@ -18,8 +18,8 @@ package org.sonar.plugins.web.rules.checks;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.plugins.web.lex.HtmlElement;
-import org.sonar.plugins.web.lex.HtmlVisitor;
 import org.sonar.plugins.web.lex.Token;
+import org.sonar.plugins.web.visitor.HtmlVisitor;
 
 /**
  * @author Matthijs Galesloot

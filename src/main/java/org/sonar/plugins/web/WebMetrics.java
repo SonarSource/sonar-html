@@ -30,9 +30,9 @@ public class WebMetrics implements Metrics {
 
   public static final Metric HTML_LINES = new Metric("html_loc", "HTML LOC", "HTML Lines of code", Metric.ValueType.INT,
       Metric.DIRECTION_NONE, false, CoreMetrics.DOMAIN_SIZE);
-  
-  public static final Metric CSS_LINES = new Metric("css_loc", "CSS LOC", "CSS Lines of code", Metric.ValueType.INT,
-      Metric.DIRECTION_NONE, false, CoreMetrics.DOMAIN_SIZE);
+
+  public static final Metric CSS_LINES = new Metric("css_loc", "CSS LOC", "CSS Lines of code", Metric.ValueType.INT, Metric.DIRECTION_NONE,
+      false, CoreMetrics.DOMAIN_SIZE);
 
   public List<Metric> getMetrics() {
     return Arrays.asList(HTML_LINES, CSS_LINES, JAVASCRIPT_LINES);

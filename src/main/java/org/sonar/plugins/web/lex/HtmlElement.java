@@ -18,6 +18,8 @@ package org.sonar.plugins.web.lex;
 
 /**
  * @author Matthijs Galesloot
+ * 
+ * TODO - handle < and > in attribute values, such as label="<% bean.label %>"
  */
 public class HtmlElement extends Token {
 

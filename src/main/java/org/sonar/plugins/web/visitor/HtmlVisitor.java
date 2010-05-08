@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.lex;
+package org.sonar.plugins.web.visitor;
 
 import org.sonar.api.batch.SensorContext;
 import org.sonar.plugins.web.language.WebFile;
+import org.sonar.plugins.web.lex.Token;
 
 /**
  * @author Matthijs Galesloot
@@ -31,7 +32,7 @@ public abstract class HtmlVisitor {
 
   }
 
-  public void endDocument(SensorContext sensorContext, WebFile resource) {
+  public void endDocument() {
 
   }
 

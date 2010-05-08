@@ -16,14 +16,18 @@
 
 package org.sonar.plugins.web.lex;
 
+import java.util.List;
+
 import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 
 /**
  * @author Matthijs Galesloot
+ * 
+ * TODO - handle CDATA
  */
-class TextTokenizer implements Channel<HtmlLexer> {
+class TextTokenizer implements Channel<List<Token>> {
 
   private EndMatcher endTokenMatcher = new EndMatcher() {
 
@@ -35,7 +39,7 @@ class TextTokenizer implements Channel<HtmlLexer> {
   public TextTokenizer() {
   }
 
-  public boolean consum(CodeReader code, HtmlLexer lexer) {
+  public boolean consum(CodeReader code, List<Token> tokenList) {
     Token token = new Token();
     token.setStartPosition(code);
 
@@ -44,7 +48,7 @@ class TextTokenizer implements Channel<HtmlLexer> {
     token.setCode(stringBuilder.toString());
     token.setEndPosition(code);
 
-    lexer.produce(token);
+    tokenList.add(token);
 
     return true;
   }

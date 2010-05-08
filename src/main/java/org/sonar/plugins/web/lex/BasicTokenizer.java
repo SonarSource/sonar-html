@@ -16,6 +16,8 @@
 
 package org.sonar.plugins.web.lex;
 
+import java.util.List;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
@@ -24,7 +26,7 @@ import org.sonar.channel.EndMatcher;
 /**
  * @author Matthijs Galesloot
  */
-class BasicTokenizer implements Channel<HtmlLexer> {
+class BasicTokenizer implements Channel<List<Token>> {
 
   private char[] startToken;
   private char[] endToken;
@@ -59,7 +61,7 @@ class BasicTokenizer implements Channel<HtmlLexer> {
     }
   };
 
-  public boolean consum(CodeReader codeReader, HtmlLexer lexer) {
+  public boolean consum(CodeReader codeReader, List<Token> tokenList) {
     if (ArrayUtils.isEquals(codeReader.peek(startToken.length), startToken)) {
       Token token = createToken();
       token.setStartPosition(codeReader);
@@ -72,7 +74,7 @@ class BasicTokenizer implements Channel<HtmlLexer> {
       token.setCode(stringBuilder.toString());
       token.setEndPosition(codeReader);
 
-      lexer.produce(token);
+      tokenList.add(token);
       return true;
     } else {
       return false;

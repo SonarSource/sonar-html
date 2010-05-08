@@ -111,11 +111,12 @@ public class Token {
     return null;
   }
 
+  private static DOMFragmentParser parser = new DOMFragmentParser();
+  
   private void parseElement() {
     try {
       parsed = true;
 
-      DOMFragmentParser parser = new DOMFragmentParser();
       HTMLDocument document = new HTMLDocumentImpl();
       DocumentFragment fragment = document.createDocumentFragment();
 
