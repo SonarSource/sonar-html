@@ -38,11 +38,11 @@ import org.sonar.api.rules.StandardRulesXmlParser;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.AnnotationIntrospector;
 import org.sonar.check.Check;
+import org.sonar.plugins.web.checks.HtmlCheck;
+import org.sonar.plugins.web.checks.JspScriptletCheck;
+import org.sonar.plugins.web.checks.RegularExpressionCheck;
+import org.sonar.plugins.web.checks.UnclosedTagCheck;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.rules.checks.HtmlCheck;
-import org.sonar.plugins.web.rules.checks.JspScriptletCheck;
-import org.sonar.plugins.web.rules.checks.RegularExpressionCheck;
-import org.sonar.plugins.web.rules.checks.UnclosedTagCheck;
 
 /**
  * @author Matthijs Galesloot

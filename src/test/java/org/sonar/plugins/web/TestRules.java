@@ -23,11 +23,11 @@ import java.util.List;
 
 import org.junit.Test;
 import org.sonar.api.rules.Rule;
+import org.sonar.plugins.web.checks.HtmlCheck;
+import org.sonar.plugins.web.checks.HtmlChecks;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.HtmlElement;
 import org.sonar.plugins.web.lex.Token;
-import org.sonar.plugins.web.rules.checks.HtmlCheck;
-import org.sonar.plugins.web.rules.checks.HtmlChecks;
 
 /**
  * @author Matthijs Galesloot
