@@ -17,11 +17,9 @@
 package org.sonar.plugins.web;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -36,7 +34,6 @@ import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.language.WebRecognizer;
 import org.sonar.plugins.web.lex.HtmlLexer;
-import org.sonar.plugins.web.lex.Token;
 import org.sonar.plugins.web.rules.checks.HtmlCheck;
 import org.sonar.plugins.web.rules.checks.HtmlChecks;
 import org.sonar.plugins.web.visitor.HtmlCountLines;

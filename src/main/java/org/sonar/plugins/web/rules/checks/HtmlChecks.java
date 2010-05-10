@@ -27,10 +27,6 @@ import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
 import org.sonar.plugins.web.WebRulesRepository;
 import org.sonar.plugins.web.WebUtils;
-import org.sonar.plugins.web.rules.xml.Property;
-import org.sonar.plugins.web.rules.xml.RuleDefinition;
-import org.sonar.plugins.web.rules.xml.RulesUtils;
-import org.sonar.plugins.web.rules.xml.Ruleset;
 
 /**
  * @author Matthijs Galesloot
@@ -51,20 +47,16 @@ public final class HtmlChecks {
     if (htmlChecks == null) {
       htmlChecks = new ArrayList<HtmlCheck>();
 
-      Ruleset ruleset = RulesUtils.buildRuleSetFromXml(WebRulesRepository.getConfigurationFromFile(WebRulesRepository.RULE_FILE));
-
       for (ActiveRule activeRule : profile.getActiveRules()) {
-        RuleDefinition ruleDefinition = getBuiltin(ruleset, activeRule);
-
-        if (ruleDefinition == null) {
+        Class<HtmlCheck> checkClass = WebRulesRepository.getCheckClass(activeRule);
+        if (checkClass == null) {
           continue;
         }
 
         try {
-          Class clazz = Class.forName(ruleDefinition.getClazz());
-          Constructor<HtmlCheck> constructor = clazz.getConstructor();
+          Constructor<HtmlCheck> constructor = checkClass.getConstructor();
           HtmlCheck checker = constructor.newInstance();
-          checker.setRuleKey(ruleDefinition.getName());
+          checker.setRuleKey(activeRule.getRuleKey());
           if (activeRule.getActiveRuleParams() != null) {
             for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
               PropertyUtils.setProperty(checker, param.getRuleParam().getKey(), param.getValue());
@@ -75,24 +67,22 @@ public final class HtmlChecks {
           // debug
           if (WebUtils.LOG.isDebugEnabled()) {
             StringBuilder sb = new StringBuilder();
-            if (ruleDefinition.getProperties() != null) {
-              for (Property property : ruleDefinition.getProperties()) {
+            if (activeRule.getActiveRuleParams() != null) {
+              for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
                 if (sb.length() > 0) {
                   sb.append(',');
                 }
-                sb.append(property.getName());
+                sb.append(param.getRuleParam().getKey());
                 sb.append('=');
-                sb.append(property.getValue());
+                sb.append(param.getValue());
               }
               sb.append(')');
               sb.insert(0, " (");
             }
-            sb.insert(0, clazz.getSimpleName());
+            sb.insert(0, checkClass.getSimpleName());
             sb.insert(0, "Created checker ");
             WebUtils.LOG.debug(sb.toString());
           }
-        } catch (ClassNotFoundException e) {
-          throw new RuntimeException(e);
         } catch (InstantiationException e) {
           throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -107,15 +97,5 @@ public final class HtmlChecks {
       }
     }
     return htmlChecks;
-  }
-
-  private static RuleDefinition getBuiltin(Ruleset ruleset, ActiveRule activeRule) {
-    for (RuleDefinition ruleDefinition : ruleset.getRules()) {
-      if (ruleDefinition.getName().equals(activeRule.getRuleKey())) {
-        return ruleDefinition;
-      }
-    }
-    WebUtils.LOG.error("Could not find rule " + activeRule.getRuleKey());
-    return null;
   }
 }

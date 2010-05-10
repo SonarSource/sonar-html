@@ -2,14 +2,14 @@ Sonar Web Plugin
 Status: Prototype 
 Author: Matthijs Galesloot 
 
-The sonar web plugin has been tested on a sonar 2.0 server. 
+The sonar web plugin has been tested on a sonar 2.1 server. 
 
 The plugin performs source importing, line counting and checks on web files. 
 Currently the following file extensions are supported: "html", "xhtml", "js", "css", "jspf", "jsp". 
  
 1. Installation 
-- Copy sonar-channel-2.2-SNAPSHOT.jar to the folder extensions\plugins
 - Copy nekohtml-1.9.14.jar to the folder extensions\plugins
+e.g. copy neko from here http://mirrors.ibiblio.org/pub/mirrors/maven2/net/sourceforge/nekohtml/nekohtml/1.9.14/nekohtml-1.9.14.jar
 - Copy sonar-web-plugin-0.1-SNAPSHOT.jar to the folder extensions\plugins
 - Restart sonar 
 

@@ -17,6 +17,8 @@
 package org.sonar.plugins.web.rules.checks;
 
 import org.apache.commons.lang.StringUtils;
+import org.sonar.check.Check;
+import org.sonar.check.IsoCategory;
 import org.sonar.plugins.web.lex.Token;
 
 /**
@@ -24,6 +26,8 @@ import org.sonar.plugins.web.lex.Token;
  * 
  * @author Matthijs Galesloot
  */
+
+@Check(key="UnclosedTagCheck" , isoCategory=IsoCategory.Maintainability)
 public class UnclosedTagCheck extends HtmlCheck {
 
   @Override

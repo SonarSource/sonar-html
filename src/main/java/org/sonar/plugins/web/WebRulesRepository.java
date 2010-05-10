@@ -18,26 +18,31 @@ package org.sonar.plugins.web;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.rules.ActiveRuleParam;
 import org.sonar.api.rules.ConfigurationExportable;
 import org.sonar.api.rules.ConfigurationImportable;
+import org.sonar.api.rules.Iso9126RulesCategories;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleParam;
 import org.sonar.api.rules.RulePriority;
 import org.sonar.api.rules.RulesCategory;
 import org.sonar.api.rules.RulesRepository;
+import org.sonar.api.rules.StandardProfileXmlParser;
+import org.sonar.api.rules.StandardRulesXmlParser;
 import org.sonar.api.utils.SonarException;
+import org.sonar.check.AnnotationIntrospector;
+import org.sonar.check.Check;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.rules.xml.Property;
-import org.sonar.plugins.web.rules.xml.RuleDefinition;
-import org.sonar.plugins.web.rules.xml.RulesUtils;
-import org.sonar.plugins.web.rules.xml.Ruleset;
+import org.sonar.plugins.web.rules.checks.HtmlCheck;
+import org.sonar.plugins.web.rules.checks.JspScriptletCheck;
+import org.sonar.plugins.web.rules.checks.RegularExpressionCheck;
+import org.sonar.plugins.web.rules.checks.UnclosedTagCheck;
 
 /**
  * @author Matthijs Galesloot
@@ -59,122 +64,88 @@ public class WebRulesRepository implements RulesRepository<Web>, ConfigurationEx
     return parseReferential(RULE_FILE);
   }
 
+  private static Class<HtmlCheck>[] checkClasses = new Class[] { 
+      JspScriptletCheck.class,
+      RegularExpressionCheck.class, 
+      UnclosedTagCheck.class, };
+
+  public static Class<HtmlCheck> getCheckClass(ActiveRule activeRule) {
+    for (Class<HtmlCheck> checkClass : checkClasses) {
+      Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
+      if (check.key().equals(activeRule.getConfigKey())) {
+        return checkClass;
+      }
+    }
+    WebUtils.LOG.error("Could not find checker for config key " + activeRule.getConfigKey());
+    return null;
+  }
+
   public List<Rule> parseReferential(String path) {
-    Ruleset ruleset = RulesUtils.buildRuleSetFromXml(WebRulesRepository.getConfigurationFromFile(path));
+
     List<Rule> rulesRepository = new ArrayList<Rule>();
-    for (RuleDefinition ruleDefinition : ruleset.getRules()) {
-      rulesRepository.add(createRepositoryRule(ruleDefinition));
+    for (Class<HtmlCheck> checkClass : checkClasses) {
+      rulesRepository.add(createRepositoryRule(checkClass));
     }
     return rulesRepository;
   }
 
   public final List<RulesProfile> getProvidedProfiles() {
     List<RulesProfile> profiles = new ArrayList<RulesProfile>();
-    profiles.add(buildProfile("Default Web Profile", RULE_FILE));
+    StandardProfileXmlParser parser = new StandardProfileXmlParser(getInitialReferential());
+
+    RulesProfile profile = parser.importConfiguration(getConfigurationFromFile(RULE_FILE));
+    profile.setLanguage(web.getKey());
+    WebUtils.LOG.debug("Building profile " + profile.getName());
+    
+    profiles.add(profile);
+    
     return profiles;
-  }
-
-  public final RulesProfile buildProfile(String name, String path) {
-    WebUtils.LOG.debug("Building profile " + name);
-
-    RulesProfile profile = new RulesProfile(name, web.getKey());
-    List<ActiveRule> activeRules = importConfiguration(WebRulesRepository.getConfigurationFromFile(path), getInitialReferential());
-    profile.setActiveRules(activeRules);
-    return profile;
   }
 
   public List<ActiveRule> importConfiguration(String configuration, List<Rule> rulesRepository) {
 
-    List<ActiveRule> activeRules = new ArrayList<ActiveRule>();
-
-    Ruleset ruleset = RulesUtils.buildRuleSetFromXml(configuration);
-    if (ruleset != null) {
-
-      for (RuleDefinition fRule : ruleset.getRules()) {
-        ActiveRule activeRule = createActiveRule(fRule, rulesRepository);
-        if (activeRule != null) {
-          activeRules.add(activeRule);
-        }
-      }
-    }
-
-    return activeRules;
+    WebUtils.LOG.debug("importConfiguration");
+    
+    StandardProfileXmlParser parser = new StandardProfileXmlParser(rulesRepository);
+    RulesProfile profile = parser.importConfiguration(configuration);
+    profile.setLanguage(web.getKey());
+    return profile.getActiveRules();
   }
 
   public String exportConfiguration(RulesProfile activeProfile) {
 
-    Ruleset tree = buildRulesetFromActiveProfile(activeProfile.getActiveRulesByPlugin(WebPlugin.KEY));
-    return RulesUtils.buildXmlFromRuleset(tree);
+    WebUtils.LOG.debug("exportConfiguration");
+    //TODO 
+   return null;
   }
 
-  private Rule createRepositoryRule(RuleDefinition ruleDefinition) {
-    RulesCategory category = RulesUtils.matchRuleCategory(ruleDefinition.getCategory());
-    RulePriority priority = RulePriority.valueOf(ruleDefinition.getPriority());
-    Rule rule = new Rule(WebPlugin.KEY, ruleDefinition.getName(), ruleDefinition.getMessage(), category, priority);
-    rule.setDescription(ruleDefinition.getDescription());
+  private static RulesCategory matchRuleCategory(String category) {
+    for (RulesCategory ruleCategory : Iso9126RulesCategories.ALL) {
+      if (ruleCategory.getName().equalsIgnoreCase(category)) {
+        return ruleCategory;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected category name " + category);
+  }
+
+  private Rule createRepositoryRule(Class<HtmlCheck> checkClass) {
+    Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
+
+    RulesCategory category = Iso9126RulesCategories.EFFICIENCY; 
+    // matchRuleCategory(Iso9126RulesCategories.EFFICIENCY.getName()); // TODO
+    RulePriority priority =   RulePriority.MAJOR; // fromCheckPriority(check.priority());
+    Rule rule = new Rule(WebPlugin.KEY, check.key(), check.description(), category, priority);
 
     // build params
     List<RuleParam> ruleParams = new ArrayList<RuleParam>();
-    if (ruleDefinition.getProperties() != null) {
-      for (Property property : ruleDefinition.getProperties()) {
-        ruleParams.add(new RuleParam(rule, property.getName(), property.getName(), "s"));
-      }
+    for (Field field : AnnotationIntrospector.getPropertyFields(checkClass)) {
+      ruleParams.add(new RuleParam(rule, field.getName(), field.getName(), "s"));
     }
     rule.setParams(ruleParams);
     return rule;
   }
 
-  private ActiveRule createActiveRule(RuleDefinition fRule, List<Rule> rulesRepository) {
-    String ruleName = fRule.getName();
-    RulePriority fRulePriority = RulePriority.valueOf(fRule.getPriority());
-
-    for (Rule rule : rulesRepository) {
-      if (rule.getKey().equals(ruleName)) {
-        RulePriority priority = fRulePriority != null ? fRulePriority : rule.getPriority();
-        ActiveRule activeRule = new ActiveRule(null, rule, priority);
-        activeRule.setActiveRuleParams(buildActiveRuleParams(fRule, rule, activeRule));
-        return activeRule;
-      }
-    }
-    return null;
-  }
-
-  protected List<ActiveRuleParam> buildActiveRuleParams(RuleDefinition ruleDefinition, Rule repositoryRule, ActiveRule activeRule) {
-    List<ActiveRuleParam> activeRuleParams = new ArrayList<ActiveRuleParam>();
-    if (ruleDefinition.getProperties() != null) {
-      for (Property property : ruleDefinition.getProperties()) {
-        if (repositoryRule.getParams() != null) {
-          for (RuleParam ruleParam : repositoryRule.getParams()) {
-            if (ruleParam.getKey().equals(property.getName())) {
-              activeRuleParams.add(new ActiveRuleParam(activeRule, ruleParam, property.getValue()));
-            }
-          }
-        }
-      }
-    }
-    return activeRuleParams;
-  }
-
-  protected Ruleset buildRulesetFromActiveProfile(List<ActiveRule> activeRules) {
-    Ruleset ruleset = new Ruleset();
-    for (ActiveRule activeRule : activeRules) {
-      if (activeRule.getRule().getPluginName().equals(WebPlugin.KEY)) {
-        String key = activeRule.getRule().getKey();
-        String priority = activeRule.getPriority().name();
-        RuleDefinition ruleDefinition = new RuleDefinition(key, priority);
-        List<Property> properties = new ArrayList<Property>();
-        for (ActiveRuleParam activeRuleParam : activeRule.getActiveRuleParams()) {
-          properties.add(new Property(activeRuleParam.getRuleParam().getKey(), activeRuleParam.getValue()));
-        }
-        ruleDefinition.setProperties(properties);
-        ruleDefinition.setMessage(activeRule.getRule().getName());
-        ruleset.addRule(ruleDefinition);
-      }
-    }
-    return ruleset;
-  }
-
-  public static String getConfigurationFromFile(String path) {
+  private String getConfigurationFromFile(String path) {
     InputStream inputStream = WebRulesRepository.class.getResourceAsStream(path);
     String configuration = null;
     try {
@@ -186,5 +157,4 @@ public class WebRulesRepository implements RulesRepository<Web>, ConfigurationEx
     }
     return configuration;
   }
-
 }

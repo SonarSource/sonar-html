@@ -9,13 +9,16 @@ Basic implementation of the web language using the sonar framework.
 
 2. Package: org.sonar.plugins.web.lex
 Implementation of a simple lexical analyzer for Html files.  
-The lexer uses the sonar channel framework. 
+The lexer uses the sonar channel framework. The lexer produces a list of tokens. 
 
-3. Package: org.sonar.plugins.web.rules 
+3. Package: org.sonar.plugins.web.visitor
+Implementation of a html token scanner and visitor pattern. 
+
+4. Package: org.sonar.plugins.web.rules 
 Implementation of rules
 
-4. Package: org.sonar.plugins.web.dashboard
-TODO - Provide a dashboard in Java projects showing basic metrics of web files. 
+5. Package: org.sonar.plugins.web.dashboard
+Dashboard showing basic metrics of web files. 
 
 JSP checks:
 http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/

@@ -1,29 +1,17 @@
-<ruleset>
-	<description />
-	<rule name="NoScriptlets" class="org.sonar.plugins.web.rules.checks.JspScriptletCheck"
-		message="Scriptlets should be factored into Tag Libraries or JSP declarations, rather than being part of JSP pages.">
-		<description />
-		<priority>MAJOR</priority>
-		<category>Portability</category>
+<profile name="Default Web Profile" >
+
+	<rule key="JspScriptletCheck" priority="MAJOR" >
+		<!--  <description>Scriptlets should be factored into Tag Libraries or JSP 
+			declarations, rather than being part of JSP pages.</description> -->
+	</rule>
+	<rule key="RegularExpressionCheck">
+	<!-- 	<description>attribute class hould not be used</description> -->
+		<property name="expression">
+			<value>class=['"].*['"]</value>
+		</property>
+	</rule>
+	<rule key="UnclosedTagCheck">
+		<!--  <description>Tags should be properly closed</description> -->
 	</rule>
 
-	<rule name="DontUseStyleClass" class="org.sonar.plugins.web.rules.checks.RegularExpressionCheck"
-		message="attribute class should not be used">
-		<description />
-		<priority>MAJOR</priority>
-		<category>Portability</category>
-		<properties>
-			<property name="expression">
-				<value>class=['"].*['"]</value>
-			</property>
-		</properties>
-	</rule>
-	
-	<rule name="UnclosedTagChecker" 
-    class="org.sonar.plugins.web.rules.checks.UnclosedTagCheck" message="Tags should be properly closed">
-    <description />
-    <priority>CRITICAL</priority>
-    <category>Efficiency</category>
-  </rule>
-</ruleset>
-
+</profile>

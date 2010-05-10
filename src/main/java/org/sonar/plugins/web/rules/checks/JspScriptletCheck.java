@@ -17,12 +17,15 @@
 package org.sonar.plugins.web.rules.checks;
 
 import org.apache.commons.lang.StringUtils;
+import org.sonar.check.Check;
+import org.sonar.check.IsoCategory;
 import org.sonar.plugins.web.lex.HtmlElement;
 import org.sonar.plugins.web.lex.Token;
 
 /**
  * @author Matthijs Galesloot
  */
+@Check(key="JspScriptletCheck" , isoCategory=IsoCategory.Maintainability)
 public class JspScriptletCheck extends HtmlCheck {
 
   @Override

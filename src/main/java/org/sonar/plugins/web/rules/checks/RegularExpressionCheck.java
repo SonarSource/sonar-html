@@ -18,6 +18,9 @@ package org.sonar.plugins.web.rules.checks;
 
 import java.util.regex.Pattern;
 
+import org.sonar.check.Check;
+import org.sonar.check.CheckProperty;
+import org.sonar.check.IsoCategory;
 import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.lex.HtmlElement;
 import org.sonar.plugins.web.lex.Token;
@@ -27,12 +30,17 @@ import org.sonar.plugins.web.lex.Token;
  * 
  * @author Matthijs Galesloot
  */
+@Check(key="RegularExpressionCheck" , 
+     description="attribute class should not be used", 
+     isoCategory=IsoCategory.Maintainability)
 public class RegularExpressionCheck extends HtmlCheck {
-
-  private String expression;
-
+  
+  @CheckProperty(key="expression")
+  private String expression;  
+  
   private Pattern pattern;
 
+  
   public String getExpression() {
     return expression;
   }
