@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 
 package org.sonar.plugins.web;
 
+import static junit.framework.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileReader;
 import java.net.URISyntaxException;
@@ -27,12 +29,12 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 import org.sonar.api.CoreProperties;
+import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.language.Web;
-
-import static junit.framework.Assert.assertTrue;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
@@ -52,7 +54,10 @@ public class TestWeb {
   @Test
   public void testSensor() {
     WebRulesRepository webRulesRepository = new WebRulesRepository(Web.INSTANCE);
-    WebSensor sensor = new WebSensor(webRulesRepository.getProvidedProfiles().get(0));
+    
+    RulesProfile rulesProfile = webRulesRepository.getProvidedProfiles().get(0);
+    
+    WebSensor sensor = new WebSensor(rulesProfile);
 
     final Project project = loadProjectFromPom(testPom);
     MockSensorContext sensorContext = new MockSensorContext();

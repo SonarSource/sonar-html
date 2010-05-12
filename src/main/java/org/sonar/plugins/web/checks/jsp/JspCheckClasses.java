@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.checks.jsp;
 
-import org.apache.commons.lang.StringUtils;
-import org.sonar.plugins.web.lex.HtmlElement;
-import org.sonar.plugins.web.lex.Token;
-import org.sonar.plugins.web.visitor.HtmlVisitor;
+import org.sonar.plugins.web.checks.xml.UnclosedTagCheck;
+import org.sonar.plugins.web.rules.AbstractPageCheck;
 
-/**
- * @author Matthijs Galesloot
- */
-public class JsfExpressionLanguageDetector extends HtmlVisitor {
+public class JspCheckClasses {
 
-  private int expressionCount;
+  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { 
+    JspScriptletCheck.class, 
+    AttributeClassCheck.class,
+    HeaderCheck.class, 
+    MultiplePageDirectivesCheck.class,
+    TabCheck.class,
+    WhiteSpaceAroundCheck.class};
 
-  @Override
-  public void startElement(Token token) {
-    if (token instanceof HtmlElement && StringUtils.contains(token.getCode(), "#{")) {
-      expressionCount++;
-    }
+  public static Class<AbstractPageCheck>[] getCheckClasses() {
+    return checkClasses; 
   }
 }

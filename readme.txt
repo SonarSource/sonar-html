@@ -8,8 +8,6 @@ The plugin performs source importing, line counting and checks on web files.
 Currently the following file extensions are supported: "html", "xhtml", "js", "css", "jspf", "jsp". 
  
 1. Installation 
-- Copy nekohtml-1.9.14.jar to the folder extensions\plugins
-e.g. copy neko from here http://mirrors.ibiblio.org/pub/mirrors/maven2/net/sourceforge/nekohtml/nekohtml/1.9.14/nekohtml-1.9.14.jar
 - Copy sonar-web-plugin-0.1-SNAPSHOT.jar to the folder extensions\plugins
 - Restart sonar 
 

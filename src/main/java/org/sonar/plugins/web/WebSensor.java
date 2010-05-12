@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package org.sonar.plugins.web;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -30,14 +31,14 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.plugins.web.checks.HtmlCheck;
-import org.sonar.plugins.web.checks.HtmlChecks;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.language.WebRecognizer;
-import org.sonar.plugins.web.lex.HtmlLexer;
-import org.sonar.plugins.web.visitor.HtmlCountLines;
-import org.sonar.plugins.web.visitor.HtmlScanner;
+import org.sonar.plugins.web.lex.PageLexer;
+import org.sonar.plugins.web.rules.AbstractPageCheck;
+import org.sonar.plugins.web.rules.PageChecks;
+import org.sonar.plugins.web.visitor.PageCountLines;
+import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebDependencyDetector;
 import org.sonar.squid.measures.Metric;
 import org.sonar.squid.text.Source;
@@ -63,14 +64,14 @@ public final class WebSensor implements Sensor, GeneratesViolations {
   public void analyse(Project project, SensorContext sensorContext) {
 
     // configure the lexer
-    HtmlLexer lexer = new HtmlLexer();
-   
+    PageLexer lexer = new PageLexer();
+
     // configure scanner
-    HtmlScanner scanner = new HtmlScanner();
-    for (HtmlCheck check : HtmlChecks.getChecks(profile)) {
+    PageScanner scanner = new PageScanner();
+    for (AbstractPageCheck check : PageChecks.getChecks(profile)) {
       scanner.addVisitor(check);
     }
-    scanner.addVisitor(new HtmlCountLines());
+    scanner.addVisitor(new PageCountLines());
     scanner.addVisitor(new WebDependencyDetector(project.getFileSystem()));
 
     for (File webFile : project.getFileSystem().getSourceFiles(Web.INSTANCE)) {
@@ -85,7 +86,7 @@ public final class WebSensor implements Sensor, GeneratesViolations {
             analyzeClientScript(webFile, resource, project.getFileSystem(), sensorContext);
             break;
           default:
-            scanner.scan(lexer.parse(webFile), sensorContext, resource);
+            scanner.scan(lexer.parse(new FileReader(webFile)), sensorContext, resource);
             break;
         }
       } catch (Exception e) {
@@ -108,7 +109,7 @@ public final class WebSensor implements Sensor, GeneratesViolations {
       IOUtils.closeQuietly(reader);
     }
   }
-  
+
   @Override
   public String toString() {
     return getClass().getSimpleName();

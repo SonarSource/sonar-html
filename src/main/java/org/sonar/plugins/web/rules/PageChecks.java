@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.rules;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,44 +25,43 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
-import org.sonar.plugins.web.WebRulesRepository;
 import org.sonar.plugins.web.WebUtils;
 
 /**
  * @author Matthijs Galesloot
  */
-public final class HtmlChecks {
+public final class PageChecks {
 
-  private HtmlChecks() {
+  private PageChecks() {
   }
 
-  private static List<HtmlCheck> htmlChecks;
+  private static List<AbstractPageCheck> checks;
 
   /**
    * Instantiate checks as defined in the RulesProfile.
    * 
    * @param profile
    */
-  public static List<HtmlCheck> getChecks(RulesProfile profile) {
-    if (htmlChecks == null) {
-      htmlChecks = new ArrayList<HtmlCheck>();
+  public static List<AbstractPageCheck> getChecks(RulesProfile profile) {
+    if (checks == null) {
+      checks = new ArrayList<AbstractPageCheck>();
 
       for (ActiveRule activeRule : profile.getActiveRules()) {
-        Class<HtmlCheck> checkClass = WebRulesRepository.getCheckClass(activeRule);
+        Class<AbstractPageCheck> checkClass = WebRulesRepository.getCheckClass(activeRule);
         if (checkClass == null) {
           continue;
         }
 
         try {
-          Constructor<HtmlCheck> constructor = checkClass.getConstructor();
-          HtmlCheck checker = constructor.newInstance();
+          Constructor<AbstractPageCheck> constructor = checkClass.getConstructor();
+          AbstractPageCheck checker = constructor.newInstance();
           checker.setRuleKey(activeRule.getRuleKey());
           if (activeRule.getActiveRuleParams() != null) {
             for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
               PropertyUtils.setProperty(checker, param.getRuleParam().getKey(), param.getValue());
             }
           }
-          htmlChecks.add(checker);
+          checks.add(checker);
 
           // debug
           if (WebUtils.LOG.isDebugEnabled()) {
@@ -96,6 +95,6 @@ public final class HtmlChecks {
         }
       }
     }
-    return htmlChecks;
+    return checks;
   }
 }

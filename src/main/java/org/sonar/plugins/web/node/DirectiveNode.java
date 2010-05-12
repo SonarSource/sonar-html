@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,26 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.lex;
+package org.sonar.plugins.web.node;
+
 
 /**
  * @author Matthijs Galesloot
- * 
- * TODO - handle < and > in attribute values, such as label="<% bean.label %>"
  */
-public class HtmlElement extends Token {
+public class DirectiveNode extends TagNode {
 
+  private boolean html;
+
+  public DirectiveNode() {
+    super(NodeType.Directive); 
+  }
+  
+  public boolean isHtml() {
+    return html;
+  }
+  
+  public void setHtml(boolean html) {
+    this.html = html;
+  }
+  
 }

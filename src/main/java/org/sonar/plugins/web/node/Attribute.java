@@ -14,24 +14,34 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.language;
+package org.sonar.plugins.web.node;
 
-import org.sonar.api.batch.AbstractFilesDecorator;
+public class Attribute {
 
-/**
- * The WebFilesDecorator extends AbstractFilesDecorator to allow the use of the web language.
- * 
- * @author Matthijs Galesloot
- */
-public class WebFilesDecorator extends AbstractFilesDecorator {
-
-  /**
-   * Instantiates a new web files decorator.
-   * 
-   * @param web
-   *          the web
-   */
-  public WebFilesDecorator(Web web) {
-    super(web);
+  private String name;
+  private String value;
+  
+  public Attribute(String name) {
+    this.name = name;
+  }
+  
+  public Attribute(String name, String value) {
+    this.name = name;
+    this.value = value;
+  }
+  public String getName() {
+    return name;
+  }
+  
+  public void setName(String name) {
+    this.name = name;
+  }
+  
+  public String getValue() {
+    return value;
+  }
+  
+  public void setValue(String value) {
+    this.value = value;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.node;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.IsoCategory;
-import org.sonar.plugins.web.lex.HtmlElement;
-import org.sonar.plugins.web.lex.Token;
 
-/**
- * @author Matthijs Galesloot
- */
-@Check(key="JspScriptletCheck" , isoCategory=IsoCategory.Maintainability)
-public class JspScriptletCheck extends HtmlCheck {
 
-  @Override
-  public void startElement(Token token) {
-    if (token instanceof HtmlElement && StringUtils.containsIgnoreCase(token.getNodeName(), "scriptlet")) {
-      createViolation(token);
-    }
+public class TextNode extends Node {
+  
+  public TextNode() {
+    super(NodeType.Text); 
+  }
+  
+  public boolean isBlank() {
+    return StringUtils.isBlank(getCode());
   }
 }

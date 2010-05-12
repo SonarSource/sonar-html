@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,27 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.lex;
+package org.sonar.plugins.web.node;
+
 
 /**
  * @author Matthijs Galesloot
  */
-public class HtmlComment extends Token {
+public class CommentNode extends Node {
 
+  public boolean html;
+
+  public CommentNode() {
+    super(NodeType.Comment); 
+  }
+  
+  public boolean isHtml() {
+    return html;
+  }
+  
+  public void setHtml(boolean html) {
+    this.html = html;
+  }
+  
+  
 }

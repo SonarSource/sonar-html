@@ -27,3 +27,6 @@ http://jira.codehaus.org/browse/SONARPLUGINS-130
 JSF checks:
 http://almaer.com/blog/jsf-coding-standards
 http://webmoli.com/2008/05/20/jsf-best-practices/
+
+Syntax
+http://java.sun.com/products/jsp/syntax/2.0/syntaxref20.html

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,47 +19,52 @@ package org.sonar.plugins.web.lex;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
+import org.sonar.plugins.web.node.Node;
 
 /**
  * @author Matthijs Galesloot
  */
-public final class HtmlLexer {
+@SuppressWarnings("unchecked")
+public final class PageLexer {
 
   private static List tokenizers = Arrays.asList(
   /* HTML Comments */
-  new BasicTokenizer(HtmlComment.class, "<!--", "-->"),
+  new CommentTokenizer("<!--", "-->", true),
   /* JSP Comments */
-  new BasicTokenizer(HtmlComment.class, "<%--", "--%>"),
+  new CommentTokenizer("<%--", "--%>", false),
   /* HTML Directive */
-  new BasicTokenizer(HtmlComment.class, "<!DOCTYPE", ">"),
+  new DirectiveTokenizer("<!DOCTYPE", ">", true),
   /* JSP Directives */
-  new BasicTokenizer(JspDirective.class, "<%", "%>"),
+  new DirectiveTokenizer("<%@", "%>", false),
+  /* JSP Expressions */
+//  new TextTokenizer("<%", "%>",),
   /* XML and HTML Tags */
-  new BasicTokenizer(HtmlElement.class, "<", ">"),
+  new ElementTokenizer("<", ">"),
   /* Text (for everything else) */
   new TextTokenizer());
 
-  public List<Token> parse(File file) throws FileNotFoundException {
+  public List<Node> parse(Reader fileReader) throws FileNotFoundException {
     
     // CodeReader reads the file stream
-    CodeReader codeReader = new CodeReader(new FileReader(file));
+    CodeReader codeReader = new CodeReader(fileReader);
 
-    // ArrayList collects the tokens
-    List<Token> tokenList = new ArrayList();
+    // ArrayList collects the nodes
+    List<Node> nodeList = new ArrayList();
     
     // ChannelDispatcher manages the tokenizers
-    ChannelDispatcher<List<Token>> channelDispatcher = new ChannelDispatcher<List<Token>>(tokenizers);
-    channelDispatcher.consum(codeReader, tokenList);
+    ChannelDispatcher<List<Node>> channelDispatcher = new ChannelDispatcher<List<Node>>(tokenizers);
+    channelDispatcher.consum(codeReader, nodeList);
 
     // clean up
     codeReader.close();
 
-    return tokenList;
+    return nodeList;
   }
 }

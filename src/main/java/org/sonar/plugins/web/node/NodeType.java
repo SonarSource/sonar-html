@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.language;
+package org.sonar.plugins.web.node;
 
-import org.sonar.api.batch.AbstractFilesDecorator;
 
-/**
- * The WebFilesDecorator extends AbstractFilesDecorator to allow the use of the web language.
- * 
- * @author Matthijs Galesloot
- */
-public class WebFilesDecorator extends AbstractFilesDecorator {
-
-  /**
-   * Instantiates a new web files decorator.
-   * 
-   * @param web
-   *          the web
-   */
-  public WebFilesDecorator(Web web) {
-    super(web);
-  }
+public enum NodeType {
+  Comment,
+  Tag,
+  Text,
+  Directive,
 }
+  

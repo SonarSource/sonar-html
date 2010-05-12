@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,15 @@ package org.sonar.plugins.web.visitor;
 
 import org.sonar.api.batch.SensorContext;
 import org.sonar.plugins.web.language.WebFile;
-import org.sonar.plugins.web.lex.Token;
+import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 
 /**
  * @author Matthijs Galesloot
  */
-public abstract class HtmlVisitor {
+public abstract class AbstractTokenVisitor {
 
   private WebFile resource;
   private SensorContext sensorContext;
@@ -35,8 +38,12 @@ public abstract class HtmlVisitor {
   public void endDocument() {
 
   }
+  
+  public void characters(TextNode textNode) {
+    
+  }
 
-  public void endElement(Token token) {
+  public void endElement(TagNode element) {
 
   }
 
@@ -57,7 +64,15 @@ public abstract class HtmlVisitor {
     this.resource = resource;
   }
 
-  public void startElement(Token token) {
+  public void startElement(TagNode element) {
 
+  }
+
+  public void comment(CommentNode node) {
+    
+  }
+
+  public void directive(DirectiveNode node) {
+    
   }
 }

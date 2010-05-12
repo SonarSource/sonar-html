@@ -1,0 +1,11 @@
+<profile name="Default Web Profile" >
+
+  <rule key="AttributeClassCheck" />
+  <rule key="HeaderCheck" />
+	<rule key="JspScriptletCheck" />
+	<rule key="MultiplePageDirectivesCheck" />
+	<rule key="TabCheck" />
+	<rule key="UnclosedTagCheck" />
+	<rule key="WhiteSpaceAroundCheck" />
+	
+</profile>

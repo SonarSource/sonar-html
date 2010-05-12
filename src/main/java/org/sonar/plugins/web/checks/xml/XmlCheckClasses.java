@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.language;
+package org.sonar.plugins.web.checks.xml;
 
-import org.sonar.api.batch.AbstractFilesDecorator;
+import org.sonar.plugins.web.checks.xml.UnclosedTagCheck;
+import org.sonar.plugins.web.rules.AbstractPageCheck;
 
-/**
- * The WebFilesDecorator extends AbstractFilesDecorator to allow the use of the web language.
- * 
- * @author Matthijs Galesloot
- */
-public class WebFilesDecorator extends AbstractFilesDecorator {
+public class XmlCheckClasses {
 
-  /**
-   * Instantiates a new web files decorator.
-   * 
-   * @param web
-   *          the web
-   */
-  public WebFilesDecorator(Web web) {
-    super(web);
+  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { 
+    UnclosedTagCheck.class, 
+   };
+
+  public static Class<AbstractPageCheck>[] getCheckClasses() {
+    return checkClasses; 
   }
 }

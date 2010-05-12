@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.rules;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -34,14 +35,13 @@ import org.sonar.api.rules.RulePriority;
 import org.sonar.api.rules.RulesCategory;
 import org.sonar.api.rules.RulesRepository;
 import org.sonar.api.rules.StandardProfileXmlParser;
-import org.sonar.api.rules.StandardRulesXmlParser;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.AnnotationIntrospector;
 import org.sonar.check.Check;
-import org.sonar.plugins.web.checks.HtmlCheck;
-import org.sonar.plugins.web.checks.JspScriptletCheck;
-import org.sonar.plugins.web.checks.RegularExpressionCheck;
-import org.sonar.plugins.web.checks.UnclosedTagCheck;
+import org.sonar.plugins.web.WebPlugin;
+import org.sonar.plugins.web.WebUtils;
+import org.sonar.plugins.web.checks.jsp.JspCheckClasses;
+import org.sonar.plugins.web.checks.xml.XmlCheckClasses;
 import org.sonar.plugins.web.language.Web;
 
 /**
@@ -50,90 +50,37 @@ import org.sonar.plugins.web.language.Web;
 public class WebRulesRepository implements RulesRepository<Web>, ConfigurationExportable, ConfigurationImportable {
 
   private Web web;
-  public static String RULE_FILE = "rules.xml";
 
-  public WebRulesRepository(Web web) {
-    this.web = web;
+  public static String RULE_FILE = "/rules.xml";
+  
+  private static List<Class> getCheckClasses() {
+    List<Class> classes = new ArrayList<Class>();
+    classes.addAll(Arrays.asList(JspCheckClasses.getCheckClasses()));
+    classes.addAll(Arrays.asList(XmlCheckClasses.getCheckClasses()));
+    return classes; 
   }
-
-  public Web getLanguage() {
-    return web;
-  }
-
-  public final List<Rule> getInitialReferential() {
-    return parseReferential(RULE_FILE);
-  }
-
-  private static Class<HtmlCheck>[] checkClasses = new Class[] { 
-      JspScriptletCheck.class,
-      RegularExpressionCheck.class, 
-      UnclosedTagCheck.class, };
-
-  public static Class<HtmlCheck> getCheckClass(ActiveRule activeRule) {
-    for (Class<HtmlCheck> checkClass : checkClasses) {
+  
+  public static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
+    for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
       Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
       if (check.key().equals(activeRule.getConfigKey())) {
         return checkClass;
       }
     }
-    WebUtils.LOG.error("Could not find checker for config key " + activeRule.getConfigKey());
+    WebUtils.LOG.error("Could not find check class for config key " + activeRule.getConfigKey());
     return null;
   }
 
-  public List<Rule> parseReferential(String path) {
-
-    List<Rule> rulesRepository = new ArrayList<Rule>();
-    for (Class<HtmlCheck> checkClass : checkClasses) {
-      rulesRepository.add(createRepositoryRule(checkClass));
-    }
-    return rulesRepository;
+  public WebRulesRepository(Web web) {
+    this.web = web;
   }
 
-  public final List<RulesProfile> getProvidedProfiles() {
-    List<RulesProfile> profiles = new ArrayList<RulesProfile>();
-    StandardProfileXmlParser parser = new StandardProfileXmlParser(getInitialReferential());
-
-    RulesProfile profile = parser.importConfiguration(getConfigurationFromFile(RULE_FILE));
-    profile.setLanguage(web.getKey());
-    WebUtils.LOG.debug("Building profile " + profile.getName());
-    
-    profiles.add(profile);
-    
-    return profiles;
-  }
-
-  public List<ActiveRule> importConfiguration(String configuration, List<Rule> rulesRepository) {
-
-    WebUtils.LOG.debug("importConfiguration");
-    
-    StandardProfileXmlParser parser = new StandardProfileXmlParser(rulesRepository);
-    RulesProfile profile = parser.importConfiguration(configuration);
-    profile.setLanguage(web.getKey());
-    return profile.getActiveRules();
-  }
-
-  public String exportConfiguration(RulesProfile activeProfile) {
-
-    WebUtils.LOG.debug("exportConfiguration");
-    //TODO 
-   return null;
-  }
-
-  private static RulesCategory matchRuleCategory(String category) {
-    for (RulesCategory ruleCategory : Iso9126RulesCategories.ALL) {
-      if (ruleCategory.getName().equalsIgnoreCase(category)) {
-        return ruleCategory;
-      }
-    }
-    throw new IllegalArgumentException("Unexpected category name " + category);
-  }
-
-  private Rule createRepositoryRule(Class<HtmlCheck> checkClass) {
+  private Rule createRepositoryRule(Class<AbstractPageCheck> checkClass) {
     Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
 
-    RulesCategory category = Iso9126RulesCategories.EFFICIENCY; 
+    RulesCategory category = Iso9126RulesCategories.EFFICIENCY;
     // matchRuleCategory(Iso9126RulesCategories.EFFICIENCY.getName()); // TODO
-    RulePriority priority =   RulePriority.MAJOR; // fromCheckPriority(check.priority());
+    RulePriority priority = RulePriority.MAJOR; // fromCheckPriority(check.priority());
     Rule rule = new Rule(WebPlugin.KEY, check.key(), check.description(), category, priority);
 
     // build params
@@ -143,6 +90,13 @@ public class WebRulesRepository implements RulesRepository<Web>, ConfigurationEx
     }
     rule.setParams(ruleParams);
     return rule;
+  }
+
+  public String exportConfiguration(RulesProfile activeProfile) {
+
+    WebUtils.LOG.debug("exportConfiguration");
+    // TODO
+    return null;
   }
 
   private String getConfigurationFromFile(String path) {
@@ -156,5 +110,45 @@ public class WebRulesRepository implements RulesRepository<Web>, ConfigurationEx
       IOUtils.closeQuietly(inputStream);
     }
     return configuration;
+  }
+
+  public final List<Rule> getInitialReferential() {
+    return parseReferential(RULE_FILE);
+  }
+
+  public Web getLanguage() {
+    return web;
+  }
+
+  public final List<RulesProfile> getProvidedProfiles() {
+    List<RulesProfile> profiles = new ArrayList<RulesProfile>();
+    StandardProfileXmlParser parser = new StandardProfileXmlParser(getInitialReferential());
+
+    RulesProfile profile = parser.importConfiguration(getConfigurationFromFile(RULE_FILE));
+    profile.setLanguage(web.getKey());
+    WebUtils.LOG.debug("Building profile " + profile.getName());
+
+    profiles.add(profile);
+
+    return profiles;
+  }
+
+  public List<ActiveRule> importConfiguration(String configuration, List<Rule> rulesRepository) {
+
+    WebUtils.LOG.debug("importConfiguration");
+
+    StandardProfileXmlParser parser = new StandardProfileXmlParser(rulesRepository);
+    RulesProfile profile = parser.importConfiguration(configuration);
+    profile.setLanguage(web.getKey());
+    return profile.getActiveRules();
+  }
+
+  public List<Rule> parseReferential(String path) {
+
+    List<Rule> rulesRepository = new ArrayList<Rule>();
+    for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
+      rulesRepository.add(createRepositoryRule(checkClass));
+    }
+    return rulesRepository;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.rules;
 
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.WebPlugin;
-import org.sonar.plugins.web.lex.Token;
-import org.sonar.plugins.web.visitor.HtmlVisitor;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.visitor.AbstractTokenVisitor;
 
 /**
  * @author Matthijs Galesloot
  */
-public abstract class HtmlCheck extends HtmlVisitor {
+public abstract class AbstractPageCheck extends AbstractTokenVisitor {
 
   private String ruleKey;
 
@@ -37,10 +37,10 @@ public abstract class HtmlCheck extends HtmlVisitor {
     this.ruleKey = ruleKey;
   }
 
-  protected void createViolation(Token token) {
+  protected void createViolation(Node node) {
     Rule rule = new Rule(WebPlugin.KEY, getRuleKey());
     Violation violation = new Violation(rule, getResource());
-    violation.setLineId(token.getStartLinePosition());
+    violation.setLineId(node.getStartLinePosition());
     getSensorContext().saveViolation(violation);
   }
 }

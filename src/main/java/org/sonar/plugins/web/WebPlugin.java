@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebDirectoryDecorator;
 import org.sonar.plugins.web.language.WebFilesDecorator;
 import org.sonar.plugins.web.language.WebMetricsDecorator;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot

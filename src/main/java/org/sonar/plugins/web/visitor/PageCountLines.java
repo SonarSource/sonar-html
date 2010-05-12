@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,16 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.language.WebFile;
-import org.sonar.plugins.web.lex.HtmlComment;
-import org.sonar.plugins.web.lex.HtmlElement;
-import org.sonar.plugins.web.lex.Token;
+import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class HtmlCountLines extends HtmlVisitor {
+public class PageCountLines extends AbstractTokenVisitor {
 
   private int elementLines;
   private int blankLines;
@@ -35,20 +37,43 @@ public class HtmlCountLines extends HtmlVisitor {
   private Class<?> currentElementType;
 
   @Override
-  public void startElement(Token token) {
-    
-    currentElementType = token.getClass();
-      
-    int linesOfCode = token.getLinesOfCode();
-    if (token instanceof HtmlComment) {
+  public void startElement(TagNode element) {
+    handleToken(element);
+  }
+
+  @Override
+  public void endElement(TagNode element) {
+    handleToken(element);
+  }
+
+  @Override
+  public void characters(TextNode textNode) {
+    handleToken(textNode);
+  }
+
+  @Override
+  public void comment(CommentNode commentNode) {
+    handleToken(commentNode);
+  }
+  
+  @Override
+  public void directive(DirectiveNode node) {
+    handleToken(node);
+  }
+
+  private void handleToken(Node node) {
+    currentElementType = node.getClass();
+
+    int linesOfCode = node.getLinesOfCode();
+    if (node instanceof CommentNode) {
       commentLines += linesOfCode;
-      currentElementType = token.getClass();
-    } else if (token.isBlank()) {
-      
-      if (HtmlComment.class.equals(currentElementType)) {
+      currentElementType = node.getClass();
+    } else if (node instanceof TextNode && ((TextNode) node).isBlank()) {
+
+      if (CommentNode.class.equals(currentElementType)) {
         commentLines++;
         linesOfCode--;
-      } else if (HtmlElement.class.equals(currentElementType)) {
+      } else if (TagNode.class.equals(currentElementType)) {
         elementLines++;
         linesOfCode--;
       }
@@ -61,11 +86,11 @@ public class HtmlCountLines extends HtmlVisitor {
   @Override
   public void startDocument(SensorContext sensorContext, WebFile resource) {
     super.startDocument(sensorContext, resource);
-   
+
     elementLines = 0;
     blankLines = 0;
     commentLines = 0;
-    currentElementType = null; 
+    currentElementType = null;
   }
 
   @Override
@@ -75,7 +100,7 @@ public class HtmlCountLines extends HtmlVisitor {
     computeMetrics();
   }
 
-  private void computeMetrics() { 
+  private void computeMetrics() {
 
     getSensorContext().saveMeasure(getResource(), CoreMetrics.LINES, (double) elementLines + commentLines + blankLines);
     getSensorContext().saveMeasure(getResource(), CoreMetrics.NCLOC, (double) elementLines);

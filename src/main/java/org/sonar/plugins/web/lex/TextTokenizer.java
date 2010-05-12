@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,15 @@ import java.util.List;
 import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TextNode;
 
 /**
  * @author Matthijs Galesloot
  * 
  * TODO - handle CDATA
  */
-class TextTokenizer implements Channel<List<Token>> {
+class TextTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
 
   private EndMatcher endTokenMatcher = new EndMatcher() {
 
@@ -37,19 +39,28 @@ class TextTokenizer implements Channel<List<Token>> {
   };
 
   public TextTokenizer() {
+    super("", "");
   }
 
-  public boolean consum(CodeReader code, List<Token> tokenList) {
-    Token token = new Token();
-    token.setStartPosition(code);
+  @Override 
+  public boolean consum(CodeReader codeReader, List<Node> nodeList) {
+    Node node = createNode();
+   
+    setStartPosition(codeReader, node);
 
     StringBuilder stringBuilder = new StringBuilder();
-    code.popTo(endTokenMatcher, stringBuilder);
-    token.setCode(stringBuilder.toString());
-    token.setEndPosition(code);
-
-    tokenList.add(token);
+    codeReader.popTo(endTokenMatcher, stringBuilder);
+    node.setCode(stringBuilder.toString());
+    setEndPosition(codeReader, node);
+    
+    nodeList.add(node);
 
     return true;
   }
+
+  @Override
+  Node createNode() {
+    return new TextNode();
+  }
+
 }

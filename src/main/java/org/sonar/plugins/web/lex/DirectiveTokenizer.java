@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.lex;
 
-import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.IsoCategory;
-import org.sonar.plugins.web.lex.Token;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.Node;
 
-/**
- * Experimental checker to find unclosed tags.
- * 
- * @author Matthijs Galesloot
- */
+class DirectiveTokenizer extends ElementTokenizer {
 
-@Check(key="UnclosedTagCheck" , isoCategory=IsoCategory.Maintainability)
-public class UnclosedTagCheck extends HtmlCheck {
+  private Boolean html;
 
+  public DirectiveTokenizer(String startToken, String endToken, Boolean html) {
+    super(startToken, endToken);
+    
+    this.html = html;
+  }
+  
   @Override
-  public void startElement(Token token) {
-    if (StringUtils.startsWithIgnoreCase(token.getCode(), "<br>")) {
-      createViolation(token);
-    }
+  Node createNode() {
+
+    DirectiveNode node = new DirectiveNode();
+    node.setHtml(html);
+    return node;
   }
 }

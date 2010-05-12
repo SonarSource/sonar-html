@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,7 @@ import org.sonar.api.design.Dependency;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.language.WebFile;
-import org.sonar.plugins.web.lex.HtmlElement;
-import org.sonar.plugins.web.lex.Token;
+import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squid.api.SourceCodeEdgeUsage;
 
 /**
@@ -31,7 +30,7 @@ import org.sonar.squid.api.SourceCodeEdgeUsage;
  * 
  * @author Matthijs Galesloot
  */
-public class WebDependencyDetector extends HtmlVisitor {
+public class WebDependencyDetector extends AbstractTokenVisitor {
 
   private final ProjectFileSystem projectFileSystem;
 
@@ -40,36 +39,33 @@ public class WebDependencyDetector extends HtmlVisitor {
   }
 
   @Override
-  public void startElement(Token token) {
-    calculateDependencies(token);
+  public void startElement(TagNode element) {
+    calculateDependencies(element);
   }
 
-  private void calculateDependencies(Token token) {
+  private void calculateDependencies(TagNode element) {
 
-    if (token instanceof HtmlElement) {
-      String attributeValue = token.getAttribute("src");
-      if (attributeValue != null) {
+    String attributeValue = element.getAttribute("src");
+    if (attributeValue != null) {
 
-        String fileName = attributeValue;
-        if (fileName.startsWith("/")) {
-          fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + fileName;
-        } else {
-          fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + "/"
-              + getResource().getParent().getName() + "/" + fileName;
-        }
-        
-        File dependencyFile = new File(fileName);
-        if (dependencyFile.exists()) {
-          WebFile dependencyResource = WebFile.fromIOFile(dependencyFile, projectFileSystem.getSourceDirs());
-  
-          WebUtils.LOG.debug("dependency: " + dependencyResource.getLongName());
-          Dependency dependency = new Dependency(getResource(), dependencyResource);
-          dependency.setUsage(SourceCodeEdgeUsage.USES.name());
-          dependency.setWeight(1);
-          getSensorContext().saveDependency(dependency);
-        } else {
-          WebUtils.LOG.warn("dependency to non-existing file: " + fileName);
-        }
+      String fileName = attributeValue;
+      if (fileName.startsWith("/")) {
+        fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + fileName;
+      } else {
+        fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + "/" + getResource().getParent().getName() + "/" + fileName;
+      }
+
+      File dependencyFile = new File(fileName);
+      if (dependencyFile.exists()) {
+        WebFile dependencyResource = WebFile.fromIOFile(dependencyFile, projectFileSystem.getSourceDirs());
+
+        WebUtils.LOG.debug("dependency: " + dependencyResource.getLongName());
+        Dependency dependency = new Dependency(getResource(), dependencyResource);
+        dependency.setUsage(SourceCodeEdgeUsage.USES.name());
+        dependency.setWeight(1);
+        getSensorContext().saveDependency(dependency);
+      } else {
+        WebUtils.LOG.warn("dependency to non-existing file: " + fileName);
       }
     }
   }

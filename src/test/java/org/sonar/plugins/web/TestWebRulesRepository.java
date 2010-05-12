@@ -14,24 +14,30 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.language;
+package org.sonar.plugins.web;
 
-import org.sonar.api.batch.AbstractFilesDecorator;
+import static junit.framework.Assert.assertTrue;
+
+import org.junit.Test;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
- * The WebFilesDecorator extends AbstractFilesDecorator to allow the use of the web language.
- * 
  * @author Matthijs Galesloot
  */
-public class WebFilesDecorator extends AbstractFilesDecorator {
+public class TestWebRulesRepository {
 
-  /**
-   * Instantiates a new web files decorator.
-   * 
-   * @param web
-   *          the web
-   */
-  public WebFilesDecorator(Web web) {
-    super(web);
+
+  @Test
+  public void testWebRulesRepository() {
+    WebRulesRepository rulesRepository = new WebRulesRepository(Web.INSTANCE);
+
+    assertTrue(rulesRepository.getInitialReferential().size() > 1);
+    
+    RulesProfile rulesProfile = rulesRepository.getProvidedProfiles().get(0);
+    
+    assertTrue(rulesProfile.getActiveRules().size() > 3);
   }
+  
 }

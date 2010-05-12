@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010
+ * Copyright (C) 2010 Matthijs Galesloot
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,25 @@
 
 package org.sonar.plugins.web.lex;
 
-/**
- * @author Matthijs Galesloot
- */
-public class JspDirective extends Token {
+import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.Node;
 
+
+class CommentTokenizer extends AbstractTokenizer{
+
+  private Boolean html;
+
+  public CommentTokenizer(String startToken, String endToken, Boolean html) {
+    super(startToken, endToken);
+    
+    this.html = html;
+  }
+  
+  @Override
+  Node createNode() {
+
+    CommentNode node = new CommentNode();
+    node.setHtml(html);
+    return node;
+  }  
 }

@@ -76,7 +76,7 @@
 						<ui:param name="backingCollection" value="#{orderItems}" />
 
 						<t:div styleClass="searchResultsHeader"
-							rendered="#{backingCollection.getRowCount() > 0}">
+							rendered="#{backingCollection.getRowCount() > 0} ">
 							<h:outputText
 								value="#{messages['displaying']} #{messages['rows']} "
 								style="padding-left:1em;"></h:outputText>
