@@ -19,22 +19,21 @@ package org.sonar.plugins.web.lex;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 
-
-class CommentTokenizer extends AbstractTokenizer{
+class CommentTokenizer extends AbstractTokenizer {
 
   private Boolean html;
 
   public CommentTokenizer(String startToken, String endToken, Boolean html) {
     super(startToken, endToken);
-    
+
     this.html = html;
   }
-  
+
   @Override
   Node createNode() {
 
     CommentNode node = new CommentNode();
     node.setHtml(html);
     return node;
-  }  
+  }
 }

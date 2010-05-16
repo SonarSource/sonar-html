@@ -16,63 +16,51 @@
 
 package org.sonar.plugins.web.visitor;
 
-import org.sonar.api.batch.SensorContext;
-import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
 /**
  * @author Matthijs Galesloot
  */
-public abstract class AbstractTokenVisitor {
+public abstract class AbstractNodeVisitor {
 
-  private WebFile resource;
-  private SensorContext sensorContext;
+  private WebSourceCode webSourceCode;
 
-  public void destroy() {
-
-  }
-
-  public void endDocument() {
-
-  }
-  
   public void characters(TextNode textNode) {
-    
-  }
-
-  public void endElement(TagNode element) {
-
-  }
-
-  protected WebFile getResource() {
-    return resource;
-  }
-
-  protected SensorContext getSensorContext() {
-    return sensorContext;
-  }
-
-  public void init() {
-
-  }
-
-  public void startDocument(SensorContext sensorContext, WebFile resource) {
-    this.sensorContext = sensorContext;
-    this.resource = resource;
-  }
-
-  public void startElement(TagNode element) {
 
   }
 
   public void comment(CommentNode node) {
-    
+
   }
 
   public void directive(DirectiveNode node) {
-    
+
+  }
+
+  public void endDocument() {
+  }
+
+  public void endElement(TagNode node) {
+
+  }
+
+  public void expression(ExpressionNode node) {
+
+  }
+
+  public WebSourceCode getWebSourceCode() {
+    return webSourceCode;
+  }
+
+  public void startDocument(WebSourceCode webSourceCode) {
+    this.webSourceCode = webSourceCode;
+  }
+
+  public void startElement(TagNode node) {
+
   }
 }

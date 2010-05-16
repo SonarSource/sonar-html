@@ -27,7 +27,7 @@ import org.sonar.plugins.web.language.WebFile;
 /**
  * @author Matthijs Galesloot
  */
-public class WebSourceImporter extends AbstractSourceImporter {
+public final class WebSourceImporter extends AbstractSourceImporter {
 
   public WebSourceImporter(Web web) {
     super(web);

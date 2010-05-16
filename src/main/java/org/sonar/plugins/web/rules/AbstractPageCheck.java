@@ -18,29 +18,37 @@ package org.sonar.plugins.web.rules;
 
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
-import org.sonar.plugins.web.WebPlugin;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.AbstractTokenVisitor;
+import org.sonar.plugins.web.visitor.AbstractNodeVisitor;
 
 /**
  * @author Matthijs Galesloot
  */
-public abstract class AbstractPageCheck extends AbstractTokenVisitor {
+public abstract class AbstractPageCheck extends AbstractNodeVisitor {
 
   private String ruleKey;
 
+  protected void createViolation(int linePosition) {
+    createViolation(linePosition, null);
+  }
+
+  protected void createViolation(int linePosition, String message) {
+    Rule rule = WebRulesRepository.getRule(getRuleKey());
+    Violation violation = new Violation(rule);
+    violation.setMessage(message == null ? rule.getDescription() : message);
+    violation.setLineId(linePosition);
+    getWebSourceCode().addViolation(violation);
+  }
+
+  protected void createViolation(Node node) {
+    createViolation(node.getStartLinePosition());
+  }
+
   public String getRuleKey() {
-    return ruleKey == null ? getClass().getName() : ruleKey;
+    return ruleKey == null ? getClass().getSimpleName() : ruleKey;
   }
 
   public void setRuleKey(String ruleKey) {
     this.ruleKey = ruleKey;
-  }
-
-  protected void createViolation(Node node) {
-    Rule rule = new Rule(WebPlugin.KEY, getRuleKey());
-    Violation violation = new Violation(rule, getResource());
-    violation.setLineId(node.getStartLinePosition());
-    getSensorContext().saveViolation(violation);
   }
 }

@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web.checks.xml;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
+import org.sonar.check.Priority;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
  * Checker for Tab character.
  * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ 
+ * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
  * 
  * @author Matthijs Galesloot
  */
-@Check(key = "TabCheck", description = "Tab character", isoCategory = IsoCategory.Maintainability)
+@Check(key = "TabCheck", title = "Tab", description = "Tab character", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class TabCheck extends AbstractPageCheck {
 
   @Override

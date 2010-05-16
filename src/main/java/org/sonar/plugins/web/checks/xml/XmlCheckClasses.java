@@ -16,16 +16,18 @@
 
 package org.sonar.plugins.web.checks.xml;
 
-import org.sonar.plugins.web.checks.xml.UnclosedTagCheck;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 
-public class XmlCheckClasses {
+public final class XmlCheckClasses {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { 
-    UnclosedTagCheck.class, 
-   };
+  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { DoubleQuotesCheck.class, TabCheck.class,
+      UnclosedTagCheck.class, };
 
   public static Class<AbstractPageCheck>[] getCheckClasses() {
-    return checkClasses; 
+    return checkClasses;
+  }
+
+  private XmlCheckClasses() {
+
   }
 }

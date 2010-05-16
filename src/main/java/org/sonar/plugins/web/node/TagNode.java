@@ -19,37 +19,22 @@ package org.sonar.plugins.web.node;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Matthijs Galesloot
  */
 public class TagNode extends Node {
 
-  private String nodeName;
   private final List<Attribute> attributes = new ArrayList<Attribute>();
-  
-  public boolean hasEnd() {
-    return getCode().endsWith("/>");
+  private String nodeName;
+
+  public TagNode() {
+    super(NodeType.Tag);
   }
 
   protected TagNode(NodeType nodeType) {
     super(nodeType);
-  }
-  
-  public TagNode() {
-    super(NodeType.Tag); 
-  }
-
-  public String getNodeName() {
-    return nodeName;
-  }
-  
-  public void setNodeName(String nodeName) {
-    this.nodeName = nodeName;
-  }
-  
-  public List<Attribute> getAttributes() {
-    return attributes;
   }
 
   public String getAttribute(String attributeName) {
@@ -62,7 +47,32 @@ public class TagNode extends Node {
     return null;
   }
 
-  public boolean hasStart() {
-    return !getCode().startsWith("</");
+  public List<Attribute> getAttributes() {
+    return attributes;
+  }
+
+  public String getNodeName() {
+    return nodeName;
+  }
+
+  public String getUnprefixedNodeName() {
+    String localPart = StringUtils.substringAfterLast(getNodeName(), ":");
+    if (localPart == null) {
+      return nodeName;
+    } else {
+      return localPart;
+    }
+  }
+
+  public boolean hasEnd() {
+    return getCode().endsWith("/>");
+  }
+
+  public boolean isEndElement() {
+    return getCode().startsWith("</");
+  }
+
+  public void setNodeName(String nodeName) {
+    this.nodeName = nodeName;
   }
 }

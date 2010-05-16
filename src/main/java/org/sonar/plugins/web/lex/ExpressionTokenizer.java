@@ -14,28 +14,26 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.dashboard;
+package org.sonar.plugins.web.lex;
 
-import org.sonar.api.web.AbstractRubyTemplate;
-import org.sonar.api.web.NavigationSection;
-import org.sonar.api.web.RubyRailsWidget;
-import org.sonar.api.web.UserRole;
+import java.util.List;
 
-@NavigationSection(NavigationSection.RESOURCE)
-@UserRole(UserRole.USER)
-public class WebDashboardWidget extends AbstractRubyTemplate implements RubyRailsWidget {
+import org.sonar.channel.Channel;
+import org.sonar.plugins.web.node.ExpressionNode;
+import org.sonar.plugins.web.node.Node;
 
-  public String getId() {
-    return "web";
-  }
+/**
+ * @author Matthijs Galesloot
+ */
+class ExpressionTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
 
-  public String getTitle() {
-    // not used for the moment by widgets.
-    return "Web";
+  public ExpressionTokenizer(String startChars, String endChars) {
+    super(startChars, endChars);
   }
 
   @Override
-  protected String getTemplatePath() {
-    return "/web_dashboard_widget.html.erb";
+  Node createNode() {
+    return new ExpressionNode();
   }
+
 }

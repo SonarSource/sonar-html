@@ -23,15 +23,15 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class Node {
 
-  private int startLinePosition;
-  private int startColumnPosition;
-  private int endLinePosition;
-  private int endColumnPosition;
   private String code;
+  private int endColumnPosition;
+  private int endLinePosition;
   private final NodeType nodeType;
+  private int startColumnPosition;
+  private int startLinePosition;
 
   public Node(NodeType nodeType) {
-    this.nodeType = nodeType; 
+    this.nodeType = nodeType;
   }
 
   public String getCode() {
@@ -66,22 +66,18 @@ public abstract class Node {
     this.code = code;
   }
 
-  
   public void setEndColumnPosition(int endColumnPosition) {
     this.endColumnPosition = endColumnPosition;
   }
 
-  
   public void setEndLinePosition(int endLinePosition) {
     this.endLinePosition = endLinePosition;
   }
 
-  
   public void setStartColumnPosition(int startColumnPosition) {
     this.startColumnPosition = startColumnPosition;
   }
 
-  
   public void setStartLinePosition(int startLinePosition) {
     this.startLinePosition = startLinePosition;
   }

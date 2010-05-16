@@ -32,9 +32,6 @@ import org.sonar.plugins.web.WebUtils;
  */
 public final class PageChecks {
 
-  private PageChecks() {
-  }
-
   private static List<AbstractPageCheck> checks;
 
   /**
@@ -58,7 +55,13 @@ public final class PageChecks {
           checker.setRuleKey(activeRule.getRuleKey());
           if (activeRule.getActiveRuleParams() != null) {
             for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
-              PropertyUtils.setProperty(checker, param.getRuleParam().getKey(), param.getValue());
+              Object value = PropertyUtils.getProperty(checker, param.getRuleParam().getKey());
+              if (value instanceof Integer) {
+                value = Integer.parseInt(param.getValue());
+              } else {
+                value = param.getValue();
+              }
+              PropertyUtils.setProperty(checker, param.getRuleParam().getKey(), value);
             }
           }
           checks.add(checker);
@@ -96,5 +99,8 @@ public final class PageChecks {
       }
     }
     return checks;
+  }
+
+  private PageChecks() {
   }
 }

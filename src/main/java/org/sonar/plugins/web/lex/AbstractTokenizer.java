@@ -29,31 +29,34 @@ import org.sonar.plugins.web.node.Node;
  */
 abstract class AbstractTokenizer implements Channel<List<Node>> {
 
-  private char[] startChars;
-  private char[] endChars;
-  
-  abstract Node createNode();
-
-  public AbstractTokenizer(String startChars, String endChars) {
-    this.startChars = startChars.toCharArray();
-    this.endChars = endChars.toCharArray();
-  }
-
   private final class EndTokenMatcher implements EndMatcher {
 
     private CodeReader codeReader;
-    private boolean quoting; 
-    
+    private boolean quoting;
+
     private EndTokenMatcher(CodeReader codeReader) {
       this.codeReader = codeReader;
     }
 
     public boolean match(int endFlag) {
       if (endFlag == '"') {
-        quoting = !quoting; 
+        quoting = !quoting;
       }
       return !quoting && endFlag == endChars[0] && ArrayUtils.isEquals(codeReader.peek(endChars.length), endChars);
     }
+  }
+
+  private char[] endChars;
+
+  private char[] startChars;
+
+  public AbstractTokenizer(String startChars, String endChars) {
+    this.startChars = startChars.toCharArray();
+    this.endChars = endChars.toCharArray();
+  }
+
+  protected void addNode(List<Node> nodeList, Node node) {
+    nodeList.add(node);
   }
 
   public boolean consum(CodeReader codeReader, List<Node> nodeList) {
@@ -70,17 +73,15 @@ abstract class AbstractTokenizer implements Channel<List<Node>> {
       setEndPosition(codeReader, node);
 
       addNode(nodeList, node);
-      
+
       return true;
     } else {
       return false;
     }
   }
-  
-  protected void addNode(List<Node> nodeList, Node node) {
-    nodeList.add(node);
-  }
-  
+
+  abstract Node createNode();
+
   protected void setEndPosition(CodeReader code, Node node) {
     node.setEndLinePosition(code.getLinePosition());
     node.setEndColumnPosition(code.getColumnPosition());

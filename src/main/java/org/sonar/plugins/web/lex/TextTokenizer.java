@@ -27,7 +27,7 @@ import org.sonar.plugins.web.node.TextNode;
 /**
  * @author Matthijs Galesloot
  * 
- * TODO - handle CDATA
+ *         TODO - handle CDATA
  */
 class TextTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
 
@@ -42,17 +42,17 @@ class TextTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
     super("", "");
   }
 
-  @Override 
+  @Override
   public boolean consum(CodeReader codeReader, List<Node> nodeList) {
     Node node = createNode();
-   
+
     setStartPosition(codeReader, node);
 
     StringBuilder stringBuilder = new StringBuilder();
     codeReader.popTo(endTokenMatcher, stringBuilder);
     node.setCode(stringBuilder.toString());
     setEndPosition(codeReader, node);
-    
+
     nodeList.add(node);
 
     return true;

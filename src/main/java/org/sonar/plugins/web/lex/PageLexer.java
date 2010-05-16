@@ -16,9 +16,7 @@
 
 package org.sonar.plugins.web.lex;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,24 +38,26 @@ public final class PageLexer {
   /* JSP Comments */
   new CommentTokenizer("<%--", "--%>", false),
   /* HTML Directive */
-  new DirectiveTokenizer("<!DOCTYPE", ">", true),
+  new DirectiveTokenizer("<!DOCTYPE", ">"),
+  /* XML Directives */
+  new DirectiveTokenizer("<?", "?>"),
   /* JSP Directives */
-  new DirectiveTokenizer("<%@", "%>", false),
+  new DirectiveTokenizer("<%@", "%>"),
   /* JSP Expressions */
-//  new TextTokenizer("<%", "%>",),
+  new ExpressionTokenizer("<%", "%>"),
   /* XML and HTML Tags */
   new ElementTokenizer("<", ">"),
   /* Text (for everything else) */
   new TextTokenizer());
 
   public List<Node> parse(Reader fileReader) throws FileNotFoundException {
-    
+
     // CodeReader reads the file stream
     CodeReader codeReader = new CodeReader(fileReader);
 
     // ArrayList collects the nodes
     List<Node> nodeList = new ArrayList();
-    
+
     // ChannelDispatcher manages the tokenizers
     ChannelDispatcher<List<Node>> channelDispatcher = new ChannelDispatcher<List<Node>>(tokenizers);
     channelDispatcher.consum(codeReader, nodeList);

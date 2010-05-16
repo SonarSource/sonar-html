@@ -47,19 +47,31 @@ import org.sonar.plugins.web.language.Web;
 /**
  * @author Matthijs Galesloot
  */
-public class WebRulesRepository implements RulesRepository<Web>, ConfigurationExportable, ConfigurationImportable {
+public final class WebRulesRepository implements RulesRepository<Web>, ConfigurationExportable, ConfigurationImportable {
 
-  private Web web;
+  private static final String RULE_FILE = "/rules.xml";
 
-  public static String RULE_FILE = "/rules.xml";
-  
-  private static List<Class> getCheckClasses() {
-    List<Class> classes = new ArrayList<Class>();
-    classes.addAll(Arrays.asList(JspCheckClasses.getCheckClasses()));
-    classes.addAll(Arrays.asList(XmlCheckClasses.getCheckClasses()));
-    return classes; 
+  private static List<Rule> rulesRepository;
+
+  private static Rule createRepositoryRule(Class<AbstractPageCheck> checkClass) {
+
+    Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
+
+    Rule rule = new Rule(WebPlugin.getKEY(), check.key());
+    rule.setName(check.title());
+    rule.setDescription(check.description());
+    rule.setRulesCategory(matchRuleCategory(check.isoCategory().name()));
+    rule.setPriority(RulePriority.fromCheckPriority(check.priority()));
+
+    // build params
+    List<RuleParam> ruleParams = new ArrayList<RuleParam>();
+    for (Field field : AnnotationIntrospector.getPropertyFields(checkClass)) {
+      ruleParams.add(new RuleParam(rule, field.getName(), field.getName(), "s"));
+    }
+    rule.setParams(ruleParams);
+    return rule;
   }
-  
+
   public static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
     for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
       Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
@@ -71,25 +83,46 @@ public class WebRulesRepository implements RulesRepository<Web>, ConfigurationEx
     return null;
   }
 
-  public WebRulesRepository(Web web) {
-    this.web = web;
+  private static List<Class> getCheckClasses() {
+    List<Class> classes = new ArrayList<Class>();
+    classes.addAll(Arrays.asList(JspCheckClasses.getCheckClasses()));
+    classes.addAll(Arrays.asList(XmlCheckClasses.getCheckClasses()));
+    return classes;
   }
 
-  private Rule createRepositoryRule(Class<AbstractPageCheck> checkClass) {
-    Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
-
-    RulesCategory category = Iso9126RulesCategories.EFFICIENCY;
-    // matchRuleCategory(Iso9126RulesCategories.EFFICIENCY.getName()); // TODO
-    RulePriority priority = RulePriority.MAJOR; // fromCheckPriority(check.priority());
-    Rule rule = new Rule(WebPlugin.KEY, check.key(), check.description(), category, priority);
-
-    // build params
-    List<RuleParam> ruleParams = new ArrayList<RuleParam>();
-    for (Field field : AnnotationIntrospector.getPropertyFields(checkClass)) {
-      ruleParams.add(new RuleParam(rule, field.getName(), field.getName(), "s"));
+  public static Rule getRule(String ruleKey) {
+    parseReferential();
+    for (Rule rule : rulesRepository) {
+      if (rule.getKey().equals(ruleKey)) {
+        return rule;
+      }
     }
-    rule.setParams(ruleParams);
-    return rule;
+    return null;
+  }
+
+  private static RulesCategory matchRuleCategory(String category) {
+    for (RulesCategory ruleCategory : Iso9126RulesCategories.ALL) {
+      if (ruleCategory.getName().equalsIgnoreCase(category)) {
+        return ruleCategory;
+      }
+    }
+    WebUtils.LOG.error("Unexpected category name " + category);
+    return Iso9126RulesCategories.MAINTAINABILITY;
+  }
+
+  private static void parseReferential() {
+    if (rulesRepository == null) {
+      rulesRepository = new ArrayList<Rule>();
+      for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
+        rulesRepository.add(createRepositoryRule(checkClass));
+      }
+    }
+  }
+
+  private Web web;
+
+  public WebRulesRepository(Web web) {
+    this.web = web;
   }
 
   public String exportConfiguration(RulesProfile activeProfile) {
@@ -145,10 +178,7 @@ public class WebRulesRepository implements RulesRepository<Web>, ConfigurationEx
 
   public List<Rule> parseReferential(String path) {
 
-    List<Rule> rulesRepository = new ArrayList<Rule>();
-    for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
-      rulesRepository.add(createRepositoryRule(checkClass));
-    }
+    parseReferential();
     return rulesRepository;
   }
 }

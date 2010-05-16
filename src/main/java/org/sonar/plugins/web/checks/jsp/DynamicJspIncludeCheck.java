@@ -16,25 +16,26 @@
 
 package org.sonar.plugins.web.checks.jsp;
 
+import org.sonar.check.Check;
+import org.sonar.check.IsoCategory;
+import org.sonar.check.Priority;
+import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
- * Provides a list of all JSP checks.
+ * Checker to find dynamic includes.
+ * 
+ * e.g. <jsp:include page="header.jsp">
  * 
  * @author Matthijs Galesloot
- * 
  */
-public final class JspCheckClasses {
+@Check(key = "DynamicJspIncludeCheck", title = "Dynamic Jsp Include", description = "Dynamic Jsp Include is not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+public class DynamicJspIncludeCheck extends AbstractPageCheck {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { AttributeClassCheck.class, AvoidHtmlComment.class,
-      DynamicJspIncludeCheck.class, HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class,
-      LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, TagLibsCheck.class, WhiteSpaceAroundCheck.class };
-
-  public static Class<AbstractPageCheck>[] getCheckClasses() {
-    return checkClasses;
-  }
-
-  private JspCheckClasses() {
-    // utility class
+  @Override
+  public void startElement(TagNode node) {
+    if ("jsp:include".equals(node.getNodeName())) {
+      createViolation(node);
+    }
   }
 }

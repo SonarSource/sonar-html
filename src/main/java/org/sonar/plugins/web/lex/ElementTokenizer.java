@@ -48,7 +48,7 @@ class ElementTokenizer extends AbstractTokenizer implements Channel<List<Node>> 
       return Character.isWhitespace(character);
     }
   }
-  
+
   private enum ParseMode {
     BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
   }
@@ -78,7 +78,7 @@ class ElementTokenizer extends AbstractTokenizer implements Channel<List<Node>> 
   public ElementTokenizer(String startToken, String endToken) {
     super(startToken, endToken);
   }
-  
+
   @Override
   protected void addNode(List<Node> nodeList, Node node) {
     super.addNode(nodeList, node);
@@ -95,19 +95,19 @@ class ElementTokenizer extends AbstractTokenizer implements Channel<List<Node>> 
     TagNode element = (TagNode) node;
 
     CodeReader codeReader = new CodeReader(node.getCode());
-    
+
     ParseMode mode = ParseMode.BEFORE_NODE_NAME;
-    int c;
-    while ((c = codeReader.peek()) != -1) {
+    int ch;
+    while ((ch = codeReader.peek()) != -1) {
 
       // handle white space
-      if (Character.isWhitespace(c)) {
+      if (Character.isWhitespace(ch)) {
         codeReader.pop();
         continue;
       }
-      
+
       // handle special characters
-      switch (c) {
+      switch (ch) {
         case '=':
           mode = ParseMode.BEFORE_ATTRIBUTE_VALUE;
           codeReader.pop();
@@ -115,44 +115,58 @@ class ElementTokenizer extends AbstractTokenizer implements Channel<List<Node>> 
         case '<':
         case '>':
         case '/':
+        case '%':
+        case '@':
           codeReader.pop();
           continue;
         default:
           break;
       }
 
-      switch (mode) {
-        case BEFORE_NODE_NAME:
-
-          StringBuilder sbNodeName = new StringBuilder();
-          codeReader.popTo(endTokenMatcher, sbNodeName);
-          element.setNodeName(sbNodeName.toString());
-          mode = ParseMode.BEFORE_ATTRIBUTE_NAME;
-
-          break;
-        case BEFORE_ATTRIBUTE_NAME:
-
-          StringBuilder sbQName = new StringBuilder();
-          codeReader.popTo(endQNameMatcher, sbQName);
-          element.getAttributes().add(new Attribute(sbQName.toString().trim()));
-
-          break;
-        case BEFORE_ATTRIBUTE_VALUE:
-
-          StringBuilder sbValue = new StringBuilder();
-          if (isQuote((char) c)) {
-            codeReader.pop();
-            codeReader.popTo(new QuoteMatcher((char) c), sbValue);
-            codeReader.pop();
-          } else {
-            codeReader.popTo(endTokenMatcher, sbValue);
-          }
-          String value = sbValue.toString().trim();
-          element.getAttributes().get(element.getAttributes().size() - 1).setValue(value);
-          mode = ParseMode.BEFORE_ATTRIBUTE_NAME;
-
-          break;
-      }
+      mode = parseToken(mode, codeReader, element);
     }
+  }
+
+  private ParseMode parseToken(ParseMode mode, CodeReader codeReader, TagNode element) {
+    switch (mode) {
+      case BEFORE_NODE_NAME:
+
+        StringBuilder sbNodeName = new StringBuilder();
+        codeReader.popTo(endTokenMatcher, sbNodeName);
+        element.setNodeName(sbNodeName.toString());
+        return ParseMode.BEFORE_ATTRIBUTE_NAME;
+
+      case BEFORE_ATTRIBUTE_NAME:
+
+        StringBuilder sbQName = new StringBuilder();
+        codeReader.popTo(endQNameMatcher, sbQName);
+        element.getAttributes().add(new Attribute(sbQName.toString().trim()));
+
+        return ParseMode.BEFORE_ATTRIBUTE_NAME;
+
+      case BEFORE_ATTRIBUTE_VALUE:
+
+        Attribute attribute = element.getAttributes().get(element.getAttributes().size() - 1);
+        StringBuilder sbValue = new StringBuilder();
+        int ch = codeReader.peek();
+
+        if (isQuote((char) ch)) {
+          codeReader.pop();
+          if (codeReader.peek() != ch) {
+            codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
+            attribute.setValue(sbValue.toString());
+          }
+          codeReader.pop();
+          attribute.setQuoteChar((char) ch);
+        } else {
+          codeReader.popTo(endTokenMatcher, sbValue);
+          attribute.setValue(sbValue.toString().trim());
+        }
+
+        return ParseMode.BEFORE_ATTRIBUTE_NAME;
+    }
+
+    // can't happen
+    return ParseMode.BEFORE_NODE_NAME;
   }
 }

@@ -16,25 +16,23 @@
 
 package org.sonar.plugins.web.node;
 
-
 /**
  * @author Matthijs Galesloot
  */
 public class CommentNode extends Node {
 
-  public boolean html;
+  private boolean html;
 
   public CommentNode() {
-    super(NodeType.Comment); 
+    super(NodeType.Comment);
   }
-  
+
   public boolean isHtml() {
     return html;
   }
-  
+
   public void setHtml(boolean html) {
     this.html = html;
   }
-  
-  
+
 }

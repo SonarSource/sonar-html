@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package org.sonar.plugins.web.node;
 
 /**
  * @author Matthijs Galesloot
  */
-public final class WebUtils {
+public class ExpressionNode extends Node {
 
-  public static final Logger LOG = LoggerFactory.getLogger(WebPlugin.class);
-
-  private WebUtils() {
-    // only static methods
+  public ExpressionNode() {
+    super(NodeType.Expression);
   }
+
 }

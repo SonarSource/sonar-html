@@ -16,10 +16,8 @@
 
 package org.sonar.plugins.web.visitor;
 
-import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.WebUtils;
-import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
@@ -29,22 +27,12 @@ import org.sonar.plugins.web.node.TextNode;
 /**
  * @author Matthijs Galesloot
  */
-public class PageCountLines extends AbstractTokenVisitor {
+public class PageCountLines extends AbstractNodeVisitor {
 
-  private int elementLines;
   private int blankLines;
   private int commentLines;
   private Class<?> currentElementType;
-
-  @Override
-  public void startElement(TagNode element) {
-    handleToken(element);
-  }
-
-  @Override
-  public void endElement(TagNode element) {
-    handleToken(element);
-  }
+  private int linesOfCode;
 
   @Override
   public void characters(TextNode textNode) {
@@ -55,42 +43,19 @@ public class PageCountLines extends AbstractTokenVisitor {
   public void comment(CommentNode commentNode) {
     handleToken(commentNode);
   }
-  
+
+  private void computeMetrics() {
+
+    getWebSourceCode().addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + blankLines);
+    getWebSourceCode().addMeasure(CoreMetrics.NCLOC, linesOfCode);
+    getWebSourceCode().addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
+
+    WebUtils.LOG.debug("WebSensor: " + getWebSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + blankLines);
+  }
+
   @Override
   public void directive(DirectiveNode node) {
     handleToken(node);
-  }
-
-  private void handleToken(Node node) {
-    currentElementType = node.getClass();
-
-    int linesOfCode = node.getLinesOfCode();
-    if (node instanceof CommentNode) {
-      commentLines += linesOfCode;
-      currentElementType = node.getClass();
-    } else if (node instanceof TextNode && ((TextNode) node).isBlank()) {
-
-      if (CommentNode.class.equals(currentElementType)) {
-        commentLines++;
-        linesOfCode--;
-      } else if (TagNode.class.equals(currentElementType)) {
-        elementLines++;
-        linesOfCode--;
-      }
-      if (linesOfCode > 0) {
-        blankLines += linesOfCode;
-      }
-    }
-  }
-
-  @Override
-  public void startDocument(SensorContext sensorContext, WebFile resource) {
-    super.startDocument(sensorContext, resource);
-
-    elementLines = 0;
-    blankLines = 0;
-    commentLines = 0;
-    currentElementType = null;
   }
 
   @Override
@@ -100,13 +65,55 @@ public class PageCountLines extends AbstractTokenVisitor {
     computeMetrics();
   }
 
-  private void computeMetrics() {
+  @Override
+  public void endElement(TagNode element) {
+    handleToken(element);
+  }
 
-    getSensorContext().saveMeasure(getResource(), CoreMetrics.LINES, (double) elementLines + commentLines + blankLines);
-    getSensorContext().saveMeasure(getResource(), CoreMetrics.NCLOC, (double) elementLines);
-    getSensorContext().saveMeasure(getResource(), CoreMetrics.COMMENT_LINES, (double) commentLines);
+  private void handleToken(Node node) {
 
-    WebUtils.LOG.debug("WebSensor: " + getResource().getLongName() + ":" + elementLines + "," + commentLines + "," + blankLines);
+    int linesOfCodeCurrentNode = node.getLinesOfCode();
+
+    switch (node.getNodeType()) {
+      case Tag:
+      case Directive:
+      case Expression:
+        linesOfCode += linesOfCodeCurrentNode;
+        break;
+      case Comment:
+        commentLines += linesOfCodeCurrentNode;
+        break;
+      case Text:
+        if (((TextNode) node).isBlank()) {
+          if (CommentNode.class.equals(currentElementType)) {
+            commentLines++;
+            linesOfCodeCurrentNode--;
+          } else if (TagNode.class.equals(currentElementType) || DirectiveNode.class.equals((currentElementType))) {
+            linesOfCode++;
+            linesOfCodeCurrentNode--;
+          }
+        }
+        if (linesOfCodeCurrentNode > 0) {
+          blankLines += linesOfCodeCurrentNode;
+        }
+        break;
+    }
+    currentElementType = node.getClass();
+  }
+
+  @Override
+  public void startDocument(WebSourceCode webSourceCode) {
+    super.startDocument(webSourceCode);
+
+    linesOfCode = 0;
+    blankLines = 0;
+    commentLines = 0;
+    currentElementType = null;
+  }
+
+  @Override
+  public void startElement(TagNode element) {
+    handleToken(element);
   }
 
 }

@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.checks;
 
 import static junit.framework.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.rules.WebRulesRepository;
+import org.sonar.plugins.web.checks.jsp.HeaderCheck;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestWebRulesRepository {
+public class TestHeaderCheck extends AbstractCheckTester  {
 
   @Test
-  public void testWebRulesRepository() {
-    WebRulesRepository rulesRepository = new WebRulesRepository(Web.INSTANCE);
+  public void testTestHeaderCheck() throws FileNotFoundException {
 
-    assertTrue(rulesRepository.getInitialReferential().size() > 1);
-
-    RulesProfile rulesProfile = rulesRepository.getProvidedProfiles().get(0);
-
-    assertTrue(rulesProfile.getActiveRules().size() > 3);
+    HeaderCheck headerCheck = new HeaderCheck();
+    String fileName = "src/test/resources/src/main/webapp/user-properties.jsp";
+    WebSourceCode sourceCode = checkFile(fileName, headerCheck);
+    
+    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
   }
-
 }

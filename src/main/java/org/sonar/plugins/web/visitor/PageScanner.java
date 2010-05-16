@@ -19,58 +19,65 @@ package org.sonar.plugins.web.visitor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sonar.api.batch.SensorContext;
-import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
 public class PageScanner {
 
-  private List<AbstractTokenVisitor> visitors = new ArrayList<AbstractTokenVisitor>();
+  private List<AbstractNodeVisitor> visitors = new ArrayList<AbstractNodeVisitor>();
 
-  public void scan(List<Node> nodeList, SensorContext sensorContext, WebFile resource) {
-    
+  public void addVisitor(AbstractNodeVisitor visitor) {
+    visitors.add(visitor);
+  }
+
+  public void scan(List<Node> nodeList, WebSourceCode webSourceCode) {
+
     // notify visitors for a new document
-    for (AbstractTokenVisitor visitor : visitors) {
-      visitor.startDocument(sensorContext, resource);
+    for (AbstractNodeVisitor visitor : visitors) {
+      visitor.startDocument(webSourceCode);
     }
 
-    // notify the visitors for start and end of element 
+    // notify the visitors for start and end of element
     for (Node node : nodeList) {
-      for (AbstractTokenVisitor visitor : visitors) {
-        switch (node.getNodeType()) {
-          case Tag:
-            TagNode element = (TagNode) node;  
-            if (element.hasStart()) {
-              visitor.startElement(element);
-            } else {
-              visitor.endElement(element);
-            }
-            break;
-          case Text:
-            visitor.characters((TextNode) node); 
-            break;
-          case Comment:
-            visitor.comment((CommentNode) node); 
-            break; 
-          case Directive:
-            visitor.directive((DirectiveNode) node); 
-            break; 
-        }
+      for (AbstractNodeVisitor visitor : visitors) {
+        scanElement(visitor, node);
       }
     }
 
     // notify visitors for end of document
-    for (AbstractTokenVisitor visitor : visitors) {
+    for (AbstractNodeVisitor visitor : visitors) {
       visitor.endDocument();
     }
   }
 
-  public void addVisitor(AbstractTokenVisitor visitor) {
-    visitors.add(visitor);
+  private void scanElement(AbstractNodeVisitor visitor, Node node) {
+    switch (node.getNodeType()) {
+      case Tag:
+        TagNode element = (TagNode) node;
+        if ( !element.isEndElement()) {
+          visitor.startElement(element);
+        }
+        if (element.isEndElement() || element.hasEnd()) {
+          visitor.endElement(element);
+        }
+        break;
+      case Text:
+        visitor.characters((TextNode) node);
+        break;
+      case Comment:
+        visitor.comment((CommentNode) node);
+        break;
+      case Expression:
+        visitor.expression((ExpressionNode) node);
+        break;
+      case Directive:
+        visitor.directive((DirectiveNode) node);
+        break;
+    }
   }
 
 }

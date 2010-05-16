@@ -21,26 +21,20 @@ import java.util.List;
 
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
-import org.sonar.plugins.web.dashboard.WebDashboardWidget;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebDirectoryDecorator;
 import org.sonar.plugins.web.language.WebFilesDecorator;
-import org.sonar.plugins.web.language.WebMetricsDecorator;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
  */
-public class WebPlugin implements Plugin {
+public final class WebPlugin implements Plugin {
 
-  public static String KEY = "sonar-web-plugin";
+  private static final String KEY = "sonar-web-plugin";
 
-  public String getKey() {
+  public static String getKEY() {
     return KEY;
-  }
-
-  public String getName() {
-    return "Web plugin";
   }
 
   public String getDescription() {
@@ -50,20 +44,25 @@ public class WebPlugin implements Plugin {
   public List<Class<? extends Extension>> getExtensions() {
     List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
 
+    // web language
     list.add(Web.class);
     list.add(WebRulesRepository.class);
     list.add(WebSourceImporter.class);
-    list.add(WebMetrics.class);
     // sensor
     list.add(WebSensor.class);
     // decorators
     list.add(WebFilesDecorator.class);
     list.add(WebDirectoryDecorator.class);
-    list.add(WebMetricsDecorator.class);
-    // portal
-    list.add(WebDashboardWidget.class);
 
     return list;
+  }
+
+  public String getKey() {
+    return KEY;
+  }
+
+  public String getName() {
+    return "Web plugin";
   }
 
   @Override

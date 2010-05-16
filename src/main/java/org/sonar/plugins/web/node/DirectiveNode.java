@@ -16,24 +16,25 @@
 
 package org.sonar.plugins.web.node;
 
-
 /**
  * @author Matthijs Galesloot
  */
 public class DirectiveNode extends TagNode {
 
-  private boolean html;
-
   public DirectiveNode() {
-    super(NodeType.Directive); 
+    super(NodeType.Directive);
   }
-  
+
   public boolean isHtml() {
-    return html;
+    return getCode().startsWith("<!");
   }
-  
-  public void setHtml(boolean html) {
-    this.html = html;
+
+  public boolean isJsp() {
+    return getCode().startsWith("<%");
   }
-  
+
+  public boolean isXml() {
+    return getCode().startsWith("<?");
+  }
+
 }

@@ -48,12 +48,11 @@ public class WebFile extends Resource<WebPackage> {
     }
     return null;
   }
+
   private final String filename;
   private final String longName;
   private final String packageKey;
-  private WebPackage parent = null;
-
-  private final FileType fileType;
+  private WebPackage parent;
 
   public WebFile(String packageKey, String fileName) {
     super();
@@ -70,26 +69,12 @@ public class WebFile extends Resource<WebPackage> {
       this.longName = key;
     }
 
-    if (StringUtils.endsWithIgnoreCase(filename, ".js")) {
-      fileType = FileType.JavaScript;
-    } else if (StringUtils.endsWithIgnoreCase(filename, ".html")) {
-      fileType = FileType.Html;
-    } else if (StringUtils.endsWithIgnoreCase(fileName, ".css")) {
-      fileType = FileType.Css;
-    } else {
-      fileType = FileType.ServerPage;
-    }
-
     setKey(key);
   }
 
   @Override
   public String getDescription() {
     return null;
-  }
-
-  public FileType getFileType() {
-    return fileType;
   }
 
   @Override

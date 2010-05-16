@@ -19,28 +19,42 @@ package org.sonar.plugins.web.node;
 public class Attribute {
 
   private String name;
+  private char quoteChar;
   private String value;
-  
+
   public Attribute(String name) {
     this.name = name;
   }
-  
+
   public Attribute(String name, String value) {
     this.name = name;
     this.value = value;
   }
+
   public String getName() {
     return name;
   }
-  
-  public void setName(String name) {
-    this.name = name;
-  }
-  
+
   public String getValue() {
     return value;
   }
-  
+
+  public boolean isDoubleQuoted() {
+    return quoteChar == '\"';
+  }
+
+  public boolean isSingleQuoted() {
+    return quoteChar == '\'';
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setQuoteChar(char quoteChar) {
+    this.quoteChar = quoteChar;
+  }
+
   public void setValue(String value) {
     this.value = value;
   }

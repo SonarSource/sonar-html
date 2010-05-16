@@ -14,37 +14,28 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.lex;
+package org.sonar.plugins.web.checks;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-import org.junit.Test;
-import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.rules.AbstractPageCheck;
+import org.sonar.plugins.web.visitor.PageScanner;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
-/**
- * @author Matthijs Galesloot
- */
-public class TestLexer {
+public abstract class AbstractCheckTester {
 
-  @Test
-  public void testLexer() throws FileNotFoundException {
-
-    String fileName = "src/test/resources/src/main/webapp/create-salesorder.xhtml";
+  public WebSourceCode checkFile(String fileName, AbstractPageCheck pageCheck) throws FileNotFoundException {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
-    for (Node node : nodeList) {
-      if (node instanceof TagNode) {
-        TagNode element = (TagNode) node;
-        System.out.printf("<%s>", element.getNodeName());
-        for (Attribute a : element.getAttributes()) {
-          System.out.printf("\n\t#%s=\"%s\" ", a.getName(), a.getValue());
-        }
-        System.out.println();
-      }
-    }
+    WebSourceCode webSourceCode = new WebSourceCode(null);
+
+    PageScanner pageScanner = new PageScanner();
+    pageScanner.addVisitor(pageCheck);
+    pageScanner.scan(nodeList, webSourceCode);
+    return webSourceCode; 
   }
 }

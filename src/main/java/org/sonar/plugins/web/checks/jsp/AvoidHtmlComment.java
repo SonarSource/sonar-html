@@ -19,46 +19,40 @@ package org.sonar.plugins.web.checks.jsp;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
- * Checker to find multiple page directives, where 1 page directive would be preferred.
+ * Checker for occurrence of html comments.
+ * 
+ * http://pmd.sourceforge.net/rules/basic-jsp.html
  * 
  * @author Matthijs Galesloot
- * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
  */
-@Check(key = "MultiplePageDirectivesCheck", title = "Multiple Page Directive", description = "Avoid multiple page directives", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-public class MultiplePageDirectivesCheck extends AbstractPageCheck {
+@Check(key = "AvoidHtmlComment", title = "Html Comment", description = "Avoid Html Comment", priority = Priority.MINOR, isoCategory = IsoCategory.Efficiency)
+public class AvoidHtmlComment extends AbstractPageCheck {
 
-  private static boolean hasImportAttribute(DirectiveNode node) {
-    return node.getAttribute("import") != null;
-  }
-
-  private DirectiveNode node;
-
-  private int pageDirectives;
+  private boolean xmlDocument;
 
   @Override
-  public void directive(DirectiveNode node) {
-    if ( !node.isHtml() && "page".equalsIgnoreCase(node.getNodeName()) && !hasImportAttribute(node)) {
-      pageDirectives++;
-      this.node = node;
+  public void comment(CommentNode node) {
+    if ( !xmlDocument && node.isHtml()) {
+      createViolation(node);
     }
   }
 
   @Override
-  public void endDocument() {
-    if (pageDirectives > 1) {
-      createViolation(node);
+  public void directive(DirectiveNode node) {
+    if (node.isXml()) {
+      xmlDocument = true;
     }
   }
 
   @Override
   public void startDocument(WebSourceCode webSourceCode) {
     super.startDocument(webSourceCode);
-    pageDirectives = 0;
+    xmlDocument = false;
   }
 }

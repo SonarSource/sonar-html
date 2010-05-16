@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.sonar.plugins.web.MockSensorContext;
 import org.sonar.plugins.web.checks.jsp.AttributeClassCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.PageScanner;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
@@ -35,25 +35,22 @@ import org.sonar.plugins.web.visitor.PageScanner;
 public class TestAttributeClassCheck {
 
   @Test
-  public void testRegularExpression() {
+  public void testAttributeCheck() {
 
     List<Node> nodeList = new ArrayList<Node>();
     TagNode node = new TagNode();
-    node.setCode("<xx class=\"yyy\">");
-    node.getAttributes().add(new Attribute("class"));
-    TagNode node2 = new TagNode();
-    node2.setCode("<br>");
+    node.setCode("<h:xx class=\"redflag\">");
+    node.setNodeName("h:xx");
+    node.getAttributes().add(new Attribute("class", "redflag"));
     nodeList.add(node);
-    // nodeList.collect(node2);
-
-    MockSensorContext sensorContext = new MockSensorContext();
     
+    WebSourceCode webSourceCode = new WebSourceCode(null);
     AttributeClassCheck attributeClassCheck = new AttributeClassCheck();
-    
+
     PageScanner pageScanner = new PageScanner();
     pageScanner.addVisitor(attributeClassCheck);
-    pageScanner.scan(nodeList, sensorContext, null);
-    
-    assertTrue("Should have found 1 violation", sensorContext.getViolations().size() == 1);
+    pageScanner.scan(nodeList, webSourceCode);
+
+    assertTrue("Should have found 1 violation", webSourceCode.getViolations().size() == 1);
   }
 }

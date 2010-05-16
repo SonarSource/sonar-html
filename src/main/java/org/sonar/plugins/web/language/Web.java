@@ -26,8 +26,7 @@ import org.sonar.api.resources.AbstractLanguage;
  */
 public class Web extends AbstractLanguage {
 
-  /** The web language name */
-  private static final String WEB_LANGUAGE_NAME = "Web";
+  private static final String defaultSourceDir = "src/main/webapp";
 
   /** A web instance. */
   public static final Web INSTANCE = new Web();
@@ -36,9 +35,10 @@ public class Web extends AbstractLanguage {
   private static final String KEY = "web";
 
   /** All the valid web files suffixes. */
-  private static final String[] SUFFIXES = { "html", "xhtml", "js", "css", "jspf", "jsp" };
+  private static final String[] SUFFIXES = { "xhtml", "jspf", "jsp" };
 
-  private static final String defaultSourceDir = "src/main/webapp";
+  /** The web language name */
+  private static final String WEB_LANGUAGE_NAME = "Web";
 
   public static String getDefaultSourcedir() {
     return defaultSourceDir;

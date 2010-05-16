@@ -18,27 +18,31 @@ package org.sonar.plugins.web.checks.jsp;
 
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
-import org.sonar.plugins.web.WebUtils;
+import org.sonar.check.Priority;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
- * Experimental checker for RegularExpressions
+ * Checker for occurrence of attribute class.
+ * 
+ * http://pmd.sourceforge.net/rules/basic-jsp.html
  * 
  * @author Matthijs Galesloot
  */
-@Check(key = "AttributeClassCheck", description = "attribute class should not be used", isoCategory = IsoCategory.Maintainability)
+@Check(key = "AttributeClassCheck", title = "Class attribute", description = "class should not be used, use styleClass instead", priority = Priority.MAJOR, isoCategory = IsoCategory.Maintainability)
 public class AttributeClassCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
 
-    for (Attribute a : element.getAttributes()) {
-      if ("class".equalsIgnoreCase(a.getName())) {
-        WebUtils.LOG.debug("Invalid element found: " + element.getCode());
-        createViolation(element);
-      }     
+    if (element.getNodeName().indexOf(':') > 0) {
+      for (Attribute a : element.getAttributes()) {
+
+        if ("class".equalsIgnoreCase(a.getName())) {
+          createViolation(element);
+        }
+      }
     }
   }
 }

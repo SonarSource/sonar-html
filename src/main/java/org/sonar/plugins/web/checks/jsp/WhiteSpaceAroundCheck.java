@@ -18,32 +18,72 @@ package org.sonar.plugins.web.checks.jsp;
 
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
-import org.sonar.plugins.web.node.TextNode;
+import org.sonar.check.Priority;
+import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.ExpressionNode;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
- * Check for required white space.
+ * Check for required white space around start and end markers.
  * 
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
  * 
  * @author Matthijs Galesloot
  */
-@Check(key = "WhiteSpaceAroundCheck", description = "White space around", isoCategory = IsoCategory.Maintainability)
+@Check(key = "WhiteSpaceAroundCheck", title = "Whitespace Around", description = "White space around", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 
-  @Override
-  public void characters(TextNode textNode) {
-   
-    String code = textNode.getCode();
+  private void checkEndWhitespace(Node node, String code, String end) {
 
-    if (code.startsWith("<%=") && code.length() > 2 && !Character.isWhitespace(code.charAt(2))) {
-      createViolation(textNode);
+    int position = end.length();
+    if (code.endsWith(end) && code.length() > position) {
+      char ch = code.charAt(code.length() - position - 1);
+
+      if ( !Character.isWhitespace(ch)) {
+        createViolation(node);
+      }
     }
+  }
 
-//    if (code.endsWith("%>") && code.length() > 2) {
-//      char c = !Character.isWhitespace(code.charAt(code.length() - 2))) {
-//    }
-//      createViolation(textNode);
-//    }
+  private void checkStartWhitespace(Node node, String code, String start) {
+
+    int position = start.length();
+    if (code.startsWith(start) && code.length() > position) {
+      char ch = code.charAt(position);
+      switch (ch) {
+        case '!':
+        case '=':
+        case '@':
+          position++;
+          if (code.length() > position && !Character.isWhitespace(code.charAt(position))) {
+            createViolation(node);
+          }
+          break;
+        default:
+          if ( !Character.isWhitespace(ch)) {
+            createViolation(node);
+          }
+          break;
+      }
+    }
+  }
+
+  @Override
+  public void comment(CommentNode node) {
+
+    if (node.isHtml()) {
+      checkStartWhitespace(node, node.getCode(), "<!--");
+      checkEndWhitespace(node, node.getCode(), "-->");
+    } else {
+      checkStartWhitespace(node, node.getCode(), "<%--");
+      checkEndWhitespace(node, node.getCode(), "--%>");
+    }
+  }
+
+  @Override
+  public void expression(ExpressionNode node) {
+    checkStartWhitespace(node, node.getCode(), "<%");
+    checkEndWhitespace(node, node.getCode(), "%>");
   }
 }

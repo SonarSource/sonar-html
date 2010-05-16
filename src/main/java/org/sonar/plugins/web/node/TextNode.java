@@ -18,13 +18,12 @@ package org.sonar.plugins.web.node;
 
 import org.apache.commons.lang.StringUtils;
 
-
 public class TextNode extends Node {
-  
+
   public TextNode() {
-    super(NodeType.Text); 
+    super(NodeType.Text);
   }
-  
+
   public boolean isBlank() {
     return StringUtils.isBlank(getCode());
   }

@@ -34,30 +34,19 @@ public class WebPackage extends Resource {
     setKey(StringUtils.defaultIfEmpty(StringUtils.trim(key), DEFAULT_PACKAGE_NAME));
   }
 
-  public boolean isDefault() {
-    return StringUtils.equals(getKey(), DEFAULT_PACKAGE_NAME);
-  }
-
-  @Override
-  public boolean matchFilePattern(String antPattern) {
-    String patternWithoutFileSuffix = StringUtils.substringBeforeLast(antPattern, ".");
-    WildcardPattern matcher = WildcardPattern.create(patternWithoutFileSuffix, ".");
-    return matcher.match(getKey());
-  }
-
   @Override
   public String getDescription() {
     return null;
   }
 
   @Override
-  public String getScope() {
-    return Resource.SCOPE_SPACE;
+  public Language getLanguage() {
+    return Web.INSTANCE;
   }
 
   @Override
-  public String getQualifier() {
-    return Resource.QUALIFIER_PACKAGE;
+  public String getLongName() {
+    return null;
   }
 
   @Override
@@ -71,13 +60,24 @@ public class WebPackage extends Resource {
   }
 
   @Override
-  public String getLongName() {
-    return null;
+  public String getQualifier() {
+    return Resource.QUALIFIER_PACKAGE;
   }
 
   @Override
-  public Language getLanguage() {
-    return Web.INSTANCE;
+  public String getScope() {
+    return Resource.SCOPE_SPACE;
+  }
+
+  public boolean isDefault() {
+    return StringUtils.equals(getKey(), DEFAULT_PACKAGE_NAME);
+  }
+
+  @Override
+  public boolean matchFilePattern(String antPattern) {
+    String patternWithoutFileSuffix = StringUtils.substringBeforeLast(antPattern, ".");
+    WildcardPattern matcher = WildcardPattern.create(patternWithoutFileSuffix, ".");
+    return matcher.match(getKey());
   }
 
   @Override

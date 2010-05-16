@@ -16,25 +16,25 @@
 
 package org.sonar.plugins.web.checks.jsp;
 
+import org.sonar.check.Check;
+import org.sonar.check.IsoCategory;
+import org.sonar.check.Priority;
+import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
- * Provides a list of all JSP checks.
+ * Checker for occurrence of inline style.
  * 
  * @author Matthijs Galesloot
- * 
  */
-public final class JspCheckClasses {
+@Check(key = "InlineStyleCheck", title = "Inline Style", description = "Inline style should be avoided", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+public class InlineStyleCheck extends AbstractPageCheck {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { AttributeClassCheck.class, AvoidHtmlComment.class,
-      DynamicJspIncludeCheck.class, HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class,
-      LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, TagLibsCheck.class, WhiteSpaceAroundCheck.class };
+  @Override
+  public void startElement(TagNode element) {
 
-  public static Class<AbstractPageCheck>[] getCheckClasses() {
-    return checkClasses;
-  }
-
-  private JspCheckClasses() {
-    // utility class
+    if ("style".equalsIgnoreCase(element.getNodeName())) {
+      createViolation(element);
+    }
   }
 }

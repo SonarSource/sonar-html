@@ -21,19 +21,13 @@ import org.sonar.plugins.web.node.Node;
 
 class DirectiveTokenizer extends ElementTokenizer {
 
-  private Boolean html;
-
-  public DirectiveTokenizer(String startToken, String endToken, Boolean html) {
+  public DirectiveTokenizer(String startToken, String endToken) {
     super(startToken, endToken);
-    
-    this.html = html;
   }
-  
+
   @Override
   Node createNode() {
 
-    DirectiveNode node = new DirectiveNode();
-    node.setHtml(html);
-    return node;
+    return new DirectiveNode();
   }
 }

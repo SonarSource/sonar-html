@@ -14,37 +14,33 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web.checks.xml;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
-import org.sonar.plugins.web.node.ExpressionNode;
+import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
- * Checker to find scriptlets.
+ * Checker to find use of single quote where double quote is preferred.
  * 
  * @author Matthijs Galesloot
- * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
  */
-@Check(key = "JspScriptletCheck", title = "Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
-public class JspScriptletCheck extends AbstractPageCheck {
-
-  private int maxLines; // TODO
-
-  @Override
-  public void expression(ExpressionNode node) {
-    createViolation(node);
-  }
+@Check(key = "DoubleQuotesCheck", title = "Double Quotes", description = "Use double quotes for attribute values", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+public class DoubleQuotesCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if (StringUtils.equalsIgnoreCase(element.getUnprefixedNodeName(), "scriptlet")) {
-      createViolation(element);
+
+    for (Attribute a : element.getAttributes()) {
+      if ((a.isSingleQuoted() && !StringUtils.contains(a.getValue(), '"')) || !a.isDoubleQuoted()) {
+        createViolation(element);
+        break; // not more than one violation per tag
+      }
     }
   }
+
 }

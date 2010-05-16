@@ -35,14 +35,10 @@ import org.sonar.api.rules.Violation;
 /**
  * @author Matthijs Galesloot
  */
-public class MockSensorContext implements SensorContext {
+class MockSensorContext implements SensorContext {
 
   private Measure measure;
   private List violations = new ArrayList<Violation>();
-
-  public List getViolations() {
-    return violations;
-  }
 
   public Event createEvent(Resource resource, String name, String description, String category, Date date) {
     // TODO Auto-generated method stub
@@ -101,6 +97,10 @@ public class MockSensorContext implements SensorContext {
   public Resource getResource(Resource resource) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  public List getViolations() {
+    return violations;
   }
 
   public Dependency saveDependency(Dependency dependency) {

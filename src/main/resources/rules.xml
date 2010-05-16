@@ -1,11 +1,23 @@
 <profile name="Default Web Profile" >
 
   <rule key="AttributeClassCheck" />
-  <rule key="HeaderCheck" />
+  <rule key="AvoidHtmlComment" />
+  <rule key="DynamicJspIncludeCheck" />
+  <rule key="HeaderCheck">
+    <property name="expression" value="^.*Copyright.*$" />
+  </rule>
+  <rule key="InternationalizationCheck" />
+  <rule key="InlineStyleCheck" />
 	<rule key="JspScriptletCheck" />
+	<rule key="LongJavaScriptCheck">
+	 <property name="maxLines" value="5" />
+	</rule>
 	<rule key="MultiplePageDirectivesCheck" />
-	<rule key="TabCheck" />
-	<rule key="UnclosedTagCheck" />
+	<rule key="TagLibsCheck" />
 	<rule key="WhiteSpaceAroundCheck" />
 	
+	<rule key="DoubleQuotesCheck"/>
+	<rule key="TabCheck" />
+	<rule key="UnclosedTagCheck" />
+  
 </profile>

@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.visitor;
+package org.sonar.plugins.web.analyzers;
 
 import java.io.File;
 
-import org.sonar.api.design.Dependency;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squid.api.SourceCodeEdgeUsage;
+import org.sonar.plugins.web.visitor.AbstractNodeVisitor;
 
 /**
  * Experimental: generate web dependencies.
  * 
  * @author Matthijs Galesloot
  */
-public class WebDependencyDetector extends AbstractTokenVisitor {
+public class WebDependencyDetector extends AbstractNodeVisitor {
 
   private final ProjectFileSystem projectFileSystem;
 
@@ -38,35 +37,28 @@ public class WebDependencyDetector extends AbstractTokenVisitor {
     this.projectFileSystem = projectFileSystem;
   }
 
-  @Override
-  public void startElement(TagNode element) {
-    calculateDependencies(element);
-  }
-
   private void calculateDependencies(TagNode element) {
 
     String attributeValue = element.getAttribute("src");
     if (attributeValue != null) {
 
-      String fileName = attributeValue;
-      if (fileName.startsWith("/")) {
-        fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + fileName;
-      } else {
-        fileName = projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + "/" + getResource().getParent().getName() + "/" + fileName;
-      }
+      String fileName = getWebSourceCode().createFullPath(projectFileSystem, attributeValue);
 
       File dependencyFile = new File(fileName);
       if (dependencyFile.exists()) {
         WebFile dependencyResource = WebFile.fromIOFile(dependencyFile, projectFileSystem.getSourceDirs());
 
         WebUtils.LOG.debug("dependency: " + dependencyResource.getLongName());
-        Dependency dependency = new Dependency(getResource(), dependencyResource);
-        dependency.setUsage(SourceCodeEdgeUsage.USES.name());
-        dependency.setWeight(1);
-        getSensorContext().saveDependency(dependency);
+
+        getWebSourceCode().addDependency(dependencyResource);
       } else {
         WebUtils.LOG.warn("dependency to non-existing file: " + fileName);
       }
     }
+  }
+
+  @Override
+  public void startElement(TagNode element) {
+    calculateDependencies(element);
   }
 }
