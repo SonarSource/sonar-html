@@ -18,6 +18,7 @@
 		<groupId>org.codehaus.sonar-plugins</groupId>
 		<artifactId>parent</artifactId>
 		<version>5</version>
+		<relativePath>../parent</relativePath>
 	</parent>
 	
 	<properties>
