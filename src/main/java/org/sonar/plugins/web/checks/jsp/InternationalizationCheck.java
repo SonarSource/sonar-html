@@ -74,7 +74,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     for (QualifiedAttribute attribute : attributes) {
-      if (attribute.nodeName.equals(element.getUnprefixedNodeName())) {
+      if (attribute.nodeName.equals(element.getLocalName())) {
         String value = element.getAttribute(attribute.attributeName);
         if (value != null && value.startsWith("#{")) {
           createViolation(element);

@@ -43,7 +43,7 @@ public class JspScriptletCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if (StringUtils.equalsIgnoreCase(element.getUnprefixedNodeName(), "scriptlet")) {
+    if (StringUtils.equalsIgnoreCase(element.getLocalName(), "scriptlet")) {
       createViolation(element);
     }
   }

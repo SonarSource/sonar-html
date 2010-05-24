@@ -38,7 +38,7 @@ import org.sonar.api.rules.Violation;
 class MockSensorContext implements SensorContext {
 
   private Measure measure;
-  private List violations = new ArrayList<Violation>();
+  private final List violations = new ArrayList<Violation>();
 
   public Event createEvent(Resource resource, String name, String description, String category, Date date) {
     // TODO Auto-generated method stub

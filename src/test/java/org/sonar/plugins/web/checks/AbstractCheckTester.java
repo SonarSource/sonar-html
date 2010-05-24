@@ -16,8 +16,7 @@
 
 package org.sonar.plugins.web.checks;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.Reader;
 import java.util.List;
 
 import org.sonar.plugins.web.lex.PageLexer;
@@ -28,14 +27,14 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 public abstract class AbstractCheckTester {
 
-  public WebSourceCode checkFile(String fileName, AbstractPageCheck pageCheck) throws FileNotFoundException {
+  public WebSourceCode parseAndCheck(Reader reader, AbstractPageCheck pageCheck) {
     PageLexer lexer = new PageLexer();
-    List<Node> nodeList = lexer.parse(new FileReader(fileName));
+    List<Node> nodeList = lexer.parse(reader);
     WebSourceCode webSourceCode = new WebSourceCode(null);
 
     PageScanner pageScanner = new PageScanner();
     pageScanner.addVisitor(pageCheck);
     pageScanner.scan(nodeList, webSourceCode);
-    return webSourceCode; 
+    return webSourceCode;
   }
 }

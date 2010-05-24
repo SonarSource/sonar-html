@@ -14,28 +14,29 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.checks.jsp;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
+import java.io.StringReader;
 
 import org.junit.Test;
-import org.sonar.plugins.web.checks.xml.UnclosedTagCheck;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.jsp.AttributeClassCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class UnclosedTagCheckTest extends AbstractCheckTester  {
+public class TestAttributeClassCheck extends AbstractCheckTester {
 
   @Test
-  public void testDoubleQuotesCheck() throws FileNotFoundException {
+  public void testAttributeCheck() {
 
-    String fileName = "src/test/resources/src/main/webapp/versioned-details.jsp";
-    WebSourceCode sourceCode = checkFile(fileName, new UnclosedTagCheck());
-    int numViolations = 8;
-    
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    String fragment = "<h:someNode class=\"redflag\"/>";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new AttributeClassCheck());
+
+    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
 }

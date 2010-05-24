@@ -14,37 +14,28 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.lex;
+package org.sonar.plugins.web.checks.jsp;
 
 import static junit.framework.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.List;
 
 import org.junit.Test;
-import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.jsp.MultiplePageDirectivesCheck;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestLexer {
+public class TestPageDirectiveCheck extends AbstractCheckTester {
 
   @Test
-  public void testLexer() throws FileNotFoundException {
+  public void testMultiplePageDirectiveCheck() throws FileNotFoundException {
 
-    String fileName = "src/test/resources/src/main/webapp/create-salesorder.xhtml";
-    PageLexer lexer = new PageLexer();
-    List<Node> nodeList = lexer.parse(new FileReader(fileName));
-
-    assertTrue(nodeList.size() > 50);
-
-    for (Node node : nodeList) {
-      if (node instanceof TagNode) {
-        assertTrue(node.getCode().startsWith("<"));
-        assertTrue(node.getCode().endsWith(">"));
-      }
-    }
+    String fileName = "src/test/resources/src/main/webapp/user-properties.jsp";
+    WebSourceCode sourceCode = parseAndCheck(new FileReader(fileName), new MultiplePageDirectivesCheck());
+    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
 }

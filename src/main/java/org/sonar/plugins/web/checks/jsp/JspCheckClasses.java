@@ -26,7 +26,7 @@ import org.sonar.plugins.web.rules.AbstractPageCheck;
  */
 public final class JspCheckClasses {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { AttributeClassCheck.class, AvoidHtmlComment.class,
+  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { AttributeClassCheck.class, AvoidHtmlCommentCheck.class,
       DynamicJspIncludeCheck.class, HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class,
       LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, TagLibsCheck.class, WhiteSpaceAroundCheck.class };
 

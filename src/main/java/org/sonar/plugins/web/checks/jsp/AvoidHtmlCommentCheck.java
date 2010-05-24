@@ -31,8 +31,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * 
  * @author Matthijs Galesloot
  */
-@Check(key = "AvoidHtmlComment", title = "Html Comment", description = "Avoid Html Comment", priority = Priority.MINOR, isoCategory = IsoCategory.Efficiency)
-public class AvoidHtmlComment extends AbstractPageCheck {
+@Check(key = "AvoidHtmlCommentCheck", title = "Html Comment", description = "Avoid Html Comment", priority = Priority.MINOR, isoCategory = IsoCategory.Efficiency)
+public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
   private boolean xmlDocument;
 

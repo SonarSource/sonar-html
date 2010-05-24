@@ -39,7 +39,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   @CheckProperty(key = "ignoreTags", description = "Ignore Tags")
   private String[] ignoreTags = new String[] { "verbatim" };
 
-  private List<TagNode> nodes = new ArrayList<TagNode>();
+  private final List<TagNode> nodes = new ArrayList<TagNode>();
 
   @Override
   public void endElement(TagNode element) {
@@ -67,7 +67,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   }
 
   private boolean ignoreTag(TagNode node) {
-    String nodeName = node.getUnprefixedNodeName();
+    String nodeName = node.getLocalName();
     for (String ignoreTag : ignoreTags) {
       if (ignoreTag.equalsIgnoreCase(nodeName)) {
         return true;
@@ -90,6 +90,13 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     if ( !ignoreTag(element)) {
       nodes.add(0, element);
+    }
+  }
+
+  @Override
+  public void endDocument() {
+    for (TagNode node : nodes) {
+      createViolation(node);
     }
   }
 }

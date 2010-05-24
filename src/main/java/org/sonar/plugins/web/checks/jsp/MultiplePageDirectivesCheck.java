@@ -33,8 +33,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 @Check(key = "MultiplePageDirectivesCheck", title = "Multiple Page Directive", description = "Avoid multiple page directives", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 
-  private static boolean hasImportAttribute(DirectiveNode node) {
-    return node.getAttribute("import") != null;
+  private static boolean isImportDirective(DirectiveNode node) {
+    return node.getAttributes().size() == 1 && node.getAttribute("import") != null;
   }
 
   private DirectiveNode node;
@@ -43,7 +43,7 @@ public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 
   @Override
   public void directive(DirectiveNode node) {
-    if ( !node.isHtml() && "page".equalsIgnoreCase(node.getNodeName()) && !hasImportAttribute(node)) {
+    if ( !node.isHtml() && "page".equalsIgnoreCase(node.getNodeName()) && !isImportDirective(node)) {
       pageDirectives++;
       this.node = node;
     }

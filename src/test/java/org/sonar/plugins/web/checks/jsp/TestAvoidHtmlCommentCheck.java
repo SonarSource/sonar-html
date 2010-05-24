@@ -14,26 +14,38 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.checks.jsp;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
+import java.io.StringReader;
 
 import org.junit.Test;
-import org.sonar.plugins.web.checks.jsp.MultiplePageDirectivesCheck;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestPageDirectiveCheck extends AbstractCheckTester {
-  
-  @Test
-  public void testMultiplePageDirectiveCheck() throws FileNotFoundException {
+public class TestAvoidHtmlCommentCheck extends AbstractCheckTester {
 
-    String fileName = "src/test/resources/src/main/webapp/user-properties.jsp";
-    WebSourceCode sourceCode = checkFile(fileName, new MultiplePageDirectivesCheck());
+  @Test
+  public void htmlCommentIsNotAllowed() {
+
+    String fragment = "<h:someNode/><!-- this comment is not allowed -->";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new AvoidHtmlCommentCheck());
+
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+  }
+
+  @Test
+  public void htmlComentIsAllowedInXmlDocuments() {
+
+    String fragment = "<?xml version=\"1.0\" ?><h:someNode/><!-- this comment is allowed -->";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new AvoidHtmlCommentCheck());
+
+    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
   }
 }

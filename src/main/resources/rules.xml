@@ -1,7 +1,7 @@
 <profile name="Default Web Profile" >
 
   <rule key="AttributeClassCheck" />
-  <rule key="AvoidHtmlComment" />
+  <rule key="AvoidHtmlCommentCheck" />
   <rule key="DynamicJspIncludeCheck" />
   <rule key="HeaderCheck">
     <property name="expression" value="^.*Copyright.*$" />

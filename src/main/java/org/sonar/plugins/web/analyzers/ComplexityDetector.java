@@ -40,7 +40,7 @@ public final class ComplexityDetector extends AbstractNodeVisitor {
   @Override
   public void startElement(TagNode node) {
 
-    String unprefixedNodeName = node.getUnprefixedNodeName();
+    String unprefixedNodeName = node.getLocalName();
     if ("if".equals(unprefixedNodeName) || "choose".equals(unprefixedNodeName)) {
       complexity++;
     } else {

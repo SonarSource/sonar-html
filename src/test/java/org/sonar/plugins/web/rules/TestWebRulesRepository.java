@@ -14,26 +14,29 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.rules;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
-
 import org.junit.Test;
-import org.sonar.plugins.web.checks.jsp.LongJavaScriptCheck;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestJavaScriptCheck extends AbstractCheckTester {
+public class TestWebRulesRepository {
 
   @Test
-  public void testJavaScriptCheck() throws FileNotFoundException {
+  public void testWebRulesRepository() {
+    WebRulesRepository rulesRepository = new WebRulesRepository(Web.INSTANCE);
 
-    String fileName = "src/test/resources/src/main/webapp/user-properties.jsp";
-    WebSourceCode sourceCode = checkFile(fileName, new LongJavaScriptCheck());
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertTrue(rulesRepository.getInitialReferential().size() > 1);
+
+    RulesProfile rulesProfile = rulesRepository.getProvidedProfiles().get(0);
+
+    assertTrue(rulesProfile.getActiveRules().size() > 3);
   }
+
 }
