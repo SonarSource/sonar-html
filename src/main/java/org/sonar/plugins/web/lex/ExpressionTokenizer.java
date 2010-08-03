@@ -18,14 +18,13 @@ package org.sonar.plugins.web.lex;
 
 import java.util.List;
 
-import org.sonar.channel.Channel;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 
 /**
  * @author Matthijs Galesloot
  */
-class ExpressionTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
+class ExpressionTokenizer extends AbstractTokenizer<List<Node>> {
 
   public ExpressionTokenizer(String startChars, String endChars) {
     super(startChars, endChars);

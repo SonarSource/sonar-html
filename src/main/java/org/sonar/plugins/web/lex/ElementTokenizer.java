@@ -18,7 +18,6 @@ package org.sonar.plugins.web.lex;
 
 import java.util.List;
 
-import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Attribute;
@@ -28,7 +27,7 @@ import org.sonar.plugins.web.node.TagNode;
 /**
  * @author Matthijs Galesloot
  */
-class ElementTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
+class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
   private static final class EndQNameMatcher implements EndMatcher {
 
@@ -55,7 +54,7 @@ class ElementTokenizer extends AbstractTokenizer implements Channel<List<Node>> 
 
   private static final class QuoteMatcher implements EndMatcher {
 
-    private char startChar;
+    private final char startChar;
 
     QuoteMatcher(char startChar) {
       this.startChar = startChar;

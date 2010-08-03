@@ -32,11 +32,12 @@ import org.sonar.plugins.web.rules.AbstractPageCheck;
 @Check(key = "InternationalizationCheck", title = "Labels Internationalization", description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class InternationalizationCheck extends AbstractPageCheck {
 
-  private static class QualifiedAttribute {
+  private static final class QualifiedAttribute {
 
     String attributeName;
 
     String nodeName;
+
     private QualifiedAttribute(String nodeName, String attributeName) {
       this.nodeName = nodeName;
       this.attributeName = attributeName;

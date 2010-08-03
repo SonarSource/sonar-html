@@ -21,7 +21,6 @@ import static junit.framework.Assert.assertTrue;
 import org.junit.Test;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot

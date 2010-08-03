@@ -29,7 +29,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestDoubleQuotesCheck extends AbstractCheckTester  {
+public class TestDoubleQuotesCheck extends AbstractCheckTester {
 
   @Test
   public void testDoubleQuotesCheck() throws FileNotFoundException {

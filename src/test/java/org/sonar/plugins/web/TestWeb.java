@@ -31,7 +31,6 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 import org.sonar.api.CoreProperties;
-import org.sonar.api.batch.CpdMapping;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;

@@ -23,7 +23,6 @@ import java.io.FileReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.jsp.MultiplePageDirectivesCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**

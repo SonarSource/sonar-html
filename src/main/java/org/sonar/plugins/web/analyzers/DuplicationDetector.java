@@ -61,9 +61,9 @@ public final class DuplicationDetector {
       int duplicatedLines = match.duplicatedLines;
 
       StringBuilder xml = new StringBuilder();
-      xml.append("<duplication lines=\"").append(duplicatedLines).append("\" start=\"").append(duplicationStartLine).append(
-          "\" target-start=\"").append(targetDuplicationStartLine).append("\" target-resource=\"").append(targetResource.getKey()).append(
-          "\"/>");
+      xml.append("<duplication lines=\"").append(duplicatedLines).append("\" start=\"").append(duplicationStartLine)
+          .append("\" target-start=\"").append(targetDuplicationStartLine).append("\" target-resource=\"").append(targetResource.getKey())
+          .append("\"/>");
 
       duplicationXMLEntries.add(xml);
 

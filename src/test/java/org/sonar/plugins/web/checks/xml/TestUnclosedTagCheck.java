@@ -28,7 +28,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestUnclosedTagCheck extends AbstractCheckTester  {
+public class TestUnclosedTagCheck extends AbstractCheckTester {
 
   @Test
   public void testUnclosedTagCheck() throws FileNotFoundException {

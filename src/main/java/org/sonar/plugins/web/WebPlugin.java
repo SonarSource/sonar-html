@@ -22,8 +22,6 @@ import java.util.List;
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.language.WebDirectoryDecorator;
-import org.sonar.plugins.web.language.WebFilesDecorator;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
@@ -50,9 +48,6 @@ public final class WebPlugin implements Plugin {
     list.add(WebSourceImporter.class);
     // sensor
     list.add(WebSensor.class);
-    // decorators
-    list.add(WebFilesDecorator.class);
-    list.add(WebDirectoryDecorator.class);
 
     return list;
   }

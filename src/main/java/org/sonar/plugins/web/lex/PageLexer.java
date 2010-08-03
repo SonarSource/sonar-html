@@ -32,22 +32,22 @@ import org.sonar.plugins.web.node.Node;
 public final class PageLexer {
 
   private static List tokenizers = Arrays.asList(
-      /* HTML Comments */
-      new CommentTokenizer("<!--", "-->", true),
-      /* JSP Comments */
-      new CommentTokenizer("<%--", "--%>", false),
-      /* HTML Directive */
-      new DirectiveTokenizer("<!DOCTYPE", ">"),
-      /* XML Directives */
-      new DirectiveTokenizer("<?", "?>"),
-      /* JSP Directives */
-      new DirectiveTokenizer("<%@", "%>"),
-      /* JSP Expressions */
-      new ExpressionTokenizer("<%", "%>"),
-      /* XML and HTML Tags */
-      new ElementTokenizer("<", ">"),
-      /* Text (for everything else) */
-      new TextTokenizer());
+  /* HTML Comments */
+  new CommentTokenizer("<!--", "-->", true),
+  /* JSP Comments */
+  new CommentTokenizer("<%--", "--%>", false),
+  /* HTML Directive */
+  new DirectiveTokenizer("<!DOCTYPE", ">"),
+  /* XML Directives */
+  new DirectiveTokenizer("<?", "?>"),
+  /* JSP Directives */
+  new DirectiveTokenizer("<%@", "%>"),
+  /* JSP Expressions */
+  new ExpressionTokenizer("<%", "%>"),
+  /* XML and HTML Tags */
+  new ElementTokenizer("<", ">"),
+  /* Text (for everything else) */
+  new TextTokenizer());
 
   public List<Node> parse(Reader reader) {
 
@@ -55,11 +55,11 @@ public final class PageLexer {
     CodeReader codeReader = new CodeReader(reader);
 
     // ArrayList collects the nodes
-    List<Node> nodeList = new ArrayList();
+    List<Node> nodeList = new ArrayList<Node>();
 
     // ChannelDispatcher manages the tokenizers
     ChannelDispatcher<List<Node>> channelDispatcher = new ChannelDispatcher<List<Node>>(tokenizers);
-    channelDispatcher.consum(codeReader, nodeList);
+    channelDispatcher.consume(codeReader, nodeList);
 
     // clean up
     codeReader.close();

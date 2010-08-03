@@ -28,7 +28,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestHeaderCheck extends AbstractCheckTester  {
+public class TestHeaderCheck extends AbstractCheckTester {
 
   @Test
   public void validHeader() throws FileNotFoundException {
@@ -49,7 +49,6 @@ public class TestHeaderCheck extends AbstractCheckTester  {
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
-
 
   @Test
   public void wrongFormatHeader() throws FileNotFoundException {

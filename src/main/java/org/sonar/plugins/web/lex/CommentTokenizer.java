@@ -16,12 +16,14 @@
 
 package org.sonar.plugins.web.lex;
 
+import java.util.List;
+
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 
-class CommentTokenizer extends AbstractTokenizer {
+class CommentTokenizer extends AbstractTokenizer<List<Node>> {
 
-  private Boolean html;
+  private final Boolean html;
 
   public CommentTokenizer(String startToken, String endToken, Boolean html) {
     super(startToken, endToken);

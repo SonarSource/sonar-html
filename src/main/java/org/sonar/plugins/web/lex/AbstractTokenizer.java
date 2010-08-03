@@ -27,11 +27,11 @@ import org.sonar.plugins.web.node.Node;
 /**
  * @author Matthijs Galesloot
  */
-abstract class AbstractTokenizer implements Channel<List<Node>> {
+abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 
   private final class EndTokenMatcher implements EndMatcher {
 
-    private CodeReader codeReader;
+    private final CodeReader codeReader;
     private boolean quoting;
 
     private EndTokenMatcher(CodeReader codeReader) {
@@ -46,9 +46,9 @@ abstract class AbstractTokenizer implements Channel<List<Node>> {
     }
   }
 
-  private char[] endChars;
+  private final char[] endChars;
 
-  private char[] startChars;
+  private final char[] startChars;
 
   public AbstractTokenizer(String startChars, String endChars) {
     this.startChars = startChars.toCharArray();
@@ -59,7 +59,8 @@ abstract class AbstractTokenizer implements Channel<List<Node>> {
     nodeList.add(node);
   }
 
-  public boolean consum(CodeReader codeReader, List<Node> nodeList) {
+  @Override
+  public boolean consume(CodeReader codeReader, T nodeList) {
     if (ArrayUtils.isEquals(codeReader.peek(startChars.length), startChars)) {
       Node node = createNode();
       setStartPosition(codeReader, node);

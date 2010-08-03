@@ -18,7 +18,6 @@ package org.sonar.plugins.web.lex;
 
 import java.util.List;
 
-import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Node;
@@ -29,9 +28,9 @@ import org.sonar.plugins.web.node.TextNode;
  * 
  *         TODO - handle CDATA
  */
-class TextTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
+class TextTokenizer extends AbstractTokenizer<List<Node>> {
 
-  private EndMatcher endTokenMatcher = new EndMatcher() {
+  private final EndMatcher endTokenMatcher = new EndMatcher() {
 
     public boolean match(int endFlag) {
       return endFlag == '<';
@@ -43,7 +42,7 @@ class TextTokenizer extends AbstractTokenizer implements Channel<List<Node>> {
   }
 
   @Override
-  public boolean consum(CodeReader codeReader, List<Node> nodeList) {
+  public boolean consume(CodeReader codeReader, List<Node> nodeList) {
     Node node = createNode();
 
     setStartPosition(codeReader, node);
