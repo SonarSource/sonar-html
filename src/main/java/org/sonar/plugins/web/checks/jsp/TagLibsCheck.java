@@ -21,9 +21,9 @@ import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
  * Checker to find disallowed taglibs.

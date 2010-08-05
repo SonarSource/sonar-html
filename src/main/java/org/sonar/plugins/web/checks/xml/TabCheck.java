@@ -20,13 +20,14 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TextNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
  * Checker for Tab character.
  * 
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
+ * paragraph Indentation
  * 
  * @author Matthijs Galesloot
  */

@@ -16,7 +16,10 @@
 
 package org.sonar.plugins.web.checks.jsp;
 
-import org.sonar.plugins.web.rules.AbstractPageCheck;
+import java.util.Arrays;
+import java.util.List;
+
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 
 /**
  * Provides a list of all JSP checks.
@@ -26,12 +29,12 @@ import org.sonar.plugins.web.rules.AbstractPageCheck;
  */
 public final class JspCheckClasses {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { AttributeClassCheck.class, AvoidHtmlCommentCheck.class,
-      DynamicJspIncludeCheck.class, HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class,
-      LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, TagLibsCheck.class, WhiteSpaceAroundCheck.class };
+  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] {  AvoidHtmlCommentCheck.class,
+    DynamicJspIncludeCheck.class, HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class,
+    LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, TagLibsCheck.class, WhiteSpaceAroundCheck.class };
 
-  public static Class<AbstractPageCheck>[] getCheckClasses() {
-    return checkClasses;
+  public static List<Class<AbstractPageCheck>> getCheckClasses() {
+    return Arrays.asList(checkClasses);
   }
 
   private JspCheckClasses() {

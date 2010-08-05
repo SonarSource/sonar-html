@@ -22,6 +22,7 @@ import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.xml.AttributeCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
@@ -34,7 +35,7 @@ public class TestAttributeClassCheck extends AbstractCheckTester {
 
     String fragment = "<h:someNode class=\"redflag\"/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new AttributeClassCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeCheck.class, "attributes", "class" );
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }

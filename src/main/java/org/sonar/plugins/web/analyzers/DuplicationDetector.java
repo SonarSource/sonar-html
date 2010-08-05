@@ -25,11 +25,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.resources.Resource;
-import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
@@ -42,6 +43,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @see http://www.ncbi.nlm.nih.gov/pubmed/7584464
  */
 public final class DuplicationDetector {
+
+  private static final Logger LOG = LoggerFactory.getLogger(DuplicationDetector.class);
 
   private static final class DuplicationsData {
 
@@ -62,8 +65,8 @@ public final class DuplicationDetector {
 
       StringBuilder xml = new StringBuilder();
       xml.append("<duplication lines=\"").append(duplicatedLines).append("\" start=\"").append(duplicationStartLine)
-          .append("\" target-start=\"").append(targetDuplicationStartLine).append("\" target-resource=\"").append(targetResource.getKey())
-          .append("\"/>");
+      .append("\" target-start=\"").append(targetDuplicationStartLine).append("\" target-resource=\"").append(targetResource.getKey())
+      .append("\"/>");
 
       duplicationXMLEntries.add(xml);
 
@@ -87,7 +90,7 @@ public final class DuplicationDetector {
 
     protected void save(SensorContext context) {
 
-      WebUtils.LOG.debug(resource.getName() + " duplicates: " + duplicatedBlocks + ", " + duplicatedLines.size());
+      LOG.debug(resource.getName() + " duplicates: " + duplicatedBlocks + ", " + duplicatedLines.size());
       context.saveMeasure(resource, CoreMetrics.DUPLICATED_FILES, 1d);
       context.saveMeasure(resource, CoreMetrics.DUPLICATED_LINES, (double) duplicatedLines.size());
       context.saveMeasure(resource, CoreMetrics.DUPLICATED_BLOCKS, duplicatedBlocks);
@@ -199,7 +202,7 @@ public final class DuplicationDetector {
 
   public void analyse(SensorContext context) {
 
-    WebUtils.LOG.debug("Analyse " + elements.size() + " elements for duplication");
+    LOG.debug("Analyse " + elements.size() + " elements for duplication");
 
     if (elements.size() > 0) {
       // sort elements on groupHashValue so we can easily find the potentential matches
@@ -254,14 +257,13 @@ public final class DuplicationDetector {
     for (Match match : matches) {
 
       if ( !match.targetElement.marked) {
-        WebUtils.LOG.debug(match.numberOfMatchingElements + "");
+        //WebUtils.LOG.debug(match.numberOfMatchingElements + "");
 
         processDuplication(duplicationsData, match);
       }
       match.markTargetElements();
     }
-    WebUtils.LOG.debug("Found " + matches.size() + " matches");
-
+    LOG.debug("Found " + matches.size() + " matches");
   }
 
   private void processDuplication(Map<Resource, DuplicationsData> fileContainer, Match match) {

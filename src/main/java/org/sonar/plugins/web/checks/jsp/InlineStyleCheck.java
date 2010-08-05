@@ -19,11 +19,16 @@ package org.sonar.plugins.web.checks.jsp;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
  * Checker for occurrence of inline style.
+ * 
+ * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
+ * paragraph Cascading Style Sheets
+ * 
+ * TODO: make a list of disallowed attributes
  * 
  * @author Matthijs Galesloot
  */

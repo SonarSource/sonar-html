@@ -35,7 +35,7 @@ public class TestUnclosedTagCheck extends AbstractCheckTester {
 
     String fragment = "<td><br><tr>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new UnclosedTagCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
 
     int numViolations = 3;
 

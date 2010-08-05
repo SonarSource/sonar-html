@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.rules;
+package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.rules.ActiveRule;
 import org.sonar.plugins.web.language.Web;
 
 /**
  * @author Matthijs Galesloot
  */
 public class TestWebRulesRepository {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TestWebRulesRepository.class);
 
   @Test
   public void testWebRulesRepository() {
@@ -36,6 +41,16 @@ public class TestWebRulesRepository {
     RulesProfile rulesProfile = rulesRepository.getProvidedProfiles().get(0);
 
     assertTrue(rulesProfile.getActiveRules().size() > 3);
+
+    int params = 0;
+    for (ActiveRule activeRule : rulesProfile.getActiveRules()) {
+      params += activeRule.getActiveRuleParams().size();
+      if (activeRule.getActiveRuleParams().size() > 0) {
+        LOG.warn(activeRule.getConfigKey());
+      }
+    }
+
+    assertTrue(params > 2);
   }
 
 }

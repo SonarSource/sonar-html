@@ -18,32 +18,47 @@ package org.sonar.plugins.web.checks.xml;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
+import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
- * Checker to find use of single quote where double quote is preferred.
+ * Checker for occurrence of disallowed n.
  * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
- * paragraph Quoting
+ * e.g. node <abc> should not be used.
  * 
  * @author Matthijs Galesloot
  */
-@Check(key = "DoubleQuotesCheck", title = "Double Quotes", description = "Use double quotes for attribute values", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-public class DoubleQuotesCheck extends AbstractPageCheck {
+@Check(key = "ElementCheck", title = "Element check", description = "element should not be used", priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
+public class ElementCheck extends AbstractPageCheck {
+
+  @CheckProperty(key = "elements", description = "elements")
+  private String[] elements;
+
+  public String getElements() {
+    if (elements != null) {
+      return StringUtils.join(elements, ",");
+    }
+    return "";
+  }
+
+  public void setElements(String elementList) {
+    elements = StringUtils.split(elementList, ",");
+  }
 
   @Override
   public void startElement(TagNode element) {
 
-    for (Attribute a : element.getAttributes()) {
-      if (a.isSingleQuoted() && !StringUtils.contains(a.getValue(), '"') || !a.isDoubleQuoted()) {
+    if (elements == null) {
+      return;
+    }
+
+    for (String elementName : elements ) {
+      if (StringUtils.equalsIgnoreCase(element.getLocalName(), elementName)) {
         createViolation(element);
-        break; // not more than one violation per tag
       }
     }
   }
-
 }

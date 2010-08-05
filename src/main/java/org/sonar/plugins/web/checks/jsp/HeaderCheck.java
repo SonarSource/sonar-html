@@ -19,25 +19,29 @@ package org.sonar.plugins.web.checks.jsp;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
-import org.sonar.plugins.web.WebUtils;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Header checker for JSP files.
  * 
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
+ * paragraph Opening Comments
  * 
  * @author Matthijs Galesloot
  */
 @Check(key = "HeaderCheck", title = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR, isoCategory = IsoCategory.Maintainability)
 public class HeaderCheck extends AbstractPageCheck {
+
+  private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);
 
   @CheckProperty(key = "expression", title = "Regular Expression", description = "Regular expression for header format")
   private String expression = "^.*Copyright.*$";
@@ -53,7 +57,7 @@ public class HeaderCheck extends AbstractPageCheck {
         hasHeader = true;
       } else {
         createViolation(0, "Header is not in correct format");
-        WebUtils.LOG.warn("Header is not in valid format");
+        LOG.warn("Header is not in valid format");
       }
     }
     visiting = false;

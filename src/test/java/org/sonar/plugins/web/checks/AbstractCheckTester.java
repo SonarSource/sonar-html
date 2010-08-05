@@ -16,25 +16,88 @@
 
 package org.sonar.plugins.web.checks;
 
+import static junit.framework.Assert.assertNotNull;
+
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.rules.ActiveRuleParam;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.utils.SonarException;
+import org.sonar.plugins.web.WebRulesRepository;
+import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 public abstract class AbstractCheckTester {
 
-  public WebSourceCode parseAndCheck(Reader reader, AbstractPageCheck pageCheck) {
-    PageLexer lexer = new PageLexer();
-    List<Node> nodeList = lexer.parse(reader);
-    WebSourceCode webSourceCode = new WebSourceCode(null);
+  public WebSourceCode parseAndCheck(Reader reader, Class<? extends AbstractPageCheck> checkClass, String... params) {
 
-    PageScanner pageScanner = new PageScanner();
-    pageScanner.addVisitor(pageCheck);
-    pageScanner.scan(nodeList, webSourceCode);
-    return webSourceCode;
+    try {
+      AbstractPageCheck check = checkClass.newInstance();
+
+      Rule rule = WebRulesRepository.getRule(checkClass.getSimpleName());
+      assertNotNull(rule);
+      check.setRule(rule);
+      configureParams(check, rule);
+
+      for (int i = 0; i < params.length / 2; i++) {
+        Object value = PropertyUtils.getProperty(check, params[i * 2]);
+        if (value instanceof Integer) {
+          value = Integer.parseInt(params[i * 2 + 1]);
+        } else {
+          value = params[i * 2 + 1];
+        }
+        PropertyUtils.setProperty(check, params[i * 2], value);
+      }
+
+      PageLexer lexer = new PageLexer();
+      List<Node> nodeList = lexer.parse(reader);
+      WebSourceCode webSourceCode = new WebSourceCode(null);
+
+      PageScanner pageScanner = new PageScanner();
+      pageScanner.addVisitor(check);
+      pageScanner.scan(nodeList, webSourceCode);
+      return webSourceCode;
+    } catch (IllegalAccessException e) {
+      throw new SonarException(e);
+    } catch (InstantiationException e) {
+      throw new SonarException(e);
+    } catch (InvocationTargetException e) {
+      throw new SonarException(e);
+    } catch (NoSuchMethodException e) {
+      throw new SonarException(e);
+    }
+  }
+
+  private void configureParams(AbstractPageCheck check, Rule rule) {
+    RulesProfile profile = new WebRulesRepository(new Web()).getProvidedProfiles().get(0);
+    ActiveRule activeRule = profile.getActiveRule(rule);
+
+    try {
+      if (activeRule.getActiveRuleParams() != null) {
+        for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
+          Object value = PropertyUtils.getProperty(check, param.getRuleParam().getKey());
+          if (value instanceof Integer) {
+            value = Integer.parseInt(param.getValue());
+          } else {
+            value = param.getValue();
+          }
+          PropertyUtils.setProperty(check, param.getRuleParam().getKey(), value);
+        }
+      }
+    } catch (IllegalAccessException e) {
+      throw new SonarException(e);
+    } catch (InvocationTargetException e) {
+      throw new SonarException(e);
+    } catch (NoSuchMethodException e) {
+      throw new SonarException(e);
+    }
   }
 }

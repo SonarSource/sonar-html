@@ -20,9 +20,9 @@ import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
  * Checker to find long javascripts.

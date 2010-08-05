@@ -34,7 +34,7 @@ public class TestAvoidHtmlCommentCheck extends AbstractCheckTester {
 
     String fragment = "<h:someNode/><!-- this comment is not allowed -->";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new AvoidHtmlCommentCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
@@ -44,7 +44,7 @@ public class TestAvoidHtmlCommentCheck extends AbstractCheckTester {
 
     String fragment = "<?xml version=\"1.0\" ?><h:someNode/><!-- this comment is allowed -->";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new AvoidHtmlCommentCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
 
     assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
   }

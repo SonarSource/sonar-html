@@ -35,7 +35,7 @@ public class TestMultiplePageDirectivesCheck extends AbstractCheckTester {
     sb.append("<%@ page session=\"false\" %>");
     sb.append("<%@ page errorPage=\"/common/errorPage.jsp\" %>");
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), new MultiplePageDirectivesCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
 
@@ -45,7 +45,7 @@ public class TestMultiplePageDirectivesCheck extends AbstractCheckTester {
     sb.append("<%@ page session=\"false\" %>");
     sb.append("<%@ page errorPage=\"/common/errorPage.jsp\" import=\"java.util.*,java.text.*\" %>");
 
-    sourceCode = parseAndCheck(new StringReader(sb.toString()), new MultiplePageDirectivesCheck());
+    sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
@@ -59,7 +59,7 @@ public class TestMultiplePageDirectivesCheck extends AbstractCheckTester {
     sb.append("<%@ page session=\"false\" %>");
     sb.append("<%@ page import=\"java.util.*,java.text.*\" %>");
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), new MultiplePageDirectivesCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 0);
   }

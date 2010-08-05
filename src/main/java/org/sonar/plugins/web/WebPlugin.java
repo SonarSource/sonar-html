@@ -22,7 +22,6 @@ import java.util.List;
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot

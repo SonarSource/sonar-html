@@ -19,15 +19,16 @@ package org.sonar.plugins.web.checks.jsp;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
  * Check for required white space around start and end markers.
  * 
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
+ * paragraph Blank Spaces
  * 
  * @author Matthijs Galesloot
  */

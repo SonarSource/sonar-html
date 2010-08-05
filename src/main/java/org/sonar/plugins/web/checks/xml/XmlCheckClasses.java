@@ -16,15 +16,20 @@
 
 package org.sonar.plugins.web.checks.xml;
 
-import org.sonar.plugins.web.rules.AbstractPageCheck;
+import java.util.Arrays;
+import java.util.List;
+
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 
 public final class XmlCheckClasses {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { DoubleQuotesCheck.class, TabCheck.class,
-      UnclosedTagCheck.class, };
+  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] {
+    AttributeCheck.class, DoubleQuotesCheck.class, ElementCheck.class, MaxLineLengthCheck.class,
+    NamespaceCheck.class,
+    RegularExpressionCheck.class, TabCheck.class, UnclosedTagCheck.class };
 
-  public static Class<AbstractPageCheck>[] getCheckClasses() {
-    return checkClasses;
+  public static List<Class<AbstractPageCheck>> getCheckClasses() {
+    return Arrays.asList(checkClasses);
   }
 
   private XmlCheckClasses() {

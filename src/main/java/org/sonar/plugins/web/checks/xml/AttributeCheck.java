@@ -14,22 +14,28 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web.checks.xml;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
- * Checker to find hardcoded labels and messages.
+ * Checker for occurrence of disallowed attributes.
+ * 
+ * e.g. class attribute should not be used, but styleClass instead.
  * 
  * @author Matthijs Galesloot
  */
-@Check(key = "InternationalizationCheck", title = "Labels Internationalization", description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-public class InternationalizationCheck extends AbstractPageCheck {
+@Check(key = "AttributeCheck", title = "Attribute check", description = "attribute should not be used",
+    priority = Priority.MAJOR,
+    isoCategory = IsoCategory.Reliability)
+    public class AttributeCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "attributes", title="Attributes", description = "Attributes")
   private QualifiedAttribute[] attributes;
@@ -44,23 +50,21 @@ public class InternationalizationCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if (attributes != null) {
-      for (QualifiedAttribute attribute : attributes) {
-        if (attribute.nodeName.equals(element.getLocalName())) {
-          String value = element.getAttribute(attribute.attributeName);
-          if (value != null) {
-            value = value.trim();
-            if (value.length() > 0 && !isValueExpression(value)) {
-              createViolation(element);
-              return;
-            }
+
+    if (attributes == null) {
+      return;
+    }
+
+    for (QualifiedAttribute qualifiedAttribute : attributes) {
+      if (qualifiedAttribute.nodeName == null || StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.nodeName)) {
+
+        for (Attribute a : element.getAttributes()) {
+
+          if (qualifiedAttribute.attributeName.equalsIgnoreCase(a.getName())) {
+            createViolation(element);
           }
         }
       }
     }
-  }
-
-  private boolean isValueExpression(String value) {
-    return value.startsWith("#") || value.startsWith("$");
   }
 }

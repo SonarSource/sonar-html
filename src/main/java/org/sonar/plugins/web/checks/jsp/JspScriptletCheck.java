@@ -20,9 +20,9 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 
 /**
  * Checker to find scriptlets.
@@ -30,6 +30,7 @@ import org.sonar.plugins.web.rules.AbstractPageCheck;
  * @author Matthijs Galesloot
  * 
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
+ * paragraph JSP Scriptlets
  */
 @Check(key = "JspScriptletCheck", title = "Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class JspScriptletCheck extends AbstractPageCheck {

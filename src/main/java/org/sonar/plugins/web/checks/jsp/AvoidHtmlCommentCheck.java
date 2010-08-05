@@ -19,9 +19,9 @@ package org.sonar.plugins.web.checks.jsp;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**

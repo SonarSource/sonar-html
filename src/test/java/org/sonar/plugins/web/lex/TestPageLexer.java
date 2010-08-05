@@ -14,30 +14,37 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web.lex;
 
 import static junit.framework.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.FileReader;
+import java.util.List;
 
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.xml.DoubleQuotesCheck;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestDoubleQuotesCheck extends AbstractCheckTester {
+public class TestPageLexer {
 
   @Test
-  public void testDoubleQuotesCheck() throws FileNotFoundException {
+  public void testLexer() throws FileNotFoundException {
 
-    String fragment = "<h:someNode class='redflag'/>";
+    String fileName = "src/test/resources/src/main/webapp/create-salesorder.xhtml";
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(new FileReader(fileName));
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
+    assertTrue(nodeList.size() > 50);
 
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() > 0);
+    for (Node node : nodeList) {
+      if (node instanceof TagNode) {
+        assertTrue(node.getCode().startsWith("<"));
+        assertTrue(node.getCode().endsWith(">"));
+      }
+    }
   }
 }

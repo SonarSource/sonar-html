@@ -18,8 +18,9 @@ package org.sonar.plugins.web.analyzers;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.resources.ProjectFileSystem;
-import org.sonar.plugins.web.WebUtils;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.AbstractNodeVisitor;
@@ -30,6 +31,8 @@ import org.sonar.plugins.web.visitor.AbstractNodeVisitor;
  * @author Matthijs Galesloot
  */
 public class WebDependencyDetector extends AbstractNodeVisitor {
+
+  private static final Logger LOG = LoggerFactory.getLogger(PageCountLines.class);
 
   private final ProjectFileSystem projectFileSystem;
 
@@ -48,11 +51,11 @@ public class WebDependencyDetector extends AbstractNodeVisitor {
       if (dependencyFile.exists()) {
         WebFile dependencyResource = WebFile.fromIOFile(dependencyFile, projectFileSystem.getSourceDirs());
 
-        WebUtils.LOG.debug("dependency: " + dependencyResource.getLongName());
+        LOG.debug("dependency: " + dependencyResource.getLongName());
 
         getWebSourceCode().addDependency(dependencyResource);
       } else {
-        WebUtils.LOG.warn("dependency to non-existing file: " + fileName);
+        LOG.warn("dependency to non-existing file: " + fileName);
       }
     }
   }

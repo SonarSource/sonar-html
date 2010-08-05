@@ -24,8 +24,8 @@ import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
@@ -37,7 +37,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class UnclosedTagCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "ignoreTags", description = "Ignore Tags")
-  private String[] ignoreTags = new String[] { "verbatim" };
+  private String[] ignoreTags;
 
   private final List<TagNode> nodes = new ArrayList<TagNode>();
 
@@ -67,10 +67,12 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   }
 
   private boolean ignoreTag(TagNode node) {
-    String nodeName = node.getLocalName();
-    for (String ignoreTag : ignoreTags) {
-      if (ignoreTag.equalsIgnoreCase(nodeName)) {
-        return true;
+    if (ignoreTags != null) {
+      String nodeName = node.getLocalName();
+      for (String ignoreTag : ignoreTags) {
+        if (ignoreTag.equalsIgnoreCase(nodeName)) {
+          return true;
+        }
       }
     }
     return false;

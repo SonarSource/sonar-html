@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.rules;
+package org.sonar.plugins.web;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
+import org.sonar.api.rules.ActiveRuleParam;
 import org.sonar.api.rules.ConfigurationExportable;
 import org.sonar.api.rules.ConfigurationImportable;
 import org.sonar.api.rules.Iso9126RulesCategories;
@@ -38,8 +42,7 @@ import org.sonar.api.rules.StandardProfileXmlParser;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.AnnotationIntrospector;
 import org.sonar.check.Check;
-import org.sonar.plugins.web.WebPlugin;
-import org.sonar.plugins.web.WebUtils;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.jsp.JspCheckClasses;
 import org.sonar.plugins.web.checks.xml.XmlCheckClasses;
 import org.sonar.plugins.web.language.Web;
@@ -49,9 +52,49 @@ import org.sonar.plugins.web.language.Web;
  */
 public final class WebRulesRepository implements RulesRepository<Web>, ConfigurationExportable, ConfigurationImportable {
 
+  private static final Logger LOG = LoggerFactory.getLogger(WebRulesRepository.class);
+
   private static final String RULE_FILE = "/rules.xml";
 
-  private static List<Rule> rulesRepository;
+  private static List<Rule> rulesRepository = new ArrayList<Rule>();
+
+  static {
+    for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
+      rulesRepository.add(createRepositoryRule(checkClass));
+    }
+  }
+
+  private static AbstractPageCheck createCheck(Class<AbstractPageCheck> checkClass, ActiveRule activeRule) {
+    if (LOG.isDebugEnabled()) {
+      debugActiveRuleConfiguration(checkClass, activeRule);
+    }
+
+    try {
+      AbstractPageCheck check = checkClass.newInstance();
+      check.setRule(activeRule.getRule());
+      if (activeRule.getActiveRuleParams() != null) {
+        for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
+          Object value = PropertyUtils.getProperty(check, param.getRuleParam().getKey());
+          if (value instanceof Integer) {
+            value = Integer.parseInt(param.getValue());
+          } else {
+            value = param.getValue();
+          }
+          PropertyUtils.setProperty(check, param.getRuleParam().getKey(), value);
+        }
+      }
+
+      return check;
+    } catch (IllegalAccessException e) {
+      throw new SonarException(e);
+    } catch (InvocationTargetException e) {
+      throw new SonarException(e);
+    } catch (NoSuchMethodException e) {
+      throw new SonarException(e);
+    } catch (InstantiationException e) {
+      throw new SonarException(e);
+    }
+  }
 
   private static Rule createRepositoryRule(Class<AbstractPageCheck> checkClass) {
 
@@ -72,6 +115,25 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
     return rule;
   }
 
+  private static void debugActiveRuleConfiguration(Class<AbstractPageCheck> checkClass, ActiveRule activeRule) {
+    StringBuilder sb = new StringBuilder();
+    if (activeRule.getActiveRuleParams() != null) {
+      for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
+        if (sb.length() > 0) {
+          sb.append(',');
+        }
+        sb.append(param.getRuleParam().getKey());
+        sb.append('=');
+        sb.append(param.getValue());
+      }
+      sb.append(')');
+      sb.insert(0, " (");
+    }
+    sb.insert(0, checkClass.getSimpleName());
+    sb.insert(0, "Created checker ");
+    LOG.debug(sb.toString());
+  }
+
   public static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
     for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
       Check check = AnnotationIntrospector.getCheckAnnotation(checkClass);
@@ -79,19 +141,40 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
         return checkClass;
       }
     }
-    WebUtils.LOG.error("Could not find check class for config key " + activeRule.getConfigKey());
+    LOG.error("Could not find check class for config key " + activeRule.getConfigKey());
     return null;
   }
 
   private static List<Class> getCheckClasses() {
     List<Class> classes = new ArrayList<Class>();
-    classes.addAll(Arrays.asList(JspCheckClasses.getCheckClasses()));
-    classes.addAll(Arrays.asList(XmlCheckClasses.getCheckClasses()));
+    classes.addAll(JspCheckClasses.getCheckClasses());
+    classes.addAll(XmlCheckClasses.getCheckClasses());
     return classes;
   }
 
+  /**
+   * Instantiate checks as defined in the RulesProfile.
+   * 
+   * @param profile
+   */
+  public static List<AbstractPageCheck> createChecks(RulesProfile profile) {
+    LOG.info("Loading web rules for profile " + profile.getName());
+
+    List<AbstractPageCheck> checks = new ArrayList<AbstractPageCheck>();
+
+    for (ActiveRule activeRule : profile.getActiveRules()) {
+      Class<AbstractPageCheck> checkClass = getCheckClass(activeRule);
+      if (checkClass == null) {
+        continue; //TODO raise warning
+      }
+
+      checks.add(createCheck(checkClass, activeRule));
+    }
+
+    return checks;
+  }
+
   public static Rule getRule(String ruleKey) {
-    parseReferential();
     for (Rule rule : rulesRepository) {
       if (rule.getKey().equals(ruleKey)) {
         return rule;
@@ -106,20 +189,11 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
         return ruleCategory;
       }
     }
-    WebUtils.LOG.error("Unexpected category name " + category);
+    LOG.error("Unexpected category name " + category);
     return Iso9126RulesCategories.MAINTAINABILITY;
   }
 
-  private static void parseReferential() {
-    if (rulesRepository == null) {
-      rulesRepository = new ArrayList<Rule>();
-      for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
-        rulesRepository.add(createRepositoryRule(checkClass));
-      }
-    }
-  }
-
-  private Web web;
+  private final Web web;
 
   public WebRulesRepository(Web web) {
     this.web = web;
@@ -127,22 +201,20 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
 
   public String exportConfiguration(RulesProfile activeProfile) {
 
-    WebUtils.LOG.debug("exportConfiguration");
+    LOG.warn("exportConfiguration is not implemented");
     // TODO
     return null;
   }
 
   private String getConfigurationFromFile(String path) {
     InputStream inputStream = WebRulesRepository.class.getResourceAsStream(path);
-    String configuration = null;
     try {
-      configuration = IOUtils.toString(inputStream, "UTF-8");
+      return IOUtils.toString(inputStream, "UTF-8");
     } catch (IOException e) {
-      throw new SonarException("Configuration file not found for the profile : " + configuration, e);
+      throw new SonarException("Configuration file not found for the profile : " + path, e);
     } finally {
       IOUtils.closeQuietly(inputStream);
     }
-    return configuration;
   }
 
   public final List<Rule> getInitialReferential() {
@@ -153,32 +225,39 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
     return web;
   }
 
+  /**
+   * Convert the built-in rules configurations to RulesProfiles.
+   */
   public final List<RulesProfile> getProvidedProfiles() {
     List<RulesProfile> profiles = new ArrayList<RulesProfile>();
     StandardProfileXmlParser parser = new StandardProfileXmlParser(getInitialReferential());
 
     RulesProfile profile = parser.importConfiguration(getConfigurationFromFile(RULE_FILE));
     profile.setLanguage(web.getKey());
-    WebUtils.LOG.debug("Building profile " + profile.getName());
+    LOG.debug("Building profile " + profile.getName());
 
     profiles.add(profile);
 
     return profiles;
   }
 
+  /**
+   * Converts the built-in rules configuration to ActiveRules.
+   */
   public List<ActiveRule> importConfiguration(String configuration, List<Rule> rulesRepository) {
 
-    WebUtils.LOG.debug("importConfiguration");
+    LOG.debug("importConfiguration");
 
     StandardProfileXmlParser parser = new StandardProfileXmlParser(rulesRepository);
     RulesProfile profile = parser.importConfiguration(configuration);
-    profile.setLanguage(web.getKey());
     return profile.getActiveRules();
   }
 
+  /**
+   * Gets the built-in rules.
+   */
   public List<Rule> parseReferential(String path) {
 
-    parseReferential();
     return rulesRepository;
   }
 }

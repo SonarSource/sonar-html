@@ -18,6 +18,7 @@ package org.sonar.plugins.web.checks.xml;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
+import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -25,25 +26,46 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
- * Checker to find use of single quote where double quote is preferred.
- * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
- * paragraph Quoting
+ * Checker for occurrence of disallowed namespaces.
  * 
  * @author Matthijs Galesloot
  */
-@Check(key = "DoubleQuotesCheck", title = "Double Quotes", description = "Use double quotes for attribute values", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-public class DoubleQuotesCheck extends AbstractPageCheck {
+@Check(key = "NamespaceCheck", title = "Namespace check", description = "namespace should not be used",
+    priority = Priority.MAJOR,
+    isoCategory = IsoCategory.Reliability)
+    public class NamespaceCheck extends AbstractPageCheck {
+
+  @CheckProperty(key = "namespaces", title="Namespaces", description = "Namespaces")
+  private String[] namespaces;
+  private boolean visited;
+
+  public String getNamespaces() {
+    if (namespaces != null) {
+      return StringUtils.join(namespaces, ",");
+    }
+    return "";
+  }
+
+  public void setNamespaces(String list) {
+    namespaces = StringUtils.split(list, ",");
+  }
 
   @Override
   public void startElement(TagNode element) {
 
+    if (visited || namespaces == null) {
+      return;
+    }
+
     for (Attribute a : element.getAttributes()) {
-      if (a.isSingleQuoted() && !StringUtils.contains(a.getValue(), '"') || !a.isDoubleQuoted()) {
-        createViolation(element);
-        break; // not more than one violation per tag
+
+      if (StringUtils.startsWithIgnoreCase(a.getName(), "xmlns")) {
+        for (String namespace : namespaces) {
+          if (a.getValue().equalsIgnoreCase(namespace)) {
+            createViolation(element);
+          }
+        }
       }
     }
   }
-
 }

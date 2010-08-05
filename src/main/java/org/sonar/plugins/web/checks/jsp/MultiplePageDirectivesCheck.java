@@ -19,16 +19,18 @@ package org.sonar.plugins.web.checks.jsp;
 import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checker to find multiple page directives, where 1 page directive would be preferred.
  * 
- * @author Matthijs Galesloot
- * 
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
+ * paragraph JSP Page Directive(s)
+ * 
+ * @author Matthijs Galesloot
+ *
  */
 @Check(key = "MultiplePageDirectivesCheck", title = "Multiple Page Directive", description = "Avoid multiple page directives", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {

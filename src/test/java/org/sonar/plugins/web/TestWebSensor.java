@@ -14,27 +14,32 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.Project;
+import org.sonar.plugins.web.language.Web;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestPageDirectiveCheck extends AbstractCheckTester {
+public class TestWebSensor extends AbstractWebPluginTester {
 
   @Test
-  public void testMultiplePageDirectiveCheck() throws FileNotFoundException {
+  public void testSensor() {
+    WebRulesRepository webRulesRepository = new WebRulesRepository(Web.INSTANCE);
 
-    String fileName = "src/test/resources/src/main/webapp/user-properties.jsp";
-    WebSourceCode sourceCode = parseAndCheck(new FileReader(fileName), new MultiplePageDirectivesCheck());
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    RulesProfile rulesProfile = webRulesRepository.getProvidedProfiles().get(0);
+
+    WebSensor sensor = new WebSensor(rulesProfile);
+
+    final Project project = loadProjectFromPom();
+    MockSensorContext sensorContext = new MockSensorContext();
+    sensor.analyse(project, sensorContext);
+
+    assertTrue("Should have found 1 violation", sensorContext.getViolations().size() > 0);
   }
 }

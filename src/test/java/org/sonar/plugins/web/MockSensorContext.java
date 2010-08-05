@@ -37,7 +37,13 @@ import org.sonar.api.rules.Violation;
  */
 class MockSensorContext implements SensorContext {
 
+  private int numResources;
   private Measure measure;
+
+  public int getNumResources() {
+    return numResources;
+  }
+
   private final List violations = new ArrayList<Violation>();
 
   public Event createEvent(Resource resource, String name, String description, String category, Date date) {
@@ -134,13 +140,12 @@ class MockSensorContext implements SensorContext {
   }
 
   public String saveResource(Resource resource) {
-    // TODO Auto-generated method stub
+    numResources ++;
     return null;
   }
 
   public void saveSource(Resource resource, String source) {
-    // TODO Auto-generated method stub
-
+    numResources ++;
   }
 
   public void saveViolation(Violation violation) {

@@ -35,7 +35,7 @@ public class TestHeaderCheck extends AbstractCheckTester {
 
     String fragment = "<!-- Copyright the author and his friends --><h:someNode/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new HeaderCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
 
     assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
   }
@@ -45,7 +45,7 @@ public class TestHeaderCheck extends AbstractCheckTester {
 
     String fragment = "<h:someNode/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new HeaderCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
@@ -55,7 +55,7 @@ public class TestHeaderCheck extends AbstractCheckTester {
 
     String fragment = "<!-- copyright is not spelled OK --><h:someNode/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new HeaderCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }

@@ -14,37 +14,31 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.lex;
+package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
+import java.net.URISyntaxException;
 
 import org.junit.Test;
-import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
+import org.sonar.api.resources.Project;
+import org.sonar.plugins.web.language.Web;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestLexer {
+public class TestWebSourceImporter extends AbstractWebPluginTester {
 
   @Test
-  public void testLexer() throws FileNotFoundException {
+  public void testImporter() throws URISyntaxException {
 
-    String fileName = "src/test/resources/src/main/webapp/create-salesorder.xhtml";
-    PageLexer lexer = new PageLexer();
-    List<Node> nodeList = lexer.parse(new FileReader(fileName));
+    final Project project = loadProjectFromPom();
 
-    assertTrue(nodeList.size() > 50);
+    WebSourceImporter importer = new WebSourceImporter(Web.INSTANCE);
 
-    for (Node node : nodeList) {
-      if (node instanceof TagNode) {
-        assertTrue(node.getCode().startsWith("<"));
-        assertTrue(node.getCode().endsWith(">"));
-      }
-    }
+    assertTrue("Importer only supports web projects", importer.shouldExecuteOnProject(project));
+    MockSensorContext sensorContext = new MockSensorContext();
+    importer.analyse(project, sensorContext);
+    assertTrue(sensorContext.getNumResources() > 0);
   }
 }

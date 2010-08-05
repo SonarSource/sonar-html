@@ -75,6 +75,15 @@ public class WebSourceCode {
     return measures;
   }
 
+  public Measure getMeasure(Metric metric) {
+    for (Measure measure : measures) {
+      if (measure.getMetric().equals(metric)) {
+        return measure;
+      }
+    }
+    return null;
+  }
+
   public Resource<?> getResource() {
     return resource;
   }

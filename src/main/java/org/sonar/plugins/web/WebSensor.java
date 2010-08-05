@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.GeneratesViolations;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
@@ -30,14 +32,12 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.ComplexityDetector;
 import org.sonar.plugins.web.analyzers.DuplicationDetector;
-import org.sonar.plugins.web.analyzers.WebDependencyDetector;
+import org.sonar.plugins.web.analyzers.PageCountLines;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.rules.AbstractPageCheck;
-import org.sonar.plugins.web.rules.PageChecks;
-import org.sonar.plugins.web.visitor.PageCountLines;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
@@ -46,27 +46,47 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  */
 public final class WebSensor implements Sensor, GeneratesViolations {
 
+  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
+
   private final RulesProfile profile;
 
   public WebSensor(RulesProfile profile) {
     this.profile = profile;
   }
 
+  public static void addSourceDir(Project project) {
+    if (project.getProperty("sonar.sourceDirectory") != null) {
+      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.sourceDirectory").toString());
+      for (File sourceDir : project.getFileSystem().getSourceDirs()) {
+        if (sourceDir.equals(file)) {
+          return;
+        }
+      }
+      project.getFileSystem().addSourceDir(file);
+    }
+  }
+
   public void analyse(Project project, SensorContext sensorContext) {
 
+    addSourceDir(project);
+
     final DuplicationDetector duplicationDetector = new DuplicationDetector();
+    final PageCountLines pageLineCounter = new PageCountLines();
 
     // configure the lexer
     final PageLexer lexer = new PageLexer();
 
     // configure scanner
     final PageScanner scanner = new PageScanner();
-    for (AbstractPageCheck check : PageChecks.getChecks(profile)) {
+    for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
       scanner.addVisitor(check);
     }
-    scanner.addVisitor(new PageCountLines());
-    scanner.addVisitor(new WebDependencyDetector(project.getFileSystem()));
+    /*
+     * WebDependencyDetector does not work in current version of sonar (2.2)
+     * scanner.addVisitor(new WebDependencyDetector(project.getFileSystem()));
+     */
     scanner.addVisitor(new ComplexityDetector());
+
 
     for (File webFile : project.getFileSystem().getSourceFiles(Web.INSTANCE)) {
 
@@ -76,11 +96,12 @@ public final class WebSensor implements Sensor, GeneratesViolations {
         WebSourceCode sourceCode = new WebSourceCode(resource);
         List<Node> nodeList = lexer.parse(new FileReader(webFile));
         scanner.scan(nodeList, sourceCode);
+        pageLineCounter.count(nodeList, sourceCode);
         duplicationDetector.addTokens(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);
 
       } catch (Exception e) {
-        WebUtils.LOG.error("Could not analyze the file " + webFile.getAbsolutePath(), e);
+        LOG.error("Could not analyze the file " + webFile.getAbsolutePath(), e);
       }
     }
 

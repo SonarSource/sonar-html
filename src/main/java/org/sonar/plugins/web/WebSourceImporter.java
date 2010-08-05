@@ -19,7 +19,11 @@ package org.sonar.plugins.web;
 import java.io.File;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.AbstractSourceImporter;
+import org.sonar.api.batch.SensorContext;
+import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
@@ -29,14 +33,35 @@ import org.sonar.plugins.web.language.WebFile;
  */
 public final class WebSourceImporter extends AbstractSourceImporter {
 
+  private static final Logger LOG = LoggerFactory.getLogger(WebSourceImporter.class);
+
   public WebSourceImporter(Web web) {
     super(web);
   }
 
+  public static void addSourceDir(Project project) {
+    if (project.getProperty("sonar.sourceDirectory") != null) {
+      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.sourceDirectory").toString());
+      for (File sourceDir : project.getFileSystem().getSourceDirs()) {
+        if (sourceDir.equals(file)) {
+          return;
+        }
+      }
+      project.getFileSystem().addSourceDir(file);
+    }
+  }
+
+  @Override
+  public void analyse(Project project, SensorContext context) {
+    addSourceDir(project);
+
+    super.analyse(project, context);
+  }
+
   @Override
   protected Resource<?> createResource(File file, List<File> sourceDirs, boolean unitTest) {
-    WebUtils.LOG.debug("WebSourceImporter:" + file.getPath());
-    return file != null ? WebFile.fromIOFile(file, sourceDirs) : null;
+    LOG.debug("WebSourceImporter:" + file.getPath());
+    return WebFile.fromIOFile(file, sourceDirs);
   }
 
   @Override

@@ -83,12 +83,12 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 
   abstract Node createNode();
 
-  protected void setEndPosition(CodeReader code, Node node) {
+  protected final void setEndPosition(CodeReader code, Node node) {
     node.setEndLinePosition(code.getLinePosition());
     node.setEndColumnPosition(code.getColumnPosition());
   }
 
-  protected void setStartPosition(CodeReader code, Node node) {
+  protected final void setStartPosition(CodeReader code, Node node) {
     node.setStartLinePosition(code.getLinePosition());
     node.setStartColumnPosition(code.getColumnPosition());
   }

@@ -31,23 +31,28 @@ import org.sonar.plugins.web.node.Node;
 @SuppressWarnings("unchecked")
 public final class PageLexer {
 
+  /**
+   *  The order of the tokenizers is significant, as they are processed in this order.
+   * 
+   *  TextTokenizer must be last, it will always consume the characters until the next token arrives.
+   */
   private static List tokenizers = Arrays.asList(
-  /* HTML Comments */
-  new CommentTokenizer("<!--", "-->", true),
-  /* JSP Comments */
-  new CommentTokenizer("<%--", "--%>", false),
-  /* HTML Directive */
-  new DirectiveTokenizer("<!DOCTYPE", ">"),
-  /* XML Directives */
-  new DirectiveTokenizer("<?", "?>"),
-  /* JSP Directives */
-  new DirectiveTokenizer("<%@", "%>"),
-  /* JSP Expressions */
-  new ExpressionTokenizer("<%", "%>"),
-  /* XML and HTML Tags */
-  new ElementTokenizer("<", ">"),
-  /* Text (for everything else) */
-  new TextTokenizer());
+      /* HTML Comments */
+      new CommentTokenizer("<!--", "-->", true),
+      /* JSP Comments */
+      new CommentTokenizer("<%--", "--%>", false),
+      /* HTML Directive */
+      new DirectiveTokenizer("<!DOCTYPE", ">"),
+      /* XML Directives */
+      new DirectiveTokenizer("<?", "?>"),
+      /* JSP Directives */
+      new DirectiveTokenizer("<%@", "%>"),
+      /* JSP Expressions */
+      new ExpressionTokenizer("<%", "%>"),
+      /* XML and HTML Tags */
+      new ElementTokenizer("<", ">"),
+      /* Text (for everything else) */
+      new TextTokenizer());
 
   public List<Node> parse(Reader reader) {
 

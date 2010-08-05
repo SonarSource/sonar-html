@@ -35,7 +35,7 @@ public class TestJavaScriptCheck extends AbstractCheckTester {
 
     String fragment = "<h:someNode/><script language=\"JavaScript\">var a;\nvar b;\nvar c;\nvar d;\nvar e;\nvar f;\n</script>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), new LongJavaScriptCheck());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), LongJavaScriptCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
