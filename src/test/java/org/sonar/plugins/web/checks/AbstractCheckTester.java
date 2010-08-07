@@ -43,7 +43,7 @@ public abstract class AbstractCheckTester {
       AbstractPageCheck check = checkClass.newInstance();
 
       Rule rule = WebRulesRepository.getRule(checkClass.getSimpleName());
-      assertNotNull(rule);
+      assertNotNull("Could not find rule", rule);
       check.setRule(rule);
       configureParams(check, rule);
 
@@ -79,6 +79,8 @@ public abstract class AbstractCheckTester {
   private void configureParams(AbstractPageCheck check, Rule rule) {
     RulesProfile profile = new WebRulesRepository(new Web()).getProvidedProfiles().get(0);
     ActiveRule activeRule = profile.getActiveRule(rule);
+
+    assertNotNull("Could not find activeRule", activeRule);
 
     try {
       if (activeRule.getActiveRuleParams() != null) {

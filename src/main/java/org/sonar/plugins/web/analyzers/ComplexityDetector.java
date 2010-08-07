@@ -20,14 +20,14 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.visitor.AbstractNodeVisitor;
+import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  * 
  */
-public final class ComplexityDetector extends AbstractNodeVisitor {
+public final class ComplexityDetector extends DefaultNodeVisitor {
 
   private int complexity;
 

@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.rules.ProfileXmlParser;
 
 /**
  * @author Matthijs Galesloot
@@ -51,6 +52,8 @@ public class TestWebRulesRepository {
     }
 
     assertTrue(params > 2);
+
+    System.out.println(new ProfileXmlParser().exportConfiguration(rulesProfile));
   }
 
 }

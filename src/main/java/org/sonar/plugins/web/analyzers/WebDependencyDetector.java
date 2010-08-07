@@ -23,14 +23,14 @@ import org.slf4j.LoggerFactory;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.visitor.AbstractNodeVisitor;
+import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 
 /**
  * Experimental: generate web dependencies.
  * 
  * @author Matthijs Galesloot
  */
-public class WebDependencyDetector extends AbstractNodeVisitor {
+public class WebDependencyDetector extends DefaultNodeVisitor {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageCountLines.class);
 
@@ -45,7 +45,7 @@ public class WebDependencyDetector extends AbstractNodeVisitor {
     String attributeValue = element.getAttribute("src");
     if (attributeValue != null) {
 
-      String fileName = getWebSourceCode().createFullPath(projectFileSystem, attributeValue);
+      String fileName = createFullPath(projectFileSystem, attributeValue);
 
       File dependencyFile = new File(fileName);
       if (dependencyFile.exists()) {
@@ -57,6 +57,14 @@ public class WebDependencyDetector extends AbstractNodeVisitor {
       } else {
         LOG.warn("dependency to non-existing file: " + fileName);
       }
+    }
+  }
+
+  private String createFullPath(ProjectFileSystem projectFileSystem, String fileName) {
+    if (fileName.startsWith("/")) {
+      return projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + fileName;
+    } else {
+      return projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + "/" + getWebSourceCode().getResource().getParent().getName() + "/" + fileName;
     }
   }
 

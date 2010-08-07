@@ -42,7 +42,7 @@ public final class PageLexer {
       /* JSP Comments */
       new CommentTokenizer("<%--", "--%>", false),
       /* HTML Directive */
-      new DirectiveTokenizer("<!DOCTYPE", ">"),
+      new DoctypeTokenizer("<!DOCTYPE", ">"),
       /* XML Directives */
       new DirectiveTokenizer("<?", "?>"),
       /* JSP Directives */

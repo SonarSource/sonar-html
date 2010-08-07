@@ -22,12 +22,13 @@ import java.util.List;
 import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
 import org.sonar.squid.api.SourceCodeEdgeUsage;
 
 /**
+ * Checks and analyzers report measurements, violations and other findings in WebSourceCode.
+ * 
  * @author Matthijs Galesloot
  */
 public class WebSourceCode {
@@ -57,14 +58,6 @@ public class WebSourceCode {
   public void addViolation(Violation violation) {
     violation.setResource(resource);
     this.violations.add(violation);
-  }
-
-  public String createFullPath(ProjectFileSystem projectFileSystem, String fileName) {
-    if (fileName.startsWith("/")) {
-      return projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + fileName;
-    } else {
-      return projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + "/" + resource.getParent().getName() + "/" + fileName;
-    }
   }
 
   public List<Dependency> getDependencies() {

@@ -28,33 +28,42 @@ import org.sonar.plugins.web.node.TextNode;
 
 public class PageScanner {
 
-  private List<AbstractNodeVisitor> visitors = new ArrayList<AbstractNodeVisitor>();
+  private final List<DefaultNodeVisitor> visitors = new ArrayList<DefaultNodeVisitor>();
 
-  public void addVisitor(AbstractNodeVisitor visitor) {
+  /**
+   * Add a visitor to the list of visitors.
+   */
+  public void addVisitor(DefaultNodeVisitor visitor) {
     visitors.add(visitor);
   }
 
+  /**
+   * Scan a list of Nodes and send events to the visitors.
+   */
   public void scan(List<Node> nodeList, WebSourceCode webSourceCode) {
 
     // notify visitors for a new document
-    for (AbstractNodeVisitor visitor : visitors) {
+    for (DefaultNodeVisitor visitor : visitors) {
       visitor.startDocument(webSourceCode);
     }
 
     // notify the visitors for start and end of element
     for (Node node : nodeList) {
-      for (AbstractNodeVisitor visitor : visitors) {
+      for (DefaultNodeVisitor visitor : visitors) {
         scanElement(visitor, node);
       }
     }
 
     // notify visitors for end of document
-    for (AbstractNodeVisitor visitor : visitors) {
+    for (DefaultNodeVisitor visitor : visitors) {
       visitor.endDocument();
     }
   }
 
-  private void scanElement(AbstractNodeVisitor visitor, Node node) {
+  /**
+   * Scan a single element and send appropriate event: start element, end element, characters, comment, expression or directive.
+   */
+  private void scanElement(DefaultNodeVisitor visitor, Node node) {
     switch (node.getNodeType()) {
       case Tag:
         TagNode element = (TagNode) node;
@@ -79,5 +88,4 @@ public class PageScanner {
         break;
     }
   }
-
 }

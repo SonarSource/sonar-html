@@ -44,8 +44,9 @@ import org.sonar.check.AnnotationIntrospector;
 import org.sonar.check.Check;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.jsp.JspCheckClasses;
-import org.sonar.plugins.web.checks.xml.XmlCheckClasses;
+import org.sonar.plugins.web.checks.xhtml.XhtmlCheckClasses;
 import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.rules.ProfileXmlParser;
 
 /**
  * @author Matthijs Galesloot
@@ -148,7 +149,7 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
   private static List<Class> getCheckClasses() {
     List<Class> classes = new ArrayList<Class>();
     classes.addAll(JspCheckClasses.getCheckClasses());
-    classes.addAll(XmlCheckClasses.getCheckClasses());
+    classes.addAll(XhtmlCheckClasses.getCheckClasses());
     return classes;
   }
 
@@ -201,9 +202,7 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
 
   public String exportConfiguration(RulesProfile activeProfile) {
 
-    LOG.warn("exportConfiguration is not implemented");
-    // TODO
-    return null;
+    return new ProfileXmlParser().exportConfiguration(activeProfile);
   }
 
   private String getConfigurationFromFile(String path) {

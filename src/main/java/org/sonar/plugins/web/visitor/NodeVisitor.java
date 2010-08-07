@@ -22,45 +22,27 @@ import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
+
 /**
+ * Defines interface for node visitor.
+ * 
  * @author Matthijs Galesloot
  */
-public abstract class AbstractNodeVisitor {
+public interface NodeVisitor {
 
-  private WebSourceCode webSourceCode;
+  void characters(TextNode node);
 
-  public void characters(TextNode textNode) {
+  void comment(CommentNode node);
 
-  }
+  void directive(DirectiveNode node);
 
-  public void comment(CommentNode node) {
+  void endDocument();
 
-  }
+  void endElement(TagNode node);
 
-  public void directive(DirectiveNode node) {
+  void expression(ExpressionNode node);
 
-  }
+  void startDocument(WebSourceCode webSourceCode);
 
-  public void endDocument() {
-  }
-
-  public void endElement(TagNode node) {
-
-  }
-
-  public void expression(ExpressionNode node) {
-
-  }
-
-  public WebSourceCode getWebSourceCode() {
-    return webSourceCode;
-  }
-
-  public void startDocument(WebSourceCode webSourceCode) {
-    this.webSourceCode = webSourceCode;
-  }
-
-  public void startElement(TagNode node) {
-
-  }
+  void startElement(TagNode node);
 }

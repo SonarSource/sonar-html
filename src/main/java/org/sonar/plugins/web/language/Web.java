@@ -35,7 +35,7 @@ public class Web extends AbstractLanguage {
   private static final String KEY = "web";
 
   /** All the valid web files suffixes. */
-  private static final String[] SUFFIXES = { "xhtml", "jspf", "jsp" };
+  private static final String[] SUFFIXES = { "xhtml", "jspf", "jsp", "erb" };
 
   /** The web language name */
   private static final String WEB_LANGUAGE_NAME = "Web";

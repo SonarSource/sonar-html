@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web.checks.xhtml;
 
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.FileReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.xhtml.DoubleQuotesCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestDoubleQuotesCheck extends AbstractCheckTester {
+public class TestDocTypeCheck extends AbstractCheckTester {
 
   @Test
-  public void testDoubleQuotesCheck() throws FileNotFoundException {
+  public void testDocTypeCheck() throws FileNotFoundException {
 
-    String fragment = "<h:someNode class='redflag'/>";
+    FileReader reader = new FileReader("src/test/resources/src/main/webapp/detail-publicatie.xhtml");
+    WebSourceCode sourceCode = parseAndCheck(reader, DocTypeCheck.class);
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
-
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() > 0);
+    int numViolations = 0;
+    assertEquals("Incorrect number of violations", numViolations, sourceCode.getViolations().size());
   }
 }
