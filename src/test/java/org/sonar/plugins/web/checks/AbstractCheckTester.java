@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
@@ -48,13 +49,7 @@ public abstract class AbstractCheckTester {
       configureParams(check, rule);
 
       for (int i = 0; i < params.length / 2; i++) {
-        Object value = PropertyUtils.getProperty(check, params[i * 2]);
-        if (value instanceof Integer) {
-          value = Integer.parseInt(params[i * 2 + 1]);
-        } else {
-          value = params[i * 2 + 1];
-        }
-        PropertyUtils.setProperty(check, params[i * 2], value);
+        BeanUtils.setProperty(check, params[i * 2], params[i * 2 + 1]);
       }
 
       PageLexer lexer = new PageLexer();
@@ -70,8 +65,6 @@ public abstract class AbstractCheckTester {
     } catch (InstantiationException e) {
       throw new SonarException(e);
     } catch (InvocationTargetException e) {
-      throw new SonarException(e);
-    } catch (NoSuchMethodException e) {
       throw new SonarException(e);
     }
   }

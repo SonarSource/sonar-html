@@ -23,7 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,13 +75,7 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
       check.setRule(activeRule.getRule());
       if (activeRule.getActiveRuleParams() != null) {
         for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
-          Object value = PropertyUtils.getProperty(check, param.getRuleParam().getKey());
-          if (value instanceof Integer) {
-            value = Integer.parseInt(param.getValue());
-          } else {
-            value = param.getValue();
-          }
-          PropertyUtils.setProperty(check, param.getRuleParam().getKey(), value);
+          BeanUtils.setProperty(check, param.getRuleParam().getKey(), param.getValue());
         }
       }
 
@@ -89,8 +83,6 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
     } catch (IllegalAccessException e) {
       throw new SonarException(e);
     } catch (InvocationTargetException e) {
-      throw new SonarException(e);
-    } catch (NoSuchMethodException e) {
       throw new SonarException(e);
     } catch (InstantiationException e) {
       throw new SonarException(e);

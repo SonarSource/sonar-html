@@ -16,11 +16,14 @@
 
 package org.sonar.plugins.web;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.plugins.web.language.Web;
@@ -30,8 +33,6 @@ import org.sonar.plugins.web.rules.ProfileXmlParser;
  * @author Matthijs Galesloot
  */
 public class TestWebRulesRepository {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TestWebRulesRepository.class);
 
   @Test
   public void testWebRulesRepository() {
@@ -46,14 +47,28 @@ public class TestWebRulesRepository {
     int params = 0;
     for (ActiveRule activeRule : rulesProfile.getActiveRules()) {
       params += activeRule.getActiveRuleParams().size();
-      if (activeRule.getActiveRuleParams().size() > 0) {
-        LOG.warn(activeRule.getConfigKey());
-      }
     }
 
     assertTrue(params > 2);
+  }
 
-    System.out.println(new ProfileXmlParser().exportConfiguration(rulesProfile));
+  @Test
+  public void testExportImport() {
+    String myProfileName = "My Profile";
+    WebRulesRepository rulesRepository = new WebRulesRepository(Web.INSTANCE);
+
+    RulesProfile rulesProfile = rulesRepository.getProvidedProfiles().get(0);
+    rulesProfile.setName(myProfileName);
+
+    // export the rules to xml
+    String xmlProfile = new ProfileXmlParser().exportConfiguration(rulesProfile);
+    assertNotNull(xmlProfile);
+
+    // parse back the xml to rules
+    List<ActiveRule> activeRules = rulesRepository.importConfiguration(xmlProfile, rulesRepository.parseReferential(null));
+
+    assertNotSame(activeRules, rulesProfile.getActiveRules());
+    assertEquals(activeRules.size(), rulesProfile.getActiveRules().size());
   }
 
 }

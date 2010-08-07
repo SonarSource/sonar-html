@@ -31,12 +31,21 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class TestDocTypeCheck extends AbstractCheckTester {
 
   @Test
-  public void testDocTypeCheck() throws FileNotFoundException {
+  public void testDocTypeCheckOK() throws FileNotFoundException {
 
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/detail-publicatie.xhtml");
+    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
     WebSourceCode sourceCode = parseAndCheck(reader, DocTypeCheck.class);
 
-    int numViolations = 0;
-    assertEquals("Incorrect number of violations", numViolations, sourceCode.getViolations().size());
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  }
+
+  @Test
+  public void testDocTypeCheckFalse() throws FileNotFoundException {
+
+    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
+    WebSourceCode sourceCode = parseAndCheck(reader, DocTypeCheck.class,
+        "dtd", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd");
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }
 }

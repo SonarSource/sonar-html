@@ -53,6 +53,7 @@ public final class ProfileXmlParser {
     List<Rule> rules =  new ArrayList<Rule>();
     for (ActiveRule activeRule : activeProfile.getActiveRules()) {
       Rule rule = new Rule(activeRule.getRule().getKey());
+      rule.setPriority(activeRule.getPriority().name());
       rules.add(rule);
       if (activeRule.getActiveRuleParams() != null) {
         for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {

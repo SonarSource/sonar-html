@@ -30,6 +30,7 @@
             <groupId>org.codehaus.sonar</groupId>
             <artifactId>sonar-plugin-api</artifactId>
             <version>${sonar.version}</version>
+            <!--  dependendencies of sonar-plugin-api (pmd) should not get older version of junit -->
             <exclusions>
                 <exclusion>
                     <groupId>junit</groupId>
@@ -46,6 +47,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- lexical analysis -->
         <dependency>
             <groupId>org.codehaus.sonar</groupId>
             <artifactId>sonar-channel</artifactId>
@@ -55,8 +57,9 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
+        <pluginManagement>
+          <plugins>
+             <plugin>
                 <groupId>org.codehaus.sonar</groupId>
                 <artifactId>sonar-packaging-maven-plugin</artifactId>
                 <extensions>true</extensions>
@@ -67,32 +70,29 @@
                     <pluginClass>org.sonar.plugins.web.WebPlugin</pluginClass>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <!-- complete META-INF/MANIFEST.MF -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Plugin-Class>org.sonar.plugins.web.WebPlugin</Plugin-Class>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <!-- temporary set fail = false for easily testing sonar:sonar -->
+          </plugins>
+        </pluginManagement>
+    </build>
+    
+    <profiles>
+      <!--  local profile for sonar:sonar -->
+      <profile>
+        <id>local</id>
+        <build>
+          <pluginManagement>
+            <plugins>
+              <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <configuration>
-                    <fail>false</fail>
+                  <fail>false</fail>
                 </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
+              </plugin>
+            </plugins>
+          </pluginManagement>
+        </build>
+      </profile>
+    </profiles>
 
     <licenses>
         <license>

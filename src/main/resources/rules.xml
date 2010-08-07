@@ -42,9 +42,7 @@
     </rule>
     <rule key="IllegalTabCheck" />
     <rule key="MaxLineLengthCheck" />
-    <rule name="My 1 rule" key="RegularExpressionCheck">
-    </rule>
-    <rule name="My 2 rule" key="RegularExpressionCheck">
+    <rule key="RegularExpressionCheck">
     </rule>
     <rule key="UnclosedTagCheck">
       <property name="ignoreTags" value="verbatim" />
