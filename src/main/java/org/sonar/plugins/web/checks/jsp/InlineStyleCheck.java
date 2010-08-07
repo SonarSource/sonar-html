@@ -28,9 +28,8 @@ import org.sonar.plugins.web.node.TagNode;
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
  * paragraph Cascading Style Sheets
  * 
- * TODO: make a list of disallowed attributes
- * 
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 @Check(key = "InlineStyleCheck", title = "Inline Style", description = "Inline style should be avoided", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class InlineStyleCheck extends AbstractPageCheck {
@@ -38,7 +37,7 @@ public class InlineStyleCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
 
-    if ("style".equalsIgnoreCase(element.getNodeName())) {
+    if ("style".equalsIgnoreCase(element.getLocalName())) {
       createViolation(element);
     }
   }

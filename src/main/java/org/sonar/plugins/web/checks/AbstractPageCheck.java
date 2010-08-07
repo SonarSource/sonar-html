@@ -20,12 +20,12 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.AbstractNodeVisitor;
+import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 
 /**
  * @author Matthijs Galesloot
  */
-public abstract class AbstractPageCheck extends AbstractNodeVisitor {
+public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 
   private Rule rule;
 
@@ -74,12 +74,12 @@ public abstract class AbstractPageCheck extends AbstractNodeVisitor {
   }
 
   protected final void createViolation(int linePosition) {
-    createViolation(linePosition, null);
+    createViolation(linePosition, rule.getDescription());
   }
 
   protected final void createViolation(int linePosition, String message) {
     Violation violation = new Violation(rule);
-    violation.setMessage(message == null ? rule.getDescription() : message);
+    violation.setMessage(message);
     violation.setLineId(linePosition);
     getWebSourceCode().addViolation(violation);
   }

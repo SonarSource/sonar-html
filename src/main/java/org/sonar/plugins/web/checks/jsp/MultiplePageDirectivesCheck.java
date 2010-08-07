@@ -30,7 +30,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * paragraph JSP Page Directive(s)
  * 
  * @author Matthijs Galesloot
- *
+ * @since 1.0
  */
 @Check(key = "MultiplePageDirectivesCheck", title = "Multiple Page Directive", description = "Avoid multiple page directives", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {

@@ -25,13 +25,13 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
  * Provides a list of all JSP checks.
  * 
  * @author Matthijs Galesloot
- * 
+ * @since 1.0
  */
 public final class JspCheckClasses {
 
   private static final Class<AbstractPageCheck>[] checkClasses = new Class[] {  AvoidHtmlCommentCheck.class,
     DynamicJspIncludeCheck.class, HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class,
-    LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, TagLibsCheck.class, WhiteSpaceAroundCheck.class };
+    LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, IllegalTagLibsCheck.class, WhiteSpaceAroundCheck.class };
 
   public static List<Class<AbstractPageCheck>> getCheckClasses() {
     return Arrays.asList(checkClasses);

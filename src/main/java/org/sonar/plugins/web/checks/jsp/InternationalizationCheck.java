@@ -27,6 +27,7 @@ import org.sonar.plugins.web.node.TagNode;
  * Checker to find hardcoded labels and messages.
  * 
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 @Check(key = "InternationalizationCheck", title = "Labels Internationalization", description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class InternationalizationCheck extends AbstractPageCheck {
@@ -61,6 +62,6 @@ public class InternationalizationCheck extends AbstractPageCheck {
   }
 
   private boolean isValueExpression(String value) {
-    return value.startsWith("#") || value.startsWith("$");
+    return value.contains("#{") || value.contains("${");
   }
 }

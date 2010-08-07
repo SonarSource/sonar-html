@@ -28,6 +28,7 @@ import org.sonar.plugins.web.node.TagNode;
  * e.g. <jsp:include page="header.jsp">
  * 
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 @Check(key = "DynamicJspIncludeCheck", title = "Dynamic Jsp Include", description = "Dynamic Jsp Include is not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class DynamicJspIncludeCheck extends AbstractPageCheck {

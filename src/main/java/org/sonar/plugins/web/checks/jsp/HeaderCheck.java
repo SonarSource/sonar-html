@@ -31,12 +31,13 @@ import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
- * Header checker for JSP files.
+ * Header checker.
  * 
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
  * paragraph Opening Comments
  * 
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 @Check(key = "HeaderCheck", title = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR, isoCategory = IsoCategory.Maintainability)
 public class HeaderCheck extends AbstractPageCheck {

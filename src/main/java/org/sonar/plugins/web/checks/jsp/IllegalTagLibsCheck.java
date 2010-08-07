@@ -31,9 +31,10 @@ import org.sonar.plugins.web.node.DirectiveNode;
  * e.g. <%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
  * 
  * @author Matthijs Galesloot
+ * @since 1.0
  */
-@Check(key = "TagLibsCheck", title = "Disallowed TagLibs", description = "Some taglibs are not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
-public class TagLibsCheck extends AbstractPageCheck {
+@Check(key = "IllegalTagLibsCheck", title = "Illegal TagLibs", description = "Certain taglibs are not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "tagLibs", description = "Disallowed Taglibs")
   private String[] tagLibs = new String[] { "http://java.sun.com/jstl/sql" };

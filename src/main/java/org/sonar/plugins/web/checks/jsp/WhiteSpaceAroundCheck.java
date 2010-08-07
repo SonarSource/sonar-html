@@ -31,6 +31,7 @@ import org.sonar.plugins.web.node.Node;
  * paragraph Blank Spaces
  * 
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 @Check(key = "WhiteSpaceAroundCheck", title = "Whitespace Around", description = "White space around", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {

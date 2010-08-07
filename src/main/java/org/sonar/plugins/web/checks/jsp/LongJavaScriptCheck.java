@@ -28,6 +28,7 @@ import org.sonar.plugins.web.node.TextNode;
  * Checker to find long javascripts.
  * 
  * @author Matthijs Galesloot
+ * @since 1.0
  * 
  * @see http://pmd.sourceforge.net/rules/basic-jsp.html
  */
