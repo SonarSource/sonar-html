@@ -9,42 +9,48 @@
     <rule key="IllegalTagLibsCheck" />
     <rule key="InlineStyleCheck" />
     <rule key="InternationalizationCheck">
-        <property name="attributes" value="outputLabel.value, outputText.value" /> 
+        <property name="attributes" value="outputLabel.value, outputText.value" />
     </rule>
     <rule key="JspScriptletCheck" />
     <rule key="LongJavaScriptCheck">
         <property name="maxLines" value="5" />
     </rule>
     <rule key="MultiplePageDirectivesCheck" />
+    <rule key="UnifiedExpressionCheck" />
     <rule key="WhiteSpaceAroundCheck" />
 
     <!-- XHTML checks -->
+    <rule key="ComplexityCheck">
+        <property name="max" value="12" />
+        <property name="tags" value="catch, choose, if, forEach, forTokens,when" />
+        <property name="operators" value="&amp;&amp;, ||, and,or" />
+    </rule>
     <rule key="DocTypeCheck">
-      <property name="dtd" value="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" /> 
+        <property name="dtd" value="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
     </rule>
     <rule key="DoubleQuotesCheck" />
     <rule key="IllegalAttributeCheck">
-      <!--  see http://www.w3.org/TR/REC-html40/index/attributes.html -->
-      <property name="attributes" value="CAPTION.align, IFRAME.align, IMG.align, INPUT.align, OBJECT.align, LEGEND.align, TABLE.align, HR.align, DIV.align, H1.align, H2.align, H3.align, H4.align, H5.align, H6.align, P.align,
-        alink, background, bgcolor, IMG.border, OBJECT.border, clear, color, compact, face, hspace, language, link, noshade, nowrap, start, text, version,
-        TD.height, TH.height, 
-        HR.size, FONT.size, 
-        LI.type, OL.type, UL.type, 
-        LI.value,  
-        TD.width, TH.width, HR.width, PRE.width" /> 
+        <!-- see http://www.w3.org/TR/REC-html40/index/attributes.html -->
+        <property name="attributes"
+            value="CAPTION.align, IFRAME.align, IMG.align, INPUT.align, OBJECT.align, 
+        LEGEND.align, TABLE.align, HR.align, DIV.align, H1.align, H2.align, H3.align, H4.align, H5.align, H6.align, P.align,
+        alink, background, bgcolor, IMG.border, OBJECT.border, clear, color, compact, face, hspace, TD.height, TH.height, 
+        language, link, noshade, nowrap, HR.size, FONT.size, start, text, LI.type, OL.type, UL.type, LI.value, version,
+        HR.width, PRE.width, TD.width, TH.width" />
     </rule>
     <rule key="IllegalElementCheck">
-      <!--  see http://www.w3.org/TR/REC-html40/index/elements.html -->
-      <property name="elements" value="applet, basefont, center, dir, font, isindex, menu, s, strike, u" /> 
+        <!-- see http://www.w3.org/TR/REC-html40/index/elements.html -->
+        <property name="elements" value="applet, basefont, center, dir, font, isindex, menu, s, strike, u" />
     </rule>
-    <rule key="IllegalNamespaceCheck">
-      <property name="namespaces" value="http://richfaces.org/rich" />
-    </rule>
+    <rule key="IllegalNamespaceCheck" />
     <rule key="IllegalTabCheck" />
     <rule key="MaxLineLengthCheck" />
+    <rule key="RequiredElementCheck">
+        <property name="elements" value="html" />
+    </rule>
     <rule key="RegularExpressionCheck">
     </rule>
     <rule key="UnclosedTagCheck">
-      <property name="ignoreTags" value="verbatim" />
+        <property name="ignoreTags" value="verbatim" />
     </rule>
 </profile>

@@ -44,7 +44,7 @@ public class PageScanner {
 
     // notify visitors for a new document
     for (DefaultNodeVisitor visitor : visitors) {
-      visitor.startDocument(webSourceCode);
+      visitor.startDocument(webSourceCode, nodeList);
     }
 
     // notify the visitors for start and end of element

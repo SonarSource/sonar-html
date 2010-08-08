@@ -44,7 +44,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  */
 public final class DuplicationDetector {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DuplicationDetector.class);
+  private static final int DEFAULT_MINIMUM_TOKENS = 5;
 
   private static final class DuplicationsData {
 
@@ -153,9 +153,11 @@ public final class DuplicationDetector {
     }
   }
 
-  private final static int minimumTokens = 5;
+  private static final Logger LOG = LoggerFactory.getLogger(DuplicationDetector.class);
 
   private final List<Element> elements = new ArrayList<Element>();
+
+  private int minimumTokens = DEFAULT_MINIMUM_TOKENS;
 
   public void addTokens(List<Node> nodeList, WebSourceCode sourceCode) {
 
@@ -266,6 +268,10 @@ public final class DuplicationDetector {
     LOG.debug("Found " + matches.size() + " matches");
   }
 
+  public int getMinimumTokens() {
+    return minimumTokens;
+  }
+
   private void processDuplication(Map<Resource, DuplicationsData> fileContainer, Match match) {
 
     DuplicationsData data = fileContainer.get(match.duplicatedElement.resource);
@@ -274,5 +280,9 @@ public final class DuplicationDetector {
       fileContainer.put(match.duplicatedElement.resource, data);
     }
     data.addMatch(match);
+  }
+
+  public void setMinimumTokens(int minimumTokens) {
+    this.minimumTokens = minimumTokens;
   }
 }

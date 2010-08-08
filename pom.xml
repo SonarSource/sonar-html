@@ -16,6 +16,11 @@
         <relativePath>../parent</relativePath>
     </parent>
 
+    <url>http://docs.codehaus.org/display/SONAR/Web+Plugin</url>
+    <issueManagement>
+    	<system>JIRA</system>
+    	<url>http://jira.codehaus.org/browse/SONARPLUGINS/component/14423</url>
+    </issueManagement>
     <inceptionYear>2010</inceptionYear>
     <organization>
         <name>Matthijs Galesloot</name>
@@ -25,16 +30,62 @@
         <sonar.version>2.2</sonar.version>
     </properties>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
+        <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
+        <url>http://svn.codehaus.org/sonar-plugins/ </url>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.codehaus.sonar</groupId>
             <artifactId>sonar-plugin-api</artifactId>
             <version>${sonar.version}</version>
-            <!--  dependendencies of sonar-plugin-api (pmd) should not get older version of junit -->
+            <!-- dependencies of sonar-plugin-api (pmd) should not get older version of junit -->
             <exclusions>
                 <exclusion>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.jboss.seam</groupId>
+            <artifactId>jboss-seam</artifactId>
+            <version>2.2.0.GA</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>dom4j</groupId>
+                    <artifactId>dom4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xstream</groupId>
+                    <artifactId>xstream</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xpp3</groupId>
+                    <artifactId>xpp3_min</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -58,53 +109,47 @@
 
     <build>
         <pluginManagement>
-          <plugins>
-             <plugin>
-                <groupId>org.codehaus.sonar</groupId>
-                <artifactId>sonar-packaging-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <version>0.1</version>
-                <configuration>
-                    <pluginKey>sonar-web-plugin</pluginKey>
-                    <pluginName>Web</pluginName>
-                    <pluginClass>org.sonar.plugins.web.WebPlugin</pluginClass>
-                </configuration>
-            </plugin>
-          </plugins>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.sonar</groupId>
+                    <artifactId>sonar-packaging-maven-plugin</artifactId>
+                    <extensions>true</extensions>
+                    <version>0.1</version>
+                    <configuration>
+                        <pluginKey>sonar-web-plugin</pluginKey>
+                        <pluginName>Web</pluginName>
+                        <pluginClass>org.sonar.plugins.web.WebPlugin</pluginClass>
+                    </configuration>
+                </plugin>
+            </plugins>
         </pluginManagement>
     </build>
-    
+
     <profiles>
-      <!--  local profile for sonar:sonar -->
-      <profile>
-        <id>local</id>
-        <build>
-          <pluginManagement>
-            <plugins>
-              <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                  <fail>false</fail>
-                </configuration>
-              </plugin>
-            </plugins>
-          </pluginManagement>
-        </build>
-      </profile>
+        <!-- local profile for sonar:sonar -->
+        <profile>
+            <id>local</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-enforcer-plugin</artifactId>
+                            <configuration>
+                                <fail>false</fail>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
     </profiles>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
-        <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
-        <url>http://svn.codehaus.org/sonar-plugins</url>
-    </scm>
+    <repositories>
+        <repository>
+            <id>repository.jboss.org</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/maven2</url>
+        </repository>
+    </repositories>
 </project>

@@ -30,7 +30,8 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "DynamicJspIncludeCheck", title = "Dynamic Jsp Include", description = "Dynamic Jsp Include is not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+@Check(key = "DynamicJspIncludeCheck", title = "Dynamic Jsp Include", 
+    description = "Dynamic Jsp Include is not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class DynamicJspIncludeCheck extends AbstractPageCheck {
 
   @Override

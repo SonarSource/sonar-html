@@ -39,13 +39,15 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "HeaderCheck", title = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "HeaderCheck", title = "Missing Header", 
+    description = "Missing header comments", priority = Priority.MAJOR, isoCategory = IsoCategory.Maintainability)
 public class HeaderCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);
 
   @CheckProperty(key = "expression", title = "Regular Expression", description = "Regular expression for header format")
   private String expression = "^.*Copyright.*$";
+
   private boolean hasHeader;
   private Matcher matcher;
   private boolean visiting;

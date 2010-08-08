@@ -16,6 +16,8 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
@@ -23,18 +25,19 @@ import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
- * Checker for occurrence of disallowed elements.
- * 
- * e.g. element <applet> should not be used.
+ * Checker for occurrence of required elements, e.g. a security tag.
  * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalElementCheck", title = "IllegalElement", description = "element should not be used", priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
-public class IllegalElementCheck extends AbstractPageCheck {
+@Check(key = "RequiredElementCheck", title = "RequiredElement", description = "Required element must be used", priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
+public class RequiredElementCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "elements", description = "elements")
   private String[] elements;
@@ -51,16 +54,27 @@ public class IllegalElementCheck extends AbstractPageCheck {
   }
 
   @Override
-  public void startElement(TagNode element) {
+  public void startDocument(WebSourceCode webSourceCode, List<Node> nodes) {
+    super.startDocument(webSourceCode, nodes);
 
     if (elements == null) {
       return;
     }
 
     for (String elementName : elements) {
-      if (StringUtils.equalsIgnoreCase(element.getLocalName(), elementName)
-          || StringUtils.equalsIgnoreCase(element.getNodeName(), elementName)) {
-        createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + elementName);
+      boolean hasRequiredElement = false;
+      for (Node node : nodes) {
+        if (node.getNodeType() == NodeType.Tag) {
+          TagNode element = (TagNode) node;
+          if (StringUtils.equalsIgnoreCase(element.getLocalName(), elementName)
+              || StringUtils.equalsIgnoreCase(element.getNodeName(), elementName)) {
+            hasRequiredElement = true;
+            break;
+          }
+        }
+      }
+      if (!hasRequiredElement) {
+        createViolation(0, getRule().getDescription() + ": " + elementName);
       }
     }
   }

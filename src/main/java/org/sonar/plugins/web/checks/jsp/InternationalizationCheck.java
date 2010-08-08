@@ -21,6 +21,7 @@ import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
@@ -29,7 +30,8 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "InternationalizationCheck", title = "Labels Internationalization", description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "InternationalizationCheck", title = "Labels Internationalization", 
+    description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class InternationalizationCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "attributes", title="Attributes", description = "Attributes")
@@ -47,11 +49,11 @@ public class InternationalizationCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     if (attributes != null) {
       for (QualifiedAttribute attribute : attributes) {
-        if (attribute.nodeName.equals(element.getLocalName())) {
-          String value = element.getAttribute(attribute.attributeName);
+        if (attribute.getNodeName().equals(element.getLocalName())) {
+          String value = element.getAttribute(attribute.getAttributeName());
           if (value != null) {
             value = value.trim();
-            if (value.length() > 0 && !isValueExpression(value)) {
+            if (value.length() > 0 && !Utils.isUnifiedExpression(value)) {
               createViolation(element);
               return;
             }
@@ -59,9 +61,5 @@ public class InternationalizationCheck extends AbstractPageCheck {
         }
       }
     }
-  }
-
-  private boolean isValueExpression(String value) {
-    return value.contains("#{") || value.contains("${");
   }
 }

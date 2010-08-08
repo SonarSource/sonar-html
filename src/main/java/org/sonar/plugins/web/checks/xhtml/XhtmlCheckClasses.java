@@ -27,15 +27,15 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
  */
 public final class XhtmlCheckClasses {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] { DocTypeCheck.class, IllegalAttributeCheck.class, DoubleQuotesCheck.class,
-    IllegalElementCheck.class, MaxLineLengthCheck.class, IllegalNamespaceCheck.class, RegularExpressionCheck.class, IllegalTabCheck.class,
-    UnclosedTagCheck.class };
+  private static final Class<AbstractPageCheck>[] CLASSES = new Class[] { ComplexityCheck.class, DocTypeCheck.class,
+    IllegalAttributeCheck.class, DoubleQuotesCheck.class, IllegalElementCheck.class, IllegalTabCheck.class, MaxLineLengthCheck.class,
+    IllegalNamespaceCheck.class, RegularExpressionCheck.class, RequiredElementCheck.class, UnclosedTagCheck.class };
 
   /**
    * Gets the list of XML checks.
    */
   public static List<Class<AbstractPageCheck>> getCheckClasses() {
-    return Arrays.asList(checkClasses);
+    return Arrays.asList(CLASSES);
   }
 
   private XhtmlCheckClasses() {

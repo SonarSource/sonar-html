@@ -57,12 +57,12 @@ import org.sonar.plugins.web.node.TagNode;
     }
 
     for (QualifiedAttribute qualifiedAttribute : attributes) {
-      if (qualifiedAttribute.nodeName == null ||
-          StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.nodeName) ||
-          StringUtils.equalsIgnoreCase(element.getNodeName(), qualifiedAttribute.nodeName)) {
+      if (qualifiedAttribute.getNodeName() == null ||
+          StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.getNodeName()) ||
+          StringUtils.equalsIgnoreCase(element.getNodeName(), qualifiedAttribute.getNodeName())) {
         for (Attribute a : element.getAttributes()) {
 
-          if (qualifiedAttribute.attributeName.equalsIgnoreCase(a.getName())) {
+          if (qualifiedAttribute.getAttributeName().equalsIgnoreCase(a.getName())) {
             createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + a.getName());
           }
         }

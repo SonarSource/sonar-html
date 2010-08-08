@@ -22,6 +22,7 @@ import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 
@@ -33,7 +34,8 @@ import org.sonar.plugins.web.node.DirectiveNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalTagLibsCheck", title = "Illegal TagLibs", description = "Certain taglibs are not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+@Check(key = "IllegalTagLibsCheck", title = "Illegal TagLibs",
+    description = "Certain taglibs are not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "tagLibs", description = "Disallowed Taglibs")
@@ -57,6 +59,6 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
   }
 
   public void setIgnoreTags(String value) {
-    tagLibs = StringUtils.split(value, ',');
+    tagLibs = Utils.trimSplitCommaSeparatedList(value);
   }
 }

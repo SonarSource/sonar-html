@@ -33,7 +33,8 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "JspScriptletCheck", title = "Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+@Check(key = "JspScriptletCheck", title = "Scriptlets", 
+    description = "Avoid scriptlets", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class JspScriptletCheck extends AbstractPageCheck {
 
   private int maxLines; // TODO

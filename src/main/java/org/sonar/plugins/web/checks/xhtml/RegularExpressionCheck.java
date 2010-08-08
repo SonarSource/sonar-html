@@ -18,8 +18,6 @@ package org.sonar.plugins.web.checks.xhtml;
 
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
@@ -34,10 +32,9 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "RegularExpressionCheck", title = "Regular Expression Check", description = "Regular Expression Check", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-public class RegularExpressionCheck extends AbstractPageCheck {
-
-  private static final Logger LOG = LoggerFactory.getLogger(RegularExpressionCheck.class);
+@Check(key = "RegularExpressionCheck", title = "Regular Expression Check",
+    description = "Regular Expression Check", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+    public class RegularExpressionCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "expression")
   private String expression;
@@ -61,6 +58,7 @@ public class RegularExpressionCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
 
     if (pattern != null) {
+      // scope is attribute or element
       if ("attribute".equals(scope)) {
         for (Attribute a :  element.getAttributes()) {
           if (pattern.matcher(a.getValue()).lookingAt()) {

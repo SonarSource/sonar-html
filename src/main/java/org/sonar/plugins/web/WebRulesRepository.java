@@ -101,8 +101,12 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
 
     // build params
     List<RuleParam> ruleParams = new ArrayList<RuleParam>();
-    for (Field field : AnnotationIntrospector.getPropertyFields(checkClass)) {
-      ruleParams.add(new RuleParam(rule, field.getName(), field.getName(), "s"));
+    try {
+      for (Field field : AnnotationIntrospector.getPropertyFields(checkClass)) {
+        ruleParams.add(new RuleParam(rule, field.getName(), field.getName(), "s"));
+      }
+    } catch (NoClassDefFoundError e) {
+
     }
     rule.setParams(ruleParams);
     return rule;
@@ -158,7 +162,7 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
     for (ActiveRule activeRule : profile.getActiveRules()) {
       Class<AbstractPageCheck> checkClass = getCheckClass(activeRule);
       if (checkClass == null) {
-        continue; //TODO raise warning
+        continue; // TODO raise warning
       }
 
       checks.add(createCheck(checkClass, activeRule));
@@ -208,7 +212,7 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
     }
   }
 
-  public final List<Rule> getInitialReferential() {
+  public List<Rule> getInitialReferential() {
     return parseReferential(RULE_FILE);
   }
 
@@ -219,7 +223,7 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
   /**
    * Convert the built-in rules configurations to RulesProfiles.
    */
-  public final List<RulesProfile> getProvidedProfiles() {
+  public List<RulesProfile> getProvidedProfiles() {
     List<RulesProfile> profiles = new ArrayList<RulesProfile>();
     StandardProfileXmlParser parser = new StandardProfileXmlParser(getInitialReferential());
 

@@ -29,12 +29,12 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
  */
 public final class JspCheckClasses {
 
-  private static final Class<AbstractPageCheck>[] checkClasses = new Class[] {  AvoidHtmlCommentCheck.class,
-    DynamicJspIncludeCheck.class, HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class,
-    LongJavaScriptCheck.class, MultiplePageDirectivesCheck.class, IllegalTagLibsCheck.class, WhiteSpaceAroundCheck.class };
+  private static final Class<AbstractPageCheck>[] CLASSES = new Class[] { AvoidHtmlCommentCheck.class, DynamicJspIncludeCheck.class,
+    HeaderCheck.class, InlineStyleCheck.class, InternationalizationCheck.class, JspScriptletCheck.class, LongJavaScriptCheck.class,
+    MultiplePageDirectivesCheck.class, IllegalTagLibsCheck.class, UnifiedExpressionCheck.class, WhiteSpaceAroundCheck.class };
 
   public static List<Class<AbstractPageCheck>> getCheckClasses() {
-    return Arrays.asList(checkClasses);
+    return Arrays.asList(CLASSES);
   }
 
   private JspCheckClasses() {

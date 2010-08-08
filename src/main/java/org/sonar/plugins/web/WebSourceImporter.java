@@ -40,8 +40,8 @@ public final class WebSourceImporter extends AbstractSourceImporter {
   }
 
   public static void addSourceDir(Project project) {
-    if (project.getProperty("sonar.sourceDirectory") != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.sourceDirectory").toString());
+    if (project.getProperty("sonar.web.sourceDirectory") != null) {
+      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.web.sourceDirectory").toString());
       for (File sourceDir : project.getFileSystem().getSourceDirs()) {
         if (sourceDir.equals(file)) {
           return;

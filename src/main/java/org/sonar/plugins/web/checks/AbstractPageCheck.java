@@ -31,13 +31,29 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 
   protected static final class QualifiedAttribute {
 
-    public String attributeName;
+    private String attributeName;
 
-    public String nodeName;
+    private String nodeName;
 
     private QualifiedAttribute(String nodeName, String attributeName) {
-      this.nodeName = nodeName;
+      this.setNodeName(nodeName);
+      this.setAttributeName(attributeName);
+    }
+
+    public void setAttributeName(String attributeName) {
       this.attributeName = attributeName;
+    }
+
+    public String getAttributeName() {
+      return attributeName;
+    }
+
+    public void setNodeName(String nodeName) {
+      this.nodeName = nodeName;
+    }
+
+    public String getNodeName() {
+      return nodeName;
     }
   }
 
@@ -48,9 +64,9 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
         if (sb.length() > 0) {
           sb.append(",");
         }
-        sb.append(a.nodeName);
+        sb.append(a.getNodeName());
         sb.append('.');
-        sb.append(a.attributeName);
+        sb.append(a.getAttributeName());
       }
     }
     return sb.toString();

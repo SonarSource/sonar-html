@@ -30,7 +30,6 @@ import org.sonar.api.measures.Measure;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
-import org.sonar.plugins.web.analyzers.ComplexityDetector;
 import org.sonar.plugins.web.analyzers.DuplicationDetector;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -55,8 +54,8 @@ public final class WebSensor implements Sensor, GeneratesViolations {
   }
 
   public static void addSourceDir(Project project) {
-    if (project.getProperty("sonar.sourceDirectory") != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.sourceDirectory").toString());
+    if (project.getProperty("sonar.web.sourceDirectory") != null) {
+      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.web.sourceDirectory").toString());
       for (File sourceDir : project.getFileSystem().getSourceDirs()) {
         if (sourceDir.equals(file)) {
           return;
@@ -85,8 +84,6 @@ public final class WebSensor implements Sensor, GeneratesViolations {
      * WebDependencyDetector does not work in current version of sonar (2.2)
      * scanner.addVisitor(new WebDependencyDetector(project.getFileSystem()));
      */
-    scanner.addVisitor(new ComplexityDetector());
-
 
     for (File webFile : project.getFileSystem().getSourceFiles(Web.INSTANCE)) {
 

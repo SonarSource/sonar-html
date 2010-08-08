@@ -1,32 +1,13 @@
 Sonar Web Plugin
 Author: Matthijs Galesloot 
 
-1. Package: org.sonar.plugins.web
-Implementation of the extension classes (sensor, importer, rules repo ...) for the web language. 
-
-1. Package: org.sonar.plugins.web.language
-Basic implementation of the web language using the sonar framework. 
-
-2. Package: org.sonar.plugins.web.lex
-Implementation of a simple lexical analyzer for Html files.  
-The lexer uses the sonar channel framework. The lexer produces a list of tokens. 
-
-3. Package: org.sonar.plugins.web.visitor
-Implementation of a html token scanner and visitor pattern. 
-
-4. Package: org.sonar.plugins.web.rules 
-Implementation of rules
-
-5. Package: org.sonar.plugins.web.dashboard
-Dashboard showing basic metrics of web files. 
-
 JSP checks:
 http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
 http://jira.codehaus.org/browse/SONARPLUGINS-130
 
 JSF checks:
 http://almaer.com/blog/jsf-coding-standards
-http://webmoli.com/2008/05/20/jsf-best-practices/
+http://community.jboss.org/wiki/StaticAnalysis
 
 Syntax
 http://java.sun.com/products/jsp/syntax/2.0/syntaxref20.html

@@ -38,11 +38,14 @@ import org.sonar.plugins.web.node.TextNode;
  * @since 1.0
  * 
  */
-@Check(key = "MaxLineLengthCheck", title = "Maximum Line Length", description = "Checks the lenght of a line", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "MaxLineLengthCheck", title = "Maximum Line Length", 
+    description = "Checks the lenght of a line", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class MaxLineLengthCheck extends AbstractPageCheck {
 
+  private static final int DEFAULT_MAX_LINE_LENGTH = 120;
+
   @CheckProperty(key = "maxLength", title = "Max line length", description = "Maximum number of characters in a line")
-  private int maxLength = 120;
+  private int maxLength = DEFAULT_MAX_LINE_LENGTH;
 
   private int currentLineLength;
 

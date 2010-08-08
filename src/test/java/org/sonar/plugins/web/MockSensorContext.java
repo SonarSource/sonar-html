@@ -19,7 +19,9 @@ package org.sonar.plugins.web;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.sonar.api.batch.Event;
@@ -35,14 +37,12 @@ import org.sonar.api.rules.Violation;
 /**
  * @author Matthijs Galesloot
  */
-class MockSensorContext implements SensorContext {
+public class MockSensorContext implements SensorContext {
+
+  private Measure measure;
+  private final Map<Resource, List<Measure>> measures = new HashMap<Resource, List<Measure>>();
 
   private int numResources;
-  private Measure measure;
-
-  public int getNumResources() {
-    return numResources;
-  }
 
   private final List violations = new ArrayList<Violation>();
 
@@ -81,7 +81,15 @@ class MockSensorContext implements SensorContext {
   }
 
   public Measure getMeasure(Resource resource, Metric metric) {
-    // TODO Auto-generated method stub
+    for (Resource r : measures.keySet()) {
+      if (r.equals(resource)) {
+        for (Measure m : measures.get(r)) {
+          if (m.getMetric().equals(metric)) {
+            return m;
+          }
+        }
+      }
+    }
     return null;
   }
 
@@ -93,6 +101,10 @@ class MockSensorContext implements SensorContext {
   public <M> M getMeasures(Resource resource, MeasuresFilter<M> filter) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  public int getNumResources() {
+    return numResources;
   }
 
   public Collection<Dependency> getOutgoingDependencies(Resource from) {
@@ -130,13 +142,16 @@ class MockSensorContext implements SensorContext {
   }
 
   public Measure saveMeasure(Resource resource, Measure measure) {
-    // TODO Auto-generated method stub
-    return null;
+    if (measures.get(resource) == null) {
+      measures.put(resource, new ArrayList<Measure>());
+    }
+    measures.get(resource).add(measure);
+    return measure;
   }
 
   public Measure saveMeasure(Resource resource, Metric metric, Double value) {
-    // TODO Auto-generated method stub
-    return null;
+    Measure m = new Measure(metric, value);
+    return saveMeasure(resource, m);
   }
 
   public String saveResource(Resource resource) {
