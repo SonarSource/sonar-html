@@ -55,7 +55,10 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
 
   private static final Logger LOG = LoggerFactory.getLogger(WebRulesRepository.class);
 
-  private static final String RULE_FILE = "/rules.xml";
+  private static final String ALL_RULES = "/rules.xml";
+  private static final String JSF_RULES = "/jsf-rules.xml";
+  private static final String JSP_RULES = "/jsp-rules.xml";
+  private static final String[] PROFILES = new String[] { ALL_RULES, JSF_RULES, JSP_RULES };
 
   private static List<Rule> rulesRepository = new ArrayList<Rule>();
 
@@ -213,7 +216,7 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
   }
 
   public List<Rule> getInitialReferential() {
-    return parseReferential(RULE_FILE);
+    return parseReferential(ALL_RULES);
   }
 
   public Web getLanguage() {
@@ -227,11 +230,13 @@ public final class WebRulesRepository implements RulesRepository<Web>, Configura
     List<RulesProfile> profiles = new ArrayList<RulesProfile>();
     StandardProfileXmlParser parser = new StandardProfileXmlParser(getInitialReferential());
 
-    RulesProfile profile = parser.importConfiguration(getConfigurationFromFile(RULE_FILE));
-    profile.setLanguage(web.getKey());
-    LOG.debug("Building profile " + profile.getName());
+    for (String profileFile : PROFILES ) {
+      LOG.debug("Building profile " + profileFile);
 
-    profiles.add(profile);
+      RulesProfile profile = parser.importConfiguration(getConfigurationFromFile(profileFile));
+      profile.setLanguage(web.getKey());
+      profiles.add(profile);
+    }
 
     return profiles;
   }
