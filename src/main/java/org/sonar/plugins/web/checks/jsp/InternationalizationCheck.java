@@ -16,6 +16,7 @@
 
 package org.sonar.plugins.web.checks.jsp;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Check;
 import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
@@ -23,6 +24,7 @@ import org.sonar.check.Priority;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 
 /**
  * Checker to find hardcoded labels and messages.
@@ -30,9 +32,11 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "InternationalizationCheck", title = "Labels Internationalization", 
+@Check(key = "InternationalizationCheck", title = "Labels Internationalization",
     description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-public class InternationalizationCheck extends AbstractPageCheck {
+    public class InternationalizationCheck extends AbstractPageCheck {
+
+  private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
 
   @CheckProperty(key = "attributes", title="Attributes", description = "Attributes")
   private QualifiedAttribute[] attributes;
@@ -46,6 +50,13 @@ public class InternationalizationCheck extends AbstractPageCheck {
   }
 
   @Override
+  public void characters(TextNode textNode) {
+    if (!Utils.isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
+      createViolation(textNode);
+    }
+  }
+
+  @Override
   public void startElement(TagNode element) {
     if (attributes != null) {
       for (QualifiedAttribute attribute : attributes) {
@@ -53,7 +64,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
           String value = element.getAttribute(attribute.getAttributeName());
           if (value != null) {
             value = value.trim();
-            if (value.length() > 0 && !Utils.isUnifiedExpression(value)) {
+            if (value.length() > 0 && !Utils.isUnifiedExpression(value) && !isPunctuationOrSpace(value)) {
               createViolation(element);
               return;
             }
@@ -61,5 +72,9 @@ public class InternationalizationCheck extends AbstractPageCheck {
         }
       }
     }
+  }
+
+  private static boolean isPunctuationOrSpace(String value) {
+    return StringUtils.containsAny(value, PUNCTUATIONS_AND_SPACE);
   }
 }
