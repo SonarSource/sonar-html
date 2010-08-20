@@ -44,7 +44,7 @@ public class WebSourceCode {
 
   public void addDependency(Resource<?> dependencyResource) {
     Dependency dependency = new Dependency(resource, dependencyResource);
-    dependency.setUsage(SourceCodeEdgeUsage.USES.name());
+    dependency.setUsage(SourceCodeEdgeUsage.CONTAINS.name());
     dependency.setWeight(1);
 
     dependencies.add(dependency);

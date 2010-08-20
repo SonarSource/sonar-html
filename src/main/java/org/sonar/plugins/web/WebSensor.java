@@ -82,7 +82,7 @@ public final class WebSensor implements Sensor, GeneratesViolations {
     }
     /*
      * WebDependencyDetector does not work in current version of sonar (2.2)
-     * scanner.addVisitor(new WebDependencyDetector(project.getFileSystem()));
+     * scanner.addVisitor(new WebDependencyDetector(project));
      */
 
     for (File webFile : project.getFileSystem().getSourceFiles(Web.INSTANCE)) {

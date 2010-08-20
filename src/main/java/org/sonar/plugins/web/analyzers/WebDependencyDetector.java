@@ -17,10 +17,11 @@
 package org.sonar.plugins.web.analyzers;
 
 import java.io.File;
+import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.api.resources.Project;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
@@ -34,10 +35,19 @@ public class WebDependencyDetector extends DefaultNodeVisitor {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageCountLines.class);
 
-  private final ProjectFileSystem projectFileSystem;
+  private final Project project;
 
-  public WebDependencyDetector(ProjectFileSystem projectFileSystem) {
-    this.projectFileSystem = projectFileSystem;
+  private final File sourcePath;
+
+  public WebDependencyDetector(Project project) {
+    this.project = project;
+
+    String path = (String) project.getProperty("sonar.web.sourceDirectory");
+    if (path == null) {
+      this.sourcePath = project.getFileSystem().getSourceDirs().get(0);
+    } else {
+      this.sourcePath = new File(project.getFileSystem().getBasedir() + "/" + path);
+    }
   }
 
   private void calculateDependencies(TagNode element) {
@@ -45,13 +55,13 @@ public class WebDependencyDetector extends DefaultNodeVisitor {
     String attributeValue = element.getAttribute("src");
     if (attributeValue != null) {
 
-      String fileName = createFullPath(projectFileSystem, attributeValue);
+      String fileName = createFullPath(project, attributeValue);
 
       File dependencyFile = new File(fileName);
       if (dependencyFile.exists()) {
-        WebFile dependencyResource = WebFile.fromIOFile(dependencyFile, projectFileSystem.getSourceDirs());
+        WebFile dependencyResource = WebFile.fromIOFile(dependencyFile, Arrays.asList(sourcePath));
 
-        LOG.debug("dependency: " + dependencyResource.getLongName());
+        LOG.debug(String.format("dependency from %s -> %s", getWebSourceCode().getResource().getName(), dependencyResource.getLongName()));
 
         getWebSourceCode().addDependency(dependencyResource);
       } else {
@@ -60,11 +70,13 @@ public class WebDependencyDetector extends DefaultNodeVisitor {
     }
   }
 
-  private String createFullPath(ProjectFileSystem projectFileSystem, String fileName) {
+  private String createFullPath(Project project, String fileName) {
+    String absoluteSourceDir = sourcePath.getAbsolutePath();
+
     if (fileName.startsWith("/")) {
-      return projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + fileName;
+      return absoluteSourceDir + fileName;
     } else {
-      return projectFileSystem.getSourceDirs().get(0).getAbsolutePath() + "/" + getWebSourceCode().getResource().getParent().getName() + "/" + fileName;
+      return absoluteSourceDir + "/" + getWebSourceCode().getResource().getParent().getName() + "/" + fileName;
     }
   }
 
