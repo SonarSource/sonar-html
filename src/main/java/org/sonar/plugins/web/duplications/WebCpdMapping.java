@@ -13,30 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web;
 
-import java.util.ArrayList;
+package org.sonar.plugins.web.duplications;
+
+import java.io.File;
 import java.util.List;
 
-import org.sonar.api.web.CodeColorizerFormat;
-import org.sonar.colorizer.CppDocTokenizer;
-import org.sonar.colorizer.RegexpTokenizer;
-import org.sonar.colorizer.Tokenizer;
+import net.sourceforge.pmd.cpd.Tokenizer;
+
+import org.sonar.api.batch.CpdMapping;
+import org.sonar.api.resources.Language;
+import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.language.WebFile;
 
-public class WebCodeColorizerFormat extends CodeColorizerFormat {
+public class WebCpdMapping implements CpdMapping {
 
-  private List<Tokenizer> tokenizers = new ArrayList<Tokenizer>();
-
-  public WebCodeColorizerFormat() {
-    super(Web.KEY);
-    tokenizers.add(new RegexpTokenizer("<span class=\"k\">", "</span>", "</?\\p{L}*>?"));
-    tokenizers.add(new RegexpTokenizer("<span class=\"k\">", "</span>", ">"));
+  public Tokenizer getTokenizer() {
+    return new WebCpdTokenizer();
   }
 
-  @Override
-  public List<Tokenizer> getTokenizers() {
-    return tokenizers;
+  public Resource createResource(File file, List<File> sourceDirs) {
+    return WebFile.fromIOFile(file, sourceDirs);
+  }
+
+  public Language getLanguage() {
+    return Web.INSTANCE;
   }
 
 }

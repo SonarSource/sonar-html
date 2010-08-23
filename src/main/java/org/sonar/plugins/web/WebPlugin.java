@@ -21,11 +21,19 @@ import java.util.List;
 
 import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
+import org.sonar.api.Properties;
+import org.sonar.api.Property;
+import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
 
 /**
  * @author Matthijs Galesloot
  */
+@Properties({
+  @Property(key = "sonar.cpd.web.minimumTokens", defaultValue = "70",
+    name = "Minimum tokens",
+    description = "The number of duplicate tokens above which a HTML block is considered as a duplicated.",
+    global = true, project = true)})
 public final class WebPlugin implements Plugin {
 
   private static final String KEY = "sonar-web-plugin";
@@ -47,8 +55,10 @@ public final class WebPlugin implements Plugin {
     list.add(WebSourceImporter.class);
     // sensor
     list.add(WebSensor.class);
-    
+    // Code Colorizer
     list.add(WebCodeColorizerFormat.class);
+    // Copy/Paste detection mechanism
+    list.add(WebCpdMapping.class);
 
     return list;
   }

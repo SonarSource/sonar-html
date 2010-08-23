@@ -30,7 +30,6 @@ import org.sonar.api.measures.Measure;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
-import org.sonar.plugins.web.analyzers.DuplicationDetector;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
@@ -69,7 +68,6 @@ public final class WebSensor implements Sensor, GeneratesViolations {
 
     addSourceDir(project);
 
-    final DuplicationDetector duplicationDetector = new DuplicationDetector();
     final PageCountLines pageLineCounter = new PageCountLines();
 
     // configure the lexer
@@ -94,15 +92,12 @@ public final class WebSensor implements Sensor, GeneratesViolations {
         List<Node> nodeList = lexer.parse(new FileReader(webFile));
         scanner.scan(nodeList, sourceCode);
         pageLineCounter.count(nodeList, sourceCode);
-        duplicationDetector.addTokens(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);
 
       } catch (Exception e) {
         LOG.error("Could not analyze the file " + webFile.getAbsolutePath(), e);
       }
     }
-
-    duplicationDetector.analyse(sensorContext);
   }
 
   private void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
