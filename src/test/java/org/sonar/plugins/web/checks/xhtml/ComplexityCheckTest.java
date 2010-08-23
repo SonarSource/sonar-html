@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web.checks.xhtml;
 
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
 
-import java.io.StringReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import org.junit.Test;
+import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.xhtml.IllegalAttributeCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestAttributeClassCheck extends AbstractCheckTester {
+public class ComplexityCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testAttributeCheck() {
+  public void testComplexityCheck() throws FileNotFoundException {
 
-    String fragment = "<h:someNode class=\"redflag\"/>";
+    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
+    WebSourceCode sourceCode = parseAndCheck(reader, ComplexityCheck.class, "max", "15" );
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), IllegalAttributeCheck.class, "attributes", "class" );
-
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertEquals("Incorrect number of complexity", 17, sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getIntValue().intValue());
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }
 }

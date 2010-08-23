@@ -32,7 +32,7 @@ import org.sonar.plugins.web.rules.ProfileXmlParser;
 /**
  * @author Matthijs Galesloot
  */
-public class TestWebRulesRepository {
+public class WebRulesRepositoryTest {
 
   @Test
   public void testWebRulesRepository() {

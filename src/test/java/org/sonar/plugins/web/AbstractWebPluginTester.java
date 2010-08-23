@@ -41,7 +41,7 @@ class AbstractWebPluginTester {
   private static MavenProject loadPom() {
     File pomFile;
     try {
-      pomFile = new File(TestWebSensor.class.getResource("/pom.xml").toURI());
+      pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }

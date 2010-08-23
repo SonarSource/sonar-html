@@ -14,32 +14,38 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.xhtml;
+package org.sonar.plugins.web.checks.jsp;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
 import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.xhtml.UnclosedTagCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestUnclosedTagCheck extends AbstractCheckTester {
+public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testUnclosedTagCheck() throws FileNotFoundException {
+  public void htmlCommentIsNotAllowed() {
 
-    String fragment = "<td><br><tr>";
+    String fragment = "<h:someNode/><!-- this comment is not allowed -->";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
 
-    int numViolations = 3;
+    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+  }
 
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+  @Test
+  public void htmlComentIsAllowedInXmlDocuments() {
+
+    String fragment = "<?xml version=\"1.0\" ?><h:someNode/><!-- this comment is allowed -->";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
+
+    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
   }
 }

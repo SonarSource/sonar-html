@@ -29,7 +29,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestMaxLineLengthCheck extends AbstractCheckTester {
+public class MaxLineLengthCheckTest extends AbstractCheckTester {
 
   @Test
   public void testMaxLengthViolated() throws FileNotFoundException {

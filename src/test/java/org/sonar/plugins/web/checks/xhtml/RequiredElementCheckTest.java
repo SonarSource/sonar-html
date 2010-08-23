@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.jsp;
+package org.sonar.plugins.web.checks.xhtml;
 
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.FileReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
@@ -28,15 +28,14 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestJavaScriptCheck extends AbstractCheckTester {
+public class RequiredElementCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testJavaScriptCheck() throws FileNotFoundException {
+  public void testRequiredElementCheck() throws FileNotFoundException {
 
-    String fragment = "<h:someNode/><script language=\"JavaScript\">var a;\nvar b;\nvar c;\nvar d;\nvar e;\nvar f;\n</script>";
+    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
+    WebSourceCode sourceCode = parseAndCheck(reader, RequiredElementCheck.class, "elements", "html,notfound1,notfound2" );
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), LongJavaScriptCheck.class);
-
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
   }
 }

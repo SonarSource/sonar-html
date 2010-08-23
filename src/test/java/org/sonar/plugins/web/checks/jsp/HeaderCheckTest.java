@@ -18,6 +18,7 @@ package org.sonar.plugins.web.checks.jsp;
 
 import static junit.framework.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.io.StringReader;
 
 import org.junit.Test;
@@ -27,25 +28,35 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestAvoidHtmlCommentCheck extends AbstractCheckTester {
+public class HeaderCheckTest extends AbstractCheckTester {
 
   @Test
-  public void htmlCommentIsNotAllowed() {
+  public void validHeader() throws FileNotFoundException {
 
-    String fragment = "<h:someNode/><!-- this comment is not allowed -->";
+    String fragment = "<!-- Copyright the author and his friends --><h:someNode/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
+
+    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
+  }
+
+  @Test
+  public void missingHeader() throws FileNotFoundException {
+
+    String fragment = "<h:someNode/>";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
 
   @Test
-  public void htmlComentIsAllowedInXmlDocuments() {
+  public void wrongFormatHeader() throws FileNotFoundException {
 
-    String fragment = "<?xml version=\"1.0\" ?><h:someNode/><!-- this comment is allowed -->";
+    String fragment = "<!-- copyright is not spelled OK --><h:someNode/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
 
-    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
+    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
 }

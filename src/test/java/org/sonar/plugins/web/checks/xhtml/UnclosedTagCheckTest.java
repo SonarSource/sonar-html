@@ -16,26 +16,30 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.xhtml.UnclosedTagCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestRequiredElementCheck extends AbstractCheckTester {
+public class UnclosedTagCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testRequiredElementCheck() throws FileNotFoundException {
+  public void testUnclosedTagCheck() throws FileNotFoundException {
 
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, RequiredElementCheck.class, "elements", "html,notfound1,notfound2" );
+    String fragment = "<td><br><tr>";
 
-    assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
+
+    int numViolations = 3;
+
+    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
   }
 }

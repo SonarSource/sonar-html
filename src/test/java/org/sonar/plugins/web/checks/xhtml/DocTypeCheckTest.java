@@ -28,7 +28,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestDocTypeCheck extends AbstractCheckTester {
+public class DocTypeCheckTest extends AbstractCheckTester {
 
   @Test
   public void testDocTypeCheckOK() throws FileNotFoundException {

@@ -14,31 +14,30 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.checks.jsp;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.net.URISyntaxException;
+import java.io.FileNotFoundException;
+import java.io.StringReader;
 
 import org.junit.Test;
-import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.xhtml.DoubleQuotesCheck;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestWebSourceImporter extends AbstractWebPluginTester {
+public class DoubleQuotesCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testImporter() throws URISyntaxException {
+  public void testDoubleQuotesCheck() throws FileNotFoundException {
 
-    final Project project = loadProjectFromPom();
+    String fragment = "<h:someNode class='redflag'/>";
 
-    WebSourceImporter importer = new WebSourceImporter(Web.INSTANCE);
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
 
-    assertTrue("Importer only supports web projects", importer.shouldExecuteOnProject(project));
-    MockSensorContext sensorContext = new MockSensorContext();
-    importer.analyse(project, sensorContext);
-    assertTrue(sensorContext.getNumResources() > 0);
+    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() > 0);
   }
 }

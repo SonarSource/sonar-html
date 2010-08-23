@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-public class TestMultiplePageDirectivesCheck extends AbstractCheckTester {
+public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
 
   @Test
   public void onlyOnePageDirectiveIsAllowed() throws FileNotFoundException {

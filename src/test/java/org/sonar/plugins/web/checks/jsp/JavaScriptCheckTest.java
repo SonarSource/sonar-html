@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.xhtml;
+package org.sonar.plugins.web.checks.jsp;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.StringReader;
 
 import org.junit.Test;
-import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestComplexityCheck extends AbstractCheckTester {
+public class JavaScriptCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testComplexityCheck() throws FileNotFoundException {
+  public void testJavaScriptCheck() throws FileNotFoundException {
 
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, ComplexityCheck.class, "max", "15" );
+    String fragment = "<h:someNode/><script language=\"JavaScript\">var a;\nvar b;\nvar c;\nvar d;\nvar e;\nvar f;\n</script>";
 
-    assertEquals("Incorrect number of complexity", 17, sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getIntValue().intValue());
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), LongJavaScriptCheck.class);
+
+    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
 }

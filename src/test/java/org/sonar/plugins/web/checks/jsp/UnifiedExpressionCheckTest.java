@@ -28,7 +28,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestUnifiedExpressionCheck extends AbstractCheckTester {
+public class UnifiedExpressionCheckTest extends AbstractCheckTester {
 
   @Test
   public void testUnifiedExpressionCheck() throws FileNotFoundException {

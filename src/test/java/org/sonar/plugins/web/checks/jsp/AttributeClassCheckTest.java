@@ -14,32 +14,29 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.checks.jsp;
 
 import static junit.framework.Assert.assertTrue;
 
+import java.io.StringReader;
+
 import org.junit.Test;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.xhtml.IllegalAttributeCheck;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class TestWebSensor extends AbstractWebPluginTester {
+public class AttributeClassCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testSensor() {
-    WebRulesRepository webRulesRepository = new WebRulesRepository(Web.INSTANCE);
+  public void testAttributeCheck() {
 
-    RulesProfile rulesProfile = webRulesRepository.getProvidedProfiles().get(0);
+    String fragment = "<h:someNode class=\"redflag\"/>";
 
-    WebSensor sensor = new WebSensor(rulesProfile);
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), IllegalAttributeCheck.class, "attributes", "class" );
 
-    final Project project = loadProjectFromPom();
-    MockSensorContext sensorContext = new MockSensorContext();
-    sensor.analyse(project, sensorContext);
-
-    assertTrue("Should have found 1 violation", sensorContext.getViolations().size() > 0);
+    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }
 }

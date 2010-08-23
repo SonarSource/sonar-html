@@ -34,9 +34,9 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestPageCountLines {
+public class PageCountLinesTest {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TestPageCountLines.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PageCountLinesTest.class);
 
   @Test
   public void testCountLines() throws FileNotFoundException {

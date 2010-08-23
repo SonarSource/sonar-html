@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
 /**
  * @author Matthijs Galesloot
  */
-public class TestPageLexer {
+public class PageLexerTest {
 
   @Test
   public void testLexer() throws FileNotFoundException {
