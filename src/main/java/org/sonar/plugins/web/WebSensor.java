@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.GeneratesViolations;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
@@ -32,8 +33,10 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.language.ConfigurableWeb;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
+import org.sonar.plugins.web.language.WebProperties;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.PageScanner;
@@ -53,8 +56,8 @@ public final class WebSensor implements Sensor, GeneratesViolations {
   }
 
   public static void addSourceDir(Project project) {
-    if (project.getProperty("sonar.web.sourceDirectory") != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.web.sourceDirectory").toString());
+    if (project.getProperty(WebProperties.SOURCE_DIRECTORY) != null) {
+      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty(WebProperties.SOURCE_DIRECTORY).toString());
       for (File sourceDir : project.getFileSystem().getSourceDirs()) {
         if (sourceDir.equals(file)) {
           return;
@@ -83,7 +86,7 @@ public final class WebSensor implements Sensor, GeneratesViolations {
      * scanner.addVisitor(new WebDependencyDetector(project));
      */
 
-    for (File webFile : project.getFileSystem().getSourceFiles(Web.INSTANCE)) {
+    for (File webFile : project.getFileSystem().getSourceFiles(new ConfigurableWeb(project))) {
 
       try {
         WebFile resource = WebFile.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
@@ -116,8 +119,14 @@ public final class WebSensor implements Sensor, GeneratesViolations {
    * This sensor executes on Web projects.
    */
   public boolean shouldExecuteOnProject(Project project) {
-    return Web.INSTANCE.equals(project.getLanguage());
+    return isEnabled(project) && Web.INSTANCE.equals(project.getLanguage());
   }
+
+  private boolean isEnabled(Project project) {
+    return project.getConfiguration().getBoolean(CoreProperties.CORE_IMPORT_SOURCES_PROPERTY,
+        CoreProperties.CORE_IMPORT_SOURCES_DEFAULT_VALUE);
+  }
+
 
   @Override
   public String toString() {

@@ -25,8 +25,9 @@ import org.sonar.api.batch.AbstractSourceImporter;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
-import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.language.ConfigurableWeb;
 import org.sonar.plugins.web.language.WebFile;
+import org.sonar.plugins.web.language.WebProperties;
 
 /**
  * @author Matthijs Galesloot
@@ -35,13 +36,13 @@ public final class WebSourceImporter extends AbstractSourceImporter {
 
   private static final Logger LOG = LoggerFactory.getLogger(WebSourceImporter.class);
 
-  public WebSourceImporter(Web web) {
-    super(web);
+  public WebSourceImporter(Project project) {
+    super(new ConfigurableWeb(project));
   }
 
   public static void addSourceDir(Project project) {
-    if (project.getProperty("sonar.web.sourceDirectory") != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty("sonar.web.sourceDirectory").toString());
+    if (project.getProperty(WebProperties.SOURCE_DIRECTORY) != null) {
+      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty(WebProperties.SOURCE_DIRECTORY).toString());
       for (File sourceDir : project.getFileSystem().getSourceDirs()) {
         if (sourceDir.equals(file)) {
           return;
@@ -56,6 +57,11 @@ public final class WebSourceImporter extends AbstractSourceImporter {
     addSourceDir(project);
 
     super.analyse(project, context);
+  }
+
+  @Override
+  public boolean shouldExecuteOnProject(Project project) {
+    return isEnabled(project) && getLanguage().equals(project.getLanguage());
   }
 
   @Override

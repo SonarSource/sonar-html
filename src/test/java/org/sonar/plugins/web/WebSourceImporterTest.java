@@ -22,7 +22,6 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.language.Web;
 
 /**
  * @author Matthijs Galesloot
@@ -34,7 +33,7 @@ public class WebSourceImporterTest extends AbstractWebPluginTester {
 
     final Project project = loadProjectFromPom();
 
-    WebSourceImporter importer = new WebSourceImporter(Web.INSTANCE);
+    WebSourceImporter importer = new WebSourceImporter(project);
 
     assertTrue("Importer only supports web projects", importer.shouldExecuteOnProject(project));
     MockSensorContext sensorContext = new MockSensorContext();

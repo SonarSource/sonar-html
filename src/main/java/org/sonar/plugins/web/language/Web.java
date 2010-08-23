@@ -17,12 +17,13 @@
 package org.sonar.plugins.web.language;
 
 import org.sonar.api.resources.AbstractLanguage;
+import org.sonar.api.resources.Language;
 
 /**
  * This class defines the Web language.
  * 
  * @author Matthijs Galesloot
- * 
+ * @since 1.0
  */
 public class Web extends AbstractLanguage {
 
@@ -33,7 +34,7 @@ public class Web extends AbstractLanguage {
   public static final String KEY = "web";
 
   /** All the valid web files suffixes. */
-  private static final String[] SUFFIXES = { "xhtml", "jspf", "jsp", "erb" };
+  private static final String[] SUFFIXES = { "xhtml", "jspf", "jsp" };
 
   /** The web language name */
   private static final String WEB_LANGUAGE_NAME = "Web";
@@ -55,4 +56,15 @@ public class Web extends AbstractLanguage {
     return SUFFIXES;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (o instanceof Language) {
+      Language language = (Language) o;
+      return getKey().equals(language.getKey());
+    }
+    return false;
+  }
 }
