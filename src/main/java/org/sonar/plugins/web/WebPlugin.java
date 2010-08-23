@@ -47,6 +47,8 @@ public final class WebPlugin implements Plugin {
     list.add(WebSourceImporter.class);
     // sensor
     list.add(WebSensor.class);
+    
+    list.add(WebCodeColorizerFormat.class);
 
     return list;
   }

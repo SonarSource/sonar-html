@@ -30,7 +30,7 @@ public class Web extends AbstractLanguage {
   public static final Web INSTANCE = new Web();
 
   /** The web language key. */
-  private static final String KEY = "web";
+  public static final String KEY = "web";
 
   /** All the valid web files suffixes. */
   private static final String[] SUFFIXES = { "xhtml", "jspf", "jsp", "erb" };
