@@ -5,7 +5,7 @@
     <groupId>org.codehaus.sonar-plugins</groupId>
     <artifactId>sonar-web-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>Sonar Web Plugin</name>
 
     <parent>
@@ -38,9 +38,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-0.1</connection>
-        <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-0.1</developerConnection>
-        <url>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-0.1 </url>
+        <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
+        <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
+        <url>http://svn.codehaus.org/sonar-plugins/ </url>
     </scm>
 
     <dependencies>
