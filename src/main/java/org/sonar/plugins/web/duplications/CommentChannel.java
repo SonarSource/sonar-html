@@ -44,7 +44,7 @@ public class CommentChannel extends Channel<Tokens> {
     return code.popTo(matcher, appendable) > 0;
   }
 
-  private class EmptyAppendable implements Appendable {
+  private static class EmptyAppendable implements Appendable {
 
     public Appendable append(CharSequence csq) throws IOException {
       return null;
