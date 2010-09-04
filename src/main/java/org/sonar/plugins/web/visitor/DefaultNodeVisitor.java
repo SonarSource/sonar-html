@@ -27,10 +27,10 @@ import org.sonar.plugins.web.node.TextNode;
 
 /**
  * Defines interface for node visitor with default dummy implementations.
- * 
+ *
  * @author Matthijs Galesloot
  */
-public abstract class DefaultNodeVisitor implements NodeVisitor {
+public class DefaultNodeVisitor implements NodeVisitor {
 
   private WebSourceCode webSourceCode;
 
