@@ -33,7 +33,8 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalElementCheck", title = "IllegalElement", description = "element should not be used", priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
+@Check(key = "IllegalElementCheck", title = "IllegalElement", description = "element should not be used", priority = Priority.MAJOR,
+    isoCategory = IsoCategory.Reliability)
 public class IllegalElementCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "elements", description = "elements")

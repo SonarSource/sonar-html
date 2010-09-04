@@ -21,7 +21,11 @@ package org.sonar.plugins.web.language;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-public class WebProperties {
+public final class WebProperties {
+
+  private WebProperties() {
+    // utility class
+  }
 
   public static final String FILE_EXTENSIONS = "sonar.web.fileExtensions";
   public static final String SOURCE_DIRECTORY = "sonar.web.sourceDirectory";

@@ -86,6 +86,8 @@ public class PageScanner {
       case Directive:
         visitor.directive((DirectiveNode) node);
         break;
+      default:
+        break;
     }
   }
 }

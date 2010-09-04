@@ -34,8 +34,8 @@ import org.sonar.plugins.web.node.DirectiveNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalTagLibsCheck", title = "Illegal TagLibs",
-    description = "Certain taglibs are not allowed", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+@Check(key = "IllegalTagLibsCheck", title = "Illegal TagLibs", description = "Certain taglibs are not allowed",
+    priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "tagLibs", description = "Disallowed Taglibs")

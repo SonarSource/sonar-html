@@ -32,14 +32,14 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "RegularExpressionCheck", title = "Regular Expression Check",
-    description = "Regular Expression Check", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-    public class RegularExpressionCheck extends AbstractPageCheck {
+@Check(key = "RegularExpressionCheck", title = "Regular Expression Check", description = "Regular Expression Check",
+    priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+public class RegularExpressionCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "expression")
   private String expression;
 
-  @CheckProperty(key= "scope")
+  @CheckProperty(key = "scope")
   private String scope; // attribute or element
 
   private Pattern pattern;
@@ -60,7 +60,7 @@ import org.sonar.plugins.web.node.TagNode;
     if (pattern != null) {
       // scope is attribute or element
       if ("attribute".equals(scope)) {
-        for (Attribute a :  element.getAttributes()) {
+        for (Attribute a : element.getAttributes()) {
           if (pattern.matcher(a.getValue()).lookingAt()) {
             createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + a.getValue());
           }

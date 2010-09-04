@@ -34,9 +34,9 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "UnifiedExpressionCheck", title = "Invalid Expression",
-    description = "Invalid expressions syntax", priority = Priority.BLOCKER, isoCategory = IsoCategory.Reliability)
-    public class UnifiedExpressionCheck extends AbstractPageCheck {
+@Check(key = "UnifiedExpressionCheck", title = "Invalid Expression", description = "Invalid expressions syntax",
+    priority = Priority.BLOCKER, isoCategory = IsoCategory.Reliability)
+public class UnifiedExpressionCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {

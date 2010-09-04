@@ -30,7 +30,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "DocTypeCheck", title = "Document Type Compliance", description = "Document Type Compliance", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "DocTypeCheck", title = "Document Type Compliance", description = "Document Type Compliance", priority = Priority.MINOR,
+    isoCategory = IsoCategory.Maintainability)
 public class DocTypeCheck extends AbstractPageCheck {
 
   private boolean hasDocType;
@@ -57,7 +58,7 @@ public class DocTypeCheck extends AbstractPageCheck {
     if ("DOCTYPE".equals(node.getNodeName())) {
       hasDocType = true;
 
-      if (dtd!= null) {
+      if (dtd != null) {
         boolean containsDtd = false;
 
         for (int i = 0; i < node.getAttributes().size(); i++) {
@@ -66,7 +67,7 @@ public class DocTypeCheck extends AbstractPageCheck {
             break;
           }
         }
-        if (!containsDtd) {
+        if ( !containsDtd) {
           createViolation(0);
         }
       }
@@ -75,7 +76,7 @@ public class DocTypeCheck extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
-    if (!hasDocType) {
+    if ( !hasDocType) {
       createViolation(0);
     }
   }

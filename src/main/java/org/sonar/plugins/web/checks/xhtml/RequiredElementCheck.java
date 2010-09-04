@@ -36,7 +36,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "RequiredElementCheck", title = "RequiredElement", description = "Required element must be used", priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
+@Check(key = "RequiredElementCheck", title = "RequiredElement", description = "Required element must be used", priority = Priority.MAJOR,
+    isoCategory = IsoCategory.Reliability)
 public class RequiredElementCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "elements", description = "elements")
@@ -73,7 +74,7 @@ public class RequiredElementCheck extends AbstractPageCheck {
           }
         }
       }
-      if (!hasRequiredElement) {
+      if ( !hasRequiredElement) {
         createViolation(0, getRule().getDescription() + ": " + elementName);
       }
     }

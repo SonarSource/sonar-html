@@ -23,7 +23,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 
 /**
  * Provides a list of available XHTML checks.
- * 
+ *
  */
 public final class XhtmlCheckClasses {
 

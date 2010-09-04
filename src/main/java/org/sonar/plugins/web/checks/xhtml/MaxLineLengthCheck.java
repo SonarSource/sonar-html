@@ -38,8 +38,8 @@ import org.sonar.plugins.web.node.TextNode;
  * @since 1.0
  * 
  */
-@Check(key = "MaxLineLengthCheck", title = "Maximum Line Length", 
-    description = "Checks the lenght of a line", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "MaxLineLengthCheck", title = "Maximum Line Length", description = "Checks the lenght of a line", priority = Priority.MINOR,
+    isoCategory = IsoCategory.Maintainability)
 public class MaxLineLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;
@@ -97,7 +97,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
     int startPos = 0;
     int indexPos;
     int newlines = 0;
-    while ((indexPos = StringUtils.indexOf(code, '\n' , startPos)) >= 0) {
+    while ((indexPos = StringUtils.indexOf(code, '\n', startPos)) >= 0) {
       currentLineLength += indexPos - startPos;
       check(node, newlines);
 

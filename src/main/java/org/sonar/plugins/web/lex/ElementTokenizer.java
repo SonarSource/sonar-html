@@ -43,6 +43,8 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         case '/':
         case '>':
           return true;
+        default:
+          break;
       }
       return Character.isWhitespace(character);
     }
@@ -163,6 +165,8 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         }
 
         return ParseMode.BEFORE_ATTRIBUTE_NAME;
+      default:
+        break;
     }
 
     // can't happen

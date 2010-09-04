@@ -33,7 +33,8 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalNamespaceCheck", title = "Illegal Namespace", description = "namespace should not be used", priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
+@Check(key = "IllegalNamespaceCheck", title = "Illegal Namespace", description = "namespace should not be used", priority = Priority.MAJOR,
+    isoCategory = IsoCategory.Reliability)
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "namespaces", title = "Namespaces", description = "Namespaces")

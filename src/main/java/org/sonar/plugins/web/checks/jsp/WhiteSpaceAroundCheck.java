@@ -27,13 +27,13 @@ import org.sonar.plugins.web.node.Node;
 /**
  * Check for required white space around start and end markers.
  * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
- * paragraph Blank Spaces
+ * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Blank Spaces
  * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "WhiteSpaceAroundCheck", title = "Whitespace Around", description = "White space around", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "WhiteSpaceAroundCheck", title = "Whitespace Around", description = "White space around", priority = Priority.MINOR,
+    isoCategory = IsoCategory.Maintainability)
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 
   private void checkEndWhitespace(Node node, String code, String end) {

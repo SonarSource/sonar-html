@@ -27,14 +27,14 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * Checker for occurrence of html comments.
  * 
- * HTML comment is not allowed in JSP files, use server side comment instead.
- * The check allows HTML comment in XHTML files, recognized by its xml declaration.
+ * HTML comment is not allowed in JSP files, use server side comment instead. The check allows HTML comment in XHTML files, recognized by
+ * its xml declaration.
  * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "AvoidHtmlCommentCheck", title = "Avoid Html Comment", 
-    description = "Avoid Html Comment", priority = Priority.MINOR, isoCategory = IsoCategory.Efficiency)
+@Check(key = "AvoidHtmlCommentCheck", title = "Avoid Html Comment", description = "Avoid Html Comment", priority = Priority.MINOR,
+    isoCategory = IsoCategory.Efficiency)
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
   private boolean xmlDocument;

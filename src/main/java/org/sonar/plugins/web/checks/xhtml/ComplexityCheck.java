@@ -37,8 +37,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "ComplexityCheck", title = "Complexity", 
-    description = "Complexity", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "ComplexityCheck", title = "Complexity", description = "Complexity", priority = Priority.MINOR,
+    isoCategory = IsoCategory.Maintainability)
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;

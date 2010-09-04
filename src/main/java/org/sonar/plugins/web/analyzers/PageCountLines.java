@@ -92,6 +92,8 @@ public class PageCountLines {
                 linesOfCode++;
                 linesOfCodeCurrentNode--;
                 break;
+              default:
+                break;
             }
           }
 
@@ -103,6 +105,8 @@ public class PageCountLines {
           linesOfCode += linesOfCodeCurrentNode;
         }
 
+        break;
+      default:
         break;
     }
   }

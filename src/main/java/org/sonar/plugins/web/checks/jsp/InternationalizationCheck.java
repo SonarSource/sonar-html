@@ -34,11 +34,11 @@ import org.sonar.plugins.web.node.TextNode;
  */
 @Check(key = "InternationalizationCheck", title = "Labels Internationalization",
     description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
-    public class InternationalizationCheck extends AbstractPageCheck {
+public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
 
-  @CheckProperty(key = "attributes", title="Attributes", description = "Attributes")
+  @CheckProperty(key = "attributes", title = "Attributes", description = "Attributes")
   private QualifiedAttribute[] attributes;
 
   public String getAttributes() {
@@ -51,7 +51,7 @@ import org.sonar.plugins.web.node.TextNode;
 
   @Override
   public void characters(TextNode textNode) {
-    if (!Utils.isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
+    if ( !Utils.isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
       createViolation(textNode);
     }
   }

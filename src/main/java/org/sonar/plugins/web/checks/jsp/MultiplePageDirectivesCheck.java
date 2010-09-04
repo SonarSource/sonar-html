@@ -26,14 +26,13 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * Checker to find multiple page directives, where 1 page directive would be preferred.
  * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
- * paragraph JSP Page Directive(s)
+ * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph JSP Page Directive(s)
  * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "MultiplePageDirectivesCheck", title = "Multiple Page Directive", 
-    description = "Avoid multiple page directives", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "MultiplePageDirectivesCheck", title = "Multiple Page Directive", description = "Avoid multiple page directives",
+    priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 
   private static boolean isImportDirective(DirectiveNode node) {

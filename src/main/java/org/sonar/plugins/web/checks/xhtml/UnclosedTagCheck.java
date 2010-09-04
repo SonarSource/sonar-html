@@ -34,7 +34,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "UnclosedTagCheck", title = "Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "UnclosedTagCheck", title = "Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR,
+    isoCategory = IsoCategory.Maintainability)
 public class UnclosedTagCheck extends AbstractPageCheck {
 
   @CheckProperty(key = "ignoreTags", description = "Ignore Tags")

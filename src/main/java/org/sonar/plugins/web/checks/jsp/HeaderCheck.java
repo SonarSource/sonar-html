@@ -33,14 +33,13 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * Header checker.
  * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
- * paragraph Opening Comments
+ * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Opening Comments
  * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "HeaderCheck", title = "Missing Header", 
-    description = "Missing header comments", priority = Priority.MAJOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "HeaderCheck", title = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR,
+    isoCategory = IsoCategory.Maintainability)
 public class HeaderCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);

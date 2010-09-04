@@ -28,8 +28,8 @@ import org.sonar.channel.CodeReader;
 public class CommentChannel extends Channel<Tokens> {
 
   private final Matcher matcher;
-  private EmptyAppendable appendable = new EmptyAppendable();
-  
+  private final EmptyAppendable appendable = new EmptyAppendable();
+
   public static final CommentChannel HTML_COMMENT = new CommentChannel("<!--[\\w\\W]*?-->");
   public static final CommentChannel JSP_COMMENT = new CommentChannel("<%--[\\w\\W]*?%>");
   public static final CommentChannel CPP_COMMENT = new CommentChannel("//[^\n\r]*");
@@ -41,11 +41,7 @@ public class CommentChannel extends Channel<Tokens> {
 
   @Override
   public boolean consume(CodeReader code, Tokens cpdTokens) {
-    if (code.popTo(matcher, appendable) > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return code.popTo(matcher, appendable) > 0;
   }
 
   private class EmptyAppendable implements Appendable {

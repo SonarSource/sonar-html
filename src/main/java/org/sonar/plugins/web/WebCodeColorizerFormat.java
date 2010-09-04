@@ -19,14 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.sonar.api.web.CodeColorizerFormat;
-import org.sonar.colorizer.CppDocTokenizer;
 import org.sonar.colorizer.RegexpTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.plugins.web.language.Web;
 
 public class WebCodeColorizerFormat extends CodeColorizerFormat {
 
-  private List<Tokenizer> tokenizers = new ArrayList<Tokenizer>();
+  private final List<Tokenizer> tokenizers = new ArrayList<Tokenizer>();
 
   public WebCodeColorizerFormat() {
     super(Web.KEY);

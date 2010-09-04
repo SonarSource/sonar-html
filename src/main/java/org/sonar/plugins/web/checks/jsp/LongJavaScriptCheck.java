@@ -32,8 +32,8 @@ import org.sonar.plugins.web.node.TextNode;
  * 
  * @see http://pmd.sourceforge.net/rules/basic-jsp.html
  */
-@Check(key = "LongJavaScriptCheck", title = "Long JavaScript",
-    description = "Avoid long JavaScript", priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+@Check(key = "LongJavaScriptCheck", title = "Long JavaScript", description = "Avoid long JavaScript", priority = Priority.CRITICAL,
+    isoCategory = IsoCategory.Maintainability)
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;

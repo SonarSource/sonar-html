@@ -23,7 +23,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 
 /**
  * Provides a list of all JSP checks.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */

@@ -33,12 +33,11 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalAttributeCheck", title = "Illegal Attribute", description = "attribute should not be used",
-    priority = Priority.MAJOR,
+@Check(key = "IllegalAttributeCheck", title = "Illegal Attribute", description = "attribute should not be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
-    public class IllegalAttributeCheck extends AbstractPageCheck {
+public class IllegalAttributeCheck extends AbstractPageCheck {
 
-  @CheckProperty(key = "attributes", title="Attributes", description = "Attributes")
+  @CheckProperty(key = "attributes", title = "Attributes", description = "Attributes")
   private QualifiedAttribute[] attributes;
 
   public String getAttributes() {
@@ -57,9 +56,9 @@ import org.sonar.plugins.web.node.TagNode;
     }
 
     for (QualifiedAttribute qualifiedAttribute : attributes) {
-      if (qualifiedAttribute.getNodeName() == null ||
-          StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.getNodeName()) ||
-          StringUtils.equalsIgnoreCase(element.getNodeName(), qualifiedAttribute.getNodeName())) {
+      if (qualifiedAttribute.getNodeName() == null
+          || StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.getNodeName())
+          || StringUtils.equalsIgnoreCase(element.getNodeName(), qualifiedAttribute.getNodeName())) {
         for (Attribute a : element.getAttributes()) {
 
           if (qualifiedAttribute.getAttributeName().equalsIgnoreCase(a.getName())) {

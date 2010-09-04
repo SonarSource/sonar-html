@@ -27,13 +27,13 @@ import org.sonar.plugins.web.node.TagNode;
 /**
  * Checker to find use of single quote where double quote is preferred.
  * 
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/
- * paragraph Quoting
+ * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Quoting
  * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "DoubleQuotesCheck", title = "Double Quotes", description = "Use double quotes for attribute values", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+@Check(key = "DoubleQuotesCheck", title = "Double Quotes", description = "Use double quotes for attribute values",
+    priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class DoubleQuotesCheck extends AbstractPageCheck {
 
   @Override
