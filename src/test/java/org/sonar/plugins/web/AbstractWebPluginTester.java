@@ -32,19 +32,15 @@ import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.language.Web;
 
 /**
- * 
+ *
  * @author Matthijs Galesloot
  *
  */
 class AbstractWebPluginTester {
 
-  private static MavenProject loadPom() {
-    File pomFile;
-    try {
-      pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
-    } catch (URISyntaxException e) {
-      throw new RuntimeException(e);
-    }
+  private static MavenProject loadPom() throws URISyntaxException {
+    File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
+
     FileReader fileReader = null;
     try {
       MavenXpp3Reader pomReader = new MavenXpp3Reader();
@@ -61,7 +57,7 @@ class AbstractWebPluginTester {
     }
   }
 
-  protected static Project loadProjectFromPom() {
+  protected static Project loadProjectFromPom() throws Exception {
     MavenProject pom = loadPom();
     Project project = new Project(pom.getGroupId() + ":" + pom.getArtifactId()).setPom(pom).setConfiguration(
         new MapConfiguration(pom.getProperties()));

@@ -75,4 +75,8 @@ public class TagNode extends Node {
   public void setNodeName(String nodeName) {
     this.nodeName = nodeName;
   }
+
+  public boolean equalsElementName(String elementName) {
+    return StringUtils.equalsIgnoreCase(getLocalName(), elementName) || StringUtils.equalsIgnoreCase(getNodeName(), elementName);
+  }
 }

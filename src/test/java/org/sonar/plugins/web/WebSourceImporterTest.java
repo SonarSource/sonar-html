@@ -18,8 +18,6 @@ package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 import org.sonar.api.resources.Project;
 
@@ -29,7 +27,7 @@ import org.sonar.api.resources.Project;
 public class WebSourceImporterTest extends AbstractWebPluginTester {
 
   @Test
-  public void testImporter() throws URISyntaxException {
+  public void testImporter() throws Exception {
 
     final Project project = loadProjectFromPom();
 

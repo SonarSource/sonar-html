@@ -48,6 +48,9 @@
     <rule key="RequiredElementCheck">
         <property name="elements" value="html" />
     </rule>
+    <rule key="RequiredAttributeCheck">
+        <property name="attributes" value="img.alt,script.type" />
+    </rule>
     <rule key="RegularExpressionCheck">
     </rule>
     <rule key="UnclosedTagCheck">

@@ -29,7 +29,7 @@ import org.sonar.plugins.web.language.Web;
 public class WebSensorTest extends AbstractWebPluginTester {
 
   @Test
-  public void testSensor() {
+  public void testSensor() throws Exception {
     WebRulesRepository webRulesRepository = new WebRulesRepository(Web.INSTANCE);
 
     RulesProfile rulesProfile = webRulesRepository.getProvidedProfiles().get(0);

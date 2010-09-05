@@ -32,7 +32,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checker for occurrence of required elements, e.g. a security tag.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
@@ -67,8 +67,7 @@ public class RequiredElementCheck extends AbstractPageCheck {
       for (Node node : nodes) {
         if (node.getNodeType() == NodeType.Tag) {
           TagNode element = (TagNode) node;
-          if (StringUtils.equalsIgnoreCase(element.getLocalName(), elementName)
-              || StringUtils.equalsIgnoreCase(element.getNodeName(), elementName)) {
+          if (element.equalsElementName(elementName)) {
             hasRequiredElement = true;
             break;
           }
