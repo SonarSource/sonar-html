@@ -22,21 +22,17 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 @XStreamAlias("guideline")
 public class Guideline {
 
+  public static enum ValidationType {
+    error, info, ok, unknown, warning
+  }
+
   @XStreamAsAttribute
   private String ref;
 
   @XStreamAsAttribute
   private String reflink;
 
-  private String remark;
-
-  public static enum ValidationType {
-    error,
-    info,
-    ok,
-    unknown,
-    warning
-  };
+  private String remark;;
 
   @XStreamAsAttribute
   private ValidationType type;
@@ -49,11 +45,9 @@ public class Guideline {
     return reflink;
   }
 
-
   public String getRemark() {
     return remark;
   }
-
 
   public ValidationType getType() {
     return type;

@@ -16,11 +16,25 @@
 
 package org.sonar.plugins.web.toetstool;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+import java.util.List;
 
-public class ValidationReport {
+import org.junit.Test;
 
-  public static File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + "-report.xml");
+
+public class CssFinderTest {
+
+  private static final String testfile = "src/test/resources/org/sonar/plugins/web/toetstool/a.html";
+
+  @Test
+  public void testCssFinder() {
+
+      File file = new File(testfile);
+      assertTrue(file.exists());
+      List<String> styleSheets = new CssFinder().parseWebFile(file);
+      assertEquals(3, styleSheets.size());
   }
 }

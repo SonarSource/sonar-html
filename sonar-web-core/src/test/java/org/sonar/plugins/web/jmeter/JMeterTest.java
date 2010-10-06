@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.jmeter;
 
-import java.io.File;
+import org.junit.Ignore;
+import org.junit.Test;
 
-public class ValidationReport {
+public class JMeterTest {
 
-  public static File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + "-report.xml");
+  @Test
+  @Ignore
+  public void testExtractResponses() {
+    JMeter jmeter = new JMeter();
+    jmeter.extractResponses();
   }
 }

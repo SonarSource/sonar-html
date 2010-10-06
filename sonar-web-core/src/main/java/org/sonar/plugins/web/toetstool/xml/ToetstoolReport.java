@@ -30,14 +30,6 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 @XStreamAlias("result")
 public class ToetstoolReport {
 
-  private File file;
-
-  private static XStream getXstream() {
-    XStream xstream = new XStream();
-    xstream.processAnnotations(new Class[] {ToetstoolReport.class});
-    return xstream;
-  }
-
   public static ToetstoolReport fromXml(File file) {
     try {
       FileInputStream input = new FileInputStream(file);
@@ -53,54 +45,38 @@ public class ToetstoolReport {
     return (ToetstoolReport) getXstream().fromXML(input);
   }
 
-  public void toXml(File reportFile) {
-     try {
-      getXstream().toXML(this, new FileOutputStream(reportFile));
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
-    }
+  private static XStream getXstream() {
+    XStream xstream = new XStream();
+    xstream.processAnnotations(new Class[] { ToetstoolReport.class });
+    return xstream;
   }
 
-  private void toXml(FileOutputStream out) {
-    getXstream().toXML(this, out);
-  }
-  public String toXml() {
-    return getXstream().toXML(this);
-  }
+  private File file;
 
   private Report report;
 
   @XStreamAsAttribute
-  private String status;
-
-  @XStreamAsAttribute
   private String reportNumber;
+  @XStreamAsAttribute
+  private String status;
 
   @XStreamAsAttribute
   private String url;
 
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-  public String getUrl() {
-    return url;
+  public Report getReport() {
+    return report;
   }
 
   public String getReportNumber() {
     return reportNumber;
   }
 
-  public void setReportNumber(String reportNumber) {
-    this.reportNumber = reportNumber;
-  }
-
-  public Report getReport() {
-    return report;
-  }
-
   public String getStatus() {
     return status;
+  }
+
+  public String getUrl() {
+    return url;
   }
 
   public void save() {
@@ -113,5 +89,29 @@ public class ToetstoolReport {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public void setReportNumber(String reportNumber) {
+    this.reportNumber = reportNumber;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public String toXml() {
+    return getXstream().toXML(this);
+  }
+
+  public void toXml(File reportFile) {
+    try {
+      getXstream().toXML(this, new FileOutputStream(reportFile));
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void toXml(FileOutputStream out) {
+    getXstream().toXML(this, out);
   }
 }

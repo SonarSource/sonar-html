@@ -18,8 +18,8 @@ package org.sonar.plugins.web.toetstool.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-
 public class Counters {
+
   @XStreamAsAttribute
   private Integer csserrors;
 
@@ -44,21 +44,27 @@ public class Counters {
   public Integer getCsserrors() {
     return csserrors;
   }
+
   public Integer getError() {
     return error;
   }
+
   public Integer getHtmlerrors() {
     return htmlerrors;
   }
+
   public Integer getInfo() {
     return info;
   }
+
   public Integer getOk() {
     return ok;
   }
+
   public Integer getUnknown() {
     return unknown;
   }
+
   public Integer getWarning() {
     return warning;
   }

@@ -41,136 +41,69 @@ import org.sonar.plugins.web.Settings;
 import org.sonar.plugins.web.ssl.EasySSLProtocolSocketFactory;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
-
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 
 public final class ToetsTool {
 
   private static final Logger LOG = Logger.getLogger(ToetsTool.class);
 
-  private static final long SLEEP_INTERVAL = 5000L;
-
   private static final int RETRIES = 10;
 
-  private final HttpClient client = new HttpClient();
+  private static final long SHORT_SLEEP_INTERVAL = 5000L;
 
   static {
     Protocol.registerProtocol("https", new Protocol("https", (ProtocolSocketFactory) new EasySSLProtocolSocketFactory(), 443));
-  }
-
-  public ToetsTool() {
-    if (Settings.useProxy()) {
-      client.getHostConfiguration().setProxy(Settings.getProxyHost(), Settings.getProxyPort());
-    }
   }
 
   public static String getHtmlReportUrl(String reportNumber) {
     return String.format("%sreport/%s/%s/", Settings.getToetstoolURL(), reportNumber, reportNumber);
   }
 
-  public void validateFiles(File folder) {
-    Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
-    for (File file : files) {
-      validateFile(file);
-    }
-  }
+  public static Collection<File> getReportFiles(File htmlFolder) {
+    @SuppressWarnings("unchecked")
+    Collection<File> reportFiles = FileUtils.listFiles(htmlFolder, new IOFileFilter() {
 
-  void validateFile(File file) {
-
-    ToetstoolReport report = ToetstoolReport.fromXml(ValidationReport.reportFile(file));
-
-    try {
-      // post html contents, in return we get a redirect location
-      String redirectLocation = postHtmlContents(file, report.getUrl());
-      // after sending the html, wait for a few seconds
-      sleep();
-
-      if (redirectLocation != null) {
-        // get the report number from the redirect location
-        // the format of the redirect URL is e.g. https://api.toetstool.nl/status/2816/
-        String reportNumber = StringUtils.substringAfterLast(StringUtils.substringBeforeLast(redirectLocation, "/"), "/");
-
-        report = fetchReport(reportNumber);
-        report.setReportNumber(reportNumber);
-        report.toXml(ValidationReport.reportFile(file));
-
-        // after receiving the resonse, wait a few seconds
-        sleep();
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private void sleep() {
-    try {
-      Thread.sleep(SLEEP_INTERVAL);
-    } catch (InterruptedException ie) {
-      throw new RuntimeException(ie);
-    }
-  }
-
-  private boolean isInteger(String reportNumber) {
-    try {
-      Integer.parseInt(reportNumber);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
-  }
-
-  private String postHtmlContents(File file, String url) throws IOException {
-    PostMethod post = new PostMethod(Settings.getToetstoolURL() + "insert/");
-
-    try {
-
-      // prepare content
-      List<PartBase> parts = new ArrayList<PartBase>();
-
-      // Prepare post parameters
-      StringPart header = new StringPart("header_yes", "0");
-      parts.add(header);
-
-      if (file != null) {
-        StringPart urlPart = new StringPart("url_user", url);
-        parts.add(urlPart);
-        FilePart filePart = new FilePart("htmlfile", file.getName(), file);
-        parts.add(filePart);
-
-        addCssContent(file, parts);
-
-      } else {
-        StringPart urlPart = new StringPart("url_user", url);
-        parts.add(urlPart);
-        StringPart htmlcontent = new StringPart("htmlcontent", "");
-        parts.add(htmlcontent);
+      @Override
+      public boolean accept(File file) {
+        return file.getName().endsWith("-report.xml");
       }
 
-      MultipartRequestEntity multiPartRequestEntity = new MultipartRequestEntity(parts.toArray(new PartBase[parts.size()]),
-          post.getParams());
-      post.setRequestEntity(multiPartRequestEntity);
-
-      client.executeMethod(post);
-      LOG.debug("Post: " + post.getStatusLine().toString());
-
-      if (post.getResponseHeader("location") == null) {
-        saveResponse(post);
-        return null;
-      } else {
-        saveResponse(post);
-        String location = post.getResponseHeader("location").getValue();
-
-        if (location.contains("csscnt")) {
-          // upload css needed
-          LOG.info("css upload needed");
-        }
-        LOG.info("redirect: " + location);
-
-        return location;
+      @Override
+      public boolean accept(File dir, String name) {
+        return name.endsWith("-report.xml");
       }
-    } finally {
-      // release any connection resources used by the method
-      post.releaseConnection();
+    }, new IOFileFilter() {
+
+      @Override
+      public boolean accept(File file) {
+        return true;
+      }
+
+      @Override
+      public boolean accept(File dir, String name) {
+        return true;
+      }
+
+    });
+
+    return reportFiles;
+  }
+
+  private static String getToetsToolUploadUrl() {
+    return Settings.getToetstoolURL() + "insert/";
+  }
+
+  private static void saveResponse(PostMethod post) throws IOException {
+    FileWriter writer = new FileWriter("response.html");
+    writer.write(post.getResponseBodyAsString());
+    writer.close();
+  }
+
+  private final HttpClient client = new HttpClient();
+
+  public ToetsTool() {
+    if (Settings.useProxy()) {
+      client.getHostConfiguration().setProxy(Settings.getProxyHost(), Settings.getProxyPort());
     }
   }
 
@@ -217,19 +150,16 @@ public final class ToetsTool {
     }
   }
 
-  private void saveResponse(PostMethod post) throws IOException {
-    FileWriter writer = new FileWriter("response.html");
-    writer.write(post.getResponseBodyAsString());
-    writer.close();
-  }
-
-  public ToetstoolReport fetchReport(String reportNumber) {
+  private ToetstoolReport fetchReport(String reportNumber) {
 
     // Compose report URL, e.g. http://dev.toetstool.nl/report/2927/2927/?xmlout=1
     String reportUrl = String.format("%s/report/%s/%s/?xmlout=1", Settings.getToetstoolURL(), reportNumber, reportNumber);
     LOG.info(reportUrl);
 
     for (int i = 0; i < RETRIES; i++) {
+
+      // before requesting a report, wait for a few seconds
+      sleep();
 
       // get the report url
       GetMethod httpget = new GetMethod(reportUrl);
@@ -239,42 +169,109 @@ public final class ToetsTool {
         InputStream response = httpget.getResponseBodyAsStream();
         return ToetstoolReport.fromXml(response);
       } catch (IOException e) {
+
       } catch (CannotResolveClassException e) {
 
       } finally {
         // release any connection resources used by the method
         httpget.releaseConnection();
       }
-
-      // when report is not yet available, wait a few seconds
-      sleep();
-      sleep();
     }
-    throw new RuntimeException("Failed to open URL " + reportUrl);
+    LOG.error("Failed to open URL " + reportUrl);
+    return null;
   }
 
-  public static Collection<File> getReportFiles(File htmlFolder) {
-    Collection<File> reportFiles = FileUtils.listFiles(htmlFolder, new IOFileFilter() {
+  private String postHtmlContents(File file, String url) throws IOException {
+    PostMethod post = new PostMethod(getToetsToolUploadUrl());
 
-      public boolean accept(File file) {
-        return file.getName().endsWith("-report.xml");
+    try {
+
+      LOG.info("Validate " + file.getName());
+
+      // prepare content
+      List<PartBase> parts = new ArrayList<PartBase>();
+
+      // Prepare post parameters
+      StringPart header = new StringPart("header_yes", "0");
+      parts.add(header);
+
+      StringPart urlPart = new StringPart("url_user", url);
+      parts.add(urlPart);
+      FilePart filePart = new FilePart("htmlfile", file.getName(), file);
+      parts.add(filePart);
+
+      addCssContent(file, parts);
+
+      MultipartRequestEntity multiPartRequestEntity = new MultipartRequestEntity(parts.toArray(new PartBase[parts.size()]),
+          post.getParams());
+      post.setRequestEntity(multiPartRequestEntity);
+
+      client.executeMethod(post);
+      LOG.info("Post: " + parts.size() + " parts, " + post.getStatusLine().toString());
+
+      if (post.getResponseHeader("location") == null) {
+        saveResponse(post);
+        return null;
+      } else {
+        saveResponse(post);
+        String location = post.getResponseHeader("location").getValue();
+
+        if (location.contains("csscnt")) {
+          // upload css needed
+          LOG.warn("css upload needed");
+        }
+        LOG.debug("redirect: " + location);
+
+        return location;
       }
+    } finally {
+      // release any connection resources used by the method
+      post.releaseConnection();
+    }
+  }
 
-      public boolean accept(File dir, String name) {
-        return name.endsWith("-report.xml");
+  private void sleep() {
+    sleep(SHORT_SLEEP_INTERVAL);
+  }
+
+  private void sleep(long sleepInterval) {
+    try {
+      Thread.sleep(sleepInterval);
+    } catch (InterruptedException ie) {
+      throw new RuntimeException(ie);
+    }
+  }
+
+  void validateFile(File file) {
+
+    ToetstoolReport report = ToetstoolReport.fromXml(ValidationReport.reportFile(file));
+
+    try {
+      // post html contents, in return we get a redirect location
+      String redirectLocation = postHtmlContents(file, report.getUrl());
+
+      if (redirectLocation != null) {
+        // get the report number from the redirect location
+        // the format of the redirect URL is e.g. https://api.toetstool.nl/status/2816/
+        String reportNumber = StringUtils.substringAfterLast(StringUtils.substringBeforeLast(redirectLocation, "/"), "/");
+
+        report = fetchReport(reportNumber);
+        if (report != null) {
+          report.setReportNumber(reportNumber);
+          report.toXml(ValidationReport.reportFile(file));
+
+          LOG.info("Validated: " + file.getPath());
+        }
       }
-    }, new IOFileFilter() {
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
-      public boolean accept(File file) {
-        return true;
-      }
-
-      public boolean accept(File dir, String name) {
-        return true;
-      }
-
-    });
-
-    return reportFiles;
+  public void validateFiles(File folder) {
+    Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
+    for (File file : files) {
+      validateFile(file);
+    }
   }
 }

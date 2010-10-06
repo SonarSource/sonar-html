@@ -32,26 +32,20 @@ public class HttpSample {
   @XStreamImplicit(itemFieldName = "httpSample")
   private List<HttpSample> httpSamples;
 
-
   @XStreamAsAttribute
   private String lb;
-
 
   @XStreamAsAttribute
   private String method;
 
-
   @XStreamAsAttribute
   private String queryString;
-
 
   @XStreamAsAttribute
   private String redirectLocation;
 
-
   @XStreamAsAttribute
   private String responseData;
-
 
   @XStreamAsAttribute
   private String tn;

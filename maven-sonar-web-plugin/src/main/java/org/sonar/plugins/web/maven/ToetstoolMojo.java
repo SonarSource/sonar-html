@@ -22,9 +22,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.sonar.plugins.web.Settings;
 import org.sonar.plugins.web.jmeter.JMeter;
-import org.sonar.plugins.web.toetstool.AggregateReport;
+import org.sonar.plugins.web.toetstool.Report;
 import org.sonar.plugins.web.toetstool.ToetsTool;
-
 
 /**
  * Goal to execute the verification with Toetstool.
@@ -34,12 +33,29 @@ import org.sonar.plugins.web.toetstool.ToetsTool;
 public class ToetstoolMojo extends AbstractMojo {
 
   /**
-   * JMeter directory with output files.
+   * The Maven Settings.
+   *
+   * @parameter default-value="${settings}"
+   * @required
+   * @readonly
+   */
+  private org.apache.maven.settings.Settings settings;
+
+  /**
+   * JMeter directory with script files.
    *
    * @parameter
    * @required
    */
-  private String jMeterDir;
+  private String jMeterScriptDir;
+
+  /**
+   * JMeter directory with report files.
+   *
+   * @parameter
+   * @required
+   */
+  private String jMeterReportDir;
 
   /**
    * Toetstool URL.
@@ -59,26 +75,41 @@ public class ToetstoolMojo extends AbstractMojo {
 
   public void execute() throws MojoExecutionException {
 
-    getLog().info("jMeterDir = " + jMeterDir);
-    getLog().info("toetsToolUrl = " + toetsToolUrl);
-    getLog().info("cssDir = " + cssDir);
+    configureSettings();
 
-    Settings.setToetstoolURL(toetsToolUrl);
-    Settings.setCssPath(cssDir);
-
-    File jMeterFolder = new File(jMeterDir);
     JMeter jmeter = new JMeter();
-    jmeter.extractResponses(jMeterFolder);
+    jmeter.extractResponses();
 
-    File htmlFolder = new File(jMeterFolder.getAbsolutePath() + "/html");
+    File htmlFolder = new File(jMeterReportDir + "/html");
     if (htmlFolder.exists()) {
 
       ToetsTool toetstool = new ToetsTool();
       toetstool.validateFiles(htmlFolder);
 
-      AggregateReport aggregateReport = new AggregateReport();
+      Report aggregateReport = new Report();
       aggregateReport.buildReports(htmlFolder);
+    }
+  }
 
+  private void configureSettings() {
+    for (Object key : getPluginContext().keySet()){
+      getLog().info((String) getPluginContext().get(key));
+    }
+    getLog().info("jMeterScriptDir = " + jMeterScriptDir);
+    getLog().info("jMeterReportDir = " + jMeterReportDir);
+    getLog().info("toetsToolUrl = " + toetsToolUrl);
+    getLog().info("cssDir = " + cssDir);
+
+    Settings.setJMeterScriptDir(jMeterScriptDir);
+    Settings.setJMeterReportDir (jMeterReportDir);
+    Settings.setToetstoolURL(toetsToolUrl);
+    Settings.setCssPath(cssDir);
+
+    // configure proxy
+    if (settings.getActiveProxy() != null) {
+      getLog().info("proxy = " + settings.getActiveProxy().getHost() + ":" + settings.getActiveProxy().getPort() );
+      Settings.setProxyHost(settings.getActiveProxy().getHost());
+      Settings.setProxyPort(settings.getActiveProxy().getPort());
     }
   }
 }

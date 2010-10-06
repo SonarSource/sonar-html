@@ -18,86 +18,49 @@ package org.sonar.plugins.web.toetstool;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.Settings;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.tidy.Tidy;
 
+final class CssFinder {
 
-public final class CssFinder {
+  private static final Logger LOG = Logger.getLogger(CssFinder.class);
 
-    /**
-     * Find propagation attributes
-     */
-    private class LinkTagHandler extends DefaultHandler {
+  private final List<String> importedStyleSheets = new ArrayList<String>();
 
-        @Override
-        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-            if ("link".equals(qName) && "text/css".equals(attributes.getValue("type"))) {
-                styleSheets.add(new File(attributes.getValue("href")).getName());
-            }
-        }
-    }
+  private final List<String> styleSheets = new ArrayList<String>();
 
-    private static final Logger LOG = Logger.getLogger(CssFinder.class);
-
-    private static final SAXParserFactory SAX_FACTORY;
-
-
-    /**
-     * Build the SAXParserFactory.
-     */
-    static {
-
-        SAX_FACTORY = SAXParserFactory.newInstance();
-
-        try {
-            SAX_FACTORY.setValidating(false);
-            SAX_FACTORY.setFeature("http://xml.org/sax/features/validation", false);
-            SAX_FACTORY.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-            SAX_FACTORY.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-            SAX_FACTORY.setFeature("http://xml.org/sax/features/external-general-entities", false);
-            SAX_FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private final List<String> importedStyleSheets = new ArrayList<String>();
-
-    private final List<String> styleSheets = new ArrayList<String>();
-
-    public File[] findCssFiles() {
-      List<File> cssFiles = new ArrayList<File>();
-      File folder = new File(Settings.getCssPath());
-      for (File file : folder.listFiles()) {
-        for (String styleSheet : styleSheets) {
-          if (file.getName().contains(styleSheet)) {
-            cssFiles.add(file);
-          }
+  public File[] findCssFiles() {
+    List<File> cssFiles = new ArrayList<File>();
+    File folder = new File(Settings.getCssPath());
+    for (File file : folder.listFiles()) {
+      for (String styleSheet : styleSheets) {
+        if (file.getName().contains(styleSheet)) {
+          cssFiles.add(file);
         }
       }
-
-      LOG.debug(cssFiles.size() + " css files (" + cssFiles + ")");
-      return cssFiles.toArray(new File[cssFiles.size()]);
     }
 
-    public File[] findCssImports() throws IOException {
-      List<File> imports = new ArrayList<File>();
-      for (File file : findCssFiles()) {
+    LOG.debug(cssFiles.size() + " css files (" + cssFiles + ")");
+    return cssFiles.toArray(new File[cssFiles.size()]);
+  }
+
+  public File[] findCssImports() {
+    List<File> imports = new ArrayList<File>();
+    for (File file : findCssFiles()) {
+
+      try {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = reader.readLine()) != null) {
@@ -106,7 +69,7 @@ public final class CssFinder {
             String fileName = StringUtils.substringBeforeLast(StringUtils.substringAfterLast(line, "("), ")");
             File importFile = new File(Settings.getCssPath() + "/" + fileName);
             if (importFile.exists()) {
-              LOG.info("Import file " + fileName);
+              LOG.debug("Import file " + fileName);
               imports.add(importFile);
             } else {
               LOG.error("Import file " + fileName + " does not exist");
@@ -114,38 +77,53 @@ public final class CssFinder {
             }
           }
         }
+      } catch (FileNotFoundException e) {
+        LOG.error("Could not find imported css file " + file.getName());
+      } catch (IOException e) {
+        LOG.error("Could not find read from css file " + file.getName());
       }
-      return imports.toArray(new File[imports.size()]);
     }
+    return imports.toArray(new File[imports.size()]);
+  }
 
-    public List<String> getImportedStyleSheets() {
-      return importedStyleSheets;
-    }
+  public List<String> getImportedStyleSheets() {
+    return importedStyleSheets;
+  }
 
-    public List<String> getStyleSheets() {
-      return styleSheets;
-    }
+  public List<String> getStyleSheets() {
+    return styleSheets;
+  }
 
-    /**
-     * Parse an XML file with the specified handler.
-     */
-    private void parseFile(File file, DefaultHandler handler) {
-        try {
-            SAX_FACTORY.newSAXParser().parse(file, handler);
-        } catch (SAXException e) {
-            LOG.error(e);
-            return;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
+  /**
+   * Parse an XML file to find linked stylesheets.
+   */
+  private void parseFile(File file) {
+    try {
+      Tidy tidy = new Tidy();
+      tidy.setShowWarnings(false);
+      tidy.setQuiet(true);
+
+      Document document = tidy.parseDOM(new FileInputStream(file), null);
+      NodeList nodeList = document.getElementsByTagName("link");
+      for (int i = 0; i < nodeList.getLength(); i++) {
+        Node node = nodeList.item(i);
+        Node type = node.getAttributes().getNamedItem("type");
+        if (type != null && "text/css".equals(type.getNodeValue())) {
+          Node href = node.getAttributes().getNamedItem("href");
+          if (href != null) {
+            String styleSheetRef = href.getNodeValue();
+            styleSheets.add(StringUtils.substringAfterLast(styleSheetRef, "/"));
+          }
         }
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public List<String> parseWebFile(File file) {
+  public List<String> parseWebFile(File file) {
 
-        parseFile(file, new LinkTagHandler());
-        return styleSheets;
-    }
-
+    parseFile(file);
+    return styleSheets;
+  }
 }

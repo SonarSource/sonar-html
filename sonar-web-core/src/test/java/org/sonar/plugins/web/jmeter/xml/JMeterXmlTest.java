@@ -14,13 +14,26 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.jmeter.xml;
 
-import java.io.File;
+import static org.junit.Assert.assertNotNull;
 
-public class ValidationReport {
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
-  public static File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + "-report.xml");
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class JMeterXmlTest {
+
+  @Test
+  @Ignore
+  public void testReport() throws FileNotFoundException {
+    InputStream input = getClass().getResourceAsStream("login-logoff.xml");
+    JMeterReport report = JMeterReport.fromXml(input);
+    assertNotNull(report);
+    for (HttpSample sample :  report.getHttpSamples()) {
+      System.out.println(sample.getResponseData());
+    }
   }
 }
