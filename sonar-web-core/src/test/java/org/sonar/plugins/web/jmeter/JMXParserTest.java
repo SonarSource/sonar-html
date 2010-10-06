@@ -14,36 +14,25 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.jmeter;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.Map;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
+public class JMXParserTest {
 
-public class ReportTest {
-
-  private static final String folder = "src/test/resources/org/sonar/plugins/web/toetstool";
-
-  @Test
-  public void testAggregateReport() {
-
-    new File("report.html").delete();
-
-    Report report = new Report();
-    report.buildReports(new File(folder));
-
-    assertTrue(new File("target/report.html").exists());
-  }
+  private static final String testfile = "src/test/resources/org/sonar/plugins/web/toetstool/jmeter.jmx";
 
   @Test
-  @Ignore
-  public void testAggregateJmeterReport() throws FileNotFoundException {
-    File file = new File("C:/workspaces/tenderned/src/tenderned-performance/target/jmeter-reports");
-    new Report().buildReports(file);
+  public void testFindHttpSampleTestNames() {
+    JMXParser jmxParser = new JMXParser();
+    Map<String, String> testnames = jmxParser.findHttpSampleTestNames(new File(testfile));
+    assertNotNull(testnames);
+    assertTrue(testnames.size() > 0);
   }
 }

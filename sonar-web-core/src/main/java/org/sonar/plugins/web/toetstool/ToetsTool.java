@@ -195,6 +195,14 @@ public final class ToetsTool {
       StringPart header = new StringPart("header_yes", "0");
       parts.add(header);
 
+      if (!url.startsWith("http")) {
+        if (!url.startsWith("/")) {
+          url = "/" + url;
+        }
+        url = "http://localhost" + url;
+      }
+
+      LOG.info("Sending url: " + url);
       StringPart urlPart = new StringPart("url_user", url);
       parts.add(urlPart);
       FilePart filePart = new FilePart("htmlfile", file.getName(), file);

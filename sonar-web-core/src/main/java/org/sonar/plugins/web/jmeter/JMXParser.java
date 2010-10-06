@@ -39,16 +39,24 @@ final class JMXParser {
     private boolean inSamplerNode;
     private boolean inStringPropPathNode;
     private String testname;
+    private StringBuilder sb;
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
       if (inStringPropPathNode) {
-        httpSamples.put(testname, new String(ch, start, length));
+        if (sb == null) {
+          sb = new StringBuilder();
+        }
+        sb.append(ch, start, length);
       }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
+      if (sb != null) {
+        httpSamples.put(testname, sb.toString());
+        sb = null;
+      }
       if ("HTTPSampler2".equals(qName)) {
         inSamplerNode = false;
       }

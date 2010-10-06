@@ -46,7 +46,7 @@ public class Report {
 
   /**
    * Decodes html entities.
-   * 
+   *
    * @param s
    *          the <code>String</code> to decode
    * @return the newly decoded <code>String</code>
@@ -127,7 +127,7 @@ public class Report {
     createViolationsReport(violations);
 
     try {
-      FileWriter writer = new FileWriter("report.html");
+      FileWriter writer = new FileWriter("target/report.html");
       writer.append(sb.toString());
       writer.close();
     } catch (IOException e) {
