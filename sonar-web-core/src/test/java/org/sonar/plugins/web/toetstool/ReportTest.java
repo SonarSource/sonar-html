@@ -21,18 +21,25 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.sonar.plugins.web.Settings;
 
 
 public class ReportTest {
 
   private static final String folder = "src/test/resources/org/sonar/plugins/web/toetstool";
 
+  @Before
+  public void setToetstoolUrl() {
+    Settings.setToetstoolURL("http://xyz");
+  }
+
   @Test
   public void testAggregateReport() {
 
-    new File("report.html").delete();
+    new File("target/report.html").delete();
 
     Report report = new Report();
     report.buildReports(new File(folder));
