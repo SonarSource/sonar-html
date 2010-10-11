@@ -17,11 +17,14 @@
 package org.sonar.plugins.web.html;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.io.FileUtils;
@@ -82,6 +85,24 @@ public abstract class HtmlValidator {
     Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
 
     return files;
+  }
+
+  protected void executePostMethod(PostMethod post) {
+
+    try {
+      getClient().executeMethod(post);
+    } catch (UnknownHostException e) {
+      if (Settings.useProxy()) {
+        getClient().getHostConfiguration().setProxyHost(null);
+        try {
+          getClient().executeMethod(post);
+        } catch (IOException e2) {
+          throw new RuntimeException(e2);
+        }
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   protected List<HtmlFile> randomSubset(List<HtmlFile> htmlFiles, Integer amount) {

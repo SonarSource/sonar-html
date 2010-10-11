@@ -17,7 +17,8 @@
 package org.sonar.plugins.web.markupvalidation;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +29,7 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.html.HtmlValidator;
 
@@ -44,6 +46,7 @@ public class MarkupValidator extends HtmlValidator {
   private static final String validatorUrl = "http://validator.w3.org/check";
 
   private static final String REPORT_XML = "-mu.xml";
+  private static final String ERROR_XML = "-mu.error";
 
   private static final Logger LOG = Logger.getLogger(MarkupValidator.class);
 
@@ -53,13 +56,8 @@ public class MarkupValidator extends HtmlValidator {
   @Override
   public void validateFile(File file, String url) {
 
-    try {
-      // post html contents, in return we get a redirect location
-      postHtmlContents(file, url);
-
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    // post html contents to service
+    postHtmlContents(file, url);
   }
 
   /**
@@ -67,7 +65,7 @@ public class MarkupValidator extends HtmlValidator {
    *
    * Documentation of interface: http://validator.w3.org/docs/api.html
    */
-  public void postHtmlContents(File file, String url) throws IOException {
+  public void postHtmlContents(File file, String url) {
     PostMethod post = new PostMethod(validatorUrl);
 
     try {
@@ -78,7 +76,12 @@ public class MarkupValidator extends HtmlValidator {
       List<PartBase> parts = new ArrayList<PartBase>();
 
       LOG.info("Sending url: " + url);
-      FilePart filePart = new FilePart("uploaded_file", file.getName(), file);
+      FilePart filePart;
+      try {
+        filePart = new FilePart("uploaded_file", file.getName(), file);
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+      }
       filePart.setContentType("text/html");
       parts.add(filePart);
       StringPart outputFormat = new StringPart("output", "soap12");
@@ -88,28 +91,40 @@ public class MarkupValidator extends HtmlValidator {
           post.getParams());
       post.setRequestEntity(multiPartRequestEntity);
 
-      getClient().executeMethod(post);
+      executePostMethod(post);
+
       LOG.info("Post: " + parts.size() + " parts, " + post.getStatusLine().toString());
 
-      if (post.getStatusCode() != 200) {
-        LOG.error("failed to validate file " + file.getPath());
-      } else {
-        FileOutputStream streamOut = new FileOutputStream(reportFile(file));
-        int c;
-        while ((c = post.getResponseBodyAsStream().read()) != -1) {
-          streamOut.write(c);
-        }
-        streamOut.close();
-      }
+      writeResponse(post, file);
     } finally {
       // release any connection resources used by the method
       post.releaseConnection();
     }
   }
 
+  private void writeResponse(PostMethod post, File file) {
+    final File reportFile;
+    if (post.getStatusCode() != 200) {
+      LOG.error("failed to validate file " + file.getPath());
+      reportFile = errorFile(file);
+    } else {
+      reportFile = reportFile(file);
+    }
+
+    try {
+      IOUtils.copy(post.getResponseBodyAsStream(), new FileWriter(reportFile));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   @Override
   public File reportFile(File file) {
     return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_XML);
+  }
+
+  private File errorFile(File file) {
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + ERROR_XML);
   }
 
   public static Collection<File> getReportFiles(File folder) {

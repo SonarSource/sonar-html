@@ -21,23 +21,15 @@ import java.io.File;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.sonar.plugins.web.Settings;
 import org.sonar.plugins.web.html.HtmlValidator;
-import org.sonar.plugins.web.toetstool.ToetsTool;
-import org.sonar.plugins.web.toetstool.ToetsToolReportBuilder;
+import org.sonar.plugins.web.markupvalidation.MarkupReportBuilder;
+import org.sonar.plugins.web.markupvalidation.MarkupValidator;
 
 /**
- * Goal to execute the verification with Toetstool.
+ * Goal to execute the verification with W3C Validator.
  *
- * @goal validate-html-toetstool
+ * @goal validate-html-markup
  */
-public class ToetstoolMojo extends AbstractValidationMojo {
-
-  /**
-   * Toetstool URL.
-   *
-   * @parameter
-   * @required
-   */
-  private String toetsToolUrl;
+public class HtmlMarkupMojo extends AbstractValidationMojo {
 
   public void execute() throws MojoExecutionException {
 
@@ -48,19 +40,16 @@ public class ToetstoolMojo extends AbstractValidationMojo {
 
     // execute validation
     File htmlFolder = new File(Settings.getHtmlDir());
-    HtmlValidator toetstool = new ToetsTool();
-    toetstool.validateFiles(htmlFolder);
+    HtmlValidator validator = new MarkupValidator();
+    validator.validateFiles(htmlFolder);
 
     // build report
-    ToetsToolReportBuilder reportBuilder = new ToetsToolReportBuilder();
+    MarkupReportBuilder reportBuilder = new MarkupReportBuilder();
     reportBuilder.buildReports(htmlFolder);
   }
 
   @Override
   protected void configureSettings() {
     super.configureSettings();
-
-    getLog().info("toetsToolUrl = " + toetsToolUrl);
-    Settings.setToetstoolURL(toetsToolUrl);
   }
 }

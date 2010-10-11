@@ -172,7 +172,7 @@ public final class ToetsTool extends HtmlValidator {
           post.getParams());
       post.setRequestEntity(multiPartRequestEntity);
 
-      getClient().executeMethod(post);
+      executePostMethod(post);
       LOG.debug("Post: " + parts.size() + " parts, " + post.getStatusLine().toString());
 
       if (post.getResponseHeader("location") == null) {

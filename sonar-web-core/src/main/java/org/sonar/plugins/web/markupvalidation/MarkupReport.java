@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -71,6 +72,8 @@ public final class MarkupReport {
     }
   }
 
+  private static final Logger LOG = Logger.getLogger(MarkupReport.class);
+
   private Document parseSoapMessage(File file) {
     DOMParser parser = new DOMParser();
 
@@ -78,10 +81,10 @@ public final class MarkupReport {
       parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
       parser.parse(new InputSource(new FileReader(file)));
     } catch (SAXException se) {
-      se.printStackTrace();
+      LOG.error("Failed to parse " + file.getPath());
       return null;
     } catch (IOException ioe) {
-      ioe.printStackTrace();
+      LOG.error("Failed to parse " + file.getPath());
       return null;
     }
     return parser.getDocument();
