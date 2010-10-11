@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-
 public class CssFinderTest {
 
   private static final String testfile = "src/test/resources/org/sonar/plugins/web/toetstool/a.html";
@@ -32,9 +31,9 @@ public class CssFinderTest {
   @Test
   public void testCssFinder() {
 
-      File file = new File(testfile);
-      assertTrue(file.exists());
-      List<String> styleSheets = new CssFinder().parseWebFile(file);
-      assertEquals(3, styleSheets.size());
+    File file = new File(testfile);
+    assertTrue(file.exists());
+    List<String> styleSheets = new CssFinder().parseWebFile(file);
+    assertEquals(3, styleSheets.size());
   }
 }

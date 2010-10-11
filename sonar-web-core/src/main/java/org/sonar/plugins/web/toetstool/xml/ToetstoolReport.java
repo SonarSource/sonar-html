@@ -27,6 +27,10 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+/**
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 @XStreamAlias("result")
 public class ToetstoolReport {
 

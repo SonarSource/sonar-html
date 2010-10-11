@@ -33,6 +33,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
+/**
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 final class CssFinder {
 
   private static final Logger LOG = Logger.getLogger(CssFinder.class);

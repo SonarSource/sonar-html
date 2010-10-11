@@ -18,6 +18,10 @@ package org.sonar.plugins.web.toetstool.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+/**
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 public class Counters {
 
   @XStreamAsAttribute

@@ -19,6 +19,10 @@ package org.sonar.plugins.web.toetstool.xml;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+/**
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 @XStreamAlias("guideline")
 public class Guideline {
 

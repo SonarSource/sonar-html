@@ -17,12 +17,16 @@
 package org.sonar.plugins.web.maven;
 
 import java.io.File;
+import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.html.HtmlScanner;
+import org.sonar.plugins.web.html.MarkupValidator;
 import org.sonar.plugins.web.jmeter.JMeter;
-import org.sonar.plugins.web.toetstool.Report;
+import org.sonar.plugins.web.toetstool.ReportBuilder;
 import org.sonar.plugins.web.toetstool.ToetsTool;
 
 /**
@@ -45,7 +49,6 @@ public class ToetstoolMojo extends AbstractMojo {
    * JMeter directory with script files.
    *
    * @parameter
-   * @required
    */
   private String jMeterScriptDir;
 
@@ -53,9 +56,16 @@ public class ToetstoolMojo extends AbstractMojo {
    * JMeter directory with report files.
    *
    * @parameter
-   * @required
    */
   private String jMeterReportDir;
+
+  /**
+   * HTML directory with location of HTML files.
+   *
+   * @parameter
+   * @required
+   */
+  private String htmlDir;
 
   /**
    * Toetstool URL.
@@ -73,20 +83,45 @@ public class ToetstoolMojo extends AbstractMojo {
    */
   private String cssDir;
 
+  /**
+   * Number of samples.
+   *
+   * @parameter
+   */
+  private Integer nrOfSamples;
+
+  /**
+   * @parameter
+   * @required
+   */
+  private List<String> validationServices;
+
   public void execute() throws MojoExecutionException {
 
     configureSettings();
 
-    JMeter jmeter = new JMeter();
-    jmeter.extractResponses();
+    if (jMeterScriptDir != null && jMeterScriptDir != null) {
+      JMeter jmeter = new JMeter();
+      jmeter.extractResponses();
+    }
 
-    File htmlFolder = new File(jMeterReportDir + "/html");
+    File htmlFolder = new File(htmlDir);
     if (htmlFolder.exists()) {
 
-      ToetsTool toetstool = new ToetsTool();
-      toetstool.validateFiles(htmlFolder);
+      HtmlScanner htmlScanner = new HtmlScanner();
+      htmlScanner.prepare(Settings.getHtmlDir());
 
-      Report aggregateReport = new Report();
+      if (validationServices.contains("HtmlMarkup")) {
+        MarkupValidator markupValidator = new MarkupValidator();
+        markupValidator.validateFiles(htmlFolder);
+      }
+
+      if (validationServices.contains("Toetstool")) {
+        ToetsTool toetstool = new ToetsTool();
+        toetstool.validateFiles(htmlFolder);
+      }
+
+      ReportBuilder aggregateReport = new ReportBuilder();
       aggregateReport.buildReports(htmlFolder);
     }
   }
@@ -95,15 +130,22 @@ public class ToetstoolMojo extends AbstractMojo {
     for (Object key : getPluginContext().keySet()){
       getLog().info((String) getPluginContext().get(key));
     }
+    getLog().info("HTMLDir = " + htmlDir);
     getLog().info("jMeterScriptDir = " + jMeterScriptDir);
     getLog().info("jMeterReportDir = " + jMeterReportDir);
     getLog().info("toetsToolUrl = " + toetsToolUrl);
     getLog().info("cssDir = " + cssDir);
+    getLog().info("validationServices = " + StringUtils.join(validationServices, ", "));
+    getLog().info("nrOfSamples = " + nrOfSamples);
 
+    Settings.setHTMLDir(htmlDir);
     Settings.setJMeterScriptDir(jMeterScriptDir);
     Settings.setJMeterReportDir (jMeterReportDir);
     Settings.setToetstoolURL(toetsToolUrl);
     Settings.setCssPath(cssDir);
+    if (nrOfSamples != null && nrOfSamples > 0) {
+      Settings.setNrOfSamples(nrOfSamples);
+    }
 
     // configure proxy
     if (settings.getActiveProxy() != null) {

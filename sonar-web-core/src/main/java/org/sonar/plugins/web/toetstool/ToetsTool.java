@@ -17,33 +17,34 @@
 package org.sonar.plugins.web.toetstool;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
-import org.apache.commons.httpclient.protocol.Protocol;
-import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.sonar.plugins.web.HtmlValidator;
 import org.sonar.plugins.web.Settings;
-import org.sonar.plugins.web.ssl.EasySSLProtocolSocketFactory;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 
-public final class ToetsTool {
+/**
+ * Validate HTML and CSS using toetstool.nl.
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
+public final class ToetsTool extends HtmlValidator {
 
   private static final Logger LOG = Logger.getLogger(ToetsTool.class);
 
@@ -51,60 +52,12 @@ public final class ToetsTool {
 
   private static final long SHORT_SLEEP_INTERVAL = 5000L;
 
-  static {
-    Protocol.registerProtocol("https", new Protocol("https", (ProtocolSocketFactory) new EasySSLProtocolSocketFactory(), 443));
-  }
-
   public static String getHtmlReportUrl(String reportNumber) {
     return String.format("%sreport/%s/%s/", Settings.getToetstoolURL(), reportNumber, reportNumber);
   }
 
-  public static Collection<File> getReportFiles(File htmlFolder) {
-    @SuppressWarnings("unchecked")
-    Collection<File> reportFiles = FileUtils.listFiles(htmlFolder, new IOFileFilter() {
-
-      @Override
-      public boolean accept(File file) {
-        return file.getName().endsWith("-report.xml");
-      }
-
-      @Override
-      public boolean accept(File dir, String name) {
-        return name.endsWith("-report.xml");
-      }
-    }, new IOFileFilter() {
-
-      @Override
-      public boolean accept(File file) {
-        return true;
-      }
-
-      @Override
-      public boolean accept(File dir, String name) {
-        return true;
-      }
-
-    });
-
-    return reportFiles;
-  }
-
   private static String getToetsToolUploadUrl() {
     return Settings.getToetstoolURL() + "insert/";
-  }
-
-  private static void saveResponse(PostMethod post) throws IOException {
-    FileWriter writer = new FileWriter("response.html");
-    writer.write(post.getResponseBodyAsString());
-    writer.close();
-  }
-
-  private final HttpClient client = new HttpClient();
-
-  public ToetsTool() {
-    if (Settings.useProxy()) {
-      client.getHostConfiguration().setProxy(Settings.getProxyHost(), Settings.getProxyPort());
-    }
   }
 
   private void addCssContent(File file, List<PartBase> parts) throws IOException {
@@ -155,6 +108,7 @@ public final class ToetsTool {
     // Compose report URL, e.g. http://dev.toetstool.nl/report/2927/2927/?xmlout=1
     String reportUrl = String.format("%s/report/%s/%s/?xmlout=1", Settings.getToetstoolURL(), reportNumber, reportNumber);
     LOG.info(reportUrl);
+    int failedAttempts = 0;
 
     for (int i = 0; i < RETRIES; i++) {
 
@@ -164,23 +118,26 @@ public final class ToetsTool {
       // get the report url
       GetMethod httpget = new GetMethod(reportUrl);
       try {
-        client.executeMethod(httpget);
+        getClient().executeMethod(httpget);
         LOG.debug("Get: " + httpget.getStatusLine().toString());
         InputStream response = httpget.getResponseBodyAsStream();
         return ToetstoolReport.fromXml(response);
       } catch (IOException e) {
-
+        failedAttempts++;
       } catch (CannotResolveClassException e) {
-
+        failedAttempts++;
       } finally {
         // release any connection resources used by the method
         httpget.releaseConnection();
       }
     }
-    LOG.error("Failed to open URL " + reportUrl);
+    LOG.error("Failed to open URL " + reportUrl + " after " + failedAttempts + " attempts");
     return null;
   }
 
+  /**
+   * Post content of HTML file and CSS files to the Toesttool service. In return, receive a redirecte containing the reportNumber.
+   */
   private String postHtmlContents(File file, String url) throws IOException {
     PostMethod post = new PostMethod(getToetsToolUploadUrl());
 
@@ -195,8 +152,8 @@ public final class ToetsTool {
       StringPart header = new StringPart("header_yes", "0");
       parts.add(header);
 
-      if (!url.startsWith("http")) {
-        if (!url.startsWith("/")) {
+      if ( !url.startsWith("http")) {
+        if ( !url.startsWith("/")) {
           url = "/" + url;
         }
         url = "http://localhost" + url;
@@ -214,23 +171,22 @@ public final class ToetsTool {
           post.getParams());
       post.setRequestEntity(multiPartRequestEntity);
 
-      client.executeMethod(post);
-      LOG.info("Post: " + parts.size() + " parts, " + post.getStatusLine().toString());
+      getClient().executeMethod(post);
+      LOG.debug("Post: " + parts.size() + " parts, " + post.getStatusLine().toString());
 
       if (post.getResponseHeader("location") == null) {
-        saveResponse(post);
         return null;
       } else {
-        saveResponse(post);
         String location = post.getResponseHeader("location").getValue();
 
         if (location.contains("csscnt")) {
           // upload css needed
-          LOG.warn("css upload needed");
+          LOG.warn("css upload needed for " + file.getName());
+          return null;
+        } else {
+          LOG.debug("redirect: " + location);
+          return location;
         }
-        LOG.debug("redirect: " + location);
-
-        return location;
       }
     } finally {
       // release any connection resources used by the method
@@ -250,6 +206,9 @@ public final class ToetsTool {
     }
   }
 
+  /**
+   * Validate a file with the Toetstool service.
+   */
   void validateFile(File file) {
 
     ToetstoolReport report = ToetstoolReport.fromXml(ValidationReport.reportFile(file));
@@ -276,8 +235,15 @@ public final class ToetsTool {
     }
   }
 
+  /**
+   * Validate a set of files using the Toetstool service.
+   */
   public void validateFiles(File folder) {
     Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
+
+    if (Settings.getNrOfSamples() != null) {
+      files = randomSubset(files, Settings.getNrOfSamples());
+    }
     for (File file : files) {
       validateFile(file);
     }

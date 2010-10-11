@@ -22,6 +22,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+/**
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 public class Report {
 
   @XStreamAlias("guideline")
@@ -30,7 +34,7 @@ public class Report {
     @XStreamImplicit(itemFieldName = "guideline")
     private List<Guideline> guidelines;
 
-    private List<Guideline> getGuidelines() {
+    public List<Guideline> getGuidelines() {
       return guidelines;
     }
   }
@@ -49,6 +53,9 @@ public class Report {
 
   @XStreamAsAttribute
   private String url;
+
+  @XStreamAsAttribute
+  private String duplicateFile;
 
   public Counters getCounters() {
     return counters;

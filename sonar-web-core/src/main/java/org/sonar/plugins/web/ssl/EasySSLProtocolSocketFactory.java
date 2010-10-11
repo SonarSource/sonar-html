@@ -21,7 +21,6 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
@@ -42,13 +41,13 @@ import org.apache.commons.logging.LogFactory;
  * This socket factory SHOULD NOT be used for productive systems due to security reasons, unless it is a concious decision and you are
  * perfectly aware of security implications of accepting self-signed certificates
  * </p>
- * 
+ *
  * <p>
  * Example of using custom protocol socket factory for a specific host:
- * 
+ *
  * <pre>
  * Protocol easyhttps = new Protocol(&quot;https&quot;, new EasySSLProtocolSocketFactory(), 443);
- * 
+ *
  * URI uri = new URI(&quot;https://localhost/&quot;, true);
  * // use relative url only
  * GetMethod httpget = new GetMethod(uri.getPathQuery());
@@ -57,24 +56,24 @@ import org.apache.commons.logging.LogFactory;
  * HttpClient client = new HttpClient();
  * client.executeMethod(hc, httpget);
  * </pre>
- * 
+ *
  * </p>
  * <p>
  * Example of using custom protocol socket factory per default instead of the standard one:
- * 
+ *
  * <pre>
  * Protocol easyhttps = new Protocol(&quot;https&quot;, new EasySSLProtocolSocketFactory(), 443);
  * Protocol.registerProtocol(&quot;https&quot;, easyhttps);
- * 
+ *
  * HttpClient client = new HttpClient();
  * GetMethod httpget = new GetMethod(&quot;https://localhost/&quot;);
  * client.executeMethod(httpget);
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @author <a href="mailto:oleg -at- ural.ru">Oleg Kalnichevski</a>
- * 
+ *
  *         <p>
  *         DISCLAIMER: HttpClient developers DO NOT actively support this component. The component is provided as a reference material,
  *         which may be inappropriate for use without additional customization.
@@ -110,7 +109,7 @@ public class EasySSLProtocolSocketFactory implements SecureProtocolSocketFactory
    * @see SecureProtocolSocketFactory#createSocket(java.net.Socket,java.lang.String,int,boolean)
    */
   @Override
-  public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException {
+  public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException {
     return getSSLContext().getSocketFactory().createSocket(socket, host, port, autoClose);
   }
 
@@ -118,7 +117,7 @@ public class EasySSLProtocolSocketFactory implements SecureProtocolSocketFactory
    * @see SecureProtocolSocketFactory#createSocket(java.lang.String,int)
    */
   @Override
-  public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
+  public Socket createSocket(String host, int port) throws IOException {
     return getSSLContext().getSocketFactory().createSocket(host, port);
   }
 
@@ -126,7 +125,7 @@ public class EasySSLProtocolSocketFactory implements SecureProtocolSocketFactory
    * @see SecureProtocolSocketFactory#createSocket(java.lang.String,int,java.net.InetAddress,int)
    */
   @Override
-  public Socket createSocket(String host, int port, InetAddress clientHost, int clientPort) throws IOException, UnknownHostException {
+  public Socket createSocket(String host, int port, InetAddress clientHost, int clientPort) throws IOException {
 
     return getSSLContext().getSocketFactory().createSocket(host, port, clientHost, clientPort);
   }
@@ -138,7 +137,7 @@ public class EasySSLProtocolSocketFactory implements SecureProtocolSocketFactory
    * attempts to create a new socket within the given limit of time. If socket constructor does not return until the timeout expires, the
    * controller terminates and throws an {@link ConnectTimeoutException}
    * </p>
-   * 
+   *
    * @param host
    *          the host name/IP
    * @param port
@@ -149,9 +148,9 @@ public class EasySSLProtocolSocketFactory implements SecureProtocolSocketFactory
    *          the port on the local machine
    * @param params
    *          {@link HttpConnectionParams Http connection parameters}
-   * 
+   *
    * @return Socket a new socket
-   * 
+   *
    * @throws IOException
    *           if an I/O error occurs while creating the socket
    * @throws UnknownHostException
@@ -159,7 +158,7 @@ public class EasySSLProtocolSocketFactory implements SecureProtocolSocketFactory
    */
   @Override
   public Socket createSocket(final String host, final int port, final InetAddress localAddress, final int localPort,
-      final HttpConnectionParams params) throws IOException, UnknownHostException, ConnectTimeoutException {
+      final HttpConnectionParams params) throws IOException {
     if (params == null) {
       throw new IllegalArgumentException("Parameters may not be null");
     }

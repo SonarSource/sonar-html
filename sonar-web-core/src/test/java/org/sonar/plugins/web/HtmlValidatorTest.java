@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web;
 
-import java.io.File;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.sonar.plugins.web.html.HtmlScanner;
 
-/**
- * @author Matthijs Galesloot
- * @since 0.2
- */
-public final class ValidationReport {
+public class HtmlValidatorTest {
 
-  public static File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + "-report.xml");
-  }
-
-  private ValidationReport() {
-    // utility class, cannot instantiate
+  @Test
+  @Ignore
+  public void testPrepareFiles() {
+    String path = "C:/workspaces/tenderned/src/tenderned-performance20101005/target/jmeter-reports/html";
+    HtmlScanner htmlScanner = new HtmlScanner();
+    htmlScanner.prepare(path);
   }
 }

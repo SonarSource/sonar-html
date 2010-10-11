@@ -29,17 +29,23 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * Parse JMeter jmx file.
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 final class JMXParser {
 
   /**
-   * Find testnames of HTTPSampler nodes.
+   * Match HTTPSampler.stringProp[testname].path to HTTPSampler.path.testName.
    */
   private class HttpSamplerHandler extends DefaultHandler {
 
-    private boolean inSamplerNode;
-    private boolean inStringPropPathNode;
-    private String testname;
+    private boolean inSamplerNode; // parser inside <HTTPSampler2>
+    private boolean inStringPropPathNode; // parser inside <stringProp>
     private StringBuilder sb;
+    private String testname;
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
@@ -79,7 +85,7 @@ final class JMXParser {
   private static final SAXParserFactory SAX_FACTORY;
 
   /**
-   * Build the SAXParserFactory.
+   * Build the SAXParserFactory without validation features.
    */
   static {
 

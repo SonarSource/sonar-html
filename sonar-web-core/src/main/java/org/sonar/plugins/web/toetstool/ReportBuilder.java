@@ -23,26 +23,33 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.sonar.plugins.web.HtmlValidator;
 import org.sonar.plugins.web.toetstool.xml.Guideline;
 import org.sonar.plugins.web.toetstool.xml.Guideline.ValidationType;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
-public class Report {
+/**
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
+public class ReportBuilder {
 
-  private class Violation {
+  private static final class Violation {
 
-    int error;
-    Guideline guideline;
-    String remark;
-    int warning;
+    public int error;
+    public Guideline guideline;
+    public String remark;
+    public int warning;
   }
 
-  private static final Logger LOG = Logger.getLogger(Report.class);
+  private static final Logger LOG = Logger.getLogger(ReportBuilder.class);
 
   /**
    * Decodes html entities.
@@ -56,14 +63,12 @@ public class Report {
     return StringUtils.replaceEachRepeatedly(s, new String[] { "&amp;", "&lt;", "&gt;" }, new String[] { "&", "<", ">" });
   }
 
-  private final boolean details = true;
-
-  private final StringBuilder sb = new StringBuilder();
+  private StringBuilder sb;
 
   private void addCells(Object... values) {
     for (Object value : values) {
       sb.append("<td>");
-      sb.append(value);
+      sb.append(value == null ? "" : value);
       sb.append("</td>\n");
     }
   }
@@ -82,12 +87,35 @@ public class Report {
 
   public void buildReports(File folder) {
     List<ToetstoolReport> reports = new ArrayList<ToetstoolReport>();
-    for (File reportFile : ToetsTool.getReportFiles(folder)) {
+    for (File reportFile : HtmlValidator.getReportFiles(folder)) {
       ToetstoolReport report = ToetstoolReport.fromXml(reportFile);
       reports.add(report);
     }
+    Collections.sort(reports, new Comparator<ToetstoolReport>() {
 
-    createHtmlReport(reports);
+      @Override
+      public int compare(ToetstoolReport t1, ToetstoolReport t2) {
+        if (t1.getReport() == null || t2.getReport() == null) {
+          return 0;
+        }
+        return t1.getReport().getUrl().compareTo(t2.getReport().getUrl());
+      }
+    });
+
+    createHtmlReport(new File("target/toetstool-report.html"), reports, false);
+    createHtmlReport(new File("target/toetstool-report-details.html"), reports, true);
+  }
+
+  private List<ToetstoolReport> collectViolatedReports(List<ToetstoolReport> reports, Violation violation) {
+    List<ToetstoolReport> violatedReports = new ArrayList<ToetstoolReport>();
+    for (ToetstoolReport report : reports) {
+
+      Guideline guideline = findGuideline(report, violation);
+      if (guideline != null && (guideline.getType() == ValidationType.error || guideline.getType() == ValidationType.warning)) {
+        violatedReports.add(report);
+      }
+    }
+    return violatedReports;
   }
 
   private List<Violation> collectViolations(List<ToetstoolReport> reports) {
@@ -114,20 +142,22 @@ public class Report {
     return violations;
   }
 
-  private void createHtmlReport(List<ToetstoolReport> reports) {
+  private void createHtmlReport(File file, List<ToetstoolReport> reports, boolean showDetails) {
+    sb = new StringBuilder();
     sb.append("<style type='text/css'>");
     sb.append("table{ border-color: gray; border-collapse: collapse; border: 1px solid}");
     sb.append("th { text-align: left; border: 1px solid; padding: 2px; } td{ border: 1px solid; padding: 2px; }</style>");
     sb.append("<h1>Toetstool Validation Report</h1>");
 
-    createSummaryReport(reports);
-    createUrlsReport(reports);
+    if ( !showDetails) {
+      createSummaryReport(reports);
+    }
 
-    List<Violation> violations = collectViolations(reports);
-    createViolationsReport(violations);
+    createViolationsReport(reports, showDetails);
+    createUrlsReport(reports, showDetails);
 
     try {
-      FileWriter writer = new FileWriter("target/report.html");
+      FileWriter writer = new FileWriter(file);
       writer.append(sb.toString());
       writer.close();
     } catch (IOException e) {
@@ -161,7 +191,7 @@ public class Report {
     sb.append("</table>");
   }
 
-  private void createUrlsReport(List<ToetstoolReport> reports) {
+  private void createUrlsReport(List<ToetstoolReport> reports, boolean showDetails) {
     sb.append("<h2>URL Summary</h2>");
     sb.append("<table cellspacing='0'>");
     startRow();
@@ -193,10 +223,10 @@ public class Report {
 
       // score
       addCells(report.getReport().getScore());
+      endRow();
 
       // errors and warnings
-      if (details) {
-        endRow();
+      if (showDetails) {
         startRow();
         sb.append("<td colspan='5'>");
         for (Guideline guideline : report.getReport().getGuidelines()) {
@@ -208,30 +238,45 @@ public class Report {
           }
         }
         sb.append("</td>");
+        endRow();
       }
-      endRow();
     }
     sb.append("</table>");
   }
 
-  private void createViolationsReport(List<Violation> violations) {
+  private void createViolationsReport(List<ToetstoolReport> reports, boolean showDetails) {
+
+    List<Violation> violations = collectViolations(reports);
     sb.append("<h2>Guidelines Summary</h2>");
     sb.append("<table cellspacing='0' >");
-    sb.append("<tr>");
+    startRow();
     addHeaderCell("guideline");
     addHeaderCell("remark");
     addHeaderCell("error");
     addHeaderCell("warning");
-    sb.append("</tr>");
+    endRow();
+
     for (Violation violation : violations) {
-      if (violation.error > 0 || violation.warning > 0) {
-        sb.append("<tr>");
+      if (violation.guideline.getRef() != null) {
+        startRow();
         String anchor = String.format("<a href=\"%s\">%s</a>", violation.guideline.getReflink(), violation.guideline.getRef());
         addCells(anchor);
         addCells(htmlEntityDecode(violation.remark));
         addCells(violation.error);
         addCells(violation.warning);
-        sb.append("</tr>");
+        endRow();
+
+        if (showDetails) {
+          startRow();
+          sb.append("<td colspan='4'>");
+          for (ToetstoolReport report : collectViolatedReports(reports, violation)) {
+
+            sb.append(report.getReport().getUrl());
+            sb.append("<br/>");
+          }
+          sb.append("</td>");
+          endRow();
+        }
       }
     }
     sb.append("</table>");
@@ -239,6 +284,17 @@ public class Report {
 
   private void endRow() {
     sb.append("</tr>");
+  }
+
+  private Guideline findGuideline(ToetstoolReport report, Violation violation) {
+    if (report.getReport() != null) {
+      for (Guideline guideline : report.getReport().getGuidelines()) {
+        if (guideline.getRef() != null && guideline.getRef().equals(violation.guideline.getRef())) {
+          return guideline;
+        }
+      }
+    }
+    return null;
   }
 
   private Violation findViolation(List<Violation> violations, Guideline guideline) {

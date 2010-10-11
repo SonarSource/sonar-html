@@ -31,4 +31,20 @@ public class AssertionResult {
 
   @XStreamAsAttribute
   private String name;
+
+  public Boolean getError() {
+    return error;
+  }
+
+  public Boolean getFailure() {
+    return failure;
+  }
+
+  public String getFailureMessage() {
+    return failureMessage;
+  }
+
+  public String getName() {
+    return name;
+  }
 }

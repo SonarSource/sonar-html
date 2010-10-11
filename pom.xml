@@ -23,7 +23,7 @@
     </modules>
 
     <properties>
-        <sonar.version>2.2</sonar.version>
+        <sonar.version>2.3-RC2</sonar.version>
     </properties>
 
     <url>http://docs.codehaus.org/display/SONAR/Web+Plugin</url>

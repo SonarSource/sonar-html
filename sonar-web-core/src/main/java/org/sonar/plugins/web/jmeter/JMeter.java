@@ -36,10 +36,19 @@ import org.sonar.plugins.web.jmeter.xml.JMeterReport;
 import org.sonar.plugins.web.toetstool.ValidationReport;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
+/**
+ * Prepare JMeter report files for HTML validation.
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 public class JMeter {
 
   private static final Logger LOG = Logger.getLogger(JMeter.class);
 
+  /**
+   * Find the reportFile for a JMeter script file.
+   */
   private static File findReportFile(File scriptFile) {
     File reportFolder = new File(Settings.getJMeterReportDir());
 
@@ -55,9 +64,12 @@ public class JMeter {
     return null;
   }
 
+  /**
+   * Extract HTTP responses from the JMeter report file.
+   */
   public void extractResponses() {
     // first clear output html folder
-    File htmlFolder = new File(Settings.getJMeterReportDir() + "/html/");
+    File htmlFolder = new File(Settings.getHtmlDir());
     resetFolder(htmlFolder);
 
     // find JMeter scripts

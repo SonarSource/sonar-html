@@ -22,6 +22,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 public final class Settings {
 
   private static final String CSS_PATH = "css.path";
@@ -42,12 +46,24 @@ public final class Settings {
 
   private static final String TOETS_TOOL_URL = "toetstool.url";
 
+  private static final String HTML_PATH = "html.path";
+
+  private static final String NR_OF_SAMPLES = "nrOfSamples";
+
   public static String getCssPath() {
     return getProperties().getProperty(CSS_PATH);
   }
 
   public static String getJMeterReportDir() {
     return getProperties().getProperty(JMETER_REPORT_PATH);
+  }
+
+  public static String getHtmlDir() {
+    return getProperties().getProperty(HTML_PATH);
+  }
+
+  public static void setHTMLDir(String htmlDir) {
+    getProperties().setProperty(HTML_PATH, htmlDir);
   }
 
   public static String getJMeterScriptDir() {
@@ -95,6 +111,18 @@ public final class Settings {
 
   public static void setProxyPort(int proxyPort) {
     getProperties().setProperty(PROXY_PORT, Integer.toString(proxyPort));
+  }
+
+  public static void setNrOfSamples(Integer nrOfSamples) {
+    getProperties().setProperty(NR_OF_SAMPLES, Integer.toString(nrOfSamples));
+  }
+
+  public static Integer getNrOfSamples() {
+    if (getProperties().getProperty(NR_OF_SAMPLES) != null) {
+      return Integer.parseInt(getProperties().getProperty(NR_OF_SAMPLES));
+    } else {
+      return null;
+    }
   }
 
   public static String getToetstoolURL() {
