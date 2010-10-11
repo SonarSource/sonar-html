@@ -25,6 +25,16 @@ import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.rules.markup.DefaultMarkupProfile;
+import org.sonar.plugins.web.rules.markup.MarkupProfileExporter;
+import org.sonar.plugins.web.rules.markup.MarkupProfileImporter;
+import org.sonar.plugins.web.rules.markup.MarkupRuleRepository;
+import org.sonar.plugins.web.rules.web.DefaultWebProfile;
+import org.sonar.plugins.web.rules.web.JSFProfile;
+import org.sonar.plugins.web.rules.web.JSPProfile;
+import org.sonar.plugins.web.rules.web.WebProfileExporter;
+import org.sonar.plugins.web.rules.web.WebProfileImporter;
+import org.sonar.plugins.web.rules.web.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
@@ -51,8 +61,23 @@ public final class WebPlugin implements Plugin {
 
     // web language
     list.add(Web.class);
-    list.add(WebRulesRepository.class);
+    // web files importer
     list.add(WebSourceImporter.class);
+
+    // web rules
+    list.add(WebRulesRepository.class);
+    list.add(WebProfileImporter.class);
+    list.add(WebProfileExporter.class);
+    list.add(DefaultWebProfile.class);
+    list.add(JSFProfile.class);
+    list.add(JSPProfile.class);
+
+    // markup rules
+    list.add(MarkupRuleRepository.class);
+    list.add(MarkupProfileExporter.class);
+    list.add(MarkupProfileImporter.class);
+    list.add(DefaultMarkupProfile.class);
+
     // sensor
     list.add(WebSensor.class);
     // Code Colorizer

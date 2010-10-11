@@ -17,22 +17,22 @@
 package org.sonar.plugins.web.checks.jsp;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker to find scriptlets.
- * 
+ *
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph JSP Scriptlets
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "JspScriptletCheck", title = "Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL,
+@Rule(key = "JspScriptletCheck", name ="Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL,
     isoCategory = IsoCategory.Maintainability)
 public class JspScriptletCheck extends AbstractPageCheck {
 

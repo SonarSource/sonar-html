@@ -17,10 +17,10 @@
 package org.sonar.plugins.web.checks.jsp;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
@@ -28,17 +28,17 @@ import org.sonar.plugins.web.node.TextNode;
 
 /**
  * Checker to find hardcoded labels and messages.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "InternationalizationCheck", title = "Labels Internationalization",
+@Rule(key = "InternationalizationCheck", name = "Labels Internationalization",
     description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
 
-  @CheckProperty(key = "attributes", title = "Attributes", description = "Attributes")
+  @RuleProperty(key = "attributes", description = "Attributes")
   private QualifiedAttribute[] attributes;
 
   public String getAttributes() {

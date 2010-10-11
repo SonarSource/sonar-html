@@ -17,27 +17,27 @@
 package org.sonar.plugins.web.checks.xhtml;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of disallowed namespaces.
- * 
+ *
  * Checks the namespaces in the root element of the XML document. A list of illegal namespaces can be configured as a property of the check.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalNamespaceCheck", title = "Illegal Namespace", description = "namespace should not be used", priority = Priority.MAJOR,
+@Rule(key = "IllegalNamespaceCheck", name ="Illegal Namespace", description = "namespace should not be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 
-  @CheckProperty(key = "namespaces", title = "Namespaces", description = "Namespaces")
+  @RuleProperty(key = "namespaces", description = "Namespaces")
   private String[] namespaces;
   private boolean visited;
 

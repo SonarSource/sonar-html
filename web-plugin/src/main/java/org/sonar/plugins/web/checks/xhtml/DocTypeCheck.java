@@ -16,27 +16,27 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checks declaration of the DOCTYPE.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "DocTypeCheck", title = "Document Type Compliance", description = "Document Type Compliance", priority = Priority.MINOR,
+@Rule(key = "DocTypeCheck", name = "Document Type Compliance", description = "Document Type Compliance", priority = Priority.MINOR,
     isoCategory = IsoCategory.Maintainability)
 public class DocTypeCheck extends AbstractPageCheck {
 
   private boolean hasDocType;
 
-  @CheckProperty(key = "dtd", description = "Document Type")
+  @RuleProperty(key = "dtd", description = "Document Type")
   private String dtd;
 
   public String getDtd() {

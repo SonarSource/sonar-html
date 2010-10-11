@@ -16,30 +16,31 @@
 
 package org.sonar.plugins.web.checks.jsp;
 
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
 /**
  * Checker to find long javascripts.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
- * 
+ *
  * @see http://pmd.sourceforge.net/rules/basic-jsp.html
  */
-@Check(key = "LongJavaScriptCheck", title = "Long JavaScript", description = "Avoid long JavaScript", priority = Priority.CRITICAL,
+@Rule(key = "LongJavaScriptCheck", name = "Long JavaScript", description = "Avoid long JavaScript", priority = Priority.CRITICAL,
     isoCategory = IsoCategory.Maintainability)
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;
 
   private int linesOfCode;
-  @CheckProperty(key = "maxLines", title = "Max Lines")
+
+  @RuleProperty(key = "maxLines", description = "Max Lines")
   private int maxLines = DEFAULT_MAX_LINES;
 
   private TagNode scriptNode;

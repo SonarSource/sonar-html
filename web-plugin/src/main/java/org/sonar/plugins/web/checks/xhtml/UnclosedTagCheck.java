@@ -20,25 +20,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checker to find unclosed tags.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "UnclosedTagCheck", title = "Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR,
+@Rule(key = "UnclosedTagCheck", name ="Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR,
     isoCategory = IsoCategory.Maintainability)
 public class UnclosedTagCheck extends AbstractPageCheck {
 
-  @CheckProperty(key = "ignoreTags", description = "Ignore Tags")
+  @RuleProperty(key = "ignoreTags", description = "Ignore Tags")
   private String[] ignoreTags;
 
   private final List<TagNode> nodes = new ArrayList<TagNode>();

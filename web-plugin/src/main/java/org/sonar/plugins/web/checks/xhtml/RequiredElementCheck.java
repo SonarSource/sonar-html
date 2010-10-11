@@ -16,13 +16,14 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
+
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.Node;
@@ -36,11 +37,11 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "RequiredElementCheck", title = "RequiredElement", description = "Required element must be used", priority = Priority.MAJOR,
+@Rule(key = "RequiredElementCheck", name ="RequiredElement", description = "Required element must be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
 public class RequiredElementCheck extends AbstractPageCheck {
 
-  @CheckProperty(key = "elements", description = "elements")
+  @RuleProperty(key = "elements", description = "elements")
   private String[] elements;
 
   public String getElements() {

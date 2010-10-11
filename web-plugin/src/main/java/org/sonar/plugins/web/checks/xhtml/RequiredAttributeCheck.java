@@ -16,14 +16,15 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
@@ -34,7 +35,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "RequiredAttributeCheck", title = "RequiredAttribute", description = "Required attribute must be used",
+@Rule(key = "RequiredAttributeCheck", name ="RequiredAttribute", description = "Required attribute must be used",
     priority = Priority.MAJOR, isoCategory = IsoCategory.Portability)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
@@ -49,7 +50,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
     }
   }
 
-  @CheckProperty(key = "attributes", description = "attributes")
+  @RuleProperty(key = "attributes", description = "attributes")
   private final List<RequiredAttribute> attributes = new ArrayList<RequiredAttribute>();
 
   public String getAttributes() {

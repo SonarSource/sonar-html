@@ -16,18 +16,28 @@
 
 package org.sonar.plugins.web;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.File;
 import java.io.FileReader;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.apache.commons.configuration.MapConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.sonar.api.CoreProperties;
+import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.language.Web;
 
@@ -36,7 +46,7 @@ import org.sonar.plugins.web.language.Web;
  * @author Matthijs Galesloot
  *
  */
-class AbstractWebPluginTester {
+public class AbstractWebPluginTester {
 
   private static MavenProject loadPom() throws URISyntaxException {
     File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
@@ -74,5 +84,31 @@ class AbstractWebPluginTester {
     pom.addCompileSourceRoot(pom.getBuild().getSourceDirectory());
 
     return project;
+  }
+
+  protected RuleFinder newRuleFinder() {
+    RuleFinder ruleFinder = mock(RuleFinder.class);
+    when(ruleFinder.findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>(){
+      public Rule answer(InvocationOnMock iom) throws Throwable {
+        return Rule.create((String) iom.getArguments()[0], (String) iom.getArguments()[1], (String) iom.getArguments()[1]);
+      }
+    });
+    return ruleFinder;
+  }
+
+  protected ServerFileSystem newServerFileSystem() {
+
+    return new ServerFileSystem() {
+
+      public File getHomeDir() {
+        // TODO Auto-generated method stub
+        return null;
+      }
+
+      public List<File> getExtensions(String dirName, String... suffixes) {
+        // TODO Auto-generated method stub
+        return null;
+      }
+    };
   }
 }

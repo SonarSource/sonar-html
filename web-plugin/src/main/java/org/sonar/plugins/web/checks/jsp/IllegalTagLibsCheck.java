@@ -17,10 +17,10 @@
 package org.sonar.plugins.web.checks.jsp;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.Attribute;
@@ -28,17 +28,17 @@ import org.sonar.plugins.web.node.DirectiveNode;
 
 /**
  * Checker to find disallowed taglibs.
- * 
+ *
  * e.g. <%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalTagLibsCheck", title = "Illegal TagLibs", description = "Certain taglibs are not allowed",
+@Rule(key = "IllegalTagLibsCheck", name = "Illegal TagLibs", description = "Certain taglibs are not allowed",
     priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
-  @CheckProperty(key = "tagLibs", description = "Disallowed Taglibs")
+  @RuleProperty(key = "tagLibs", description = "Disallowed Taglibs")
   private String[] tagLibs = new String[] { "http://java.sun.com/jstl/sql" };
 
   @Override

@@ -17,27 +17,27 @@
 package org.sonar.plugins.web.checks.xhtml;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of disallowed elements.
- * 
+ *
  * e.g. element <applet> should not be used.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalElementCheck", title = "IllegalElement", description = "element should not be used", priority = Priority.MAJOR,
+@Rule(key = "IllegalElementCheck", name ="IllegalElement", description = "element should not be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
 public class IllegalElementCheck extends AbstractPageCheck {
 
-  @CheckProperty(key = "elements", description = "elements")
+  @RuleProperty(key = "elements", description = "elements")
   private String[] elements;
 
   public String getElements() {

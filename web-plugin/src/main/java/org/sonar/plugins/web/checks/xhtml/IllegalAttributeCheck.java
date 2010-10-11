@@ -16,28 +16,29 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
+
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of disallowed attributes.
- * 
+ *
  * e.g. class attribute should not be used, but styleClass instead.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "IllegalAttributeCheck", title = "Illegal Attribute", description = "attribute should not be used", priority = Priority.MAJOR,
+@Rule(key = "IllegalAttributeCheck", name ="Illegal Attribute", description = "attribute should not be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
-  @CheckProperty(key = "attributes", title = "Attributes", description = "Attributes")
+  @RuleProperty(key = "attributes", description = "Attributes")
   private QualifiedAttribute[] attributes;
 
   public String getAttributes() {

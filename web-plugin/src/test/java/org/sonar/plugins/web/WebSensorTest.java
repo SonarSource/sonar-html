@@ -19,9 +19,11 @@ package org.sonar.plugins.web;
 import static junit.framework.Assert.assertTrue;
 
 import org.junit.Test;
+import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.language.Web;
+import org.sonar.api.utils.ValidationMessages;
+import org.sonar.plugins.web.rules.web.DefaultWebProfile;
 
 /**
  * @author Matthijs Galesloot
@@ -30,11 +32,9 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
   @Test
   public void testSensor() throws Exception {
-    WebRulesRepository webRulesRepository = new WebRulesRepository(Web.INSTANCE);
-
-    RulesProfile rulesProfile = webRulesRepository.getProvidedProfiles().get(0);
-
-    WebSensor sensor = new WebSensor(rulesProfile);
+    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
+    RulesProfile profile = profileDefinition.createProfile(ValidationMessages.create());
+    WebSensor sensor = new WebSensor(profile);
 
     final Project project = loadProjectFromPom();
     MockSensorContext sensorContext = new MockSensorContext();

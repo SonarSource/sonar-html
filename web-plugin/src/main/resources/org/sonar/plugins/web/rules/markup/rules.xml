@@ -1,0 +1,2781 @@
+<rules>
+  <rule>
+    <key>0</key>
+    <remark>0: length of name must not exceed NAMELEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>1</key>
+    <remark>1: length of parameter entity name must not exceed NAMELEN less the length of the PERO delimiter (X)
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>10</key>
+    <remark>10: an entity end is not allowed in a token separator that does not follow a token</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>100</key>
+    <remark>100: no document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>102</key>
+    <remark>102: entity end not allowed in processing instruction</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>103</key>
+    <remark>103: length of processing instruction must not exceed PILEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>104</key>
+    <remark>104: missing PIC delimiter</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>105</key>
+    <remark>105: an attribute specification must start with a name or name token</remark>
+    <explanation>
+
+      An attribute name (and some attribute values) must start with one of
+      a restricted set of characters. This error usually indicates that
+      you have failed to add a closing quotation mark on a previous
+      attribute value (so the attribute value looks like the start of a
+      new attribute) or have used an attribute that is not defined
+      (usually a typo in a common attribute name).
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>106</key>
+    <remark>106: X is not a member of a group specified for any attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>107</key>
+    <remark>107: the name and VI delimiter can be omitted from an attribute specification only if SHORTTAG YES is
+      specified</remark>
+    <explanation>
+      &quot;VI delimiter&quot; is a technical term for the equal sign. This error message
+      means that the name of an attribute and the equal sign cannot be omitted
+      when specifying an attribute. A common cause for this error message is
+      the use of &quot;Attribute Minimization&quot; in document types where it is not allowed,
+      in XHTML for instance.
+      How to fix: For attributes such as compact, checked or selected, do not write
+      e.g &lt;option selected ... but rather
+      &lt;option selected=&quot;selected&quot; ...
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>108</key>
+    <remark>108: there is no attribute X</remark>
+    <explanation>
+
+      You have used the attribute named above in your document, but the
+      document type you are using does not support that attribute for this
+      element. This error is often caused by incorrect use of the &quot;Strict&quot;
+      document type with a document that uses frames (e.g. you must use
+      the &quot;Transitional&quot; document type to get the &quot;target&quot; attribute), or
+      by using vendor proprietary extensions such as &quot;marginheight&quot; (this
+      is usually fixed by using CSS to achieve the desired effect instead).
+
+
+      This error may also result if the element itself is not supported in
+      the document type you are using, as an undefined element will have no
+      supported attributes; in this case, see the element-undefined error
+      message for further information.
+
+
+      How to fix: check the spelling and case of the element and attribute,
+      (Remember XHTML is all lower-case) and/or
+      check that they are both allowed in the chosen document type, and/or
+      use CSS instead of this attribute. If you received this error when using the
+      &lt;embed&gt; element to incorporate flash media in a Web page, see the
+      FAQ item on valid flash.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>109</key>
+    <remark>109: an attribute value specification must start with a literal or a name character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>11</key>
+    <remark>11: X is not a valid token here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>110</key>
+    <remark>110: length of name token must not exceed NAMELEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>111</key>
+    <remark>111: an attribute value literal can occur in an attribute specification list only after a VI delimiter
+    </remark>
+    <explanation>
+
+      Have you forgotten the &quot;equal&quot; sign marking the separation
+      between the attribute and its declared value?
+      Typical syntax is attribute=&quot;value&quot;.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>112</key>
+    <remark>112: duplicate specification of attribute X</remark>
+    <explanation>
+
+      You have specified an attribute more than once. Example: Using
+      the &quot;height&quot; attribute twice on the same
+      &quot;img&quot; tag.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>113</key>
+    <remark>113: duplicate definition of attribute X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>114</key>
+    <remark>114: data attribute specification must be omitted if attribute specification list is empty</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>115</key>
+    <remark>115: marked section end not in marked section declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>116</key>
+    <remark>116: number of open marked sections must not exceed TAGLVL (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>117</key>
+    <remark>117: missing marked section end</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>118</key>
+    <remark>118: marked section started here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>119</key>
+    <remark>119: entity end in character data, replaceable character data or ignored marked section</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>12</key>
+    <remark>12: a parameter entity reference can only occur in a group where a token could occur</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>120</key>
+    <remark>120: normalized length of attribute value literal must not exceed LITLEN (X); length was Y</remark>
+    <explanation>
+
+      This error almost always means that you&apos;ve forgotten a closing quote on an attribute value. For instance,
+      in:
+
+
+      &lt;img src=&quot;fred.gif&gt;
+      &lt;!-- 50 lines of stuff --&gt;
+      &lt;img src=&quot;joe.gif&quot;&gt;
+
+
+      The &quot;src&quot; value for the first
+      &lt;img&gt; is the entire
+      fifty lines of stuff up to the next double quote, which probably
+      exceeds the SGML-defined
+      length limit for HTML
+      string literals. Note that the position indicator in the error
+      message points to where the attribute value ended in
+      this case, the &quot;joe.gif&quot; line.
+           
+  </explanation>
+  </rule>
+  <rule>
+    <key>121</key>
+    <remark>121: syntax of attribute value does not conform to declared value</remark>
+    <explanation>
+
+      The value of an attribute contained something that is not allowed by
+      the specified syntax for that type of attribute. For instance, the
+      selected attribute must be
+      either minimized as selected
+      or spelled out in full as selected=&quot;selected&quot;; the variant
+      selected=&quot;&quot; is not allowed.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>122</key>
+    <remark>122: character X is not allowed in the value of attribute Y</remark>
+    <explanation>
+
+      It is possible that you violated the naming convention for this attribute.
+      For example, id and name attributes must begin with
+      a letter, not a digit.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>123</key>
+    <remark>123: value of attribute X must be a single token</remark>
+    <explanation>
+
+      This attribute can not take a space-separated list of words as a value, but only one word (&quot;token&quot;).
+      This may also be caused by the use of a space for the value of an attribute which does not permit it.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>124</key>
+    <remark>124: value of attribute Y invalid: X cannot start a number token</remark>
+    <explanation>
+
+      The value of this attribute should be a number, and you probably used a wrong syntax.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>125</key>
+    <remark>125: value of attribute Y invalid: X cannot start a name</remark>
+    <explanation>
+
+      It is possible that you violated the naming convention for this attribute.
+      For example, id and name attributes must begin with
+      a letter, not a digit.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>126</key>
+    <remark>126: non-impliable attribute X not specified but OMITTAG NO and SHORTTAG NO</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>127</key>
+    <remark>127: required attribute X not specified</remark>
+    <explanation>
+
+      The attribute given above is required for an element that you&apos;ve used,
+      but you have omitted it. For instance, in most HTML and XHTML document
+      types the &quot;type&quot; attribute is required on the &quot;script&quot; element and the
+      &quot;alt&quot; attribute is required for the &quot;img&quot; element.
+
+
+      Typical values for type are
+      type=&quot;text/css&quot; for &lt;style&gt;
+      and type=&quot;text/javascript&quot; for &lt;script&gt;.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>128</key>
+    <remark>128: first occurrence of CURRENT attribute X not specified</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>129</key>
+    <remark>129: X is not a notation name</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>13</key>
+    <remark>13: token X has already occurred in this group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>130</key>
+    <remark>130: X is not a general entity name</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>131</key>
+    <remark>131: value of attribute Y cannot be X; must be one of Z</remark>
+    <explanation>
+
+      The value of the attribute is defined to be one of a list of possible
+      values but in the document it contained something that is not allowed
+      for that type of attribute. For instance, the selected attribute must be either
+      minimized as selected
+      or spelled out in full as selected=&quot;selected&quot;; a value like
+      selected=&quot;true&quot; is not
+      allowed.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>132</key>
+    <remark>132: X is not a data or subdocument entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>133</key>
+    <remark>133: content model is ambiguous: when no tokens have been matched, both the Y and Z occurrences of X are
+      possible</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>134</key>
+    <remark>134: content model is ambiguous: when the current token is the Y occurrence of X, both the a and b
+      occurrences
+      of Z are possible</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>135</key>
+    <remark>135: content model is ambiguous: when the current token is the Y occurrence of X and the innermost
+      containing
+      AND group has been matched, both the a and b occurrences of Z are possible</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>136</key>
+    <remark>136: content model is ambiguous: when the current token is the Y occurrence of X and the innermost Z
+      containing AND groups have been matched, both the b and c occurrences of a are possible</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>137</key>
+    <remark>137: invalid comment declaration: found character X outside comment but inside comment declaration</remark>
+    <explanation>
+
+      Check that you are using a proper syntax for your comments, e.g: &lt;!-- comment here --&gt;.
+      This error may appear if you forget the last &quot;--&quot; to close one comment, and later open another.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>138</key>
+    <remark>138: comment declaration started here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>139</key>
+    <remark>139: non SGML character number X</remark>
+    <explanation>
+
+      You have used an illegal character in your text.
+      HTML uses the standard
+      UNICODE Consortium character repertoire,
+      and it leaves undefined (among others) 65 character codes (0 to 31 inclusive and 127 to 159
+      inclusive) that are sometimes used for typographical quote marks and similar in
+      proprietary character sets. The validator has found one of these undefined
+      characters in your document. The character may appear on your browser as a
+      curly quote, or a trademark symbol, or some other fancy glyph; on a different
+      computer, however, it will likely appear as a completely different
+      character, or nothing at all.
+
+
+      Your best bet is to replace the character with the nearest equivalent
+      ASCII character, or to use an appropriate character
+      entity.
+
+      For more information on Character Encoding on the web, see Alan
+      Flavell&apos;s excellent HTML Character
+      Set Issues reference.
+
+
+      This error can also be triggered by formatting characters embedded in
+      documents by some word processors. If you use a word processor to edit
+      your HTML documents, be sure to use the &quot;Save as ASCII&quot; or similar
+      command to save the document without formatting information.
+           
+  </explanation>
+  </rule>
+  <rule>
+    <key>14</key>
+    <remark>14: the number of tokens in a group must not exceed GRPCNT (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>140</key>
+    <remark>140: data or replaceable character data in declaration subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>141</key>
+    <remark>141: ID X already defined</remark>
+    <explanation>
+
+      An &quot;id&quot; is a unique identifier. Each time this attribute is used in a document
+      it must have a different value. If you are using this attribute as a hook for
+      style sheets it may be more appropriate to use classes (which group elements)
+      than id (which are used to identify exactly one element).
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>142</key>
+    <remark>142: ID X first defined here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>143</key>
+    <remark>143: value of fixed attribute X not equal to default</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>144</key>
+    <remark>144: character X is not significant in the reference concrete syntax and so cannot occur in a comment in the
+      SGML declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>145</key>
+    <remark>145: minimum data of first minimum literal in SGML declaration must be &quot;&quot;ISO 8879:1986&quot;&quot;
+      or &quot;&quot;ISO 8879:1986 (ENR)&quot;&quot; or &quot;&quot;ISO 8879:1986 (WWW)&quot;&quot; not X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>146</key>
+    <remark>146: parameter before LCNMSTRT must be NAMING not X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>147</key>
+    <remark>147: unexpected entity end in SGML declaration: only X, S separators and comments allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>148</key>
+    <remark>148: X invalid: only Y and parameter separators allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>149</key>
+    <remark>149: magnitude of X too big</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>15</key>
+    <remark>15: an entity end in a literal must terminate an entity referenced in the same literal</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>150</key>
+    <remark>150: character X is not significant in the reference concrete syntax and so cannot occur in a literal in the
+      SGML declaration except as the replacement of a character reference</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>151</key>
+    <remark>151: X is not a valid syntax reference character number</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>152</key>
+    <remark>152: a parameter entity reference cannot occur in an SGML declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>153</key>
+    <remark>153: X invalid: only Y and parameter separators are allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>154</key>
+    <remark>154: cannot continue because of previous errors</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>155</key>
+    <remark>155: SGML declaration cannot be parsed because the character set does not contain characters having the
+      following numbers in ISO 646: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>156</key>
+    <remark>156: the specified character set is invalid because it does not contain the minimum data characters having
+      the
+      following numbers in ISO 646: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>157</key>
+    <remark>157: character numbers declared more than once: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>158</key>
+    <remark>158: character numbers should have been declared UNUSED: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>159</key>
+    <remark>159: character numbers missing in base set: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>16</key>
+    <remark>16: character X invalid: only minimum data characters allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>160</key>
+    <remark>160: characters in the document character set with numbers exceeding X not supported</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>161</key>
+    <remark>161: invalid formal public identifier X: missing //</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>162</key>
+    <remark>162: invalid formal public identifier X: no SPACE after public text class</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>163</key>
+    <remark>163: invalid formal public identifier X: invalid public text class</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>164</key>
+    <remark>164: invalid formal public identifier X: public text language must be a name containing only upper case
+      letters</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>165</key>
+    <remark>165: invalid formal public identifer X: public text display version not permitted with this text class
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>166</key>
+    <remark>166: invalid formal public identifier X: extra field</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>167</key>
+    <remark>167: public text class of public identifier in notation identifier must be NOTATION</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>168</key>
+    <remark>168: base character set X is unknown</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>169</key>
+    <remark>169: delimiter set is ambiguous: X and Y can be recognized in the same mode</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>170</key>
+    <remark>170: characters with the following numbers in the syntax reference character set are significant in the
+      concrete syntax but are not in the document character set: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>171</key>
+    <remark>171: there is no unique character in the document character set corresponding to character number X in the
+      syntax reference character set</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>172</key>
+    <remark>172: there is no unique character in the internal character set corresponding to character number X in the
+      syntax reference character set</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>173</key>
+    <remark>173: the character with number X in ISO 646 is significant but has no representation in the syntax reference
+      character set</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>174</key>
+    <remark>174: capacity set X is unknown</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>175</key>
+    <remark>175: capacity X already specified</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>176</key>
+    <remark>176: value of capacity X exceeds value of TOTALCAP</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>177</key>
+    <remark>177: syntax X is unknown</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>178</key>
+    <remark>178: UCNMSTRT must have the same number of characters as LCNMSTRT</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>179</key>
+    <remark>179: UCNMCHAR must have the same number of characters as LCNMCHAR</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>18</key>
+    <remark>18: a parameter literal in a data tag pattern must not contain a numeric character reference to a non-SGML
+      character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>180</key>
+    <remark>180: number of open subdocuments exceeds quantity specified for SUBDOC parameter in SGML declaration (X)
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>181</key>
+    <remark>181: entity X declared SUBDOC, but SUBDOC NO specified in SGML declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>182</key>
+    <remark>182: a parameter entity referenced in a parameter separator must end in the same declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>183</key>
+    <remark>183: reference to non-existent ID X</remark>
+    <explanation>
+      This error can be triggered by:
+
+      A non-existent input, select or textarea element
+      A missing id attribute
+      A typographical error in the id attribute
+
+      Try to check the spelling and case of the id you are referring to. 
+  </explanation>
+  </rule>
+  <rule>
+    <key>184</key>
+    <remark>184: generic identifier X used in DTD but not defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>185</key>
+    <remark>185: X not finished but document ended</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>186</key>
+    <remark>186: cannot continue with subdocument because of previous errors</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>187</key>
+    <remark>187: no document type declaration; will parse without validation</remark>
+    <explanation>
+      The document type could not be determined, because the document had no correct DOCTYPE declaration. The document does
+      not
+      look like HTML, therefore automatic fallback could not be performed, and the document was only checked against basic
+      markup syntax.
+      Learn how to add a doctype to your document
+      from our FAQ, or use the validator&apos;s
+      Document Type option to validate your document against a specific Document Type.
+  </explanation>
+  </rule>
+  <rule>
+    <key>188</key>
+    <remark>188: no internal or external document type declaration subset; will parse without validation</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>189</key>
+    <remark>189: this is not an SGML document</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>19</key>
+    <remark>19: a parameter literal in a data tag pattern must not contain a numeric character reference to a function
+      character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>190</key>
+    <remark>190: length of start-tag before interpretation of literals must not exceed TAGLEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>191</key>
+    <remark>191: a parameter entity referenced in a token separator must end in the same group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>192</key>
+    <remark>192: the following character numbers are shunned characters that are not significant and so should have been
+      declared UNUSED: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>193</key>
+    <remark>193: there is no unique character in the specified document character set corresponding to character number
+      X
+      in ISO 646</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>194</key>
+    <remark>194: length of attribute value must not exceed LITLEN less NORMSEP (-X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>195</key>
+    <remark>195: length of tokenized attribute value must not exceed LITLEN less NORMSEP (-X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>196</key>
+    <remark>196: concrete syntax scope is INSTANCE but value of X quantity is less than value in reference quantity set
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>197</key>
+    <remark>197: public text class of formal public identifier of base character set must be CHARSET</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>198</key>
+    <remark>198: public text class of formal public identifier of capacity set must be CAPACITY</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>199</key>
+    <remark>199: public text class of formal public identifier of concrete syntax must be SYNTAX</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>2</key>
+    <remark>2: length of number must not exceed NAMELEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>20</key>
+    <remark>20: a name group is not allowed in a general entity reference in a start tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>200</key>
+    <remark>200: when there is an MSOCHAR there must also be an MSICHAR</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>201</key>
+    <remark>201: character number X in the syntax reference character set was specified as a character to be switched
+      but
+      is not a markup character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>202</key>
+    <remark>202: character number X was specified as a character to be switched but is not in the syntax reference
+      character set</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>203</key>
+    <remark>203: character numbers X in the document character set have been assigned the same meaning, but this is the
+      meaning of a significant character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>204</key>
+    <remark>204: character number X assigned to more than one function</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>205</key>
+    <remark>205: X is already a function name</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>206</key>
+    <remark>206: characters with the following numbers in ISO 646 are significant in the concrete syntax but are not in
+      the document character set: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>207</key>
+    <remark>207: general delimiter X consists solely of function characters</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>208</key>
+    <remark>208: letters assigned to LCNMCHAR, UCNMCHAR, LCNMSTRT or UCNMSTRT: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>209</key>
+    <remark>209: digits assigned to LCNMCHAR, UCNMCHAR, LCNMSTRT or UCNMSTRT: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>21</key>
+    <remark>21: a name group is not allowed in a general entity reference in the prolog</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>210</key>
+    <remark>210: character number X cannot be assigned to LCNMCHAR, UCNMCHAR, LCNMSTRT or UCNMSTRT because it is RE
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>211</key>
+    <remark>211: character number X cannot be assigned to LCNMCHAR, UCNMCHAR, LCNMSTRT or UCNMSTRT because it is RS
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>212</key>
+    <remark>212: character number X cannot be assigned to LCNMCHAR, UCNMCHAR, LCNMSTRT or UCNMSTRT because it is SPACE
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>213</key>
+    <remark>213: separator characters assigned to LCNMCHAR, UCNMCHAR, LCNMSTRT or UCNMSTRT: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>214</key>
+    <remark>214: character number X cannot be switched because it is a Digit, LC Letter or UC Letter</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>215</key>
+    <remark>215: pointless for number of characters to be 0</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>216</key>
+    <remark>216: X cannot be the replacement for a reference reserved name because it is another reference reserved name
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>217</key>
+    <remark>217: X cannot be the replacement for a reference reserved name because it is the replacement of another
+      reference reserved name</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>218</key>
+    <remark>218: replacement for reserved name X already specified</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>219</key>
+    <remark>219: X is not a valid name in the declared concrete syntax</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>22</key>
+    <remark>22: X is not a function name</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>220</key>
+    <remark>220: X is not a valid short reference delimiter because it has more than one B sequence</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>221</key>
+    <remark>221: X is not a valid short reference delimiter because it is adjacent to a character that can occur in a
+      blank sequence</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>222</key>
+    <remark>222: length of delimiter X exceeds NAMELEN (Y)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>223</key>
+    <remark>223: length of reserved name X exceeds NAMELEN (Y)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>224</key>
+    <remark>224: character numbers assigned to both LCNMCHAR or UCNMCHAR and LCNMSTRT or UCNMSTRT: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>225</key>
+    <remark>225: when the concrete syntax scope is INSTANCE the syntax reference character set of the declared syntax
+      must
+      be the same as that of the reference concrete syntax</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>226</key>
+    <remark>226: end-tag minimization should be O for element with declared content of EMPTY</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>227</key>
+    <remark>227: end-tag minimization should be O for element X because it has CONREF attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>228</key>
+    <remark>228: element X has a declared content of EMPTY and a CONREF attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>229</key>
+    <remark>229: element X has a declared content of EMPTY and a NOTATION attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>23</key>
+    <remark>23: X is not a character number in the document character set</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>230</key>
+    <remark>230: declared value of data attribute cannot be ENTITY, ENTITIES, ID, IDREF, IDREFS or NOTATION</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>231</key>
+    <remark>231: default value of data attribute cannot be CONREF or CURRENT</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>232</key>
+    <remark>232: number of attribute names and name tokens (X) exceeds ATTCNT (Y)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>233</key>
+    <remark>233: if the declared value is ID the default value must be IMPLIED or REQUIRED</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>234</key>
+    <remark>234: the attribute definition list already declared attribute X as the ID attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>235</key>
+    <remark>235: the attribute definition list already declared attribute X as the NOTATION attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>236</key>
+    <remark>236: token X occurs more than once in attribute definition list</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>237</key>
+    <remark>237: no attributes defined for notation X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>238</key>
+    <remark>238: notation X for entity Y undefined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>239</key>
+    <remark>239: entity X undefined in short reference map Y</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>24</key>
+    <remark>24: parameter entity X not defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>240</key>
+    <remark>240: notation X is undefined but had attribute definition</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>241</key>
+    <remark>241: length of interpreted parameter literal in bracketed text plus the length of the bracketing delimiters
+      must not exceed LITLEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>242</key>
+    <remark>242: length of rank stem plus length of rank suffix must not exceed NAMELEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>243</key>
+    <remark>243: document instance must start with document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>244</key>
+    <remark>244: content model nesting level exceeds GRPLVL (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>245</key>
+    <remark>245: grand total of content tokens exceeds GRPGTCNT (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>246</key>
+    <remark>246: unclosed start-tag requires SHORTTAG YES</remark>
+    <explanation>
+
+      The construct &lt;foo&lt;bar&gt; is valid in HTML (it is an example of the rather obscure &#8220;Shorttags&#8221;
+      feature)
+      but its use is not recommended.
+      In most cases, this is a typo that you will want to fix. If you really want to use shorttags,
+      be aware that they are not well implemented by browsers.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>247</key>
+    <remark>247: NET-enabling start-tag requires SHORTTAG YES</remark>
+    <explanation>
+
+      The sequence &lt;FOO /&gt; can be interpreted in at least two different ways,
+      depending on the DOCTYPE of the document. For HTML 4.01 Strict, the &apos;/&apos;
+      terminates the tag &lt;FOO (with an implied &apos;&gt;&apos;). However, since many
+      browsers don&apos;t interpret it this way, even in the presence of an HTML 4.01 Strict
+      DOCTYPE, it is best to avoid it completely in pure HTML documents and
+      reserve its use solely for those written in XHTML.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>248</key>
+    <remark>248: unclosed end-tag requires SHORTTAG YES</remark>
+    <explanation>
+
+      The construct &lt;/foo&lt;bar&gt; is valid in HTML (it is an example of the rather obscure &#8220;Shorttags&#8221;
+      feature)
+      but its use is not recommended.
+      In most cases, this is a typo that you will want to fix. If you really want to use shorttags,
+      be aware that they are not well implemented by browsers.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>249</key>
+    <remark>249: DTDs other than base allowed only if CONCUR YES or EXPLICIT YES</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>25</key>
+    <remark>25: general entity X not defined and no default entity</remark>
+    <explanation>
+
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>250</key>
+    <remark>250: end of entity other than document entity after document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>251</key>
+    <remark>251: X declaration illegal after document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>252</key>
+    <remark>252: character reference illegal after document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>253</key>
+    <remark>253: entity reference illegal after document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>254</key>
+    <remark>254: marked section illegal after document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>255</key>
+    <remark>255: the X occurrence of Y in the content model for Z cannot be excluded at this point because it is
+      contextually required</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>256</key>
+    <remark>256: the X occurrence of Y in the content model for Z cannot be excluded because it is neither inherently
+      optional nor a member of an OR group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>257</key>
+    <remark>257: an attribute value specification must be an attribute value literal unless SHORTTAG YES is specified
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>258</key>
+    <remark>258: value cannot be specified both for notation attribute and content reference attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>259</key>
+    <remark>259: notation X already defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>26</key>
+    <remark>26: RNI delimiter must be followed by name start character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>260</key>
+    <remark>260: short reference map X already defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>261</key>
+    <remark>261: first defined here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>262</key>
+    <remark>262: general delimiter role X already defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>263</key>
+    <remark>263: number of ID references in start-tag must not exceed GRPCNT (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>264</key>
+    <remark>264: number of entity names in attribute specification list must not exceed GRPCNT (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>265</key>
+    <remark>265: normalized length of attribute specification list must not exceed ATTSPLEN (X); length was Y</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>266</key>
+    <remark>266: short reference delimiter X already specified</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>267</key>
+    <remark>267: single character short references were already specified for character numbers: X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>268</key>
+    <remark>268: default entity used in entity attribute X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>269</key>
+    <remark>269: reference to entity X uses default entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>270</key>
+    <remark>270: entity X in short reference map Y uses default entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>271</key>
+    <remark>271: no DTD X declared</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>272</key>
+    <remark>272: LPD X has neither internal nor external subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>273</key>
+    <remark>273: element types have different link attribute definitions</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>274</key>
+    <remark>274: link set X already defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>275</key>
+    <remark>275: empty result attribute specification</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>276</key>
+    <remark>276: no source element type X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>277</key>
+    <remark>277: no result element type X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>278</key>
+    <remark>278: end of document in LPD subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>279</key>
+    <remark>279: X declaration not allowed in LPD subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>28</key>
+    <remark>28: unterminated comment: found end of entity inside comment</remark>
+    <explanation>
+
+      Check that you are using a proper syntax for your comments, e.g: &lt;!-- comment here --&gt;.
+      This error may appear if you forget the last &quot;--&quot; to close one comment, therefore including the rest
+      of the content in your comment.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>280</key>
+    <remark>280: ID link set declaration not allowed in simple link declaration subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>281</key>
+    <remark>281: link set declaration not allowed in simple link declaration subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>282</key>
+    <remark>282: attributes can only be defined for base document element (not X) in simple link declaration subset
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>283</key>
+    <remark>283: a short reference mapping declaration is allowed only in the base DTD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>284</key>
+    <remark>284: a short reference use declaration is allowed only in the base DTD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>285</key>
+    <remark>285: default value of link attribute cannot be CURRENT or CONREF</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>286</key>
+    <remark>286: declared value of link attribute cannot be ID, IDREF, IDREFS or NOTATION</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>287</key>
+    <remark>287: only fixed attributes can be defined in simple LPD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>288</key>
+    <remark>288: only one ID link set declaration allowed in an LPD subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>289</key>
+    <remark>289: no initial link set defined for LPD X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>29</key>
+    <remark>29: comment started here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>290</key>
+    <remark>290: notation X not defined in source DTD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>291</key>
+    <remark>291: result document type in simple link specification must be implied</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>292</key>
+    <remark>292: simple link requires SIMPLE YES</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>293</key>
+    <remark>293: implicit link requires IMPLICIT YES</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>294</key>
+    <remark>294: explicit link requires EXPLICIT YES</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>295</key>
+    <remark>295: LPD not allowed before first DTD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>296</key>
+    <remark>296: DTD not allowed after an LPD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>297</key>
+    <remark>297: definition of general entity X is unstable</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>298</key>
+    <remark>298: definition of parameter entity X is unstable</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>299</key>
+    <remark>299: multiple link rules for ID X but not all have link attribute specifications</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>3</key>
+    <remark>3: length of attribute value must not exceed LITLEN less NORMSEP (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>30</key>
+    <remark>30: only one type of connector should be used in a single group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>300</key>
+    <remark>300: multiple link rules for element type X but not all have link attribute specifications</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>301</key>
+    <remark>301: link type X does not have a link set Y</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>302</key>
+    <remark>302: link set use declaration for simple link process</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>303</key>
+    <remark>303: no link type X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>304</key>
+    <remark>304: both document type and link type X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>305</key>
+    <remark>305: link type X already defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>306</key>
+    <remark>306: document type X already defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>307</key>
+    <remark>307: link set X used in LPD but not defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>308</key>
+    <remark>308: #IMPLIED already linked to result element type X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>309</key>
+    <remark>309: number of active simple link processes exceeds quantity specified for SIMPLE parameter in SGML
+      declaration (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>31</key>
+    <remark>31: X is not a reserved name</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>310</key>
+    <remark>310: only one chain of explicit link processes can be active</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>311</key>
+    <remark>311: source document type name for link type X must be base document type since EXPLICIT YES 1</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>312</key>
+    <remark>312: only one implicit link process can be active</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>313</key>
+    <remark>313: sorry, link type X not activated: only one implicit or explicit link process can be active (with base
+      document type as source document type)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>314</key>
+    <remark>314: name missing after name group in entity reference</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>315</key>
+    <remark>315: source document type name for link type X must be base document type since EXPLICIT NO</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>316</key>
+    <remark>316: link process must be activated before base DTD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>317</key>
+    <remark>317: unexpected entity end while starting second pass</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>318</key>
+    <remark>318: type X of element with ID Y not associated element type for applicable link rule in ID link set
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>319</key>
+    <remark>319: DATATAG feature not implemented</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>32</key>
+    <remark>32: X is not allowed as a reserved name here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>320</key>
+    <remark>320: generic identifier specification missing after document type specification in start-tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>321</key>
+    <remark>321: generic identifier specification missing after document type specification in end-tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>322</key>
+    <remark>322: a NET-enabling start-tag cannot include a document type specification</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>323</key>
+    <remark>323: DTD did not contain element declaration for document type name</remark>
+    <explanation>
+
+      A DOCTYPE declares the version of the language used, as well as what the root
+      (top) element of your document will be. For example, if the top element
+      of your document is &lt;html&gt;, the DOCTYPE declaration
+      will look like: &quot;&lt;!DOCTYPE html&quot;.
+
+
+      In most cases, it is safer not to type or edit the DOCTYPE declaration at all,
+      and preferable to let a tool include it, or copy and paste it from a
+      trusted list of DTDs.
+   
+  </explanation>
+  </rule>
+  <rule>
+    <key>324</key>
+    <remark>324: invalid default SGML declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>325</key>
+    <remark>325: reference to entity X for which no system identifier could be generated</remark>
+    <explanation>
+
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>326</key>
+    <remark>326: entity was defined here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>327</key>
+    <remark>327: content model is mixed but does not allow #PCDATA everywhere</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>328</key>
+    <remark>328: start or end of range must specify a single character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>329</key>
+    <remark>329: number of first character in range must not exceed number of second character in range</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>33</key>
+    <remark>33: length of interpreted minimum literal must not exceed reference LITLEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>330</key>
+    <remark>330: delimiter cannot be an empty string</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>331</key>
+    <remark>331: too many characters assigned same meaning with minimum literal</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>332</key>
+    <remark>332: earlier reference to entity X used default entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>333</key>
+    <remark>333: empty start-tag</remark>
+    <explanation>
+
+      The construct &lt;&gt; is sometimes valid in HTML (it is an example of the rather obscure &#8220;Shorttags&#8221;
+      feature)
+      but its use is not recommended.
+      In most cases, this is a typo that you will want to fix. If you really want to use shorttags,
+      be aware that they are not well implemented by browsers.
+       
+    </explanation>
+  </rule>
+  <rule>
+    <key>334</key>
+    <remark>334: empty end-tag</remark>
+    <explanation>
+
+      The construct &lt;/&gt; is valid in HTML (it is an example of the rather obscure &#8220;Shorttags&#8221; feature)
+      but its use is not recommended.
+      In most cases, this is a typo that you will want to fix. If you really want to use shorttags,
+      be aware that they are not well implemented by browsers.
+       
+    </explanation>
+  </rule>
+  <rule>
+    <key>335</key>
+    <remark>335: unused short reference map X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>336</key>
+    <remark>336: unused parameter entity X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>337</key>
+    <remark>337: cannot generate system identifier for public text X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>338</key>
+    <remark>338: cannot generate system identifier for general entity X</remark>
+    <explanation>
+
+      An entity reference was found in the document, but there is no reference
+      by that name defined. Often this is caused by misspelling the reference
+      name, unencoded ampersands, or by leaving off the trailing semicolon (;).
+      The most common cause of this error is unencoded ampersands in
+      URLs as described by the WDG in &quot;Ampersands
+      in URLs&quot;.
+
+
+      Entity references start with an ampersand (&amp;) and end with a
+      semicolon (;). If you want to use a literal ampersand in your document
+      you must encode it as &quot;&amp;amp;&quot; (even inside URLs!). Be
+      careful to end entity references with a semicolon or your entity
+      reference may get interpreted in connection with the following text.
+      Also keep in mind that named entity references are case-sensitive;
+      &amp;Aelig; and &amp;aelig; are different characters.
+
+
+      If this error appears in some markup generated by PHP&apos;s session handling
+      code, this article has
+      explanations and solutions to your problem.
+
+
+      Note that in most documents, errors related to entity references will
+      trigger up to 5 separate messages from the Validator. Usually these
+      will all disappear when the original problem is fixed.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>339</key>
+    <remark>339: cannot generate system identifier for parameter entity X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>34</key>
+    <remark>34: length of tokenized attribute value must not exceed LITLEN less NORMSEP (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>340</key>
+    <remark>340: cannot generate system identifier for document type X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>341</key>
+    <remark>341: cannot generate system identifier for link type X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>342</key>
+    <remark>342: cannot generate system identifier for notation X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>343</key>
+    <remark>343: element type X both included and excluded</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>344</key>
+    <remark>344: no document type declaration; implying X</remark>
+    <explanation>
+
+      The checked page did not contain a document type (&quot;DOCTYPE&quot;) declaration.
+      The Validator has tried to validate with a fallback DTD,
+      but this is quite likely to be incorrect and will generate a large number
+      of incorrect error messages. It is highly recommended that you insert the
+      proper DOCTYPE declaration in your document -- instructions for doing this
+      are given above -- and it is necessary to have this declaration before the
+      page can be declared to be valid.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>345</key>
+    <remark>345: minimum data of AFDR declaration must be &quot;&quot;ISO/IEC 10744:1997&quot;&quot; not X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>346</key>
+    <remark>346: AFDR declaration required before use of AFDR extensions</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>347</key>
+    <remark>347: ENR extensions were used but minimum literal was not &quot;&quot;ISO 8879:1986 (ENR)&quot;&quot; or
+      &quot;&quot;ISO 8879:1986 (WWW)&quot;&quot;</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>348</key>
+    <remark>348: illegal numeric character reference to non-SGML character X in literal</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>349</key>
+    <remark>349: cannot convert character reference to number X because description Y unrecognized</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>35</key>
+    <remark>35: length of system identifier must not exceed LITLEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>350</key>
+    <remark>350: cannot convert character reference to number X because character Y from baseset Z unknown</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>351</key>
+    <remark>351: character reference to number X cannot be converted because of problem with internal character set
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>352</key>
+    <remark>352: cannot convert character reference to number X because character not in internal character set</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>353</key>
+    <remark>353: Web SGML adaptations were used but minimum literal was not &quot;&quot;ISO 8879:1986 (WWW)&quot;&quot;
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>354</key>
+    <remark>354: token X can be value for multiple attributes so attribute name required</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>355</key>
+    <remark>355: length of hex number must not exceed NAMELEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>356</key>
+    <remark>356: X is not a valid name in the declared concrete syntax</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>357</key>
+    <remark>357: CDATA declared content</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>358</key>
+    <remark>358: RCDATA declared content</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>359</key>
+    <remark>359: inclusion</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>36</key>
+    <remark>36: length of interpreted parameter literal must not exceed LITLEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>360</key>
+    <remark>360: exclusion</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>361</key>
+    <remark>361: NUMBER or NUMBERS declared value</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>362</key>
+    <remark>362: NAME or NAMES declared value</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>363</key>
+    <remark>363: NUTOKEN or NUTOKENS declared value</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>364</key>
+    <remark>364: CONREF attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>365</key>
+    <remark>365: CURRENT attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>366</key>
+    <remark>366: TEMP marked section</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>367</key>
+    <remark>367: included marked section in the instance</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>368</key>
+    <remark>368: ignored marked section in the instance</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>369</key>
+    <remark>369: RCDATA marked section</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>37</key>
+    <remark>37: length of interpreted parameter literal in data tag pattern must not exceed DTEMPLEN (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>370</key>
+    <remark>370: processing instruction entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>371</key>
+    <remark>371: bracketed text entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>372</key>
+    <remark>372: internal CDATA entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>373</key>
+    <remark>373: internal SDATA entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>374</key>
+    <remark>374: external CDATA entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>375</key>
+    <remark>375: external SDATA entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>376</key>
+    <remark>376: attribute definition list declaration for notation</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>377</key>
+    <remark>377: rank stem</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>378</key>
+    <remark>378: no system id specified</remark>
+    <explanation>
+
+      Your document includes a DOCTYPE declaration with a public identifier
+      (e.g. &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;) but no system identifier
+      (e.g. &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;). This is
+      authorized in HTML (based on SGML), but not in XML-based languages.
+
+
+      If you are using a standard XHTML document type, it is recommended to use exactly
+      one of the DOCTYPE declarations from the
+      recommended list on the W3C QA Website.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>379</key>
+    <remark>379: comment in parameter separator</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>38</key>
+    <remark>38: literal is missing closing delimiter</remark>
+    <explanation>
+
+      Did you forget to close a (double) quote mark?
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>380</key>
+    <remark>380: named character reference</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>381</key>
+    <remark>381: AND group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>382</key>
+    <remark>382: attribute value not a literal</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>383</key>
+    <remark>383: attribute name missing</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>384</key>
+    <remark>384: element declaration for group of element types</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>385</key>
+    <remark>385: attribute definition list declaration for group of element types</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>386</key>
+    <remark>386: empty comment declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>387</key>
+    <remark>387: S separator in comment declaration</remark>
+    <explanation>
+
+      This may happen if you have consecutive comments but did not close one of them properly.
+      The proper syntax for comments is &lt;!-- my comment --&gt;.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>388</key>
+    <remark>388: multiple comments in comment declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>389</key>
+    <remark>389: no status keyword</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>39</key>
+    <remark>39: X invalid: only Y and parameter separators are allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>390</key>
+    <remark>390: multiple status keywords</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>391</key>
+    <remark>391: parameter entity reference in document instance</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>392</key>
+    <remark>392: CURRENT attribute</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>393</key>
+    <remark>393: element type minimization parameter</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>394</key>
+    <remark>394: reference not terminated by REFC delimiter</remark>
+    <explanation>
+
+      If you meant to include an entity that starts with &quot;&amp;&quot;, then you should
+      terminate it with &quot;;&quot;. Another reason for this error message is that
+      you inadvertently created an entity by failing to escape an &quot;&amp;&quot;
+      character just before this text.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>395</key>
+    <remark>395: #PCDATA not first in model group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>396</key>
+    <remark>396: #PCDATA in SEQ group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>397</key>
+    <remark>397: #PCDATA in nested model group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>398</key>
+    <remark>398: #PCDATA in model group that does not have REP occurrence indicator</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>399</key>
+    <remark>399: name group or name token group used connector other than OR</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>4</key>
+    <remark>4: a name group is not allowed in a parameter entity reference in the prolog</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>40</key>
+    <remark>40: X invalid: only Y and token separators are allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>400</key>
+    <remark>400: processing instruction does not start with name</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>401</key>
+    <remark>401: S separator in status keyword specification in document instance</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>402</key>
+    <remark>402: reference to external data entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>403</key>
+    <remark>403: reference to external entity in attribute value</remark>
+    <explanation>
+
+      This is generally the sign of an ampersand that was not properly escaped for inclusion
+      in an attribute, in a href for example. You will need to escape all instances of &apos;&amp;&apos;
+      into &apos;&amp;amp;&apos;.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>404</key>
+    <remark>404: character X is the first character of a delimiter but occurred as data</remark>
+    <explanation>
+
+      This message may appear in several cases:
+
+
+      You tried to include the &quot;&lt;&quot; character in your page: you should escape it as &quot;&amp;lt;&quot;
+      You used an unescaped ampersand &quot;&amp;&quot;: this may be valid in some contexts,
+      but it is recommended to use &quot;&amp;amp;&quot;, which is always safe.
+      Another possibility is that you forgot to close quotes in a previous tag. 
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>405</key>
+    <remark>405: SGML declaration was not implied</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>406</key>
+    <remark>406: marked section in internal DTD subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>407</key>
+    <remark>407: NET-enabling start-tag not immediately followed by null end-tag</remark>
+    <explanation>
+
+      This error may occur when there is a mistake in how a self-closing tag is closed, e.g &apos;.../ &gt;&apos;.
+      The proper syntax is &apos;... /&gt;&apos; (note the position of the space).
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>408</key>
+    <remark>408: entity end in different element from entity reference</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>409</key>
+    <remark>409: NETENABL IMMEDNET requires EMPTYNRM YES</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>41</key>
+    <remark>41: X invalid: only Y and token separators are allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>410</key>
+    <remark>410: reference to non-SGML character</remark>
+    <explanation>
+
+      You&apos;ve included a character reference to a character that is not defined
+      in the document type you&apos;ve chosen. This is most commonly caused by
+      numerical references to characters from vendor proprietary
+      character repertoires. Often the culprit will be fancy or typographical
+      quote marks from either the Windows or Macintosh character repertoires.
+
+
+      The solution is to reference UNICODE characters instead. A list of
+      common characters from the Windows character repertoire and their
+      UNICODE equivalents can be found in the document &quot;On the use of some MS Windows characters in HTML&quot; maintained by
+      Jukka Korpela
+      &lt;jkorpela@cs.tut.fi&gt;.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>411</key>
+    <remark>411: declaration of default entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>412</key>
+    <remark>412: reference to parameter entity in parameter separator in internal subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>413</key>
+    <remark>413: reference to parameter entity in token separator in internal subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>414</key>
+    <remark>414: reference to parameter entity in parameter literal in internal subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>415</key>
+    <remark>415: cannot generate system identifier for SGML declaration reference</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>416</key>
+    <remark>416: public text class of formal public identifier of SGML declaration must be SD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>417</key>
+    <remark>417: SGML declaration reference was used but minimum literal was not &quot;&quot;ISO 8879:1986
+      (WWW)&quot;&quot;</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>418</key>
+    <remark>418: member of model group containing #PCDATA has occurrence indicator</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>419</key>
+    <remark>419: member of model group containing #PCDATA is a model group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>42</key>
+    <remark>42: unknown declaration type X</remark>
+    <explanation>
+
+      This error may appear if you are using a bad syntax for your comments, such as &quot;&lt;!invalid comment&gt;&quot;
+      The proper syntax for comments is &lt;!-- your comment here --&gt;. 
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>420</key>
+    <remark>420: reference to non-predefined entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>421</key>
+    <remark>421: reference to external entity</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>422</key>
+    <remark>422: declaration of default entity conflicts with IMPLYDEF ENTITY YES</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>423</key>
+    <remark>423: parsing with respect to more than one active doctype not supported</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>424</key>
+    <remark>424: cannot have active doctypes and link types at the same time</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>425</key>
+    <remark>425: number of concurrent document instances exceeds quantity specified for CONCUR parameter in SGML
+      declaration (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>426</key>
+    <remark>426: datatag group can only be specified in base document type</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>427</key>
+    <remark>427: element not in the base document type can&apos;t have an empty start-tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>428</key>
+    <remark>428: element not in base document type can&apos;t have an empty end-tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>429</key>
+    <remark>429: immediately recursive element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>43</key>
+    <remark>43: X declaration not allowed in DTD subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>430</key>
+    <remark>430: invalid URN X: missing &quot;&quot;:&quot;&quot;</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>431</key>
+    <remark>431: invalid URN X: missing &quot;&quot;urn:&quot;&quot; prefix</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>432</key>
+    <remark>432: invalid URN X: invalid namespace identifier</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>433</key>
+    <remark>433: invalid URN X: invalid namespace specific string</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>434</key>
+    <remark>434: invalid URN X: extra field</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>435</key>
+    <remark>435: prolog can&apos;t be omitted unless CONCUR NO and LINK EXPLICIT NO and either IMPLYDEF ELEMENT YES or
+      IMPLYDEF DOCTYPE YES</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>436</key>
+    <remark>436: can&apos;t determine name of #IMPLIED document element</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>437</key>
+    <remark>437: can&apos;t use #IMPLICIT doctype unless CONCUR NO and LINK EXPLICIT NO</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>438</key>
+    <remark>438: Sorry, #IMPLIED doctypes not implemented</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>439</key>
+    <remark>439: reference to DTD data entity ignored</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>44</key>
+    <remark>44: character X not allowed in declaration subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>440</key>
+    <remark>440: notation X for parameter entity Y undefined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>441</key>
+    <remark>441: notation X for external subset undefined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>442</key>
+    <remark>442: attribute X can&apos;t be redeclared</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>443</key>
+    <remark>443: #IMPLICIT attributes have already been specified for notation X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>444</key>
+    <remark>444: a name group is not allowed in a parameter entity reference in a start tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>445</key>
+    <remark>445: name group in a parameter entity reference in an end tag (SGML forbids them in start tags)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>446</key>
+    <remark>446: if the declared value is NOTATION a default value of CONREF is useless</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>447</key>
+    <remark>447: Sorry, #ALL and #IMPLICIT content tokens not implemented</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>45</key>
+    <remark>45: end of document in DTD subset</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>46</key>
+    <remark>46: character X not allowed in prolog</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>47</key>
+    <remark>47: end of document in prolog</remark>
+    <explanation>
+
+      This error may appear when the validator receives an empty document. Please make sure that the document you are uploading
+      is not empty, and report any discrepancy.
+   
+</explanation>
+  </rule>
+  <rule>
+    <key>48</key>
+    <remark>48: X declaration not allowed in prolog</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>49</key>
+    <remark>49: X used both a rank stem and generic identifier</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>5</key>
+    <remark>5: an entity end in a token separator must terminate an entity referenced in the same group</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>50</key>
+    <remark>50: omitted tag minimization parameter can be omitted only if OMITTAG NO is specified</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>51</key>
+    <remark>51: element type X already defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>52</key>
+    <remark>52: entity reference with no applicable DTD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>53</key>
+    <remark>53: invalid comment declaration: found X outside comment but inside comment declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>54</key>
+    <remark>54: comment declaration started here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>55</key>
+    <remark>55: X declaration not allowed in instance</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>56</key>
+    <remark>56: non-SGML character not allowed in content</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>57</key>
+    <remark>57: no current rank for rank stem X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>58</key>
+    <remark>58: duplicate attribute definition list for notation X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>59</key>
+    <remark>59: duplicate attribute definition list for element X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>6</key>
+    <remark>6: character X invalid: only Y and token separators allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>60</key>
+    <remark>60: entity end not allowed in end tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>61</key>
+    <remark>61: character X not allowed in end tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>62</key>
+    <remark>62: X invalid: only S separators and TAGC allowed here</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>63</key>
+    <remark>63: character data is not allowed here</remark>
+    <explanation>
+
+      You have used character data somewhere it is not permitted to appear.
+      Mistakes that can cause this error include:
+
+
+      putting text directly in the body of the document without wrapping
+      it in a container element (such as a &lt;p&gt;aragraph&lt;/p&gt;), or
+      forgetting to quote an attribute value
+      (where characters such as &quot;%&quot; and &quot;/&quot; are common, but cannot appear
+      without surrounding quotes), or
+      using XHTML-style self-closing tags (such as &lt;meta ... /&gt;)
+      in HTML 4.01 or earlier. To fix, remove the extra slash (&apos;/&apos;)
+      character. For more information about the reasons for this, see
+      Empty
+      elements in SGML, HTML, XML, and XHTML.
+       
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>64</key>
+    <remark>64: document type does not allow element X here</remark>
+    <explanation>
+
+      The element named above was found in a context where it is not allowed.
+      This could mean that you have incorrectly nested elements -- such as a
+      &quot;style&quot; element in the &quot;body&quot; section instead of inside &quot;head&quot; -- or
+      two elements that overlap (which is not allowed).
+
+
+      One common cause for this error is the use of XHTML syntax in HTML
+      documents. Due to HTML&apos;s rules of implicitly closed elements, this error
+      can create cascading effects. For instance, using XHTML&apos;s &quot;self-closing&quot;
+      tags for &quot;meta&quot; and &quot;link&quot; in the &quot;head&quot; section of a HTML document may
+      cause the parser to infer the end of the &quot;head&quot; section and the
+      beginning of the &quot;body&quot; section (where &quot;link&quot; and &quot;meta&quot; are not
+      allowed; hence the reported error).
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>65</key>
+    <remark>65: document type does not allow element X here; missing one of Y start-tag</remark>
+    <explanation>
+
+      The mentioned element is not allowed to appear in the context in which
+      you&apos;ve placed it; the other mentioned elements are the only ones that
+      are both allowed there and can contain the element mentioned.
+      This might mean that you need a containing element, or possibly that
+      you&apos;ve forgotten to close a previous element.
+
+
+      One possible cause for this message is that you have attempted to put a
+      block-level element (such as &quot;&lt;p&gt;&quot; or &quot;&lt;table&gt;&quot;) inside an
+      inline element (such as &quot;&lt;a&gt;&quot;, &quot;&lt;span&gt;&quot;, or &quot;&lt;font&gt;&quot;).
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>66</key>
+    <remark>66: document type does not allow element X here; assuming missing Y start-tag</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>67</key>
+    <remark>67: no start tag specified for implied empty element X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>68</key>
+    <remark>68: end tag for X omitted, but its declaration does not permit this</remark>
+    <explanation>
+
+      You forgot to close a tag, or
+      you used something inside this tag that was not allowed, and the validator
+      is complaining that the tag should be closed before such content can be allowed.
+
+
+      The next message, &quot;start tag was here&quot;
+      points to the particular instance of the tag in question); the
+      positional indicator points to where the validator expected you to close the
+      tag.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>69</key>
+    <remark>69: start tag was here</remark>
+    <explanation>
+
+      This is not an error, but rather a pointer to the start tag of the element
+      the previous error referred to.    
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>7</key>
+    <remark>7: a parameter separator is required after a number that is followed by a name start character</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>70</key>
+    <remark>70: end tag for X omitted, but OMITTAG NO was specified</remark>
+    <explanation>
+
+      You may have neglected to close an element, or perhaps you meant to
+      &quot;self-close&quot; an element, that is, ending it with &quot;/&gt;&quot; instead of &quot;&gt;&quot;.
+     
+</explanation>
+  </rule>
+  <rule>
+    <key>71</key>
+    <remark>71: start tag was here</remark>
+    <explanation>
+
+      This is not an error, but rather a pointer to the start tag of the element
+      the previous error referred to.    
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>72</key>
+    <remark>72: start tag omitted for element X with declared content</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>73</key>
+    <remark>73: end tag for X which is not finished</remark>
+    <explanation>
+
+      Most likely, you nested tags and closed them in the wrong order. For
+      example &lt;p&gt;&lt;em&gt;...&lt;/p&gt; is not acceptable, as &lt;em&gt;
+      must be closed before &lt;p&gt;. Acceptable nesting is:
+      &lt;p&gt;&lt;em&gt;...&lt;/em&gt;&lt;/p&gt;
+
+
+      Another possibility is that you used an element which requires
+      a child element that you did not include. Hence the parent element
+      is &quot;not finished&quot;, not complete. For instance, in HTML the &lt;head&gt;
+      element must contain a &lt;title&gt; child element, lists require
+      appropriate list items (&lt;ul&gt; and &lt;ol&gt; require &lt;li&gt;;
+      &lt;dl&gt; requires &lt;dt&gt; and &lt;dd&gt;), and so on.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>74</key>
+    <remark>74: start tag for X omitted, but its declaration does not permit this</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>75</key>
+    <remark>75: number of open elements exceeds TAGLVL (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>76</key>
+    <remark>76: element X undefined</remark>
+    <explanation>
+
+      You have used the element named above in your document, but the
+      document type you are using does not define an element of that name.
+      This error is often caused by:
+
+
+      incorrect use of the &quot;Strict&quot; document type with a document that
+      uses frames (e.g. you must use the &quot;Frameset&quot; document type to get
+      the &quot;&lt;frameset&gt;&quot; element),
+      by using vendor proprietary extensions such as &quot;&lt;spacer&gt;&quot;
+      or &quot;&lt;marquee&gt;&quot; (this is usually fixed by using CSS to achieve
+      the desired effect instead).
+      by using upper-case tags in XHTML (in XHTML attributes and elements
+      must be all lower-case). 
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>77</key>
+    <remark>77: empty end tag but no open elements</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>78</key>
+    <remark>78: X not finished but containing element ended</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>79</key>
+    <remark>79: end tag for element X which is not open</remark>
+    <explanation>
+
+      The Validator found an end tag for the above element, but that element is
+      not currently open. This is often caused by a leftover end tag from an
+      element that was removed during editing, or by an implicitly closed
+      element (if you have an error related to an element being used where it
+      is not allowed, this is almost certainly the case). In the latter case
+      this error will disappear as soon as you fix the original problem.
+
+
+      If this error occurred in a script section of your document, you should probably
+      read this FAQ entry.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>8</key>
+    <remark>8: character X invalid: only Y and parameter separators allowed</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>80</key>
+    <remark>80: internal parameter entity X cannot be CDATA or SDATA</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>81</key>
+    <remark>81: character X not allowed in attribute specification list</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>82</key>
+    <remark>82: an attribute value must be a literal unless it contains only name characters</remark>
+    <explanation>
+
+      You have used a character that is not considered a &quot;name character&quot; in an
+      attribute value. Which characters are considered &quot;name characters&quot; varies
+      between the different document types, but a good rule of thumb is that
+      unless the value contains only lower or upper case letters in the
+      range a-z you must put quotation marks around the value. In fact, unless
+      you have extreme file size requirements it is a very very good
+      idea to always put quote marks around your attribute values. It
+      is never wrong to do so, and very often it is absolutely necessary.
+     
+  </explanation>
+  </rule>
+  <rule>
+    <key>83</key>
+    <remark>83: entity end not allowed in attribute specification list except in attribute value literal</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>84</key>
+    <remark>84: external parameter entity X cannot be CDATA, SDATA, NDATA or SUBDOC</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>85</key>
+    <remark>85: duplicate declaration of entity X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>86</key>
+    <remark>86: duplicate declaration of parameter entity X</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>87</key>
+    <remark>87: a reference to a PI entity is allowed only in a context where a processing instruction could occur
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>88</key>
+    <remark>88: a reference to a CDATA or SDATA entity is allowed only in a context where a data character could occur
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>89</key>
+    <remark>89: a reference to a subdocument entity or external data entity is allowed only in a context where a data
+      character could occur</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>9</key>
+    <remark>9: an entity end in a parameter separator must terminate an entity referenced in the same declaration
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>90</key>
+    <remark>90: a reference to a subdocument entity or external data entity is not allowed in replaceable character data
+    </remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>91</key>
+    <remark>91: the number of open entities cannot exceed ENTLVL (X)</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>92</key>
+    <remark>92: a reference to a PI entity is not allowed in replaceable character data</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>93</key>
+    <remark>93: entity X is already open</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>94</key>
+    <remark>94: short reference map X not defined</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>95</key>
+    <remark>95: short reference map in DTD must specify associated element type</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>96</key>
+    <remark>96: short reference map in document instance cannot specify associated element type</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>97</key>
+    <remark>97: short reference map X for element Y not defined in DTD</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>98</key>
+    <remark>98: X is not a short reference delimiter</remark>
+    <explanation>null</explanation>
+  </rule>
+  <rule>
+    <key>99</key>
+    <remark>99: short reference delimiter X already mapped in this declaration</remark>
+    <explanation>null</explanation>
+  </rule>
+</rules>

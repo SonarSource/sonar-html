@@ -19,10 +19,10 @@ package org.sonar.plugins.web.checks.xhtml;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.Attribute;
@@ -33,11 +33,11 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * Checks cyclomatic complexity against a specified limit. The complexity is measured by counting decision tags (such as if and forEach) and
  * boolean operators in expressions ("&amp;&amp;" and "||"), plus one for the body of the document. It is a measure of the minimum number of
  * possible paths to render the page.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "ComplexityCheck", title = "Complexity", description = "Complexity", priority = Priority.MINOR,
+@Rule(key = "ComplexityCheck", name = "Complexity", description = "Complexity", priority = Priority.MINOR,
     isoCategory = IsoCategory.Maintainability)
 public final class ComplexityCheck extends AbstractPageCheck {
 
@@ -45,13 +45,13 @@ public final class ComplexityCheck extends AbstractPageCheck {
 
   private int complexity;
 
-  @CheckProperty(key = "max", description = "Maximum allowed complexity")
+  @RuleProperty(key = "max", description = "Maximum allowed complexity")
   private int max = DEFAULT_MAX_COMPLEXITY;
 
-  @CheckProperty(key = "operators", description = "Operators")
+  @RuleProperty(key = "operators", description = "Operators")
   private String[] operators = new String[] { "&&", "||", "and", "or" };
 
-  @CheckProperty(key = "tags", description = "Decision Tags")
+  @RuleProperty(key = "tags", description = "Decision Tags")
   private String[] tags = new String[] { "catch", "choose", "if", "forEach", "forTokens", "when" };
 
   @Override

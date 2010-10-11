@@ -16,21 +16,21 @@
 
 package org.sonar.plugins.web.checks.jsp;
 
-import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker to find dynamic includes.
- * 
+ *
  * e.g. <jsp:include page="header.jsp">
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "DynamicJspIncludeCheck", title = "Dynamic Jsp Include", description = "Dynamic Jsp Include is not allowed",
+@Rule(key = "DynamicJspIncludeCheck", name = "Dynamic Jsp Include", description = "Dynamic Jsp Include is not allowed",
     priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
 public class DynamicJspIncludeCheck extends AbstractPageCheck {
 

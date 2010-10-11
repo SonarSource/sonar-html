@@ -17,10 +17,10 @@
 package org.sonar.plugins.web.checks.xhtml;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
@@ -38,13 +38,13 @@ import org.sonar.plugins.web.node.TextNode;
  * @since 1.0
  *
  */
-@Check(key = "MaxLineLengthCheck", title = "Maximum Line Length", description = "Checks the length of a line", priority = Priority.MINOR,
+@Rule(key = "MaxLineLengthCheck", name ="Maximum Line Length", description = "Checks the length of a line", priority = Priority.MINOR,
     isoCategory = IsoCategory.Maintainability)
 public class MaxLineLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;
 
-  @CheckProperty(key = "maxLength", title = "Max line length", description = "Maximum number of characters in a line")
+  @RuleProperty(key = "maxLength", description = "Maximum number of characters in a line")
   private int maxLength = DEFAULT_MAX_LINE_LENGTH;
 
   private int currentLineLength;

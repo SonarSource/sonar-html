@@ -20,30 +20,52 @@ import static junit.framework.Assert.assertNotNull;
 
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
+import org.sonar.api.rules.AnnotationRuleRepository;
 import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RuleFinder;
+import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.SonarException;
-import org.sonar.plugins.web.WebRulesRepository;
+import org.sonar.api.utils.ValidationMessages;
+import org.sonar.plugins.web.AbstractWebPluginTester;
+import org.sonar.plugins.web.WebPlugin;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.rules.web.DefaultWebProfile;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-public abstract class AbstractCheckTester {
+public abstract class AbstractCheckTester extends AbstractWebPluginTester {
+
+  private Rule getRule(String ruleKey, Class<? extends AbstractPageCheck> checkClass) {
+
+    AnnotationRuleRepository repository = AnnotationRuleRepository.create("Web", Web.KEY, WebPlugin.getKEY(),
+        Arrays.asList(new Class[] { checkClass }));
+    for (Rule rule : repository.createRules()) {
+      if (rule.getKey().equals(ruleKey)) {
+        return rule;
+      }
+    }
+    return null;
+  }
 
   public WebSourceCode parseAndCheck(Reader reader, Class<? extends AbstractPageCheck> checkClass, String... params) {
 
     try {
       AbstractPageCheck check = checkClass.newInstance();
 
-      Rule rule = WebRulesRepository.getRule(checkClass.getSimpleName());
+      Rule rule = getRule(checkClass.getSimpleName(), checkClass);
       assertNotNull("Could not find rule", rule);
       check.setRule(rule);
       configureParams(check, rule);
@@ -69,9 +91,38 @@ public abstract class AbstractCheckTester {
     }
   }
 
+  private static final class WebRuleFinder implements RuleFinder {
+
+    private final Rule rule;
+
+    public WebRuleFinder(Rule rule) {
+      this.rule = rule;
+    }
+
+    public Rule findByKey(String repositoryKey, String key) {
+      if (rule.getKey().equals(key)) {
+        return rule;
+      } else {
+        return null;
+      }
+    }
+
+    public Rule find(RuleQuery query) {
+      return rule;
+    }
+
+    public Collection<Rule> findAll(RuleQuery query) {
+      return new ArrayList<Rule>();
+    }
+  }
+
   private void configureParams(AbstractPageCheck check, Rule rule) {
-    RulesProfile profile = new WebRulesRepository(new Web()).getProvidedProfiles().get(0);
-    ActiveRule activeRule = profile.getActiveRule(rule);
+    WebRuleFinder finder = new WebRuleFinder(rule);
+    ProfileDefinition profileDefinition = new DefaultWebProfile(finder);
+    ValidationMessages validationMessages = ValidationMessages.create();
+    RulesProfile rulesProfile = profileDefinition.createProfile(validationMessages);
+
+    ActiveRule activeRule = rulesProfile.getActiveRule(rule);
 
     assertNotNull("Could not find activeRule", activeRule);
 

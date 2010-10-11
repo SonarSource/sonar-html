@@ -16,9 +16,9 @@
 
 package org.sonar.plugins.web.checks.jsp;
 
-import org.sonar.check.Check;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
@@ -26,14 +26,14 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checker for occurrence of html comments.
- * 
+ *
  * HTML comment is not allowed in JSP files, use server side comment instead. The check allows HTML comment in XHTML files, recognized by
  * its xml declaration.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "AvoidHtmlCommentCheck", title = "Avoid Html Comment", description = "Avoid Html Comment", priority = Priority.MINOR,
+@Rule(key = "AvoidHtmlCommentCheck", name ="Avoid Html Comment", description = "Avoid Html Comment", priority = Priority.MINOR,
     isoCategory = IsoCategory.Efficiency)
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 

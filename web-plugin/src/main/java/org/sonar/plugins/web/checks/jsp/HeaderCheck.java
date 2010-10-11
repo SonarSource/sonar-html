@@ -21,10 +21,10 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.check.Check;
-import org.sonar.check.CheckProperty;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.TagNode;
@@ -32,19 +32,19 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Header checker.
- * 
+ *
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Opening Comments
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Check(key = "HeaderCheck", title = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR,
+@Rule(key = "HeaderCheck", name = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Maintainability)
 public class HeaderCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);
 
-  @CheckProperty(key = "expression", title = "Regular Expression", description = "Regular expression for header format")
+  @RuleProperty(key = "expression", description = "Regular expression for header format")
   private String expression = "^.*Copyright.*$";
 
   private boolean hasHeader;
