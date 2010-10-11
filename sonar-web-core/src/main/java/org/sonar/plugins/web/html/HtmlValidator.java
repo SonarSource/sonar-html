@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.html;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,31 +26,28 @@ import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
+import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.html.FileSet.HtmlFile;
 import org.sonar.plugins.web.ssl.EasySSLProtocolSocketFactory;
 
-
-public class HtmlValidator {
+public abstract class HtmlValidator {
 
   static {
     Protocol.registerProtocol("https", new Protocol("https", (ProtocolSocketFactory) new EasySSLProtocolSocketFactory(), 443));
   }
 
-  protected HttpClient getClient() {
-    return client;
-  }
-
-  public static Collection<File> getReportFiles(File htmlFolder) {
+  protected static Collection<File> getReportFiles(File htmlFolder, final String reportXml) {
     @SuppressWarnings("unchecked")
     Collection<File> reportFiles = FileUtils.listFiles(htmlFolder, new IOFileFilter() {
 
       @Override
       public boolean accept(File file) {
-        return file.getName().endsWith("-report.xml");
+        return file.getName().endsWith(reportXml);
       }
 
       @Override
       public boolean accept(File dir, String name) {
-        return name.endsWith("-report.xml");
+        return name.endsWith(reportXml);
       }
     }, new IOFileFilter() {
 
@@ -77,13 +74,61 @@ public class HtmlValidator {
     }
   }
 
-  protected List<File> randomSubset(Collection<File> collection, Integer amount) {
-    List<File> newCollection = new ArrayList<File>();
-    File[] files = collection.toArray(new File[collection.size()]);
-    for (int i = 0; i < amount && i < files.length; i++) {
-      newCollection.add(files[i]);
+  protected HttpClient getClient() {
+    return client;
+  }
+
+  private Collection<File> getFiles(File folder) {
+    Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
+
+    return files;
+  }
+
+  protected List<HtmlFile> randomSubset(List<HtmlFile> htmlFiles, Integer amount) {
+    List<HtmlFile> newCollection = new ArrayList<HtmlFile>();
+    for (int i = 0; i < amount && i < htmlFiles.size(); i++) {
+      newCollection.add(htmlFiles.get(i));
     }
     return newCollection;
   }
 
+  public abstract File reportFile(File file);
+
+  protected void sleep(long sleepInterval) {
+    try {
+      Thread.sleep(sleepInterval);
+    } catch (InterruptedException ie) {
+      throw new RuntimeException(ie);
+    }
+  }
+
+  public abstract void validateFile(File file, String url);
+
+  /**
+   * Validate a set of files using the service.
+   */
+  public void validateFiles(File folder) {
+    FileSet fileSet = FileSet.fromXml(FileSet.getPath(folder));
+    final List<HtmlFile> files;
+
+    if (Settings.getNrOfSamples() != null) {
+      files = randomSubset(fileSet.files, Settings.getNrOfSamples());
+    } else {
+      files = fileSet.files;
+    }
+
+    int n = 0;
+    for (HtmlFile file : files) {
+      if (file.duplicateFile != null) {
+        if (n > 0) {
+          waitBetweenValidationRequests();
+        }
+        validateFile(new File(folder.getPath() + "/" + file.path), file.url);
+      }
+    }
+  }
+
+  protected void waitBetweenValidationRequests() {
+
+  }
 }

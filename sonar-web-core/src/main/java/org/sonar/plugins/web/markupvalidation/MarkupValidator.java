@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.html;
+package org.sonar.plugins.web.markupvalidation;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,12 +28,8 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.sonar.plugins.web.HtmlValidator;
-import org.sonar.plugins.web.Settings;
-import org.sonar.plugins.web.toetstool.ValidationReport;
-import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
+import org.sonar.plugins.web.html.HtmlValidator;
 
 /**
  * Work in progress...
@@ -46,32 +43,19 @@ public class MarkupValidator extends HtmlValidator {
   /** the URL for the online validation service */
   private static final String validatorUrl = "http://validator.w3.org/check";
 
+  private static final String REPORT_XML = "-mu.xml";
+
   private static final Logger LOG = Logger.getLogger(MarkupValidator.class);
-
-  /**
-   * Validate a set of files using the Toetstool service.
-   */
-  public void validateFiles(File folder) {
-    Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
-
-    if (Settings.getNrOfSamples() != null) {
-      files = randomSubset(files, Settings.getNrOfSamples());
-    }
-    for (File file : files) {
-      validateFile(file);
-    }
-  }
 
   /**
    * Validate a file with the Toetstool service.
    */
-  void validateFile(File file) {
-
-    ToetstoolReport report = ToetstoolReport.fromXml(ValidationReport.reportFile(file));
+  @Override
+  public void validateFile(File file, String url) {
 
     try {
       // post html contents, in return we get a redirect location
-      postHtmlContents(file, report.getUrl());
+      postHtmlContents(file, url);
 
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -81,15 +65,14 @@ public class MarkupValidator extends HtmlValidator {
   /**
    * Post content of HTML file and CSS files to the W3C validation service. In return, receive a Soap response message.
    *
-   * Documentation of interface:
-   * http://validator.w3.org/docs/api.html
+   * Documentation of interface: http://validator.w3.org/docs/api.html
    */
-  public String postHtmlContents(File file, String url) throws IOException {
+  public void postHtmlContents(File file, String url) throws IOException {
     PostMethod post = new PostMethod(validatorUrl);
 
     try {
 
-      LOG.info("W3C Validate " + file.getName());
+      LOG.info("W3C Validate: " + file.getName());
 
       // prepare content
       List<PartBase> parts = new ArrayList<PartBase>();
@@ -108,14 +91,33 @@ public class MarkupValidator extends HtmlValidator {
       getClient().executeMethod(post);
       LOG.info("Post: " + parts.size() + " parts, " + post.getStatusLine().toString());
 
-      LOG.info(post.getResponseBodyAsString());
-
-      // TODO read the soap response
-
-      return "";
+      if (post.getStatusCode() != 200) {
+        LOG.error("failed to validate file " + file.getPath());
+      } else {
+        FileOutputStream streamOut = new FileOutputStream(reportFile(file));
+        int c;
+        while ((c = post.getResponseBodyAsStream().read()) != -1) {
+          streamOut.write(c);
+        }
+        streamOut.close();
+      }
     } finally {
       // release any connection resources used by the method
       post.releaseConnection();
     }
+  }
+
+  @Override
+  public File reportFile(File file) {
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_XML);
+  }
+
+  public static Collection<File> getReportFiles(File folder) {
+    return getReportFiles(folder, REPORT_XML);
+  }
+
+  @Override
+  protected void waitBetweenValidationRequests() {
+    sleep(1000L);
   }
 }

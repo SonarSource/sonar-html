@@ -29,11 +29,10 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.sonar.plugins.web.HtmlValidator;
 import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.html.HtmlValidator;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
@@ -45,6 +44,8 @@ import com.thoughtworks.xstream.mapper.CannotResolveClassException;
  * @since 0.2
  */
 public final class ToetsTool extends HtmlValidator {
+
+  private static final String REPORT_XML = "-tt.xml";
 
   private static final Logger LOG = Logger.getLogger(ToetsTool.class);
 
@@ -113,7 +114,7 @@ public final class ToetsTool extends HtmlValidator {
     for (int i = 0; i < RETRIES; i++) {
 
       // before requesting a report, wait for a few seconds
-      sleep();
+      sleep(SHORT_SLEEP_INTERVAL);
 
       // get the report url
       GetMethod httpget = new GetMethod(reportUrl);
@@ -194,38 +195,25 @@ public final class ToetsTool extends HtmlValidator {
     }
   }
 
-  private void sleep() {
-    sleep(SHORT_SLEEP_INTERVAL);
-  }
-
-  private void sleep(long sleepInterval) {
-    try {
-      Thread.sleep(sleepInterval);
-    } catch (InterruptedException ie) {
-      throw new RuntimeException(ie);
-    }
-  }
-
   /**
    * Validate a file with the Toetstool service.
    */
-  void validateFile(File file) {
-
-    ToetstoolReport report = ToetstoolReport.fromXml(ValidationReport.reportFile(file));
+  @Override
+  public void validateFile(File file, String url) {
 
     try {
       // post html contents, in return we get a redirect location
-      String redirectLocation = postHtmlContents(file, report.getUrl());
+      String redirectLocation = postHtmlContents(file, url);
 
       if (redirectLocation != null) {
         // get the report number from the redirect location
         // the format of the redirect URL is e.g. https://api.toetstool.nl/status/2816/
         String reportNumber = StringUtils.substringAfterLast(StringUtils.substringBeforeLast(redirectLocation, "/"), "/");
 
-        report = fetchReport(reportNumber);
+        ToetstoolReport report = fetchReport(reportNumber);
         if (report != null) {
           report.setReportNumber(reportNumber);
-          report.toXml(ValidationReport.reportFile(file));
+          report.toXml(reportFile(file));
 
           LOG.info("Validated: " + file.getPath());
         }
@@ -235,17 +223,12 @@ public final class ToetsTool extends HtmlValidator {
     }
   }
 
-  /**
-   * Validate a set of files using the Toetstool service.
-   */
-  public void validateFiles(File folder) {
-    Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
+  public static Collection<File> getReportFiles(File htmlFolder) {
+    return getReportFiles(htmlFolder, REPORT_XML);
+  }
 
-    if (Settings.getNrOfSamples() != null) {
-      files = randomSubset(files, Settings.getNrOfSamples());
-    }
-    for (File file : files) {
-      validateFile(file);
-    }
+  @Override
+  public File reportFile(File file) {
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_XML);
   }
 }

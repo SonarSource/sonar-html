@@ -24,10 +24,12 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.sonar.plugins.web.Settings;
 import org.sonar.plugins.web.html.HtmlScanner;
-import org.sonar.plugins.web.html.MarkupValidator;
+import org.sonar.plugins.web.html.HtmlValidator;
 import org.sonar.plugins.web.jmeter.JMeter;
-import org.sonar.plugins.web.toetstool.ReportBuilder;
+import org.sonar.plugins.web.markupvalidation.MarkupReportBuilder;
+import org.sonar.plugins.web.markupvalidation.MarkupValidator;
 import org.sonar.plugins.web.toetstool.ToetsTool;
+import org.sonar.plugins.web.toetstool.ToetsToolReportBuilder;
 
 /**
  * Goal to execute the verification with Toetstool.
@@ -112,17 +114,18 @@ public class ToetstoolMojo extends AbstractMojo {
       htmlScanner.prepare(Settings.getHtmlDir());
 
       if (validationServices.contains("HtmlMarkup")) {
-        MarkupValidator markupValidator = new MarkupValidator();
+        HtmlValidator markupValidator = new MarkupValidator();
         markupValidator.validateFiles(htmlFolder);
+        MarkupReportBuilder reportBuilder = new MarkupReportBuilder();
+        reportBuilder.buildReports(htmlFolder);
       }
 
       if (validationServices.contains("Toetstool")) {
-        ToetsTool toetstool = new ToetsTool();
+        HtmlValidator toetstool = new ToetsTool();
         toetstool.validateFiles(htmlFolder);
+        ToetsToolReportBuilder reportBuilder = new ToetsToolReportBuilder();
+        reportBuilder.buildReports(htmlFolder);
       }
-
-      ReportBuilder aggregateReport = new ReportBuilder();
-      aggregateReport.buildReports(htmlFolder);
     }
   }
 

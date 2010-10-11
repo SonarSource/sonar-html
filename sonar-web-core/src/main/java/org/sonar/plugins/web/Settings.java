@@ -30,9 +30,13 @@ public final class Settings {
 
   private static final String CSS_PATH = "css.path";
 
+  private static final String HTML_PATH = "html.path";
+
   private static final String JMETER_REPORT_PATH = "jmeter.report.path";
 
   private static final String JMETER_SCRIPT_PATH = "jmeter.script.path";
+
+  private static final String NR_OF_SAMPLES = "nrOfSamples";
 
   private static final Properties properties = new Properties();
 
@@ -46,32 +50,32 @@ public final class Settings {
 
   private static final String TOETS_TOOL_URL = "toetstool.url";
 
-  private static final String HTML_PATH = "html.path";
-
-  private static final String NR_OF_SAMPLES = "nrOfSamples";
+  static {
+    loadProperties(SETTINGS_FILE_NAME);
+  }
 
   public static String getCssPath() {
     return getProperties().getProperty(CSS_PATH);
-  }
-
-  public static String getJMeterReportDir() {
-    return getProperties().getProperty(JMETER_REPORT_PATH);
   }
 
   public static String getHtmlDir() {
     return getProperties().getProperty(HTML_PATH);
   }
 
-  public static void setHTMLDir(String htmlDir) {
-    getProperties().setProperty(HTML_PATH, htmlDir);
+  public static String getJMeterReportDir() {
+    return getProperties().getProperty(JMETER_REPORT_PATH);
   }
 
   public static String getJMeterScriptDir() {
     return getProperties().getProperty(JMETER_SCRIPT_PATH);
   }
 
-  static {
-    loadProperties(SETTINGS_FILE_NAME);
+  public static Integer getNrOfSamples() {
+    if (getProperties().getProperty(NR_OF_SAMPLES) != null) {
+      return Integer.parseInt(getProperties().getProperty(NR_OF_SAMPLES));
+    } else {
+      return null;
+    }
   }
 
   private static Properties getProperties() {
@@ -80,7 +84,7 @@ public final class Settings {
 
   /**
    * Returns the proxy host.
-   *
+   * 
    * @return proxy host; null if proxy.use == false
    */
   public static String getProxyHost() {
@@ -91,14 +95,9 @@ public final class Settings {
     }
   }
 
-  public static void setProxyHost(String proxyHost) {
-    getProperties().setProperty(PROXY_USE, "true");
-    getProperties().setProperty(PROXY_HOST, proxyHost);
-  }
-
   /**
    * Returns the proxy port.
-   *
+   * 
    * @return proxy port; null if proxy.use == false
    */
   public static int getProxyPort() {
@@ -106,22 +105,6 @@ public final class Settings {
       return Integer.parseInt(getProperties().getProperty(PROXY_PORT));
     } else {
       return 0;
-    }
-  }
-
-  public static void setProxyPort(int proxyPort) {
-    getProperties().setProperty(PROXY_PORT, Integer.toString(proxyPort));
-  }
-
-  public static void setNrOfSamples(Integer nrOfSamples) {
-    getProperties().setProperty(NR_OF_SAMPLES, Integer.toString(nrOfSamples));
-  }
-
-  public static Integer getNrOfSamples() {
-    if (getProperties().getProperty(NR_OF_SAMPLES) != null) {
-      return Integer.parseInt(getProperties().getProperty(NR_OF_SAMPLES));
-    } else {
-      return null;
     }
   }
 
@@ -153,6 +136,10 @@ public final class Settings {
     getProperties().setProperty(CSS_PATH, path);
   }
 
+  public static void setHTMLDir(String htmlDir) {
+    getProperties().setProperty(HTML_PATH, htmlDir);
+  }
+
   public static void setJMeterReportDir(String dir) {
     getProperties().setProperty(JMETER_REPORT_PATH, dir);
   }
@@ -161,13 +148,26 @@ public final class Settings {
     getProperties().setProperty(JMETER_SCRIPT_PATH, dir);
   }
 
+  public static void setNrOfSamples(Integer nrOfSamples) {
+    getProperties().setProperty(NR_OF_SAMPLES, Integer.toString(nrOfSamples));
+  }
+
+  public static void setProxyHost(String proxyHost) {
+    getProperties().setProperty(PROXY_USE, "true");
+    getProperties().setProperty(PROXY_HOST, proxyHost);
+  }
+
+  public static void setProxyPort(int proxyPort) {
+    getProperties().setProperty(PROXY_PORT, Integer.toString(proxyPort));
+  }
+
   public static void setToetstoolURL(String url) {
     getProperties().setProperty(TOETS_TOOL_URL, url);
   }
 
   /**
    * Returns whether or not to use a proxy.
-   *
+   * 
    * @return true/false
    */
   public static boolean useProxy() {

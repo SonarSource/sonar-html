@@ -31,10 +31,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.html.FileSet;
+import org.sonar.plugins.web.html.FileSet.HtmlFile;
 import org.sonar.plugins.web.jmeter.xml.HttpSample;
 import org.sonar.plugins.web.jmeter.xml.JMeterReport;
-import org.sonar.plugins.web.toetstool.ValidationReport;
-import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
 /**
  * Prepare JMeter report files for HTML validation.
@@ -72,6 +72,8 @@ public class JMeter {
     File htmlFolder = new File(Settings.getHtmlDir());
     resetFolder(htmlFolder);
 
+    FileSet fileSet = new FileSet();
+
     // find JMeter scripts
     Collection<File> scriptFiles = FileUtils.listFiles(new File(Settings.getJMeterScriptDir()), new String[] { "jmx" }, true);
 
@@ -87,7 +89,7 @@ public class JMeter {
         if (reportFile != null) {
           JMeterReport report = JMeterReport.fromXml(new FileInputStream(reportFile));
 
-          writeHttpSamples(testNames, htmlFolder, report.getHttpSamples(), false);
+          writeHttpSamples(fileSet, testNames, htmlFolder, report.getHttpSamples(), false);
         } else {
           LOG.error("Could not find report file for JMeter script " + scriptFile.getName());
         }
@@ -95,6 +97,8 @@ public class JMeter {
         throw new RuntimeException(e);
       }
     }
+
+    fileSet.toXml(FileSet.getPath(htmlFolder));
   }
 
   private File resetFolder(File folder) {
@@ -120,7 +124,8 @@ public class JMeter {
     }
   }
 
-  private void writeHttpSamples(Map<String, String> testNames, File htmlFolder, List<HttpSample> httpSamples, Boolean nested) {
+  private void writeHttpSamples(FileSet fileSet, Map<String, String> testNames, File htmlFolder, List<HttpSample> httpSamples,
+      Boolean nested) {
     for (HttpSample sample : httpSamples) {
 
       File folder = new File(htmlFolder.getPath() + "/" + sample.getTn());
@@ -132,26 +137,23 @@ public class JMeter {
 
         File file;
 
-        ToetstoolReport report = new ToetstoolReport();
-
         try {
           URL url = new URL(sample.getLb());
           file = new File(folder.getPath() + "/" + url.getPath());
           writeFile(sample, file);
-          report.setUrl(sample.getLb());
+          HtmlFile htmlFile = fileSet.addFile(file, new File(Settings.getHtmlDir()));
+          htmlFile.url = sample.getLb();
         } catch (MalformedURLException e) {
           file = new File(folder.getPath() + "/" + sample.getLb() + ".html");
           writeFile(sample, file);
           String url = testNames.get(sample.getLb());
-          report.setUrl(url != null ? url : "http://localhost/");
+          HtmlFile htmlFile = fileSet.addFile(file, new File(Settings.getHtmlDir()));
+          htmlFile.url = url != null ? url : "http://localhost/";
         }
-
-        // save report with URL
-        report.toXml(ValidationReport.reportFile(file));
       }
 
       if (sample.getHttpSamples() != null) {
-        writeHttpSamples(testNames, folder, sample.getHttpSamples(), true);
+        writeHttpSamples(fileSet, testNames, folder, sample.getHttpSamples(), true);
       }
     }
   }

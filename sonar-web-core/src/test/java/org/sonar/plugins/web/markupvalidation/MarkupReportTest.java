@@ -14,15 +14,26 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.jmeter;
+package org.sonar.plugins.web.markupvalidation;
+
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
 
 import org.junit.Test;
 
-public class JMeterTest {
+
+public class MarkupReportTest {
 
   @Test
-  public void testExtractResponses() {
-    JMeter jmeter = new JMeter();
-    jmeter.extractResponses();
+  public void parseReport() {
+    MarkupReport report = MarkupReport.fromXml(new File("src/test/resources/org/sonar/plugins/web/markupvalidation/markupreport-mu.xml"));
+    assertNotNull(report);
+  }
+
+  @Test
+  public void buildReport() {
+    MarkupReportBuilder reportBuilder = new MarkupReportBuilder();
+    reportBuilder.buildReports(new File("src/test/resources/org/sonar/plugins/web/markupvalidation"));
   }
 }

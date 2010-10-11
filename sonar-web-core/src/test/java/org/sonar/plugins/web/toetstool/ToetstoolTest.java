@@ -35,7 +35,7 @@ public class ToetstoolTest {
     File file = new File(testfile);
     assertTrue(file.exists());
 
-    new ToetsTool().validateFile(file);
+    new ToetsTool().validateFile(file, "http://localhost");
 
 //    assertNotNull(toetstool);
 //    assertNotNull(toetstool.getReport().getUrl());

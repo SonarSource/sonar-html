@@ -1,0 +1,1419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope">
+  <env:Body>
+    <m:markupvalidationresponse env:encodingStyle="http://www.w3.org/2003/05/soap-encoding"
+      xmlns:m="http://www.w3.org/2005/10/markup-validator">
+
+      <m:uri>1 Request welcome page.html</m:uri>
+      <m:checkedby>http://validator.w3.org/</m:checkedby>
+      <m:doctype>-//W3C//DTD XHTML 1.0 Strict//EN</m:doctype>
+      <m:charset>iso-8859-1</m:charset>
+      <m:validity>false</m:validity>
+      <m:errors>
+        <m:errorcount>17</m:errorcount>
+        <m:errorlist>
+
+          <m:error>
+            <m:line>149</m:line>
+            <m:col>102</m:col>
+            <m:message>general entity &quot;organisatie&quot; not defined and no default entity</m:message>
+            <m:messageid>25</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=25#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-25">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…ocalhost:80/tenderned/content/home?user=&#38;<strong title="Position where error was detected.">o</strong>rganisatie=&#34; class=&#34;current&#34;&#62;Home&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>149</m:line>
+            <m:col>113</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…ocalhost:80/tenderned/content/home?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;current&#34;&#62;Home&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>155</m:line>
+            <m:col>110</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…t:80/tenderned/content/actueel?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;sublevel&#34;&#62;Actueel&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>157</m:line>
+            <m:col>105</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…f=&#34;http://localhost:80/tenderned/content/actueel?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Nieuws&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>160</m:line>
+            <m:col>105</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…=&#34;http://localhost:80/tenderned/content/archief?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Archief&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>164</m:line>
+            <m:col>109</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…nderned/content/veelgestelde-vragen?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Veelgestelde vragen&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>168</m:line>
+            <m:col>93</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…t:80/tenderned/content/contact?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;sublevel&#34;&#62;Contact&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>171</m:line>
+            <m:col>101</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…=&#34;http://localhost:80/tenderned/content/contact?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Contact&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>173</m:line>
+            <m:col>107</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…alhost:80/tenderned/content/stel-uw-vraag?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Stel uw vraag&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>177</m:line>
+            <m:col>117</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…host:80/tenderned/content/over-tenderned?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Over TenderNed&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>180</m:line>
+            <m:col>112</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…calhost:80/tenderned/content/over-tenderned?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Organisatie&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>182</m:line>
+            <m:col>107</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…tp://localhost:80/tenderned/content/voordelen?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Voordelen&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>184</m:line>
+            <m:col>106</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…http://localhost:80/tenderned/content/planning?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Planning&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>208</m:line>
+            <m:col>73</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…&#62;&#60;a href=&#34;http://localhost:80/tenderned/sitemap?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Sitemap&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>225</m:line>
+            <m:col>109</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…nderned/content/gebruiksvoorwaarden?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Gebruiksvoorwaarden&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>227</m:line>
+            <m:col>107</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…0/tenderned/content/privacyverklaring?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Privacyverklaring&#60;/a&#62;]]></m:source>
+          </m:error>
+
+          <m:error>
+            <m:line>229</m:line>
+            <m:col>100</m:col>
+            <m:message>reference to entity &quot;organisatie&quot; for which no system identifier could be generated
+            </m:message>
+            <m:messageid>325</m:messageid>
+            <m:explanation>  <![CDATA[
+                      <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=325#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-325">
+    <p>
+      This is usually a cascading error caused by a an undefined entity
+      reference or use of an unencoded ampersand (&amp;) in an URL or body
+      text. See the previous message for further details.
+    </p>
+  </div>
+
+                  ]]>
+            </m:explanation>
+            <m:source><![CDATA[…://localhost:80/tenderned/content/disclaimer?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Disclaimer&#60;/a&#62;]]></m:source>
+          </m:error>
+
+        </m:errorlist>
+      </m:errors>
+      <m:warnings>
+        <m:warningcount>34</m:warningcount>
+        <m:warninglist>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <m:warning>
+            <m:messageid>W19</m:messageid>
+            <m:message>Character Encoding mismatch!</m:message>
+          </m:warning>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <m:warning>
+            <m:line>149</m:line>
+            <m:col>102</m:col>
+            <m:message>cannot generate system identifier for general entity &quot;organisatie&quot;</m:message>
+            <m:messageid>338</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=338#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-338">
+    <p>
+      An entity reference was found in the document, but there is no reference
+      by that name defined. Often this is caused by misspelling the reference
+      name, unencoded ampersands, or by leaving off the trailing semicolon (;).
+      <strong>The most common cause of this error is unencoded ampersands in
+      URLs</strong> as described by the <a
+        href="http://www.htmlhelp.com/">WDG</a> in "<a
+        href="http://www.htmlhelp.com/tools/validator/problems.html#amp">Ampersands
+        in URLs</a>".
+    </p>
+    <p>
+      Entity references start with an ampersand (&amp;) and end with a
+      semicolon (;). If you want to use a literal ampersand in your document
+      you must encode it as "&amp;amp;" (<em>even inside URLs!</em>). Be
+      careful to end entity references with a semicolon or your entity
+      reference may get interpreted in connection with the following text.
+      Also keep in mind that named entity references are case-sensitive;
+      &amp;Aelig; and &amp;aelig; are different characters.
+    </p>
+    <p>
+      If this error appears in some markup generated by PHP's session handling
+      code, <a href="http://www.w3.org/QA/2005/04/php-session" 
+      title="Ampersands, PHP Sessions and Valid HTML">this article</a> has 
+      explanations and solutions to your problem.
+    </p>
+    <p>
+      Note that in most documents, errors related to entity references will
+      trigger up to 5 separate messages from the Validator. Usually these
+      will all disappear when the original problem is fixed.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…ocalhost:80/tenderned/content/home?user=&#38;<strong title="Position where error was detected.">o</strong>rganisatie=&#34; class=&#34;current&#34;&#62;Home&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>149</m:line>
+            <m:col>113</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…ocalhost:80/tenderned/content/home?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;current&#34;&#62;Home&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>149</m:line>
+            <m:col>113</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…ocalhost:80/tenderned/content/home?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;current&#34;&#62;Home&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>155</m:line>
+            <m:col>110</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…t:80/tenderned/content/actueel?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;sublevel&#34;&#62;Actueel&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>155</m:line>
+            <m:col>110</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…t:80/tenderned/content/actueel?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;sublevel&#34;&#62;Actueel&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>157</m:line>
+            <m:col>105</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…f=&#34;http://localhost:80/tenderned/content/actueel?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Nieuws&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>157</m:line>
+            <m:col>105</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…f=&#34;http://localhost:80/tenderned/content/actueel?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Nieuws&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>160</m:line>
+            <m:col>105</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…=&#34;http://localhost:80/tenderned/content/archief?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Archief&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>160</m:line>
+            <m:col>105</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…=&#34;http://localhost:80/tenderned/content/archief?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Archief&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>164</m:line>
+            <m:col>109</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…nderned/content/veelgestelde-vragen?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Veelgestelde vragen&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>164</m:line>
+            <m:col>109</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…nderned/content/veelgestelde-vragen?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Veelgestelde vragen&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>168</m:line>
+            <m:col>93</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…t:80/tenderned/content/contact?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;sublevel&#34;&#62;Contact&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>168</m:line>
+            <m:col>93</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…t:80/tenderned/content/contact?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34; class=&#34;sublevel&#34;&#62;Contact&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>171</m:line>
+            <m:col>101</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…=&#34;http://localhost:80/tenderned/content/contact?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Contact&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>171</m:line>
+            <m:col>101</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…=&#34;http://localhost:80/tenderned/content/contact?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Contact&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>173</m:line>
+            <m:col>107</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…alhost:80/tenderned/content/stel-uw-vraag?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Stel uw vraag&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>173</m:line>
+            <m:col>107</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…alhost:80/tenderned/content/stel-uw-vraag?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Stel uw vraag&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>177</m:line>
+            <m:col>117</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…host:80/tenderned/content/over-tenderned?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Over TenderNed&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>177</m:line>
+            <m:col>117</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…host:80/tenderned/content/over-tenderned?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Over TenderNed&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>180</m:line>
+            <m:col>112</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…calhost:80/tenderned/content/over-tenderned?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Organisatie&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>180</m:line>
+            <m:col>112</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…calhost:80/tenderned/content/over-tenderned?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Organisatie&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>182</m:line>
+            <m:col>107</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…tp://localhost:80/tenderned/content/voordelen?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Voordelen&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>182</m:line>
+            <m:col>107</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…tp://localhost:80/tenderned/content/voordelen?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Voordelen&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>184</m:line>
+            <m:col>106</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…http://localhost:80/tenderned/content/planning?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Planning&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>184</m:line>
+            <m:col>106</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…http://localhost:80/tenderned/content/planning?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Planning&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>208</m:line>
+            <m:col>73</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…&#62;&#60;a href=&#34;http://localhost:80/tenderned/sitemap?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Sitemap&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>208</m:line>
+            <m:col>73</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…&#62;&#60;a href=&#34;http://localhost:80/tenderned/sitemap?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Sitemap&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>225</m:line>
+            <m:col>109</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…nderned/content/gebruiksvoorwaarden?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Gebruiksvoorwaarden&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>225</m:line>
+            <m:col>109</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…nderned/content/gebruiksvoorwaarden?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Gebruiksvoorwaarden&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>227</m:line>
+            <m:col>107</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…0/tenderned/content/privacyverklaring?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Privacyverklaring&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>227</m:line>
+            <m:col>107</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…0/tenderned/content/privacyverklaring?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Privacyverklaring&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>229</m:line>
+            <m:col>100</m:col>
+            <m:message>reference not terminated by REFC delimiter</m:message>
+            <m:messageid>394</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=394#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-394">
+    <p>
+      If you meant to include an entity that starts with "&amp;", then you should 
+      terminate it with ";".  Another reason for this error message is that 
+      you inadvertently created an entity by failing to escape an "&amp;" 
+      character just before this text.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…://localhost:80/tenderned/content/disclaimer?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Disclaimer&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+          <m:warning>
+            <m:line>229</m:line>
+            <m:col>100</m:col>
+            <m:message>reference to external entity in attribute value</m:message>
+            <m:messageid>403</m:messageid>
+            <m:explanation>  <![CDATA[
+                        <p class="helpwanted">
+      <a
+        href="http://validator.w3.org/feedback.html?uri=;errmsg_id=403#errormsg"
+	title="Suggest improvements on this error message through our feedback channels" 
+      >&#x2709;</a>
+    </p>
+
+    <div class="ve mid-403">
+    <p>
+      This is generally the sign of an ampersand that was not properly escaped for inclusion 
+      in an attribute, in a href for example. You will need to escape all instances of '&amp;'
+      into '&amp;amp;'.
+    </p>
+  </div>
+
+                    ]]>
+            </m:explanation>
+            <m:source><![CDATA[…://localhost:80/tenderned/content/disclaimer?user=&#38;organisatie<strong title="Position where error was detected.">=</strong>&#34;&#62;Disclaimer&#60;/a&#62;]]></m:source>
+          </m:warning>
+
+        </m:warninglist>
+      </m:warnings>
+    </m:markupvalidationresponse>
+  </env:Body>
+</env:Envelope>

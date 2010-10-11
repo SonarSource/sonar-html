@@ -54,9 +54,6 @@ public class Report {
   @XStreamAsAttribute
   private String url;
 
-  @XStreamAsAttribute
-  private String duplicateFile;
-
   public Counters getCounters() {
     return counters;
   }

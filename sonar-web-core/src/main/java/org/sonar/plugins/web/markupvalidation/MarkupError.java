@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.markupvalidation;
 
-import java.io.File;
 
-/**
- * @author Matthijs Galesloot
- * @since 0.2
- */
-public final class ValidationReport {
+public class MarkupError {
 
-  public static File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + "-report.xml");
+  public Integer line;
+  public Integer messageId;
+
+  public Integer getLine() {
+    return line;
   }
 
-  private ValidationReport() {
-    // utility class, cannot instantiate
+  public Integer getMessageId() {
+    return messageId;
   }
+
 }

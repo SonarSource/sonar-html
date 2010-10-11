@@ -28,9 +28,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
-import org.sonar.plugins.web.HtmlValidator;
+import org.sonar.plugins.web.html.AbstractReportBuilder;
 import org.sonar.plugins.web.toetstool.xml.Guideline;
 import org.sonar.plugins.web.toetstool.xml.Guideline.ValidationType;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
@@ -39,7 +39,7 @@ import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public class ReportBuilder {
+public class ToetsToolReportBuilder extends AbstractReportBuilder {
 
   private static final class Violation {
 
@@ -49,45 +49,11 @@ public class ReportBuilder {
     public int warning;
   }
 
-  private static final Logger LOG = Logger.getLogger(ReportBuilder.class);
-
-  /**
-   * Decodes html entities.
-   *
-   * @param s
-   *          the <code>String</code> to decode
-   * @return the newly decoded <code>String</code>
-   */
-  public static String htmlEntityDecode(String s) {
-
-    return StringUtils.replaceEachRepeatedly(s, new String[] { "&amp;", "&lt;", "&gt;" }, new String[] { "&", "<", ">" });
-  }
-
-  private StringBuilder sb;
-
-  private void addCells(Object... values) {
-    for (Object value : values) {
-      sb.append("<td>");
-      sb.append(value == null ? "" : value);
-      sb.append("</td>\n");
-    }
-  }
-
-  private void addHeaderCell(Object value) {
-    sb.append("<th>");
-    sb.append(value);
-    sb.append("</th>\n");
-  }
-
-  private void addRow(Object... values) {
-    startRow();
-    addCells(values);
-    endRow();
-  }
+  private static final Logger LOG = Logger.getLogger(ToetsToolReportBuilder.class);
 
   public void buildReports(File folder) {
     List<ToetstoolReport> reports = new ArrayList<ToetstoolReport>();
-    for (File reportFile : HtmlValidator.getReportFiles(folder)) {
+    for (File reportFile : ToetsTool.getReportFiles(folder)) {
       ToetstoolReport report = ToetstoolReport.fromXml(reportFile);
       reports.add(report);
     }
@@ -186,7 +152,7 @@ public class ReportBuilder {
     addRow("Html files", reports.size());
     addRow("Min score", minscore);
     addRow("Max score", maxscore);
-    addRow("AVG score", totalscore / reports.size());
+    addRow("AVG score", reports.size() > 0 ? totalscore / reports.size() : 0);
 
     sb.append("</table>");
   }
@@ -233,7 +199,7 @@ public class ReportBuilder {
           if (guideline.getType() == ValidationType.error || guideline.getType() == ValidationType.warning) {
             sb.append(guideline.getRef());
             sb.append(": ");
-            sb.append(htmlEntityDecode(guideline.getRemark()));
+            sb.append(StringEscapeUtils.unescapeHtml(guideline.getRemark()));
             sb.append("<br/>");
           }
         }
@@ -261,7 +227,7 @@ public class ReportBuilder {
         startRow();
         String anchor = String.format("<a href=\"%s\">%s</a>", violation.guideline.getReflink(), violation.guideline.getRef());
         addCells(anchor);
-        addCells(htmlEntityDecode(violation.remark));
+        addCells(StringEscapeUtils.unescapeHtml(violation.remark));
         addCells(violation.error);
         addCells(violation.warning);
         endRow();
@@ -280,10 +246,6 @@ public class ReportBuilder {
       }
     }
     sb.append("</table>");
-  }
-
-  private void endRow() {
-    sb.append("</tr>");
   }
 
   private Guideline findGuideline(ToetstoolReport report, Violation violation) {
@@ -309,9 +271,4 @@ public class ReportBuilder {
     violations.add(violation);
     return violation;
   }
-
-  private void startRow() {
-    sb.append("<tr>");
-  }
-
 }

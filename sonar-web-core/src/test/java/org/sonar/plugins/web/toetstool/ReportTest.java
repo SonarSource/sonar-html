@@ -41,7 +41,7 @@ public class ReportTest {
 
     new File("target/report.html").delete();
 
-    ReportBuilder report = new ReportBuilder();
+    ToetsToolReportBuilder report = new ToetsToolReportBuilder();
     report.buildReports(new File(folder));
 
     assertTrue(new File("target/toetstool-report.html").exists());
@@ -52,6 +52,6 @@ public class ReportTest {
   @Ignore
   public void testAggregateJmeterReport() throws FileNotFoundException {
     File file = new File("C:/workspaces/tenderned/src/tenderned-performance20101005/target/jmeter-reports");
-    new ReportBuilder().buildReports(file);
+    new ToetsToolReportBuilder().buildReports(file);
   }
 }
