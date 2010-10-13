@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +35,9 @@ import org.apache.log4j.Logger;
 import org.sonar.plugins.web.html.HtmlValidator;
 
 /**
- * Work in progress...
+ * Validator for the W3C Markup Validation Service.
+ *
+ * @see http://validator.w3.org/docs/api.html
  *
  * @author Matthijs Galesloot
  * @since 0.2
@@ -42,22 +45,31 @@ import org.sonar.plugins.web.html.HtmlValidator;
  */
 public class MarkupValidator extends HtmlValidator {
 
-  /** the URL for the online validation service */
-  private static final String validatorUrl = "http://validator.w3.org/check";
-
-  private static final String REPORT_XML = "-mu.xml";
-  private static final String ERROR_XML = "-mu.error";
+  private static final String ERROR_XML = ".mur.error";
 
   private static final Logger LOG = Logger.getLogger(MarkupValidator.class);
 
-  /**
-   * Validate a file with the Toetstool service.
-   */
-  @Override
-  public void validateFile(File file, String url) {
+  private static final String OUTPUT = "output";
 
-    // post html contents to service
-    postHtmlContents(file, url);
+  public static final String REPORT_SUFFIX = ".mur";
+
+  private static final String SOAP12 = "soap12";
+
+  private static final String TEXT_HTML_CONTENT_TYPE = "text/html";
+  private static final String UPLOADED_FILE = "uploaded_file";
+
+  /** the URL for the online validation service */
+  private static final String validatorUrl = "http://validator.w3.org/check";
+
+  /**
+   * Get all report files
+   */
+  public static Collection<File> getReportFiles(File folder) {
+    return getReportFiles(folder, REPORT_SUFFIX);
+  }
+
+  private File errorFile(File file) {
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + ERROR_XML);
   }
 
   /**
@@ -65,7 +77,7 @@ public class MarkupValidator extends HtmlValidator {
    *
    * Documentation of interface: http://validator.w3.org/docs/api.html
    */
-  public void postHtmlContents(File file, String url) {
+  private void postHtmlContents(File file, String url) {
     PostMethod post = new PostMethod(validatorUrl);
 
     try {
@@ -75,16 +87,15 @@ public class MarkupValidator extends HtmlValidator {
       // prepare content
       List<PartBase> parts = new ArrayList<PartBase>();
 
-      LOG.info("Sending url: " + url);
-      FilePart filePart;
       try {
-        filePart = new FilePart("uploaded_file", file.getName(), file);
+        FilePart filePart = new FilePart(UPLOADED_FILE, file.getName(), file);
+        filePart.setContentType(TEXT_HTML_CONTENT_TYPE);
+        parts.add(filePart);
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       }
-      filePart.setContentType("text/html");
-      parts.add(filePart);
-      StringPart outputFormat = new StringPart("output", "soap12");
+
+      StringPart outputFormat = new StringPart(OUTPUT, SOAP12);
       parts.add(outputFormat);
 
       MultipartRequestEntity multiPartRequestEntity = new MultipartRequestEntity(parts.toArray(new PartBase[parts.size()]),
@@ -102,6 +113,28 @@ public class MarkupValidator extends HtmlValidator {
     }
   }
 
+  /**
+   * Create the path to the report file.
+   */
+  @Override
+  public File reportFile(File file) {
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_SUFFIX);
+  }
+
+  /**
+   * Validate a file with the W3C Markup service.
+   */
+  @Override
+  public void validateFile(File file, String url) {
+
+    postHtmlContents(file, url);
+  }
+
+  @Override
+  protected void waitBetweenValidationRequests() {
+    sleep(1000L);
+  }
+
   private void writeResponse(PostMethod post, File file) {
     final File reportFile;
     if (post.getStatusCode() != 200) {
@@ -112,27 +145,11 @@ public class MarkupValidator extends HtmlValidator {
     }
 
     try {
-      IOUtils.copy(post.getResponseBodyAsStream(), new FileWriter(reportFile));
+      Writer writer = new FileWriter(reportFile);
+      IOUtils.copy(post.getResponseBodyAsStream(), writer);
+      writer.close();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  @Override
-  public File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_XML);
-  }
-
-  private File errorFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + ERROR_XML);
-  }
-
-  public static Collection<File> getReportFiles(File folder) {
-    return getReportFiles(folder, REPORT_XML);
-  }
-
-  @Override
-  protected void waitBetweenValidationRequests() {
-    sleep(1000L);
   }
 }

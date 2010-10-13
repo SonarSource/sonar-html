@@ -32,6 +32,12 @@ import org.apache.commons.lang.StringUtils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+/**
+ * FileSet contains a list of files prepared for HTML validation.
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 @XStreamAlias("fileset")
 public class FileSet {
 
@@ -102,14 +108,22 @@ public class FileSet {
   }
 
   /**
-   * Add a file to the fileset
+   * Add/Replace a file to the fileset.
+   *
    * @param file File to add
    * @param htmlFolder Folder containing Html files
    * @return
    */
-  public HtmlFile addFile(File file, File htmlFolder) {
+  public HtmlFile addReplaceFile(File file, File htmlFolder) {
+    String path = getRelativePath(file, htmlFolder);
+    for (HtmlFile htmlFile : files) {
+      if (htmlFile.path.equals(path)) {
+        return htmlFile;
+      }
+    }
+
     HtmlFile htmlFile = new HtmlFile();
-    htmlFile.path = getRelativePath(file, htmlFolder);
+    htmlFile.path = path;
     try {
       htmlFile.checksum = FileUtils.checksumCRC32(file);
     } catch (IOException e) {

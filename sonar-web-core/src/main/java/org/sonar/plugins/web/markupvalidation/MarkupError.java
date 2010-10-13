@@ -17,17 +17,41 @@
 package org.sonar.plugins.web.markupvalidation;
 
 
+/**
+ * MarkupError contains error information retrieved from the W3C error messages.
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 public class MarkupError {
 
-  public Integer line;
-  public Integer messageId;
+  private Integer line;
+  private String message;
+
+  private Integer messageId;
 
   public Integer getLine() {
     return line;
   }
 
+  public String getMessage() {
+    return message;
+  }
+
   public Integer getMessageId() {
     return messageId;
+  }
+
+  public void setLine(Integer line) {
+    this.line = line;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setMessageId(Integer messageId) {
+    this.messageId = messageId;
   }
 
 }

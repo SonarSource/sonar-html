@@ -27,11 +27,12 @@ import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
-import org.sonar.api.rules.AnnotationRuleRepository;
+import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.api.utils.AnnotationUtils;
 import org.sonar.api.utils.SonarException;
+import org.sonar.check.Cardinality;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.jsp.JspCheckClasses;
 import org.sonar.plugins.web.checks.xhtml.XhtmlCheckClasses;
@@ -46,8 +47,6 @@ public final class WebRulesRepository extends RuleRepository {
   public static final String REPOSITORY_NAME = "Web";
   public static final String REPOSITORY_KEY = "Web";
 
-  private final AnnotationRuleRepository annotationRuleRepository;
-
   // for user extensions
   private final ServerFileSystem fileSystem;
 
@@ -55,13 +54,16 @@ public final class WebRulesRepository extends RuleRepository {
     super(REPOSITORY_KEY, Web.KEY);
     setName(REPOSITORY_NAME);
     this.fileSystem = fileSystem;
-
-    annotationRuleRepository = AnnotationRuleRepository.create(REPOSITORY_KEY, Web.KEY, REPOSITORY_NAME, getCheckClasses());
   }
 
   @Override
   public List<Rule> createRules() {
-    return annotationRuleRepository.createRules();
+    AnnotationRuleParser annotationRuleParser = new AnnotationRuleParser();
+    List<Rule> rules = annotationRuleParser.parse(REPOSITORY_KEY, getCheckClasses());
+    for (Rule rule : rules) {
+      rule.setCardinality(Cardinality.MULTIPLE);
+    }
+    return rules;
   }
 
   private static List<Class> getCheckClasses() {
@@ -77,17 +79,17 @@ public final class WebRulesRepository extends RuleRepository {
    * @param profile
    */
   public static List<AbstractPageCheck> createChecks(RulesProfile profile) {
-    LOG.info("Loading web rules for profile " + profile.getName());
+    LOG.info("Loading checks for profile " + profile.getName());
 
     List<AbstractPageCheck> checks = new ArrayList<AbstractPageCheck>();
 
     for (ActiveRule activeRule : profile.getActiveRules()) {
-      Class<AbstractPageCheck> checkClass = getCheckClass(activeRule);
-      if (checkClass == null) {
-        continue; // TODO raise warning
+      if (REPOSITORY_KEY.equals(activeRule.getRepositoryKey())) {
+        Class<AbstractPageCheck> checkClass = getCheckClass(activeRule);
+        if (checkClass != null) {
+          checks.add(createCheck(checkClass, activeRule));
+        }
       }
-
-      checks.add(createCheck(checkClass, activeRule));
     }
 
     return checks;
@@ -136,7 +138,7 @@ public final class WebRulesRepository extends RuleRepository {
     LOG.debug(sb.toString());
   }
 
-  public static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
+  private static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
     for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
 
       org.sonar.check.Rule ruleAnnotation = AnnotationUtils.getClassAnnotation(checkClass, org.sonar.check.Rule.class);

@@ -21,7 +21,7 @@ import java.io.Writer;
 import org.apache.commons.configuration.Configuration;
 import org.sonar.api.profiles.ProfileExporter;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileExporter;
+import org.sonar.api.profiles.XMLProfileSerializer;
 import org.sonar.plugins.web.language.Web;
 
 public class MarkupProfileExporter extends ProfileExporter {
@@ -35,6 +35,7 @@ public class MarkupProfileExporter extends ProfileExporter {
   @Override
   public void exportProfile(RulesProfile profile, Writer writer) {
 
-    new XMLProfileExporter().exportProfile(profile, writer);
+    XMLProfileSerializer serializer = new XMLProfileSerializer();
+    serializer.write(profile, writer);
   }
 }

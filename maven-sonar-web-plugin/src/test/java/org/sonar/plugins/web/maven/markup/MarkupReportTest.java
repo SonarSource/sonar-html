@@ -14,26 +14,35 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.markupvalidation;
+package org.sonar.plugins.web.maven.markup;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
 import org.junit.Test;
-
+import org.sonar.plugins.web.markupvalidation.MarkupReport;
 
 public class MarkupReportTest {
 
+  private static final String packagePath = "src/test/resources/org/sonar/plugins/web/maven/markup/";
+
   @Test
   public void parseReport() {
-    MarkupReport report = MarkupReport.fromXml(new File("src/test/resources/org/sonar/plugins/web/markupvalidation/markupreport-mu.xml"));
+    MarkupReport report = MarkupReport.fromXml(new File(packagePath + "report.mur"));
     assertNotNull(report);
   }
 
   @Test
   public void buildReport() {
+    File report = new File("target/markup-report.html");
+    if (report.exists()) {
+      report.delete();
+    }
     MarkupReportBuilder reportBuilder = new MarkupReportBuilder();
-    reportBuilder.buildReports(new File("src/test/resources/org/sonar/plugins/web/markupvalidation"));
+    reportBuilder.buildReports(new File(packagePath));
+
+    assertTrue(report.exists());
   }
 }

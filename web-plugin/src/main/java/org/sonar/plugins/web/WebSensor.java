@@ -35,7 +35,6 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.ConfigurableWeb;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
-import org.sonar.plugins.web.language.WebProperties;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.web.WebRulesRepository;
@@ -43,6 +42,9 @@ import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
+ * TODO: WebSensor should only do rules for WebRulesRepository
+ * Linecounting should go in separate component
+ *
  * @author Matthijs Galesloot
  */
 public final class WebSensor implements Sensor {
@@ -55,21 +57,9 @@ public final class WebSensor implements Sensor {
     this.profile = profile;
   }
 
-  public static void addSourceDir(Project project) {
-    if (project.getProperty(WebProperties.SOURCE_DIRECTORY) != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty(WebProperties.SOURCE_DIRECTORY).toString());
-      for (File sourceDir : project.getFileSystem().getSourceDirs()) {
-        if (sourceDir.equals(file)) {
-          return;
-        }
-      }
-      project.getFileSystem().addSourceDir(file);
-    }
-  }
-
   public void analyse(Project project, SensorContext sensorContext) {
 
-    addSourceDir(project);
+    new ProjectConfiguration(project).addSourceDir();
 
     final PageCountLines pageLineCounter = new PageCountLines();
 
@@ -126,7 +116,6 @@ public final class WebSensor implements Sensor {
     return project.getConfiguration().getBoolean(CoreProperties.CORE_IMPORT_SOURCES_PROPERTY,
         CoreProperties.CORE_IMPORT_SOURCES_DEFAULT_VALUE);
   }
-
 
   @Override
   public String toString() {

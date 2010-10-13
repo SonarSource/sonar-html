@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.maven.toetstool;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -31,15 +31,18 @@ import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.html.AbstractReportBuilder;
+import org.sonar.plugins.web.toetstool.ToetsToolValidator;
 import org.sonar.plugins.web.toetstool.xml.Guideline;
 import org.sonar.plugins.web.toetstool.xml.Guideline.ValidationType;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
 /**
+ * Builds HTML report from the list of Toetstool reports.
+ *
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public class ToetsToolReportBuilder extends AbstractReportBuilder {
+class ToetsToolReportBuilder extends AbstractReportBuilder {
 
   private static final class Violation {
 
@@ -53,13 +56,12 @@ public class ToetsToolReportBuilder extends AbstractReportBuilder {
 
   public void buildReports(File folder) {
     List<ToetstoolReport> reports = new ArrayList<ToetstoolReport>();
-    for (File reportFile : ToetsTool.getReportFiles(folder)) {
+    for (File reportFile : ToetsToolValidator.getReportFiles(folder)) {
       ToetstoolReport report = ToetstoolReport.fromXml(reportFile);
       reports.add(report);
     }
     Collections.sort(reports, new Comparator<ToetstoolReport>() {
 
-      @Override
       public int compare(ToetstoolReport t1, ToetstoolReport t2) {
         if (t1.getReport() == null || t2.getReport() == null) {
           return 0;
@@ -173,7 +175,7 @@ public class ToetsToolReportBuilder extends AbstractReportBuilder {
       sb.append("<tr>");
 
       // URL to toetstool report
-      String reportUrl = ToetsTool.getHtmlReportUrl(report.getReportNumber());
+      String reportUrl = ToetsToolValidator.getHtmlReportUrl(report.getReportNumber());
       String anchor = String.format("<a href=\"%s\">%s</a>", reportUrl, report.getReportNumber());
       addCells(anchor);
 

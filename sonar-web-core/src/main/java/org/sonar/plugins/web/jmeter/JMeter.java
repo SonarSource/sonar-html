@@ -30,7 +30,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.FileSet;
 import org.sonar.plugins.web.html.FileSet.HtmlFile;
 import org.sonar.plugins.web.jmeter.xml.HttpSample;
@@ -50,7 +50,7 @@ public class JMeter {
    * Find the reportFile for a JMeter script file.
    */
   private static File findReportFile(File scriptFile) {
-    File reportFolder = new File(Settings.getJMeterReportDir());
+    File reportFolder = new File(Configuration.getJMeterReportDir());
 
     // find JMeter reports
     Collection<File> reportFiles = FileUtils.listFiles(reportFolder, new String[] { "xml" }, true);
@@ -69,13 +69,13 @@ public class JMeter {
    */
   public void extractResponses() {
     // first clear output html folder
-    File htmlFolder = new File(Settings.getHtmlDir());
+    File htmlFolder = new File(Configuration.getHtmlDir());
     resetFolder(htmlFolder);
 
     FileSet fileSet = new FileSet();
 
     // find JMeter scripts
-    Collection<File> scriptFiles = FileUtils.listFiles(new File(Settings.getJMeterScriptDir()), new String[] { "jmx" }, true);
+    Collection<File> scriptFiles = FileUtils.listFiles(new File(Configuration.getJMeterScriptDir()), new String[] { "jmx" }, true);
 
     // get the responses from the JMeter reports
     for (File scriptFile : scriptFiles) {
@@ -89,7 +89,7 @@ public class JMeter {
         if (reportFile != null) {
           JMeterReport report = JMeterReport.fromXml(new FileInputStream(reportFile));
 
-          writeHttpSamples(fileSet, testNames, htmlFolder, report.getHttpSamples(), false);
+          writeHttpSamples(fileSet, testNames, report.getHttpSamples(), false);
         } else {
           LOG.error("Could not find report file for JMeter script " + scriptFile.getName());
         }
@@ -124,36 +124,34 @@ public class JMeter {
     }
   }
 
-  private void writeHttpSamples(FileSet fileSet, Map<String, String> testNames, File htmlFolder, List<HttpSample> httpSamples,
-      Boolean nested) {
+  private void writeHttpSamples(FileSet fileSet, Map<String, String> testNames, List<HttpSample> httpSamples, Boolean nested) {
     for (HttpSample sample : httpSamples) {
 
-      File folder = new File(htmlFolder.getPath() + "/" + sample.getTn());
-
-      if ( !folder.exists()) {
-        folder.mkdir();
-      }
       if ( !StringUtils.isEmpty(sample.getResponseData())) {
-
-        File file;
 
         try {
           URL url = new URL(sample.getLb());
-          file = new File(folder.getPath() + "/" + url.getPath());
+          File file = new File(Configuration.getHtmlDir() + "/" + url.getPath());
+          if ( !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+          }
           writeFile(sample, file);
-          HtmlFile htmlFile = fileSet.addFile(file, new File(Settings.getHtmlDir()));
+          HtmlFile htmlFile = fileSet.addReplaceFile(file, new File(Configuration.getHtmlDir()));
           htmlFile.url = sample.getLb();
         } catch (MalformedURLException e) {
-          file = new File(folder.getPath() + "/" + sample.getLb() + ".html");
+          File file = new File(Configuration.getHtmlDir() + "/" + sample.getLb() + ".html");
+          if ( !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+          }
           writeFile(sample, file);
           String url = testNames.get(sample.getLb());
-          HtmlFile htmlFile = fileSet.addFile(file, new File(Settings.getHtmlDir()));
+          HtmlFile htmlFile = fileSet.addReplaceFile(file, new File(Configuration.getHtmlDir()));
           htmlFile.url = url != null ? url : "http://localhost/";
         }
       }
 
       if (sample.getHttpSamples() != null) {
-        writeHttpSamples(fileSet, testNames, folder, sample.getHttpSamples(), true);
+        writeHttpSamples(fileSet, testNames, sample.getHttpSamples(), true);
       }
     }
   }

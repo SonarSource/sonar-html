@@ -20,7 +20,13 @@
             <groupId>org.codehaus.sonar</groupId>
             <artifactId>sonar-plugin-api</artifactId>
         </dependency>
-
+    
+        <dependency>
+          <groupId>org.codehaus.sonar-plugins</groupId>
+          <artifactId>sonar-web-core</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>

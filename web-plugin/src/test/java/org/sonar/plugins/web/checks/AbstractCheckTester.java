@@ -31,15 +31,13 @@ import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
-import org.sonar.api.rules.AnnotationRuleRepository;
+import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.AbstractWebPluginTester;
-import org.sonar.plugins.web.WebPlugin;
-import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.web.DefaultWebProfile;
@@ -50,9 +48,9 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
   private Rule getRule(String ruleKey, Class<? extends AbstractPageCheck> checkClass) {
 
-    AnnotationRuleRepository repository = AnnotationRuleRepository.create("Web", Web.KEY, WebPlugin.getKEY(),
-        Arrays.asList(new Class[] { checkClass }));
-    for (Rule rule : repository.createRules()) {
+    AnnotationRuleParser parser = new AnnotationRuleParser();
+    List<Rule> rules = parser.parse("Web", Arrays.asList(new Class[] { checkClass }));
+    for (Rule rule : rules) {
       if (rule.getKey().equals(ruleKey)) {
         return rule;
       }

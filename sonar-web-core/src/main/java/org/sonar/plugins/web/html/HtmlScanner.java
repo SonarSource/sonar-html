@@ -41,16 +41,20 @@ public class HtmlScanner {
    */
   public void prepare(String path) {
 
+    // the provided path must exist
     File htmlFolder = new File(path);
     if ( !htmlFolder.exists()) {
       throw new RuntimeException(path + " does not exist");
     }
 
+    // open existing fileset or create a new fileset
     final FileSet fileSet;
     if (FileSet.getPath(htmlFolder).exists()) {
       fileSet = FileSet.fromXml(FileSet.getPath(htmlFolder));
     } else {
       fileSet = new FileSet();
+
+      // collect the files
       collectFiles(fileSet, htmlFolder);
     }
 
@@ -62,7 +66,7 @@ public class HtmlScanner {
     Collection<File> htmlFiles = FileUtils.listFiles(htmlFolder, new String[] { "html", "htm", "xhtml" }, true);
 
     for (File file : htmlFiles) {
-      fileSet.addFile(file, htmlFolder);
+      fileSet.addReplaceFile(file, htmlFolder);
     }
   }
 

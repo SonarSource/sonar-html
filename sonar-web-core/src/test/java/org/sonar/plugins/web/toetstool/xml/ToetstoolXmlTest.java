@@ -26,7 +26,6 @@ import java.io.InputStream;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
 public class ToetstoolXmlTest {
 
   @Test

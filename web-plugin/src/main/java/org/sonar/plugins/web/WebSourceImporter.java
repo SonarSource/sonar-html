@@ -27,7 +27,6 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.language.ConfigurableWeb;
 import org.sonar.plugins.web.language.WebFile;
-import org.sonar.plugins.web.language.WebProperties;
 
 /**
  * @author Matthijs Galesloot
@@ -40,21 +39,9 @@ public final class WebSourceImporter extends AbstractSourceImporter {
     super(new ConfigurableWeb(project));
   }
 
-  public static void addSourceDir(Project project) {
-    if (project.getProperty(WebProperties.SOURCE_DIRECTORY) != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty(WebProperties.SOURCE_DIRECTORY).toString());
-      for (File sourceDir : project.getFileSystem().getSourceDirs()) {
-        if (sourceDir.equals(file)) {
-          return;
-        }
-      }
-      project.getFileSystem().addSourceDir(file);
-    }
-  }
-
   @Override
   public void analyse(Project project, SensorContext context) {
-    addSourceDir(project);
+    new ProjectConfiguration(project).addSourceDir();
 
     super.analyse(project, context);
   }

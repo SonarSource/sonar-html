@@ -31,7 +31,7 @@ import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.HtmlValidator;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
@@ -43,22 +43,22 @@ import com.thoughtworks.xstream.mapper.CannotResolveClassException;
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public final class ToetsTool extends HtmlValidator {
+public final class ToetsToolValidator extends HtmlValidator {
 
-  private static final String REPORT_XML = "-tt.xml";
+  private static final String REPORT_SUFFIX = ".ttr";
 
-  private static final Logger LOG = Logger.getLogger(ToetsTool.class);
+  private static final Logger LOG = Logger.getLogger(ToetsToolValidator.class);
 
   private static final int RETRIES = 10;
 
   private static final long SHORT_SLEEP_INTERVAL = 5000L;
 
   public static String getHtmlReportUrl(String reportNumber) {
-    return String.format("%sreport/%s/%s/", Settings.getToetstoolURL(), reportNumber, reportNumber);
+    return String.format("%sreport/%s/%s/", Configuration.getToetstoolURL(), reportNumber, reportNumber);
   }
 
   private static String getToetsToolUploadUrl() {
-    return Settings.getToetstoolURL() + "insert/";
+    return Configuration.getToetstoolURL() + "insert/";
   }
 
   private void addCssContent(File file, List<PartBase> parts) throws IOException {
@@ -107,7 +107,7 @@ public final class ToetsTool extends HtmlValidator {
   private ToetstoolReport fetchReport(String reportNumber) {
 
     // Compose report URL, e.g. http://dev.toetstool.nl/report/2927/2927/?xmlout=1
-    String reportUrl = String.format("%s/report/%s/%s/?xmlout=1", Settings.getToetstoolURL(), reportNumber, reportNumber);
+    String reportUrl = String.format("%s/report/%s/%s/?xmlout=1", Configuration.getToetstoolURL(), reportNumber, reportNumber);
     LOG.info(reportUrl);
     int failedAttempts = 0;
 
@@ -224,11 +224,11 @@ public final class ToetsTool extends HtmlValidator {
   }
 
   public static Collection<File> getReportFiles(File htmlFolder) {
-    return getReportFiles(htmlFolder, REPORT_XML);
+    return getReportFiles(htmlFolder, REPORT_SUFFIX);
   }
 
   @Override
   public File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_XML);
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_SUFFIX);
   }
 }

@@ -20,7 +20,7 @@ import java.io.Reader;
 
 import org.sonar.api.profiles.ProfileImporter;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileImporter;
+import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.language.Web;
@@ -37,6 +37,8 @@ public class WebProfileImporter extends ProfileImporter {
 
   @Override
   public RulesProfile importProfile(Reader reader, ValidationMessages messages) {
-    return XMLProfileImporter.create(ruleFinder).importProfile(reader, messages);
+
+    XMLProfileParser profileParser = new XMLProfileParser(ruleFinder);
+    return profileParser.parse(reader, messages);
   }
 }

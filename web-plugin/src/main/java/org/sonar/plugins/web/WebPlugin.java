@@ -72,14 +72,18 @@ public final class WebPlugin implements Plugin {
     list.add(JSFProfile.class);
     list.add(JSPProfile.class);
 
+    // web sensor
+    list.add(WebSensor.class);
+
     // markup rules
     list.add(MarkupRuleRepository.class);
     list.add(MarkupProfileExporter.class);
     list.add(MarkupProfileImporter.class);
     list.add(DefaultMarkupProfile.class);
 
-    // sensor
-    list.add(WebSensor.class);
+    // html sensor
+    list.add(HtmlSensor.class);
+
     // Code Colorizer
     list.add(WebCodeColorizerFormat.class);
     // Copy/Paste detection mechanism

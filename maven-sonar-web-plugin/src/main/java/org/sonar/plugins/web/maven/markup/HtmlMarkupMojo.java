@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.maven;
+package org.sonar.plugins.web.maven.markup;
 
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.HtmlValidator;
-import org.sonar.plugins.web.markupvalidation.MarkupReportBuilder;
 import org.sonar.plugins.web.markupvalidation.MarkupValidator;
+import org.sonar.plugins.web.maven.AbstractValidationMojo;
 
 /**
- * Goal to execute the verification with W3C Validator.
+ * Goal to execute the HTML verification with W3C Validator.
  *
  * @goal validate-html-markup
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
  */
 public class HtmlMarkupMojo extends AbstractValidationMojo {
 
@@ -39,7 +42,7 @@ public class HtmlMarkupMojo extends AbstractValidationMojo {
     prepareHtml();
 
     // execute validation
-    File htmlFolder = new File(Settings.getHtmlDir());
+    File htmlFolder = new File(Configuration.getHtmlDir());
     HtmlValidator validator = new MarkupValidator();
     validator.validateFiles(htmlFolder);
 

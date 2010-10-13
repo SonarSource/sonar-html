@@ -18,13 +18,16 @@ package org.sonar.plugins.web.maven;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.jmeter.JMeter;
 
 /**
  * Extract HTML responses from JMeter report files
  *
  * @goal extract-html
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
  */
 public class JMeterMojo extends AbstractMojo {
 
@@ -68,8 +71,8 @@ public class JMeterMojo extends AbstractMojo {
     getLog().info("jMeterScriptDir = " + jMeterScriptDir);
     getLog().info("jMeterReportDir = " + jMeterReportDir);
 
-    Settings.setHTMLDir(htmlDir);
-    Settings.setJMeterScriptDir(jMeterScriptDir);
-    Settings.setJMeterReportDir (jMeterReportDir);
+    Configuration.setHTMLDir(htmlDir);
+    Configuration.setJMeterScriptDir(jMeterScriptDir);
+    Configuration.setJMeterReportDir (jMeterReportDir);
   }
 }

@@ -17,6 +17,12 @@
 package org.sonar.plugins.web.html;
 
 
+/**
+ * Abtract class providing helper routines to create a report file.
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 public abstract class AbstractReportBuilder {
 
   protected StringBuilder sb;

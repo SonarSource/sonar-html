@@ -32,6 +32,8 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * Parse JMeter jmx file.
  *
+ * TODO rewrite with staxmate.
+ *
  * @author Matthijs Galesloot
  * @since 0.2
  */

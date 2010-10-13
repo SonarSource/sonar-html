@@ -27,7 +27,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -47,7 +47,7 @@ final class CssFinder {
 
   public File[] findCssFiles() {
     List<File> cssFiles = new ArrayList<File>();
-    File folder = new File(Settings.getCssPath());
+    File folder = new File(Configuration.getCssPath());
     for (File file : folder.listFiles()) {
       for (String styleSheet : styleSheets) {
         if (file.getName().contains(styleSheet)) {
@@ -71,7 +71,7 @@ final class CssFinder {
           // @import url(type.css);
           if (line.contains("@import")) {
             String fileName = StringUtils.substringBeforeLast(StringUtils.substringAfterLast(line, "("), ")");
-            File importFile = new File(Settings.getCssPath() + "/" + fileName);
+            File importFile = new File(Configuration.getCssPath() + "/" + fileName);
             if (importFile.exists()) {
               LOG.debug("Import file " + fileName);
               imports.add(importFile);

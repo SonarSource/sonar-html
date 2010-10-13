@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -64,9 +65,6 @@ public class ToetstoolReport {
   @XStreamAsAttribute
   private String status;
 
-  @XStreamAsAttribute
-  private String url;
-
   public Report getReport() {
     return report;
   }
@@ -77,10 +75,6 @@ public class ToetstoolReport {
 
   public String getStatus() {
     return status;
-  }
-
-  public String getUrl() {
-    return url;
   }
 
   public void save() {
@@ -97,10 +91,6 @@ public class ToetstoolReport {
 
   public void setReportNumber(String reportNumber) {
     this.reportNumber = reportNumber;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
   }
 
   public String toXml() {

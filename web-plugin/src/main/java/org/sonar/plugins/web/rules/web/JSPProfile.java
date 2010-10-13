@@ -16,14 +16,31 @@
 
 package org.sonar.plugins.web.rules.web;
 
-import org.sonar.api.profiles.XMLProfileDefinition;
-import org.sonar.api.rules.RuleFinder;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 
-public final class JSPProfile extends XMLProfileDefinition {
+import org.apache.commons.lang.CharEncoding;
+import org.sonar.api.profiles.ProfileDefinition;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.profiles.XMLProfileParser;
+import org.sonar.api.rules.RuleFinder;
+import org.sonar.api.utils.ValidationMessages;
+
+public final class JSPProfile extends ProfileDefinition {
 
   private static final String JSP_RULES = "org/sonar/plugins/web/rules/web/jsp-rules.xml";
 
+  private final RuleFinder ruleFinder;
+
   public JSPProfile(RuleFinder ruleFinder) {
-    super(JSPProfile.class.getClassLoader(), JSP_RULES, ruleFinder);
+    this.ruleFinder = ruleFinder;
+  }
+
+  @Override
+  public RulesProfile createProfile(ValidationMessages validationMessages) {
+    XMLProfileParser parser = new XMLProfileParser(ruleFinder);
+    Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(JSP_RULES), Charset.forName(CharEncoding.UTF_8));
+    return parser.parse(reader, validationMessages);
   }
 }

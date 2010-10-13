@@ -19,9 +19,17 @@ package org.sonar.plugins.web.maven;
 import java.io.File;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.sonar.plugins.web.Settings;
+import org.apache.maven.settings.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.HtmlScanner;
 
+/**
+ * Abstract superclass for Validation Mojo's
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ *
+ */
 public abstract class AbstractValidationMojo extends AbstractMojo {
 
   /**
@@ -31,7 +39,7 @@ public abstract class AbstractValidationMojo extends AbstractMojo {
    * @required
    * @readonly
    */
-  private org.apache.maven.settings.Settings settings;
+  private Settings settings;
 
   /**
    * HTML directory with location of HTML files.
@@ -58,11 +66,11 @@ public abstract class AbstractValidationMojo extends AbstractMojo {
 
   protected void prepareHtml() {
 
-    File htmlFolder = new File(Settings.getHtmlDir());
+    File htmlFolder = new File(Configuration.getHtmlDir());
     if (htmlFolder.exists()) {
 
       HtmlScanner htmlScanner = new HtmlScanner();
-      htmlScanner.prepare(Settings.getHtmlDir());
+      htmlScanner.prepare(Configuration.getHtmlDir());
     }
   }
 
@@ -74,17 +82,17 @@ public abstract class AbstractValidationMojo extends AbstractMojo {
     getLog().info("cssDir = " + cssDir);
     getLog().info("nrOfSamples = " + nrOfSamples);
 
-    Settings.setHTMLDir(htmlDir);
-    Settings.setCssPath(cssDir);
+    Configuration.setHTMLDir(htmlDir);
+    Configuration.setCssPath(cssDir);
     if (nrOfSamples != null && nrOfSamples > 0) {
-      Settings.setNrOfSamples(nrOfSamples);
+      Configuration.setNrOfSamples(nrOfSamples);
     }
 
     // configure proxy
     if (settings.getActiveProxy() != null) {
       getLog().info("proxy = " + settings.getActiveProxy().getHost() + ":" + settings.getActiveProxy().getPort() );
-      Settings.setProxyHost(settings.getActiveProxy().getHost());
-      Settings.setProxyPort(settings.getActiveProxy().getPort());
+      Configuration.setProxyHost(settings.getActiveProxy().getHost());
+      Configuration.setProxyPort(settings.getActiveProxy().getPort());
     }
   }
 }

@@ -30,19 +30,59 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Parser for the W3C Validation Soap Report
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ */
 public final class MarkupReport {
 
+  private static final Logger LOG = Logger.getLogger(MarkupReport.class);
+  /**
+   * Create a report from soap message that was saved in a file.
+   */
+  public static MarkupReport fromXml(File reportFile) {
+    MarkupReport markupReport = new MarkupReport();
+    markupReport.parse(reportFile);
+    return markupReport;
+  }
+
   private final List<MarkupError> errors = new ArrayList<MarkupError>();
+
   private File reportFile;
+
+  /**
+   * Get all the errors from the report.
+   */
+  public List<MarkupError> getErrors() {
+    return errors;
+  }
+
+  private Integer getInteger(Element element, String elementName) {
+    NodeList nodeList = element.getElementsByTagName(elementName);
+    if (nodeList.getLength() > 0) {
+      return Integer.parseInt(nodeList.item(0).getTextContent());
+    } else {
+      return -1;
+    }
+  }
+
+  public String getPath() {
+    return reportFile.getPath();
+  }
 
   public File getReportFile() {
     return reportFile;
   }
 
-  public static MarkupReport fromXml(File reportFile) {
-    MarkupReport markupReport = new MarkupReport();
-    markupReport.parse(reportFile);
-    return markupReport;
+  private String getString(Element element, String elementName) {
+    NodeList nodeList = element.getElementsByTagName(elementName);
+    if (nodeList.getLength() > 0) {
+      return nodeList.item(0).getTextContent();
+    } else {
+      return null;
+    }
   }
 
   private void parse(File reportFile) {
@@ -56,23 +96,13 @@ public final class MarkupReport {
       for (int i = 0; i < nodeList.getLength(); i++) {
         Element element = (Element) nodeList.item(i);
         MarkupError error = new MarkupError();
-        error.line = getInteger(element, "m:line");
-        error.messageId = getInteger(element, "m:messageid");
+        error.setLine(getInteger(element, "m:line"));
+        error.setMessageId(getInteger(element, "m:messageid"));
+        error.setMessage(getString(element, "m:message"));
         errors.add(error);
       }
     }
   }
-
-  private Integer getInteger(Element element, String elementName) {
-    NodeList nodeList = element.getElementsByTagName(elementName);
-    if (nodeList.getLength() > 0) {
-      return Integer.parseInt(nodeList.item(0).getTextContent());
-    } else {
-      return -1;
-    }
-  }
-
-  private static final Logger LOG = Logger.getLogger(MarkupReport.class);
 
   private Document parseSoapMessage(File file) {
     DOMParser parser = new DOMParser();
@@ -88,9 +118,5 @@ public final class MarkupReport {
       return null;
     }
     return parser.getDocument();
-  }
-
-  public List<MarkupError> getErrors() {
-    return errors;
   }
 }

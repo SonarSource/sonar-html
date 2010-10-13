@@ -38,7 +38,7 @@ import org.xml.sax.SAXException;
 /**
  * Parse w3c page with the full list of HTML errors.
  *
- * "Explanation of the error messages for the W3C Markup Validator" http://validator.w3.org/docs/errors.html
+ * @see http://validator.w3.org/docs/errors.html - Explanation of the error messages for the W3C Markup Validator
  *
  * @author Matthijs Galesloot
  * @since 0.2
@@ -66,25 +66,36 @@ public class MarkupErrorCatalog {
 
   private static final Logger LOG = Logger.getLogger(MarkupErrorCatalog.class);
 
-  private List<ErrorDefinition> errors;
+  public static void main(String[] args) {
+    new MarkupErrorCatalog().createRulesCatalog();
+  }
+
+  private final List<ErrorDefinition> errors;
 
   public MarkupErrorCatalog() {
+    errors = new ArrayList<ErrorDefinition>();
+
     readErrorCatalog();
   }
 
-  public void createErrors() {
+  /**
+   * method to generate rules.xml for use in WebPlugin.
+   */
+  private void createRulesCatalog() {
 
     try {
       FileWriter writer = new FileWriter("markup-errors.xml");
+      writer.write("<rules>");
       for (ErrorDefinition error : errors) {
-        writer.write(String.format("<rule><key>%s</key><remark>%s</remark><explanation>%s</explanation></rule>", error.id,
-            StringEscapeUtils.escapeXml(error.remark), StringEscapeUtils.escapeXml(error.explanation)));
+        String remark = StringEscapeUtils.escapeXml(StringUtils.substringAfter(error.remark, ":"));
+        writer.write(String.format("<rule><key>%d</key><remark>%03d:%s</remark><explanation>%s</explanation></rule>\n", error.id,
+            error.id, remark, StringEscapeUtils.escapeXml(error.explanation)));
         // System.out.printf("%s: %s\n%s", error.id, error.remark, error.explanation == null ? "" : error.explanation);
       }
+      writer.write("</rules>");
       writer.close();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
@@ -92,6 +103,15 @@ public class MarkupErrorCatalog {
     for (int i = 0; i < element.getChildNodes().getLength(); i++) {
       if ("div".equals(element.getChildNodes().item(i).getNodeName())) {
         return (Element) element.getChildNodes().item(i);
+      }
+    }
+    return null;
+  }
+
+  public ErrorDefinition findErrorDefinition(Integer messageId) {
+    for (ErrorDefinition error : errors) {
+      if (error.id.equals(messageId)) {
+        return error;
       }
     }
     return null;
@@ -126,7 +146,8 @@ public class MarkupErrorCatalog {
 
     try {
       parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-      parser.parse(new InputSource(MarkupErrorCatalog.class.getClassLoader().getResourceAsStream("org/sonar/plugins/web/markupvalidation/markup-errors.html")));
+      parser.parse(new InputSource(MarkupErrorCatalog.class.getClassLoader().getResourceAsStream(
+          "org/sonar/plugins/web/markupvalidation/markup-errors.html")));
     } catch (SAXException se) {
       throw new RuntimeException(se);
     } catch (IOException ioe) {
@@ -141,8 +162,7 @@ public class MarkupErrorCatalog {
 
     NodeList nodeList = document.getElementsByTagName("dt");
 
-    errors = new ArrayList<ErrorDefinition>();
-
+    // find errors with explanation
     for (int i = 0; i < nodeList.getLength(); i++) {
       Element element = (Element) nodeList.item(i);
       if (element.hasAttribute("id")) {
@@ -154,6 +174,7 @@ public class MarkupErrorCatalog {
       }
     }
 
+    // find explanation for the first group of errors
     Map<Integer, String> explanations = findExplanations(document);
     for (ErrorDefinition error : errors) {
       error.explanation = explanations.get(error.id);
@@ -162,7 +183,7 @@ public class MarkupErrorCatalog {
       }
     }
 
-    // Errors without Explanation
+    // find errors without explanation
     nodeList = document.getElementsByTagName("li");
     for (int i = 0; i < nodeList.getLength(); i++) {
       Element element = (Element) nodeList.item(i);
@@ -176,6 +197,7 @@ public class MarkupErrorCatalog {
       }
     }
 
+    // sort the errors on id
     Collections.sort(errors, new Comparator<ErrorDefinition>() {
 
       @Override
@@ -183,14 +205,5 @@ public class MarkupErrorCatalog {
         return e1.id.compareTo(e2.id);
       }
     });
-  }
-
-  public ErrorDefinition findErrorDefinition(Integer messageId) {
-    for (ErrorDefinition error : errors) {
-      if (error.id.equals(messageId)) {
-        return error;
-      }
-    }
-    return null;
   }
 }

@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.maven;
+package org.sonar.plugins.web.maven.toetstool;
 
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.HtmlValidator;
-import org.sonar.plugins.web.toetstool.ToetsTool;
-import org.sonar.plugins.web.toetstool.ToetsToolReportBuilder;
+import org.sonar.plugins.web.maven.AbstractValidationMojo;
+import org.sonar.plugins.web.toetstool.ToetsToolValidator;
 
 /**
- * Goal to execute the verification with Toetstool.
+ * Goal to execute the HTML verification with Toetstool.
  *
  * @goal validate-html-toetstool
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
  */
 public class ToetstoolMojo extends AbstractValidationMojo {
 
@@ -47,8 +50,8 @@ public class ToetstoolMojo extends AbstractValidationMojo {
     prepareHtml();
 
     // execute validation
-    File htmlFolder = new File(Settings.getHtmlDir());
-    HtmlValidator toetstool = new ToetsTool();
+    File htmlFolder = new File(Configuration.getHtmlDir());
+    HtmlValidator toetstool = new ToetsToolValidator();
     toetstool.validateFiles(htmlFolder);
 
     // build report
@@ -61,6 +64,6 @@ public class ToetstoolMojo extends AbstractValidationMojo {
     super.configureSettings();
 
     getLog().info("toetsToolUrl = " + toetsToolUrl);
-    Settings.setToetstoolURL(toetsToolUrl);
+    Configuration.setToetstoolURL(toetsToolUrl);
   }
 }

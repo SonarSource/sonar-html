@@ -23,10 +23,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * Configuration settings for Web modules.
+ *
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public final class Settings {
+public final class Configuration {
 
   private static final String CSS_PATH = "css.path";
 
@@ -84,7 +86,7 @@ public final class Settings {
 
   /**
    * Returns the proxy host.
-   * 
+   *
    * @return proxy host; null if proxy.use == false
    */
   public static String getProxyHost() {
@@ -97,7 +99,7 @@ public final class Settings {
 
   /**
    * Returns the proxy port.
-   * 
+   *
    * @return proxy port; null if proxy.use == false
    */
   public static int getProxyPort() {
@@ -167,7 +169,7 @@ public final class Settings {
 
   /**
    * Returns whether or not to use a proxy.
-   * 
+   *
    * @return true/false
    */
   public static boolean useProxy() {
@@ -177,7 +179,7 @@ public final class Settings {
   /**
    * Private Constructor.
    */
-  private Settings() {
+  private Configuration() {
 
   }
 }

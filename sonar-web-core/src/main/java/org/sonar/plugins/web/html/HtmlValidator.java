@@ -29,10 +29,17 @@ import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
-import org.sonar.plugins.web.Settings;
+import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.FileSet.HtmlFile;
 import org.sonar.plugins.web.ssl.EasySSLProtocolSocketFactory;
 
+/**
+ * Abstract superclass for all Validation services.
+ *
+ * @author Matthijs Galesloot
+ * @since 0.2
+ *
+ */
 public abstract class HtmlValidator {
 
   static {
@@ -72,8 +79,8 @@ public abstract class HtmlValidator {
 
   public HtmlValidator() {
     client = new HttpClient();
-    if (Settings.useProxy()) {
-      client.getHostConfiguration().setProxy(Settings.getProxyHost(), Settings.getProxyPort());
+    if (Configuration.useProxy()) {
+      client.getHostConfiguration().setProxy(Configuration.getProxyHost(), Configuration.getProxyPort());
     }
   }
 
@@ -92,7 +99,7 @@ public abstract class HtmlValidator {
     try {
       getClient().executeMethod(post);
     } catch (UnknownHostException e) {
-      if (Settings.useProxy()) {
+      if (Configuration.useProxy()) {
         getClient().getHostConfiguration().setProxyHost(null);
         try {
           getClient().executeMethod(post);
@@ -130,23 +137,29 @@ public abstract class HtmlValidator {
    */
   public void validateFiles(File folder) {
     FileSet fileSet = FileSet.fromXml(FileSet.getPath(folder));
-    final List<HtmlFile> files;
+    List<HtmlFile> files = removeDuplicates(fileSet.files);
 
-    if (Settings.getNrOfSamples() != null) {
-      files = randomSubset(fileSet.files, Settings.getNrOfSamples());
-    } else {
-      files = fileSet.files;
+    if (Configuration.getNrOfSamples() != null) {
+      files = randomSubset(files, Configuration.getNrOfSamples());
     }
 
     int n = 0;
     for (HtmlFile file : files) {
-      if (file.duplicateFile != null) {
-        if (n > 0) {
-          waitBetweenValidationRequests();
-        }
-        validateFile(new File(folder.getPath() + "/" + file.path), file.url);
+      if (n++ > 0) {
+        waitBetweenValidationRequests();
+      }
+      validateFile(new File(folder.getPath() + "/" + file.path), file.url);
+    }
+  }
+
+  private List<HtmlFile> removeDuplicates(List<HtmlFile> list) {
+    final List<HtmlFile> files = new ArrayList<HtmlFile>();
+    for (HtmlFile file : list) {
+      if (file.duplicateFile == null) {
+        files.add(file);
       }
     }
+    return files;
   }
 
   protected void waitBetweenValidationRequests() {

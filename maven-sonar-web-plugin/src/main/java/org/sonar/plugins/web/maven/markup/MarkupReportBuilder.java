@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.markupvalidation;
+package org.sonar.plugins.web.maven.markup;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,23 +23,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.sonar.plugins.web.html.AbstractReportBuilder;
+import org.sonar.plugins.web.markupvalidation.MarkupError;
+import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog;
 import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog.ErrorDefinition;
+import org.sonar.plugins.web.markupvalidation.MarkupReport;
+import org.sonar.plugins.web.markupvalidation.MarkupValidator;
 
 /**
+ * Builds HTML report from a list of W3C responses.
+ *
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public class MarkupReportBuilder extends AbstractReportBuilder {
+class MarkupReportBuilder extends AbstractReportBuilder {
 
   private static final class Violation {
 
     public int count;
     public Integer messageId;
   }
-
-  private static final Logger LOG = Logger.getLogger(MarkupReportBuilder.class);
 
   public void buildReports(File folder) {
     List<MarkupReport> reports = new ArrayList<MarkupReport>();
@@ -125,7 +128,7 @@ public class MarkupReportBuilder extends AbstractReportBuilder {
   private boolean hasViolation(MarkupReport report, Violation violation) {
 
     for (MarkupError error : report.getErrors()) {
-      if (error.messageId.equals(violation.messageId)) {
+      if (error.getMessageId().equals(violation.messageId)) {
         return true;
       }
     }
