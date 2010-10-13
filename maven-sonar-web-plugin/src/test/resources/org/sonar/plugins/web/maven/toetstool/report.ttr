@@ -1,0 +1,382 @@
+<result status="1" reportNumber="3131">
+  <report date="2010-10-04T08:07:38Z" score="41" url="https://localhost/tenderned-web/aanbesteding/aankondigingenplatform.html">
+    <counters csserrors="5" error="4" htmlerrors="6" info="6" ok="35" unknown="78" warning="2"/>
+    <guidelines>
+      <guideline ref="R-pd.1.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/filosofie/scheiding-structuur-vormgeving/#r-pd-1-1" type="ok">
+        <remark>Deze pagina bevat een strikte &amp;amp;lt;code&amp;amp;gt;DOCTYPE&amp;amp;lt;/code&amp;amp;gt; en bevat geen &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;&amp;amp;lt;em&amp;amp;gt;inline styles&amp;amp;lt;/em&amp;amp;gt;&amp;amp;lt;/span&amp;amp;gt;.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/filosofie/gelaagd-bouwen/#r-pd-1-2" type="unknown">
+        <remark>Deze richtlijn kan niet automatisch worden getoetst. Indien de pagina voldoet aan de normen van het &amp;amp;lt;a href=&amp;amp;quot;http://www.drempelvrij.nl/&amp;amp;quot;&amp;amp;gt;Waarmerk drempelvrij.nl&amp;amp;lt;/a&amp;amp;gt;, dan wordt aan deze richtlijn voldaan.</remark>
+      </guideline>
+      <guideline ref="R-pd.1.3" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/filosofie/gelaagd-bouwen/optionele-technologie/#r-pd-1-3" type="info">
+        <remark>Formulieren lijken voorzien van een &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;submit&amp;amp;lt;/span&amp;amp;gt;-knop.</remark>
+      </guideline>
+      <guideline ref="R-pd.2.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/html4-01/#r-pd-2-1" type="error">
+        <remark>Geldige &amp;amp;lt;abbr title=&amp;amp;quot;HyperText Markup Language&amp;amp;quot;&amp;amp;gt;HTML&amp;amp;lt;/abbr&amp;amp;gt; met een strikte &amp;amp;lt;code&amp;amp;gt;DOCTYPE&amp;amp;lt;/code&amp;amp;gt; gevonden, maar de pagina toont fouten bij validatie.</remark>
+      </guideline>
+      <guideline ref="R-pd.2.2" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/html4-01/#r-pd-2-2" type="warning">
+        <remark>Deze pagina toont bij validatie fouten in de &amp;amp;lt;abbr title=&amp;amp;quot;HyperText Markup Language&amp;amp;quot;&amp;amp;gt;HTML&amp;amp;lt;/abbr&amp;amp;gt;.</remark>
+      </guideline>
+      <guideline ref="R-pd.2.3" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/html4-01/#r-pd-2-3" type="ok">
+        <remark>De &amp;amp;lt;code&amp;amp;gt;DOCTYPE&amp;amp;lt;/code&amp;amp;gt; van deze pagina lijkt &amp;amp;lt;abbr title=&amp;amp;quot;Extensible HyperText Markup Language&amp;amp;quot;&amp;amp;gt;XHTML&amp;amp;lt;/abbr&amp;amp;gt; 1.0 &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;Strict&amp;amp;lt;/span&amp;amp;gt; te zijn.</remark>
+      </guideline>
+      <guideline ref="R-pd.2.4" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/html4-01/#r-pd-2-4" type="ok">
+        <remark>De &amp;amp;lt;code&amp;amp;gt;DOCTYPE&amp;amp;lt;/code&amp;amp;gt; van deze pagina lijkt &amp;amp;lt;abbr title=&amp;amp;quot;Extensible HyperText Markup Language&amp;amp;quot;&amp;amp;gt;XHTML&amp;amp;lt;/abbr&amp;amp;gt; 1.0 &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;Strict&amp;amp;lt;/span&amp;amp;gt; te zijn.</remark>
+      </guideline>
+      <guideline ref="R-pd.2.5" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/html4-01/#r-pd-2-5" type="ok">
+        <remark>Deze pagina lijkt geen gebruik te maken van &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;frames&amp;amp;lt;/span&amp;amp;gt;.</remark>
+      </guideline>
+      <guideline ref="R-pd.2.6" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/css2-1/#r-pd-2-6" type="error">
+        <remark>De &amp;amp;lt;abbr title=&amp;amp;quot;Cascading Style Sheets&amp;amp;quot;&amp;amp;gt;CSS&amp;amp;lt;/abbr&amp;amp;gt; toont/tonen fouten bij validatie.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/ecmascript-262/#r-pd-2-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/dom1/#r-pd-2-8" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/webstandaarden/wcag/#r-pd-2-9" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.3.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/#r-pd-3-1" type="error">
+        <remark>Deze pagina toont syntactische fouten bij validatie.</remark>
+      </guideline>
+      <guideline ref="R-pd.3.2" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/kopregels/#r-pd-3-2" type="ok">
+        <remark>Deze pagina lijkt een correcte kopregelhi&amp;amp;amp;euml;rarchie te bevatten.</remark>
+      </guideline>
+      <guideline ref="R-pd.3.3" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/kopregels/#r-pd-3-3" type="ok">
+        <remark>Deze pagina lijkt een correcte kopregelhi&amp;amp;amp;euml;rarchie te bevatten.</remark>
+      </guideline>
+      <guideline ref="R-pd.3.4" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/paragrafen/#r-pd-3-4" type="ok">
+        <remark>Het gebruik van &amp;amp;lt;code&amp;amp;gt;p&amp;amp;lt;/code&amp;amp;gt; en &amp;amp;lt;code&amp;amp;gt;br&amp;amp;lt;/code&amp;amp;gt; tags lijkt correct te zijn.</remark>
+      </guideline>
+      <guideline ref="R-pd.3.5" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/tekstopmaak/#r-pd-3-5" type="ok">
+        <remark>De pagina bevat geen &amp;amp;lt;code&amp;amp;gt;b&amp;amp;lt;/code&amp;amp;gt; of &amp;amp;lt;code&amp;amp;gt;i&amp;amp;lt;/code&amp;amp;gt; tags.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/tekstopmaak/#r-pd-3-6" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/tekstopmaak/#r-pd-3-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/tekstopmaak/#r-pd-3-8" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.3.9" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/tekstopmaak/#r-pd-3-9" type="ok">
+        <remark>Dit document lijkt geen gebruik te maken van &amp;amp;lt;code&amp;amp;gt;sub&amp;amp;lt;/code&amp;amp;gt; en &amp;amp;lt;code&amp;amp;gt;sup&amp;amp;lt;/code&amp;amp;gt; tags.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/referenties-citaten/#r-pd-3-10" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.3.11" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/referenties-citaten/#r-pd-3-11" type="ok">
+        <remark>Dit document lijkt geen gebruik te maken van de &amp;amp;lt;code&amp;amp;gt;q&amp;amp;lt;/code&amp;amp;gt; tag.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/referenties-citaten/#r-pd-3-12" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.3.13" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/lijsten/#r-pd-3-13" type="ok">
+        <remark>Er zijn lijsten met &amp;amp;lt;code&amp;amp;gt;ol&amp;amp;lt;/code&amp;amp;gt; of &amp;amp;lt;code&amp;amp;gt;ul&amp;amp;lt;/code&amp;amp;gt; tags gevonden.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/lijsten/#r-pd-3-14" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/beschrijvende-markup/het-schrijven-van/class-id-attributen/#r-pd-3-15" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/permanente-unieke-urls/produceren/#r-pd-4-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/permanente-unieke-urls/produceren/dynamische-urls/#r-pd-4-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.4.3" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/permanente-unieke-urls/produceren/sessies/#r-pd-4-3" type="warning">
+        <remark>Er zijn &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;hex-strings&amp;amp;lt;/span&amp;amp;gt; gevonden in de &amp;amp;lt;abbr title=&amp;amp;quot;Uniform Resource Locator&amp;amp;quot;&amp;amp;gt;URL&amp;amp;lt;/abbr&amp;amp;gt;.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/permanente-unieke-urls/produceren/doorverwijzing/#r-pd-4-4" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/permanente-unieke-urls/produceren/doorverwijzing/methodes/#r-pd-4-5" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.4.6" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/permanente-unieke-urls/vriendelijke-urls/#r-pd-4-6" type="ok">
+        <remark>Er zijn geen &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;query strings&amp;amp;lt;/span&amp;amp;gt; in de &amp;amp;lt;abbr title=&amp;amp;quot;Uniform Resource Locator&amp;amp;quot;&amp;amp;gt;URL&amp;amp;lt;/abbr&amp;amp;gt; gevonden.</remark>
+      </guideline>
+      <guideline ref="R-pd.4.7" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/permanente-unieke-urls/vriendelijke-urls/#r-pd-4-7" type="ok">
+        <remark>De &amp;amp;lt;abbr title=&amp;amp;quot;Uniform Resource Locator&amp;amp;quot;&amp;amp;gt;URL&amp;amp;lt;/abbr&amp;amp;gt; lijkt te zijn gebaseerd op een leesbare &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;directory&amp;amp;lt;/span&amp;amp;gt;-structuur.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/open-standaarden/#r-pd-5-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.6.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/paginastructuur/doctype/#r-pd-6-1" type="ok">
+        <remark>Het document lijkt een geldige &amp;amp;lt;code&amp;amp;gt;DOCTYPE&amp;amp;lt;/code&amp;amp;gt; te bevatten.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/paginastructuur/body/#r-pd-6-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.7.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/afbeeldingen-alternatieve-tekst/alt-attribuut/#r-pd-7-1" type="info">
+        <remark>Alle &amp;amp;lt;code&amp;amp;gt;img&amp;amp;lt;/code&amp;amp;gt; en &amp;amp;lt;code&amp;amp;gt;area&amp;amp;lt;/code&amp;amp;gt; elementen lijken te zijn voorzien van een &amp;amp;lt;code&amp;amp;gt;alt&amp;amp;lt;/code&amp;amp;gt; attribuut.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/afbeeldingen-alternatieve-tekst/alt-attribuut/tooltips/#r-pd-7-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/afbeeldingen-alternatieve-tekst/longdesc-attribuut/d-links/#r-pd-7-3" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.7.4" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/afbeeldingen-alternatieve-tekst/navigatie-image-maps/#r-pd-7-4" type="ok">
+        <remark>Er zijn geen links gevonden die afbeeldingen bevatten.</remark>
+      </guideline>
+      <guideline ref="R-pd.7.5" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/afbeeldingen-alternatieve-tekst/navigatie-image-maps/#r-pd-7-5" type="info">
+        <remark>Alle &amp;amp;lt;code&amp;amp;gt;img&amp;amp;lt;/code&amp;amp;gt; en &amp;amp;lt;code&amp;amp;gt;area&amp;amp;lt;/code&amp;amp;gt; elementen lijken te zijn voorzien van een &amp;amp;lt;code&amp;amp;gt;alt&amp;amp;lt;/code&amp;amp;gt; attribuut.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/afbeeldingen-alternatieve-tekst/achtergrondafbeeldingen/#r-pd-7-6" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/afbeeldingen-alternatieve-tekst/achtergrondafbeeldingen/#r-pd-7-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.8.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/goede-linktekst-schrijven/#r-pd-8-1" type="info">
+        <remark>Link teksten lijken acceptabel te zijn.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/goede-linktekst-schrijven/#r-pd-8-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/goede-linktekst-schrijven/#r-pd-8-3" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/goede-linktekst-schrijven/#r-pd-8-4" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.8.5" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/client-side-scripts/#r-pd-8-5" type="ok">
+        <remark>Er zijn geen Javascript links gevonden.</remark>
+      </guideline>
+      <guideline ref="R-pd.8.6" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/client-side-scripts/#r-pd-8-6" type="ok">
+        <remark>Links lijken in orde te zijn.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/client-side-scripts/#r-pd-8-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/kleuren-stijlen/#r-pd-8-8" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/tabben/#r-pd-8-9" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/tabben/#r-pd-8-10" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.8.11" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/sneltoets-koppelingen/#r-pd-8-11" type="ok">
+        <remark>Er zijn geen &amp;amp;lt;code&amp;amp;gt;accesskey&amp;amp;lt;/code&amp;amp;gt;s gevonden.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/seriele-navigatie/#r-pd-8-12" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/seriele-navigatie/#r-pd-8-13" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.8.14" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/nieuwe-vensters/#r-pd-8-14" type="ok">
+        <remark>Links op deze pagina lijken niet zonder waarschuwing nieuwe vensters te openen.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/nieuwe-vensters/#r-pd-8-15" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.8.16" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/email-adressen/#r-pd-8-16" type="ok">
+        <remark>Er zijn geen e-mail links gevonden.</remark>
+      </guideline>
+      <guideline ref="R-pd.8.17" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/email-adressen/#r-pd-8-17" type="ok">
+        <remark>Er zijn geen e-mail links gevonden.</remark>
+      </guideline>
+      <guideline ref="R-pd.8.18" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/email-adressen/#r-pd-8-18" type="ok">
+        <remark>Er zijn geen e-mail links gevonden.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/email-adressen/#r-pd-8-19" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/downloadbare-bestanden/#r-pd-8-20" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/downloadbare-bestanden/#r-pd-8-21" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.8.22" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/downloadbare-bestanden/#r-pd-8-22" type="ok">
+        <remark>Links op deze pagina lijken niet zonder waarschuwing nieuwe vensters te openen.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/links-navigatie/downloadbare-bestanden/#r-pd-8-23" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.9.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/css/richtlijnen/#r-pd-9-1" type="ok">
+        <remark>Deze pagina bevat geen &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;inline styles&amp;amp;lt;/span&amp;amp;gt;.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/css/richtlijnen/#r-pd-9-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/kleurgebruik/betekenis/#r-pd-10-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/kleurgebruik/betekenis/#r-pd-10-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/kleurgebruik/leesbaarheid/#r-pd-10-3" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/relationele-informatie/#r-pd-11-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.11.2" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/relationele-informatie/anatomie/#r-pd-11-2" type="ok">
+        <remark>Er zijn op deze pagina geen tabellen gevonden.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/relationele-informatie/anatomie/#r-pd-11-3" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.11.4" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/relationele-informatie/toegankelijkheid/#r-pd-11-4" type="ok">
+        <remark>Er zijn geen &amp;amp;lt;code&amp;amp;gt;th&amp;amp;lt;/code&amp;amp;gt; elementen gevonden.</remark>
+      </guideline>
+      <guideline ref="R-pd.11.5" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/relationele-informatie/toegankelijkheid/#r-pd-11-5" type="ok">
+        <remark>Er zijn geen &amp;amp;lt;code&amp;amp;gt;th&amp;amp;lt;/code&amp;amp;gt; elementen gevonden.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/relationele-informatie/toegankelijkheid/#r-pd-11-6" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/relationele-informatie/toegankelijkheid/#r-pd-11-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/layout/richtlijnen/#r-pd-11-8" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/layout/richtlijnen/#r-pd-11-9" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/tabellen/layout/richtlijnen/#r-pd-11-10" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.12.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/frames/richtlijnen/#r-pd-12-1" type="ok">
+        <remark>Er zijn op deze pagina geen &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;frames&amp;amp;lt;/span&amp;amp;gt; gevonden.</remark>
+      </guideline>
+      <guideline ref="R-pd.13.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/toegankelijkheid/invoervelden-labels/#r-pd-13-1" type="info">
+        <remark>Invoervelden lijken te worden voorzien van &amp;amp;lt;code&amp;amp;gt;label&amp;amp;lt;/code&amp;amp;gt;s.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/toegankelijkheid/toetsenbord-navigatie/#r-pd-13-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.13.3" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/toegankelijkheid/invoervelden-groeperen/#r-pd-13-3" type="ok">
+        <remark>Er worden &amp;amp;lt;code&amp;amp;gt;fieldsets&amp;amp;lt;/code&amp;amp;gt; gebruikt.</remark>
+      </guideline>
+      <guideline ref="R-pd.13.4" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/navigatie/automatische-doorverwijzing/#r-pd-13-4" type="error">
+        <remark>Minstens &amp;amp;amp;eacute;&amp;amp;amp;eacute;n formulier is &amp;amp;lt;em&amp;amp;gt;niet&amp;amp;lt;/em&amp;amp;gt; voorzien van een &amp;amp;lt;code&amp;amp;gt;submit&amp;amp;lt;/code&amp;amp;gt; knop.</remark>
+      </guideline>
+      <guideline ref="R-pd.13.5" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/navigatie/scriptlozen-zoekspiders/#r-pd-13-5" type="info">
+        <remark>Er zijn op deze pagina geen formulieren of &amp;amp;lt;code&amp;amp;gt;select&amp;amp;lt;/code&amp;amp;gt; elementen gevonden.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/script-toepassingen/#r-pd-13-6" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-8" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-9" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-10" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-11" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-12" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-13" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-14" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-15" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-16" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-17" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.13.18" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/formulieren/betere-bruikbaarheid/#r-pd-13-18" type="ok">
+        <remark>Er is geen &amp;amp;lt;span lang=&amp;amp;quot;en&amp;amp;quot; xml:lang=&amp;amp;quot;en&amp;amp;quot;&amp;amp;gt;reset&amp;amp;lt;/span&amp;amp;gt; knop gevonden.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/client-side-script-dom/optionele-karakter/#r-pd-14-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/talen/taalkeuze/#r-pd-15-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/talen/taalkeuze/#r-pd-15-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/talen/taalkeuze/#r-pd-15-3" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/talen/taalkeuze/#r-pd-15-4" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/talen/taalkeuze/#r-pd-15-5" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.15.6" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/talen/in-markup/basistaal/#r-pd-15-6" type="ok">
+        <remark>De basistaal van de pagina is gespecificeerd.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/talen/in-markup/variaties-in-pagina/#r-pd-15-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.16.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/karaktercodering/het-web/richtlijnen/#r-pd-16-1" type="ok">
+        <remark>Er is een karakterset gespecificeerd.</remark>
+      </guideline>
+      <guideline ref="R-pd.16.2" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/karaktercodering/het-web/richtlijnen/#r-pd-16-2" type="ok">
+        <remark>De &amp;amp;lt;abbr title=&amp;amp;quot;8-bit Unicode Transformation Format&amp;amp;quot;&amp;amp;gt;UTF-8&amp;amp;lt;/abbr&amp;amp;gt; karakterset is gespecificeerd.</remark>
+      </guideline>
+      <guideline ref="R-pd.16.3" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/karaktercodering/het-web/methodes/#r-pd-16-3" type="ok">
+        <remark>De karakterset is in de &amp;amp;lt;abbr title=&amp;amp;quot;Hypertext Transfer Protocol&amp;amp;quot;&amp;amp;gt;HTTP&amp;amp;lt;/abbr&amp;amp;gt; header gespecificeerd.</remark>
+      </guideline>
+      <guideline ref="R-pd.16.4" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/karaktercodering/het-web/methodes/#r-pd-16-4" type="ok">
+        <remark>De &amp;amp;lt;code&amp;amp;gt;meta&amp;amp;lt;/code&amp;amp;gt; tag waarmee de karakterset wordt gespecificeerd, staat op de juiste plaats in de code.</remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/optimalisatie-zoekmachines/#r-pd-18-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/optimalisatie-zoekmachines/#r-pd-18-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline ref="R-pd.22.1" reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-1" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-2" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-3" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-4" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-5" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-6" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-7" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-8" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-9" type="unknown">
+        <remark></remark>
+      </guideline>
+      <guideline reflink="http://www.webrichtlijnen.nl/handleiding/ontwikkeling/productie/contingency-design/richtlijnen/#r-pd-22-10" type="unknown">
+        <remark></remark>
+      </guideline>
+    </guidelines>
+  </report>
+</result>
