@@ -37,8 +37,8 @@ public final class MarkupRuleRepository extends RuleRepository {
 
   private static final String ALL_RULES = "org/sonar/plugins/web/rules/markup/rules.xml";
 
-  public static final String REPOSITORY_NAME = "HtmlMarkup";
-  public static final String REPOSITORY_KEY = "HtmlMarkup";
+  public static final String REPOSITORY_NAME = "W3C Markup Validation";
+  public static final String REPOSITORY_KEY = "W3CMarkupValidation";
 
   public MarkupRuleRepository() {
     super(MarkupRuleRepository.REPOSITORY_KEY, Web.KEY);
@@ -58,6 +58,30 @@ public final class MarkupRuleRepository extends RuleRepository {
     private String key;
     private String remark;
     private String explanation;
+
+    public void setKey(String key) {
+      this.key = key;
+    }
+
+    public String getKey() {
+      return key;
+    }
+
+    public void setRemark(String remark) {
+      this.remark = remark;
+    }
+
+    public String getRemark() {
+      return remark;
+    }
+
+    public void setExplanation(String explanation) {
+      this.explanation = explanation;
+    }
+
+    public String getExplanation() {
+      return explanation;
+    }
   }
 
   @Override
@@ -69,10 +93,10 @@ public final class MarkupRuleRepository extends RuleRepository {
     xstream.processAnnotations(HtmlMarkupRules.class);
     HtmlMarkupRules markupRules = (HtmlMarkupRules) xstream.fromXML(getClass().getClassLoader().getResourceAsStream(ALL_RULES));
     for (HtmlMarkupRule htmlMarkupRule : markupRules.rules) {
-      Rule rule = Rule.create(REPOSITORY_KEY, htmlMarkupRule.key,
-          StringUtils.abbreviate(htmlMarkupRule.remark, RULENAME_MAX_LENGTH));
-      if (htmlMarkupRule.explanation != null) {
-        rule.setDescription(StringEscapeUtils.escapeHtml(htmlMarkupRule.explanation));
+      Rule rule = Rule.create(REPOSITORY_KEY, htmlMarkupRule.getKey(),
+          StringUtils.abbreviate(htmlMarkupRule.getRemark(), RULENAME_MAX_LENGTH));
+      if (htmlMarkupRule.getExplanation() != null) {
+        rule.setDescription(StringEscapeUtils.escapeHtml(htmlMarkupRule.getExplanation()));
       }
       rule.setRulesCategory(RulesCategory.fromIsoCategory(IsoCategory.Usability));
       rules.add(rule);

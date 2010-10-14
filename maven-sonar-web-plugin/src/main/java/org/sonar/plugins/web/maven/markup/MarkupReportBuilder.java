@@ -17,11 +17,11 @@
 package org.sonar.plugins.web.maven.markup;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.plugins.web.html.AbstractReportBuilder;
 import org.sonar.plugins.web.markupvalidation.MarkupError;
@@ -147,12 +147,9 @@ class MarkupReportBuilder extends AbstractReportBuilder {
     // createUrlsReport(reports, showDetails);
 
     try {
-      FileWriter writer = new FileWriter(file);
-      writer.append(sb.toString());
-      writer.close();
+      FileUtils.writeStringToFile(file, sb.toString());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
   }
-
 }

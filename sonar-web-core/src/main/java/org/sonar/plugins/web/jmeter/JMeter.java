@@ -19,7 +19,6 @@ package org.sonar.plugins.web.jmeter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -116,9 +115,7 @@ public class JMeter {
   private void writeFile(HttpSample sample, File file) {
     try {
       file.getParentFile().mkdirs();
-      FileWriter writer = new FileWriter(file);
-      writer.append(sample.getResponseData());
-      writer.close();
+      FileUtils.writeStringToFile(file, sample.getResponseData());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

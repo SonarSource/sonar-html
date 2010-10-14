@@ -31,7 +31,7 @@ public final class DefaultMarkupProfile extends ProfileDefinition {
   public RulesProfile createProfile(ValidationMessages validation) {
     MarkupRuleRepository repository = new MarkupRuleRepository();
     List<Rule> rules = repository.createRules();
-    RulesProfile rulesProfile = RulesProfile.create("HTML Markup", Web.KEY);
+    RulesProfile rulesProfile = RulesProfile.create(MarkupRuleRepository.REPOSITORY_NAME, Web.KEY);
     for (Rule rule : rules) {
       rulesProfile.activateRule(rule, RulePriority.MAJOR);
     }

@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.Configuration;
@@ -64,8 +65,9 @@ final class CssFinder {
     List<File> imports = new ArrayList<File>();
     for (File file : findCssFiles()) {
 
+      BufferedReader reader = null;
       try {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        reader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = reader.readLine()) != null) {
           // @import url(type.css);
@@ -85,6 +87,8 @@ final class CssFinder {
         LOG.error("Could not find imported css file " + file.getName());
       } catch (IOException e) {
         LOG.error("Could not find read from css file " + file.getName());
+      } finally {
+        IOUtils.closeQuietly(reader);
       }
     }
     return imports.toArray(new File[imports.size()]);

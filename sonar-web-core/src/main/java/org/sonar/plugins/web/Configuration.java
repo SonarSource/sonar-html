@@ -20,7 +20,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+
+import org.apache.commons.io.IOUtils;
 
 /**
  * Configuration settings for Web modules.
@@ -125,7 +128,9 @@ public final class Configuration {
   private static void loadProperties(final String fileName) {
     try {
       if (new File(fileName).exists()) {
-        properties.load(new FileInputStream(fileName));
+        InputStream in = new FileInputStream(fileName);
+        properties.load(in);
+        IOUtils.closeQuietly(in);
       }
     } catch (FileNotFoundException e) {
       throw new RuntimeException("Cannot find the settings file '" + fileName + "'.", e);

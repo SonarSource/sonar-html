@@ -42,6 +42,14 @@ public class ToetstoolMojo extends AbstractValidationMojo {
    */
   private String toetsToolUrl;
 
+  @Override
+  protected void configureSettings() {
+    super.configureSettings();
+
+    getLog().info("toetsToolUrl = " + toetsToolUrl);
+    Configuration.setToetstoolURL(toetsToolUrl);
+  }
+
   public void execute() throws MojoExecutionException {
 
     configureSettings();
@@ -59,11 +67,7 @@ public class ToetstoolMojo extends AbstractValidationMojo {
     reportBuilder.buildReports(htmlFolder);
   }
 
-  @Override
-  protected void configureSettings() {
-    super.configureSettings();
-
-    getLog().info("toetsToolUrl = " + toetsToolUrl);
-    Configuration.setToetstoolURL(toetsToolUrl);
+  public void setToetsToolUrl(String toetsToolUrl) {
+    this.toetsToolUrl = toetsToolUrl;
   }
 }

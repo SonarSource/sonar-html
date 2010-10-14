@@ -95,4 +95,20 @@ public abstract class AbstractValidationMojo extends AbstractMojo {
       Configuration.setProxyPort(settings.getActiveProxy().getPort());
     }
   }
+
+  public void setSettings(Settings settings) {
+    this.settings = settings;
+  }
+
+  public void setHtmlDir(String htmlDir) {
+    this.htmlDir = htmlDir;
+  }
+
+  public void setCssDir(String cssDir) {
+    this.cssDir = cssDir;
+  }
+
+  public void setNrOfSamples(Integer nrOfSamples) {
+    this.nrOfSamples = nrOfSamples;
+  }
 }

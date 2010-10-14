@@ -32,12 +32,12 @@ import org.sonar.plugins.web.jmeter.JMeter;
 public class JMeterMojo extends AbstractMojo {
 
   /**
-   * JMeter directory with script files.
+   * HTML directory with location of HTML files.
    *
-   * @required
    * @parameter
+   * @required
    */
-  private String jMeterScriptDir;
+  private String htmlDir;
 
   /**
    * JMeter directory with report files.
@@ -48,20 +48,12 @@ public class JMeterMojo extends AbstractMojo {
   private String jMeterReportDir;
 
   /**
-   * HTML directory with location of HTML files.
+   * JMeter directory with script files.
    *
-   * @parameter
    * @required
+   * @parameter
    */
-  private String htmlDir;
-
-  public void execute() throws MojoExecutionException {
-
-    configureSettings();
-
-    JMeter jmeter = new JMeter();
-    jmeter.extractResponses();
-  }
+  private String jMeterScriptDir;
 
   private void configureSettings() {
     for (Object key : getPluginContext().keySet()){
@@ -74,5 +66,25 @@ public class JMeterMojo extends AbstractMojo {
     Configuration.setHTMLDir(htmlDir);
     Configuration.setJMeterScriptDir(jMeterScriptDir);
     Configuration.setJMeterReportDir (jMeterReportDir);
+  }
+
+  public void execute() throws MojoExecutionException {
+
+    configureSettings();
+
+    JMeter jmeter = new JMeter();
+    jmeter.extractResponses();
+  }
+
+  public void setHtmlDir(String htmlDir) {
+    this.htmlDir = htmlDir;
+  }
+
+  public void setjMeterReportDir(String jMeterReportDir) {
+    this.jMeterReportDir = jMeterReportDir;
+  }
+
+  public void setjMeterScriptDir(String jMeterScriptDir) {
+    this.jMeterScriptDir = jMeterScriptDir;
   }
 }

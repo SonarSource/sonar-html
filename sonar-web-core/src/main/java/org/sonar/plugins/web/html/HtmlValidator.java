@@ -88,12 +88,6 @@ public abstract class HtmlValidator {
     return client;
   }
 
-  private Collection<File> getFiles(File folder) {
-    Collection<File> files = FileUtils.listFiles(folder, new String[] { "html", "htm", "xhtml" }, true);
-
-    return files;
-  }
-
   protected void executePostMethod(PostMethod post) {
 
     try {
