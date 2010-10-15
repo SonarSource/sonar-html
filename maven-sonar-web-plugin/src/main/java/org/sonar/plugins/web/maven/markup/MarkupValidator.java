@@ -32,6 +32,8 @@ import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.sonar.plugins.web.html.FileSet;
+import org.sonar.plugins.web.markupvalidation.MarkupReport;
 import org.sonar.plugins.web.maven.HtmlValidator;
 
 /**
@@ -45,13 +47,9 @@ import org.sonar.plugins.web.maven.HtmlValidator;
  */
 final class MarkupValidator extends HtmlValidator {
 
-  private static final String ERROR_XML = ".mur.error";
-
   private static final Logger LOG = Logger.getLogger(MarkupValidator.class);
 
   private static final String OUTPUT = "output";
-
-  public static final String REPORT_SUFFIX = ".mur";
 
   private static final String SOAP12 = "soap12";
 
@@ -61,11 +59,13 @@ final class MarkupValidator extends HtmlValidator {
   /** the URL for the online validation service */
   private static final String validatorUrl = "http://validator.w3.org/check";
 
+  private static final String ERROR_XML = ".mur.error";
+
   /**
    * Get all report files
    */
   public static Collection<File> getReportFiles(File folder) {
-    return getReportFiles(folder, REPORT_SUFFIX);
+    return FileSet.getReportFiles(folder, MarkupReport.REPORT_SUFFIX);
   }
 
   private File errorFile(File file) {
@@ -118,7 +118,7 @@ final class MarkupValidator extends HtmlValidator {
    */
   @Override
   public File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_SUFFIX);
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + MarkupReport.REPORT_SUFFIX);
   }
 
   /**

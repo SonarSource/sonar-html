@@ -24,7 +24,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.plugins.web.html.AbstractReportBuilder;
-import org.sonar.plugins.web.markupvalidation.MarkupError;
+import org.sonar.plugins.web.markupvalidation.MarkupMessage;
 import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog;
 import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog.ErrorDefinition;
 import org.sonar.plugins.web.markupvalidation.MarkupReport;
@@ -71,7 +71,7 @@ final class MarkupReportBuilder extends AbstractReportBuilder {
 
     for (MarkupReport report : reports) {
 
-      for (MarkupError error : report.getErrors()) {
+      for (MarkupMessage error : report.getErrors()) {
         Violation violation = findViolation(violations, error.getMessageId());
         violation.count++;
       }
@@ -126,7 +126,7 @@ final class MarkupReportBuilder extends AbstractReportBuilder {
 
   private boolean hasViolation(MarkupReport report, Violation violation) {
 
-    for (MarkupError error : report.getErrors()) {
+    for (MarkupMessage error : report.getErrors()) {
       if (error.getMessageId().equals(violation.messageId)) {
         return true;
       }

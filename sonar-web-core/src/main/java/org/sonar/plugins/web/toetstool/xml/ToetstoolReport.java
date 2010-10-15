@@ -23,7 +23,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -64,6 +63,8 @@ public class ToetstoolReport {
   private String reportNumber;
   @XStreamAsAttribute
   private String status;
+
+  public static final String REPORT_SUFFIX = ".ttr";
 
   public Report getReport() {
     return report;

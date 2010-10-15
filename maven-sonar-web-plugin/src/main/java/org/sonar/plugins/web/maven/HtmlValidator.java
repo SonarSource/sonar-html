@@ -20,15 +20,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
 import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.FileSet;
 import org.sonar.plugins.web.html.FileSet.HtmlFile;
@@ -45,35 +42,6 @@ public abstract class HtmlValidator {
 
   static {
     Protocol.registerProtocol("https", new Protocol("https", (ProtocolSocketFactory) new EasySSLProtocolSocketFactory(), 443));
-  }
-
-  protected static Collection<File> getReportFiles(File htmlFolder, final String reportXml) {
-    @SuppressWarnings("unchecked")
-    Collection<File> reportFiles = FileUtils.listFiles(htmlFolder, new IOFileFilter() {
-
-      @Override
-      public boolean accept(File file) {
-        return file.getName().endsWith(reportXml);
-      }
-
-      @Override
-      public boolean accept(File dir, String name) {
-        return name.endsWith(reportXml);
-      }
-    }, new IOFileFilter() {
-
-      @Override
-      public boolean accept(File file) {
-        return true;
-      }
-
-      @Override
-      public boolean accept(File dir, String name) {
-        return true;
-      }
-    });
-
-    return reportFiles;
   }
 
   private final HttpClient client;

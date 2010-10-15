@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import org.sonar.plugins.web.html.FileSet.HtmlFile;
 
 /**
- * Scans HTML files and provides a list of files in FileSet.xml. Checks for duplicate content.
+ * Scans HTML files and builds a list of files in FileSet.xml. Checks for duplicate content.
  *
  * @author Matthijs Galesloot
  * @since 0.2

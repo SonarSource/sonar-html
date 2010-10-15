@@ -23,10 +23,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang.StringUtils;
 
 import com.thoughtworks.xstream.XStream;
@@ -132,5 +134,35 @@ public class FileSet {
     files.add(htmlFile);
     return htmlFile;
   }
+
+  public static Collection<File> getReportFiles(File htmlFolder, final String reportXml) {
+    @SuppressWarnings("unchecked")
+    Collection<File> reportFiles = FileUtils.listFiles(htmlFolder, new IOFileFilter() {
+
+      @Override
+      public boolean accept(File file) {
+        return file.getName().endsWith(reportXml);
+      }
+
+      @Override
+      public boolean accept(File dir, String name) {
+        return name.endsWith(reportXml);
+      }
+    }, new IOFileFilter() {
+
+      @Override
+      public boolean accept(File file) {
+        return true;
+      }
+
+      @Override
+      public boolean accept(File dir, String name) {
+        return true;
+      }
+    });
+
+    return reportFiles;
+  }
+
 }
 

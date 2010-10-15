@@ -39,6 +39,9 @@ import org.xml.sax.SAXException;
 public final class MarkupReport {
 
   private static final Logger LOG = Logger.getLogger(MarkupReport.class);
+
+  public static final String REPORT_SUFFIX = ".mur";
+
   /**
    * Create a report from soap message that was saved in a file.
    */
@@ -48,21 +51,36 @@ public final class MarkupReport {
     return markupReport;
   }
 
-  private final List<MarkupError> errors = new ArrayList<MarkupError>();
+  private final List<MarkupMessage> errors = new ArrayList<MarkupMessage>();
 
   private File reportFile;
+
+  private final List<MarkupMessage> warnings = new ArrayList<MarkupMessage>();
+
+  private MarkupMessage createMessage(Element element) {
+    MarkupMessage message = new MarkupMessage();
+    message.setLine(getInteger(element, "m:line"));
+    message.setMessageId(getInteger(element, "m:messageid"));
+    message.setMessage(getString(element, "m:message"));
+    return message;
+  }
 
   /**
    * Get all the errors from the report.
    */
-  public List<MarkupError> getErrors() {
+  public List<MarkupMessage> getErrors() {
     return errors;
   }
 
   private Integer getInteger(Element element, String elementName) {
     NodeList nodeList = element.getElementsByTagName(elementName);
     if (nodeList.getLength() > 0) {
-      return Integer.parseInt(nodeList.item(0).getTextContent());
+      try {
+        return Integer.parseInt(nodeList.item(0).getTextContent());
+      } catch (NumberFormatException ne) {
+        LOG.error("Could not parse as Integer:" + nodeList.item(0).getTextContent());
+        return -1;
+      }
     } else {
       return -1;
     }
@@ -85,6 +103,10 @@ public final class MarkupReport {
     }
   }
 
+  public List<MarkupMessage> getWarnings() {
+    return warnings;
+  }
+
   private void parse(File reportFile) {
     this.reportFile = reportFile;
     if ( !reportFile.exists()) {
@@ -95,11 +117,13 @@ public final class MarkupReport {
       NodeList nodeList = document.getElementsByTagName("m:error");
       for (int i = 0; i < nodeList.getLength(); i++) {
         Element element = (Element) nodeList.item(i);
-        MarkupError error = new MarkupError();
-        error.setLine(getInteger(element, "m:line"));
-        error.setMessageId(getInteger(element, "m:messageid"));
-        error.setMessage(getString(element, "m:message"));
-        errors.add(error);
+        errors.add(createMessage(element));
+      }
+
+      nodeList = document.getElementsByTagName("m:warning");
+      for (int i = 0; i < nodeList.getLength(); i++) {
+        Element element = (Element) nodeList.item(i);
+        warnings.add(createMessage(element));
       }
     }
   }
@@ -119,4 +143,5 @@ public final class MarkupReport {
     }
     return parser.getDocument();
   }
+
 }

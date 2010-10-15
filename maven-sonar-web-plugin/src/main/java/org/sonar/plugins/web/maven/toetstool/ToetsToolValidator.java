@@ -32,6 +32,7 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.Configuration;
+import org.sonar.plugins.web.html.FileSet;
 import org.sonar.plugins.web.maven.HtmlValidator;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
@@ -44,8 +45,6 @@ import com.thoughtworks.xstream.mapper.CannotResolveClassException;
  * @since 0.2
  */
 final class ToetsToolValidator extends HtmlValidator {
-
-  private static final String REPORT_SUFFIX = ".ttr";
 
   private static final Logger LOG = Logger.getLogger(ToetsToolValidator.class);
 
@@ -224,11 +223,11 @@ final class ToetsToolValidator extends HtmlValidator {
   }
 
   public static Collection<File> getReportFiles(File htmlFolder) {
-    return getReportFiles(htmlFolder, REPORT_SUFFIX);
+    return FileSet.getReportFiles(htmlFolder, ToetstoolReport.REPORT_SUFFIX);
   }
 
   @Override
   public File reportFile(File file) {
-    return new File(file.getParentFile().getPath() + "/" + file.getName() + REPORT_SUFFIX);
+    return new File(file.getParentFile().getPath() + "/" + file.getName() + ToetstoolReport.REPORT_SUFFIX);
   }
 }

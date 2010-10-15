@@ -32,8 +32,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.html.AbstractReportBuilder;
 import org.sonar.plugins.web.toetstool.xml.Guideline;
-import org.sonar.plugins.web.toetstool.xml.Guideline.ValidationType;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
+import org.sonar.plugins.web.toetstool.xml.Guideline.ValidationType;
 
 /**
  * Builds HTML report from the list of Toetstool reports.

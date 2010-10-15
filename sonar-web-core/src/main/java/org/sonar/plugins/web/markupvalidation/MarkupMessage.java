@@ -23,7 +23,7 @@ package org.sonar.plugins.web.markupvalidation;
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public class MarkupError {
+public class MarkupMessage {
 
   private Integer line;
   private String message;

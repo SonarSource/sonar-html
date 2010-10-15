@@ -30,11 +30,11 @@ import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.Violation;
+import org.sonar.plugins.web.html.FileSet;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
-import org.sonar.plugins.web.markupvalidation.MarkupError;
-import org.sonar.plugins.web.maven.markup.MarkupReport;
-import org.sonar.plugins.web.maven.markup.MarkupValidator;
+import org.sonar.plugins.web.markupvalidation.MarkupMessage;
+import org.sonar.plugins.web.markupvalidation.MarkupReport;
 import org.sonar.plugins.web.rules.markup.MarkupRuleRepository;
 
 /**
@@ -61,26 +61,28 @@ public final class HtmlSensor implements Sensor {
     File htmlDir = new File(project.getFileSystem().getBasedir() + "/" + projectConfiguration.getSourceDir());
     LOG.info("HTML Dir:" + projectConfiguration.getSourceDir());
 
-    for (File reportFile : MarkupValidator.getReportFiles(htmlDir)) {
+    for (File reportFile : FileSet.getReportFiles(htmlDir, MarkupReport.REPORT_SUFFIX)) {
       MarkupReport report = MarkupReport.fromXml(reportFile);
-      File file = new File(StringUtils.substringBefore(report.getPath(), MarkupValidator.REPORT_SUFFIX));
+      File file = new File(StringUtils.substringBefore(report.getPath(), MarkupReport.REPORT_SUFFIX));
       WebFile resource = WebFile.fromIOFile(file, project.getFileSystem().getSourceDirs());
 
-      for (MarkupError error : report.getErrors()) {
-        addError(sensorContext, resource, error);
+      for (MarkupMessage error : report.getErrors()) {
+        addViolation(sensorContext, resource, error, true);
+      }
+      for (MarkupMessage warning : report.getWarnings()) {
+        addViolation(sensorContext, resource, warning, false);
       }
     }
   }
 
-  private void addError(SensorContext sensorContext, WebFile resource, MarkupError error) {
-    String ruleKey = Integer.toString(error.getMessageId());
+  private void addViolation(SensorContext sensorContext, WebFile resource, MarkupMessage message, boolean error) {
+    String ruleKey = Integer.toString(message.getMessageId());
     Rule rule = ruleFinder.findByKey(MarkupRuleRepository.REPOSITORY_KEY, ruleKey);
     if (rule != null) {
-      LOG.info("Added error " + error);
-      Violation violation = Violation.create(rule, resource).setLineId(error.getLine());
-      violation.setMessage(error.getMessage());
+      Violation violation = Violation.create(rule, resource).setLineId(message.getLine());
+      violation.setMessage((error ? "" : "Warning: ") +  message.getMessage());
       sensorContext.saveViolation(violation);
-      LOG.info("Added error " + error.getMessageId() + " for " + resource);
+      LOG.info("Added error " + message.getMessageId() + " for " + resource);
     } else {
       LOG.warn("Could not find Markup Rule " + ruleKey);
     }
