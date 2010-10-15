@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.maven.toetstool;
 
 import java.io.BufferedReader;
 import java.io.File;

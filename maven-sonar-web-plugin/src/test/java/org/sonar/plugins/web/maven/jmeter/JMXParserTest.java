@@ -14,37 +14,25 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.jmeter.xml;
+package org.sonar.plugins.web.maven.jmeter;
 
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-public class AssertionResult {
+import java.io.File;
+import java.util.Map;
 
-  @XStreamAsAttribute
-  private Boolean error;
+import org.junit.Test;
 
-  @XStreamAsAttribute
-  private Boolean failure;
+public class JMXParserTest {
 
-  @XStreamAsAttribute
-  private String failureMessage;
+  private static final String testfile = "src/test/resources/org/sonar/plugins/web/maven/jmeter/jmeter.jmx";
 
-  @XStreamAsAttribute
-  private String name;
-
-  public Boolean getError() {
-    return error;
-  }
-
-  public Boolean getFailure() {
-    return failure;
-  }
-
-  public String getFailureMessage() {
-    return failureMessage;
-  }
-
-  public String getName() {
-    return name;
+  @Test
+  public void testFindHttpSampleTestNames() {
+    JMXParser jmxParser = new JMXParser();
+    Map<String, String> testnames = jmxParser.findHttpSampleTestNames(new File(testfile));
+    assertNotNull(testnames);
+    assertTrue(testnames.size() > 0);
   }
 }

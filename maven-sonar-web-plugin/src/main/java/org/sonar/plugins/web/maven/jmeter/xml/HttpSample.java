@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.jmeter.xml;
+package org.sonar.plugins.web.maven.jmeter.xml;
 
 import java.util.List;
 

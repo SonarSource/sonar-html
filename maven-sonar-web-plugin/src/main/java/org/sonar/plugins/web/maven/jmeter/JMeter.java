@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.jmeter;
+package org.sonar.plugins.web.maven.jmeter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,8 +32,8 @@ import org.apache.log4j.Logger;
 import org.sonar.plugins.web.Configuration;
 import org.sonar.plugins.web.html.FileSet;
 import org.sonar.plugins.web.html.FileSet.HtmlFile;
-import org.sonar.plugins.web.jmeter.xml.HttpSample;
-import org.sonar.plugins.web.jmeter.xml.JMeterReport;
+import org.sonar.plugins.web.maven.jmeter.xml.HttpSample;
+import org.sonar.plugins.web.maven.jmeter.xml.JMeterReport;
 
 /**
  * Prepare JMeter report files for HTML validation.
@@ -41,7 +41,7 @@ import org.sonar.plugins.web.jmeter.xml.JMeterReport;
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public class JMeter {
+class JMeter {
 
   private static final Logger LOG = Logger.getLogger(JMeter.class);
 
@@ -112,7 +112,7 @@ public class JMeter {
     return folder;
   }
 
-  private void writeFile(HttpSample sample, File file) {
+  private void writeFile(org.sonar.plugins.web.maven.jmeter.xml.HttpSample sample, File file) {
     try {
       file.getParentFile().mkdirs();
       FileUtils.writeStringToFile(file, sample.getResponseData());

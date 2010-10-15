@@ -33,8 +33,8 @@ import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.markupvalidation.MarkupError;
-import org.sonar.plugins.web.markupvalidation.MarkupReport;
-import org.sonar.plugins.web.markupvalidation.MarkupValidator;
+import org.sonar.plugins.web.maven.markup.MarkupReport;
+import org.sonar.plugins.web.maven.markup.MarkupValidator;
 import org.sonar.plugins.web.rules.markup.MarkupRuleRepository;
 
 /**

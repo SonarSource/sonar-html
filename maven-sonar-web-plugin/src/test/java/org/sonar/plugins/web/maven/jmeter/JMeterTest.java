@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.jmeter;
+package org.sonar.plugins.web.maven.jmeter;
 
 import org.junit.Ignore;
 import org.junit.Test;

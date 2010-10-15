@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.jmeter;
+package org.sonar.plugins.web.maven.jmeter;
 
 import java.io.File;
 import java.io.IOException;

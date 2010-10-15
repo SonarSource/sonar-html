@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.maven.markup;
 
 import org.junit.Ignore;
 import org.junit.Test;

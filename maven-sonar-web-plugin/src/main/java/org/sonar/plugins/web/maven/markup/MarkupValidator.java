@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.markupvalidation;
+package org.sonar.plugins.web.maven.markup;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +32,7 @@ import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.sonar.plugins.web.html.HtmlValidator;
+import org.sonar.plugins.web.maven.HtmlValidator;
 
 /**
  * Validator for the W3C Markup Validation Service.

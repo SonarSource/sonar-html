@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.html;
+package org.sonar.plugins.web.maven;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +30,7 @@ import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.sonar.plugins.web.Configuration;
+import org.sonar.plugins.web.html.FileSet;
 import org.sonar.plugins.web.html.FileSet.HtmlFile;
 import org.sonar.plugins.web.ssl.EasySSLProtocolSocketFactory;
 

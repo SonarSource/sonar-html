@@ -20,9 +20,8 @@ import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.sonar.plugins.web.Configuration;
-import org.sonar.plugins.web.html.HtmlValidator;
 import org.sonar.plugins.web.maven.AbstractValidationMojo;
-import org.sonar.plugins.web.toetstool.ToetsToolValidator;
+import org.sonar.plugins.web.maven.HtmlValidator;
 
 /**
  * Goal to execute the HTML verification with Toetstool.

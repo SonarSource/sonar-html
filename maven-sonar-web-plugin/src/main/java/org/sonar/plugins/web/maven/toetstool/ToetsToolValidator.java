@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.maven.toetstool;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +32,7 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.sonar.plugins.web.Configuration;
-import org.sonar.plugins.web.html.HtmlValidator;
+import org.sonar.plugins.web.maven.HtmlValidator;
 import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
 
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.maven;
+package org.sonar.plugins.web.maven.jmeter;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.sonar.plugins.web.Configuration;
-import org.sonar.plugins.web.jmeter.JMeter;
 
 /**
  * Extract HTML responses from JMeter report files

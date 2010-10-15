@@ -26,9 +26,8 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.plugins.web.html.AbstractReportBuilder;
 import org.sonar.plugins.web.markupvalidation.MarkupError;
 import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog;
-import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog.ErrorDefinition;
 import org.sonar.plugins.web.markupvalidation.MarkupReport;
-import org.sonar.plugins.web.markupvalidation.MarkupValidator;
+import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog.ErrorDefinition;
 
 /**
  * Builds HTML report from a list of W3C responses.

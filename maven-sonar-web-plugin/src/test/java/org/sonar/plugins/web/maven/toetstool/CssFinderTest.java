@@ -14,35 +14,26 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.toetstool;
+package org.sonar.plugins.web.maven.toetstool;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-public class ToetstoolTest {
+public class CssFinderTest {
 
-  private static final String testfile = "src/test/resources/org/sonar/plugins/web/toetstool/a.html";
+  private static final String testfile = "src/test/resources/org/sonar/plugins/web/maven/toetstool/a.html";
 
   @Test
-  @Ignore
-  // TODO put in mvn verify
-  public void validateTestFile() throws InterruptedException, IOException {
+  public void testCssFinder() {
+
     File file = new File(testfile);
     assertTrue(file.exists());
-
-    new ToetsToolValidator().validateFile(file, "http://localhost");
-
-//    assertNotNull(toetstool);
-//    assertNotNull(toetstool.getReport().getUrl());
-//    assertNotNull(toetstool.getReport().getCounters().getError());
-//
-//    FileWriter writer = new FileWriter("report.xml");
-//    writer.write(toetstool.toXml());
-//    writer.close();
+    List<String> styleSheets = new CssFinder().parseWebFile(file);
+    assertEquals(3, styleSheets.size());
   }
 }
