@@ -23,7 +23,7 @@ import org.sonar.plugins.web.Configuration;
 /**
  * Extract HTML responses from JMeter report files
  *
- * @goal extract-html
+ * @goal jmeter-extract-html
  *
  * @author Matthijs Galesloot
  * @since 0.2

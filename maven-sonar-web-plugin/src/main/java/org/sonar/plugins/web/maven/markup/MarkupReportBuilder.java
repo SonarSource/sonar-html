@@ -26,8 +26,8 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.plugins.web.html.AbstractReportBuilder;
 import org.sonar.plugins.web.markupvalidation.MarkupError;
 import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog;
-import org.sonar.plugins.web.markupvalidation.MarkupReport;
 import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog.ErrorDefinition;
+import org.sonar.plugins.web.markupvalidation.MarkupReport;
 
 /**
  * Builds HTML report from a list of W3C responses.
@@ -35,7 +35,7 @@ import org.sonar.plugins.web.markupvalidation.MarkupErrorCatalog.ErrorDefinition
  * @author Matthijs Galesloot
  * @since 0.2
  */
-class MarkupReportBuilder extends AbstractReportBuilder {
+final class MarkupReportBuilder extends AbstractReportBuilder {
 
   private static final class Violation {
 

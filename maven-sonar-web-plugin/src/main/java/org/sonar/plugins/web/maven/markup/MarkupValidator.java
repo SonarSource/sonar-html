@@ -43,7 +43,7 @@ import org.sonar.plugins.web.maven.HtmlValidator;
  * @since 0.2
  *
  */
-public class MarkupValidator extends HtmlValidator {
+final class MarkupValidator extends HtmlValidator {
 
   private static final String ERROR_XML = ".mur.error";
 

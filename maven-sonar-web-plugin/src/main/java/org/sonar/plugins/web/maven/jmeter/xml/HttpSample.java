@@ -18,6 +18,8 @@ package org.sonar.plugins.web.maven.jmeter.xml;
 
 import java.util.List;
 
+import org.codehaus.plexus.util.StringUtils;
+
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
@@ -44,8 +46,9 @@ public class HttpSample {
   @XStreamAsAttribute
   private String redirectLocation;
 
-  @XStreamAsAttribute
   private String responseData;
+
+  private String responseFile;
 
   @XStreamAsAttribute
   private String tn;
@@ -82,12 +85,15 @@ public class HttpSample {
     return responseData;
   }
 
+  public String getResponseFile() {
+    return responseFile;
+  }
+
   public String getTn() {
     return tn;
   }
 
-  public void setResponseData(String responseData) {
-    this.responseData = responseData;
+  public boolean hasResponse() {
+    return StringUtils.isNotEmpty(responseFile);
   }
-
 }

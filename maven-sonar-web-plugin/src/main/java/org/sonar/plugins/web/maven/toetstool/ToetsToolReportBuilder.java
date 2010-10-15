@@ -41,7 +41,7 @@ import org.sonar.plugins.web.toetstool.xml.ToetstoolReport;
  * @author Matthijs Galesloot
  * @since 0.2
  */
-class ToetsToolReportBuilder extends AbstractReportBuilder {
+final class ToetsToolReportBuilder extends AbstractReportBuilder {
 
   private static final class Violation {
 

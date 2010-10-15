@@ -43,7 +43,7 @@ import com.thoughtworks.xstream.mapper.CannotResolveClassException;
  * @author Matthijs Galesloot
  * @since 0.2
  */
-public final class ToetsToolValidator extends HtmlValidator {
+final class ToetsToolValidator extends HtmlValidator {
 
   private static final String REPORT_SUFFIX = ".ttr";
 

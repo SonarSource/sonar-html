@@ -26,7 +26,7 @@ import org.sonar.plugins.web.maven.HtmlValidator;
 /**
  * Goal to execute the HTML verification with W3C Validator.
  *
- * @goal validate-html-markup
+ * @goal validate-w3c-markup
  *
  * @author Matthijs Galesloot
  * @since 0.2

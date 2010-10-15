@@ -33,7 +33,7 @@ public class JMeterXmlTest {
     JMeterReport report = JMeterReport.fromXml(input);
     assertNotNull(report);
     for (HttpSample sample :  report.getHttpSamples()) {
-      System.out.println(sample.getResponseData());
+    //  assertNotNull(sample.getResponseFile());
     }
   }
 }

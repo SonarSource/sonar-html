@@ -38,6 +38,11 @@ import org.sonar.plugins.web.maven.jmeter.xml.JMeterReport;
 /**
  * Prepare JMeter report files for HTML validation.
  *
+ * In order to save the responses to file:
+ * 1. Add a node in the test plan for 'Save Responses to a file'
+ * 2. Set the following property in jmeter.properties:
+ *  jmeter.save.saveservice.filename=true
+ *
  * @author Matthijs Galesloot
  * @since 0.2
  */
@@ -112,38 +117,42 @@ class JMeter {
     return folder;
   }
 
-  private void writeFile(org.sonar.plugins.web.maven.jmeter.xml.HttpSample sample, File file) {
+  private boolean writeFile(org.sonar.plugins.web.maven.jmeter.xml.HttpSample sample, File file) {
     try {
-      file.getParentFile().mkdirs();
-      FileUtils.writeStringToFile(file, sample.getResponseData());
+      if (StringUtils.isNotEmpty(sample.getResponseFile())) {
+        LOG.info("Read response file: "+ sample.getResponseFile());
+        File sampleFile = new File(sample.getResponseFile());
+        String content = FileUtils.readFileToString(sampleFile);
+        if (StringUtils.isNotEmpty(content)) {
+          FileUtils.writeStringToFile(file, content);
+          return true;
+        }
+      }
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+    return false;
   }
 
   private void writeHttpSamples(FileSet fileSet, Map<String, String> testNames, List<HttpSample> httpSamples, Boolean nested) {
     for (HttpSample sample : httpSamples) {
 
-      if ( !StringUtils.isEmpty(sample.getResponseData())) {
+      if ( sample.hasResponse()) {
 
         try {
           URL url = new URL(sample.getLb());
           File file = new File(Configuration.getHtmlDir() + "/" + url.getPath());
-          if ( !file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+          if (writeFile(sample, file)) {
+            HtmlFile htmlFile = fileSet.addReplaceFile(file, new File(Configuration.getHtmlDir()));
+            htmlFile.url = sample.getLb();
           }
-          writeFile(sample, file);
-          HtmlFile htmlFile = fileSet.addReplaceFile(file, new File(Configuration.getHtmlDir()));
-          htmlFile.url = sample.getLb();
         } catch (MalformedURLException e) {
           File file = new File(Configuration.getHtmlDir() + "/" + sample.getLb() + ".html");
-          if ( !file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+          if (writeFile(sample, file)) {
+            String url = testNames.get(sample.getLb());
+            HtmlFile htmlFile = fileSet.addReplaceFile(file, new File(Configuration.getHtmlDir()));
+            htmlFile.url = url != null ? url : "http://localhost/";
           }
-          writeFile(sample, file);
-          String url = testNames.get(sample.getLb());
-          HtmlFile htmlFile = fileSet.addReplaceFile(file, new File(Configuration.getHtmlDir()));
-          htmlFile.url = url != null ? url : "http://localhost/";
         }
       }
 
