@@ -39,6 +39,11 @@ import org.sonar.plugins.web.rules.web.WebRulesRepository;
   @Property(key = "sonar.cpd.web.minimumTokens", defaultValue = "70",
     name = "Minimum tokens",
     description = "The number of duplicate tokens above which a HTML block is considered as a duplicated.",
+    global = true, project = true),
+@Property(key = "sonar.web.fileExtensions",
+    name = "File extensions",
+    description = "List of file extensions that will be scanned.",
+    defaultValue="xhtml,jspf,jsp",
     global = true, project = true)})
 public final class WebPlugin implements Plugin {
 
