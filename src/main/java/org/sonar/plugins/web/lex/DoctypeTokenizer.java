@@ -27,7 +27,7 @@ import org.sonar.plugins.web.node.Node;
 
 /**
  * Parse a DOCTYPE node.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
@@ -60,6 +60,7 @@ class DoctypeTokenizer extends AbstractTokenizer<List<Node>> {
       }
     } catch (IOException e) {
       // ignore
+      return;
     }
   }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.rules.web;
+package org.sonar.plugins.web.rules;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -40,14 +40,15 @@ public final class DefaultWebProfile extends ProfileDefinition {
 
   @Override
   public RulesProfile createProfile(ValidationMessages validation) {
-      Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(ALL_RULES), Charset.forName(CharEncoding.UTF_8));
-      try {
-        XMLProfileParser parser = new XMLProfileParser(ruleFinder);
-        RulesProfile profile = parser.parse(reader, validation);
-        profile.setDefaultProfile(true);
-        return profile;
-      } finally {
-        IOUtils.closeQuietly(reader);
-      }
+    Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(ALL_RULES),
+        Charset.forName(CharEncoding.UTF_8));
+    try {
+      XMLProfileParser parser = new XMLProfileParser(ruleFinder);
+      RulesProfile profile = parser.parse(reader, validation);
+      profile.setDefaultProfile(true);
+      return profile;
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
   }
 }

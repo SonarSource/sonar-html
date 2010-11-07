@@ -13,34 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.sonar.plugins.web;
 
 import java.io.File;
 
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.language.WebProperties;
 
+/**
+ * Utilities and constants for the project configuration.
+ *
+ * @author Matthijs Galesloot
+ *
+ */
+public final class ProjectConfiguration {
 
-public class ProjectConfiguration {
+  public static final String FILE_EXTENSIONS = "sonar.web.fileExtensions";
+  public static final String SOURCE_DIRECTORY = "sonar.web.sourceDirectory";
+  public static final String CPD_MINIMUM_TOKENS = "sonar.cpd.web.minimumTokens";
 
-  private final Project project;
-  public ProjectConfiguration(Project project) {
-    this.project = project;
+  private ProjectConfiguration() {
+    // cannot instantiate
   }
-  public void addSourceDir() {
-    if (project.getProperty(WebProperties.SOURCE_DIRECTORY) != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + project.getProperty(WebProperties.SOURCE_DIRECTORY).toString());
-      for (File sourceDir : project.getFileSystem().getSourceDirs()) {
-        if (sourceDir.equals(file)) {
-          return;
-        }
-      }
+
+  public static void configureSourceDir(Project project) {
+    String sourceDir = getSourceDir(project);
+    if (sourceDir != null) {
+      File file = new File(project.getFileSystem().getBasedir() + "/" + sourceDir);
+
+      project.getPom().getCompileSourceRoots().clear();
       project.getFileSystem().addSourceDir(file);
     }
   }
 
-  public String getSourceDir() {
-    return (String) project.getConfiguration().getProperty(WebProperties.SOURCE_DIRECTORY);
+  private static String getSourceDir(Project project) {
+    return (String) project.getProperty(ProjectConfiguration.SOURCE_DIRECTORY);
   }
 }

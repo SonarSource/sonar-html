@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.design.Dependency;
@@ -32,12 +31,11 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.language.ConfigurableWeb;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.rules.web.WebRulesRepository;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
@@ -59,7 +57,7 @@ public final class WebSensor implements Sensor {
 
   public void analyse(Project project, SensorContext sensorContext) {
 
-    new ProjectConfiguration(project).addSourceDir();
+    ProjectConfiguration.configureSourceDir(project);
 
     final PageCountLines pageLineCounter = new PageCountLines();
 
@@ -71,12 +69,8 @@ public final class WebSensor implements Sensor {
     for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
       scanner.addVisitor(check);
     }
-    /*
-     * WebDependencyDetector does not work in current version of sonar (2.2)
-     * scanner.addVisitor(new WebDependencyDetector(project));
-     */
 
-    for (File webFile : project.getFileSystem().getSourceFiles(new ConfigurableWeb(project))) {
+    for (File webFile : project.getFileSystem().getSourceFiles(new Web(project))) {
 
       try {
         WebFile resource = WebFile.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
@@ -106,15 +100,10 @@ public final class WebSensor implements Sensor {
   }
 
   /**
-   * This sensor executes on Web projects.
+   * This sensor only executes on Web projects.
    */
   public boolean shouldExecuteOnProject(Project project) {
-    return isEnabled(project) && Web.INSTANCE.equals(project.getLanguage());
-  }
-
-  private boolean isEnabled(Project project) {
-    return project.getConfiguration().getBoolean(CoreProperties.CORE_IMPORT_SOURCES_PROPERTY,
-        CoreProperties.CORE_IMPORT_SOURCES_DEFAULT_VALUE);
+    return Web.KEY.equals(project.getLanguageKey());
   }
 
   @Override

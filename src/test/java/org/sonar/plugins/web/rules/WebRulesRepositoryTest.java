@@ -38,12 +38,12 @@ import org.sonar.api.utils.ValidationMessages;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.AbstractWebPluginTester;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.rules.web.DefaultWebProfile;
-import org.sonar.plugins.web.rules.web.JSFProfile;
-import org.sonar.plugins.web.rules.web.JSPProfile;
-import org.sonar.plugins.web.rules.web.WebProfileExporter;
-import org.sonar.plugins.web.rules.web.WebProfileImporter;
-import org.sonar.plugins.web.rules.web.WebRulesRepository;
+import org.sonar.plugins.web.rules.DefaultWebProfile;
+import org.sonar.plugins.web.rules.JSFProfile;
+import org.sonar.plugins.web.rules.JSPProfile;
+import org.sonar.plugins.web.rules.WebProfileExporter;
+import org.sonar.plugins.web.rules.WebProfileImporter;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot

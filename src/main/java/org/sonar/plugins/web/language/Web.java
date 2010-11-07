@@ -18,14 +18,18 @@ package org.sonar.plugins.web.language;
 
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.api.resources.Language;
+import org.sonar.api.resources.Project;
 
 /**
  * This class defines the Web language.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
 public class Web extends AbstractLanguage {
+
+  /** All the valid web files suffixes. */
+  private static final String[] DEFAULT_SUFFIXES = { "xhtml", "jspf", "jsp" };
 
   /** A web instance. */
   public static final Web INSTANCE = new Web();
@@ -33,11 +37,10 @@ public class Web extends AbstractLanguage {
   /** The web language key. */
   public static final String KEY = "web";
 
-  /** All the valid web files suffixes. */
-  private static final String[] SUFFIXES = { "xhtml", "jspf", "jsp" };
-
   /** The web language name */
   private static final String WEB_LANGUAGE_NAME = "Web";
+
+  private String[] fileSuffixes;
 
   /**
    * Default constructor.
@@ -46,19 +49,20 @@ public class Web extends AbstractLanguage {
     super(KEY, WEB_LANGUAGE_NAME);
   }
 
-  /**
-   * Gets the file suffixes.
-   * 
-   * @return the file suffixes
-   * @see org.sonar.api.resources.Language#getFileSuffixes()
-   */
-  public String[] getFileSuffixes() {
-    return SUFFIXES;
-  }
+  public Web(Project project) {
+    this();
 
-  @Override
-  public int hashCode() {
-    return super.hashCode();
+    String extensions = (String) project.getProperty(WebProperties.FILE_EXTENSIONS);
+
+    if (extensions != null) {
+      final String[] list = extensions.split(",");
+      if (list.length > 0) {
+        for (int i = 0; i < list.length; i++) {
+          list[i] = list[i].trim();
+        }
+        fileSuffixes = list;
+      }
+    }
   }
 
   @Override
@@ -71,5 +75,20 @@ public class Web extends AbstractLanguage {
       return getKey().equals(language.getKey());
     }
     return false;
+  }
+
+  /**
+   * Gets the file suffixes.
+   *
+   * @return the file suffixes
+   * @see org.sonar.api.resources.Language#getFileSuffixes()
+   */
+  public String[] getFileSuffixes() {
+    return fileSuffixes == null ?  DEFAULT_SUFFIXES : fileSuffixes;
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 }

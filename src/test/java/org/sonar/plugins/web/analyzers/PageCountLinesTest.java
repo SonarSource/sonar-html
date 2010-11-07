@@ -56,6 +56,7 @@ public class PageCountLinesTest {
     LOG.warn("Lines:" + webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue());
 
     int numLines = 287;
-    assertTrue("Expected " + numLines + " lines, but was: " + webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue() , webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue() == numLines);
+    assertTrue("Expected " + numLines + " lines, but was: " + webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue(), webSourceCode
+        .getMeasure(CoreMetrics.LINES).getIntValue() == numLines);
   }
 }

@@ -25,26 +25,31 @@ import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.rules.web.DefaultWebProfile;
-import org.sonar.plugins.web.rules.web.JSFProfile;
-import org.sonar.plugins.web.rules.web.JSPProfile;
-import org.sonar.plugins.web.rules.web.WebProfileExporter;
-import org.sonar.plugins.web.rules.web.WebProfileImporter;
-import org.sonar.plugins.web.rules.web.WebRulesRepository;
+import org.sonar.plugins.web.rules.DefaultWebProfile;
+import org.sonar.plugins.web.rules.JSFProfile;
+import org.sonar.plugins.web.rules.JSPProfile;
+import org.sonar.plugins.web.rules.WebProfileExporter;
+import org.sonar.plugins.web.rules.WebProfileImporter;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
  */
 @Properties({
-  @Property(key = "sonar.cpd.web.minimumTokens", defaultValue = "70",
+@Property(key = ProjectConfiguration.CPD_MINIMUM_TOKENS, defaultValue = "70",
     name = "Minimum tokens",
     description = "The number of duplicate tokens above which a HTML block is considered as a duplicated.",
     global = true, project = true),
-@Property(key = "sonar.web.fileExtensions",
+@Property(key = ProjectConfiguration.FILE_EXTENSIONS,
     name = "File extensions",
     description = "List of file extensions that will be scanned.",
     defaultValue="xhtml,jspf,jsp",
-    global = true, project = true)})
+    global = true, project = true),
+@Property(key = ProjectConfiguration.SOURCE_DIRECTORY,
+        name = "Source directory",
+        description = "Source directory that will be scanned.",
+        defaultValue="src/main/webapp",
+        global = false, project = true)})
 public final class WebPlugin implements Plugin {
 
   private static final String KEY = "sonar-web-plugin";
@@ -65,10 +70,12 @@ public final class WebPlugin implements Plugin {
     // web files importer
     list.add(WebSourceImporter.class);
 
-    // web rules
+    // web rules repository
     list.add(WebRulesRepository.class);
     list.add(WebProfileImporter.class);
     list.add(WebProfileExporter.class);
+
+    // profiles
     list.add(DefaultWebProfile.class);
     list.add(JSFProfile.class);
     list.add(JSPProfile.class);

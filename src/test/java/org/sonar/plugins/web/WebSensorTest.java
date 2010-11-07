@@ -23,7 +23,7 @@ import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.web.rules.web.DefaultWebProfile;
+import org.sonar.plugins.web.rules.DefaultWebProfile;
 
 /**
  * @author Matthijs Galesloot

@@ -76,38 +76,43 @@ public class PageCountLines {
         commentLines += linesOfCodeCurrentNode;
         break;
       case Text:
-        TextNode textNode = (TextNode) node;
-        if (textNode.isBlank() && linesOfCodeCurrentNode > 0) {
-
-          // add one newline to the previous node
-          if (previousNode != null) {
-            switch (previousNode.getNodeType()) {
-              case Comment:
-                commentLines++;
-                linesOfCodeCurrentNode--;
-                break;
-              case Tag:
-              case Directive:
-              case Expression:
-                linesOfCode++;
-                linesOfCodeCurrentNode--;
-                break;
-              default:
-                break;
-            }
-          }
-
-          // remaining newlines are added to blanklines
-          if (linesOfCodeCurrentNode > 0) {
-            blankLines += linesOfCodeCurrentNode;
-          }
-        } else {
-          linesOfCode += linesOfCodeCurrentNode;
-        }
+        handleTextToken((TextNode) node, previousNode, linesOfCodeCurrentNode);
 
         break;
       default:
         break;
+    }
+  }
+
+  private void handleTextToken(TextNode textNode, Node previousNode, int linesOfCodeCurrentNode) {
+
+    if (textNode.isBlank() && linesOfCodeCurrentNode > 0) {
+      int nonBlankLines = 0;
+
+      // add one newline to the previous node
+      if (previousNode != null) {
+        switch (previousNode.getNodeType()) {
+          case Comment:
+            commentLines++;
+            nonBlankLines++;
+            break;
+          case Tag:
+          case Directive:
+          case Expression:
+            linesOfCode++;
+            nonBlankLines++;
+            break;
+          default:
+            break;
+        }
+      }
+
+      // remaining newlines are added to blanklines
+      if (linesOfCodeCurrentNode > 0) {
+        blankLines += linesOfCodeCurrentNode - nonBlankLines;
+      }
+    } else {
+      linesOfCode += linesOfCodeCurrentNode;
     }
   }
 }

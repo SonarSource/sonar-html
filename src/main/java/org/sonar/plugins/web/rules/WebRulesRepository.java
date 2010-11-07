@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.rules.web;
+package org.sonar.plugins.web.rules;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.platform.ServerFileSystem;
@@ -105,7 +106,10 @@ public final class WebRulesRepository extends RuleRepository {
       check.setRule(activeRule.getRule());
       if (activeRule.getActiveRuleParams() != null) {
         for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
-          BeanUtils.setProperty(check, param.getRuleParam().getKey(), param.getValue());
+          if (!StringUtils.isEmpty(param.getValue())) {
+            LOG.debug("Rule param " + param.getKey() + " = " + param.getValue());
+            BeanUtils.setProperty(check, param.getRuleParam().getKey(), param.getValue());
+          }
         }
       }
 

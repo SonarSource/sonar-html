@@ -40,7 +40,7 @@ import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.AbstractWebPluginTester;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.rules.web.DefaultWebProfile;
+import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 

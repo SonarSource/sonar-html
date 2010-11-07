@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.rules.web;
+package org.sonar.plugins.web.rules;
 
 import java.io.Writer;
 
