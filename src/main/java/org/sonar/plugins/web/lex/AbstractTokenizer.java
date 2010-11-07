@@ -33,6 +33,7 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 
     private final CodeReader codeReader;
     private boolean quoting;
+    private int nesting;
 
     private EndTokenMatcher(CodeReader codeReader) {
       this.codeReader = codeReader;
@@ -42,7 +43,19 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
       if (endFlag == '"') {
         quoting = !quoting;
       }
-      return !quoting && endFlag == endChars[0] && ArrayUtils.isEquals(codeReader.peek(endChars.length), endChars);
+      if (!quoting) {
+        boolean started = ArrayUtils.isEquals(codeReader.peek(startChars.length), startChars);
+        if (started) {
+          nesting++;
+        } else {
+          boolean ended = ArrayUtils.isEquals(codeReader.peek(endChars.length), endChars);
+          if (ended) {
+            nesting--;
+            return nesting < 0;
+          }
+        }
+      }
+      return false;
     }
   }
 

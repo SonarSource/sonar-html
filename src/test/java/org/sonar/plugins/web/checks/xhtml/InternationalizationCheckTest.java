@@ -16,40 +16,29 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.jsp.InternationalizationCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class UnclosedTagCheckTest extends AbstractCheckTester {
+public class InternationalizationCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testUnclosedTagCheck() throws FileNotFoundException {
+  public void testInternationalizationCheckTest() throws FileNotFoundException {
 
-    String fragment = "<td><br><tr>";
+    String fragment = "<outputLabel>hehe</outputLabel>";
+    Reader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader,  InternationalizationCheck.class);
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
-
-    int numViolations = 3;
-
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
-  }
-
-  @Test
-  public void testClosedNestedTagCheck() throws IOException {
-    FileReader reader = new FileReader("src/test/resources/checks/unclosedtag.html");
-    WebSourceCode sourceCode = parseAndCheck(reader, UnclosedTagCheck.class);
-
-    int numViolations = 0;
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }
 }

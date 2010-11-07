@@ -18,9 +18,11 @@ package org.sonar.plugins.web.lex;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ import org.sonar.channel.CodeReader;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 
 /**
  * @author Matthijs Galesloot
@@ -65,5 +68,44 @@ public class PageLexerTest {
     assertEquals(node.getClass(), DirectiveNode.class);
     DirectiveNode directiveNode = (DirectiveNode) node;
     assertEquals(4, directiveNode.getAttributes().size());
+  }
+
+  @Test
+  public void testNestedTagInAttribute() {
+    String fragment = "<td id=\"typeCellHeader\"<c:if test='${param.typeNormalOrError == \"error\"}'>"
+        + "style=\"display:none;\"</c:if>>Type" + "</td>";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(3, nodeList.size());
+    assertTrue(nodeList.get(0) instanceof TagNode);
+    assertTrue(nodeList.get(1) instanceof TextNode);
+    assertTrue(nodeList.get(2) instanceof TagNode);
+
+    TagNode tagNode = (TagNode) nodeList.get(0);
+    assertEquals(4, tagNode.getAttributes().size());
+
+    // the embedded tags are added as attributes
+    assertNull(tagNode.getAttributes().get(1).getValue());
+    assertNull(tagNode.getAttributes().get(3).getValue());
+  }
+
+  @Test
+  public void testNestedTagInValue() {
+    String fragment = "<td label=\"Hello <c:if test='${param == true}'>World</c:if>\">Type</td>";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(3, nodeList.size());
+    assertTrue(nodeList.get(0) instanceof TagNode);
+    assertTrue(nodeList.get(1) instanceof TextNode);
+    assertTrue(nodeList.get(2) instanceof TagNode);
+
+    TagNode tagNode = (TagNode) nodeList.get(0);
+    assertEquals(1, tagNode.getAttributes().size());
   }
 }

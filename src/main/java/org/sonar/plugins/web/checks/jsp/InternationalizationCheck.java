@@ -38,7 +38,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
 
-  @RuleProperty(key = "attributes", description = "Attributes")
+  @RuleProperty(key = "attributes", defaultValue = "outputLabel.value, outputText.value", description = "Attributes")
   private QualifiedAttribute[] attributes;
 
   public String getAttributes() {
@@ -60,7 +60,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     if (attributes != null) {
       for (QualifiedAttribute attribute : attributes) {
-        if (attribute.getNodeName().equals(element.getLocalName())) {
+        if (element.equalsElementName(attribute.getNodeName())) {
           String value = element.getAttribute(attribute.getAttributeName());
           if (value != null) {
             value = value.trim();

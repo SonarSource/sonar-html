@@ -114,6 +114,16 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
           codeReader.pop();
           continue;
         case '<':
+          // found a nested tag
+          if (mode == ParseMode.BEFORE_ATTRIBUTE_NAME) {
+            codeReader.startRecording();
+            parseNestedTag(codeReader, element);
+            element.getAttributes().add(new Attribute(codeReader.stopRecording().toString()));
+            continue;
+          } else {
+            codeReader.pop();
+            continue;
+          }
         case '>':
         case '/':
         case '%':
@@ -125,6 +135,55 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
       }
 
       mode = parseToken(mode, codeReader, element);
+    }
+  }
+
+  /**
+   * The nested tag is added as an attribute to its parent element.
+   */
+  private void parseNestedTag(CodeReader codeReader, TagNode element) {
+    codeReader.pop();
+
+    TagNode nestedTag = new TagNode();
+
+    ParseMode mode = ParseMode.BEFORE_NODE_NAME;
+    int ch;
+    while ((ch = codeReader.peek()) != -1) {
+
+      // handle white space
+      if (Character.isWhitespace(ch)) {
+        codeReader.pop();
+        continue;
+      }
+
+      // handle special characters
+      switch (ch) {
+        case '=':
+          mode = ParseMode.BEFORE_ATTRIBUTE_VALUE;
+          codeReader.pop();
+          continue;
+        case '<':
+          // found a nested tag
+          if (mode == ParseMode.BEFORE_ATTRIBUTE_NAME) {
+            parseNestedTag(codeReader, element);
+            break;
+          } else {
+            codeReader.pop();
+            continue;
+          }
+        case '>':
+          codeReader.pop();
+          return; // nested tag ended
+        case '/':
+        case '%':
+        case '@':
+          codeReader.pop();
+          continue;
+        default:
+          break;
+      }
+
+      mode = parseToken(mode, codeReader, nestedTag);
     }
   }
 

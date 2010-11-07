@@ -44,8 +44,8 @@ public class HeaderCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);
 
-  @RuleProperty(key = "expression", description = "Regular expression for header format")
-  private String expression = "^.*Copyright.*$";
+  @RuleProperty(key = "expression", defaultValue = "^.*Copyright.*$", description = "Regular expression for header format")
+  private String expression;
 
   private boolean hasHeader;
   private Matcher matcher;

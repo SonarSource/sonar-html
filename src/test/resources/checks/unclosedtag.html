@@ -1,0 +1,20 @@
+<tr class="header">
+Unclosed Tag : Tags should be closed
+
+<td>Resource</td>
+<td>Language</td>
+<td>Web page</td>
+
+<td id="typeCellHeader"<c:if test='${param.typeNormalOrError == "error"}'> style="display:none;"</c:if>>Type</td>
+Unclosed Tag : Tags should be closed
+
+<td>Id</td>
+<td>Value</td>
+<td> </td>
+<c:choose>
+<c:when test='${initlang == LANG_DEFAULT}'><c:set var="displayProperty" value='style="display:none"'/></c:when>
+</c:choose>
+<td id="refLanguageHeaderTD" class="advancedOption" <c:out value='${displayProperty}' escapeXml="false"/>>Reference language</td>
+<td> </td>
+
+</tr>
