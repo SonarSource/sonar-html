@@ -41,7 +41,15 @@ public class DoubleQuotesCheck extends AbstractPageCheck {
 
     for (Attribute a : element.getAttributes()) {
       if (a.getValue() != null && a.getValue().trim().length() > 0) {
-        if (a.isSingleQuoted() && !StringUtils.contains(a.getValue(), '"') || !a.isDoubleQuoted()) {
+        boolean error = false;
+        // single quotes are OK if there are double quotes inside the string
+        if (a.isSingleQuoted()) {
+          error = !StringUtils.contains(a.getValue(), '"');
+        } else {
+          // error if not quoted at all
+          error = !a.isDoubleQuoted();
+        }
+        if (error) {
           createViolation(element);
           break; // not more than one violation per element
         }

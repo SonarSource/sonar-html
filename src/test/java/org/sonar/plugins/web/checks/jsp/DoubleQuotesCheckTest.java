@@ -40,4 +40,13 @@ public class DoubleQuotesCheckTest extends AbstractCheckTester {
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() > 0);
   }
+
+  @Test
+  public void nestedTags() {
+    String fragment = "<form name=\"tabClickForm\" action='<c:url value=\"FlexPricerAvailabilityServlet\"/>' method=\"post\">";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
+
+    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
+  }
 }

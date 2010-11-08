@@ -108,4 +108,31 @@ public class PageLexerTest {
     TagNode tagNode = (TagNode) nodeList.get(0);
     assertEquals(1, tagNode.getAttributes().size());
   }
+
+  @Test
+  public void nestedQuotes() {
+    String fragment = "<tr class=\"<c:if test='${count%2==0}'>even</c:if>"
+        + "<c:if test='${count%2!=0}'>odd</c:if><c:if test='${ActionType==\"baseline\"}'> baseline</c:if>\">";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(1, nodeList.size());
+    TagNode tagNode = (TagNode) nodeList.get(0);
+    assertEquals(1, tagNode.getAttributes().size());
+  }
+
+  @Test
+  public void escapeCharacters() {
+    String fragment = "<c:when test=\"${citaflagurge eq \\\"S\\\"}\">";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(1, nodeList.size());
+    TagNode tagNode = (TagNode) nodeList.get(0);
+    assertEquals(1, tagNode.getAttributes().size());
+  }
 }

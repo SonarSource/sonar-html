@@ -17,7 +17,9 @@
 package org.sonar.plugins.web.lex;
 
 import java.util.List;
+import java.util.Stack;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Attribute;
@@ -54,17 +56,30 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
   }
 
-  private static final class QuoteMatcher implements EndMatcher {
 
-    private final char startChar;
+  private static final class QuoteMatcher implements EndMatcher {
+    private static final char SINGLE_QUOTE = '\'';
+    private static final char DOUBLE_QUOTE = '"';
+    private int previousChar;
+
+    private final Stack<Character> startChars = new Stack<Character>();
 
     QuoteMatcher(char startChar) {
-      this.startChar = startChar;
+      this.startChars.add(startChar);
     }
 
     public boolean match(int character) {
-
-      return character == startChar;
+      boolean result = false;
+      if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
+        if (startChars.peek() == (char) character) {
+          startChars.pop();
+        } else {
+          startChars.add((char) character);
+        }
+        result = startChars.size() == 0;
+      }
+      previousChar = character;
+      return result;
     }
   }
 
@@ -214,7 +229,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
           codeReader.pop();
           if (codeReader.peek() != ch) {
             codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
-            attribute.setValue(sbValue.toString());
+            attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
           }
           codeReader.pop();
           attribute.setQuoteChar((char) ch);
@@ -230,5 +245,12 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
     // can't happen
     return ParseMode.BEFORE_NODE_NAME;
+  }
+
+  /**
+   * Unescape the quotes from the attribute value.
+   */
+  private String unescapeQuotes(String value, char ch) {
+    return StringUtils.replace(value, "\\" + ch, Character.toString(ch));
   }
 }

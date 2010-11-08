@@ -20,6 +20,7 @@ import static junit.framework.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
@@ -34,6 +35,15 @@ public class UnifiedExpressionCheckTest extends AbstractCheckTester {
   public void testUnifiedExpressionCheck() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
+    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class );
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+  }
+
+  @Test
+  public void escapeCharacters() {
+    String fragment = "<c:when test=\"${citaflagurge eq \\\"S\\\"}\">";
+    StringReader reader = new StringReader(fragment);
     WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class );
 
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
