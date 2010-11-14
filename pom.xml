@@ -20,8 +20,7 @@
   <properties>
     <sonar.version>2.3</sonar.version>
     <license.name>AL2</license.name>
-    <sonar.pluginName>Web</sonar.pluginName>
-    <sonar.pluginKey>web</sonar.pluginKey>
+    <sonar.pluginName>Web</sonar.pluginName>  
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
   </properties>
 
