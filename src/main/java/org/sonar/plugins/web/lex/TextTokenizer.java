@@ -29,17 +29,19 @@ import org.sonar.plugins.web.node.TextNode;
 
 /**
  * @author Matthijs Galesloot
- * 
+ *
  *         TODO - handle CDATA
  */
 class TextTokenizer extends AbstractTokenizer<List<Node>> {
 
-  private final EndMatcher endTokenMatcher = new EndMatcher() {
+  private static final class EndTokenMatcher implements EndMatcher {
 
     public boolean match(int endFlag) {
       return endFlag == '<';
     }
-  };
+  }
+
+  private final EndMatcher endTokenMatcher = new EndTokenMatcher();
 
   public TextTokenizer() {
     super("", "");
