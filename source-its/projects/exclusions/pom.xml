@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <name>Test of Exclusions</name>
   <build>
-    <sourceDirectory>${basedir}/src</sourceDirectory>
+    <sourceDirectory>src</sourceDirectory>
   </build> 
   <properties>
     <sonar.language>web</sonar.language>

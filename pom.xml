@@ -217,7 +217,7 @@
                 <id>analyze-projects</id>
                 <phase>pre-integration-test</phase>
                 <configuration>
-                  <projectsDir>${basedir}/target/source-its</projectsDir>
+                  <projectsDir>${basedir}/target/source-its/projects</projectsDir>
                 </configuration>
                 <goals>
                   <goal>analyze</goal>

@@ -37,7 +37,7 @@ public class ExclusionsIT {
 
   @BeforeClass
   public static void buildServer() {
-    sonar = Sonar.create("http://localhost:9003");
+    sonar = Sonar.create("http://localhost:9000");
   }
 
   @Test
