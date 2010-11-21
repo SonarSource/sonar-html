@@ -177,5 +177,32 @@
         </parameter>
       </parameters>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ChildElementRequiredCheck</key>
+      <parameters>
+        <parameter>
+          <key>parent</key>
+          <value>head</value>
+        </parameter>
+        <parameter>
+          <key>child</key>
+          <value>title</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ChildElementIllegalCheck</key>
+    </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ParentElementRequiredCheck</key>
+    </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ParentElementIllegalCheck</key>
+    </rule>
   </rules>
+
 </profile>

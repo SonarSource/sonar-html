@@ -96,7 +96,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
   }
 
   protected final void createViolation(int linePosition, String message) {
-    Violation violation = new Violation(rule);
+    Violation violation = Violation.create(rule, getWebSourceCode().getResource());
     violation.setMessage(message);
     violation.setLineId(linePosition);
     getWebSourceCode().addViolation(violation);

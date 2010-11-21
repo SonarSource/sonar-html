@@ -18,11 +18,10 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Test;
@@ -32,26 +31,27 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class UnclosedTagCheckTest extends AbstractCheckTester {
+public class ParentElementRequiredCheckTest extends AbstractCheckTester {
 
   @Test
-  public void violateUnclosedTagCheck() throws FileNotFoundException {
+  public void violateParentRequiredCheck() throws FileNotFoundException {
 
-    String fragment = "<td><br><tr>";
+    String fragment = "<illegalparent><title>Hello</title></illegalparent>";
+    Reader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader,  ParentElementRequiredCheck.class,
+        "parent", "head", "child", "title");
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
-
-    int numViolations = 3;
-
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }
 
   @Test
-  public void passUnclosedNestedTag() throws IOException {
-    FileReader reader = new FileReader("src/test/resources/checks/unclosedtag.html");
-    WebSourceCode sourceCode = parseAndCheck(reader, UnclosedTagCheck.class);
+  public void passParentRequiredCheck() throws FileNotFoundException {
 
-    int numViolations = 0;
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    String fragment = "<head><title>Hello</title></head>";
+    Reader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader,  ParentElementRequiredCheck.class,
+        "parent", "head", "child", "title");
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }
 }

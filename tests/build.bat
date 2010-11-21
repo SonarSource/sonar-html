@@ -8,7 +8,7 @@ set DEBUG=-X
 rem call %SONAR_HOME%\bin\windows-x86-32\StopNTService.bat
 call mvn install -Dmaven.test.skip
 call xcopy /Y target\sonar-web-plugin-0.2-SNAPSHOT.jar %SONAR_HOME%\extensions\plugins
-call %SONAR_HOME%\bin\windows-x86-32\StartSonar.bat
+cmd /K %SONAR_HOME%\bin\windows-x86-32\StartSonar.bat
 
 set mvncommand=mvn sonar:sonar
 

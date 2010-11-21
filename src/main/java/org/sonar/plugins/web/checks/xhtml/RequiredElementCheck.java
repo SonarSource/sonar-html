@@ -18,7 +18,6 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
-
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,11 +34,11 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checker for occurrence of required elements, e.g. a security tag.
- *
+ * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RequiredElementCheck", name ="RequiredElement", description = "Required element must be used", priority = Priority.MAJOR,
+@Rule(key = "RequiredElementCheck", name = "RequiredElement", description = "Required element must be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
 public class RequiredElementCheck extends AbstractPageCheck {
 

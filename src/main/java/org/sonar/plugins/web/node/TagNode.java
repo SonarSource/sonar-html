@@ -29,7 +29,9 @@ import org.apache.commons.lang.StringUtils;
 public class TagNode extends Node {
 
   private final List<Attribute> attributes = new ArrayList<Attribute>();
+  private final List<TagNode> children = new ArrayList<TagNode>();
   private String nodeName;
+  private TagNode parent;
 
   public TagNode() {
     super(NodeType.Tag);
@@ -37,6 +39,10 @@ public class TagNode extends Node {
 
   protected TagNode(NodeType nodeType) {
     super(nodeType);
+  }
+
+  public boolean equalsElementName(String elementName) {
+    return StringUtils.equalsIgnoreCase(getLocalName(), elementName) || StringUtils.equalsIgnoreCase(getNodeName(), elementName);
   }
 
   public String getAttribute(String attributeName) {
@@ -53,8 +59,8 @@ public class TagNode extends Node {
     return attributes;
   }
 
-  public String getNodeName() {
-    return nodeName;
+  public List<TagNode> getChildren() {
+    return children ;
   }
 
   public String getLocalName() {
@@ -64,6 +70,14 @@ public class TagNode extends Node {
     } else {
       return localPart;
     }
+  }
+
+  public String getNodeName() {
+    return nodeName;
+  }
+
+  public TagNode getParent() {
+    return parent;
   }
 
   public boolean hasEnd() {
@@ -78,7 +92,10 @@ public class TagNode extends Node {
     this.nodeName = nodeName;
   }
 
-  public boolean equalsElementName(String elementName) {
-    return StringUtils.equalsIgnoreCase(getLocalName(), elementName) || StringUtils.equalsIgnoreCase(getNodeName(), elementName);
+  public void setParent(TagNode parent) {
+    this.parent = parent;
+    if (parent != null) {
+      parent.getChildren().add(this);
+    }
   }
 }

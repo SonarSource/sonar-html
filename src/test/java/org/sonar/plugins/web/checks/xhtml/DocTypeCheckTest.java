@@ -33,7 +33,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class DocTypeCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testDocTypeCheckOK() throws FileNotFoundException {
+  public void violateDocTypeCheck() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
     WebSourceCode sourceCode = parseAndCheck(reader, DocTypeCheck.class);
@@ -42,7 +42,7 @@ public class DocTypeCheckTest extends AbstractCheckTester {
   }
 
   @Test
-  public void testDocTypeCheckFalse() throws FileNotFoundException {
+  public void passDocTypeCheck() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
     WebSourceCode sourceCode = parseAndCheck(reader, DocTypeCheck.class,

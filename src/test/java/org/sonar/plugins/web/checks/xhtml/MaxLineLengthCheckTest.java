@@ -25,7 +25,6 @@ import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.xhtml.MaxLineLengthCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
@@ -34,7 +33,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class MaxLineLengthCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testMaxLengthViolated() throws FileNotFoundException {
+  public void violateMaxLengthCheck() throws FileNotFoundException {
 
     String fragment = "<td><br><tr>";
     StringBuilder sb = new StringBuilder();
@@ -48,7 +47,7 @@ public class MaxLineLengthCheckTest extends AbstractCheckTester {
   }
 
   @Test
-  public void testMaxLengthOK() throws FileNotFoundException {
+  public void passMaxLengthCheck() throws FileNotFoundException {
 
     String fragment = "<td><br><tr>";
     StringBuilder sb = new StringBuilder();
@@ -61,14 +60,4 @@ public class MaxLineLengthCheckTest extends AbstractCheckTester {
     int numViolations = 0;
     assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
   }
-
-  //  @Test
-  //  public void testMaxLengthFromFile() throws FileNotFoundException {
-  //
-  //    FileReader reader = new FileReader("src/test/resources/src/main/webapp/detail-publicatie.xhtml");
-  //    WebSourceCode sourceCode = parseAndCheck(reader, new MaxLineLengthCheck());
-  //    int numViolations = 0;
-  //    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
-  //  }
-
 }

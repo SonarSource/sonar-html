@@ -35,7 +35,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class InternationalizationCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testInternationalizationCheckTest() throws FileNotFoundException {
+  public void violateInternationalizationCheckTest() throws FileNotFoundException {
 
     String fragment = "<outputLabel>hehe</outputLabel>";
     Reader reader = new StringReader(fragment);

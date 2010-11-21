@@ -32,11 +32,11 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checker to find unclosed tags.
- *
+ * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "UnclosedTagCheck", name ="Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR,
+@Rule(key = "UnclosedTagCheck", name = "Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR,
     isoCategory = IsoCategory.Maintainability)
 public class UnclosedTagCheck extends AbstractPageCheck {
 

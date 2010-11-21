@@ -34,7 +34,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class ComplexityCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testComplexityCheck() throws FileNotFoundException {
+  public void violateComplexityCheck() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
     WebSourceCode sourceCode = parseAndCheck(reader, ComplexityCheck.class, "max", "15" );

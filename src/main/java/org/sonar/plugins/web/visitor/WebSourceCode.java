@@ -30,7 +30,7 @@ import org.sonar.squid.api.SourceCodeEdgeUsage;
 
 /**
  * Checks and analyzers report measurements, violations and other findings in WebSourceCode.
- * 
+ *
  * @author Matthijs Galesloot
  */
 public class WebSourceCode {
@@ -58,7 +58,6 @@ public class WebSourceCode {
   }
 
   public void addViolation(Violation violation) {
-    violation.setResource(resource);
     this.violations.add(violation);
   }
 

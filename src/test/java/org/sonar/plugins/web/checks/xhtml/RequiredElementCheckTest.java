@@ -33,7 +33,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class RequiredElementCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testRequiredElementCheck() throws FileNotFoundException {
+  public void violateRequiredElement() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
     WebSourceCode sourceCode = parseAndCheck(reader, RequiredElementCheck.class, "elements", "html,notfound1,notfound2" );

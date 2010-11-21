@@ -49,11 +49,69 @@ public class PageLexerTest {
 
     assertTrue(nodeList.size() > 50);
 
+    // check tagnodes
     for (Node node : nodeList) {
       if (node instanceof TagNode) {
         assertTrue(node.getCode().startsWith("<"));
         assertTrue(node.getCode().endsWith(">"));
       }
+    }
+
+    showHierarchy(nodeList);
+
+    // check hierarchy
+    for (Node node : nodeList) {
+      if (node instanceof TagNode) {
+        TagNode tagNode = (TagNode) node;
+
+        if (!tagNode.isEndElement()) {
+          if (tagNode.equalsElementName("define")) {
+            assertTrue("Tag should have children: " + tagNode.getCode(), tagNode.getChildren().size() > 0);
+          } else if (tagNode.equalsElementName("outputText")) {
+            assertTrue("Tag should not have children: " + tagNode.getCode(), tagNode.getChildren().size() == 0);
+          }
+        }
+      }
+    }
+  }
+
+  private void showHierarchy(List<Node> nodeList) {
+
+    StringBuilder sb = new StringBuilder();
+    for (Node node : nodeList) {
+      if (node.getClass() == TagNode.class) {
+        TagNode root = (TagNode) node;
+        printTag(sb, root, 0);
+        // System.out.print(sb.toString());
+        break;
+      }
+    }
+
+
+
+  }
+
+  private void printTag(StringBuilder sb, TagNode node, int indent) {
+    sb.append('\n');
+    for (int i = 0; i < indent; i++) {
+      sb.append(" ");
+    }
+    sb.append('<');
+    sb.append(node.getNodeName());
+    if (node.getChildren().size() > 0) {
+      sb.append('>');
+      for (TagNode child : node.getChildren()) {
+        printTag(sb, child, indent + 1);
+      }
+      sb.append('\n');
+      for (int i = 0; i < indent; i++) {
+        sb.append(" ");
+      }
+      sb.append("</");
+      sb.append(node.getNodeName());
+      sb.append('>');
+    } else {
+      sb.append("/>");
     }
   }
 

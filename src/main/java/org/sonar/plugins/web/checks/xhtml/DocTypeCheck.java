@@ -28,7 +28,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checks declaration of the DOCTYPE.
- *
+ * 
  * @author Matthijs Galesloot
  * @since 1.0
  */

@@ -35,7 +35,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * Checks cyclomatic complexity against a specified limit. The complexity is measured by counting decision tags (such as if and forEach) and
  * boolean operators in expressions ("&amp;&amp;" and "||"), plus one for the body of the document. It is a measure of the minimum number of
  * possible paths to render the page.
- *
+ * 
  * @author Matthijs Galesloot
  * @since 1.0
  */

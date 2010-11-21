@@ -29,13 +29,13 @@ import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of disallowed namespaces.
- *
+ * 
  * Checks the namespaces in the root element of the XML document. A list of illegal namespaces can be configured as a property of the check.
- *
+ * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalNamespaceCheck", name ="Illegal Namespace", description = "namespace should not be used", priority = Priority.MAJOR,
+@Rule(key = "IllegalNamespaceCheck", name = "Illegal Namespace", description = "namespace should not be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 

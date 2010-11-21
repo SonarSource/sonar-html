@@ -33,7 +33,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class RequiredAttributeCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testRequiredAttributeCheck() throws FileNotFoundException {
+  public void violateRequiredAttributeCheck() throws FileNotFoundException {
 
     String fragment = "<img src=\"a.png\">";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
@@ -47,7 +47,7 @@ public class RequiredAttributeCheckTest extends AbstractCheckTester {
   }
 
   @Test
-  public void testRequiredTypeAttributeCheckPassed() throws FileNotFoundException {
+  public void passRequiredTypeAttributeCheck() throws FileNotFoundException {
 
     String fragment = "<img src=\"a.png\" alt=\"hello\" >";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);

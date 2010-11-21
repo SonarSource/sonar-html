@@ -26,6 +26,8 @@ import java.util.List;
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.NodeType;
+import org.sonar.plugins.web.node.TagNode;
 
 /**
  * @author Matthijs Galesloot
@@ -34,28 +36,32 @@ import org.sonar.plugins.web.node.Node;
 public final class PageLexer {
 
   /**
-   *  The order of the tokenizers is significant, as they are processed in this order.
-   * 
-   *  TextTokenizer must be last, it will always consume the characters until the next token arrives.
+   * The order of the tokenizers is significant, as they are processed in this order.
+   *
+   * TextTokenizer must be last, it will always consume the characters until the next token arrives.
    */
   private static List tokenizers = Arrays.asList(
-      /* HTML Comments */
-      new CommentTokenizer("<!--", "-->", true),
-      /* JSP Comments */
-      new CommentTokenizer("<%--", "--%>", false),
-      /* HTML Directive */
-      new DoctypeTokenizer("<!DOCTYPE", ">"),
-      /* XML Directives */
-      new DirectiveTokenizer("<?", "?>"),
-      /* JSP Directives */
-      new DirectiveTokenizer("<%@", "%>"),
-      /* JSP Expressions */
-      new ExpressionTokenizer("<%", "%>"),
-      /* XML and HTML Tags */
-      new ElementTokenizer("<", ">"),
-      /* Text (for everything else) */
-      new TextTokenizer());
+    /* HTML Comments */
+    new CommentTokenizer("<!--", "-->", true),
+    /* JSP Comments */
+    new CommentTokenizer("<%--", "--%>", false),
+    /* HTML Directive */
+    new DoctypeTokenizer("<!DOCTYPE", ">"),
+    /* XML Directives */
+    new DirectiveTokenizer("<?", "?>"),
+    /* JSP Directives */
+    new DirectiveTokenizer("<%@", "%>"),
+    /* JSP Expressions */
+    new ExpressionTokenizer("<%", "%>"),
+    /* XML and HTML Tags */
+    new ElementTokenizer("<", ">"),
+    /* Text (for everything else) */
+    new TextTokenizer()
+  );
 
+  /**
+   * Parse the input into a list of tokens, with parent/child relations between the tokens.
+   */
   public List<Node> parse(Reader reader) {
 
     // CodeReader reads the file stream
@@ -68,9 +74,34 @@ public final class PageLexer {
     ChannelDispatcher<List<Node>> channelDispatcher = new ChannelDispatcher<List<Node>>(tokenizers);
     channelDispatcher.consume(codeReader, nodeList);
 
+    createNodeHierarchy(nodeList);
+
     // clean up
     codeReader.close();
 
     return nodeList;
+  }
+
+  /**
+   * Scan the nodes and build the hierarchy of parent and child nodes.
+   */
+  private void createNodeHierarchy(List<Node> nodeList) {
+    TagNode current = null;
+    for (Node node : nodeList) {
+      if (node.getNodeType() == NodeType.Tag) {
+        TagNode element = (TagNode) node;
+
+        // start element
+        if ( !element.isEndElement()) {
+          element.setParent(current);
+          current = element;
+        }
+
+        // end element
+        if ((element.isEndElement() || element.hasEnd()) && current != null) {
+          current = current.getParent();
+        }
+      }
+    }
   }
 }

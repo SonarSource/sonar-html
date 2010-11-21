@@ -18,7 +18,6 @@
 
 package org.sonar.plugins.web.checks.xhtml;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +32,11 @@ import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of required attribute, e.g. alt attribute in &lt;img&gt; tag.
- *
+ * 
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RequiredAttributeCheck", name ="RequiredAttribute", description = "Required attribute must be used",
+@Rule(key = "RequiredAttributeCheck", name = "RequiredAttribute", description = "Required attribute must be used",
     priority = Priority.MAJOR, isoCategory = IsoCategory.Portability)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
@@ -56,7 +55,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
   private final List<RequiredAttribute> attributes = new ArrayList<RequiredAttribute>();
 
   public String getAttributes() {
-     return StringUtils.join(attributes, ",");
+    return StringUtils.join(attributes, ",");
   }
 
   public void setAttributes(String list) {
