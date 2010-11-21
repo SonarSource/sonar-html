@@ -17,4 +17,17 @@
   ~ under the License.
   --%>
 
-<% response.sendRedirect(  request.getContextPath() + "/groupSummary.action" ); %>
+<%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib uri="http://www.extremecomponents.org" prefix="ec" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib uri="continuum" prefix="c1" %>
+<s:i18n name="localization.Continuum">
+
+  <div class="axial">
+    <table>
+      <tr>
+        <td><center><s:text name="failureComponent.section.title"/></center></td>
+      </tr>
+    </table>
+  </div>
+</s:i18n>

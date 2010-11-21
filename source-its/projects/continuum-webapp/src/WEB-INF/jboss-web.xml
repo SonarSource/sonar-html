@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+
+  <resource-ref>
+    <res-ref-name>jdbc/continuum</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <jndi-name>java:/continuum</jndi-name>
+  </resource-ref>
+
+  <resource-ref>
+    <res-ref-name>jdbc/users</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <jndi-name>java:/users</jndi-name>
+  </resource-ref>
+
+  <resource-ref>
+    <res-ref-name>mail/Session</res-ref-name>
+    <res-type>javax.mail.Session</res-type>
+    <jndi-name>java:/Mail</jndi-name>
+  </resource-ref>
+
+</jboss-web>
+
