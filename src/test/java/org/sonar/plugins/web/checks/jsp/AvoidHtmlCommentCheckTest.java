@@ -50,4 +50,16 @@ public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
 
     assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
   }
+
+  @Test
+  public void htmlComentIsAllowedInExpressions() {
+
+    String fragment = "<% if (htmlCode.match(\"<Unable to render embedded object: " +
+    		"File (-- CrossSellHotel -->\") == \"<) not found.-- CrossSellHotel -->\"){   %>";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
+
+    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
+  }
+
 }

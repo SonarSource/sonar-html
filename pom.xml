@@ -20,7 +20,7 @@
   <properties>
     <sonar.version>2.3</sonar.version>
     <license.name>AL2</license.name>
-    <sonar.pluginName>Web</sonar.pluginName>  
+    <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
   </properties>
 
@@ -123,12 +123,18 @@
 
     <!-- Test dependencies -->
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <profiles>
