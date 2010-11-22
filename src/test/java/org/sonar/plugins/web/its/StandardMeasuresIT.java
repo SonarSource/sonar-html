@@ -67,7 +67,7 @@ public class StandardMeasuresIT {
     assertNull(getProjectMeasure("function_complexity"));
     assertNull(getProjectMeasure("function_complexity_distribution"));
     assertThat(getProjectMeasure("file_complexity").getValue(), is(3.8));
-    assertNull(getProjectMeasure("file_complexity_distribution"));
+    assertThat(getProjectMeasure("file_complexity_distribution").getData(), is("0=73;5=22;10=7;20=1;30=0;60=0;90=0"));
     assertThat(getProjectMeasure("violations").getIntValue(), is(949));
     assertThat(getProjectMeasure("weighted_violations").getIntValue(), is(1557));
     assertThat(getProjectMeasure("violations_density").getValue(), is(77.2));
