@@ -91,9 +91,6 @@ public final class WebRulesRepository extends RuleRepository {
   }
 
   private static AbstractPageCheck createCheck(Class<AbstractPageCheck> checkClass, ActiveRule activeRule) {
-    if (LOG.isDebugEnabled()) {
-      debugActiveRuleConfiguration(checkClass, activeRule);
-    }
 
     try {
       AbstractPageCheck check = checkClass.newInstance();
@@ -115,25 +112,6 @@ public final class WebRulesRepository extends RuleRepository {
     } catch (InstantiationException e) {
       throw new SonarException(e);
     }
-  }
-
-  private static void debugActiveRuleConfiguration(Class<AbstractPageCheck> checkClass, ActiveRule activeRule) {
-    StringBuilder sb = new StringBuilder();
-    if (activeRule.getActiveRuleParams() != null) {
-      for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
-        if (sb.length() > 0) {
-          sb.append(',');
-        }
-        sb.append(param.getRuleParam().getKey());
-        sb.append('=');
-        sb.append(param.getValue());
-      }
-      sb.append(')');
-      sb.insert(0, " (");
-    }
-    sb.insert(0, checkClass.getSimpleName());
-    sb.insert(0, "Created checker ");
-    LOG.debug(sb.toString());
   }
 
   private static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {

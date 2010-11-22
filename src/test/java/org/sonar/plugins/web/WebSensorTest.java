@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
@@ -38,6 +40,8 @@ import org.sonar.plugins.web.rules.WebRulesRepository;
  * @author Matthijs Galesloot
  */
 public class WebSensorTest extends AbstractWebPluginTester {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractWebPluginTester.class);
 
   @Test
   public void testSensor() throws Exception {

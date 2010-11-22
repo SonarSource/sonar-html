@@ -30,7 +30,7 @@ import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for RegularExpressions.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
@@ -43,6 +43,15 @@ public class RegularExpressionCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "scope")
   private String scope; // attribute or element
+
+  public String getScope() {
+    return scope;
+  }
+
+
+  public void setScope(String scope) {
+    this.scope = scope;
+  }
 
   private Pattern pattern;
 
