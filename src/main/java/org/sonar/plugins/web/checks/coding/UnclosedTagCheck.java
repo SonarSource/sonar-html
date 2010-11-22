@@ -32,7 +32,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checker to find unclosed tags.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
@@ -72,9 +72,8 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   private boolean ignoreTag(TagNode node) {
     if (ignoreTags != null) {
-      String nodeName = node.getLocalName();
       for (String ignoreTag : ignoreTags) {
-        if (ignoreTag.equalsIgnoreCase(nodeName)) {
+        if (node.equalsElementName(ignoreTag)) {
           return true;
         }
       }
