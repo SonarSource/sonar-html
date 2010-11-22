@@ -16,38 +16,47 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.xhtml;
+package org.sonar.plugins.web.checks.attributes;
 
 import static junit.framework.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.header.DocTypeCheck;
+import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class DocTypeCheckTest extends AbstractCheckTester {
+public class RequiredAttributeCheckTest extends AbstractCheckTester {
 
   @Test
-  public void violateDocTypeCheck() throws FileNotFoundException {
+  public void violateRequiredAttributeCheck() throws FileNotFoundException {
 
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, DocTypeCheck.class);
+    String fragment = "<img src=\"a.png\">";
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
+
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+
+    fragment = "<script />";
+    sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }
 
   @Test
-  public void passDocTypeCheck() throws FileNotFoundException {
+  public void passRequiredTypeAttributeCheck() throws FileNotFoundException {
 
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, DocTypeCheck.class,
-        "dtd", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd");
+    String fragment = "<img src=\"a.png\" alt=\"hello\" >";
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+
+    fragment = "<script type='javascript' />";
+    sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
 
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }

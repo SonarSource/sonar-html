@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.structure;
+package org.sonar.plugins.web.checks.attributes;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -24,6 +24,7 @@ import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
