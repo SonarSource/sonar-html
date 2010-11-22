@@ -18,8 +18,10 @@
 
 package org.sonar.plugins.web.language;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.api.resources.Language;
 import org.sonar.api.resources.Project;
 
 /**
@@ -54,29 +56,14 @@ public class Web extends AbstractLanguage {
   public Web(Project project) {
     this();
 
-    String extensions = (String) project.getProperty(WebProperties.FILE_EXTENSIONS);
+    List<?> extensions = project.getConfiguration().getList(WebProperties.FILE_EXTENSIONS);
 
-    if (extensions != null) {
-      final String[] list = extensions.split(",");
-      if (list.length > 0) {
-        for (int i = 0; i < list.length; i++) {
-          list[i] = list[i].trim();
-        }
-        fileSuffixes = list;
+    if (extensions != null && extensions.size() > 0 && !StringUtils.isEmpty((String) extensions.get(0))) {
+      fileSuffixes = new String[extensions.size()];
+      for (int i = 0; i < extensions.size(); i++) {
+        fileSuffixes[i] = extensions.get(i).toString().trim();
       }
     }
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o == this) {
-      return true;
-    }
-    if (o instanceof Language) {
-      Language language = (Language) o;
-      return getKey().equals(language.getKey());
-    }
-    return false;
   }
 
   /**
@@ -86,11 +73,6 @@ public class Web extends AbstractLanguage {
    * @see org.sonar.api.resources.Language#getFileSuffixes()
    */
   public String[] getFileSuffixes() {
-    return fileSuffixes == null ?  DEFAULT_SUFFIXES : fileSuffixes;
-  }
-
-  @Override
-  public int hashCode() {
-    return super.hashCode();
+    return fileSuffixes == null ? DEFAULT_SUFFIXES : fileSuffixes;
   }
 }

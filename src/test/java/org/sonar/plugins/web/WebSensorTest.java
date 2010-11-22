@@ -19,6 +19,7 @@
 package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Collection;
 import java.util.List;
@@ -48,8 +49,12 @@ public class WebSensorTest extends AbstractWebPluginTester {
     ProfileDefinition profileDefinition = new DefaultWebProfile(new WebRuleFinder());
     RulesProfile profile = profileDefinition.createProfile(ValidationMessages.create());
     WebSensor sensor = new WebSensor(profile);
+    assertNotNull(sensor.toString());
 
     final Project project = loadProjectFromPom();
+
+    assertTrue(sensor.shouldExecuteOnProject(project));
+
     MockSensorContext sensorContext = new MockSensorContext();
     sensor.analyse(project, sensorContext);
 

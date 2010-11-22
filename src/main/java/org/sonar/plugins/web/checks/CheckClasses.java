@@ -42,10 +42,10 @@ import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.structure.ChildElementIllegalCheck;
 import org.sonar.plugins.web.checks.structure.ChildElementRequiredCheck;
 import org.sonar.plugins.web.checks.structure.IllegalElementCheck;
-import org.sonar.plugins.web.checks.structure.InlineStyleCheck;
 import org.sonar.plugins.web.checks.structure.ParentElementIllegalCheck;
 import org.sonar.plugins.web.checks.structure.ParentElementRequiredCheck;
 import org.sonar.plugins.web.checks.structure.RequiredElementCheck;
+import org.sonar.plugins.web.checks.style.InlineStyleCheck;
 import org.sonar.plugins.web.checks.whitespace.IllegalTabCheck;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 

@@ -66,8 +66,10 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
         if (sb.length() > 0) {
           sb.append(",");
         }
-        sb.append(a.getNodeName());
-        sb.append('.');
+        if (a.getNodeName() != null) {
+          sb.append(a.getNodeName());
+          sb.append('.');
+        }
         sb.append(a.getAttributeName());
       }
     }

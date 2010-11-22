@@ -16,11 +16,12 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.attributes;
+package org.sonar.plugins.web.checks.structure;
 
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 
+import java.io.FileNotFoundException;
+import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Test;
@@ -30,24 +31,15 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-public class IllegalAttributeCheckTest extends AbstractCheckTester {
-
-
-  @Test
-  public void validateCheckParameters() {
-    String params = "a:a,b,c";
-    IllegalAttributeCheck check = (IllegalAttributeCheck) instantiateCheck(IllegalAttributeCheck.class,
-        "attributes", params);
-    assertEquals(params, check.getAttributes());
-  }
+public class IllegalElementCheckTest extends AbstractCheckTester {
 
   @Test
-  public void testAttributeCheck() {
+  public void violateIllegalElementCheck() throws FileNotFoundException {
 
-    String fragment = "<h:someNode class=\"redflag\"/>";
+    String fragment = "<head><info></info></head>";
+    Reader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, IllegalElementCheck.class, "elements", "info, basic");
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), IllegalAttributeCheck.class, "attributes", "class" );
-
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }
 }

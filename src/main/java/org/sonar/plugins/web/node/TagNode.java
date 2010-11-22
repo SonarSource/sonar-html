@@ -65,7 +65,7 @@ public class TagNode extends Node {
 
   public String getLocalName() {
     String localPart = StringUtils.substringAfterLast(getNodeName(), ":");
-    if (localPart == null) {
+    if (StringUtils.isEmpty(localPart)) {
       return nodeName;
     } else {
       return localPart;

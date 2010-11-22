@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.structure;
+package org.sonar.plugins.web.checks.style;
 
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;

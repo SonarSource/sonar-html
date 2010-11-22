@@ -62,26 +62,31 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
   public WebSourceCode parseAndCheck(Reader reader, Class<? extends AbstractPageCheck> checkClass, String... params) {
 
+    AbstractPageCheck check = instantiateCheck(checkClass, params);
+
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+    WebSourceCode webSourceCode = new WebSourceCode(null);
+
+    PageScanner pageScanner = new PageScanner();
+    pageScanner.addVisitor(check);
+    pageScanner.scan(nodeList, webSourceCode);
+    return webSourceCode;
+  }
+
+  protected AbstractPageCheck instantiateCheck(Class<? extends AbstractPageCheck> checkClass, String... params) {
     try {
       AbstractPageCheck check = checkClass.newInstance();
 
       Rule rule = getRule(checkClass.getSimpleName(), checkClass);
       assertNotNull("Could not find rule", rule);
       check.setRule(rule);
-      configureParams(check, rule);
+      configureDefaultParams(check, rule);
 
       for (int i = 0; i < params.length / 2; i++) {
         BeanUtils.setProperty(check, params[i * 2], params[i * 2 + 1]);
       }
-
-      PageLexer lexer = new PageLexer();
-      List<Node> nodeList = lexer.parse(reader);
-      WebSourceCode webSourceCode = new WebSourceCode(null);
-
-      PageScanner pageScanner = new PageScanner();
-      pageScanner.addVisitor(check);
-      pageScanner.scan(nodeList, webSourceCode);
-      return webSourceCode;
+      return check;
     } catch (IllegalAccessException e) {
       throw new SonarException(e);
     } catch (InstantiationException e) {
@@ -116,7 +121,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
     }
   }
 
-  private void configureParams(AbstractPageCheck check, Rule rule) {
+  private void configureDefaultParams(AbstractPageCheck check, Rule rule) {
     WebRuleFinder finder = new WebRuleFinder(rule);
     ProfileDefinition profileDefinition = new DefaultWebProfile(finder);
     ValidationMessages validationMessages = ValidationMessages.create();
