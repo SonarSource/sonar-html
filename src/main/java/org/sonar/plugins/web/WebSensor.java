@@ -26,7 +26,10 @@ import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.design.Dependency;
+import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
+import org.sonar.api.measures.PersistenceMode;
+import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
@@ -49,6 +52,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public final class WebSensor implements Sensor {
 
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
+
+  private final static Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
   private final RulesProfile profile;
 
@@ -89,6 +94,11 @@ public final class WebSensor implements Sensor {
   }
 
   private void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
+    RangeDistributionBuilder complexityFileDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION,
+      FILES_DISTRIB_BOTTOM_LIMITS);
+    complexityFileDistribution.add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getValue());
+    sensorContext.saveMeasure(sourceCode.getResource(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+
     for (Measure measure : sourceCode.getMeasures()) {
       sensorContext.saveMeasure(sourceCode.getResource(), measure);
     }
