@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.structure;
+package org.sonar.plugins.web.checks.attributes;
 
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.IsoCategory;
