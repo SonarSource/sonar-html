@@ -18,17 +18,16 @@
 
 package org.sonar.plugins.web;
 
-import java.io.File;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.AbstractSourceImporter;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.language.WebFile;
 
 /**
  * @author Matthijs Galesloot
@@ -54,9 +53,9 @@ public final class WebSourceImporter extends AbstractSourceImporter {
   }
 
   @Override
-  protected Resource<?> createResource(File file, List<File> sourceDirs, boolean unitTest) {
+  protected Resource<?> createResource(java.io.File file, List<java.io.File> sourceDirs, boolean unitTest) {
     LOG.debug("WebSourceImporter:" + file.getPath());
-    return WebFile.fromIOFile(file, sourceDirs);
+    return File.fromIOFile(file, sourceDirs);
   }
 
   @Override

@@ -18,7 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import java.io.File;
 import java.io.FileReader;
 import java.util.List;
 
@@ -29,12 +28,12 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.language.WebFile;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.WebRulesRepository;
@@ -72,10 +71,10 @@ public final class WebSensor implements Sensor {
       scanner.addVisitor(check);
     }
 
-    for (File webFile : project.getFileSystem().getSourceFiles(new Web(project))) {
+    for (java.io.File webFile : project.getFileSystem().getSourceFiles(new Web(project))) {
 
       try {
-        WebFile resource = WebFile.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
+        File resource = File.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
 
         WebSourceCode sourceCode = new WebSourceCode(resource);
         List<Node> nodeList = lexer.parse(new FileReader(webFile));
@@ -93,6 +92,7 @@ public final class WebSensor implements Sensor {
     for (Measure measure : sourceCode.getMeasures()) {
       sensorContext.saveMeasure(sourceCode.getResource(), measure);
     }
+
     for (Violation violation : sourceCode.getViolations()) {
       sensorContext.saveViolation(violation);
     }

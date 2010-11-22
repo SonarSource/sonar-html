@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.plugins.web.language.WebFile;
+import org.sonar.api.resources.File;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.WebSourceCode;
@@ -48,7 +48,7 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
     assertTrue(nodeList.size() > 100);
 
-    WebFile webFile = new WebFile("test", "user-properties.jsp");
+    File webFile = new File("test", "user-properties.jsp");
     PageCountLines countLines = new PageCountLines();
 
     WebSourceCode webSourceCode = new WebSourceCode(webFile);

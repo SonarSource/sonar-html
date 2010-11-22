@@ -53,7 +53,7 @@ public class StandardMeasuresIT {
     assertThat(getProjectMeasure("ncloc").getIntValue(), is(6815));
     assertThat(getProjectMeasure("lines").getIntValue(), is(9252));
     assertThat(getProjectMeasure("files").getIntValue(), is(103));
-    //assertThat(getProjectMeasure("directories").getIntValue(), is(2));
+    assertThat(getProjectMeasure("directories").getIntValue(), is(8));
     assertNull(getProjectMeasure("functions"));
     assertNull(getProjectMeasure("statements"));
     assertThat(getProjectMeasure("comment_lines_density").getValue(), is(21.9));
