@@ -68,15 +68,15 @@ public class StandardMeasuresIT {
     assertNull(getProjectMeasure("function_complexity_distribution"));
     assertThat(getProjectMeasure("file_complexity").getValue(), is(3.8));
     assertNull(getProjectMeasure("file_complexity_distribution"));
-    assertThat(getProjectMeasure("violations").getIntValue(), is(940));
-    assertThat(getProjectMeasure("weighted_violations").getIntValue(), is(1530));
-    assertThat(getProjectMeasure("violations_density").getValue(), is(77.5));
+    assertThat(getProjectMeasure("violations").getIntValue(), is(949));
+    assertThat(getProjectMeasure("weighted_violations").getIntValue(), is(1557));
+    assertThat(getProjectMeasure("violations_density").getValue(), is(77.2));
   }
 
   @Test
   public void directoryMeasures() {
     assertThat(getMeasure("ncloc", DIR_ROOT).getIntValue(), is(2877));
-    assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.8));
+    assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.7));
     assertThat(getMeasure("comment_lines_density", DIR_ROOT).getValue(), is(20.6));
     assertThat(getMeasure("duplicated_lines_density", DIR_ROOT).getValue(), is(1.4));
     assertThat(getMeasure("complexity", DIR_ROOT).getIntValue(), is(150));
