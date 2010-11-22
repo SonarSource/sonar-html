@@ -54,7 +54,7 @@ public class UnclosedTagCheckTest extends AbstractCheckTester {
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
 
-    int numViolations = 2;
+    int numViolations = 1;
     assertEquals("Should have found " + numViolations + " violations", numViolations, sourceCode.getViolations().size());
   }
 
