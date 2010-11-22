@@ -20,12 +20,19 @@ package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.junit.Test;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RuleFinder;
+import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
@@ -34,7 +41,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
   @Test
   public void testSensor() throws Exception {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
+    ProfileDefinition profileDefinition = new DefaultWebProfile(new WebRuleFinder());
     RulesProfile profile = profileDefinition.createProfile(ValidationMessages.create());
     WebSensor sensor = new WebSensor(profile);
 
@@ -43,5 +50,35 @@ public class WebSensorTest extends AbstractWebPluginTester {
     sensor.analyse(project, sensorContext);
 
     assertTrue("Should have found 1 violation", sensorContext.getViolations().size() > 0);
+  }
+
+  private class WebRuleFinder implements RuleFinder {
+
+    private final WebRulesRepository repository;
+    private final List<Rule> rules;
+
+    public WebRuleFinder() {
+      repository = new WebRulesRepository(newServerFileSystem());
+      rules = repository.createRules();
+    }
+
+    public Rule findByKey(String repositoryKey, String key) {
+      for (Rule rule : rules) {
+        if (rule.getKey().equals(key)) {
+          return rule;
+        }
+      }
+      return null;
+    }
+
+    public Collection<Rule> findAll(RuleQuery query) {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    public Rule find(RuleQuery query) {
+      // TODO Auto-generated method stub
+      return null;
+    }
   }
 }

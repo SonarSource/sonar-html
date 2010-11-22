@@ -37,8 +37,7 @@ import org.sonar.api.utils.AnnotationUtils;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Cardinality;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.jsp.JspCheckClasses;
-import org.sonar.plugins.web.checks.xhtml.XhtmlCheckClasses;
+import org.sonar.plugins.web.checks.CheckClasses;
 import org.sonar.plugins.web.language.Web;
 /**
  * @author Matthijs Galesloot
@@ -62,18 +61,11 @@ public final class WebRulesRepository extends RuleRepository {
   @Override
   public List<Rule> createRules() {
     AnnotationRuleParser annotationRuleParser = new AnnotationRuleParser();
-    List<Rule> rules = annotationRuleParser.parse(REPOSITORY_KEY, getCheckClasses());
+    List<Rule> rules = annotationRuleParser.parse(REPOSITORY_KEY, CheckClasses.getCheckClasses());
     for (Rule rule : rules) {
       rule.setCardinality(Cardinality.MULTIPLE);
     }
     return rules;
-  }
-
-  private static List<Class> getCheckClasses() {
-    List<Class> classes = new ArrayList<Class>();
-    classes.addAll(JspCheckClasses.getCheckClasses());
-    classes.addAll(XhtmlCheckClasses.getCheckClasses());
-    return classes;
   }
 
   /**
@@ -145,11 +137,11 @@ public final class WebRulesRepository extends RuleRepository {
   }
 
   private static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
-    for (Class<AbstractPageCheck> checkClass : getCheckClasses()) {
+    for (Class<?> checkClass : CheckClasses.getCheckClasses()) {
 
       org.sonar.check.Rule ruleAnnotation = AnnotationUtils.getClassAnnotation(checkClass, org.sonar.check.Rule.class);
       if (ruleAnnotation.key().equals(activeRule.getConfigKey())) {
-        return checkClass;
+        return (Class<AbstractPageCheck>) checkClass;
       }
     }
     LOG.error("Could not find check class for config key " + activeRule.getConfigKey());

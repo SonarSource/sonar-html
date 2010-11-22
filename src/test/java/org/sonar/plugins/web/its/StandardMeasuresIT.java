@@ -20,15 +20,15 @@
 
 package org.sonar.plugins.web.its;
 
+import static junit.framework.Assert.assertNull;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.wsclient.Sonar;
 import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.ResourceQuery;
-
-import static junit.framework.Assert.assertNull;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class StandardMeasuresIT {
 
@@ -49,7 +49,7 @@ public class StandardMeasuresIT {
   }
 
   @Test
-  public void ProjectMeasures() {
+  public void projectMeasures() {
     assertThat(getProjectMeasure("ncloc").getIntValue(), is(6815));
     assertThat(getProjectMeasure("lines").getIntValue(), is(9252));
     assertThat(getProjectMeasure("files").getIntValue(), is(103));

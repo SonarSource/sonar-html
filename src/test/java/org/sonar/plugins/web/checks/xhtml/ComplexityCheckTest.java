@@ -26,6 +26,7 @@ import java.io.FileReader;
 import org.junit.Test;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.coding.ComplexityCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**

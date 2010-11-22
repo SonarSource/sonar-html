@@ -25,6 +25,7 @@ import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.header.HeaderCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
