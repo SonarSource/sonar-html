@@ -7,7 +7,7 @@ set DEBUG=-X
 
 call mvn install -Dmaven.test.skip
 call xcopy /Y target\sonar-web-plugin-0.2-SNAPSHOT.jar %SONAR_HOME%\extensions\plugins
-start "Sonar Server" %SONAR_HOME%\bin\windows-x86-32\StartSonar.bat
+start "Sonar Server" /MIN %SONAR_HOME%\bin\windows-x86-32\StartSonar.bat 
 
 set mvncommand=mvn sonar:sonar
 
@@ -15,7 +15,7 @@ set mvncommand=mvn sonar:sonar
 rem 'ping' in order to wait a few seconds
 ping 127.0.0.1 -n 10 -w 1000 > nul
 rem try mvn sonar
-call %mvncommand% -f 	 %SONAR_FLAGS% %DEBUG% > sonar-html.log
+call %mvncommand% -f d:\workspaces\sonar\testweb\alfresco-web-client\pom.xml %SONAR_FLAGS% %DEBUG% > target/sonar-alfresco.log
 rem check if sonar was available
 find "[INFO] Sonar server can not be reached" *.log
 rem previous command will set errorlevel to 0 if the log contained "sonar can not be reached"

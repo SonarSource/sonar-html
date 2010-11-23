@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
@@ -37,9 +38,11 @@ import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.language.WebNoSonarFilter;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.WebRulesRepository;
+import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
@@ -57,8 +60,11 @@ public final class WebSensor implements Sensor {
 
   private final RulesProfile profile;
 
-  public WebSensor(RulesProfile profile) {
+  private final NoSonarFilter noSonarFilter;
+
+  public WebSensor(RulesProfile profile, WebNoSonarFilter noSonarFilter) {
     this.profile = profile;
+    this.noSonarFilter = noSonarFilter;
   }
 
   public void analyse(Project project, SensorContext sensorContext) {
@@ -75,6 +81,7 @@ public final class WebSensor implements Sensor {
     for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
       scanner.addVisitor(check);
     }
+    scanner.addVisitor(new NoSonarScanner(noSonarFilter));
 
     for (java.io.File webFile : project.getFileSystem().getSourceFiles(new Web(project))) {
 
