@@ -29,13 +29,13 @@ import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of disallowed elements.
- * 
+ *
  * e.g. element <applet> should not be used.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalElementCheck", name = "IllegalElement", description = "element should not be used", priority = Priority.MAJOR,
+@Rule(key = "IllegalElementCheck", name = "Element Illegal", description = "element should not be used", priority = Priority.MAJOR,
     isoCategory = IsoCategory.Reliability)
 public class IllegalElementCheck extends AbstractPageCheck {
 

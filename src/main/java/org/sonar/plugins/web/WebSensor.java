@@ -36,6 +36,7 @@ import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
+import org.sonar.plugins.web.analyzers.WebDependencyDetector;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
@@ -61,7 +62,10 @@ public final class WebSensor implements Sensor {
 
   private final NoSonarFilter noSonarFilter;
 
-  public WebSensor(RulesProfile profile, NoSonarFilter noSonarFilter) {
+  private final Web web;
+
+  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter) {
+    this.web = web;
     this.profile = profile;
     this.noSonarFilter = noSonarFilter;
   }
@@ -80,6 +84,8 @@ public final class WebSensor implements Sensor {
     for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
       scanner.addVisitor(check);
     }
+    scanner.addVisitor(pageLineCounter);
+    scanner.addVisitor(new WebDependencyDetector(web));
     scanner.addVisitor(new NoSonarScanner(noSonarFilter));
 
     for (java.io.File webFile : project.getFileSystem().getSourceFiles(new Web(project))) {
@@ -90,7 +96,7 @@ public final class WebSensor implements Sensor {
         WebSourceCode sourceCode = new WebSourceCode(resource);
         List<Node> nodeList = lexer.parse(new FileReader(webFile));
         scanner.scan(nodeList, sourceCode);
-        pageLineCounter.count(nodeList, sourceCode);
+      //  pageLineCounter.count(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);
 
       } catch (Exception e) {

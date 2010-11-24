@@ -25,12 +25,13 @@ import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
+import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-public class PageCountLines {
+public class PageCountLines extends DefaultNodeVisitor {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageCountLines.class);
 
@@ -38,27 +39,34 @@ public class PageCountLines {
   private int commentLines;
   private int linesOfCode;
 
-  private void addMeasures(WebSourceCode sourceCode) {
+  @Override
+  public void startDocument(WebSourceCode webSourceCode, List<Node> nodes) {
+    super.startDocument(webSourceCode, nodes);
 
-    sourceCode.addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + blankLines);
-    sourceCode.addMeasure(CoreMetrics.NCLOC, linesOfCode);
-    sourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
-
-    LOG.debug("WebSensor: " + sourceCode.toString() + ":" + linesOfCode + "," + commentLines + "," + blankLines);
-  }
-
-  public void count(List<Node> nodeList, WebSourceCode sourceCode) {
     linesOfCode = 0;
     blankLines = 0;
     commentLines = 0;
 
+    count(nodes);
+  }
+
+  private void addMeasures() {
+
+    getWebSourceCode().addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + blankLines);
+    getWebSourceCode().addMeasure(CoreMetrics.NCLOC, linesOfCode);
+    getWebSourceCode().addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
+
+    LOG.debug("WebSensor: " + getWebSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + blankLines);
+  }
+
+  private void count(List<Node> nodeList) {
     for (int i = 0; i < nodeList.size(); i++) {
       Node node = nodeList.get(i);
       Node previousNode = i > 0? nodeList.get(i - 1) : null;
       Node nextNode = i < nodeList.size() - 1 ? nodeList.get(i) : null;
       handleToken(node, previousNode, nextNode);
     }
-    addMeasures(sourceCode);
+    addMeasures();
   }
 
   private void handleToken(Node node, Node previousNode, Node nextNode) {

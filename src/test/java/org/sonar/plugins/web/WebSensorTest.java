@@ -35,6 +35,7 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
+import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
@@ -50,7 +51,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
     ProfileDefinition profileDefinition = new DefaultWebProfile(new WebRuleFinder());
     RulesProfile profile = profileDefinition.createProfile(ValidationMessages.create());
     NoSonarFilter noSonarFilter = new NoSonarFilter();
-    WebSensor sensor = new WebSensor(profile, noSonarFilter);
+    WebSensor sensor = new WebSensor(new Web(), profile, noSonarFilter);
     assertNotNull(sensor.toString());
 
     final Project project = loadProjectFromPom();

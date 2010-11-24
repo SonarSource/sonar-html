@@ -32,11 +32,11 @@ import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of required attribute, e.g. alt attribute in &lt;img&gt; tag.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RequiredAttributeCheck", name = "RequiredAttribute", description = "Required attribute must be used",
+@Rule(key = "RequiredAttributeCheck", name = "Attribute Required", description = "Required attribute must be used",
     priority = Priority.MAJOR, isoCategory = IsoCategory.Portability)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 

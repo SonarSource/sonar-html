@@ -26,6 +26,7 @@ import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.checks.coding.AvoidHtmlCommentCheck;
 import org.sonar.plugins.web.checks.coding.ComplexityCheck;
 import org.sonar.plugins.web.checks.coding.DoubleQuotesCheck;
+import org.sonar.plugins.web.checks.coding.FileLengthCheck;
 import org.sonar.plugins.web.checks.coding.InternationalizationCheck;
 import org.sonar.plugins.web.checks.coding.MaxLineLengthCheck;
 import org.sonar.plugins.web.checks.coding.UnclosedTagCheck;
@@ -63,6 +64,7 @@ public final class CheckClasses {
     DocTypeCheck.class,
     DoubleQuotesCheck.class,
     DynamicJspIncludeCheck.class,
+    FileLengthCheck.class,
     IllegalElementCheck.class,
     IllegalTabCheck.class,
     IllegalTagLibsCheck.class,

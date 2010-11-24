@@ -3,7 +3,6 @@
   <language>web</language>
   <rules>
 
-    <!-- JSP checks -->
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>AvoidHtmlCommentCheck</key>
@@ -77,6 +76,11 @@
       <key>WhiteSpaceAroundCheck</key>
     </rule>
 
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>FileLengthCheck</key>
+    </rule>
+    
     <!-- XHTML checks -->
     <rule>
       <repositoryKey>Web</repositoryKey>
