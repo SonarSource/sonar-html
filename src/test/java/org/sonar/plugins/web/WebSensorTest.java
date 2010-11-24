@@ -27,6 +27,7 @@ import java.util.List;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
@@ -34,7 +35,6 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.web.language.WebNoSonarFilter;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
@@ -49,7 +49,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
   public void testSensor() throws Exception {
     ProfileDefinition profileDefinition = new DefaultWebProfile(new WebRuleFinder());
     RulesProfile profile = profileDefinition.createProfile(ValidationMessages.create());
-    WebNoSonarFilter noSonarFilter = new WebNoSonarFilter();
+    NoSonarFilter noSonarFilter = new NoSonarFilter();
     WebSensor sensor = new WebSensor(profile, noSonarFilter);
     assertNotNull(sensor.toString());
 

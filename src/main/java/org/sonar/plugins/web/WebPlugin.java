@@ -27,7 +27,6 @@ import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.language.WebNoSonarFilter;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.JSFProfile;
 import org.sonar.plugins.web.rules.JSPProfile;
@@ -72,8 +71,6 @@ public final class WebPlugin implements Plugin {
     list.add(Web.class);
     // web files importer
     list.add(WebSourceImporter.class);
-    // filter for NOSONAR
-    list.add(WebNoSonarFilter.class);
 
     // web rules repository
     list.add(WebRulesRepository.class);

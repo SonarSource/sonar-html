@@ -25,12 +25,12 @@ import java.io.StringReader;
 import java.util.List;
 
 import org.junit.Test;
+import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
-import org.sonar.plugins.web.language.WebNoSonarFilter;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
@@ -52,7 +52,7 @@ public class NoSonarScannerTest {
     Resource<Directory> resource = new File("test");
     WebSourceCode webSourceCode = new WebSourceCode(resource);
 
-    WebNoSonarFilter noSonarFilter = new WebNoSonarFilter();
+    NoSonarFilter noSonarFilter = new NoSonarFilter();
     NoSonarScanner noSonarScanner = new NoSonarScanner(noSonarFilter);
     PageScanner pageScanner = new PageScanner();
     pageScanner.addVisitor(noSonarScanner);

@@ -21,8 +21,6 @@ package org.sonar.plugins.web.visitor;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -64,12 +62,9 @@ public class NoSonarScanner extends DefaultNodeVisitor {
     }
   }
 
-  private static final Logger LOG = LoggerFactory.getLogger(NoSonarScanner.class);
-
   @Override
   public void endDocument() {
     if (noSonarLines != null && noSonarLines.size() > 0) {
-      LOG.warn(noSonarLines.toString());
       noSonarFilter.addResource(getWebSourceCode().getResource(), noSonarLines);
     }
   }

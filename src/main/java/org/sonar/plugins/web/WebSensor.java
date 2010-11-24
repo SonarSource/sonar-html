@@ -38,7 +38,6 @@ import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.language.WebNoSonarFilter;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.WebRulesRepository;
@@ -62,7 +61,7 @@ public final class WebSensor implements Sensor {
 
   private final NoSonarFilter noSonarFilter;
 
-  public WebSensor(RulesProfile profile, WebNoSonarFilter noSonarFilter) {
+  public WebSensor(RulesProfile profile, NoSonarFilter noSonarFilter) {
     this.profile = profile;
     this.noSonarFilter = noSonarFilter;
   }
