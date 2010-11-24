@@ -47,20 +47,20 @@ import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
- * TODO: WebSensor should only do rules for WebRulesRepository
- * Linecounting should go in separate component
+ * WebSensor provides analysis of web files.
  *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public final class WebSensor implements Sensor {
 
-  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
-
   private final static Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
-  private final RulesProfile profile;
+  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
   private final NoSonarFilter noSonarFilter;
+
+  private final RulesProfile profile;
 
   private final Web web;
 
@@ -74,19 +74,11 @@ public final class WebSensor implements Sensor {
 
     ProjectConfiguration.configureSourceDir(project);
 
-    final PageCountLines pageLineCounter = new PageCountLines();
-
     // configure the lexer
     final PageLexer lexer = new PageLexer();
 
-    // configure scanner
-    final PageScanner scanner = new PageScanner();
-    for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
-      scanner.addVisitor(check);
-    }
-    scanner.addVisitor(pageLineCounter);
-    scanner.addVisitor(new WebDependencyDetector(web));
-    scanner.addVisitor(new NoSonarScanner(noSonarFilter));
+    // configure page scanner and the visitors
+    final PageScanner scanner = setupScanner();
 
     for (java.io.File webFile : project.getFileSystem().getSourceFiles(new Web(project))) {
 
@@ -96,7 +88,6 @@ public final class WebSensor implements Sensor {
         WebSourceCode sourceCode = new WebSourceCode(resource);
         List<Node> nodeList = lexer.parse(new FileReader(webFile));
         scanner.scan(nodeList, sourceCode);
-      //  pageLineCounter.count(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);
 
       } catch (Exception e) {
@@ -121,6 +112,20 @@ public final class WebSensor implements Sensor {
     for (Dependency dependency : sourceCode.getDependencies()) {
       sensorContext.saveDependency(dependency);
     }
+  }
+
+  /**
+   * Create PageScanner with Visitors.
+   */
+  private PageScanner setupScanner() {
+    PageScanner scanner = new PageScanner();
+    for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
+      scanner.addVisitor(check);
+    }
+    scanner.addVisitor(new PageCountLines());
+    scanner.addVisitor(new WebDependencyDetector(web));
+    scanner.addVisitor(new NoSonarScanner(noSonarFilter));
+    return scanner;
   }
 
   /**
