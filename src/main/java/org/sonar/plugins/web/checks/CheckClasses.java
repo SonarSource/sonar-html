@@ -32,6 +32,7 @@ import org.sonar.plugins.web.checks.coding.UnclosedTagCheck;
 import org.sonar.plugins.web.checks.dependencies.DynamicJspIncludeCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalNamespaceCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalTagLibsCheck;
+import org.sonar.plugins.web.checks.dependencies.LibraryDependencyCheck;
 import org.sonar.plugins.web.checks.generic.RegularExpressionCheck;
 import org.sonar.plugins.web.checks.header.DocTypeCheck;
 import org.sonar.plugins.web.checks.header.HeaderCheck;
@@ -68,6 +69,7 @@ public final class CheckClasses {
     InlineStyleCheck.class,
     InternationalizationCheck.class,
     JspScriptletCheck.class,
+    LibraryDependencyCheck.class,
     LongJavaScriptCheck.class,
     MaxLineLengthCheck.class,
     ParentElementIllegalCheck.class,

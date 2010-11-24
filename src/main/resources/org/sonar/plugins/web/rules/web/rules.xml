@@ -46,6 +46,16 @@
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
+      <key>LibraryDependencyCheck</key>
+      <parameters>
+        <parameter>
+          <key>libraries</key>
+          <value>java.sql,javax.sql</value>
+        </parameter>
+      </parameters>
+    </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
       <key>LongJavaScriptCheck</key>
       <parameters>
         <parameter>
