@@ -18,13 +18,10 @@
 
 package org.sonar.plugins.web;
 
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.io.File;
 import java.io.FileReader;
 import java.net.URISyntaxException;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.configuration.MapConfiguration;
@@ -32,16 +29,15 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.sonar.api.CoreProperties;
 import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
+import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  *
@@ -50,17 +46,44 @@ import org.sonar.plugins.web.language.Web;
  */
 public class AbstractWebPluginTester {
 
-  private static MavenProject loadPom() throws URISyntaxException {
-    File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
+  private class WebRuleFinder implements RuleFinder {
+
+    private final WebRulesRepository repository;
+    private final List<Rule> rules;
+
+    public WebRuleFinder() {
+      repository = new WebRulesRepository(newServerFileSystem());
+      rules = repository.createRules();
+    }
+
+    public Rule find(RuleQuery query) {
+      return null;
+    }
+
+    public Collection<Rule> findAll(RuleQuery query) {
+      return null;
+    }
+
+    public Rule findByKey(String repositoryKey, String key) {
+      for (Rule rule : rules) {
+        if (rule.getKey().equals(key)) {
+          return rule;
+        }
+      }
+      return null;
+    }
+  }
+
+  private static MavenProject loadPom(File pomFile) throws URISyntaxException {
 
     FileReader fileReader = null;
     try {
-      MavenXpp3Reader pomReader = new MavenXpp3Reader();
       fileReader = new FileReader(pomFile);
-      Model model = pomReader.read(fileReader);
+      Model model = new MavenXpp3Reader().read(fileReader);
       MavenProject project = new MavenProject(model);
       project.setFile(pomFile);
-      project.getBuild().setDirectory(pomFile.getParentFile().getPath());
+      project.addCompileSourceRoot(project.getBuild().getSourceDirectory());
+
       return project;
     } catch (Exception e) {
       throw new SonarException("Failed to read Maven project file : " + pomFile.getPath(), e);
@@ -69,46 +92,31 @@ public class AbstractWebPluginTester {
     }
   }
 
-  protected static Project loadProjectFromPom() throws Exception {
-    MavenProject pom = loadPom();
+  protected static Project loadProjectFromPom(File pomFile) throws Exception {
+    MavenProject pom = loadPom(pomFile);
     Project project = new Project(pom.getGroupId() + ":" + pom.getArtifactId()).setPom(pom).setConfiguration(
         new MapConfiguration(pom.getProperties()));
     project.setFileSystem(new DefaultProjectFileSystem(project));
     project.setPom(pom);
-
-    String languageKey = pom.getProperties().getProperty(CoreProperties.PROJECT_LANGUAGE_PROPERTY);
-
-    project.setLanguageKey(languageKey);
-    if (Web.INSTANCE.getKey().equals(languageKey)) {
-      project.setLanguage(Web.INSTANCE);
-    }
-
-    pom.addCompileSourceRoot(pom.getBuild().getSourceDirectory());
+    project.setLanguageKey(Web.INSTANCE.getKey());
+    project.setLanguage(Web.INSTANCE);
 
     return project;
   }
 
   protected RuleFinder newRuleFinder() {
-    RuleFinder ruleFinder = mock(RuleFinder.class);
-    when(ruleFinder.findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>(){
-      public Rule answer(InvocationOnMock iom) throws Throwable {
-        return Rule.create((String) iom.getArguments()[0], (String) iom.getArguments()[1], (String) iom.getArguments()[1]);
-      }
-    });
-    return ruleFinder;
+    return new WebRuleFinder();
   }
 
   protected ServerFileSystem newServerFileSystem() {
 
     return new ServerFileSystem() {
 
-      public File getHomeDir() {
-        // TODO Auto-generated method stub
+      public List<File> getExtensions(String dirName, String... suffixes) {
         return null;
       }
 
-      public List<File> getExtensions(String dirName, String... suffixes) {
-        // TODO Auto-generated method stub
+      public File getHomeDir() {
         return null;
       }
     };

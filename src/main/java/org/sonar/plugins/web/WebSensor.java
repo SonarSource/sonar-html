@@ -36,7 +36,6 @@ import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
-import org.sonar.plugins.web.analyzers.WebDependencyDetector;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
@@ -123,7 +122,8 @@ public final class WebSensor implements Sensor {
       scanner.addVisitor(check);
     }
     scanner.addVisitor(new PageCountLines());
-    scanner.addVisitor(new WebDependencyDetector(web));
+   // dependencies not yet supported in v 1.0
+   // scanner.addVisitor(new WebDependencyDetector(web));
     scanner.addVisitor(new NoSonarScanner(noSonarFilter));
     return scanner;
   }

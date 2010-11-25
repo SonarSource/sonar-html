@@ -46,7 +46,7 @@ public class MockSensorContext implements SensorContext {
 
   private int numResources;
 
-  private final List violations = new ArrayList<Violation>();
+  private final List<Violation> violations = new ArrayList<Violation>();
 
   public Event createEvent(Resource resource, String name, String description, String category, Date date) {
     // TODO Auto-generated method stub
@@ -55,12 +55,10 @@ public class MockSensorContext implements SensorContext {
 
   public void deleteEvent(Event event) {
     // TODO Auto-generated method stub
-
   }
 
   public void deleteLink(String key) {
     // TODO Auto-generated method stub
-
   }
 
   public Set<Dependency> getDependencies() {

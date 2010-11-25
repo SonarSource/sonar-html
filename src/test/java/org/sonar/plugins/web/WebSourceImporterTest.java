@@ -20,6 +20,8 @@ package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.sonar.api.resources.Project;
 
@@ -31,7 +33,8 @@ public class WebSourceImporterTest extends AbstractWebPluginTester {
   @Test
   public void testImporter() throws Exception {
 
-    final Project project = loadProjectFromPom();
+    File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
+    final Project project = loadProjectFromPom(pomFile);
 
     WebSourceImporter importer = new WebSourceImporter(project);
 

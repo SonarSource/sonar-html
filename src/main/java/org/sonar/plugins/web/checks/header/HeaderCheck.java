@@ -61,7 +61,7 @@ public class HeaderCheck extends AbstractPageCheck {
         hasHeader = true;
       } else {
         createViolation(0, "Header is not in correct format");
-        LOG.warn("Header is not in valid format");
+        LOG.debug("Header is not in valid format");
       }
     }
     visiting = false;

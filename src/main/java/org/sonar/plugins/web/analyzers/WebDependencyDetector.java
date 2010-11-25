@@ -51,10 +51,14 @@ public class WebDependencyDetector extends DefaultNodeVisitor {
   private void addDependency(String path) {
 
     if (supportedExtension(path)) {
-      File dependencyFile = new File(path);
+      final File dependencyFile;
+      if (path.startsWith("/")) {
+        dependencyFile = new File(path.substring(1));
+      } else {
+        dependencyFile = new File(path);
+      }
 
-      LOG.debug(String.format("dependency from %s -> %s",
-          getWebSourceCode().getResource().getName(), dependencyFile.getLongName()));
+      LOG.debug(String.format("dependency from %s -> %s", getWebSourceCode().getResource().getName(), dependencyFile.getLongName()));
 
       getWebSourceCode().addDependency(dependencyFile);
     }

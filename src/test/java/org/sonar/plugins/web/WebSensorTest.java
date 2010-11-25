@@ -21,8 +21,7 @@ package org.sonar.plugins.web;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Collection;
-import java.util.List;
+import java.io.File;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -31,13 +30,9 @@ import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleFinder;
-import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
-import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
@@ -48,13 +43,15 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
   @Test
   public void testSensor() throws Exception {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(new WebRuleFinder());
+    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
     RulesProfile profile = profileDefinition.createProfile(ValidationMessages.create());
     NoSonarFilter noSonarFilter = new NoSonarFilter();
     WebSensor sensor = new WebSensor(new Web(), profile, noSonarFilter);
     assertNotNull(sensor.toString());
 
-    final Project project = loadProjectFromPom();
+    File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
+
+    final Project project = loadProjectFromPom(pomFile);
 
     assertTrue(sensor.shouldExecuteOnProject(project));
 
@@ -62,35 +59,5 @@ public class WebSensorTest extends AbstractWebPluginTester {
     sensor.analyse(project, sensorContext);
 
     assertTrue("Should have found 1 violation", sensorContext.getViolations().size() > 0);
-  }
-
-  private class WebRuleFinder implements RuleFinder {
-
-    private final WebRulesRepository repository;
-    private final List<Rule> rules;
-
-    public WebRuleFinder() {
-      repository = new WebRulesRepository(newServerFileSystem());
-      rules = repository.createRules();
-    }
-
-    public Rule findByKey(String repositoryKey, String key) {
-      for (Rule rule : rules) {
-        if (rule.getKey().equals(key)) {
-          return rule;
-        }
-      }
-      return null;
-    }
-
-    public Collection<Rule> findAll(RuleQuery query) {
-      // TODO Auto-generated method stub
-      return null;
-    }
-
-    public Rule find(RuleQuery query) {
-      // TODO Auto-generated method stub
-      return null;
-    }
   }
 }
