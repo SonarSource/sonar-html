@@ -19,6 +19,7 @@
 package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
@@ -50,5 +51,26 @@ public class WebSensorTest extends AbstractWebPluginTester {
     sensor.analyse(project, sensorContext);
 
     assertTrue("Should have found 1 violation", sensorContext.getViolations().size() > 0);
+  }
+
+  /**
+   * Simple Unit test version of the integration test StandardMeasuresIT.
+   * The purpose of this test is to get early feedback on changes in the
+   * nr of violations.
+   */
+  @Test
+  public void testStandardMeasuresIntegrationTest() throws Exception {
+
+    File pomFile = new File("source-its/projects/continuum-webapp/pom.xml");
+    final Project project = loadProjectFromPom(pomFile);
+
+    MockSensorContext sensorContext = new MockSensorContext();
+
+    // sensor
+    WebSensor sensor = new WebSensor(createStandardRulesProfile(), new NoSonarFilter());
+    assertTrue(sensor.shouldExecuteOnProject(project));
+    sensor.analyse(project, sensorContext);
+
+    assertEquals(991, sensorContext.getViolations().size());
   }
 }
