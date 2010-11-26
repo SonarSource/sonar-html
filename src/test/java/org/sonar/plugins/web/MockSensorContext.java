@@ -43,8 +43,7 @@ public class MockSensorContext implements SensorContext {
 
   private Measure measure;
   private final Map<Resource, List<Measure>> measures = new HashMap<Resource, List<Measure>>();
-
-  private int numResources;
+  private final List<Resource> resources = new ArrayList<Resource>();
 
   private final List<Violation> violations = new ArrayList<Violation>();
 
@@ -104,7 +103,7 @@ public class MockSensorContext implements SensorContext {
   }
 
   public int getNumResources() {
-    return numResources;
+    return resources.size();
   }
 
   public Collection<Dependency> getOutgoingDependencies(Resource from) {
@@ -155,12 +154,12 @@ public class MockSensorContext implements SensorContext {
   }
 
   public String saveResource(Resource resource) {
-    numResources ++;
+    resources.add(resource);
     return null;
   }
 
   public void saveSource(Resource resource, String source) {
-    numResources ++;
+    resources.add(resource);
   }
 
   public void saveViolation(Violation violation) {
@@ -170,5 +169,9 @@ public class MockSensorContext implements SensorContext {
   public void saveViolations(Collection<Violation> violations) {
     // TODO Auto-generated method stub
 
+  }
+
+  public List<Resource> getResources() {
+    return resources;
   }
 }

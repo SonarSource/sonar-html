@@ -19,13 +19,16 @@
 package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.Resource;
 
 /**
  * @author Matthijs Galesloot
@@ -43,7 +46,12 @@ public class WebSourceImporterTest extends AbstractWebPluginTester {
     assertTrue("Importer only supports web projects", importer.shouldExecuteOnProject(project));
     MockSensorContext sensorContext = new MockSensorContext();
     importer.analyse(project, sensorContext);
-    assertTrue(sensorContext.getNumResources() > 0);
+
+    for (Resource resource : sensorContext.getResources()) {
+      assertFalse(StringUtils.equals("file-not-imported.jsp", resource.getKey()));
+    }
+
+    assertEquals(3, sensorContext.getNumResources());
   }
 
   @Test
