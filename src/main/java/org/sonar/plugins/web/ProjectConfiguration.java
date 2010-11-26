@@ -26,7 +26,7 @@ import org.sonar.api.resources.Project;
  * Utilities and constants for the project configuration.
  *
  * @author Matthijs Galesloot
- *
+ * @since 1.0
  */
 public final class ProjectConfiguration {
 

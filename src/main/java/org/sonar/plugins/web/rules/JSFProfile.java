@@ -29,6 +29,12 @@ import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 
+/**
+ * Profile with checks applicable for JSF.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public final class JSFProfile extends ProfileDefinition {
 
   private static final String JSF_RULES = "org/sonar/plugins/web/rules/web/jsf-rules.xml";

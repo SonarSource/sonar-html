@@ -30,6 +30,12 @@ import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 
+/**
+ * Default web profile with all available checks.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public final class DefaultWebProfile extends ProfileDefinition {
 
   private static final String ALL_RULES = "org/sonar/plugins/web/rules/web/rules.xml";

@@ -28,7 +28,7 @@ import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 
 /**
- * Parse a DOCTYPE node.
+ * Tokenizer for DOCTYPE node.
  *
  * @author Matthijs Galesloot
  * @since 1.0

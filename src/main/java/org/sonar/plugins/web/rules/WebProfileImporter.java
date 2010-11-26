@@ -27,6 +27,12 @@ import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.language.Web;
 
+/**
+ * Import a web profile.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public class WebProfileImporter extends ProfileImporter {
 
   private final RuleFinder ruleFinder;

@@ -23,6 +23,12 @@ import java.util.List;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 
+/**
+ * Tokenizer for a HTML or JSP comment.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 class CommentTokenizer extends AbstractTokenizer<List<Node>> {
 
   private final Boolean html;

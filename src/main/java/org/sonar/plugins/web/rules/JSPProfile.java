@@ -29,6 +29,12 @@ import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 
+/**
+ * Default web profile with checks applicable for JSP.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public final class JSPProfile extends ProfileDefinition {
 
   private static final String JSP_RULES = "org/sonar/plugins/web/rules/web/jsp-rules.xml";

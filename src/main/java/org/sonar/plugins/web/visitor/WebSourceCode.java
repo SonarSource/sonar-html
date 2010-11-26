@@ -32,6 +32,7 @@ import org.sonar.squid.api.SourceCodeEdgeUsage;
  * Checks and analyzers report measurements, violations and other findings in WebSourceCode.
  *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public class WebSourceCode {
 

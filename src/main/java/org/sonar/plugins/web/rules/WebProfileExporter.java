@@ -25,6 +25,12 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileSerializer;
 import org.sonar.plugins.web.language.Web;
 
+/**
+ * Export a web profile.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public class WebProfileExporter extends ProfileExporter {
 
   public WebProfileExporter() {

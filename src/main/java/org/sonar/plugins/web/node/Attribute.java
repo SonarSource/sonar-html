@@ -18,6 +18,12 @@
 
 package org.sonar.plugins.web.node;
 
+/**
+ * Defines an attribute of a node.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public class Attribute {
 
   private String name;

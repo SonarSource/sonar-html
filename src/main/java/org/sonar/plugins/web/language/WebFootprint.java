@@ -25,8 +25,9 @@ import org.sonar.squid.recognizer.Detector;
 import org.sonar.squid.recognizer.LanguageFootprint;
 
 /**
- * 
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 final class WebFootprint implements LanguageFootprint {
 

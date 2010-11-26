@@ -21,6 +21,12 @@ package org.sonar.plugins.web.lex;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 
+/**
+ * Tokenizer for directives.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 class DirectiveTokenizer extends ElementTokenizer {
 
   public DirectiveTokenizer(String startToken, String endToken) {

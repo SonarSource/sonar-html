@@ -20,6 +20,12 @@ package org.sonar.plugins.web.node;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Defines a text node.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public class TextNode extends Node {
 
   public TextNode() {

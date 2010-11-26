@@ -27,8 +27,9 @@ import org.sonar.plugins.web.node.TextNode;
 
 /**
  * Defines interface for node visitor.
- * 
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public interface NodeVisitor {
 

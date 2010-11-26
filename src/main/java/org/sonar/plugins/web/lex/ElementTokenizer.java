@@ -29,7 +29,10 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
+ * Tokenizer for elements.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 

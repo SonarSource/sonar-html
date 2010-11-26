@@ -37,8 +37,12 @@ import org.sonar.api.utils.SonarException;
 import org.sonar.check.Cardinality;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
+
 /**
+ * Repository for web rules.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public final class WebRulesRepository extends RuleRepository {
 

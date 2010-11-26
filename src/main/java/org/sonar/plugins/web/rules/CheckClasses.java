@@ -54,6 +54,8 @@ import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 /**
  * Provides a list of available checks.
  *
+ * @author Matthijs Galesloot
+ * @since 1.0
  */
 final class CheckClasses {
 

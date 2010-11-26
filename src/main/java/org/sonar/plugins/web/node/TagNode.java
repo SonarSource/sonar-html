@@ -24,7 +24,10 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Defines a tag.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public class TagNode extends Node {
 

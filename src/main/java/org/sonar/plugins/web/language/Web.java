@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.api.resources.Project;
+import org.sonar.plugins.web.ProjectConfiguration;
 
 /**
  * This class defines the Web language.
@@ -56,7 +57,7 @@ public class Web extends AbstractLanguage {
   public Web(Project project) {
     this();
 
-    List<?> extensions = project.getConfiguration().getList(WebProperties.FILE_EXTENSIONS);
+    List<?> extensions = project.getConfiguration().getList(ProjectConfiguration.FILE_EXTENSIONS);
 
     if (extensions != null && extensions.size() > 0 && !StringUtils.isEmpty((String) extensions.get(0))) {
       fileSuffixes = new String[extensions.size()];

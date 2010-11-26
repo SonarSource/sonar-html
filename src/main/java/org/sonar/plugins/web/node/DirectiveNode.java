@@ -19,7 +19,10 @@
 package org.sonar.plugins.web.node;
 
 /**
+ * Defines a directive.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public class DirectiveNode extends TagNode {
 

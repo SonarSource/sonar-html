@@ -21,7 +21,10 @@ package org.sonar.plugins.web.node;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Defines a node.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public abstract class Node {
 

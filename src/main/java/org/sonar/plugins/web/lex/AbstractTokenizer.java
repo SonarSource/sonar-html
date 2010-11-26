@@ -27,7 +27,10 @@ import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Node;
 
 /**
+ * AbstractTokenizer provides basic token parsing.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 

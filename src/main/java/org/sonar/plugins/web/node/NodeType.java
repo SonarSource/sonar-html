@@ -18,6 +18,12 @@
 
 package org.sonar.plugins.web.node;
 
+/**
+ * Defines nodetypes.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public enum NodeType {
   Comment, Directive, Expression, Tag, Text
 }

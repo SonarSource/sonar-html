@@ -30,6 +30,7 @@ import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
  * Experimental: generate web dependencies.
  *
  * @author Matthijs Galesloot
+ * @since ?
  */
 public class WebDependencyDetector extends DefaultNodeVisitor {
 

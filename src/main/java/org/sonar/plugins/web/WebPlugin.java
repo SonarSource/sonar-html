@@ -35,7 +35,10 @@ import org.sonar.plugins.web.rules.WebProfileImporter;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
+ * Web Plugin publishes extensions to sonar engine.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 @Properties({
 @Property(key = ProjectConfiguration.CPD_MINIMUM_TOKENS, defaultValue = "70",

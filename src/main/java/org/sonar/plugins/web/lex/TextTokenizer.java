@@ -26,7 +26,10 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
 
 /**
+ * Tokenizer for content.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  *
  *         TODO - handle CDATA
  */

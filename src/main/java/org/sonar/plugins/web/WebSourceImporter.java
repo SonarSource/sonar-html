@@ -30,7 +30,10 @@ import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.language.Web;
 
 /**
+ * Import of source files to sonar database.
+ *
  * @author Matthijs Galesloot
+ * @since 1.0
  */
 public final class WebSourceImporter extends AbstractSourceImporter {
 

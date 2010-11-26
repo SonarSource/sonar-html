@@ -30,6 +30,8 @@ import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
+ * Lexical analysis of a web page.
+ *
  * @author Matthijs Galesloot
  */
 @SuppressWarnings("unchecked")

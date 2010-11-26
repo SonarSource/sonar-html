@@ -28,6 +28,12 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
+/**
+ * Scans the nodes of a page and send events to the visitors.
+ *
+ * @author Matthijs Galesloot
+ * @since 1.0
+ */
 public class PageScanner {
 
   private final List<DefaultNodeVisitor> visitors = new ArrayList<DefaultNodeVisitor>();
