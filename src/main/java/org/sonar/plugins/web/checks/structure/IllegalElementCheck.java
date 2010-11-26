@@ -24,7 +24,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
@@ -50,7 +49,7 @@ public class IllegalElementCheck extends AbstractPageCheck {
   }
 
   public void setElements(String elementList) {
-    elements = Utils.trimSplitCommaSeparatedList(elementList);
+    elements = trimSplitCommaSeparatedList(elementList);
   }
 
   @Override

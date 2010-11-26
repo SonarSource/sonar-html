@@ -24,7 +24,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
@@ -53,7 +52,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode textNode) {
-    if ( !Utils.isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
+    if ( !isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
       createViolation(textNode);
     }
   }
@@ -66,7 +65,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
           String value = element.getAttribute(attribute.getAttributeName());
           if (value != null) {
             value = value.trim();
-            if (value.length() > 0 && !Utils.isUnifiedExpression(value) && !isPunctuationOrSpace(value)) {
+            if (value.length() > 0 && !isUnifiedExpression(value) && !isPunctuationOrSpace(value)) {
               createViolation(element);
               return;
             }

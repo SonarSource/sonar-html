@@ -37,7 +37,6 @@ import org.sonar.api.utils.AnnotationUtils;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Cardinality;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.CheckClasses;
 import org.sonar.plugins.web.language.Web;
 /**
  * @author Matthijs Galesloot

@@ -27,7 +27,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
@@ -59,7 +58,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
   }
 
   public void setAttributes(String list) {
-    for (String item : Utils.trimSplitCommaSeparatedList(list)) {
+    for (String item : trimSplitCommaSeparatedList(list)) {
       String[] pair = StringUtils.split(item, ".");
       if (pair.length > 1) {
         RequiredAttribute a = new RequiredAttribute();

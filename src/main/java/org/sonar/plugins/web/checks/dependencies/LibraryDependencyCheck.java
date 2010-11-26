@@ -24,7 +24,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -50,7 +49,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
   }
 
   public void setLibraries(String list) {
-    libraries = Utils.trimSplitCommaSeparatedList(list);
+    libraries = trimSplitCommaSeparatedList(list);
   }
 
   @Override

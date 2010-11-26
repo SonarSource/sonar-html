@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks;
+package org.sonar.plugins.web.rules;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,10 +52,10 @@ import org.sonar.plugins.web.checks.whitespace.IllegalTabCheck;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 
 /**
- * Provides a list of available XHTML checks.
+ * Provides a list of available checks.
  *
  */
-public final class CheckClasses {
+final class CheckClasses {
 
   private static final Class[] CLASSES = new Class[] {
     AvoidHtmlCommentCheck.class,

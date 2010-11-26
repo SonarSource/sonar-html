@@ -26,7 +26,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
@@ -35,7 +34,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * Checks cyclomatic complexity against a specified limit. The complexity is measured by counting decision tags (such as if and forEach) and
  * boolean operators in expressions ("&amp;&amp;" and "||"), plus one for the body of the document. It is a measure of the minimum number of
  * possible paths to render the page.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
@@ -85,11 +84,11 @@ public final class ComplexityCheck extends AbstractPageCheck {
   }
 
   public void setOperators(String value) {
-    this.operators = Utils.trimSplitCommaSeparatedList(value);
+    this.operators = trimSplitCommaSeparatedList(value);
   }
 
   public void setTags(String value) {
-    this.tags = Utils.trimSplitCommaSeparatedList(value);
+    this.tags = trimSplitCommaSeparatedList(value);
   }
 
   @Override
@@ -107,7 +106,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
     } else {
       // count complexity in expressions
       for (Attribute a : node.getAttributes()) {
-        if (Utils.isUnifiedExpression(a.getValue())) {
+        if (isUnifiedExpression(a.getValue())) {
           String[] tokens = StringUtils.split(a.getValue(), " \t\n");
 
           for (String token : tokens) {

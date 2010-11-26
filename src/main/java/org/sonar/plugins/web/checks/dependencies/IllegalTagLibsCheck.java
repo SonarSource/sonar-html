@@ -24,7 +24,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.Utils;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 
@@ -61,6 +60,6 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
   }
 
   public void setIgnoreTags(String value) {
-    tagLibs = Utils.trimSplitCommaSeparatedList(value);
+    tagLibs = trimSplitCommaSeparatedList(value);
   }
 }

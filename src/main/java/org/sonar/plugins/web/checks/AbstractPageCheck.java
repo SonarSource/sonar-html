@@ -76,6 +76,18 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     return sb.toString();
   }
 
+  public boolean isUnifiedExpression(String value) {
+    return value != null && value.length() > 0 && (value.contains("#{") || value.contains("${"));
+  }
+
+  public String[] trimSplitCommaSeparatedList(String value) {
+    String[] tokens = StringUtils.split(value, ",");
+    for (int i = 0; i < tokens.length; i++) {
+      tokens[i] = tokens[i].trim();
+    }
+    return tokens;
+  }
+
   public QualifiedAttribute[] parseAttributes(String attributesList) {
     String[] qualifiedAttributeList = StringUtils.split(attributesList, ",");
 
