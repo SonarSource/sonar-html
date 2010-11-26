@@ -23,6 +23,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 
@@ -58,7 +59,6 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
       switch (ch) {
         case '!':
         case '=':
-        case '@':
           position++;
           if (code.length() > position && !Character.isWhitespace(code.charAt(position))) {
             createViolation(node);
@@ -82,6 +82,14 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
     } else {
       checkStartWhitespace(node, node.getCode(), "<%--");
       checkEndWhitespace(node, node.getCode(), "--%>");
+    }
+  }
+
+  @Override
+  public void directive(DirectiveNode node) {
+    if (node.isJsp()) {
+      checkStartWhitespace(node, node.getCode(), "<%@");
+      checkEndWhitespace(node, node.getCode(), "%>");
     }
   }
 

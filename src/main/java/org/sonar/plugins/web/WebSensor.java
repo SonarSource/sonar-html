@@ -61,10 +61,7 @@ public final class WebSensor implements Sensor {
 
   private final RulesProfile profile;
 
-  private final Web web;
-
-  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter) {
-    this.web = web;
+  public WebSensor(RulesProfile profile, NoSonarFilter noSonarFilter) {
     this.profile = profile;
     this.noSonarFilter = noSonarFilter;
   }

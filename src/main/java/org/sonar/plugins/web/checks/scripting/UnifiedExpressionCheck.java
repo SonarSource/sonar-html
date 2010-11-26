@@ -68,7 +68,6 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
 
       if (e.getMessage().startsWith("Error")) {
         createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + e.getMessage());
-        // System.out.println(attribute + ">>" + value + " "+ e.getMessage());
       }
     }
   }

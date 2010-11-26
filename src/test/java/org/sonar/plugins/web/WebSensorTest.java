@@ -19,7 +19,6 @@
 package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
@@ -27,12 +26,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.checks.NoSonarFilter;
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.web.language.Web;
-import org.sonar.plugins.web.rules.DefaultWebProfile;
 
 /**
  * @author Matthijs Galesloot
@@ -43,11 +37,8 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
   @Test
   public void testSensor() throws Exception {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
-    RulesProfile profile = profileDefinition.createProfile(ValidationMessages.create());
     NoSonarFilter noSonarFilter = new NoSonarFilter();
-    WebSensor sensor = new WebSensor(new Web(), profile, noSonarFilter);
-    assertNotNull(sensor.toString());
+    WebSensor sensor = new WebSensor(createStandardRulesProfile(), noSonarFilter);
 
     File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
 

@@ -18,6 +18,8 @@
 
 package org.sonar.plugins.web;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileReader;
 import java.net.URISyntaxException;
@@ -30,13 +32,17 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
 import org.sonar.api.platform.ServerFileSystem;
+import org.sonar.api.profiles.ProfileDefinition;
+import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.SonarException;
+import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
@@ -52,7 +58,7 @@ public class AbstractWebPluginTester {
     private final List<Rule> rules;
 
     public WebRuleFinder() {
-      repository = new WebRulesRepository(newServerFileSystem());
+      repository = new WebRulesRepository();
       rules = repository.createRules();
     }
 
@@ -74,6 +80,19 @@ public class AbstractWebPluginTester {
     }
   }
 
+  /**
+   * create standard rules profile
+   */
+  protected RulesProfile createStandardRulesProfile() {
+    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
+    ValidationMessages messages = ValidationMessages.create();
+    RulesProfile profile = profileDefinition.createProfile(messages);
+    assertEquals(0, messages.getErrors().size());
+    assertEquals(0, messages.getWarnings().size());
+    assertEquals(0, messages.getInfos().size());
+    return profile;
+  }
+
   private static MavenProject loadPom(File pomFile) throws URISyntaxException {
 
     FileReader fileReader = null;
@@ -92,7 +111,7 @@ public class AbstractWebPluginTester {
     }
   }
 
-  protected static Project loadProjectFromPom(File pomFile) throws Exception {
+  protected Project loadProjectFromPom(File pomFile) throws Exception {
     MavenProject pom = loadPom(pomFile);
     Project project = new Project(pom.getGroupId() + ":" + pom.getArtifactId()).setPom(pom).setConfiguration(
         new MapConfiguration(pom.getProperties()));

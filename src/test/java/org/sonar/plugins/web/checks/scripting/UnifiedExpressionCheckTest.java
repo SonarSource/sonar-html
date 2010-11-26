@@ -26,13 +26,22 @@ import java.io.StringReader;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
 public class UnifiedExpressionCheckTest extends AbstractCheckTester {
+
+  @Test
+  public void violateUnifiedExpressionCheck() throws FileNotFoundException {
+
+    String fragment = "<tag expression=\"#{bean.getExpression() => 0} \"";
+
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class );
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  }
 
   @Test
   public void testUnifiedExpressionCheck() throws FileNotFoundException {

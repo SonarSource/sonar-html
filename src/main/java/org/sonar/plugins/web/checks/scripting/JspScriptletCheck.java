@@ -38,8 +38,6 @@ import org.sonar.plugins.web.node.TagNode;
     isoCategory = IsoCategory.Maintainability)
 public class JspScriptletCheck extends AbstractPageCheck {
 
-  private int maxLines; // TODO
-
   @Override
   public void expression(ExpressionNode node) {
     createViolation(node);

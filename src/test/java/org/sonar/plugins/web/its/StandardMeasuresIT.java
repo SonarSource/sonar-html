@@ -68,15 +68,15 @@ public class StandardMeasuresIT {
     assertNull(getProjectMeasure("function_complexity_distribution"));
     assertThat(getProjectMeasure("file_complexity").getValue(), is(3.8));
     assertThat(getProjectMeasure("file_complexity_distribution").getData(), is("0=73;5=22;10=7;20=1;30=0;60=0;90=0"));
-    assertThat(getProjectMeasure("violations").getIntValue(), is(949));
-    assertThat(getProjectMeasure("weighted_violations").getIntValue(), is(1557));
-    assertThat(getProjectMeasure("violations_density").getValue(), is(77.2));
+    assertThat(getProjectMeasure("violations").getIntValue(), is(995));
+    assertThat(getProjectMeasure("weighted_violations").getIntValue(), is(1603));
+    assertThat(getProjectMeasure("violations_density").getValue(), is(76.5));
   }
 
   @Test
   public void directoryMeasures() {
     assertThat(getMeasure("ncloc", DIR_ROOT).getIntValue(), is(2877));
-    assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.7));
+    assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.2));
     assertThat(getMeasure("comment_lines_density", DIR_ROOT).getValue(), is(20.6));
     assertThat(getMeasure("duplicated_lines_density", DIR_ROOT).getValue(), is(1.4));
     assertThat(getMeasure("complexity", DIR_ROOT).getIntValue(), is(150));
@@ -102,9 +102,9 @@ public class StandardMeasuresIT {
     assertNull(getFileMeasure("function_complexity_distribution"));
     assertThat(getFileMeasure("file_complexity").getValue(), is(16.0));
     assertNull(getFileMeasure("file_complexity_distribution"));
-    assertThat(getFileMeasure("violations").getIntValue(), is(44));
-    assertThat(getFileMeasure("weighted_violations").getIntValue(), is(66));
-    assertThat(getFileMeasure("violations_density").getValue(), is(78.8));
+    assertThat(getFileMeasure("violations").getIntValue(), is(45));
+    assertThat(getFileMeasure("weighted_violations").getIntValue(), is(67));
+    assertThat(getFileMeasure("violations_density").getValue(), is(78.5));
   }
 
   private Measure getProjectMeasure(String metricKey) {

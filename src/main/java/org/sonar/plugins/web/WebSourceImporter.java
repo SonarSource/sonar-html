@@ -49,7 +49,7 @@ public final class WebSourceImporter extends AbstractSourceImporter {
 
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return isEnabled(project) && Web.KEY.equals(project.getLanguage().getKey());
+    return isEnabled(project) && Web.KEY.equals(project.getLanguageKey());
   }
 
   @Override

@@ -26,7 +26,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
@@ -48,13 +47,9 @@ public final class WebRulesRepository extends RuleRepository {
   public static final String REPOSITORY_NAME = "Web";
   public static final String REPOSITORY_KEY = "Web";
 
-  // for user extensions
-  private final ServerFileSystem fileSystem;
-
-  public WebRulesRepository(ServerFileSystem fileSystem) {
+  public WebRulesRepository() {
     super(REPOSITORY_KEY, Web.KEY);
     setName(REPOSITORY_NAME);
-    this.fileSystem = fileSystem;
   }
 
   @Override

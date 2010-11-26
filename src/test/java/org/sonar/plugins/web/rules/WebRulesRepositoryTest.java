@@ -40,12 +40,6 @@ import org.sonar.api.utils.ValidationMessages;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.AbstractWebPluginTester;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.rules.DefaultWebProfile;
-import org.sonar.plugins.web.rules.JSFProfile;
-import org.sonar.plugins.web.rules.JSPProfile;
-import org.sonar.plugins.web.rules.WebProfileExporter;
-import org.sonar.plugins.web.rules.WebProfileImporter;
-import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
  * @author Matthijs Galesloot
@@ -84,7 +78,7 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
   public void initializeWebRulesRepository() {
-    WebRulesRepository rulesRepository = new WebRulesRepository(newServerFileSystem());
+    WebRulesRepository rulesRepository = new WebRulesRepository();
 
     assertTrue(rulesRepository.createRules().size() > 20);
   }

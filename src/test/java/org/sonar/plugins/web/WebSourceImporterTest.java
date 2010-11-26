@@ -19,9 +19,11 @@
 package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Test;
 import org.sonar.api.resources.Project;
 
@@ -42,5 +44,17 @@ public class WebSourceImporterTest extends AbstractWebPluginTester {
     MockSensorContext sensorContext = new MockSensorContext();
     importer.analyse(project, sensorContext);
     assertTrue(sensorContext.getNumResources() > 0);
+  }
+
+  @Test
+  public void importerIsOnlyActiveOnWebProjects() throws Exception {
+
+    final Project project = new Project("test");
+    project.setConfiguration(new PropertiesConfiguration());
+    project.setLanguage(null);
+    project.setLanguageKey("java");
+
+    WebSourceImporter importer = new WebSourceImporter(project);
+    assertFalse("Importer only supports web projects", importer.shouldExecuteOnProject(project));
   }
 }
