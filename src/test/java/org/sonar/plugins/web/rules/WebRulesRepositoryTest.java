@@ -96,7 +96,7 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
     ValidationMessages validationMessages = ValidationMessages.create();
 
     // import rules
-    String path = "org/sonar/plugins/web/rules/web/jsf-rules.xml";
+    String path = DefaultWebProfile.ALL_RULES;
     Reader reader = new InputStreamReader(JSFProfile.class.getClassLoader().getResourceAsStream(path));
     RulesProfile rulesProfile1 = new WebProfileImporter(newRuleFinder()).importProfile(reader, validationMessages);
 

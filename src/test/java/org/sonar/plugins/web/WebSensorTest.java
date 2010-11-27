@@ -20,6 +20,7 @@ package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
@@ -35,6 +36,15 @@ import org.sonar.api.resources.Project;
 public class WebSensorTest extends AbstractWebPluginTester {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractWebPluginTester.class);
+
+  @Test
+  public void webPluginTester() {
+    WebPlugin webPlugin = new WebPlugin();
+    assertNotNull(webPlugin.getKey());
+    assertNotNull(webPlugin.getName());
+    assertNotNull(webPlugin.getDescription());
+    assertEquals(10, webPlugin.getExtensions().size());
+  }
 
   @Test
   public void testSensor() throws Exception {

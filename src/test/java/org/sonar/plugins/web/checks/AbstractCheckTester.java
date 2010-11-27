@@ -88,6 +88,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
       for (int i = 0; i < params.length / 2; i++) {
         BeanUtils.setProperty(check, params[i * 2], params[i * 2 + 1]);
+        assertNotNull(BeanUtils.getProperty(check, params[i * 2]));
       }
       return check;
     } catch (IllegalAccessException e) {
@@ -95,6 +96,8 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
     } catch (InstantiationException e) {
       throw new SonarException(e);
     } catch (InvocationTargetException e) {
+      throw new SonarException(e);
+    } catch (NoSuchMethodException e) {
       throw new SonarException(e);
     }
   }

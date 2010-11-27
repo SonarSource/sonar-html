@@ -58,10 +58,6 @@ public final class WebPlugin implements Plugin {
 
   private static final String KEY = "sonar-web-plugin";
 
-  public static String getKEY() {
-    return KEY;
-  }
-
   public String getDescription() {
     return getName() + " collects metrics on web code, such as lines of code, violations, documentation level...";
   }
