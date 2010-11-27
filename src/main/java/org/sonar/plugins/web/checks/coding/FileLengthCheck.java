@@ -39,7 +39,15 @@ public class FileLengthCheck extends AbstractPageCheck {
   private static final int DEFAULT_MAX_FILE_LENGTH = 500;
 
   @RuleProperty(key = "maxLength", defaultValue = "500", description = "Maximum number of lines in a file")
-  private final int maxLength = DEFAULT_MAX_FILE_LENGTH;
+  private int maxLength = DEFAULT_MAX_FILE_LENGTH;
+
+  public int getMaxLength() {
+    return maxLength;
+  }
+
+  public void setMaxLength(int maxLength) {
+    this.maxLength = maxLength;
+  }
 
   @Override
   public void endDocument() {

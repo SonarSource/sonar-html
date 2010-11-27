@@ -31,6 +31,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.resources.File;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
 import org.sonar.api.rules.AnnotationRuleParser;
@@ -40,6 +41,7 @@ import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.AbstractWebPluginTester;
+import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
@@ -66,9 +68,10 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
-    WebSourceCode webSourceCode = new WebSourceCode(null);
+    WebSourceCode webSourceCode = new WebSourceCode(new File("test"));
 
     PageScanner pageScanner = new PageScanner();
+    pageScanner.addVisitor(new PageCountLines());
     pageScanner.addVisitor(check);
     pageScanner.scan(nodeList, webSourceCode);
     return webSourceCode;

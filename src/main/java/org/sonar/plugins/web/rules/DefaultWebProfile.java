@@ -38,7 +38,7 @@ import org.sonar.api.utils.ValidationMessages;
  */
 public final class DefaultWebProfile extends ProfileDefinition {
 
-  private static final String ALL_RULES = "org/sonar/plugins/web/rules/web/rules.xml";
+  public static final String ALL_RULES = "org/sonar/plugins/web/rules/web/rules.xml";
 
   private final RuleFinder ruleFinder;
 

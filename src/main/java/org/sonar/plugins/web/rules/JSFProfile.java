@@ -21,11 +21,15 @@ package org.sonar.plugins.web.rules;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.CharEncoding;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
+import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 
@@ -37,7 +41,12 @@ import org.sonar.api.utils.ValidationMessages;
  */
 public final class JSFProfile extends ProfileDefinition {
 
-  private static final String JSF_RULES = "org/sonar/plugins/web/rules/web/jsf-rules.xml";
+  private final String[] notSupportedRules = new String[] {
+    "AvoidHtmlCommentCheck",
+    "DynamicJspIncludeCheck",
+    "IllegalTagLibsCheck",
+    "MultiplePageDirectivesCheck"
+  };
 
   private final RuleFinder ruleFinder;
 
@@ -48,8 +57,21 @@ public final class JSFProfile extends ProfileDefinition {
   @Override
   public RulesProfile createProfile(ValidationMessages validationMessages) {
     XMLProfileParser parser = new XMLProfileParser(ruleFinder);
-    Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(JSF_RULES),
+    Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(DefaultWebProfile.ALL_RULES),
         Charset.forName(CharEncoding.UTF_8));
-    return parser.parse(reader, validationMessages);
+    RulesProfile profile = parser.parse(reader, validationMessages);
+    profile.setName("JSF Profile");
+
+    // find rules not applicable for JSF
+    List<ActiveRule> removeRules = new ArrayList<ActiveRule>();
+    for (ActiveRule activeRule : profile.getActiveRules()) {
+      if (ArrayUtils.contains(notSupportedRules , activeRule.getConfigKey())) {
+        removeRules.add(activeRule);
+      }
+    }
+
+    // remove not applicable rules
+    profile.getActiveRules().removeAll(removeRules);
+    return profile;
   }
 }

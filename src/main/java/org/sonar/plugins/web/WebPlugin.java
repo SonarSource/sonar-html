@@ -29,7 +29,6 @@ import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.JSFProfile;
-import org.sonar.plugins.web.rules.JSPProfile;
 import org.sonar.plugins.web.rules.WebProfileExporter;
 import org.sonar.plugins.web.rules.WebProfileImporter;
 import org.sonar.plugins.web.rules.WebRulesRepository;
@@ -83,7 +82,6 @@ public final class WebPlugin implements Plugin {
     // profiles
     list.add(DefaultWebProfile.class);
     list.add(JSFProfile.class);
-    list.add(JSPProfile.class);
 
     // web sensor
     list.add(WebSensor.class);

@@ -67,16 +67,6 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
   }
 
   @Test
-  public void createJSPProfile() {
-    ProfileDefinition profileDefinition = new JSPProfile(newRuleFinder());
-    ValidationMessages validationMessages = ValidationMessages.create();
-    RulesProfile profile = profileDefinition.createProfile(validationMessages);
-
-    assertThat(profile.getActiveRulesByRepository(WebRulesRepository.REPOSITORY_KEY).size(), greaterThan(1));
-    assertThat(validationMessages.hasErrors(), is(false));
-  }
-
-  @Test
   public void initializeWebRulesRepository() {
     WebRulesRepository rulesRepository = new WebRulesRepository();
 
