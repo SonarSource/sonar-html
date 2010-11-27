@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "InlineStyleCheck", name = "Inline Style", description = "Inline style should be avoided", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Maintainability)
+    isoCategory = IsoCategory.Portability)
 public class InlineStyleCheck extends AbstractPageCheck {
 
   @Override

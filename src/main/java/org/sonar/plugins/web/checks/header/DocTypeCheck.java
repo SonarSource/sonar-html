@@ -28,12 +28,12 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * Checks declaration of the DOCTYPE.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
 @Rule(key = "DocTypeCheck", name = "Document Type Compliance", description = "Document Type Compliance", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Maintainability)
+    isoCategory = IsoCategory.Reliability)
 public class DocTypeCheck extends AbstractPageCheck {
 
   private boolean hasDocType;

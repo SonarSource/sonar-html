@@ -36,7 +36,7 @@ import org.sonar.plugins.web.node.DirectiveNode;
  * @since 1.0
  */
 @Rule(key = "IllegalTagLibsCheck", name = "Illegal TagLibs", description = "Certain taglibs are not allowed",
-    priority = Priority.CRITICAL, isoCategory = IsoCategory.Maintainability)
+    priority = Priority.CRITICAL, isoCategory = IsoCategory.Reliability)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "tagLibs", description = "Disallowed Taglibs")

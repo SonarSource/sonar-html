@@ -36,7 +36,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "RequiredAttributeCheck", name = "Attribute Required", description = "Required attribute must be used",
-    priority = Priority.MAJOR, isoCategory = IsoCategory.Portability)
+    priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final class RequiredAttribute {

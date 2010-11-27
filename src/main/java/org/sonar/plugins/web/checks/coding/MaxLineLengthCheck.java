@@ -33,14 +33,15 @@ import org.sonar.plugins.web.node.TextNode;
 
 /**
  * Checker to control the length of the lines.
- * 
+ *
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
- * 
+ *
  */
-@Rule(key = "MaxLineLengthCheck", name = "Maximum Line Length", description = "Checks the length of a line", priority = Priority.MINOR,
+@Rule(key = "MaxLineLengthCheck", name = "Maximum Line Length", description = "Checks the length of a line",
+    priority = Priority.MINOR,
     isoCategory = IsoCategory.Maintainability)
 public class MaxLineLengthCheck extends AbstractPageCheck {
 

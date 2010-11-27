@@ -34,7 +34,8 @@ import org.sonar.plugins.web.node.TextNode;
  * @since 1.0
  */
 @Rule(key = "InternationalizationCheck", name = "Labels Internationalization",
-    description = "Labels should be defined in the resource bundle", priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+    description = "Labels should be defined in the resource bundle", priority = Priority.MINOR,
+    isoCategory = IsoCategory.Maintainability)
 public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";

@@ -41,7 +41,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @since 1.0
  */
 @Rule(key = "HeaderCheck", name = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR,
-    isoCategory = IsoCategory.Maintainability)
+    isoCategory = IsoCategory.Portability)
 public class HeaderCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);
