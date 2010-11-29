@@ -6,7 +6,7 @@
   <groupId>org.codehaus.sonar-plugins</groupId>
   <artifactId>sonar-web-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>0.2-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Sonar Web Plugin</name>
   <description>Analyze web code.</description>
 
