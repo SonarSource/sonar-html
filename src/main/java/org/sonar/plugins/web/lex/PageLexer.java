@@ -58,8 +58,20 @@ public final class PageLexer {
     /* XML and HTML Tags */
     new ElementTokenizer("<", ">"),
     /* Text (for everything else) */
-    new TextTokenizer()
-  );
+    new TextTokenizer());
+
+  /**
+   * Parse a nested node.
+   */
+  public List<Node> nestedParse(CodeReader reader) {
+    List<Node> nodeList = new ArrayList<Node>();
+    for (AbstractTokenizer tokenizer : (List<AbstractTokenizer>) tokenizers) {
+      if (tokenizer.consume(reader, nodeList)) {
+        break;
+      }
+    }
+    return nodeList;
+  }
 
   /**
    * Parse the input into a list of tokens, with parent/child relations between the tokens.

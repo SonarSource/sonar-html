@@ -64,7 +64,7 @@ public class PageLexerTest {
       if (node instanceof TagNode) {
         TagNode tagNode = (TagNode) node;
 
-        if (!tagNode.isEndElement()) {
+        if ( !tagNode.isEndElement()) {
           if (tagNode.equalsElementName("define")) {
             assertTrue("Tag should have children: " + tagNode.getCode(), tagNode.getChildren().size() > 0);
           } else if (tagNode.equalsElementName("outputText")) {
@@ -73,6 +73,18 @@ public class PageLexerTest {
         }
       }
     }
+  }
+
+  @Test
+  public void testRuby() throws FileNotFoundException {
+
+    String fileName = "src/test/resources/src/main/webapp/select_user.html.erb";
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(new FileReader(fileName));
+
+    assertTrue(nodeList.size() > 50);
+
+    // TODO - better parsing of erb.
   }
 
   private void showHierarchy(List<Node> nodeList) {
@@ -86,9 +98,6 @@ public class PageLexerTest {
         break;
       }
     }
-
-
-
   }
 
   private void printTag(StringBuilder sb, TagNode node, int indent) {
@@ -150,6 +159,26 @@ public class PageLexerTest {
     // the embedded tags are added as attributes
     assertNull(tagNode.getAttributes().get(1).getValue());
     assertNull(tagNode.getAttributes().get(3).getValue());
+  }
+
+  @Test
+  public void testNestedScriptlet() {
+    String fragment = "<option value=\"<%= key -%>\" <%= 'selected' if alert.operator==key -%>>";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(1, nodeList.size());
+
+    TagNode tagNode = (TagNode) nodeList.get(0);
+    assertEquals(2, tagNode.getAttributes().size());
+
+    // the embedded tags are added as attributes
+    assertEquals(tagNode.getAttributes().get(0).getName(), "value");
+    assertEquals(tagNode.getAttributes().get(0).getValue(), "<%= key -%>");
+    assertEquals(tagNode.getAttributes().get(1).getName(),"<%= 'selected' if alert.operator==key -%>");
+    assertNull(tagNode.getAttributes().get(1).getValue());
   }
 
   @Test

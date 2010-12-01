@@ -1,12 +1,13 @@
 
 rem run this script from web folder
 
-set SONAR_HOME=C:\bin\sonar-2.3.1
-set SONAR_FLAGS=-Dsonar.language=web -Dsonar.dynamicAnalysis=false -Dsonar.jdbc.url=jdbc:postgresql://localhost/sonar -Dsonar.jdbc.driver=org.postgresql.Driver -Dsonar.jdbc.username=sonar -Dsonar.jdbc.password=sonar
+set SONAR_HOME=C:\bin\sonar-2.4.1
+set SONAR_FLAGS=-Dsonar.language=web 
+rem -Dsonar.dynamicAnalysis=false -Dsonar.jdbc.url=jdbc:postgresql://localhost/sonar -Dsonar.jdbc.driver=org.postgresql.Driver -Dsonar.jdbc.username=sonar -Dsonar.jdbc.password=sonar
 set DEBUG=-X 
 
 call mvn install -Dmaven.test.skip
-call xcopy /Y target\sonar-web-plugin-0.2-SNAPSHOT.jar %SONAR_HOME%\extensions\plugins
+call xcopy /Y target\sonar-web-plugin-1.0-SNAPSHOT.jar %SONAR_HOME%\extensions\plugins
 start "Sonar Server" /MIN %SONAR_HOME%\bin\windows-x86-32\StartSonar.bat 
 
 set mvncommand=mvn sonar:sonar

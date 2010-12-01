@@ -53,7 +53,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  */
 public final class WebSensor implements Sensor {
 
-  private final static Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
+  private final static Number[] FILES_DISTRIB_BOTTOM_LIMITS = { 0, 5, 10, 20, 30, 60, 90 };
 
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
@@ -93,10 +93,7 @@ public final class WebSensor implements Sensor {
   }
 
   private void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
-    RangeDistributionBuilder complexityFileDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION,
-      FILES_DISTRIB_BOTTOM_LIMITS);
-    complexityFileDistribution.add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getValue());
-    sensorContext.saveMeasure(sourceCode.getResource(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+    saveComplexityDistribution(sensorContext, sourceCode);
 
     for (Measure measure : sourceCode.getMeasures()) {
       sensorContext.saveMeasure(sourceCode.getResource(), measure);
@@ -110,6 +107,15 @@ public final class WebSensor implements Sensor {
     }
   }
 
+  private void saveComplexityDistribution(SensorContext sensorContext, WebSourceCode sourceCode) {
+    if (sourceCode.getMeasure(CoreMetrics.COMPLEXITY) != null) {
+      RangeDistributionBuilder complexityFileDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION,
+          FILES_DISTRIB_BOTTOM_LIMITS);
+      complexityFileDistribution.add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getValue());
+      sensorContext.saveMeasure(sourceCode.getResource(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+    }
+  }
+
   /**
    * Create PageScanner with Visitors.
    */
@@ -119,8 +125,8 @@ public final class WebSensor implements Sensor {
       scanner.addVisitor(check);
     }
     scanner.addVisitor(new PageCountLines());
-   // dependencies not yet supported in v 1.0
-   // scanner.addVisitor(new WebDependencyDetector(web));
+    // dependencies not yet supported in v 1.0
+    // scanner.addVisitor(new WebDependencyDetector(web));
     scanner.addVisitor(new NoSonarScanner(noSonarFilter));
     return scanner;
   }
