@@ -30,7 +30,6 @@ import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 
 /**
@@ -48,18 +47,17 @@ public final class JSFProfile extends ProfileDefinition {
     "MultiplePageDirectivesCheck"
   };
 
-  private final RuleFinder ruleFinder;
+  private final XMLProfileParser profileParser;
 
-  public JSFProfile(RuleFinder ruleFinder) {
-    this.ruleFinder = ruleFinder;
+  public JSFProfile(XMLProfileParser profileParser) {
+    this.profileParser = profileParser;
   }
 
   @Override
   public RulesProfile createProfile(ValidationMessages validationMessages) {
-    XMLProfileParser parser = new XMLProfileParser(ruleFinder);
     Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(DefaultWebProfile.ALL_RULES),
         Charset.forName(CharEncoding.UTF_8));
-    RulesProfile profile = parser.parse(reader, validationMessages);
+    RulesProfile profile = profileParser.parse(reader, validationMessages);
     profile.setName("JSF Profile");
 
     // find rules not applicable for JSF

@@ -33,16 +33,17 @@ import org.sonar.plugins.web.language.Web;
  */
 public class WebProfileExporter extends ProfileExporter {
 
-  public WebProfileExporter() {
+  private final XMLProfileSerializer profileSerializer;
+
+  public WebProfileExporter(XMLProfileSerializer profileSerializer) {
     super(WebRulesRepository.REPOSITORY_KEY, WebRulesRepository.REPOSITORY_NAME);
     setSupportedLanguages(Web.KEY);
     setMimeType("application/xml");
+    this.profileSerializer = profileSerializer;
   }
 
   @Override
   public void exportProfile(RulesProfile profile, Writer writer) {
-
-    XMLProfileSerializer serializer = new XMLProfileSerializer();
-    serializer.write(profile, writer);
+    profileSerializer.write(profile, writer);
   }
 }

@@ -35,6 +35,8 @@ import org.sonar.plugins.web.checks.dependencies.IllegalNamespaceCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalTagLibsCheck;
 import org.sonar.plugins.web.checks.dependencies.LibraryDependencyCheck;
 import org.sonar.plugins.web.checks.generic.RegularExpressionCheck;
+import org.sonar.plugins.web.checks.generic.XPathCheck;
+import org.sonar.plugins.web.checks.generic.XmlSchemaCheck;
 import org.sonar.plugins.web.checks.header.DocTypeCheck;
 import org.sonar.plugins.web.checks.header.HeaderCheck;
 import org.sonar.plugins.web.checks.header.MultiplePageDirectivesCheck;
@@ -88,7 +90,9 @@ final class CheckClasses {
     IllegalAttributeCheck.class,
     IllegalNamespaceCheck.class,
     MultiplePageDirectivesCheck.class,
-    RequiredAttributeCheck.class
+    RequiredAttributeCheck.class,
+    XPathCheck.class,
+    XmlSchemaCheck.class
   };
 
   /**

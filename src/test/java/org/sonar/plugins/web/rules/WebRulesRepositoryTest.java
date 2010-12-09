@@ -36,6 +36,9 @@ import java.util.List;
 import org.junit.Test;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.profiles.XMLProfileParser;
+import org.sonar.api.profiles.XMLProfileSerializer;
+import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.AbstractWebPluginTester;
@@ -48,7 +51,7 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
   public void createDefaultWebProfile() {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
+    ProfileDefinition profileDefinition = new DefaultWebProfile(new XMLProfileParser(newRuleFinder()));
     ValidationMessages validationMessages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(validationMessages);
 
@@ -58,7 +61,7 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
   public void createJSFProfile() {
-    ProfileDefinition profileDefinition = new JSFProfile(newRuleFinder());
+    ProfileDefinition profileDefinition = new JSFProfile(new XMLProfileParser(newRuleFinder()));
     ValidationMessages validationMessages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(validationMessages);
 
@@ -68,14 +71,14 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
   public void initializeWebRulesRepository() {
-    WebRulesRepository rulesRepository = new WebRulesRepository();
+    WebRulesRepository rulesRepository = new WebRulesRepository(new AnnotationRuleParser());
 
     assertTrue(rulesRepository.createRules().size() > 20);
   }
 
   @Test
   public void createChecks() {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
+    ProfileDefinition profileDefinition = new DefaultWebProfile(new XMLProfileParser(newRuleFinder()));
     ValidationMessages validationMessages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(validationMessages);
 
@@ -98,15 +101,15 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
     // import rules
     String path = DefaultWebProfile.ALL_RULES;
     Reader reader = new InputStreamReader(JSFProfile.class.getClassLoader().getResourceAsStream(path));
-    RulesProfile rulesProfile1 = new WebProfileImporter(newRuleFinder()).importProfile(reader, validationMessages);
+    RulesProfile rulesProfile1 = new WebProfileImporter(new XMLProfileParser(newRuleFinder())).importProfile(reader, validationMessages);
 
     // export the rules to xml
     StringWriter writer = new StringWriter();
-    new WebProfileExporter().exportProfile(rulesProfile1, writer);
+    new WebProfileExporter(new XMLProfileSerializer()).exportProfile(rulesProfile1, writer);
     assertNotNull(writer.getBuffer().toString());
 
     reader = new StringReader(writer.getBuffer().toString());
-    RulesProfile rulesProfile2 = new WebProfileImporter(newRuleFinder()).importProfile(reader, validationMessages);
+    RulesProfile rulesProfile2 = new WebProfileImporter(new XMLProfileParser(newRuleFinder())).importProfile(reader, validationMessages);
 
     assertNotSame(rulesProfile1.getActiveRules(), rulesProfile2.getActiveRules());
     assertEquals(rulesProfile1.getActiveRules().size(), rulesProfile2.getActiveRules().size());

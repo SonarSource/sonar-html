@@ -27,7 +27,6 @@ import org.apache.commons.lang.CharEncoding;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 
 /**
@@ -40,10 +39,10 @@ public final class DefaultWebProfile extends ProfileDefinition {
 
   public static final String ALL_RULES = "org/sonar/plugins/web/rules/web/rules.xml";
 
-  private final RuleFinder ruleFinder;
+  private final XMLProfileParser profileParser;
 
-  public DefaultWebProfile(RuleFinder ruleFinder) {
-    this.ruleFinder = ruleFinder;
+  public DefaultWebProfile(XMLProfileParser profileParser) {
+    this.profileParser = profileParser;
   }
 
   @Override
@@ -51,8 +50,7 @@ public final class DefaultWebProfile extends ProfileDefinition {
     Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(ALL_RULES),
         Charset.forName(CharEncoding.UTF_8));
     try {
-      XMLProfileParser parser = new XMLProfileParser(ruleFinder);
-      RulesProfile profile = parser.parse(reader, validation);
+      RulesProfile profile = profileParser.parse(reader, validation);
       profile.setDefaultProfile(true);
       return profile;
     } finally {

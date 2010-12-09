@@ -51,14 +51,17 @@ public final class WebRulesRepository extends RuleRepository {
   public static final String REPOSITORY_NAME = "Web";
   public static final String REPOSITORY_KEY = "Web";
 
-  public WebRulesRepository() {
+  private final AnnotationRuleParser annotationRuleParser;
+
+  public WebRulesRepository(AnnotationRuleParser annotationRuleParser) {
     super(REPOSITORY_KEY, Web.KEY);
     setName(REPOSITORY_NAME);
+
+    this.annotationRuleParser = annotationRuleParser;
   }
 
   @Override
   public List<Rule> createRules() {
-    AnnotationRuleParser annotationRuleParser = new AnnotationRuleParser();
     List<Rule> rules = annotationRuleParser.parse(REPOSITORY_KEY, CheckClasses.getCheckClasses());
     for (Rule rule : rules) {
       rule.setCardinality(Cardinality.MULTIPLE);

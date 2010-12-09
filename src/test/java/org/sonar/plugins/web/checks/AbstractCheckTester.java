@@ -31,6 +31,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.resources.File;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
@@ -64,11 +65,16 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
   public WebSourceCode parseAndCheck(Reader reader, Class<? extends AbstractPageCheck> checkClass, String... params) {
 
+   return parseAndCheck(reader, "test", checkClass, params);
+  }
+
+  public WebSourceCode parseAndCheck(Reader reader, String fileName, Class<? extends AbstractPageCheck> checkClass, String... params) {
+
     AbstractPageCheck check = instantiateCheck(checkClass, params);
 
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
-    WebSourceCode webSourceCode = new WebSourceCode(new File("test"));
+    WebSourceCode webSourceCode = new WebSourceCode(new File(fileName));
 
     PageScanner pageScanner = new PageScanner();
     pageScanner.addVisitor(new PageCountLines());
@@ -128,8 +134,8 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
   }
 
   private void configureDefaultParams(AbstractPageCheck check, Rule rule) {
-    WebRuleFinder finder = new WebRuleFinder(rule);
-    ProfileDefinition profileDefinition = new DefaultWebProfile(finder);
+    WebRuleFinder ruleFinder = new WebRuleFinder(rule);
+    ProfileDefinition profileDefinition = new DefaultWebProfile(new XMLProfileParser(ruleFinder));
     ValidationMessages validationMessages = ValidationMessages.create();
     RulesProfile rulesProfile = profileDefinition.createProfile(validationMessages);
 

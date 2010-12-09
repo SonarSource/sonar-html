@@ -34,8 +34,10 @@ import org.apache.maven.project.MavenProject;
 import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
+import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
@@ -58,7 +60,7 @@ public class AbstractWebPluginTester {
     private final List<Rule> rules;
 
     public WebRuleFinder() {
-      repository = new WebRulesRepository();
+      repository = new WebRulesRepository(new AnnotationRuleParser());
       rules = repository.createRules();
     }
 
@@ -84,7 +86,7 @@ public class AbstractWebPluginTester {
    * create standard rules profile
    */
   protected RulesProfile createStandardRulesProfile() {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(newRuleFinder());
+    ProfileDefinition profileDefinition = new DefaultWebProfile(new XMLProfileParser(newRuleFinder()));
     ValidationMessages messages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(messages);
     assertEquals(0, messages.getErrors().size());

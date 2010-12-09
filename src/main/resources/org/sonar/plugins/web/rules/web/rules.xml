@@ -5,6 +5,15 @@
 
     <rule>
       <repositoryKey>Web</repositoryKey>
+      <key>XPathCheck</key>
+    </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>XmlSchemaCheck</key>
+    </rule>
+    
+    <rule>
+      <repositoryKey>Web</repositoryKey>
       <key>AvoidHtmlCommentCheck</key>
     </rule>
     <rule>

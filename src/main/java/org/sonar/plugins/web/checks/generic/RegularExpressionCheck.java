@@ -38,10 +38,10 @@ import org.sonar.plugins.web.node.TagNode;
     priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
 public class RegularExpressionCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "expression")
+  @RuleProperty(key = "expression", description = "Expression")
   private String expression;
 
-  @RuleProperty(key = "scope")
+  @RuleProperty(key = "scope", description = "Scope (Attribute/Element)")
   private String scope; // attribute or element
 
   public String getScope() {
