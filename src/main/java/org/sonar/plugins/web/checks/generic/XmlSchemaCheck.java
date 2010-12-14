@@ -18,30 +18,36 @@
 
 package org.sonar.plugins.web.checks.generic;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.StringReader;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.utils.SonarException;
+import org.sonar.api.utils.WildcardPattern;
 import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-import org.w3c.dom.Document;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -50,134 +56,126 @@ import org.xml.sax.SAXParseException;
     isoCategory = IsoCategory.Reliability)
 public class XmlSchemaCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "schemas")
-  private String[] schemas;
+  private static final class LocalResourceResolver implements LSResourceResolver {
 
-  public String getSchemas() {
-    if (schemas != null) {
-      return StringUtils.join(schemas, ",");
+    private LSInput createLSInput(InputStream inputStream) {
+      if (inputStream != null) {
+        System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMImplementationSourceImpl");
+
+        try {
+          DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+          DOMImplementation impl = registry.getDOMImplementation("XML 1.0 LS 3.0");
+          DOMImplementationLS implls = (DOMImplementationLS) impl;
+          LSInput lsInput = implls.createLSInput();
+          lsInput.setByteStream(inputStream);
+          return lsInput;
+        } catch (ClassCastException e) {
+          throw new SonarException();
+        } catch (ClassNotFoundException e) {
+          throw new SonarException();
+        } catch (InstantiationException e) {
+          throw new SonarException();
+        } catch (IllegalAccessException e) {
+          throw new SonarException();
+        }
+      }
+      return null;
     }
-    return "";
-  }
 
-  public void setSchemas(String list) {
-    schemas = StringUtils.split(list, ",");
+    public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
 
-    validator = createValidator();
-  }
+      LOG.warn("resolveResource: " + systemId);
 
-  private Validator createValidator() {
-    for (String schemaFile : schemas) {
-      SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-      Schema schema;
-      try {
-        schema = schemaFactory.newSchema(new File(schemaFile));
-        return schema.newValidator();
-      } catch (SAXException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      if (StringUtils.contains(systemId, "/")) {
+        return createLSInput(Schemas.getSchemaByNamespace(systemId));
+      } else {
+        return createLSInput(Schemas.getSchemaByFileName(systemId));
       }
     }
-    return null;
   }
 
-  private Validator createValidator2() {
+  private class MessageHandler implements ErrorHandler {
 
-    StringBuilder sb = new StringBuilder();
-    sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-    sb.append("<xs:schema xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" elementFormDefault=\"unqualified\">\n");
-    for (String schema : schemas) {
-      sb.append("<xs:include schemaLocation=\"" + schema + "\"/>\n");
+    public void error(SAXParseException e) throws SAXException {
+      createViolation(e.getLineNumber(), e.getLocalizedMessage());
     }
-    sb.append("</xs:schema>");
+
+    public void fatalError(SAXParseException e) throws SAXException {
+      error(e);
+    }
+
+    public void warning(SAXParseException e) throws SAXException {
+      error(e);
+    }
+  }
+
+  private static final Logger LOG = LoggerFactory.getLogger(XmlSchemaCheck.class);
+
+  @RuleProperty(key = "antPattern", description = "antPattern")
+  private String antPattern;
+
+  @RuleProperty(key = "schemaLocation", description = "Schema Location")
+  private String schemaLocation;
+
+  private Schema createSchema() {
+    SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    schemaFactory.setResourceResolver(new LocalResourceResolver());
+
+    List<Source> schemaSources = new ArrayList<Source>();
+    String[] schemaList = StringUtils.split(schemaLocation, " \t\n");
+    for (int i = 0; i < schemaList.length - 1; i += 2) {
+      String namespace = schemaList[i];
+      String schemaFile = schemaList[i + 1];
+
+      InputStream input = Schemas.getSchemaByNamespace(namespace);
+      if (input != null) {
+        schemaSources.add(new StreamSource(input));
+      } else {
+        try {
+          schemaSources.add(new StreamSource(new FileInputStream(schemaFile)));
+        } catch (FileNotFoundException e) {
+          throw new SonarException();
+        }
+      }
+    }
+
     try {
-      SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-      Schema schema = schemaFactory.newSchema(new StreamSource(new StringReader(sb.toString()), "xsdTop"));
-      return schema.newValidator();
+      return schemaFactory.newSchema(schemaSources.toArray(new Source[0]));
     } catch (SAXException e) {
-      throw new SonarException();
+      throw new SonarException(e);
     }
   }
 
-  private Validator validator;
+  public String getSchemaLocation() {
+    return schemaLocation;
+  }
+
+  private boolean matchFilePattern(String fileName) {
+    WildcardPattern matcher = WildcardPattern.create(antPattern, "/");
+    return matcher.match(fileName);
+  }
+
+  public void setSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
+  }
 
   @Override
   public void startDocument(WebSourceCode webSourceCode) {
     super.startDocument(webSourceCode);
 
-    if (validator != null) {
+    if (schemaLocation != null) {
       validate();
     }
   }
 
-  static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
-
   private void validate() {
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    factory.setValidating(false);
+    Validator validator = createSchema().newValidator();
+    validator.setErrorHandler(new MessageHandler());
+    validator.setResourceResolver(new LocalResourceResolver());
     try {
-      factory.setFeature("http://xml.org/sax/features/validation", true);
-//      factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-//      factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-//      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-//      factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-
-    } catch (ParserConfigurationException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
-
-    File file = new File(getWebSourceCode().getResource().getKey());
-
-    try {
-      SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-      Schema schema = schemaFactory.newSchema(new File(schemas[0]));
-      factory.setSchema(schema);
-      factory.newDocumentBuilder().parse(file);
+      validator.validate(new StreamSource(getWebSourceCode().getInputStream()));
     } catch (SAXException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (ParserConfigurationException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
-
-  private void validate2() {
-    try {
-      File file = new File(getWebSourceCode().getResource().getKey());
-
-      Document document = new XmlParser().createDomDocument(file);
-      DOMResult result = new DOMResult();
-      ErrorHandler errorHandler = new ErrorHandler() {
-
-        public void warning(SAXParseException e) throws SAXException {
-          PrintStream out = System.out;
-          out.print(e.getLineNumber() + ": ");
-          out.println(e.getLocalizedMessage() + "\n");
-        }
-
-        public void fatalError(SAXParseException e) throws SAXException {
-          PrintStream out = System.out;
-          out.print(e.getLineNumber() + ": ");
-          out.println(e.getLocalizedMessage() + "\n");
-        }
-
-        public void error(SAXParseException e) throws SAXException {
-          PrintStream out = System.out;
-          out.print(e.getLineNumber() + ": ");
-          out.println(e.getLocalizedMessage() + "\n");
-        }
-      };
-      validator.setErrorHandler(errorHandler);
-      validator.validate(new DOMSource(document), result);
-    } catch (SAXException e) {
-      PrintStream out = System.out;
-      out.println(e.getLocalizedMessage() + "\n");
-      throw new SonarException(e);
+      createViolation(0, e.getMessage());
     } catch (IOException e) {
       throw new SonarException(e);
     }

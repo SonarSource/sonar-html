@@ -22,22 +22,14 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.OrderingComparisons.greaterThan;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
 
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.List;
 
 import org.junit.Test;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.profiles.XMLProfileSerializer;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.check.Rule;
@@ -92,26 +84,5 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
       assertNotNull(rule.isoCategory());
     }
     assertTrue(checks.size() > 20);
-  }
-
-  @Test
-  public void exportImportProfile() throws FileNotFoundException {
-    ValidationMessages validationMessages = ValidationMessages.create();
-
-    // import rules
-    String path = DefaultWebProfile.ALL_RULES;
-    Reader reader = new InputStreamReader(JSFProfile.class.getClassLoader().getResourceAsStream(path));
-    RulesProfile rulesProfile1 = new WebProfileImporter(new XMLProfileParser(newRuleFinder())).importProfile(reader, validationMessages);
-
-    // export the rules to xml
-    StringWriter writer = new StringWriter();
-    new WebProfileExporter(new XMLProfileSerializer()).exportProfile(rulesProfile1, writer);
-    assertNotNull(writer.getBuffer().toString());
-
-    reader = new StringReader(writer.getBuffer().toString());
-    RulesProfile rulesProfile2 = new WebProfileImporter(new XMLProfileParser(newRuleFinder())).importProfile(reader, validationMessages);
-
-    assertNotSame(rulesProfile1.getActiveRules(), rulesProfile2.getActiveRules());
-    assertEquals(rulesProfile1.getActiveRules().size(), rulesProfile2.getActiveRules().size());
   }
 }

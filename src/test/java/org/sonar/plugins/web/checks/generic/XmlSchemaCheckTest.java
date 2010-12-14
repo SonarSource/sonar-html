@@ -20,28 +20,45 @@ package org.sonar.plugins.web.checks.generic;
 
 import static junit.framework.Assert.assertEquals;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintStream;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 /**
  * @author Matthijs Galesloot
  */
-@Ignore
 public class XmlSchemaCheckTest extends AbstractCheckTester {
 
   @Test
-  public void violateXmlSchemaCheck() throws FileNotFoundException {
+  public void violateLocalXmlSchemaCheck() throws FileNotFoundException {
 
-    String fileName ="src/test/resources/src/main/webapp/create.xhtml";
+    String fileName = "src/test/resources/checks/generic/catalog.xml";
     FileReader reader = new FileReader(fileName);
-    WebSourceCode sourceCode = parseAndCheck(reader, fileName, XmlSchemaCheck.class,
-        "schemas", "src/test/resources/schemas/web-facelettaglibrary_2_0.xsd");
+    WebSourceCode sourceCode = parseAndCheck(reader, new File(fileName), null,
+        XmlSchemaCheck.class, "schemaLocation", "http://catalog src/test/resources/checks/generic/catalog.xsd");
+
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-    assertEquals((Integer) 21, sourceCode.getViolations().get(0).getLineId());
+    assertEquals((Integer) 5, sourceCode.getViolations().get(0).getLineId());
+  }
+
+  @Test
+  public void violateBuiltinXmlSchemaWithNamespacesCheck() throws FileNotFoundException {
+    String fileName = "src/test/resources/src/main/webapp/create-salesorder.xhtml";
+    FileReader reader = new FileReader(fileName);
+    WebSourceCode sourceCode = parseAndCheck(reader, new File(fileName), null,
+        XmlSchemaCheck.class, "schemaLocation", "http://www.w3.org/1999/xhtml built-in" );
+
+    for (Violation v : sourceCode.getViolations()) {
+      PrintStream out = System.out;
+      out.println(v.getMessage());
+    }
+    assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
+    assertEquals((Integer) 16, sourceCode.getViolations().get(0).getLineId());
   }
 }

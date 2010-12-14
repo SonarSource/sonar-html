@@ -22,6 +22,8 @@ import static junit.framework.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.Reader;
+import java.io.StringReader;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -31,26 +33,28 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 /**
  * @author Matthijs Galesloot
  */
-@Ignore
 public class XPathCheckTest extends AbstractCheckTester {
 
   @Test
   public void violateXPathCheck() throws FileNotFoundException {
 
-    String fileName ="src/test/resources/src/main/webapp/create-salesorder.xhtml";
-    FileReader reader = new FileReader(fileName);
-    WebSourceCode sourceCode = parseAndCheck(reader, fileName, XPathCheck.class,
+    String fragment = "<html xmlns=\"http://www.w3.org/1999/xhtml\" " +
+    		"xmlns:ui=\"http://java.sun.com/jsf/facelets\">" +
+    		"<body><br /></body></html>";
+
+    Reader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, null, fragment, XPathCheck.class,
         "expression", "//br");
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-    assertEquals((Integer) 21, sourceCode.getViolations().get(0).getLineId());
+    assertEquals((Integer) 1, sourceCode.getViolations().get(0).getLineId());
   }
 
   @Test
   public void violateXPathWithNamespacesCheck() throws FileNotFoundException {
-    String fileName ="src/test/resources/src/main/webapp/create-salesorder.xhtml";
+    String fileName = "src/test/resources/src/main/webapp/create-salesorder.xhtml";
     FileReader reader = new FileReader(fileName);
-    WebSourceCode sourceCode = parseAndCheck(reader, fileName, XPathCheck.class,
+    WebSourceCode sourceCode = parseAndCheck(reader, new java.io.File(fileName), null, XPathCheck.class,
         "expression", "//ui:define[@name='title']",
         "namespaces", "ui=\"http://java.sun.com/jsf/facelets\"");
 

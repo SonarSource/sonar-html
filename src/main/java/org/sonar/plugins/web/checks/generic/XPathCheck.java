@@ -18,9 +18,10 @@
 
 package org.sonar.plugins.web.checks.generic;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
@@ -37,7 +38,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.generic.XmlParser.LocationRecordingHandler;
+import org.sonar.plugins.web.checks.generic.SaxParser.LocationRecordingHandler;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -46,9 +47,9 @@ import org.w3c.dom.NodeList;
     isoCategory = IsoCategory.Reliability)
 public class XPathCheck extends AbstractPageCheck {
 
-  private class XPathNamespaceContext implements NamespaceContext {
+  private final class XPathNamespaceContext implements NamespaceContext {
 
-    private final HashMap<String, String> namespaceMap = new HashMap<String, String>();
+    private final Map<String, String> namespaceMap = new HashMap<String, String>();
 
     public XPathNamespaceContext() {
 
@@ -89,8 +90,8 @@ public class XPathCheck extends AbstractPageCheck {
 
   private void evaluateXPath() {
 
-    File file = new File(getWebSourceCode().getResource().getKey());
-    Document document = new XmlParser().createDomDocument(file);
+    InputStream inputStream = getWebSourceCode().getInputStream();
+    Document document = new SaxParser().createDomDocument(inputStream, namespaces != null);
 
     try {
       NodeList nodes = (NodeList) getXPathExpression().evaluate(document, XPathConstants.NODESET);

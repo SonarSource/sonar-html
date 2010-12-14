@@ -29,8 +29,6 @@ import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.JSFProfile;
-import org.sonar.plugins.web.rules.WebProfileExporter;
-import org.sonar.plugins.web.rules.WebProfileImporter;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
 /**
@@ -72,8 +70,6 @@ public final class WebPlugin implements Plugin {
 
     // web rules repository
     list.add(WebRulesRepository.class);
-    list.add(WebProfileImporter.class);
-    list.add(WebProfileExporter.class);
 
     // profiles
     list.add(DefaultWebProfile.class);

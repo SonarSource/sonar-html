@@ -18,8 +18,8 @@
 
 package org.sonar.plugins.web.checks.generic;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,7 +42,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Matthijs Galesloot
  *
  */
-public final class XmlParser {
+final class SaxParser {
 
   private static final SAXParserFactory SAX_FACTORY;
 
@@ -54,7 +54,6 @@ public final class XmlParser {
     SAX_FACTORY = SAXParserFactory.newInstance();
 
     try {
-      SAX_FACTORY.setNamespaceAware(true);
       SAX_FACTORY.setValidating(false);
       SAX_FACTORY.setFeature("http://xml.org/sax/features/validation", false);
       SAX_FACTORY.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
@@ -68,9 +67,10 @@ public final class XmlParser {
     }
   }
 
-  public Document createDomDocument(File file) {
+  public Document createDomDocument(InputStream input, boolean namespaceAware) {
 
     try {
+      SAX_FACTORY.setNamespaceAware(namespaceAware);
       SAXParser parser = SAX_FACTORY.newSAXParser();
 
       Document document = DocumentBuilderFactory.
@@ -79,7 +79,7 @@ public final class XmlParser {
         newDocument();
 
       LocationRecordingHandler handler = new LocationRecordingHandler(document);
-      parser.parse(file, handler);
+      parser.parse(input, handler);
 
       return document;
     } catch (ParserConfigurationException e) {
@@ -100,7 +100,7 @@ public final class XmlParser {
     public static final String KEY_COLUMN_NO = "com.will.ColumnNumber";
 
     private final Document doc;
-    private Locator locator = null;
+    private Locator locator;
     private Element current;
 
     // The docs say that parsers are "highly encouraged" to set this

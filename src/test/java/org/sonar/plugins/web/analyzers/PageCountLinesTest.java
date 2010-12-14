@@ -53,7 +53,7 @@ public class PageCountLinesTest {
 
     final PageScanner scanner = new PageScanner();
     scanner.addVisitor(new PageCountLines());
-    WebSourceCode webSourceCode = new WebSourceCode(webFile);
+    WebSourceCode webSourceCode = new WebSourceCode(webFile, new java.io.File(fileName));
     scanner.scan(nodeList, webSourceCode);
 
     LOG.warn("Lines:" + webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue());

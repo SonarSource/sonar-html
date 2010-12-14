@@ -65,16 +65,18 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
   public WebSourceCode parseAndCheck(Reader reader, Class<? extends AbstractPageCheck> checkClass, String... params) {
 
-   return parseAndCheck(reader, "test", checkClass, params);
+    return parseAndCheck(reader, null, null, checkClass, params);
   }
 
-  public WebSourceCode parseAndCheck(Reader reader, String fileName, Class<? extends AbstractPageCheck> checkClass, String... params) {
+  public WebSourceCode parseAndCheck(Reader reader, java.io.File file,
+      String code, Class<? extends AbstractPageCheck> checkClass, String... params) {
 
     AbstractPageCheck check = instantiateCheck(checkClass, params);
 
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
-    WebSourceCode webSourceCode = new WebSourceCode(new File(fileName));
+    WebSourceCode webSourceCode = new WebSourceCode(new File("test"), file);
+    webSourceCode.setCode(code);
 
     PageScanner pageScanner = new PageScanner();
     pageScanner.addVisitor(new PageCountLines());

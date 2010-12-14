@@ -50,7 +50,8 @@ public class NoSonarScannerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
     Resource<Directory> resource = new File("test");
-    WebSourceCode webSourceCode = new WebSourceCode(resource);
+    WebSourceCode webSourceCode = new WebSourceCode(resource, null);
+    webSourceCode.setCode(fragment);
 
     NoSonarFilter noSonarFilter = new NoSonarFilter();
     NoSonarScanner noSonarScanner = new NoSonarScanner(noSonarFilter);
