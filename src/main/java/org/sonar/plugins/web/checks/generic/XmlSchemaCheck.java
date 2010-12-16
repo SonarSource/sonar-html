@@ -35,6 +35,7 @@ import javax.xml.validation.Validator;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.WildcardPattern;
 import org.sonar.check.IsoCategory;
@@ -42,58 +43,36 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.schemas.Schemas;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 
 @Rule(key = "XmlSchemaCheck", name = "XML Schema Check", description = "XML Schema Check", priority = Priority.CRITICAL,
     isoCategory = IsoCategory.Reliability)
 public class XmlSchemaCheck extends AbstractPageCheck {
 
+  /**
+   * ResourceResolver tries to resolve schema's or dtd's with built-in resources or external files.
+   */
   private static final class LocalResourceResolver implements LSResourceResolver {
-
-    private LSInput createLSInput(InputStream inputStream) {
-      if (inputStream != null) {
-        System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMImplementationSourceImpl");
-
-        try {
-          DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-          DOMImplementation impl = registry.getDOMImplementation("XML 1.0 LS 3.0");
-          DOMImplementationLS implls = (DOMImplementationLS) impl;
-          LSInput lsInput = implls.createLSInput();
-          lsInput.setByteStream(inputStream);
-          return lsInput;
-        } catch (ClassCastException e) {
-          throw new SonarException();
-        } catch (ClassNotFoundException e) {
-          throw new SonarException();
-        } catch (InstantiationException e) {
-          throw new SonarException();
-        } catch (IllegalAccessException e) {
-          throw new SonarException();
-        }
-      }
-      return null;
-    }
 
     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
 
-      LOG.warn("resolveResource: " + systemId);
+      LOG.debug("resolveResource: " + systemId);
 
-      if (StringUtils.contains(systemId, "/")) {
-        return createLSInput(Schemas.getSchemaByNamespace(systemId));
-      } else {
-        return createLSInput(Schemas.getSchemaByFileName(systemId));
-      }
+      return Schemas.getSchemaAsLSInput(systemId);
     }
   }
 
+  /**
+   * MessageHandler creates violations for errors and warnings.
+   */
   private class MessageHandler implements ErrorHandler {
 
     public void error(SAXParseException e) throws SAXException {
@@ -123,24 +102,21 @@ public class XmlSchemaCheck extends AbstractPageCheck {
 
     List<Source> schemaSources = new ArrayList<Source>();
     String[] schemaList = StringUtils.split(schemaLocation, " \t\n");
-    for (int i = 0; i < schemaList.length - 1; i += 2) {
-      String namespace = schemaList[i];
-      String schemaFile = schemaList[i + 1];
-
-      InputStream input = Schemas.getSchemaByNamespace(namespace);
+    for (String schemaReference : schemaList) {
+      InputStream input = Schemas.getSchemaByNamespace(schemaReference);
       if (input != null) {
         schemaSources.add(new StreamSource(input));
       } else {
         try {
-          schemaSources.add(new StreamSource(new FileInputStream(schemaFile)));
+          schemaSources.add(new StreamSource(new FileInputStream(schemaReference)));
         } catch (FileNotFoundException e) {
-          throw new SonarException();
+          throw new SonarException(e);
         }
       }
     }
 
     try {
-      return schemaFactory.newSchema(schemaSources.toArray(new Source[0]));
+      return schemaFactory.newSchema(schemaSources.toArray(new Source[schemaSources.size()]));
     } catch (SAXException e) {
       throw new SonarException(e);
     }
@@ -150,9 +126,14 @@ public class XmlSchemaCheck extends AbstractPageCheck {
     return schemaLocation;
   }
 
-  private boolean matchFilePattern(String fileName) {
-    WildcardPattern matcher = WildcardPattern.create(antPattern, "/");
-    return matcher.match(fileName);
+  private boolean isFileIncluded() {
+    if (antPattern != null) {
+      String fileName = getWebSourceCode().getResource().getKey();
+      WildcardPattern matcher = WildcardPattern.create(antPattern, "/");
+      return matcher.match(fileName);
+    } else {
+      return true;
+    }
   }
 
   public void setSchemaLocation(String schemaLocation) {
@@ -163,21 +144,46 @@ public class XmlSchemaCheck extends AbstractPageCheck {
   public void startDocument(WebSourceCode webSourceCode) {
     super.startDocument(webSourceCode);
 
-    if (schemaLocation != null) {
+    if (schemaLocation != null && isFileIncluded()) {
       validate();
     }
   }
 
   private void validate() {
     Validator validator = createSchema().newValidator();
+    setFeature(validator, "http://apache.org/xml/features/continue-after-fatal-error", true);
     validator.setErrorHandler(new MessageHandler());
     validator.setResourceResolver(new LocalResourceResolver());
     try {
       validator.validate(new StreamSource(getWebSourceCode().getInputStream()));
     } catch (SAXException e) {
-      createViolation(0, e.getMessage());
+      if (!containsMessage(e)) {
+        createViolation(0, e.getMessage());
+      }
     } catch (IOException e) {
       throw new SonarException(e);
     }
+  }
+
+  private void setFeature(Validator validator, String feature, boolean value) {
+    try {
+      validator.setFeature(feature, value);
+    } catch (SAXNotRecognizedException e) {
+      throw new SonarException(e);
+    } catch (SAXNotSupportedException e) {
+      throw new SonarException(e);
+    }
+  }
+
+  private boolean containsMessage(SAXException e) {
+    if (e instanceof SAXParseException) {
+      SAXParseException spe = (SAXParseException) e;
+      for (Violation v : getWebSourceCode().getViolations()) {
+        if (v.getLineId().equals(spe.getLineNumber()) && v.getMessage().equals(spe.getMessage())) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

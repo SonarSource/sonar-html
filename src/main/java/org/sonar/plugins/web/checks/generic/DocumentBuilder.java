@@ -42,7 +42,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Matthijs Galesloot
  *
  */
-final class SaxParser {
+final class DocumentBuilder {
 
   private static final SAXParserFactory SAX_FACTORY;
 
@@ -91,13 +91,14 @@ final class SaxParser {
     }
   }
 
+  private static final String KEY_LINE_NO = "saxParser.lineNumber";
+  private static final String KEY_COLUMN_NO = "saxParser.columnNumber";
+
   /**
    * From http://will.thestranathans.com/post/1026712315/getting-line-numbers-from-xpath-in-java
    *
    */
-  class LocationRecordingHandler extends DefaultHandler {
-    public static final String KEY_LINE_NO = "com.will.LineNumber";
-    public static final String KEY_COLUMN_NO = "com.will.ColumnNumber";
+  private static final class LocationRecordingHandler extends DefaultHandler {
 
     private final Document doc;
     private Locator locator;
@@ -190,5 +191,9 @@ final class SaxParser {
         current.appendChild(n);
       }
     }
+  }
+
+  public static int getLineNumber(Node node) {
+    return (Integer) node.getUserData(DocumentBuilder.KEY_LINE_NO);
   }
 }

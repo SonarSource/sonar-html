@@ -38,7 +38,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.generic.SaxParser.LocationRecordingHandler;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -91,13 +90,13 @@ public class XPathCheck extends AbstractPageCheck {
   private void evaluateXPath() {
 
     InputStream inputStream = getWebSourceCode().getInputStream();
-    Document document = new SaxParser().createDomDocument(inputStream, namespaces != null);
+    Document document = new DocumentBuilder().createDomDocument(inputStream, namespaces != null);
 
     try {
       NodeList nodes = (NodeList) getXPathExpression().evaluate(document, XPathConstants.NODESET);
       for (int i = 0; i < nodes.getLength(); i++) {
 
-        int lineNumber = (Integer) nodes.item(i).getUserData(LocationRecordingHandler.KEY_LINE_NO);
+        int lineNumber = DocumentBuilder.getLineNumber(nodes.item(i));
         createViolation(lineNumber);
       }
     } catch (XPathExpressionException e) {
