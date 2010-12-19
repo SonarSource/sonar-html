@@ -18,8 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import java.io.File;
-
 import org.sonar.api.resources.Project;
 
 /**
@@ -41,10 +39,8 @@ public final class ProjectConfiguration {
   public static void configureSourceDir(Project project) {
     String sourceDir = getSourceDir(project);
     if (sourceDir != null) {
-      File file = new File(project.getFileSystem().getBasedir() + "/" + sourceDir);
-
       project.getPom().getCompileSourceRoots().clear();
-      project.getFileSystem().addSourceDir(file);
+      project.getPom().addCompileSourceRoot(sourceDir);
     }
   }
 

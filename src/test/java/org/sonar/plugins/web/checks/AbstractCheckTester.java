@@ -75,8 +75,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
-    WebSourceCode webSourceCode = new WebSourceCode(new File("test"), file);
-    webSourceCode.setCode(code);
+    WebSourceCode webSourceCode = new WebSourceCode(new File("test"));
 
     PageScanner pageScanner = new PageScanner();
     pageScanner.addVisitor(new PageCountLines());

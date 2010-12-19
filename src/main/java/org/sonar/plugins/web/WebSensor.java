@@ -81,7 +81,7 @@ public final class WebSensor implements Sensor {
       try {
         File resource = File.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
 
-        WebSourceCode sourceCode = new WebSourceCode(resource, webFile);
+        WebSourceCode sourceCode = new WebSourceCode(resource);
         List<Node> nodeList = lexer.parse(new FileReader(webFile));
         scanner.scan(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);

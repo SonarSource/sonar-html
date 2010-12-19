@@ -50,7 +50,7 @@ public class WebDependencyDetectorTest {
 
     final PageScanner scanner = new PageScanner();
     scanner.addVisitor(new WebDependencyDetector(new Web()));
-    WebSourceCode webSourceCode = new WebSourceCode(webFile, new java.io.File(fileName));
+    WebSourceCode webSourceCode = new WebSourceCode(webFile);
     scanner.scan(nodeList, webSourceCode);
 
     assertEquals(3, webSourceCode.getDependencies().size());
