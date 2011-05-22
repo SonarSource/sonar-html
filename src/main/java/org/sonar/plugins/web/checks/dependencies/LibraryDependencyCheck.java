@@ -19,7 +19,6 @@
 package org.sonar.plugins.web.checks.dependencies;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -35,7 +34,7 @@ import org.sonar.plugins.web.node.ExpressionNode;
  * @since 1.0
  */
 @Rule(key = "LibraryDependencyCheck", name = "Library Dependency Check", description = "Dependencies to certain libraries are not allowed",
-    priority = Priority.CRITICAL, isoCategory = IsoCategory.Reliability)
+    priority = Priority.CRITICAL)
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "libraries", description = "Libraries")

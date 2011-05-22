@@ -33,7 +33,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  */
 public class IllegalNamespaceCheckTest extends AbstractCheckTester {
 
-  private final String fragment = "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"
+  private static final String fragment = "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"
       + "xmlns:c=\"http://java.sun.com/jstl/core\"\n"
       + "xmlns:rich=\"http://richfaces.org/rich\"\n";
 

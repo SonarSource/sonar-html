@@ -23,7 +23,6 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -40,8 +39,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "HeaderCheck", name = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR,
-    isoCategory = IsoCategory.Portability)
+@Rule(key = "HeaderCheck", name = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR)
 public class HeaderCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);

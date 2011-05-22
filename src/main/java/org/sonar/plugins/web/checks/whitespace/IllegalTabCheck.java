@@ -19,7 +19,6 @@
 package org.sonar.plugins.web.checks.whitespace;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -27,14 +26,13 @@ import org.sonar.plugins.web.node.TextNode;
 
 /**
  * Checker for Tab character.
- * 
+ *
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Indentation
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalTabCheck", name = "Illegal Tab Character", description = "Tab Character", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Maintainability)
+@Rule(key = "IllegalTabCheck", name = "Illegal Tab Character", description = "Tab Character", priority = Priority.MINOR)
 public class IllegalTabCheck extends AbstractPageCheck {
 
   @Override

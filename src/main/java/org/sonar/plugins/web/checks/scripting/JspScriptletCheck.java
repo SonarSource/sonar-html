@@ -19,7 +19,6 @@
 package org.sonar.plugins.web.checks.scripting;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -34,8 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "JspScriptletCheck", name ="Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL,
-    isoCategory = IsoCategory.Maintainability)
+@Rule(key = "JspScriptletCheck", name ="Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL)
 public class JspScriptletCheck extends AbstractPageCheck {
 
   @Override

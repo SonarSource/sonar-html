@@ -19,7 +19,6 @@
 package org.sonar.plugins.web.checks.dependencies;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -36,7 +35,7 @@ import org.sonar.plugins.web.node.DirectiveNode;
  * @since 1.0
  */
 @Rule(key = "IllegalTagLibsCheck", name = "Illegal TagLibs", description = "Certain taglibs are not allowed",
-    priority = Priority.CRITICAL, isoCategory = IsoCategory.Reliability)
+    priority = Priority.CRITICAL)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "tagLibs", description = "Disallowed Taglibs")

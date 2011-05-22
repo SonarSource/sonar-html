@@ -21,7 +21,6 @@ package org.sonar.plugins.web.checks.structure;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -37,8 +36,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RequiredElementCheck", name = "Element Required", description = "Required element must be used", priority = Priority.MAJOR,
-    isoCategory = IsoCategory.Reliability)
+@Rule(key = "RequiredElementCheck", name = "Element Required", description = "Required element must be used", priority = Priority.MAJOR)
 public class RequiredElementCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "elements", description = "elements")

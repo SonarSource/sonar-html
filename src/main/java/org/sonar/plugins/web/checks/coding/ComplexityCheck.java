@@ -21,7 +21,6 @@ package org.sonar.plugins.web.checks.coding;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -38,8 +37,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "ComplexityCheck", name = "Complexity", description = "Complexity", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Maintainability)
+@Rule(key = "ComplexityCheck", name = "Complexity", description = "Complexity", priority = Priority.MINOR)
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;

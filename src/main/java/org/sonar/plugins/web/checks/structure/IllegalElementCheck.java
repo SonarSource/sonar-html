@@ -19,7 +19,6 @@
 package org.sonar.plugins.web.checks.structure;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -34,8 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalElementCheck", name = "Element Illegal", description = "element should not be used", priority = Priority.MAJOR,
-    isoCategory = IsoCategory.Reliability)
+@Rule(key = "IllegalElementCheck", name = "Element Illegal", description = "element should not be used", priority = Priority.MAJOR)
 public class IllegalElementCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "elements", description = "elements")

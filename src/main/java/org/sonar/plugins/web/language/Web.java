@@ -18,12 +18,7 @@
 
 package org.sonar.plugins.web.language;
 
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.ProjectConfiguration;
 
 /**
  * This class defines the Web language.
@@ -45,26 +40,11 @@ public class Web extends AbstractLanguage {
   /** The web language name */
   private static final String WEB_LANGUAGE_NAME = "Web";
 
-  private String[] fileSuffixes;
-
   /**
    * Default constructor.
    */
   public Web() {
     super(KEY, WEB_LANGUAGE_NAME);
-  }
-
-  public Web(Project project) {
-    this();
-
-    List<?> extensions = project.getConfiguration().getList(ProjectConfiguration.FILE_EXTENSIONS);
-
-    if (extensions != null && extensions.size() > 0 && !StringUtils.isEmpty((String) extensions.get(0))) {
-      fileSuffixes = new String[extensions.size()];
-      for (int i = 0; i < extensions.size(); i++) {
-        fileSuffixes[i] = extensions.get(i).toString().trim();
-      }
-    }
   }
 
   /**
@@ -74,6 +54,7 @@ public class Web extends AbstractLanguage {
    * @see org.sonar.api.resources.Language#getFileSuffixes()
    */
   public String[] getFileSuffixes() {
-    return fileSuffixes == null ? DEFAULT_SUFFIXES : fileSuffixes;
+    return DEFAULT_SUFFIXES; //NOSONAR
   }
 }
+

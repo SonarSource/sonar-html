@@ -27,6 +27,7 @@ import java.io.File;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 
@@ -40,6 +41,7 @@ public class WebSourceImporterTest extends AbstractWebPluginTester {
 
     File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
     final Project project = loadProjectFromPom(pomFile);
+    project.setFileSystem(new DefaultProjectFileSystem(project, null));
 
     WebSourceImporter importer = new WebSourceImporter(project);
 

@@ -20,7 +20,6 @@ package org.sonar.plugins.web.checks.generic;
 
 import java.util.regex.Pattern;
 
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -35,7 +34,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "RegularExpressionCheck", name = "Regular Expression Check", description = "Regular Expression Check",
-    priority = Priority.MINOR, isoCategory = IsoCategory.Maintainability)
+    priority = Priority.MINOR)
 public class RegularExpressionCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "expression", description = "Expression")

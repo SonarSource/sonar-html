@@ -132,6 +132,10 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
     public Collection<Rule> findAll(RuleQuery query) {
       return new ArrayList<Rule>();
     }
+
+    public Rule findById(int ruleId) {
+      return null;
+    }
   }
 
   private void configureDefaultParams(AbstractPageCheck check, Rule rule) {

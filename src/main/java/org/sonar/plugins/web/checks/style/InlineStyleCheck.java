@@ -18,7 +18,6 @@
 
 package org.sonar.plugins.web.checks.style;
 
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -32,8 +31,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "InlineStyleCheck", name = "Inline Style", description = "Inline style should be avoided", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Portability)
+@Rule(key = "InlineStyleCheck", name = "Inline Style", description = "Inline style should be avoided", priority = Priority.MINOR)
 public class InlineStyleCheck extends AbstractPageCheck {
 
   @Override

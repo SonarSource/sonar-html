@@ -20,7 +20,6 @@ package org.sonar.plugins.web.checks.coding;
 
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -32,8 +31,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "FileLengthCheck", name = "File Length", description = "File Length", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Maintainability)
+@Rule(key = "FileLengthCheck", name = "File Length", description = "File Length", priority = Priority.MINOR)
 public class FileLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_FILE_LENGTH = 500;

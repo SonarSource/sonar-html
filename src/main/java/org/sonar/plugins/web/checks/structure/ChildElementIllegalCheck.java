@@ -18,7 +18,6 @@
 
 package org.sonar.plugins.web.checks.structure;
 
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -27,14 +26,14 @@ import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for illegal child elements.
- * 
+ *
  * e.g. head cannnot have child element body.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
 @Rule(key = "ChildElementIllegalCheck", name = "Child Element Illegal", description = "child element is illegal",
-    priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
+    priority = Priority.MAJOR)
 public class ChildElementIllegalCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "child", description = "Child", defaultValue = "body")

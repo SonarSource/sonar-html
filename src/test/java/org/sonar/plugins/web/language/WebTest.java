@@ -25,6 +25,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Test;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.web.ProjectConfiguration;
+import org.sonar.plugins.web.api.ProjectFileManager;
 
 /**
  * @author Matthijs Galesloot
@@ -36,23 +37,17 @@ public class WebTest {
     Project project = new Project("test");
     PropertiesConfiguration configuration = new PropertiesConfiguration();
     project.setConfiguration(configuration);
-    Web web = new Web(project);
-    assertEquals(3, web.getFileSuffixes().length);
+    ProjectFileManager projectFileManager = new ProjectFileManager(project);
+    assertEquals(3, projectFileManager.getFileSuffixes().length);
 
     configuration.setProperty(ProjectConfiguration.FILE_EXTENSIONS, "one,two");
-    project.setConfiguration(configuration);
-    web = new Web(project);
-    assertEquals(2, web.getFileSuffixes().length);
+    assertEquals(2, projectFileManager.getFileSuffixes().length);
 
     configuration.setProperty(ProjectConfiguration.FILE_EXTENSIONS, "one");
-    project.setConfiguration(configuration);
-    web = new Web(project);
-    assertEquals(1, web.getFileSuffixes().length);
+    assertEquals(1, projectFileManager.getFileSuffixes().length);
 
     configuration.setProperty(ProjectConfiguration.FILE_EXTENSIONS, "");
-    project.setConfiguration(configuration);
-    web = new Web(project);
-    assertEquals(3, web.getFileSuffixes().length);
+    assertEquals(3, projectFileManager.getFileSuffixes().length);
   }
 
   @Test

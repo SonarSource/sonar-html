@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -36,7 +35,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "RequiredAttributeCheck", name = "Attribute Required", description = "Required attribute must be used",
-    priority = Priority.MAJOR, isoCategory = IsoCategory.Reliability)
+    priority = Priority.MAJOR)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final class RequiredAttribute {

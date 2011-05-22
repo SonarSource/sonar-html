@@ -35,7 +35,6 @@ import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
@@ -54,7 +53,7 @@ import org.sonar.plugins.web.rules.WebRulesRepository;
  */
 public class AbstractWebPluginTester {
 
-  private class WebRuleFinder implements RuleFinder {
+  private static class WebRuleFinder implements RuleFinder {
 
     private final WebRulesRepository repository;
     private final List<Rule> rules;
@@ -78,6 +77,10 @@ public class AbstractWebPluginTester {
           return rule;
         }
       }
+      return null;
+    }
+
+    public Rule findById(int ruleId) {
       return null;
     }
   }
@@ -117,7 +120,6 @@ public class AbstractWebPluginTester {
     MavenProject pom = loadPom(pomFile);
     Project project = new Project(pom.getGroupId() + ":" + pom.getArtifactId()).setPom(pom).setConfiguration(
         new MapConfiguration(pom.getProperties()));
-    project.setFileSystem(new DefaultProjectFileSystem(project));
     project.setPom(pom);
     project.setLanguageKey(Web.INSTANCE.getKey());
     project.setLanguage(Web.INSTANCE);

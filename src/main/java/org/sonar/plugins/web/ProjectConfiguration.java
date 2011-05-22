@@ -18,10 +18,8 @@
 
 package org.sonar.plugins.web;
 
-import org.sonar.api.resources.Project;
-
 /**
- * Utilities and constants for the project configuration.
+ * Constants for the project configuration.
  *
  * @author Matthijs Galesloot
  * @since 1.0
@@ -34,17 +32,5 @@ public final class ProjectConfiguration {
 
   private ProjectConfiguration() {
     // cannot instantiate
-  }
-
-  public static void configureSourceDir(Project project) {
-    String sourceDir = getSourceDir(project);
-    if (sourceDir != null) {
-      project.getPom().getCompileSourceRoots().clear();
-      project.getPom().addCompileSourceRoot(sourceDir);
-    }
-  }
-
-  private static String getSourceDir(Project project) {
-    return (String) project.getProperty(ProjectConfiguration.SOURCE_DIRECTORY);
   }
 }

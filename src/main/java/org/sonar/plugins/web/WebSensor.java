@@ -33,9 +33,11 @@ import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
+import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
+import org.sonar.plugins.web.api.ProjectFileManager;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
@@ -68,7 +70,7 @@ public final class WebSensor implements Sensor {
 
   public void analyse(Project project, SensorContext sensorContext) {
 
-    ProjectConfiguration.configureSourceDir(project);
+    ProjectFileManager fileManager = new ProjectFileManager(project);
 
     // configure the lexer
     final PageLexer lexer = new PageLexer();
@@ -76,18 +78,18 @@ public final class WebSensor implements Sensor {
     // configure page scanner and the visitors
     final PageScanner scanner = setupScanner();
 
-    for (java.io.File webFile : project.getFileSystem().getSourceFiles(new Web(project))) {
+    for (InputFile inputFile : fileManager.getFiles()) {
 
       try {
-        File resource = File.fromIOFile(webFile, project.getFileSystem().getSourceDirs());
+        File resource = fileManager.fromIOFile(inputFile);
 
         WebSourceCode sourceCode = new WebSourceCode(resource);
-        List<Node> nodeList = lexer.parse(new FileReader(webFile));
+        List<Node> nodeList = lexer.parse(new FileReader(inputFile.getFile()));
         scanner.scan(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);
 
       } catch (Exception e) {
-        LOG.error("Could not analyze the file " + webFile.getAbsolutePath(), e);
+        LOG.error("Could not analyze the file " + inputFile.getRelativePath(), e);
       }
     }
   }

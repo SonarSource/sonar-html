@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.checks.NoSonarFilter;
+import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 
 /**
@@ -73,7 +74,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
     File pomFile = new File("source-its/projects/continuum-webapp/pom.xml");
     final Project project = loadProjectFromPom(pomFile);
-
+    project.setFileSystem(new DefaultProjectFileSystem(project, null));
     MockSensorContext sensorContext = new MockSensorContext();
 
     // sensor

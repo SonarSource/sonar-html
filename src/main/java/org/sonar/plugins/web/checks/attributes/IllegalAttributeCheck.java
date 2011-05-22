@@ -19,7 +19,6 @@
 package org.sonar.plugins.web.checks.attributes;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -29,14 +28,13 @@ import org.sonar.plugins.web.node.TagNode;
 
 /**
  * Checker for occurrence of disallowed attributes.
- * 
+ *
  * e.g. class attribute should not be used, but styleClass instead.
- * 
+ *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalAttributeCheck", name = "Illegal Attribute", description = "attribute should not be used", priority = Priority.MAJOR,
-    isoCategory = IsoCategory.Reliability)
+@Rule(key = "IllegalAttributeCheck", name = "Illegal Attribute", description = "attribute should not be used", priority = Priority.MAJOR)
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "attributes", description = "Attributes")

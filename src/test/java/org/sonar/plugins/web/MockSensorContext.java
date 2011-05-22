@@ -111,11 +111,6 @@ public class MockSensorContext implements SensorContext {
     return null;
   }
 
-  public Resource getResource(Resource resource) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   public List getViolations() {
     return violations;
   }
@@ -173,5 +168,45 @@ public class MockSensorContext implements SensorContext {
 
   public List<Resource> getResources() {
     return resources;
+  }
+
+  public boolean index(Resource resource) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  public boolean index(Resource resource, Resource parentReference) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  public boolean isExcluded(Resource reference) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  public boolean isIndexed(Resource reference, boolean acceptExcluded) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  public <R extends Resource> R getResource(R reference) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Resource getParent(Resource reference) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Collection<Resource> getChildren(Resource reference) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public void saveViolation(Violation violation, boolean force) {
+    // TODO Auto-generated method stub
+
   }
 }

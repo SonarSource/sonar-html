@@ -48,10 +48,10 @@ import org.sonar.plugins.web.rules.WebRulesRepository;
     defaultValue="xhtml,jspf,jsp",
     global = true, project = true),
 @Property(key = ProjectConfiguration.SOURCE_DIRECTORY,
-        name = "Source directory",
-        description = "Source directory that will be scanned.",
-        defaultValue="src/main/webapp",
-        global = false, project = true)})
+    name = "Source directory",
+    description = "Source directory that will be scanned.",
+    defaultValue="src/main/webapp",
+    global = false, project = true)})
 public final class WebPlugin implements Plugin {
 
   private static final String KEY = "sonar-web-plugin";

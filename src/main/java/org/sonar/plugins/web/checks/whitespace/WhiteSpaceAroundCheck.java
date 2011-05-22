@@ -18,7 +18,6 @@
 
 package org.sonar.plugins.web.checks.whitespace;
 
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -35,8 +34,7 @@ import org.sonar.plugins.web.node.Node;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "WhiteSpaceAroundCheck", name ="Whitespace Around", description = "White space around", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Maintainability)
+@Rule(key = "WhiteSpaceAroundCheck", name ="Whitespace Around", description = "White space around", priority = Priority.MINOR)
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 
   private void checkEndWhitespace(Node node, String code, String end) {

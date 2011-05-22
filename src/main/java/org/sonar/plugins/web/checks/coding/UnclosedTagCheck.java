@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.IsoCategory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -36,8 +35,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "UnclosedTagCheck", name = "Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR,
-    isoCategory = IsoCategory.Maintainability)
+@Rule(key = "UnclosedTagCheck", name = "Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR)
 public class UnclosedTagCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "ignoreTags", description = "Ignore Tags")
