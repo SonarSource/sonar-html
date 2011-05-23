@@ -21,6 +21,7 @@ package org.sonar.plugins.web.rules;
 import java.util.Arrays;
 import java.util.List;
 
+import org.sonar.plugins.web.checks.attributes.AttributeValidationCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.checks.coding.AvoidHtmlCommentCheck;
@@ -60,6 +61,7 @@ import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 final class CheckClasses {
 
   private static final Class[] CLASSES = new Class[] {
+    AttributeValidationCheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,

@@ -2,7 +2,10 @@
   <name>Default Web Profile</name>
   <language>web</language>
   <rules>
-
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>AttributeValidationCheck</key>
+    </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>AvoidHtmlCommentCheck</key>
