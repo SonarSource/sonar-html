@@ -18,10 +18,13 @@
 
 package org.sonar.plugins.web.checks.scripting;
 
+import javax.el.ELContext;
 import javax.el.ELException;
+import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
 
-import org.jboss.seam.core.Expressions;
-import org.jboss.seam.core.Expressions.ValueExpression;
+import org.jboss.el.lang.ExpressionBuilder;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -34,9 +37,31 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "UnifiedExpressionCheck", name ="Invalid Expression", description = "Invalid expressions syntax",
-    priority = Priority.BLOCKER)
+@Rule(key = "UnifiedExpressionCheck", name = "Invalid Expression", description = "Invalid expressions syntax", priority = Priority.BLOCKER)
 public class UnifiedExpressionCheck extends AbstractPageCheck {
+
+  /**
+   * ELContext for use by ExpressionBuilder.
+   */
+  private final ELContext ctx = new ELContext() {
+
+    @Override
+    public ELResolver getELResolver() {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public FunctionMapper getFunctionMapper() {
+      return null;
+    }
+
+    @Override
+    public VariableMapper getVariableMapper() {
+      // TODO Auto-generated method stub
+      return null;
+    }
+  };
 
   @Override
   public void startElement(TagNode element) {
@@ -53,16 +78,10 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
   }
 
   private void validateExpression(TagNode element, String attribute, String value) {
-
-    Expressions expressions = Expressions.instance();
+    ExpressionBuilder builder = new ExpressionBuilder(value, ctx);
 
     try {
-      if ("onclick".equals(attribute)) {
-        expressions.createMethodExpression(value);
-      } else {
-        ValueExpression<Object> ve = expressions.createValueExpression(value);
-        ve.toUnifiedValueExpression();
-      }
+      builder.createValueExpression(Object.class);
     } catch (ELException e) {
 
       if (e.getMessage().startsWith("Error")) {
