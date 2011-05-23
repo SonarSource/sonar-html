@@ -18,21 +18,26 @@
 
 package org.sonar.plugins.web.checks.scripting;
 
+import java.lang.reflect.Method;
+
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ELResolver;
 import javax.el.FunctionMapper;
 import javax.el.VariableMapper;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jboss.el.lang.ExpressionBuilder;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
- * Checker to find hardcoded labels and messages.
+ * Checker to validate Unified Expressions in JSF.
  *
  * @author Matthijs Galesloot
  * @since 1.0
@@ -40,25 +45,62 @@ import org.sonar.plugins.web.node.TagNode;
 @Rule(key = "UnifiedExpressionCheck", name = "Invalid Expression", description = "Invalid expressions syntax", priority = Priority.BLOCKER)
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
+  @RuleProperty(key = "functions", description = "Functions")
+  private String[] functions;
+
+  public void setFunctions(String list) {
+    functions = StringUtils.stripAll(StringUtils.split(list, ","));
+  }
+
+  private static final String[] JSTL_FUNCTIONS = new String[] { "contains", "containsIgnoreCase", "endsWith", "escapeXml", "indexOf",
+      "join", "length", "replace", "split", "startsWith", "substring", "substringAfter", "substringBefore", "toLowerCase", "toUpperCase",
+      "trim" };
+
+  public String getFunctions() {
+    if (functions != null) {
+      return StringUtils.join(functions, ",");
+    }
+    return "";
+  }
+
   /**
    * ELContext for use by ExpressionBuilder.
    */
-  private final ELContext ctx = new ELContext() {
+  private class ExpressionLanguageContext extends ELContext {
+
+    private final TagNode element;
+
+    public ExpressionLanguageContext(TagNode element) {
+      this.element = element;
+    }
 
     @Override
     public ELResolver getELResolver() {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public FunctionMapper getFunctionMapper() {
-      return null;
+      if (functions == null) {
+        return null;
+      } else {
+        return new FunctionMapper() {
+
+          @Override
+          public Method resolveFunction(String prefix, String localName) {
+
+            if ( !ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functions, localName)) {
+              createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
+            }
+
+            return null;
+          }
+        };
+      }
     }
 
     @Override
     public VariableMapper getVariableMapper() {
-      // TODO Auto-generated method stub
       return null;
     }
   };
@@ -71,19 +113,19 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
       if (value != null) {
         value = value.trim();
         if (value.length() > 0 && isUnifiedExpression(value)) {
-          validateExpression(element, attribute.getName(), value);
+          validateExpression(element, attribute);
         }
       }
     }
   }
 
-  private void validateExpression(TagNode element, String attribute, String value) {
-    ExpressionBuilder builder = new ExpressionBuilder(value, ctx);
+  private void validateExpression(TagNode element, Attribute attribute) {
+    ExpressionLanguageContext context = new ExpressionLanguageContext(element);
+    ExpressionBuilder builder = new ExpressionBuilder(attribute.getValue(), context);
 
     try {
       builder.createValueExpression(Object.class);
     } catch (ELException e) {
-
       if (e.getMessage().startsWith("Error")) {
         createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + e.getMessage());
       }

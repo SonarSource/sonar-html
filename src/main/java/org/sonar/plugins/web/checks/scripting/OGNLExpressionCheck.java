@@ -16,46 +16,47 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.attributes;
+package org.sonar.plugins.web.checks.scripting;
+
+import ognl.Ognl;
+import ognl.OgnlContext;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
- * Checker for occurrence of disallowed attributes.
- *
- * e.g. class attribute should not be used, but styleClass instead.
+ * Checker to validate OGNL Expressions.
  *
  * @author Matthijs Galesloot
- * @since 1.0
+ * @since 1.1
  */
-@Rule(key = "IllegalAttributeCheck", name = "Illegal Attribute", description = "attribute should not be used", priority = Priority.MAJOR)
-public class IllegalAttributeCheck extends AbstractPageCheck {
-
-  @RuleProperty(key = "attributes", description = "Attributes")
-  private QualifiedAttribute[] attributes;
-
-  public String getAttributes() {
-    return getAttributesAsString(attributes);
-  }
-
-  public void setAttributes(String qualifiedAttributes) {
-    this.attributes = parseAttributes(qualifiedAttributes);
-  }
+@Rule(key = "OGNLExpressionCheck", name = "Invalid OGNL Expression", description = "Invalid expressions syntax", priority = Priority.BLOCKER)
+public class OGNLExpressionCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
 
-    if (attributes == null) {
-      return;
+    for (Attribute attribute : element.getAttributes()) {
+      String value = attribute.getValue();
+      if (value != null) {
+        value = value.trim();
+        if (value.length() > 0 && isUnifiedExpression(value)) {
+          validateExpression(element, attribute);
+        }
+      }
     }
+  }
 
-    for (Attribute a : getMatchingAttributes(element, attributes)) {
-      createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + a.getName());
+  private void validateExpression(TagNode element, Attribute attribute) {
+    OgnlContext context = new OgnlContext();
+
+    try {
+      Ognl.compileExpression(context, element, attribute.getValue());
+    } catch (Exception e) {
+      createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + e.getMessage());
     }
   }
 }

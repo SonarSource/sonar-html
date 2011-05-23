@@ -92,7 +92,7 @@
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- lexical analysis -->
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
@@ -148,7 +148,20 @@
       <version>${sonar.version}</version>
       <scope>test</scope>
     </dependency>
-    
+
+    <dependency>
+      <groupId>ognl</groupId>
+      <artifactId>ognl</artifactId>
+      <version>3.0.1</version>
+      <type>jar</type>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>javassist</groupId>
+          <artifactId>javassist</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 
   <profiles>

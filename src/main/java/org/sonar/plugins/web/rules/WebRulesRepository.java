@@ -61,9 +61,6 @@ public final class WebRulesRepository extends RuleRepository {
 
   @Override
   public List<Rule> createRules() {
-    // In Sonar 2.3, the AnnotationRuleParser cannot be injected in the constructor.
-    // It would give an exception for unsatisfiable dependencies.
-
     List<Rule> rules = annotationRuleParser.parse(REPOSITORY_KEY, CheckClasses.getCheckClasses());
     for (Rule rule : rules) {
       rule.setCardinality(Cardinality.MULTIPLE);

@@ -44,7 +44,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
     assertNotNull(webPlugin.getKey());
     assertNotNull(webPlugin.getName());
     assertNotNull(webPlugin.getDescription());
-    assertEquals(8, webPlugin.getExtensions().size());
+    assertEquals(9, webPlugin.getExtensions().size());
   }
 
   @Test

@@ -60,4 +60,24 @@ public class UnifiedExpressionCheckTest extends AbstractCheckTester {
 
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }
+
+  @Test
+  public void testValidFunction() {
+
+    String fragment = "<TD align=\"${testUI:align('inverse')}\">";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class, "functions", "align");
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+  }
+
+  @Test
+  public void testUnknownFunction() {
+
+    String fragment = "<TD align=\"${testUI:align('inverse')}\">";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class, "functions", "another-function");
+
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  }
 }

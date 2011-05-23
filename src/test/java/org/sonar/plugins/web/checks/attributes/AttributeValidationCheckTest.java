@@ -33,7 +33,6 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class AttributeValidationCheckTest extends AbstractCheckTester {
 
 
-  @Test
   public void validateEmail() throws FileNotFoundException {
 
     String fragment = "<td email=\"a.png\">";
@@ -49,7 +48,6 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }
 
-  @Test
   public void validateUrl() throws FileNotFoundException {
 
     String[] checkAttributes = new String[] { "attributes", "url", "type", "url" };
@@ -70,7 +68,7 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
   @Test
   public void validateCode() throws FileNotFoundException {
 
-    String[] checkAttributes = new String[] { "attributes", "escape", "type", "code", "parameters", "true,ok"};
+    String[] checkAttributes = new String[] { "attributes", "escape", "values", "true,ok"};
 
     String fragment = "<td escape='ok'>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
@@ -84,14 +82,12 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
 
-    checkAttributes = new String[] { "attributes", "escape", "type", "code", "parameters", "t.*, o.*"};
+    checkAttributes = new String[] { "attributes", "escape", "values", "t.*, o.*"};
 
     fragment = "<td escape='false'>";
     sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
         checkAttributes);
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-
-
   }
 }

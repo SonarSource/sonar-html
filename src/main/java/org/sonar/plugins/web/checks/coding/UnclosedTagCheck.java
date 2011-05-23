@@ -45,7 +45,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @Override
   public void endElement(TagNode element) {
-    if ( !ignoreTag(element) && nodes.size() > 0) {
+    if ( !ignoreTag(element) && !nodes.isEmpty()) {
 
       TagNode previousNode = nodes.remove(0);
 
