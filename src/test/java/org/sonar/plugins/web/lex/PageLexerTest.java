@@ -28,7 +28,6 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.channel.CodeReader;
 import org.sonar.plugins.web.node.DirectiveNode;
@@ -95,7 +94,7 @@ public class PageLexerTest {
       if (node.getClass() == TagNode.class && ((TagNode) node).getParent() == null) {
         TagNode root = (TagNode) node;
         printTag(sb, root, 0);
-      //  System.out.print(sb.toString());
+        // System.out.print(sb.toString());
       }
     }
   }
@@ -177,7 +176,7 @@ public class PageLexerTest {
     // the embedded tags are added as attributes
     assertEquals(tagNode.getAttributes().get(0).getName(), "value");
     assertEquals(tagNode.getAttributes().get(0).getValue(), "<%= key -%>");
-    assertEquals(tagNode.getAttributes().get(1).getName(),"<%= 'selected' if alert.operator==key -%>");
+    assertEquals(tagNode.getAttributes().get(1).getName(), "<%= 'selected' if alert.operator==key -%>");
     assertNull(tagNode.getAttributes().get(1).getValue());
   }
 
@@ -226,19 +225,26 @@ public class PageLexerTest {
   }
 
   @Test
-  @Ignore
   public void javaScriptWithNestedTags() throws FileNotFoundException {
     String fileName = "src/test/resources/lexer/javascript-nestedtags.jsp";
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
-
-    assertEquals(125, nodeList.size());
+    assertEquals(12, nodeList.size());
 
     // check script node
     Node node = nodeList.get(2);
     assertTrue(node instanceof TagNode);
     TagNode scriptNode = (TagNode) node;
     assertEquals("script", scriptNode.getNodeName());
-    assertEquals(10, scriptNode.getChildren().size());
+    assertEquals(0, scriptNode.getChildren().size());
   }
+
+  @Test
+  public void javaScriptWithComments() throws FileNotFoundException {
+    String fileName = "src/test/resources/lexer/script-with-comments.jsp";
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(new FileReader(fileName));
+    assertEquals(3, nodeList.size());
+  }
+
 }

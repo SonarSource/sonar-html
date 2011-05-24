@@ -78,6 +78,6 @@ public class WebSensorTest extends AbstractWebPluginTester {
     assertTrue(sensor.shouldExecuteOnProject(project));
     sensor.analyse(project, sensorContext);
 
-    assertEquals(991, sensorContext.getViolations().size());
+    assertEquals(992, sensorContext.getViolations().size());
   }
 }

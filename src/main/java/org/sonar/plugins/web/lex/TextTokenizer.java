@@ -23,6 +23,8 @@ import java.util.List;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.NodeType;
+import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
 /**
@@ -31,7 +33,7 @@ import org.sonar.plugins.web.node.TextNode;
  * @author Matthijs Galesloot
  * @since 1.0
  *
- *         TODO - handle CDATA
+ *        TODO - handle CDATA
  */
 class TextTokenizer extends AbstractTokenizer<List<Node>> {
 
@@ -48,6 +50,30 @@ class TextTokenizer extends AbstractTokenizer<List<Node>> {
     super("", "");
   }
 
+  /**
+   * Checks for the end of a script block
+   */
+  private static class EndScriptMatcher implements EndMatcher {
+
+    private final CodeReader codeReader;
+    private static final String END_SCRIPT = "</script>";
+
+    public EndScriptMatcher(CodeReader codeReader) {
+      this.codeReader = codeReader;
+    }
+
+    public boolean match(int endFlag) {
+
+      // return true on end of file
+      if (endFlag == (char) -1) {
+        return true;
+      }
+
+      // check for end script
+      return (char) endFlag == '<' && END_SCRIPT.equalsIgnoreCase(new String(codeReader.peek(END_SCRIPT.length())));
+    }
+  }
+
   @Override
   public boolean consume(CodeReader codeReader, List<Node> nodeList) {
     Node node = createNode();
@@ -55,13 +81,28 @@ class TextTokenizer extends AbstractTokenizer<List<Node>> {
     setStartPosition(codeReader, node);
 
     StringBuilder stringBuilder = new StringBuilder();
-    codeReader.popTo(endTokenMatcher, stringBuilder);
+    if (inScript(nodeList)) {
+      codeReader.popTo(new EndScriptMatcher(codeReader), stringBuilder);
+    } else {
+      codeReader.popTo(endTokenMatcher, stringBuilder);
+    }
     node.setCode(stringBuilder.toString());
     setEndPosition(codeReader, node);
 
     nodeList.add(node);
 
     return true;
+  }
+
+  private boolean inScript(List<Node> nodeList) {
+    if ( !nodeList.isEmpty()) {
+      Node node = nodeList.get(nodeList.size() - 1);
+      if (node.getNodeType() == NodeType.Tag) {
+        TagNode tag = (TagNode) node;
+        return !tag.isEndElement() && "script".equalsIgnoreCase(tag.getNodeName());
+      }
+    }
+    return false;
   }
 
   @Override

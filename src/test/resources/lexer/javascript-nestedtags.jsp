@@ -43,47 +43,6 @@ $('#errorBox').dialog({ autoOpen: false, bgiframe: true, resizable: false, modal
 
 </script>
 
-<form:form id="samplingParametersForm" modelAttribute="command" onsubmit="return validateForm()" method="POST">
-<c:choose>
-<c:when test="${command.hierarchy.hierarchyDepth != 2}">
-<div id="depthError" align="center" style="font-style: italic; font-size: xx-small;">
-<spring:message code="maintainSamplingParameters.depth.error"/>
-</div>
-</c:when>
-<c:otherwise>
-<div style="padding-left: 10px;" id="breadcrumbs">${command.hierarchy.path}</div>
-<br/>
-<table id="samplingParametersForHierarchy">
-<tr>
-<td width="40%"><spring:message code="maintainSamplingParameters.label.riskAssessment"/></td>
-<td>
-<form:select path="riskAssessment" id="riskAssessment">
-<form:option value=""><spring:message code="maintainSamplingParameters.select.defaultRisk"/></form:option>
-<form:options items="${riskAssessments}" itemLabel="riskAssessment"/>
-</form:select>
-<form:hidden path="version" id="version"/>
-<form:hidden path="hierarchy" id="hierarchy"/>
-</td>
-</tr>
-<tr>
-<td><spring:message code="maintainSamplingParameters.label.samplePercentage"/></td>
-<td><form:input size="16" path="samplePercentage" id="samplePercentage" maxlength="3"/></td>
-</tr>
-<tr>
-<td><spring:message code="maintainSamplingParameters.label.minimumSampleSize"/></td>
-<td><form:input size="16" path="minimumSampleSize" id="minimumSampleSize"/></td>
-</tr>
-<tr>
-<td><spring:message code="maintainSamplingParameters.label.maximumSampleSize"/></td>
-<td><form:input size="16" path="maximumSampleSize" id="maximumSampleSize"/></td>
-</tr>
-<tr>
-</tr>
-</table>
-</c:otherwise>
-</c:choose>
-</form:form>
-
 <div id="errorBox" title="Errors">
 <div id="samplingParametersError"></div>
 </div>
