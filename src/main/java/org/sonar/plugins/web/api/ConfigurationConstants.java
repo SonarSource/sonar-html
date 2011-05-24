@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.api;
 
 /**
  * Constants for the project configuration.
@@ -24,13 +24,9 @@ package org.sonar.plugins.web;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-public final class ProjectConfiguration {
+public interface ConfigurationConstants {
 
-  public static final String FILE_EXTENSIONS = "sonar.web.fileExtensions";
-  public static final String SOURCE_DIRECTORY = "sonar.web.sourceDirectory";
-  public static final String CPD_MINIMUM_TOKENS = "sonar.cpd.web.minimumTokens";
-
-  private ProjectConfiguration() {
-    // cannot instantiate
-  }
+  String FILE_EXTENSIONS = "sonar.web.fileExtensions";
+  String SOURCE_DIRECTORY = "sonar.web.sourceDirectory";
+  String CPD_MINIMUM_TOKENS = "sonar.cpd.web.minimumTokens";
 }

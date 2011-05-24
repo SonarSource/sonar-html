@@ -25,6 +25,7 @@ import org.sonar.api.Extension;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
+import org.sonar.plugins.web.api.ConfigurationConstants;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
@@ -39,26 +40,24 @@ import org.sonar.plugins.web.rules.WebRulesRepository;
  * @since 1.0
  */
 @Properties({
-@Property(key = ProjectConfiguration.CPD_MINIMUM_TOKENS, defaultValue = "70",
+@Property(key = ConfigurationConstants.CPD_MINIMUM_TOKENS, defaultValue = "70",
     name = "Minimum tokens",
     description = "The number of duplicate tokens above which a HTML block is considered as a duplicated.",
     global = true, project = true),
-@Property(key = ProjectConfiguration.FILE_EXTENSIONS,
+@Property(key = ConfigurationConstants.FILE_EXTENSIONS,
     name = "File extensions",
     description = "List of file extensions that will be scanned.",
     defaultValue="xhtml,jspf,jsp",
     global = true, project = true),
-@Property(key = ProjectConfiguration.SOURCE_DIRECTORY,
+@Property(key = ConfigurationConstants.SOURCE_DIRECTORY,
     name = "Source directory",
     description = "Source directory that will be scanned.",
     defaultValue="src/main/webapp",
     global = false, project = true)})
 public final class WebPlugin implements Plugin {
 
-  private static final String KEY = "sonar-web-plugin";
-
   public String getDescription() {
-    return getName() + " collects metrics on web code, such as lines of code, violations, documentation level...";
+    return null; // NOT USED
   }
 
   public List<Class<? extends Extension>> getExtensions() {
@@ -89,11 +88,11 @@ public final class WebPlugin implements Plugin {
   }
 
   public String getKey() {
-    return KEY;
+    return null; // NOT USED
   }
 
   public String getName() {
-    return "Web plugin";
+    return null; // NOT USED
   }
 
   @Override

@@ -20,13 +20,11 @@ package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
@@ -36,14 +34,12 @@ import org.sonar.api.resources.Project;
  */
 public class WebSensorTest extends AbstractWebPluginTester {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractWebPluginTester.class);
-
   @Test
   public void webPluginTester() {
     WebPlugin webPlugin = new WebPlugin();
-    assertNotNull(webPlugin.getKey());
-    assertNotNull(webPlugin.getName());
-    assertNotNull(webPlugin.getDescription());
+    assertNull(webPlugin.getKey());
+    assertNull(webPlugin.getName());
+    assertNull(webPlugin.getDescription());
     assertEquals(9, webPlugin.getExtensions().size());
   }
 

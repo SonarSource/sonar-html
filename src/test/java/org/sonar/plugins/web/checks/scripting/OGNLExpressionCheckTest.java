@@ -33,7 +33,7 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
 
   @Test
   public void testSimple() {
-    String fragment = "<radio list='#{myString.length}'  />";
+    String fragment = "<radio empty list='#{myString.length}'  />";
     StringReader reader = new StringReader(fragment);
     WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
 
@@ -42,7 +42,7 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
 
   @Test
   public void testViolatedExpression() {
-    String fragment = "<radio list='#{myString..length}' />";
+    String fragment = "<radio empty='' list='#{myString..length}' />";
     StringReader reader = new StringReader(fragment);
     WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
 

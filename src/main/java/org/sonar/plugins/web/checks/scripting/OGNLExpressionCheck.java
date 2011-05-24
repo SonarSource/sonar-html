@@ -19,7 +19,7 @@
 package org.sonar.plugins.web.checks.scripting;
 
 import ognl.Ognl;
-import ognl.OgnlContext;
+import ognl.OgnlException;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -33,8 +33,13 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.1
  */
-@Rule(key = "OGNLExpressionCheck", name = "Invalid OGNL Expression", description = "Invalid expressions syntax", priority = Priority.BLOCKER)
+@Rule(key = "OGNLExpressionCheck", name = "Invalid OGNL Expression", description = "Invalid expressions syntax",
+    priority = Priority.BLOCKER)
 public class OGNLExpressionCheck extends AbstractPageCheck {
+
+  private static boolean isOGNLExpression(String value) {
+    return value.contains("#{") || value.contains("${") || value.contains("%{");
+  }
 
   @Override
   public void startElement(TagNode element) {
@@ -43,7 +48,7 @@ public class OGNLExpressionCheck extends AbstractPageCheck {
       String value = attribute.getValue();
       if (value != null) {
         value = value.trim();
-        if (value.length() > 0 && isUnifiedExpression(value)) {
+        if (value.length() > 0 && isOGNLExpression(value)) {
           validateExpression(element, attribute);
         }
       }
@@ -51,11 +56,9 @@ public class OGNLExpressionCheck extends AbstractPageCheck {
   }
 
   private void validateExpression(TagNode element, Attribute attribute) {
-    OgnlContext context = new OgnlContext();
-
     try {
-      Ognl.compileExpression(context, element, attribute.getValue());
-    } catch (Exception e) {
+      Ognl.parseExpression(attribute.getValue());
+    } catch (OgnlException e) {
       createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + e.getMessage());
     }
   }

@@ -35,7 +35,6 @@ import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.WildcardPattern;
-import org.sonar.plugins.web.ProjectConfiguration;
 import org.sonar.plugins.web.language.Web;
 
 import com.google.common.collect.Lists;
@@ -196,7 +195,7 @@ public class ProjectFileManager {
   }
 
   public String[] getFileSuffixes() {
-    List<?> extensions = project.getConfiguration().getList(ProjectConfiguration.FILE_EXTENSIONS);
+    List<?> extensions = project.getConfiguration().getList(ConfigurationConstants.FILE_EXTENSIONS);
 
     if (extensions != null && !extensions.isEmpty() && !StringUtils.isEmpty((String) extensions.get(0))) {
       String[] fileSuffixes = new String[extensions.size()];
@@ -225,7 +224,7 @@ public class ProjectFileManager {
    * tried.
    */
   public List<File> getSourceDirs() {
-    String sourceDir = (String) project.getProperty(ProjectConfiguration.SOURCE_DIRECTORY);
+    String sourceDir = (String) project.getProperty(ConfigurationConstants.SOURCE_DIRECTORY);
     if (sourceDir != null) {
       List<File> sourceDirs = new ArrayList<File>();
       sourceDirs.add(resolvePath(sourceDir));
