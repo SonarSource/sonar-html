@@ -31,6 +31,8 @@ import org.apache.commons.io.filefilter.HiddenFileFilter;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.utils.SonarException;
@@ -46,29 +48,6 @@ import com.google.common.collect.Lists;
  * @since 1.1
  */
 public class ProjectFileManager {
-
-  private static final class WebInputFile implements InputFile {
-
-    private final File basedir;
-    private final String relativePath;
-
-    WebInputFile(File basedir, String relativePath) {
-      this.basedir = basedir;
-      this.relativePath = relativePath;
-    }
-
-    public File getFile() {
-      return new File(basedir, relativePath);
-    }
-
-    public File getFileBaseDir() {
-      return basedir;
-    }
-
-    public String getRelativePath() {
-      return relativePath;
-    }
-  }
 
   private static class ExclusionFilter implements IOFileFilter {
 
@@ -97,6 +76,31 @@ public class ProjectFileManager {
       return accept(file);
     }
   }
+
+  private static final class WebInputFile implements InputFile {
+
+    private final File basedir;
+    private final String relativePath;
+
+    WebInputFile(File basedir, String relativePath) {
+      this.basedir = basedir;
+      this.relativePath = relativePath;
+    }
+
+    public File getFile() {
+      return new File(basedir, relativePath);
+    }
+
+    public File getFileBaseDir() {
+      return basedir;
+    }
+
+    public String getRelativePath() {
+      return relativePath;
+    }
+  }
+
+  private static final Logger LOG = LoggerFactory.getLogger(ProjectFileManager.class);
 
   private static boolean containsFile(List<File> dirs, File cursor) {
     for (File dir : dirs) {
@@ -142,12 +146,47 @@ public class ProjectFileManager {
 
   private final Project project;
 
+  private final List<File> sourceDirs;
+
   public ProjectFileManager(Project project) {
     this.project = project;
+    sourceDirs = compileSourceDirs();
+  }
+
+  /**
+   * Gets list of source dirs. First checks configuration setting for "sonar.web.sourceDirectory". Next the project source directory will be
+   * tried.
+   */
+  private List<File> compileSourceDirs() {
+    List<File> dirs = new ArrayList<File>();
+
+    Object property = project.getProperty(ConfigurationConstants.SOURCE_DIRECTORY);
+    if (property != null) {
+      if (property instanceof ArrayList) {
+        for (Object configuredDir : (List) property) {
+          dirs.add(resolvePath((String) configuredDir));
+        }
+      } else {
+        dirs.add(resolvePath((String) property));
+      }
+    } else {
+      if (project.getFileSystem() != null) {
+        dirs.addAll(project.getFileSystem().getSourceDirs());
+      }
+    }
+
+    // check if the source dirs exist
+    for (File dir : new ArrayList<File>(dirs)) {
+      if ( !dir.exists()) {
+        LOG.error("Could not find source dir " + dir.getPath());
+        dirs.remove(dir);
+      }
+    }
+    return dirs;
   }
 
   public org.sonar.api.resources.File fromIOFile(InputFile inputfile) {
-    return org.sonar.api.resources.File.fromIOFile(inputfile.getFile(), getSourceDirs());
+    return org.sonar.api.resources.File.fromIOFile(inputfile.getFile(), sourceDirs);
   }
 
   public File getBasedir() {
@@ -164,17 +203,17 @@ public class ProjectFileManager {
     return exclusionPatterns;
   }
 
+  /**
+   * Gets the list of files that are in scope for importing and analysis.
+   */
   public List<InputFile> getFiles() {
     List<InputFile> result = Lists.newArrayList();
-    if (getSourceDirs() == null) {
-      return result;
-    }
 
     IOFileFilter suffixFilter = getFileSuffixFilter();
     WildcardPattern[] exclusionPatterns = getExclusionPatterns(true);
     IOFileFilter visibleFileFilter = HiddenFileFilter.VISIBLE;
 
-    for (File dir : getSourceDirs()) {
+    for (File dir : sourceDirs) {
       if (dir.exists()) {
 
         // exclusion filter
@@ -193,6 +232,7 @@ public class ProjectFileManager {
     }
     return result;
   }
+
 
   public String[] getFileSuffixes() {
     List<?> extensions = project.getConfiguration().getList(ConfigurationConstants.FILE_EXTENSIONS);
@@ -219,19 +259,8 @@ public class ProjectFileManager {
     return suffixFilter;
   }
 
-  /**
-   * Gets list of source dirs. First checks configuration setting for "sonar.web.sourceDirectory". Next the project source directory will be
-   * tried.
-   */
   public List<File> getSourceDirs() {
-    String sourceDir = (String) project.getProperty(ConfigurationConstants.SOURCE_DIRECTORY);
-    if (sourceDir != null) {
-      List<File> sourceDirs = new ArrayList<File>();
-      sourceDirs.add(resolvePath(sourceDir));
-      return sourceDirs;
-    } else {
-      return project.getFileSystem().getSourceDirs();
-    }
+    return sourceDirs;
   }
 
   public File resolvePath(String path) {

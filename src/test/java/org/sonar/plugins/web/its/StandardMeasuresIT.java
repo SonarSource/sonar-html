@@ -50,14 +50,14 @@ public class StandardMeasuresIT {
 
   @Test
   public void projectMeasures() {
-    assertThat(getProjectMeasure("ncloc").getIntValue(), is(6815));
+    assertThat(getProjectMeasure("ncloc").getIntValue(), is(6853));
     assertThat(getProjectMeasure("lines").getIntValue(), is(9252));
     assertThat(getProjectMeasure("files").getIntValue(), is(103));
     assertThat(getProjectMeasure("directories").getIntValue(), is(8));
     assertNull(getProjectMeasure("functions"));
     assertNull(getProjectMeasure("statements"));
-    assertThat(getProjectMeasure("comment_lines_density").getValue(), is(21.9));
-    assertThat(getProjectMeasure("comment_lines").getIntValue(), is(1914));
+    assertThat(getProjectMeasure("comment_lines_density").getValue(), is(21.5));
+    assertThat(getProjectMeasure("comment_lines").getIntValue(), is(1877));
     assertNull(getProjectMeasure("public_api"));
     assertThat(getProjectMeasure("duplicated_lines").getIntValue(), is(108));
     assertThat(getProjectMeasure("duplicated_blocks").getIntValue(), is(4));
@@ -68,15 +68,15 @@ public class StandardMeasuresIT {
     assertNull(getProjectMeasure("function_complexity_distribution"));
     assertThat(getProjectMeasure("file_complexity").getValue(), is(3.8));
     assertThat(getProjectMeasure("file_complexity_distribution").getData(), is("0=73;5=22;10=7;20=1;30=0;60=0;90=0"));
-    assertThat(getProjectMeasure("violations").getIntValue(), is(995));
-    assertThat(getProjectMeasure("weighted_violations").getIntValue(), is(1603));
-    assertThat(getProjectMeasure("violations_density").getValue(), is(76.5));
+    assertThat(getProjectMeasure("violations").getIntValue(), is(996));
+    assertThat(getProjectMeasure("weighted_violations").getIntValue(), is(1616));
+    assertThat(getProjectMeasure("violations_density").getValue(), is(76.4));
   }
 
   @Test
   public void directoryMeasures() {
-    assertThat(getMeasure("ncloc", DIR_ROOT).getIntValue(), is(2877));
-    assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.2));
+    assertThat(getMeasure("ncloc", DIR_ROOT).getIntValue(), is(2878));
+    assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.0));
     assertThat(getMeasure("comment_lines_density", DIR_ROOT).getValue(), is(20.6));
     assertThat(getMeasure("duplicated_lines_density", DIR_ROOT).getValue(), is(1.4));
     assertThat(getMeasure("complexity", DIR_ROOT).getIntValue(), is(150));

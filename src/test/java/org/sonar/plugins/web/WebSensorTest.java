@@ -20,10 +20,10 @@ package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.resources.DefaultProjectFileSystem;
@@ -34,20 +34,15 @@ import org.sonar.api.resources.Project;
  */
 public class WebSensorTest extends AbstractWebPluginTester {
 
-  @Test
-  public void webPluginTester() {
-    WebPlugin webPlugin = new WebPlugin();
-    assertNull(webPlugin.getKey());
-    assertNull(webPlugin.getName());
-    assertNull(webPlugin.getDescription());
-    assertEquals(9, webPlugin.getExtensions().size());
+  private WebSensor sensor;
+
+  @Before
+  public void setup() {
+     sensor = new WebSensor(createStandardRulesProfile(), new NoSonarFilter());
   }
 
   @Test
   public void testSensor() throws Exception {
-    NoSonarFilter noSonarFilter = new NoSonarFilter();
-    WebSensor sensor = new WebSensor(createStandardRulesProfile(), noSonarFilter);
-
     File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
 
     final Project project = loadProjectFromPom(pomFile);
@@ -61,20 +56,16 @@ public class WebSensorTest extends AbstractWebPluginTester {
   }
 
   /**
-   * Simple Unit test version of the integration test StandardMeasuresIT.
-   * The purpose of this test is to get early feedback on changes in the
-   * nr of violations.
+   * Simple Unit test version of the integration test StandardMeasuresIT. The purpose of this test is to get early feedback on changes in
+   * the nr of violations.
    */
   @Test
   public void testStandardMeasuresIntegrationTest() throws Exception {
 
     File pomFile = new File("source-its/projects/continuum-webapp/pom.xml");
-    final Project project = loadProjectFromPom(pomFile);
+    Project project = loadProjectFromPom(pomFile);
     project.setFileSystem(new DefaultProjectFileSystem(project, null));
     MockSensorContext sensorContext = new MockSensorContext();
-
-    // sensor
-    WebSensor sensor = new WebSensor(createStandardRulesProfile(), new NoSonarFilter());
     assertTrue(sensor.shouldExecuteOnProject(project));
     sensor.analyse(project, sensorContext);
 
