@@ -177,8 +177,10 @@ public class ProjectFileManager {
 
     // check if the source dirs exist
     for (File dir : new ArrayList<File>(dirs)) {
-      if ( !dir.exists()) {
-        LOG.error("Could not find source dir " + dir.getPath());
+      if (dir.exists()) {
+        LOG.info("Source dir for web files: " + dir.getPath());
+      } else {
+        LOG.error("Could not find source dir: " + dir.getPath());
         dirs.remove(dir);
       }
     }
@@ -232,7 +234,6 @@ public class ProjectFileManager {
     }
     return result;
   }
-
 
   public String[] getFileSuffixes() {
     List<?> extensions = project.getConfiguration().getList(ConfigurationConstants.FILE_EXTENSIONS);
