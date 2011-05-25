@@ -35,8 +35,8 @@ import org.sonar.api.rules.RuleRepository;
 import org.sonar.api.utils.AnnotationUtils;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Cardinality;
+import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.language.Web;
 
 /**
  * Repository for web rules.
@@ -53,7 +53,7 @@ public final class WebRulesRepository extends RuleRepository {
   private final AnnotationRuleParser annotationRuleParser;
 
   public WebRulesRepository(AnnotationRuleParser annotationRuleParser) {
-    super(REPOSITORY_KEY, Web.KEY);
+    super(REPOSITORY_KEY, WebConstants.LANGUAGE_KEY);
     setName(REPOSITORY_NAME);
 
     this.annotationRuleParser = annotationRuleParser;

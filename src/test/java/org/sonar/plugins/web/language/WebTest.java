@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Test;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.api.ConfigurationConstants;
+import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.api.ProjectFileManager;
 
 /**
@@ -40,13 +40,13 @@ public class WebTest {
     ProjectFileManager projectFileManager = new ProjectFileManager(project);
     assertEquals(3, projectFileManager.getFileSuffixes().length);
 
-    configuration.setProperty(ConfigurationConstants.FILE_EXTENSIONS, "one,two");
+    configuration.setProperty(WebConstants.FILE_EXTENSIONS, "one,two");
     assertEquals(2, projectFileManager.getFileSuffixes().length);
 
-    configuration.setProperty(ConfigurationConstants.FILE_EXTENSIONS, "one");
+    configuration.setProperty(WebConstants.FILE_EXTENSIONS, "one");
     assertEquals(1, projectFileManager.getFileSuffixes().length);
 
-    configuration.setProperty(ConfigurationConstants.FILE_EXTENSIONS, "");
+    configuration.setProperty(WebConstants.FILE_EXTENSIONS, "");
     assertEquals(3, projectFileManager.getFileSuffixes().length);
   }
 

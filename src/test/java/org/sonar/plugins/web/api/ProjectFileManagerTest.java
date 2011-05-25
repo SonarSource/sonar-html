@@ -40,23 +40,23 @@ public class ProjectFileManagerTest extends AbstractWebPluginTester {
     File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
     final Project project = loadProjectFromPom(pomFile);
 
-    String path = (String) project.getConfiguration().getProperty(ConfigurationConstants.SOURCE_DIRECTORY);
+    String path = (String) project.getConfiguration().getProperty(WebConstants.SOURCE_DIRECTORY);
     ProjectFileManager fileManager = new ProjectFileManager(project);
     assertEquals(1, fileManager.getSourceDirs().size());
 
     // set absolute path
-    project.getConfiguration().setProperty(ConfigurationConstants.SOURCE_DIRECTORY,
+    project.getConfiguration().setProperty(WebConstants.SOURCE_DIRECTORY,
         new File(project.getPom().getBasedir(), path).getAbsoluteFile().toString());
     fileManager = new ProjectFileManager(project);
     assertEquals(1, fileManager.getSourceDirs().size());
 
     // add two more paths
-    project.getConfiguration().addProperty(ConfigurationConstants.SOURCE_DIRECTORY, path + "," + path);
+    project.getConfiguration().addProperty(WebConstants.SOURCE_DIRECTORY, path + "," + path);
     fileManager = new ProjectFileManager(project);
     assertEquals(3, fileManager.getSourceDirs().size());
 
     // add not existing path
-    project.getConfiguration().addProperty(ConfigurationConstants.SOURCE_DIRECTORY, "path-not-exist");
+    project.getConfiguration().addProperty(WebConstants.SOURCE_DIRECTORY, "path-not-exist");
     fileManager = new ProjectFileManager(project);
     assertEquals(3, fileManager.getSourceDirs().size());
   }

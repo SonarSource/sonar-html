@@ -68,7 +68,7 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
   @Test
   public void validateCode() throws FileNotFoundException {
 
-    String[] checkAttributes = new String[] { "attributes", "escape", "values", "true,ok"};
+    String[] checkAttributes = new String[] { "attributes", "escape", "values", "true|ok"};
 
     String fragment = "<td escape='ok'>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
@@ -82,12 +82,12 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
 
-    checkAttributes = new String[] { "attributes", "escape", "values", "t.*, o.*"};
+    checkAttributes = new String[] { "attributes", "escape", "values", "t.*|o.*"};
 
-    fragment = "<td escape='false'>";
+    fragment = "<td escape='ok'>";
     sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
         checkAttributes);
 
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }
 }

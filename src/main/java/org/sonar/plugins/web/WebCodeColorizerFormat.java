@@ -24,14 +24,14 @@ import java.util.List;
 import org.sonar.api.web.CodeColorizerFormat;
 import org.sonar.colorizer.RegexpTokenizer;
 import org.sonar.colorizer.Tokenizer;
-import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.api.WebConstants;
 
 public class WebCodeColorizerFormat extends CodeColorizerFormat {
 
   private final List<Tokenizer> tokenizers = new ArrayList<Tokenizer>();
 
   public WebCodeColorizerFormat() {
-    super(Web.KEY);
+    super(WebConstants.LANGUAGE_KEY);
     tokenizers.add(new RegexpTokenizer("<span class=\"k\">", "</span>", "</?\\p{L}*>?"));
     tokenizers.add(new RegexpTokenizer("<span class=\"k\">", "</span>", ">"));
   }

@@ -38,8 +38,8 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.ProjectFileManager;
+import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.WebRulesRepository;
@@ -137,7 +137,7 @@ public final class WebSensor implements Sensor {
    * This sensor only executes on Web projects.
    */
   public boolean shouldExecuteOnProject(Project project) {
-    return Web.KEY.equals(project.getLanguageKey());
+    return WebConstants.LANGUAGE_KEY.equals(project.getLanguageKey());
   }
 
   @Override

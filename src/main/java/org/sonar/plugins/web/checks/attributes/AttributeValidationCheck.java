@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,20 +41,17 @@ public class AttributeValidationCheck extends AbstractPageCheck {
   @RuleProperty(key = "attributes", description = "List of attributes, comma separated.")
   private QualifiedAttribute[] attributes;
 
-  @RuleProperty(key = "values", description = "List of values, comma separated. Regular expressions are supported.")
-  private String[] values;
+  @RuleProperty(key = "values", description = "List of values, separated by | symbol. Regular expressions are supported.")
+  private String values;
 
-  private final List<Pattern> patterns = new ArrayList<Pattern>();
+  private Pattern pattern;
 
   public String getAttributes() {
     return getAttributesAsString(attributes);
   }
 
   public String getValues() {
-    if (values != null) {
-      return StringUtils.join(values, ",");
-    }
-    return "";
+    return values;
   }
 
   private boolean isValidValue(Attribute a) {
@@ -65,29 +60,17 @@ public class AttributeValidationCheck extends AbstractPageCheck {
       return true;
     }
 
-    for (Pattern pattern : patterns) {
-      Matcher m = pattern.matcher(a.getValue());
-      if (m.matches()) {
-        return true;
-      }
-    }
-
-    return false; // no match was found
+    Matcher m = pattern.matcher(a.getValue());
+    return m.matches();
   }
 
   public void setAttributes(String qualifiedAttributes) {
     this.attributes = parseAttributes(qualifiedAttributes);
   }
 
-  public void setValues(String list) {
-    values = StringUtils.split(list, ",");
-    values = StringUtils.stripAll(values);
-
-    patterns.clear();
-    for (String parameter : values) {
-      Pattern pattern = Pattern.compile(parameter);
-      patterns.add(pattern);
-    }
+  public void setValues(String values) {
+    this.values = values;
+    pattern = Pattern.compile(values);
   }
 
   @Override

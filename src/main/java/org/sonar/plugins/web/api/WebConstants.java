@@ -24,9 +24,12 @@ package org.sonar.plugins.web.api;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-public interface ConfigurationConstants {
+public interface WebConstants {
 
   String FILE_EXTENSIONS = "sonar.web.fileExtensions";
   String SOURCE_DIRECTORY = "sonar.web.sourceDirectory";
   String CPD_MINIMUM_TOKENS = "sonar.cpd.web.minimumTokens";
+
+  /** The language key. */
+  String LANGUAGE_KEY = "web";
 }

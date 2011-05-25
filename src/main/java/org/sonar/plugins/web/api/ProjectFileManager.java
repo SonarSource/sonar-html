@@ -160,7 +160,7 @@ public class ProjectFileManager {
   private List<File> compileSourceDirs() {
     List<File> dirs = new ArrayList<File>();
 
-    Object property = project.getProperty(ConfigurationConstants.SOURCE_DIRECTORY);
+    Object property = project.getProperty(WebConstants.SOURCE_DIRECTORY);
     if (property != null) {
       if (property instanceof ArrayList) {
         for (Object configuredDir : (List) property) {
@@ -236,7 +236,7 @@ public class ProjectFileManager {
   }
 
   public String[] getFileSuffixes() {
-    List<?> extensions = project.getConfiguration().getList(ConfigurationConstants.FILE_EXTENSIONS);
+    List<?> extensions = project.getConfiguration().getList(WebConstants.FILE_EXTENSIONS);
 
     if (extensions != null && !extensions.isEmpty() && !StringUtils.isEmpty((String) extensions.get(0))) {
       String[] fileSuffixes = new String[extensions.size()];

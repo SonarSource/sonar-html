@@ -19,6 +19,7 @@
 package org.sonar.plugins.web.language;
 
 import org.sonar.api.resources.AbstractLanguage;
+import org.sonar.plugins.web.api.WebConstants;
 
 /**
  * This class defines the Web language.
@@ -34,9 +35,6 @@ public class Web extends AbstractLanguage {
   /** A web instance. */
   public static final Web INSTANCE = new Web();
 
-  /** The web language key. */
-  public static final String KEY = "web";
-
   /** The web language name */
   private static final String WEB_LANGUAGE_NAME = "Web";
 
@@ -44,7 +42,7 @@ public class Web extends AbstractLanguage {
    * Default constructor.
    */
   public Web() {
-    super(KEY, WEB_LANGUAGE_NAME);
+    super(WebConstants.LANGUAGE_KEY, WEB_LANGUAGE_NAME);
   }
 
   /**

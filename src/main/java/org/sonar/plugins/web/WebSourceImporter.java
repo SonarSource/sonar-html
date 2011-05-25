@@ -35,7 +35,7 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.api.ProjectFileManager;
-import org.sonar.plugins.web.language.Web;
+import org.sonar.plugins.web.api.WebConstants;
 
 /**
  * Import of source files to sonar database.
@@ -99,7 +99,7 @@ public final class WebSourceImporter implements Sensor {
   }
 
   public boolean shouldExecuteOnProject(Project project) {
-    return isEnabled(project) && Web.KEY.equals(project.getLanguageKey());
+    return isEnabled(project) && WebConstants.LANGUAGE_KEY.equals(project.getLanguageKey());
   }
 
   @Override

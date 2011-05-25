@@ -45,16 +45,35 @@ import org.sonar.plugins.web.node.TagNode;
 @Rule(key = "UnifiedExpressionCheck", name = "Invalid Expression", description = "Invalid expressions syntax", priority = Priority.BLOCKER)
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "functions", description = "Functions")
+  /**
+   * List of supported functions. Use of unknown functions raises a violation.
+   * @since 1.1
+   */
+  @RuleProperty(key = "functions", description = "Functions (comma separated)")
   private String[] functions;
 
   public void setFunctions(String list) {
     functions = StringUtils.stripAll(StringUtils.split(list, ","));
   }
 
-  private static final String[] JSTL_FUNCTIONS = new String[] { "contains", "containsIgnoreCase", "endsWith", "escapeXml", "indexOf",
-      "join", "length", "replace", "split", "startsWith", "substring", "substringAfter", "substringBefore", "toLowerCase", "toUpperCase",
-      "trim" };
+  private static final String[] JSTL_FUNCTIONS = new String[] {
+    "contains",
+    "containsIgnoreCase",
+    "endsWith",
+    "escapeXml",
+    "indexOf",
+    "join",
+    "length",
+    "replace",
+    "split",
+    "startsWith",
+    "substring",
+    "substringAfter",
+    "substringBefore",
+    "toLowerCase",
+    "toUpperCase",
+    "trim"
+  };
 
   public String getFunctions() {
     if (functions != null) {
@@ -93,7 +112,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
               createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
             }
 
-            return null;
+            return null; // we only care about the check.
           }
         };
       }
