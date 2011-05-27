@@ -1,0 +1,24 @@
+<project name="Example" default="sonar">
+  
+  <!-- Define the Sonar task if this hasn't been done in a common script -->
+  <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+    <classpath path="C:/bin/apache-ant-1.8.1/lib" />
+  </taskdef>
+  
+  <!-- Add the target -->
+  <target name="sonar">
+    <!-- The workDir directory is used by Sonar to store temporary files -->
+    <sonar:sonar workDir="." key="org.example:example" version="0.1-SNAPSHOT" xmlns:sonar="antlib:org.sonar.ant">
+
+      <!-- source directories -->
+      <sources>
+        <path location="../source-its/projects/continuum-webapp/src" />
+      </sources>
+
+      <!-- list of properties -->
+      <property key="sonar.dynamicAnalysis" value="false" />
+      <property key="sonar.language" value="web" />
+      
+    </sonar:sonar>
+  </target>
+</project>
