@@ -188,7 +188,9 @@ public class ProjectFileManager {
   }
 
   public org.sonar.api.resources.File fromIOFile(InputFile inputfile) {
-    return org.sonar.api.resources.File.fromIOFile(inputfile.getFile(), sourceDirs);
+    org.sonar.api.resources.File file = org.sonar.api.resources.File.fromIOFile(inputfile.getFile(), sourceDirs);
+    file.setLanguage(Web.INSTANCE);
+    return file;
   }
 
   public File getBasedir() {
