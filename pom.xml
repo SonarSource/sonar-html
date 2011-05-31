@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.codehaus.sonar-plugins</groupId>
   <artifactId>sonar-web-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>Sonar Web Plugin</name>
   <description>Analyze web code.</description>
 
@@ -34,9 +33,9 @@
     <url>http://ci.codehaus.org/browse/SONAR-WEB</url>
   </ciManagement>
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
-    <url>http://svn.codehaus.org/sonar-plugins/</url>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-1.1</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-1.1</developerConnection>
+    <url>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-1.1</url>
   </scm>
 
   <inceptionYear>2010</inceptionYear>
