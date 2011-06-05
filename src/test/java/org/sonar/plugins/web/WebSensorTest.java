@@ -19,15 +19,20 @@
 package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.NoSonarFilter;
-import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.api.rules.Violation;
 
 /**
  * @author Matthijs Galesloot
@@ -35,6 +40,18 @@ import org.sonar.api.resources.Project;
 public class WebSensorTest extends AbstractWebPluginTester {
 
   private WebSensor sensor;
+
+
+  @Before
+  public void initMocks() {
+    MockitoAnnotations.initMocks(this);
+  }
+
+  @Mock
+  private ProjectFileSystem projectFileSystem;
+
+  @Mock
+  private SensorContext sensorContext;
 
   @Before
   public void setup() {
@@ -46,13 +63,14 @@ public class WebSensorTest extends AbstractWebPluginTester {
     File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
 
     final Project project = loadProjectFromPom(pomFile);
+    project.setFileSystem(projectFileSystem);
+    Mockito.when(projectFileSystem.getBasedir()).thenReturn(new File("src/test/resources"));
 
     assertTrue(sensor.shouldExecuteOnProject(project));
 
-    MockSensorContext sensorContext = new MockSensorContext();
     sensor.analyse(project, sensorContext);
 
-    assertTrue("Should have found 1 violation", sensorContext.getViolations().size() > 0);
+    Mockito.verify(sensorContext, Mockito.atLeastOnce()).saveViolation((Violation) Mockito.any());
   }
 
   /**
@@ -62,13 +80,14 @@ public class WebSensorTest extends AbstractWebPluginTester {
   @Test
   public void testStandardMeasuresIntegrationTest() throws Exception {
 
-    File pomFile = new File("source-its/projects/continuum-webapp/pom.xml");
+    final File pomFile = new File("source-its/projects/continuum-webapp/pom.xml");
     Project project = loadProjectFromPom(pomFile);
-    project.setFileSystem(new DefaultProjectFileSystem(project, null));
-    MockSensorContext sensorContext = new MockSensorContext();
+    project.setFileSystem(projectFileSystem);
+    Mockito.when(projectFileSystem.getSourceDirs()).thenReturn(Arrays.asList(new File(pomFile.getParentFile(), "src")));
+
     assertTrue(sensor.shouldExecuteOnProject(project));
     sensor.analyse(project, sensorContext);
 
-    assertEquals(992, sensorContext.getViolations().size());
+    Mockito.verify(sensorContext, Mockito.times(992)).saveViolation((Violation) Mockito.any());
   }
 }

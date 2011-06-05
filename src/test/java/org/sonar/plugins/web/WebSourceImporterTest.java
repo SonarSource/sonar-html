@@ -19,14 +19,17 @@
 package org.sonar.plugins.web;
 
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.lang.StringUtils;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.sonar.api.batch.SensorContext;
 import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
@@ -36,24 +39,28 @@ import org.sonar.api.resources.Resource;
  */
 public class WebSourceImporterTest extends AbstractWebPluginTester {
 
+
+  @Before
+  public void initMocks() {
+    MockitoAnnotations.initMocks(this);
+  }
+
+  @Mock
+  private SensorContext sensorContext;
+
   @Test
   public void testImporter() throws Exception {
 
-    File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
+    File pomFile = new File(WebSourceImporterTest.class.getResource("/pom.xml").toURI());
     final Project project = loadProjectFromPom(pomFile);
     project.setFileSystem(new DefaultProjectFileSystem(project, null));
 
     WebSourceImporter importer = new WebSourceImporter(project);
 
     assertTrue("Importer only supports web projects", importer.shouldExecuteOnProject(project));
-    MockSensorContext sensorContext = new MockSensorContext();
     importer.analyse(project, sensorContext);
 
-    for (Resource resource : sensorContext.getResources()) {
-      assertFalse(StringUtils.equals("file-not-imported.jsp", resource.getKey()));
-    }
-
-    assertEquals(3, sensorContext.getNumResources());
+    Mockito.verify(sensorContext, Mockito.times(3)).saveSource((Resource<Resource>) Mockito.any(), Mockito.anyString());
   }
 
   @Test

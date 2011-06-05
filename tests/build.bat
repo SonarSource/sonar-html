@@ -1,7 +1,7 @@
 
 rem run this script from web folder
 
-set SONAR_HOME=C:\bin\sonar-2.7
+set SONAR_HOME=C:\bin\sonar-2.8
 set SONAR_FLAGS=-Dsonar.language=web -Dsonar.dynamicAnalysis=false 
 set DEBUG=-X 
 

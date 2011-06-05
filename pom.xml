@@ -84,14 +84,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-core</artifactId>
-      <version>3.0.3</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
-
     <!-- lexical analysis -->
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
@@ -100,7 +92,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Expression parser -->
+    <!-- JSF Expression parser -->
     <dependency>
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
@@ -112,6 +104,21 @@
       <artifactId>jboss-el</artifactId>
       <version>1.0_02.CR4</version>
       <scope>compile</scope>
+    </dependency>
+    
+    <!-- OGNL Expression parser -->
+    <dependency>
+      <groupId>ognl</groupId>
+      <artifactId>ognl</artifactId>
+      <version>3.0.1</version>
+      <type>jar</type>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>javassist</groupId>
+          <artifactId>javassist</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- Test dependencies -->
@@ -125,6 +132,13 @@
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>3.0.3</version>
+      <type>jar</type>
       <scope>test</scope>
     </dependency>
 
@@ -146,20 +160,6 @@
       <artifactId>sonar-ws-client</artifactId>
       <version>${sonar.version}</version>
       <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>ognl</groupId>
-      <artifactId>ognl</artifactId>
-      <version>3.0.1</version>
-      <type>jar</type>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>javassist</groupId>
-          <artifactId>javassist</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 

@@ -194,7 +194,7 @@ public class ProjectFileManager {
   }
 
   public File getBasedir() {
-    return project.getPom().getBasedir();
+    return project.getFileSystem().getBasedir();
   }
 
   private WildcardPattern[] getExclusionPatterns(boolean applyExclusionPatterns) {

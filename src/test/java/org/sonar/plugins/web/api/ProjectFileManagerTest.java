@@ -22,23 +22,37 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.sonar.api.resources.Project;
+import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.web.AbstractWebPluginTester;
-import org.sonar.plugins.web.WebSensorTest;
 
 /**
  * @author Matthijs Galesloot
  */
 public class ProjectFileManagerTest extends AbstractWebPluginTester {
 
+  @Before
+  public void initMocks() {
+    MockitoAnnotations.initMocks(this);
+  }
+
+  @Mock
+  private ProjectFileSystem projectFileSystem;
+
   /**
    * Test file path.
    */
   @Test
   public void testSourcePaths() throws Exception {
-    File pomFile = new File(WebSensorTest.class.getResource("/pom.xml").toURI());
+    File pomFile = new File(ProjectFileManagerTest.class.getResource("/pom.xml").toURI());
     final Project project = loadProjectFromPom(pomFile);
+    project.setFileSystem(projectFileSystem);
+    Mockito.when(projectFileSystem.getBasedir()).thenReturn(new File("src/test/resources"));
 
     String path = (String) project.getConfiguration().getProperty(WebConstants.SOURCE_DIRECTORY);
     ProjectFileManager fileManager = new ProjectFileManager(project);

@@ -31,7 +31,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
-import org.sonar.api.platform.ServerFileSystem;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
@@ -129,19 +128,5 @@ public class AbstractWebPluginTester {
 
   protected RuleFinder newRuleFinder() {
     return new WebRuleFinder();
-  }
-
-  protected ServerFileSystem newServerFileSystem() {
-
-    return new ServerFileSystem() {
-
-      public List<File> getExtensions(String dirName, String... suffixes) {
-        return null;
-      }
-
-      public File getHomeDir() {
-        return null;
-      }
-    };
   }
 }
