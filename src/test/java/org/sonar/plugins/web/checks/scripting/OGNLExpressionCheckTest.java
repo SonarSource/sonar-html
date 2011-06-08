@@ -48,4 +48,33 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }
+
+  @Test
+  public void testJSTL() {
+    String fragment = "<radio empty='' list='${pageContext.request.contextPath}' />";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+  }
+
+
+  @Test
+  public void testPercentage() {
+    String fragment = "<s:hidden value='%{myString..length}' value2=\"%{'name2'}\" value3='%{#request.foo}'/>";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  }
+
+  @Test
+  public void lambda() {
+    String fragment = "<s:hidden value='#fib =:[#this==0 ? 0 : #this==1 ? 1 : #fib(#this-2)+#fib(#this-1)], #fib(11)' />";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+  }
+
 }

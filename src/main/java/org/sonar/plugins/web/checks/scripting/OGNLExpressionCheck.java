@@ -21,6 +21,7 @@ package org.sonar.plugins.web.checks.scripting;
 import ognl.Ognl;
 import ognl.OgnlException;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -38,7 +39,7 @@ import org.sonar.plugins.web.node.TagNode;
 public class OGNLExpressionCheck extends AbstractPageCheck {
 
   private static boolean isOGNLExpression(String value) {
-    return value.contains("#{") || value.contains("${") || value.contains("%{");
+    return value.startsWith("%{") && value.endsWith("}");
   }
 
   @Override
@@ -46,18 +47,22 @@ public class OGNLExpressionCheck extends AbstractPageCheck {
 
     for (Attribute attribute : element.getAttributes()) {
       String value = attribute.getValue();
-      if (value != null) {
+      if (value != null && !StringUtils.isEmpty(value)) {
         value = value.trim();
-        if (value.length() > 0 && isOGNLExpression(value)) {
-          validateExpression(element, attribute);
+        if (isOGNLExpression(value)) {
+          value = StringUtils.substring(value, 2);
+          value = StringUtils.substringBeforeLast(value, "}");
+          validateExpression(element, value);
+        } else if (value.startsWith("#")) {
+          validateExpression(element, value);
         }
       }
     }
   }
 
-  private void validateExpression(TagNode element, Attribute attribute) {
+  private void validateExpression(TagNode element, String value) {
     try {
-      Ognl.parseExpression(attribute.getValue());
+      Ognl.parseExpression(value);
     } catch (OgnlException e) {
       createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + e.getMessage());
     }
