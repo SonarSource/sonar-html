@@ -61,7 +61,7 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
 
   @Test
   public void testPercentage() {
-    String fragment = "<s:hidden value='%{myString..length}' value2=\"%{'name2'}\" value3='%{#request.foo}'/>";
+    String fragment = "<hidden value='%{myString..length}' value2=\"%{'name2'}\" value3='%{#request.foo}'/>";
     StringReader reader = new StringReader(fragment);
     WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
 
@@ -69,8 +69,36 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
   }
 
   @Test
+  public void testMultipleExpressions() {
+    String fragment = "<hidden value = '%{foo wrong}-%{bar + fault}'/>";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  }
+
+  @Test
+  public void testEmptyExpressions() {
+    String fragment = "<hidden value ='%{}' value2='#{}' />";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
+  }
+
+  @Test
+  public void testBrokenExpressionMarkers() {
+    // the first two values are wrong, the third is fine.
+    String fragment = "<hidden value ='%{' value2='#{' value3='#' />";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
+  }
+
+  @Test
   public void lambda() {
-    String fragment = "<s:hidden value='#fib =:[#this==0 ? 0 : #this==1 ? 1 : #fib(#this-2)+#fib(#this-1)], #fib(11)' />";
+    String fragment = "<hidden value='#fib =:[#this==0 ? 0 : #this==1 ? 1 : #fib(#this-2)+#fib(#this-1)], #fib(11)' />";
     StringReader reader = new StringReader(fragment);
     WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
 

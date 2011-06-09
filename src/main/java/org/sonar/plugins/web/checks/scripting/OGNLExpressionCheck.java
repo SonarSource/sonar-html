@@ -38,24 +38,22 @@ import org.sonar.plugins.web.node.TagNode;
     priority = Priority.BLOCKER)
 public class OGNLExpressionCheck extends AbstractPageCheck {
 
-  private static boolean isOGNLExpression(String value) {
-    return value.startsWith("%{") && value.endsWith("}");
-  }
-
   @Override
   public void startElement(TagNode element) {
 
     for (Attribute attribute : element.getAttributes()) {
       String value = attribute.getValue();
-      if (value != null && !StringUtils.isEmpty(value)) {
-        value = value.trim();
-        if (isOGNLExpression(value)) {
-          value = StringUtils.substring(value, 2);
-          value = StringUtils.substringBeforeLast(value, "}");
-          validateExpression(element, value);
-        } else if (value.startsWith("#")) {
-          validateExpression(element, value);
-        }
+      if (value != null) {
+        parseAndValidate(element, value);
+      }
+    }
+  }
+
+  private void parseAndValidate(TagNode element, String text) {
+    for (int i = 0; i + 1 < text.length(); i++) {
+      if ((text.charAt(i) == '%' || text.charAt(i) == '#') && text.charAt(i + 1) == '{') {
+        String expression = StringUtils.substringBefore(StringUtils.substring(text, i + 2), "}");
+        validateExpression(element, expression);
       }
     }
   }
