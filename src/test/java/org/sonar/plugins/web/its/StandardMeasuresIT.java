@@ -28,6 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.wsclient.Sonar;
 import org.sonar.wsclient.services.Measure;
+import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
 public class StandardMeasuresIT {
@@ -108,15 +109,24 @@ public class StandardMeasuresIT {
   }
 
   private Measure getProjectMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(PROJECT, metricKey)).getMeasure(metricKey);
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(PROJECT, metricKey));
+    Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
+    
+    return measure;
   }
 
   private Measure getFileMeasure(String metricKey) {
-    return sonar.find(ResourceQuery.createForMetrics(FILE, metricKey)).getMeasure(metricKey);
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(FILE, metricKey));
+    Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
+
+    return measure;
   }
 
   private Measure getMeasure(String metricKey, String resourceKey) {
-    return sonar.find(ResourceQuery.createForMetrics(resourceKey, metricKey)).getMeasure(metricKey);
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(FILE, metricKey));
+    Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
+
+    return measure;
   }
 
 }
