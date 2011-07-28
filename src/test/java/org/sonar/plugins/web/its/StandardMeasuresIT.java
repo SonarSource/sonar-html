@@ -36,7 +36,7 @@ public class StandardMeasuresIT {
   private static Sonar sonar;
   private static final String PROJECT = "sonar.web:test";
   private static final String DIR_ROOT = "sonar.web:test:WEB-INF/jsp";
-  private static final String FILE = "sonar.web:test:WEB-INF/jsp/admin/buildQueueView.jsp";
+  private static final String FILE =     "sonar.web:test:WEB-INF/jsp/admin/buildQueueView.jsp";
 
   @BeforeClass
   public static void buildServer() {
@@ -123,7 +123,7 @@ public class StandardMeasuresIT {
   }
 
   private Measure getMeasure(String metricKey, String resourceKey) {
-    Resource resource = sonar.find(ResourceQuery.createForMetrics(FILE, metricKey));
+    Resource resource = sonar.find(ResourceQuery.createForMetrics(resourceKey, metricKey));
     Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
 
     return measure;
