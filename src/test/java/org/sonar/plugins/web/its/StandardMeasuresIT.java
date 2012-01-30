@@ -21,15 +21,20 @@
 package org.sonar.plugins.web.its;
 
 import static junit.framework.Assert.assertNull;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeThat;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sonar.updatecenter.common.Version;
 import org.sonar.wsclient.Sonar;
 import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
+import org.sonar.wsclient.services.ServerQuery;
 
 public class StandardMeasuresIT {
 
@@ -37,10 +42,12 @@ public class StandardMeasuresIT {
   private static final String PROJECT = "sonar.web:test";
   private static final String DIR_ROOT = "sonar.web:test:WEB-INF/jsp";
   private static final String FILE =     "sonar.web:test:WEB-INF/jsp/admin/buildQueueView.jsp";
+  private static Version sonarVersion;
 
   @BeforeClass
   public static void buildServer() {
     sonar = Sonar.create("http://localhost:9000");
+    sonarVersion = Version.create(sonar.find(new ServerQuery()).getVersion());
   }
 
   @Test
@@ -48,6 +55,10 @@ public class StandardMeasuresIT {
     assertThat(sonar.find(new ResourceQuery(PROJECT)).getName(), is("Test of Web Plugin"));
     assertThat(sonar.find(new ResourceQuery(PROJECT)).getVersion(), is("1.0"));
   }
+
+  /*
+   * ====================== PROJECT LEVEL ======================
+   */
 
   @Test
   public void projectMeasures() {
@@ -60,10 +71,6 @@ public class StandardMeasuresIT {
     assertThat(getProjectMeasure("comment_lines_density").getValue(), is(21.5));
     assertThat(getProjectMeasure("comment_lines").getIntValue(), is(1877));
     assertNull(getProjectMeasure("public_api"));
-    assertThat(getProjectMeasure("duplicated_lines").getIntValue(), is(108));
-    assertThat(getProjectMeasure("duplicated_blocks").getIntValue(), is(4));
-    assertThat(getProjectMeasure("duplicated_files").getIntValue(), is(3));
-    assertThat(getProjectMeasure("duplicated_lines_density").getValue(), is(1.2));
     assertThat(getProjectMeasure("complexity").getIntValue(), is(391));
     assertNull(getProjectMeasure("function_complexity"));
     assertNull(getProjectMeasure("function_complexity_distribution"));
@@ -75,13 +82,43 @@ public class StandardMeasuresIT {
   }
 
   @Test
+  public void projectDuplicationsBefore_Sonar_2_14() {
+    assumeThat(sonarVersion, not(greaterThanOrEqualTo(Version.create("2.14"))));
+
+    assertThat(getProjectMeasure("duplicated_lines").getIntValue(), is(108));
+    assertThat(getProjectMeasure("duplicated_blocks").getIntValue(), is(4));
+    assertThat(getProjectMeasure("duplicated_files").getIntValue(), is(3));
+    assertThat(getProjectMeasure("duplicated_lines_density").getValue(), is(1.2));
+  }
+
+  /**
+   * SONAR-3139
+   */
+  @Test
+  public void projectDuplicationsAfter_Sonar_2_14() {
+    assumeThat(sonarVersion, greaterThanOrEqualTo(Version.create("2.14")));
+
+    assertThat(getProjectMeasure("duplicated_lines").getIntValue(), is(106));
+    assertThat(getProjectMeasure("duplicated_blocks").getIntValue(), is(4));
+    assertThat(getProjectMeasure("duplicated_files").getIntValue(), is(3));
+    assertThat(getProjectMeasure("duplicated_lines_density").getValue(), is(1.1));
+  }
+
+  /*
+   * ====================== DIRECTORY LEVEL ======================
+   */
+
+  @Test
   public void directoryMeasures() {
     assertThat(getMeasure("ncloc", DIR_ROOT).getIntValue(), is(2878));
     assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.0));
     assertThat(getMeasure("comment_lines_density", DIR_ROOT).getValue(), is(20.6));
-    assertThat(getMeasure("duplicated_lines_density", DIR_ROOT).getValue(), is(1.4));
     assertThat(getMeasure("complexity", DIR_ROOT).getIntValue(), is(150));
   }
+
+  /*
+   * ====================== FILE LEVEL ======================
+   */
 
   @Test
   public void fileMeasures() {
