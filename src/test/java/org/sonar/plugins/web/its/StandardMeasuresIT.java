@@ -111,7 +111,7 @@ public class StandardMeasuresIT {
   private Measure getProjectMeasure(String metricKey) {
     Resource resource = sonar.find(ResourceQuery.createForMetrics(PROJECT, metricKey));
     Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
-    
+
     return measure;
   }
 
