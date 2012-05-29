@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.lex;
 
-import java.util.List;
-import java.util.Stack;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
+
+import java.util.List;
+import java.util.Stack;
 
 /**
  * Tokenizer for elements.
@@ -60,7 +60,6 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   private enum ParseMode {
     BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
   }
-
 
   private static final class QuoteMatcher implements EndMatcher {
     private static final char SINGLE_QUOTE = '\'';

@@ -30,7 +30,7 @@ import org.sonar.plugins.web.api.WebConstants;
 public class Web extends AbstractLanguage {
 
   /** All the valid web files suffixes. */
-  private static final String[] DEFAULT_SUFFIXES = { "xhtml", "jspf", "jsp" };
+  private static final String[] DEFAULT_SUFFIXES = {"xhtml", "jspf", "jsp"};
 
   /** A web instance. */
   public static final Web INSTANCE = new Web();
@@ -52,7 +52,6 @@ public class Web extends AbstractLanguage {
    * @see org.sonar.api.resources.Language#getFileSuffixes()
    */
   public String[] getFileSuffixes() {
-    return DEFAULT_SUFFIXES; //NOSONAR
+    return DEFAULT_SUFFIXES; // NOSONAR
   }
 }
-

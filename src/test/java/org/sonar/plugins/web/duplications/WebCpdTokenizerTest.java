@@ -18,9 +18,11 @@
 
 package org.sonar.plugins.web.duplications;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
+import net.sourceforge.pmd.cpd.AbstractLanguage;
+import net.sourceforge.pmd.cpd.TokenEntry;
+import org.junit.Test;
+import org.sonar.duplications.cpd.CPD;
+import org.sonar.duplications.cpd.Match;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,15 +31,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sourceforge.pmd.cpd.AbstractLanguage;
-import net.sourceforge.pmd.cpd.TokenEntry;
-
-import org.junit.Test;
-import org.sonar.duplications.cpd.CPD;
-import org.sonar.duplications.cpd.Match;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 public class WebCpdTokenizerTest {
-  
+
   @Test
   public void testDuplicationOnSameFile() throws IOException {
     TokenEntry.clearImages();

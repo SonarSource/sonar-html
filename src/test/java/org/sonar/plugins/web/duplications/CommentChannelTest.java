@@ -18,13 +18,13 @@
 
 package org.sonar.plugins.web.duplications;
 
+import org.junit.Test;
+import org.sonar.channel.CodeReader;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-import org.sonar.channel.CodeReader;
 
 public class CommentChannelTest {
 
@@ -42,7 +42,7 @@ public class CommentChannelTest {
     CodeReader reader = new CodeReader("<%-- My Comment --%>a");
     assertTrue(channel.consume(reader, null));
     assertThat((char) reader.peek(), is('a'));
-    
+
     reader = new CodeReader("/* My Comment */a");
     assertFalse(channel.consume(reader, null));
   }
@@ -61,7 +61,7 @@ public class CommentChannelTest {
     CodeReader reader = new CodeReader("/* My Comment \n second line */a");
     assertTrue(channel.consume(reader, null));
     assertThat((char) reader.peek(), is('a'));
-    
+
     reader = new CodeReader(" My Comment */a");
     assertFalse(channel.consume(reader, null));
   }

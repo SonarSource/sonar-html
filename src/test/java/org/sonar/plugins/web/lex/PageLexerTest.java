@@ -18,9 +18,12 @@
 
 package org.sonar.plugins.web.lex;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
+import org.junit.Test;
+import org.sonar.channel.CodeReader;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,12 +31,9 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.sonar.channel.CodeReader;
-import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.node.TextNode;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Matthijs Galesloot
@@ -64,7 +64,7 @@ public class PageLexerTest {
       if (node instanceof TagNode) {
         TagNode tagNode = (TagNode) node;
 
-        if ( !tagNode.isEndElement()) {
+        if (!tagNode.isEndElement()) {
           if (tagNode.equalsElementName("define")) {
             assertTrue("Tag should have children: " + tagNode.getCode(), tagNode.getChildren().size() > 0);
           } else if (tagNode.equalsElementName("outputText")) {
@@ -126,7 +126,7 @@ public class PageLexerTest {
   @Test
   public void testDirectiveNode() {
     String directive = "<!DOCTYPE html "
-        + "PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+      + "PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
     DoctypeTokenizer tokenizer = new DoctypeTokenizer("<!DOCTYPE", ">");
     List<Node> nodeList = new ArrayList<Node>();
     CodeReader codeReader = new CodeReader(directive);
@@ -141,7 +141,7 @@ public class PageLexerTest {
   @Test
   public void testNestedTagInAttribute() {
     String fragment = "<td id=\"typeCellHeader\"<c:if test='${param.typeNormalOrError == \"error\"}'>"
-        + "style=\"display:none;\"</c:if>>Type" + "</td>";
+      + "style=\"display:none;\"</c:if>>Type" + "</td>";
 
     StringReader reader = new StringReader(fragment);
     PageLexer lexer = new PageLexer();
@@ -200,7 +200,7 @@ public class PageLexerTest {
   @Test
   public void nestedQuotes() {
     String fragment = "<tr class=\"<c:if test='${count%2==0}'>even</c:if>"
-        + "<c:if test='${count%2!=0}'>odd</c:if><c:if test='${ActionType==\"baseline\"}'> baseline</c:if>\">";
+      + "<c:if test='${count%2!=0}'>odd</c:if><c:if test='${ActionType==\"baseline\"}'> baseline</c:if>\">";
 
     StringReader reader = new StringReader(fragment);
     PageLexer lexer = new PageLexer();

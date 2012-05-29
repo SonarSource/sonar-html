@@ -18,14 +18,14 @@
 
 package org.sonar.plugins.web.visitor;
 
-import java.util.List;
-
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
+
+import java.util.List;
 
 /**
  * Defines interface for node visitor with default dummy implementations.

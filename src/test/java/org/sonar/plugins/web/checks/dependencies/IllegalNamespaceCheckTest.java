@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.checks.dependencies;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
@@ -34,8 +34,8 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 public class IllegalNamespaceCheckTest extends AbstractCheckTester {
 
   private static final String fragment = "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"
-      + "xmlns:c=\"http://java.sun.com/jstl/core\"\n"
-      + "xmlns:rich=\"http://richfaces.org/rich\"\n";
+    + "xmlns:c=\"http://java.sun.com/jstl/core\"\n"
+    + "xmlns:rich=\"http://richfaces.org/rich\"\n";
 
   @Test
   public void violateIllegalNamespaceCheck() throws FileNotFoundException {

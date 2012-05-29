@@ -20,13 +20,6 @@
 
 package org.sonar.plugins.web.its;
 
-import static junit.framework.Assert.assertNull;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assume.assumeThat;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sonar.updatecenter.common.Version;
@@ -36,12 +29,19 @@ import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 import org.sonar.wsclient.services.ServerQuery;
 
+import static junit.framework.Assert.assertNull;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeThat;
+
 public class StandardMeasuresIT {
 
   private static Sonar sonar;
   private static final String PROJECT = "sonar.web:test";
   private static final String DIR_ROOT = "sonar.web:test:WEB-INF/jsp";
-  private static final String FILE =     "sonar.web:test:WEB-INF/jsp/admin/buildQueueView.jsp";
+  private static final String FILE = "sonar.web:test:WEB-INF/jsp/admin/buildQueueView.jsp";
   private static Version sonarVersion;
 
   @BeforeClass
@@ -147,21 +147,21 @@ public class StandardMeasuresIT {
 
   private Measure getProjectMeasure(String metricKey) {
     Resource resource = sonar.find(ResourceQuery.createForMetrics(PROJECT, metricKey));
-    Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
+    Measure measure = resource != null ? resource.getMeasure(metricKey) : null;
 
     return measure;
   }
 
   private Measure getFileMeasure(String metricKey) {
     Resource resource = sonar.find(ResourceQuery.createForMetrics(FILE, metricKey));
-    Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
+    Measure measure = resource != null ? resource.getMeasure(metricKey) : null;
 
     return measure;
   }
 
   private Measure getMeasure(String metricKey, String resourceKey) {
     Resource resource = sonar.find(ResourceQuery.createForMetrics(resourceKey, metricKey));
-    Measure measure = resource!=null ? resource.getMeasure(metricKey) : null;
+    Measure measure = resource != null ? resource.getMeasure(metricKey) : null;
 
     return measure;
   }

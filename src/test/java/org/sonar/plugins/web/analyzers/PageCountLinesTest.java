@@ -18,12 +18,6 @@
 
 package org.sonar.plugins.web.analyzers;
 
-import static junit.framework.Assert.assertTrue;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +27,12 @@ import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
+
+import static junit.framework.Assert.assertTrue;
 
 /**
  * @author Matthijs Galesloot

@@ -18,10 +18,10 @@
 
 package org.sonar.plugins.web.node;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Defines a tag.
@@ -63,7 +63,7 @@ public class TagNode extends Node {
   }
 
   public List<TagNode> getChildren() {
-    return children ;
+    return children;
   }
 
   public String getLocalName() {

@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.checks.attributes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Checker for occurrence of required attribute, e.g. alt attribute in &lt;img&gt; tag.
@@ -35,7 +35,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "RequiredAttributeCheck", name = "Attribute Required", description = "Required attribute must be used",
-    priority = Priority.MAJOR)
+  priority = Priority.MAJOR)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final class RequiredAttribute {

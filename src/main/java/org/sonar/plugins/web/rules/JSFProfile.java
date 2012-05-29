@@ -18,12 +18,6 @@
 
 package org.sonar.plugins.web.rules;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.CharEncoding;
 import org.sonar.api.profiles.ProfileDefinition;
@@ -31,6 +25,12 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.utils.ValidationMessages;
+
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Profile with checks applicable for JSF.
@@ -63,7 +63,7 @@ public final class JSFProfile extends ProfileDefinition {
     // find rules not applicable for JSF
     List<ActiveRule> removeRules = new ArrayList<ActiveRule>();
     for (ActiveRule activeRule : profile.getActiveRules()) {
-      if (ArrayUtils.contains(notSupportedRules , activeRule.getConfigKey())) {
+      if (ArrayUtils.contains(notSupportedRules, activeRule.getConfigKey())) {
         removeRules.add(activeRule);
       }
     }

@@ -18,13 +18,13 @@
 
 package org.sonar.plugins.web.checks.scripting;
 
-import static junit.framework.Assert.assertEquals;
-
-import java.io.StringReader;
-
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.io.StringReader;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
@@ -57,7 +57,6 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
 
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }
-
 
   @Test
   public void testPercentage() {

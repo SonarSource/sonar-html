@@ -18,16 +18,15 @@
 
 package org.sonar.plugins.web.checks.coding;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.coding.InternationalizationCheck;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
@@ -39,7 +38,7 @@ public class InternationalizationCheckTest extends AbstractCheckTester {
 
     String fragment = "<outputLabel>hehe</outputLabel>";
     Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader,  InternationalizationCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(reader, InternationalizationCheck.class);
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }

@@ -18,14 +18,14 @@
 
 package org.sonar.plugins.web.language;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Test;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.api.ProjectFileManager;
+import org.sonar.plugins.web.api.WebConstants;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Matthijs Galesloot

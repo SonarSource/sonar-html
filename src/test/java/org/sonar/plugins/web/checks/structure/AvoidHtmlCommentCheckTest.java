@@ -18,14 +18,14 @@
 
 package org.sonar.plugins.web.checks.structure;
 
-import static junit.framework.Assert.assertTrue;
-
-import java.io.StringReader;
-
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.coding.AvoidHtmlCommentCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.io.StringReader;
+
+import static junit.framework.Assert.assertTrue;
 
 /**
  * @author Matthijs Galesloot
@@ -56,7 +56,7 @@ public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
   public void htmlComentIsAllowedInExpressions() {
 
     String fragment = "<% if (htmlCode.match(\"<Unable to render embedded object: " +
-    		"File (-- CrossSellHotel -->\") == \"<) not found.-- CrossSellHotel -->\"){   %>";
+      "File (-- CrossSellHotel -->\") == \"<) not found.-- CrossSellHotel -->\"){   %>";
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
 

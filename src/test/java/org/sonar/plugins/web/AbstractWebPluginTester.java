@@ -18,14 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.FileReader;
-import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.configuration.MapConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
@@ -44,6 +36,14 @@ import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
+
+import java.io.File;
+import java.io.FileReader;
+import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *

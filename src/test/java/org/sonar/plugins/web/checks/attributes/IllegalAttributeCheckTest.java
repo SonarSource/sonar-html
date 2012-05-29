@@ -18,20 +18,19 @@
 
 package org.sonar.plugins.web.checks.attributes;
 
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
-import java.io.StringReader;
-
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.io.StringReader;
+
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
  */
 public class IllegalAttributeCheckTest extends AbstractCheckTester {
-
 
   @Test
   public void validateCheckParameters() {
@@ -46,7 +45,7 @@ public class IllegalAttributeCheckTest extends AbstractCheckTester {
 
     String fragment = "<h:someNode class=\"redflag\"/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), IllegalAttributeCheck.class, "attributes", "class" );
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), IllegalAttributeCheck.class, "attributes", "class");
 
     assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
   }

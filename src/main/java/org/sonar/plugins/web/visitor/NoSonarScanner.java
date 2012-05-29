@@ -18,12 +18,12 @@
 
 package org.sonar.plugins.web.visitor;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.ExpressionNode;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Scans for //NOSONAR indicator.

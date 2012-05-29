@@ -18,11 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import static junit.framework.Assert.assertTrue;
-
-import java.io.File;
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -34,13 +29,17 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.rules.Violation;
 
+import java.io.File;
+import java.util.Arrays;
+
+import static junit.framework.Assert.assertTrue;
+
 /**
  * @author Matthijs Galesloot
  */
 public class WebSensorTest extends AbstractWebPluginTester {
 
   private WebSensor sensor;
-
 
   @Before
   public void initMocks() {
@@ -55,7 +54,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
   @Before
   public void setup() {
-     sensor = new WebSensor(createStandardRulesProfile(), new NoSonarFilter());
+    sensor = new WebSensor(createStandardRulesProfile(), new NoSonarFilter());
   }
 
   @Test

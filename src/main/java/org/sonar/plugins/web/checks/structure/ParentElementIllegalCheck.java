@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "ParentElementIllegalCheck", name = "Parent Element Illegal", description = "parent element is illegal",
-    priority = Priority.MAJOR)
+  priority = Priority.MAJOR)
 public class ParentElementIllegalCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "child", description = "Child", defaultValue = "title")

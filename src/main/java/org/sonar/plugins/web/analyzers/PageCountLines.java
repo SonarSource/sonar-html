@@ -18,8 +18,6 @@
 
 package org.sonar.plugins.web.analyzers;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
@@ -27,6 +25,8 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.util.List;
 
 /**
  * Count lines of code in web files.
@@ -65,7 +65,7 @@ public class PageCountLines extends DefaultNodeVisitor {
   private void count(List<Node> nodeList) {
     for (int i = 0; i < nodeList.size(); i++) {
       Node node = nodeList.get(i);
-      Node previousNode = i > 0? nodeList.get(i - 1) : null;
+      Node previousNode = i > 0 ? nodeList.get(i - 1) : null;
       Node nextNode = i < nodeList.size() - 1 ? nodeList.get(i) : null;
       handleToken(node, previousNode, nextNode);
     }
@@ -76,7 +76,7 @@ public class PageCountLines extends DefaultNodeVisitor {
 
     int linesOfCodeCurrentNode = node.getLinesOfCode();
     if (nextNode == null) {
-      linesOfCodeCurrentNode ++;
+      linesOfCodeCurrentNode++;
     }
 
     switch (node.getNodeType()) {

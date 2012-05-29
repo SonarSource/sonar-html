@@ -18,10 +18,10 @@
 
 package org.sonar.plugins.web.lex;
 
-import java.util.List;
-
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
+
+import java.util.List;
 
 /**
  * Tokenizer for a HTML or JSP comment.

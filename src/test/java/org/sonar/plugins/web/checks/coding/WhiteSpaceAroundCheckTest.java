@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.checks.coding;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.FileNotFoundException;
-import java.io.StringReader;
-
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.io.FileNotFoundException;
+import java.io.StringReader;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot

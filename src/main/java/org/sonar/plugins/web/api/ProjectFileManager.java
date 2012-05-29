@@ -17,12 +17,7 @@
  */
 package org.sonar.plugins.web.api;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.AndFileFilter;
@@ -39,7 +34,11 @@ import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.WildcardPattern;
 import org.sonar.plugins.web.language.Web;
 
-import com.google.common.collect.Lists;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provide list of sourcefiles and dirs in scope for the WebPlugin.
@@ -255,7 +254,7 @@ public class ProjectFileManager {
     IOFileFilter suffixFilter = FileFilterUtils.trueFileFilter();
 
     List<String> suffixes = Arrays.asList(getFileSuffixes());
-    if ( !suffixes.isEmpty()) {
+    if (!suffixes.isEmpty()) {
       suffixFilter = new SuffixFileFilter(suffixes);
     }
 
@@ -268,7 +267,7 @@ public class ProjectFileManager {
 
   public File resolvePath(String path) {
     File file = new File(path);
-    if ( !file.isAbsolute()) {
+    if (!file.isAbsolute()) {
       try {
         file = new File(getBasedir(), path).getCanonicalFile();
       } catch (IOException e) {

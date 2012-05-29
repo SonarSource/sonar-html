@@ -20,7 +20,6 @@ package org.sonar.plugins.web.checks.scripting;
 
 import ognl.Ognl;
 import ognl.OgnlException;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -35,7 +34,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.1
  */
 @Rule(key = "OGNLExpressionCheck", name = "Invalid OGNL Expression", description = "Invalid expressions syntax",
-    priority = Priority.BLOCKER)
+  priority = Priority.BLOCKER)
 public class OGNLExpressionCheck extends AbstractPageCheck {
 
   @Override

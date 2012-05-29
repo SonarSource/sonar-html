@@ -18,10 +18,6 @@
 
 package org.sonar.plugins.web.rules;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.CharEncoding;
 import org.apache.commons.lang.StringUtils;
@@ -31,6 +27,10 @@ import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
+
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 
 /**
  * Default Struts profile with OGNL Expression Check.

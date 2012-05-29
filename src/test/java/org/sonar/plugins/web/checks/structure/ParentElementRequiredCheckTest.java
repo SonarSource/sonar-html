@@ -18,16 +18,15 @@
 
 package org.sonar.plugins.web.checks.structure;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.structure.ParentElementRequiredCheck;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
@@ -39,7 +38,7 @@ public class ParentElementRequiredCheckTest extends AbstractCheckTester {
 
     String fragment = "<illegalparent><title>Hello</title></illegalparent>";
     Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader,  ParentElementRequiredCheck.class,
+    WebSourceCode sourceCode = parseAndCheck(reader, ParentElementRequiredCheck.class,
         "parent", "head", "child", "title");
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
@@ -50,7 +49,7 @@ public class ParentElementRequiredCheckTest extends AbstractCheckTester {
 
     String fragment = "<head><title>Hello</title></head>";
     Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader,  ParentElementRequiredCheck.class,
+    WebSourceCode sourceCode = parseAndCheck(reader, ParentElementRequiredCheck.class,
         "parent", "head", "child", "title");
 
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());

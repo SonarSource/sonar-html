@@ -18,9 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import java.io.FileReader;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -47,6 +44,9 @@ import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
+import java.io.FileReader;
+import java.util.List;
+
 /**
  * WebSensor provides analysis of web files.
  *
@@ -55,7 +55,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  */
 public final class WebSensor implements Sensor {
 
-  private final static Number[] FILES_DISTRIB_BOTTOM_LIMITS = { 0, 5, 10, 20, 30, 60, 90 };
+  private final static Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
 
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 

@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "ChildElementRequiredCheck", name = "Child Element Required", description = "child element is required",
-    priority = Priority.MAJOR)
+  priority = Priority.MAJOR)
 public class ChildElementRequiredCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "child", description = "Child", defaultValue = "title")
@@ -75,7 +75,7 @@ public class ChildElementRequiredCheck extends AbstractPageCheck {
           ruleOK = true;
         }
       }
-      if ( !ruleOK) {
+      if (!ruleOK) {
         createViolation(element.getStartLinePosition(), getRule().getDescription());
       }
     }

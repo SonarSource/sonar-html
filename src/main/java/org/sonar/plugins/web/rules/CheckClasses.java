@@ -18,9 +18,6 @@
 
 package org.sonar.plugins.web.rules;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.sonar.plugins.web.checks.attributes.AttributeValidationCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
@@ -52,6 +49,9 @@ import org.sonar.plugins.web.checks.structure.RequiredElementCheck;
 import org.sonar.plugins.web.checks.style.InlineStyleCheck;
 import org.sonar.plugins.web.checks.whitespace.IllegalTabCheck;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provides a list of available checks.

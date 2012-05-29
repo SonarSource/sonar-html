@@ -35,11 +35,11 @@ import org.sonar.plugins.web.node.DirectiveNode;
  * @since 1.0
  */
 @Rule(key = "IllegalTagLibsCheck", name = "Illegal TagLibs", description = "Certain taglibs are not allowed",
-    priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "tagLibs", description = "Disallowed Taglibs")
-  private String[] tagLibs = new String[] { "http://java.sun.com/jstl/sql" };
+  private String[] tagLibs = new String[] {"http://java.sun.com/jstl/sql"};
 
   @Override
   public void directive(DirectiveNode node) {

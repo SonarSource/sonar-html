@@ -18,15 +18,6 @@
 
 package org.sonar.plugins.web.checks;
 
-import static junit.framework.Assert.assertNotNull;
-
-import java.io.Reader;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.ProfileDefinition;
@@ -50,12 +41,21 @@ import org.sonar.plugins.web.rules.StrutsProfile;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
+import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import static junit.framework.Assert.assertNotNull;
+
 public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
   private Rule getRule(String ruleKey, Class<? extends AbstractPageCheck> checkClass) {
 
     AnnotationRuleParser parser = new AnnotationRuleParser();
-    List<Rule> rules = parser.parse("Web", Arrays.asList(new Class[] { checkClass }));
+    List<Rule> rules = parser.parse("Web", Arrays.asList(new Class[] {checkClass}));
     for (Rule rule : rules) {
       if (rule.getKey().equals(ruleKey)) {
         return rule;

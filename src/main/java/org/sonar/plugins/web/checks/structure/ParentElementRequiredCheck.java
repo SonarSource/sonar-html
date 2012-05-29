@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "ParentElementRequiredCheck", name = "Parent Element Required", description = "parent element is required",
-    priority = Priority.MAJOR)
+  priority = Priority.MAJOR)
 public class ParentElementRequiredCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "child", description = "Child", defaultValue = "title")

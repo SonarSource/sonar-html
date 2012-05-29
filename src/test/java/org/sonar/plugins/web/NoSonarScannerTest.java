@@ -18,12 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.StringReader;
-import java.util.List;
-
 import org.junit.Test;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.resources.Directory;
@@ -36,6 +30,12 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.io.StringReader;
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Matthijs Galesloot

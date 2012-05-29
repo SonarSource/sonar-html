@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.checks.scripting;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
@@ -39,7 +39,7 @@ public class UnifiedExpressionCheckTest extends AbstractCheckTester {
     String fragment = "<tag expression=\"#{bean.getExpression() => 0} \"";
 
     StringReader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class );
+    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class);
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }
 
@@ -47,7 +47,7 @@ public class UnifiedExpressionCheckTest extends AbstractCheckTester {
   public void testUnifiedExpressionCheck() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class );
+    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class);
 
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }
@@ -56,7 +56,7 @@ public class UnifiedExpressionCheckTest extends AbstractCheckTester {
   public void escapeCharacters() {
     String fragment = "<c:when test=\"${citaflagurge eq \\\"S\\\"}\">";
     StringReader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class );
+    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class);
 
     assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
   }

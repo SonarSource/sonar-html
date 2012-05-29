@@ -18,9 +18,6 @@
 
 package org.sonar.plugins.web.checks.header;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.check.Priority;
@@ -30,6 +27,9 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Header checker.
@@ -93,7 +93,7 @@ public class HeaderCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (visiting) {
-      if ( !hasHeader) {
+      if (!hasHeader) {
         createViolation(0);
       }
       visiting = false;

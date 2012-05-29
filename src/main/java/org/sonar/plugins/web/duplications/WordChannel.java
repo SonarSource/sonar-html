@@ -18,14 +18,13 @@
 
 package org.sonar.plugins.web.duplications;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokens;
-
 import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WordChannel extends Channel<Tokens> {
 

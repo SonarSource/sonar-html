@@ -18,8 +18,6 @@
 
 package org.sonar.plugins.web.checks.structure;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,6 +27,8 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.util.List;
 
 /**
  * Checker for occurrence of required elements, e.g. a security tag.
@@ -72,7 +72,7 @@ public class RequiredElementCheck extends AbstractPageCheck {
           }
         }
       }
-      if ( !hasRequiredElement) {
+      if (!hasRequiredElement) {
         createViolation(0, getRule().getDescription() + ": " + elementName);
       }
     }

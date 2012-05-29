@@ -18,13 +18,13 @@
 
 package org.sonar.plugins.web.lex;
 
-import java.util.List;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Node;
+
+import java.util.List;
 
 /**
  * AbstractTokenizer provides basic token parsing.

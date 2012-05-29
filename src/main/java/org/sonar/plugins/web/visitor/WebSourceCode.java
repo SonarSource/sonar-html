@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.visitor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
 import org.sonar.squid.api.SourceCodeEdgeUsage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Checks and analyzers report measurements, violations and other findings in WebSourceCode.

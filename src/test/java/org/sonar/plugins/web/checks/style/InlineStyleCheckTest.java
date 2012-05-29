@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.checks.style;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
@@ -38,7 +38,7 @@ public class InlineStyleCheckTest extends AbstractCheckTester {
 
     String fragment = "<head><style>nadadana</style></head>";
     Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader,  InlineStyleCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(reader, InlineStyleCheck.class);
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
   }

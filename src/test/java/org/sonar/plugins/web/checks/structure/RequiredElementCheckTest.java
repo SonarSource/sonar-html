@@ -18,15 +18,14 @@
 
 package org.sonar.plugins.web.checks.structure;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.structure.RequiredElementCheck;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
@@ -37,7 +36,7 @@ public class RequiredElementCheckTest extends AbstractCheckTester {
   public void violateRequiredElement() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, RequiredElementCheck.class, "elements", "html,notfound1,notfound2" );
+    WebSourceCode sourceCode = parseAndCheck(reader, RequiredElementCheck.class, "elements", "html,notfound1,notfound2");
 
     assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
   }

@@ -18,20 +18,19 @@
 
 package org.sonar.plugins.web.checks.attributes;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.StringReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
  */
 public class AttributeValidationCheckTest extends AbstractCheckTester {
-
 
   public void validateEmail() throws FileNotFoundException {
 
@@ -50,7 +49,7 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
 
   public void validateUrl() throws FileNotFoundException {
 
-    String[] checkAttributes = new String[] { "attributes", "url", "type", "url" };
+    String[] checkAttributes = new String[] {"attributes", "url", "type", "url"};
 
     String fragment = "<td url='httpd://aa'>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
@@ -68,7 +67,7 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
   @Test
   public void validateCode() throws FileNotFoundException {
 
-    String[] checkAttributes = new String[] { "attributes", "escape", "values", "true|ok"};
+    String[] checkAttributes = new String[] {"attributes", "escape", "values", "true|ok"};
 
     String fragment = "<td escape='ok'>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
@@ -82,7 +81,7 @@ public class AttributeValidationCheckTest extends AbstractCheckTester {
 
     assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
 
-    checkAttributes = new String[] { "attributes", "escape", "values", "t.*|o.*"};
+    checkAttributes = new String[] {"attributes", "escape", "values", "t.*|o.*"};
 
     fragment = "<td escape='ok'>";
     sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,

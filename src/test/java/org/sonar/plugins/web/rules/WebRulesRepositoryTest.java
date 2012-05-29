@@ -18,14 +18,6 @@
 
 package org.sonar.plugins.web.rules;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.number.OrderingComparisons.greaterThan;
-import static org.junit.Assert.assertThat;
-
-import java.util.List;
-
 import org.junit.Test;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
@@ -35,6 +27,14 @@ import org.sonar.api.utils.ValidationMessages;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.AbstractWebPluginTester;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+
+import java.util.List;
+
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.OrderingComparisons.greaterThan;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Matthijs Galesloot

@@ -18,9 +18,6 @@
 
 package org.sonar.plugins.web.checks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
@@ -28,6 +25,9 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abtract superclass for checks.
@@ -144,8 +144,8 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 
     for (QualifiedAttribute qualifiedAttribute : attributes) {
       if (qualifiedAttribute.getNodeName() == null
-          || StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.getNodeName())
-          || StringUtils.equalsIgnoreCase(element.getNodeName(), qualifiedAttribute.getNodeName())) {
+        || StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.getNodeName())
+        || StringUtils.equalsIgnoreCase(element.getNodeName(), qualifiedAttribute.getNodeName())) {
         for (Attribute a : element.getAttributes()) {
           if (qualifiedAttribute.getAttributeName().equalsIgnoreCase(a.getName())) {
             matchingAttributes.add(a);

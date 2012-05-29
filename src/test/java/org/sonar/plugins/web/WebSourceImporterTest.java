@@ -18,11 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-import java.io.File;
-
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +29,15 @@ import org.sonar.api.resources.DefaultProjectFileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Resource;
 
+import java.io.File;
+
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
 /**
  * @author Matthijs Galesloot
  */
 public class WebSourceImporterTest extends AbstractWebPluginTester {
-
 
   @Before
   public void initMocks() {

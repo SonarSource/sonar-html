@@ -18,15 +18,15 @@
 
 package org.sonar.plugins.web.visitor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Scans the nodes of a page and send events to the visitors.
@@ -75,7 +75,7 @@ public class PageScanner {
     switch (node.getNodeType()) {
       case Tag:
         TagNode element = (TagNode) node;
-        if ( !element.isEndElement()) {
+        if (!element.isEndElement()) {
           visitor.startElement(element);
         }
         if (element.isEndElement() || element.hasEnd()) {

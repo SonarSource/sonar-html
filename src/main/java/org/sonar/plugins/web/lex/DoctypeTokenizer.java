@@ -18,14 +18,14 @@
 
 package org.sonar.plugins.web.lex;
 
+import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.Node;
+
 import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.List;
-
-import org.sonar.plugins.web.node.Attribute;
-import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.node.Node;
 
 /**
  * Tokenizer for DOCTYPE node.

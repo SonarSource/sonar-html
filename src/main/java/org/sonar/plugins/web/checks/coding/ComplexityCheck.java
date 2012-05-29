@@ -48,10 +48,10 @@ public final class ComplexityCheck extends AbstractPageCheck {
   private int max = DEFAULT_MAX_COMPLEXITY;
 
   @RuleProperty(key = "operators", description = "Operators")
-  private String[] operators = new String[] { "&&", "||", "and", "or" };
+  private String[] operators = new String[] {"&&", "||", "and", "or"};
 
   @RuleProperty(key = "tags", description = "Decision Tags")
-  private String[] tags = new String[] { "catch", "choose", "if", "forEach", "forTokens", "when" };
+  private String[] tags = new String[] {"catch", "choose", "if", "forEach", "forTokens", "when"};
 
   @Override
   public void endDocument() {

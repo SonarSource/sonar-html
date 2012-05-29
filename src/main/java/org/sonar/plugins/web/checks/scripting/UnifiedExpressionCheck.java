@@ -18,14 +18,6 @@
 
 package org.sonar.plugins.web.checks.scripting;
 
-import java.lang.reflect.Method;
-
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.el.lang.ExpressionBuilder;
@@ -35,6 +27,14 @@ import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
+
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
+
+import java.lang.reflect.Method;
 
 /**
  * Checker to validate Unified Expressions in JSF.
@@ -108,7 +108,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
           @Override
           public Method resolveFunction(String prefix, String localName) {
 
-            if ( !ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functions, localName)) {
+            if (!ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functions, localName)) {
               createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
             }
 

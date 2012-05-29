@@ -18,14 +18,14 @@
 
 package org.sonar.plugins.web.checks.coding;
 
-import static junit.framework.Assert.assertTrue;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * @author Matthijs Galesloot
@@ -36,7 +36,7 @@ public class FileLengthCheckTest extends AbstractCheckTester {
   public void violateFileLengthCheck() throws FileNotFoundException {
 
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, FileLengthCheck.class, "maxLength", "10" );
+    WebSourceCode sourceCode = parseAndCheck(reader, FileLengthCheck.class, "maxLength", "10");
 
     int numViolations = 1;
     assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);

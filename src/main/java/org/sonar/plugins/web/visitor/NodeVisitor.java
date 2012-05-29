@@ -24,7 +24,6 @@ import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
-
 /**
  * Defines interface for node visitor.
  *

@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TextNode;
  * @since 1.0
  */
 @Rule(key = "InternationalizationCheck", name = "Labels Internationalization",
-    description = "Labels should be defined in the resource bundle", priority = Priority.MINOR)
+  description = "Labels should be defined in the resource bundle", priority = Priority.MINOR)
 public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
@@ -51,7 +51,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode textNode) {
-    if ( !isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
+    if (!isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
       createViolation(textNode);
     }
   }

@@ -18,9 +18,6 @@
 
 package org.sonar.plugins.web.checks.coding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -28,6 +25,9 @@ import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Checker to find unclosed tags.
@@ -45,11 +45,11 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @Override
   public void endElement(TagNode element) {
-    if ( !ignoreTag(element) && !nodes.isEmpty()) {
+    if (!ignoreTag(element) && !nodes.isEmpty()) {
 
       TagNode previousNode = nodes.remove(0);
 
-      if ( !previousNode.getNodeName().equals(element.getNodeName())) {
+      if (!previousNode.getNodeName().equals(element.getNodeName())) {
         createViolation(previousNode);
 
         List<TagNode> rollup = new ArrayList<TagNode>();
@@ -91,7 +91,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if ( !ignoreTag(element)) {
+    if (!ignoreTag(element)) {
       nodes.add(0, element);
     }
   }

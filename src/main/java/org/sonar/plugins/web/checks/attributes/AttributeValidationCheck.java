@@ -17,9 +17,6 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -28,6 +25,9 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Checker for values of attributes. A list of values might be specified as normal values or RegExpressions.
  *
@@ -35,7 +35,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.1
  */
 @Rule(key = "AttributeValidationCheck", name = "Attribute Validation", description = "Invalid value of attribute",
-    priority = Priority.MAJOR)
+  priority = Priority.MAJOR)
 public class AttributeValidationCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "attributes", description = "List of attributes, comma separated.")
@@ -81,7 +81,7 @@ public class AttributeValidationCheck extends AbstractPageCheck {
     }
 
     for (Attribute a : getMatchingAttributes(element, attributes)) {
-      if ( !isValidValue(a)) {
+      if (!isValidValue(a)) {
         createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + a.getName());
       }
     }

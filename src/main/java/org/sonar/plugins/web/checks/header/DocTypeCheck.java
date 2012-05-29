@@ -67,7 +67,7 @@ public class DocTypeCheck extends AbstractPageCheck {
             break;
           }
         }
-        if ( !containsDtd) {
+        if (!containsDtd) {
           createViolation(0);
         }
       }
@@ -76,7 +76,7 @@ public class DocTypeCheck extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
-    if ( !hasDocType) {
+    if (!hasDocType) {
       createViolation(0);
     }
   }

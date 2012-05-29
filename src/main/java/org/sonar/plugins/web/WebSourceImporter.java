@@ -18,10 +18,6 @@
 
 package org.sonar.plugins.web;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
-
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,13 +33,17 @@ import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.api.ProjectFileManager;
 import org.sonar.plugins.web.api.WebConstants;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
 /**
  * Import of source files to sonar database.
  *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@DependsUpon(value="webscanner")
+@DependsUpon(value = "webscanner")
 @Phase(name = Phase.Name.PRE)
 public final class WebSourceImporter implements Sensor {
 
@@ -91,7 +91,7 @@ public final class WebSourceImporter implements Sensor {
 
         } catch (IOException e) {
           throw new SonarException("Unable to read and import the source file : '" + file.getFile().getAbsolutePath()
-              + "' with the charset : '" + sourcesEncoding.name() + "'. You should check the property " + CoreProperties.ENCODING_PROPERTY,
+            + "' with the charset : '" + sourcesEncoding.name() + "'. You should check the property " + CoreProperties.ENCODING_PROPERTY,
               e);
         }
       }

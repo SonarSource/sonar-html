@@ -18,10 +18,6 @@
 
 package org.sonar.plugins.web.api;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -30,6 +26,10 @@ import org.mockito.MockitoAnnotations;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.web.AbstractWebPluginTester;
+
+import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot

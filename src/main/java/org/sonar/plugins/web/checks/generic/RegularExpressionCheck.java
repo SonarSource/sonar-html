@@ -18,14 +18,14 @@
 
 package org.sonar.plugins.web.checks.generic;
 
-import java.util.regex.Pattern;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
+
+import java.util.regex.Pattern;
 
 /**
  * Checker for RegularExpressions.
@@ -34,7 +34,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "RegularExpressionCheck", name = "Regular Expression Check", description = "Regular Expression Check",
-    priority = Priority.MINOR)
+  priority = Priority.MINOR)
 public class RegularExpressionCheck extends AbstractPageCheck {
 
   @RuleProperty(key = "expression", description = "Expression")
@@ -46,7 +46,6 @@ public class RegularExpressionCheck extends AbstractPageCheck {
   public String getScope() {
     return scope;
   }
-
 
   public void setScope(String scope) {
     this.scope = scope;
