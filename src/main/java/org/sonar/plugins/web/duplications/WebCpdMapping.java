@@ -18,15 +18,14 @@
 
 package org.sonar.plugins.web.duplications;
 
-import java.util.List;
-
 import net.sourceforge.pmd.cpd.Tokenizer;
-
 import org.sonar.api.batch.CpdMapping;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Language;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.language.Web;
+
+import java.util.List;
 
 public class WebCpdMapping implements CpdMapping {
 
@@ -34,6 +33,7 @@ public class WebCpdMapping implements CpdMapping {
     return new WebCpdTokenizer();
   }
 
+  @SuppressWarnings("rawtypes")
   public Resource createResource(java.io.File file, List<java.io.File> sourceDirs) {
     return File.fromIOFile(file, sourceDirs);
   }

@@ -18,10 +18,6 @@
 
 package org.sonar.plugins.web.rules;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -37,6 +33,10 @@ import org.sonar.api.utils.SonarException;
 import org.sonar.check.Cardinality;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Repository for web rules.
@@ -114,6 +114,7 @@ public final class WebRulesRepository extends RuleRepository {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
     for (Class<?> checkClass : CheckClasses.getCheckClasses()) {
 

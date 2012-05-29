@@ -2,13 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.codehaus.sonar-plugins</groupId>
-  <artifactId>sonar-web-plugin</artifactId>
-  <packaging>sonar-plugin</packaging>
-  <version>1.2-SNAPSHOT</version>
-  <name>Sonar Web Plugin</name>
-  <description>Analyze web code.</description>
-
   <parent>
     <groupId>org.codehaus.sonar-plugins</groupId>
     <artifactId>parent</artifactId>
@@ -16,8 +9,15 @@
     <relativePath>../parent</relativePath>
   </parent>
 
+  <artifactId>sonar-web-plugin</artifactId>
+  <packaging>sonar-plugin</packaging>
+  <version>1.2-SNAPSHOT</version>
+
+  <name>Sonar Web Plugin</name>
+  <description>Analyze web code.</description>
+
   <properties>
-    <sonar.version>2.7</sonar.version>
+    <sonar.version>2.9</sonar.version>
     <license.name>AL2</license.name>
     <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
@@ -47,6 +47,10 @@
       <id>mgalesloot</id>
       <name>Matthijs Galesloot</name>
       <email>matthijs@codehaus.org</email>
+    </developer>
+    <developer>
+      <id>fabemn</id>
+      <name>Fabrice Bellingard</name>
     </developer>
   </developers>
 

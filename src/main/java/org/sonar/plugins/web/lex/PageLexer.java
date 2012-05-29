@@ -18,16 +18,16 @@
 
 package org.sonar.plugins.web.lex;
 
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
+
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Lexical analysis of a web page.
@@ -42,27 +42,29 @@ public final class PageLexer {
    *
    * TextTokenizer must be last, it will always consume the characters until the next token arrives.
    */
+  @SuppressWarnings("rawtypes")
   private static List tokenizers = Arrays.asList(
-    /* HTML Comments */
-    new CommentTokenizer("<!--", "-->", true),
-    /* JSP Comments */
-    new CommentTokenizer("<%--", "--%>", false),
-    /* HTML Directive */
-    new DoctypeTokenizer("<!DOCTYPE", ">"),
-    /* XML Directives */
-    new DirectiveTokenizer("<?", "?>"),
-    /* JSP Directives */
-    new DirectiveTokenizer("<%@", "%>"),
-    /* JSP Expressions */
-    new ExpressionTokenizer("<%", "%>"),
-    /* XML and HTML Tags */
-    new ElementTokenizer("<", ">"),
-    /* Text (for everything else) */
-    new TextTokenizer());
+      /* HTML Comments */
+      new CommentTokenizer("<!--", "-->", true),
+      /* JSP Comments */
+      new CommentTokenizer("<%--", "--%>", false),
+      /* HTML Directive */
+      new DoctypeTokenizer("<!DOCTYPE", ">"),
+      /* XML Directives */
+      new DirectiveTokenizer("<?", "?>"),
+      /* JSP Directives */
+      new DirectiveTokenizer("<%@", "%>"),
+      /* JSP Expressions */
+      new ExpressionTokenizer("<%", "%>"),
+      /* XML and HTML Tags */
+      new ElementTokenizer("<", ">"),
+      /* Text (for everything else) */
+      new TextTokenizer());
 
   /**
    * Parse a nested node.
    */
+  @SuppressWarnings("rawtypes")
   public List<Node> nestedParse(CodeReader reader) {
     List<Node> nodeList = new ArrayList<Node>();
     for (AbstractTokenizer tokenizer : (List<AbstractTokenizer>) tokenizers) {
@@ -106,7 +108,7 @@ public final class PageLexer {
         TagNode element = (TagNode) node;
 
         // start element
-        if ( !element.isEndElement()) {
+        if (!element.isEndElement()) {
           element.setParent(current);
           current = element;
         }

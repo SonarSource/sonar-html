@@ -18,13 +18,10 @@
 
 package org.sonar.plugins.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.sonar.api.Extension;
-import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
+import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
@@ -33,6 +30,9 @@ import org.sonar.plugins.web.rules.JSFProfile;
 import org.sonar.plugins.web.rules.StrutsProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Web Plugin publishes extensions to sonar engine.
  *
@@ -40,25 +40,21 @@ import org.sonar.plugins.web.rules.WebRulesRepository;
  * @since 1.0
  */
 @Properties({
-@Property(key = WebConstants.CPD_MINIMUM_TOKENS, defaultValue = "70",
+  @Property(key = WebConstants.CPD_MINIMUM_TOKENS, defaultValue = "70",
     name = "Minimum tokens",
     description = "The number of duplicate tokens above which a HTML block is considered as a duplicated.",
     global = true, project = true),
-@Property(key = WebConstants.FILE_EXTENSIONS,
+  @Property(key = WebConstants.FILE_EXTENSIONS,
     name = "File extensions",
     description = "List of file extensions that will be scanned.",
-    defaultValue="xhtml,jspf,jsp",
+    defaultValue = "xhtml,jspf,jsp",
     global = true, project = true),
-@Property(key = WebConstants.SOURCE_DIRECTORY,
+  @Property(key = WebConstants.SOURCE_DIRECTORY,
     name = "Source directory",
     description = "Source directory that will be scanned.",
-    defaultValue="src/main/webapp",
+    defaultValue = "src/main/webapp",
     global = false, project = true)})
-public final class WebPlugin implements Plugin {
-
-  public String getDescription() {
-    return null; // NOT USED
-  }
+public final class WebPlugin extends SonarPlugin {
 
   public List<Class<? extends Extension>> getExtensions() {
     List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
@@ -87,16 +83,4 @@ public final class WebPlugin implements Plugin {
     return list;
   }
 
-  public String getKey() {
-    return null; // NOT USED
-  }
-
-  public String getName() {
-    return null; // NOT USED
-  }
-
-  @Override
-  public String toString() {
-    return getKey();
-  }
 }
