@@ -18,6 +18,8 @@
 package org.sonar.plugins.web.core;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.bootstrap.ProjectBuilder;
 import org.sonar.api.batch.bootstrap.ProjectDefinition;
 import org.sonar.api.batch.bootstrap.ProjectReactor;
@@ -34,6 +36,8 @@ import java.io.File;
  */
 public class WebProjectBuilder extends ProjectBuilder {
 
+  private static final Logger LOG = LoggerFactory.getLogger(WebProjectBuilder.class);
+
   private Settings settings;
 
   public WebProjectBuilder(ProjectReactor reactor, Settings settings) {
@@ -48,6 +52,8 @@ public class WebProjectBuilder extends ProjectBuilder {
 
       ProjectDefinition root = reactor.getRoot();
       if (StringUtils.isNotBlank(oldSourceDirParam)) {
+        LOG.warn("/!\\ You are using the old 'sonar.web.sourceDirectory' property that is deprecated since version 1.2 of the Web plugin. " +
+          "Please use the standard way to declare source directories according to the runner you are using (Maven, Ant or Simple Runner).");
         root.setSourceDirs(new File(root.getBaseDir(), oldSourceDirParam));
       }
     }
