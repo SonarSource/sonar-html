@@ -19,7 +19,9 @@
 package org.sonar.plugins.web.core;
 
 import org.sonar.api.web.CodeColorizerFormat;
+import org.sonar.colorizer.MultilinesDocTokenizer;
 import org.sonar.colorizer.RegexpTokenizer;
+import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.plugins.web.api.WebConstants;
 
@@ -32,8 +34,19 @@ public class WebCodeColorizerFormat extends CodeColorizerFormat {
 
   public WebCodeColorizerFormat() {
     super(WebConstants.LANGUAGE_KEY);
-    tokenizers.add(new RegexpTokenizer("<span class=\"k\">", "</span>", "</?\\p{L}*>?"));
-    tokenizers.add(new RegexpTokenizer("<span class=\"k\">", "</span>", ">"));
+    String tagAfter = "</span>";
+    // tags
+    tokenizers.add(new RegexpTokenizer("<span class=\"k\">", tagAfter, "</?[:\\w]+>?"));
+    tokenizers.add(new RegexpTokenizer("<span class=\"k\">", tagAfter, ">"));
+    // doctype
+    tokenizers.add(new RegexpTokenizer("<span class=\"j\">", tagAfter, "<!DOCTYPE.*>"));
+    // comments
+    tokenizers.add(new MultilinesDocTokenizer("<!--", "-->", "<span class=\"j\">", tagAfter));
+    tokenizers.add(new MultilinesDocTokenizer("<%--", "--%>", "<span class=\"j\">", tagAfter));
+    // // expressions
+    tokenizers.add(new MultilinesDocTokenizer("<%", "%>", "<span class=\"a\">", tagAfter));
+    // tag properties
+    tokenizers.add(new StringTokenizer("<span class=\"s\">", tagAfter));
   }
 
   @Override
