@@ -37,6 +37,7 @@ public interface WebConstants {
 
   /**
    * This property is deprecated in version 1.2 in favor of the standard ways to declare source folders.
+   * @deprecated since 1.2
    */
   @Deprecated
   String SOURCE_DIRECTORY_PROP_KEY = "sonar.web.sourceDirectory";
