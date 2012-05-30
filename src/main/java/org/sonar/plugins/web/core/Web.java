@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.language;
+package org.sonar.plugins.web.core;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.core;
 
 import org.sonar.api.web.CodeColorizerFormat;
 import org.sonar.colorizer.RegexpTokenizer;

@@ -18,12 +18,13 @@
 
 package org.sonar.plugins.web.duplications;
 
+import org.sonar.plugins.web.core.Web;
+
 import net.sourceforge.pmd.cpd.Tokenizer;
 import org.sonar.api.batch.CpdMapping;
 import org.sonar.api.resources.File;
 import org.sonar.api.resources.Language;
 import org.sonar.api.resources.Resource;
-import org.sonar.plugins.web.language.Web;
 
 import java.util.List;
 

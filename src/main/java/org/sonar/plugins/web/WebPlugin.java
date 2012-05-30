@@ -18,6 +18,13 @@
 
 package org.sonar.plugins.web;
 
+import org.sonar.plugins.web.core.WebCodeColorizerFormat;
+
+import org.sonar.plugins.web.core.WebSensor;
+import org.sonar.plugins.web.core.WebSourceImporter;
+
+import org.sonar.plugins.web.core.Web;
+
 import org.sonar.api.Extension;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
@@ -25,7 +32,6 @@ import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.core.WebProjectBuilder;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
-import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.JSFProfile;
 import org.sonar.plugins.web.rules.StrutsProfile;

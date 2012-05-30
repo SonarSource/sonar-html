@@ -16,37 +16,26 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.language;
+package org.sonar.plugins.web.core;
+
+import org.sonar.plugins.web.AbstractWebPluginTester;
+
+import org.sonar.plugins.web.core.WebSourceImporter;
+
+import org.sonar.plugins.web.core.Web;
 
 import org.junit.Test;
 import org.sonar.api.config.Settings;
-import org.sonar.plugins.web.api.WebConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Matthijs Galesloot
  */
-public class WebTest {
+public class WebSourceImporterTest extends AbstractWebPluginTester {
 
   @Test
-  public void testDefaultFileSuffixes() {
-    Web web = new Web(new Settings());
-    assertThat(web.getFileSuffixes()).containsOnly("xhtml", "jspf", "jsp");
-  }
-
-  @Test
-  public void testCustomFileSuffixes() {
-    Settings settings = new Settings();
-    settings.appendProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
-    Web web = new Web(settings);
-    assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
-  }
-
-  @Test
-  public void testWebFootprint() {
-    WebFootprint footprint = new WebFootprint();
-    assertNotNull(footprint.getDetectors());
+  public void testToString() throws Exception {
+    assertThat(new WebSourceImporter(new Web(new Settings())).toString()).isEqualTo("Web Source Importer");
   }
 }

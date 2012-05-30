@@ -16,7 +16,8 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.core;
+
 
 import org.apache.commons.io.IOUtils;
 import org.sonar.api.batch.Sensor;
@@ -35,7 +36,6 @@ import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.WebRulesRepository;

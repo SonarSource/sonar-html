@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.language;
+package org.sonar.plugins.web.core;
 
 import org.sonar.squid.recognizer.Detector;
 import org.sonar.squid.recognizer.LanguageFootprint;

@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web;
+package org.sonar.plugins.web.core;
+
 
 import org.sonar.api.batch.AbstractSourceImporter;
 import org.sonar.api.batch.Phase;
-import org.sonar.plugins.web.language.Web;
 
 /**
  * Import of source files to sonar database.
