@@ -19,34 +19,30 @@
 package org.sonar.plugins.web.analyzers;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.File;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.test.TestUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
 import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
  */
 public class PageCountLinesTest {
 
-  private static final Logger LOG = LoggerFactory.getLogger(PageCountLinesTest.class);
-
   @Test
   public void testCountLines() throws FileNotFoundException {
-
-    String fileName = "src/test/resources/src/main/webapp/user-properties.jsp";
     PageLexer lexer = new PageLexer();
-    List<Node> nodeList = lexer.parse(new FileReader(fileName));
+    List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("src/main/webapp/user-properties.jsp")));
     assertTrue(nodeList.size() > 100);
 
     File webFile = new File("test", "user-properties.jsp");
@@ -56,10 +52,8 @@ public class PageCountLinesTest {
     WebSourceCode webSourceCode = new WebSourceCode(webFile);
     scanner.scan(nodeList, webSourceCode);
 
-    LOG.warn("Lines:" + webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue());
-
-    int numLines = 287;
-    assertTrue("Expected " + numLines + " lines, but was: " + webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue(), webSourceCode
-        .getMeasure(CoreMetrics.LINES).getIntValue() == numLines);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(287);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC).getIntValue()).isEqualTo(227);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES).getIntValue()).isEqualTo(14);
   }
 }

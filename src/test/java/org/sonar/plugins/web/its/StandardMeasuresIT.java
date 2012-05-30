@@ -68,8 +68,8 @@ public class StandardMeasuresIT {
     assertThat(getProjectMeasure("directories").getIntValue(), is(8));
     assertNull(getProjectMeasure("functions"));
     assertNull(getProjectMeasure("statements"));
-    assertThat(getProjectMeasure("comment_lines_density").getValue(), is(21.5));
-    assertThat(getProjectMeasure("comment_lines").getIntValue(), is(1877));
+    assertThat(getProjectMeasure("comment_lines_density").getValue(), is(0.3));
+    assertThat(getProjectMeasure("comment_lines").getIntValue(), is(23));
     assertNull(getProjectMeasure("public_api"));
     assertThat(getProjectMeasure("complexity").getIntValue(), is(391));
     assertNull(getProjectMeasure("function_complexity"));
@@ -112,7 +112,7 @@ public class StandardMeasuresIT {
   public void directoryMeasures() {
     assertThat(getMeasure("ncloc", DIR_ROOT).getIntValue(), is(2878));
     assertThat(getMeasure("violations_density", DIR_ROOT).getValue(), is(80.0));
-    assertThat(getMeasure("comment_lines_density", DIR_ROOT).getValue(), is(20.6));
+    assertThat(getMeasure("comment_lines_density", DIR_ROOT).getValue(), is(0.3));
     assertThat(getMeasure("complexity", DIR_ROOT).getIntValue(), is(150));
   }
 
@@ -127,8 +127,8 @@ public class StandardMeasuresIT {
     assertThat(getFileMeasure("files").getIntValue(), is(1));
     assertNull(getFileMeasure("directories"));
     assertNull(getFileMeasure("functions"));
-    assertThat(getFileMeasure("comment_lines_density").getValue(), is(5.8));
-    assertThat(getFileMeasure("comment_lines").getIntValue(), is(19));
+    assertThat(getFileMeasure("comment_lines_density").getValue(), is(0.3));
+    assertThat(getFileMeasure("comment_lines").getIntValue(), is(1));
     assertNull(getFileMeasure("public_api"));
     assertNull(getFileMeasure("duplicated_lines"));
     assertNull(getFileMeasure("duplicated_blocks"));

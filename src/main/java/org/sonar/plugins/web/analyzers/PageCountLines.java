@@ -40,6 +40,7 @@ public class PageCountLines extends DefaultNodeVisitor {
 
   private int blankLines;
   private int commentLines;
+  private int headerCommentLines;
   private int linesOfCode;
 
   @Override
@@ -49,17 +50,18 @@ public class PageCountLines extends DefaultNodeVisitor {
     linesOfCode = 0;
     blankLines = 0;
     commentLines = 0;
+    headerCommentLines = 0;
 
     count(nodes);
   }
 
   private void addMeasures() {
 
-    getWebSourceCode().addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + blankLines);
+    getWebSourceCode().addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + headerCommentLines + blankLines);
     getWebSourceCode().addMeasure(CoreMetrics.NCLOC, linesOfCode);
     getWebSourceCode().addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
 
-    LOG.debug("WebSensor: " + getWebSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + blankLines);
+    LOG.debug("WebSensor: " + getWebSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + headerCommentLines + "," + blankLines);
   }
 
   private void count(List<Node> nodeList) {
@@ -86,7 +88,12 @@ public class PageCountLines extends DefaultNodeVisitor {
         linesOfCode += linesOfCodeCurrentNode;
         break;
       case Comment:
-        commentLines += linesOfCodeCurrentNode;
+        if (previousNode == null) {
+          // this is a header comment
+          headerCommentLines += linesOfCodeCurrentNode;
+        } else {
+          commentLines += linesOfCodeCurrentNode;
+        }
         break;
       case Text:
         handleTextToken((TextNode) node, previousNode, linesOfCodeCurrentNode);
@@ -106,7 +113,12 @@ public class PageCountLines extends DefaultNodeVisitor {
       if (previousNode != null) {
         switch (previousNode.getNodeType()) {
           case Comment:
-            commentLines++;
+            if (previousNode.getStartLinePosition() == 1) {
+              // this was a header comment
+              headerCommentLines++;
+            } else {
+              commentLines++;
+            }
             nonBlankLines++;
             break;
           case Tag:
