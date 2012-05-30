@@ -24,15 +24,12 @@ import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.channel.Channel;
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class WebCpdTokenizer implements Tokenizer {
 
@@ -41,16 +38,15 @@ public class WebCpdTokenizer implements Tokenizer {
   public final void tokenize(SourceCode source, Tokens cpdTokens) {
     String fileName = source.getFileName();
 
-    List<Channel> channels = new ArrayList<Channel>();
-    channels.add(CommentChannel.JSP_COMMENT);
-    channels.add(CommentChannel.HTML_COMMENT);
-    channels.add(CommentChannel.C_COMMENT);
-    channels.add(CommentChannel.CPP_COMMENT);
-    channels.add(new WordChannel(fileName));
-    channels.add(new LiteralChannel(fileName));
-    channels.add(new BlackHoleChannel());
-
-    ChannelDispatcher<Tokens> lexer = new ChannelDispatcher<Tokens>(channels);
+    ChannelDispatcher.Builder lexerBuilder = ChannelDispatcher.builder();
+    lexerBuilder.addChannel(CommentChannel.JSP_COMMENT);
+    lexerBuilder.addChannel(CommentChannel.HTML_COMMENT);
+    lexerBuilder.addChannel(CommentChannel.C_COMMENT);
+    lexerBuilder.addChannel(CommentChannel.CPP_COMMENT);
+    lexerBuilder.addChannel(new WordChannel(fileName));
+    lexerBuilder.addChannel(new LiteralChannel(fileName));
+    lexerBuilder.addChannel(new BlackHoleChannel());
+    ChannelDispatcher<Tokens> lexer = lexerBuilder.build();
 
     try {
       lexer.consume(new CodeReader(new FileReader(new File(fileName))), cpdTokens);

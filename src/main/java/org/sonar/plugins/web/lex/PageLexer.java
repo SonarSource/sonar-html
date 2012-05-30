@@ -18,6 +18,7 @@
 
 package org.sonar.plugins.web.lex;
 
+import org.sonar.channel.Channel;
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
 import org.sonar.plugins.web.node.Node;
@@ -87,13 +88,10 @@ public final class PageLexer {
     List<Node> nodeList = new ArrayList<Node>();
 
     // ChannelDispatcher manages the tokenizers
-    ChannelDispatcher<List<Node>> channelDispatcher = new ChannelDispatcher<List<Node>>(tokenizers);
+    ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder().addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()])).build();
     channelDispatcher.consume(codeReader, nodeList);
 
     createNodeHierarchy(nodeList);
-
-    // clean up
-    codeReader.close();
 
     return nodeList;
   }

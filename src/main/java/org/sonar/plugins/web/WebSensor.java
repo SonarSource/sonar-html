@@ -19,8 +19,6 @@
 package org.sonar.plugins.web;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.NoSonarFilter;
@@ -58,8 +56,6 @@ import java.util.List;
 public final class WebSensor implements Sensor {
 
   private final static Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
-
-  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
   private final Web web;
 

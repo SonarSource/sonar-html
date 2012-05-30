@@ -81,7 +81,6 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
       Rule rule = check.getClass().getAnnotation(Rule.class);
       assertNotNull(rule.key());
       assertNotNull(rule.name());
-      assertNotNull(rule.isoCategory());
     }
     assertTrue(checks.size() > 20);
   }

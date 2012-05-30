@@ -61,6 +61,7 @@ import java.util.List;
  */
 final class CheckClasses {
 
+  @SuppressWarnings("rawtypes")
   private static final Class[] CLASSES = new Class[] {
     AttributeValidationCheck.class,
     AvoidHtmlCommentCheck.class,
@@ -98,6 +99,7 @@ final class CheckClasses {
   /**
    * Gets the list of XML checks.
    */
+  @SuppressWarnings("rawtypes")
   public static List<Class> getCheckClasses() {
     return Arrays.asList(CLASSES);
   }
