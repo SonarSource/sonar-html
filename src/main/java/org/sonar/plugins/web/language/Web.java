@@ -18,8 +18,15 @@
 
 package org.sonar.plugins.web.language;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
+import org.sonar.api.Properties;
+import org.sonar.api.Property;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.web.api.WebConstants;
+
+import java.util.ArrayList;
 
 /**
  * This class defines the Web language.
@@ -27,31 +34,38 @@ import org.sonar.plugins.web.api.WebConstants;
  * @author Matthijs Galesloot
  * @since 1.0
  */
+@Properties({
+  @Property(key = WebConstants.FILE_EXTENSIONS_PROP_KEY,
+    name = "File extensions",
+    description = "List of file extensions that will be scanned.",
+    defaultValue = WebConstants.FILE_EXTENSIONS_DEF_VALUE,
+    global = true,
+    project = true)
+})
 public class Web extends AbstractLanguage {
 
-  /** All the valid web files suffixes. */
-  private static final String[] DEFAULT_SUFFIXES = {"xhtml", "jspf", "jsp"};
-
-  /** A web instance. */
-  public static final Web INSTANCE = new Web();
-
-  /** The web language name */
-  private static final String WEB_LANGUAGE_NAME = "Web";
+  private String[] fileSuffixes;
 
   /**
    * Default constructor.
    */
-  public Web() {
-    super(WebConstants.LANGUAGE_KEY, WEB_LANGUAGE_NAME);
+  public Web(Settings settings) {
+    super(WebConstants.LANGUAGE_KEY, WebConstants.LANGUAGE_NAME);
+    String extensions = settings.getString(WebConstants.FILE_EXTENSIONS_PROP_KEY);
+    if (StringUtils.isBlank(extensions)) {
+      extensions = WebConstants.FILE_EXTENSIONS_DEF_VALUE;
+    }
+    ArrayList<String> extensionsList = Lists.newArrayList();
+    for (String extension : StringUtils.split(extensions, ",")) {
+      extensionsList.add(extension.trim());
+    }
+    fileSuffixes = extensionsList.toArray(new String[extensionsList.size()]);
   }
 
   /**
-   * Gets the file suffixes.
-   *
-   * @return the file suffixes
-   * @see org.sonar.api.resources.Language#getFileSuffixes()
+   * {@inheritDoc}
    */
   public String[] getFileSuffixes() {
-    return DEFAULT_SUFFIXES; // NOSONAR
+    return fileSuffixes;
   }
 }

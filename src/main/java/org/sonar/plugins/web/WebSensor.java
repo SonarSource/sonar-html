@@ -18,6 +18,7 @@
 
 package org.sonar.plugins.web;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -34,9 +35,9 @@ import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.PageCountLines;
-import org.sonar.plugins.web.api.ProjectFileManager;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.WebRulesRepository;
@@ -44,6 +45,7 @@ import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
@@ -59,37 +61,39 @@ public final class WebSensor implements Sensor {
 
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
+  private final Web web;
+
   private final NoSonarFilter noSonarFilter;
 
   private final RulesProfile profile;
 
-  public WebSensor(RulesProfile profile, NoSonarFilter noSonarFilter) {
+  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter) {
+    this.web = web;
     this.profile = profile;
     this.noSonarFilter = noSonarFilter;
   }
 
   public void analyse(Project project, SensorContext sensorContext) {
-
-    ProjectFileManager fileManager = new ProjectFileManager(project);
-
     // configure the lexer
     final PageLexer lexer = new PageLexer();
 
     // configure page scanner and the visitors
     final PageScanner scanner = setupScanner();
 
-    for (InputFile inputFile : fileManager.getFiles()) {
-
+    for (InputFile inputFile : project.getFileSystem().mainFiles(web.getKey())) {
+      java.io.File file = inputFile.getFile();
+      File resource = File.fromIOFile(file, project);
+      WebSourceCode sourceCode = new WebSourceCode(resource);
+      FileReader reader = null;
       try {
-        File resource = fileManager.fromIOFile(inputFile);
-
-        WebSourceCode sourceCode = new WebSourceCode(resource);
-        List<Node> nodeList = lexer.parse(new FileReader(inputFile.getFile()));
+        reader = new FileReader(file);
+        List<Node> nodeList = lexer.parse(reader);
         scanner.scan(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);
-
-      } catch (Exception e) {
-        LOG.error("Could not analyze the file " + inputFile.getRelativePath(), e);
+      } catch (FileNotFoundException e) {
+        throw new IllegalStateException("Can not read file " + file.getAbsolutePath(), e);
+      } finally {
+        IOUtils.closeQuietly(reader);
       }
     }
   }

@@ -29,6 +29,12 @@ import java.util.List;
 
 public class WebCpdMapping implements CpdMapping {
 
+  private final Web web;
+
+  public WebCpdMapping(Web web) {
+    this.web = web;
+  }
+
   public Tokenizer getTokenizer() {
     return new WebCpdTokenizer();
   }
@@ -39,7 +45,7 @@ public class WebCpdMapping implements CpdMapping {
   }
 
   public Language getLanguage() {
-    return Web.INSTANCE;
+    return web;
   }
 
 }

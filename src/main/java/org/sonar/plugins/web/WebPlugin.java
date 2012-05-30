@@ -23,6 +23,7 @@ import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.core.WebProjectBuilder;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
@@ -40,24 +41,25 @@ import java.util.List;
  * @since 1.0
  */
 @Properties({
-  @Property(key = WebConstants.CPD_MINIMUM_TOKENS, defaultValue = "70",
+  @Property(key = WebConstants.CPD_MINIMUM_TOKENS_PROP_KEY, defaultValue = "70",
     name = "Minimum tokens",
     description = "The number of duplicate tokens above which a HTML block is considered as a duplicated.",
-    global = true, project = true),
-  @Property(key = WebConstants.FILE_EXTENSIONS,
-    name = "File extensions",
-    description = "List of file extensions that will be scanned.",
-    defaultValue = "xhtml,jspf,jsp",
-    global = true, project = true),
-  @Property(key = WebConstants.SOURCE_DIRECTORY,
+    global = true,
+    project = true),
+  @Property(key = WebConstants.SOURCE_DIRECTORY_PROP_KEY,
     name = "Source directory",
     description = "Source directory that will be scanned.",
-    defaultValue = "src/main/webapp",
-    global = false, project = true)})
+    defaultValue = WebConstants.SOURCE_DIRECTORY_DEF_VALUE,
+    // do not display this property in the UI as it is deprecated since 1.2
+    global = false,
+    project = false)})
 public final class WebPlugin extends SonarPlugin {
 
   public List<Class<? extends Extension>> getExtensions() {
     List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
+
+    // extension used to allow backward compatibility for the "sonar.web.sourceDirectory" property
+    list.add(WebProjectBuilder.class);
 
     // web language
     list.add(Web.class);

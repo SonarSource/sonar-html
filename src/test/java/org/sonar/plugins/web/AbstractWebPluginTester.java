@@ -18,28 +18,17 @@
 
 package org.sonar.plugins.web;
 
-import org.apache.commons.configuration.MapConfiguration;
-import org.apache.commons.io.IOUtils;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.maven.project.MavenProject;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.resources.Project;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
-import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.web.language.Web;
 import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
-import java.io.File;
-import java.io.FileReader;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.List;
 
@@ -95,35 +84,6 @@ public class AbstractWebPluginTester {
     assertEquals(0, messages.getWarnings().size());
     assertEquals(0, messages.getInfos().size());
     return profile;
-  }
-
-  private static MavenProject loadPom(File pomFile) throws URISyntaxException {
-
-    FileReader fileReader = null;
-    try {
-      fileReader = new FileReader(pomFile);
-      Model model = new MavenXpp3Reader().read(fileReader);
-      MavenProject project = new MavenProject(model);
-      project.setFile(pomFile);
-      project.addCompileSourceRoot(project.getBuild().getSourceDirectory());
-
-      return project;
-    } catch (Exception e) {
-      throw new SonarException("Failed to read Maven project file : " + pomFile.getPath(), e);
-    } finally {
-      IOUtils.closeQuietly(fileReader);
-    }
-  }
-
-  protected Project loadProjectFromPom(File pomFile) throws Exception {
-    MavenProject pom = loadPom(pomFile);
-    Project project = new Project(pom.getGroupId() + ":" + pom.getArtifactId()).setPom(pom).setConfiguration(
-        new MapConfiguration(pom.getProperties()));
-    project.setPom(pom);
-    project.setLanguageKey(Web.INSTANCE.getKey());
-    project.setLanguage(Web.INSTANCE);
-
-    return project;
   }
 
   protected RuleFinder newRuleFinder() {

@@ -18,13 +18,11 @@
 
 package org.sonar.plugins.web.language;
 
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Test;
-import org.sonar.api.resources.Project;
-import org.sonar.plugins.web.api.ProjectFileManager;
+import org.sonar.api.config.Settings;
 import org.sonar.plugins.web.api.WebConstants;
 
-import static org.junit.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -33,21 +31,17 @@ import static org.junit.Assert.assertNotNull;
 public class WebTest {
 
   @Test
-  public void testFileSuffixes() {
-    Project project = new Project("test");
-    PropertiesConfiguration configuration = new PropertiesConfiguration();
-    project.setConfiguration(configuration);
-    ProjectFileManager projectFileManager = new ProjectFileManager(project);
-    assertEquals(3, projectFileManager.getFileSuffixes().length);
+  public void testDefaultFileSuffixes() {
+    Web web = new Web(new Settings());
+    assertThat(web.getFileSuffixes()).containsOnly("xhtml", "jspf", "jsp");
+  }
 
-    configuration.setProperty(WebConstants.FILE_EXTENSIONS, "one,two");
-    assertEquals(2, projectFileManager.getFileSuffixes().length);
-
-    configuration.setProperty(WebConstants.FILE_EXTENSIONS, "one");
-    assertEquals(1, projectFileManager.getFileSuffixes().length);
-
-    configuration.setProperty(WebConstants.FILE_EXTENSIONS, "");
-    assertEquals(3, projectFileManager.getFileSuffixes().length);
+  @Test
+  public void testCustomFileSuffixes() {
+    Settings settings = new Settings();
+    settings.appendProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
+    Web web = new Web(settings);
+    assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
   }
 
   @Test

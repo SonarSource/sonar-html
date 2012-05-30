@@ -18,92 +18,29 @@
 
 package org.sonar.plugins.web;
 
-import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.sonar.api.CoreProperties;
-import org.sonar.api.batch.DependsUpon;
+import org.sonar.api.batch.AbstractSourceImporter;
 import org.sonar.api.batch.Phase;
-import org.sonar.api.batch.Sensor;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.resources.InputFile;
-import org.sonar.api.resources.Project;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.utils.SonarException;
-import org.sonar.plugins.web.api.ProjectFileManager;
-import org.sonar.plugins.web.api.WebConstants;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
+import org.sonar.plugins.web.language.Web;
 
 /**
  * Import of source files to sonar database.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-@DependsUpon(value = "webscanner")
 @Phase(name = Phase.Name.PRE)
-public final class WebSourceImporter implements Sensor {
+public final class WebSourceImporter extends AbstractSourceImporter {
 
-  private static final Logger LOG = LoggerFactory.getLogger(WebSourceImporter.class);
-  private final Project project;
-  private final ProjectFileManager projectFileManager;
-
-  public WebSourceImporter(Project project) {
-    this.project = project;
-    this.projectFileManager = new ProjectFileManager(project);
+  /**
+   * Instantiates a new php source importer.
+   */
+  public WebSourceImporter(Web web) {
+    super(web);
   }
 
-  public void analyse(Project project, SensorContext context) {
-
-    parseDirs(context, projectFileManager.getFiles());
-  }
-
-  private Resource<?> createResource(InputFile file) {
-    Resource<?> resource = projectFileManager.fromIOFile(file);
-    if (resource == null) {
-      LOG.debug("HtmlSourceImporter failed for: " + file.getRelativePath());
-    } else {
-      LOG.debug("HtmlSourceImporter:" + file.getRelativePath());
-    }
-    return resource;
-  }
-
-  private boolean isEnabled(Project project) {
-    return project.getConfiguration().getBoolean(CoreProperties.CORE_IMPORT_SOURCES_PROPERTY,
-        CoreProperties.CORE_IMPORT_SOURCES_DEFAULT_VALUE);
-  }
-
-  private void parseDirs(SensorContext context, List<InputFile> files) {
-
-    Charset sourcesEncoding = project.getFileSystem().getSourceCharset();
-
-    for (InputFile file : files) {
-      Resource<?> resource = createResource(file);
-      if (resource != null) {
-        try {
-          context.index(resource);
-
-          String source = FileUtils.readFileToString(file.getFile(), sourcesEncoding.name());
-          context.saveSource(resource, source);
-
-        } catch (IOException e) {
-          throw new SonarException("Unable to read and import the source file : '" + file.getFile().getAbsolutePath()
-            + "' with the charset : '" + sourcesEncoding.name() + "'. You should check the property " + CoreProperties.ENCODING_PROPERTY,
-              e);
-        }
-      }
-    }
-  }
-
-  public boolean shouldExecuteOnProject(Project project) {
-    return isEnabled(project) && WebConstants.LANGUAGE_KEY.equals(project.getLanguageKey());
-  }
-
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
-    return getClass().getSimpleName();
+    return "Web Source Importer";
   }
+
 }

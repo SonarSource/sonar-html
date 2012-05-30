@@ -8,12 +8,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <packaging>pom</packaging>
   <name>test</name>
   <build>
-    <sourceDirectory>src/main/code</sourceDirectory>
+    <sourceDirectory>src/main/webapp</sourceDirectory>
   </build> 
   <properties>
-    <sonar.web.sourceDirectory>src/main/webapp</sonar.web.sourceDirectory>
     <sonar.language>web</sonar.language>
     <sonar.dynamicAnalysis>false</sonar.dynamicAnalysis>
-    <sonar.web.sourceDirectory>src/main/webapp</sonar.web.sourceDirectory>
   </properties>
 </project>

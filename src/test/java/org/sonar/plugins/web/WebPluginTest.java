@@ -30,6 +30,6 @@ public class WebPluginTest {
   @Test
   public void webPluginTester() {
     WebPlugin webPlugin = new WebPlugin();
-    assertEquals(9, webPlugin.getExtensions().size());
+    assertEquals(10, webPlugin.getExtensions().size());
   }
 }

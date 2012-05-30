@@ -17,7 +17,7 @@
   <description>Analyze web code.</description>
 
   <properties>
-    <sonar.version>2.9</sonar.version>
+    <sonar.version>2.12</sonar.version>
     <license.name>AL2</license.name>
     <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
@@ -62,33 +62,13 @@
     </license>
   </licenses>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.codehaus.sonar</groupId>
-        <artifactId>sonar-plugin-api</artifactId>
-        <version>${sonar.version}</version>
-        <!-- dependencies of sonar-plugin-api (pmd) should not get older 
-          version of junit -->
-        <exclusions>
-          <exclusion>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-    </dependencies>
-
-  </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-plugin-api</artifactId>
+        <version>${sonar.version}</version>
       <scope>provided</scope>
     </dependency>
-
-    <!-- lexical analysis -->
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-channel</artifactId>
@@ -109,7 +89,7 @@
       <version>1.0_02.CR4</version>
       <scope>compile</scope>
     </dependency>
-    
+
     <!-- OGNL Expression parser -->
     <dependency>
       <groupId>ognl</groupId>
@@ -139,10 +119,15 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.easytesting</groupId>
+      <artifactId>fest-assert</artifactId>
+      <version>1.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
       <version>3.0.3</version>
-      <type>jar</type>
       <scope>test</scope>
     </dependency>
 
