@@ -35,17 +35,27 @@ public class WebCodeColorizerFormat extends CodeColorizerFormat {
   public WebCodeColorizerFormat() {
     super(WebConstants.LANGUAGE_KEY);
     String tagAfter = "</span>";
-    // tags
+
+    // == tags ==
     tokenizers.add(new RegexpTokenizer("<span class=\"k\">", tagAfter, "</?[:\\w]+>?"));
     tokenizers.add(new RegexpTokenizer("<span class=\"k\">", tagAfter, ">"));
-    // doctype
+
+    // == doctype ==
     tokenizers.add(new RegexpTokenizer("<span class=\"j\">", tagAfter, "<!DOCTYPE.*>"));
-    // comments
-    tokenizers.add(new MultilinesDocTokenizer("<!--", "-->", "<span class=\"j\">", tagAfter));
-    tokenizers.add(new MultilinesDocTokenizer("<%--", "--%>", "<span class=\"j\">", tagAfter));
-    // // expressions
-    tokenizers.add(new MultilinesDocTokenizer("<%", "%>", "<span class=\"a\">", tagAfter));
-    // tag properties
+
+    // == comments ==
+    // TODO the character '>' is missing in the endToken because of a limitation in the Sonar CodeReader. See SONARPLUGINS-1885
+    tokenizers.add(new MultilinesDocTokenizer("<!--", "--", "<span class=\"j\">", tagAfter));
+    // TODO the character '>' is missing in the endToken because of a limitation in the Sonar CodeReader. See SONARPLUGINS-1885
+    tokenizers.add(new MultilinesDocTokenizer("<%--", "--%", "<span class=\"j\">", tagAfter));
+
+    // == expressions ==
+    // TODO the character '>' is missing in the endToken because of a limitation in the Sonar CodeReader. See SONARPLUGINS-1885
+    tokenizers.add(new MultilinesDocTokenizer("<%@", "%", "<span class=\"a\">", tagAfter));
+    // TODO we should add a "generic" MultilinesDocTokenizer with "<%" and "%>" but it seems that this messes up everything => to test again
+    // when SONARPLUGINS-1885 is fixed
+
+    // == tag properties ==
     tokenizers.add(new StringTokenizer("<span class=\"s\">", tagAfter));
   }
 

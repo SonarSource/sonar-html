@@ -55,27 +55,33 @@ public class WebCodeColorizerFormatTest {
   }
 
   @Test
+  public void testHighlightJspDirective() {
+    assertThat(highlight("<%@ taglib uri=\"/struts-tags\" %> Foo"),
+        containsString("<span class=\"a\">&lt;%@ taglib uri=\"/struts-tags\" %</span><span class=\"k\">&gt;</span> Foo"));
+  }
+
+  @Test
+  @Ignore("Uncomment to test when SONARPLUGINS-1885 is fixed")
   public void testHighlightJspExpressions() {
-    assertThat(highlight("<% System.out.println('foo') %>"), containsString("<span class=\"a\">&lt;% System.out.println('foo') %&gt;</span>"));
+    assertThat(highlight("<% System.out.println('foo') %> Foo"), containsString("<span class=\"a\">&lt;% System.out.println('foo') %</span><span class=\"k\">&gt;</span> Foo"));
   }
 
   @Test
   public void testHighlightComments() {
-    assertThat(highlight("<!-- hello world!! -->"), containsString("<span class=\"j\">&lt;!-- hello world!! --&gt;</span>"));
-    assertThat(highlight("<%-- hello world!! --%>"), containsString("<span class=\"j\">&lt;%-- hello world!! --%&gt;</span>"));
+    assertThat(highlight("<!-- hello world!! --> Foo"), containsString("<span class=\"j\">&lt;!-- hello world!! --</span><span class=\"k\">&gt;</span> Foo"));
+    assertThat(highlight("<%-- hello world!! --%> Foo"), containsString("<span class=\"j\">&lt;%-- hello world!! --%</span><span class=\"k\">&gt;</span> Foo"));
+  }
+
+  @Test
+  public void testHighlightCommentsAndOtherTag() {
+    assertThat(
+        highlight("<%-- hello world!! --%><table size='45px'>"),
+        containsString("<span class=\"j\">&lt;%-- hello world!! --%</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;table</span> size=<span class=\"s\">'45px'</span><span class=\"k\">&gt;</span>"));
   }
 
   @Test
   public void testHighlightDoctype() {
     assertThat(highlight("<!DOCTYPE foo bar >"), containsString("<span class=\"j\">&lt;!DOCTYPE foo bar &gt;</span>"));
-  }
-
-  @Test
-  @Ignore
-  public void testHighlightComplexExample() {
-    assertThat(
-        highlight("<%-- hello world!! --%><table size='45px'>"),
-        containsString("<span class=\"j\">&lt;%-- hello world!! --%&gt;</span><span class=\"k\">&lt;table</span> size=<span class=\"s\">'45px'</span><span class=\"k\">&gt;</span>"));
   }
 
   private String highlight(String webSourceCode) {
