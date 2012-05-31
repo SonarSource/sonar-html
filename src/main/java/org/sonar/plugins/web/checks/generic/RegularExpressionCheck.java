@@ -33,15 +33,15 @@ import java.util.regex.Pattern;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RegularExpressionCheck", name = "Regular Expression Check", description = "Regular Expression Check",
-  priority = Priority.MINOR)
+@Rule(key = "RegularExpressionCheck", priority = Priority.MINOR)
 public class RegularExpressionCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "expression", description = "Expression")
+  @RuleProperty
   private String expression;
 
-  @RuleProperty(key = "scope", description = "Scope (Attribute/Element)")
-  private String scope; // attribute or element
+  // value must be "attribute" or "element"
+  @RuleProperty
+  private String scope;
 
   public String getScope() {
     return scope;

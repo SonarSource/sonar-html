@@ -36,10 +36,10 @@ import java.util.List;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RequiredElementCheck", name = "Element Required", description = "Required element must be used", priority = Priority.MAJOR)
+@Rule(key = "RequiredElementCheck", priority = Priority.MAJOR)
 public class RequiredElementCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "elements", description = "elements")
+  @RuleProperty
   private String[] elements;
 
   public String getElements() {

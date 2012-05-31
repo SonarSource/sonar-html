@@ -34,11 +34,10 @@ import org.sonar.plugins.web.node.DirectiveNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalTagLibsCheck", name = "Illegal TagLibs", description = "Certain taglibs are not allowed",
-  priority = Priority.CRITICAL)
+@Rule(key = "IllegalTagLibsCheck", priority = Priority.CRITICAL)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "tagLibs", description = "Disallowed Taglibs")
+  @RuleProperty(defaultValue = "http://java.sun.com/jstl/sql")
   private String[] tagLibs = new String[] {"http://java.sun.com/jstl/sql"};
 
   @Override
@@ -47,18 +46,18 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
       for (Attribute a : node.getAttributes()) {
         for (String tagLib : tagLibs) {
           if (tagLib.equalsIgnoreCase(a.getValue())) {
-            createViolation(node);
+            createViolation(node.getStartLinePosition(), "Following taglib if forbidden: " + tagLib);
           }
         }
       }
     }
   }
 
-  public String getIgnoreTags() {
+  public String getTagLibs() {
     return StringUtils.join(tagLibs, ",");
   }
 
-  public void setIgnoreTags(String value) {
+  public void setTagLibs(String value) {
     tagLibs = trimSplitCommaSeparatedList(value);
   }
 }

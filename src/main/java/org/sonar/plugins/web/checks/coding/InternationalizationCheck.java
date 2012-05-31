@@ -32,13 +32,12 @@ import org.sonar.plugins.web.node.TextNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "InternationalizationCheck", name = "Labels Internationalization",
-  description = "Labels should be defined in the resource bundle", priority = Priority.MINOR)
+@Rule(key = "InternationalizationCheck", priority = Priority.MINOR)
 public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
 
-  @RuleProperty(key = "attributes", defaultValue = "outputLabel.value, outputText.value", description = "Attributes")
+  @RuleProperty(defaultValue = "outputLabel.value, outputText.value")
   private QualifiedAttribute[] attributes;
 
   public String getAttributes() {

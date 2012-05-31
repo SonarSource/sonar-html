@@ -31,12 +31,12 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "DocTypeCheck", name = "Document Type Compliance", description = "Document Type Compliance", priority = Priority.MINOR)
+@Rule(key = "DocTypeCheck", priority = Priority.MINOR)
 public class DocTypeCheck extends AbstractPageCheck {
 
   private boolean hasDocType;
 
-  @RuleProperty(key = "dtd", description = "Document Type")
+  @RuleProperty
   private String dtd;
 
   public String getDtd() {

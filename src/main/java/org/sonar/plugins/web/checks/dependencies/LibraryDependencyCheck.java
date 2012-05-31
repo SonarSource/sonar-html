@@ -33,11 +33,10 @@ import org.sonar.plugins.web.node.ExpressionNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "LibraryDependencyCheck", name = "Library Dependency Check", description = "Dependencies to certain libraries are not allowed",
-  priority = Priority.CRITICAL)
+@Rule(key = "LibraryDependencyCheck", priority = Priority.CRITICAL)
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "libraries", description = "Libraries")
+  @RuleProperty
   private String[] libraries;
 
   public String getLibraries() {

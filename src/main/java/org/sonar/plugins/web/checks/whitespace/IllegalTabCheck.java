@@ -32,7 +32,7 @@ import org.sonar.plugins.web.node.TextNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalTabCheck", name = "Illegal Tab Character", description = "Tab Character", priority = Priority.MINOR)
+@Rule(key = "IllegalTabCheck", priority = Priority.MINOR)
 public class IllegalTabCheck extends AbstractPageCheck {
 
   @Override

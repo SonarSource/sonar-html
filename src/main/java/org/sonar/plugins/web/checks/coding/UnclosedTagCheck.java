@@ -35,10 +35,10 @@ import java.util.List;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "UnclosedTagCheck", name = "Unclosed Tag", description = "Tags should be closed", priority = Priority.MINOR)
+@Rule(key = "UnclosedTagCheck", priority = Priority.MINOR)
 public class UnclosedTagCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "ignoreTags", description = "Ignore Tags")
+  @RuleProperty
   private String[] ignoreTags;
 
   private final List<TagNode> nodes = new ArrayList<TagNode>();

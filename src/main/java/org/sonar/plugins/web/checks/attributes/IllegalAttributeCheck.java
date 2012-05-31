@@ -33,10 +33,10 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalAttributeCheck", name = "Illegal Attribute", description = "attribute should not be used", priority = Priority.MAJOR)
+@Rule(key = "IllegalAttributeCheck", name = "", priority = Priority.MAJOR)
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "attributes", description = "Attributes")
+  @RuleProperty
   private QualifiedAttribute[] attributes;
 
   public String getAttributes() {

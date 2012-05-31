@@ -39,12 +39,12 @@ import java.util.regex.Pattern;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "HeaderCheck", name = "Missing Header", description = "Missing header comments", priority = Priority.MAJOR)
+@Rule(key = "HeaderCheck", priority = Priority.MAJOR)
 public class HeaderCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);
 
-  @RuleProperty(key = "expression", defaultValue = "^.*Copyright.*$", description = "Regular expression for header format")
+  @RuleProperty(defaultValue = "^.*Copyright.*$")
   private String expression;
 
   private boolean hasHeader;

@@ -33,10 +33,10 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalElementCheck", name = "Element Illegal", description = "element should not be used", priority = Priority.MAJOR)
+@Rule(key = "IllegalElementCheck", priority = Priority.MAJOR)
 public class IllegalElementCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "elements", description = "elements")
+  @RuleProperty
   private String[] elements;
 
   public String getElements() {

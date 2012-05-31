@@ -34,8 +34,7 @@ import java.util.List;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RequiredAttributeCheck", name = "Attribute Required", description = "Required attribute must be used",
-  priority = Priority.MAJOR)
+@Rule(key = "RequiredAttributeCheck", priority = Priority.MAJOR)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final class RequiredAttribute {
@@ -49,7 +48,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
     }
   }
 
-  @RuleProperty(key = "attributes", description = "attributes")
+  @RuleProperty
   private final List<RequiredAttribute> attributes = new ArrayList<RequiredAttribute>();
 
   public String getAttributes() {

@@ -37,20 +37,20 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "ComplexityCheck", name = "Complexity", description = "Complexity", priority = Priority.MINOR)
+@Rule(key = "ComplexityCheck", priority = Priority.MINOR)
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;
 
   private int complexity;
 
-  @RuleProperty(key = "max", description = "Maximum allowed complexity")
+  @RuleProperty
   private int max = DEFAULT_MAX_COMPLEXITY;
 
-  @RuleProperty(key = "operators", description = "Operators")
+  @RuleProperty
   private String[] operators = new String[] {"&&", "||", "and", "or"};
 
-  @RuleProperty(key = "tags", description = "Decision Tags")
+  @RuleProperty
   private String[] tags = new String[] {"catch", "choose", "if", "forEach", "forTokens", "when"};
 
   @Override

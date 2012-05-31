@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "JspScriptletCheck", name = "Scriptlets", description = "Avoid scriptlets", priority = Priority.CRITICAL)
+@Rule(key = "JspScriptletCheck", priority = Priority.CRITICAL)
 public class JspScriptletCheck extends AbstractPageCheck {
 
   @Override

@@ -42,14 +42,14 @@ import java.lang.reflect.Method;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "UnifiedExpressionCheck", name = "Invalid Expression", description = "Invalid expressions syntax", priority = Priority.BLOCKER)
+@Rule(key = "UnifiedExpressionCheck", priority = Priority.BLOCKER)
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
   /**
    * List of supported functions. Use of unknown functions raises a violation.
    * @since 1.1
    */
-  @RuleProperty(key = "functions", description = "Functions (comma separated)")
+  @RuleProperty
   private String[] functions;
 
   public void setFunctions(String list) {

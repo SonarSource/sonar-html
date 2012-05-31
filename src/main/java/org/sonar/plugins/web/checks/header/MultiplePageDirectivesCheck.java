@@ -32,8 +32,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "MultiplePageDirectivesCheck", name = "Multiple Page Directive", description = "Avoid multiple page directives",
-  priority = Priority.MINOR)
+@Rule(key = "MultiplePageDirectivesCheck", priority = Priority.MINOR)
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 
   private static boolean isImportDirective(DirectiveNode node) {

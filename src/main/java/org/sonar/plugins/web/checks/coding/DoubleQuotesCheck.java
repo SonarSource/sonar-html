@@ -33,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "DoubleQuotesCheck", name = "Double Quotes", description = "Use double quotes for attribute values", priority = Priority.MINOR)
+@Rule(key = "DoubleQuotesCheck", priority = Priority.MINOR)
 public class DoubleQuotesCheck extends AbstractPageCheck {
 
   @Override

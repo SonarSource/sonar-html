@@ -33,14 +33,14 @@ import org.sonar.plugins.web.node.TextNode;
  *
  * @see http://pmd.sourceforge.net/rules/basic-jsp.html
  */
-@Rule(key = "LongJavaScriptCheck", name = "Long JavaScript", description = "Avoid long JavaScript", priority = Priority.CRITICAL)
+@Rule(key = "LongJavaScriptCheck", priority = Priority.CRITICAL)
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;
 
   private int linesOfCode;
 
-  @RuleProperty(key = "maxLines", description = "Max Lines")
+  @RuleProperty(defaultValue = "" + DEFAULT_MAX_LINES)
   private int maxLines = DEFAULT_MAX_LINES;
 
   private TagNode scriptNode;

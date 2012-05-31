@@ -34,7 +34,7 @@ import org.sonar.plugins.web.node.Node;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "WhiteSpaceAroundCheck", name = "Whitespace Around", description = "White space around", priority = Priority.MINOR)
+@Rule(key = "WhiteSpaceAroundCheck", priority = Priority.MINOR)
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 
   private void checkEndWhitespace(Node node, String code, String end) {

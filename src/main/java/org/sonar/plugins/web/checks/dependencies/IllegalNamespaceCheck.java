@@ -34,10 +34,10 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "IllegalNamespaceCheck", name = "Illegal Namespace", description = "namespace should not be used", priority = Priority.MAJOR)
+@Rule(key = "IllegalNamespaceCheck", priority = Priority.MAJOR)
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "namespaces", description = "Namespaces")
+  @RuleProperty
   private String[] namespaces;
   private boolean visited;
 

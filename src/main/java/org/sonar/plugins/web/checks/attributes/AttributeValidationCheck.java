@@ -34,14 +34,13 @@ import java.util.regex.Pattern;
  * @author Matthijs Galesloot
  * @since 1.1
  */
-@Rule(key = "AttributeValidationCheck", name = "Attribute Validation", description = "Invalid value of attribute",
-  priority = Priority.MAJOR)
+@Rule(key = "AttributeValidationCheck", priority = Priority.MAJOR)
 public class AttributeValidationCheck extends AbstractPageCheck {
 
-  @RuleProperty(key = "attributes", description = "List of attributes, comma separated.")
+  @RuleProperty
   private QualifiedAttribute[] attributes;
 
-  @RuleProperty(key = "values", description = "List of values, separated by | symbol. Regular expressions are supported.")
+  @RuleProperty
   private String values;
 
   private Pattern pattern;

@@ -31,7 +31,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "InlineStyleCheck", name = "Inline Style", description = "Inline style should be avoided", priority = Priority.MINOR)
+@Rule(key = "InlineStyleCheck", priority = Priority.MINOR)
 public class InlineStyleCheck extends AbstractPageCheck {
 
   @Override

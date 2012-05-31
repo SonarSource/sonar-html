@@ -39,13 +39,13 @@ import org.sonar.plugins.web.node.TextNode;
  * @since 1.0
  *
  */
-@Rule(key = "MaxLineLengthCheck", name = "Maximum Line Length", description = "Checks the length of a line",
+@Rule(key = "MaxLineLengthCheck", name = "", description = "Checks the length of a line",
   priority = Priority.MINOR)
 public class MaxLineLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;
 
-  @RuleProperty(key = "maxLength", defaultValue = "120", description = "Maximum number of characters in a line")
+  @RuleProperty(defaultValue = DEFAULT_MAX_LINE_LENGTH + "")
   private int maxLength = DEFAULT_MAX_LINE_LENGTH;
 
   private int currentLineLength;

@@ -33,8 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.1
  */
-@Rule(key = "OGNLExpressionCheck", name = "Invalid OGNL Expression", description = "Invalid expressions syntax",
-  priority = Priority.BLOCKER)
+@Rule(key = "OGNLExpressionCheck", priority = Priority.BLOCKER)
 public class OGNLExpressionCheck extends AbstractPageCheck {
 
   @Override
