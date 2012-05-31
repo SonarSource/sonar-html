@@ -77,6 +77,15 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
   }
 
   @Test
+  public void testCorrectMultipleExpressions() {
+    String fragment = "<hidden value = '%{foo.wrong}-%{bar.fault}'/>";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+  }
+
+  @Test
   public void testEmptyExpressions() {
     String fragment = "<hidden value ='%{}' value2='#{}' />";
     StringReader reader = new StringReader(fragment);
