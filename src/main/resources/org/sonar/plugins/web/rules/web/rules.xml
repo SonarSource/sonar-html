@@ -220,6 +220,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>ParentElementIllegalCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>OGNLExpressionCheck</key>
+    </rule>
   </rules>
 
 </profile>

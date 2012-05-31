@@ -96,6 +96,16 @@ public class OGNLExpressionCheckTest extends AbstractCheckTester {
   }
 
   @Test
+  public void testNestedExpression() {
+    // this should be OK
+    String fragment = "<hidden valueLink=\"%{'${projectGroupSummaryUrl}'}\"/>";
+    StringReader reader = new StringReader(fragment);
+    WebSourceCode sourceCode = parseAndCheck(reader, OGNLExpressionCheck.class);
+
+    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+  }
+
+  @Test
   public void lambda() {
     String fragment = "<hidden value='#fib =:[#this==0 ? 0 : #this==1 ? 1 : #fib(#this-2)+#fib(#this-1)], #fib(11)' />";
     StringReader reader = new StringReader(fragment);

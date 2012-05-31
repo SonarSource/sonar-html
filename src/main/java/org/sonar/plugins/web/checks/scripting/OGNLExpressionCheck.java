@@ -51,7 +51,7 @@ public class OGNLExpressionCheck extends AbstractPageCheck {
   private void parseAndValidate(TagNode element, String text) {
     for (int i = 0; i + 1 < text.length(); i++) {
       if ((text.charAt(i) == '%' || text.charAt(i) == '#') && text.charAt(i + 1) == '{') {
-        String expression = StringUtils.substringBefore(StringUtils.substring(text, i + 2), "}");
+        String expression = StringUtils.substringBeforeLast(StringUtils.substring(text, i + 2), "}");
         validateExpression(element, expression);
       }
     }
