@@ -18,6 +18,7 @@
 
 package org.sonar.plugins.web.checks.structure;
 
+import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -32,7 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "ParentElementIllegalCheck", priority = Priority.MAJOR)
+@Rule(key = "ParentElementIllegalCheck", priority = Priority.MAJOR, cardinality = Cardinality.MULTIPLE)
 public class ParentElementIllegalCheck extends AbstractPageCheck {
 
   @RuleProperty

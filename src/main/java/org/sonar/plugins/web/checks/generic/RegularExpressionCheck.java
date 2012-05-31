@@ -18,6 +18,7 @@
 
 package org.sonar.plugins.web.checks.generic;
 
+import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -33,7 +34,7 @@ import java.util.regex.Pattern;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "RegularExpressionCheck", priority = Priority.MINOR)
+@Rule(key = "RegularExpressionCheck", priority = Priority.MINOR, cardinality = Cardinality.MULTIPLE)
 public class RegularExpressionCheck extends AbstractPageCheck {
 
   @RuleProperty

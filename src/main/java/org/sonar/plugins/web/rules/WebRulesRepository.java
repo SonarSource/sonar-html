@@ -30,7 +30,6 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.api.utils.AnnotationUtils;
 import org.sonar.api.utils.SonarException;
-import org.sonar.check.Cardinality;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 
@@ -62,9 +61,6 @@ public final class WebRulesRepository extends RuleRepository {
   @Override
   public List<Rule> createRules() {
     List<Rule> rules = annotationRuleParser.parse(REPOSITORY_KEY, CheckClasses.getCheckClasses());
-    for (Rule rule : rules) {
-      rule.setCardinality(Cardinality.MULTIPLE);
-    }
     return rules;
   }
 

@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.checks.attributes;
 
 import org.apache.commons.lang.StringUtils;
+import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -34,7 +35,7 @@ import java.util.regex.Pattern;
  * @author Matthijs Galesloot
  * @since 1.1
  */
-@Rule(key = "AttributeValidationCheck", priority = Priority.MAJOR)
+@Rule(key = "AttributeValidationCheck", priority = Priority.MAJOR, cardinality = Cardinality.MULTIPLE)
 public class AttributeValidationCheck extends AbstractPageCheck {
 
   @RuleProperty
