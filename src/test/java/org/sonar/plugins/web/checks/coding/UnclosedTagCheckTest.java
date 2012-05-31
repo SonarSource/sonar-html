@@ -27,7 +27,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -41,10 +41,7 @@ public class UnclosedTagCheckTest extends AbstractCheckTester {
     String fragment = "<td><br><tr>";
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
-
-    int numViolations = 3;
-
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(3);
   }
 
   @Test
@@ -64,8 +61,7 @@ public class UnclosedTagCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class,
         "ignoreTags", "td,br,tr");
 
-    int numViolations = 0;
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
 
   @Test
@@ -73,7 +69,6 @@ public class UnclosedTagCheckTest extends AbstractCheckTester {
     FileReader reader = new FileReader("src/test/resources/checks/unclosedtag.html");
     WebSourceCode sourceCode = parseAndCheck(reader, UnclosedTagCheck.class);
 
-    int numViolations = 0;
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
 }

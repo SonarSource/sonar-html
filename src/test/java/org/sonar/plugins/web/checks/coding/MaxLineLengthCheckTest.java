@@ -25,7 +25,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.FileNotFoundException;
 import java.io.StringReader;
 
-import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
@@ -42,8 +42,7 @@ public class MaxLineLengthCheckTest extends AbstractCheckTester {
       sb.append(fragment);
     }
     WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MaxLineLengthCheck.class);
-    int numViolations = 1;
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
   }
 
   @Test
@@ -57,7 +56,6 @@ public class MaxLineLengthCheckTest extends AbstractCheckTester {
       sb.append("\n");
     }
     WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MaxLineLengthCheck.class);
-    int numViolations = 0;
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
 }

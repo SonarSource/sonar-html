@@ -126,8 +126,6 @@ public final class WebSensor implements Sensor {
       scanner.addVisitor(check);
     }
     scanner.addVisitor(new PageCountLines());
-    // dependencies not yet supported in v 1.0
-    // scanner.addVisitor(new WebDependencyDetector(web));
     scanner.addVisitor(new NoSonarScanner(noSonarFilter));
     return scanner;
   }

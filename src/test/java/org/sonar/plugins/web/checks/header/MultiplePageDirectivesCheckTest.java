@@ -25,7 +25,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.FileNotFoundException;
 import java.io.StringReader;
 
-import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
 
@@ -39,7 +39,7 @@ public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
 
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
 
     // add an import attribute to the page directive: show that the page directive will still be counted
     sb = new StringBuilder();
@@ -49,7 +49,7 @@ public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
 
     sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
 
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
   }
 
   @Test
@@ -63,6 +63,6 @@ public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
 
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 0);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
 }

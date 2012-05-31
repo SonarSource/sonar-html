@@ -25,7 +25,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.FileNotFoundException;
 import java.io.StringReader;
 
-import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
@@ -38,7 +38,7 @@ public class JspScriptletCheckTest extends AbstractCheckTester {
     String fragment = "<% line1\nline2;\nline3\nline4\nline5\n %>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
 
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
   }
 
   @Test
@@ -47,6 +47,6 @@ public class JspScriptletCheckTest extends AbstractCheckTester {
     String fragment = "<jsp:scriptlet>line1\nline2;\nline3\nline4\nline5\n</jsp:scriptlet>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
 
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() == 1);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
   }
 }

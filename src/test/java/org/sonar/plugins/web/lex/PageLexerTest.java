@@ -33,6 +33,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -68,7 +69,7 @@ public class PageLexerTest {
           if (tagNode.equalsElementName("define")) {
             assertTrue("Tag should have children: " + tagNode.getCode(), tagNode.getChildren().size() > 0);
           } else if (tagNode.equalsElementName("outputText")) {
-            assertTrue("Tag should not have children: " + tagNode.getCode(), tagNode.getChildren().size() == 0);
+            assertThat(tagNode.getChildren().size()).isEqualTo(0);
           }
         }
       }

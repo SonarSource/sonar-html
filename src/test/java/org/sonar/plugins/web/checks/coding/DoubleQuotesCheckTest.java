@@ -25,7 +25,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.FileNotFoundException;
 import java.io.StringReader;
 
-import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
@@ -39,7 +39,7 @@ public class DoubleQuotesCheckTest extends AbstractCheckTester {
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
 
-    assertTrue("Should have found 1 violation", sourceCode.getViolations().size() > 0);
+    assertThat(sourceCode.getViolations().size()).isGreaterThan(0);
   }
 
   @Test
@@ -48,6 +48,6 @@ public class DoubleQuotesCheckTest extends AbstractCheckTester {
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
 
-    assertTrue("Should have found 0 violation", sourceCode.getViolations().size() == 0);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
 }

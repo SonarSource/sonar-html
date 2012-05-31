@@ -25,7 +25,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
@@ -38,7 +38,6 @@ public class FileLengthCheckTest extends AbstractCheckTester {
     FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
     WebSourceCode sourceCode = parseAndCheck(reader, FileLengthCheck.class, "maxLength", "10");
 
-    int numViolations = 1;
-    assertTrue("Should have found " + numViolations + " violations", sourceCode.getViolations().size() == numViolations);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
   }
 }
