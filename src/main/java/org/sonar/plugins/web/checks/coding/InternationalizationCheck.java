@@ -51,7 +51,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
   @Override
   public void characters(TextNode textNode) {
     if (!isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
-      createViolation(textNode);
+      createViolation(textNode.getStartLinePosition(), "Labels should be defined in the resource bundle.");
     }
   }
 
@@ -64,7 +64,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
           if (value != null) {
             value = value.trim();
             if (value.length() > 0 && !isUnifiedExpression(value) && !isPunctuationOrSpace(value)) {
-              createViolation(element);
+              createViolation(element.getStartLinePosition(), "Labels should be defined in the resource bundle.");
               return;
             }
           }

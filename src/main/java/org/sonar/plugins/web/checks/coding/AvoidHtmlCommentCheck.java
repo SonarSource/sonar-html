@@ -42,7 +42,7 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
   @Override
   public void comment(CommentNode node) {
     if (!xmlDocument && node.isHtml()) {
-      createViolation(node);
+      createViolation(node.getStartLinePosition(), "Avoid HTML comment in JSP files, use server side comment instead.");
     }
   }
 

@@ -60,7 +60,7 @@ public class IllegalElementCheck extends AbstractPageCheck {
     for (String elementName : elements) {
       if (StringUtils.equalsIgnoreCase(element.getLocalName(), elementName)
         || StringUtils.equalsIgnoreCase(element.getNodeName(), elementName)) {
-        createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + elementName);
+        createViolation(element.getStartLinePosition(), "The use of '" + elementName + "' element is forbidden.");
       }
     }
   }

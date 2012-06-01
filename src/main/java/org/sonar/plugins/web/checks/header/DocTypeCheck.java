@@ -69,7 +69,7 @@ public class DocTypeCheck extends AbstractPageCheck {
           }
         }
         if (!containsDtd) {
-          createViolation(0);
+          createViolation(0, "The DOCTYPE does not contain any DTD.");
         }
       }
     }
@@ -78,7 +78,7 @@ public class DocTypeCheck extends AbstractPageCheck {
   @Override
   public void endDocument() {
     if (!hasDocType) {
-      createViolation(0);
+      createViolation(0, "DOCTYPE is missing on this file.");
     }
   }
 }

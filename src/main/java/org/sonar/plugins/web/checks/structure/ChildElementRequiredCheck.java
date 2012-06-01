@@ -76,7 +76,7 @@ public class ChildElementRequiredCheck extends AbstractPageCheck {
         }
       }
       if (!ruleOK) {
-        createViolation(element.getStartLinePosition(), getRule().getDescription());
+        createViolation(element.getStartLinePosition(), "The element '" + parent + "' must have a '" + child + "' child.");
       }
     }
   }

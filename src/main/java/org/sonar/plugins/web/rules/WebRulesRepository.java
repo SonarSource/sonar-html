@@ -60,8 +60,7 @@ public final class WebRulesRepository extends RuleRepository {
 
   @Override
   public List<Rule> createRules() {
-    List<Rule> rules = annotationRuleParser.parse(REPOSITORY_KEY, CheckClasses.getCheckClasses());
-    return rules;
+    return annotationRuleParser.parse(REPOSITORY_KEY, CheckClasses.getCheckClasses());
   }
 
   /**

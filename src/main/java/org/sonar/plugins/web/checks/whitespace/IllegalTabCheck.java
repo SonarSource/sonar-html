@@ -38,7 +38,7 @@ public class IllegalTabCheck extends AbstractPageCheck {
   @Override
   public void characters(TextNode textNode) {
     if (StringUtils.contains(textNode.getCode(), '\t')) {
-      createViolation(textNode);
+      createViolation(textNode.getStartLinePosition(), "Avoid using the tab character for indentation.");
     }
   }
 }

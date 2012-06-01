@@ -69,7 +69,7 @@ public class ParentElementIllegalCheck extends AbstractPageCheck {
     }
 
     if (element.equalsElementName(child) && element.getParent() != null && element.getParent().equalsElementName(parent)) {
-      createViolation(element.getStartLinePosition(), getRule().getDescription());
+      createViolation(element.getStartLinePosition(), "The element '" + child + "' must not have a '" + parent + "' parent.");
     }
   }
 }

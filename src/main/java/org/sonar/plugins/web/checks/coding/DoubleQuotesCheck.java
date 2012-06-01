@@ -50,7 +50,7 @@ public class DoubleQuotesCheck extends AbstractPageCheck {
           error = !a.isDoubleQuoted();
         }
         if (error) {
-          createViolation(element);
+          createViolation(element.getStartLinePosition(), "Prefer using double quotes instead of single ones.");
           break; // not more than one violation per element
         }
       }

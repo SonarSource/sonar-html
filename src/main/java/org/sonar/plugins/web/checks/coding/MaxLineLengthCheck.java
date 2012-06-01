@@ -112,7 +112,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
 
   private void check(Node node, int newlines) {
     if (currentLineLength > maxLength) {
-      createViolation(node.getStartLinePosition() + newlines, getRule().getDescription() + ": " + currentLineLength);
+      createViolation(node.getStartLinePosition() + newlines, "Current line length (" + currentLineLength + ") exceeds the maximum threshold set to " + maxLength);
     }
     currentLineLength = 0;
   }

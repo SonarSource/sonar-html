@@ -55,7 +55,7 @@ public class IllegalAttributeCheck extends AbstractPageCheck {
     }
 
     for (Attribute a : getMatchingAttributes(element, attributes)) {
-      createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + a.getName());
+      createViolation(element.getStartLinePosition(), "The following attribute is not allowed: " + a.getName());
     }
   }
 }

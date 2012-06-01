@@ -21,6 +21,7 @@ package org.sonar.plugins.web.checks.coding;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -37,7 +38,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "ComplexityCheck", priority = Priority.MINOR)
+@Rule(key = "ComplexityCheck", priority = Priority.MINOR, cardinality = Cardinality.MULTIPLE)
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;
@@ -58,7 +59,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
     super.endDocument();
 
     if (complexity > max) {
-      String msg = String.format("%s is %d (max allowed is %d)", getRule().getDescription(), complexity, max);
+      String msg = String.format("Complexity is %d (max allowed is %d)", complexity, max);
       createViolation(0, msg);
     }
 

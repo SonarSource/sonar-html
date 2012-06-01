@@ -94,7 +94,7 @@ public class HeaderCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if (visiting) {
       if (!hasHeader) {
-        createViolation(0);
+        createViolation(0, "This file has no header whereas one is expected.");
       }
       visiting = false;
     }

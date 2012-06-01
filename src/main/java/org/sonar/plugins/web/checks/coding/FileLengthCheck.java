@@ -51,7 +51,7 @@ public class FileLengthCheck extends AbstractPageCheck {
   public void endDocument() {
     Measure lines = getWebSourceCode().getMeasure(CoreMetrics.LINES);
     if (lines != null && lines.getIntValue() > maxLength) {
-      createViolation(0);
+      createViolation(0, "Current file length (" + lines.getIntValue() + ") exceeds the maximum threshold set to " + maxLength);
     }
     super.endDocument();
   }

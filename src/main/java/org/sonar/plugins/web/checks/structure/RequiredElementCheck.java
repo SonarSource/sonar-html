@@ -73,7 +73,7 @@ public class RequiredElementCheck extends AbstractPageCheck {
         }
       }
       if (!hasRequiredElement) {
-        createViolation(0, getRule().getDescription() + ": " + elementName);
+        createViolation(0, "The following element must be used but none is found on this file: " + elementName);
       }
     }
   }

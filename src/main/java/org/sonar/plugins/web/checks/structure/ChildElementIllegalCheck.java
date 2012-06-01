@@ -71,7 +71,7 @@ public class ChildElementIllegalCheck extends AbstractPageCheck {
     if (element.equalsElementName(parent)) {
       for (TagNode childNode : element.getChildren()) {
         if (childNode.equalsElementName(child)) {
-          createViolation(childNode.getStartLinePosition(), getRule().getDescription());
+          createViolation(childNode.getStartLinePosition(), "The element '" + parent + "' must not have a '" + child + "' child.");
         }
       }
     }

@@ -22,7 +22,6 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.node.Attribute;
-import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 
@@ -112,19 +111,11 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     return qualifiedAttributes;
   }
 
-  protected final void createViolation(int linePosition) {
-    createViolation(linePosition, rule.getDescription());
-  }
-
   protected final void createViolation(int linePosition, String message) {
     Violation violation = Violation.create(rule, getWebSourceCode().getResource());
     violation.setMessage(message);
     violation.setLineId(linePosition == 0 ? null : linePosition);
     getWebSourceCode().addViolation(violation);
-  }
-
-  protected final void createViolation(Node node) {
-    createViolation(node.getStartLinePosition());
   }
 
   public final Rule getRule() {

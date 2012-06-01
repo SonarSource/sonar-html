@@ -82,7 +82,7 @@ public class AttributeValidationCheck extends AbstractPageCheck {
 
     for (Attribute a : getMatchingAttributes(element, attributes)) {
       if (!isValidValue(a)) {
-        createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + a.getName());
+        createViolation(element.getStartLinePosition(), "The attribute '" + a.getName() + "' does not respect the value constraint: " + values);
       }
     }
   }

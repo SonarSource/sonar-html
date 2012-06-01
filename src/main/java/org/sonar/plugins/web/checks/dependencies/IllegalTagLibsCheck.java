@@ -46,7 +46,7 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
       for (Attribute a : node.getAttributes()) {
         for (String tagLib : tagLibs) {
           if (tagLib.equalsIgnoreCase(a.getValue())) {
-            createViolation(node.getStartLinePosition(), "Following taglib if forbidden: " + tagLib);
+            createViolation(node.getStartLinePosition(), "Following taglib is forbidden: " + tagLib);
           }
         }
       }

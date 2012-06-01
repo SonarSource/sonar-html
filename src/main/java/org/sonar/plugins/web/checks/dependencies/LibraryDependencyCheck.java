@@ -55,7 +55,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
     if (libraries != null && node.isJsp() && "page".equalsIgnoreCase(node.getNodeName())) {
       for (Attribute a : node.getAttributes()) {
         if (isIllegalImport(a)) {
-          createViolation(node);
+          createViolation(node.getStartLinePosition(), "Using '" + a.getValue() + "' library is not allowed.");
         }
       }
     }
@@ -65,7 +65,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
   public void expression(ExpressionNode node) {
     for (String library : libraries) {
       if (node.getCode().contains(library)) {
-        createViolation(node);
+        createViolation(node.getStartLinePosition(), "Using '" + library + "' library is not allowed.");
       }
     }
   }

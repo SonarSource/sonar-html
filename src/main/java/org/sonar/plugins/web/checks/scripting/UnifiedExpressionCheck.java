@@ -146,7 +146,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
       builder.createValueExpression(Object.class);
     } catch (ELException e) {
       if (e.getMessage().startsWith("Error")) {
-        createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + e.getMessage());
+        createViolation(element.getStartLinePosition(), "This expression is not valid. " + (e.getMessage() == null ? "" : e.getMessage()));
       }
     }
   }

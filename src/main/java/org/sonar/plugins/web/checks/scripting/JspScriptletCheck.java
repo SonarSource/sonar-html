@@ -38,13 +38,13 @@ public class JspScriptletCheck extends AbstractPageCheck {
 
   @Override
   public void expression(ExpressionNode node) {
-    createViolation(node);
+    createViolation(node.getStartLinePosition(), "Avoid scriptlets.");
   }
 
   @Override
   public void startElement(TagNode element) {
     if (StringUtils.equalsIgnoreCase(element.getLocalName(), "scriptlet")) {
-      createViolation(element);
+      createViolation(element.getStartLinePosition(), "Avoid scriptlets.");
     }
   }
 }

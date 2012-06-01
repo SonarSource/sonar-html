@@ -69,7 +69,7 @@ public class ParentElementRequiredCheck extends AbstractPageCheck {
     }
 
     if (element.equalsElementName(child) && (element.getParent() == null || !element.getParent().equalsElementName(parent))) {
-      createViolation(element.getStartLinePosition(), getRule().getDescription());
+      createViolation(element.getStartLinePosition(), "The element '" + child + "' must have a '" + parent + "' parent.");
     }
   }
 }

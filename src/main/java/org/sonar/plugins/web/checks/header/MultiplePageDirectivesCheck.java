@@ -54,7 +54,7 @@ public class MultiplePageDirectivesCheck extends AbstractPageCheck {
   @Override
   public void endDocument() {
     if (pageDirectives > 1) {
-      createViolation(node);
+      createViolation(node.getStartLinePosition(), "Avoid multiple page directives.");
     }
   }
 

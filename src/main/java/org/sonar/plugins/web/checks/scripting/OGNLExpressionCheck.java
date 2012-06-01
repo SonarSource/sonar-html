@@ -83,7 +83,7 @@ public class OGNLExpressionCheck extends AbstractPageCheck {
     try {
       Ognl.parseExpression(value);
     } catch (OgnlException e) {
-      createViolation(element.getStartLinePosition(), getRule().getDescription() + ": " + e.getMessage());
+      createViolation(element.getStartLinePosition(), "This OGNL expression is not valid. " + (e.getMessage() == null ? "" : e.getMessage()));
     }
   }
 }
