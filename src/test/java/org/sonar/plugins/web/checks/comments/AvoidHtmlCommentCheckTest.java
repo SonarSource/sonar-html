@@ -16,11 +16,12 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.structure;
+package org.sonar.plugins.web.checks.comments;
+
+import org.sonar.plugins.web.checks.comments.AvoidHtmlCommentCheck;
 
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
-import org.sonar.plugins.web.checks.coding.AvoidHtmlCommentCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.StringReader;

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.web.checks.coding;
+package org.sonar.plugins.web.checks.comments;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;

@@ -18,15 +18,11 @@
 
 package org.sonar.plugins.web.core;
 
-import org.sonar.plugins.web.core.Web;
-import org.sonar.plugins.web.core.WebFootprint;
-
 import org.junit.Test;
 import org.sonar.api.config.Settings;
 import org.sonar.plugins.web.api.WebConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Matthijs Galesloot
@@ -47,9 +43,4 @@ public class WebTest {
     assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
   }
 
-  @Test
-  public void testWebFootprint() {
-    WebFootprint footprint = new WebFootprint();
-    assertNotNull(footprint.getDetectors());
-  }
 }

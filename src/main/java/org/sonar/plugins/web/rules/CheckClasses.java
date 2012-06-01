@@ -21,13 +21,14 @@ package org.sonar.plugins.web.rules;
 import org.sonar.plugins.web.checks.attributes.AttributeValidationCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
-import org.sonar.plugins.web.checks.coding.AvoidHtmlCommentCheck;
 import org.sonar.plugins.web.checks.coding.ComplexityCheck;
 import org.sonar.plugins.web.checks.coding.DoubleQuotesCheck;
 import org.sonar.plugins.web.checks.coding.FileLengthCheck;
 import org.sonar.plugins.web.checks.coding.InternationalizationCheck;
 import org.sonar.plugins.web.checks.coding.MaxLineLengthCheck;
 import org.sonar.plugins.web.checks.coding.UnclosedTagCheck;
+import org.sonar.plugins.web.checks.comments.AvoidCommentedOutCodeCheck;
+import org.sonar.plugins.web.checks.comments.AvoidHtmlCommentCheck;
 import org.sonar.plugins.web.checks.dependencies.DynamicJspIncludeCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalNamespaceCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalTagLibsCheck;
@@ -93,7 +94,8 @@ final class CheckClasses {
     IllegalAttributeCheck.class,
     IllegalNamespaceCheck.class,
     MultiplePageDirectivesCheck.class,
-    RequiredAttributeCheck.class
+    RequiredAttributeCheck.class,
+    AvoidCommentedOutCodeCheck.class
   };
 
   /**
