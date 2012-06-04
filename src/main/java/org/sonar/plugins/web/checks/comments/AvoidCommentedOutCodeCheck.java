@@ -75,7 +75,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
     return result;
   }
 
-  class WebFootprint implements LanguageFootprint {
+  static class WebFootprint implements LanguageFootprint {
 
     public Set<Detector> getDetectors() {
       Set<Detector> detectors = new HashSet<Detector>();

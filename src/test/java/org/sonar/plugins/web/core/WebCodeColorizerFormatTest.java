@@ -60,7 +60,7 @@ public class WebCodeColorizerFormatTest {
   }
 
   @Test
-  @Ignore("Uncomment to test when SONARPLUGINS-1885 is fixed")
+  @Ignore("Needs SONARPLUGINS-1885 to be fixed")
   public void testHighlightJspExpressions() {
     assertThat(highlight("<% System.out.println('foo') %> Foo"), containsString("<span class=\"a\">&lt;% System.out.println('foo') %</span><span class=\"k\">&gt;</span> Foo"));
   }
