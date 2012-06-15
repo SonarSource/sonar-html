@@ -53,7 +53,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
       Source source = analyseSourceCode(node.getCode());
       int commentedOutLocs = source.getMeasure(Metric.COMMENTED_OUT_CODE_LINES);
       if (commentedOutLocs > 0) {
-        createViolation(node.getStartLinePosition(), "Some commented-out code was detected.");
+        createViolation(node.getStartLinePosition(), "Remove this block of commented out code.");
       }
     }
   }
