@@ -1,11 +1,7 @@
 <profile>
-  <name>Default Web Profile</name>
+  <name>Sonar way</name>
   <language>web</language>
   <rules>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>AttributeValidationCheck</key>
-    </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>AvoidHtmlCommentCheck</key>
@@ -13,16 +9,6 @@
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>DynamicJspIncludeCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>HeaderCheck</key>
-      <parameters>
-        <parameter>
-          <key>expression</key>
-          <value>^.*Copyright.*$</value>
-        </parameter>
-      </parameters>
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
@@ -69,10 +55,6 @@
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>MultiplePageDirectivesCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>UnifiedExpressionCheck</key>
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
@@ -150,25 +132,11 @@
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
-      <key>IllegalNamespaceCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
       <key>IllegalTabCheck</key>
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>MaxLineLengthCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>RequiredElementCheck</key>
-      <parameters>
-        <parameter>
-          <key>elements</key>
-          <value>html</value>
-        </parameter>
-      </parameters>
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
@@ -182,10 +150,6 @@
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
-      <key>RegularExpressionCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
       <key>UnclosedTagCheck</key>
       <parameters>
         <parameter>
@@ -193,36 +157,6 @@
           <value>verbatim</value>
         </parameter>
       </parameters>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>ChildElementRequiredCheck</key>
-      <parameters>
-        <parameter>
-          <key>parent</key>
-          <value>head</value>
-        </parameter>
-        <parameter>
-          <key>child</key>
-          <value>title</value>
-        </parameter>
-      </parameters>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>ChildElementIllegalCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>ParentElementRequiredCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>ParentElementIllegalCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>OGNLExpressionCheck</key>
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>

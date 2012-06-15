@@ -32,11 +32,10 @@ import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.AbstractWebPluginTester;
+import org.sonar.plugins.web.TestProfileWithAllRules;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.rules.DefaultWebProfile;
-import org.sonar.plugins.web.rules.StrutsProfile;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
@@ -141,12 +140,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
   private void configureDefaultParams(AbstractPageCheck check, Rule rule) {
     WebRuleFinder ruleFinder = new WebRuleFinder(rule);
     ValidationMessages validationMessages = ValidationMessages.create();
-    ProfileDefinition profileDefinition;
-    if (rule.getKey().equals("OGNLExpressionCheck")) {
-      profileDefinition = new StrutsProfile(new XMLProfileParser(ruleFinder), ruleFinder);
-    } else {
-      profileDefinition = new DefaultWebProfile(new XMLProfileParser(ruleFinder));
-    }
+    ProfileDefinition profileDefinition = new TestProfileWithAllRules(new XMLProfileParser(ruleFinder));
     RulesProfile rulesProfile = profileDefinition.createProfile(validationMessages);
 
     ActiveRule activeRule = rulesProfile.getActiveRule(rule);

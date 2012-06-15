@@ -41,18 +41,8 @@ import static org.junit.Assert.assertThat;
 public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
-  public void createDefaultWebProfile() {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(new XMLProfileParser(newRuleFinder()));
-    ValidationMessages validationMessages = ValidationMessages.create();
-    RulesProfile profile = profileDefinition.createProfile(validationMessages);
-
-    assertThat(profile.getActiveRulesByRepository(WebRulesRepository.REPOSITORY_KEY).size(), greaterThan(1));
-    assertThat(validationMessages.hasErrors(), is(false));
-  }
-
-  @Test
-  public void createJSFProfile() {
-    ProfileDefinition profileDefinition = new JSFProfile(new XMLProfileParser(newRuleFinder()));
+  public void createSonarWayProfile() {
+    ProfileDefinition profileDefinition = new SonarWayProfile(new XMLProfileParser(newRuleFinder()));
     ValidationMessages validationMessages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(validationMessages);
 
@@ -69,7 +59,7 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
   public void createChecks() {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(new XMLProfileParser(newRuleFinder()));
+    ProfileDefinition profileDefinition = new SonarWayProfile(new XMLProfileParser(newRuleFinder()));
     ValidationMessages validationMessages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(validationMessages);
 

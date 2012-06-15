@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.checks.header;
 
-import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -31,7 +30,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "DocTypeCheck", priority = Priority.MINOR, cardinality = Cardinality.MULTIPLE)
+@Rule(key = "DocTypeCheck", priority = Priority.MINOR)
 public class DocTypeCheck extends AbstractPageCheck {
 
   private boolean hasDocType;

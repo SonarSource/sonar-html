@@ -15,45 +15,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.rules;
+package org.sonar.plugins.web;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.CharEncoding;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.utils.ValidationMessages;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-
 /**
- * Default web profile with all available checks.
- *
- * @author Matthijs Galesloot
- * @since 1.0
+ * Test profile with all rules
  */
-public final class DefaultWebProfile extends ProfileDefinition {
+public final class TestProfileWithAllRules extends ProfileDefinition {
 
-  public static final String ALL_RULES = "org/sonar/plugins/web/rules/web/rules.xml";
+  private static final String TEST_PROFILE_FILE = "org/sonar/plugins/web/rules/web/all-rules.xml";
 
   private final XMLProfileParser profileParser;
 
-  public DefaultWebProfile(XMLProfileParser profileParser) {
+  /**
+   * Creates the {@link TestProfileWithAllRules}
+   */
+  public TestProfileWithAllRules(XMLProfileParser profileParser) {
     this.profileParser = profileParser;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public RulesProfile createProfile(ValidationMessages validation) {
-    Reader reader = new InputStreamReader(DefaultWebProfile.class.getClassLoader().getResourceAsStream(ALL_RULES),
-        Charset.forName(CharEncoding.UTF_8));
-    try {
-      RulesProfile profile = profileParser.parse(reader, validation);
-      profile.setDefaultProfile(true);
-      return profile;
-    } finally {
-      IOUtils.closeQuietly(reader);
-    }
+    RulesProfile profile = profileParser.parseResource(getClass().getClassLoader(), TEST_PROFILE_FILE, validation);
+    return profile;
   }
 }

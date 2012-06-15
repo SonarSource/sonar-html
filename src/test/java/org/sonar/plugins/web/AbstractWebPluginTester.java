@@ -25,7 +25,6 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
 import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.web.rules.DefaultWebProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
 import java.util.Collection;
@@ -76,7 +75,7 @@ public class AbstractWebPluginTester {
    * create standard rules profile
    */
   protected RulesProfile createStandardRulesProfile() {
-    ProfileDefinition profileDefinition = new DefaultWebProfile(new XMLProfileParser(newRuleFinder()));
+    ProfileDefinition profileDefinition = new TestProfileWithAllRules(new XMLProfileParser(newRuleFinder()));
     ValidationMessages messages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(messages);
     assertEquals(0, messages.getErrors().size());
