@@ -11,7 +11,7 @@
 
   <artifactId>sonar-web-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>1.2</version>
+  <version>1.3-SNAPSHOT</version>
 
   <name>Sonar Web Plugin</name>
   <description>Analyze web code.</description>
@@ -33,9 +33,9 @@
     <url>http://ci.codehaus.org/browse/SONAR-WEB</url>
   </ciManagement>
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-1.2</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-1.2</developerConnection>
-    <url>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-web-plugin-1.2</url>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
+    <url>http://svn.codehaus.org/sonar-plugins/</url>
   </scm>
 
   <inceptionYear>2010</inceptionYear>
