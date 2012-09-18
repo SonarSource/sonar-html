@@ -17,12 +17,6 @@
  */
 package org.sonar.plugins.web.core;
 
-import org.sonar.plugins.web.AbstractWebPluginTester;
-
-import org.sonar.plugins.web.core.WebSensor;
-
-import org.sonar.plugins.web.core.Web;
-
 import com.google.common.collect.Lists;
 import org.apache.commons.configuration.MapConfiguration;
 import org.apache.commons.io.IOUtils;
@@ -42,6 +36,7 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.SonarException;
+import org.sonar.plugins.web.AbstractWebPluginTester;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.test.TestUtils;
 
@@ -87,7 +82,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
     sensor.analyse(project, sensorContext);
 
-    verify(sensorContext, times(60)).saveViolation((Violation) Mockito.any());
+    verify(sensorContext, times(59)).saveViolation((Violation) Mockito.any());
   }
 
   private Project loadProjectFromPom() throws Exception {

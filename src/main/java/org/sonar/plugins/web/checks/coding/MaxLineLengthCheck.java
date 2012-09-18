@@ -99,6 +99,9 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
     int newlines = 0;
     while ((indexPos = StringUtils.indexOf(code, '\n', startPos)) >= 0) {
       currentLineLength += indexPos - startPos;
+      if (code.charAt(indexPos - 1) == '\r') {
+        currentLineLength -= 1;
+      }
       check(node, newlines);
 
       startPos = indexPos + 1;

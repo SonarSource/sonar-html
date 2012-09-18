@@ -33,28 +33,41 @@ public class MaxLineLengthCheckTest extends AbstractCheckTester {
 
   @Test
   public void violateMaxLengthCheck() throws FileNotFoundException {
+    String string = generateString(121);
 
-    String fragment = "<td><br><tr>";
-    StringBuilder sb = new StringBuilder();
-
-    for (int i = 0; i < 12; i++) {
-      sb.append(fragment);
-    }
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MaxLineLengthCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
     assertThat(sourceCode.getViolations().size()).isEqualTo(1);
   }
 
   @Test
   public void passMaxLengthCheck() throws FileNotFoundException {
+    String string = generateString(120);
 
-    String fragment = "<td><br><tr>";
-    StringBuilder sb = new StringBuilder();
-
-    for (int i = 0; i < 12; i++) {
-      sb.append(fragment);
-      sb.append("\n");
-    }
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MaxLineLengthCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
     assertThat(sourceCode.getViolations().size()).isEqualTo(0);
+  }
+
+  @Test
+  public void passMaxLengthCheckWithMultipleLinesWithLF() throws FileNotFoundException {
+    String string = generateString(120) + "\n" + generateString(120) + "\n";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
+  }
+
+  @Test
+  public void passMaxLengthCheckWithMultipleLinesWithCRLF() throws FileNotFoundException {
+    String string = generateString(120) + "\r\n" + generateString(120) + "\r\n";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
+    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
+  }
+
+  private String generateString(int numberOfChars) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < numberOfChars; i++) {
+      sb.append("x");
+    }
+    return sb.toString();
   }
 }
