@@ -49,7 +49,7 @@ public class MaxLineLengthCheckTest extends AbstractCheckTester {
 
   @Test
   public void passMaxLengthCheckWithMultipleLinesWithLF() throws FileNotFoundException {
-    String string = generateString(120) + "\n" + generateString(120) + "\n";
+    String string = "\n" + generateString(120) + "\n" + generateString(120) + "\n\n";
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
     assertThat(sourceCode.getViolations().size()).isEqualTo(0);
@@ -57,7 +57,7 @@ public class MaxLineLengthCheckTest extends AbstractCheckTester {
 
   @Test
   public void passMaxLengthCheckWithMultipleLinesWithCRLF() throws FileNotFoundException {
-    String string = generateString(120) + "\r\n" + generateString(120) + "\r\n";
+    String string = "\r\n" + generateString(120) + "\r\n" + generateString(120) + "\r\n\r\n";
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
     assertThat(sourceCode.getViolations().size()).isEqualTo(0);
