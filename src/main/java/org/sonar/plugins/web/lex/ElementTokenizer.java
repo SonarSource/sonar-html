@@ -88,7 +88,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
   private static EndQNameMatcher endQNameMatcher = new EndQNameMatcher();
 
-  private static EndTokenMatcher endTokenMatcher = new EndTokenMatcher();;
+  private static EndTokenMatcher endTokenMatcher = new EndTokenMatcher();
 
   private static boolean isQuote(char c) {
     return c == '\'' || c == '"';
