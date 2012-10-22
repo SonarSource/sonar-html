@@ -160,14 +160,6 @@
 
   <build>
     <plugins>
-      <!-- To be removed when version 1.1 of the license-headers JAR is released and when a new version of the forge POM is released -->
-      <plugin>
-        <groupId>com.mycila.maven-license-plugin</groupId>
-        <artifactId>maven-license-plugin</artifactId>
-        <configuration>
-          <header>${basedir}/AL2.txt</header>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native2ascii-maven-plugin</artifactId>
