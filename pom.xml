@@ -32,10 +32,11 @@
     <system>BAMBOO</system>
     <url>http://ci.codehaus.org/browse/SONAR-WEB</url>
   </ciManagement>
+
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/web</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/web</developerConnection>
-    <url>http://svn.codehaus.org/sonar-plugins/</url>
+    <connection>scm:git:git@github.com:SonarCommunity/sonar-web.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-web.git</developerConnection>
+    <url>https://github.com/SonarCommunity/sonar-web</url>
   </scm>
 
   <inceptionYear>2010</inceptionYear>
