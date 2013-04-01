@@ -18,6 +18,8 @@
 package org.sonar.plugins.web.core;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.NoSonarFilter;
@@ -41,7 +43,6 @@ import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
@@ -54,6 +55,7 @@ import java.util.List;
 public final class WebSensor implements Sensor {
 
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
+  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
   private final Web web;
 
@@ -84,8 +86,8 @@ public final class WebSensor implements Sensor {
         List<Node> nodeList = lexer.parse(reader);
         scanner.scan(nodeList, sourceCode);
         saveMetrics(sensorContext, sourceCode);
-      } catch (FileNotFoundException e) {
-        throw new IllegalStateException("Can not read file " + file.getAbsolutePath(), e);
+      } catch (Exception e) {
+        LOG.error("Can not analyze file " + file.getAbsolutePath(), e);
       } finally {
         IOUtils.closeQuietly(reader);
       }
