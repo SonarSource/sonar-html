@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.NoSonarFilter;
-import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.PersistenceMode;
@@ -103,9 +102,6 @@ public final class WebSensor implements Sensor {
 
     for (Violation violation : sourceCode.getViolations()) {
       sensorContext.saveViolation(violation);
-    }
-    for (Dependency dependency : sourceCode.getDependencies()) {
-      sensorContext.saveDependency(dependency);
     }
   }
 

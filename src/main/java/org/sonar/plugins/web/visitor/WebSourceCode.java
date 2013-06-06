@@ -17,12 +17,10 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
-import org.sonar.squid.api.SourceCodeEdgeUsage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +33,12 @@ import java.util.List;
  */
 public class WebSourceCode {
 
-  private final List<Dependency> dependencies = new ArrayList<Dependency>();
   private final List<Measure> measures = new ArrayList<Measure>();
   private final Resource<?> resource;
   private final List<Violation> violations = new ArrayList<Violation>();
 
   public WebSourceCode(Resource<?> resource) {
     this.resource = resource;
-  }
-
-  public void addDependency(Resource<?> dependencyResource) {
-    Dependency dependency = new Dependency(resource, dependencyResource);
-    dependency.setUsage(SourceCodeEdgeUsage.CONTAINS.name());
-    dependency.setWeight(1);
-
-    dependencies.add(dependency);
   }
 
   public void addMeasure(Metric metric, double value) {
@@ -59,10 +48,6 @@ public class WebSourceCode {
 
   public void addViolation(Violation violation) {
     this.violations.add(violation);
-  }
-
-  public List<Dependency> getDependencies() {
-    return dependencies;
   }
 
   public Measure getMeasure(Metric metric) {
