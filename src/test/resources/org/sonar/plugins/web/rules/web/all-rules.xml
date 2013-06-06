@@ -83,7 +83,7 @@
       <repositoryKey>Web</repositoryKey>
       <key>FileLengthCheck</key>
     </rule>
-    
+
     <!-- XHTML checks -->
     <rule>
       <repositoryKey>Web</repositoryKey>
@@ -227,6 +227,10 @@
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>AvoidCommentedOutCodeCheck</key>
+    </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ImgWithoutAltCheck</key>
     </rule>
   </rules>
 

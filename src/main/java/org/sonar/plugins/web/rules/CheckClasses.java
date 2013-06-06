@@ -40,6 +40,7 @@ import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.web.checks.scripting.OGNLExpressionCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
+import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.web.checks.structure.ChildElementIllegalCheck;
 import org.sonar.plugins.web.checks.structure.ChildElementRequiredCheck;
 import org.sonar.plugins.web.checks.structure.IllegalElementCheck;
@@ -94,7 +95,8 @@ final class CheckClasses {
     IllegalNamespaceCheck.class,
     MultiplePageDirectivesCheck.class,
     RequiredAttributeCheck.class,
-    AvoidCommentedOutCodeCheck.class
+    AvoidCommentedOutCodeCheck.class,
+    ImgWithoutAltCheck.class
   };
 
   /**
