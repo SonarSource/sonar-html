@@ -41,11 +41,6 @@ import java.util.List;
  * @since 1.0
  */
 @Properties({
-  @Property(key = WebConstants.CPD_MINIMUM_TOKENS_PROP_KEY, defaultValue = "70",
-    name = "Minimum tokens",
-    description = "The number of duplicate tokens above which a HTML block is considered as a duplicated.",
-    global = true,
-    project = true),
   @Property(key = WebConstants.SOURCE_DIRECTORY_PROP_KEY,
     name = "Source directory",
     description = "Source directory that will be scanned.",

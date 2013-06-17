@@ -42,5 +42,4 @@ public interface WebConstants {
   String SOURCE_DIRECTORY_PROP_KEY = "sonar.web.sourceDirectory";
   String SOURCE_DIRECTORY_DEF_VALUE = "src/main/webapp";
 
-  String CPD_MINIMUM_TOKENS_PROP_KEY = "sonar.cpd.web.minimumTokens";
 }
