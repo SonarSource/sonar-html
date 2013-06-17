@@ -17,23 +17,28 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.StringReader;
 
-import static org.fest.assertions.Assertions.assertThat;
-
 public class ImgWithoutAltCheckTest extends AbstractCheckTester {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-
-    String fragment = "<img /><img alt=\"foo\" />";
+    String fragment = "<img />\n" +
+      "<img alt=\"foo\" />";
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), ImgWithoutAltCheck.class);
 
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(1).withMessage("Add an \"alt\" attribute to this \"img\" tag.");
   }
+
 }
