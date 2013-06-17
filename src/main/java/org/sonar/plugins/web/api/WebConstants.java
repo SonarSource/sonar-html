@@ -34,12 +34,4 @@ public interface WebConstants {
   String FILE_EXTENSIONS_PROP_KEY = "sonar.web.fileExtensions";
   String FILE_EXTENSIONS_DEF_VALUE = "xhtml,jspf,jsp";
 
-  /**
-   * This property is deprecated in version 1.2 in favor of the standard ways to declare source folders.
-   * @deprecated since 1.2
-   */
-  @Deprecated
-  String SOURCE_DIRECTORY_PROP_KEY = "sonar.web.sourceDirectory";
-  String SOURCE_DIRECTORY_DEF_VALUE = "src/main/webapp";
-
 }

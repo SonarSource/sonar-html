@@ -18,13 +18,9 @@
 package org.sonar.plugins.web;
 
 import org.sonar.api.Extension;
-import org.sonar.api.Properties;
-import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;
-import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.core.Web;
 import org.sonar.plugins.web.core.WebCodeColorizerFormat;
-import org.sonar.plugins.web.core.WebProjectBuilder;
 import org.sonar.plugins.web.core.WebSensor;
 import org.sonar.plugins.web.core.WebSourceImporter;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
@@ -40,21 +36,10 @@ import java.util.List;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Properties({
-  @Property(key = WebConstants.SOURCE_DIRECTORY_PROP_KEY,
-    name = "Source directory",
-    description = "Source directory that will be scanned.",
-    defaultValue = WebConstants.SOURCE_DIRECTORY_DEF_VALUE,
-    // do not display this property in the UI as it is deprecated since 1.2
-    global = false,
-    project = false)})
 public final class WebPlugin extends SonarPlugin {
 
   public List<Class<? extends Extension>> getExtensions() {
     List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
-
-    // extension used to allow backward compatibility for the "sonar.web.sourceDirectory" property
-    list.add(WebProjectBuilder.class);
 
     // web language
     list.add(Web.class);

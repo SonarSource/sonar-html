@@ -29,6 +29,6 @@ public class WebPluginTest {
   @Test
   public void webPluginTester() {
     WebPlugin webPlugin = new WebPlugin();
-    assertEquals(8, webPlugin.getExtensions().size());
+    assertEquals(7, webPlugin.getExtensions().size());
   }
 }
