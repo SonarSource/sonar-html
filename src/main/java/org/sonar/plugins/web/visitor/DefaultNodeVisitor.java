@@ -32,47 +32,40 @@ import java.util.List;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-public class DefaultNodeVisitor implements NodeVisitor {
+public class DefaultNodeVisitor {
 
   private WebSourceCode webSourceCode;
 
   public void characters(TextNode textNode) {
-
   }
 
   public void comment(CommentNode node) {
-
   }
 
   public void directive(DirectiveNode node) {
-
   }
 
   public void endDocument() {
-
   }
 
   public void endElement(TagNode node) {
-
   }
 
   public void expression(ExpressionNode node) {
-
   }
 
   public WebSourceCode getWebSourceCode() {
     return webSourceCode;
   }
 
-  public void startDocument(WebSourceCode webSourceCode, List<Node> nodes) {
-    startDocument(webSourceCode);
+  public void setSourceCode(WebSourceCode sourceCode) {
+    this.webSourceCode = sourceCode;
   }
 
-  public void startDocument(WebSourceCode webSourceCode) {
-    this.webSourceCode = webSourceCode;
+  public void startDocument(List<Node> nodes) {
   }
 
   public void startElement(TagNode node) {
-
   }
+
 }

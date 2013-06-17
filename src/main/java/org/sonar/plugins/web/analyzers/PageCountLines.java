@@ -23,7 +23,6 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
-import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.util.List;
 
@@ -43,9 +42,7 @@ public class PageCountLines extends DefaultNodeVisitor {
   private int linesOfCode;
 
   @Override
-  public void startDocument(WebSourceCode webSourceCode, List<Node> nodes) {
-    super.startDocument(webSourceCode, nodes);
-
+  public void startDocument(List<Node> nodes) {
     linesOfCode = 0;
     blankLines = 0;
     commentLines = 0;

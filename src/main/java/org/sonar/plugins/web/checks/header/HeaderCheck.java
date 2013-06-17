@@ -24,9 +24,10 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.visitor.WebSourceCode;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -83,8 +84,7 @@ public class HeaderCheck extends AbstractPageCheck {
   }
 
   @Override
-  public void startDocument(WebSourceCode webSourceCode) {
-    super.startDocument(webSourceCode);
+  public void startDocument(List<Node> nodes) {
     hasHeader = false;
     visiting = true;
   }

@@ -25,8 +25,10 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.util.List;
 
 /**
  * Checks cyclomatic complexity against a specified limit. The complexity is measured by counting decision tags (such as if and forEach) and
@@ -89,8 +91,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
   }
 
   @Override
-  public void startDocument(WebSourceCode webSourceCode) {
-    super.startDocument(webSourceCode);
+  public void startDocument(List<Node> nodes) {
     complexity = 1;
   }
 

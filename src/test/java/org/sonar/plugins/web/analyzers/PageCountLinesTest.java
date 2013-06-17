@@ -22,7 +22,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.File;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.PageScanner;
+import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 import org.sonar.test.TestUtils;
 
@@ -46,7 +46,7 @@ public class PageCountLinesTest {
 
     File webFile = new File("test", "user-properties.jsp");
 
-    final PageScanner scanner = new PageScanner();
+    final HtmlAstScanner scanner = new HtmlAstScanner();
     scanner.addVisitor(new PageCountLines());
     WebSourceCode webSourceCode = new WebSourceCode(webFile);
     scanner.scan(nodeList, webSourceCode);

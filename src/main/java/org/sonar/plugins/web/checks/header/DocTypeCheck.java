@@ -22,7 +22,9 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.node.Node;
+
+import java.util.List;
 
 /**
  * Checks declaration of the DOCTYPE.
@@ -47,8 +49,7 @@ public class DocTypeCheck extends AbstractPageCheck {
   }
 
   @Override
-  public void startDocument(WebSourceCode webSourceCode) {
-    super.startDocument(webSourceCode);
+  public void startDocument(List<Node> nodes) {
     hasDocType = false;
   }
 

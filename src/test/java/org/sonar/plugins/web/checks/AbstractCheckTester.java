@@ -36,7 +36,7 @@ import org.sonar.plugins.web.TestProfileWithAllRules;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.PageScanner;
+import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.Reader;
@@ -76,7 +76,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
     List<Node> nodeList = lexer.parse(reader);
     WebSourceCode webSourceCode = new WebSourceCode(new File("test"));
 
-    PageScanner pageScanner = new PageScanner();
+    HtmlAstScanner pageScanner = new HtmlAstScanner();
     pageScanner.addVisitor(new PageCountLines());
     pageScanner.addVisitor(check);
     pageScanner.scan(nodeList, webSourceCode);

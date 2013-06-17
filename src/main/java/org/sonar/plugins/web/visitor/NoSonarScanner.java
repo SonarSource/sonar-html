@@ -20,8 +20,10 @@ package org.sonar.plugins.web.visitor;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.ExpressionNode;
+import org.sonar.plugins.web.node.Node;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,10 +43,8 @@ public class NoSonarScanner extends DefaultNodeVisitor {
   }
 
   @Override
-  public void startDocument(WebSourceCode webSourceCode) {
+  public void startDocument(List<Node> nodes) {
     noSonarLines = new HashSet<Integer>();
-
-    super.startDocument(webSourceCode);
   }
 
   @Override
@@ -67,4 +67,5 @@ public class NoSonarScanner extends DefaultNodeVisitor {
       noSonarFilter.addResource(getWebSourceCode().getResource(), noSonarLines);
     }
   }
+
 }

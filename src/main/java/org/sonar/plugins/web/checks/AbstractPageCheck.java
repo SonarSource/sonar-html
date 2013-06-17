@@ -145,4 +145,5 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     }
     return matchingAttributes;
   }
+
 }

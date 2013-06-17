@@ -22,8 +22,8 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +83,8 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   }
 
   @Override
-  public void startDocument(WebSourceCode webSourceCode) {
-    super.startDocument(webSourceCode);
-    nodes.clear();
+  public void startDocument(List<Node> nodes) {
+    this.nodes.clear();
   }
 
   @Override
@@ -101,4 +100,5 @@ public class UnclosedTagCheck extends AbstractPageCheck {
       createViolation(node.getStartLinePosition(), "This tag has no corresponding closing tag.");
     }
   }
+
 }

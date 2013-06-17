@@ -25,7 +25,6 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.util.List;
 
@@ -53,9 +52,7 @@ public class RequiredElementCheck extends AbstractPageCheck {
   }
 
   @Override
-  public void startDocument(WebSourceCode webSourceCode, List<Node> nodes) {
-    super.startDocument(webSourceCode, nodes);
-
+  public void startDocument(List<Node> nodes) {
     if (elements == null) {
       return;
     }
@@ -76,4 +73,5 @@ public class RequiredElementCheck extends AbstractPageCheck {
       }
     }
   }
+
 }

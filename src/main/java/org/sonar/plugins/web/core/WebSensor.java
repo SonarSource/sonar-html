@@ -38,8 +38,8 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.WebRulesRepository;
+import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
-import org.sonar.plugins.web.visitor.PageScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileReader;
@@ -68,12 +68,13 @@ public final class WebSensor implements Sensor {
     this.noSonarFilter = noSonarFilter;
   }
 
+  @Override
   public void analyse(Project project, SensorContext sensorContext) {
     // configure the lexer
     final PageLexer lexer = new PageLexer();
 
     // configure page scanner and the visitors
-    final PageScanner scanner = setupScanner();
+    final HtmlAstScanner scanner = setupScanner();
 
     for (InputFile inputFile : project.getFileSystem().mainFiles(web.getKey())) {
       java.io.File file = inputFile.getFile();
@@ -117,8 +118,8 @@ public final class WebSensor implements Sensor {
   /**
    * Create PageScanner with Visitors.
    */
-  private PageScanner setupScanner() {
-    PageScanner scanner = new PageScanner();
+  private HtmlAstScanner setupScanner() {
+    HtmlAstScanner scanner = new HtmlAstScanner();
     for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
       scanner.addVisitor(check);
     }
@@ -130,6 +131,7 @@ public final class WebSensor implements Sensor {
   /**
    * This sensor only executes on Web projects.
    */
+  @Override
   public boolean shouldExecuteOnProject(Project project) {
     return WebConstants.LANGUAGE_KEY.equals(project.getLanguageKey());
   }

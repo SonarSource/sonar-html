@@ -27,7 +27,7 @@ import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
-import org.sonar.plugins.web.visitor.PageScanner;
+import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.StringReader;
@@ -53,7 +53,7 @@ public class NoSonarScannerTest {
 
     NoSonarFilter noSonarFilter = new NoSonarFilter();
     NoSonarScanner noSonarScanner = new NoSonarScanner(noSonarFilter);
-    PageScanner pageScanner = new PageScanner();
+    HtmlAstScanner pageScanner = new HtmlAstScanner();
     pageScanner.addVisitor(noSonarScanner);
     pageScanner.scan(nodeList, webSourceCode);
 
