@@ -41,6 +41,7 @@ import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.web.checks.scripting.OGNLExpressionCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
+import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
 import org.sonar.plugins.web.checks.sonar.UnsupportedTagsInHtml5Check;
 import org.sonar.plugins.web.checks.structure.ChildElementIllegalCheck;
 import org.sonar.plugins.web.checks.structure.ChildElementRequiredCheck;
@@ -98,7 +99,8 @@ final class CheckClasses {
     RequiredAttributeCheck.class,
     AvoidCommentedOutCodeCheck.class,
     ImgWithoutAltCheck.class,
-    UnsupportedTagsInHtml5Check.class
+    UnsupportedTagsInHtml5Check.class,
+    NonConsecutiveHeadingCheck.class
   };
 
   /**

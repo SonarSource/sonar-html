@@ -1,0 +1,20 @@
+<p>
+Skipping heading levels is most of the time done for a bad reason: Benefit from that tag's CSS style.
+Instead, it is better in such case to tune the CSS rather than skipping levels.
+</p>
+
+<p>The following code:</p>
+
+<pre>
+&lt;h2&gt;My Title&lt;/h2&gt;     &lt;!-- Non-Compliant - h1 is not being used --&gt;
+
+&lt;h3&gt;My Sub Title&lt;/h3&gt; &lt;!-- Compliant --&gt;
+</pre>
+
+<p>should be refactored into:</p>
+
+<pre>
+&lt;h1&gt;My Title&lt;/h1&gt;     &lt;!-- Compliant --&gt;
+
+&lt;h2&gt;My Sub Title&lt;/h2&gt; &lt;!-- Compliant --&gt;
+</pre>

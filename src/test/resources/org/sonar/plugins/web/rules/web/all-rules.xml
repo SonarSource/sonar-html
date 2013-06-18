@@ -236,6 +236,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>UnsupportedTagsInHtml5Check</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>NonConsecutiveHeadingCheck</key>
+    </rule>
   </rules>
 
 </profile>
