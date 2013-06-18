@@ -232,6 +232,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>ImgWithoutAltCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>UnsupportedTagsInHtml5Check</key>
+    </rule>
   </rules>
 
 </profile>
