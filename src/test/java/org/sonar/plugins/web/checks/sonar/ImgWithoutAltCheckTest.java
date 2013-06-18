@@ -35,8 +35,9 @@ public class ImgWithoutAltCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/ImgWithoutAltCheck.html"), ImgWithoutAltCheck.class);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Add an \"alt\" attribute to this \"img\" tag.")
-        .next().atLine(3);
+        .next().atLine(1).withMessage("Add an \"alt\" attribute to this image.")
+        .next().atLine(3)
+        .next().atLine(5);
   }
 
 }

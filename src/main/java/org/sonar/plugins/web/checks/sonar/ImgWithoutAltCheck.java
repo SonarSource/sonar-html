@@ -31,13 +31,18 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isImgTag(node) && !hasAltAttribute(node)) {
-      createViolation(node.getStartLinePosition(), "Add an \"alt\" attribute to this \"img\" tag.");
+    if ((isImgTag(node) || isImageInput(node)) && !hasAltAttribute(node)) {
+      createViolation(node.getStartLinePosition(), "Add an \"alt\" attribute to this image.");
     }
   }
 
   private static boolean isImgTag(TagNode node) {
-    return !node.isEndElement() && "IMG".equals(node.getNodeName().toUpperCase(Locale.ENGLISH));
+    return "IMG".equals(node.getNodeName().toUpperCase(Locale.ENGLISH));
+  }
+
+  private static boolean isImageInput(TagNode node) {
+    return "INPUT".equals(node.getNodeName().toUpperCase(Locale.ENGLISH)) &&
+      "IMAGE".equals(node.getAttribute("TYPE").toUpperCase(Locale.ENGLISH));
   }
 
   private static boolean hasAltAttribute(TagNode node) {
