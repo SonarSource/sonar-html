@@ -41,8 +41,11 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   }
 
   private static boolean isImageInput(TagNode node) {
+    String type = node.getAttribute("TYPE");
+
     return "INPUT".equals(node.getNodeName().toUpperCase(Locale.ENGLISH)) &&
-      "IMAGE".equals(node.getAttribute("TYPE").toUpperCase(Locale.ENGLISH));
+      type != null &&
+      "IMAGE".equals(type.toUpperCase(Locale.ENGLISH));
   }
 
   private static boolean hasAltAttribute(TagNode node) {
