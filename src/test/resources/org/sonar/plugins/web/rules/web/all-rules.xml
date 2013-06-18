@@ -240,6 +240,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>NonConsecutiveHeadingCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>MetaRefreshCheck</key>
+    </rule>
   </rules>
 
 </profile>
