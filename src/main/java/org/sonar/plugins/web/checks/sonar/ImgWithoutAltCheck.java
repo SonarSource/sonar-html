@@ -49,7 +49,8 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   }
 
   private static boolean hasAltAttribute(TagNode node) {
-    return node.getAttribute("ALT") != null;
+    return node.getAttribute("ALT") != null &&
+      !node.getAttribute("ALT").trim().isEmpty();
   }
 
 }
