@@ -244,6 +244,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>MetaRefreshCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>LinkToImageCheck</key>
+    </rule>
   </rules>
 
 </profile>

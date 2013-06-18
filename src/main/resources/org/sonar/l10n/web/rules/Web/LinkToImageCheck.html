@@ -1,0 +1,13 @@
+<p>
+Whenever a user clicks one a link that targets an image, the website's navigation menu will be lost.
+From a user point of view, it is as if she left the website.
+The only way to return to it is using the browser's 'Back' button.
+Instead, it is better to create a page which will display the image using the <code>&lt;img&gt;</code> tag and preserve the navigation menu.
+</p>
+
+<p>The following code snippet illustrates this rule:</p>
+
+<pre>
+&lt;a href="image.png"&gt;...&lt;/a&gt;  &lt;!-- Non-Compliant --&gt;
+&lt;a href="page.html"&gt;...&lt;/a&gt;  &lt;!-- Compliant --&gt;
+</pre>

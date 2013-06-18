@@ -49,14 +49,17 @@ public class AbstractWebPluginTester {
       rules = repository.createRules();
     }
 
+    @Override
     public Rule find(RuleQuery query) {
       return null;
     }
 
+    @Override
     public Collection<Rule> findAll(RuleQuery query) {
       return null;
     }
 
+    @Override
     public Rule findByKey(String repositoryKey, String key) {
       for (Rule rule : rules) {
         if (rule.getKey().equals(key)) {
@@ -66,6 +69,7 @@ public class AbstractWebPluginTester {
       return null;
     }
 
+    @Override
     public Rule findById(int ruleId) {
       return null;
     }
