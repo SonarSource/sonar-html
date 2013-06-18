@@ -23,7 +23,7 @@ import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.StringReader;
+import java.io.FileReader;
 
 public class ImgWithoutAltCheckTest extends AbstractCheckTester {
 
@@ -32,13 +32,11 @@ public class ImgWithoutAltCheckTest extends AbstractCheckTester {
 
   @Test
   public void detected() throws Exception {
-    String fragment = "<img />\n" +
-      "<img alt=\"foo\" />";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), ImgWithoutAltCheck.class);
+    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/ImgWithoutAltCheck.html"), ImgWithoutAltCheck.class);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Add an \"alt\" attribute to this \"img\" tag.");
+        .next().atLine(1).withMessage("Add an \"alt\" attribute to this \"img\" tag.")
+        .next().atLine(3);
   }
 
 }
