@@ -256,6 +256,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>ServerSideImageMapsCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>FrameWithoutTitleCheck</key>
+    </rule>
   </rules>
 
 </profile>
