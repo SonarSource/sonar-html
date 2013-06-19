@@ -1,0 +1,17 @@
+<p>
+There are 2 known patterns to build a link that has the sole purpose to run JavaScript code:
+</p>
+
+<pre>
+&lt;a href="#" onclick="alert('Clicked!'); return false;"&gt;Run JavaScript Code&lt;/a&gt;
+</pre>
+
+<p>and</p>
+
+<pre>
+&lt;a href="javascript:void(0)" onclick="alert('Clicked!'); return false;"&gt;Run JavaScript Code&lt;/a&gt;
+</pre>
+
+<p>
+The goal of this rule is to ban such patterns in order to keep on supporting browsing with JavaScript disabled.
+</p>

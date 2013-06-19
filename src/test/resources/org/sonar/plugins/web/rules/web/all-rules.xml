@@ -248,6 +248,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>LinkToImageCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>LinkToNothingCheck</key>
+    </rule>
   </rules>
 
 </profile>

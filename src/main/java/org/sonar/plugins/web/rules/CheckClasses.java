@@ -42,6 +42,7 @@ import org.sonar.plugins.web.checks.scripting.OGNLExpressionCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToImageCheck;
+import org.sonar.plugins.web.checks.sonar.LinkToNothingCheck;
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
 import org.sonar.plugins.web.checks.sonar.UnsupportedTagsInHtml5Check;
@@ -104,7 +105,8 @@ final class CheckClasses {
     UnsupportedTagsInHtml5Check.class,
     NonConsecutiveHeadingCheck.class,
     MetaRefreshCheck.class,
-    LinkToImageCheck.class
+    LinkToImageCheck.class,
+    LinkToNothingCheck.class,
   };
 
   /**
