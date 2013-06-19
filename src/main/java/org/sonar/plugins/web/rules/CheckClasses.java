@@ -45,6 +45,7 @@ import org.sonar.plugins.web.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToNothingCheck;
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
+import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.web.checks.sonar.UnsupportedTagsInHtml5Check;
 import org.sonar.plugins.web.checks.structure.ChildElementIllegalCheck;
 import org.sonar.plugins.web.checks.structure.ChildElementRequiredCheck;
@@ -107,6 +108,7 @@ final class CheckClasses {
     MetaRefreshCheck.class,
     LinkToImageCheck.class,
     LinkToNothingCheck.class,
+    ServerSideImageMapsCheck.class,
   };
 
   /**

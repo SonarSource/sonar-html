@@ -37,13 +37,15 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
   private static final class EndQNameMatcher implements EndMatcher {
 
+    @Override
     public boolean match(int character) {
-      return character == '=' || Character.isWhitespace(character);
+      return character == '=' || character == '>' || Character.isWhitespace(character);
     }
   }
 
   private static final class EndTokenMatcher implements EndMatcher {
 
+    @Override
     public boolean match(int character) {
       switch (character) {
         case '/':
@@ -71,6 +73,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
       this.startChars.add(startChar);
     }
 
+    @Override
     public boolean match(int character) {
       boolean result = false;
       if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {

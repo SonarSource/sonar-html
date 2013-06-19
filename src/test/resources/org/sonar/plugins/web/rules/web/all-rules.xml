@@ -252,6 +252,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>LinkToNothingCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ServerSideImageMapsCheck</key>
+    </rule>
   </rules>
 
 </profile>

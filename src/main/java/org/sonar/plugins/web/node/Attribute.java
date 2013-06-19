@@ -31,6 +31,7 @@ public class Attribute {
 
   public Attribute(String name) {
     this.name = name;
+    this.value = "";
   }
 
   public Attribute(String name, String value) {

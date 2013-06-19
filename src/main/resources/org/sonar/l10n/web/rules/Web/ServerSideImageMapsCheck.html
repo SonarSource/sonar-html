@@ -1,0 +1,27 @@
+<p>
+When the <code>ismap</code> attribute is present on a <code>img</code> tag, it is a server-side image map: The browser sends the coordinates of the clicked point to the server.
+For any person who cannot use a mouse, this form of navigation is inaccessible as it is only the position of the cursor on the image which will determine the action.
+Client-side image maps, which use the <code>usemap</code> attribute, on the other hand allow for each clickable area to specify an alternate text enabling accessibility.
+Moreover, in terms of separation of concerns, it is definitely better to leave the task of mapping pixels to links to the client.
+</p>
+
+<p>The following code:</p>
+
+<pre>
+&lt;a href="click_on_world_map.php" target="_self"&gt;
+  &lt;img src="world_map.png" ismap&gt;                   &lt;!-- Non-Compliant --&gt;
+&lt;/a&gt;
+</pre>
+
+<p>should be refactored into:</p>
+
+<pre>
+&lt;img src="world_map.png" usemap="#world_map"&gt;       &lt;!-- Compliant --&gt;
+
+&lt;map name="world_map"&gt;
+  &lt;area shape="rect" coords="0,0,10,10" href="france.html" alt="France"&gt;
+  &lt;area shape="circle" coords="20,20,10" href="spain.html" alt="Spain"&gt;
+  &lt;area shape="circle" coords="30,30,8" href="england.html" alt="England"&gt;
+  &lt;!-- ... --&gt;
+&lt;/map&gt;
+</pre>

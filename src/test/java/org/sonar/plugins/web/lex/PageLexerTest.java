@@ -33,7 +33,6 @@ import java.util.List;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertNull;
 
 /**
  * @author Matthijs Galesloot
@@ -156,8 +155,8 @@ public class PageLexerTest {
     assertEquals(4, tagNode.getAttributes().size());
 
     // the embedded tags are added as attributes
-    assertNull(tagNode.getAttributes().get(1).getValue());
-    assertNull(tagNode.getAttributes().get(3).getValue());
+    assertThat(tagNode.getAttributes().get(1).getValue()).isEmpty();
+    assertThat(tagNode.getAttributes().get(3).getValue()).isEmpty();
   }
 
   @Test
@@ -177,7 +176,7 @@ public class PageLexerTest {
     assertEquals(tagNode.getAttributes().get(0).getName(), "value");
     assertEquals(tagNode.getAttributes().get(0).getValue(), "<%= key -%>");
     assertEquals(tagNode.getAttributes().get(1).getName(), "<%= 'selected' if alert.operator==key -%>");
-    assertNull(tagNode.getAttributes().get(1).getValue());
+    assertThat(tagNode.getAttributes().get(1).getValue()).isEmpty();
   }
 
   @Test
