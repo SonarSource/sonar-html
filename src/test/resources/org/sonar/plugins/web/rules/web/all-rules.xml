@@ -264,6 +264,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>BoldAndItalicTagsCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>MouseEventWithoutKeyboardEquivalentCheck</key>
+    </rule>
   </rules>
 
 </profile>

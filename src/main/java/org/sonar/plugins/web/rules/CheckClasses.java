@@ -46,6 +46,7 @@ import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToNothingCheck;
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
+import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentCheck;
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
 import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.web.checks.sonar.UnsupportedTagsInHtml5Check;
@@ -113,6 +114,7 @@ final class CheckClasses {
     ServerSideImageMapsCheck.class,
     FrameWithoutTitleCheck.class,
     BoldAndItalicTagsCheck.class,
+    MouseEventWithoutKeyboardEquivalentCheck.class,
   };
 
   /**

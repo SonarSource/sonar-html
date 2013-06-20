@@ -1,0 +1,20 @@
+<p>
+Offering the same experience with the mouse and the keyboard allow users to pick their preferred device.
+Additionally, users of assistive technology will also be able to browse the site even if they cannot use the mouse.
+</p>
+
+<p>The following code:</p>
+
+<pre>
+&lt;a onClick="doSomething();" ...&gt;                                &lt;!-- Non-Compliant - 'onKeyPress' missing --&gt;
+&lt;a onMouseover="doSomething();" ...&gt;                            &lt;!-- Non-Compliant - 'onFocus' missing --&gt;
+&lt;a onMouseout="doSomething();" ...&gt;                             &lt;!-- Non-Compliant - 'onBlur' missing --&gt;
+</pre>
+
+<p>should be refactored into:</p>
+
+<pre>
+&lt;a onClick="doSomething();" onKeyPress="doSomething();" ...&gt;    &lt;!-- Compliant --&gt;
+&lt;a onMouseover="doSomething();" onFocus="doSomething();" ...&gt;   &lt;!-- Compliant --&gt;
+&lt;a onMouseout="doSomething();" onBlur="doSomething();" ...&gt;     &lt;!-- Compliant --&gt;
+</pre>

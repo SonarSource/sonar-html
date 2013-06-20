@@ -1,0 +1,9 @@
+<a onClick="doSomething();">                                    <!-- Non-Compliant - 'onKeyPress' missing -->
+<A onMouseoVeR="doSomething();">                                <!-- Non-Compliant - 'onFocus' missing -->
+<a onMouseout="doSomething();">                                 <!-- Non-Compliant - 'onBlur' missing -->
+
+<a onClick="doSomething();" onKeyPress="doSomething();" ...>    <!-- Compliant -->
+<a onMouseover="doSomething();" onFocUS="doSomething();" ...>   <!-- Compliant -->
+<a onMouseout="doSomething();" onBlur="doSomething();" ...>     <!-- Compliant -->
+
+<a>
