@@ -260,6 +260,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>FrameWithoutTitleCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>BoldAndItalicTagsCheck</key>
+    </rule>
   </rules>
 
 </profile>

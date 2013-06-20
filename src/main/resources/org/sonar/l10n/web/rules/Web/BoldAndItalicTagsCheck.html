@@ -1,0 +1,23 @@
+<p>
+The &lt;strong&gt;/&lt;b&gt; and &lt;em&gt;/&lt;i&gt; tags have exactly the same effect in most web browsers, but there is a fundamental difference between them: &lt;strong&gt; and &lt;em&gt; have a semantic meaning whereas &lt;b&gt; and &lt;i&gt; only convey styling information like CSS.
+</p>
+
+<p>
+When &lt;b&gt; can have simply no effect on a Palm device with limited display or when a screen reader software is used by a blind person, &lt;strong&gt; will:
+</p>
+
+<ul>
+  <li>Underline the characters on a Palm Pilot</li>
+  <li>Speak with lower tone when using a screen reader such as Jaws</li>
+  <li>And display the text bold in normal browsers</li>
+</ul>
+
+<p>The following code snippet illustrates this rule:</p>
+
+<pre>
+&lt;i&gt;car&lt;/i&gt;                 &lt;!-- Non-compliant --&gt;
+&lt;em&gt;car&lt;/i&gt;                &lt;!-- Compliant --&gt;
+
+&lt;b&gt;train&lt;/b&gt;               &lt;!-- Non-compliant --&gt;
+&lt;strong&gt;train&lt;/strong&gt;     &lt;!-- Compliant --&gt;
+</pre>

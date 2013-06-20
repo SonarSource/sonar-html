@@ -40,6 +40,7 @@ import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.web.checks.scripting.OGNLExpressionCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
+import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
 import org.sonar.plugins.web.checks.sonar.FrameWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToImageCheck;
@@ -111,6 +112,7 @@ final class CheckClasses {
     LinkToNothingCheck.class,
     ServerSideImageMapsCheck.class,
     FrameWithoutTitleCheck.class,
+    BoldAndItalicTagsCheck.class,
   };
 
   /**
