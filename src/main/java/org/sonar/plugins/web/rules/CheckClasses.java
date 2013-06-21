@@ -43,6 +43,7 @@ import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
 import org.sonar.plugins.web.checks.sonar.FrameWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
+import org.sonar.plugins.web.checks.sonar.ItemTagNotWithinContainerTagCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToNothingCheck;
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
@@ -117,6 +118,7 @@ final class CheckClasses {
     BoldAndItalicTagsCheck.class,
     MouseEventWithoutKeyboardEquivalentCheck.class,
     PageWithoutTitleCheck.class,
+    ItemTagNotWithinContainerTagCheck.class,
   };
 
   /**

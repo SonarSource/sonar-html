@@ -1,0 +1,35 @@
+<p>
+Using a <code>&lt;li&gt;</code> or <code>&lt;dt&gt;</code> item tag outside of a <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> or <code>&lt;dl&gt;</code> one does not make sense and indicates a bug.
+</p>
+
+<p>The following code snippet:</p>
+
+<pre>
+&lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Non-Compliant --&gt;
+&lt;li&gt;Strawberry&lt;/li&gt;     &lt;!-- Non-Compliant --&gt;
+
+&lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Non-Compliant --&gt;
+&lt;li&gt;Strawberry&lt;/li&gt;     &lt;!-- Non-Compliant --&gt;
+
+&lt;dt&gt;Apple&lt;/dt&gt;          &lt;!-- Non-Compliant --&gt;
+&lt;dt&gt;Strawberry&lt;/dt&gt;     &lt;!-- Non-Compliant --&gt;
+</pre>
+
+<p>should be refactored into:</p>
+
+<pre>
+&lt;ul&gt;
+  &lt;li&gt;Apple&lt;/li&gt;        &lt;!-- Compliant --&gt;
+  &lt;li&gt;Strawberry&lt;/li&gt;   &lt;!-- Compliant --&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Apple&lt;/li&gt;        &lt;!-- Compliant --&gt;
+  &lt;li&gt;Strawberry&lt;/li&gt;   &lt;!-- Compliant --&gt;
+&lt;/ol&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;Apple&lt;/dt&gt;        &lt;!-- Compliant --&gt;
+  &lt;dt&gt;Strawberry&lt;/dt&gt;   &lt;!-- Compliant --&gt;
+&lt;/dl&gt;
+</pre>

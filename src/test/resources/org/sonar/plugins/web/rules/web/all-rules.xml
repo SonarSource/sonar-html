@@ -272,6 +272,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>PageWithoutTitleCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ItemTagNotWithinContainerTagCheck</key>
+    </rule>
   </rules>
 
 </profile>
