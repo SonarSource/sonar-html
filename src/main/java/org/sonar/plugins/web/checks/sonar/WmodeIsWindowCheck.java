@@ -34,7 +34,7 @@ public class WmodeIsWindowCheck extends AbstractPageCheck {
 
     if (isParam(node) && hasInvalidObjectWmodeParam(node)) {
       line = node.getStartLinePosition();
-    } else if (isEmbed(node) && !hasInvalidEmbedWmodeAttribute(node)) {
+    } else if (isEmbed(node) && hasInvalidEmbedWmodeAttribute(node)) {
       line = getWmodeAttributeLine(node);
     }
 

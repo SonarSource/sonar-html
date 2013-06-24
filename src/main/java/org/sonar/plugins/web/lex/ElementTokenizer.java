@@ -188,7 +188,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         StringBuilder sbQName = new StringBuilder();
         codeReader.popTo(endQNameMatcher, sbQName);
         attribute = new Attribute(sbQName.toString().trim());
-        attribute.setLine(codeReader.getLinePosition());
+        attribute.setLine(codeReader.getLinePosition() + element.getStartLinePosition() - 1);
         element.getAttributes().add(attribute);
 
         return ParseMode.BEFORE_ATTRIBUTE_NAME;

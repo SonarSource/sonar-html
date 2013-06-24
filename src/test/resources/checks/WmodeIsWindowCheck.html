@@ -1,0 +1,36 @@
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400">      <!-- Compliant -->
+  <param name="movie" value="movie_name.swf" />
+</object>
+
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400">
+  <param name="movie" value="movie_name.swf" />
+  <param name="wmode" value="direct" />                                                     <!-- Non-Compliant -->
+</object>
+
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400">
+  <param name="movie" value="movie_name.swf" />
+  <param name="wmode" value="window" />                                                     <!-- Compliant -->
+  <param value="window" />
+  <param name="wmode" />
+</object>
+
+<embed src="movie_name.swf"                                                                 <!-- Compliant -->
+       width="550"
+       height="400"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
+<embed src="movie_name.swf"
+       width="550"
+       height="400"
+       wmode="direct"                                                                       <!-- Non-Compliant -->
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
+<embed src="movie_name.swf"
+       width="550"
+       height="400"
+       wmode="window"                                                                       <!-- Compliant -->
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
