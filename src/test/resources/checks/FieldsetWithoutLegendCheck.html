@@ -1,0 +1,24 @@
+<form>
+  <fieldset>                           <!-- Non-Compliant -->
+    Street: <input type="text"><br>
+    Town: <input type="text"><br>
+    Country: <input type="text"><br>
+  </fieldset>
+</form>
+
+<form>
+  <fieldset>                           <!-- Compliant -->
+    <legend>Your address</legend>
+    Street: <input type="text"><br>
+    Town: <input type="text"><br>
+    Country: <input type="text"><br>
+  </fieldset>
+</form>
+
+</fieldset>                            <!-- Compliant -->
+
+<fieldset>                             <!-- Compliant - limitation in nesting -->
+  <fieldset>
+    <legend>Your address</legend>
+  </fieldset>
+</fieldset>

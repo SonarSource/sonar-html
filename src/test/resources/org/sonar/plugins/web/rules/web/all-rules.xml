@@ -276,6 +276,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>ItemTagNotWithinContainerTagCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>FieldsetWithoutLegendCheck</key>
+    </rule>
   </rules>
 
 </profile>
