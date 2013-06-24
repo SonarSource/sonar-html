@@ -280,6 +280,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>FieldsetWithoutLegendCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>WmodeIsWindowCheck</key>
+    </rule>
   </rules>
 
 </profile>

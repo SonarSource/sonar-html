@@ -173,6 +173,8 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   }
 
   private ParseMode parseToken(ParseMode mode, CodeReader codeReader, TagNode element) {
+    Attribute attribute;
+
     switch (mode) {
       case BEFORE_NODE_NAME:
 
@@ -185,13 +187,15 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
         StringBuilder sbQName = new StringBuilder();
         codeReader.popTo(endQNameMatcher, sbQName);
-        element.getAttributes().add(new Attribute(sbQName.toString().trim()));
+        attribute = new Attribute(sbQName.toString().trim());
+        attribute.setLine(codeReader.getLinePosition());
+        element.getAttributes().add(attribute);
 
         return ParseMode.BEFORE_ATTRIBUTE_NAME;
 
       case BEFORE_ATTRIBUTE_VALUE:
 
-        Attribute attribute = element.getAttributes().get(element.getAttributes().size() - 1);
+        attribute = element.getAttributes().get(element.getAttributes().size() - 1);
         StringBuilder sbValue = new StringBuilder();
         int ch = codeReader.peek();
 

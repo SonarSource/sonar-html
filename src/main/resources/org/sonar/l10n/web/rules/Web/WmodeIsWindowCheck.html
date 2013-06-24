@@ -1,0 +1,42 @@
+<p>
+Browsers best support the <code>window</code> mode for the <code>wmode</code> parameter, also in terms of accessibility.
+As it is the default mode, it is acceptable to either not specify a <code>wmode</code> parameter altogether, or to set it explicitly to <code>window</code>.
+</p>
+
+<p>The following code illustrates this rule:</p>
+
+<pre>
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;      &lt;!-- Compliant --&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+&lt;/object&gt;
+
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+  &lt;param name="wmode" value="direct" /&gt;                                                     &lt;!-- Non-Compliant --&gt;
+&lt;/object&gt;
+
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+  &lt;param name="wmode" value="window" /&gt;                                                     &lt;!-- Compliant --&gt;
+&lt;/object&gt;
+
+&lt;embed src="movie_name.swf"                                                                 &lt;!-- Compliant --&gt;
+       width="550"
+       height="400"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+
+&lt;embed src="movie_name.swf"
+       width="550"
+       height="400"
+       wmode="direct"                                                                       &lt;!-- Non-Compliant --&gt;
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+
+&lt;embed src="movie_name.swf"
+       width="550"
+       height="400"
+       wmode="window"                                                                       &lt;!-- Compliant --&gt;
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+</pre>

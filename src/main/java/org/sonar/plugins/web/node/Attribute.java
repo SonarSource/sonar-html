@@ -28,6 +28,7 @@ public class Attribute {
   private String name;
   private char quoteChar;
   private String value;
+  private int line;
 
   public Attribute(String name) {
     this.name = name;
@@ -66,4 +67,13 @@ public class Attribute {
   public void setValue(String value) {
     this.value = value;
   }
+
+  public int getLine() {
+    return line;
+  }
+
+  public void setLine(int line) {
+    this.line = line;
+  }
+
 }
