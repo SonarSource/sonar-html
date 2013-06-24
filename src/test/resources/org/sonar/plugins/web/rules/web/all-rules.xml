@@ -284,6 +284,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>WmodeIsWindowCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>TableWithoutCaptionCheck</key>
+    </rule>
   </rules>
 
 </profile>

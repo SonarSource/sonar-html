@@ -52,6 +52,7 @@ import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentChe
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
+import org.sonar.plugins.web.checks.sonar.TableWithoutCaptionCheck;
 import org.sonar.plugins.web.checks.sonar.UnsupportedTagsInHtml5Check;
 import org.sonar.plugins.web.checks.sonar.WmodeIsWindowCheck;
 import org.sonar.plugins.web.checks.structure.ChildElementIllegalCheck;
@@ -123,6 +124,7 @@ final class CheckClasses {
     ItemTagNotWithinContainerTagCheck.class,
     FieldsetWithoutLegendCheck.class,
     WmodeIsWindowCheck.class,
+    TableWithoutCaptionCheck.class,
   };
 
   /**

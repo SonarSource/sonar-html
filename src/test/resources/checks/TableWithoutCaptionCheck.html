@@ -1,0 +1,16 @@
+<table>                                <!-- Non-Compliant -->
+</table>
+
+<table>
+  <caption>foo</caption>               <!-- Compliant -->
+</table>
+
+</table>                               <!-- Compliant -->
+
+<table>                                <!-- Compliant - limitation in nesting -->
+  <table>
+    <caption>foo</caption>
+  </table>
+</table>
+
+<foo />

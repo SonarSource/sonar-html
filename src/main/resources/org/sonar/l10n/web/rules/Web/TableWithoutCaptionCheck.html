@@ -1,0 +1,20 @@
+<p>
+In order to be accessible to visually impaired users, it is important that tables have a caption briefly describing its contents.
+</p>
+
+<p>The following code:</p>
+
+<pre>
+&lt;table&gt;                                                         &lt;!-- Non-Compliant --&gt;
+  ...
+&lt;table&gt;
+</pre>
+
+<p>should be refactored into:</p>
+
+<pre>
+&lt;table&gt;                                                         &lt;!-- Compliant --&gt;
+  &lt;caption&gt;New York City Marathon Results 2013&lt;/caption&gt;
+  ...
+&lt;table&gt;
+</pre>
