@@ -47,6 +47,7 @@ import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.web.checks.sonar.ItemTagNotWithinContainerTagCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToNothingCheck;
+import org.sonar.plugins.web.checks.sonar.LinksIdenticalTextsDifferentTargetsCheck;
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
 import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentCheck;
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
@@ -125,6 +126,7 @@ final class CheckClasses {
     FieldsetWithoutLegendCheck.class,
     WmodeIsWindowCheck.class,
     TableWithoutCaptionCheck.class,
+    LinksIdenticalTextsDifferentTargetsCheck.class,
   };
 
   /**

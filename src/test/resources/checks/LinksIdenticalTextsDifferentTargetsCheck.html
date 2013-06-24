@@ -1,0 +1,15 @@
+<a href="a.html">foo</a>
+<a href="a.html">foo</a>          <!-- Compliant -->
+
+<a href="a.html">bar</a>
+<a href="b.html">bar</a>          <!-- Non-Compliant -->
+
+<a href="a.html">baz</a>
+<a href="b.html">BAZ</a>          <!-- Non-Compliant -->
+
+<a href="a.html">qux</a>
+<a href="b.html">q<b>u</b>x</a>   <!-- Non-Compliant -->
+
+<a>...</a>
+<a href="">...</a>                <!-- Compliant -->
+<a href="a.html">...</a>          <!-- Non-Compliant -->

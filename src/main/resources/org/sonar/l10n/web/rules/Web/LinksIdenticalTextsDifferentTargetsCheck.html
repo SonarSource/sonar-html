@@ -1,0 +1,18 @@
+<p>
+When links with different targets are given identical link text, this can produce confusion for users of assistive technologies, some of which provide users the ability to view a list of all links on the page.
+When this list of links is presented to the user they may be left not knowing the links go to different destinations.
+Even if they do realize the links go to different destinations, they may be left not knowing which link to follow to go to the destination they desire.
+</p>
+
+<p>The following code illustrates this rule:</p>
+
+<pre>
+&lt;a href="a.html"&gt;foo&lt;/a&gt;
+&lt;a href="b.html"&gt;bar&lt;/a&gt;          &lt;!-- Compliant - different texts, different targets --&gt;
+
+&lt;a href="a.html"&gt;baz&lt;/a&gt;
+&lt;a href="a.html"&gt;baz&lt;/a&gt;          &lt;!-- Compliant - same text, same target --&gt;
+
+&lt;a href="a.html"&gt;qux&lt;/a&gt;
+&lt;a href="b.html"&gt;qux&lt;/a&gt;          &lt;!-- Non-Compliant - same text, different targets --&gt;
+</pre>

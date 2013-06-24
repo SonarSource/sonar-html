@@ -288,6 +288,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>TableWithoutCaptionCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>LinksIdenticalTextsDifferentTargetsCheck</key>
+    </rule>
   </rules>
 
 </profile>
