@@ -1,0 +1,32 @@
+<p>
+The <code>&lt;object&gt;</code> tag is used by Internet Explorer 3.0 or later on Windows platforms or any browser that supports the use of the Flash ActiveX control. The <code>&lt;embed&gt;</code> tag is used by Netscape Navigator 2.0 or later, or browsers that support the use of the Netscape-compatible plug-in version of Flash Player.
+</p>
+
+<p>
+When an ActiveX-enabled browser loads the HTML page, it reads the values set on the <code>&lt;object&gt;</code> and ignores the <code>&lt;embed&gt;</code> tag. When browsers using the Flash plug-in load the HTML page, they read the values set on the <code>&lt;embed&gt;</code> tag and ignore the <code>&lt;object&gt;</code> tag.
+</p>
+
+<p>
+The following code snippet illustrates this rule:
+</p>
+
+<pre>
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100" height="100"&gt;      &lt;!-- Non-Compliant --&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+&lt;/object&gt;
+
+&lt;embed src="movie_name.swf"                                                                 &lt;!-- Non-Compliant --&gt;
+       width="550"
+       height="400"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+
+&lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100" height="100"&gt;      &lt;!-- Compliant --&gt;
+  &lt;param name="movie" value="movie_name.swf" /&gt;
+  &lt;embed src="movie_name.swf"                                                               &lt;!-- Compliant --&gt;
+       width="550"
+       height="400"
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
+&lt;/object&gt;
+</pre>

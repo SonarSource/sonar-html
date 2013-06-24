@@ -292,6 +292,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>LinksIdenticalTextsDifferentTargetsCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>FlashUsesBothObjectAndEmbedCheck</key>
+    </rule>
   </rules>
 
 </profile>
