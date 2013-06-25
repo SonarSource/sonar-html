@@ -41,6 +41,7 @@ import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.web.checks.scripting.OGNLExpressionCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
+import org.sonar.plugins.web.checks.sonar.DoctypePresenceCheck;
 import org.sonar.plugins.web.checks.sonar.FieldsetWithoutLegendCheck;
 import org.sonar.plugins.web.checks.sonar.FlashUsesBothObjectAndEmbedCheck;
 import org.sonar.plugins.web.checks.sonar.FrameWithoutTitleCheck;
@@ -129,6 +130,7 @@ final class CheckClasses {
     TableWithoutCaptionCheck.class,
     LinksIdenticalTextsDifferentTargetsCheck.class,
     FlashUsesBothObjectAndEmbedCheck.class,
+    DoctypePresenceCheck.class,
   };
 
   /**

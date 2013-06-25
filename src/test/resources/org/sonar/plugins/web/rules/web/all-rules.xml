@@ -296,6 +296,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>FlashUsesBothObjectAndEmbedCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>DoctypePresenceCheck</key>
+    </rule>
   </rules>
 
 </profile>

@@ -1,0 +1,22 @@
+<p>
+The <code>&lt;!DOCTYPE&gt;</code> declaration tells the web browser which (X)HTML version is being used on the page, and therefore how to interpret the various elements.
+Validators also rely on this tag to know which rules to enforce.
+It should always preceed the <code>&lt;html&gt;</code> tag.
+</p>
+
+<p>The following code:</p>
+
+<pre>
+&lt;html&gt;            &lt;!-- Non-Compliant --&gt;
+...
+&lt;/html&gt;
+</pre>
+
+<p>should be rewritten into:</p>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;            &lt;!-- Compliant --&gt;
+...
+&lt;/html&gt;
+</pre>
