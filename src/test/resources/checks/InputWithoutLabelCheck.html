@@ -1,0 +1,24 @@
+<input type="submit" id="foo1" />
+<input type="button" id="foo2" />
+<input type="image" id="foo3" />
+<input type="hidden" id="foo4" />
+
+<input type="text" id="foo5" />        <!-- Non-Compliant -->
+
+<label for="foo6">...</label>
+<input type="text" id="foo6">          <!-- Compliant -->
+
+<input type="text" id="foo7">          <!-- Compliant -->
+<label for="foo7">...</label>
+
+<label for="foo8">...</label>
+<label>...</label>
+
+<foo />
+
+<input type="radio" id="foo9" />        <!-- Non-Compliant -->
+
+<input id="foo10">                      <!-- Compliant -->
+
+<input type="text">                     <!-- Non-Compliant -->
+

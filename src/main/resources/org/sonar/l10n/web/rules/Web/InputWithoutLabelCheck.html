@@ -1,0 +1,32 @@
+<p>The <code>&lt;label&gt;</code> tag defines a label for an <code>&lt;input&gt;</code> element.</p>
+
+<p>
+A label does not render as anything special, but will toggle the associated input when its text is clicked.
+It also improves the usability for visually impaired users: Screen readers will announce the label text whenever the focus is set on the input.
+</p>
+
+<p>The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the related </code>&lt;input&gt;</code> to bind them together.</p>
+
+<p>This rule verifies that all <code>&lt;input&gt;</code> tags have an <code>id</code> attribute which is referenced by a label.</p>
+
+<p>These input types are not verified by this rule:</p>
+
+<ul>
+  <li>submit</li>
+  <li>button</li>
+  <li>image</li>
+  <li>hidden</li>
+</ul>
+
+<p>The following code snippet illustrates this rule:</p>
+
+<pre>
+&lt;input type="text" name="a" /&gt;               &lt;!-- Non-Compliant - no id --&gt;
+&lt;input type="text" name="b" id="b" /&gt;        &lt;!-- Non-Compliant - no matching label 'b' --&gt;
+
+&lt;label for="c"&gt;...&lt;/label&gt;
+&lt;input type="text" name="c" id="c" /&gt;        &lt;!-- Compliant --&gt;
+
+&lt;input type="hidden" name="d" value="..."&gt;   &lt;!-- Compliant - 'hidden' type is excluded --&gt;
+&lt;input type="submit" value="Send" /&gt;         &lt;!-- Compliant - 'submit' type is excluded --&gt;
+</pre>

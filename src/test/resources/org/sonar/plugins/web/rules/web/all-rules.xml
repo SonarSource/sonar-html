@@ -304,6 +304,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>TableHeaderHasIdOrScopeCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>InputWithoutLabelCheck</key>
+    </rule>
   </rules>
 
 </profile>
