@@ -300,6 +300,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>DoctypePresenceCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>TableHeaderHasIdOrScopeCheck</key>
+    </rule>
   </rules>
 
 </profile>

@@ -1,0 +1,82 @@
+<p>
+Associating table headers with a row, column, or a group of rows or columns enables screen reader softwares to announce the header prior to the data.
+This considerably increases the accessibility of tables to visually impaired users.
+</p>
+
+<p>The following code:</p>
+
+<pre>
+&lt;table border="1"&gt;
+  &lt;caption&gt;Contact Information&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;th&gt;Name&lt;/th&gt;                                          &lt;!-- Non-Compliant --&gt;
+    &lt;th&gt;Phone#&lt;/th&gt;                                        &lt;!-- Non-Compliant --&gt;
+    &lt;th&gt;City&lt;/th&gt;                                          &lt;!-- Non-Compliant --&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;1.&lt;/td&gt;
+    &lt;th&gt;Joel Garner&lt;/th&gt;                                   &lt;!-- Non-Compliant --&gt;
+    &lt;td&gt;412-212-5421&lt;/td&gt;
+    &lt;td&gt;Pittsburgh&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;2.&lt;/td&gt;
+    &lt;th&gt;Clive Lloyd&lt;/th&gt;                                   &lt;!-- Non-Compliant --&gt;
+    &lt;td&gt;410-306-1420&lt;/td&gt;
+    &lt;td&gt;Baltimore&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+<p>should be refactored into either:</p>
+
+<pre>
+&lt;table border="1"&gt;
+  &lt;caption&gt;Contact Information&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;th scope="col"&gt;Name&lt;/th&gt;                              &lt;!-- Compliant --&gt;
+    &lt;th scope="col"&gt;Phone#&lt;/th&gt;                            &lt;!-- Compliant --&gt;
+    &lt;th scope="col"&gt;City&lt;/th&gt;                              &lt;!-- Compliant --&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;1.&lt;/td&gt;
+    &lt;th scope="row"&gt;Joel Garner&lt;/th&gt;                       &lt;!-- Compliant --&gt;
+    &lt;td&gt;412-212-5421&lt;/td&gt;
+    &lt;td&gt;Pittsburgh&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;2.&lt;/td&gt;
+    &lt;th scope="row"&gt;Clive Lloyd&lt;/th&gt;                       &lt;!-- Compliant --&gt;
+    &lt;td&gt;410-306-1420&lt;/td&gt;
+    &lt;td&gt;Baltimore&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+<p>or:</p>
+
+<pre>
+&lt;table border="1"&gt;
+  &lt;caption&gt;Contact Information&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;th id="name"&gt;Name&lt;/th&gt;                                &lt;!-- Compliant --&gt;
+    &lt;th id="phone"&gt;Phone#&lt;/th&gt;                             &lt;!-- Compliant --&gt;
+    &lt;th id="city"&gt;City&lt;/th&gt;                                &lt;!-- Compliant --&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;1.&lt;/td&gt;
+    &lt;th id="person1" headers="name"&gt;Joel Garner&lt;/th&gt;       &lt;!-- Compliant --&gt;
+    &lt;td headers="phone person1"&gt;412-212-5421&lt;/td&gt;
+    &lt;td headers="city person1"&gt;Pittsburgh&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;2.&lt;/td&gt;
+    &lt;th id="person2" headers="name"&gt;Clive Lloyd&lt;/th&gt;       &lt;!-- Compliant --&gt;
+    &lt;td headers="phone person2"&gt;410-306-1420&lt;/td&gt;
+    &lt;td headers="city person2"&gt;Baltimore&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>

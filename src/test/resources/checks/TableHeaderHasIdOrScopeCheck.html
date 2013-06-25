@@ -1,0 +1,53 @@
+<table border="1">
+  <caption>Contact Information</caption>
+  <tr>
+    <td></td>
+    <th scope="col">Name</th>
+    <tH ScOpE="col">Phone#</th>
+    <th>Fax#</th>                                 <!-- Non-Compliant -->
+    <tH>City</th>                                 <!-- Non-Compliant -->
+  </tr><tr>
+    <td>1.</td>
+    <th scope="row">Joel Garner</th>
+    <td>412-212-5421</td>
+    <td>412-212-5400</td>
+    <td>Pittsburgh</td>
+  </tr><tr>
+    <td>2.</td>
+    <th scope="row">Clive Lloyd</th>
+    <td>410-306-1420</td>
+    <td>410-306-5400</td>
+    <td>Baltimore</td>
+  </tr><tr>
+    <td>3.</td>
+    <th scope="row">Gordon Greenidge</th>
+    <td>281-564-6720</td>
+    <td>281-511-6600</td>
+    <td>Houston</td>
+  </tr>
+</table>
+
+<table>
+ <tr>
+    <th rowspan="2" id="h">Homework</th>
+    <th colspan="3" iD="e">Exams</th>
+    <th colspan="3">Projects</th>                 <!-- Non-Compliant -->
+  </tr>
+  <tr>
+    <th id="e1" headers="e">1</th>
+    <th id="e2" headers="e">2</th>
+    <th id="ef" headers="e">Final</th>
+    <th id="p1" headers="p">1</th>
+    <th id="p2" headers="p">2</th>
+    <th id="pf" headers="p">Final</th>
+  </tr>
+  <tr>
+    <td headers="h">15%</td>
+    <td headers="e e1">15%</td>
+    <td headers="e e2">15%</td>
+    <td headers="e ef">20%</td>
+    <td headers="p p1">10%</td>
+    <td headers="p p2">10%</td>
+    <td headers="p pf">15%</td>
+  </tr>
+</table>
