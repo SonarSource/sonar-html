@@ -46,6 +46,7 @@ import org.sonar.plugins.web.checks.sonar.FieldsetWithoutLegendCheck;
 import org.sonar.plugins.web.checks.sonar.FlashUsesBothObjectAndEmbedCheck;
 import org.sonar.plugins.web.checks.sonar.FrameWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
+import org.sonar.plugins.web.checks.sonar.ImgWithoutWidthOrHeightCheck;
 import org.sonar.plugins.web.checks.sonar.InputWithoutLabelCheck;
 import org.sonar.plugins.web.checks.sonar.ItemTagNotWithinContainerTagCheck;
 import org.sonar.plugins.web.checks.sonar.LinkToImageCheck;
@@ -135,6 +136,7 @@ final class CheckClasses {
     DoctypePresenceCheck.class,
     TableHeaderHasIdOrScopeCheck.class,
     InputWithoutLabelCheck.class,
+    ImgWithoutWidthOrHeightCheck.class,
   };
 
   /**

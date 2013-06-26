@@ -308,6 +308,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>InputWithoutLabelCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>ImgWithoutWidthOrHeightCheck</key>
+    </rule>
   </rules>
 
 </profile>
