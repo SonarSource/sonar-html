@@ -35,8 +35,11 @@ public class WmodeIsWindowCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/WmodeIsWindowCheck.html"), WmodeIsWindowCheck.class);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(7).withMessage("Set the value of the 'wmode' parameter to 'window'.")
-        .next().atLine(26).withMessage("Set the value of the 'wmode' parameter to 'window'.");
+        .next().atLine(9).withMessage("Set the value of the 'wmode' parameter to 'window'.")
+        .next().atLine(14)
+        .next().atLine(19)
+        .next().atLine(58)
+        .next().atLine(64);
   }
 
 }
