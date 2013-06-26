@@ -1,11 +1,42 @@
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100" height="100">      <!-- Non-Compliant -->
+<object classid="cLsID:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100" height="100">      <!-- Non-Compliant -->
   <param name="movie" value="movie_name.swf" />
 </object>
 
-<embed src="movie_name.swf"                                                                 <!-- Non-Compliant -->
+<object type="application/x-shockwave-fLaSh" width="100" height="100">                      <!-- Non-Compliant -->
+  <param name="movie" value="movie_name.swf" />
+</object>
+
+<object data="movie_name.SwF" width="100" height="100">                                     <!-- Non-Compliant -->
+  <param name="movie" value="movie_name.swf" />
+</object>
+
+<object classid="foo" width="100" height="100">                                             <!-- Compliant - not flash -->
+  <param name="movie" value="movie_name.swf" />
+</object>
+
+<object data="movie_name" width="100" height="100">                                         <!-- Compliant - not flash -->
+  <param name="movie" value="movie_name.swf" />
+</object>
+
+<object type="application/foo" width="100" height="100">                                    <!-- Compliant - not flash -->
+  <param name="movie" value="movie_name.swf" />
+</object>
+
+<embed src="movie_name.SWf"                                                                 <!-- Non-Compliant -->
        width="550"
        height="400"
-       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
+<embed                                                                                      <!-- Non-Compliant -->
+       width="550"
+       height="400"
+       type="application/x-shockwave-FlAsH"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
+<embed src="movie_name"                                                                     <!-- Compliant - not flash -->
+       width="550"
+       height="400"
+       type="application/foo"
        pluginspage="http://www.macromedia.com/go/getflashplayer" />
 
 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100" height="100">      <!-- Compliant -->
@@ -20,7 +51,7 @@
 </object>
 
 <foo>
-  <embed src="movie_name.swf"                                                                 <!-- Non-Compliant -->
+  <embed src="movie_name.swf"                                                               <!-- Non-Compliant -->
        width="550"
        height="400"
        type="application/x-shockwave-flash"

@@ -36,8 +36,11 @@ public class FlashUsesBothObjectAndEmbedCheckTest extends AbstractCheckTester {
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Add an <embed> tag within this <object> one.")
-        .next().atLine(5).withMessage("Surround this <embed> tag by an <object> one.")
-        .next().atLine(23);
+        .next().atLine(5)
+        .next().atLine(9)
+        .next().atLine(25).withMessage("Surround this <embed> tag by an <object> one.")
+        .next().atLine(30)
+        .next().atLine(54);
   }
 
 }

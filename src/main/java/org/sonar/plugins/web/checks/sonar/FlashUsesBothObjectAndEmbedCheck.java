@@ -24,6 +24,7 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
+import java.util.Locale;
 
 @Rule(
   key = "FlashUsesBothObjectAndEmbedCheck",
@@ -40,10 +41,10 @@ public class FlashUsesBothObjectAndEmbedCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isObject(node)) {
+    if (isObject(node) && isFlashObject(node)) {
       objectLine = node.getStartLinePosition();
       foundEmbed = false;
-    } else if (isEmbed(node)) {
+    } else if (isEmbed(node) && isFlashEmbed(node)) {
       foundEmbed = true;
 
       if (node.getParent() == null || !isObject(node.getParent())) {
@@ -68,6 +69,29 @@ public class FlashUsesBothObjectAndEmbedCheck extends AbstractPageCheck {
 
   private static boolean isEmbed(TagNode node) {
     return "EMBED".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isFlashObject(TagNode node) {
+    return hasFlashClassId(node.getAttribute("classid")) ||
+      hasFlashType(node.getAttribute("type")) ||
+      hasFlashExtension(node.getAttribute("data"));
+  }
+
+  private static boolean hasFlashClassId(String classId) {
+    return classId != null && classId.equalsIgnoreCase("CLSID:D27CDB6E-AE6D-11CF-96B8-444553540000");
+  }
+
+  private static boolean hasFlashType(String type) {
+    return type != null && type.toUpperCase(Locale.ENGLISH).contains("X-SHOCKWAVE-FLASH");
+  }
+
+  private static boolean hasFlashExtension(String file) {
+    return file != null && file.toUpperCase(Locale.ENGLISH).endsWith(".SWF");
+  }
+
+  private static boolean isFlashEmbed(TagNode node) {
+    return hasFlashType(node.getAttribute("type")) ||
+      hasFlashExtension(node.getAttribute("src"));
   }
 
 }
