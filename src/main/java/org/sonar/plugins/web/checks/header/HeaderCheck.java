@@ -29,55 +29,21 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Header checker.
- *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Opening Comments
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "HeaderCheck", priority = Priority.MAJOR)
+@Rule(
+  key = "HeaderCheck",
+  priority = Priority.MAJOR)
 public class HeaderCheck extends AbstractPageCheck {
 
+  private static final String DEFAULT_FORMAT = "^.*Copyright.*$";
+
   @RuleProperty(
-    defaultValue = "^.*Copyright.*$")
-  private String expression;
+    key = "expression",
+    defaultValue = DEFAULT_FORMAT)
+  public String format = DEFAULT_FORMAT;
 
   private boolean hasHeader;
   private Matcher matcher;
   private boolean visiting;
-
-  @Override
-  public void comment(CommentNode node) {
-
-    if (visiting) {
-      if (matchHeader(node.getCode())) {
-        hasHeader = true;
-      } else {
-        createViolation(0, "Header is not in correct format");
-      }
-    }
-    visiting = false;
-  }
-
-  public String getExpression() {
-    return expression;
-  }
-
-  private boolean matchHeader(String header) {
-    if (matcher == null) {
-      Pattern pattern = Pattern.compile(expression, Pattern.MULTILINE);
-      matcher = pattern.matcher(header);
-    } else {
-      matcher.reset(header);
-    }
-    return matcher.find();
-  }
-
-  public void setExpression(String expression) {
-    this.expression = expression;
-  }
 
   @Override
   public void startDocument(List<Node> nodes) {
@@ -86,10 +52,34 @@ public class HeaderCheck extends AbstractPageCheck {
   }
 
   @Override
+  public void comment(CommentNode node) {
+    if (visiting) {
+      if (matchHeader(node.getCode())) {
+        hasHeader = true;
+      } else {
+        createViolation(0, "Change this header comment to match the regular expression: " + format);
+      }
+    }
+
+    visiting = false;
+  }
+
+  private boolean matchHeader(String header) {
+    if (matcher == null) {
+      Pattern pattern = Pattern.compile(format, Pattern.MULTILINE);
+      matcher = pattern.matcher(header);
+    } else {
+      matcher.reset(header);
+    }
+
+    return matcher.find();
+  }
+
+  @Override
   public void startElement(TagNode node) {
     if (visiting) {
       if (!hasHeader) {
-        createViolation(0, "This file has no header whereas one is expected.");
+        createViolation(0, "Insert a header comment before this tag.");
       }
       visiting = false;
     }

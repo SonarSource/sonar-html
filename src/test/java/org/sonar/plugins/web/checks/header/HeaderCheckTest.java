@@ -17,47 +17,41 @@
  */
 package org.sonar.plugins.web.checks.header;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.File;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-/**
- * @author Matthijs Galesloot
- */
 public class HeaderCheckTest extends AbstractCheckTester {
 
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
   @Test
-  public void validHeader() throws FileNotFoundException {
+  public void correct_header() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), new HeaderCheck());
 
-    String fragment = "<!-- Copyright the author and his friends --><h:someNode/>";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
+    checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
-  public void missingHeader() throws FileNotFoundException {
+  public void missing_header() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MissingHeader.html"), new HeaderCheck());
 
-    String fragment = "<h:someNode/>";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(null).withMessage("Insert a header comment before this tag.");
   }
 
   @Test
-  public void wrongFormatHeader() throws FileNotFoundException {
+  public void misspelled_header() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MisspelledHeader.html"), new HeaderCheck());
 
-    String fragment = "<!-- copyright is not spelled OK --><h:someNode/>";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), HeaderCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(null).withMessage("Change this header comment to match the regular expression: ^.*Copyright.*$");
   }
+
 }
