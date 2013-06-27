@@ -19,20 +19,19 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class WmodeIsWindowCheckTest extends AbstractCheckTester {
+public class WmodeIsWindowCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/WmodeIsWindowCheck.html"), WmodeIsWindowCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/WmodeIsWindowCheck.html"), new WmodeIsWindowCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(9).withMessage("Set the value of the 'wmode' parameter to 'window'.")

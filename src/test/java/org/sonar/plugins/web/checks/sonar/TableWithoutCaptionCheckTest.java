@@ -19,20 +19,19 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class TableWithoutCaptionCheckTest extends AbstractCheckTester {
+public class TableWithoutCaptionCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/TableWithoutCaptionCheck.html"), TableWithoutCaptionCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableWithoutCaptionCheck.html"), new TableWithoutCaptionCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Add a <caption> tag to this table.");

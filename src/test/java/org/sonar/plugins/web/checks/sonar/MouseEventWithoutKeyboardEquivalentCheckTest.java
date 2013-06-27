@@ -19,22 +19,19 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class MouseEventWithoutKeyboardEquivalentCheckTest extends AbstractCheckTester {
+public class MouseEventWithoutKeyboardEquivalentCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(
-        new FileReader("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.html"),
-        MouseEventWithoutKeyboardEquivalentCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.html"), new MouseEventWithoutKeyboardEquivalentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Add a 'onKeyPress' attribute to this <a> tag.")

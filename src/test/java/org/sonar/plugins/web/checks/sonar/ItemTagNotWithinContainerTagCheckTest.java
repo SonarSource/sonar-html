@@ -19,21 +19,19 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class ItemTagNotWithinContainerTagCheckTest extends AbstractCheckTester {
+public class ItemTagNotWithinContainerTagCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(
-        new FileReader("src/test/resources/checks/ItemTagNotWithinContainerTagCheck.html"), ItemTagNotWithinContainerTagCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheck.html"), new ItemTagNotWithinContainerTagCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")

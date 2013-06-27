@@ -19,20 +19,19 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class PageWithoutTitleCheckTest extends AbstractCheckTester {
+public class PageWithoutTitleCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/PageWithoutTitleCheck.html"), PageWithoutTitleCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutTitleCheck.html"), new PageWithoutTitleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Add a <title> tag to this page.")

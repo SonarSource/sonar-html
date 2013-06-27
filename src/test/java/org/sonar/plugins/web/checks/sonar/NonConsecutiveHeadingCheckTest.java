@@ -19,34 +19,33 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class NonConsecutiveHeadingCheckTest extends AbstractCheckTester {
+public class NonConsecutiveHeadingCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void no_heading_tags() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/NonConsecutiveHeadingCheck/NoHeadingTags.html"), NonConsecutiveHeadingCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/NoHeadingTags.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
   public void only_h1_tags() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH1Tags.html"), NonConsecutiveHeadingCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH1Tags.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
   public void only_h2_tags() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH2Tags.html"), NonConsecutiveHeadingCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH2Tags.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Do not skip H1.");
@@ -54,14 +53,14 @@ public class NonConsecutiveHeadingCheckTest extends AbstractCheckTester {
 
   @Test
   public void h2_with_h1() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/NonConsecutiveHeadingCheck/H2WithH1.html"), NonConsecutiveHeadingCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H2WithH1.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
   public void h5_with_h4() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/NonConsecutiveHeadingCheck/H5WithH4.html"), NonConsecutiveHeadingCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H5WithH4.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Do not skip H3.");

@@ -19,41 +19,40 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class DoctypePresenceCheckTest extends AbstractCheckTester {
+public class DoctypePresenceCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void doctype_before_html() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/DoctypePresenceCheck/DoctypeBeforeHtml.html"), DoctypePresenceCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/DoctypeBeforeHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
   public void full_doctype_before_html() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/DoctypePresenceCheck/FullDoctypeBeforeHtml.html"), DoctypePresenceCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/FullDoctypeBeforeHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
   public void no_doctype_before_foo() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/DoctypePresenceCheck/NoDoctypeBeforeFoo.html"), DoctypePresenceCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/NoDoctypeBeforeFoo.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
   public void no_doctype_before_html() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/DoctypePresenceCheck/NoDoctypeBeforeHtml.html"), DoctypePresenceCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/NoDoctypeBeforeHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(3).withMessage("Insert a <!DOCTYPE> declaration to before this <hTmL> tag.");
@@ -61,7 +60,7 @@ public class DoctypePresenceCheckTest extends AbstractCheckTester {
 
   @Test
   public void multiple_html_tags() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/DoctypePresenceCheck/MultipleHtmlTags.html"), DoctypePresenceCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/MultipleHtmlTags.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1);
@@ -69,7 +68,7 @@ public class DoctypePresenceCheckTest extends AbstractCheckTester {
 
   @Test
   public void doctype_after_html() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/DoctypePresenceCheck/DoctypeAfterHtml.html"), DoctypePresenceCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/DoctypeAfterHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1);
