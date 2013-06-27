@@ -116,6 +116,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
       this.rule = rule;
     }
 
+    @Override
     public Rule findByKey(String repositoryKey, String key) {
       if (rule.getKey().equals(key)) {
         return rule;
@@ -124,14 +125,17 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
       }
     }
 
+    @Override
     public Rule find(RuleQuery query) {
       return rule;
     }
 
+    @Override
     public Collection<Rule> findAll(RuleQuery query) {
       return new ArrayList<Rule>();
     }
 
+    @Override
     public Rule findById(int ruleId) {
       return null;
     }
@@ -167,4 +171,5 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
       throw new SonarException(e);
     }
   }
+
 }

@@ -19,20 +19,19 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
+import java.io.File;
 
-public class BoldAndItalicTagsCheckTest extends AbstractCheckTester {
+public class BoldAndItalicTagsCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = parseAndCheck(new FileReader("src/test/resources/checks/BoldAndItalicTagsCheck.html"), BoldAndItalicTagsCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/BoldAndItalicTagsCheck.html"), new BoldAndItalicTagsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(1).withMessage("Replace this <b> tag by <strong>.")
