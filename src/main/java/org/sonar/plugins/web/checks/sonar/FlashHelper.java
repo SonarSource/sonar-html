@@ -23,6 +23,9 @@ import java.util.Locale;
 
 public class FlashHelper {
 
+  private FlashHelper() {
+  }
+
   public static boolean isFlashObject(TagNode node) {
     return hasFlashClassId(node.getAttribute("classid")) ||
       hasFlashType(node.getAttribute("type")) ||
