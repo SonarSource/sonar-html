@@ -1,3 +1,21 @@
 <p>
-Checks for missing header comments.
+This rule verifies files have a comment matching a given regular expression before the very first tag.
+The header comment can be located before or after the <code>&lt;!DOCTYPE&gt;</code> declaration.
 </p>
+
+<p>For example, with the format <code>.*Copyright.*</code>, the following code:</p>
+
+<pre>
+&lt;html&gt;                                    &lt;!-- Non-Compliant --&gt;
+...
+&lt;/html&gt;
+</pre>
+
+<p>should be refactored into:</p>
+
+<pre>
+&lt;!-- Copyright 2013 SonarSource SA --&gt;    &lt;!-- Compliant --&gt;
+&lt;html&gt;
+...
+&lt;/html&gt;
+</pre>

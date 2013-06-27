@@ -43,7 +43,7 @@ public class HeaderCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MissingHeader.html"), new HeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(null).withMessage("Insert a header comment before this tag.");
+        .next().atLine(3).withMessage("Insert a header comment before this tag.");
   }
 
   @Test
@@ -51,7 +51,7 @@ public class HeaderCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MisspelledHeader.html"), new HeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(null).withMessage("Change this header comment to match the regular expression: ^.*Copyright.*$");
+        .next().atLine(5).withMessage("Change this header comment to match the regular expression: ^.*Copyright.*$");
   }
 
 }

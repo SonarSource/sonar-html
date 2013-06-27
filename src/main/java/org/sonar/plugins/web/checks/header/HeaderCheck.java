@@ -57,7 +57,7 @@ public class HeaderCheck extends AbstractPageCheck {
       if (matchHeader(node.getCode())) {
         hasHeader = true;
       } else {
-        createViolation(0, "Change this header comment to match the regular expression: " + format);
+        createViolation(node.getStartLinePosition(), "Change this header comment to match the regular expression: " + format);
       }
     }
 
@@ -79,7 +79,7 @@ public class HeaderCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if (visiting) {
       if (!hasHeader) {
-        createViolation(0, "Insert a header comment before this tag.");
+        createViolation(node.getStartLinePosition(), "Insert a header comment before this tag.");
       }
       visiting = false;
     }
