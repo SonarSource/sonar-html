@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.header;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -42,9 +40,8 @@ import java.util.regex.Pattern;
 @Rule(key = "HeaderCheck", priority = Priority.MAJOR)
 public class HeaderCheck extends AbstractPageCheck {
 
-  private static final Logger LOG = LoggerFactory.getLogger(HeaderCheck.class);
-
-  @RuleProperty(defaultValue = "^.*Copyright.*$")
+  @RuleProperty(
+    defaultValue = "^.*Copyright.*$")
   private String expression;
 
   private boolean hasHeader;
@@ -59,7 +56,6 @@ public class HeaderCheck extends AbstractPageCheck {
         hasHeader = true;
       } else {
         createViolation(0, "Header is not in correct format");
-        LOG.debug("Header is not in valid format");
       }
     }
     visiting = false;
