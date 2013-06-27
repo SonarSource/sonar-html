@@ -96,7 +96,7 @@ class TextTokenizer extends AbstractTokenizer<List<Node>> {
   private boolean inScript(List<Node> nodeList) {
     if (!nodeList.isEmpty()) {
       Node node = nodeList.get(nodeList.size() - 1);
-      if (node.getNodeType() == NodeType.Tag) {
+      if (node.getNodeType() == NodeType.TAG) {
         TagNode tag = (TagNode) node;
         return !tag.isEndElement() && "script".equalsIgnoreCase(tag.getNodeName());
       }

@@ -77,7 +77,7 @@ public class HtmlAstScanner {
    */
   private void scanElement(DefaultNodeVisitor visitor, Node node) {
     switch (node.getNodeType()) {
-      case Tag:
+      case TAG:
         TagNode element = (TagNode) node;
         if (!element.isEndElement()) {
           visitor.startElement(element);
@@ -86,16 +86,16 @@ public class HtmlAstScanner {
           visitor.endElement(element);
         }
         break;
-      case Text:
+      case TEXT:
         visitor.characters((TextNode) node);
         break;
-      case Comment:
+      case COMMENT:
         visitor.comment((CommentNode) node);
         break;
-      case Expression:
+      case EXPRESSION:
         visitor.expression((ExpressionNode) node);
         break;
-      case Directive:
+      case DIRECTIVE:
         visitor.directive((DirectiveNode) node);
         break;
       default:

@@ -101,7 +101,7 @@ public final class PageLexer {
   private void createNodeHierarchy(List<Node> nodeList) {
     TagNode current = null;
     for (Node node : nodeList) {
-      if (node.getNodeType() == NodeType.Tag) {
+      if (node.getNodeType() == NodeType.TAG) {
         TagNode element = (TagNode) node;
 
         // start element

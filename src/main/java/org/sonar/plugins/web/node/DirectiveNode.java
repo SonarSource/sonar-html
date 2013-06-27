@@ -26,7 +26,7 @@ package org.sonar.plugins.web.node;
 public class DirectiveNode extends TagNode {
 
   public DirectiveNode() {
-    super(NodeType.Directive);
+    super(NodeType.DIRECTIVE);
   }
 
   public boolean isHtml() {

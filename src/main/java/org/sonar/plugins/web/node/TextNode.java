@@ -28,7 +28,7 @@ import org.apache.commons.lang.StringUtils;
 public class TextNode extends Node {
 
   public TextNode() {
-    super(NodeType.Text);
+    super(NodeType.TEXT);
   }
 
   public boolean isBlank() {

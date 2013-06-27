@@ -36,7 +36,7 @@ public class TagNode extends Node {
   private TagNode parent;
 
   public TagNode() {
-    super(NodeType.Tag);
+    super(NodeType.TAG);
   }
 
   protected TagNode(NodeType nodeType) {

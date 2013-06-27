@@ -26,7 +26,7 @@ package org.sonar.plugins.web.node;
 public class ExpressionNode extends Node {
 
   public ExpressionNode() {
-    super(NodeType.Expression);
+    super(NodeType.EXPRESSION);
   }
 
 }

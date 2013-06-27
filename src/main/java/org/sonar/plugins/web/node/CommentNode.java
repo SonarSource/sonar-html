@@ -28,7 +28,7 @@ public class CommentNode extends Node {
   private boolean html;
 
   public CommentNode() {
-    super(NodeType.Comment);
+    super(NodeType.COMMENT);
   }
 
   public boolean isHtml() {

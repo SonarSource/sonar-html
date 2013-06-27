@@ -78,12 +78,12 @@ public class PageCountLines extends DefaultNodeVisitor {
     }
 
     switch (node.getNodeType()) {
-      case Tag:
-      case Directive:
-      case Expression:
+      case TAG:
+      case DIRECTIVE:
+      case EXPRESSION:
         linesOfCode += linesOfCodeCurrentNode;
         break;
-      case Comment:
+      case COMMENT:
         if (previousNode == null) {
           // this is a header comment
           headerCommentLines += linesOfCodeCurrentNode;
@@ -91,7 +91,7 @@ public class PageCountLines extends DefaultNodeVisitor {
           commentLines += linesOfCodeCurrentNode;
         }
         break;
-      case Text:
+      case TEXT:
         handleTextToken((TextNode) node, previousNode, linesOfCodeCurrentNode);
 
         break;
@@ -108,7 +108,7 @@ public class PageCountLines extends DefaultNodeVisitor {
       // add one newline to the previous node
       if (previousNode != null) {
         switch (previousNode.getNodeType()) {
-          case Comment:
+          case COMMENT:
             if (previousNode.getStartLinePosition() == 1) {
               // this was a header comment
               headerCommentLines++;
@@ -117,9 +117,9 @@ public class PageCountLines extends DefaultNodeVisitor {
             }
             nonBlankLines++;
             break;
-          case Tag:
-          case Directive:
-          case Expression:
+          case TAG:
+          case DIRECTIVE:
+          case EXPRESSION:
             linesOfCode++;
             nonBlankLines++;
             break;

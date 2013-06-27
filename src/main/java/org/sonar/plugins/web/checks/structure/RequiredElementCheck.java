@@ -60,7 +60,7 @@ public class RequiredElementCheck extends AbstractPageCheck {
     for (String elementName : elements) {
       boolean hasRequiredElement = false;
       for (Node node : nodes) {
-        if (node.getNodeType() == NodeType.Tag) {
+        if (node.getNodeType() == NodeType.TAG) {
           TagNode element = (TagNode) node;
           if (element.equalsElementName(elementName)) {
             hasRequiredElement = true;

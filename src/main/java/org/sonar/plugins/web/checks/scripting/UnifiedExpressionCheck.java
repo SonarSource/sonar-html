@@ -111,7 +111,8 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
               createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
             }
 
-            return null; // we only care about the check.
+            // we only care about the check.
+            return null;
           }
         };
       }
