@@ -17,50 +17,27 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.StringReader;
+import java.io.File;
 
-import static org.fest.assertions.Assertions.assertThat;
+public class AvoidCommentedOutCodeCheckTest {
 
-public class AvoidCommentedOutCodeCheckTest extends AbstractCheckTester {
-
-  @Test
-  public void shouldDetectNoCommentedOutCode() {
-    String fragment = "<!-- this comment is not allowed -->";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidCommentedOutCodeCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void shouldDetectNoCommentedOutCodeEvenWithGreaterThanAtTheEnd() {
-    String fragment = "<!--  Hello world! >-->";
+  public void detected() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidCommentedOutCodeCheck.html"), new AvoidCommentedOutCodeCheck());
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidCommentedOutCodeCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
-
-  @Test
-  public void shouldDetectCommentedOutCode() {
-    String fragment = "<!--\n  <h:someOtherTag line='45' />\n  <h:someOtherTag line='45' />\n-->";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidCommentedOutCodeCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
-  }
-
-  @Test
-  public void shouldDetectCommentedOutCodeOnAttributes() {
-    String fragment = "<!--\n style=\"size: 45px; color: red;\"\n id=\"foo\" name=\"bar\"\n id=\"foo\" name=\"bar\"\n -->";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidCommentedOutCodeCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(3)
+        .next().atLine(9)
+        .next().atLine(11);
   }
 
 }
