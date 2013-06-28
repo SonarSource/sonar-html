@@ -1,3 +1,11 @@
 <p>
-Dependencies to certain libraries are not allowed.
+This rule verifies if some given Java packages or classes are used in a JSP file.
 </p>
+
+<p>The following code illustrates this rule, with <code>java.sql,ArrayList</code> as libraries:</p>
+
+<pre>
+&lt;%@ page import="java.sql.*" %&gt;     &lt;!-- Non-Compliant --&gt;
+&lt;% java.util.ArrayList clients; %&gt;  &lt;!-- Non-Compliant --&gt;
+&lt;% java.lang.String name; %&gt;        &lt;!-- Compliant --&gt;
+</pre>

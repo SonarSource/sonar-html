@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.checks.dependencies;
 
 import com.google.common.base.Splitter;
+import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -29,15 +30,24 @@ import org.sonar.plugins.web.node.Node;
 
 import java.util.List;
 
-@Rule(key = "LibraryDependencyCheck", priority = Priority.CRITICAL)
+@Rule(
+  key = "LibraryDependencyCheck",
+  priority = Priority.MAJOR,
+  cardinality = Cardinality.MULTIPLE)
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_LIBRARIES = "";
+  private static final String DEFAULT_MESSAGE = "Remove the usage of this library which is not allowed.";
 
   @RuleProperty(
     key = "libraries",
     defaultValue = DEFAULT_LIBRARIES)
   public String libraries = DEFAULT_LIBRARIES;
+
+  @RuleProperty(
+    key = "message",
+    defaultValue = "" + DEFAULT_MESSAGE)
+  public String message = DEFAULT_MESSAGE;
 
   private Iterable<String> librariesIterable;
 
@@ -48,34 +58,33 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @Override
   public void directive(DirectiveNode node) {
-    if (libraries != null && node.isJsp() && "page".equalsIgnoreCase(node.getNodeName())) {
-      for (Attribute a : node.getAttributes()) {
-        String illegalLibrary = getIllegalImport(a);
-        if (illegalLibrary != null) {
-          createViolation(node.getStartLinePosition(), "Using '" + illegalLibrary + "' library is not allowed.");
+    if (node.isJsp() && "page".equalsIgnoreCase(node.getNodeName())) {
+      for (Attribute attribute : node.getAttributes()) {
+        if (isIllegalImport(attribute)) {
+          createViolation(node.getStartLinePosition(), message);
         }
       }
     }
+  }
+
+  private boolean isIllegalImport(Attribute a) {
+    if ("import".equals(a.getName())) {
+      for (String library : librariesIterable) {
+        if (a.getValue().contains(library)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   @Override
   public void expression(ExpressionNode node) {
     for (String library : librariesIterable) {
       if (node.getCode().contains(library)) {
-        createViolation(node.getStartLinePosition(), "Using '" + library + "' library is not allowed.");
+        createViolation(node.getStartLinePosition(), message);
       }
     }
-  }
-
-  private String getIllegalImport(Attribute a) {
-    if ("import".equals(a.getName())) {
-      for (String library : librariesIterable) {
-        if (a.getValue().contains(library)) {
-          return library;
-        }
-      }
-    }
-    return null;
   }
 
 }

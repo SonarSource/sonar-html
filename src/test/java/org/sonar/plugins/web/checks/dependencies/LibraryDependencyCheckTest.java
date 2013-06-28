@@ -26,10 +26,19 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 public class LibraryDependencyCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
+  @Test
+  public void default_parameters() {
+    LibraryDependencyCheck check = new LibraryDependencyCheck();
+    assertThat(check.libraries).isEmpty();
+    assertThat(check.message).isEqualTo("Remove the usage of this library which is not allowed.");
+  }
 
   @Test
   public void illegal_fully_qualified_identifier() {
@@ -39,7 +48,19 @@ public class LibraryDependencyCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Using 'java.sql' library is not allowed.");
+        .next().atLine(1).withMessage("Remove the usage of this library which is not allowed.");
+  }
+
+  @Test
+  public void illegal_fully_qualified_identifier_with_custom_message() {
+    LibraryDependencyCheck check = new LibraryDependencyCheck();
+    check.libraries = "java.sql";
+    check.message = "Foo.";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(1).withMessage("Foo.");
   }
 
   @Test
@@ -50,7 +71,7 @@ public class LibraryDependencyCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalImport.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Using 'java.sql' library is not allowed.");
+        .next().atLine(2).withMessage("Remove the usage of this library which is not allowed.");
   }
 
   @Test
@@ -59,6 +80,16 @@ public class LibraryDependencyCheckTest {
     check.libraries = "java.sql";
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/LegalFullyQualifiedIdentifierAndImport.jsp"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations());
+  }
+
+  @Test
+  public void html_page() throws FileNotFoundException {
+    LibraryDependencyCheck check = new LibraryDependencyCheck();
+    check.libraries = "java.sql";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/HtmlPage.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
