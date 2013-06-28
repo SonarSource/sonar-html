@@ -139,22 +139,6 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>native2ascii-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>native2ascii</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
   <repositories>
     <repository>
       <id>repository.jboss.org</id>
