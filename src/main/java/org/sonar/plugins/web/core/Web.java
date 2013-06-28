@@ -27,12 +27,6 @@ import org.sonar.plugins.web.api.WebConstants;
 
 import java.util.ArrayList;
 
-/**
- * This class defines the Web language.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
 @Properties({
   @Property(key = WebConstants.FILE_EXTENSIONS_PROP_KEY,
     name = "File extensions",
@@ -43,7 +37,7 @@ import java.util.ArrayList;
 })
 public class Web extends AbstractLanguage {
 
-  private String[] fileSuffixes;
+  private final String[] fileSuffixes;
 
   /**
    * Default constructor.
@@ -64,6 +58,7 @@ public class Web extends AbstractLanguage {
   /**
    * {@inheritDoc}
    */
+  @Override
   public String[] getFileSuffixes() {
     return fileSuffixes;
   }

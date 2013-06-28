@@ -17,12 +17,6 @@
  */
 package org.sonar.plugins.web.api;
 
-/**
- * Constants for the project configuration.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
 public interface WebConstants {
 
   /** The language key. */
@@ -32,6 +26,6 @@ public interface WebConstants {
   // ================ Plugin properties ================
 
   String FILE_EXTENSIONS_PROP_KEY = "sonar.web.fileExtensions";
-  String FILE_EXTENSIONS_DEF_VALUE = "xhtml,jspf,jsp";
+  String FILE_EXTENSIONS_DEF_VALUE = "html,xhtml,jsp,jspf,jsf,php,erb,rhtml";
 
 }

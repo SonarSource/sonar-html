@@ -45,12 +45,6 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.FileReader;
 import java.util.List;
 
-/**
- * WebSensor provides analysis of web files.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
 public final class WebSensor implements Sensor {
 
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};

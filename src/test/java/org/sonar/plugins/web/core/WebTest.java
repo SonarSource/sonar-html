@@ -23,15 +23,12 @@ import org.sonar.plugins.web.api.WebConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
 public class WebTest {
 
   @Test
   public void testDefaultFileSuffixes() {
     Web web = new Web(new Settings());
-    assertThat(web.getFileSuffixes()).containsOnly("xhtml", "jspf", "jsp");
+    assertThat(web.getFileSuffixes()).containsOnly("html", "xhtml", "jsp", "jspf", "jsf", "php", "erb", "rhtml");
   }
 
   @Test
