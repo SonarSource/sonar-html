@@ -17,22 +17,17 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
-import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableSet;
-import org.apache.commons.io.IOUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
-import org.sonar.squid.measures.Metric;
 import org.sonar.squid.recognizer.CodeRecognizer;
 import org.sonar.squid.recognizer.ContainsDetector;
 import org.sonar.squid.recognizer.Detector;
 import org.sonar.squid.recognizer.EndWithDetector;
 import org.sonar.squid.recognizer.LanguageFootprint;
-import org.sonar.squid.text.Source;
 
-import java.io.StringReader;
 import java.util.Set;
 
 /**
@@ -42,7 +37,9 @@ import java.util.Set;
 @Rule(key = "AvoidCommentedOutCodeCheck", priority = Priority.MAJOR)
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
-  private static final LanguageFootprint languageFootprint = new LanguageFootprint() {
+  private static final double THRESHOLD = 0.9;
+
+  private static final LanguageFootprint LANGUAGE_FOOTPRINT = new LanguageFootprint() {
 
     @Override
     public Set<Detector> getDetectors() {
@@ -54,38 +51,17 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   };
 
-  private static final double CODE_RECOGNIZER_SENSITIVITY = 0.9;
+  private static final CodeRecognizer CODE_RECOGNIZER = new CodeRecognizer(THRESHOLD, LANGUAGE_FOOTPRINT);
 
   @Override
   public void comment(CommentNode node) {
     if (node.isHtml()) {
       String comment = node.getCode();
 
-      if (!comment.startsWith("<!--[if")) {
-        Source source = analyseSourceCode(comment);
-        int commentedOutLocs = source.getMeasure(Metric.COMMENTED_OUT_CODE_LINES);
-        if (commentedOutLocs > 0) {
-          createViolation(node.getStartLinePosition(), "Remove this block of commented out code.");
-        }
+      if (!comment.startsWith("<!--[if") && CODE_RECOGNIZER.isLineOfCode(comment)) {
+        createViolation(node.getStartLinePosition(), "Remove this block of commented out code.");
       }
     }
-  }
-
-  private Source analyseSourceCode(String commentText) {
-    Source result = null;
-    StringReader reader = null;
-    try {
-      reader = new StringReader(commentText);
-      // the last string ("") is necessary because the Source class needs to consider that every line is a comment, not only the standard
-      // "/*", "//", ...etc.
-      result = new Source(reader, new CodeRecognizer(CODE_RECOGNIZER_SENSITIVITY, languageFootprint), "");
-    } catch (Exception e) {
-      Throwables.propagate(e);
-    } finally {
-      IOUtils.closeQuietly(reader);
-    }
-
-    return result;
   }
 
 }
