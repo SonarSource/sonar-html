@@ -36,7 +36,7 @@ import org.sonar.plugins.web.node.ExpressionNode;
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @RuleProperty
-  private String[] libraries;
+  public String[] libraries;
 
   public String getLibraries() {
     if (libraries != null) {
@@ -53,8 +53,9 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
   public void directive(DirectiveNode node) {
     if (libraries != null && node.isJsp() && "page".equalsIgnoreCase(node.getNodeName())) {
       for (Attribute a : node.getAttributes()) {
-        if (isIllegalImport(a)) {
-          createViolation(node.getStartLinePosition(), "Using '" + a.getValue() + "' library is not allowed.");
+        String illegalLibrary = getIllegalImport(a);
+        if (illegalLibrary != null) {
+          createViolation(node.getStartLinePosition(), "Using '" + illegalLibrary + "' library is not allowed.");
         }
       }
     }
@@ -69,14 +70,15 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
     }
   }
 
-  private boolean isIllegalImport(Attribute a) {
+  private String getIllegalImport(Attribute a) {
     if ("import".equals(a.getName())) {
       for (String library : libraries) {
         if (a.getValue().contains(library)) {
-          return true;
+          return library;
         }
       }
     }
-    return false;
+    return null;
   }
+
 }

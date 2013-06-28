@@ -17,39 +17,50 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
 
-import static junit.framework.Assert.assertEquals;
+public class LibraryDependencyCheckTest {
 
-/**
- * @author Matthijs Galesloot
- */
-public class LibraryDependencyCheckTest extends AbstractCheckTester {
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void illegalImportCheck() throws FileNotFoundException {
+  public void illegal_fully_qualified_identifier() {
+    LibraryDependencyCheck check = new LibraryDependencyCheck();
+    check.libraries = new String[] {"java.sql"};
 
-    String fragment = "<%@ page import=\"java.sql.*\"%>";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, LibraryDependencyCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
 
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(1).withMessage("Using 'java.sql' library is not allowed.");
   }
 
   @Test
-  public void illegalExpressionCheck() throws FileNotFoundException {
+  public void illegal_import() throws FileNotFoundException {
+    LibraryDependencyCheck check = new LibraryDependencyCheck();
+    check.libraries = new String[] {"java.sql"};
 
-    String fragment = "<% java.sql.Connection c1; %>";
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalImport.jsp"), check);
 
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, LibraryDependencyCheck.class);
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(1).withMessage("Using 'java.sql' library is not allowed.");
   }
+
+  @Test
+  public void legal_fully_qualified_identifier_and_import() throws FileNotFoundException {
+    LibraryDependencyCheck check = new LibraryDependencyCheck();
+    check.libraries = new String[] {"java.sql"};
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/LegalFullyQualifiedIdentifierAndImport.jsp"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations());
+  }
+
 }

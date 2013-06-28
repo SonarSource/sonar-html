@@ -85,6 +85,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     return value != null && value.length() > 0 && (value.contains("#{") || value.contains("${"));
   }
 
+  @Deprecated
   public String[] trimSplitCommaSeparatedList(String value) {
     String[] tokens = StringUtils.split(value, ",");
     for (int i = 0; i < tokens.length; i++) {

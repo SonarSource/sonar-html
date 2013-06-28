@@ -36,6 +36,9 @@ public class DefaultNodeVisitor {
 
   private WebSourceCode webSourceCode;
 
+  public void init() {
+  }
+
   public void characters(TextNode textNode) {
   }
 
