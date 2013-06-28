@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import org.apache.commons.lang.StringUtils;
+import com.google.common.base.Splitter;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -25,28 +25,25 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
+import org.sonar.plugins.web.node.Node;
 
-/**
- * Checker to find libraries that should not be used.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
+import java.util.List;
+
 @Rule(key = "LibraryDependencyCheck", priority = Priority.CRITICAL)
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  public String[] libraries;
+  private static final String DEFAULT_LIBRARIES = "";
 
-  public String getLibraries() {
-    if (libraries != null) {
-      return StringUtils.join(libraries, ",");
-    }
-    return "";
-  }
+  @RuleProperty(
+    key = "libraries",
+    defaultValue = DEFAULT_LIBRARIES)
+  public String libraries = DEFAULT_LIBRARIES;
 
-  public void setLibraries(String list) {
-    libraries = trimSplitCommaSeparatedList(list);
+  private Iterable<String> librariesIterable;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    librariesIterable = Splitter.on(',').trimResults().omitEmptyStrings().split(libraries);
   }
 
   @Override
@@ -63,7 +60,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @Override
   public void expression(ExpressionNode node) {
-    for (String library : libraries) {
+    for (String library : librariesIterable) {
       if (node.getCode().contains(library)) {
         createViolation(node.getStartLinePosition(), "Using '" + library + "' library is not allowed.");
       }
@@ -72,7 +69,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   private String getIllegalImport(Attribute a) {
     if ("import".equals(a.getName())) {
-      for (String library : libraries) {
+      for (String library : librariesIterable) {
         if (a.getValue().contains(library)) {
           return library;
         }

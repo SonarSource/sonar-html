@@ -34,7 +34,7 @@ public class LibraryDependencyCheckTest {
   @Test
   public void illegal_fully_qualified_identifier() {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
-    check.libraries = new String[] {"java.sql"};
+    check.libraries = "java.sql";
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
 
@@ -45,7 +45,7 @@ public class LibraryDependencyCheckTest {
   @Test
   public void illegal_import() throws FileNotFoundException {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
-    check.libraries = new String[] {"java.sql"};
+    check.libraries = "java.sql";
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalImport.jsp"), check);
 
@@ -56,7 +56,7 @@ public class LibraryDependencyCheckTest {
   @Test
   public void legal_fully_qualified_identifier_and_import() throws FileNotFoundException {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
-    check.libraries = new String[] {"java.sql"};
+    check.libraries = "java.sql";
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/LegalFullyQualifiedIdentifierAndImport.jsp"), check);
 
