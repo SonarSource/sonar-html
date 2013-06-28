@@ -17,9 +17,9 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
+import com.google.common.base.Throwables;
+import com.google.common.collect.ImmutableSet;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -33,7 +33,6 @@ import org.sonar.squid.recognizer.LanguageFootprint;
 import org.sonar.squid.text.Source;
 
 import java.io.StringReader;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -43,17 +42,31 @@ import java.util.Set;
 @Rule(key = "AvoidCommentedOutCodeCheck", priority = Priority.MAJOR)
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AvoidCommentedOutCodeCheck.class);
+  private static final LanguageFootprint languageFootprint = new LanguageFootprint() {
+
+    @Override
+    public Set<Detector> getDetectors() {
+      return ImmutableSet.of(
+          new ContainsDetector(0.7, "=\"", "='"),
+          new ContainsDetector(0.8, "/>", "</", "<%", "%>"),
+          new EndWithDetector(0.9, '>'));
+    }
+
+  };
 
   private static final double CODE_RECOGNIZER_SENSITIVITY = 0.9;
 
   @Override
   public void comment(CommentNode node) {
     if (node.isHtml()) {
-      Source source = analyseSourceCode(node.getCode());
-      int commentedOutLocs = source.getMeasure(Metric.COMMENTED_OUT_CODE_LINES);
-      if (commentedOutLocs > 0) {
-        createViolation(node.getStartLinePosition(), "Remove this block of commented out code.");
+      String comment = node.getCode();
+
+      if (!comment.startsWith("<!--[if")) {
+        Source source = analyseSourceCode(comment);
+        int commentedOutLocs = source.getMeasure(Metric.COMMENTED_OUT_CODE_LINES);
+        if (commentedOutLocs > 0) {
+          createViolation(node.getStartLinePosition(), "Remove this block of commented out code.");
+        }
       }
     }
   }
@@ -65,25 +78,14 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
       reader = new StringReader(commentText);
       // the last string ("") is necessary because the Source class needs to consider that every line is a comment, not only the standard
       // "/*", "//", ...etc.
-      result = new Source(reader, new CodeRecognizer(CODE_RECOGNIZER_SENSITIVITY, new WebFootprint()), "");
+      result = new Source(reader, new CodeRecognizer(CODE_RECOGNIZER_SENSITIVITY, languageFootprint), "");
     } catch (Exception e) {
-      LOG.error("Error while parsing comment: " + commentText, e);
+      Throwables.propagate(e);
     } finally {
       IOUtils.closeQuietly(reader);
     }
 
     return result;
-  }
-
-  static class WebFootprint implements LanguageFootprint {
-
-    public Set<Detector> getDetectors() {
-      Set<Detector> detectors = new HashSet<Detector>();
-      detectors.add(new ContainsDetector(0.7, "=\"", "='"));
-      detectors.add(new ContainsDetector(0.8, "/>", "</", "<%", "%>"));
-      detectors.add(new EndWithDetector(0.9, '>'));
-      return detectors;
-    }
   }
 
 }
