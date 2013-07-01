@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
@@ -37,11 +38,11 @@ public class TestHelper {
     try {
       PageLexer lexer = new PageLexer();
       List<Node> nodes = lexer.parse(new FileReader(file));
-      WebSourceCode result = new WebSourceCode(new org.sonar.api.resources.File("test"));
+      WebSourceCode result = new WebSourceCode(file, new org.sonar.api.resources.File("test"));
 
       HtmlAstScanner walker = new HtmlAstScanner();
       walker.addVisitor(visitor);
-      walker.scan(nodes, result);
+      walker.scan(nodes, result, Charsets.UTF_8);
 
       return result;
     } catch (Exception e) {

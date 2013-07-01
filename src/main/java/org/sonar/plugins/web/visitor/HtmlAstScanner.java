@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.visitor;
 
+import org.sonar.plugins.web.checks.sonar.CharsetAwareVisitor;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -24,6 +25,7 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,11 +49,15 @@ public class HtmlAstScanner {
   /**
    * Scan a list of Nodes and send events to the visitors.
    */
-  public void scan(List<Node> nodeList, WebSourceCode webSourceCode) {
+  public void scan(List<Node> nodeList, WebSourceCode webSourceCode, Charset charset) {
 
     // prepare the visitors
     for (DefaultNodeVisitor visitor : visitors) {
       visitor.setSourceCode(webSourceCode);
+
+      if (visitor instanceof CharsetAwareVisitor) {
+        ((CharsetAwareVisitor) visitor).setCharset(charset);
+      }
     }
 
     // notify visitors for a new document

@@ -22,23 +22,24 @@ import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Checks and analyzers report measurements, violations and other findings in WebSourceCode.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
 public class WebSourceCode {
 
-  private final List<Measure> measures = new ArrayList<Measure>();
+  private final File file;
   private final Resource<?> resource;
+  private final List<Measure> measures = new ArrayList<Measure>();
   private final List<Violation> violations = new ArrayList<Violation>();
 
-  public WebSourceCode(Resource<?> resource) {
+  public WebSourceCode(File file, Resource<?> resource) {
+    this.file = file;
     this.resource = resource;
+  }
+
+  public File getFile() {
+    return file;
   }
 
   public void addMeasure(Metric metric, double value) {

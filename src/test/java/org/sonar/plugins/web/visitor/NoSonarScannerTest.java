@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.visitor;
 
+import com.google.common.base.Charsets;
 import org.junit.Test;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.resources.Directory;
@@ -26,15 +27,13 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.NoSonarScanner;
-import org.sonar.plugins.web.visitor.HtmlAstScanner;
-import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.StringReader;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 /**
  * @author Matthijs Galesloot
@@ -49,13 +48,13 @@ public class NoSonarScannerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
     Resource<Directory> resource = new File("test");
-    WebSourceCode webSourceCode = new WebSourceCode(resource);
+    WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), resource);
 
     NoSonarFilter noSonarFilter = new NoSonarFilter();
     NoSonarScanner noSonarScanner = new NoSonarScanner(noSonarFilter);
     HtmlAstScanner pageScanner = new HtmlAstScanner();
     pageScanner.addVisitor(noSonarScanner);
-    pageScanner.scan(nodeList, webSourceCode);
+    pageScanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     Rule rule = Rule.create("Web", "test", "test");
     Violation violation = Violation.create(rule, resource);

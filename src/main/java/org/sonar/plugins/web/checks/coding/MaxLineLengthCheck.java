@@ -17,106 +17,61 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import org.apache.commons.lang.StringUtils;
+import com.google.common.io.Files;
+import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.node.CommentNode;
-import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.node.ExpressionNode;
+import org.sonar.plugins.web.checks.sonar.CharsetAwareVisitor;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.node.TextNode;
 
-/**
- * Checker to control the length of the lines.
- *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph
- *
- * @author Matthijs Galesloot
- * @since 1.0
- *
- */
-@Rule(key = "MaxLineLengthCheck", name = "", description = "Checks the length of a line",
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
+@Rule(
+  key = "MaxLineLengthCheck",
+  name = "",
+  description = "Checks the length of a line",
   priority = Priority.MINOR)
-public class MaxLineLengthCheck extends AbstractPageCheck {
+public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;
 
-  @RuleProperty(defaultValue = DEFAULT_MAX_LINE_LENGTH + "")
-  private int maxLength = DEFAULT_MAX_LINE_LENGTH;
+  private Charset charset;
 
-  private int currentLineLength;
-
-  private Node currentNode;
-
-  public int getMaxLength() {
-    return maxLength;
-  }
-
-  public void setMaxLength(int maxLength) {
-    this.maxLength = maxLength;
-  }
+  @RuleProperty(
+    key = "maxLength",
+    defaultValue = "" + DEFAULT_MAX_LINE_LENGTH)
+  public int maxLength = DEFAULT_MAX_LINE_LENGTH;
 
   @Override
-  public void characters(TextNode textNode) {
-    handleNode(textNode);
-  }
-
-  @Override
-  public void directive(DirectiveNode node) {
-    handleNode(node);
-  }
-
-  @Override
-  public void comment(CommentNode node) {
-    handleNode(node);
-  }
-
-  @Override
-  public void expression(ExpressionNode node) {
-    handleNode(node);
-  }
-
-  @Override
-  public void startElement(TagNode element) {
-    handleNode(element);
-  }
-
-  @Override
-  public void endDocument() {
-    if (currentNode != null) {
-      check(currentNode, 0);
-    }
-  }
-
-  private void handleNode(Node node) {
-    currentNode = node;
-    String code = node.getCode();
-    int startPos = 0;
-    int indexPos;
-    int newlines = 0;
-    while ((indexPos = StringUtils.indexOf(code, '\n', startPos)) >= 0) {
-      currentLineLength += indexPos - startPos;
-      if (indexPos > 0 && code.charAt(indexPos - 1) == '\r') {
-        currentLineLength -= 1;
+  public void startDocument(List<Node> nodes) {
+    File file = getWebSourceCode().getFile();
+    List<String> lines = readLines(file);
+    for (int i = 0; i < lines.size(); i++) {
+      int length = lines.get(i).length();
+      if (length > maxLength) {
+        createViolation(
+            i + 1,
+            "Split this " + length + " characters long line (which is greater than " + maxLength + " authorized).");
       }
-      check(node, newlines);
-
-      startPos = indexPos + 1;
-      newlines++;
-    }
-    if (startPos < code.length()) {
-      currentLineLength += code.length() - startPos;
     }
   }
 
-  private void check(Node node, int newlines) {
-    if (currentLineLength > maxLength) {
-      createViolation(node.getStartLinePosition() + newlines, "Current line length (" + currentLineLength + ") exceeds the maximum threshold set to " + maxLength);
+  private List<String> readLines(File file) {
+    try {
+      return Files.readLines(file, charset);
+    } catch (IOException e) {
+      throw new SonarException("Unable to read " + file, e);
     }
-    currentLineLength = 0;
+  }
+
+  @Override
+  public void setCharset(Charset charset) {
+    this.charset = charset;
   }
 
 }

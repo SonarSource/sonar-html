@@ -17,57 +17,38 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.File;
 
-import static org.fest.assertions.Assertions.assertThat;
+public class MaxLineLengthCheckTest {
 
-/**
- * @author Matthijs Galesloot
- */
-public class MaxLineLengthCheckTest extends AbstractCheckTester {
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateMaxLengthCheck() throws FileNotFoundException {
-    String string = generateString(121);
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+  public void test() {
+    WebSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), new MaxLineLengthCheck());
+    checkMessagesVerifier.verify(file.getViolations())
+        .next().atLine(2).withMessage("Split this 121 characters long line (which is greater than 120 authorized).")
+        .next().atLine(3).withMessage("Split this 122 characters long line (which is greater than 120 authorized).");
   }
 
   @Test
-  public void passMaxLengthCheck() throws FileNotFoundException {
-    String string = generateString(120);
+  public void custom() {
+    MaxLineLengthCheck check = new MaxLineLengthCheck();
+    check.maxLength = 40;
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
+    WebSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), check);
+    checkMessagesVerifier.verify(file.getViolations())
+        .next().atLine(1)
+        .next().atLine(2)
+        .next().atLine(3)
+        .next().atLine(6).withMessage("Split this 41 characters long line (which is greater than 40 authorized).");
   }
 
-  @Test
-  public void passMaxLengthCheckWithMultipleLinesWithLF() throws FileNotFoundException {
-    String string = "\n" + generateString(120) + "\n" + generateString(120) + "\n\n";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
-
-  @Test
-  public void passMaxLengthCheckWithMultipleLinesWithCRLF() throws FileNotFoundException {
-    String string = "\r\n" + generateString(120) + "\r\n" + generateString(120) + "\r\n\r\n";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(string), MaxLineLengthCheck.class);
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
-
-  private String generateString(int numberOfChars) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < numberOfChars; i++) {
-      sb.append("x");
-    }
-    return sb.toString();
-  }
 }

@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.analyzers;
 
+import com.google.common.base.Charsets;
 import org.junit.Test;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.File;
@@ -32,10 +33,8 @@ import java.util.List;
 
 import static junit.framework.Assert.assertTrue;
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
-/**
- * @author Matthijs Galesloot
- */
 public class PageCountLinesTest {
 
   @Test
@@ -48,11 +47,12 @@ public class PageCountLinesTest {
 
     final HtmlAstScanner scanner = new HtmlAstScanner();
     scanner.addVisitor(new PageCountLines());
-    WebSourceCode webSourceCode = new WebSourceCode(webFile);
-    scanner.scan(nodeList, webSourceCode);
+    WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), webFile);
+    scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(287);
     assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC).getIntValue()).isEqualTo(227);
     assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES).getIntValue()).isEqualTo(14);
   }
+
 }

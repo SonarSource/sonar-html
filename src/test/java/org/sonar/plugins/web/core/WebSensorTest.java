@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.core;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import org.apache.commons.configuration.MapConfiguration;
 import org.apache.commons.io.IOUtils;
@@ -93,6 +94,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
     project.setLanguageKey(WebConstants.LANGUAGE_KEY);
     project.setLanguage(new Web(new Settings()));
     ProjectFileSystem projectFileSystem = mock(ProjectFileSystem.class);
+    when(projectFileSystem.getSourceCharset()).thenReturn(Charsets.UTF_8);
     project.setFileSystem(projectFileSystem);
     when(projectFileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(TestUtils.getResource("src/main/webapp")));
     when(projectFileSystem.mainFiles("web")).thenReturn(Lists.newArrayList(InputFileUtils.create(TestUtils.getResource("src/main/webapp"), "user-properties.jsp")));

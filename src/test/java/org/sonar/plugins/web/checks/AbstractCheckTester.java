@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.checks;
 
+import com.google.common.base.Charsets;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.ProfileDefinition;
@@ -47,6 +48,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static junit.framework.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
@@ -74,12 +76,12 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
 
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
-    WebSourceCode webSourceCode = new WebSourceCode(new File("test"));
+    WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), new File("test"));
 
     HtmlAstScanner pageScanner = new HtmlAstScanner();
     pageScanner.addVisitor(new PageCountLines());
     pageScanner.addVisitor(check);
-    pageScanner.scan(nodeList, webSourceCode);
+    pageScanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
     return webSourceCode;
   }
 
