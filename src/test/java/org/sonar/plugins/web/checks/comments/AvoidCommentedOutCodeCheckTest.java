@@ -35,7 +35,7 @@ public class AvoidCommentedOutCodeCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidCommentedOutCodeCheck.html"), new AvoidCommentedOutCodeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(3)
+        .next().atLine(3).withMessage("Remove this commented out code.")
         .next().atLine(9)
         .next().atLine(11);
   }

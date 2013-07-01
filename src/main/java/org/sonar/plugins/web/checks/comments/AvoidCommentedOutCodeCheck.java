@@ -30,11 +30,9 @@ import org.sonar.squid.recognizer.LanguageFootprint;
 
 import java.util.Set;
 
-/**
- * Finds commented-out code.
- *
- */
-@Rule(key = "AvoidCommentedOutCodeCheck", priority = Priority.MAJOR)
+@Rule(
+  key = "AvoidCommentedOutCodeCheck",
+  priority = Priority.MAJOR)
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   private static final double THRESHOLD = 0.9;
@@ -59,7 +57,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
       String comment = node.getCode();
 
       if (!comment.startsWith("<!--[if") && CODE_RECOGNIZER.isLineOfCode(comment)) {
-        createViolation(node.getStartLinePosition(), "Remove this block of commented out code.");
+        createViolation(node.getStartLinePosition(), "Remove this commented out code.");
       }
     }
   }
