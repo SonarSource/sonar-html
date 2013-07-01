@@ -27,14 +27,16 @@ public class WebTest {
 
   @Test
   public void testDefaultFileSuffixes() {
-    Web web = new Web(new Settings());
+    Settings settings = new Settings();
+    settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, WebConstants.FILE_EXTENSIONS_DEF_VALUE);
+    Web web = new Web(settings);
     assertThat(web.getFileSuffixes()).containsOnly("html", "xhtml", "jsp", "jspf", "jsf", "php", "erb", "rhtml");
   }
 
   @Test
   public void testCustomFileSuffixes() {
     Settings settings = new Settings();
-    settings.appendProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
+    settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
     Web web = new Web(settings);
     assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
   }

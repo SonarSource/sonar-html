@@ -17,18 +17,15 @@
  */
 package org.sonar.plugins.web.core;
 
-import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.web.api.WebConstants;
 
-import java.util.ArrayList;
-
 @Properties({
-  @Property(key = WebConstants.FILE_EXTENSIONS_PROP_KEY,
+  @Property(
+    key = WebConstants.FILE_EXTENSIONS_PROP_KEY,
     name = "File extensions",
     description = "List of file extensions that will be scanned.",
     defaultValue = WebConstants.FILE_EXTENSIONS_DEF_VALUE,
@@ -39,27 +36,14 @@ public class Web extends AbstractLanguage {
 
   private final String[] fileSuffixes;
 
-  /**
-   * Default constructor.
-   */
   public Web(Settings settings) {
     super(WebConstants.LANGUAGE_KEY, WebConstants.LANGUAGE_NAME);
-    String extensions = settings.getString(WebConstants.FILE_EXTENSIONS_PROP_KEY);
-    if (StringUtils.isBlank(extensions)) {
-      extensions = WebConstants.FILE_EXTENSIONS_DEF_VALUE;
-    }
-    ArrayList<String> extensionsList = Lists.newArrayList();
-    for (String extension : StringUtils.split(extensions, ",")) {
-      extensionsList.add(extension.trim());
-    }
-    fileSuffixes = extensionsList.toArray(new String[extensionsList.size()]);
+    fileSuffixes = settings.getStringArray(WebConstants.FILE_EXTENSIONS_PROP_KEY);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String[] getFileSuffixes() {
     return fileSuffixes;
   }
+
 }
