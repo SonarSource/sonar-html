@@ -1,0 +1,25 @@
+<p>
+Favicons are shown for example in the browser's address bar, bookmark list, or tabs.
+They enable users to quickly identify and recognize websites.
+</p>
+
+<p>
+The following code:
+</p>
+
+<pre>
+&lt;head&gt;                                                                  &lt;!-- Non-Compliant --&gt;
+  &lt;title&gt;...&lt;title&gt;
+&lt;/head&gt;
+</pre>
+
+<p>
+should be refactored into:
+</p>
+
+<pre>
+&lt;head&gt;                                                                  &lt;!-- Compliant --&gt;
+  &lt;title&gt;...&lt;title&gt;
+  &lt;link rel="shortcut icon" href="http://example.com/myicon.ico" /&gt;
+&lt;/head&gt;
+</pre>

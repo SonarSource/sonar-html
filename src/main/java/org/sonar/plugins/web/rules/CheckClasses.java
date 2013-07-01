@@ -54,6 +54,7 @@ import org.sonar.plugins.web.checks.sonar.LinksIdenticalTextsDifferentTargetsChe
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
 import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentCheck;
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
+import org.sonar.plugins.web.checks.sonar.PageWithoutFaviconCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.web.checks.sonar.TableHeaderHasIdOrScopeCheck;
@@ -135,6 +136,7 @@ final class CheckClasses {
     TableHeaderHasIdOrScopeCheck.class,
     InputWithoutLabelCheck.class,
     ImgWithoutWidthOrHeightCheck.class,
+    PageWithoutFaviconCheck.class,
   };
 
   /**
