@@ -33,8 +33,6 @@ import java.util.List;
 
 @Rule(
   key = "MaxLineLengthCheck",
-  name = "",
-  description = "Checks the length of a line",
   priority = Priority.MINOR)
 public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 
