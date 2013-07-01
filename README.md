@@ -1,4 +1,4 @@
-sonar-web
+Sonar Web
 =========
 
 This is the Sonar Web Plugin
