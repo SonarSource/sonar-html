@@ -33,7 +33,6 @@ import org.sonar.plugins.web.checks.dependencies.IllegalNamespaceCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalTagLibsCheck;
 import org.sonar.plugins.web.checks.dependencies.LibraryDependencyCheck;
 import org.sonar.plugins.web.checks.generic.RegularExpressionCheck;
-import org.sonar.plugins.web.checks.header.DocTypeCheck;
 import org.sonar.plugins.web.checks.header.HeaderCheck;
 import org.sonar.plugins.web.checks.header.MultiplePageDirectivesCheck;
 import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
@@ -88,7 +87,6 @@ final class CheckClasses {
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,
-    DocTypeCheck.class,
     DoubleQuotesCheck.class,
     DynamicJspIncludeCheck.class,
     FileLengthCheck.class,

@@ -71,6 +71,6 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
       assertNotNull(rule.key());
       assertNotNull(rule.name());
     }
-    assertTrue(checks.size() > 20);
+    assertTrue(checks.size() == 20);
   }
 }

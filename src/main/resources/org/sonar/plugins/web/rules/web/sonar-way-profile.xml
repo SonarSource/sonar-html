@@ -65,7 +65,7 @@
       <repositoryKey>Web</repositoryKey>
       <key>FileLengthCheck</key>
     </rule>
-    
+
     <!-- XHTML checks -->
     <rule>
       <repositoryKey>Web</repositoryKey>
@@ -82,16 +82,6 @@
         <parameter>
           <key>operators</key>
           <value>&amp;&amp;, ||, and,or</value>
-        </parameter>
-      </parameters>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>DocTypeCheck</key>
-      <parameters>
-        <parameter>
-          <key>dtd</key>
-          <value>http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd</value>
         </parameter>
       </parameters>
     </rule>
