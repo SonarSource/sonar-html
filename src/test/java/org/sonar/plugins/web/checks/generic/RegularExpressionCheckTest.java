@@ -46,8 +46,8 @@ public class RegularExpressionCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RegularExpressionCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(3)
-        .next().atLine(4);
+        .next().atLine(3).withMessage("The value of this attribute 'a' matches the given regular expression: a|d")
+        .next().atLine(4).withMessage("The value of this attribute 'd' matches the given regular expression: a|d");
   }
 
   @Test
@@ -59,7 +59,7 @@ public class RegularExpressionCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RegularExpressionCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(7)
+        .next().atLine(7).withMessage("The text of this element '<bar />' matches the given regular expression: <ba.*")
         .next().atLine(9);
   }
 

@@ -61,12 +61,12 @@ public class RegularExpressionCheck extends AbstractPageCheck {
       if ("attribute".equals(scope)) {
         for (Attribute a : element.getAttributes()) {
           if (pattern.matcher(a.getValue()).lookingAt()) {
-            createViolation(element.getStartLinePosition(), "The value of this attribute ('" + a.getValue() + "') does not match the given regular expression: " + expression);
+            createViolation(element.getStartLinePosition(), "The value of this attribute '" + a.getValue() + "' matches the given regular expression: " + expression);
           }
         }
       } else {
         if (pattern.matcher(element.getCode()).lookingAt()) {
-          createViolation(element.getStartLinePosition(), "The text of this element ('" + element.getNodeName() + "') does not match the given regular expression: " + expression);
+          createViolation(element.getStartLinePosition(), "The text of this element '" + element.getCode() + "' matches the given regular expression: " + expression);
         }
       }
     }
