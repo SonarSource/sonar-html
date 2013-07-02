@@ -1,3 +1,13 @@
 <p>
-Generic checker based on regular expressions.
+This rule checks elements starting tags against a given regular expression, and creates an issue with a given message whenever a match is found.
 </p>
+
+<p>For example, expression can be set to <code>(?i)&lt;br\s*+&gt;</code> to find unclosed line break tags:</p>
+
+<pre>
+&lt;br&gt;        &lt;!-- Non-Compliant --&gt;
+&lt;Br&gt;        &lt;!-- Non-Compliant --&gt;
+&lt;bR&gt;        &lt;!-- Non-Compliant --&gt;
+&lt;br     &gt;   &lt;!-- Non-Compliant --&gt;
+&lt;br /&gt;      &lt;!-- Compliant --&gt;
+</pre>

@@ -22,7 +22,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
@@ -36,7 +35,7 @@ import java.util.regex.Pattern;
 public class RegularExpressionCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_EXPRESSION = "";
-  private static final String DEFAULT_SCOPE = "";
+  private static final String DEFAULT_MESSAGE = "This start tag matches the given regular expression.";
 
   @RuleProperty(
     key = "expression",
@@ -44,9 +43,9 @@ public class RegularExpressionCheck extends AbstractPageCheck {
   public String expression = DEFAULT_EXPRESSION;
 
   @RuleProperty(
-    key = "scope",
-    defaultValue = DEFAULT_SCOPE)
-  public String scope = DEFAULT_SCOPE;
+    key = "message",
+    defaultValue = DEFAULT_MESSAGE)
+  public String message = DEFAULT_MESSAGE;
 
   private Pattern pattern;
 
@@ -57,18 +56,8 @@ public class RegularExpressionCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if (!expression.isEmpty()) {
-      if ("attribute".equals(scope)) {
-        for (Attribute a : element.getAttributes()) {
-          if (pattern.matcher(a.getValue()).lookingAt()) {
-            createViolation(element.getStartLinePosition(), "The value of this attribute '" + a.getValue() + "' matches the given regular expression: " + expression);
-          }
-        }
-      } else {
-        if (pattern.matcher(element.getCode()).lookingAt()) {
-          createViolation(element.getStartLinePosition(), "The text of this element '" + element.getCode() + "' matches the given regular expression: " + expression);
-        }
-      }
+    if (!expression.isEmpty() && pattern.matcher(element.getCode()).lookingAt()) {
+      createViolation(element.getStartLinePosition(), message);
     }
   }
 

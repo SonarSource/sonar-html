@@ -38,29 +38,17 @@ public class RegularExpressionCheckTest {
   }
 
   @Test
-  public void detected_attribute() {
+  public void custom() {
     RegularExpressionCheck check = new RegularExpressionCheck();
-    check.scope = "attribute";
-    check.expression = "a|d";
+    check.expression = "(?i)<br\\s*+>";
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RegularExpressionCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(3).withMessage("The value of this attribute 'a' matches the given regular expression: a|d")
-        .next().atLine(4).withMessage("The value of this attribute 'd' matches the given regular expression: a|d");
-  }
-
-  @Test
-  public void detected_element() {
-    RegularExpressionCheck check = new RegularExpressionCheck();
-    check.scope = "element";
-    check.expression = "<ba.*";
-
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RegularExpressionCheck.html"), check);
-
-    checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(7).withMessage("The text of this element '<bar />' matches the given regular expression: <ba.*")
-        .next().atLine(9);
+        .next().atLine(4).withMessage("This start tag matches the given regular expression.")
+        .next().atLine(5)
+        .next().atLine(6)
+        .next().atLine(7);
   }
 
 }
