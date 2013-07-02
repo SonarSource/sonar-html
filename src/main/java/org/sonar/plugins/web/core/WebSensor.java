@@ -117,6 +117,7 @@ public final class WebSensor implements Sensor {
     HtmlAstScanner scanner = new HtmlAstScanner();
     for (AbstractPageCheck check : (Collection<AbstractPageCheck>) annotationCheckFactory.getChecks()) {
       scanner.addVisitor(check);
+      check.setRule(annotationCheckFactory.getActiveRule(check).getRule());
     }
     scanner.addVisitor(new PageCountLines());
     scanner.addVisitor(new NoSonarScanner(noSonarFilter));

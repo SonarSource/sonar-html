@@ -17,23 +17,13 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.ActiveRule;
-import org.sonar.api.rules.ActiveRuleParam;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
-import org.sonar.api.utils.AnnotationUtils;
-import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.api.WebConstants;
-import org.sonar.plugins.web.checks.AbstractPageCheck;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 public final class WebRulesRepository extends RuleRepository {
@@ -56,62 +46,4 @@ public final class WebRulesRepository extends RuleRepository {
     return annotationRuleParser.parse(REPOSITORY_KEY, CheckClasses.getCheckClasses());
   }
 
-  /**
-   * Instantiate checks as defined in the RulesProfile.
-   *
-   * @param profile
-   */
-  public static List<AbstractPageCheck> createChecks(RulesProfile profile) {
-    LOG.info("Loading checks for profile " + profile.getName());
-
-    List<AbstractPageCheck> checks = new ArrayList<AbstractPageCheck>();
-
-    for (ActiveRule activeRule : profile.getActiveRules()) {
-      if (REPOSITORY_KEY.equals(activeRule.getRepositoryKey())) {
-        Class<AbstractPageCheck> checkClass = getCheckClass(activeRule);
-        if (checkClass != null) {
-          checks.add(createCheck(checkClass, activeRule));
-        }
-      }
-    }
-
-    return checks;
-  }
-
-  private static AbstractPageCheck createCheck(Class<AbstractPageCheck> checkClass, ActiveRule activeRule) {
-
-    try {
-      AbstractPageCheck check = checkClass.newInstance();
-      check.setRule(activeRule.getRule());
-      if (activeRule.getActiveRuleParams() != null) {
-        for (ActiveRuleParam param : activeRule.getActiveRuleParams()) {
-          if (!StringUtils.isEmpty(param.getValue())) {
-            LOG.debug("Rule param " + param.getKey() + " = " + param.getValue());
-            BeanUtils.setProperty(check, param.getRuleParam().getKey(), param.getValue());
-          }
-        }
-      }
-
-      return check;
-    } catch (IllegalAccessException e) {
-      throw new SonarException(e);
-    } catch (InvocationTargetException e) {
-      throw new SonarException(e);
-    } catch (InstantiationException e) {
-      throw new SonarException(e);
-    }
-  }
-
-  @SuppressWarnings("unchecked")
-  private static Class<AbstractPageCheck> getCheckClass(ActiveRule activeRule) {
-    for (Class<?> checkClass : CheckClasses.getCheckClasses()) {
-
-      org.sonar.check.Rule ruleAnnotation = AnnotationUtils.getClassAnnotation(checkClass, org.sonar.check.Rule.class);
-      if (ruleAnnotation.key().equals(activeRule.getConfigKey())) {
-        return (Class<AbstractPageCheck>) checkClass;
-      }
-    }
-    LOG.error("Could not find check class for config key " + activeRule.getConfigKey());
-    return null;
-  }
 }

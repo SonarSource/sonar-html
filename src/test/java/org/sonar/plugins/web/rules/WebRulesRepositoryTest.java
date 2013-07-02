@@ -23,13 +23,8 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.utils.ValidationMessages;
-import org.sonar.check.Rule;
 import org.sonar.plugins.web.AbstractWebPluginTester;
-import org.sonar.plugins.web.checks.AbstractPageCheck;
 
-import java.util.List;
-
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.OrderingComparisons.greaterThan;
@@ -54,20 +49,4 @@ public class WebRulesRepositoryTest extends AbstractWebPluginTester {
     assertTrue(rulesRepository.createRules().size() > 20);
   }
 
-  @Test
-  public void createChecks() {
-    ProfileDefinition profileDefinition = new SonarWayProfile(new XMLProfileParser(newRuleFinder()));
-    ValidationMessages validationMessages = ValidationMessages.create();
-    RulesProfile profile = profileDefinition.createProfile(validationMessages);
-
-    List<AbstractPageCheck> checks = WebRulesRepository.createChecks(profile);
-
-    // check annotation
-    for (AbstractPageCheck check : checks) {
-      Rule rule = check.getClass().getAnnotation(Rule.class);
-      assertNotNull(rule.key());
-      assertNotNull(rule.name());
-    }
-    assertTrue(checks.size() == 20);
-  }
 }
