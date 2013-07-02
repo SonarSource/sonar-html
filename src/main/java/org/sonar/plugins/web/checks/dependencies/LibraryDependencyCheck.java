@@ -53,13 +53,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    System.out.println("got libs: " + libraries);
     librariesIterable = Splitter.on(',').trimResults().omitEmptyStrings().split(libraries);
-    System.out.println("iterable:");
-    for (String lib : librariesIterable) {
-      System.out.println(" ---> " + lib);
-    }
-    System.out.println("end iterable!");
   }
 
   @Override
