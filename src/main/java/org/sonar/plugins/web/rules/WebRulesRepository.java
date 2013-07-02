@@ -36,12 +36,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Repository for web rules.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
 public final class WebRulesRepository extends RuleRepository {
 
   private static final Logger LOG = LoggerFactory.getLogger(WebRulesRepository.class);

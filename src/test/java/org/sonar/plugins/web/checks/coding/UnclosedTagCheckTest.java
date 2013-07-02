@@ -17,57 +17,36 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
-/**
- * @author Matthijs Galesloot
- */
-public class UnclosedTagCheckTest extends AbstractCheckTester {
+public class UnclosedTagCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateUnclosedTagCheck() throws FileNotFoundException {
-
-    String fragment = "<td><br><tr>";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
-    assertThat(sourceCode.getViolations().size()).isEqualTo(3);
+  public void detected() {
+    assertThat(new UnclosedTagCheck().ignoreTags).isEmpty();
   }
 
   @Test
-  public void violate2UnclosedTagCheck() throws FileNotFoundException {
+  public void custom() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+    check.ignoreTags = "foo";
 
-    String fragment = "<table><td><td></table>";
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class);
-
-    int numViolations = 1;
-    assertEquals("Should have found " + numViolations + " violations", numViolations, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(3).withMessage("The tag 'li' has no corresponding closing tag.")
+        .next().atLine(6).withMessage("This tag has no corresponding closing tag.");
   }
 
-  @Test
-  public void passSkippedUnclosedNestedTag() throws IOException {
-    String fragment = "<td><br><tr>";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), UnclosedTagCheck.class,
-        "ignoreTags", "td,br,tr");
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
-
-  @Test
-  public void passUnclosedNestedTag() throws IOException {
-    FileReader reader = new FileReader("src/test/resources/checks/unclosedtag.html");
-    WebSourceCode sourceCode = parseAndCheck(reader, UnclosedTagCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
 }

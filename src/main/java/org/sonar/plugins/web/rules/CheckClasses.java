@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.sonar.plugins.web.checks.sonar.PageWithoutFaviconCheck;
-
 import org.sonar.plugins.web.checks.attributes.AttributeValidationCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
@@ -56,6 +54,7 @@ import org.sonar.plugins.web.checks.sonar.LinksIdenticalTextsDifferentTargetsChe
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
 import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentCheck;
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
+import org.sonar.plugins.web.checks.sonar.PageWithoutFaviconCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.web.checks.sonar.TableHeaderHasIdOrScopeCheck;
@@ -75,13 +74,7 @@ import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Provides a list of available checks.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-final class CheckClasses {
+public final class CheckClasses {
 
   @SuppressWarnings("rawtypes")
   private static final Class[] CLASSES = new Class[] {

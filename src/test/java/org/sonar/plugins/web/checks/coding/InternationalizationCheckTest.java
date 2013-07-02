@@ -17,28 +17,35 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class InternationalizationCheckTest extends AbstractCheckTester {
+public class InternationalizationCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateInternationalizationCheckTest() throws FileNotFoundException {
-
-    String fragment = "<outputLabel>hehe</outputLabel>";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, InternationalizationCheck.class);
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    assertThat(new InternationalizationCheck().attributes).isEqualTo("outputLabel.value, outputText.value");
   }
+
+  @Test
+  public void custom() {
+    InternationalizationCheck check = new InternationalizationCheck();
+    check.attributes = "outputLabel.value";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(1).withMessage("Labels should be defined in the resource bundle.");
+  }
+
 }

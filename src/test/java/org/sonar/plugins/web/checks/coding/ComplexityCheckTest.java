@@ -17,28 +17,39 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
 public class ComplexityCheckTest extends AbstractCheckTester {
 
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
   @Test
-  public void violateComplexityCheck() throws FileNotFoundException {
-
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, ComplexityCheck.class, "max", "15");
-
-    assertEquals("Incorrect number of complexity", 17, sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getIntValue().intValue());
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    ComplexityCheck check = new ComplexityCheck();
+    assertThat(check.max).isEqualTo(10);
+    assertThat(check.operators).isEqualTo("&&,||,and,or");
+    assertThat(check.tags).isEqualTo("catch,choose,if,forEach,forTokens,when");
   }
+
+  @Test
+  public void custom() {
+    ComplexityCheck check = new ComplexityCheck();
+    check.max = 15;
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ComplexityCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(null).withMessage("Complexity is 17 (max allowed is 15)");
+  }
+
 }

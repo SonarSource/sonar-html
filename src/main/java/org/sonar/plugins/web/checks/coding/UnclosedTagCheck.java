@@ -28,19 +28,26 @@ import org.sonar.plugins.web.node.TagNode;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Checker to find unclosed tags.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "UnclosedTagCheck", priority = Priority.MINOR)
+@Rule(
+  key = "UnclosedTagCheck",
+  priority = Priority.MINOR)
 public class UnclosedTagCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private String[] ignoreTags;
+  private static final String DEFAULT_IGNORE_TAGS = "";
 
+  @RuleProperty(
+    key = "ignoreTags",
+    defaultValue = DEFAULT_IGNORE_TAGS)
+  public String ignoreTags = DEFAULT_IGNORE_TAGS;
+
+  private String[] ignoreTagsArray;
   private final List<TagNode> nodes = new ArrayList<TagNode>();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    ignoreTagsArray = StringUtils.split(ignoreTags, ',');
+    this.nodes.clear();
+  }
 
   @Override
   public void endElement(TagNode element) {
@@ -63,28 +70,13 @@ public class UnclosedTagCheck extends AbstractPageCheck {
     }
   }
 
-  public String getIgnoreTags() {
-    return StringUtils.join(ignoreTags, ",");
-  }
-
   private boolean ignoreTag(TagNode node) {
-    if (ignoreTags != null) {
-      for (String ignoreTag : ignoreTags) {
-        if (node.equalsElementName(ignoreTag)) {
-          return true;
-        }
+    for (String ignoreTag : ignoreTagsArray) {
+      if (node.equalsElementName(ignoreTag)) {
+        return true;
       }
     }
     return false;
-  }
-
-  public void setIgnoreTags(String value) {
-    ignoreTags = StringUtils.split(value, ',');
-  }
-
-  @Override
-  public void startDocument(List<Node> nodes) {
-    this.nodes.clear();
   }
 
   @Override

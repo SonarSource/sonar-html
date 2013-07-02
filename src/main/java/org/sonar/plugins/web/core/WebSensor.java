@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.checks.AnnotationCheckFactory;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
@@ -37,12 +38,14 @@ import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.rules.CheckClasses;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileReader;
+import java.util.Collection;
 import java.util.List;
 
 public final class WebSensor implements Sensor {
@@ -51,15 +54,13 @@ public final class WebSensor implements Sensor {
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
   private final Web web;
-
   private final NoSonarFilter noSonarFilter;
-
-  private final RulesProfile profile;
+  private final AnnotationCheckFactory annotationCheckFactory;
 
   public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter) {
     this.web = web;
-    this.profile = profile;
     this.noSonarFilter = noSonarFilter;
+    this.annotationCheckFactory = AnnotationCheckFactory.create(profile, WebRulesRepository.REPOSITORY_KEY, CheckClasses.getCheckClasses());
   }
 
   @Override
@@ -114,7 +115,7 @@ public final class WebSensor implements Sensor {
    */
   private HtmlAstScanner setupScanner() {
     HtmlAstScanner scanner = new HtmlAstScanner();
-    for (AbstractPageCheck check : WebRulesRepository.createChecks(profile)) {
+    for (AbstractPageCheck check : (Collection<AbstractPageCheck>) annotationCheckFactory.getChecks()) {
       scanner.addVisitor(check);
     }
     scanner.addVisitor(new PageCountLines());
@@ -134,4 +135,5 @@ public final class WebSensor implements Sensor {
   public String toString() {
     return getClass().getSimpleName();
   }
+
 }

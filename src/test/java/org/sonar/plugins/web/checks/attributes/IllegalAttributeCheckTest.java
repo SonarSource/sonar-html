@@ -17,35 +17,36 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.StringReader;
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
-/**
- * @author Matthijs Galesloot
- */
-public class IllegalAttributeCheckTest extends AbstractCheckTester {
+public class IllegalAttributeCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void validateCheckParameters() {
-    String params = "a:a,b,c";
-    IllegalAttributeCheck check = (IllegalAttributeCheck) instantiateCheck(IllegalAttributeCheck.class,
-        "attributes", params);
-    assertEquals(params, check.getAttributes());
+  public void detected() {
+    assertThat(new IllegalAttributeCheck().attributes).isEmpty();
   }
 
   @Test
-  public void testAttributeCheck() {
+  public void custom() {
+    IllegalAttributeCheck check = new IllegalAttributeCheck();
+    check.attributes = "foo.a,b";
 
-    String fragment = "<h:someNode class=\"redflag\"/>";
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalAttributeCheck.html"), check);
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), IllegalAttributeCheck.class, "attributes", "class");
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(1).withMessage("The following attribute is not allowed: a")
+        .next().atLine(3).withMessage("The following attribute is not allowed: b");
   }
+
 }

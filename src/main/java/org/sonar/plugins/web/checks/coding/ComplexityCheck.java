@@ -30,29 +30,40 @@ import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
 
-/**
- * Checks cyclomatic complexity against a specified limit. The complexity is measured by counting decision tags (such as if and forEach) and
- * boolean operators in expressions ("&amp;&amp;" and "||"), plus one for the body of the document. It is a measure of the minimum number of
- * possible paths to render the page.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "ComplexityCheck", priority = Priority.MINOR)
+@Rule(
+  key = "ComplexityCheck",
+  priority = Priority.MINOR)
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;
+  private static final String DEFAULT_OPERATORS = "&&,||,and,or";
+  private static final String DEFAULT_TAGS = "catch,choose,if,forEach,forTokens,when";
+
+  @RuleProperty(
+    key = "max",
+    defaultValue = "" + DEFAULT_MAX_COMPLEXITY)
+  public int max = DEFAULT_MAX_COMPLEXITY;
+
+  @RuleProperty(
+    key = "operators",
+    defaultValue = DEFAULT_OPERATORS)
+  public String operators = DEFAULT_OPERATORS;
+
+  @RuleProperty(
+    key = "tags",
+    defaultValue = DEFAULT_TAGS)
+  public String tags = DEFAULT_TAGS;
 
   private int complexity;
+  private String[] operatorsArray;
+  private String[] tagsArray;
 
-  @RuleProperty
-  private int max = DEFAULT_MAX_COMPLEXITY;
-
-  @RuleProperty
-  private String[] operators = new String[] {"&&", "||", "and", "or"};
-
-  @RuleProperty
-  private String[] tags = new String[] {"catch", "choose", "if", "forEach", "forTokens", "when"};
+  @Override
+  public void startDocument(List<Node> nodes) {
+    complexity = 1;
+    operatorsArray = trimSplitCommaSeparatedList(operators);
+    tagsArray = trimSplitCommaSeparatedList(tags);
+  }
 
   @Override
   public void endDocument() {
@@ -66,40 +77,11 @@ public final class ComplexityCheck extends AbstractPageCheck {
     getWebSourceCode().addMeasure(CoreMetrics.COMPLEXITY, complexity);
   }
 
-  public int getMax() {
-    return max;
-  }
-
-  public String getOperators() {
-    return StringUtils.join(operators, ",");
-  }
-
-  public String getTags() {
-    return StringUtils.join(tags, ",");
-  }
-
-  public void setMax(int max) {
-    this.max = max;
-  }
-
-  public void setOperators(String value) {
-    this.operators = trimSplitCommaSeparatedList(value);
-  }
-
-  public void setTags(String value) {
-    this.tags = trimSplitCommaSeparatedList(value);
-  }
-
-  @Override
-  public void startDocument(List<Node> nodes) {
-    complexity = 1;
-  }
-
   @Override
   public void startElement(TagNode node) {
 
     // count jstl tags
-    if (ArrayUtils.contains(tags, node.getLocalName()) || ArrayUtils.contains(tags, node.getNodeName())) {
+    if (ArrayUtils.contains(tagsArray, node.getLocalName()) || ArrayUtils.contains(tagsArray, node.getNodeName())) {
       complexity++;
     } else {
       // count complexity in expressions
@@ -108,7 +90,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
           String[] tokens = StringUtils.split(a.getValue(), " \t\n");
 
           for (String token : tokens) {
-            if (ArrayUtils.contains(operators, token)) {
+            if (ArrayUtils.contains(operatorsArray, token)) {
               complexity++;
             }
           }
@@ -116,4 +98,5 @@ public final class ComplexityCheck extends AbstractPageCheck {
       }
     }
   }
+
 }

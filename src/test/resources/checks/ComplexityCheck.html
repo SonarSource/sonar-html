@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+<head>
+<!-- Ignored. -->
+</head>
+
+
+<body>
+
+<br />
+
+<!-- Use template. -->
+<ui:composition wrongtag="wrongtag" template="/page-templates/aoimp-template.xhtml">
+
+	<ui:define name="title">
+		<h:outputText
+			value="#{createSalesOrderPageBean.pageStatusMsg} #{messages['create.salesorder.header']}" />
+	</ui:define>
+
+	<ui:define name="header_menu_bar">
+		<ui:include src="/pages/menu/middle_header.xhtml" />
+	</ui:define>
+
+	<ui:define name="lookup-modals">
+		<ui:include
+			src="/page-fragments/modal-panels/customerLookup-panel.xhtml" />
+		<ui:include
+			src="/page-fragments/modal-panels/employeeLookup-panel.xhtml" />
+		<ui:include
+			src="/page-fragments/modal-panels/change-status-panel.xhtml" />
+		<ui:include
+			src="/page-fragments/modal-panels/ssc-fields-update-panel.xhtml" />
+		<ui:include
+			src="/page-fragments/modal-panels/selectinvoicetype-panel.xhtml" />
+		<ui:include src="/page-fragments/modal-panels/navigator-panel.xhtml" />
+		<ui:include
+			src="/page-fragments/modal-panels/report-progress-panel.xhtml" />
+		<ui:include
+			src="/page-fragments/modal-panels/summary-report-progress-panel.xhtml" />		
+		<ui:include
+			src="/page-fragments/modal-panels/spro-fields-update-panel.xhtml" />
+	</ui:define>
+
+	<!-- Data and actions (template insertion point). -->
+
+	<ui:define name="body">
+
+		<!-- Passing the specific bean instance as a parameter for the serviceView1 & View2 values-->
+		<ui:param name="baseOrderPageBean" value="#{createSalesOrderPageBean}" />
+
+		<rich:panelMenuGroup
+			label="#{createSalesOrderPageBean.pageStatusMsg} #{messages['create.salesorder.header']}"
+			styleClass="panelMenuGroup">
+			
+			<ui:include src="/pages/error/error_messages.xhtml" />
+
+			<rich:panel bodyClass="border_none"
+				headerClass="search_header page_content_header"
+				styleClass="page_content">
+				<!-- Form. -->
+				<ui:decorate
+					template="/page-fragments/forms/create-salesorder-form.xhtml">
+
+					<ui:define name="details">
+						<ui:param name="backingCollection" value="#{orderItems}" />
+
+						<t:div styleClass="searchResultsHeader"
+							rendered="#{backingCollection.getRowCount() > 0} ">
+							<h:outputText
+								value="#{messages['displaying']} #{messages['rows']} "
+								style="padding-left:1em;"></h:outputText>
+							<h:outputText style="font-weight:bolder;"
+								value=" #{(createSalesOrderPageBean.pageNumber - 1) * chapter.getPageSize() + 1} " /> 
+					    #{messages['to']}  
+					    <h:outputText style="font-weight:bolder;"
+								value=" #{(createSalesOrderPageBean.pageNumber - 1) * chapter.getPageSize() + backingCollection.getRowCount()} " /> 
+					    #{ messages['of'] } 
+					    <h:outputText style="font-weight:bolder;"
+								value=" #{chapter.getQueryDetails().getHitCount()}" />
+						</t:div>
+
+						<ui:decorate
+							template="/page-fragments/data-tables/orderItem/orderitem-data-table.xhtml">
+
+							<ui:define name="table-action">
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="#{messages['delete']}" />
+									</f:facet>
+									<t:commandButton style="display:none;"
+										id="hidden_#{ent.orderItem.id}"
+										action="#{createSalesOrderPageBean.deleteOrderItem()}"
+										forceId="true" image="/images/icons/delete.gif"
+										immediate="true" alt="#{messages['delete']}">
+									</t:commandButton>
+									<t:graphicImage id="button_#{ent.orderItem.id}" forceId="true"
+										rendered="#{!(readOnly and createSalesOrderPageBean.isArchived(ent.orderItem.archived))}"
+										value="/images/icons/delete.gif" styleClass="urLnkFunction"
+										onclick="saveConfirmActionButtonId(this.id,true); #{rich:component('confirm-delete-panel')}.show(); return false;"
+										alt="#{messages['delete']}">
+									</t:graphicImage>
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="#{messages['Navigator']}" />
+									</f:facet>
+									<t:graphicImage forceId="true"
+										value="/images/navigator/navigator.gif"
+										styleClass="urLnkFunction" alt="#{messages['navigator']}"
+										id="navigator_btn_#{ent.orderItem.id}">
+										<a4j:support event="onclick"
+											id="ajax_navigator_#{ent.orderItem.id}" value="search"
+											img="/images/navigator/navigator.gif"
+											styleClass="custom_btn son_button"
+											action="#{createSalesOrderPageBean.updateNavigationElements}"
+											forceId="true" alt="#{messages['navigator']}"
+											actionListener="#{createSalesOrderPageBean.ajaxListener}"
+											onbeforedomupdate="#{createSalesOrderPageBean.setAjaxCall(false)}"
+											oncomplete="#{rich:component('navigator-panel')}.show();"
+											bypassUpdates="true" ajaxSingle="false" immediate="true"
+											reRender="orderItemDataTable, navigator-panel" />
+									</t:graphicImage>
+								</h:column>
+							</ui:define>
+						</ui:decorate>
+
+						<t:div styleClass="table_footer_inner"
+							rendered="#{backingCollection.getRowCount() > 0 and chapter.getQueryDetails().getHitCount() > chapter.getPageSize()}">
+							<h:commandButton type="submit" image="/images/button/first.gif"
+								action="#{createSalesOrderPageBean.first()}"
+								alt="#{messages['first']}" />
+
+							<h:commandButton type="submit" alt="#{messages['previous']}"
+								action="#{createSalesOrderPageBean.previous()}"
+								image="/images/button/previous.gif" />
+
+							<h:outputText value="#{messages['Page']}" styleClass="pagingText" />
+
+							<h:inputText styleClass="pagingText" size="2" id="pageId"
+								value="#{createSalesOrderPageBean.pageNumber}"
+								label="#{messages['son.pagination.pageid']}" required="true"
+								onkeypress="return submitEnter('orderItemListCmd',event)">
+							</h:inputText>
+
+							<h:outputText
+								value=" #{messages['of']} #{chapter.getLastPageNumber()}"
+								styleClass="pagingText" />
+
+							<h:commandButton type="submit" alt="#{messages['next']}"
+								action="#{createSalesOrderPageBean.next()}"
+								image="/images/button/next.gif" />
+
+							<h:commandButton type="submit" image="/images/button/last.gif"
+								action="#{createSalesOrderPageBean.last()}"
+								alt="#{messages['last']}" />
+						</t:div>
+
+						<t:commandButton id="orderItemListCmd" forceId="true"
+							action="#{createSalesOrderPageBean.numberedPage(createSalesOrderPageBean.pageNumber)}"
+							style="visibility:hidden;" />
+
+
+
+					</ui:define>
+
+					<!-- Actions. -->
+					<ui:define name="actions">
+
+						<h:panelGrid columns="1" style="margin-top:1%;">
+							<h:panelGroup>
+
+								<t:commandLink value="#{messages['save']}"
+									styleClass="custom_btn son_button"
+									rendered="#{!readOnly or updatable}"
+									action="#{createSalesOrderPageBean.ok()}" />
+
+								<h:commandLink value="#{messages['edit']}" immediate="true"
+									styleClass="custom_btn son_button"
+									rendered="#{(readOnly) and createSalesOrderPageBean.canEditSSCFields() and (salesOrder.sapOrderId eq NULL)}"
+									onclick="#{rich:component('ssc-fields-update-panel')}.show();" />
+
+                                <h:commandLink value="#{messages['edit']}" immediate="true"
+                                    styleClass="custom_btn son_button"
+                                    rendered="#{createSalesOrderPageBean.canEditSSCFields() and createSalesOrderPageBean.isArchivedState()}"
+                                    onclick="#{rich:component('ssc-fields-update-panel')}.show();" />
+
+								<t:commandLink value="#{messages['edit']}" immediate="true"
+									styleClass="custom_btn son_button"
+									rendered="#{(readOnly and !(updatable)) and createSalesOrderPageBean.canEdit()}"
+									action="#{createSalesOrderPageBean.makeEditable()}" />
+									
+								<h:commandLink value="#{messages['edit']}" immediate="true"
+									styleClass="custom_btn son_button"
+									rendered="#{createSalesOrderPageBean.canEditSPROFields()}"
+									onclick="#{rich:component('spro-fields-update-panel')}.show();" />
+
+								<t:commandLink value="#{messages['back']}"
+									rendered="#{createSalesOrderPageBean.pageStatus eq 'VIEW'}"
+									styleClass="custom_btn son_button" immediate="true"
+									action="#{createSalesOrderPageBean.back()}">
+								</t:commandLink>
+
+								<t:commandLink value="#{messages['back']}"
+									rendered="#{createSalesOrderPageBean.pageStatus eq 'EDIT' or createSalesOrderPageBean.pageStatus eq 'CREATE'}"
+									styleClass="custom_btn son_button" immediate="true"
+									action="#{createSalesOrderPageBean.back()}">
+								</t:commandLink>
+
+								<h:outputLink id="addOrderItemButton"
+									styleClass="custom_btn son_button" value="#"
+									rendered="#{(!readOnly or updatable) and !(salesOrder.id eq NULL) and createSalesOrderPageBean.canAddMoreOrderItems()}">
+									<h:outputText value="#{messages['add.order.item']}" />
+									<rich:componentControl for="select-invoicetype-panel"
+										attachTo="addOrderItemButton" operation="show" event="onclick" />
+								</h:outputLink>
+
+								<h:commandLink
+									value="#{messages['salesOrder.statusChanged.header']}"
+									rendered="#{!(salesOrder.id eq NULL) and !(changedStatus eq NULL) and createSalesOrderPageBean.canChangeStatus()}"
+									styleClass="custom_btn son_button" action="#"
+									onclick="#{rich:component('change-status-panel')}.show(); " />
+
+								<h:commandLink value="#{messages['salesOrder.generate.report']}"
+									styleClass="custom_btn son_button"
+									rendered="#{!(salesOrder.id eq NULL)}"
+									onclick="#{rich:component('report-progress-panel')}.show();"
+									immediate="true" />
+
+								<h:commandLink
+									value="#{messages['salesOrder.generate.summary.report']}"
+									styleClass="custom_btn son_button"
+									rendered="#{!(salesOrder.id eq NULL) and createSalesOrderPageBean.canDisplayChangeReport() and salesOrder.status.name ne 'ARCHIVED'}"
+									onclick="#{rich:component('summary-report-progress-panel')}.show();"
+									immediate="true" />
+
+							</h:panelGroup>
+						</h:panelGrid>
+					</ui:define>
+				</ui:decorate>
+
+			</rich:panel>
+
+		</rich:panelMenuGroup>
+	</ui:define>
+</ui:composition>
+
+</body>
+</html>

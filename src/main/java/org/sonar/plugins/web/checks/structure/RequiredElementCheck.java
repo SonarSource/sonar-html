@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -28,36 +27,22 @@ import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
 
-/**
- * Checker for occurrence of required elements, e.g. a security tag.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "RequiredElementCheck", priority = Priority.MAJOR)
+@Rule(
+  key = "RequiredElementCheck",
+  priority = Priority.MAJOR)
 public class RequiredElementCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private String[] elements;
+  private static final String DEFAULT_ELEMENTS = "";
 
-  public String getElements() {
-    if (elements != null) {
-      return StringUtils.join(elements, ",");
-    }
-    return "";
-  }
-
-  public void setElements(String elementList) {
-    elements = trimSplitCommaSeparatedList(elementList);
-  }
+  @RuleProperty(
+    key = "elements",
+    defaultValue = DEFAULT_ELEMENTS)
+  public String elements = DEFAULT_ELEMENTS;
 
   @Override
   public void startDocument(List<Node> nodes) {
-    if (elements == null) {
-      return;
-    }
 
-    for (String elementName : elements) {
+    for (String elementName : trimSplitCommaSeparatedList(elements)) {
       boolean hasRequiredElement = false;
       for (Node node : nodes) {
         if (node.getNodeType() == NodeType.TAG) {
@@ -68,6 +53,7 @@ public class RequiredElementCheck extends AbstractPageCheck {
           }
         }
       }
+
       if (!hasRequiredElement) {
         createViolation(0, "The following element must be used but none is found on this file: " + elementName);
       }

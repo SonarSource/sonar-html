@@ -22,45 +22,38 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-/**
- * Checker for occurrence of disallowed elements.
- *
- * e.g. element <applet> should not be used.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "IllegalElementCheck", priority = Priority.MAJOR)
+import java.util.List;
+
+@Rule(
+  key = "IllegalElementCheck",
+  priority = Priority.MAJOR)
 public class IllegalElementCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private String[] elements;
+  private static final String DEFAULT_ELEMENTS = "";
 
-  public String getElements() {
-    if (elements != null) {
-      return StringUtils.join(elements, ",");
-    }
-    return "";
-  }
+  @RuleProperty(
+    key = "elements",
+    defaultValue = DEFAULT_ELEMENTS)
+  public String elements = DEFAULT_ELEMENTS;
 
-  public void setElements(String elementList) {
-    elements = trimSplitCommaSeparatedList(elementList);
+  private String[] elementsArray;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    elementsArray = trimSplitCommaSeparatedList(elements);
   }
 
   @Override
   public void startElement(TagNode element) {
-
-    if (elements == null) {
-      return;
-    }
-
-    for (String elementName : elements) {
+    for (String elementName : elementsArray) {
       if (StringUtils.equalsIgnoreCase(element.getLocalName(), elementName)
         || StringUtils.equalsIgnoreCase(element.getNodeName(), elementName)) {
         createViolation(element.getStartLinePosition(), "The use of '" + elementName + "' element is forbidden.");
       }
     }
   }
+
 }

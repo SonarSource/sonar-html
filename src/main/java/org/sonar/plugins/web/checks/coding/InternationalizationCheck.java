@@ -22,29 +22,31 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
-/**
- * Checker to find hardcoded labels and messages.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "InternationalizationCheck", priority = Priority.MINOR)
+import java.util.List;
+
+@Rule(
+  key = "InternationalizationCheck",
+  priority = Priority.MINOR)
 public class InternationalizationCheck extends AbstractPageCheck {
+
+  private static final String DEFAULT_ATTRIBUTES = "outputLabel.value, outputText.value";
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
 
-  @RuleProperty(defaultValue = "outputLabel.value, outputText.value")
-  private QualifiedAttribute[] attributes;
+  @RuleProperty(
+    key = "attributes",
+    defaultValue = DEFAULT_ATTRIBUTES)
+  public String attributes = DEFAULT_ATTRIBUTES;
 
-  public String getAttributes() {
-    return getAttributesAsString(attributes);
-  }
+  private QualifiedAttribute[] attributesArray;
 
-  public void setAttributes(String qualifiedAttributes) {
-    this.attributes = parseAttributes(qualifiedAttributes);
+  @Override
+  public void startDocument(List<Node> nodes) {
+    this.attributesArray = parseAttributes(attributes);
   }
 
   @Override
@@ -57,7 +59,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     if (attributes != null) {
-      for (QualifiedAttribute attribute : attributes) {
+      for (QualifiedAttribute attribute : attributesArray) {
         if (element.equalsElementName(attribute.getNodeName())) {
           String value = element.getAttribute(attribute.getAttributeName());
           if (value != null) {
@@ -75,4 +77,5 @@ public class InternationalizationCheck extends AbstractPageCheck {
   private static boolean isPunctuationOrSpace(String value) {
     return StringUtils.containsAny(value, PUNCTUATIONS_AND_SPACE);
   }
+
 }

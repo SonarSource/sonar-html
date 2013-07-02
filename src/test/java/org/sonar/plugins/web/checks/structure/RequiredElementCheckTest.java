@@ -17,26 +17,36 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
 public class RequiredElementCheckTest extends AbstractCheckTester {
 
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
   @Test
-  public void violateRequiredElement() throws FileNotFoundException {
-
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, RequiredElementCheck.class, "elements", "html,notfound1,notfound2");
-
-    assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
+  public void detected() {
+    assertThat(new RequiredElementCheck().elements).isEmpty();
   }
+
+  @Test
+  public void custom() {
+    RequiredElementCheck check = new RequiredElementCheck();
+    check.elements = "bar,baz";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredElementCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(null).withMessage("The following element must be used but none is found on this file: baz");
+  }
+
 }

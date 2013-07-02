@@ -17,45 +17,36 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class RequiredAttributeCheckTest extends AbstractCheckTester {
+public class RequiredAttributeCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateRequiredAttributeCheck() throws FileNotFoundException {
-
-    String fragment = "<img src=\"a.png\">";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-
-    fragment = "<script />";
-    sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    assertThat(new RequiredAttributeCheck().attributes).isEmpty();
   }
 
   @Test
-  public void passRequiredTypeAttributeCheck() throws FileNotFoundException {
+  public void custom() {
+    RequiredAttributeCheck check = new RequiredAttributeCheck();
+    check.attributes = "img.alt,script.type";
 
-    String fragment = "<img src=\"a.png\" alt=\"hello\" >";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
 
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
-
-    fragment = "<script type='javascript' />";
-    sourceCode = parseAndCheck(new StringReader(fragment), RequiredAttributeCheck.class);
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(2).withMessage("Attribute alt is required for element img.")
+        .next().atLine(7).withMessage("Attribute type is required for element script.");
   }
+
 }

@@ -22,39 +22,35 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-/**
- * Checker for occurrence of disallowed attributes.
- *
- * e.g. class attribute should not be used, but styleClass instead.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "IllegalAttributeCheck", name = "", priority = Priority.MAJOR)
+import java.util.List;
+
+@Rule(
+  key = "IllegalAttributeCheck",
+  priority = Priority.MAJOR)
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private QualifiedAttribute[] attributes;
+  private static final String DEFAULT_ATTRIBUTES = "";
 
-  public String getAttributes() {
-    return getAttributesAsString(attributes);
-  }
+  @RuleProperty(
+    key = "attributes",
+    defaultValue = DEFAULT_ATTRIBUTES)
+  public String attributes = DEFAULT_ATTRIBUTES;
 
-  public void setAttributes(String qualifiedAttributes) {
-    this.attributes = parseAttributes(qualifiedAttributes);
+  private QualifiedAttribute[] attributesArray;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    this.attributesArray = parseAttributes(attributes);
   }
 
   @Override
   public void startElement(TagNode element) {
-
-    if (attributes == null) {
-      return;
-    }
-
-    for (Attribute a : getMatchingAttributes(element, attributes)) {
+    for (Attribute a : getMatchingAttributes(element, attributesArray)) {
       createViolation(element.getStartLinePosition(), "The following attribute is not allowed: " + a.getName());
     }
   }
+
 }

@@ -17,28 +17,36 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
 public class IllegalElementCheckTest extends AbstractCheckTester {
 
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
   @Test
-  public void violateIllegalElementCheck() throws FileNotFoundException {
-
-    String fragment = "<head><info></info></head>";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, IllegalElementCheck.class, "elements", "info, basic");
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    assertThat(new IllegalElementCheck().elements).isEmpty();
   }
+
+  @Test
+  public void custom() {
+    IllegalElementCheck check = new IllegalElementCheck();
+    check.elements = "title,body";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(3).withMessage("The use of 'title' element is forbidden.");
+  }
+
 }

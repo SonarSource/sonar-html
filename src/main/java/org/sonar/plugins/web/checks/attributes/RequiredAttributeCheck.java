@@ -22,53 +22,48 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Checker for occurrence of required attribute, e.g. alt attribute in &lt;img&gt; tag.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "RequiredAttributeCheck", priority = Priority.MAJOR)
+@Rule(
+  key = "RequiredAttributeCheck",
+  priority = Priority.MAJOR)
 public class RequiredAttributeCheck extends AbstractPageCheck {
+
+  private static final String DEFAULT_ATTRIBUTES = "";
 
   private static final class RequiredAttribute {
 
     private String elementName;
     private String attributeName;
-
-    @Override
-    public String toString() {
-      return elementName == null ? attributeName : elementName + "." + attributeName;
-    }
   }
 
-  @RuleProperty
-  private final List<RequiredAttribute> attributes = new ArrayList<RequiredAttribute>();
+  @RuleProperty(
+    key = "attributes",
+    defaultValue = DEFAULT_ATTRIBUTES)
+  public String attributes = DEFAULT_ATTRIBUTES;
 
-  public String getAttributes() {
-    return StringUtils.join(attributes, ",");
-  }
+  private final List<RequiredAttribute> attributesList = new ArrayList<RequiredAttribute>();
 
-  public void setAttributes(String list) {
-    for (String item : trimSplitCommaSeparatedList(list)) {
+  @Override
+  public void startDocument(List<Node> nodes) {
+    for (String item : trimSplitCommaSeparatedList(attributes)) {
       String[] pair = StringUtils.split(item, ".");
       if (pair.length > 1) {
         RequiredAttribute a = new RequiredAttribute();
         a.elementName = pair[0];
         a.attributeName = pair[1];
-        attributes.add(a);
+        attributesList.add(a);
       }
     }
   }
 
   @Override
   public void startElement(TagNode node) {
-    for (RequiredAttribute attribute : attributes) {
+    for (RequiredAttribute attribute : attributesList) {
       String attributeName = attribute.attributeName;
       String elementName = attribute.elementName;
       if (node.equalsElementName(elementName) && node.getAttribute(attributeName) == null) {
@@ -76,4 +71,5 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
       }
     }
   }
+
 }
