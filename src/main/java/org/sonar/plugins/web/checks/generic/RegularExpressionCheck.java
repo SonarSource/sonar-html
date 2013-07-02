@@ -23,51 +23,41 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
-/**
- * Checker for RegularExpressions.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "RegularExpressionCheck", priority = Priority.MINOR, cardinality = Cardinality.MULTIPLE)
+@Rule(
+  key = "RegularExpressionCheck",
+  priority = Priority.MAJOR,
+  cardinality = Cardinality.MULTIPLE)
 public class RegularExpressionCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private String expression;
+  private static final String DEFAULT_EXPRESSION = "";
+  private static final String DEFAULT_SCOPE = "";
 
-  // value must be "attribute" or "element"
-  @RuleProperty
-  private String scope;
+  @RuleProperty(
+    key = "expression",
+    defaultValue = DEFAULT_EXPRESSION)
+  public String expression = DEFAULT_EXPRESSION;
 
-  public String getScope() {
-    return scope;
-  }
-
-  public void setScope(String scope) {
-    this.scope = scope;
-  }
+  @RuleProperty(
+    key = "scope",
+    defaultValue = DEFAULT_SCOPE)
+  public String scope = DEFAULT_SCOPE;
 
   private Pattern pattern;
 
-  public String getExpression() {
-    return expression;
-  }
-
-  public void setExpression(String expression) {
-
-    this.expression = expression;
-    this.pattern = Pattern.compile(expression, Pattern.MULTILINE);
+  @Override
+  public void startDocument(List<Node> nodes) {
+    pattern = Pattern.compile(expression, Pattern.MULTILINE);
   }
 
   @Override
   public void startElement(TagNode element) {
-
-    if (pattern != null) {
-      // scope is attribute or element
+    if (!expression.isEmpty()) {
       if ("attribute".equals(scope)) {
         for (Attribute a : element.getAttributes()) {
           if (pattern.matcher(a.getValue()).lookingAt()) {
@@ -81,4 +71,5 @@ public class RegularExpressionCheck extends AbstractPageCheck {
       }
     }
   }
+
 }

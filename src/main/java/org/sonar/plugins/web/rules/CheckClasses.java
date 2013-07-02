@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.rules;
 
+import org.sonar.plugins.web.checks.sonar.PageWithoutFaviconCheck;
+
 import org.sonar.plugins.web.checks.attributes.AttributeValidationCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
@@ -54,7 +56,6 @@ import org.sonar.plugins.web.checks.sonar.LinksIdenticalTextsDifferentTargetsChe
 import org.sonar.plugins.web.checks.sonar.MetaRefreshCheck;
 import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentCheck;
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
-import org.sonar.plugins.web.checks.sonar.PageWithoutFaviconCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.web.checks.sonar.TableHeaderHasIdOrScopeCheck;

@@ -17,62 +17,50 @@
  */
 package org.sonar.plugins.web.checks.generic;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+public class RegularExpressionCheckTest {
 
-/**
- * @author Matthijs Galesloot
- */
-public class RegularExpressionCheckTest extends AbstractCheckTester {
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateAttributeRegularExpressionCheck() throws FileNotFoundException {
+  public void detected() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RegularExpressionCheck.html"), new RegularExpressionCheck());
 
-    String fragment = "<tag att=\"invalid&value\" />";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, RegularExpressionCheck.class,
-        "expression", ".*&", "scope", "attribute");
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
-  public void passAttributeRegularExpressionCheck() throws FileNotFoundException {
+  public void detected_attribute() {
+    RegularExpressionCheck check = new RegularExpressionCheck();
+    check.scope = "attribute";
+    check.expression = "a|d";
 
-    String fragment = "<tag att=\"invalid@value\" />";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, RegularExpressionCheck.class,
-        "expression", ".*&", "scope", "attribute");
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RegularExpressionCheck.html"), check);
 
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(3)
+        .next().atLine(4);
   }
 
   @Test
-  public void violateElementRegularExpressionCheck() throws FileNotFoundException {
+  public void detected_element() {
+    RegularExpressionCheck check = new RegularExpressionCheck();
+    check.scope = "element";
+    check.expression = "<ba.*";
 
-    String fragment = "<tag att=\"invalid&value\" />";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, RegularExpressionCheck.class,
-        "expression", ".*att=.*&", "scope", "element");
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RegularExpressionCheck.html"), check);
 
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(7)
+        .next().atLine(9);
   }
 
-  @Test
-  public void passElementRegularExpressionCheck() throws FileNotFoundException {
-
-    String fragment = "<tag att=\"invalid@value\" />";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, RegularExpressionCheck.class,
-        "expression", ".*att=.*&", "scope", "element");
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
-  }
 }
