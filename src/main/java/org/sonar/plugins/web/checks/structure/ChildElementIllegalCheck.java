@@ -28,45 +28,28 @@ import org.sonar.plugins.web.node.TagNode;
  * Checker for illegal child elements.
  *
  * e.g. head cannnot have child element body.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-@Rule(key = "ChildElementIllegalCheck", priority = Priority.MAJOR, cardinality = Cardinality.MULTIPLE)
+@Rule(
+  key = "ChildElementIllegalCheck",
+  priority = Priority.MAJOR,
+  cardinality = Cardinality.MULTIPLE)
 public class ChildElementIllegalCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private String child;
+  private static final String DEFAULT_CHILD = "";
+  private static final String DEFAULT_PARENT = "";
 
-  @RuleProperty
-  private String parent;
+  @RuleProperty(
+    key = "child",
+    defaultValue = DEFAULT_CHILD)
+  public String child = DEFAULT_CHILD;
 
-  public String getChild() {
-    return child;
-  }
+  @RuleProperty(
+    key = "parent",
+    defaultValue = DEFAULT_PARENT)
+  public String parent = DEFAULT_PARENT;
 
-  public String getParent() {
-    return parent;
-  }
-
-  public void setChild(String child) {
-    this.child = child;
-  }
-
-  public void setParent(String parent) {
-    this.parent = parent;
-  }
-
-  /**
-   * Execute the check. The parent must NOT have the child element.
-   */
   @Override
   public void startElement(TagNode element) {
-
-    if (parent == null || child == null) {
-      return;
-    }
-
     if (element.equalsElementName(parent)) {
       for (TagNode childNode : element.getChildren()) {
         if (childNode.equalsElementName(child)) {
@@ -75,4 +58,5 @@ public class ChildElementIllegalCheck extends AbstractPageCheck {
       }
     }
   }
+
 }

@@ -27,21 +27,21 @@ import org.sonar.plugins.web.node.TextNode;
 /**
  * Checker to find long javascripts.
  *
- * @author Matthijs Galesloot
- * @since 1.0
- *
  * @see http://pmd.sourceforge.net/rules/basic-jsp.html
  */
-@Rule(key = "LongJavaScriptCheck", priority = Priority.CRITICAL)
+@Rule(
+  key = "LongJavaScriptCheck",
+  priority = Priority.CRITICAL)
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;
 
+  @RuleProperty(
+    key = "maxLines",
+    defaultValue = "" + DEFAULT_MAX_LINES)
+  public int maxLines = DEFAULT_MAX_LINES;
+
   private int linesOfCode;
-
-  @RuleProperty(defaultValue = "" + DEFAULT_MAX_LINES)
-  private int maxLines = DEFAULT_MAX_LINES;
-
   private TagNode scriptNode;
 
   @Override
@@ -50,8 +50,7 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
       linesOfCode += textNode.getLinesOfCode();
 
       if (linesOfCode > maxLines) {
-        createViolation(scriptNode.getStartLinePosition(), "The length of this JS script (" + linesOfCode +
-          ") exceeds the maximum set to " + maxLines + ".");
+        createViolation(scriptNode.getStartLinePosition(), "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".");
         scriptNode = null;
       }
     }
@@ -62,14 +61,6 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
     scriptNode = null;
   }
 
-  public int getMaxLines() {
-    return maxLines;
-  }
-
-  public void setMaxLines(int maxLines) {
-    this.maxLines = maxLines;
-  }
-
   @Override
   public void startElement(TagNode element) {
     if ("script".equalsIgnoreCase(element.getNodeName())) {
@@ -77,4 +68,5 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
       linesOfCode = 0;
     }
   }
+
 }

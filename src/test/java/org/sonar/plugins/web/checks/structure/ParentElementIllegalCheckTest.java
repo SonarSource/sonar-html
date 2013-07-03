@@ -17,40 +17,38 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class ParentElementIllegalCheckTest extends AbstractCheckTester {
+public class ParentElementIllegalCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateParentIllegalCheck() throws FileNotFoundException {
-
-    String fragment = "<illegalparent><sub>Hello</sub></illegalparent>";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, ParentElementIllegalCheck.class,
-        "parent", "illegalparent", "child", "sub");
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    ParentElementIllegalCheck check = new ParentElementIllegalCheck();
+    assertThat(check.child).isEmpty();
+    assertThat(check.parent).isEmpty();
   }
 
   @Test
-  public void passParentIllegalCheck() throws FileNotFoundException {
+  public void custom() {
+    ParentElementIllegalCheck check = new ParentElementIllegalCheck();
+    check.child = "bar";
+    check.parent = "foo";
 
-    String fragment = "<head><title>Hello</title></head>";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, ParentElementIllegalCheck.class,
-        "parent", "illegalparent", "child", "sub");
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ParentElementIllegalCheck.html"), check);
 
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(2).withMessage("The element 'bar' must not have a 'foo' parent.");
   }
+
 }

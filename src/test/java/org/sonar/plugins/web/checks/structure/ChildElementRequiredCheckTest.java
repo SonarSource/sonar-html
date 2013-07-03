@@ -17,38 +17,39 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class ChildElementRequiredCheckTest extends AbstractCheckTester {
+public class ChildElementRequiredCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateChildRequiredCheck() throws FileNotFoundException {
-
-    String fragment = "<head><sub>Hello</sub></head>";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, ChildElementRequiredCheck.class);
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    ChildElementRequiredCheck check = new ChildElementRequiredCheck();
+    assertThat(check.child).isEmpty();
+    assertThat(check.parent).isEmpty();
   }
 
   @Test
-  public void passChildRequiredCheck() throws FileNotFoundException {
+  public void custom() {
+    ChildElementRequiredCheck check = new ChildElementRequiredCheck();
+    check.child = "bar";
+    check.parent = "foo";
 
-    String fragment = "<head><title>Hello</title></head>";
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, ChildElementRequiredCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ChildElementRequiredCheck.html"), check);
 
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(8).withMessage("The element 'foo' must have a 'bar' child.")
+        .next().atLine(12);
   }
+
 }

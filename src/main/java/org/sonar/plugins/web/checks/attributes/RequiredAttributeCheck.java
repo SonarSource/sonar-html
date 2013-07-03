@@ -35,18 +35,17 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";
 
-  private static final class RequiredAttribute {
-
-    private String elementName;
-    private String attributeName;
-  }
-
   @RuleProperty(
     key = "attributes",
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 
   private final List<RequiredAttribute> attributesList = new ArrayList<RequiredAttribute>();
+
+  private static final class RequiredAttribute {
+    private String elementName;
+    private String attributeName;
+  }
 
   @Override
   public void startDocument(List<Node> nodes) {

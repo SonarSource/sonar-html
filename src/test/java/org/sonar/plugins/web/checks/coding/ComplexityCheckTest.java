@@ -28,7 +28,7 @@ import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class ComplexityCheckTest extends AbstractCheckTester {
+public class ComplexityCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();

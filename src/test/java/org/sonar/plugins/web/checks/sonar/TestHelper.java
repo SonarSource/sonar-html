@@ -19,6 +19,7 @@ package org.sonar.plugins.web.checks.sonar;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
+import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
@@ -42,6 +43,7 @@ public class TestHelper {
 
       HtmlAstScanner walker = new HtmlAstScanner();
       walker.addVisitor(visitor);
+      walker.addVisitor(new PageCountLines());
       walker.scan(nodes, result, Charsets.UTF_8);
 
       return result;

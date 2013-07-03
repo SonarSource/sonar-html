@@ -19,7 +19,6 @@ package org.sonar.plugins.web.checks.structure;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
@@ -28,7 +27,7 @@ import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class RequiredElementCheckTest extends AbstractCheckTester {
+public class RequiredElementCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();

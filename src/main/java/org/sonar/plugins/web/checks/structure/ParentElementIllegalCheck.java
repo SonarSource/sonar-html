@@ -28,47 +28,31 @@ import org.sonar.plugins.web.node.TagNode;
  * Checker for illegal parent element.
  *
  * e.g. title must not have parent element body.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-@Rule(key = "ParentElementIllegalCheck", priority = Priority.MAJOR, cardinality = Cardinality.MULTIPLE)
+@Rule(
+  key = "ParentElementIllegalCheck",
+  priority = Priority.MAJOR,
+  cardinality = Cardinality.MULTIPLE)
 public class ParentElementIllegalCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private String child;
+  private static final String DEFAULT_CHILD = "";
+  private static final String DEFAULT_PARENT = "";
 
-  @RuleProperty
-  private String parent;
+  @RuleProperty(
+    key = "child",
+    defaultValue = DEFAULT_CHILD)
+  public String child = DEFAULT_CHILD;
 
-  public String getChild() {
-    return child;
-  }
+  @RuleProperty(
+    key = "parent",
+    defaultValue = DEFAULT_PARENT)
+  public String parent = DEFAULT_PARENT;
 
-  public String getParent() {
-    return parent;
-  }
-
-  public void setChild(String child) {
-    this.child = child;
-  }
-
-  public void setParent(String parent) {
-    this.parent = parent;
-  }
-
-  /**
-   * Execute the check. The child must NOT have the parent element.
-   */
   @Override
   public void startElement(TagNode element) {
-
-    if (parent == null || child == null) {
-      return;
-    }
-
     if (element.equalsElementName(child) && element.getParent() != null && element.getParent().equalsElementName(parent)) {
       createViolation(element.getStartLinePosition(), "The element '" + child + "' must not have a '" + parent + "' parent.");
     }
   }
+
 }

@@ -17,75 +17,41 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class AttributeValidationCheckTest extends AbstractCheckTester {
+public class AttributeValidationCheckTest {
 
-  public void validateEmail() throws FileNotFoundException {
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-    String fragment = "<td email=\"a.png\">";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
-        "attributes", "email", "type", "email");
+  @Test
+  public void detected() {
+    AttributeValidationCheck check = new AttributeValidationCheck();
 
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-
-    fragment = "<td email=\"a@x.nl\">";
-    sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
-        "attributes", "email", "type", "email");
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
-  }
-
-  public void validateUrl() throws FileNotFoundException {
-
-    String[] checkAttributes = new String[] {"attributes", "url", "type", "url"};
-
-    String fragment = "<td url='httpd://aa'>";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
-        checkAttributes);
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-
-    fragment = "<td url='http://www.w3c.org/'>";
-    sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
-        checkAttributes);
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    assertThat(check.attributes).isEmpty();
+    assertThat(check.values).isEmpty();
   }
 
   @Test
-  public void validateCode() throws FileNotFoundException {
+  public void custom() {
+    AttributeValidationCheck check = new AttributeValidationCheck();
+    check.attributes = "a.foo,bar";
+    check.values = "a|b";
 
-    String[] checkAttributes = new String[] {"attributes", "escape", "values", "true|ok"};
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AttributeValidationCheck.html"), check);
 
-    String fragment = "<td escape='ok'>";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
-        checkAttributes);
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
-
-    fragment = "<td escape='false'>";
-    sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
-        checkAttributes);
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-
-    checkAttributes = new String[] {"attributes", "escape", "values", "t.*|o.*"};
-
-    fragment = "<td escape='ok'>";
-    sourceCode = parseAndCheck(new StringReader(fragment), AttributeValidationCheck.class,
-        checkAttributes);
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(2).withMessage("The attribute 'foo' does not respect the value constraint: a|b")
+        .next().atLine(5).withMessage("The attribute 'bar' does not respect the value constraint: a|b")
+        .next().atLine(7);
   }
+
 }

@@ -28,45 +28,28 @@ import org.sonar.plugins.web.node.TagNode;
  * Checker for required child elements.
  *
  * e.g. head must have child element title.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-@Rule(key = "ChildElementRequiredCheck", priority = Priority.MAJOR, cardinality = Cardinality.MULTIPLE)
+@Rule(
+  key = "ChildElementRequiredCheck",
+  priority = Priority.MAJOR,
+  cardinality = Cardinality.MULTIPLE)
 public class ChildElementRequiredCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private String child;
+  private static final String DEFAULT_CHILD = "";
+  private static final String DEFAULT_PARENT = "";
 
-  @RuleProperty
-  private String parent;
+  @RuleProperty(
+    key = "child",
+    defaultValue = DEFAULT_CHILD)
+  public String child = DEFAULT_CHILD;
 
-  public String getChild() {
-    return child;
-  }
+  @RuleProperty(
+    key = "parent",
+    defaultValue = DEFAULT_PARENT)
+  public String parent = DEFAULT_PARENT;
 
-  public String getParent() {
-    return parent;
-  }
-
-  public void setChild(String child) {
-    this.child = child;
-  }
-
-  public void setParent(String parent) {
-    this.parent = parent;
-  }
-
-  /**
-   * Execute the check. The parent must have the child.
-   */
   @Override
   public void startElement(TagNode element) {
-
-    if (parent == null || child == null) {
-      return;
-    }
-
     if (element.equalsElementName(parent)) {
       boolean ruleOK = false;
       for (TagNode childNode : element.getChildren()) {
@@ -79,4 +62,5 @@ public class ChildElementRequiredCheck extends AbstractPageCheck {
       }
     }
   }
+
 }

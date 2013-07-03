@@ -22,15 +22,9 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 
-/**
- * Checker to find dynamic includes.
- *
- * e.g. <jsp:include page="header.jsp">
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "DynamicJspIncludeCheck", priority = Priority.CRITICAL)
+@Rule(
+  key = "DynamicJspIncludeCheck",
+  priority = Priority.CRITICAL)
 public class DynamicJspIncludeCheck extends AbstractPageCheck {
 
   @Override
@@ -39,4 +33,5 @@ public class DynamicJspIncludeCheck extends AbstractPageCheck {
       createViolation(node.getStartLinePosition(), "Dynamic includes are not allowed.");
     }
   }
+
 }

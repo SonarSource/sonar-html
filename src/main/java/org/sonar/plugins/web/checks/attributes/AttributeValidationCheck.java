@@ -24,38 +24,45 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Checker for values of attributes. A list of values might be specified as normal values or RegExpressions.
- *
- * @author Matthijs Galesloot
- * @since 1.1
  */
-@Rule(key = "AttributeValidationCheck", priority = Priority.MAJOR, cardinality = Cardinality.MULTIPLE)
+@Rule(
+  key = "AttributeValidationCheck",
+  priority = Priority.MAJOR,
+  cardinality = Cardinality.MULTIPLE)
 public class AttributeValidationCheck extends AbstractPageCheck {
 
-  @RuleProperty
-  private QualifiedAttribute[] attributes;
+  private static final String DEFAULT_ATTRIBUTES = "";
+  private static final String DEFAULT_VALUES = "";
 
-  @RuleProperty
-  private String values;
+  @RuleProperty(
+    key = "attributes",
+    defaultValue = DEFAULT_ATTRIBUTES)
+  public String attributes = DEFAULT_ATTRIBUTES;
 
+  @RuleProperty(
+    key = "values",
+    defaultValue = DEFAULT_VALUES)
+  public String values = DEFAULT_VALUES;
+
+  private QualifiedAttribute[] attributesArray;
   private Pattern pattern;
 
-  public String getAttributes() {
-    return getAttributesAsString(attributes);
-  }
-
-  public String getValues() {
-    return values;
+  @Override
+  public void startDocument(List<Node> nodes) {
+    this.attributesArray = parseAttributes(attributes);
+    pattern = Pattern.compile(values);
   }
 
   private boolean isValidValue(Attribute a) {
-
     if (StringUtils.isEmpty(a.getValue())) {
       return true;
     }
@@ -64,26 +71,13 @@ public class AttributeValidationCheck extends AbstractPageCheck {
     return m.matches();
   }
 
-  public void setAttributes(String qualifiedAttributes) {
-    this.attributes = parseAttributes(qualifiedAttributes);
-  }
-
-  public void setValues(String values) {
-    this.values = values;
-    pattern = Pattern.compile(values);
-  }
-
   @Override
   public void startElement(TagNode element) {
-
-    if (attributes == null) {
-      return;
-    }
-
-    for (Attribute a : getMatchingAttributes(element, attributes)) {
+    for (Attribute a : getMatchingAttributes(element, attributesArray)) {
       if (!isValidValue(a)) {
         createViolation(element.getStartLinePosition(), "The attribute '" + a.getName() + "' does not respect the value constraint: " + values);
       }
     }
   }
+
 }

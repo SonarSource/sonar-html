@@ -17,48 +17,37 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class IllegalNamespaceCheckTest extends AbstractCheckTester {
+public class IllegalNamespaceCheckTest {
 
-  private static final String fragment = "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"
-    + "xmlns:c=\"http://java.sun.com/jstl/core\"\n"
-    + "xmlns:rich=\"http://richfaces.org/rich\"\n";
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateIllegalNamespaceCheck() throws FileNotFoundException {
-
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, IllegalNamespaceCheck.class,
-        "namespaces", "http://richfaces.org/rich,http://java.sun.com/jstl/core");
-
-    assertEquals("Incorrect number of violations", 2, sourceCode.getViolations().size());
-
-    reader = new StringReader(fragment);
-    sourceCode = parseAndCheck(reader, IllegalNamespaceCheck.class,
-        "namespaces", "http://richfaces.org/rich");
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    assertThat(new IllegalNamespaceCheck().namespaces).isEmpty();
   }
 
   @Test
-  public void passIllegalNamespaceCheck() throws FileNotFoundException {
+  public void custom() {
+    IllegalNamespaceCheck check = new IllegalNamespaceCheck();
+    check.namespaces = "foo,baz";
 
-    Reader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, IllegalNamespaceCheck.class,
-        "namespaces", "http://java.sun.com/jsf/html");
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalNamespaceCheck.html"), check);
 
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(1).withMessage("Using 'baz' namespace is not allowed.")
+        .next().atLine(1).withMessage("Using 'foo' namespace is not allowed.")
+        .next().atLine(6).withMessage("Using 'foo' namespace is not allowed.");
   }
+
 }

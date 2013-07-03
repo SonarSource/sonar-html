@@ -33,9 +33,8 @@ import java.util.List;
   priority = Priority.MINOR)
 public class InternationalizationCheck extends AbstractPageCheck {
 
-  private static final String DEFAULT_ATTRIBUTES = "outputLabel.value, outputText.value";
-
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
+  private static final String DEFAULT_ATTRIBUTES = "outputLabel.value, outputText.value";
 
   @RuleProperty(
     key = "attributes",

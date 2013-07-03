@@ -17,27 +17,35 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.StringReader;
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class JavaScriptCheckTest extends AbstractCheckTester {
+public class JavaScriptCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void testJavaScriptCheck() throws FileNotFoundException {
-
-    String fragment = "<h:someNode/><script language=\"JavaScript\">var a;\nvar b;\nvar c;\nvar d;\nvar e;\nvar f;\n</script>";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), LongJavaScriptCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+  public void detected() {
+    assertThat(new LongJavaScriptCheck().maxLines).isEqualTo(5);
   }
+
+  @Test
+  public void custom() {
+    LongJavaScriptCheck check = new LongJavaScriptCheck();
+    check.maxLines = 4;
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LongJavaScriptCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(7).withMessage("The length of this JS script (6) exceeds the maximum set to 4.");
+  }
+
 }

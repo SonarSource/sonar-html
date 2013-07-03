@@ -17,66 +17,37 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.StringReader;
+import java.io.File;
 
-import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class UnifiedExpressionCheckTest extends AbstractCheckTester {
+public class UnifiedExpressionCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateUnifiedExpressionCheck() throws FileNotFoundException {
-
-    String fragment = "<tag expression=\"#{bean.getExpression() => 0} \"";
-
-    StringReader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class);
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+  public void detected() {
+    assertThat(new UnifiedExpressionCheck().functions).isEmpty();
   }
 
   @Test
-  public void testUnifiedExpressionCheck() throws FileNotFoundException {
+  public void custom() {
+    UnifiedExpressionCheck check = new UnifiedExpressionCheck();
+    check.functions = "myMethod2,myMethod3";
 
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
 
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(2).withMessage("Unknown function: myMethod1")
+        .next().atLine(5).withMessage("This expression is not valid. Error Parsing: ${}");
   }
 
-  @Test
-  public void escapeCharacters() {
-    String fragment = "<c:when test=\"${citaflagurge eq \\\"S\\\"}\">";
-    StringReader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class);
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
-  }
-
-  @Test
-  public void testValidFunction() {
-
-    String fragment = "<TD align=\"${testUI:align('inverse')}\">";
-    StringReader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class, "functions", "align");
-
-    assertEquals("Incorrect number of violations", 0, sourceCode.getViolations().size());
-  }
-
-  @Test
-  public void testUnknownFunction() {
-
-    String fragment = "<TD align=\"${testUI:align('inverse')}\">";
-    StringReader reader = new StringReader(fragment);
-    WebSourceCode sourceCode = parseAndCheck(reader, UnifiedExpressionCheck.class, "functions", "another-function");
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
-  }
 }

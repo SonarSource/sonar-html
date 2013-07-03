@@ -24,27 +24,17 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 
-/**
- * Checker for length of file.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-@Rule(key = "FileLengthCheck", priority = Priority.MINOR)
+@Rule(
+  key = "FileLengthCheck",
+  priority = Priority.MINOR)
 public class FileLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_FILE_LENGTH = 500;
 
-  @RuleProperty(defaultValue = "500")
-  private int maxLength = DEFAULT_MAX_FILE_LENGTH;
-
-  public int getMaxLength() {
-    return maxLength;
-  }
-
-  public void setMaxLength(int maxLength) {
-    this.maxLength = maxLength;
-  }
+  @RuleProperty(
+    key = "maxLength",
+    defaultValue = "" + DEFAULT_MAX_FILE_LENGTH)
+  public int maxLength = DEFAULT_MAX_FILE_LENGTH;
 
   @Override
   public void endDocument() {
@@ -52,6 +42,6 @@ public class FileLengthCheck extends AbstractPageCheck {
     if (lines != null && lines.getIntValue() > maxLength) {
       createViolation(0, "Current file length (" + lines.getIntValue() + ") exceeds the maximum threshold set to " + maxLength);
     }
-    super.endDocument();
   }
+
 }

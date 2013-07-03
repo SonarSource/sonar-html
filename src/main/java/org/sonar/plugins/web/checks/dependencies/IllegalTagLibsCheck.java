@@ -17,33 +17,45 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.Node;
+
+import java.util.List;
 
 /**
  * Checker to find disallowed taglibs.
  *
  * e.g. <%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-@Rule(key = "IllegalTagLibsCheck", priority = Priority.CRITICAL)
+@Rule(
+  key = "IllegalTagLibsCheck",
+  priority = Priority.CRITICAL)
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
-  @RuleProperty(defaultValue = "http://java.sun.com/jstl/sql")
-  private String[] tagLibs = new String[] {"http://java.sun.com/jstl/sql"};
+  private static final String DEFAULT_TAG_LIBS = "http://java.sun.com/jstl/sql";
+
+  @RuleProperty(
+    key = "tagLibs",
+    defaultValue = DEFAULT_TAG_LIBS)
+  public String tagLibs = DEFAULT_TAG_LIBS;
+
+  private String[] tagLibsArray;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    tagLibsArray = trimSplitCommaSeparatedList(tagLibs);
+  }
 
   @Override
   public void directive(DirectiveNode node) {
     if ("taglib".equalsIgnoreCase(node.getNodeName())) {
       for (Attribute a : node.getAttributes()) {
-        for (String tagLib : tagLibs) {
+        for (String tagLib : tagLibsArray) {
           if (tagLib.equalsIgnoreCase(a.getValue())) {
             createViolation(node.getStartLinePosition(), "Following taglib is forbidden: " + tagLib);
           }
@@ -52,11 +64,4 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
     }
   }
 
-  public String getTagLibs() {
-    return StringUtils.join(tagLibs, ",");
-  }
-
-  public void setTagLibs(String value) {
-    tagLibs = trimSplitCommaSeparatedList(value);
-  }
 }

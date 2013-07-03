@@ -25,6 +25,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
 import javax.el.ELContext;
@@ -34,27 +35,17 @@ import javax.el.FunctionMapper;
 import javax.el.VariableMapper;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * Checker to validate Unified Expressions in JSF.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-@Rule(key = "UnifiedExpressionCheck", priority = Priority.BLOCKER)
+@Rule(
+  key = "UnifiedExpressionCheck",
+  priority = Priority.BLOCKER)
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
-  /**
-   * List of supported functions. Use of unknown functions raises a violation.
-   * @since 1.1
-   */
-  @RuleProperty
-  private String[] functions;
-
-  public void setFunctions(String list) {
-    functions = StringUtils.stripAll(StringUtils.split(list, ","));
-  }
-
+  private static final String DEFAULT_FUNCTIONS = "";
   private static final String[] JSTL_FUNCTIONS = new String[] {
     "contains",
     "containsIgnoreCase",
@@ -74,12 +65,16 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
     "trim"
   };
 
-  public String getFunctions() {
-    if (functions != null) {
-      return StringUtils.join(functions, ",");
-    }
-    return "";
-  }
+  /**
+   * List of supported functions. Use of unknown functions raises a violation.
+   * @since 1.1
+   */
+  @RuleProperty(
+    key = "functions",
+    defaultValue = DEFAULT_FUNCTIONS)
+  public String functions = DEFAULT_FUNCTIONS;
+
+  private String[] functionsArray;
 
   /**
    * ELContext for use by ExpressionBuilder.
@@ -99,23 +94,19 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
 
     @Override
     public FunctionMapper getFunctionMapper() {
-      if (functions == null) {
-        return null;
-      } else {
-        return new FunctionMapper() {
+      return new FunctionMapper() {
 
-          @Override
-          public Method resolveFunction(String prefix, String localName) {
-
-            if (!ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functions, localName)) {
-              createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
-            }
-
-            // we only care about the check.
-            return null;
+        @Override
+        public Method resolveFunction(String prefix, String localName) {
+          if (!ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functionsArray, localName)) {
+            createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
           }
-        };
-      }
+
+          // we only care about the check.
+          return null;
+        }
+
+      };
     }
 
     @Override
@@ -123,6 +114,11 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
       return null;
     }
   };
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    functionsArray = StringUtils.stripAll(StringUtils.split(functions, ","));
+  }
 
   @Override
   public void startElement(TagNode element) {
@@ -150,4 +146,5 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
       }
     }
   }
+
 }

@@ -17,26 +17,45 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
-public class FileLengthCheckTest extends AbstractCheckTester {
+public class FileLengthCheckTest {
+
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateFileLengthCheck() throws FileNotFoundException {
-
-    FileReader reader = new FileReader("src/test/resources/src/main/webapp/create-salesorder.xhtml");
-    WebSourceCode sourceCode = parseAndCheck(reader, FileLengthCheck.class, "maxLength", "10");
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+  public void detected() {
+    assertThat(new FileLengthCheck().maxLength).isEqualTo(500);
   }
+
+  @Test
+  public void custom() {
+    FileLengthCheck check = new FileLengthCheck();
+    check.maxLength = 3;
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(null).withMessage("Current file length (4) exceeds the maximum threshold set to 3");
+  }
+
+  @Test
+  public void custom_ok() {
+    FileLengthCheck check = new FileLengthCheck();
+    check.maxLength = 4;
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations());
+  }
+
 }

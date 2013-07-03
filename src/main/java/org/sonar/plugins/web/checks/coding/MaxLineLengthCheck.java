@@ -38,12 +38,17 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;
 
-  private Charset charset;
-
   @RuleProperty(
     key = "maxLength",
     defaultValue = "" + DEFAULT_MAX_LINE_LENGTH)
   public int maxLength = DEFAULT_MAX_LINE_LENGTH;
+
+  private Charset charset;
+
+  @Override
+  public void setCharset(Charset charset) {
+    this.charset = charset;
+  }
 
   @Override
   public void startDocument(List<Node> nodes) {
@@ -65,11 +70,6 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
     } catch (IOException e) {
       throw new SonarException("Unable to read " + file, e);
     }
-  }
-
-  @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
   }
 
 }
