@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
@@ -27,8 +25,6 @@ import org.sonar.plugins.web.api.WebConstants;
 import java.util.List;
 
 public final class WebRulesRepository extends RuleRepository {
-
-  private static final Logger LOG = LoggerFactory.getLogger(WebRulesRepository.class);
 
   public static final String REPOSITORY_NAME = "Web";
   public static final String REPOSITORY_KEY = "Web";
