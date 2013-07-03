@@ -17,50 +17,34 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
-import org.sonar.plugins.web.checks.comments.AvoidHtmlCommentCheck;
-
+import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.StringReader;
+import java.io.File;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-/**
- * @author Matthijs Galesloot
- */
 public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
 
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
   @Test
-  public void htmlCommentIsNotAllowed() {
+  public void should_detect_on_jsp_documents() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp"), new AvoidHtmlCommentCheck());
 
-    String fragment = "<h:someNode/><!-- this comment is not allowed -->";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(2).withMessage("Remove this HTML comment.")
+        .next().atLine(4);
   }
 
   @Test
-  public void htmlComentIsAllowedInXmlDocuments() {
+  public void should_not_detect_on_xml_documents() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml"), new AvoidHtmlCommentCheck());
 
-    String fragment = "<?xml version=\"1.0\" ?><h:someNode/><!-- this comment is allowed -->";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
-
-  @Test
-  public void htmlComentIsAllowedInExpressions() {
-
-    String fragment = "<% if (htmlCode.match(\"<Unable to render embedded object: " +
-      "File (-- CrossSellHotel -->\") == \"<) not found.-- CrossSellHotel -->\"){   %>";
-
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), AvoidHtmlCommentCheck.class);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
+    checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
 }

@@ -31,32 +31,33 @@ import java.util.List;
  *
  * HTML comment is not allowed in JSP files, use server side comment instead. The check allows HTML comment in XHTML files, recognized by
  * its xml declaration.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
 @Rule(key = "AvoidHtmlCommentCheck", priority = Priority.MINOR)
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
-  private boolean xmlDocument;
+  private boolean isXml;
 
   @Override
   public void comment(CommentNode node) {
-    if (!xmlDocument && node.isHtml()) {
-      createViolation(node.getStartLinePosition(), "Avoid HTML comment in JSP files, use server side comment instead.");
+    String comment = node.getCode();
+
+    if (!isXml &&
+      node.isHtml() &&
+      !comment.startsWith("<!--[if")) {
+      createViolation(node.getStartLinePosition(), "Remove this HTML comment.");
     }
   }
 
   @Override
   public void directive(DirectiveNode node) {
     if (node.isXml()) {
-      xmlDocument = true;
+      isXml = true;
     }
   }
 
   @Override
   public void startDocument(List<Node> nodes) {
-    xmlDocument = false;
+    isXml = false;
   }
 
 }
