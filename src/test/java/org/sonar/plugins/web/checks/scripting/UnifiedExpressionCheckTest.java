@@ -19,7 +19,6 @@ package org.sonar.plugins.web.checks.scripting;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
@@ -48,6 +47,17 @@ public class UnifiedExpressionCheckTest {
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(2).withMessage("Unknown function: myMethod1")
         .next().atLine(5).withMessage("This expression is not valid. Error Parsing: ${}");
+  }
+
+  @Test
+  public void should_not_detect_unknown_functions_with_empty_list() {
+    UnifiedExpressionCheck check = new UnifiedExpressionCheck();
+    check.functions = "";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(5);
   }
 
 }

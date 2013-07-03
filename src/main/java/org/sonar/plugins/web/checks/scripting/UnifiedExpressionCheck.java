@@ -94,19 +94,23 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
 
     @Override
     public FunctionMapper getFunctionMapper() {
-      return new FunctionMapper() {
+      if (functions.isEmpty()) {
+        return null;
+      } else {
+        return new FunctionMapper() {
 
-        @Override
-        public Method resolveFunction(String prefix, String localName) {
-          if (!ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functionsArray, localName)) {
-            createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
+          @Override
+          public Method resolveFunction(String prefix, String localName) {
+            if (!ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functionsArray, localName)) {
+              createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
+            }
+
+            // we only care about the check.
+            return null;
           }
 
-          // we only care about the check.
-          return null;
-        }
-
-      };
+        };
+      }
     }
 
     @Override
