@@ -11,16 +11,11 @@ Common reasons for that include:
   <li>Images loading is disabled, e.g. to reduce data consumption on mobile phones</li>
 </ul>
 
-<p>
-Empty <code>alt</code> attributes are not allowed, as purely decorative images should be specified using CSS, not using the <code>img</code> tag.
-</p>
-
 <p>The following code illustrates this rule:</p>
 
 <pre>
 &lt;img src="foo.png" /&gt;                                           &lt;!-- Non-Compliant --&gt;
 &lt;input type="image" src="foo.png" /&gt;                            &lt;!-- Non-Compliant --&gt;
-&lt;img src="foo.png" alt="" /&gt;                                    &lt;!-- Non-Compliant --&gt;
 &lt;img src="foo.png" alt="Some textual description of foo.png" /&gt; &lt;!-- Compliant --&gt;
 &lt;input type="image" src="foo.png" alt="..." /&gt;                  &lt;!-- Compliant --&gt;
 </pre>
