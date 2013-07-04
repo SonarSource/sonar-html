@@ -17,10 +17,11 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import org.sonar.plugins.web.checks.TestHelper;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
-import org.sonar.plugins.web.checks.sonar.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
