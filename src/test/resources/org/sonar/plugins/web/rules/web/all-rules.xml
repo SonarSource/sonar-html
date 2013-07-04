@@ -172,10 +172,6 @@
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
-      <key>RegularExpressionCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
       <key>UnclosedTagCheck</key>
       <parameters>
         <parameter>

@@ -32,7 +32,6 @@ import org.sonar.plugins.web.checks.dependencies.DynamicJspIncludeCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalNamespaceCheck;
 import org.sonar.plugins.web.checks.dependencies.IllegalTagLibsCheck;
 import org.sonar.plugins.web.checks.dependencies.LibraryDependencyCheck;
-import org.sonar.plugins.web.checks.generic.RegularExpressionCheck;
 import org.sonar.plugins.web.checks.header.HeaderCheck;
 import org.sonar.plugins.web.checks.header.MultiplePageDirectivesCheck;
 import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
@@ -97,7 +96,6 @@ public final class CheckClasses {
     OGNLExpressionCheck.class,
     ParentElementIllegalCheck.class,
     ParentElementRequiredCheck.class,
-    RegularExpressionCheck.class,
     RequiredElementCheck.class,
     UnclosedTagCheck.class,
     UnifiedExpressionCheck.class,
