@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import org.sonar.plugins.web.checks.sonar.CharsetAwareVisitor;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
