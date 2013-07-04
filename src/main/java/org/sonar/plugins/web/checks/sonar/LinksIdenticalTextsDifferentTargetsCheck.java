@@ -75,15 +75,17 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     if (isA(node)) {
       inLink = false;
 
-      String upperText = text.toString().toUpperCase(Locale.ENGLISH);
-      if (links.containsKey(upperText)) {
-        Link previousLink = links.get(upperText);
+      String upperText = text.toString().toUpperCase(Locale.ENGLISH).trim();
+      if (!upperText.isEmpty()) {
+        if (links.containsKey(upperText)) {
+          Link previousLink = links.get(upperText);
 
-        if (!target.equals(previousLink.getTarget())) {
-          createViolation(line, "Use distinct texts or point to the same target for this link and the one at line " + previousLink.getLine() + ".");
+          if (!target.equals(previousLink.getTarget())) {
+            createViolation(line, "Use distinct texts or point to the same target for this link and the one at line " + previousLink.getLine() + ".");
+          }
+        } else {
+          links.put(upperText, new Link(line, target));
         }
-      } else {
-        links.put(upperText, new Link(line, target));
       }
     }
   }
