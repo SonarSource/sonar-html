@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.sonar;
+package org.sonar.plugins.web.checks;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;

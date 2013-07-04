@@ -27,11 +27,10 @@ import org.sonar.plugins.web.node.TextNode;
  * Checker for Tab character.
  *
  * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Indentation
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-@Rule(key = "IllegalTabCheck", priority = Priority.MINOR)
+@Rule(
+  key = "IllegalTabCheck",
+  priority = Priority.MINOR)
 public class IllegalTabCheck extends AbstractPageCheck {
 
   @Override
@@ -40,4 +39,5 @@ public class IllegalTabCheck extends AbstractPageCheck {
       createViolation(textNode.getStartLinePosition(), "Avoid using the tab character for indentation.");
     }
   }
+
 }

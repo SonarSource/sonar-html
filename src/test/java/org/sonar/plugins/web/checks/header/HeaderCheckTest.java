@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.web.checks.header;
 
-import org.sonar.plugins.web.checks.sonar.TestHelper;
+import org.sonar.plugins.web.checks.TestHelper;
 
 import org.junit.Rule;
 import org.junit.Test;

@@ -15,35 +15,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.sonar;
-
-
-import org.sonar.plugins.web.checks.TestHelper;
+package org.sonar.plugins.web.checks.whitespace;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
 
-public class PageWithoutTitleCheckTest {
+public class IllegalTabCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutTitleCheck.html"), new PageWithoutTitleCheck());
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalTabCheck.html"), new IllegalTabCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Add a <title> tag to this page.")
-        .next().atLine(5)
-        .next().atLine(15)
-        .next().atLine(21)
-        .next().atLine(25)
-        .next().atLine(31)
-        .next().atLine(37);
+        .next().atLine(1).withMessage("Avoid using the tab character for indentation.");
   }
 
 }
