@@ -10,7 +10,7 @@
 
 <ul>
   <foo>
-    <li>    <!-- Non-Compliant -->
+    <li>    <!-- Compliant - limitation because of bad unclosed tags handling -->
   </foo>
 </ul>
 
@@ -43,3 +43,13 @@
   </ol>
   <li>end
 </ul>
+
+<ul>
+  <li><p>foo
+  <li><p>bar
+</ul>
+
+<dl>
+  <dt><p>foo
+  <dt><p>bar
+</dl>

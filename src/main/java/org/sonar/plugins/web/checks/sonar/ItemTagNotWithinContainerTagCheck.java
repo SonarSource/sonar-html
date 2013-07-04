@@ -29,11 +29,37 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isLi(node) && (node.getParent() == null || !isLi(node.getParent()) && !isUlOrOl(node.getParent()))) {
+    if (isLi(node) && !hasLiOrUlOrOlAncestor(node)) {
       createViolation(node.getStartLinePosition(), "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
-    } else if (isDt(node) && (node.getParent() == null || !isDl(node.getParent()))) {
+    } else if (isDt(node) && !hasDtOrDlAncestor(node)) {
       createViolation(node.getStartLinePosition(), "Surround this <" + node.getNodeName() + "> item tag by a <dl> container one.");
     }
+  }
+
+  private static boolean hasLiOrUlOrOlAncestor(TagNode node) {
+    TagNode parent = node.getParent();
+
+    while (parent != null) {
+      if (isLi(parent) || isUlOrOl(parent)) {
+        return true;
+      }
+      parent = parent.getParent();
+    }
+
+    return false;
+  }
+
+  private static boolean hasDtOrDlAncestor(TagNode node) {
+    TagNode parent = node.getParent();
+
+    while (parent != null) {
+      if (isDt(parent) || isDl(parent)) {
+        return true;
+      }
+      parent = parent.getParent();
+    }
+
+    return false;
   }
 
   private static boolean isLi(TagNode node) {
