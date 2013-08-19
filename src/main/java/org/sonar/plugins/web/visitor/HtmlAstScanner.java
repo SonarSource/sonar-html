@@ -57,6 +57,8 @@ public class HtmlAstScanner {
       if (visitor instanceof CharsetAwareVisitor) {
         ((CharsetAwareVisitor) visitor).setCharset(charset);
       }
+
+      visitor.init();
     }
 
     // notify visitors for a new document
