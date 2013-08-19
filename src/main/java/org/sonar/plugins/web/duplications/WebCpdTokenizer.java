@@ -42,6 +42,7 @@ public class WebCpdTokenizer implements Tokenizer {
     lexerBuilder.addChannel(CommentChannel.HTML_COMMENT);
     lexerBuilder.addChannel(CommentChannel.C_COMMENT);
     lexerBuilder.addChannel(CommentChannel.CPP_COMMENT);
+    lexerBuilder.addChannel(CommentChannel.DTL_COMMENT);
     lexerBuilder.addChannel(new WordChannel(fileName));
     lexerBuilder.addChannel(new LiteralChannel(fileName));
     lexerBuilder.addChannel(new BlackHoleChannel());

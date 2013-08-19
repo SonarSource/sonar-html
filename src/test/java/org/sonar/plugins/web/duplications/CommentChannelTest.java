@@ -47,6 +47,17 @@ public class CommentChannelTest {
   }
 
   @Test
+  public void testDtlComment() {
+    CommentChannel channel = CommentChannel.DTL_COMMENT;
+    CodeReader reader = new CodeReader("{# My Comment #}a");
+    assertTrue(channel.consume(reader, null));
+    assertThat((char) reader.peek(), is('a'));
+
+    reader = new CodeReader("/* My Comment */a");
+    assertFalse(channel.consume(reader, null));
+  }
+
+  @Test
   public void testCppComment() {
     CommentChannel channel = CommentChannel.CPP_COMMENT;
     CodeReader reader = new CodeReader("// My Comment \n\r");

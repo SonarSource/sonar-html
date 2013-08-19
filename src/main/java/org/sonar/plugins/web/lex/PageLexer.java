@@ -48,6 +48,8 @@ public final class PageLexer {
       new CommentTokenizer("<!--", "-->", true),
       /* JSP Comments */
       new CommentTokenizer("<%--", "--%>", false),
+      /* DTL Comments */
+      new CommentTokenizer("{#", "#}", false),
       /* HTML Directive */
       new DoctypeTokenizer("<!DOCTYPE", ">"),
       /* XML Directives */
@@ -56,6 +58,10 @@ public final class PageLexer {
       new DirectiveTokenizer("<%@", "%>"),
       /* JSP Expressions */
       new ExpressionTokenizer("<%", "%>"),
+      /* DTL Expressions */
+      new ExpressionTokenizer("{%", "%}"),
+      /* DTL variables */
+      new ExpressionTokenizer("{{", "}}"),
       /* XML and HTML Tags */
       new ElementTokenizer("<", ">"),
       /* Text (for everything else) */

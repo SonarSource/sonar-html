@@ -37,6 +37,12 @@ public class DirectiveNode extends TagNode {
     return getCode().startsWith("<%");
   }
 
+  public boolean isDtl() {
+    return getCode().startsWith("{%")
+        || getCode().startsWith("{{")
+        || getCode().startsWith("{#");
+  }
+
   public boolean isXml() {
     return getCode().startsWith("<?");
   }

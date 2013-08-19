@@ -86,6 +86,16 @@ public class PageLexerTest {
     // TODO - better parsing of erb.
   }
 
+  @Test
+  public void testDtl() throws FileNotFoundException {
+
+    String fileName = "src/test/resources/src/main/webapp/select_user.html.dtl";
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(new FileReader(fileName));
+
+    assertTrue(nodeList.size() > 50);
+  }
+
   private void showHierarchy(List<Node> nodeList) {
 
     StringBuilder sb = new StringBuilder();

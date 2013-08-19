@@ -34,6 +34,7 @@ public class CommentChannel extends Channel<Tokens> {
   public static final CommentChannel JSP_COMMENT = new CommentChannel("<%--[\\w\\W]*?%>");
   public static final CommentChannel CPP_COMMENT = new CommentChannel("//[^\n\r]*");
   public static final CommentChannel C_COMMENT = new CommentChannel("/\\*[\\w\\W]*?\\*/");
+  public static final CommentChannel DTL_COMMENT = new CommentChannel("\\{\\#[\\w\\W]*?\\#\\}");
 
   public CommentChannel(String regex) {
     this.matcher = Pattern.compile(regex).matcher("");
