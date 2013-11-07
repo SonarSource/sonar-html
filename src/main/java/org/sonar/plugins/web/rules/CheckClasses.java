@@ -40,6 +40,7 @@ import org.sonar.plugins.web.checks.scripting.OGNLExpressionCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
 import org.sonar.plugins.web.checks.sonar.DoctypePresenceCheck;
+import org.sonar.plugins.web.checks.sonar.ElementWithGivenIdPresentCheck;
 import org.sonar.plugins.web.checks.sonar.FieldsetWithoutLegendCheck;
 import org.sonar.plugins.web.checks.sonar.FlashUsesBothObjectAndEmbedCheck;
 import org.sonar.plugins.web.checks.sonar.FrameWithoutTitleCheck;
@@ -129,6 +130,7 @@ public final class CheckClasses {
     InputWithoutLabelCheck.class,
     ImgWithoutWidthOrHeightCheck.class,
     PageWithoutFaviconCheck.class,
+    ElementWithGivenIdPresentCheck.class,
   };
 
   /**
