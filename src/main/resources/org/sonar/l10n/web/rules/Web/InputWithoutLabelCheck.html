@@ -1,32 +1,24 @@
-<p>The <code>&lt;label&gt;</code> tag defines a label for an <code>&lt;input&gt;</code> element.</p>
+<p>The <code>&lt;label&gt;</code> tag defines a label for the <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;textarea&gt;</code> elements.</p>
 
 <p>
-A label does not render as anything special, but will toggle the associated input when its text is clicked.
-It also improves the usability for visually impaired users: Screen readers will announce the label text whenever the focus is set on the input.
+The <code>&lt;label&gt;</code> tag does not render as anything special.
+However, it provides a usability improvement for mouse users: When the text within the &lt;label&gt; element is clicked, the associated input field is toogled.
+It also improves the usability for visually impaired users: Screen readers will announce the label text whenever the focus is set on the input field.
 </p>
 
-<p>The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the related </code>&lt;input&gt;</code> to bind them together.</p>
+<p>The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the related element to bind them together.</p>
 
-<p>This rule verifies that all <code>&lt;input&gt;</code> tags have an <code>id</code> attribute which is referenced by a label.</p>
+<p>The purpose of this rule is to make sure that any &lt;input&gt; (except "submit", "button", "image" and "hidden" ones), &lt;select&gt; and &lt;textarea&gt; field has an associated label element.</p>
 
-<p>These input types are not verified by this rule:</p>
-
-<ul>
-  <li>submit</li>
-  <li>button</li>
-  <li>image</li>
-  <li>hidden</li>
-</ul>
-
-<p>The following code snippet illustrates this rule:</p>
+<h2>Noncompliant Code Example</h2>
 
 <pre>
-&lt;input type="text" name="a" /&gt;               &lt;!-- Non-Compliant - no id --&gt;
-&lt;input type="text" name="b" id="b" /&gt;        &lt;!-- Non-Compliant - no matching label 'b' --&gt;
+&lt;input type="text" name="firstname" /&gt;               &lt;!-- Non-Compliant - no id --&gt;
+&lt;input type="text" name="lastname" id="lastname" /&gt;  &lt;!-- Non-Compliant - no matching label for "lastname" --&gt;
 
-&lt;label for="c"&gt;...&lt;/label&gt;
-&lt;input type="text" name="c" id="c" /&gt;        &lt;!-- Compliant --&gt;
+&lt;label for="address"&gt;Address&lt;/label&gt;
+&lt;input type="text" name="address" id="address" /&gt;    &lt;!-- Compliant --&gt;
 
-&lt;input type="hidden" name="d" value="..."&gt;   &lt;!-- Compliant - 'hidden' type is excluded --&gt;
-&lt;input type="submit" value="Send" /&gt;         &lt;!-- Compliant - 'submit' type is excluded --&gt;
+&lt;input type="hidden" name="time" value="..."&gt;        &lt;!-- Compliant - "hidden" type is excluded --&gt;
+&lt;input type="submit" value="Send" /&gt;                 &lt;!-- Compliant - "submit" type is excluded --&gt;
 </pre>
