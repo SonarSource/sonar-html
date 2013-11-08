@@ -26,7 +26,7 @@ import java.util.List;
 
 public final class WebRulesRepository extends RuleRepository {
 
-  public static final String REPOSITORY_NAME = "Web";
+  public static final String REPOSITORY_NAME = "SonarQube";
   public static final String REPOSITORY_KEY = "Web";
   private final AnnotationRuleParser annotationRuleParser;
 
