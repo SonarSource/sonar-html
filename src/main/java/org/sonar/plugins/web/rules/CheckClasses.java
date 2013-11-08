@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.sonar.plugins.web.checks.attributes.AttributeValidationCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.checks.coding.ComplexityCheck;
@@ -76,7 +75,6 @@ public final class CheckClasses {
 
   @SuppressWarnings("rawtypes")
   private static final Class[] CLASSES = new Class[] {
-    AttributeValidationCheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,
