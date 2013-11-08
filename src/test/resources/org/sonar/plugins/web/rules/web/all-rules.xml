@@ -152,16 +152,6 @@
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
-      <key>RequiredElementCheck</key>
-      <parameters>
-        <parameter>
-          <key>elements</key>
-          <value>html</value>
-        </parameter>
-      </parameters>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
       <key>RequiredAttributeCheck</key>
       <parameters>
         <parameter>

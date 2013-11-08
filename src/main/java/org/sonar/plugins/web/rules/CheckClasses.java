@@ -65,7 +65,6 @@ import org.sonar.plugins.web.checks.structure.ChildElementRequiredCheck;
 import org.sonar.plugins.web.checks.structure.IllegalElementCheck;
 import org.sonar.plugins.web.checks.structure.ParentElementIllegalCheck;
 import org.sonar.plugins.web.checks.structure.ParentElementRequiredCheck;
-import org.sonar.plugins.web.checks.structure.RequiredElementCheck;
 import org.sonar.plugins.web.checks.style.InlineStyleCheck;
 import org.sonar.plugins.web.checks.whitespace.IllegalTabCheck;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
@@ -95,7 +94,6 @@ public final class CheckClasses {
     MaxLineLengthCheck.class,
     ParentElementIllegalCheck.class,
     ParentElementRequiredCheck.class,
-    RequiredElementCheck.class,
     UnclosedTagCheck.class,
     UnifiedExpressionCheck.class,
     WhiteSpaceAroundCheck.class,
