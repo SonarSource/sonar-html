@@ -208,10 +208,6 @@
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
-      <key>OGNLExpressionCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
       <key>AvoidCommentedOutCodeCheck</key>
     </rule>
     <rule>
