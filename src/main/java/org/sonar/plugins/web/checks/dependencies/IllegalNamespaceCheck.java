@@ -59,7 +59,7 @@ public class IllegalNamespaceCheck extends AbstractPageCheck {
       if (StringUtils.startsWithIgnoreCase(a.getName(), "xmlns")) {
         for (String namespace : namespacesArray) {
           if (a.getValue().equalsIgnoreCase(namespace)) {
-            createViolation(element.getStartLinePosition(), "Using '" + a.getValue() + "' namespace is not allowed.");
+            createViolation(element.getStartLinePosition(), "Using \"" + a.getValue() + "\" namespace is not allowed.");
           }
         }
       }
