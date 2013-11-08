@@ -284,6 +284,10 @@
       <repositoryKey>Web</repositoryKey>
       <key>ImgWithoutWidthOrHeightCheck</key>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>S1436</key>
+    </rule>
   </rules>
 
 </profile>
