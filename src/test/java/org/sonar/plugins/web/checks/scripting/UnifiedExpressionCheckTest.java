@@ -17,11 +17,10 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
-import org.sonar.plugins.web.checks.TestHelper;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
@@ -46,8 +45,8 @@ public class UnifiedExpressionCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(2).withMessage("Unknown function: myMethod1")
-        .next().atLine(5).withMessage("This expression is not valid. Error Parsing: ${}");
+      .next().atLine(2).withMessage("Fix this expression: Unknown function \"myMethod1\".")
+      .next().atLine(5).withMessage("Fix this expression: Error Parsing: ${}");
   }
 
   @Test
@@ -58,7 +57,7 @@ public class UnifiedExpressionCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(5);
+      .next().atLine(5);
   }
 
 }
