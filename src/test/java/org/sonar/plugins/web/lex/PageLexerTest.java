@@ -197,6 +197,14 @@ public class PageLexerTest {
   }
 
   @Test
+  public void should_recover_on_invalid_attribute() {
+    PageLexer lexer = new PageLexer();
+    List<Node> nodes = lexer.parse(new StringReader("<foo = bar=42>"));
+    assertThat(nodes).hasSize(1);
+    assertThat(((TagNode) nodes.get(0)).getAttribute("bar")).isEqualTo("42");
+  }
+
+  @Test
   public void nestedQuotes() {
     String fragment = "<tr class=\"<c:if test='${count%2==0}'>even</c:if>"
       + "<c:if test='${count%2!=0}'>odd</c:if><c:if test='${ActionType==\"baseline\"}'> baseline</c:if>\">";

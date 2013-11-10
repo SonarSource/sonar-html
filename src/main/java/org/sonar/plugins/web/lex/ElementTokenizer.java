@@ -195,21 +195,23 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
       case BEFORE_ATTRIBUTE_VALUE:
 
-        attribute = element.getAttributes().get(element.getAttributes().size() - 1);
-        StringBuilder sbValue = new StringBuilder();
-        int ch = codeReader.peek();
+        if (!element.getAttributes().isEmpty()) {
+          attribute = element.getAttributes().get(element.getAttributes().size() - 1);
+          StringBuilder sbValue = new StringBuilder();
+          int ch = codeReader.peek();
 
-        if (isQuote((char) ch)) {
-          codeReader.pop();
-          if (codeReader.peek() != ch) {
-            codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
-            attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
+          if (isQuote((char) ch)) {
+            codeReader.pop();
+            if (codeReader.peek() != ch) {
+              codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
+              attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
+            }
+            codeReader.pop();
+            attribute.setQuoteChar((char) ch);
+          } else {
+            codeReader.popTo(endTokenMatcher, sbValue);
+            attribute.setValue(sbValue.toString().trim());
           }
-          codeReader.pop();
-          attribute.setQuoteChar((char) ch);
-        } else {
-          codeReader.popTo(endTokenMatcher, sbValue);
-          attribute.setValue(sbValue.toString().trim());
         }
 
         return ParseMode.BEFORE_ATTRIBUTE_NAME;
