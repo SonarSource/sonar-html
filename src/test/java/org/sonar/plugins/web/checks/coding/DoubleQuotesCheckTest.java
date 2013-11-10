@@ -49,4 +49,14 @@ public class DoubleQuotesCheckTest extends AbstractCheckTester {
 
     assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
+
+  @Test
+  public void should_not_detect_non_quotes_attributes() {
+    String fragment = "<h:someNode class=redflag />";
+
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
+
+    assertThat(sourceCode.getViolations()).isEmpty();
+  }
+
 }

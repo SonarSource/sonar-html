@@ -80,7 +80,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
     sensor.analyse(project, sensorContext);
 
-    verify(sensorContext, times(64)).saveViolation((Violation) Mockito.any());
+    verify(sensorContext, times(61)).saveViolation((Violation) Mockito.any());
   }
 
   private Project loadProjectFromPom() throws Exception {
