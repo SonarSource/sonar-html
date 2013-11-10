@@ -43,12 +43,13 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
       this.codeReader = codeReader;
     }
 
+    @Override
     public boolean match(int endFlag) {
       if (endFlag == '"') {
         quoting = !quoting;
       }
       if (!quoting) {
-        boolean started = ArrayUtils.isEquals(codeReader.peek(startChars.length), startChars);
+        boolean started = equalsIgnoreCase(codeReader.peek(startChars.length), startChars);
         if (started) {
           nesting++;
         } else {
@@ -78,13 +79,13 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 
   @Override
   public boolean consume(CodeReader codeReader, T nodeList) {
-    if (ArrayUtils.isEquals(codeReader.peek(startChars.length), startChars)) {
+    if (equalsIgnoreCase(codeReader.peek(startChars.length), startChars)) {
       Node node = createNode();
       setStartPosition(codeReader, node);
 
       StringBuilder stringBuilder = new StringBuilder();
       codeReader.popTo(new EndTokenMatcher(codeReader), stringBuilder);
-      for (int i = 0; i < endChars.length; i++) {
+      for (char endChar : endChars) {
         codeReader.pop(stringBuilder);
       }
       node.setCode(stringBuilder.toString());
@@ -109,4 +110,19 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
     node.setStartLinePosition(code.getLinePosition());
     node.setStartColumnPosition(code.getColumnPosition());
   }
+
+  private static boolean equalsIgnoreCase(char[] a, char[] b) {
+    if (a.length != b.length) {
+      return false;
+    }
+
+    for (int i = 0; i < a.length; i++) {
+      if (Character.toLowerCase(a[i]) != Character.toLowerCase(b[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
 }
