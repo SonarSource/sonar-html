@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.checks.comments;
 
 import com.google.common.collect.ImmutableSet;
+import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -42,9 +43,9 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
     @Override
     public Set<Detector> getDetectors() {
       return ImmutableSet.of(
-          new ContainsDetector(0.7, "=\"", "='"),
-          new ContainsDetector(0.8, "/>", "</", "<%", "%>"),
-          new EndWithDetector(0.9, '>'));
+        new ContainsDetector(0.7, "=\"", "='"),
+        new ContainsDetector(0.8, "/>", "</", "<%", "%>"),
+        new EndWithDetector(0.9, '>'));
     }
 
   };
@@ -56,7 +57,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
     if (node.isHtml()) {
       String comment = node.getCode();
 
-      if (!comment.startsWith("<!--[if") && CODE_RECOGNIZER.isLineOfCode(comment)) {
+      if (!comment.startsWith("<!--[if") && !StringUtils.containsIgnoreCase(comment, "copyright") && CODE_RECOGNIZER.isLineOfCode(comment)) {
         createViolation(node.getStartLinePosition(), "Remove this commented out code.");
       }
     }
