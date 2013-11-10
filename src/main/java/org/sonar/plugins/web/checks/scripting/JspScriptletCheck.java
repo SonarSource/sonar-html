@@ -37,7 +37,11 @@ public class JspScriptletCheck extends AbstractPageCheck {
 
   @Override
   public void expression(ExpressionNode node) {
-    createViolation(node.getStartLinePosition(), "Avoid scriptlets.");
+    String content = trimScriptlet(node.getCode());
+
+    if (StringUtils.isNotBlank(content)) {
+      createViolation(node.getStartLinePosition(), "Avoid scriptlets.");
+    }
   }
 
   @Override
@@ -46,4 +50,10 @@ public class JspScriptletCheck extends AbstractPageCheck {
       createViolation(element.getStartLinePosition(), "Avoid scriptlets.");
     }
   }
+
+  private static String trimScriptlet(String code) {
+    String content = StringUtils.removeEnd(StringUtils.removeStart(code, "<%"), "%>");
+    return content;
+  }
+
 }
