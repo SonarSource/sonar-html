@@ -117,7 +117,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
     public VariableMapper getVariableMapper() {
       return null;
     }
-  };
+  }
 
   @Override
   public void startDocument(List<Node> nodes) {
