@@ -119,8 +119,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     CodeReader codeReader = new CodeReader(node.getCode());
 
     ParseMode mode = ParseMode.BEFORE_NODE_NAME;
-    int ch;
-    while ((ch = codeReader.peek()) != -1) {
+    for (int ch = codeReader.peek(); ch != -1; ch = codeReader.peek()) {
 
       // handle white space
       if (Character.isWhitespace(ch)) {
