@@ -74,9 +74,6 @@ import java.util.List;
 
 public final class CheckClasses {
 
-  private CheckClasses() {
-  }
-
   @SuppressWarnings("rawtypes")
   private static final Class[] CLASSES = new Class[] {
     AvoidHtmlCommentCheck.class,
@@ -131,6 +128,9 @@ public final class CheckClasses {
     ElementWithGivenIdPresentCheck.class,
     PasswordAutocompleteCheck.class,
   };
+
+  private CheckClasses() {
+  }
 
   /**
    * Gets the list of XML checks.
