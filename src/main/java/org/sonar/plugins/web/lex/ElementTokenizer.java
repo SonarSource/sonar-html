@@ -138,11 +138,10 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
           // found a nested tag
           if (mode == ParseMode.BEFORE_ATTRIBUTE_NAME) {
             parseNestedTag(codeReader, element);
-            continue;
           } else {
             codeReader.pop();
-            continue;
           }
+          continue;
         case '>':
         case '/':
         case '%':
