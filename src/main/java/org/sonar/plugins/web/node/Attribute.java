@@ -19,9 +19,6 @@ package org.sonar.plugins.web.node;
 
 /**
  * Defines an attribute of a node.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
 public class Attribute {
 
@@ -31,8 +28,7 @@ public class Attribute {
   private int line;
 
   public Attribute(String name) {
-    this.name = name;
-    this.value = "";
+    this(name, "");
   }
 
   public Attribute(String name, String value) {

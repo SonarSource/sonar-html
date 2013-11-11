@@ -82,7 +82,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         } else {
           startChars.add((char) character);
         }
-        result = startChars.size() == 0;
+        result = startChars.isEmpty();
       }
       previousChar = character;
       return result;

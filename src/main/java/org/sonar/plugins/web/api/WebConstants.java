@@ -17,15 +17,18 @@
  */
 package org.sonar.plugins.web.api;
 
-public interface WebConstants {
+public class WebConstants {
 
   /** The language key. */
-  String LANGUAGE_KEY = "web";
-  String LANGUAGE_NAME = "Web";
+  public static final String LANGUAGE_KEY = "web";
+  public static final String LANGUAGE_NAME = "Web";
 
   // ================ Plugin properties ================
 
-  String FILE_EXTENSIONS_PROP_KEY = "sonar.web.fileExtensions";
-  String FILE_EXTENSIONS_DEF_VALUE = "html,xhtml,jsp,jspf,jsf,php,erb,rhtml";
+  public static final String FILE_EXTENSIONS_PROP_KEY = "sonar.web.fileExtensions";
+  public static final String FILE_EXTENSIONS_DEF_VALUE = "html,xhtml,jsp,jspf,jsf,php,erb,rhtml";
+
+  private WebConstants() {
+  }
 
 }

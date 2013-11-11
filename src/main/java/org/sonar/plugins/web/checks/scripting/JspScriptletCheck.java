@@ -52,8 +52,7 @@ public class JspScriptletCheck extends AbstractPageCheck {
   }
 
   private static String trimScriptlet(String code) {
-    String content = StringUtils.removeEnd(StringUtils.removeStart(code, "<%"), "%>");
-    return content;
+    return StringUtils.removeEnd(StringUtils.removeStart(code, "<%"), "%>");
   }
 
 }
