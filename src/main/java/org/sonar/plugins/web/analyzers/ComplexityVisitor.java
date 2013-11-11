@@ -29,8 +29,8 @@ import java.util.List;
 
 public class ComplexityVisitor extends AbstractPageCheck {
 
-  private static final String[] operatorsArray = new String[] {"&&", "||", "and", "or"};
-  private static final String[] tagsArray = new String[] {"catch", "choose", "if", "forEach", "forTokens", "when"};
+  private static final String[] OPERATORS = new String[] {"&&", "||", "and", "or"};
+  private static final String[] TAGS = new String[] {"catch", "choose", "if", "forEach", "forTokens", "when"};
 
   private int complexity;
 
@@ -47,7 +47,7 @@ public class ComplexityVisitor extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     // count jstl tags
-    if (ArrayUtils.contains(tagsArray, node.getLocalName()) || ArrayUtils.contains(tagsArray, node.getNodeName())) {
+    if (ArrayUtils.contains(TAGS, node.getLocalName()) || ArrayUtils.contains(TAGS, node.getNodeName())) {
       complexity++;
     } else {
       // count complexity in expressions
@@ -56,7 +56,7 @@ public class ComplexityVisitor extends AbstractPageCheck {
           String[] tokens = StringUtils.split(a.getValue(), " \t\n");
 
           for (String token : tokens) {
-            if (ArrayUtils.contains(operatorsArray, token)) {
+            if (ArrayUtils.contains(OPERATORS, token)) {
               complexity++;
             }
           }

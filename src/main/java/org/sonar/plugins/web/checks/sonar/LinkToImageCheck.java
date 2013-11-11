@@ -37,7 +37,7 @@ public class LinkToImageCheck extends AbstractPageCheck {
   }
 
   private static boolean isATag(TagNode node) {
-    return "A".equals(node.getNodeName().toUpperCase(Locale.ENGLISH));
+    return "A".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean hasHrefToImage(TagNode node) {
