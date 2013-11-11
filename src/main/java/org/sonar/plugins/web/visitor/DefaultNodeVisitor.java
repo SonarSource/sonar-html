@@ -28,11 +28,8 @@ import java.util.List;
 
 /**
  * Defines interface for node visitor with default dummy implementations.
- *
- * @author Matthijs Galesloot
- * @since 1.0
  */
-public class DefaultNodeVisitor {
+public abstract class DefaultNodeVisitor {
 
   private WebSourceCode webSourceCode;
 
