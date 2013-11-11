@@ -17,12 +17,10 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import org.sonar.plugins.web.checks.TestHelper;
-
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
@@ -38,8 +36,6 @@ public class ComplexityCheckTest {
   public void detected() {
     ComplexityCheck check = new ComplexityCheck();
     assertThat(check.max).isEqualTo(10);
-    assertThat(check.operators).isEqualTo("&&,||,and,or");
-    assertThat(check.tags).isEqualTo("catch,choose,if,forEach,forTokens,when");
   }
 
   @Test
@@ -50,7 +46,7 @@ public class ComplexityCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ComplexityCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(null).withMessage("Complexity is 17 (max allowed is 15)");
+      .next().atLine(null).withMessage("Complexity is 17 (max allowed is 15)");
   }
 
 }

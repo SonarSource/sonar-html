@@ -19,6 +19,8 @@ package org.sonar.plugins.web.checks;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
+import com.google.common.collect.ImmutableList;
+import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
@@ -41,9 +43,8 @@ public class TestHelper {
       List<Node> nodes = lexer.parse(new FileReader(file));
       WebSourceCode result = new WebSourceCode(file, new org.sonar.api.resources.File("test"));
 
-      HtmlAstScanner walker = new HtmlAstScanner();
+      HtmlAstScanner walker = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor()));
       walker.addVisitor(visitor);
-      walker.addVisitor(new PageCountLines());
       walker.scan(nodes, result, Charsets.UTF_8);
 
       return result;

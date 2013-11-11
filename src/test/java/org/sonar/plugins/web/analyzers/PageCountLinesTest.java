@@ -29,6 +29,7 @@ import org.sonar.test.TestUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.Assert.assertTrue;
@@ -45,7 +46,7 @@ public class PageCountLinesTest {
 
     File webFile = new File("test", "user-properties.jsp");
 
-    final HtmlAstScanner scanner = new HtmlAstScanner();
+    final HtmlAstScanner scanner = new HtmlAstScanner(Collections.EMPTY_LIST);
     scanner.addVisitor(new PageCountLines());
     WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), webFile);
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);

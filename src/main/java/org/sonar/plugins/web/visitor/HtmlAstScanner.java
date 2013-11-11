@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.visitor;
 
+import com.google.common.collect.Lists;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -25,7 +26,6 @@ import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,20 +36,29 @@ import java.util.List;
  */
 public class HtmlAstScanner {
 
-  private final List<DefaultNodeVisitor> visitors = new ArrayList<DefaultNodeVisitor>();
+  private final List<DefaultNodeVisitor> metricVisitors;
+  private final List<DefaultNodeVisitor> checkVisitors = Lists.newArrayList();
+
+  public HtmlAstScanner(List<DefaultNodeVisitor> metricVisitors) {
+    this.metricVisitors = metricVisitors;
+  }
 
   /**
    * Add a visitor to the list of visitors.
    */
   public void addVisitor(DefaultNodeVisitor visitor) {
-    visitors.add(visitor);
+    checkVisitors.add(visitor);
   }
 
   /**
    * Scan a list of Nodes and send events to the visitors.
    */
   public void scan(List<Node> nodeList, WebSourceCode webSourceCode, Charset charset) {
+    scan(nodeList, webSourceCode, charset, metricVisitors);
+    scan(nodeList, webSourceCode, charset, checkVisitors);
+  }
 
+  private void scan(List<Node> nodeList, WebSourceCode webSourceCode, Charset charset, List<DefaultNodeVisitor> visitors) {
     // prepare the visitors
     for (DefaultNodeVisitor visitor : visitors) {
       visitor.setSourceCode(webSourceCode);

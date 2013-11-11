@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.checks;
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.ProfileDefinition;
@@ -34,6 +35,7 @@ import org.sonar.api.utils.SonarException;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.AbstractWebPluginTester;
 import org.sonar.plugins.web.TestProfileWithAllRules;
+import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
@@ -70,7 +72,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
   }
 
   public WebSourceCode parseAndCheck(Reader reader, java.io.File file, String code, Class<? extends AbstractPageCheck> checkClass,
-      String... params) {
+    String... params) {
 
     AbstractPageCheck check = instantiateCheck(checkClass, params);
 
@@ -78,8 +80,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
     List<Node> nodeList = lexer.parse(reader);
     WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), new File("test"));
 
-    HtmlAstScanner pageScanner = new HtmlAstScanner();
-    pageScanner.addVisitor(new PageCountLines());
+    HtmlAstScanner pageScanner = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor()));
     pageScanner.addVisitor(check);
     pageScanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
     return webSourceCode;

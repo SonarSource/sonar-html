@@ -89,14 +89,6 @@
           <key>max</key>
           <value>12</value>
         </parameter>
-        <parameter>
-          <key>tags</key>
-          <value>catch, choose, if, forEach, forTokens,when</value>
-        </parameter>
-        <parameter>
-          <key>operators</key>
-          <value>&amp;&amp;, ||, and,or</value>
-        </parameter>
       </parameters>
     </rule>
     <rule>
