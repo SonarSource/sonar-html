@@ -35,67 +35,9 @@ import java.util.Stack;
  */
 class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
-  private static final class EndQNameMatcher implements EndMatcher {
-
-    @Override
-    public boolean match(int character) {
-      return character == '=' || character == '>' || Character.isWhitespace(character);
-    }
-  }
-
-  private static final class EndTokenMatcher implements EndMatcher {
-
-    @Override
-    public boolean match(int character) {
-      switch (character) {
-        case '/':
-        case '>':
-          return true;
-        default:
-          break;
-      }
-      return Character.isWhitespace(character);
-    }
-  }
-
-  private enum ParseMode {
-    BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
-  }
-
-  private static final class QuoteMatcher implements EndMatcher {
-    private static final char SINGLE_QUOTE = '\'';
-    private static final char DOUBLE_QUOTE = '"';
-    private int previousChar;
-
-    private final Stack<Character> startChars = new Stack<Character>();
-
-    QuoteMatcher(char startChar) {
-      this.startChars.add(startChar);
-    }
-
-    @Override
-    public boolean match(int character) {
-      boolean result = false;
-      if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
-        if (startChars.peek() == (char) character) {
-          startChars.pop();
-        } else {
-          startChars.add((char) character);
-        }
-        result = startChars.isEmpty();
-      }
-      previousChar = character;
-      return result;
-    }
-  }
-
   private static EndQNameMatcher endQNameMatcher = new EndQNameMatcher();
 
   private static EndTokenMatcher endTokenMatcher = new EndTokenMatcher();
-
-  private static boolean isQuote(char c) {
-    return c == '\'' || c == '"';
-  }
 
   public ElementTokenizer(String startToken, String endToken) {
     super(startToken, endToken);
@@ -227,4 +169,63 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   private String unescapeQuotes(String value, char ch) {
     return StringUtils.replace(value, "\\" + ch, Character.toString(ch));
   }
+
+  private static boolean isQuote(char c) {
+    return c == '\'' || c == '"';
+  }
+
+  private static final class EndQNameMatcher implements EndMatcher {
+
+    @Override
+    public boolean match(int character) {
+      return character == '=' || character == '>' || Character.isWhitespace(character);
+    }
+  }
+
+  private static final class EndTokenMatcher implements EndMatcher {
+
+    @Override
+    public boolean match(int character) {
+      switch (character) {
+        case '/':
+        case '>':
+          return true;
+        default:
+          break;
+      }
+      return Character.isWhitespace(character);
+    }
+  }
+
+  private enum ParseMode {
+    BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
+  }
+
+  private static final class QuoteMatcher implements EndMatcher {
+    private static final char SINGLE_QUOTE = '\'';
+    private static final char DOUBLE_QUOTE = '"';
+    private int previousChar;
+
+    private final Stack<Character> startChars = new Stack<Character>();
+
+    QuoteMatcher(char startChar) {
+      this.startChars.add(startChar);
+    }
+
+    @Override
+    public boolean match(int character) {
+      boolean result = false;
+      if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
+        if (startChars.peek() == (char) character) {
+          startChars.pop();
+        } else {
+          startChars.add((char) character);
+        }
+        result = startChars.isEmpty();
+      }
+      previousChar = character;
+      return result;
+    }
+  }
+
 }

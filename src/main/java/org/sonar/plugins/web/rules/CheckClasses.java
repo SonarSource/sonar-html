@@ -74,6 +74,9 @@ import java.util.List;
 
 public final class CheckClasses {
 
+  private CheckClasses() {
+  }
+
   @SuppressWarnings("rawtypes")
   private static final Class[] CLASSES = new Class[] {
     AvoidHtmlCommentCheck.class,
@@ -137,7 +140,4 @@ public final class CheckClasses {
     return Arrays.asList(CLASSES);
   }
 
-  private CheckClasses() {
-
-  }
 }

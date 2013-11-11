@@ -58,16 +58,20 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
         case '=':
           position++;
           if (code.length() > position && !Character.isWhitespace(code.charAt(position))) {
-            createViolation(node.getStartLinePosition(), "A whitespace is missing after the starting tag at column " + (node.getStartColumnPosition() + position));
+            createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
           }
           break;
         default:
           if (!Character.isWhitespace(ch)) {
-            createViolation(node.getStartLinePosition(), "A whitespace is missing after the starting tag at column " + (node.getStartColumnPosition() + position));
+            createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
           }
           break;
       }
     }
+  }
+
+  private void createStartIssue(int line, int expectedWhitespaceColumn) {
+    createViolation(line, "A whitespace is missing after the starting tag at column " + expectedWhitespaceColumn);
   }
 
   @Override
