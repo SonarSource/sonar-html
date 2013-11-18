@@ -24,14 +24,6 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
 
-/**
- * Checker to find scriptlets.
- *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph JSP Scriptlets
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
 @Rule(key = "JspScriptletCheck", priority = Priority.CRITICAL)
 public class JspScriptletCheck extends AbstractPageCheck {
 
@@ -40,19 +32,23 @@ public class JspScriptletCheck extends AbstractPageCheck {
     String content = trimScriptlet(node.getCode());
 
     if (StringUtils.isNotBlank(content)) {
-      createViolation(node.getStartLinePosition(), "Avoid scriptlets.");
+      createIssue(node.getStartLinePosition());
     }
   }
 
   @Override
   public void startElement(TagNode element) {
     if (StringUtils.equalsIgnoreCase(element.getLocalName(), "scriptlet")) {
-      createViolation(element.getStartLinePosition(), "Avoid scriptlets.");
+      createIssue(element.getStartLinePosition());
     }
   }
 
   private static String trimScriptlet(String code) {
     return StringUtils.removeEnd(StringUtils.removeStart(code, "<%"), "%>");
+  }
+
+  private void createIssue(int line) {
+    createViolation(line, "Replace this scriptlet using tag libraries and expression language.");
   }
 
 }
