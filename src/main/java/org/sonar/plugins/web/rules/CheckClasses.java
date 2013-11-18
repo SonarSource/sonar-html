@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *

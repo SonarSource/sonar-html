@@ -12,7 +12,7 @@
   <packaging>sonar-plugin</packaging>
   <version>2.1-SNAPSHOT</version>
 
-  <name>Sonar Web Plugin</name>
+  <name>SonarQube Web Plugin</name>
   <description>Analyze HTML (also within PHP/Ruby/etc. templates) and JSP/JSF code.</description>
 
   <properties>
