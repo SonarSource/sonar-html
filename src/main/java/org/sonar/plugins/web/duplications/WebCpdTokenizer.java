@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -32,8 +32,9 @@ import java.io.FileReader;
 
 public class WebCpdTokenizer implements Tokenizer {
 
-  public static final Logger LOG = LoggerFactory.getLogger(WebCpdTokenizer.class.getName());
+  private static final Logger LOG = LoggerFactory.getLogger(WebCpdTokenizer.class.getName());
 
+  @Override
   public final void tokenize(SourceCode source, Tokens cpdTokens) {
     String fileName = source.getFileName();
 
@@ -55,4 +56,5 @@ public class WebCpdTokenizer implements Tokenizer {
       LOG.error("Unable to open file : " + fileName, e);
     }
   }
+
 }

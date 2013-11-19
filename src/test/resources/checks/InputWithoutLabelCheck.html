@@ -22,3 +22,13 @@
 
 <input type="text">                     <!-- Non-Compliant -->
 
+<select />                              <!-- Noncompliant -->
+<textarea />                            <!-- Noncompliant -->
+
+<select id="foo11" />                   <!-- Noncompliant -->
+<label for="foo12" />
+<select id="foo12">                     <!-- Compliant -->
+
+<textarea id="foo13" />                 <!-- Noncompliant -->
+<label for="foo14" />
+<textarea id="foo14">                   <!-- Compliant -->

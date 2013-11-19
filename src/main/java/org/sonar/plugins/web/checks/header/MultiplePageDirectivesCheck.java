@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -36,12 +36,7 @@ import java.util.List;
 @Rule(key = "MultiplePageDirectivesCheck", priority = Priority.MINOR)
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 
-  private static boolean isImportDirective(DirectiveNode node) {
-    return node.getAttributes().size() == 1 && node.getAttribute("import") != null;
-  }
-
   private DirectiveNode node;
-
   private int pageDirectives;
 
   @Override
@@ -62,6 +57,10 @@ public class MultiplePageDirectivesCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     pageDirectives = 0;
+  }
+
+  private static boolean isImportDirective(DirectiveNode node) {
+    return node.getAttributes().size() == 1 && node.getAttribute("import") != null;
   }
 
 }

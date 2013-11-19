@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -24,6 +24,8 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 
+import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 
     private String nodeName;
 
-    private QualifiedAttribute(String nodeName, String attributeName) {
+    private QualifiedAttribute(@Nullable String nodeName, String attributeName) {
       this.setNodeName(nodeName);
       this.setAttributeName(attributeName);
     }
@@ -55,13 +57,15 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
       return attributeName;
     }
 
-    public void setNodeName(String nodeName) {
+    public void setNodeName(@Nullable String nodeName) {
       this.nodeName = nodeName;
     }
 
+    @Nullable
     public String getNodeName() {
       return nodeName;
     }
+
   }
 
   protected String getAttributesAsString(QualifiedAttribute[] qualifiedAttributes) {
@@ -102,7 +106,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
       qualifiedAttribute = qualifiedAttribute.trim();
       if (qualifiedAttribute.indexOf('.') >= 0) {
         qualifiedAttributes[n++] = new QualifiedAttribute(StringUtils.substringBefore(qualifiedAttribute, "."), StringUtils.substringAfter(
-            qualifiedAttribute, "."));
+          qualifiedAttribute, "."));
       } else {
         qualifiedAttributes[n++] = new QualifiedAttribute(null, qualifiedAttribute);
       }

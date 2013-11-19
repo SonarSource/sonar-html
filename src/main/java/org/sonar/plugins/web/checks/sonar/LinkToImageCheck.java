@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -37,7 +37,7 @@ public class LinkToImageCheck extends AbstractPageCheck {
   }
 
   private static boolean isATag(TagNode node) {
-    return "A".equals(node.getNodeName().toUpperCase(Locale.ENGLISH));
+    return "A".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean hasHrefToImage(TagNode node) {

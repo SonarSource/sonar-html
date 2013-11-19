@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -37,7 +37,7 @@ public class JspScriptletCheckTest extends AbstractCheckTester {
     String fragment = "<% line1\nline2;\nline3\nline4\nline5\n %>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
 
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    assertThat(sourceCode.getViolations()).hasSize(1);
   }
 
   @Test
@@ -46,6 +46,15 @@ public class JspScriptletCheckTest extends AbstractCheckTester {
     String fragment = "<jsp:scriptlet>line1\nline2;\nline3\nline4\nline5\n</jsp:scriptlet>";
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
 
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    assertThat(sourceCode.getViolations()).hasSize(1);
   }
+
+  @Test
+  public void should_allow_empty_scriptlets() {
+    String fragment = "<%\n%>";
+    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
+
+    assertThat(sourceCode.getViolations()).isEmpty();
+  }
+
 }

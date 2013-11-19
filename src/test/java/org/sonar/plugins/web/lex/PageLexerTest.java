@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -134,7 +134,7 @@ public class PageLexerTest {
 
   @Test
   public void testDirectiveNode() {
-    String directive = "<!DOCTYPE html "
+    String directive = "<!docTyPE html "
       + "PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
     DoctypeTokenizer tokenizer = new DoctypeTokenizer("<!DOCTYPE", ">");
     List<Node> nodeList = new ArrayList<Node>();
@@ -204,6 +204,14 @@ public class PageLexerTest {
 
     TagNode tagNode = (TagNode) nodeList.get(0);
     assertEquals(1, tagNode.getAttributes().size());
+  }
+
+  @Test
+  public void should_recover_on_invalid_attribute() {
+    PageLexer lexer = new PageLexer();
+    List<Node> nodes = lexer.parse(new StringReader("<foo = bar=42>"));
+    assertThat(nodes).hasSize(1);
+    assertThat(((TagNode) nodes.get(0)).getAttribute("bar")).isEqualTo("42");
   }
 
   @Test

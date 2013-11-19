@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -80,13 +80,13 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
     sensor.analyse(project, sensorContext);
 
-    verify(sensorContext, times(65)).saveViolation((Violation) Mockito.any());
+    verify(sensorContext, times(61)).saveViolation((Violation) Mockito.any());
   }
 
   private Project loadProjectFromPom() throws Exception {
     MavenProject pom = loadPom(TestUtils.getResource("pom.xml"));
     Project project = new Project(pom.getGroupId() + ":" + pom.getArtifactId()).setPom(pom).setConfiguration(
-        new MapConfiguration(pom.getProperties()));
+      new MapConfiguration(pom.getProperties()));
     project.setPom(pom);
     project.setLanguageKey(WebConstants.LANGUAGE_KEY);
     project.setLanguage(new Web(new Settings()));

@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -102,7 +102,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
           @Override
           public Method resolveFunction(String prefix, String localName) {
             if (!ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functionsArray, localName)) {
-              createViolation(element.getStartLinePosition(), "Unknown function: " + localName);
+              createViolation(element.getStartLinePosition(), "Fix this expression: Unknown function \"" + localName + "\".");
             }
 
             // we only care about the check.
@@ -117,7 +117,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
     public VariableMapper getVariableMapper() {
       return null;
     }
-  };
+  }
 
   @Override
   public void startDocument(List<Node> nodes) {
@@ -146,7 +146,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
       builder.createValueExpression(Object.class);
     } catch (ELException e) {
       if (e.getMessage().startsWith("Error")) {
-        createViolation(element.getStartLinePosition(), "This expression is not valid. " + (e.getMessage() == null ? "" : e.getMessage()));
+        createViolation(element.getStartLinePosition(), "Fix this expression: " + (e.getMessage() == null ? "" : e.getMessage()));
       }
     }
   }

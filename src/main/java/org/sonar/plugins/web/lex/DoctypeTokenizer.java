@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -26,12 +26,6 @@ import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.List;
 
-/**
- * Tokenizer for DOCTYPE node.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
 class DoctypeTokenizer extends AbstractTokenizer<List<Node>> {
 
   public DoctypeTokenizer(String startToken, String endToken) {

@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -29,6 +29,7 @@ import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 
 import java.io.StringReader;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -52,7 +53,7 @@ public class NoSonarScannerTest {
 
     NoSonarFilter noSonarFilter = new NoSonarFilter();
     NoSonarScanner noSonarScanner = new NoSonarScanner(noSonarFilter);
-    HtmlAstScanner pageScanner = new HtmlAstScanner();
+    HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.EMPTY_LIST);
     pageScanner.addVisitor(noSonarScanner);
     pageScanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 

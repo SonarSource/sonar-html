@@ -12,12 +12,23 @@ When &lt;b&gt; can have simply no effect on a Palm device with limited display o
   <li>And display the text bold in normal browsers</li>
 </ul>
 
-<p>The following code snippet illustrates this rule:</p>
+<p>Consequently:</p>
+
+<ul>
+  <li>in order to convey semantics, the &lt;b&gt; and &lt;i&gt; tags shall never be used,</li>
+  <li>in order to convey styling information, the &lt;b&gt; and &lt;i&gt; should be avoided and CSS should be used instead.</li>
+</ul>
+
+<h2>Noncompliant Code Example</h2>
 
 <pre>
 &lt;i&gt;car&lt;/i&gt;                 &lt;!-- Non-compliant --&gt;
-&lt;em&gt;car&lt;/i&gt;                &lt;!-- Compliant --&gt;
-
 &lt;b&gt;train&lt;/b&gt;               &lt;!-- Non-compliant --&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+&lt;em&gt;car&lt;/em&gt;               &lt;!-- Compliant --&gt;
 &lt;strong&gt;train&lt;/strong&gt;     &lt;!-- Compliant --&gt;
 </pre>

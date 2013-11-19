@@ -1,5 +1,15 @@
+<p>This rule allows to ban declaration of some namespaces in the root element of XHML documents.</p>
+
+<h2>Noncompliant Code Example</h2>
+
 <p>
-Checker for occurrence of disallowed namespaces.
-<br/>
-The namespaces are checked in the root element of the XML document.
+In this example the value of the "namespaces" parameter is set to "http://java.sun.com/jsf/facelets".
 </p>
+
+<pre>
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"    &lt;!-- Noncompliant --&gt;
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"&gt;
+</pre>

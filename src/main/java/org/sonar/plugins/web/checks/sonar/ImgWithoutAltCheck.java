@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -22,8 +22,6 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.Locale;
-
 @Rule(
   key = "ImgWithoutAltCheck",
   priority = Priority.MAJOR)
@@ -37,15 +35,15 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   }
 
   private static boolean isImgTag(TagNode node) {
-    return "IMG".equals(node.getNodeName().toUpperCase(Locale.ENGLISH));
+    return "IMG".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isImageInput(TagNode node) {
     String type = node.getAttribute("TYPE");
 
-    return "INPUT".equals(node.getNodeName().toUpperCase(Locale.ENGLISH)) &&
+    return "INPUT".equalsIgnoreCase(node.getNodeName()) &&
       type != null &&
-      "IMAGE".equals(type.toUpperCase(Locale.ENGLISH));
+      "IMAGE".equalsIgnoreCase(type);
   }
 
   private static boolean hasAltAttribute(TagNode node) {

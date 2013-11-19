@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -17,12 +17,10 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-
-import org.sonar.plugins.web.checks.TestHelper;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
@@ -37,9 +35,13 @@ public class InputWithoutLabelCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InputWithoutLabelCheck.html"), new InputWithoutLabelCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(6).withMessage("Associate a valid label to this input field.")
-        .next().atLine(19)
-        .next().atLine(23).withMessage("Add an 'id' attribute to this input field and associate it with a label.");
+      .next().atLine(6).withMessage("Associate a valid label to this input field.")
+      .next().atLine(19)
+      .next().atLine(23).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
+      .next().atLine(25).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
+      .next().atLine(26).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
+      .next().atLine(28).withMessage("Associate a valid label to this input field.")
+      .next().atLine(32);
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -22,8 +22,6 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.Locale;
-
 @Rule(
   key = "MetaRefreshCheck",
   priority = Priority.MAJOR)
@@ -39,9 +37,9 @@ public class MetaRefreshCheck extends AbstractPageCheck {
   private static boolean isMetaRefreshTag(TagNode node) {
     String httpEquiv = node.getAttribute("HTTP-EQUIV");
 
-    return "META".equals(node.getNodeName().toUpperCase(Locale.ENGLISH)) &&
+    return "META".equalsIgnoreCase(node.getNodeName()) &&
       httpEquiv != null &&
-      "REFRESH".equals(httpEquiv.toUpperCase(Locale.ENGLISH));
+      "REFRESH".equalsIgnoreCase(httpEquiv);
   }
 
 }

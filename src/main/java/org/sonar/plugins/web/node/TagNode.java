@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -18,6 +18,8 @@
 package org.sonar.plugins.web.node;
 
 import org.apache.commons.lang.StringUtils;
+
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,7 @@ public class TagNode extends Node {
     return nodeName;
   }
 
+  @Nullable
   public TagNode getParent() {
     return parent;
   }
@@ -94,7 +97,7 @@ public class TagNode extends Node {
     this.nodeName = nodeName;
   }
 
-  public void setParent(TagNode parent) {
+  public void setParent(@Nullable TagNode parent) {
     this.parent = parent;
     if (parent != null) {
       parent.getChildren().add(this);

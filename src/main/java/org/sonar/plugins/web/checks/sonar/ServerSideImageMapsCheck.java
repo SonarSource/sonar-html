@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -22,8 +22,6 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.Locale;
-
 @Rule(
   key = "ServerSideImageMapsCheck",
   priority = Priority.MAJOR)
@@ -37,7 +35,7 @@ public class ServerSideImageMapsCheck extends AbstractPageCheck {
   }
 
   private static boolean isImgTag(TagNode node) {
-    return "IMG".equals(node.getNodeName().toUpperCase(Locale.ENGLISH));
+    return "IMG".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean hasIsMapAttribute(TagNode node) {

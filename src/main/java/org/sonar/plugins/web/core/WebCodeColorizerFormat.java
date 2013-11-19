@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -43,16 +43,12 @@ public class WebCodeColorizerFormat extends CodeColorizerFormat {
     tokenizers.add(new RegexpTokenizer("<span class=\"j\">", tagAfter, "<!DOCTYPE.*>"));
 
     // == comments ==
-    // TODO the character '>' is missing in the endToken because of a limitation in the Sonar CodeReader. See SONARPLUGINS-1885
-    tokenizers.add(new MultilinesDocTokenizer("<!--", "--", "<span class=\"j\">", tagAfter));
-    // TODO the character '>' is missing in the endToken because of a limitation in the Sonar CodeReader. See SONARPLUGINS-1885
-    tokenizers.add(new MultilinesDocTokenizer("<%--", "--%", "<span class=\"j\">", tagAfter));
+    tokenizers.add(new MultilinesDocTokenizer("<!--", "-->", "<span class=\"j\">", tagAfter));
+    tokenizers.add(new MultilinesDocTokenizer("<%--", "--%>", "<span class=\"j\">", tagAfter));
 
     // == expressions ==
-    // TODO the character '>' is missing in the endToken because of a limitation in the Sonar CodeReader. See SONARPLUGINS-1885
-    tokenizers.add(new MultilinesDocTokenizer("<%@", "%", "<span class=\"a\">", tagAfter));
-    // TODO we should add a "generic" MultilinesDocTokenizer with "<%" and "%>" but it seems that this messes up everything => to test again
-    // when SONARPLUGINS-1885 is fixed
+    tokenizers.add(new MultilinesDocTokenizer("<%@", "%>", "<span class=\"a\">", tagAfter));
+    tokenizers.add(new MultilinesDocTokenizer("<%", "%>", "<span class=\"a\">", tagAfter));
 
     // == tag properties ==
     tokenizers.add(new StringTokenizer("<span class=\"s\">", tagAfter));

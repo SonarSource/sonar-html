@@ -1,7 +1,7 @@
 Sonar Web
 =========
 
-This is the Sonar Web Plugin
+This is the SonarQube Web Plugin
 
 Project homepage:
 http://docs.codehaus.org/display/SONAR/Web+Plugin

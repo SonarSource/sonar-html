@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -39,22 +39,19 @@ public class DoubleQuotesCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
 
     for (Attribute a : element.getAttributes()) {
-      if (a.getValue() != null && a.getValue().trim().length() > 0) {
-        boolean error = false;
-        // single quotes are OK if there are double quotes inside the string
-        if (a.isSingleQuoted()) {
-          error = !StringUtils.contains(a.getValue(), '"');
-        } else {
-          // error if not quoted at all
-          error = !a.isDoubleQuoted();
-        }
-        if (error) {
-          createViolation(element.getStartLinePosition(), "Prefer using double quotes instead of single ones.");
-          // not more than one violation per element
-          break;
-        }
+      if (a.getValue() != null && a.getValue().trim().length() > 0 && isSingleQuoteAttribute(a)) {
+        createViolation(element.getStartLinePosition(), "Use double quotes instead of single ones.");
+        // not more than one violation per element
+        break;
       }
     }
+  }
+
+  /**
+   * Single quoted attributes are allowed only when used because the value contains a double quote.
+   */
+  private static boolean isSingleQuoteAttribute(Attribute a) {
+    return a.isSingleQuoted() && !StringUtils.contains(a.getValue(), '"');
   }
 
 }

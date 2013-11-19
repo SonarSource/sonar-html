@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -15,48 +15,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.structure;
+package org.sonar.plugins.web.checks.sonar;
 
+import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
 
 @Rule(
-  key = "RequiredElementCheck",
-  priority = Priority.MAJOR)
-public class RequiredElementCheck extends AbstractPageCheck {
+  key = "S1436",
+  priority = Priority.MAJOR,
+  cardinality = Cardinality.MULTIPLE)
+public class ElementWithGivenIdPresentCheck extends AbstractPageCheck {
 
-  private static final String DEFAULT_ELEMENTS = "";
+  private static final String DEFAULT_ID = "";
 
   @RuleProperty(
-    key = "elements",
-    defaultValue = DEFAULT_ELEMENTS)
-  public String elements = DEFAULT_ELEMENTS;
+    key = "id",
+    defaultValue = DEFAULT_ID)
+  public String id = DEFAULT_ID;
+
+  private boolean foundId;
 
   @Override
   public void startDocument(List<Node> nodes) {
+    foundId = false;
+  }
 
-    for (String elementName : trimSplitCommaSeparatedList(elements)) {
-      boolean hasRequiredElement = false;
-      for (Node node : nodes) {
-        if (node.getNodeType() == NodeType.TAG) {
-          TagNode element = (TagNode) node;
-          if (element.equalsElementName(elementName)) {
-            hasRequiredElement = true;
-            break;
-          }
-        }
-      }
+  @Override
+  public void startElement(TagNode node) {
+    if (id.equals(node.getAttribute("id"))) {
+      foundId = true;
+    }
+  }
 
-      if (!hasRequiredElement) {
-        createViolation(0, "The following element must be used but none is found on this file: " + elementName);
-      }
+  @Override
+  public void endDocument() {
+    if (!id.isEmpty() && !foundId) {
+      createViolation(0, "The ID \"" + id + "\" is missing from this page and should be added.");
     }
   }
 
