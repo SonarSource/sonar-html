@@ -49,4 +49,15 @@ public class JavaScriptCheckTest {
         .next().atLine(7).withMessage("The length of this JS script (6) exceeds the maximum set to 4.");
   }
 
+  @Test
+  public void customWithDtl() {
+    LongJavaScriptCheck check = new LongJavaScriptCheck();
+    check.maxLines = 4;
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LongJavaScriptCheck.dtl"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+        .next().atLine(7).withMessage("The length of this JS script (6) exceeds the maximum set to 4.");
+  }
+
 }
