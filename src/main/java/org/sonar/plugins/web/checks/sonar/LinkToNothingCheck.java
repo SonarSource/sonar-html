@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -22,8 +22,6 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.Locale;
-
 @Rule(
   key = "LinkToNothingCheck",
   priority = Priority.MAJOR)
@@ -37,7 +35,7 @@ public class LinkToNothingCheck extends AbstractPageCheck {
   }
 
   private static boolean isATag(TagNode node) {
-    return "A".equals(node.getNodeName().toUpperCase(Locale.ENGLISH));
+    return "A".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean hasHrefToNothing(TagNode node) {
@@ -48,11 +46,9 @@ public class LinkToNothingCheck extends AbstractPageCheck {
   }
 
   private static boolean isPoitingToNothing(String target) {
-    String upperTarget = target.toUpperCase(Locale.ENGLISH);
-
-    return "#".equals(upperTarget) ||
-      "JAVASCRIPT:VOID(0)".equals(upperTarget) ||
-      "JAVASCRIPT:VOID(0);".equals(upperTarget);
+    return "#".equalsIgnoreCase(target) ||
+      "JAVASCRIPT:VOID(0)".equalsIgnoreCase(target) ||
+      "JAVASCRIPT:VOID(0);".equalsIgnoreCase(target);
   }
 
 }

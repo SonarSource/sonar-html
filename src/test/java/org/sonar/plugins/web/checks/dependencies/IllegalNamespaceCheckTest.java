@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -17,11 +17,10 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import org.sonar.plugins.web.checks.TestHelper;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
@@ -46,9 +45,9 @@ public class IllegalNamespaceCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalNamespaceCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Using 'baz' namespace is not allowed.")
-        .next().atLine(1).withMessage("Using 'foo' namespace is not allowed.")
-        .next().atLine(6).withMessage("Using 'foo' namespace is not allowed.");
+      .next().atLine(1).withMessage("Using \"baz\" namespace is not allowed.")
+      .next().atLine(1).withMessage("Using \"foo\" namespace is not allowed.")
+      .next().atLine(6).withMessage("Using \"foo\" namespace is not allowed.");
   }
 
 }

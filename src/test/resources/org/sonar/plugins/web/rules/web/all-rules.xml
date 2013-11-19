@@ -4,10 +4,6 @@
   <rules>
     <rule>
       <repositoryKey>Web</repositoryKey>
-      <key>AttributeValidationCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
       <key>AvoidHtmlCommentCheck</key>
     </rule>
     <rule>
@@ -93,14 +89,6 @@
           <key>max</key>
           <value>12</value>
         </parameter>
-        <parameter>
-          <key>tags</key>
-          <value>catch, choose, if, forEach, forTokens,when</value>
-        </parameter>
-        <parameter>
-          <key>operators</key>
-          <value>&amp;&amp;, ||, and,or</value>
-        </parameter>
       </parameters>
     </rule>
     <rule>
@@ -152,16 +140,6 @@
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
-      <key>RequiredElementCheck</key>
-      <parameters>
-        <parameter>
-          <key>elements</key>
-          <value>html</value>
-        </parameter>
-      </parameters>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
       <key>RequiredAttributeCheck</key>
       <parameters>
         <parameter>
@@ -205,10 +183,6 @@
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>ParentElementIllegalCheck</key>
-    </rule>
-    <rule>
-      <repositoryKey>Web</repositoryKey>
-      <key>OGNLExpressionCheck</key>
     </rule>
     <rule>
       <repositoryKey>Web</repositoryKey>
@@ -297,6 +271,10 @@
     <rule>
       <repositoryKey>Web</repositoryKey>
       <key>ImgWithoutWidthOrHeightCheck</key>
+    </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>S1436</key>
     </rule>
   </rules>
 

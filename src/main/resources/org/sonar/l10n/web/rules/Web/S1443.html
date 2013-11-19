@@ -1,0 +1,21 @@
+<p>
+Most browsers automatically fill the content of input elements of type 'password' when this password has already been provided in the past.
+</p>
+
+<p>
+Imagine that user B takes control of a machine belonging to a user A.
+Accessing a secured web site as user A is trivial for user B if form input elements are automatically filled in by the browser on the site's login page.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<p>For HTML5:</p>
+<pre>
+&lt;input type="password" /&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+<p>For HTML5:</p>
+<pre>
+&lt;input type="password" autocomplete="off" /&gt;
+</pre>
+

@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -15,44 +15,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.attributes;
-
-import org.sonar.plugins.web.checks.TestHelper;
+package org.sonar.plugins.web.checks.sonar;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-public class AttributeValidationCheckTest {
+public class PasswordAutocompleteCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
-    AttributeValidationCheck check = new AttributeValidationCheck();
-
-    assertThat(check.attributes).isEmpty();
-    assertThat(check.values).isEmpty();
-  }
-
-  @Test
-  public void custom() {
-    AttributeValidationCheck check = new AttributeValidationCheck();
-    check.attributes = "a.foo,bar";
-    check.values = "a|b";
-
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AttributeValidationCheck.html"), check);
+  public void test() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PasswordAutocompleteCheck.html"), new PasswordAutocompleteCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(2).withMessage("The attribute 'foo' does not respect the value constraint: a|b")
-        .next().atLine(5).withMessage("The attribute 'bar' does not respect the value constraint: a|b")
-        .next().atLine(7);
+      .next().atLine(1).withMessage("Set the \"autocomplete\" attribute of this password input to \"off\".")
+      .next().atLine(2);
   }
 
 }

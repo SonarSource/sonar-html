@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -17,11 +17,10 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import org.sonar.plugins.web.checks.TestHelper;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
@@ -35,19 +34,20 @@ public class UnclosedTagCheckTest {
 
   @Test
   public void detected() {
-    assertThat(new UnclosedTagCheck().ignoreTags).isEmpty();
+    assertThat(new UnclosedTagCheck().ignoreTags).isEqualTo(
+      "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM");
   }
 
   @Test
   public void custom() {
     UnclosedTagCheck check = new UnclosedTagCheck();
-    check.ignoreTags = "foo";
+    check.ignoreTags = "html,foo";
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(3).withMessage("The tag 'li' has no corresponding closing tag.")
-        .next().atLine(6).withMessage("This tag has no corresponding closing tag.");
+      .next().atLine(4).withMessage("The tag 'li' has no corresponding closing tag.")
+      .next().atLine(7).withMessage("This tag has no corresponding closing tag.");
   }
 
 }

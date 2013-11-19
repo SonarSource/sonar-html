@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.core;
 
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ import org.sonar.api.resources.File;
 import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
+import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -104,7 +106,7 @@ public final class WebSensor implements Sensor {
   private void saveComplexityDistribution(SensorContext sensorContext, WebSourceCode sourceCode) {
     if (sourceCode.getMeasure(CoreMetrics.COMPLEXITY) != null) {
       RangeDistributionBuilder complexityFileDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION,
-          FILES_DISTRIB_BOTTOM_LIMITS);
+        FILES_DISTRIB_BOTTOM_LIMITS);
       complexityFileDistribution.add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getValue());
       sensorContext.saveMeasure(sourceCode.getResource(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
     }
@@ -114,13 +116,11 @@ public final class WebSensor implements Sensor {
    * Create PageScanner with Visitors.
    */
   private HtmlAstScanner setupScanner() {
-    HtmlAstScanner scanner = new HtmlAstScanner();
+    HtmlAstScanner scanner = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor(), new NoSonarScanner(noSonarFilter)));
     for (AbstractPageCheck check : (Collection<AbstractPageCheck>) annotationCheckFactory.getChecks()) {
       scanner.addVisitor(check);
       check.setRule(annotationCheckFactory.getActiveRule(check).getRule());
     }
-    scanner.addVisitor(new PageCountLines());
-    scanner.addVisitor(new NoSonarScanner(noSonarFilter));
     return scanner;
   }
 

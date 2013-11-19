@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.sonar.plugins.web.checks.attributes.AttributeValidationCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.checks.coding.ComplexityCheck;
@@ -36,10 +35,10 @@ import org.sonar.plugins.web.checks.header.HeaderCheck;
 import org.sonar.plugins.web.checks.header.MultiplePageDirectivesCheck;
 import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
-import org.sonar.plugins.web.checks.scripting.OGNLExpressionCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
 import org.sonar.plugins.web.checks.sonar.DoctypePresenceCheck;
+import org.sonar.plugins.web.checks.sonar.ElementWithGivenIdPresentCheck;
 import org.sonar.plugins.web.checks.sonar.FieldsetWithoutLegendCheck;
 import org.sonar.plugins.web.checks.sonar.FlashUsesBothObjectAndEmbedCheck;
 import org.sonar.plugins.web.checks.sonar.FrameWithoutTitleCheck;
@@ -55,6 +54,7 @@ import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentChe
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutFaviconCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutTitleCheck;
+import org.sonar.plugins.web.checks.sonar.PasswordAutocompleteCheck;
 import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.web.checks.sonar.TableHeaderHasIdOrScopeCheck;
 import org.sonar.plugins.web.checks.sonar.TableWithoutCaptionCheck;
@@ -65,7 +65,6 @@ import org.sonar.plugins.web.checks.structure.ChildElementRequiredCheck;
 import org.sonar.plugins.web.checks.structure.IllegalElementCheck;
 import org.sonar.plugins.web.checks.structure.ParentElementIllegalCheck;
 import org.sonar.plugins.web.checks.structure.ParentElementRequiredCheck;
-import org.sonar.plugins.web.checks.structure.RequiredElementCheck;
 import org.sonar.plugins.web.checks.style.InlineStyleCheck;
 import org.sonar.plugins.web.checks.whitespace.IllegalTabCheck;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
@@ -77,7 +76,6 @@ public final class CheckClasses {
 
   @SuppressWarnings("rawtypes")
   private static final Class[] CLASSES = new Class[] {
-    AttributeValidationCheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,
@@ -93,10 +91,8 @@ public final class CheckClasses {
     LibraryDependencyCheck.class,
     LongJavaScriptCheck.class,
     MaxLineLengthCheck.class,
-    OGNLExpressionCheck.class,
     ParentElementIllegalCheck.class,
     ParentElementRequiredCheck.class,
-    RequiredElementCheck.class,
     UnclosedTagCheck.class,
     UnifiedExpressionCheck.class,
     WhiteSpaceAroundCheck.class,
@@ -129,7 +125,12 @@ public final class CheckClasses {
     InputWithoutLabelCheck.class,
     ImgWithoutWidthOrHeightCheck.class,
     PageWithoutFaviconCheck.class,
+    ElementWithGivenIdPresentCheck.class,
+    PasswordAutocompleteCheck.class,
   };
+
+  private CheckClasses() {
+  }
 
   /**
    * Gets the list of XML checks.
@@ -139,7 +140,4 @@ public final class CheckClasses {
     return Arrays.asList(CLASSES);
   }
 
-  private CheckClasses() {
-
-  }
 }

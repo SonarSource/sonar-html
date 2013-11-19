@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -35,67 +35,9 @@ import java.util.Stack;
  */
 class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
-  private static final class EndQNameMatcher implements EndMatcher {
-
-    @Override
-    public boolean match(int character) {
-      return character == '=' || character == '>' || Character.isWhitespace(character);
-    }
-  }
-
-  private static final class EndTokenMatcher implements EndMatcher {
-
-    @Override
-    public boolean match(int character) {
-      switch (character) {
-        case '/':
-        case '>':
-          return true;
-        default:
-          break;
-      }
-      return Character.isWhitespace(character);
-    }
-  }
-
-  private enum ParseMode {
-    BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
-  }
-
-  private static final class QuoteMatcher implements EndMatcher {
-    private static final char SINGLE_QUOTE = '\'';
-    private static final char DOUBLE_QUOTE = '"';
-    private int previousChar;
-
-    private final Stack<Character> startChars = new Stack<Character>();
-
-    QuoteMatcher(char startChar) {
-      this.startChars.add(startChar);
-    }
-
-    @Override
-    public boolean match(int character) {
-      boolean result = false;
-      if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
-        if (startChars.peek() == (char) character) {
-          startChars.pop();
-        } else {
-          startChars.add((char) character);
-        }
-        result = startChars.size() == 0;
-      }
-      previousChar = character;
-      return result;
-    }
-  }
-
   private static EndQNameMatcher endQNameMatcher = new EndQNameMatcher();
 
   private static EndTokenMatcher endTokenMatcher = new EndTokenMatcher();
-
-  private static boolean isQuote(char c) {
-    return c == '\'' || c == '"';
-  }
 
   public ElementTokenizer(String startToken, String endToken) {
     super(startToken, endToken);
@@ -119,8 +61,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     CodeReader codeReader = new CodeReader(node.getCode());
 
     ParseMode mode = ParseMode.BEFORE_NODE_NAME;
-    int ch;
-    while ((ch = codeReader.peek()) != -1) {
+    for (int ch = codeReader.peek(); ch != -1; ch = codeReader.peek()) {
 
       // handle white space
       if (Character.isWhitespace(ch)) {
@@ -138,11 +79,10 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
           // found a nested tag
           if (mode == ParseMode.BEFORE_ATTRIBUTE_NAME) {
             parseNestedTag(codeReader, element);
-            continue;
           } else {
             codeReader.pop();
-            continue;
           }
+          continue;
         case '>':
         case '/':
         case '%':
@@ -195,21 +135,23 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
       case BEFORE_ATTRIBUTE_VALUE:
 
-        attribute = element.getAttributes().get(element.getAttributes().size() - 1);
-        StringBuilder sbValue = new StringBuilder();
-        int ch = codeReader.peek();
+        if (!element.getAttributes().isEmpty()) {
+          attribute = element.getAttributes().get(element.getAttributes().size() - 1);
+          StringBuilder sbValue = new StringBuilder();
+          int ch = codeReader.peek();
 
-        if (isQuote((char) ch)) {
-          codeReader.pop();
-          if (codeReader.peek() != ch) {
-            codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
-            attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
+          if (isQuote((char) ch)) {
+            codeReader.pop();
+            if (codeReader.peek() != ch) {
+              codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
+              attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
+            }
+            codeReader.pop();
+            attribute.setQuoteChar((char) ch);
+          } else {
+            codeReader.popTo(endTokenMatcher, sbValue);
+            attribute.setValue(sbValue.toString().trim());
           }
-          codeReader.pop();
-          attribute.setQuoteChar((char) ch);
-        } else {
-          codeReader.popTo(endTokenMatcher, sbValue);
-          attribute.setValue(sbValue.toString().trim());
         }
 
         return ParseMode.BEFORE_ATTRIBUTE_NAME;
@@ -227,4 +169,63 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   private String unescapeQuotes(String value, char ch) {
     return StringUtils.replace(value, "\\" + ch, Character.toString(ch));
   }
+
+  private static boolean isQuote(char c) {
+    return c == '\'' || c == '"';
+  }
+
+  private static final class EndQNameMatcher implements EndMatcher {
+
+    @Override
+    public boolean match(int character) {
+      return character == '=' || character == '>' || Character.isWhitespace(character);
+    }
+  }
+
+  private static final class EndTokenMatcher implements EndMatcher {
+
+    @Override
+    public boolean match(int character) {
+      switch (character) {
+        case '/':
+        case '>':
+          return true;
+        default:
+          break;
+      }
+      return Character.isWhitespace(character);
+    }
+  }
+
+  private enum ParseMode {
+    BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
+  }
+
+  private static final class QuoteMatcher implements EndMatcher {
+    private static final char SINGLE_QUOTE = '\'';
+    private static final char DOUBLE_QUOTE = '"';
+    private int previousChar;
+
+    private final Stack<Character> startChars = new Stack<Character>();
+
+    QuoteMatcher(char startChar) {
+      this.startChars.add(startChar);
+    }
+
+    @Override
+    public boolean match(int character) {
+      boolean result = false;
+      if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
+        if (startChars.peek() == (char) character) {
+          startChars.pop();
+        } else {
+          startChars.add((char) character);
+        }
+        result = startChars.isEmpty();
+      }
+      previousChar = character;
+      return result;
+    }
+  }
+
 }

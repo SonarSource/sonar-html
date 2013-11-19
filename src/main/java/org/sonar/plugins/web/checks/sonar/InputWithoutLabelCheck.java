@@ -1,5 +1,5 @@
 /*
- * Sonar Web Plugin
+ * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
  * dev@sonar.codehaus.org
  *
@@ -49,11 +49,11 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isInput(node) && !hasExcludedType(node)) {
+    if (isInputRequiredLabel(node) || isSelect(node) || isTextarea(node)) {
       String id = node.getAttribute("id");
 
       if (id == null) {
-        createViolation(node.getStartLinePosition(), "Add an 'id' attribute to this input field and associate it with a label.");
+        createViolation(node.getStartLinePosition(), "Add an \"id\" attribute to this input field and associate it with a label.");
       } else {
         inputIdToLine.put(node.getAttribute("id"), node.getStartLinePosition());
       }
@@ -62,8 +62,21 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     }
   }
 
-  private static boolean isInput(TagNode node) {
-    return "INPUT".equalsIgnoreCase(node.getNodeName());
+  private static boolean isSelect(TagNode node) {
+    return isType(node, "SELECT");
+  }
+
+  private static boolean isTextarea(TagNode node) {
+    return isType(node, "TEXTAREA");
+  }
+
+  private static boolean isInputRequiredLabel(TagNode node) {
+    return isType(node, "INPUT") &&
+      !hasExcludedType(node);
+  }
+
+  private static boolean isType(TagNode node, String type) {
+    return type.equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean hasExcludedType(TagNode node) {
