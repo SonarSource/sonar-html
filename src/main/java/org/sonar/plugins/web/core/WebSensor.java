@@ -129,7 +129,7 @@ public final class WebSensor implements Sensor {
    */
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return WebConstants.LANGUAGE_KEY.equals(project.getLanguageKey());
+    return Web.isEnabled(project);
   }
 
   @Override
