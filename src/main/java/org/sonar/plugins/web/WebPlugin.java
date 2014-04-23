@@ -17,8 +17,12 @@
  */
 package org.sonar.plugins.web;
 
+import com.google.common.collect.ImmutableList;
 import org.sonar.api.Extension;
 import org.sonar.api.SonarPlugin;
+import org.sonar.api.config.PropertyDefinition;
+import org.sonar.api.resources.Qualifiers;
+import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.core.Web;
 import org.sonar.plugins.web.core.WebCodeColorizerFormat;
 import org.sonar.plugins.web.core.WebSensor;
@@ -27,7 +31,6 @@ import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.rules.SonarWayProfile;
 import org.sonar.plugins.web.rules.WebRulesRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,28 +42,43 @@ import java.util.List;
 public final class WebPlugin extends SonarPlugin {
 
   public List<Class<? extends Extension>> getExtensions() {
-    List<Class<? extends Extension>> list = new ArrayList<Class<? extends Extension>>();
+    ImmutableList.Builder builder = ImmutableList.builder();
+
 
     // web language
-    list.add(Web.class);
+    builder.add(Web.class);
     // web files importer
-    list.add(WebSourceImporter.class);
+    builder.add(WebSourceImporter.class);
 
     // web rules repository
-    list.add(WebRulesRepository.class);
+    builder.add(WebRulesRepository.class);
 
     // profiles
-    list.add(SonarWayProfile.class);
+    builder.add(SonarWayProfile.class);
 
     // web sensor
-    list.add(WebSensor.class);
+    builder.add(WebSensor.class);
 
     // Code Colorizer
-    list.add(WebCodeColorizerFormat.class);
+    builder.add(WebCodeColorizerFormat.class);
     // Copy/Paste detection mechanism
-    list.add(WebCpdMapping.class);
+    builder.add(WebCpdMapping.class);
 
-    return list;
+    builder.addAll(pluginProperties());
+
+    return builder.build();
   }
 
+  private static ImmutableList<PropertyDefinition> pluginProperties() {
+    return ImmutableList.of(
+
+      PropertyDefinition.builder(WebConstants.FILE_EXTENSIONS_PROP_KEY)
+        .name("File extensions")
+        .description("List of file extensions that will be scanned.")
+        .deprecatedKey(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY)
+        .defaultValue(WebConstants.FILE_EXTENSIONS_DEF_VALUE)
+        .onQualifiers(Qualifiers.PROJECT)
+        .build()
+    );
+  }
 }

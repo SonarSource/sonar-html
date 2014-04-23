@@ -17,22 +17,11 @@
  */
 package org.sonar.plugins.web.core;
 
-import org.sonar.api.Properties;
-import org.sonar.api.Property;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.web.api.WebConstants;
 
-@Properties({
-  @Property(
-    key = WebConstants.FILE_EXTENSIONS_PROP_KEY,
-    name = "File extensions",
-    description = "List of file extensions that will be scanned.",
-    defaultValue = WebConstants.FILE_EXTENSIONS_DEF_VALUE,
-    global = true,
-    project = true)
-})
 public class Web extends AbstractLanguage {
 
   private final String[] fileSuffixes;
