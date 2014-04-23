@@ -91,7 +91,6 @@ public class WebSensorTest extends AbstractWebPluginTester {
     Project project = new Project(pom.getGroupId() + ":" + pom.getArtifactId()).setPom(pom).setConfiguration(
       new MapConfiguration(pom.getProperties()));
     project.setPom(pom);
-    project.setLanguageKey(WebConstants.LANGUAGE_KEY);
     project.setLanguage(new Web(new Settings()));
     ProjectFileSystem projectFileSystem = mock(ProjectFileSystem.class);
     when(projectFileSystem.getSourceCharset()).thenReturn(Charsets.UTF_8);

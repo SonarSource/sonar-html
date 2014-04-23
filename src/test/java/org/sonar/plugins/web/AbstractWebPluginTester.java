@@ -20,6 +20,7 @@ package org.sonar.plugins.web;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
@@ -66,6 +67,11 @@ public class AbstractWebPluginTester {
           return rule;
         }
       }
+      return null;
+    }
+
+    @Override
+    public Rule findByKey(RuleKey ruleKey) {
       return null;
     }
 

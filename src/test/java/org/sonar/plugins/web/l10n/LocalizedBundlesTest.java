@@ -19,13 +19,13 @@ package org.sonar.plugins.web.l10n;
 
 import org.junit.Test;
 
-import static org.sonar.test.i18n.I18nMatchers.assertAllBundlesUpToDate;
+import static org.sonar.test.i18n.I18nMatchers.assertBundlesUpToDate;
 
 public class LocalizedBundlesTest {
 
   @Test
   public void test() throws Exception {
-    assertAllBundlesUpToDate();
+    assertBundlesUpToDate();
   }
 
 }

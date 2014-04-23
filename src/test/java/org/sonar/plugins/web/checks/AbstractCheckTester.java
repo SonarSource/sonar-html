@@ -25,6 +25,7 @@ import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.resources.File;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.rules.ActiveRuleParam;
 import org.sonar.api.rules.AnnotationRuleParser;
@@ -126,6 +127,11 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
       } else {
         return null;
       }
+    }
+
+    @Override
+    public Rule findByKey(RuleKey ruleKey) {
+      return null;
     }
 
     @Override
