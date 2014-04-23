@@ -36,7 +36,6 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
-import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;

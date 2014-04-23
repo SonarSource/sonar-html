@@ -105,11 +105,12 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     for (String qualifiedAttribute : qualifiedAttributeList) {
       qualifiedAttribute = qualifiedAttribute.trim();
       if (qualifiedAttribute.indexOf('.') >= 0) {
-        qualifiedAttributes[n++] = new QualifiedAttribute(StringUtils.substringBefore(qualifiedAttribute, "."), StringUtils.substringAfter(
+        qualifiedAttributes[n] = new QualifiedAttribute(StringUtils.substringBefore(qualifiedAttribute, "."), StringUtils.substringAfter(
           qualifiedAttribute, "."));
       } else {
-        qualifiedAttributes[n++] = new QualifiedAttribute(null, qualifiedAttribute);
+        qualifiedAttributes[n] = new QualifiedAttribute(null, qualifiedAttribute);
       }
+      n++;
     }
     return qualifiedAttributes;
   }
