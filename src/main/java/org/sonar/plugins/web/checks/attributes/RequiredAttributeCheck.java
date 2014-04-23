@@ -49,6 +49,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
+    attributesList.clear();
     for (String item : trimSplitCommaSeparatedList(attributes)) {
       String[] pair = StringUtils.split(item, ".");
       if (pair.length > 1) {

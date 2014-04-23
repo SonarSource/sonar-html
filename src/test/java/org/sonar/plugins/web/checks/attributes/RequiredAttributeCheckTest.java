@@ -50,4 +50,22 @@ public class RequiredAttributeCheckTest {
         .next().atLine(7).withMessage("Attribute type is required for element script.");
   }
 
+  @Test
+  public void checkRepetition() {
+    RequiredAttributeCheck check = new RequiredAttributeCheck();
+    check.attributes = "img.alt,script.type";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(2).withMessage("Attribute alt is required for element img.")
+      .next().atLine(7).withMessage("Attribute type is required for element script.");
+
+    sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(2).withMessage("Attribute alt is required for element img.")
+      .next().atLine(7).withMessage("Attribute type is required for element script.");
+  }
+
 }
