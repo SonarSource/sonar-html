@@ -42,6 +42,22 @@ public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
   }
 
   @Test
+  public void should_detect_on_html_documents() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.html"), new AvoidHtmlCommentCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(5).withMessage("Remove this HTML comment.");
+  }
+
+  @Test
+  public void should_detect_on_html5_documents() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/documenthtml5.html"), new AvoidHtmlCommentCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(6).withMessage("Remove this HTML comment.");
+  }
+
+  @Test
   public void should_not_detect_on_xml_documents() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml"), new AvoidHtmlCommentCheck());
 

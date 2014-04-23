@@ -38,6 +38,7 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
   private boolean isXml;
   private boolean isXhtml;
+  private boolean isHtml5;
 
   @Override
   public void comment(CommentNode node) {
@@ -56,16 +57,20 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
     if (node.isXml()) {
       isXml = true;
     }
+    if (node.isHtml5()) {
+      isHtml5 = true;
+    }
   }
 
   @Override
   public void startDocument(List<Node> nodes) {
     isXml = false;
     isXhtml = false;
+    isHtml5 = false;
   }
 
   public void startElement(TagNode node) {
-    if ("html".equals(node.getNodeName()) && node.getAttribute("xmlns") != null) {
+    if (!isHtml5 && "html".equals(node.getNodeName()) && node.getAttribute("xmlns") != null) {
       isXhtml = true;
     }
   }

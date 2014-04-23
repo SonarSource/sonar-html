@@ -33,6 +33,10 @@ public class DirectiveNode extends TagNode {
     return getCode().startsWith("<!");
   }
 
+  public boolean isHtml5() {
+    return getCode().toLowerCase().startsWith("<!doctype html>");
+  }
+
   public boolean isJsp() {
     return getCode().startsWith("<%");
   }
