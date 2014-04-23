@@ -32,6 +32,7 @@ import org.mockito.MockitoAnnotations;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.config.Settings;
+import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
@@ -44,8 +45,10 @@ import org.sonar.test.TestUtils;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URISyntaxException;
+import java.util.Collections;
 
 import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -114,5 +117,18 @@ public class WebSensorTest extends AbstractWebPluginTester {
     } finally {
       IOUtils.closeQuietly(fileReader);
     }
+  }
+
+  @Test
+  public void test_should_execute_on_project() {
+    Project project = mock(Project.class);
+    ProjectFileSystem fileSystem = mock(ProjectFileSystem.class);
+    when(project.getFileSystem()).thenReturn(fileSystem);
+
+    when(fileSystem.mainFiles("web")).thenReturn(Collections.<InputFile>emptyList());
+    assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
+
+    when(fileSystem.mainFiles("web")).thenReturn(Collections.<InputFile>singletonList(mock(InputFile.class)));
+    assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 }
