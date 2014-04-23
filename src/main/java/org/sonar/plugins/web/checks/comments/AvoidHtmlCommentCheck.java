@@ -23,6 +23,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
 
@@ -36,12 +37,14 @@ import java.util.List;
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
   private boolean isXml;
+  private boolean isXhtml;
 
   @Override
   public void comment(CommentNode node) {
     String comment = node.getCode();
 
     if (!isXml &&
+      !isXhtml &&
       node.isHtml() &&
       !comment.startsWith("<!--[if")) {
       createViolation(node.getStartLinePosition(), "Remove this HTML comment.");
@@ -58,6 +61,13 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     isXml = false;
+    isXhtml = false;
+  }
+
+  public void startElement(TagNode node) {
+    if ("html".equals(node.getNodeName()) && node.getAttribute("xmlns") != null) {
+      isXhtml = true;
+    }
   }
 
 }

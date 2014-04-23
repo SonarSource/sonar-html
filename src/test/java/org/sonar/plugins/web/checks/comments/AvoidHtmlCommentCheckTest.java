@@ -38,12 +38,19 @@ public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
         .next().atLine(2).withMessage("Remove this HTML comment.")
-        .next().atLine(4);
+        .next().atLine(4).withMessage("Remove this HTML comment.");
   }
 
   @Test
   public void should_not_detect_on_xml_documents() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml"), new AvoidHtmlCommentCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getViolations());
+  }
+
+  @Test
+  public void should_not_detect_on_xhtml_documents() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xhtml"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
