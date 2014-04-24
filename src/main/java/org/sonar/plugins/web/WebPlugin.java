@@ -18,7 +18,6 @@
 package org.sonar.plugins.web;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.api.Extension;
 import org.sonar.api.SonarPlugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
@@ -43,7 +42,6 @@ public final class WebPlugin extends SonarPlugin {
 
   public List getExtensions() {
     ImmutableList.Builder builder = ImmutableList.builder();
-
 
     // web language
     builder.add(Web.class);
