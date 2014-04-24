@@ -23,6 +23,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -47,8 +48,9 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     isServerSidePage = false;
-    for (Node node : nodes) {
-      String code = node.getCode();
+    Iterator<Node> iterator = nodes.iterator();
+    while (!isServerSidePage && iterator.hasNext()) {
+      String code = iterator.next().getCode();
       if (code.startsWith("<?php") || code.startsWith("<%")) {
         isServerSidePage = true;
       }
