@@ -21,57 +21,37 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.CommentNode;
-import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
 
 /**
  * Checker for occurrence of html comments.
  *
- * HTML comment is not allowed in JSP files, use server side comment instead. The check allows HTML comment in XHTML files, recognized by
- * its xml declaration.
+ * HTML comment is not allowed in JSP and other server side pages, use server side comment instead.
  */
 @Rule(key = "AvoidHtmlCommentCheck", priority = Priority.MINOR)
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
-  private boolean isXml;
-  private boolean isXhtml;
-  private boolean isHtml5;
+  private boolean isServerSidePage;
 
   @Override
   public void comment(CommentNode node) {
     String comment = node.getCode();
 
-    if (!isXml &&
-      !isXhtml &&
-      node.isHtml() &&
-      !comment.startsWith("<!--[if")) {
+    if (isServerSidePage && node.isHtml() && !comment.startsWith("<!--[if")) {
       createViolation(node.getStartLinePosition(), "Remove this HTML comment.");
     }
   }
 
   @Override
-  public void directive(DirectiveNode node) {
-    if (node.isXml()) {
-      isXml = true;
-    }
-    if (node.isHtml5()) {
-      isHtml5 = true;
-    }
-  }
-
-  @Override
   public void startDocument(List<Node> nodes) {
-    isXml = false;
-    isXhtml = false;
-    isHtml5 = false;
-  }
-
-  public void startElement(TagNode node) {
-    if (!isHtml5 && "html".equals(node.getNodeName()) && node.getAttribute("xmlns") != null) {
-      isXhtml = true;
+    isServerSidePage = false;
+    for (Node node : nodes) {
+      String code = node.getCode();
+      if (code.startsWith("<?php") || code.startsWith("<%")) {
+        isServerSidePage = true;
+      }
     }
   }
 
