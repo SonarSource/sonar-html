@@ -24,8 +24,9 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Tokenizer for elements.
@@ -206,20 +207,20 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     private static final char DOUBLE_QUOTE = '"';
     private int previousChar;
 
-    private final Stack<Character> startChars = new Stack<Character>();
+    private final Deque<Character> startChars = new ArrayDeque<Character>();
 
     QuoteMatcher(char startChar) {
-      this.startChars.add(startChar);
+      this.startChars.addFirst(startChar);
     }
 
     @Override
     public boolean match(int character) {
       boolean result = false;
       if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
-        if (startChars.peek() == (char) character) {
-          startChars.pop();
+        if (startChars.peekFirst() == (char) character) {
+          startChars.removeFirst();
         } else {
-          startChars.add((char) character);
+          startChars.addFirst((char) character);
         }
         result = startChars.isEmpty();
       }
