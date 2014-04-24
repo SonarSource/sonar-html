@@ -92,12 +92,13 @@ public final class WebSensor implements Sensor {
 
   private void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
     saveComplexityDistribution(sensorContext, sourceCode);
-
-    for (Measure measure : sourceCode.getMeasures()) {
+    List<Measure> measures = sourceCode.getMeasures();
+    for (Measure measure : measures) {
       sensorContext.saveMeasure(sourceCode.getResource(), measure);
     }
 
-    for (Violation violation : sourceCode.getViolations()) {
+    List<Violation> violations = sourceCode.getViolations();
+    for (Violation violation : violations) {
       sensorContext.saveViolation(violation);
     }
   }

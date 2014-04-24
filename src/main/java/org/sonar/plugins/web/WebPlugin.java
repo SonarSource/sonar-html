@@ -41,7 +41,7 @@ import java.util.List;
  */
 public final class WebPlugin extends SonarPlugin {
 
-  public List<Class<? extends Extension>> getExtensions() {
+  public List getExtensions() {
     ImmutableList.Builder builder = ImmutableList.builder();
 
 

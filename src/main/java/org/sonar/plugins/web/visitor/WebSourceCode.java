@@ -26,14 +26,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebSourceCode {
+public class WebSourceCode<E extends Resource> {
 
   private final File file;
-  private final Resource<?> resource;
+  private final Resource<E> resource;
   private final List<Measure> measures = new ArrayList<Measure>();
   private final List<Violation> violations = new ArrayList<Violation>();
 
-  public WebSourceCode(File file, Resource<?> resource) {
+  public WebSourceCode(File file, Resource<E> resource) {
     this.file = file;
     this.resource = resource;
   }
@@ -64,7 +64,7 @@ public class WebSourceCode {
     return measures;
   }
 
-  public Resource<?> getResource() {
+  public Resource<E> getResource() {
     return resource;
   }
 

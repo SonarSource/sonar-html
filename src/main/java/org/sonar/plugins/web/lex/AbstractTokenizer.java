@@ -85,7 +85,7 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 
       StringBuilder stringBuilder = new StringBuilder();
       codeReader.popTo(new EndTokenMatcher(codeReader), stringBuilder);
-      for (char endChar : endChars) {
+      for (int i = 0; i < endChars.length; i++) {
         codeReader.pop(stringBuilder);
       }
       node.setCode(stringBuilder.toString());
