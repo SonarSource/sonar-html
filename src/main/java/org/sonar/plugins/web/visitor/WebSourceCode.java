@@ -25,6 +25,7 @@ import org.sonar.api.rules.Violation;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class WebSourceCode<E extends Resource> {
 
@@ -32,6 +33,8 @@ public class WebSourceCode<E extends Resource> {
   private final Resource<E> resource;
   private final List<Measure> measures = new ArrayList<Measure>();
   private final List<Violation> violations = new ArrayList<Violation>();
+  private Set<Integer> detailedLinesOfCode;
+  private Set<Integer> detailedLinesOfComments;
 
   public WebSourceCode(File file, Resource<E> resource) {
     this.file = file;
@@ -75,5 +78,21 @@ public class WebSourceCode<E extends Resource> {
   @Override
   public String toString() {
     return resource.getLongName();
+  }
+
+  public Set<Integer> getDetailedLinesOfCode() {
+    return detailedLinesOfCode;
+  }
+
+  public void setDetailedLinesOfCode(Set<Integer> detailedLinesOfCode) {
+    this.detailedLinesOfCode = detailedLinesOfCode;
+  }
+
+  public Set<Integer> getDetailedLinesOfComments() {
+    return detailedLinesOfComments;
+  }
+
+  public void setDetailedLinesOfComments(Set<Integer> detailedLinesOfComments) {
+    this.detailedLinesOfComments = detailedLinesOfComments;
   }
 }

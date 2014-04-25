@@ -25,15 +25,18 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.config.Settings;
+import org.sonar.api.measures.FileLinesContext;
+import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.ProjectFileSystem;
+import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.scan.filesystem.FileQuery;
 import org.sonar.api.scan.filesystem.ModuleFileSystem;
@@ -47,6 +50,7 @@ import java.net.URISyntaxException;
 
 import static junit.framework.Assert.assertTrue;
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -54,26 +58,38 @@ import static org.mockito.Mockito.when;
 
 public class WebSensorTest extends AbstractWebPluginTester {
 
+  private FileLinesContextFactory fileLinesContextFactory;
+  private ModuleFileSystem fileSystem;
+
+  @Before
+  public void setUp() {
+    fileLinesContextFactory = mock(FileLinesContextFactory.class);
+    FileLinesContext fileLinesContext = mock(FileLinesContext.class);
+    when(fileLinesContextFactory.createFor(any(Resource.class))).thenReturn(fileLinesContext);
+
+    fileSystem = mock(ModuleFileSystem.class);
+  }
+
   /**
    * Unit test which is more kind of an integration test. The purpose of this test is to get early feedback on changes in
    * the number of violations.
    */
   @Test
   public void testSensor() throws Exception {
-    ModuleFileSystem fileSystem = mock(ModuleFileSystem.class);
     SensorContext sensorContext = mock(SensorContext.class);
-    WebSensor sensor = new WebSensor(new Web(new Settings()), createStandardRulesProfile(), new NoSonarFilter(), fileSystem);
+
+    WebSensor sensor = new WebSensor(new Web(new Settings()), createStandardRulesProfile(), new NoSonarFilter(), fileSystem, fileLinesContextFactory);
     Project project = loadProjectFromPom();
 
     File input = InputFileUtils.create(TestUtils.getResource("src/main/webapp"), "user-properties.jsp").getFile();
-    when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(ImmutableList.<File>of(input));
+    when(fileSystem.files(any(FileQuery.class))).thenReturn(ImmutableList.<File>of(input));
     when(fileSystem.workingDir()).thenReturn(new File("src/main/webapp"));
     when(fileSystem.sourceCharset()).thenReturn(Charsets.UTF_8);
     assertTrue(sensor.shouldExecuteOnProject(project));
 
     sensor.analyse(project, sensorContext);
 
-    verify(sensorContext, times(61)).saveViolation((Violation) Mockito.any());
+    verify(sensorContext, times(61)).saveViolation((Violation) any());
   }
 
   private Project loadProjectFromPom() throws Exception {
@@ -110,18 +126,17 @@ public class WebSensorTest extends AbstractWebPluginTester {
   public void test_should_execute_on_project() {
     Settings settings = mock(Settings.class);
     RulesProfile profile = createStandardRulesProfile();
-    ModuleFileSystem fileSystem = mock(ModuleFileSystem.class);
     NoSonarFilter noSonarFilter = mock(NoSonarFilter.class);
 
     Project project = mock(Project.class);
 
     WebSensor sensor = new WebSensor(
-      new Web(settings), profile, noSonarFilter, fileSystem);
+      new Web(settings), profile, noSonarFilter, fileSystem, fileLinesContextFactory);
 
-    when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(ImmutableList.<File>of());
+    when(fileSystem.files(any(FileQuery.class))).thenReturn(ImmutableList.<File>of());
     assertThat(sensor.shouldExecuteOnProject(project)).isFalse();
 
-    when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(ImmutableList.of(mock(File.class)));
+    when(fileSystem.files(any(FileQuery.class))).thenReturn(ImmutableList.of(mock(File.class)));
     assertThat(sensor.shouldExecuteOnProject(project)).isTrue();
   }
 }

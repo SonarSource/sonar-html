@@ -17,14 +17,18 @@
  */
 package org.sonar.plugins.web.analyzers;
 
+import com.google.common.collect.Sets;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Count lines of code in web files.
@@ -40,6 +44,8 @@ public class PageCountLines extends DefaultNodeVisitor {
   private int commentLines;
   private int headerCommentLines;
   private int linesOfCode;
+  private final Set<Integer> detailedLinesOfCode = Sets.newHashSet();
+  private final Set<Integer> detailedLinesOfComments = Sets.newHashSet();
 
   @Override
   public void startDocument(List<Node> nodes) {
@@ -47,15 +53,22 @@ public class PageCountLines extends DefaultNodeVisitor {
     blankLines = 0;
     commentLines = 0;
     headerCommentLines = 0;
+    detailedLinesOfCode.clear();
+    detailedLinesOfComments.clear();
 
     count(nodes);
   }
 
   private void addMeasures() {
 
-    getWebSourceCode().addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + headerCommentLines + blankLines);
-    getWebSourceCode().addMeasure(CoreMetrics.NCLOC, linesOfCode);
-    getWebSourceCode().addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
+    WebSourceCode webSourceCode = getWebSourceCode();
+
+    webSourceCode.addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + headerCommentLines + blankLines);
+    webSourceCode.addMeasure(CoreMetrics.NCLOC, linesOfCode);
+    webSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
+
+    webSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
+    webSourceCode.setDetailedLinesOfComments(detailedLinesOfComments);
 
     LOG.debug("WebSensor: " + getWebSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + headerCommentLines + "," + blankLines);
   }
@@ -82,9 +95,10 @@ public class PageCountLines extends DefaultNodeVisitor {
       case DIRECTIVE:
       case EXPRESSION:
         linesOfCode += linesOfCodeCurrentNode;
+        addLineNumbers(node, detailedLinesOfCode);
         break;
       case COMMENT:
-        handleTokenComment(previousNode, linesOfCodeCurrentNode);
+        handleTokenComment(node, previousNode, linesOfCodeCurrentNode);
         break;
       case TEXT:
         handleTextToken((TextNode) node, previousNode, linesOfCodeCurrentNode);
@@ -94,17 +108,24 @@ public class PageCountLines extends DefaultNodeVisitor {
     }
   }
 
-  private void handleTokenComment(Node previousNode, int linesOfCodeCurrentNode) {
+  private void handleTokenComment(Node node, Node previousNode, int linesOfCodeCurrentNode) {
     if (previousNode == null) {
       // this is a header comment
       headerCommentLines += linesOfCodeCurrentNode;
     } else {
       commentLines += linesOfCodeCurrentNode;
+      addLineNumbers(node, detailedLinesOfComments);
     }
   }
 
   private void handleTextToken(TextNode textNode, Node previousNode, int linesOfCodeCurrentNode) {
-
+    String element[] = textNode.getCode().split("\n", -1);
+    int startLine = textNode.getStartLinePosition();
+    for (int i = 0; i < element.length; i++) {
+      if (!StringUtils.isBlank(element[i])) {
+        detailedLinesOfCode.add(startLine + i);
+      }
+    }
     if (textNode.isBlank() && linesOfCodeCurrentNode > 0) {
       int nonBlankLines = 0;
 
@@ -143,5 +164,11 @@ public class PageCountLines extends DefaultNodeVisitor {
     }
     nonBlankLines++;
     return nonBlankLines;
+  }
+
+  private void addLineNumbers(Node node, Set<Integer> detailedLines) {
+    for (int i = node.getStartLinePosition(); i <= node.getEndLinePosition(); i++) {
+      detailedLines.add(i);
+    }
   }
 }

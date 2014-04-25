@@ -26,6 +26,8 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
 import org.sonar.api.checks.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.measures.FileLinesContext;
+import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.RangeDistributionBuilder;
@@ -50,6 +52,7 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.FileReader;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public final class WebSensor implements Sensor {
 
@@ -60,12 +63,15 @@ public final class WebSensor implements Sensor {
   private final NoSonarFilter noSonarFilter;
   private final AnnotationCheckFactory annotationCheckFactory;
   private final ModuleFileSystem fileSystem;
+  private final FileLinesContextFactory fileLinesContextFactory;
 
-  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter, ModuleFileSystem fileSystem) {
+  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter, ModuleFileSystem fileSystem, FileLinesContextFactory fileLinesContextFactory) {
     this.web = web;
     this.noSonarFilter = noSonarFilter;
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, WebRulesRepository.REPOSITORY_KEY, CheckClasses.getCheckClasses());
     this.fileSystem = fileSystem;
+    this.fileLinesContextFactory = fileLinesContextFactory;
+
   }
 
   private boolean hasFilesToAnalyze() {
@@ -89,6 +95,7 @@ public final class WebSensor implements Sensor {
         List<Node> nodeList = lexer.parse(reader);
         scanner.scan(nodeList, sourceCode, fileSystem.sourceCharset());
         saveMetrics(sensorContext, sourceCode);
+        saveLineLevelMeasures(resource, sourceCode);
       } catch (Exception e) {
         LOG.error("Can not analyze file " + file.getAbsolutePath(), e);
       } finally {
@@ -117,6 +124,18 @@ public final class WebSensor implements Sensor {
       complexityFileDistribution.add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getValue());
       sensorContext.saveMeasure(sourceCode.getResource(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
     }
+  }
+
+  private void saveLineLevelMeasures(File sonarFile, WebSourceCode webSourceCode) {
+    FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(sonarFile);
+    Set<Integer> linesOfCode = webSourceCode.getDetailedLinesOfCode();
+    Set<Integer> linesOfComments = webSourceCode.getDetailedLinesOfComments();
+
+    for (int line = 1; line <= webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue(); line++) {
+      fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, linesOfCode.contains(line) ? 1 : 0);
+      fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, linesOfComments.contains(line) ? 1 : 0);
+    }
+    fileLinesContext.save();
   }
 
   /**
