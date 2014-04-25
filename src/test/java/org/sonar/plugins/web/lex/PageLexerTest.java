@@ -19,6 +19,7 @@ package org.sonar.plugins.web.lex;
 
 import org.junit.Test;
 import org.sonar.channel.CodeReader;
+import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
@@ -254,4 +255,30 @@ public class PageLexerTest {
     assertEquals(3, nodeList.size());
   }
 
+  @Test
+  public void testComment() {
+    String fragment = "<!-- text --><p>aaa</p>";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(4, nodeList.size());
+    assertTrue(nodeList.get(0) instanceof CommentNode);
+  }
+
+  @Test
+  public void testNestedComment() {
+    String fragment = "<!-- text <!--><p>This is not part of the comment</p>";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(4, nodeList.size());
+    assertTrue(nodeList.get(0) instanceof CommentNode);
+    assertTrue(nodeList.get(1) instanceof TagNode);
+    assertTrue(nodeList.get(2) instanceof TextNode);
+    assertTrue(nodeList.get(3) instanceof TagNode);
+  }
 }

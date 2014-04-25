@@ -17,6 +17,9 @@
  */
 package org.sonar.plugins.web.lex;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.sonar.channel.CodeReader;
+import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 
@@ -28,14 +31,36 @@ import java.util.List;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-class CommentTokenizer extends AbstractTokenizer<List<Node>> {
+class CommentTokenizer<T extends List<Node>> extends AbstractTokenizer<T> {
+
+  private final class EndTokenMatcher implements EndMatcher {
+
+    private final CodeReader codeReader;
+
+    private EndTokenMatcher(CodeReader codeReader) {
+      this.codeReader = codeReader;
+    }
+
+    @Override
+    public boolean match(int endFlag) {
+      return ArrayUtils.isEquals(codeReader.peek(endChars.length), endChars);
+    }
+
+  }
 
   private final Boolean html;
+  private final char[] endChars;
 
   public CommentTokenizer(String startToken, String endToken, Boolean html) {
     super(startToken, endToken);
 
     this.html = html;
+    this.endChars = endToken.toCharArray();
+  }
+
+  @Override
+  protected EndMatcher getEndMatcher(CodeReader codeReader) {
+    return new EndTokenMatcher(codeReader);
   }
 
   @Override

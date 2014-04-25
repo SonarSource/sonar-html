@@ -84,7 +84,7 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
       setStartPosition(codeReader, node);
 
       StringBuilder stringBuilder = new StringBuilder();
-      codeReader.popTo(new EndTokenMatcher(codeReader), stringBuilder);
+      codeReader.popTo(getEndMatcher(codeReader), stringBuilder);
       for (int i = 0; i < endChars.length; i++) {
         codeReader.pop(stringBuilder);
       }
@@ -123,6 +123,10 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
     }
 
     return true;
+  }
+
+  protected EndMatcher getEndMatcher(CodeReader codeReader) {
+    return new EndTokenMatcher(codeReader);
   }
 
 }
