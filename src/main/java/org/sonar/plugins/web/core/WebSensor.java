@@ -57,20 +57,13 @@ public final class WebSensor implements Sensor {
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
   private final Web web;
-  private final Settings settings;
   private final NoSonarFilter noSonarFilter;
   private final AnnotationCheckFactory annotationCheckFactory;
 
-  public WebSensor(Web web, Settings settings, RulesProfile profile, NoSonarFilter noSonarFilter) {
+  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter) {
     this.web = web;
-    this.settings = settings;
     this.noSonarFilter = noSonarFilter;
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, WebRulesRepository.REPOSITORY_KEY, CheckClasses.getCheckClasses());
-
-    String oldFileExtensions = settings.getString(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY);
-    if (oldFileExtensions != null) {
-      LOG.warn("Use the new property \"" + WebConstants.FILE_EXTENSIONS_PROP_KEY + "\" instead of the deprecated \"" + WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY + "\".");
-    }
   }
 
   @Override

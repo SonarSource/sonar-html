@@ -34,9 +34,25 @@ public class WebTest {
   }
 
   @Test
+  public void testDefaultFileExtensions() {
+    Settings settings = new Settings();
+    settings.setProperty(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY, WebConstants.FILE_EXTENSIONS_DEF_VALUE);
+    Web web = new Web(settings);
+    assertThat(web.getFileSuffixes()).containsOnly(".html", ".xhtml", ".jsp", ".jspf", ".jsf", ".php", ".erb", ".rhtml");
+  }
+
+  @Test
   public void testCustomFileSuffixes() {
     Settings settings = new Settings();
     settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
+    Web web = new Web(settings);
+    assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
+  }
+
+  @Test
+  public void testCustomFileExtensions() {
+    Settings settings = new Settings();
+    settings.setProperty(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
     Web web = new Web(settings);
     assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
   }

@@ -68,8 +68,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
   @Before
   public void setup() {
-    Settings settings = new Settings();
-    sensor = new WebSensor(new Web(settings), settings, createStandardRulesProfile(), new NoSonarFilter());
+    sensor = new WebSensor(new Web(new Settings()), createStandardRulesProfile(), new NoSonarFilter());
   }
 
   /**

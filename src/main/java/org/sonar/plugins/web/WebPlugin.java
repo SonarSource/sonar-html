@@ -73,10 +73,9 @@ public final class WebPlugin extends SonarPlugin {
     return ImmutableList.of(
 
       PropertyDefinition.builder(WebConstants.FILE_EXTENSIONS_PROP_KEY)
-        .name("File extensions")
-        .description("List of file extensions that will be scanned.")
+        .name("File suffixes")
+        .description("List of file suffixes that will be scanned.")
         .category(CATEGORY)
-        .deprecatedKey(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY)
         .defaultValue(WebConstants.FILE_EXTENSIONS_DEF_VALUE)
         .onQualifiers(Qualifiers.PROJECT)
         .build(),
