@@ -25,16 +25,16 @@ import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.checks.AnnotationCheckFactory;
 import org.sonar.api.checks.NoSonarFilter;
-import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.RangeDistributionBuilder;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.File;
-import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rules.Violation;
+import org.sonar.api.scan.filesystem.FileQuery;
+import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.WebConstants;
@@ -59,11 +59,17 @@ public final class WebSensor implements Sensor {
   private final Web web;
   private final NoSonarFilter noSonarFilter;
   private final AnnotationCheckFactory annotationCheckFactory;
+  private final ModuleFileSystem fileSystem;
 
-  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter) {
+  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter, ModuleFileSystem fileSystem) {
     this.web = web;
     this.noSonarFilter = noSonarFilter;
     this.annotationCheckFactory = AnnotationCheckFactory.create(profile, WebRulesRepository.REPOSITORY_KEY, CheckClasses.getCheckClasses());
+    this.fileSystem = fileSystem;
+  }
+
+  private boolean hasFilesToAnalyze() {
+    return !fileSystem.files(FileQuery.onSource().onLanguage(WebConstants.LANGUAGE_KEY)).isEmpty();
   }
 
   @Override
@@ -74,8 +80,7 @@ public final class WebSensor implements Sensor {
     // configure page scanner and the visitors
     final HtmlAstScanner scanner = setupScanner();
 
-    for (InputFile inputFile : project.getFileSystem().mainFiles(web.getKey())) {
-      java.io.File file = inputFile.getFile();
+    for (java.io.File file : fileSystem.files(FileQuery.onSource().onLanguage(WebConstants.LANGUAGE_KEY))) {
       File resource = File.fromIOFile(file, project);
       WebSourceCode sourceCode = new WebSourceCode(file, resource);
       FileReader reader = null;
@@ -131,7 +136,7 @@ public final class WebSensor implements Sensor {
    */
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return Web.isEnabled(project);
+    return hasFilesToAnalyze();
   }
 
   @Override

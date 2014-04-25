@@ -19,7 +19,6 @@ package org.sonar.plugins.web.core;
 
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.api.resources.Project;
 import org.sonar.plugins.web.api.WebConstants;
 
 public class Web extends AbstractLanguage {
@@ -36,10 +35,6 @@ public class Web extends AbstractLanguage {
   @Override
   public String[] getFileSuffixes() {
     return fileSuffixes;
-  }
-
-  public static boolean isEnabled(Project project) {
-    return !project.getFileSystem().mainFiles(WebConstants.LANGUAGE_KEY).isEmpty();
   }
 
 }
