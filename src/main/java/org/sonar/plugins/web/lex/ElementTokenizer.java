@@ -118,50 +118,59 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
     switch (mode) {
       case BEFORE_NODE_NAME:
-
-        StringBuilder sbNodeName = new StringBuilder();
-        codeReader.popTo(endTokenMatcher, sbNodeName);
-        element.setNodeName(sbNodeName.toString());
+        handleBeforeNodeName(codeReader, element);
         return ParseMode.BEFORE_ATTRIBUTE_NAME;
 
       case BEFORE_ATTRIBUTE_NAME:
-
-        StringBuilder sbQName = new StringBuilder();
-        codeReader.popTo(endQNameMatcher, sbQName);
-        attribute = new Attribute(sbQName.toString().trim());
-        attribute.setLine(codeReader.getLinePosition() + element.getStartLinePosition() - 1);
-        element.getAttributes().add(attribute);
-
+        handleBeforeAttributeName(codeReader, element);
         return ParseMode.BEFORE_ATTRIBUTE_NAME;
 
       case BEFORE_ATTRIBUTE_VALUE:
-
-        if (!element.getAttributes().isEmpty()) {
-          attribute = element.getAttributes().get(element.getAttributes().size() - 1);
-          StringBuilder sbValue = new StringBuilder();
-          int ch = codeReader.peek();
-
-          if (isQuote((char) ch)) {
-            codeReader.pop();
-            if (codeReader.peek() != ch) {
-              codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
-              attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
-            }
-            codeReader.pop();
-            attribute.setQuoteChar((char) ch);
-          } else {
-            codeReader.popTo(endTokenMatcher, sbValue);
-            attribute.setValue(sbValue.toString().trim());
-          }
-        }
-
+        handleBeforeAttributeValue(codeReader, element);
         return ParseMode.BEFORE_ATTRIBUTE_NAME;
+
       default:
         break;
     }
-
     // can't happen
     return ParseMode.BEFORE_NODE_NAME;
+  }
+
+  private void handleBeforeAttributeValue(CodeReader codeReader, TagNode element) {
+    Attribute attribute;
+    if (!element.getAttributes().isEmpty()) {
+      attribute = element.getAttributes().get(element.getAttributes().size() - 1);
+      StringBuilder sbValue = new StringBuilder();
+      int ch = codeReader.peek();
+
+      if (isQuote((char) ch)) {
+        codeReader.pop();
+        if (codeReader.peek() != ch) {
+          codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
+          attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
+        }
+        codeReader.pop();
+        attribute.setQuoteChar((char) ch);
+      } else {
+        codeReader.popTo(endTokenMatcher, sbValue);
+        attribute.setValue(sbValue.toString().trim());
+      }
+    }
+  }
+
+  private void handleBeforeAttributeName(CodeReader codeReader, TagNode element) {
+    Attribute attribute;
+    StringBuilder sbQName = new StringBuilder();
+    codeReader.popTo(endQNameMatcher, sbQName);
+    attribute = new Attribute(sbQName.toString().trim());
+    attribute.setLine(codeReader.getLinePosition() + element.getStartLinePosition() - 1);
+    element.getAttributes().add(attribute);
+  }
+
+  private void handleBeforeNodeName(CodeReader codeReader, TagNode element) {
+    StringBuilder sbNodeName = new StringBuilder();
+    codeReader.popTo(endTokenMatcher, sbNodeName);
+    element.setNodeName(sbNodeName.toString());
   }
 
   /**

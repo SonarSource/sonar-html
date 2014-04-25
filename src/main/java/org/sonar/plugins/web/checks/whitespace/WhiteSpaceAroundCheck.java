@@ -56,10 +56,7 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
       switch (ch) {
         case '!':
         case '=':
-          position++;
-          if (code.length() > position && !Character.isWhitespace(code.charAt(position))) {
-            createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
-          }
+          handleEqualSign(node, code, position);
           break;
         default:
           if (!Character.isWhitespace(ch)) {
@@ -67,6 +64,13 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
           }
           break;
       }
+    }
+  }
+
+  private void handleEqualSign(Node node, String code, int position) {
+    position++;
+    if (code.length() > position && !Character.isWhitespace(code.charAt(position))) {
+      createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
     }
   }
 

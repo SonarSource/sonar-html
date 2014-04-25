@@ -92,13 +92,7 @@ public class HtmlAstScanner {
   private void scanElement(DefaultNodeVisitor visitor, Node node) {
     switch (node.getNodeType()) {
       case TAG:
-        TagNode element = (TagNode) node;
-        if (!element.isEndElement()) {
-          visitor.startElement(element);
-        }
-        if (element.isEndElement() || element.hasEnd()) {
-          visitor.endElement(element);
-        }
+        scanElementTag(visitor, (TagNode) node);
         break;
       case TEXT:
         visitor.characters((TextNode) node);
@@ -114,6 +108,16 @@ public class HtmlAstScanner {
         break;
       default:
         break;
+    }
+  }
+
+  private void scanElementTag(DefaultNodeVisitor visitor, TagNode node) {
+    TagNode element = (TagNode) node;
+    if (!element.isEndElement()) {
+      visitor.startElement(element);
+    }
+    if (element.isEndElement() || element.hasEnd()) {
+      visitor.endElement(element);
     }
   }
 

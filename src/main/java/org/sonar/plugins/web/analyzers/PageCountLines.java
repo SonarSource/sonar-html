@@ -84,19 +84,22 @@ public class PageCountLines extends DefaultNodeVisitor {
         linesOfCode += linesOfCodeCurrentNode;
         break;
       case COMMENT:
-        if (previousNode == null) {
-          // this is a header comment
-          headerCommentLines += linesOfCodeCurrentNode;
-        } else {
-          commentLines += linesOfCodeCurrentNode;
-        }
+        handleTokenComment(previousNode, linesOfCodeCurrentNode);
         break;
       case TEXT:
         handleTextToken((TextNode) node, previousNode, linesOfCodeCurrentNode);
-
         break;
       default:
         break;
+    }
+  }
+
+  private void handleTokenComment(Node previousNode, int linesOfCodeCurrentNode) {
+    if (previousNode == null) {
+      // this is a header comment
+      headerCommentLines += linesOfCodeCurrentNode;
+    } else {
+      commentLines += linesOfCodeCurrentNode;
     }
   }
 
@@ -109,13 +112,7 @@ public class PageCountLines extends DefaultNodeVisitor {
       if (previousNode != null) {
         switch (previousNode.getNodeType()) {
           case COMMENT:
-            if (previousNode.getStartLinePosition() == 1) {
-              // this was a header comment
-              headerCommentLines++;
-            } else {
-              commentLines++;
-            }
-            nonBlankLines++;
+            nonBlankLines = handleTextTokenComment(previousNode, nonBlankLines);
             break;
           case TAG:
           case DIRECTIVE:
@@ -135,5 +132,16 @@ public class PageCountLines extends DefaultNodeVisitor {
     } else {
       linesOfCode += linesOfCodeCurrentNode;
     }
+  }
+
+  private int handleTextTokenComment(Node previousNode, int nonBlankLines) {
+    if (previousNode.getStartLinePosition() == 1) {
+      // this was a header comment
+      headerCommentLines++;
+    } else {
+      commentLines++;
+    }
+    nonBlankLines++;
+    return nonBlankLines;
   }
 }
