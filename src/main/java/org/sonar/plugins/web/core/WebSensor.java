@@ -87,7 +87,7 @@ public final class WebSensor implements Sensor {
       try {
         reader = new FileReader(file);
         List<Node> nodeList = lexer.parse(reader);
-        scanner.scan(nodeList, sourceCode, project.getFileSystem().getSourceCharset());
+        scanner.scan(nodeList, sourceCode, fileSystem.sourceCharset());
         saveMetrics(sensorContext, sourceCode);
       } catch (Exception e) {
         LOG.error("Can not analyze file " + file.getAbsolutePath(), e);

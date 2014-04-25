@@ -68,6 +68,7 @@ public class WebSensorTest extends AbstractWebPluginTester {
     File input = InputFileUtils.create(TestUtils.getResource("src/main/webapp"), "user-properties.jsp").getFile();
     when(fileSystem.files(Mockito.any(FileQuery.class))).thenReturn(ImmutableList.<File>of(input));
     when(fileSystem.workingDir()).thenReturn(new File("src/main/webapp"));
+    when(fileSystem.sourceCharset()).thenReturn(Charsets.UTF_8);
     assertTrue(sensor.shouldExecuteOnProject(project));
 
     sensor.analyse(project, sensorContext);
@@ -82,7 +83,6 @@ public class WebSensorTest extends AbstractWebPluginTester {
     project.setPom(pom);
     project.setLanguage(new Web(new Settings()));
     ProjectFileSystem projectFileSystem = mock(ProjectFileSystem.class);
-    when(projectFileSystem.getSourceCharset()).thenReturn(Charsets.UTF_8);
     project.setFileSystem(projectFileSystem);
     when(projectFileSystem.getSourceDirs()).thenReturn(Lists.newArrayList(TestUtils.getResource("src/main/webapp")));
     return project;
