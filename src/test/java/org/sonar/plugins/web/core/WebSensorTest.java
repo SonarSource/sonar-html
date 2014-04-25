@@ -39,6 +39,7 @@ import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.api.rules.Violation;
 import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.AbstractWebPluginTester;
+import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.test.TestUtils;
 
 import java.io.File;
@@ -67,7 +68,8 @@ public class WebSensorTest extends AbstractWebPluginTester {
 
   @Before
   public void setup() {
-    sensor = new WebSensor(new Web(new Settings()), createStandardRulesProfile(), new NoSonarFilter());
+    Settings settings = new Settings();
+    sensor = new WebSensor(new Web(settings), settings, createStandardRulesProfile(), new NoSonarFilter());
   }
 
   /**

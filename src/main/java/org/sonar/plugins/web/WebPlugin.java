@@ -40,6 +40,8 @@ import java.util.List;
  */
 public final class WebPlugin extends SonarPlugin {
 
+  private static final String CATEGORY = "Web";
+
   public List getExtensions() {
     ImmutableList.Builder builder = ImmutableList.builder();
 
@@ -73,10 +75,26 @@ public final class WebPlugin extends SonarPlugin {
       PropertyDefinition.builder(WebConstants.FILE_EXTENSIONS_PROP_KEY)
         .name("File extensions")
         .description("List of file extensions that will be scanned.")
+        .category(CATEGORY)
         .deprecatedKey(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY)
         .defaultValue(WebConstants.FILE_EXTENSIONS_DEF_VALUE)
         .onQualifiers(Qualifiers.PROJECT)
-        .build()
+        .build(),
+
+      deprecatedPropertyDefinition(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY)
     );
+  }
+
+  private static PropertyDefinition deprecatedPropertyDefinition(String oldKey) {
+    return PropertyDefinition
+      .builder(oldKey)
+      .name(oldKey)
+      .description("This property is deprecated and will be removed in a future version.<br />"
+        + "You should stop using it as soon as possible.<br />"
+        + "Consult the migration guide for guidance.")
+      .category(CATEGORY)
+      .subCategory("Deprecated")
+      .onQualifiers(Qualifiers.PROJECT)
+      .build();
   }
 }

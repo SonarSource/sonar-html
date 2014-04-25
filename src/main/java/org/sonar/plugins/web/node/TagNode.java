@@ -20,7 +20,6 @@ package org.sonar.plugins.web.node;
 import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 

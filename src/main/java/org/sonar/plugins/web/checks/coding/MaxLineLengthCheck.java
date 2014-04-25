@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
-
 import com.google.common.io.Files;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
@@ -26,6 +24,7 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
 import java.io.File;
 import java.io.IOException;

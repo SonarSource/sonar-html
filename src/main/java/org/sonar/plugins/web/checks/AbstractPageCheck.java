@@ -25,7 +25,6 @@ import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 
 import javax.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
