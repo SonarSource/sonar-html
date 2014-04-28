@@ -166,8 +166,7 @@ public class PageCountLines extends DefaultNodeVisitor {
     } else {
       commentLines++;
     }
-    int result = nonBlankLines + 1;
-    return result;
+    return nonBlankLines + 1;
   }
 
   private void addLineNumbers(Node node, Set<Integer> detailedLines) {
