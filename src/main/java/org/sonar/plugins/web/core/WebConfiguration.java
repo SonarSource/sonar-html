@@ -33,7 +33,7 @@ public class WebConfiguration {
   }
 
   public String[] fileSuffixes() {
-    String result[];
+    String[] result;
 
     String oldFileExtensions = settings.getString(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY);
     if (oldFileExtensions != null) {

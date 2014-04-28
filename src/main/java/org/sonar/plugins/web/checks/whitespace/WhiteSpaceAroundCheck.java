@@ -68,9 +68,9 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
   }
 
   private void handleEqualSign(Node node, String code, int position) {
-    position++;
-    if (code.length() > position && !Character.isWhitespace(code.charAt(position))) {
-      createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
+    int tmpPosition = position + 1;
+    if (code.length() > tmpPosition && !Character.isWhitespace(code.charAt(tmpPosition))) {
+      createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + tmpPosition);
     }
   }
 

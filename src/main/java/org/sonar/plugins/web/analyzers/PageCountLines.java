@@ -119,13 +119,7 @@ public class PageCountLines extends DefaultNodeVisitor {
   }
 
   private void handleTextToken(TextNode textNode, Node previousNode, int linesOfCodeCurrentNode) {
-    String element[] = textNode.getCode().split("\n", -1);
-    int startLine = textNode.getStartLinePosition();
-    for (int i = 0; i < element.length; i++) {
-      if (!StringUtils.isBlank(element[i])) {
-        detailedLinesOfCode.add(startLine + i);
-      }
-    }
+    handleDetailedTextToken(textNode);
     if (textNode.isBlank() && linesOfCodeCurrentNode > 0) {
       int nonBlankLines = 0;
 
@@ -155,6 +149,16 @@ public class PageCountLines extends DefaultNodeVisitor {
     }
   }
 
+  private void handleDetailedTextToken(TextNode textNode) {
+    String[] element = textNode.getCode().split("\n", -1);
+    int startLine = textNode.getStartLinePosition();
+    for (int i = 0; i < element.length; i++) {
+      if (!StringUtils.isBlank(element[i])) {
+        detailedLinesOfCode.add(startLine + i);
+      }
+    }
+  }
+
   private int handleTextTokenComment(Node previousNode, int nonBlankLines) {
     if (previousNode.getStartLinePosition() == 1) {
       // this was a header comment
@@ -162,8 +166,8 @@ public class PageCountLines extends DefaultNodeVisitor {
     } else {
       commentLines++;
     }
-    nonBlankLines++;
-    return nonBlankLines;
+    int result = nonBlankLines + 1;
+    return result;
   }
 
   private void addLineNumbers(Node node, Set<Integer> detailedLines) {

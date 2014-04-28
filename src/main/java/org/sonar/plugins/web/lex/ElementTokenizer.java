@@ -114,8 +114,6 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   }
 
   private ParseMode parseToken(ParseMode mode, CodeReader codeReader, TagNode element) {
-    Attribute attribute;
-
     switch (mode) {
       case BEFORE_NODE_NAME:
         handleBeforeNodeName(codeReader, element);
