@@ -68,5 +68,10 @@
       <key>UnsupportedTagsInHtml5Check</key>
       <priority>MAJOR</priority>
     </rule>
+    <rule>
+      <repositoryKey>Web</repositoryKey>
+      <key>S1826</key>
+      <priority>MAJOR</priority>
+    </rule>
   </rules>
 </profile>
