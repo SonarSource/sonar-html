@@ -19,6 +19,7 @@ package org.sonar.plugins.web.checks.sonar;
 
 import org.sonar.plugins.web.node.TagNode;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public class FlashHelper {
@@ -32,15 +33,15 @@ public class FlashHelper {
       hasFlashExtension(node.getAttribute("data"));
   }
 
-  private static boolean hasFlashClassId(String classId) {
+  private static boolean hasFlashClassId(@Nullable String classId) {
     return classId != null && "CLSID:D27CDB6E-AE6D-11CF-96B8-444553540000".equalsIgnoreCase(classId);
   }
 
-  private static boolean hasFlashType(String type) {
+  private static boolean hasFlashType(@Nullable String type) {
     return type != null && type.toUpperCase(Locale.ENGLISH).contains("X-SHOCKWAVE-FLASH");
   }
 
-  private static boolean hasFlashExtension(String file) {
+  private static boolean hasFlashExtension(@Nullable String file) {
     return file != null && file.toUpperCase(Locale.ENGLISH).endsWith(".SWF");
   }
 

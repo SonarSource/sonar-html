@@ -27,6 +27,7 @@ import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
@@ -83,7 +84,7 @@ public class PageCountLines extends DefaultNodeVisitor {
     addMeasures();
   }
 
-  private void handleToken(Node node, Node previousNode, Node nextNode) {
+  private void handleToken(Node node, @Nullable Node previousNode, @Nullable Node nextNode) {
 
     int linesOfCodeCurrentNode = node.getLinesOfCode();
     if (nextNode == null) {
@@ -108,7 +109,7 @@ public class PageCountLines extends DefaultNodeVisitor {
     }
   }
 
-  private void handleTokenComment(Node node, Node previousNode, int linesOfCodeCurrentNode) {
+  private void handleTokenComment(Node node, @Nullable Node previousNode, int linesOfCodeCurrentNode) {
     if (previousNode == null) {
       // this is a header comment
       headerCommentLines += linesOfCodeCurrentNode;
@@ -118,7 +119,7 @@ public class PageCountLines extends DefaultNodeVisitor {
     }
   }
 
-  private void handleTextToken(TextNode textNode, Node previousNode, int linesOfCodeCurrentNode) {
+  private void handleTextToken(TextNode textNode, @Nullable Node previousNode, int linesOfCodeCurrentNode) {
     handleDetailedTextToken(textNode);
     if (textNode.isBlank() && linesOfCodeCurrentNode > 0) {
       int nonBlankLines = 0;
