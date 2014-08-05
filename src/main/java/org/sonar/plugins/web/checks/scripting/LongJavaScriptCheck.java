@@ -21,6 +21,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
@@ -32,6 +33,7 @@ import org.sonar.plugins.web.node.TextNode;
 @Rule(
   key = "LongJavaScriptCheck",
   priority = Priority.CRITICAL)
+@WebRule(activeByDefault = false)
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;

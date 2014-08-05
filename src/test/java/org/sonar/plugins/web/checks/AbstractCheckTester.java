@@ -23,7 +23,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.resources.File;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.ActiveRule;
@@ -153,7 +152,7 @@ public abstract class AbstractCheckTester extends AbstractWebPluginTester {
   private void configureDefaultParams(AbstractPageCheck check, Rule rule) {
     WebRuleFinder ruleFinder = new WebRuleFinder(rule);
     ValidationMessages validationMessages = ValidationMessages.create();
-    ProfileDefinition profileDefinition = new TestProfileWithAllRules(new XMLProfileParser(ruleFinder));
+    ProfileDefinition profileDefinition = new TestProfileWithAllRules(ruleFinder);
     RulesProfile rulesProfile = profileDefinition.createProfile(validationMessages);
 
     ActiveRule activeRule = rulesProfile.getActiveRule(rule);

@@ -20,6 +20,7 @@ package org.sonar.plugins.web.checks.whitespace;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -34,6 +35,7 @@ import org.sonar.plugins.web.node.Node;
  * @since 1.0
  */
 @Rule(key = "WhiteSpaceAroundCheck", priority = Priority.MINOR)
+@WebRule(activeByDefault = false)
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 
   private void checkEndWhitespace(Node node, String code, String end) {

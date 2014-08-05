@@ -17,33 +17,26 @@
  */
 package org.sonar.plugins.web;
 
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.utils.ValidationMessages;
+import org.sonar.api.rules.RuleFinder;
+import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.rules.BaseProfileDefinition;
 
 /**
  * Test profile with all rules
  */
-public final class TestProfileWithAllRules extends ProfileDefinition {
+public class TestProfileWithAllRules extends BaseProfileDefinition {
 
-  private static final String TEST_PROFILE_FILE = "org/sonar/plugins/web/rules/web/all-rules.xml";
-
-  private final XMLProfileParser profileParser;
-
-  /**
-   * Creates the {@link TestProfileWithAllRules}
-   */
-  public TestProfileWithAllRules(XMLProfileParser profileParser) {
-    this.profileParser = profileParser;
+  public TestProfileWithAllRules(RuleFinder ruleFinder) {
+    super(ruleFinder);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public RulesProfile createProfile(ValidationMessages validation) {
-    RulesProfile profile = profileParser.parseResource(getClass().getClassLoader(), TEST_PROFILE_FILE, validation);
-    return profile;
+  protected boolean isActive(Class ruleClass) {
+    return true;
+  }
+
+  @Override
+  protected String getLanguageKey() {
+    return WebConstants.LANGUAGE_KEY;
   }
 }

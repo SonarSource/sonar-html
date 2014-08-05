@@ -20,6 +20,7 @@ package org.sonar.plugins.web.checks.style;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
@@ -31,6 +32,7 @@ import org.sonar.plugins.web.node.TagNode;
  * @since 1.0
  */
 @Rule(key = "InlineStyleCheck", priority = Priority.MINOR)
+@WebRule(activeByDefault = false)
 public class InlineStyleCheck extends AbstractPageCheck {
 
   @Override

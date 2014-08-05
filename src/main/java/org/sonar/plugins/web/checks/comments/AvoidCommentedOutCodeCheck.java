@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.squid.recognizer.CodeRecognizer;
 import org.sonar.squid.recognizer.ContainsDetector;
@@ -34,6 +35,7 @@ import java.util.Set;
 @Rule(
   key = "AvoidCommentedOutCodeCheck",
   priority = Priority.MAJOR)
+@WebRule(activeByDefault = true)
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   private static final double THRESHOLD = 0.9;

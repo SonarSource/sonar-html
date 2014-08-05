@@ -20,11 +20,13 @@ package org.sonar.plugins.web.checks.sonar;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "BoldAndItalicTagsCheck",
   priority = Priority.MAJOR)
+@WebRule(activeByDefault = true)
 public class BoldAndItalicTagsCheck extends AbstractPageCheck {
 
   @Override

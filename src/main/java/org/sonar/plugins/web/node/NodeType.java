@@ -24,5 +24,5 @@ package org.sonar.plugins.web.node;
  * @since 1.0
  */
 public enum NodeType {
-  COMMENT, DIRECTIVE, EXPRESSION, TAG, TEXT;
+  COMMENT, DIRECTIVE, EXPRESSION, TAG, TEXT
 }

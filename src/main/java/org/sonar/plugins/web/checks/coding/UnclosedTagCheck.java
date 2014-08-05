@@ -22,6 +22,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
@@ -31,6 +32,7 @@ import java.util.List;
 @Rule(
   key = "UnclosedTagCheck",
   priority = Priority.MINOR)
+@WebRule(activeByDefault = false)
 public class UnclosedTagCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_IGNORE_TAGS = "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP" +

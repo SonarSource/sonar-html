@@ -19,7 +19,6 @@ package org.sonar.plugins.web;
 
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
@@ -85,7 +84,7 @@ public class AbstractWebPluginTester {
    * create standard rules profile
    */
   protected RulesProfile createStandardRulesProfile() {
-    ProfileDefinition profileDefinition = new TestProfileWithAllRules(new XMLProfileParser(newRuleFinder()));
+    ProfileDefinition profileDefinition = new TestProfileWithAllRules(newRuleFinder());
     ValidationMessages messages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(messages);
     assertEquals(0, messages.getErrors().size());

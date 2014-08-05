@@ -20,6 +20,7 @@ package org.sonar.plugins.web.checks.comments;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 
@@ -32,6 +33,7 @@ import java.util.List;
  * HTML comment is not allowed in JSP and other server side pages, use server side comment instead.
  */
 @Rule(key = "AvoidHtmlCommentCheck", priority = Priority.MINOR)
+@WebRule(activeByDefault = false)
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
   private boolean isServerSidePage;

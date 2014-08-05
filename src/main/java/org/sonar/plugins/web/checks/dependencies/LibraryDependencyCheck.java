@@ -23,6 +23,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -34,6 +35,7 @@ import java.util.List;
   key = "LibraryDependencyCheck",
   priority = Priority.MAJOR,
   cardinality = Cardinality.MULTIPLE)
+@WebRule(activeByDefault = false)
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_LIBRARIES = "";

@@ -24,6 +24,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
@@ -42,6 +43,7 @@ import java.util.List;
 @Rule(
   key = "UnifiedExpressionCheck",
   priority = Priority.BLOCKER)
+@WebRule(activeByDefault = false)
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_FUNCTIONS = "";

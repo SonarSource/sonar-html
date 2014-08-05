@@ -17,34 +17,28 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
-import org.sonar.api.utils.ValidationMessages;
+import org.sonar.api.rules.RuleFinder;
+import org.sonar.api.utils.AnnotationUtils;
+import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.checks.WebRule;
 
 /**
  * Sonar way profile for the Web language
  */
-public final class SonarWayProfile extends ProfileDefinition {
+public final class SonarWayProfile extends BaseProfileDefinition {
 
-  private static final String SONAR_WAY_PROFILE_FILE = "org/sonar/plugins/web/rules/web/sonar-way-profile.xml";
-
-  private final XMLProfileParser profileParser;
-
-  /**
-   * Creates the {@link SonarWayProfile}
-   */
-  public SonarWayProfile(XMLProfileParser profileParser) {
-    this.profileParser = profileParser;
+  public SonarWayProfile(RuleFinder ruleFinder) {
+    super(ruleFinder);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public RulesProfile createProfile(ValidationMessages validation) {
-    RulesProfile profile = profileParser.parseResource(getClass().getClassLoader(), SONAR_WAY_PROFILE_FILE, validation);
-    profile.setDefaultProfile(true);
-    return profile;
+  protected boolean isActive(Class ruleClass) {
+    WebRule ruleAnnotation = AnnotationUtils.getAnnotation(ruleClass, WebRule.class);
+    return ruleAnnotation != null && ruleAnnotation.activeByDefault();
+  }
+
+  @Override
+  protected String getLanguageKey() {
+    return WebConstants.LANGUAGE_KEY;
   }
 }

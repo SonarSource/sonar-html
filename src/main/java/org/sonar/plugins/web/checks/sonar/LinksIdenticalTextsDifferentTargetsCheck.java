@@ -21,6 +21,7 @@ import com.google.common.collect.Maps;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
@@ -32,6 +33,7 @@ import java.util.Map;
 @Rule(
   key = "LinksIdenticalTextsDifferentTargetsCheck",
   priority = Priority.MAJOR)
+@WebRule(activeByDefault = false)
 public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck {
 
   private boolean inLink;

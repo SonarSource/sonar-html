@@ -15,25 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.dependencies;
+package org.sonar.plugins.web.checks;
 
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.WebRule;
-import org.sonar.plugins.web.node.TagNode;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@Rule(
-  key = "DynamicJspIncludeCheck",
-  priority = Priority.CRITICAL)
-@WebRule(activeByDefault = false)
-public class DynamicJspIncludeCheck extends AbstractPageCheck {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface RuleTags {
 
-  @Override
-  public void startElement(TagNode node) {
-    if ("jsp:include".equals(node.getNodeName())) {
-      createViolation(node.getStartLinePosition(), "Dynamic includes are not allowed.");
-    }
-  }
+  public static final String OBSOLETE = "obsolete";
+  public static final String HTML5 = "html5";
+
+  String[] value();
 
 }

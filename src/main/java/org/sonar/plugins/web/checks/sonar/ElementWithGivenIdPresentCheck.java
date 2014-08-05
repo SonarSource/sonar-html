@@ -22,6 +22,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
@@ -31,6 +32,7 @@ import java.util.List;
   key = "S1436",
   priority = Priority.MAJOR,
   cardinality = Cardinality.MULTIPLE)
+@WebRule(activeByDefault = false)
 public class ElementWithGivenIdPresentCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ID = "";

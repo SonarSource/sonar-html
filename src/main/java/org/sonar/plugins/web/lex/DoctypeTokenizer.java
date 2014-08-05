@@ -55,7 +55,6 @@ class DoctypeTokenizer extends AbstractTokenizer<List<Node>> {
       }
     } catch (IOException e) {
       // ignore
-      return;
     }
   }
 

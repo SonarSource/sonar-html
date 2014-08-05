@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TextNode;
 
 /**
@@ -31,6 +32,7 @@ import org.sonar.plugins.web.node.TextNode;
 @Rule(
   key = "IllegalTabCheck",
   priority = Priority.MINOR)
+@WebRule(activeByDefault = false)
 public class IllegalTabCheck extends AbstractPageCheck {
 
   @Override

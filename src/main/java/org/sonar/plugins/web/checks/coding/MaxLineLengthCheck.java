@@ -23,6 +23,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
@@ -34,6 +35,7 @@ import java.util.List;
 @Rule(
   key = "MaxLineLengthCheck",
   priority = Priority.MINOR)
+@WebRule(activeByDefault = false)
 public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;

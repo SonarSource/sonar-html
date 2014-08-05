@@ -22,6 +22,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
@@ -33,6 +34,7 @@ import org.sonar.plugins.web.node.TagNode;
   key = "ChildElementRequiredCheck",
   priority = Priority.MAJOR,
   cardinality = Cardinality.MULTIPLE)
+@WebRule(activeByDefault = false)
 public class ChildElementRequiredCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_CHILD = "";

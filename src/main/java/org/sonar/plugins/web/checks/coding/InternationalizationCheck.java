@@ -22,6 +22,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
@@ -31,6 +32,7 @@ import java.util.List;
 @Rule(
   key = "InternationalizationCheck",
   priority = Priority.MINOR)
+@WebRule(activeByDefault = false)
 public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";

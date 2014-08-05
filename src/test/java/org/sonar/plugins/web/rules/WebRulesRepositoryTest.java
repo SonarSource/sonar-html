@@ -20,25 +20,24 @@ package org.sonar.plugins.web.rules;
 import org.junit.Test;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.profiles.XMLProfileParser;
 import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.AbstractWebPluginTester;
 
-import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.number.OrderingComparisons.greaterThan;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
   public void createSonarWayProfile() {
-    ProfileDefinition profileDefinition = new SonarWayProfile(new XMLProfileParser(newRuleFinder()));
+    ProfileDefinition profileDefinition = new SonarWayProfile(newRuleFinder());
     ValidationMessages validationMessages = ValidationMessages.create();
     RulesProfile profile = profileDefinition.createProfile(validationMessages);
 
-    assertThat(profile.getActiveRulesByRepository(WebRulesRepository.REPOSITORY_KEY).size(), greaterThan(1));
+    assertThat(profile.getActiveRulesByRepository(WebRulesRepository.REPOSITORY_KEY).size(), equalTo(14));
     assertThat(validationMessages.hasErrors(), is(false));
   }
 

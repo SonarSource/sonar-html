@@ -22,6 +22,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
@@ -31,6 +32,7 @@ import java.util.List;
 @Rule(
   key = "RequiredAttributeCheck",
   priority = Priority.MAJOR)
+@WebRule(activeByDefault = false)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";

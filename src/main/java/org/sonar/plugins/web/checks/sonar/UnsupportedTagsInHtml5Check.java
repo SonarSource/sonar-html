@@ -21,6 +21,8 @@ import com.google.common.collect.ImmutableSet;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
+import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
 import java.util.Locale;
@@ -30,6 +32,11 @@ import java.util.Set;
 @Rule(
   key = "UnsupportedTagsInHtml5Check",
   priority = Priority.MAJOR)
+@WebRule(activeByDefault = true)
+@RuleTags({
+  RuleTags.HTML5,
+  RuleTags.OBSOLETE
+})
 public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
   private static final Set<String> UNSUPPORTED_TAGS = ImmutableSet.of(
