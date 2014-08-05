@@ -33,12 +33,12 @@ public class UnsupportedTagsInHtml5CheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnsupportedTagsInHtml5Check.html"), new UnsupportedTagsInHtml5Check());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Remove usage of this 'acronym' tag.")
-        .next().atLine(2).withMessage("Remove usage of this 'applet' tag.")
+        .next().atLine(1).withMessage("Remove this deprecated \"acronym\" element.")
+        .next().atLine(2).withMessage("Remove this deprecated \"applet\" element.")
         .next().atLine(3)
         .next().atLine(4)
         .next().atLine(5)
@@ -47,10 +47,7 @@ public class UnsupportedTagsInHtml5CheckTest {
         .next().atLine(8)
         .next().atLine(9)
         .next().atLine(10)
-        .next().atLine(11)
-        .next().atLine(12)
-        .next().atLine(13)
-        .next().atLine(15).withMessage("Remove usage of this 'sTrIkE' tag.");
+        .next().atLine(11).withMessage("Remove this deprecated \"sTrIkE\" element.");
   }
 
 }

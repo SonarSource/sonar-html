@@ -26,6 +26,7 @@ import org.sonar.plugins.web.node.TagNode;
 import java.util.Locale;
 import java.util.Set;
 
+/** RSPEC-1825 */
 @Rule(
   key = "UnsupportedTagsInHtml5Check",
   priority = Priority.MAJOR)
@@ -35,21 +36,30 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
       "ACRONYM",
       "APPLET",
       "BASEFONT",
+      "BGSOUND",
       "BIG",
+      "BLINK",
       "CENTER",
       "DIR",
       "FONT",
-      "FRAME",
-      "FRAMESET",
+      "HGROUP",
       "ISINDEX",
-      "NOFRAMES",
+      "LISTING",
+      "MARQUEE",
+      "MULTICOL",
+      "NEXTID",
+      "NOBR",
+      "NOEMBED",
+      "PLAINTEXT",
+      "SPACER",
       "STRIKE",
-      "TT");
+      "TT",
+      "XMP");
 
   @Override
   public void startElement(TagNode node) {
     if (isUnsupportedTag(node)) {
-      createViolation(node.getStartLinePosition(), "Remove usage of this '" + node.getNodeName() + "' tag.");
+      createViolation(node.getStartLinePosition(), "Remove this deprecated \"" + node.getNodeName() + "\" element.");
     }
   }
 
