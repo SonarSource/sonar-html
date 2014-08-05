@@ -43,7 +43,7 @@ public final class WebPlugin extends SonarPlugin {
   private static final String CATEGORY = "Web";
 
   public List getExtensions() {
-    ImmutableList.Builder builder = ImmutableList.builder();
+    ImmutableList.Builder<Object> builder = ImmutableList.builder();
 
     // web language
     builder.add(Web.class);
