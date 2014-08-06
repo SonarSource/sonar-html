@@ -20,7 +20,6 @@ package org.sonar.plugins.web;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.rules.RuleQuery;
@@ -45,7 +44,7 @@ public class AbstractWebPluginTester {
     private final List<Rule> rules;
 
     public WebRuleFinder() {
-      repository = new WebRulesRepository(new AnnotationRuleParser());
+      repository = new WebRulesRepository();
       rules = repository.createRules();
     }
 

@@ -18,7 +18,6 @@
 package org.sonar.plugins.web.rules;
 
 import com.google.common.collect.Lists;
-import org.sonar.api.rules.AnnotationRuleParser;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleRepository;
 import org.sonar.api.utils.AnnotationUtils;
@@ -33,7 +32,7 @@ public final class WebRulesRepository extends RuleRepository {
   public static final String REPOSITORY_NAME = "SonarQube";
   public static final String REPOSITORY_KEY = "Web";
 
-  public WebRulesRepository(AnnotationRuleParser annotationRuleParser) {
+  public WebRulesRepository() {
     super(REPOSITORY_KEY, WebConstants.LANGUAGE_KEY);
     setName(REPOSITORY_NAME);
   }

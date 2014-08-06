@@ -18,34 +18,26 @@
 package org.sonar.plugins.web.rules;
 
 import org.junit.Test;
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.AnnotationRuleParser;
-import org.sonar.api.utils.ValidationMessages;
+import org.sonar.api.rules.Rule;
 import org.sonar.plugins.web.AbstractWebPluginTester;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class WebRulesRepositoryTest extends AbstractWebPluginTester {
 
   @Test
-  public void createSonarWayProfile() {
-    ProfileDefinition profileDefinition = new SonarWayProfile(newRuleFinder());
-    ValidationMessages validationMessages = ValidationMessages.create();
-    RulesProfile profile = profileDefinition.createProfile(validationMessages);
+  public void test() {
+    WebRulesRepository repository = new WebRulesRepository();
+    assertThat(repository.getLanguage()).isEqualTo("web");
+    assertThat(repository.getKey()).isEqualTo("Web");
+    assertThat(repository.getName()).isEqualTo("SonarQube");
 
-    assertThat(profile.getActiveRulesByRepository(WebRulesRepository.REPOSITORY_KEY).size(), equalTo(14));
-    assertThat(validationMessages.hasErrors(), is(false));
-  }
-
-  @Test
-  public void initializeWebRulesRepository() {
-    WebRulesRepository rulesRepository = new WebRulesRepository(new AnnotationRuleParser());
-
-    assertTrue(rulesRepository.createRules().size() > 20);
+    List<Rule> rules = repository.createRules();
+    assertThat(rules.size()).isEqualTo(52);
+    assertThat(rules).onProperty("name").containsOnly((Object) null);
+    assertThat(rules).onProperty("description").containsOnly((Object) null);
   }
 
 }
