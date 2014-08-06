@@ -31,11 +31,11 @@ public class DynamicJspIncludeCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  public void test() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DynamicJspIncludeCheck.jsp"), new DynamicJspIncludeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(2).withMessage("Dynamic includes are not allowed.");
+        .next().atLine(2).withMessage("Use an include action instead of an include directive.");
   }
 
 }

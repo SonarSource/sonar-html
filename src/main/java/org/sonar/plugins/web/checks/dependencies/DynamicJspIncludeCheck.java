@@ -32,7 +32,7 @@ public class DynamicJspIncludeCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if ("jsp:include".equals(node.getNodeName())) {
-      createViolation(node.getStartLinePosition(), "Dynamic includes are not allowed.");
+      createViolation(node.getStartLinePosition(), "Use an include action instead of an include directive.");
     }
   }
 

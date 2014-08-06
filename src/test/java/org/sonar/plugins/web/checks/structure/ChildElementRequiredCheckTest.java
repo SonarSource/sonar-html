@@ -49,7 +49,7 @@ public class ChildElementRequiredCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ChildElementRequiredCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(8).withMessage("The element 'foo' must have a 'bar' child.")
+        .next().atLine(8).withMessage("Add the missing \"bar\" element to this \"foo\".")
         .next().atLine(12);
   }
 

@@ -39,7 +39,7 @@ public class InlineStyleCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
 
     if ("style".equalsIgnoreCase(element.getLocalName())) {
-      createViolation(element.getStartLinePosition(), "Avoid inline CSS styles.");
+      createViolation(element.getStartLinePosition(), "Use CSS classes instead.");
     }
   }
 }

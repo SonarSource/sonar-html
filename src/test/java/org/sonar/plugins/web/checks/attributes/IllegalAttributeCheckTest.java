@@ -46,8 +46,8 @@ public class IllegalAttributeCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalAttributeCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("The following attribute is not allowed: a")
-        .next().atLine(3).withMessage("The following attribute is not allowed: b");
+        .next().atLine(1).withMessage("Remove the \"a\" attribute from the \"foo\" tag")
+        .next().atLine(3).withMessage("Remove the \"b\" attribute from the \"baz\" tag");
   }
 
 }

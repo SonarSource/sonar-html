@@ -1,5 +1,16 @@
 <p>
-Checker for occurrence of disallowed attributes.
-<br/>
-E.g.: class attribute should not be used, but styleClass instead.
+  This rule checks that the specified attributes are not present in HTML tags.
 </p>
+<p>
+  For a disallowed attribute list of <code>a.name</code>:
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+  &lt;a href="blah.com" name="Blah link"&gt; &lt;!-- Noncompliant; name attribute is used --&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+  &lt;a href="blah.com"&gt;
+</pre>

@@ -60,7 +60,7 @@ public class ChildElementRequiredCheck extends AbstractPageCheck {
         }
       }
       if (!ruleOK) {
-        createViolation(element.getStartLinePosition(), "The element '" + parent + "' must have a '" + child + "' child.");
+        createViolation(element.getStartLinePosition(), "Add the missing \"" + child + "\" element to this \"" + parent + "\".");
       }
     }
   }

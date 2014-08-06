@@ -51,7 +51,7 @@ public class IllegalAttributeCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     for (Attribute a : getMatchingAttributes(element, attributesArray)) {
-      createViolation(element.getStartLinePosition(), "The following attribute is not allowed: " + a.getName());
+      createViolation(element.getStartLinePosition(), "Remove the \"" + a.getName() + "\" attribute from the \"" + element.getNodeName() + "\" tag");
     }
   }
 

@@ -46,7 +46,7 @@ public class IllegalElementCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(3).withMessage("The use of 'title' element is forbidden.");
+        .next().atLine(3).withMessage("Remove this \"title\" element.");
   }
 
 }
