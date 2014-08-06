@@ -26,7 +26,7 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
 
-@Rule(key = "JspScriptletCheck", priority = Priority.CRITICAL)
+@Rule(key = "JspScriptletCheck", priority = Priority.MAJOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.OBSOLETE

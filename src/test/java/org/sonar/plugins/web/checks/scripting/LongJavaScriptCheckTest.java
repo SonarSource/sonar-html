@@ -28,7 +28,7 @@ import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class JavaScriptCheckTest {
+public class LongJavaScriptCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();

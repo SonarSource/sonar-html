@@ -33,7 +33,6 @@ public class DoubleQuotesCheckTest extends AbstractCheckTester {
 
   @Test
   public void testDoubleQuotesCheck() throws FileNotFoundException {
-
     String fragment = "<h:someNode class='redflag'/>";
 
     WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);

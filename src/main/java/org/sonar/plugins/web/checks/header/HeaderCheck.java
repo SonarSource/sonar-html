@@ -17,77 +17,94 @@
  */
 package org.sonar.plugins.web.checks.header;
 
+import com.google.common.io.Files;
+import com.google.common.io.LineProcessor;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
-import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Rule(
   key = "HeaderCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.BLOCKER)
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION
 })
-public class HeaderCheck extends AbstractPageCheck {
+public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 
-  private static final String DEFAULT_FORMAT = "^.*Copyright.*$";
+  private static final String DEFAULT_HEADER_FORMAT = "";
+  private static final String MESSAGE = "Add or update the header of this file.";
 
   @RuleProperty(
-    key = "expression",
-    defaultValue = DEFAULT_FORMAT)
-  public String format = DEFAULT_FORMAT;
+    key = "headerFormat",
+    type = "TEXT",
+    defaultValue = DEFAULT_HEADER_FORMAT)
+  public String headerFormat = DEFAULT_HEADER_FORMAT;
 
-  private boolean hasHeader;
-  private Matcher matcher;
-  private boolean visiting;
+  private String[] expectedLines;
+  private Charset charset;
+
+  @Override
+  public void init() {
+    expectedLines = headerFormat.split("(?:\r)?\n|\r");
+  }
+
+  @Override
+  public void setCharset(Charset charset) {
+    this.charset = charset;
+  }
+
+  static class HeaderLinesProcessor implements LineProcessor<Boolean> {
+
+    private boolean result = false;
+    private int lineNumber = 0;
+    private String[] expectedLines;
+
+    public HeaderLinesProcessor(String[] expectedLines) {
+      this.expectedLines = expectedLines;
+    }
+
+    @Override
+    public boolean processLine(String line) throws IOException {
+      lineNumber++;
+      if (lineNumber == 1) {
+        result = true;
+      }
+      if (lineNumber > expectedLines.length) {
+        // we are done checking, stop processor
+      } else if (line.equals(expectedLines[lineNumber - 1])) {
+        return true;
+      } else {
+        result = false;
+      }
+      return false;
+    }
+
+    @Override
+    public Boolean getResult() {
+      return result && lineNumber >= expectedLines.length;
+    }
+
+  }
 
   @Override
   public void startDocument(List<Node> nodes) {
-    hasHeader = false;
-    visiting = true;
-  }
-
-  @Override
-  public void comment(CommentNode node) {
-    if (visiting) {
-      if (matchHeader(node.getCode())) {
-        hasHeader = true;
-      } else {
-        createViolation(node.getStartLinePosition(), "Change this header comment to match the regular expression: " + format);
-      }
+    LineProcessor<Boolean> processor = new HeaderLinesProcessor(expectedLines);
+    try {
+      Files.readLines(getWebSourceCode().getFile(), charset, processor);
+    } catch (IOException e) {
     }
-
-    visiting = false;
-  }
-
-  private boolean matchHeader(String header) {
-    if (matcher == null) {
-      Pattern pattern = Pattern.compile(format, Pattern.MULTILINE);
-      matcher = pattern.matcher(header);
-    } else {
-      matcher.reset(header);
-    }
-
-    return matcher.find();
-  }
-
-  @Override
-  public void startElement(TagNode node) {
-    if (visiting) {
-      if (!hasHeader) {
-        createViolation(node.getStartLinePosition(), "Insert a header comment before this tag.");
-      }
-      visiting = false;
+    if (!processor.getResult()) {
+      createViolation(0, MESSAGE);
     }
   }
 

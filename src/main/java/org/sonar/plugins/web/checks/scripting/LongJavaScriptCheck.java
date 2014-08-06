@@ -26,11 +26,6 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
-/**
- * Checker to find long javascripts.
- *
- * @see http://pmd.sourceforge.net/rules/basic-jsp.html
- */
 @Rule(
   key = "LongJavaScriptCheck",
   priority = Priority.CRITICAL)

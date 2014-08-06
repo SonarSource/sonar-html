@@ -46,8 +46,8 @@ public class UnclosedTagCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-      .next().atLine(4).withMessage("The tag 'li' has no corresponding closing tag.")
-      .next().atLine(7).withMessage("This tag has no corresponding closing tag.");
+      .next().atLine(4).withMessage("The tag \"li\" has no corresponding closing tag.")
+      .next().atLine(7).withMessage("The tag \"br\" has no corresponding closing tag.");
   }
 
 }

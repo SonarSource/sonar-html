@@ -48,6 +48,7 @@ public class HtmlAstScanner {
    */
   public void addVisitor(DefaultNodeVisitor visitor) {
     checkVisitors.add(visitor);
+    visitor.init();
   }
 
   /**

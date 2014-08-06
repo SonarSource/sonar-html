@@ -33,25 +33,34 @@ public class HeaderCheckTest {
 
   @Test
   public void correct_header() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), new HeaderCheck());
+    HeaderCheck check = new HeaderCheck();
+    check.headerFormat = "<!-- Copyright foo -->";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations());
   }
 
   @Test
   public void missing_header() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MissingHeader.html"), new HeaderCheck());
+    HeaderCheck check = new HeaderCheck();
+    check.headerFormat = "<!-- Copyright foo -->";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MissingHeader.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(3).withMessage("Insert a header comment before this tag.");
+        .next().atLine(null).withMessage("Add or update the header of this file.");
   }
 
   @Test
   public void misspelled_header() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MisspelledHeader.html"), new HeaderCheck());
+    HeaderCheck check = new HeaderCheck();
+    check.headerFormat = "<!-- Copyright foo -->";
+
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MisspelledHeader.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(5).withMessage("Change this header comment to match the regular expression: ^.*Copyright.*$");
+        .next().atLine(null).withMessage("Add or update the header of this file.");
   }
 
 }

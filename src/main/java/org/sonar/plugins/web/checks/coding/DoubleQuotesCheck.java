@@ -27,10 +27,6 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
 /**
- * Checker to find use of single quote where double quote is preferred.
- *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Quoting
- *
  * @author Matthijs Galesloot
  * @since 1.0
  */
@@ -43,11 +39,10 @@ public class DoubleQuotesCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-
     for (Attribute a : element.getAttributes()) {
       if (a.getValue() != null && a.getValue().trim().length() > 0 && isSingleQuoteAttribute(a)) {
         createViolation(element.getStartLinePosition(), "Use double quotes instead of single ones.");
-        // not more than one violation per element
+        // no more than one violation per element
         break;
       }
     }
