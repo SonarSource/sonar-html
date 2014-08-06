@@ -37,7 +37,7 @@ public class ServerSideImageMapsCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ServerSideImageMapsCheck.html"), new ServerSideImageMapsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Replace this server-side image map by a client-side one.");
+        .next().atLine(1).withMessage("Use the \"map\" tag and \"area\" tags instead.");
   }
 
 }

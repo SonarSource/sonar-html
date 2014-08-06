@@ -36,7 +36,7 @@ public class ServerSideImageMapsCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isImgTag(node) && hasIsMapAttribute(node)) {
-      createViolation(node.getStartLinePosition(), "Replace this server-side image map by a client-side one.");
+      createViolation(node.getStartLinePosition(), "Use the \"map\" tag and \"area\" tags instead.");
     }
   }
 

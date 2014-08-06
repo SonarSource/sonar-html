@@ -1,17 +1,16 @@
 <p>
-There are 2 known patterns to build a link that has the sole purpose to run JavaScript code:
+  There are two ways to build a link that has the sole purpose of running JavaScript code.
+  The goal of this rule is to ban such patterns in order to support browsing with JavaScript disabled.
 </p>
 
+<h2>Noncompliant Code Example</h2>
 <pre>
-&lt;a href="#" onclick="alert('Clicked!'); return false;"&gt;Run JavaScript Code&lt;/a&gt;
+&lt;a href="#" onclick="alert('Clicked!'); return false;"&gt;Run JavaScript Code&lt;/a&gt; &lt;!-- Noncompliant --&gt;
+&lt;a href="javascript:void(0)" onclick="alert('Clicked!'); return false;"&gt;Run JavaScript Code&lt;/a&gt;  &lt;!-- Noncompliant --&gt;
+&lt;a id="inPageAnchor"&gt;Jump down the page to me&lt;/a&gt;  &lt;!-- Compliant --&gt;
 </pre>
 
-<p>and</p>
-
+<h2>Compliant Solution</h2>
 <pre>
-&lt;a href="javascript:void(0)" onclick="alert('Clicked!'); return false;"&gt;Run JavaScript Code&lt;/a&gt;
+&lt;a id="inPageAnchor"&gt;Jump down the page to me&lt;/a&gt;  &lt;!-- Compliant --&gt;
 </pre>
-
-<p>
-The goal of this rule is to ban such patterns in order to keep on supporting browsing with JavaScript disabled.
-</p>

@@ -1,5 +1,37 @@
 <p>
-Checks for occurrence of html comments on server side pages.
-<br/>
-HTML comment is not allowed in JSP, PHP and ERB files, use server side comment instead.
+  Using HTML-style comments in a page that will be generated or interpolated server-side before being served
+  to the user increases the risk of exposing data that should be kept private.
+  For instance, a developer comment or line of debugging information that's left in a page could easily (and has) inadvertently expose:
 </p>
+<ul>
+  <li>Version numbers and host names</li>
+  <li>Full, server-side path names</li>
+  <li>Sensitive user data</li>
+</ul>
+<p>
+  Because every other language has its own native comment format, there is no justification for using HTML-style comments in anything other than a pure HTML or XML file.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+  &lt;%
+      out.write("&lt;!-- ${username} --&gt;");  // Noncompliant
+  %&gt;
+  &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Noncompliant
+  &lt;!-- #{userPhone} --&gt;  // Noncompliant
+  &lt;!-- ${userAddress} --&gt; // Noncompliant
+
+  &lt;!-- Replace 'world' with name --&gt; // Noncompliant
+  &lt;h2&gt;Hello world!&lt;/h2&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+  &lt;%-- Replace 'world' with name %&gt;  // Compliant
+  &lt;h2&gt;Hello world!&lt;/h2&gt;
+</pre>
+
+<h2>See</h2>
+<ul>
+  <li>MITRE, CWE-615 - Information Exposure Through Comments</li>
+</ul>

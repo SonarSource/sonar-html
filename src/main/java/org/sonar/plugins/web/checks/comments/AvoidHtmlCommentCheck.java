@@ -28,11 +28,6 @@ import org.sonar.plugins.web.node.Node;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Checker for occurrence of html comments.
- *
- * HTML comment is not allowed in JSP and other server side pages, use server side comment instead.
- */
 @Rule(key = "AvoidHtmlCommentCheck", priority = Priority.MINOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
@@ -47,7 +42,7 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
     String comment = node.getCode();
 
     if (isServerSidePage && node.isHtml() && !comment.startsWith("<!--[if")) {
-      createViolation(node.getStartLinePosition(), "Remove this HTML comment.");
+      createViolation(node.getStartLinePosition(), "Remove this comment or change its style so that it is not output to the client.");
     }
   }
 

@@ -49,7 +49,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
     int complexity = getWebSourceCode().getMeasure(CoreMetrics.COMPLEXITY).getIntValue();
 
     if (complexity > max) {
-      String msg = String.format("Complexity is %d (max allowed is %d)", complexity, max);
+      String msg = String.format("Split this file to reduce complexity per file from %d to no more than the %d authorized.", complexity, max);
       createViolation(0, msg);
     }
   }

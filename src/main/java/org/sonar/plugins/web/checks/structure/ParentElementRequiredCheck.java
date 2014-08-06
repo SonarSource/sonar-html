@@ -25,11 +25,6 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
-/**
- * Checker for required parent element.
- *
- * e.g. title must have parent element head.
- */
 @Rule(
   key = "ParentElementRequiredCheck",
   priority = Priority.MAJOR,
@@ -53,7 +48,7 @@ public class ParentElementRequiredCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     if (element.equalsElementName(child) && (element.getParent() == null || !element.getParent().equalsElementName(parent))) {
-      createViolation(element.getStartLinePosition(), "The element '" + child + "' must have a '" + parent + "' parent.");
+      createViolation(element.getStartLinePosition(), "Add the missing \"" + parent + "\" parent element for \"" + child + "\" element.");
     }
   }
 

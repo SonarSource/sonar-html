@@ -36,8 +36,8 @@ public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(2).withMessage("Remove this HTML comment.")
-        .next().atLine(4).withMessage("Remove this HTML comment.");
+        .next().atLine(2).withMessage("Remove this comment or change its style so that it is not output to the client.")
+        .next().atLine(4);
   }
 
   @Test
@@ -45,7 +45,7 @@ public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.php"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-      .next().atLine(6).withMessage("Remove this HTML comment.");
+      .next().atLine(6).withMessage("Remove this comment or change its style so that it is not output to the client.");
   }
 
   @Test
@@ -53,7 +53,7 @@ public class AvoidHtmlCommentCheckTest extends AbstractCheckTester {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.html.erb"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-      .next().atLine(6).withMessage("Remove this HTML comment.");
+      .next().atLine(6).withMessage("Remove this comment or change its style so that it is not output to the client.");
   }
 
   @Test

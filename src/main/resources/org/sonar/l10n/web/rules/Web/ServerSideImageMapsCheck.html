@@ -1,11 +1,13 @@
 <p>
 The <code>ismap</code> attribute in an <code>img</code> tag creates a server-side image map: The browser sends the coordinates of the clicked point to the server.
 For any person who cannot use a mouse, this form of navigation is inaccessible because it is the position of the cursor on the image that determines the action.
+</p>
+<p>
 On the other hand, client-side image maps, which use the <code>usemap</code> attribute allow for each clickable area to specify an alternate text, enabling accessibility for the blind.
 Further, in terms of separation of concerns, it is definitely better to leave the task of mapping pixels to links to the client.
 </p>
 
-<p>The following code:</p>
+<h2>Noncompliant Code Example</h2>
 
 <pre>
 &lt;a href="click_on_world_map.php" target="_self"&gt;
@@ -13,7 +15,7 @@ Further, in terms of separation of concerns, it is definitely better to leave th
 &lt;/a&gt;
 </pre>
 
-<p>should be refactored into:</p>
+<h2>Compliant Solution</h2>
 
 <pre>
 &lt;img src="world_map.png" usemap="#world_map"&gt;       &lt;!-- Compliant --&gt;
