@@ -64,7 +64,7 @@ public class PageWithoutFaviconCheck extends AbstractPageCheck {
     }
 
     if (!foundTitleTag && line != 0) {
-      createViolation(line, "Add a favicon <link> tag to this page.");
+      createViolation(line, "Add a 'favicon' declaration in this 'header' tag.");
     }
   }
 

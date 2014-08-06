@@ -22,3 +22,19 @@ It also improves the usability for visually impaired users: Screen readers will 
 &lt;input type="hidden" name="time" value="..."&gt;        &lt;!-- Compliant - "hidden" type is excluded --&gt;
 &lt;input type="submit" value="Send" /&gt;                 &lt;!-- Compliant - "submit" type is excluded --&gt;
 </pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+&lt;label for="firstname"&gt;First name&lt;/label&gt;
+&lt;input type="text" name="firstname" id="firstname" /&gt;
+
+&lt;label for="lastname"&gt;Last name&lt;/label&gt;
+&lt;input type="text" name="lastname" id="lastname" /&gt;
+
+&lt;label for="address"&gt;Address&lt;/label&gt;
+&lt;input type="text" name="address" id="address" /&gt;
+
+&lt;input type="hidden" name="time" value="..."&gt;
+&lt;input type="submit" value="Send" /&gt;
+</pre>

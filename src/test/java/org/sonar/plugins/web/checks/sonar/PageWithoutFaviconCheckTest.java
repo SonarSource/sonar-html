@@ -37,7 +37,7 @@ public class PageWithoutFaviconCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutFaviconCheck.html"), new PageWithoutFaviconCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(5).withMessage("Add a favicon <link> tag to this page.")
+        .next().atLine(5).withMessage("Add a 'favicon' declaration in this 'header' tag.")
         .next().atLine(34)
         .next().atLine(40)
         .next().atLine(52);

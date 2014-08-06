@@ -3,13 +3,13 @@ If the <code>width</code> and <code>height</code> attributes are set, the space 
 Without those attributes, the page layout constantly changes as images are loaded until they are all loaded, which can disorient users.
 </p>
 
-<p>The following code:</p>
+<h2>Noncompliant Code Example</h2>
 
 <pre>
 &lt;img src="logo.png" alt="My Company" /&gt;                           &lt;!-- Non-Compliant --&gt;
 </pre>
 
-should be refactored into:
+<h2>Compliant Solution</h2>
 
 <pre>
 &lt;img src="logo.png" alt="My Company" width="100" height="50" /&gt;   &lt;!-- Compliant --&gt;

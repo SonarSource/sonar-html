@@ -29,11 +29,6 @@ import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
 
-/**
- * Checker for occurrence of disallowed namespaces.
- *
- * Checks the namespaces in the root element of the XML document. A list of illegal namespaces can be configured as a property of the check.
- */
 @Rule(
   key = "IllegalNamespaceCheck",
   priority = Priority.MAJOR)
@@ -57,7 +52,6 @@ public class IllegalNamespaceCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     for (Attribute a : element.getAttributes()) {
-
       if (StringUtils.startsWithIgnoreCase(a.getName(), "xmlns")) {
         for (String namespace : namespacesArray) {
           if (a.getValue().equalsIgnoreCase(namespace)) {

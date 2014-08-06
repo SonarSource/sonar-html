@@ -37,9 +37,6 @@ import javax.el.VariableMapper;
 import java.lang.reflect.Method;
 import java.util.List;
 
-/**
- * Checker to validate Unified Expressions in JSF.
- */
 @Rule(
   key = "UnifiedExpressionCheck",
   priority = Priority.BLOCKER)
