@@ -20,6 +20,7 @@ package org.sonar.plugins.web.checks.header;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
@@ -36,6 +37,9 @@ import java.util.List;
  */
 @Rule(key = "MultiplePageDirectivesCheck", priority = Priority.MINOR)
 @WebRule(activeByDefault = false)
+@RuleTags({
+  RuleTags.CONVENTION
+})
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 
   private DirectiveNode node;

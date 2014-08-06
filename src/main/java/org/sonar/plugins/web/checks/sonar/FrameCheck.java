@@ -34,7 +34,8 @@ import java.util.Set;
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.HTML5,
-  RuleTags.OBSOLETE
+  RuleTags.OBSOLETE,
+  RuleTags.USER_EXPERIENCE
 })
 public class FrameCheck extends AbstractPageCheck {
 

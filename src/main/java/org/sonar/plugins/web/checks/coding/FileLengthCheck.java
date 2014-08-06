@@ -23,12 +23,16 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 
 @Rule(
   key = "FileLengthCheck",
   priority = Priority.MINOR)
 @WebRule(activeByDefault = false)
+@RuleTags({
+  RuleTags.BRAIN_OVERLOADED
+})
 public class FileLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_FILE_LENGTH = 500;

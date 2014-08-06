@@ -20,6 +20,7 @@ package org.sonar.plugins.web.checks.sonar;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
@@ -27,6 +28,9 @@ import org.sonar.plugins.web.node.TagNode;
   key = "ImgWithoutAltCheck",
   priority = Priority.MAJOR)
 @WebRule(activeByDefault = true)
+@RuleTags({
+  RuleTags.ACCESSIBILITY
+})
 public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   @Override

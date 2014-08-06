@@ -21,6 +21,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
@@ -34,6 +35,9 @@ import java.util.regex.Pattern;
   key = "HeaderCheck",
   priority = Priority.MAJOR)
 @WebRule(activeByDefault = false)
+@RuleTags({
+  RuleTags.CONVENTION
+})
 public class HeaderCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_FORMAT = "^.*Copyright.*$";

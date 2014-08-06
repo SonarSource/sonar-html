@@ -26,8 +26,17 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface RuleTags {
 
-  public static final String OBSOLETE = "obsolete";
+  public static final String ACCESSIBILITY = "accessibility";
+  public static final String BRAIN_OVERLOADED = "brain-overloaded";
+  public static final String BUG = "bug";
+  public static final String CONVENTION = "convention";
+  public static final String CROSS_BROWSER = "cross-browser";
   public static final String HTML5 = "html5";
+  public static final String OBSOLETE = "obsolete";
+  public static final String PSR2 = "psr2";
+  public static final String SECURITY = "security";
+  public static final String UNUSED = "unused";
+  public static final String USER_EXPERIENCE = "user-experience";
 
   String[] value();
 

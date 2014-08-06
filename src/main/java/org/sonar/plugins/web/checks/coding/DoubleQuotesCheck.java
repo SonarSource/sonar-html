@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
@@ -35,6 +36,9 @@ import org.sonar.plugins.web.node.TagNode;
  */
 @Rule(key = "DoubleQuotesCheck", priority = Priority.MINOR)
 @WebRule(activeByDefault = false)
+@RuleTags({
+  RuleTags.CONVENTION
+})
 public class DoubleQuotesCheck extends AbstractPageCheck {
 
   @Override

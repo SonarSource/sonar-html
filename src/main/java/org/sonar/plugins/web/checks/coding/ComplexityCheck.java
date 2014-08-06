@@ -22,6 +22,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 
@@ -31,6 +32,9 @@ import java.util.List;
   key = "ComplexityCheck",
   priority = Priority.MINOR)
 @WebRule(activeByDefault = false)
+@RuleTags({
+  RuleTags.BRAIN_OVERLOADED
+})
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;
