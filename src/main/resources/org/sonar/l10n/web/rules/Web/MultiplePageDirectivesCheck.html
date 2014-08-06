@@ -1,7 +1,23 @@
 <p>
-Avoid multiple page directives.
-<br/>
-Checker to find multiple page directives, where 1 page directive would be preferred.
-<br/>
-See the paragraph "JSP Page Directive(s)" of the <a href="http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/">JSP code conventions</a>.
+  While you can use as many page directives as you like, it is more readable to set multiple page attributes in a single directive.
 </p>
+<p>
+  The exception to this rule is when multiple packages are being imported.
+  In that case, imports may be done in separate directives and all other attributes should be set in a single, additional directive.
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;%@ page session="false" %&gt;
+&lt;%@ page import="java.util.*" %&gt;
+&lt;%@ page errorPage="error.jsp" %&gt; &lt;!-- Noncompliant --&gt;
+&lt;%@ page import="java.text.*" %&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+&lt;%@ page session="false"
+                   errorPage="error.jsp" %&gt;
+&lt;%@ page import="java.util.*" %&gt;
+&lt;%@ page import="java.text.*" %&gt;
+</pre>

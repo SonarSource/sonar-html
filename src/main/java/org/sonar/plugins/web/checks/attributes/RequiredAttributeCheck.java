@@ -69,7 +69,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
       String attributeName = attribute.attributeName;
       String elementName = attribute.elementName;
       if (node.equalsElementName(elementName) && node.getAttribute(attributeName) == null) {
-        createViolation(node.getStartLinePosition(), "Attribute " + attributeName + " is required for element " + elementName + ".");
+        createViolation(node.getStartLinePosition(), "Add the missing \"" + attributeName + "\" to element \"" + elementName + "\".");
       }
     }
   }

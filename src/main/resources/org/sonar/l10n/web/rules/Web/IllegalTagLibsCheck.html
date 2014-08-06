@@ -1,3 +1,12 @@
 <p>
-Checker to find disallowed taglibs.
+  This rule checks that the disallowed tag libraries are not used.
 </p>
+<p>
+  Given the default parameter for this rule:
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;%@ taglib uri="http://java.sun.com/jstl/sql" prefix="prefixOfTag" &gt; &lt;!-- Noncompliant --&gt;
+&lt;jsp:directive.taglib uri="http://java.sun.com/jstl/sql" prefix="prefixOfTag" /&gt; &lt;!-- Noncompliant --&gt;
+</pre>

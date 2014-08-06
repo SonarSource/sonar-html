@@ -49,7 +49,7 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
       char ch = code.charAt(code.length() - position - 1);
 
       if (!Character.isWhitespace(ch)) {
-        createViolation(node.getStartLinePosition(), "A whitespace is missing before the ending tag at column " + (node.getEndColumnPosition() - position));
+        createViolation(node.getStartLinePosition(), "Add a space at column " + (node.getEndColumnPosition() - position) + ".");
       }
     }
   }

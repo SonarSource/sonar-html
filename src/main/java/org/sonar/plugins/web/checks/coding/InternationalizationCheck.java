@@ -57,7 +57,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
   @Override
   public void characters(TextNode textNode) {
     if (!isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
-      createViolation(textNode.getStartLinePosition(), "Labels should be defined in the resource bundle.");
+      createViolation(textNode.getStartLinePosition(), "Define this label in the resource bundle.");
     }
   }
 
@@ -65,18 +65,25 @@ public class InternationalizationCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     if (attributes != null) {
       for (QualifiedAttribute attribute : attributesArray) {
-        if (element.equalsElementName(attribute.getNodeName())) {
-          String value = element.getAttribute(attribute.getAttributeName());
-          if (value != null) {
-            value = value.trim();
-            if (value.length() > 0 && !isUnifiedExpression(value) && !isPunctuationOrSpace(value)) {
-              createViolation(element.getStartLinePosition(), "Labels should be defined in the resource bundle.");
-              return;
-            }
-          }
+        if (notValid(element, attribute)) {
+          return;
         }
       }
     }
+  }
+
+  private boolean notValid(TagNode element, QualifiedAttribute attribute) {
+    if (element.equalsElementName(attribute.getNodeName())) {
+      String value = element.getAttribute(attribute.getAttributeName());
+      if (value != null) {
+        value = value.trim();
+        if (value.length() > 0 && !isUnifiedExpression(value) && !isPunctuationOrSpace(value)) {
+          createViolation(element.getStartLinePosition(), "Define this label in the resource bundle.");
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   private static boolean isPunctuationOrSpace(String value) {

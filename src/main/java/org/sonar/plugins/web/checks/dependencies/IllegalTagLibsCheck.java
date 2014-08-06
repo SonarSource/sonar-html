@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
+import com.google.common.base.Strings;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -25,14 +26,10 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
 
 import java.util.List;
 
-/**
- * Checker to find disallowed taglibs.
- *
- * e.g. <%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
- */
 @Rule(
   key = "IllegalTagLibsCheck",
   priority = Priority.CRITICAL)
@@ -54,14 +51,27 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
   }
 
   @Override
+  public void startElement(TagNode node) {
+    if ("jsp:directive.taglib".equalsIgnoreCase(node.getNodeName())) {
+      checkIt(node, node.getAttribute("uri"));
+    }
+  }
+
+  private void checkIt(Node node, String uri) {
+    if (!Strings.isNullOrEmpty(uri)) {
+      for (String tagLib : tagLibsArray) {
+        if (tagLib.equalsIgnoreCase(uri)) {
+          createViolation(node.getStartLinePosition(), "Remove the use of \"" + tagLib + "\".");
+        }
+      }
+    }
+  }
+
+  @Override
   public void directive(DirectiveNode node) {
     if ("taglib".equalsIgnoreCase(node.getNodeName())) {
       for (Attribute a : node.getAttributes()) {
-        for (String tagLib : tagLibsArray) {
-          if (tagLib.equalsIgnoreCase(a.getValue())) {
-            createViolation(node.getStartLinePosition(), "Following taglib is forbidden: " + tagLib);
-          }
-        }
+        checkIt(node, a.getValue());
       }
     }
   }

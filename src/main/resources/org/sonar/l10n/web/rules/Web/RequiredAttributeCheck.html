@@ -1,5 +1,16 @@
 <p>
-Checker for occurrence of required attribute.
-<br/>
-List of attributes, comma separated. E.G. img.alt
+  This rule checks that the specified attributes are present in HTML tags.
 </p>
+<p>
+  For a required attribute list of <code>img.alt,img.height,img.width</code>:
+</p>
+
+<h2>Noncompliant Code Example</h2>
+<pre>
+  &lt;img src="/images/queen.png"&gt; &lt;!-- Noncompliant; missing all required attributes --&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+  &lt;img src="/images/queen.png" width="60" height="85" alt="Elizabeth II"&gt;
+</pre>

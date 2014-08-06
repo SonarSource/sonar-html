@@ -46,7 +46,7 @@ public class InternationalizationCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Labels should be defined in the resource bundle.");
+        .next().atLine(1).withMessage("Define this label in the resource bundle.");
   }
 
 }

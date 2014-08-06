@@ -46,8 +46,8 @@ public class RequiredAttributeCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(2).withMessage("Attribute alt is required for element img.")
-        .next().atLine(7).withMessage("Attribute type is required for element script.");
+        .next().atLine(2).withMessage("Add the missing \"alt\" to element \"img\".")
+        .next().atLine(7).withMessage("Add the missing \"type\" to element \"script\".");
   }
 
   @Test
@@ -58,14 +58,14 @@ public class RequiredAttributeCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-      .next().atLine(2).withMessage("Attribute alt is required for element img.")
-      .next().atLine(7).withMessage("Attribute type is required for element script.");
+      .next().atLine(2).withMessage("Add the missing \"alt\" to element \"img\".")
+      .next().atLine(7).withMessage("Add the missing \"type\" to element \"script\".");
 
     sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-      .next().atLine(2).withMessage("Attribute alt is required for element img.")
-      .next().atLine(7).withMessage("Attribute type is required for element script.");
+      .next().atLine(2).withMessage("Add the missing \"alt\" to element \"img\".")
+      .next().atLine(7).withMessage("Add the missing \"type\" to element \"script\".");
   }
 
 }

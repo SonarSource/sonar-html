@@ -15,41 +15,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.structure;
-
-import org.sonar.plugins.web.checks.TestHelper;
+package org.sonar.plugins.web.checks.dependencies;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-public class ChildElementIllegalCheckTest {
+public class IllegalTagLibsCheckTest {
 
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
-    ChildElementIllegalCheck check = new ChildElementIllegalCheck();
-    assertThat(check.child).isEmpty();
-    assertThat(check.parent).isEmpty();
-  }
-
-  @Test
-  public void custom() {
-    ChildElementIllegalCheck check = new ChildElementIllegalCheck();
-    check.child = "bar";
-    check.parent = "foo";
-
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ChildElementIllegalCheck.html"), check);
+  public void test() {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/illegalTagLibsCheck.jsp"), new IllegalTagLibsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(2).withMessage("Remove this \"bar\" tag; it is not a legal child of \"foo\".");
+      .next().atLine(2).withMessage("Remove the use of \"http://java.sun.com/jstl/sql\".")
+      .next().atLine(3)
+      .next().atLine(5);
   }
 
 }
