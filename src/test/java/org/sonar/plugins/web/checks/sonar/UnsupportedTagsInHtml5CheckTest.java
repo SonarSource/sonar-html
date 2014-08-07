@@ -47,7 +47,10 @@ public class UnsupportedTagsInHtml5CheckTest {
         .next().atLine(8)
         .next().atLine(9)
         .next().atLine(10)
-        .next().atLine(11).withMessage("Remove this deprecated \"sTrIkE\" element.");
+        .next().atLine(11)
+        .next().atLine(12)
+        .next().atLine(13)
+        .next().atLine(15).withMessage("Remove this deprecated \"sTrIkE\" element.");
   }
 
 }
