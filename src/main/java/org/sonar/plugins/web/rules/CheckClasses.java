@@ -37,6 +37,7 @@ import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
+import org.sonar.plugins.web.checks.sonar.DeprecatedAttributesInHtml5Check;
 import org.sonar.plugins.web.checks.sonar.DoctypePresenceCheck;
 import org.sonar.plugins.web.checks.sonar.ElementWithGivenIdPresentCheck;
 import org.sonar.plugins.web.checks.sonar.FieldsetWithoutLegendCheck;
@@ -80,6 +81,7 @@ public final class CheckClasses {
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,
+    DeprecatedAttributesInHtml5Check.class,
     DoubleQuotesCheck.class,
     DynamicJspIncludeCheck.class,
     FileLengthCheck.class,
