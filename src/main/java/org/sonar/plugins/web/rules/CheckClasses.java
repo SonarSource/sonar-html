@@ -42,7 +42,6 @@ import org.sonar.plugins.web.checks.sonar.DoctypePresenceCheck;
 import org.sonar.plugins.web.checks.sonar.ElementWithGivenIdPresentCheck;
 import org.sonar.plugins.web.checks.sonar.FieldsetWithoutLegendCheck;
 import org.sonar.plugins.web.checks.sonar.FlashUsesBothObjectAndEmbedCheck;
-import org.sonar.plugins.web.checks.sonar.FrameCheck;
 import org.sonar.plugins.web.checks.sonar.FrameWithoutTitleCheck;
 import org.sonar.plugins.web.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.web.checks.sonar.ImgWithoutWidthOrHeightCheck;
@@ -85,7 +84,6 @@ public final class CheckClasses {
     DoubleQuotesCheck.class,
     DynamicJspIncludeCheck.class,
     FileLengthCheck.class,
-    FrameCheck.class,
     IllegalElementCheck.class,
     IllegalTabCheck.class,
     IllegalTagLibsCheck.class,
