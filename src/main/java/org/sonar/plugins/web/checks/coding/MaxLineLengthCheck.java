@@ -35,7 +35,7 @@ import java.util.List;
 
 @Rule(
   key = "MaxLineLengthCheck",
-  priority = Priority.MINOR)
+  priority = Priority.MAJOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION

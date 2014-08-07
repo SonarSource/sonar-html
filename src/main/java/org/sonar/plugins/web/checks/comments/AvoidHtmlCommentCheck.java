@@ -28,9 +28,10 @@ import org.sonar.plugins.web.node.Node;
 import java.util.Iterator;
 import java.util.List;
 
-@Rule(key = "AvoidHtmlCommentCheck", priority = Priority.MINOR)
+@Rule(key = "AvoidHtmlCommentCheck", priority = Priority.MAJOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
+  RuleTags.JSP_JSF,
   RuleTags.SECURITY
 })
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {

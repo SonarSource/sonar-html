@@ -46,7 +46,7 @@ public class FileLengthCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(null).withMessage("Current file length (4) exceeds the maximum threshold set to 3");
+        .next().atLine(null).withMessage("Current file has 4 lines, which is greater than 3 authorized. Split it into smaller files.");
   }
 
   @Test

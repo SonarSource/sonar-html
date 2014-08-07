@@ -28,17 +28,14 @@ import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 
 /**
- * Check for required white space around start and end markers.
- *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Blank Spaces
- *
  * @author Matthijs Galesloot
  * @since 1.0
  */
 @Rule(key = "WhiteSpaceAroundCheck", priority = Priority.MINOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
-  RuleTags.CONVENTION
+  RuleTags.CONVENTION,
+  RuleTags.JSP_JSF
 })
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 

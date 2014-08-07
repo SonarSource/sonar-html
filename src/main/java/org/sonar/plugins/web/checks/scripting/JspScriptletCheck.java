@@ -29,6 +29,7 @@ import org.sonar.plugins.web.node.TagNode;
 @Rule(key = "JspScriptletCheck", priority = Priority.MAJOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
+  RuleTags.JSP_JSF,
   RuleTags.OBSOLETE
 })
 public class JspScriptletCheck extends AbstractPageCheck {

@@ -28,17 +28,14 @@ import org.sonar.plugins.web.node.Node;
 import java.util.List;
 
 /**
- * Checker to find multiple page directives, where 1 page directive would be preferred.
- *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph JSP Page Directive(s)
- *
  * @author Matthijs Galesloot
  * @since 1.0
  */
 @Rule(key = "MultiplePageDirectivesCheck", priority = Priority.MINOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
-  RuleTags.CONVENTION
+  RuleTags.CONVENTION,
+  RuleTags.JSP_JSF
 })
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 

@@ -32,9 +32,10 @@ import java.util.List;
 
 @Rule(
   key = "InternationalizationCheck",
-  priority = Priority.MINOR)
+  priority = Priority.MAJOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
+  RuleTags.JSP_JSF,
   RuleTags.USER_EXPERIENCE
 })
 public class InternationalizationCheck extends AbstractPageCheck {

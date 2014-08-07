@@ -28,8 +28,8 @@ import org.sonar.plugins.web.checks.WebRule;
 
 @Rule(
   key = "FileLengthCheck",
-  priority = Priority.MINOR)
-@WebRule(activeByDefault = false)
+  priority = Priority.MAJOR)
+@WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.BRAIN_OVERLOADED
 })
@@ -46,7 +46,7 @@ public class FileLengthCheck extends AbstractPageCheck {
   public void endDocument() {
     Measure lines = getWebSourceCode().getMeasure(CoreMetrics.LINES);
     if (lines != null && lines.getIntValue() > maxLength) {
-      createViolation(0, "Current file length (" + lines.getIntValue() + ") exceeds the maximum threshold set to " + maxLength);
+      createViolation(0, "Current file has " + lines.getIntValue() + " lines, which is greater than " + maxLength + " authorized. Split it into smaller files.");
     }
   }
 

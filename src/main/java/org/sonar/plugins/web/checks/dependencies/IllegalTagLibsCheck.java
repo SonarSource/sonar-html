@@ -22,6 +22,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
@@ -34,6 +35,9 @@ import java.util.List;
   key = "IllegalTagLibsCheck",
   priority = Priority.CRITICAL)
 @WebRule(activeByDefault = false)
+@RuleTags({
+  RuleTags.JSP_JSF
+})
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_TAG_LIBS = "http://java.sun.com/jstl/sql";

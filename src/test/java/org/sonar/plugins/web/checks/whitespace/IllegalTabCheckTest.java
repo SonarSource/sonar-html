@@ -31,11 +31,11 @@ public class IllegalTabCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalTabCheck.html"), new IllegalTabCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Avoid using the tab character for indentation.");
+        .next().atLine(2).withMessage("Replace all tab characters in this file by sequences of white-spaces.");
   }
 
 }

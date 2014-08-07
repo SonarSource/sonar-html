@@ -17,13 +17,19 @@
  */
 package org.sonar.plugins.web.checks.whitespace;
 
-import org.apache.commons.lang.StringUtils;
+import com.google.common.io.Files;
+import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
-import org.sonar.plugins.web.node.TextNode;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 @Rule(
   key = "IllegalTabCheck",
@@ -33,13 +39,28 @@ import org.sonar.plugins.web.node.TextNode;
   RuleTags.CONVENTION,
   RuleTags.PSR2
 })
-public class IllegalTabCheck extends AbstractPageCheck {
+public class IllegalTabCheck extends AbstractPageCheck implements CharsetAwareVisitor {
+
+  private Charset charset;
 
   @Override
-  public void characters(TextNode textNode) {
-    if (StringUtils.contains(textNode.getCode(), '\t')) {
-      createViolation(textNode.getStartLinePosition(), "Avoid using the tab character for indentation.");
-    }
+  public void setCharset(Charset charset) {
+    this.charset = charset;
   }
 
+  @Override
+  public void startDocument(List<Node> nodes) {
+    List<String> lines;
+    try {
+      lines = Files.readLines(getWebSourceCode().getFile(), charset);
+    } catch (IOException e) {
+      throw new SonarException(e);
+    }
+    for (int i = 0; i < lines.size(); i++) {
+      if (lines.get(i).contains("\t")) {
+        createViolation(i + 1, "Replace all tab characters in this file by sequences of white-spaces.");
+        break;
+      }
+    }
+  }
 }

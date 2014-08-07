@@ -1,9 +1,9 @@
 <p>
-This rule verifies files have a comment matching a given regular expression before the very first tag.
-The header comment can be located before or after the <code>&lt;!DOCTYPE&gt;</code> declaration.
+  Each source file should start with a header stating file ownership and the license which must be used to distribute the application.
+  This rule must be fed with the header text that is expected at the beginning of every file.
 </p>
 
-<p>For example, with the format <code>.*Copyright.*</code>, the following code:</p>
+<h2>Noncompliant Code Example</h2>
 
 <pre>
 &lt;html&gt;                                    &lt;!-- Non-Compliant --&gt;
@@ -11,7 +11,7 @@ The header comment can be located before or after the <code>&lt;!DOCTYPE&gt;</co
 &lt;/html&gt;
 </pre>
 
-<p>should be refactored into:</p>
+<h2>Compliant Solution</h2>
 
 <pre>
 &lt;!-- Copyright 2013 SonarSource SA --&gt;    &lt;!-- Compliant --&gt;
