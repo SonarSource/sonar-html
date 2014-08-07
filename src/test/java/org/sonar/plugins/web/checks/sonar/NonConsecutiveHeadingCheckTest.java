@@ -51,7 +51,7 @@ public class NonConsecutiveHeadingCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH2Tags.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Do not skip H1.");
+        .next().atLine(1).withMessage("Do not skip level H1.");
   }
 
   @Test
@@ -66,7 +66,7 @@ public class NonConsecutiveHeadingCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H5WithH4.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())
-        .next().atLine(1).withMessage("Do not skip H3.");
+        .next().atLine(1).withMessage("Do not skip level H3.");
   }
 
 }

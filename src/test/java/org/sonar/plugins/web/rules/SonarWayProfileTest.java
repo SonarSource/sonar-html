@@ -37,7 +37,7 @@ public class SonarWayProfileTest extends AbstractWebPluginTester {
     Assertions.assertThat(profile.getName()).isEqualTo("Sonar way");
     Assertions.assertThat(profile.getLanguage()).isEqualTo(WebConstants.LANGUAGE_KEY);
     Assertions.assertThat(profile.getActiveRules()).onProperty("repositoryKey").containsOnly(WebRulesRepository.REPOSITORY_KEY);
-    Assertions.assertThat(profile.getActiveRules().size()).isEqualTo(14);
+    Assertions.assertThat(profile.getActiveRules().size()).isEqualTo(13);
     assertThat(validationMessages.hasErrors(), is(false));
   }
 

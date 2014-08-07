@@ -3,7 +3,7 @@ Offering the same experience with the mouse and the keyboard allow users to pick
 Additionally, users of assistive technology will also be able to browse the site even if they cannot use the mouse.
 </p>
 
-<p>The following code:</p>
+<h2>Noncompliant Code Example</h2>
 
 <pre>
 &lt;a onClick="doSomething();" ...&gt;                                &lt;!-- Non-Compliant - 'onKeyPress' missing --&gt;
@@ -11,7 +11,7 @@ Additionally, users of assistive technology will also be able to browse the site
 &lt;a onMouseout="doSomething();" ...&gt;                             &lt;!-- Non-Compliant - 'onBlur' missing --&gt;
 </pre>
 
-<p>should be refactored into:</p>
+<h2>Compliant Solution</h2>
 
 <pre>
 &lt;a onClick="doSomething();" onKeyPress="doSomething();" ...&gt;    &lt;!-- Compliant --&gt;

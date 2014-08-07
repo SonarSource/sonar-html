@@ -25,14 +25,9 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TextNode;
 
-/**
- * Checker for Tab character.
- *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Indentation
- */
 @Rule(
   key = "IllegalTabCheck",
-  priority = Priority.MINOR)
+  priority = Priority.MAJOR)
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION,

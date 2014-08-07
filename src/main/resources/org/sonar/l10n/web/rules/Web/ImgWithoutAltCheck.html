@@ -11,11 +11,17 @@ Common reasons for that include:
   <li>Images loading is disabled, e.g. to reduce data consumption on mobile phones</li>
 </ul>
 
-<p>The following code illustrates this rule:</p>
+<h2>Noncompliant Code Example</h2>
 
 <pre>
 &lt;img src="foo.png" /&gt;                                           &lt;!-- Non-Compliant --&gt;
-&lt;input type="image" src="foo.png" /&gt;                            &lt;!-- Non-Compliant --&gt;
-&lt;img src="foo.png" alt="Some textual description of foo.png" /&gt; &lt;!-- Compliant --&gt;
-&lt;input type="image" src="foo.png" alt="..." /&gt;                  &lt;!-- Compliant --&gt;
+&lt;img src="foo.png" alt="" /&gt;                                    &lt;!-- Non-Compliant --&gt;
+&lt;input type="image" src="bar.png" /&gt;                            &lt;!-- Non-Compliant --&gt;
+</pre>
+
+<h2>Compliant Solution</h2>
+
+<pre>
+&lt;img src="foo.png" alt="Some textual description of foo.png" /&gt;
+&lt;input type="image" src="bar.png" alt="Textual description of bar.png" /&gt;
 </pre>

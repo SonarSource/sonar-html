@@ -30,7 +30,7 @@ import java.util.List;
 @Rule(
   key = "NonConsecutiveHeadingCheck",
   priority = Priority.MAJOR)
-@WebRule(activeByDefault = true)
+@WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY
 })
@@ -60,7 +60,7 @@ public class NonConsecutiveHeadingCheck extends AbstractPageCheck {
   public void endDocument() {
     for (int i = firstUsage.length - 1; i > 0; i--) {
       if (firstUsage[i] != 0 && firstUsage[i - 1] == 0) {
-        createViolation(firstUsage[i], "Do not skip H" + i + ".");
+        createViolation(firstUsage[i], "Do not skip level H" + i + ".");
       }
     }
   }
