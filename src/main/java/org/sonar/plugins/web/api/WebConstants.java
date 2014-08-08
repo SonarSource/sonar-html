@@ -27,7 +27,7 @@ public class WebConstants {
 
   public static final String FILE_EXTENSIONS_PROP_KEY = "sonar.web.file.suffixes";
   public static final String OLD_FILE_EXTENSIONS_PROP_KEY = "sonar.web.fileExtensions";
-  public static final String FILE_EXTENSIONS_DEF_VALUE = ".html,.xhtml,.jsp,.jspf,.jsf,.php,.erb,.rhtml";
+  public static final String FILE_EXTENSIONS_DEF_VALUE = ".html,.xhtml,.rhtml,.shtml";
 
   private WebConstants() {
   }

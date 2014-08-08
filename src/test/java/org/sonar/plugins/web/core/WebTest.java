@@ -30,7 +30,7 @@ public class WebTest {
     Settings settings = new Settings();
     settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, WebConstants.FILE_EXTENSIONS_DEF_VALUE);
     Web web = new Web(settings);
-    assertThat(web.getFileSuffixes()).containsOnly(".html", ".xhtml", ".jsp", ".jspf", ".jsf", ".php", ".erb", ".rhtml");
+    assertThat(web.getFileSuffixes()).containsOnly(".html", ".xhtml", ".rhtml", ".shtml");
   }
 
   @Test
@@ -38,7 +38,7 @@ public class WebTest {
     Settings settings = new Settings();
     settings.setProperty(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY, WebConstants.FILE_EXTENSIONS_DEF_VALUE);
     Web web = new Web(settings);
-    assertThat(web.getFileSuffixes()).containsOnly(".html", ".xhtml", ".jsp", ".jspf", ".jsf", ".php", ".erb", ".rhtml");
+    assertThat(web.getFileSuffixes()).containsOnly(".html", ".xhtml", ".rhtml", ".shtml");
   }
 
   @Test
