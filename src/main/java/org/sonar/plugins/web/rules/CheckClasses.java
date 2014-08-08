@@ -36,6 +36,7 @@ import org.sonar.plugins.web.checks.header.MultiplePageDirectivesCheck;
 import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
+import org.sonar.plugins.web.checks.sonar.AbsoluteURICheck;
 import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
 import org.sonar.plugins.web.checks.sonar.DeprecatedAttributesInHtml5Check;
 import org.sonar.plugins.web.checks.sonar.DoctypePresenceCheck;
@@ -77,6 +78,7 @@ public final class CheckClasses {
 
   @SuppressWarnings("rawtypes")
   private static final Class[] CLASSES = new Class[] {
+    AbsoluteURICheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,
