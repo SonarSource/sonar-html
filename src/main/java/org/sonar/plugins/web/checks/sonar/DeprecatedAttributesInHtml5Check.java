@@ -44,7 +44,9 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     builder.put("a", ImmutableSet.of("charset", "coords", "datafld", "datasrc", "methods", "name", "shape", "urn"));
     builder.put("applet", ImmutableSet.of("datafld", "datasrc"));
     builder.put("area", ImmutableSet.of("nohref"));
-    builder.put("body", ImmutableSet.of("alink", "background", "bgcolor", "link", "marginbottom", "marginheight", "marginleft", "marginright", "margintop", "marginwidth", "vlink"));
+    builder.put(
+      "body",
+      ImmutableSet.of("alink", "background", "bgcolor", "link", "marginbottom", "marginheight", "marginleft", "marginright", "margintop", "marginwidth", "vlink"));
     builder.put("br", ImmutableSet.of("clear"));
     builder.put("button", ImmutableSet.of("datafld", "dataformatas", "datasrc"));
     builder.put("caption", ImmutableSet.of("align"));
@@ -73,7 +75,9 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     builder.put("link", ImmutableSet.of("charset", "methods", "target", "urn"));
     builder.put("marquee", ImmutableSet.of("datafld", "dataformatas", "datasrc"));
     builder.put("meta", ImmutableSet.of("scheme"));
-    builder.put("object", ImmutableSet.of("align", "archive", "border", "classid", "code", "codebase", "codetype", "datafld", "dataformatas", "datasrc", "declare", "hspace", "standby", "vspace"));
+    builder.put(
+      "object",
+      ImmutableSet.of("align", "archive", "border", "classid", "code", "codebase", "codetype", "datafld", "dataformatas", "datasrc", "declare", "hspace", "standby", "vspace"));
     builder.put("ol", ImmutableSet.of("compact"));
     builder.put("option", ImmutableSet.of("datafld", "dataformatas", "datasrc", "name"));
     builder.put("p", ImmutableSet.of("align"));
@@ -83,7 +87,10 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     builder.put("script", ImmutableSet.of("event", "for", "langauge"));
     builder.put("select", ImmutableSet.of("datafld", "dataformatas", "datasrc"));
     builder.put("span", ImmutableSet.of("datafld", "dataformatas", "datasrc"));
-    builder.put("table", ImmutableSet.of("align", "background", "bgcolor", "bordercolor", "cellpadding", "cellspacing", "dataformatas", "datapagesize", "datasrc", "frame", "rules", "summary", "width"));
+    builder.put(
+      "table",
+      ImmutableSet.of("align", "background", "bgcolor", "bordercolor", "cellpadding", "cellspacing",
+        "dataformatas", "datapagesize", "datasrc", "frame", "rules", "summary", "width"));
     builder.put("text", ImmutableSet.of("body"));
     builder.put("textarea", ImmutableSet.of("datafld", "datasrc"));
     builder.put("tbody", ImmutableSet.of("align", "background", "char", "charoff", "valign"));

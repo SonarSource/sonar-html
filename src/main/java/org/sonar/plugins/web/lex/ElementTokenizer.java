@@ -77,12 +77,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
           codeReader.pop();
           continue;
         case '<':
-          // found a nested tag
-          if (mode == ParseMode.BEFORE_ATTRIBUTE_NAME) {
-            parseNestedTag(codeReader, element);
-          } else {
-            codeReader.pop();
-          }
+          nestedTag(element, codeReader, mode);
           continue;
         case '>':
         case '/':
@@ -95,6 +90,15 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
       }
 
       mode = parseToken(mode, codeReader, element);
+    }
+  }
+
+  private void nestedTag(TagNode element, CodeReader codeReader, ParseMode mode) {
+    // found a nested tag
+    if (mode == ParseMode.BEFORE_ATTRIBUTE_NAME) {
+      parseNestedTag(codeReader, element);
+    } else {
+      codeReader.pop();
     }
   }
 

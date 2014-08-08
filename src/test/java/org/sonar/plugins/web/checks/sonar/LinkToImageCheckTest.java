@@ -33,7 +33,7 @@ public class LinkToImageCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  public void test() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkToImageCheck.html"), new LinkToImageCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())

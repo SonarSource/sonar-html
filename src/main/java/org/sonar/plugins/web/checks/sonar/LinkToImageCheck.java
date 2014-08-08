@@ -17,6 +17,9 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -24,7 +27,9 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
+import java.util.Set;
 
 @Rule(
   key = "LinkToImageCheck",
@@ -35,6 +40,8 @@ import java.util.Locale;
   RuleTags.USER_EXPERIENCE
 })
 public class LinkToImageCheck extends AbstractPageCheck {
+
+  private static Set<String> IMG_SUFFIXES = ImmutableSet.of(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP");
 
   @Override
   public void startElement(TagNode node) {
@@ -55,13 +62,13 @@ public class LinkToImageCheck extends AbstractPageCheck {
   }
 
   private static boolean isPoitingToAnImage(String target) {
-    String upperTarget = target.toUpperCase(Locale.ENGLISH);
-
-    return upperTarget.endsWith(".GIF") ||
-      upperTarget.endsWith(".JPG") ||
-      upperTarget.endsWith(".JPEG") ||
-      upperTarget.endsWith(".PNG") ||
-      upperTarget.endsWith(".BMP");
+    final String upperTarget = target.toUpperCase(Locale.ENGLISH);
+    return Iterables.any(IMG_SUFFIXES, new Predicate<String>() {
+      @Override
+      public boolean apply(@Nullable String input) {
+        return input != null &&  upperTarget.endsWith(input);
+      }
+    });
   }
 
 }
