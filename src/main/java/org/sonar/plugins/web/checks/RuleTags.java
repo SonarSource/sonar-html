@@ -34,6 +34,7 @@ public @interface RuleTags {
   public static final String HTML5 = "html5";
   public static final String JSP_JSF = "jsp-jsf";
   public static final String OBSOLETE = "obsolete";
+  public static final String PITFALL = "pitfall";
   public static final String PSR2 = "psr2";
   public static final String SECURITY = "security";
   public static final String UNUSED = "unused";
