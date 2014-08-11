@@ -47,6 +47,7 @@ public class AbsoluteURICheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "attributes",
+    type = "TEXT",
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 

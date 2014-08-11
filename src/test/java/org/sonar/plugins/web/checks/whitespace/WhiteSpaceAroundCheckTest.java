@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.coding;
+package org.sonar.plugins.web.checks.whitespace;
 
 import org.junit.Rule;
 import org.junit.Test;
