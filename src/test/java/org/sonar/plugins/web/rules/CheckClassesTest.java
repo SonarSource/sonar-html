@@ -44,7 +44,6 @@ public class CheckClassesTest {
    */
   @Test
   public void count() {
-    final List<Class> checkClasses = CheckClasses.getCheckClasses();
     int count = 0;
     List<File> files = (List<File>) FileUtils.listFiles(new File("src/main/java/org/sonar/plugins/web/checks/"), new String[]{"java"}, true);
     for (File file : files) {
