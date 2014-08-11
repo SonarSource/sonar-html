@@ -33,7 +33,7 @@ public class FrameWithoutTitleCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FrameWithoutTitleCheck.html"), new FrameWithoutTitleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getViolations())

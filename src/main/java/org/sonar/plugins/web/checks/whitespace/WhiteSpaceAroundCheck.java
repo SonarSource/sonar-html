@@ -78,7 +78,7 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
   }
 
   private void createStartIssue(int line, int expectedWhitespaceColumn) {
-    createViolation(line, "A whitespace is missing after the starting tag at column " + expectedWhitespaceColumn);
+    createViolation(line, "A whitespace is missing after the starting tag at column " + expectedWhitespaceColumn + ".");
   }
 
   @Override

@@ -17,25 +17,28 @@
  */
 package org.sonar.plugins.web.checks.style;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-
-import static junit.framework.Assert.assertEquals;
+import java.io.File;
 
 /**
  * @author Matthijs Galesloot
  */
 public class InlineStyleCheckTest {
 
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
   @Test
-  public void violateInlineStyleCheck() throws FileNotFoundException {
+  public void test() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/inlineStyleCheck.html"), new InlineStyleCheck());
 
-    String fragment = "<head><style>nadadana</style></head>";
-    WebSourceCode sourceCode = TestHelper.scan(fragment, new InlineStyleCheck());
-
-    assertEquals("Incorrect number of violations", 1, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(1).withMessage("Use CSS classes instead.");
   }
+
 }

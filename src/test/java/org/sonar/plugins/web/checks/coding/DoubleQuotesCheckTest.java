@@ -17,44 +17,28 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-
-import static org.fest.assertions.Assertions.assertThat;
+import java.io.File;
 
 /**
  * @author Matthijs Galesloot
  */
 public class DoubleQuotesCheckTest {
 
-  @Test
-  public void testDoubleQuotesCheck() throws FileNotFoundException {
-    String fragment = "<h:someNode class='redflag'/>";
-
-    WebSourceCode sourceCode = TestHelper.scan(fragment, new DoubleQuotesCheck());
-
-    assertThat(sourceCode.getViolations().size()).isGreaterThan(0);
-  }
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void nestedTags() {
-    String fragment = "<form name=\"tabClickForm\" action='<c:url value=\"FlexPricerAvailabilityServlet\"/>' method=\"post\">";
+  public void test() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/doubleQuotesCheck.html"), new DoubleQuotesCheck());
 
-    WebSourceCode sourceCode = TestHelper.scan(fragment, new DoubleQuotesCheck());
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
-  }
-
-  @Test
-  public void should_not_detect_non_quotes_attributes() {
-    String fragment = "<h:someNode class=redflag />";
-
-    WebSourceCode sourceCode = TestHelper.scan(fragment, new DoubleQuotesCheck());
-
-    assertThat(sourceCode.getViolations()).isEmpty();
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(1).withMessage("Use double quotes instead of single ones.");
   }
 
 }

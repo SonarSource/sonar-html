@@ -17,51 +17,42 @@
  */
 package org.sonar.plugins.web.checks.header;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 public class MultiplePageDirectivesCheckTest {
 
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
   @Test
-  public void onlyOnePageDirectiveIsAllowed() throws FileNotFoundException {
-    MultiplePageDirectivesCheck check = new MultiplePageDirectivesCheck();
+  public void test1() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck1.html"), new MultiplePageDirectivesCheck());
 
-    StringBuilder sb = new StringBuilder();
-    sb.append("<h:someNode/>");
-    sb.append("<%@ page session=\"false\" %>");
-    sb.append("<%@ page errorPage=\"/common/errorPage.jsp\" %>");
-
-    WebSourceCode sourceCode = TestHelper.scan(sb.toString(), check);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
-
-    // add an import attribute to the page directive: show that the page directive will still be counted
-    sb = new StringBuilder();
-    sb.append("<h:someNode/>");
-    sb.append("<%@ page session=\"false\" %>");
-    sb.append("<%@ page errorPage=\"/common/errorPage.jsp\" import=\"java.util.*,java.text.*\" %>");
-
-    sourceCode = TestHelper.scan(sb.toString(), check);
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(1);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(3).withMessage("Combine these 2 page directives into one.");
   }
 
   @Test
-  public void pageImportsAreOK() throws FileNotFoundException {
+  public void test2() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck2.html"), new MultiplePageDirectivesCheck());
 
-    // page import directives are not counted.
-    StringBuilder sb = new StringBuilder();
-    sb.append("<h:someNode/>");
-    sb.append("<%@ page session=\"false\" %>");
-    sb.append("<%@ page import=\"java.util.*,java.text.*\" %>");
-
-    WebSourceCode sourceCode = TestHelper.scan(sb.toString(), new MultiplePageDirectivesCheck());
-
-    assertThat(sourceCode.getViolations().size()).isEqualTo(0);
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(3).withMessage("Combine these 2 page directives into one.");
   }
+
+  @Test
+  public void test3() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck3.html"), new MultiplePageDirectivesCheck());
+
+    assertThat(sourceCode.getViolations()).isEmpty();
+  }
+
 }

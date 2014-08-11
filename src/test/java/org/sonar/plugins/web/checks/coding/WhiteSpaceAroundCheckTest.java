@@ -17,67 +17,37 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.assertEquals;
+import java.io.File;
 
 /**
  * @author Matthijs Galesloot
  */
 public class WhiteSpaceAroundCheckTest {
 
-  @Test
-  public void violateWhiteSpaceAroundCheck() throws FileNotFoundException {
-    WhiteSpaceAroundCheck check = new WhiteSpaceAroundCheck();
-
-    String fragment = "<!--two violations-->";
-    WebSourceCode sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(2, sourceCode.getViolations().size());
-
-    fragment = "<!-- one violation-->";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(1, sourceCode.getViolations().size());
-
-    fragment = "<%one violations %>";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(1, sourceCode.getViolations().size());
-
-    fragment = "<%!one violations %>";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(1, sourceCode.getViolations().size());
-
-    fragment = "<%=one violations %>";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(1, sourceCode.getViolations().size());
-
-    fragment = "<%@one violations %>";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(1, sourceCode.getViolations().size());
-
-    fragment = "<%--two violations--%>";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(2, sourceCode.getViolations().size());
-  }
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void passWhiteSpaceAroundCheck() throws FileNotFoundException {
-    WhiteSpaceAroundCheck check = new WhiteSpaceAroundCheck();
+  public void test() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/whiteSpaceAroundCheck.html"), new WhiteSpaceAroundCheck());
 
-    String fragment = "<!-- zero violation -->";
-    WebSourceCode sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(0, sourceCode.getViolations().size());
-
-    fragment = "<% zero violations %>";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(0, sourceCode.getViolations().size());
-
-    fragment = "<%-- zero violations --%>";
-    sourceCode = TestHelper.scan(fragment, check);
-    assertEquals(0, sourceCode.getViolations().size());
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(1).withMessage("A whitespace is missing after the starting tag at column 4.")
+      .next().atLine(1).withMessage("Add a space at column 18.")
+      .next().atLine(3).withMessage("Add a space at column 18.")
+      .next().atLine(5).withMessage("A whitespace is missing after the starting tag at column 2.")
+      .next().atLine(7).withMessage("A whitespace is missing after the starting tag at column 3.")
+      .next().atLine(9).withMessage("A whitespace is missing after the starting tag at column 3.")
+      .next().atLine(11).withMessage("A whitespace is missing after the starting tag at column 3.")
+      .next().atLine(13).withMessage("A whitespace is missing after the starting tag at column 4.")
+      .next().atLine(13).withMessage("Add a space at column 18.");
   }
+
 }

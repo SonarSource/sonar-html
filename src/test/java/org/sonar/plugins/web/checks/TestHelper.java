@@ -31,19 +31,11 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.List;
-
-import static org.mockito.Mockito.mock;
 
 public class TestHelper {
 
   private TestHelper() {
-  }
-
-  public static WebSourceCode scan(String code, DefaultNodeVisitor visitor) {
-    return scan(mock(File.class), new StringReader(code), visitor);
   }
 
   public static WebSourceCode scan(File file, DefaultNodeVisitor visitor) {
@@ -53,12 +45,8 @@ public class TestHelper {
     } catch (FileNotFoundException e) {
       throw Throwables.propagate(e);
     }
-    return scan(file, fileReader, visitor);
-  }
-
-  public static WebSourceCode scan(File file, Reader reader, DefaultNodeVisitor visitor) {
     PageLexer lexer = new PageLexer();
-    List<Node> nodes = lexer.parse(reader);
+    List<Node> nodes = lexer.parse(fileReader);
     WebSourceCode result = new WebSourceCode(file, new org.sonar.api.resources.File("test"));
 
     HtmlAstScanner walker = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor()));

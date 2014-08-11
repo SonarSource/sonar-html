@@ -17,43 +17,29 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileNotFoundException;
-
-import static org.fest.assertions.Assertions.assertThat;
+import java.io.File;
 
 /**
  * @author Matthijs Galesloot
  */
 public class JspScriptletCheckTest {
 
-  @Test
-  public void violateJspScriptCheck() throws FileNotFoundException {
-
-    String fragment = "<% line1\nline2;\nline3\nline4\nline5\n %>";
-    WebSourceCode sourceCode = TestHelper.scan(fragment, new JspScriptletCheck());
-
-    assertThat(sourceCode.getViolations()).hasSize(1);
-  }
+  @Rule
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void violateScriptletCheck() throws FileNotFoundException {
+  public void test() throws Exception {
+    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/jspScriptletCheck.html"), new JspScriptletCheck());
 
-    String fragment = "<jsp:scriptlet>line1\nline2;\nline3\nline4\nline5\n</jsp:scriptlet>";
-    WebSourceCode sourceCode = TestHelper.scan(fragment, new JspScriptletCheck());
-
-    assertThat(sourceCode.getViolations()).hasSize(1);
-  }
-
-  @Test
-  public void should_allow_empty_scriptlets() {
-    String fragment = "<%\n%>";
-    WebSourceCode sourceCode = TestHelper.scan(fragment, new JspScriptletCheck());
-
-    assertThat(sourceCode.getViolations()).isEmpty();
+    checkMessagesVerifier.verify(sourceCode.getViolations())
+      .next().atLine(1).withMessage("Replace this scriptlet using tag libraries and expression language.")
+      .next().atLine(8);
   }
 
 }
