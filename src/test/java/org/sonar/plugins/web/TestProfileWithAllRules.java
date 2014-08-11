@@ -39,4 +39,9 @@ public class TestProfileWithAllRules extends BaseProfileDefinition {
   protected String getLanguageKey() {
     return WebConstants.LANGUAGE_KEY;
   }
+
+  @Override
+  protected String getRepositoryKey() {
+    return WebConstants.LANGUAGE_NAME;
+  }
 }

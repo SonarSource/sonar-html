@@ -18,24 +18,23 @@
 package org.sonar.plugins.web.checks.scripting;
 
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
-import java.io.StringReader;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
  */
-public class JspScriptletCheckTest extends AbstractCheckTester {
+public class JspScriptletCheckTest {
 
   @Test
   public void violateJspScriptCheck() throws FileNotFoundException {
 
     String fragment = "<% line1\nline2;\nline3\nline4\nline5\n %>";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, new JspScriptletCheck());
 
     assertThat(sourceCode.getViolations()).hasSize(1);
   }
@@ -44,7 +43,7 @@ public class JspScriptletCheckTest extends AbstractCheckTester {
   public void violateScriptletCheck() throws FileNotFoundException {
 
     String fragment = "<jsp:scriptlet>line1\nline2;\nline3\nline4\nline5\n</jsp:scriptlet>";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, new JspScriptletCheck());
 
     assertThat(sourceCode.getViolations()).hasSize(1);
   }
@@ -52,7 +51,7 @@ public class JspScriptletCheckTest extends AbstractCheckTester {
   @Test
   public void should_allow_empty_scriptlets() {
     String fragment = "<%\n%>";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), JspScriptletCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, new JspScriptletCheck());
 
     assertThat(sourceCode.getViolations()).isEmpty();
   }

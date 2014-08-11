@@ -18,65 +18,66 @@
 package org.sonar.plugins.web.checks.coding;
 
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
-import java.io.StringReader;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * @author Matthijs Galesloot
  */
-public class WhiteSpaceAroundCheckTest extends AbstractCheckTester {
+public class WhiteSpaceAroundCheckTest {
 
   @Test
   public void violateWhiteSpaceAroundCheck() throws FileNotFoundException {
+    WhiteSpaceAroundCheck check = new WhiteSpaceAroundCheck();
 
     String fragment = "<!--two violations-->";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, check);
     assertEquals(2, sourceCode.getViolations().size());
 
     fragment = "<!-- one violation-->";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(1, sourceCode.getViolations().size());
 
     fragment = "<%one violations %>";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(1, sourceCode.getViolations().size());
 
     fragment = "<%!one violations %>";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(1, sourceCode.getViolations().size());
 
     fragment = "<%=one violations %>";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(1, sourceCode.getViolations().size());
 
     fragment = "<%@one violations %>";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(1, sourceCode.getViolations().size());
 
     fragment = "<%--two violations--%>";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(2, sourceCode.getViolations().size());
   }
 
   @Test
   public void passWhiteSpaceAroundCheck() throws FileNotFoundException {
+    WhiteSpaceAroundCheck check = new WhiteSpaceAroundCheck();
 
     String fragment = "<!-- zero violation -->";
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, check);
     assertEquals(0, sourceCode.getViolations().size());
 
     fragment = "<% zero violations %>";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(0, sourceCode.getViolations().size());
 
     fragment = "<%-- zero violations --%>";
-    sourceCode = parseAndCheck(new StringReader(fragment), WhiteSpaceAroundCheck.class);
+    sourceCode = TestHelper.scan(fragment, check);
     assertEquals(0, sourceCode.getViolations().size());
   }
 }

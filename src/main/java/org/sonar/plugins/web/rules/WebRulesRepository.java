@@ -29,12 +29,11 @@ import java.util.List;
 
 public final class WebRulesRepository extends RuleRepository {
 
-  public static final String REPOSITORY_NAME = "SonarQube";
-  public static final String REPOSITORY_KEY = "Web";
+  public static final String REPOSITORY_KEY = WebConstants.LANGUAGE_NAME;
 
   public WebRulesRepository() {
     super(REPOSITORY_KEY, WebConstants.LANGUAGE_KEY);
-    setName(REPOSITORY_NAME);
+    setName("SonarQube");
   }
 
   @Override

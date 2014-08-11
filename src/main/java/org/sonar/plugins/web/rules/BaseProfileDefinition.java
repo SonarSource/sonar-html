@@ -40,10 +40,8 @@ public abstract class BaseProfileDefinition extends ProfileDefinition {
     for (Class ruleClass : CheckClasses.getCheckClasses()) {
       String ruleKey = RuleAnnotationUtils.getRuleKey(ruleClass);
       if (isActive(ruleClass)) {
-        Rule rule = ruleFinder.findByKey(getLanguageKey(), ruleKey);
-        if (rule != null) {
-          profile.activateRule(rule, null);
-        }
+        Rule rule = ruleFinder.findByKey(getRepositoryKey(), ruleKey);
+        profile.activateRule(rule, null);
       }
     }
     return profile;
@@ -52,5 +50,7 @@ public abstract class BaseProfileDefinition extends ProfileDefinition {
   protected abstract boolean isActive(Class ruleClass);
 
   protected abstract String getLanguageKey();
+
+  protected abstract String getRepositoryKey();
 
 }

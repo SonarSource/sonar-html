@@ -18,24 +18,23 @@
 package org.sonar.plugins.web.checks.coding;
 
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
-import java.io.StringReader;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
  */
-public class DoubleQuotesCheckTest extends AbstractCheckTester {
+public class DoubleQuotesCheckTest {
 
   @Test
   public void testDoubleQuotesCheck() throws FileNotFoundException {
     String fragment = "<h:someNode class='redflag'/>";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, new DoubleQuotesCheck());
 
     assertThat(sourceCode.getViolations().size()).isGreaterThan(0);
   }
@@ -44,7 +43,7 @@ public class DoubleQuotesCheckTest extends AbstractCheckTester {
   public void nestedTags() {
     String fragment = "<form name=\"tabClickForm\" action='<c:url value=\"FlexPricerAvailabilityServlet\"/>' method=\"post\">";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, new DoubleQuotesCheck());
 
     assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
@@ -53,7 +52,7 @@ public class DoubleQuotesCheckTest extends AbstractCheckTester {
   public void should_not_detect_non_quotes_attributes() {
     String fragment = "<h:someNode class=redflag />";
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(fragment), DoubleQuotesCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(fragment, new DoubleQuotesCheck());
 
     assertThat(sourceCode.getViolations()).isEmpty();
   }

@@ -18,25 +18,25 @@
 package org.sonar.plugins.web.checks.header;
 
 import org.junit.Test;
-import org.sonar.plugins.web.checks.AbstractCheckTester;
+import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileNotFoundException;
-import java.io.StringReader;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
+public class MultiplePageDirectivesCheckTest {
 
   @Test
   public void onlyOnePageDirectiveIsAllowed() throws FileNotFoundException {
+    MultiplePageDirectivesCheck check = new MultiplePageDirectivesCheck();
 
     StringBuilder sb = new StringBuilder();
     sb.append("<h:someNode/>");
     sb.append("<%@ page session=\"false\" %>");
     sb.append("<%@ page errorPage=\"/common/errorPage.jsp\" %>");
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(sb.toString(), check);
 
     assertThat(sourceCode.getViolations().size()).isEqualTo(1);
 
@@ -46,7 +46,7 @@ public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
     sb.append("<%@ page session=\"false\" %>");
     sb.append("<%@ page errorPage=\"/common/errorPage.jsp\" import=\"java.util.*,java.text.*\" %>");
 
-    sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
+    sourceCode = TestHelper.scan(sb.toString(), check);
 
     assertThat(sourceCode.getViolations().size()).isEqualTo(1);
   }
@@ -60,7 +60,7 @@ public class MultiplePageDirectivesCheckTest extends AbstractCheckTester {
     sb.append("<%@ page session=\"false\" %>");
     sb.append("<%@ page import=\"java.util.*,java.text.*\" %>");
 
-    WebSourceCode sourceCode = parseAndCheck(new StringReader(sb.toString()), MultiplePageDirectivesCheck.class);
+    WebSourceCode sourceCode = TestHelper.scan(sb.toString(), new MultiplePageDirectivesCheck());
 
     assertThat(sourceCode.getViolations().size()).isEqualTo(0);
   }
