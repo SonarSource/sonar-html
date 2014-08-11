@@ -110,26 +110,24 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     if (deprecatedAttributes != null) {
       List<Attribute> attributes = element.getAttributes();
       for (Attribute attribute : attributes) {
-        if (isDeprecated(element, deprecatedAttributes, attribute)) {
+        if (isDeprecated(element, deprecatedAttributes, attribute.getName(), attribute.getValue())) {
           createViolation(element.getStartLinePosition(), "Remove this deprecated \"" + attribute.getName() + "\" attribute.");
         }
       }
     }
   }
 
-  private boolean isDeprecated(TagNode element, Set<String> deprecatedAttributes, Attribute attribute) {
-    String elementName = element.getNodeName().toLowerCase();
-    String attributeName = attribute.getName().toLowerCase();
-    String value = attribute.getValue().toLowerCase();
-    if ("img".equals(elementName) && "border".equals(attributeName)) {
-      return !"0".equals(value);
-    } else if ("script".equals(elementName) && "language".equals(attributeName)) {
-      return !"javascript".equals(value);
-    } else if ("a".equals(elementName) && "name".equals(attributeName)) {
+  private boolean isDeprecated(TagNode element, Set<String> deprecatedAttributes, String attributeName, String attributeValue) {
+    String elementName = element.getNodeName();
+    if ("img".equalsIgnoreCase(elementName) && "border".equalsIgnoreCase(attributeName)) {
+      return !"0".equalsIgnoreCase(attributeValue);
+    } else if ("script".equalsIgnoreCase(elementName) && "language".equalsIgnoreCase(attributeName)) {
+      return !"javascript".equalsIgnoreCase(attributeValue);
+    } else if ("a".equalsIgnoreCase(elementName) && "name".equalsIgnoreCase(attributeName)) {
       String id = element.getAttribute("id");
-      return Strings.isNullOrEmpty(id) || !id.equals(value);
+      return Strings.isNullOrEmpty(id) || !id.equalsIgnoreCase(attributeValue);
     } else {
-      return deprecatedAttributes.contains(attributeName);
+      return deprecatedAttributes.contains(attributeName.toLowerCase());
     }
   }
 
