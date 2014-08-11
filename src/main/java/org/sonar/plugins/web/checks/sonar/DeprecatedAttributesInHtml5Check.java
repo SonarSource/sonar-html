@@ -46,7 +46,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     builder.put("area", ImmutableSet.of("nohref"));
     builder.put(
       "body",
-      ImmutableSet.of("alink", "background", "bgcolor", "link", "marginbottom", "marginheight", "marginleft", "marginright", "margintop", "marginwidth", "vlink"));
+      ImmutableSet.of("alink", "background", "bgcolor", "link", "marginbottom", "marginheight", "marginleft", "marginright", "margintop", "marginwidth", "text", "vlink"));
     builder.put("br", ImmutableSet.of("clear"));
     builder.put("button", ImmutableSet.of("datafld", "dataformatas", "datasrc"));
     builder.put("caption", ImmutableSet.of("align"));
@@ -81,7 +81,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     builder.put("ol", ImmutableSet.of("compact"));
     builder.put("option", ImmutableSet.of("datafld", "dataformatas", "datasrc", "name"));
     builder.put("p", ImmutableSet.of("align"));
-    builder.put("param", ImmutableSet.of("valuetype"));
+    builder.put("param", ImmutableSet.of("datafld", "type", "valuetype"));
     builder.put("params", ImmutableSet.of("type"));
     builder.put("pre", ImmutableSet.of("width"));
     builder.put("script", ImmutableSet.of("event", "for", "langauge"));
