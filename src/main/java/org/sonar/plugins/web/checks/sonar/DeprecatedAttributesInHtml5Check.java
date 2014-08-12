@@ -52,6 +52,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     final String datasrc = "datasrc";
     final String compact = "compact";
     final String border = "border";
+    final String valign = "valign";
     ImmutableMap.Builder<String, Set<String>> builder = ImmutableMap.builder();
     builder.put("a", ImmutableSet.of("charset", "coords", datafld, datasrc, "methods", "name", "shape", "urn"));
     builder.put("applet", ImmutableSet.of(datafld, datasrc));
@@ -62,7 +63,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     builder.put("br", ImmutableSet.of("clear"));
     builder.put("button", ImmutableSet.of(datafld, dataformatas, datasrc));
     builder.put("caption", ImmutableSet.of(align));
-    builder.put("col", ImmutableSet.of(align, "char", charoff, "valign", width));
+    builder.put("col", ImmutableSet.of(align, "char", charoff, valign, width));
     builder.put("div", ImmutableSet.of(align, datafld, dataformatas, datasrc));
     builder.put("dl", ImmutableSet.of(compact));
     builder.put("embed", ImmutableSet.of(align, hspace, "name", vspace));
@@ -105,12 +106,12 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
         dataformatas, "datapagesize", datasrc, "frame", "rules", "summary", width));
     builder.put("text", ImmutableSet.of("body"));
     builder.put("textarea", ImmutableSet.of(datafld, datasrc));
-    builder.put("tbody", ImmutableSet.of(align, background, "char", charoff, "valign"));
-    builder.put("thead", ImmutableSet.of(align, background, bgcolor, "char", charoff, "valign"));
-    builder.put("tfoot", ImmutableSet.of(align, background, "char", charoff, "valign"));
-    builder.put("td", ImmutableSet.of(align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", "scope", "valign", width));
-    builder.put("th", ImmutableSet.of(align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", "valign", width));
-    builder.put("tr", ImmutableSet.of(align, background, bgcolor, "char", charoff, "valign"));
+    builder.put("tbody", ImmutableSet.of(align, background, "char", charoff, valign));
+    builder.put("thead", ImmutableSet.of(align, background, bgcolor, "char", charoff, valign));
+    builder.put("tfoot", ImmutableSet.of(align, background, "char", charoff, valign));
+    builder.put("td", ImmutableSet.of(align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", "scope", valign, width));
+    builder.put("th", ImmutableSet.of(align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", valign, width));
+    builder.put("tr", ImmutableSet.of(align, background, bgcolor, "char", charoff, valign));
     builder.put("ul", ImmutableSet.of(compact, "type"));
     DEPRECATED = builder.build();
   }

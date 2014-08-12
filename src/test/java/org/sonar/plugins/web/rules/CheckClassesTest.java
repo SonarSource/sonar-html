@@ -71,7 +71,7 @@ public class CheckClassesTest {
         .isTrue();
     }
 
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("org.sonar.l10n.Web", Locale.ENGLISH);
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("org.sonar.l10n.web", Locale.ENGLISH);
 
     List<Rule> rules = new AnnotationRuleParser().parse("repositoryKey", checks);
     for (Rule rule : rules) {
