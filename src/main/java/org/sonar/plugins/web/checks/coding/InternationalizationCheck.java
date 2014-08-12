@@ -64,7 +64,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if (attributes != null) {
+    if (attributesArray.length > 0) {
       for (QualifiedAttribute attribute : attributesArray) {
         if (notValid(element, attribute)) {
           return;

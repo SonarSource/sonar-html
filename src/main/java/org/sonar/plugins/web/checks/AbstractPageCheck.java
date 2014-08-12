@@ -67,24 +67,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 
   }
 
-  protected String getAttributesAsString(QualifiedAttribute[] qualifiedAttributes) {
-    StringBuilder sb = new StringBuilder();
-    if (qualifiedAttributes != null) {
-      for (QualifiedAttribute a : qualifiedAttributes) {
-        if (sb.length() > 0) {
-          sb.append(",");
-        }
-        if (a.getNodeName() != null) {
-          sb.append(a.getNodeName());
-          sb.append('.');
-        }
-        sb.append(a.getAttributeName());
-      }
-    }
-    return sb.toString();
-  }
-
-  public boolean isUnifiedExpression(String value) {
+  public boolean isUnifiedExpression(@Nullable String value) {
     return value != null && value.length() > 0 && (value.contains("#{") || value.contains("${"));
   }
 
