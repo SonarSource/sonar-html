@@ -19,6 +19,7 @@ package org.sonar.plugins.web.core;
 
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -72,10 +73,6 @@ public final class WebSensor implements Sensor {
     this.fileSystem = fileSystem;
     this.fileLinesContextFactory = fileLinesContextFactory;
 
-  }
-
-  private boolean hasFilesToAnalyze() {
-    return !fileSystem.files(FileQuery.onSource().onLanguage(WebConstants.LANGUAGE_KEY)).isEmpty();
   }
 
   @Override
@@ -155,7 +152,9 @@ public final class WebSensor implements Sensor {
    */
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return hasFilesToAnalyze();
+    return WebConstants.LANGUAGE_KEY.equals(project.getLanguageKey()) ||
+      (StringUtils.isBlank(project.getLanguageKey()) &&
+      !fileSystem.files(FileQuery.onSource().onLanguage(WebConstants.LANGUAGE_KEY)).isEmpty());
   }
 
   @Override
