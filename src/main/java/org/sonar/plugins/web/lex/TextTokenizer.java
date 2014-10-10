@@ -38,6 +38,7 @@ class TextTokenizer extends AbstractTokenizer<List<Node>> {
 
   private static final class EndTokenMatcher implements EndMatcher {
 
+    @Override
     public boolean match(int endFlag) {
       return endFlag == '<';
     }
@@ -61,6 +62,7 @@ class TextTokenizer extends AbstractTokenizer<List<Node>> {
       this.codeReader = codeReader;
     }
 
+    @Override
     public boolean match(int endFlag) {
 
       // return true on end of file

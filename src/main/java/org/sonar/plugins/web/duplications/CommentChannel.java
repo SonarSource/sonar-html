@@ -46,14 +46,17 @@ public class CommentChannel extends Channel<Tokens> {
 
   private static class EmptyAppendable implements Appendable {
 
+    @Override
     public Appendable append(CharSequence csq) throws IOException {
       return null;
     }
 
+    @Override
     public Appendable append(char c) throws IOException {
       return null;
     }
 
+    @Override
     public Appendable append(CharSequence csq, int start, int end) throws IOException {
       return null;
     }

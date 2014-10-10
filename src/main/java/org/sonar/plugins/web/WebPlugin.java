@@ -42,6 +42,7 @@ public final class WebPlugin extends SonarPlugin {
 
   private static final String CATEGORY = "Web";
 
+  @Override
   public List getExtensions() {
     ImmutableList.Builder<Object> builder = ImmutableList.builder();
 

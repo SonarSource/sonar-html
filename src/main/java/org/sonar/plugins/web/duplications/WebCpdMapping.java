@@ -34,6 +34,7 @@ public class WebCpdMapping implements CpdMapping {
     this.web = web;
   }
 
+  @Override
   public Tokenizer getTokenizer() {
     return new WebCpdTokenizer();
   }
@@ -43,6 +44,7 @@ public class WebCpdMapping implements CpdMapping {
     return File.fromIOFile(file, sourceDirs);
   }
 
+  @Override
   public Language getLanguage() {
     return web;
   }
