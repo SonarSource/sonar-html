@@ -40,6 +40,7 @@ public class WebCpdMapping implements CpdMapping {
   }
 
   @SuppressWarnings("rawtypes")
+  @Override
   public Resource createResource(java.io.File file, List<java.io.File> sourceDirs) {
     return File.fromIOFile(file, sourceDirs);
   }
