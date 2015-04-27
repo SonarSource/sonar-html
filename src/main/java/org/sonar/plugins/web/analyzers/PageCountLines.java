@@ -142,9 +142,7 @@ public class PageCountLines extends DefaultNodeVisitor {
       }
 
       // remaining newlines are added to blanklines
-      if (linesOfCodeCurrentNode > 0) {
-        blankLines += linesOfCodeCurrentNode - nonBlankLines;
-      }
+      blankLines += linesOfCodeCurrentNode - nonBlankLines;
     } else {
       linesOfCode += linesOfCodeCurrentNode;
     }
