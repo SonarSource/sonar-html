@@ -1,6 +1,8 @@
 Sonar Web
 =========
 
+[![Build Status](https://api.travis-ci.org/SonarCommunity/sonar-web.png)](https://travis-ci.org/SonarCommunity/sonar-web)
+
 This is the SonarQube Web Plugin
 
 Project homepage:
