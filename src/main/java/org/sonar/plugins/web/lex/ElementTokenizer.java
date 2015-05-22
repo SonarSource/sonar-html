@@ -25,6 +25,7 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 
@@ -39,6 +40,12 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   private static EndQNameMatcher endQNameMatcher = new EndQNameMatcher();
 
   private static EndTokenMatcher endTokenMatcher = new EndTokenMatcher();
+
+  private static final char CLOSING_ANGULAR_BRACKET = '>';
+
+  private static final char SLASH = '/';
+
+  private static final char[] END_SELF_CLOSING_ELEMENT = new char[] { '/', '>' };
 
   public ElementTokenizer(String startToken, String endToken) {
     super(startToken, endToken);
@@ -154,8 +161,20 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         codeReader.pop();
         attribute.setQuoteChar((char) ch);
       } else {
-        codeReader.popTo(endTokenMatcher, sbValue);
-        attribute.setValue(sbValue.toString().trim());
+        char character;
+        while ((character = (char)codeReader.peek()) != -1) {
+          if (Character.isWhitespace(character)
+              || character == CLOSING_ANGULAR_BRACKET
+              || (character == SLASH 
+                  && Arrays.equals(END_SELF_CLOSING_ELEMENT, codeReader.peek(2)))) {
+            break;
+          } else {
+            codeReader.pop();
+            sbValue.append(character);
+          }
+        }
+
+        attribute.setValue(sbValue.toString());
       }
     }
   }
