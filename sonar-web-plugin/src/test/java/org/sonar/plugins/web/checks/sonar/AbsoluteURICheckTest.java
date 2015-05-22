@@ -38,7 +38,8 @@ public class AbsoluteURICheckTest {
       .next().atLine(3).withMessage("Replace this absolute URI \"href\" with a relative one, or move this absolute URI to a configuration file.")
       .next().atLine(4).withMessage("Replace this absolute URI \"href\" with a relative one, or move this absolute URI to a configuration file.")
       .next().atLine(7).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.")
-      .next().atLine(8).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.");
+      .next().atLine(8).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.")
+      .next().atLine(9).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.");
   }
 
   @Test
@@ -50,7 +51,8 @@ public class AbsoluteURICheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(7).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.")
-      .next().atLine(8).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.");
+      .next().atLine(8).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.")
+      .next().atLine(9).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.");
   }
 
 }

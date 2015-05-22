@@ -331,4 +331,7 @@
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/doc01.xhtml':[
 11,
 ],
+'project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html':[
+20177,
+],
 }

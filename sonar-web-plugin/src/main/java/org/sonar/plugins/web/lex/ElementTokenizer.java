@@ -17,16 +17,18 @@
  */
 package org.sonar.plugins.web.lex;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-
+import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Tokenizer for elements.
@@ -39,6 +41,8 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   private static EndQNameMatcher endQNameMatcher = new EndQNameMatcher();
 
   private static EndTokenMatcher endTokenMatcher = new EndTokenMatcher();
+
+  private static EndUnquotedAttributeMatcher endUnquotedAttributeMatcher = new EndUnquotedAttributeMatcher();
 
   public ElementTokenizer(String startToken, String endToken) {
     super(startToken, endToken);
@@ -154,7 +158,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         codeReader.pop();
         attribute.setQuoteChar((char) ch);
       } else {
-        codeReader.popTo(endTokenMatcher, sbValue);
+        codeReader.popTo(endUnquotedAttributeMatcher, sbValue);
         attribute.setValue(sbValue.toString().trim());
       }
     }
@@ -191,6 +195,22 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     @Override
     public boolean match(int character) {
       return character == '=' || character == '>' || Character.isWhitespace(character);
+    }
+  }
+
+  private static final class EndUnquotedAttributeMatcher implements EndMatcher {
+    private static final Set<Character> FORBIDDEN = ImmutableSet.of(
+      '"',
+      '\'',
+      '=',
+      '<',
+      '>',
+      '`'
+    );
+
+    @Override
+    public boolean match(int character) {
+      return Character.isWhitespace(character) || FORBIDDEN.contains((char) character);
     }
   }
 

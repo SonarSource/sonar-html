@@ -17,9 +17,14 @@
  */
 package org.sonar.plugins.web.lex;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.fest.assertions.Assertions.assertThat;
+import org.junit.Test;
+import org.sonar.channel.CodeReader;
+import org.sonar.plugins.web.node.Attribute;
+import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,13 +32,9 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.sonar.channel.CodeReader;
-import org.sonar.plugins.web.node.CommentNode;
-import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.node.TextNode;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
@@ -280,5 +281,33 @@ public class PageLexerTest {
     assertTrue(nodeList.get(1) instanceof TagNode);
     assertTrue(nodeList.get(2) instanceof TextNode);
     assertTrue(nodeList.get(3) instanceof TagNode);
+  }
+
+  @Test
+  public void testAttributeWithoutQuotes() {
+    final StringReader reader = new StringReader("<img src=http://foo/sfds?sjg a=1\tb=2\r\nc=3 />");
+    final PageLexer lexer = new PageLexer();
+    final List<Node> nodeList = lexer.parse(reader);
+
+    assertEquals(1, nodeList.size());
+    assertTrue(nodeList.get(0) instanceof TagNode);
+    final TagNode node = (TagNode)nodeList.get(0);
+    assertEquals(4, node.getAttributes().size());
+
+    final Attribute attribute = node.getAttributes().get(0);
+    assertEquals("src", attribute.getName());
+    assertEquals("http://foo/sfds?sjg", attribute.getValue());
+
+    final Attribute attributeA = node.getAttributes().get(1);
+    assertEquals("a", attributeA.getName());
+    assertEquals("1", attributeA.getValue());
+
+    final Attribute attributeB = node.getAttributes().get(2);
+    assertEquals("b", attributeB.getName());
+    assertEquals("2", attributeB.getValue());
+
+    final Attribute attributeC = node.getAttributes().get(3);
+    assertEquals("c", attributeC.getName());
+    assertEquals("3", attributeC.getValue());
   }
 }
