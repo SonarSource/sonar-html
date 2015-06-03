@@ -93,7 +93,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     }
   }
 
-  private void nestedTag(TagNode element, CodeReader codeReader, ParseMode mode) {
+  private static void nestedTag(TagNode element, CodeReader codeReader, ParseMode mode) {
     // found a nested tag
     if (mode == ParseMode.BEFORE_ATTRIBUTE_NAME) {
       parseNestedTag(codeReader, element);
@@ -138,7 +138,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     return ParseMode.BEFORE_NODE_NAME;
   }
 
-  private void handleBeforeAttributeValue(CodeReader codeReader, TagNode element) {
+  private static void handleBeforeAttributeValue(CodeReader codeReader, TagNode element) {
     Attribute attribute;
     if (!element.getAttributes().isEmpty()) {
       attribute = element.getAttributes().get(element.getAttributes().size() - 1);

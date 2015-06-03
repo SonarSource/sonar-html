@@ -101,7 +101,7 @@ public final class WebSensor implements Sensor {
     }
   }
 
-  private void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
+  private static void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
     saveComplexityDistribution(sensorContext, sourceCode);
     List<Measure> measures = sourceCode.getMeasures();
     for (Measure measure : measures) {
