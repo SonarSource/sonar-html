@@ -39,7 +39,7 @@ class DoctypeTokenizer extends AbstractTokenizer<List<Node>> {
     parseToken((DirectiveNode) node);
   }
 
-  private void parseToken(DirectiveNode node) {
+  private static void parseToken(DirectiveNode node) {
     String code = node.getCode();
     StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(code));
     tokenizer.quoteChar('"');

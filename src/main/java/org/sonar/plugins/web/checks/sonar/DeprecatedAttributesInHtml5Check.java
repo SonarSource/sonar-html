@@ -130,7 +130,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     }
   }
 
-  private boolean isDeprecated(TagNode element, Set<String> deprecatedAttributes, String attributeName, String attributeValue) {
+  private static boolean isDeprecated(TagNode element, Set<String> deprecatedAttributes, String attributeName, String attributeValue) {
     String elementName = element.getNodeName().toLowerCase();
     if ("img".equals(elementName) && "border".equals(attributeName)) {
       return !"0".equals(attributeValue);

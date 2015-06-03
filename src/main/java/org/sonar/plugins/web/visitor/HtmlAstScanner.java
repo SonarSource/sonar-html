@@ -112,7 +112,7 @@ public class HtmlAstScanner {
     }
   }
 
-  private void scanElementTag(DefaultNodeVisitor visitor, TagNode node) {
+  private static void scanElementTag(DefaultNodeVisitor visitor, TagNode node) {
     if (!node.isEndElement()) {
       visitor.startElement(node);
     }

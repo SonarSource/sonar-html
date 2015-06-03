@@ -114,7 +114,7 @@ public final class WebSensor implements Sensor {
     }
   }
 
-  private void saveComplexityDistribution(SensorContext sensorContext, WebSourceCode sourceCode) {
+  private static void saveComplexityDistribution(SensorContext sensorContext, WebSourceCode sourceCode) {
     if (sourceCode.getMeasure(CoreMetrics.COMPLEXITY) != null) {
       RangeDistributionBuilder complexityFileDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION,
         FILES_DISTRIB_BOTTOM_LIMITS);

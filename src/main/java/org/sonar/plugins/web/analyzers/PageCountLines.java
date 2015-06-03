@@ -168,7 +168,7 @@ public class PageCountLines extends DefaultNodeVisitor {
     return nonBlankLines + 1;
   }
 
-  private void addLineNumbers(Node node, Set<Integer> detailedLines) {
+  private static void addLineNumbers(Node node, Set<Integer> detailedLines) {
     for (int i = node.getStartLinePosition(); i <= node.getEndLinePosition(); i++) {
       detailedLines.add(i);
     }

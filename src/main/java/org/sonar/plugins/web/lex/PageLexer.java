@@ -98,7 +98,7 @@ public final class PageLexer {
   /**
    * Scan the nodes and build the hierarchy of parent and child nodes.
    */
-  private void createNodeHierarchy(List<Node> nodeList) {
+  private static void createNodeHierarchy(List<Node> nodeList) {
     TagNode current = null;
     for (Node node : nodeList) {
       if (node.getNodeType() == NodeType.TAG) {

@@ -106,7 +106,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
    * Parse a nested tag with PageLexer.
    * The nested tag is added as an attribute to its parent element.
    */
-  private void parseNestedTag(CodeReader codeReader, TagNode element) {
+  private static void parseNestedTag(CodeReader codeReader, TagNode element) {
 
     PageLexer nestedPageLexer = new PageLexer();
     List<Node> nodeList = nestedPageLexer.nestedParse(codeReader);
@@ -160,7 +160,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     }
   }
 
-  private void handleBeforeAttributeName(CodeReader codeReader, TagNode element) {
+  private static void handleBeforeAttributeName(CodeReader codeReader, TagNode element) {
     Attribute attribute;
     StringBuilder sbQName = new StringBuilder();
     codeReader.popTo(endQNameMatcher, sbQName);
@@ -169,7 +169,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     element.getAttributes().add(attribute);
   }
 
-  private void handleBeforeNodeName(CodeReader codeReader, TagNode element) {
+  private static void handleBeforeNodeName(CodeReader codeReader, TagNode element) {
     StringBuilder sbNodeName = new StringBuilder();
     codeReader.popTo(endTokenMatcher, sbNodeName);
     element.setNodeName(sbNodeName.toString());
@@ -178,7 +178,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   /**
    * Unescape the quotes from the attribute value.
    */
-  private String unescapeQuotes(String value, char ch) {
+  private static String unescapeQuotes(String value, char ch) {
     return StringUtils.replace(value, "\\" + ch, Character.toString(ch));
   }
 
