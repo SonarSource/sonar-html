@@ -16,7 +16,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-  FileSuffixesTest.class
+  FileSuffixesTest.class,
+  StandardMeasuresTest.class,
+  VariousTest.class
 })
 public class WebTestSuite {
 
