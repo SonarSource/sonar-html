@@ -1,15 +1,10 @@
-Sonar Web
-=========
+SonarQube Web Plugin
+====================
 
 [![Build Status](https://api.travis-ci.org/SonarCommunity/sonar-web.png)](https://travis-ci.org/SonarCommunity/sonar-web)
 
-This is the SonarQube Web Plugin
-
 Project homepage:
-http://docs.codehaus.org/display/SONAR/Web+Plugin
+http://redirect.sonarsource.com/plugins/web.html
 
 Issue tracking:
-http://jira.codehaus.org/browse/SONARPLUGINS/component/14423
-
-CI builds:
-http://sonarplugins.ci.cloudbees.com/job/web
+http://jira.sonarsource.com/browse/SONARWEB

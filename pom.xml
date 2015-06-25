@@ -25,12 +25,8 @@
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
   <issueManagement>
     <system>JIRA</system>
-    <url>https://jira.codehaus.org/browse/SONARWEB</url>
+    <url>http://jira.sonarsource.com/browse/SONARWEB</url>
   </issueManagement>
-  <ciManagement>
-    <system>Cloudbees</system>
-    <url>http://sonarplugins.ci.cloudbees.com/job/web</url>
-  </ciManagement>
 
   <scm>
     <connection>scm:git:git@github.com:SonarCommunity/sonar-web.git</connection>
