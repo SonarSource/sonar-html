@@ -49,7 +49,7 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <configuration>
-            <argLine>-server -DxmlVersion="${xmlVersion}" -Dsonar.runtimeVersion="${sonar.runtimeVersion}" -Dorchestrator.configUrl="${orchestrator.configUrl}"</argLine>
+            <argLine>-server -DwebVersion="${webVersion}" -Dsonar.runtimeVersion="${sonar.runtimeVersion}" -Dorchestrator.configUrl="${orchestrator.configUrl}"</argLine>
             <includes>
               <include>**/WebTestSuite.java</include>
             </includes>
