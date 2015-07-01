@@ -37,7 +37,7 @@ public class JspScriptletCheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/jspScriptletCheck.html"), new JspScriptletCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Replace this scriptlet using tag libraries and expression language.")
       .next().atLine(8);
   }

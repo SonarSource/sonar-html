@@ -36,7 +36,7 @@ public class MetaRefreshCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MetaRefreshCheck.html"), new MetaRefreshCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Remove this meta refresh tag.")
         .next().atLine(2);
   }

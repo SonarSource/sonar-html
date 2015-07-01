@@ -36,7 +36,7 @@ public class FieldsetWithoutLegendCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FieldsetWithoutLegendCheck.html"), new FieldsetWithoutLegendCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Add a <legend> tag to this fieldset.");
   }
 

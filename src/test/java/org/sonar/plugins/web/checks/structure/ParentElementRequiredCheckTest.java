@@ -48,7 +48,7 @@ public class ParentElementRequiredCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ParentElementRequiredCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(6).withMessage("Add the missing \"foo\" parent element for \"bar\" element.")
         .next().atLine(17);
   }

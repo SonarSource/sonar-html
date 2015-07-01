@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "DynamicJspIncludeCheck",
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  name = "Dynamic includes should not be used")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.JSP_JSF

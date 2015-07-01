@@ -17,32 +17,32 @@
  */
 package org.sonar.plugins.web.visitor;
 
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Resource;
-import org.sonar.api.rules.Violation;
+import org.sonar.plugins.web.checks.WebIssue;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class WebSourceCode<E extends Resource> {
+public class WebSourceCode {
 
-  private final File file;
-  private final Resource<E> resource;
+  private final InputFile inputFile;
+  private final Resource resource;
   private final List<Measure> measures = new ArrayList<Measure>();
-  private final List<Violation> violations = new ArrayList<Violation>();
+  private final List<WebIssue> issues = new ArrayList<>();
   private Set<Integer> detailedLinesOfCode;
   private Set<Integer> detailedLinesOfComments;
 
-  public WebSourceCode(File file, Resource<E> resource) {
-    this.file = file;
+  public WebSourceCode(InputFile inputFile, Resource resource) {
+    this.inputFile = inputFile;
     this.resource = resource;
   }
 
-  public File getFile() {
-    return file;
+  public InputFile inputFile() {
+    return inputFile;
   }
 
   public void addMeasure(Metric metric, double value) {
@@ -50,8 +50,8 @@ public class WebSourceCode<E extends Resource> {
     this.measures.add(measure);
   }
 
-  public void addViolation(Violation violation) {
-    this.violations.add(violation);
+  public void addIssue(WebIssue issue) {
+    this.issues.add(issue);
   }
 
   public Measure getMeasure(Metric metric) {
@@ -67,12 +67,20 @@ public class WebSourceCode<E extends Resource> {
     return measures;
   }
 
-  public Resource<E> getResource() {
+  /**
+   * <p> /!\ Should not be used /!\ </p>
+   * Only {@link org.sonar.api.batch.fs.InputFile InputFile} should be used. It is necessary only for
+   * {@link org.sonar.api.issue.NoSonarFilter#addComponent(String fileKey, java.util.Set noSonarLines)}
+   * in {@link org.sonar.plugins.web.visitor.NoSonarScanner NoSonarScanner} because SonarQube API provides
+   * the corresponding method taking an inputFile as a parameter only from version 5.0.
+   *
+   */
+  public Resource getResource() {
     return resource;
   }
 
-  public List<Violation> getViolations() {
-    return violations;
+  public List<WebIssue> getIssues() {
+    return issues;
   }
 
   @Override
@@ -86,6 +94,14 @@ public class WebSourceCode<E extends Resource> {
 
   public void setDetailedLinesOfCode(Set<Integer> detailedLinesOfCode) {
     this.detailedLinesOfCode = detailedLinesOfCode;
+  }
+
+  public boolean isLineOfCode(int line) {
+    return detailedLinesOfCode.contains(line);
+  }
+
+  public boolean isLineOfComment(int line) {
+    return detailedLinesOfComments.contains(line);
   }
 
   public Set<Integer> getDetailedLinesOfComments() {

@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -28,11 +30,10 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
-import java.util.List;
-
 @Rule(
   key = "InternationalizationCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Labels should be defined in the resource bundle")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.JSP_JSF,
@@ -45,6 +46,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "attributes",
+    description = "Attributes",
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 

@@ -36,7 +36,7 @@ public class TableWithoutCaptionCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableWithoutCaptionCheck.html"), new TableWithoutCaptionCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a <caption> tag to this table.");
   }
 

@@ -34,7 +34,7 @@ public class PasswordAutocompleteCheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PasswordAutocompleteCheck.html"), new PasswordAutocompleteCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Set the \"autocomplete\" attribute of this password input to \"off\".")
       .next().atLine(2);
   }

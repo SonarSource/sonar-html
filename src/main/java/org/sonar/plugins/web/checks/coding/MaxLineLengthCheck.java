@@ -17,7 +17,11 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import com.google.common.io.Files;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -28,14 +32,12 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
+import com.google.common.io.Files;
 
 @Rule(
   key = "MaxLineLengthCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Lines should not be too long")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION
@@ -46,6 +48,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
 
   @RuleProperty(
     key = "maxLength",
+    description = "The maximum authorized line length",
     defaultValue = "" + DEFAULT_MAX_LINE_LENGTH)
   public int maxLength = DEFAULT_MAX_LINE_LENGTH;
 
@@ -58,8 +61,8 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
 
   @Override
   public void startDocument(List<Node> nodes) {
-    File file = getWebSourceCode().getFile();
-    List<String> lines = readLines(file);
+    List<String> lines = readLines(getWebSourceCode().inputFile().file());
+
     for (int i = 0; i < lines.size(); i++) {
       int length = lines.get(i).length();
       if (length > maxLength) {

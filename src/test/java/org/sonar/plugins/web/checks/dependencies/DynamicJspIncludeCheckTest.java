@@ -34,7 +34,7 @@ public class DynamicJspIncludeCheckTest {
   public void test() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DynamicJspIncludeCheck.jsp"), new DynamicJspIncludeCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Use an include action instead of an include directive.");
   }
 

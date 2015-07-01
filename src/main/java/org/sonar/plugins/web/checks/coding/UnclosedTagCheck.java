@@ -17,6 +17,9 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -26,12 +29,10 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Rule(
   key = "UnclosedTagCheck",
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  name = "All HTML tags should be closed")
 @WebRule(activeByDefault = false)
 public class UnclosedTagCheck extends AbstractPageCheck {
 
@@ -40,6 +41,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "ignoreTags",
+    description = "Ignore Tags",
     defaultValue = DEFAULT_IGNORE_TAGS)
   public String ignoreTags = DEFAULT_IGNORE_TAGS;
 

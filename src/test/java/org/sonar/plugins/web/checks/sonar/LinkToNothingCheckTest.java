@@ -36,7 +36,7 @@ public class LinkToNothingCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkToNothingCheck.html"), new LinkToNothingCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(3).withMessage("Give this link a valid reference or remove the reference.")
         .next().atLine(4)
         .next().atLine(5)

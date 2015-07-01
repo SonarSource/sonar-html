@@ -36,7 +36,7 @@ public class FlashUsesBothObjectAndEmbedCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FlashUsesBothObjectAndEmbedCheck.html"), new FlashUsesBothObjectAndEmbedCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add an <embed> tag within this <object> one.")
         .next().atLine(5)
         .next().atLine(9)

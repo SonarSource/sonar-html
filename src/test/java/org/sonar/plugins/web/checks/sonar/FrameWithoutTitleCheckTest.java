@@ -36,7 +36,7 @@ public class FrameWithoutTitleCheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FrameWithoutTitleCheck.html"), new FrameWithoutTitleCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a \"title\" attribute to this <iframe> tag.")
         .next().atLine(2).withMessage("Add a \"title\" attribute to this <fRamE> tag.");
   }

@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "LinkToNothingCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Links should not target \"#\" or \"javascript:void(0)\"")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.USER_EXPERIENCE

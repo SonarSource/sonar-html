@@ -28,7 +28,8 @@ import org.sonar.plugins.web.node.TextNode;
 
 @Rule(
   key = "LongJavaScriptCheck",
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  name = "Javascript scriptlets should not have too many lines of code")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.BRAIN_OVERLOADED
@@ -39,6 +40,7 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "maxLines",
+    description = "Max Lines (Number)",
     defaultValue = "" + DEFAULT_MAX_LINES)
   public int maxLines = DEFAULT_MAX_LINES;
 

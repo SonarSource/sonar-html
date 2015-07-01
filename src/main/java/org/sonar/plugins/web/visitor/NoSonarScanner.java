@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import org.sonar.api.checks.NoSonarFilter;
+import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
@@ -44,7 +44,7 @@ public class NoSonarScanner extends DefaultNodeVisitor {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    noSonarLines = new HashSet<Integer>();
+    noSonarLines = new HashSet<>();
   }
 
   @Override
@@ -64,7 +64,7 @@ public class NoSonarScanner extends DefaultNodeVisitor {
   @Override
   public void endDocument() {
     if (noSonarLines != null && !noSonarLines.isEmpty()) {
-      noSonarFilter.addResource(getWebSourceCode().getResource(), noSonarLines);
+      noSonarFilter.addComponent(getWebSourceCode().getResource().getKey(), noSonarLines);
     }
   }
 

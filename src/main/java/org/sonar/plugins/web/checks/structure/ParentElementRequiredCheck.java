@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
-import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -28,7 +27,7 @@ import org.sonar.plugins.web.node.TagNode;
 @Rule(
   key = "ParentElementRequiredCheck",
   priority = Priority.MAJOR,
-  cardinality = Cardinality.MULTIPLE)
+  name = "Parent elements should be used")
 @WebRule(activeByDefault = false)
 public class ParentElementRequiredCheck extends AbstractPageCheck {
 
@@ -37,11 +36,13 @@ public class ParentElementRequiredCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "child",
+    description = "Name of the child element",
     defaultValue = DEFAULT_CHILD)
   public String child = DEFAULT_CHILD;
 
   @RuleProperty(
     key = "parent",
+    description = "Name of the required parent element",
     defaultValue = DEFAULT_PARENT)
   public String parent = DEFAULT_PARENT;
 

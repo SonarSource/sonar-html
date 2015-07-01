@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
-import org.sonar.check.Cardinality;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -33,7 +32,7 @@ import org.sonar.plugins.web.node.TagNode;
 @Rule(
   key = "ChildElementIllegalCheck",
   priority = Priority.MAJOR,
-  cardinality = Cardinality.MULTIPLE)
+  name = "Disallowed child elements should not be used")
 @WebRule(activeByDefault = false)
 public class ChildElementIllegalCheck extends AbstractPageCheck {
 
@@ -42,11 +41,13 @@ public class ChildElementIllegalCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "child",
+    description = "Name of the child element",
     defaultValue = DEFAULT_CHILD)
   public String child = DEFAULT_CHILD;
 
   @RuleProperty(
     key = "parent",
+    description = "Name of the parent element",
     defaultValue = DEFAULT_PARENT)
   public String parent = DEFAULT_PARENT;
 

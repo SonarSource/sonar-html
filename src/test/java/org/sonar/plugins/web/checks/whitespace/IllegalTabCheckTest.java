@@ -34,7 +34,7 @@ public class IllegalTabCheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalTabCheck.html"), new IllegalTabCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Replace all tab characters in this file by sequences of white-spaces.");
   }
 

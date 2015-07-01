@@ -17,7 +17,8 @@
  */
 package org.sonar.plugins.web;
 
-import com.google.common.collect.ImmutableList;
+import java.util.List;
+
 import org.sonar.api.SonarPlugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
@@ -25,12 +26,11 @@ import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.core.Web;
 import org.sonar.plugins.web.core.WebCodeColorizerFormat;
 import org.sonar.plugins.web.core.WebSensor;
-import org.sonar.plugins.web.core.WebSourceImporter;
 import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.rules.SonarWayProfile;
-import org.sonar.plugins.web.rules.WebRulesRepository;
+import org.sonar.plugins.web.rules.WebRulesDefinition;
 
-import java.util.List;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Web Plugin publishes extensions to sonar engine.
@@ -48,11 +48,9 @@ public final class WebPlugin extends SonarPlugin {
 
     // web language
     builder.add(Web.class);
-    // web files importer
-    builder.add(WebSourceImporter.class);
 
     // web rules repository
-    builder.add(WebRulesRepository.class);
+    builder.add(WebRulesDefinition.class);
 
     // profiles
     builder.add(SonarWayProfile.class);

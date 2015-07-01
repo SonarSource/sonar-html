@@ -31,7 +31,10 @@ import java.util.List;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "MultiplePageDirectivesCheck", priority = Priority.MINOR)
+@Rule(
+  key = "MultiplePageDirectivesCheck",
+  priority = Priority.MINOR,
+name = "Multiple \"page\" directives should not be used")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION,

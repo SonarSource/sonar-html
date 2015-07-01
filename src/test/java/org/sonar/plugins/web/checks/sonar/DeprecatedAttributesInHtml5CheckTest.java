@@ -35,7 +35,7 @@ public class DeprecatedAttributesInHtml5CheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/deprecatedAttributesInHtml5.html"), new DeprecatedAttributesInHtml5Check());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Remove this deprecated \"CHARSET\" attribute.")
       .next().atLine(3).withMessage("Remove this deprecated \"COORDS\" attribute.")
       .next().atLine(3).withMessage("Remove this deprecated \"NAME\" attribute.")

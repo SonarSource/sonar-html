@@ -34,7 +34,7 @@ public class AbsoluteURICheckTest {
   public void detected() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/absoluteURICheck.html"), new AbsoluteURICheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Replace this absolute URI \"href\" with a relative one, or move this absolute URI to a configuration file.")
       .next().atLine(4).withMessage("Replace this absolute URI \"href\" with a relative one, or move this absolute URI to a configuration file.")
       .next().atLine(7).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.")
@@ -48,7 +48,7 @@ public class AbsoluteURICheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/absoluteURICheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(7).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.")
       .next().atLine(8).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.");
   }

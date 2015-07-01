@@ -26,12 +26,15 @@ import org.sonar.plugins.web.node.TagNode;
 /**
  * Checker for occurrence of inline style.
  *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/ paragraph Cascading Style Sheets
+ * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/paragraphCascading Style Sheets
  *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "InlineStyleCheck", priority = Priority.MINOR)
+@Rule(
+  key = "InlineStyleCheck",
+  priority = Priority.MINOR,
+  name = "The \"style\" attribute should not be used")
 @WebRule(activeByDefault = false)
 public class InlineStyleCheck extends AbstractPageCheck {
 

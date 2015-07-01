@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "TableWithoutCaptionCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+ name = "\"table\" tags should contain a \"caption\"")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY

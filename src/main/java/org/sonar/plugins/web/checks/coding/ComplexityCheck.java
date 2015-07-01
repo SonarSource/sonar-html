@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
+import java.util.List;
+
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -26,11 +28,10 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 
-import java.util.List;
-
 @Rule(
   key = "ComplexityCheck",
-  priority = Priority.MINOR)
+  priority = Priority.MINOR,
+  name = "Files should not be too complex")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.BRAIN_OVERLOADED
@@ -41,6 +42,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "max",
+    description = "Maximum allowed complexity",
     defaultValue = "" + DEFAULT_MAX_COMPLEXITY)
   public int max = DEFAULT_MAX_COMPLEXITY;
 

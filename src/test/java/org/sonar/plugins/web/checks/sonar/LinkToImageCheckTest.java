@@ -36,7 +36,7 @@ public class LinkToImageCheckTest {
   public void test() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkToImageCheck.html"), new LinkToImageCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(3).withMessage("Change this link to not directly target an image.")
         .next().atLine(4)
         .next().atLine(5)

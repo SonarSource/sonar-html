@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "ImgWithoutWidthOrHeightCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Images tags and buttons should always have a \"width\" and a \"height\" attribute")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.USER_EXPERIENCE

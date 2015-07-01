@@ -36,7 +36,7 @@ public class ImgWithoutWidthOrHeightCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutWidthOrHeightCheck.html"), new ImgWithoutWidthOrHeightCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add both a 'width' and a 'height' attribute to this image.")
         .next().atLine(2)
         .next().atLine(3)

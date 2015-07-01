@@ -36,7 +36,7 @@ public class PageWithoutTitleCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutTitleCheck.html"), new PageWithoutTitleCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a <title> tag to this page.")
         .next().atLine(5)
         .next().atLine(15)

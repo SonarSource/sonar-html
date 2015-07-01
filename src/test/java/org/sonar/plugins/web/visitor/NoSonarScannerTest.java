@@ -17,24 +17,26 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import com.google.common.base.Charsets;
-import org.junit.Test;
-import org.sonar.api.checks.NoSonarFilter;
-import org.sonar.api.resources.Directory;
-import org.sonar.api.resources.File;
-import org.sonar.api.resources.Resource;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.Violation;
-import org.sonar.plugins.web.lex.PageLexer;
-import org.sonar.plugins.web.node.Node;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import org.junit.Test;
+import org.mockito.ArgumentMatcher;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.issue.NoSonarFilter;
+import org.sonar.api.resources.File;
+import org.sonar.plugins.web.lex.PageLexer;
+import org.sonar.plugins.web.node.Node;
+
+import com.google.common.base.Charsets;
 
 /**
  * @author Matthijs Galesloot
@@ -43,28 +45,27 @@ public class NoSonarScannerTest {
 
   @Test
   public void scanNoSonar() {
-    String fragment = "<table>\n<!-- //NOSONAR --><td>\n</table>";
+    List<Node> nodeList = new PageLexer().parse(new StringReader("<table>\n<!-- //NOSONAR --><td>\n</table>"));
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("dummy.jsp"), File.create("dummy.jsp"));
 
-    StringReader reader = new StringReader(fragment);
-    PageLexer lexer = new PageLexer();
-    List<Node> nodeList = lexer.parse(reader);
-    Resource<Directory> resource = new File("test");
-    WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), resource);
-
-    NoSonarFilter noSonarFilter = new NoSonarFilter();
-    NoSonarScanner noSonarScanner = new NoSonarScanner(noSonarFilter);
+    NoSonarFilter noSonarFilter = spy(new NoSonarFilter());
     HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.EMPTY_LIST);
-    pageScanner.addVisitor(noSonarScanner);
+    pageScanner.addVisitor(new NoSonarScanner(noSonarFilter));
+
     pageScanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
-    Rule rule = Rule.create("Web", "test", "test");
-    Violation violation = Violation.create(rule, resource);
+    verify(noSonarFilter, times(1)).addComponent(any(String.class), isOnlyIgnoringLine2());
+  }
 
-    violation.setLineId(1);
-    assertFalse(noSonarFilter.isIgnored(violation));
-    violation.setLineId(2);
-    assertTrue(noSonarFilter.isIgnored(violation));
-    violation.setLineId(3);
-    assertFalse(noSonarFilter.isIgnored(violation));
+  private Set isOnlyIgnoringLine2() {
+    return argThat(new IsOnlyIgnoringLine2());
+  }
+
+  class IsOnlyIgnoringLine2 extends ArgumentMatcher<Set> {
+
+    public boolean matches(Object set) {
+      Set<Integer> lines = (Set) set;
+      return lines.size() == 1 && lines.contains(2);
+    }
   }
 }

@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import java.util.List;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -25,11 +27,10 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
-
 @Rule(
   key = "FlashUsesBothObjectAndEmbedCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Flash animations should be embedded using both the \"object\" and \"embed\" tags")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.CROSS_BROWSER

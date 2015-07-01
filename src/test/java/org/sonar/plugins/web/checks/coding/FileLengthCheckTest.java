@@ -45,7 +45,7 @@ public class FileLengthCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(null).withMessage("Current file has 4 lines, which is greater than 3 authorized. Split it into smaller files.");
   }
 
@@ -56,7 +56,7 @@ public class FileLengthCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
 }

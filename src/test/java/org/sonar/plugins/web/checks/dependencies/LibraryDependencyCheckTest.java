@@ -48,7 +48,7 @@ public class LibraryDependencyCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Remove the usage of this library which is not allowed.");
   }
 
@@ -60,7 +60,7 @@ public class LibraryDependencyCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Foo.");
   }
 
@@ -71,7 +71,7 @@ public class LibraryDependencyCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalImport.jsp"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Remove the usage of this library which is not allowed.");
   }
 
@@ -82,7 +82,7 @@ public class LibraryDependencyCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/LegalFullyQualifiedIdentifierAndImport.jsp"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
@@ -92,7 +92,7 @@ public class LibraryDependencyCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/HtmlPage.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
 }

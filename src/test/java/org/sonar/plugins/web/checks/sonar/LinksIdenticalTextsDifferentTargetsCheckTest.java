@@ -36,7 +36,7 @@ public class LinksIdenticalTextsDifferentTargetsCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinksIdenticalTextsDifferentTargetsCheck.html"), new LinksIdenticalTextsDifferentTargetsCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(5)
         .next().atLine(8)
         .next().atLine(11)

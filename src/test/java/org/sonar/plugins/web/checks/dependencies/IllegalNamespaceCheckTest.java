@@ -44,7 +44,7 @@ public class IllegalNamespaceCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalNamespaceCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Using \"baz\" namespace is not allowed.")
       .next().atLine(1).withMessage("Using \"foo\" namespace is not allowed.")
       .next().atLine(6).withMessage("Using \"foo\" namespace is not allowed.");

@@ -17,9 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
+import java.util.Locale;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -27,13 +29,14 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
-import javax.annotation.Nullable;
-import java.util.Locale;
-import java.util.Set;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 
 @Rule(
   key = "LinkToImageCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Links should not directly target images")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.ACCESSIBILITY,

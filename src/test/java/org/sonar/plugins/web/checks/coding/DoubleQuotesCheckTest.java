@@ -37,7 +37,7 @@ public class DoubleQuotesCheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/doubleQuotesCheck.html"), new DoubleQuotesCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Use double quotes instead of single ones.");
   }
 

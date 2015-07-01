@@ -38,7 +38,7 @@ public class HeaderCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
@@ -48,7 +48,7 @@ public class HeaderCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MissingHeader.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(null).withMessage("Add or update the header of this file.");
   }
 
@@ -59,7 +59,7 @@ public class HeaderCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MisspelledHeader.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(null).withMessage("Add or update the header of this file.");
   }
 

@@ -17,28 +17,43 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.fest.assertions.Assertions;
-import org.junit.Test;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.web.AbstractWebPluginTester;
-import org.sonar.plugins.web.api.WebConstants;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public class SonarWayProfileTest extends AbstractWebPluginTester {
+import org.fest.assertions.Assertions;
+import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.sonar.api.profiles.RulesProfile;
+import org.sonar.api.rules.Rule;
+import org.sonar.api.rules.RuleFinder;
+import org.sonar.api.utils.ValidationMessages;
+import org.sonar.plugins.web.api.WebConstants;
+
+public class SonarWayProfileTest {
 
   @Test
   public void test() {
     ValidationMessages validationMessages = ValidationMessages.create();
-    RulesProfile profile = new SonarWayProfile(newRuleFinder()).createProfile(validationMessages);
+    RulesProfile profile = new SonarWayProfile(ruleFinder()).createProfile(validationMessages);
 
     Assertions.assertThat(profile.getName()).isEqualTo("Sonar way");
     Assertions.assertThat(profile.getLanguage()).isEqualTo(WebConstants.LANGUAGE_KEY);
-    Assertions.assertThat(profile.getActiveRules()).onProperty("repositoryKey").containsOnly(WebRulesRepository.REPOSITORY_KEY);
+    Assertions.assertThat(profile.getActiveRules()).onProperty("repositoryKey").containsOnly(WebRulesDefinition.REPOSITORY_KEY);
     Assertions.assertThat(profile.getActiveRules().size()).isEqualTo(14);
     assertThat(validationMessages.hasErrors(), is(false));
   }
 
+  static RuleFinder ruleFinder() {
+    return when(mock(RuleFinder.class).findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
+      @Override
+      public Rule answer(InvocationOnMock invocation) {
+        Object[] arguments = invocation.getArguments();
+        return Rule.create((String) arguments[0], (String) arguments[1], (String) arguments[1]);
+      }
+    }).getMock();
+  }
 }

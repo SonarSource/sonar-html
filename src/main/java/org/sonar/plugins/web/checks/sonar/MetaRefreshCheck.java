@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "MetaRefreshCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Meta tags should not be used to refresh the page nor for redirection")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.USER_EXPERIENCE

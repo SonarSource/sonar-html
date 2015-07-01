@@ -15,26 +15,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.core;
+package org.sonar.plugins.web.core.helpers;
 
-import org.sonar.plugins.web.AbstractWebPluginTester;
+import java.util.List;
 
-import org.sonar.plugins.web.core.WebSourceImporter;
+import org.sonar.api.component.Component;
+import org.sonar.api.issue.Issuable;
+import org.sonar.api.issue.Issue;
 
-import org.sonar.plugins.web.core.Web;
+public class IssuableMock implements Issuable {
 
-import org.junit.Test;
-import org.sonar.api.config.Settings;
+  @Override
+  public IssueBuilder newIssueBuilder() {
+    return new IssueBuilderMock();
+  }
 
-import static org.fest.assertions.Assertions.assertThat;
+  @Override
+  public boolean addIssue(Issue issue) {
+    // Do nothing
+    return true;
+  }
 
-/**
- * @author Matthijs Galesloot
- */
-public class WebSourceImporterTest extends AbstractWebPluginTester {
+  @Override
+  public List<Issue> issues() {
+    return null;
+  }
 
-  @Test
-  public void testToString() throws Exception {
-    assertThat(new WebSourceImporter(new Web(new Settings())).toString()).isEqualTo("Web Source Importer");
+  @Override
+  public List<Issue> resolvedIssues() {
+    return null;
+  }
+
+  @Override
+  public Component component() {
+    return null;
   }
 }

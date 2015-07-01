@@ -34,7 +34,7 @@ public class InputWithoutLabelCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InputWithoutLabelCheck.html"), new InputWithoutLabelCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(6).withMessage("Associate a valid label to this input field.")
       .next().atLine(19)
       .next().atLine(23).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")

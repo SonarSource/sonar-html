@@ -34,7 +34,7 @@ public class ElementWithGivenIdPresentCheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ok.html"), new ElementWithGivenIdPresentCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
@@ -44,7 +44,7 @@ public class ElementWithGivenIdPresentCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ko.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().withMessage("The ID \"gotit\" is missing from this page and should be added.");
   }
 
@@ -55,7 +55,7 @@ public class ElementWithGivenIdPresentCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ok.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
 }

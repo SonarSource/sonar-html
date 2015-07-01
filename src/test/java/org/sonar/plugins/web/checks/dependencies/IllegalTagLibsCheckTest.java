@@ -34,7 +34,7 @@ public class IllegalTagLibsCheckTest {
   public void test() {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/illegalTagLibsCheck.jsp"), new IllegalTagLibsCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Remove the use of \"http://java.sun.com/jstl/sql\".")
       .next().atLine(3)
       .next().atLine(5);

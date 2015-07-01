@@ -17,62 +17,65 @@
  */
 package org.sonar.plugins.web.core;
 
-import com.google.common.collect.ImmutableList;
+import java.io.FileReader;
+
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
-import org.sonar.api.checks.AnnotationCheckFactory;
-import org.sonar.api.checks.NoSonarFilter;
+import org.sonar.api.batch.fs.FilePredicate;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.rule.CheckFactory;
+import org.sonar.api.batch.rule.Checks;
+import org.sonar.api.component.ResourcePerspectives;
+import org.sonar.api.issue.Issuable;
+import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.PersistenceMode;
 import org.sonar.api.measures.RangeDistributionBuilder;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
-import org.sonar.api.rules.Violation;
-import org.sonar.api.scan.filesystem.FileQuery;
-import org.sonar.api.scan.filesystem.ModuleFileSystem;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.WebIssue;
 import org.sonar.plugins.web.lex.PageLexer;
-import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.rules.CheckClasses;
-import org.sonar.plugins.web.rules.WebRulesRepository;
+import org.sonar.plugins.web.rules.WebRulesDefinition;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.FileReader;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import com.google.common.collect.ImmutableList;
 
 public final class WebSensor implements Sensor {
 
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
-  private final Web web;
   private final NoSonarFilter noSonarFilter;
-  private final AnnotationCheckFactory annotationCheckFactory;
-  private final ModuleFileSystem fileSystem;
+  private final ResourcePerspectives resourcePerspectives;
+  private final Checks<Object> checks;
+  private final FileSystem fileSystem;
   private final FileLinesContextFactory fileLinesContextFactory;
+  private final FilePredicate mainFilesPredicate;
 
-  public WebSensor(Web web, RulesProfile profile, NoSonarFilter noSonarFilter, ModuleFileSystem fileSystem, FileLinesContextFactory fileLinesContextFactory) {
-    this.web = web;
+  public WebSensor(NoSonarFilter noSonarFilter, FileSystem fileSystem, FileLinesContextFactory fileLinesContextFactory,
+    CheckFactory checkFactory, ResourcePerspectives resourcePerspectives) {
+
     this.noSonarFilter = noSonarFilter;
-    this.annotationCheckFactory = AnnotationCheckFactory.create(profile, WebRulesRepository.REPOSITORY_KEY, CheckClasses.getCheckClasses());
+    this.resourcePerspectives = resourcePerspectives;
+    this.checks = checkFactory.create(WebRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks(CheckClasses.getCheckClasses());
     this.fileSystem = fileSystem;
     this.fileLinesContextFactory = fileLinesContextFactory;
-
+    this.mainFilesPredicate = fileSystem.predicates().and(
+      fileSystem.predicates().hasType(InputFile.Type.MAIN),
+      fileSystem.predicates().hasLanguage(WebConstants.LANGUAGE_KEY));
   }
 
   @Override
@@ -83,34 +86,42 @@ public final class WebSensor implements Sensor {
     // configure page scanner and the visitors
     final HtmlAstScanner scanner = setupScanner();
 
-    for (java.io.File file : fileSystem.files(FileQuery.onSource().onLanguage(WebConstants.LANGUAGE_KEY))) {
-      File resource = File.fromIOFile(file, project);
-      WebSourceCode sourceCode = new WebSourceCode(file, resource);
+    for (InputFile inputFile : fileSystem.inputFiles(mainFilesPredicate)) {
+      WebSourceCode sourceCode = new WebSourceCode(inputFile, sensorContext.getResource(inputFile));
       FileReader reader = null;
+
       try {
-        reader = new FileReader(file);
-        List<Node> nodeList = lexer.parse(reader);
-        scanner.scan(nodeList, sourceCode, fileSystem.sourceCharset());
+        reader = new FileReader(inputFile.file());
+        scanner.scan(lexer.parse(reader), sourceCode, fileSystem.encoding());
         saveMetrics(sensorContext, sourceCode);
-        saveLineLevelMeasures(resource, sourceCode);
+        saveLineLevelMeasures(inputFile, sourceCode);
+
       } catch (Exception e) {
-        LOG.error("Can not analyze file " + file.getAbsolutePath(), e);
+        LOG.error("Cannot analyze file " + inputFile.file().getAbsolutePath(), e);
+        e.printStackTrace();
+
       } finally {
         IOUtils.closeQuietly(reader);
       }
     }
   }
 
-  private static void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
+  private void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
     saveComplexityDistribution(sensorContext, sourceCode);
-    List<Measure> measures = sourceCode.getMeasures();
-    for (Measure measure : measures) {
-      sensorContext.saveMeasure(sourceCode.getResource(), measure);
+
+    for (Measure measure : sourceCode.getMeasures()) {
+      sensorContext.saveMeasure(sourceCode.inputFile(), measure);
     }
 
-    List<Violation> violations = sourceCode.getViolations();
-    for (Violation violation : violations) {
-      sensorContext.saveViolation(violation);
+    for (WebIssue issue : sourceCode.getIssues()) {
+      Issuable issuable = resourcePerspectives.as(Issuable.class, sourceCode.inputFile());
+
+      issuable.addIssue(
+        issuable.newIssueBuilder()
+          .ruleKey(issue.ruleKey())
+          .line(issue.line())
+          .message(issue.message())
+          .build());
     }
   }
 
@@ -119,19 +130,18 @@ public final class WebSensor implements Sensor {
       RangeDistributionBuilder complexityFileDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION,
         FILES_DISTRIB_BOTTOM_LIMITS);
       complexityFileDistribution.add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getValue());
-      sensorContext.saveMeasure(sourceCode.getResource(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+      sensorContext.saveMeasure(sourceCode.inputFile(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
     }
   }
 
-  private void saveLineLevelMeasures(File sonarFile, WebSourceCode webSourceCode) {
-    FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(sonarFile);
-    Set<Integer> linesOfCode = webSourceCode.getDetailedLinesOfCode();
-    Set<Integer> linesOfComments = webSourceCode.getDetailedLinesOfComments();
+  private void saveLineLevelMeasures(InputFile inputFile, WebSourceCode webSourceCode) {
+    FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(inputFile);
 
     for (int line = 1; line <= webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue(); line++) {
-      fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, linesOfCode.contains(line) ? 1 : 0);
-      fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, linesOfComments.contains(line) ? 1 : 0);
+      fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, webSourceCode.isLineOfCode(line) ? 1 : 0);
+      fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, webSourceCode.isLineOfComment(line) ? 1 : 0);
     }
+
     fileLinesContext.save();
   }
 
@@ -139,10 +149,14 @@ public final class WebSensor implements Sensor {
    * Create PageScanner with Visitors.
    */
   private HtmlAstScanner setupScanner() {
-    HtmlAstScanner scanner = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor(), new NoSonarScanner(noSonarFilter)));
-    for (AbstractPageCheck check : (Collection<AbstractPageCheck>) annotationCheckFactory.getChecks()) {
-      scanner.addVisitor(check);
-      check.setRule(annotationCheckFactory.getActiveRule(check).getRule());
+    HtmlAstScanner scanner = new HtmlAstScanner(ImmutableList.of(
+      new PageCountLines(),
+      new ComplexityVisitor(),
+      new NoSonarScanner(noSonarFilter)));
+
+    for (Object check : checks.all()) {
+      ((AbstractPageCheck) check).setRuleKey(checks.ruleKey(check));
+      scanner.addVisitor((AbstractPageCheck) check);
     }
     return scanner;
   }
@@ -152,9 +166,7 @@ public final class WebSensor implements Sensor {
    */
   @Override
   public boolean shouldExecuteOnProject(Project project) {
-    return WebConstants.LANGUAGE_KEY.equals(project.getLanguageKey()) ||
-      (StringUtils.isBlank(project.getLanguageKey()) &&
-      !fileSystem.files(FileQuery.onSource().onLanguage(WebConstants.LANGUAGE_KEY)).isEmpty());
+    return fileSystem.hasFiles(mainFilesPredicate);
   }
 
   @Override

@@ -17,9 +17,10 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -27,13 +28,14 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 
 @Rule(
   key = "S1827",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Attributes deprecated in HTML5 should not be used")
 @WebRule(activeByDefault = true)
 public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
 

@@ -48,29 +48,29 @@ import static org.junit.Assert.assertThat;
  */
 public final class CheckMessagesVerifier {
 
-  public static CheckMessagesVerifier verify(Collection<Violation> messages) {
+  public static CheckMessagesVerifier verify(Collection<WebIssue> messages) {
     return new CheckMessagesVerifier(messages);
   }
 
-  private final Iterator<Violation> iterator;
-  private Violation current;
+  private final Iterator<WebIssue> iterator;
+  private WebIssue current;
 
-  private static final Comparator<Violation> ORDERING = new Comparator<Violation>() {
+  private static final Comparator<WebIssue> ORDERING = new Comparator<WebIssue>() {
     @Override
-    public int compare(Violation left, Violation right) {
-      if (Objects.equal(left.getLineId(), right.getLineId())) {
-        return left.getMessage().compareTo(right.getMessage());
-      } else if (left.getLineId() == null) {
+    public int compare(WebIssue left, WebIssue right) {
+      if (Objects.equal(left.line(), right.line())) {
+        return left.message().compareTo(right.message());
+      } else if (left.line() == null) {
         return -1;
-      } else if (right.getLineId() == null) {
+      } else if (right.line() == null) {
         return 1;
       } else {
-        return left.getLineId().compareTo(right.getLineId());
+        return left.line().compareTo(right.line());
       }
     }
   };
 
-  private CheckMessagesVerifier(Collection<Violation> messages) {
+  private CheckMessagesVerifier(Collection<WebIssue> messages) {
     iterator = Ordering.from(ORDERING).sortedCopy(messages).iterator();
   }
 
@@ -84,8 +84,8 @@ public final class CheckMessagesVerifier {
 
   public void noMore() {
     if (iterator.hasNext()) {
-      Violation next = iterator.next();
-      throw new AssertionError("\nNo more violations expected\ngot: at line " + next.getLineId());
+      WebIssue next = iterator.next();
+      throw new AssertionError("\nNo more violations expected\ngot: at line " + next.line());
     }
   }
 
@@ -97,38 +97,17 @@ public final class CheckMessagesVerifier {
 
   public CheckMessagesVerifier atLine(@Nullable Integer expectedLine) {
     checkStateOfCurrent();
-    if (!Objects.equal(expectedLine, current.getLineId())) {
-      throw new AssertionError("\nExpected: " + expectedLine + "\ngot: " + current.getLineId());
+    if (!Objects.equal(expectedLine, current.line())) {
+      throw new AssertionError("\nExpected: " + expectedLine + "\ngot: " + current.line());
     }
     return this;
   }
 
   public CheckMessagesVerifier withMessage(String expectedMessage) {
     checkStateOfCurrent();
-    String actual = current.getMessage();
+    String actual = current.message();
     if (!actual.equals(expectedMessage)) {
       throw new AssertionError("\nExpected: \"" + expectedMessage + "\"\ngot: \"" + actual + "\"");
-    }
-    return this;
-  }
-
-  /**
-   * Note that this method requires JUnit and Hamcrest.
-   */
-  public CheckMessagesVerifier withMessageThat(Matcher<String> matcher) {
-    checkStateOfCurrent();
-    String actual = current.getMessage();
-    assertThat(actual, matcher);
-    return this;
-  }
-
-  /**
-   * @since sslr-squid-bridge 2.3
-   */
-  public CheckMessagesVerifier withCost(Double expectedCost) {
-    checkStateOfCurrent();
-    if (!Objects.equal(expectedCost, current.getCost())) {
-      throw new AssertionError("\nExpected: " + expectedCost + "\ngot: " + current.getCost());
     }
     return this;
   }

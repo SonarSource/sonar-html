@@ -31,7 +31,10 @@ import org.sonar.plugins.web.node.Node;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "WhiteSpaceAroundCheck", priority = Priority.MINOR)
+@Rule(
+  key = "WhiteSpaceAroundCheck",
+  priority = Priority.MINOR,
+  name = "White space should be used in JSP/JSF tags")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION,

@@ -15,31 +15,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.core;
+package org.sonar.plugins.web.checks;
 
+import org.sonar.api.rule.RuleKey;
 
-import org.sonar.api.batch.AbstractSourceImporter;
-import org.sonar.api.batch.Phase;
+public class WebIssue {
 
-/**
- * Import of source files to sonar database.
- */
-@Phase(name = Phase.Name.PRE)
-public final class WebSourceImporter extends AbstractSourceImporter {
+  private RuleKey ruleKey;
+  private Integer line;
+  private String message;
 
-  /**
-   * Instantiates a new php source importer.
-   */
-  public WebSourceImporter(Web web) {
-    super(web);
+  public WebIssue(RuleKey ruleKey, Integer line, String message) {
+    this.ruleKey = ruleKey;
+    this.line = line;
+    this.message = message;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  public RuleKey ruleKey() {
+    return ruleKey;
+  }
+
+  public Integer line() {
+    return line;
+  }
+
+  public String message() {
+    return message;
+  }
+
   @Override
   public String toString() {
-    return "Web Source Importer";
+    return "WebIssue{" +
+      "ruleKey=" + ruleKey +
+      ", line=" + line +
+      ", message='" + message + '\'' +
+      '}';
   }
 
 }

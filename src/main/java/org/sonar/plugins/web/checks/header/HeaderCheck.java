@@ -17,8 +17,10 @@
  */
 package org.sonar.plugins.web.checks.header;
 
-import com.google.common.io.Files;
-import com.google.common.io.LineProcessor;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,13 +31,13 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
+import com.google.common.io.Files;
+import com.google.common.io.LineProcessor;
 
 @Rule(
   key = "HeaderCheck",
-  priority = Priority.BLOCKER)
+  priority = Priority.BLOCKER,
+  name = "Files should have a header comment")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION
@@ -48,6 +50,7 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
   @RuleProperty(
     key = "headerFormat",
     type = "TEXT",
+    description = "Expected copyright and license header (plain text)",
     defaultValue = DEFAULT_HEADER_FORMAT)
   public String headerFormat = DEFAULT_HEADER_FORMAT;
 
@@ -101,7 +104,7 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
   public void startDocument(List<Node> nodes) {
     LineProcessor<Boolean> processor = new HeaderLinesProcessor(expectedLines);
     try {
-      Files.readLines(getWebSourceCode().getFile(), charset, processor);
+      Files.readLines(getWebSourceCode().inputFile().file(), charset, processor);
     } catch (IOException e) {
       throw new SonarException(e);
     }

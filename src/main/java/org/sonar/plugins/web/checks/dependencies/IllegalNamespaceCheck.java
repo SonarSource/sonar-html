@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -27,11 +29,10 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
-
 @Rule(
   key = "IllegalNamespaceCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Disallowed namespaces should not be used in XHTML documents")
 @WebRule(activeByDefault = false)
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 
@@ -39,6 +40,7 @@ public class IllegalNamespaceCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "namespaces",
+    description = "Comma separated list of namespaces",
     defaultValue = DEFAULT_NAMESPACES)
   public String namespaces = DEFAULT_NAMESPACES;
 

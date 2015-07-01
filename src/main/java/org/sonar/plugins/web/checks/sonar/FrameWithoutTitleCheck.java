@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "FrameWithoutTitleCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Frames tags should have a \"title\" attribute")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY

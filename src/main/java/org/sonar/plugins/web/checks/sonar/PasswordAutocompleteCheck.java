@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "S1443",
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  name = "\"autocomplete\" should be set to \"off\" on input elements of type \"password\"")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.HTML5,

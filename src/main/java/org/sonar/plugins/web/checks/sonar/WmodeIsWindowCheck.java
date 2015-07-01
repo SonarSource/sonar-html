@@ -27,7 +27,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "WmodeIsWindowCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Flash animations should be embedded using the window mode")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY

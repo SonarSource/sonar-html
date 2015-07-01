@@ -34,7 +34,7 @@ public class MaxLineLengthCheckTest {
   @Test
   public void test() {
     WebSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), new MaxLineLengthCheck());
-    checkMessagesVerifier.verify(file.getViolations())
+    checkMessagesVerifier.verify(file.getIssues())
         .next().atLine(2).withMessage("Split this 121 characters long line (which is greater than 120 authorized).")
         .next().atLine(3).withMessage("Split this 122 characters long line (which is greater than 120 authorized).");
   }
@@ -45,7 +45,7 @@ public class MaxLineLengthCheckTest {
     check.maxLength = 40;
 
     WebSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), check);
-    checkMessagesVerifier.verify(file.getViolations())
+    checkMessagesVerifier.verify(file.getIssues())
         .next().atLine(1)
         .next().atLine(2)
         .next().atLine(3)

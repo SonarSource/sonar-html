@@ -17,7 +17,9 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Locale;
+import java.util.Set;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -25,13 +27,13 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.Locale;
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
 
 /** RSPEC-1825 */
 @Rule(
   key = "UnsupportedTagsInHtml5Check",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Elements deprecated in HTML5 should not be used")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.HTML5,

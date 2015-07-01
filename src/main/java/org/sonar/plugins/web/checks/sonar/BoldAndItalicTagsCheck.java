@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "BoldAndItalicTagsCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "\"strong\" and \"em\" tags should be used instead of \"b\" and \"i\"")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.ACCESSIBILITY

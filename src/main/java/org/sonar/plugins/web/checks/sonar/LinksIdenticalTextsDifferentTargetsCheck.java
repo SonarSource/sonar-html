@@ -17,7 +17,10 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import com.google.common.collect.Maps;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -27,13 +30,12 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import com.google.common.collect.Maps;
 
 @Rule(
   key = "LinksIdenticalTextsDifferentTargetsCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Links with identical texts should have identical targets")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY

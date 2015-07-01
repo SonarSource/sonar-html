@@ -20,6 +20,7 @@ package org.sonar.plugins.web.analyzers;
 import com.google.common.base.Charsets;
 import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.resources.File;
 import org.sonar.plugins.web.lex.PageLexer;
@@ -50,11 +51,13 @@ public class PageCountLinesTest {
 
   @Test
   public void testCountLines() throws FileNotFoundException {
-    List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("src/main/webapp/user-properties.jsp")));
+    java.io.File file = TestUtils.getResource("src/main/webapp/user-properties.jsp");
+    List<Node> nodeList = lexer.parse(new FileReader(file));
     assertThat(nodeList.size()).isGreaterThan(100);
 
-    File webFile = new File("test", "user-properties.jsp");
-    WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), webFile);
+    //  new File("test", "user-properties.jsp");
+    String relativePath = "test/user-properties.jsp";
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile(relativePath), File.create(relativePath));
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(287);
@@ -68,8 +71,8 @@ public class PageCountLinesTest {
   public void testCountLinesHtmlFile() throws FileNotFoundException {
     List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("checks/AvoidHtmlCommentCheck/document.html")));
 
-    File webFile = new File("test", "document.html");
-    WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), webFile);
+    String relativePath = "test/document.html";
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile(relativePath), File.create(relativePath));
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(9);
@@ -83,8 +86,8 @@ public class PageCountLinesTest {
   public void testCountLinesJspFile() throws FileNotFoundException {
     List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("checks/AvoidHtmlCommentCheck/document.jsp")));
 
-    File webFile = new File("test", "document.jsp");
-    WebSourceCode webSourceCode = new WebSourceCode(mock(java.io.File.class), webFile);
+    String relativePath = "testdocument.jsp";
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile(relativePath), File.create(relativePath));
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(11);

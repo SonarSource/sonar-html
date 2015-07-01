@@ -30,7 +30,10 @@ import org.sonar.plugins.web.node.TagNode;
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(key = "DoubleQuotesCheck", priority = Priority.MINOR)
+@Rule(
+  key = "DoubleQuotesCheck",
+  priority = Priority.MINOR,
+  name = "Attributes should be quoted using double quotes rather than single ones")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION

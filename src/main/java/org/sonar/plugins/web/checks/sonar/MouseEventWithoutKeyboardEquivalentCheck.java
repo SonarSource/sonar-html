@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "MouseEventWithoutKeyboardEquivalentCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Mouse events should have a corresponding keyboard event")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY

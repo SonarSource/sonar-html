@@ -28,7 +28,10 @@ import org.sonar.plugins.web.node.Node;
 import java.util.Iterator;
 import java.util.List;
 
-@Rule(key = "AvoidHtmlCommentCheck", priority = Priority.MAJOR)
+@Rule(
+  key = "AvoidHtmlCommentCheck",
+  priority = Priority.MAJOR,
+  name = "HTML comments should not be used")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.JSP_JSF,

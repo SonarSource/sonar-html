@@ -17,7 +17,8 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Set;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -31,11 +32,12 @@ import org.sonar.squid.recognizer.Detector;
 import org.sonar.squid.recognizer.EndWithDetector;
 import org.sonar.squid.recognizer.LanguageFootprint;
 
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
 
 @Rule(
   key = "AvoidCommentedOutCodeCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Comments should not include code")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.UNUSED

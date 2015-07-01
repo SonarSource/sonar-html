@@ -17,6 +17,15 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
+import java.lang.reflect.Method;
+import java.util.List;
+
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.el.lang.ExpressionBuilder;
@@ -29,17 +38,10 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
-import java.lang.reflect.Method;
-import java.util.List;
-
 @Rule(
   key = "UnifiedExpressionCheck",
-  priority = Priority.BLOCKER)
+  priority = Priority.BLOCKER,
+  name = "JSF expressions should be syntactically valid")
 @WebRule(activeByDefault = false)
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
@@ -69,6 +71,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
    */
   @RuleProperty(
     key = "functions",
+    description = "Comma-separated list of names of functions",
     defaultValue = DEFAULT_FUNCTIONS)
   public String functions = DEFAULT_FUNCTIONS;
 

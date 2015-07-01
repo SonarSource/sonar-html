@@ -17,8 +17,8 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import com.google.common.base.Splitter;
-import org.sonar.check.Cardinality;
+import java.util.List;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -30,12 +30,12 @@ import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 
-import java.util.List;
+import com.google.common.base.Splitter;
 
 @Rule(
   key = "LibraryDependencyCheck",
   priority = Priority.MAJOR,
-  cardinality = Cardinality.MULTIPLE)
+  name = "Some Java packages or classes should not be used in JSP files")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.JSP_JSF
@@ -47,12 +47,14 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "libraries",
-    defaultValue = DEFAULT_LIBRARIES)
+    defaultValue = DEFAULT_LIBRARIES,
+    description = "Comma-separated list of Java packages or classes, such as java.sql or java.util.ArrayList")
   public String libraries = DEFAULT_LIBRARIES;
 
   @RuleProperty(
     key = "message",
-    defaultValue = "" + DEFAULT_MESSAGE)
+    defaultValue = "" + DEFAULT_MESSAGE,
+    description = "Issue message which is displayed in case of violation")
   public String message = DEFAULT_MESSAGE;
 
   private Iterable<String> librariesIterable;

@@ -45,7 +45,7 @@ public class ComplexityCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ComplexityCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(null).withMessage("Split this file to reduce complexity per file from 17 to no more than the 15 authorized.");
   }
 

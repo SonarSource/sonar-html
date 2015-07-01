@@ -17,16 +17,16 @@
  */
 package org.sonar.plugins.web.checks;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang.StringUtils;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.Violation;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Abtract superclass for checks.
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 
-  private Rule rule;
+  private RuleKey ruleKey;
 
   protected static final class QualifiedAttribute {
 
@@ -97,23 +97,14 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     return qualifiedAttributes;
   }
 
-  protected final void createViolation(int linePosition, String message) {
-    Violation violation = Violation.create(rule, getWebSourceCode().getResource());
-    violation.setMessage(message);
-    violation.setLineId(linePosition == 0 ? null : linePosition);
-    getWebSourceCode().addViolation(violation);
+  protected final void createViolation(int line, String message) {
+    getWebSourceCode().addIssue(
+      new WebIssue(ruleKey, line == 0 ? null : line, message)
+      );
   }
 
-  public final Rule getRule() {
-    return rule;
-  }
-
-  public final String getRuleKey() {
-    return rule.getConfigKey();
-  }
-
-  public final void setRule(Rule rule) {
-    this.rule = rule;
+  public final void setRuleKey(RuleKey ruleKey) {
+    this.ruleKey = ruleKey;
   }
 
   protected List<Attribute> getMatchingAttributes(TagNode element, QualifiedAttribute[] attributes) {

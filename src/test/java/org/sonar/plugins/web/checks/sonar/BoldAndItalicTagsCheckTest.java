@@ -36,7 +36,7 @@ public class BoldAndItalicTagsCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/BoldAndItalicTagsCheck.html"), new BoldAndItalicTagsCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Replace this <b> tag by <strong>.")
         .next().atLine(5).withMessage("Replace this <i> tag by <em>.")
         .next().atLine(7).withMessage("Replace this <B> tag by <strong>.");

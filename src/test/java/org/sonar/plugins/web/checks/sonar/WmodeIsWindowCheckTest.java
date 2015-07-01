@@ -36,7 +36,7 @@ public class WmodeIsWindowCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/WmodeIsWindowCheck.html"), new WmodeIsWindowCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(9).withMessage("Set the value of the 'wmode' parameter to 'window'.")
         .next().atLine(14)
         .next().atLine(19)

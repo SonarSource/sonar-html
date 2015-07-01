@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "ImgWithoutAltCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Images tags and buttons should have an \"alt\" attribute")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.ACCESSIBILITY

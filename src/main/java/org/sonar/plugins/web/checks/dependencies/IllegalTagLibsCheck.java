@@ -17,7 +17,8 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import com.google.common.base.Strings;
+import java.util.List;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -29,11 +30,12 @@ import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
+import com.google.common.base.Strings;
 
 @Rule(
   key = "IllegalTagLibsCheck",
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  name = "Disallowed \"taglibs\" should not be used")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.JSP_JSF
@@ -44,6 +46,7 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "tagLibs",
+    description = "Comma-separated list of URIs of disallowed taglibs",
     defaultValue = DEFAULT_TAG_LIBS)
   public String tagLibs = DEFAULT_TAG_LIBS;
 

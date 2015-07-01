@@ -21,7 +21,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.File;
@@ -38,7 +37,7 @@ public class WhiteSpaceAroundCheckTest {
   public void test() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/whiteSpaceAroundCheck.html"), new WhiteSpaceAroundCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("A whitespace is missing after the starting tag at column 4.")
       .next().atLine(1).withMessage("Add a space at column 18.")
       .next().atLine(3).withMessage("Add a space at column 18.")

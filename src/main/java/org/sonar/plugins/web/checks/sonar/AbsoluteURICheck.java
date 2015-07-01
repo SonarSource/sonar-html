@@ -17,6 +17,10 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -27,13 +31,10 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 @Rule(
   key = "S1829",
-  priority = Priority.CRITICAL)
+  priority = Priority.CRITICAL,
+  name = "Web pages should not contain absolute URIs")
 @RuleTags({ RuleTags.PITFALL })
 @WebRule(activeByDefault = false)
 public class AbsoluteURICheck extends AbstractPageCheck {
@@ -48,6 +49,7 @@ public class AbsoluteURICheck extends AbstractPageCheck {
   @RuleProperty(
     key = "attributes",
     type = "TEXT",
+    description = "Comma-separated list of tag.attributes to be checked for absolute URI.",
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 

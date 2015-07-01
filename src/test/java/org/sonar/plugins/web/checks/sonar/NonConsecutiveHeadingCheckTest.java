@@ -36,21 +36,21 @@ public class NonConsecutiveHeadingCheckTest {
   public void no_heading_tags() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/NoHeadingTags.html"), new NonConsecutiveHeadingCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
   public void only_h1_tags() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH1Tags.html"), new NonConsecutiveHeadingCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
   public void only_h2_tags() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH2Tags.html"), new NonConsecutiveHeadingCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Do not skip level H1.");
   }
 
@@ -58,14 +58,14 @@ public class NonConsecutiveHeadingCheckTest {
   public void h2_with_h1() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H2WithH1.html"), new NonConsecutiveHeadingCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations());
+    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
   public void h5_with_h4() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H5WithH4.html"), new NonConsecutiveHeadingCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Do not skip level H3.");
   }
 

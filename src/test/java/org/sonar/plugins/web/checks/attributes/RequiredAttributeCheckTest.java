@@ -45,7 +45,7 @@ public class RequiredAttributeCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Add the missing \"alt\" to element \"img\".")
         .next().atLine(7).withMessage("Add the missing \"type\" to element \"script\".");
   }
@@ -57,13 +57,13 @@ public class RequiredAttributeCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Add the missing \"alt\" to element \"img\".")
       .next().atLine(7).withMessage("Add the missing \"type\" to element \"script\".");
 
     sourceCode = TestHelper.scan(new File("src/test/resources/checks/RequiredAttributeCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Add the missing \"alt\" to element \"img\".")
       .next().atLine(7).withMessage("Add the missing \"type\" to element \"script\".");
   }

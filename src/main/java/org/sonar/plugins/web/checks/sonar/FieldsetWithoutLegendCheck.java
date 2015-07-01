@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "FieldsetWithoutLegendCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "\"fieldset\" tags should contain a \"legend\"")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY

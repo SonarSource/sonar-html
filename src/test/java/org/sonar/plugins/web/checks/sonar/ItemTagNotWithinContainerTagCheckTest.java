@@ -36,7 +36,7 @@ public class ItemTagNotWithinContainerTagCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheck.html"), new ItemTagNotWithinContainerTagCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
         .next().atLine(4).withMessage("Surround this <DT> item tag by a <dl> container one.")
         .next().atLine(8).withMessage("Surround this <lI> item tag by a <ul> or <ol> container one.")

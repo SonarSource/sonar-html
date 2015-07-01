@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "ServerSideImageMapsCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Server-side image maps (\"ismap\" attribute) should not be used")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.ACCESSIBILITY

@@ -28,7 +28,8 @@ import org.sonar.plugins.web.checks.WebRule;
 
 @Rule(
   key = "FileLengthCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Files should not have too many lines")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.BRAIN_OVERLOADED
@@ -39,6 +40,7 @@ public class FileLengthCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "maxLength",
+    description = "Maximum authorized lines in a file",
     defaultValue = "" + DEFAULT_MAX_FILE_LENGTH)
   public int maxLength = DEFAULT_MAX_FILE_LENGTH;
 

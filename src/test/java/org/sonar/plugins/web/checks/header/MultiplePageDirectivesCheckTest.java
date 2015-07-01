@@ -36,7 +36,7 @@ public class MultiplePageDirectivesCheckTest {
   public void test1() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck1.html"), new MultiplePageDirectivesCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Combine these 2 page directives into one.");
   }
 
@@ -44,7 +44,7 @@ public class MultiplePageDirectivesCheckTest {
   public void test2() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck2.html"), new MultiplePageDirectivesCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Combine these 2 page directives into one.");
   }
 
@@ -52,7 +52,7 @@ public class MultiplePageDirectivesCheckTest {
   public void test3() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck3.html"), new MultiplePageDirectivesCheck());
 
-    assertThat(sourceCode.getViolations()).isEmpty();
+    assertThat(sourceCode.getIssues()).isEmpty();
   }
 
 }

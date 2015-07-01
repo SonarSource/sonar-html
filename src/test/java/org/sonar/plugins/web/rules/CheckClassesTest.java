@@ -17,20 +17,16 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.Test;
-import org.sonar.api.rules.AnnotationRuleParser;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleParam;
-import org.sonar.api.utils.AnnotationUtils;
-import org.sonar.plugins.web.checks.WebRule;
+import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.File;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
-import static org.fest.assertions.Assertions.assertThat;
+import org.apache.commons.io.FileUtils;
+import org.junit.Test;
+import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.utils.AnnotationUtils;
+import org.sonar.plugins.web.checks.WebRule;
 
 public class CheckClassesTest {
 
@@ -71,26 +67,16 @@ public class CheckClassesTest {
         .isTrue();
     }
 
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("org.sonar.l10n.web", Locale.ENGLISH);
 
-    List<Rule> rules = new AnnotationRuleParser().parse("repositoryKey", checks);
-    for (Rule rule : rules) {
-      resourceBundle.getString("rule.Web." + rule.getKey() + ".name");
-      assertThat(getClass().getResource("/org/sonar/l10n/web/rules/Web/" + rule.getKey() + ".html"))
-        .overridingErrorMessage("No description for " + rule.getKey())
+    WebRulesDefinition rulesDefinition = new WebRulesDefinition();
+    RulesDefinition.Context context = new RulesDefinition.Context();
+    rulesDefinition.define(context);
+    RulesDefinition.Repository repository = context.repository("Web");
+
+    for (RulesDefinition.Rule rule : repository.rules()) {
+      assertThat(rule.htmlDescription())
+        .overridingErrorMessage("Description of " + rule.key() + " should be in separate HTML file")
         .isNotNull();
-
-      assertThat(rule.getDescription())
-        .overridingErrorMessage("Description of " + rule.getKey() + " should be in separate file")
-        .isNullOrEmpty();
-
-      for (RuleParam param : rule.getParams()) {
-        resourceBundle.getString("rule.Web." + rule.getKey() + ".param." + param.getKey());
-
-        assertThat(param.getDescription())
-          .overridingErrorMessage("Description for param " + param.getKey() + " of " + rule.getKey() + " should be in separate file")
-          .isNullOrEmpty();
-      }
     }
   }
 

@@ -36,7 +36,7 @@ public class ServerSideImageMapsCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ServerSideImageMapsCheck.html"), new ServerSideImageMapsCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Use the \"map\" tag and \"area\" tags instead.");
   }
 

@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "ItemTagNotWithinContainerTagCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "\"li\" or \"dt\" item tags should be within \"ul\", \"ol\" or \"dl\" container tags")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.BUG

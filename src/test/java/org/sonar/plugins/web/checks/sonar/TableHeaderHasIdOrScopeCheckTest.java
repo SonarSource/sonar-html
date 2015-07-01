@@ -36,7 +36,7 @@ public class TableHeaderHasIdOrScopeCheckTest {
   public void detected() throws Exception {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableHeaderHasIdOrScopeCheck.html"), new TableHeaderHasIdOrScopeCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(7).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")
         .next().atLine(8).withMessage("Add either an 'id' or a 'scope' attribute to this <tH> tag.")
         .next().atLine(34);

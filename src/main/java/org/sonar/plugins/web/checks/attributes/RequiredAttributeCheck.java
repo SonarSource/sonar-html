@@ -17,6 +17,9 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -26,12 +29,10 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Rule(
   key = "RequiredAttributeCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Required attributes should be used")
 @WebRule(activeByDefault = false)
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
@@ -39,6 +40,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "attributes",
+    description = "Comma-separated list of tag.attributes that are required. E.G. specify img.alt to require an \"alt\" attribute in an \"img\" tag.",
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 

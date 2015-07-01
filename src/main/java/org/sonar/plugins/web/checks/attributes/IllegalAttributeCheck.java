@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import java.util.List;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -26,11 +28,10 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
-
 @Rule(
   key = "IllegalAttributeCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Disallowed attributes should not be used")
 @WebRule(activeByDefault = false)
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
@@ -38,6 +39,7 @@ public class IllegalAttributeCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "attributes",
+    description = "Comma-separated list of tag.attributes that are not allowed. E.G. a.name forbids a \"name\" attribute in an \"a\" tag.",
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 

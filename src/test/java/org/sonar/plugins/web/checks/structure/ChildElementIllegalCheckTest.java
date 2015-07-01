@@ -48,7 +48,7 @@ public class ChildElementIllegalCheckTest {
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ChildElementIllegalCheck.html"), check);
 
-    checkMessagesVerifier.verify(sourceCode.getViolations())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Remove this \"bar\" tag; it is not a legal child of \"foo\".");
   }
 

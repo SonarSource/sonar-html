@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import java.util.List;
+
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -25,11 +27,10 @@ import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
-
 @Rule(
   key = "DoctypePresenceCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "\"!DOCTYPE\" declarations should always appear before the \"html\" tag")
 @WebRule(activeByDefault = true)
 public class DoctypePresenceCheck extends AbstractPageCheck {
 

@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -26,11 +28,10 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 
-import java.util.List;
-
 @Rule(
   key = "IllegalElementCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Disallowed elements should not be used")
 @WebRule(activeByDefault = false)
 public class IllegalElementCheck extends AbstractPageCheck {
 
@@ -38,6 +39,7 @@ public class IllegalElementCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "elements",
+    description = "Comma-separated list of names of forbidden elements",
     defaultValue = DEFAULT_ELEMENTS)
   public String elements = DEFAULT_ELEMENTS;
 

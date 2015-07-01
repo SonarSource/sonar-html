@@ -17,9 +17,9 @@
  */
 package org.sonar.plugins.web;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * @author Matthijs Galesloot
@@ -29,6 +29,6 @@ public class WebPluginTest {
   @Test
   public void webPluginTester() {
     WebPlugin webPlugin = new WebPlugin();
-    assertEquals(9, webPlugin.getExtensions().size());
+    assertEquals(8, webPlugin.getExtensions().size());
   }
 }

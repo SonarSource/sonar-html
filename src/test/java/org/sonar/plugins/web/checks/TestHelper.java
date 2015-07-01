@@ -17,21 +17,23 @@
  */
 package org.sonar.plugins.web.checks;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Throwables;
-import com.google.common.collect.ImmutableList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
+import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.lex.PageLexer;
-import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
+import com.google.common.base.Charsets;
+import com.google.common.base.Throwables;
+import com.google.common.collect.ImmutableList;
 
 public class TestHelper {
 
@@ -45,13 +47,17 @@ public class TestHelper {
     } catch (FileNotFoundException e) {
       throw Throwables.propagate(e);
     }
-    PageLexer lexer = new PageLexer();
-    List<Node> nodes = lexer.parse(fileReader);
-    WebSourceCode result = new WebSourceCode(file, new org.sonar.api.resources.File("test"));
+
+    WebSourceCode result = new WebSourceCode(
+      new DefaultInputFile(file.getPath()).setFile(file).setLanguage(WebConstants.LANGUAGE_KEY).setType(InputFile.Type.MAIN),
+      org.sonar.api.resources.File.create("test"));
 
     HtmlAstScanner walker = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor()));
     walker.addVisitor(visitor);
-    walker.scan(nodes, result, Charsets.UTF_8);
+    walker.scan(
+      new PageLexer().parse(fileReader),
+      result,
+      Charsets.UTF_8);
 
     return result;
   }

@@ -17,7 +17,10 @@
  */
 package org.sonar.plugins.web.checks.whitespace;
 
-import com.google.common.io.Files;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -27,13 +30,12 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
+import com.google.common.io.Files;
 
 @Rule(
   key = "IllegalTabCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "Tabulation characters should not be used")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.CONVENTION,
@@ -52,7 +54,7 @@ public class IllegalTabCheck extends AbstractPageCheck implements CharsetAwareVi
   public void startDocument(List<Node> nodes) {
     List<String> lines;
     try {
-      lines = Files.readLines(getWebSourceCode().getFile(), charset);
+      lines = Files.readLines(getWebSourceCode().inputFile().file(), charset);
     } catch (IOException e) {
       throw new SonarException(e);
     }

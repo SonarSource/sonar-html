@@ -26,7 +26,8 @@ import org.sonar.plugins.web.node.TagNode;
 
 @Rule(
   key = "TableHeaderHasIdOrScopeCheck",
-  priority = Priority.MAJOR)
+  priority = Priority.MAJOR,
+  name = "\"th\" table headers tags should have an \"id\" or a \"scope\" attribute")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY
