@@ -17,13 +17,13 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import java.io.File;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-
-import java.io.File;
 
 public class AbsoluteURICheckTest {
 

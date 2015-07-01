@@ -17,16 +17,16 @@
  */
 package org.sonar.plugins.web.lex;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
 
 /**
  * Tokenizer for elements.

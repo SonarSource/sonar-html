@@ -17,9 +17,9 @@
  */
 package org.sonar.plugins.web.l10n;
 
-import org.junit.Test;
-
 import static org.sonar.test.i18n.I18nMatchers.assertBundlesUpToDate;
+
+import org.junit.Test;
 
 public class LocalizedBundlesTest {
 

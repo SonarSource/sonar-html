@@ -17,12 +17,12 @@
  */
 package org.sonar.plugins.web.checks;
 
-import com.google.common.collect.Lists;
-import org.junit.rules.Verifier;
-import org.sonar.api.rules.Violation;
-
 import java.util.Collection;
 import java.util.List;
+
+import org.junit.rules.Verifier;
+
+import com.google.common.collect.Lists;
 
 /**
  * This JUnit Rule allows to automatically execute {@link CheckMessagesVerifier#noMore()}.

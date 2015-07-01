@@ -32,10 +32,10 @@ import org.sonar.squid.recognizer.ContainsDetector;
 import org.sonar.squid.recognizer.Detector;
 import org.sonar.squid.recognizer.EndWithDetector;
 import org.sonar.squid.recognizer.LanguageFootprint;
-
-import com.google.common.collect.ImmutableSet;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
+
+import com.google.common.collect.ImmutableSet;
 
 @Rule(
   key = "AvoidCommentedOutCodeCheck",

@@ -17,6 +17,9 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -27,9 +30,6 @@ import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-
-import java.util.Iterator;
-import java.util.List;
 
 @Rule(
   key = "AvoidHtmlCommentCheck",

@@ -17,8 +17,9 @@
  */
 package org.sonar.plugins.web.checks;
 
-import com.google.common.base.Preconditions;
 import org.sonar.api.rule.RuleKey;
+
+import com.google.common.base.Preconditions;
 
 public class WebIssue {
 

@@ -29,9 +29,9 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 import com.google.common.collect.Maps;
-import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "LinksIdenticalTextsDifferentTargetsCheck",

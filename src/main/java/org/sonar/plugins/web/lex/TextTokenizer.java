@@ -17,14 +17,14 @@
  */
 package org.sonar.plugins.web.lex;
 
+import java.util.List;
+
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
-
-import java.util.List;
 
 /**
  * Tokenizer for content.

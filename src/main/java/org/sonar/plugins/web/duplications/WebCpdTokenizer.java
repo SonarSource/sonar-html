@@ -17,18 +17,19 @@
  */
 package org.sonar.plugins.web.duplications;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
 import net.sourceforge.pmd.cpd.Tokenizer;
 import net.sourceforge.pmd.cpd.Tokens;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 public class WebCpdTokenizer implements Tokenizer {
 

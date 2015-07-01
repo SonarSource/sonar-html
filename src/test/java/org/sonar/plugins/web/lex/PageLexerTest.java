@@ -17,13 +17,9 @@
  */
 package org.sonar.plugins.web.lex;
 
-import org.junit.Test;
-import org.sonar.channel.CodeReader;
-import org.sonar.plugins.web.node.CommentNode;
-import org.sonar.plugins.web.node.DirectiveNode;
-import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
-import org.sonar.plugins.web.node.TextNode;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,9 +27,13 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.fest.assertions.Assertions.assertThat;
+import org.junit.Test;
+import org.sonar.channel.CodeReader;
+import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 
 /**
  * @author Matthijs Galesloot

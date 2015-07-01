@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.web.analyzers;
 
+import java.util.List;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.measures.CoreMetrics;
@@ -24,8 +26,6 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-
-import java.util.List;
 
 public class ComplexityVisitor extends AbstractPageCheck {
 

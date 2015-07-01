@@ -17,12 +17,13 @@
  */
 package org.sonar.plugins.web.duplications;
 
-import net.sourceforge.pmd.cpd.Tokens;
-import org.junit.Test;
-import org.sonar.channel.CodeReader;
-
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+
+import net.sourceforge.pmd.cpd.Tokens;
+
+import org.junit.Test;
+import org.sonar.channel.CodeReader;
 
 public class BlackHoleChannelTest {
 

@@ -17,13 +17,14 @@
  */
 package org.sonar.plugins.web.duplications;
 
-import net.sourceforge.pmd.cpd.Tokens;
-import org.junit.Test;
-import org.sonar.channel.CodeReader;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import net.sourceforge.pmd.cpd.Tokens;
+
+import org.junit.Test;
+import org.sonar.channel.CodeReader;
 
 public class LiteralChannelTest {
 

@@ -17,17 +17,17 @@
  */
 package org.sonar.plugins.web.lex;
 
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.sonar.channel.Channel;
 import org.sonar.channel.ChannelDispatcher;
 import org.sonar.channel.CodeReader;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.NodeType;
 import org.sonar.plugins.web.node.TagNode;
-
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Lexical analysis of a web page.

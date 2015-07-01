@@ -17,7 +17,13 @@
  */
 package org.sonar.plugins.web.analyzers;
 
-import com.google.common.base.Charsets;
+import static org.fest.assertions.Assertions.assertThat;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
@@ -29,13 +35,7 @@ import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 import org.sonar.test.TestUtils;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Collections;
-import java.util.List;
-
-import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
+import com.google.common.base.Charsets;
 
 public class PageCountLinesTest {
 

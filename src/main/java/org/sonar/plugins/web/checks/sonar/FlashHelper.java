@@ -17,10 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.plugins.web.node.TagNode;
+import java.util.Locale;
 
 import javax.annotation.Nullable;
-import java.util.Locale;
+
+import org.sonar.plugins.web.node.TagNode;
 
 public class FlashHelper {
 

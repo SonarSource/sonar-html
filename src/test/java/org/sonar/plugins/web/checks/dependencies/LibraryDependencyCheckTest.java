@@ -17,17 +17,16 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import org.sonar.plugins.web.checks.TestHelper;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import static org.fest.assertions.Assertions.assertThat;
+import org.junit.Rule;
+import org.junit.Test;
+import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.web.checks.TestHelper;
+import org.sonar.plugins.web.visitor.WebSourceCode;
 
 public class LibraryDependencyCheckTest {
 

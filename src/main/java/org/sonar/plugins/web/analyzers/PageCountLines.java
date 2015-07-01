@@ -17,7 +17,11 @@
  */
 package org.sonar.plugins.web.analyzers;
 
-import com.google.common.collect.Sets;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +31,7 @@ import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Set;
+import com.google.common.collect.Sets;
 
 /**
  * Count lines of code in web files.

@@ -17,15 +17,15 @@
  */
 package org.sonar.plugins.web.visitor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.checks.WebIssue;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class WebSourceCode {
 

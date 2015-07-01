@@ -19,9 +19,12 @@
  */
 package com.sonar.it.web;
 
-import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
-import com.sonar.orchestrator.locator.FileLocation;
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assume.assumeNotNull;
+
+import java.io.File;
+import java.util.List;
+
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -31,11 +34,9 @@ import org.sonar.wsclient.issue.IssueClient;
 import org.sonar.wsclient.issue.IssueQuery;
 import org.sonar.wsclient.services.ResourceQuery;
 
-import java.io.File;
-import java.util.List;
-
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assume.assumeNotNull;
+import com.sonar.orchestrator.Orchestrator;
+import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.locator.FileLocation;
 
 public class VariousTest {
 

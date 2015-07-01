@@ -17,7 +17,9 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import com.google.common.collect.Lists;
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -25,8 +27,7 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
-import java.nio.charset.Charset;
-import java.util.List;
+import com.google.common.collect.Lists;
 
 /**
  * Scans the nodes of a page and send events to the visitors.

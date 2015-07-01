@@ -29,10 +29,10 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
-
-import com.google.common.base.Splitter;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
+
+import com.google.common.base.Splitter;
 
 @Rule(
   key = "LibraryDependencyCheck",

@@ -17,19 +17,16 @@
  */
 package org.sonar.plugins.web.checks;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Ordering;
-import org.hamcrest.Matcher;
-import org.sonar.api.rules.Violation;
-import org.sonar.squid.api.CheckMessage;
-
-import javax.annotation.Nullable;
-
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertThat;
+import javax.annotation.Nullable;
+
+import org.sonar.squid.api.CheckMessage;
+
+import com.google.common.base.Objects;
+import com.google.common.collect.Ordering;
 
 /**
  * Helper class for testing checks without having to deploy them on a Sonar instance.

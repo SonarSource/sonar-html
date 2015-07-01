@@ -17,15 +17,15 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
+import static org.fest.assertions.Assertions.assertThat;
+
+import java.io.File;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-
-import java.io.File;
-
-import static org.fest.assertions.Assertions.assertThat;
 
 public class IllegalNamespaceCheckTest {
 

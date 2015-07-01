@@ -17,13 +17,13 @@
  */
 package org.sonar.plugins.web.core;
 
-import org.junit.Test;
-import org.sonar.colorizer.CodeColorizer;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertThat;
 
 import java.io.StringReader;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
+import org.sonar.colorizer.CodeColorizer;
 
 public class WebCodeColorizerFormatTest {
 

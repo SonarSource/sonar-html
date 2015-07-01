@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.duplications;
 
 import net.sourceforge.pmd.cpd.Tokens;
+
 import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
 

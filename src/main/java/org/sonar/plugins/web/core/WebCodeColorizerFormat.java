@@ -17,15 +17,15 @@
  */
 package org.sonar.plugins.web.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.sonar.api.web.CodeColorizerFormat;
 import org.sonar.colorizer.MultilinesDocTokenizer;
 import org.sonar.colorizer.RegexpTokenizer;
 import org.sonar.colorizer.StringTokenizer;
 import org.sonar.colorizer.Tokenizer;
 import org.sonar.plugins.web.api.WebConstants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WebCodeColorizerFormat extends CodeColorizerFormat {
 

@@ -17,13 +17,13 @@
  */
 package org.sonar.plugins.web.lex;
 
+import java.util.List;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
-
-import java.util.List;
 
 /**
  * Tokenizer for a HTML or JSP comment.
