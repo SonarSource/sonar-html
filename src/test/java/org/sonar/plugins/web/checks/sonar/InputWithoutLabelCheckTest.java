@@ -1,7 +1,7 @@
 /*
  * SonarQube Web Plugin
  * Copyright (C) 2010 SonarSource and Matthijs Galesloot
- * dev@sonar.codehaus.org
+ * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
