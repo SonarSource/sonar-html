@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 public @interface RuleTags {
 
   String ACCESSIBILITY = "accessibility";
-  String BRAIN_OVERLOADED = "brain-overloaded";
+  String BRAIN_OVERLOADED = "brain-overload";
   String BUG = "bug";
   String CONVENTION = "convention";
   String CROSS_BROWSER = "cross-browser";
