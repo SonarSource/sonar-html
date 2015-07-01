@@ -115,13 +115,17 @@ public final class WebSensor implements Sensor {
 
     for (WebIssue issue : sourceCode.getIssues()) {
       Issuable issuable = resourcePerspectives.as(Issuable.class, sourceCode.inputFile());
+      Issuable.IssueBuilder builder = issuable.newIssueBuilder();
 
-      issuable.addIssue(
-        issuable.newIssueBuilder()
-          .ruleKey(issue.ruleKey())
+      builder.ruleKey(issue.ruleKey())
           .line(issue.line())
-          .message(issue.message())
-          .build());
+        .message(issue.message());
+
+      if (issue.hasEffortToFix()) {
+        builder.effortToFix(issue.cost());
+      }
+
+      issuable.addIssue(builder.build());
     }
   }
 

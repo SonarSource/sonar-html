@@ -23,6 +23,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "MetaRefreshCheck",
@@ -32,6 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
 @RuleTags({
   RuleTags.USER_EXPERIENCE
 })
+@NoSqale
 public class MetaRefreshCheck extends AbstractPageCheck {
 
   @Override

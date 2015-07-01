@@ -29,6 +29,7 @@ import javax.el.VariableMapper;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.el.lang.ExpressionBuilder;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -37,12 +38,16 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "UnifiedExpressionCheck",
   priority = Priority.BLOCKER,
   name = "JSF expressions should be syntactically valid")
 @WebRule(activeByDefault = false)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
+@SqaleConstantRemediation("2min")
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_FUNCTIONS = "";

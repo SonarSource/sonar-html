@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -28,12 +29,16 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.NoSqale;
+import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "RequiredAttributeCheck",
   priority = Priority.MAJOR,
   name = "Required attributes should be used")
 @WebRule(activeByDefault = false)
+@NoSqale
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";

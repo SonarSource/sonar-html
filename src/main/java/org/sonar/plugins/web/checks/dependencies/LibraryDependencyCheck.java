@@ -31,6 +31,8 @@ import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 
 import com.google.common.base.Splitter;
+import org.sonar.squidbridge.annotations.NoSqale;
+import org.sonar.squidbridge.annotations.RuleTemplate;
 
 @Rule(
   key = "LibraryDependencyCheck",
@@ -40,6 +42,8 @@ import com.google.common.base.Splitter;
 @RuleTags({
   RuleTags.JSP_JSF
 })
+@RuleTemplate
+@NoSqale
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_LIBRARIES = "";

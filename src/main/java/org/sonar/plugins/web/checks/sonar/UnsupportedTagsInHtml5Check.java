@@ -20,6 +20,7 @@ package org.sonar.plugins.web.checks.sonar;
 import java.util.Locale;
 import java.util.Set;
 
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -28,8 +29,10 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 
 import com.google.common.collect.ImmutableSet;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
-/** RSPEC-1825 */
+/** RSPEC-1083 */
 @Rule(
   key = "UnsupportedTagsInHtml5Check",
   priority = Priority.MAJOR,
@@ -39,6 +42,8 @@ import com.google.common.collect.ImmutableSet;
   RuleTags.HTML5,
   RuleTags.OBSOLETE
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)
+@SqaleConstantRemediation("20min")
 public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
   private static final Set<String> UNSUPPORTED_TAGS = ImmutableSet.of(

@@ -20,6 +20,7 @@ package org.sonar.plugins.web.checks.coding;
 import java.util.List;
 
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -27,6 +28,10 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
+import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "ComplexityCheck",
@@ -36,6 +41,8 @@ import org.sonar.plugins.web.node.Node;
 @RuleTags({
   RuleTags.BRAIN_OVERLOADED
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
+@SqaleLinearWithOffsetRemediation(offset = "30min", coeff = "1min", effortToFixDescription = "per complexity point above the threshold")
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;
@@ -52,7 +59,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
 
     if (complexity > max) {
       String msg = String.format("Split this file to reduce complexity per file from %d to no more than the %d authorized.", complexity, max);
-      createViolation(0, msg);
+      createViolation(0, msg, Double.valueOf(complexity));
     }
   }
 

@@ -33,6 +33,7 @@ import org.sonar.plugins.web.node.TagNode;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "InputWithoutLabelCheck",
@@ -43,6 +44,7 @@ import com.google.common.collect.Sets;
   RuleTags.ACCESSIBILITY,
   RuleTags.USER_EXPERIENCE
 })
+@NoSqale
 public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   private static final Set<String> EXCLUDED_TYPES = ImmutableSet.of("SUBMIT", "BUTTON", "IMAGE", "HIDDEN");

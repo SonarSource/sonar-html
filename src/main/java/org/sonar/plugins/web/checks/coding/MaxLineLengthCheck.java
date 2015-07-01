@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -33,6 +34,8 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
 import com.google.common.io.Files;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "MaxLineLengthCheck",
@@ -42,6 +45,8 @@ import com.google.common.io.Files;
 @RuleTags({
   RuleTags.CONVENTION
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
+@SqaleConstantRemediation("1min")
 public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;

@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -25,6 +26,8 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "LongJavaScriptCheck",
@@ -34,6 +37,8 @@ import org.sonar.plugins.web.node.TextNode;
 @RuleTags({
   RuleTags.BRAIN_OVERLOADED
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
+@SqaleConstantRemediation("2min")
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;

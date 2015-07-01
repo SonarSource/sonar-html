@@ -31,6 +31,7 @@ import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 
 import com.google.common.collect.Maps;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "LinksIdenticalTextsDifferentTargetsCheck",
@@ -40,6 +41,7 @@ import com.google.common.collect.Maps;
 @RuleTags({
   RuleTags.ACCESSIBILITY
 })
+@NoSqale
 public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck {
 
   private boolean inLink;

@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.checks.scripting;
 
 import org.apache.commons.lang.StringUtils;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -25,16 +26,20 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "JspScriptletCheck",
   priority = Priority.MAJOR,
-  name = "Deprecated JSP scriptlets should not be used")
+  name = "JSP expressions should not be used")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.JSP_JSF,
   RuleTags.OBSOLETE
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
+@SqaleConstantRemediation("30min")
 public class JspScriptletCheck extends AbstractPageCheck {
 
   @Override

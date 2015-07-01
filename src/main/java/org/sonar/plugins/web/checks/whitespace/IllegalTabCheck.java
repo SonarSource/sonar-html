@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -31,6 +32,8 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
 import com.google.common.io.Files;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "IllegalTabCheck",
@@ -41,6 +44,8 @@ import com.google.common.io.Files;
   RuleTags.CONVENTION,
   RuleTags.PSR2
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
+@SqaleConstantRemediation("2min")
 public class IllegalTabCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 
   private Charset charset;

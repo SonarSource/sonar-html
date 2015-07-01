@@ -17,12 +17,15 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "LinkToNothingCheck",
@@ -32,6 +35,8 @@ import org.sonar.plugins.web.node.TagNode;
 @RuleTags({
   RuleTags.USER_EXPERIENCE
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
+@SqaleConstantRemediation("15min")
 public class LinkToNothingCheck extends AbstractPageCheck {
 
   @Override

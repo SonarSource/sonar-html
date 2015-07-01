@@ -17,18 +17,30 @@
  */
 package org.sonar.plugins.web.checks;
 
+import com.google.common.base.Preconditions;
 import org.sonar.api.rule.RuleKey;
 
 public class WebIssue {
 
-  private RuleKey ruleKey;
-  private Integer line;
-  private String message;
+  private final RuleKey ruleKey;
+  private final Integer line;
+  private final String message;
+  private final Double cost;
 
   public WebIssue(RuleKey ruleKey, Integer line, String message) {
     this.ruleKey = ruleKey;
     this.line = line;
     this.message = message;
+    this.cost = null;
+  }
+
+  public WebIssue(RuleKey ruleKey, Integer line, String message, Double cost) {
+    Preconditions.checkArgument(cost > 0);
+
+    this.ruleKey = ruleKey;
+    this.line = line;
+    this.message = message;
+    this.cost = cost;
   }
 
   public RuleKey ruleKey() {
@@ -41,6 +53,14 @@ public class WebIssue {
 
   public String message() {
     return message;
+  }
+
+  public Double cost() {
+    return cost;
+  }
+
+  public boolean hasEffortToFix() {
+    return cost != null;
   }
 
   @Override

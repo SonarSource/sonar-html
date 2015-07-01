@@ -23,15 +23,17 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "TableWithoutCaptionCheck",
   priority = Priority.MAJOR,
- name = "\"table\" tags should contain a \"caption\"")
+ name = "\"<table>\" tags should contain a \"<caption>\"")
 @WebRule(activeByDefault = false)
 @RuleTags({
   RuleTags.ACCESSIBILITY
 })
+@NoSqale
 public class TableWithoutCaptionCheck extends AbstractPageCheck {
 
   private int tableLine = 0;

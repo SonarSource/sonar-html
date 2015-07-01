@@ -23,15 +23,17 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "BoldAndItalicTagsCheck",
   priority = Priority.MAJOR,
-  name = "\"strong\" and \"em\" tags should be used instead of \"b\" and \"i\"")
+  name = "\"<strong>\" and \"<em>\" tags should be used instead of \"<b>\" and \"<i>\"")
 @WebRule(activeByDefault = true)
 @RuleTags({
   RuleTags.ACCESSIBILITY
 })
+@NoSqale
 public class BoldAndItalicTagsCheck extends AbstractPageCheck {
 
   @Override

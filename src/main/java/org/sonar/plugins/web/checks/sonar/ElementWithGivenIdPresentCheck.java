@@ -26,12 +26,14 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "S1436",
   priority = Priority.MAJOR,
   name = "An element with a specific \"id\" attribute should be present in each HTML page")
 @WebRule(activeByDefault = false)
+@NoSqale
 public class ElementWithGivenIdPresentCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ID = "";

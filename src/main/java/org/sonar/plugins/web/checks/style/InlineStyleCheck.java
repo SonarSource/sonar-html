@@ -17,11 +17,14 @@
  */
 package org.sonar.plugins.web.checks.style;
 
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * Checker for occurrence of inline style.
@@ -36,6 +39,8 @@ import org.sonar.plugins.web.node.TagNode;
   priority = Priority.MINOR,
   name = "The \"style\" attribute should not be used")
 @WebRule(activeByDefault = false)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
+@SqaleConstantRemediation("15min")
 public class InlineStyleCheck extends AbstractPageCheck {
 
   @Override

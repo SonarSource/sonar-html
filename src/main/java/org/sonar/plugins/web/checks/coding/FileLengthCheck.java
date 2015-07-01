@@ -19,12 +19,15 @@ package org.sonar.plugins.web.checks.coding;
 
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
+import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
+import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "FileLengthCheck",
@@ -34,6 +37,8 @@ import org.sonar.plugins.web.checks.WebRule;
 @RuleTags({
   RuleTags.BRAIN_OVERLOADED
 })
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
+@SqaleConstantRemediation("1h")
 public class FileLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_FILE_LENGTH = 500;

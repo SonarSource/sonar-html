@@ -27,12 +27,14 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "IllegalAttributeCheck",
   priority = Priority.MAJOR,
   name = "Disallowed attributes should not be used")
 @WebRule(activeByDefault = false)
+@NoSqale
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";

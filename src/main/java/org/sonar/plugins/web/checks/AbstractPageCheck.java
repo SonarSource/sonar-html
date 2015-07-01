@@ -103,6 +103,12 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
       );
   }
 
+  protected final void createViolation(int line, String message, Double cost) {
+    getWebSourceCode().addIssue(
+      new WebIssue(ruleKey, line == 0 ? null : line, message, cost)
+    );
+  }
+
   public final void setRuleKey(RuleKey ruleKey) {
     this.ruleKey = ruleKey;
   }
