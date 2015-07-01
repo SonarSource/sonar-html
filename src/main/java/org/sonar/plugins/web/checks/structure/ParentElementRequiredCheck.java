@@ -24,6 +24,7 @@ import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.RuleTemplate;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
@@ -34,6 +35,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("5min")
+@RuleTemplate
 public class ParentElementRequiredCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_CHILD = "";

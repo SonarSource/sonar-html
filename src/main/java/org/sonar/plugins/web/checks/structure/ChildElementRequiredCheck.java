@@ -24,6 +24,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.NoSqale;
+import org.sonar.squidbridge.annotations.RuleTemplate;
 
 /**
  * Checker for required child elements.
@@ -36,6 +37,7 @@ import org.sonar.squidbridge.annotations.NoSqale;
   name = "Child element should be used")
 @WebRule(activeByDefault = false)
 @NoSqale
+@RuleTemplate
 public class ChildElementRequiredCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_CHILD = "";
