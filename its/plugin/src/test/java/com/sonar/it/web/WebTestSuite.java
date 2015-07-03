@@ -50,23 +50,7 @@ public class WebTestSuite {
     ORCHESTRATOR = orchestratorBuilder.build();
   }
 
-  public static boolean is_after_sonar_4_2() {
-    return ORCHESTRATOR.getConfiguration().getSonarVersion().isGreaterThanOrEquals("4.2");
-  }
-
-  public static boolean is_after_plugin_2_2() {
-    return ORCHESTRATOR.getConfiguration().getPluginVersion(PLUGIN_KEY).isGreaterThanOrEquals("2.2");
-  }
-
   public static SonarRunner createSonarRunner() {
-    SonarRunner build = SonarRunner.create();
-    if (!is_multi_language()) {
-      build.setProperty("sonar.language", PLUGIN_KEY);
-    }
-    return build;
-  }
-
-  private static boolean is_multi_language() {
-    return is_after_plugin_2_2() && is_after_sonar_4_2();
+    return SonarRunner.create();
   }
 }

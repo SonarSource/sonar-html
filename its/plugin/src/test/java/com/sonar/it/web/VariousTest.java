@@ -19,12 +19,9 @@
  */
 package com.sonar.it.web;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assume.assumeNotNull;
-
-import java.io.File;
-import java.util.List;
-
+import com.sonar.orchestrator.Orchestrator;
+import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -34,13 +31,12 @@ import org.sonar.wsclient.issue.IssueClient;
 import org.sonar.wsclient.issue.IssueQuery;
 import org.sonar.wsclient.services.ResourceQuery;
 
-import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
-import com.sonar.orchestrator.locator.FileLocation;
+import java.io.File;
+import java.util.List;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class VariousTest {
-
-  private static String webPluginVersion;
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
@@ -51,9 +47,6 @@ public class VariousTest {
 
   @BeforeClass
   public static void init() throws Exception {
-    webPluginVersion = orchestrator.getConfiguration().getString("webVersion");
-    assumeNotNull(webPluginVersion);
-
     orchestrator.resetData();
   }
 
@@ -72,13 +65,8 @@ public class VariousTest {
     orchestrator.executeBuild(build);
 
     Sonar wsClient = orchestrator.getServer().getWsClient();
-    if (orchestrator.getServer().version().isGreaterThanOrEquals("4.2")) {
-      assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpError.jsp"))).isNotNull();
-      assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpErrorExcluded.jsp"))).isNull();
-    } else {
-      assertThat(wsClient.find(new ResourceQuery("exclusions:httpError.jsp"))).isNotNull();
-      assertThat(wsClient.find(new ResourceQuery("exclusions:httpErrorExcluded.jsp"))).isNull();
-    }
+    assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpError.jsp"))).isNotNull();
+    assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpErrorExcluded.jsp"))).isNull();
     assertThat(wsClient.find(ResourceQuery.createForMetrics("exclusions", "files")).getMeasureIntValue("files")).isEqualTo(1);
   }
 

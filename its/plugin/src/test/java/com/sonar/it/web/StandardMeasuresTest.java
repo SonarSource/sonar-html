@@ -19,11 +19,9 @@
  */
 package com.sonar.it.web;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assume.assumeTrue;
-
-import java.io.File;
-
+import com.sonar.orchestrator.Orchestrator;
+import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -32,9 +30,9 @@ import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
-import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
-import com.sonar.orchestrator.locator.FileLocation;
+import java.io.File;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class StandardMeasuresTest {
 
@@ -135,8 +133,6 @@ public class StandardMeasuresTest {
 
   @Test
   public void lineLevelMeasures() throws Exception {
-    assumeTrue(orchestrator.getConfiguration().getPluginVersion("web").isGreaterThanOrEquals("2.2"));
-
     String value = getFileMeasure("ncloc_data").getData();
     assertThat(value).contains("20=1");
     assertThat(value).contains(";38=1");

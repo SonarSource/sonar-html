@@ -19,11 +19,8 @@
  */
 package com.sonar.it.web;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assume.assumeTrue;
-
-import java.io.File;
-
+import com.sonar.orchestrator.Orchestrator;
+import com.sonar.orchestrator.build.SonarRunner;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -32,8 +29,9 @@ import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
-import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
+import java.io.File;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FileSuffixesTest {
 
@@ -64,8 +62,6 @@ public class FileSuffixesTest {
 
   @Test
   public void filesSuffixesHtml() {
-    assumeTrue(orchestrator.getConfiguration().getPluginVersion("web").isGreaterThanOrEquals("2.2"));
-
     SonarRunner build = WebTestSuite.createSonarRunner()
       .setProjectDir(new File("projects/FileSuffixesTest/"))
       .setProjectKey("FileSuffixesTest")
@@ -117,8 +113,6 @@ public class FileSuffixesTest {
 
   @Test
   public void should_analyze_all_files_with_empty_extensions() {
-    assumeTrue(orchestrator.getConfiguration().getPluginVersion("web").isGreaterThanOrEquals("1.3"));
-
     SonarRunner build = WebTestSuite.createSonarRunner()
       .setProjectDir(new File("projects/FileSuffixesTest/"))
       .setProjectKey("FileSuffixesTest")
@@ -137,8 +131,6 @@ public class FileSuffixesTest {
 
   @Test
   public void should_analyze_all_files_with_empty_suffixes() {
-    assumeTrue(orchestrator.getConfiguration().getPluginVersion("web").isGreaterThanOrEquals("2.2"));
-
     SonarRunner build = WebTestSuite.createSonarRunner()
       .setProjectDir(new File("projects/FileSuffixesTest/"))
       .setProjectKey("FileSuffixesTest")
