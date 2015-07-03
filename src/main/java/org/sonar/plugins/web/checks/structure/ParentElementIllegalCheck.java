@@ -24,6 +24,7 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.NoSqale;
+import org.sonar.squidbridge.annotations.RuleTemplate;
 
 /**
  * Checker for illegal parent element.
@@ -35,6 +36,7 @@ import org.sonar.squidbridge.annotations.NoSqale;
   priority = Priority.MAJOR,
   name = "Parent Element Illegal")
 @WebRule(activeByDefault = false)
+@RuleTemplate
 @NoSqale
 public class ParentElementIllegalCheck extends AbstractPageCheck {
 
