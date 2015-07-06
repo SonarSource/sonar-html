@@ -63,7 +63,10 @@ public class ChildElementIllegalCheck extends AbstractPageCheck {
           createViolation(childNode.getStartLinePosition(), "Remove this \"" + child + "\" tag; it is not a legal child of \"" + parent + "\".");
         }
       }
+    } else if (element.equalsElementName(parent)) {
+
     }
+    int BAD_NAME;
   }
 
 }
