@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonarsource.sonar-plugins</groupId>
+    <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>22</version>
+    <version>23</version>
   </parent>
 
-  <groupId>org.codehaus.sonar-plugins</groupId>
+  <groupId>org.sonarsource.sonar-web-plugin</groupId>
   <artifactId>sonar-web-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
   <version>2.4-SNAPSHOT</version>
@@ -22,7 +22,6 @@
     <license.name>AL2</license.name>
     <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
-    <bintray.package>sonar-web</bintray.package>
   </properties>
 
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
