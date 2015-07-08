@@ -98,7 +98,6 @@ public final class WebSensor implements Sensor {
 
       } catch (Exception e) {
         LOG.error("Cannot analyze file " + inputFile.file().getAbsolutePath(), e);
-        e.printStackTrace();
 
       } finally {
         IOUtils.closeQuietly(reader);
@@ -115,17 +114,22 @@ public final class WebSensor implements Sensor {
 
     for (WebIssue issue : sourceCode.getIssues()) {
       Issuable issuable = resourcePerspectives.as(Issuable.class, sourceCode.inputFile());
-      Issuable.IssueBuilder builder = issuable.newIssueBuilder();
 
-      builder.ruleKey(issue.ruleKey())
-          .line(issue.line())
-        .message(issue.message());
+      if (issuable != null) {
+        Issuable.IssueBuilder builder = issuable.newIssueBuilder();
 
-      if (issue.hasEffortToFix()) {
-        builder.effortToFix(issue.cost());
+        builder.ruleKey(issue.ruleKey())
+            .line(issue.line())
+          .message(issue.message());
+
+        if (issue.hasEffortToFix()) {
+          builder.effortToFix(issue.cost());
+        }
+
+        issuable.addIssue(builder.build());
+      } else {
+        LOG.warn("Cannot save issue {}, because");
       }
-
-      issuable.addIssue(builder.build());
     }
   }
 
