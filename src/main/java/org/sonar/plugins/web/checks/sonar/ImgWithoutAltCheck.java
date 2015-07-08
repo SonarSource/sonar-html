@@ -28,11 +28,9 @@ import org.sonar.squidbridge.annotations.NoSqale;
 @Rule(
   key = "ImgWithoutAltCheck",
   priority = Priority.MAJOR,
-  name = "Images tags and buttons should have an \"alt\" attribute")
+  name = "Images tags and buttons should have an \"alt\" attribute",
+  tags = {RuleTags.ACCESSIBILITY})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.ACCESSIBILITY
-})
 @NoSqale
 public class ImgWithoutAltCheck extends AbstractPageCheck {
 

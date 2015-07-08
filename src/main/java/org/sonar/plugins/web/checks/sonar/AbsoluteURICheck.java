@@ -37,8 +37,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "S1829",
   priority = Priority.CRITICAL,
-  name = "Web pages should not contain absolute URIs")
-@RuleTags({ RuleTags.PITFALL })
+  name = "Web pages should not contain absolute URIs",
+  tags = {RuleTags.PITFALL})
 @WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("5min")
@@ -52,7 +52,7 @@ public class AbsoluteURICheck extends AbstractPageCheck {
   private Matcher matcher = Pattern.compile("[A-Za-z0-9]*://.*").matcher("");
 
   @RuleProperty(
-    key = "attributes",
+    key = "Comma-separated list of tag.attributes to be checked for absolute URI. ",
     type = "TEXT",
     description = "Comma-separated list of tag.attributes to be checked for absolute URI.",
     defaultValue = DEFAULT_ATTRIBUTES)

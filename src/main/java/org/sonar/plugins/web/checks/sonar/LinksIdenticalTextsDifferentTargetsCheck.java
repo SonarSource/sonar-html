@@ -36,11 +36,9 @@ import com.google.common.collect.Maps;
 @Rule(
   key = "LinksIdenticalTextsDifferentTargetsCheck",
   priority = Priority.MAJOR,
-  name = "Links with identical texts should have identical targets")
+  name = "Links with identical texts should have identical targets",
+  tags = {RuleTags.ACCESSIBILITY})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.ACCESSIBILITY
-})
 @NoSqale
 public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck {
 

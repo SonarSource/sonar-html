@@ -35,10 +35,12 @@ public @interface RuleTags {
   String JSP_JSF = "jsp-jsf";
   String OBSOLETE = "obsolete";
   String PITFALL = "pitfall";
-  String PSR2 = "psr2";
   String SECURITY = "security";
   String UNUSED = "unused";
   String USER_EXPERIENCE = "user-experience";
+  String MISRA = "misra";
+  String OWASP_AS6 = "owasp-as6";
+  String CWE = "cwe";
 
   String[] value();
 

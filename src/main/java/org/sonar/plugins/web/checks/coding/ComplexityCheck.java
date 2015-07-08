@@ -33,12 +33,10 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "ComplexityCheck",
-  priority = Priority.MINOR,
-  name = "Files should not be too complex")
+  priority = Priority.MAJOR,
+  name = "Files should not be too complex",
+  tags = {RuleTags.BRAIN_OVERLOADED})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.BRAIN_OVERLOADED
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
 @SqaleLinearWithOffsetRemediation(offset = "30min", coeff = "1min", effortToFixDescription = "per complexity point above the threshold")
 public final class ComplexityCheck extends AbstractPageCheck {

@@ -40,11 +40,9 @@ import com.google.common.collect.ImmutableSet;
 @Rule(
   key = "AvoidCommentedOutCodeCheck",
   priority = Priority.MAJOR,
-  name = "Sections of code should not be \"commented out\"")
+  name = "Sections of code should not be \"commented out\"",
+  tags = {RuleTags.UNUSED, RuleTags.MISRA})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.UNUSED
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {

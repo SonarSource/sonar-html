@@ -6,17 +6,20 @@ Common reasons for that include:
 
 <ul>
   <li>The image can no longer be found</li>
-  <li>Slow internet connections, while waiting for the image to download</li>
   <li>Visually impaired users using a screen reader software</li>
   <li>Images loading is disabled, e.g. to reduce data consumption on mobile phones</li>
 </ul>
 
+<p>
+  Empty <code>alt</code> attributes are not allowed, since purely decorative images should be specified using CSS, not using the <code>img</code> tag.
+</p>
+
 <h2>Noncompliant Code Example</h2>
 
 <pre>
-&lt;img src="foo.png" /&gt;                                           &lt;!-- Non-Compliant --&gt;
-&lt;img src="foo.png" alt="" /&gt;                                    &lt;!-- Non-Compliant --&gt;
-&lt;input type="image" src="bar.png" /&gt;                            &lt;!-- Non-Compliant --&gt;
+&lt;img src="foo.png" /&gt;                                           &lt;!-- Noncompliant --&gt;
+&lt;img src="foo.png" alt="" /&gt;                                    &lt;!-- Noncompliant --&gt;
+&lt;input type="image" src="bar.png" /&gt;                            &lt;!-- Noncompliant --&gt;
 </pre>
 
 <h2>Compliant Solution</h2>

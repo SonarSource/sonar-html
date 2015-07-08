@@ -31,11 +31,9 @@ import org.sonar.squidbridge.annotations.NoSqale;
 @Rule(
   key = "NonConsecutiveHeadingCheck",
   priority = Priority.MAJOR,
-  name = "Heading tags should be used starting from H1 until H6")
+  name = "Heading tags should be used starting from H1 until H6",
+  tags = {RuleTags.ACCESSIBILITY})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.ACCESSIBILITY
-})
 @NoSqale
 public class NonConsecutiveHeadingCheck extends AbstractPageCheck {
 

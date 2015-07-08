@@ -33,11 +33,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "FlashUsesBothObjectAndEmbedCheck",
   priority = Priority.MAJOR,
-  name = "Flash animations should be embedded using both the \"object\" and \"embed\" tags")
+  name = "Flash animations should be embedded using both the <object> and <embed> tags",
+  tags = RuleTags.CROSS_BROWSER)
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.CROSS_BROWSER
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("10min")
 public class FlashUsesBothObjectAndEmbedCheck extends AbstractPageCheck {

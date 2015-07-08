@@ -46,7 +46,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.BLOCKER,
   name = "JSF expressions should be syntactically valid")
 @WebRule(activeByDefault = false)
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
+@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("2min")
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 

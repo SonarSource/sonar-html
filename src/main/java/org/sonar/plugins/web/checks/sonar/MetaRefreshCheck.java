@@ -28,11 +28,9 @@ import org.sonar.squidbridge.annotations.NoSqale;
 @Rule(
   key = "MetaRefreshCheck",
   priority = Priority.MAJOR,
-  name = "Meta tags should not be used to refresh the page nor for redirection")
+  name = "Meta tags should not be used to refresh the page nor for redirection",
+  tags = {RuleTags.USER_EXPERIENCE})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.USER_EXPERIENCE
-})
 @NoSqale
 public class MetaRefreshCheck extends AbstractPageCheck {
 

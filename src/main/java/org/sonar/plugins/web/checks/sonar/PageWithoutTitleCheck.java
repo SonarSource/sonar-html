@@ -31,11 +31,9 @@ import org.sonar.squidbridge.annotations.NoSqale;
 @Rule(
   key = "PageWithoutTitleCheck",
   priority = Priority.MAJOR,
-  name = "\"title\" should be present in all pages")
+  name = "\"title\" should be present in all pages",
+  tags = {RuleTags.USER_EXPERIENCE})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.USER_EXPERIENCE
-})
 @NoSqale
 public class PageWithoutTitleCheck extends AbstractPageCheck {
 

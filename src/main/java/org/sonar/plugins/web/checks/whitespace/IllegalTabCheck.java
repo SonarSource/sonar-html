@@ -37,13 +37,10 @@ import com.google.common.io.Files;
 
 @Rule(
   key = "IllegalTabCheck",
-  priority = Priority.MAJOR,
-  name = "Tabulation characters should not be used")
+  priority = Priority.MINOR,
+  name = "Tabulation characters should not be used",
+tags = {RuleTags.CONVENTION})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.CONVENTION,
-  RuleTags.PSR2
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
 public class IllegalTabCheck extends AbstractPageCheck implements CharsetAwareVisitor {

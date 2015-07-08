@@ -36,12 +36,9 @@ import com.google.common.collect.ImmutableSet;
 @Rule(
   key = "UnsupportedTagsInHtml5Check",
   priority = Priority.MAJOR,
-  name = "Elements deprecated in HTML5 should not be used")
+  name = "Elements deprecated in HTML5 should not be used",
+  tags = {RuleTags.HTML5, RuleTags.OBSOLETE, RuleTags.USER_EXPERIENCE})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.HTML5,
-  RuleTags.OBSOLETE
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("20min")
 public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {

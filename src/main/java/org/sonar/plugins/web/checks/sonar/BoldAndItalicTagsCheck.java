@@ -28,11 +28,9 @@ import org.sonar.squidbridge.annotations.NoSqale;
 @Rule(
   key = "BoldAndItalicTagsCheck",
   priority = Priority.MAJOR,
-  name = "\"<strong>\" and \"<em>\" tags should be used instead of \"<b>\" and \"<i>\"")
+  name = "<strong> and <em> tags should be used instead of <b> and <i>",
+  tags = {RuleTags.ACCESSIBILITY})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.ACCESSIBILITY
-})
 @NoSqale
 public class BoldAndItalicTagsCheck extends AbstractPageCheck {
 

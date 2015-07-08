@@ -34,7 +34,7 @@ public class FileLengthCheckTest {
 
   @Test
   public void detected() {
-    assertThat(new FileLengthCheck().maxLength).isEqualTo(500);
+    assertThat(new FileLengthCheck().maxLength).isEqualTo(1000);
   }
 
   @Test

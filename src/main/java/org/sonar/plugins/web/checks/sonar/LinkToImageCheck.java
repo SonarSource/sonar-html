@@ -39,12 +39,9 @@ import com.google.common.collect.Iterables;
 @Rule(
   key = "LinkToImageCheck",
   priority = Priority.MAJOR,
-  name = "Links should not directly target images")
+  name = "Links should not directly target images",
+  tags = {RuleTags.ACCESSIBILITY, RuleTags.USER_EXPERIENCE})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.ACCESSIBILITY,
-  RuleTags.USER_EXPERIENCE
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("15min")
 public class LinkToImageCheck extends AbstractPageCheck {

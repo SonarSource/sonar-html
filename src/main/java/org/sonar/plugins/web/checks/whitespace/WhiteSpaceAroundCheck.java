@@ -37,12 +37,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "WhiteSpaceAroundCheck",
   priority = Priority.MINOR,
-  name = "White space should be used in JSP/JSF tags")
+  name = "White space should be used in JSP/JSF tags",
+  tags = {RuleTags.CONVENTION, RuleTags.JSP_JSF})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.CONVENTION,
-  RuleTags.JSP_JSF
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {

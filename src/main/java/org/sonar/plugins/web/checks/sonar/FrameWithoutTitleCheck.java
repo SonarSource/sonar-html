@@ -30,11 +30,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "FrameWithoutTitleCheck",
   priority = Priority.MAJOR,
-  name = "Frames tags should have a \"title\" attribute")
+  name = "\"<frames>\" should have a \"title\" attribute",
+  tags = {RuleTags.ACCESSIBILITY})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.ACCESSIBILITY
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("5min")
 public class FrameWithoutTitleCheck extends AbstractPageCheck {

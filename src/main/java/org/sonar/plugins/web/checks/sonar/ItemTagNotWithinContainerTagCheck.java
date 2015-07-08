@@ -29,12 +29,10 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "ItemTagNotWithinContainerTagCheck",
-  priority = Priority.MAJOR,
-  name = "\"li\" or \"dt\" item tags should be within \"ul\", \"ol\" or \"dl\" container tags")
+  priority = Priority.CRITICAL,
+  name = "\"<li>\" and \"<dt>\" item tags should be in \"<ul>\", \"<ol>\" or \"<dl>\" container tags",
+  tags = {RuleTags.BUG})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.BUG
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("10min")
 public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {

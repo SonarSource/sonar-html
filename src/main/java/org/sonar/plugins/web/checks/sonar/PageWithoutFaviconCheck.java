@@ -31,11 +31,9 @@ import org.sonar.squidbridge.annotations.NoSqale;
 @Rule(
   key = "PageWithoutFaviconCheck",
   priority = Priority.MAJOR,
-  name = "Favicons should be used in all pages")
+  name = "Favicons should be used in all pages",
+  tags = {RuleTags.USER_EXPERIENCE})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.USER_EXPERIENCE
-})
 @NoSqale
 public class PageWithoutFaviconCheck extends AbstractPageCheck {
 

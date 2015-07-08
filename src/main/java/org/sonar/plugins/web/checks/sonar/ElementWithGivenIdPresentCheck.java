@@ -21,6 +21,7 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
@@ -32,19 +33,17 @@ import java.util.List;
 @Rule(
   key = "S1436",
   priority = Priority.MAJOR,
-  name = "An element with a specific \"id\" attribute should be present in each HTML page")
+  name = "An element with a specific \"id\" attribute should be present in each HTML page",
+  tags = {RuleTags.CONVENTION})
 @WebRule(activeByDefault = false)
 @RuleTemplate
 @NoSqale
 public class ElementWithGivenIdPresentCheck extends AbstractPageCheck {
 
-  private static final String DEFAULT_ID = "";
-
   @RuleProperty(
     key = "id",
-    description = "Value of the \"id\" attribute expected to be present on every page",
-    defaultValue = DEFAULT_ID)
-  public String id = DEFAULT_ID;
+    description = "Value of the \"id\" attribute expected to be present on every page")
+  public String id = "";
 
   private boolean foundId;
 

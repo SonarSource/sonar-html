@@ -30,12 +30,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "S1443",
   priority = Priority.CRITICAL,
-  name = "\"autocomplete\" should be set to \"off\" on input elements of type \"password\"")
+  name = "\"autocomplete\" should be set to \"off\" on input elements of type \"password\"",
+tags = {RuleTags.HTML5, RuleTags.SECURITY})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.HTML5,
-  RuleTags.SECURITY
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("5min")
 public class PasswordAutocompleteCheck extends AbstractPageCheck {

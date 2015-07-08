@@ -30,11 +30,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "ServerSideImageMapsCheck",
   priority = Priority.MAJOR,
-  name = "Server-side image maps (\"ismap\" attribute) should not be used")
+  name = "Server-side image maps (\"ismap\" attribute) should not be used",
+  tags = {RuleTags.ACCESSIBILITY})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.ACCESSIBILITY
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1h")
 public class ServerSideImageMapsCheck extends AbstractPageCheck {

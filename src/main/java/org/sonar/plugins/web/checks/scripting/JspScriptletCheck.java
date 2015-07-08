@@ -32,12 +32,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "JspScriptletCheck",
   priority = Priority.MAJOR,
-  name = "JSP expressions should not be used")
+  name = "JSP expressions should not be used",
+tags = {RuleTags.JSP_JSF, RuleTags.OBSOLETE})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.JSP_JSF,
-  RuleTags.OBSOLETE
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("30min")
 public class JspScriptletCheck extends AbstractPageCheck {

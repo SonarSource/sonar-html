@@ -37,12 +37,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "MultiplePageDirectivesCheck",
   priority = Priority.MINOR,
-name = "Multiple \"page\" directives should not be used")
+  name = "Multiple \"page\" directives should not be used",
+  tags = {RuleTags.CONVENTION, RuleTags.JSP_JSF})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.CONVENTION,
-  RuleTags.JSP_JSF
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {

@@ -39,12 +39,10 @@ import com.google.common.io.Files;
 
 @Rule(
   key = "MaxLineLengthCheck",
-  priority = Priority.MAJOR,
-  name = "Lines should not be too long")
+  priority = Priority.MINOR,
+  name = "Lines should not be too long",
+  tags = {RuleTags.CONVENTION})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.CONVENTION
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwareVisitor {
@@ -53,7 +51,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
 
   @RuleProperty(
     key = "maxLength",
-    description = "The maximum authorized line length",
+    description = "The maximum authorized line length.",
     defaultValue = "" + DEFAULT_MAX_LINE_LENGTH)
   public int maxLength = DEFAULT_MAX_LINE_LENGTH;
 

@@ -32,20 +32,18 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "FileLengthCheck",
   priority = Priority.MAJOR,
-  name = "Files should not have too many lines")
+  name = "Files should not have too many lines",
+  tags = {RuleTags.BRAIN_OVERLOADED})
 @WebRule(activeByDefault = true)
-@RuleTags({
-  RuleTags.BRAIN_OVERLOADED
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1h")
 public class FileLengthCheck extends AbstractPageCheck {
 
-  private static final int DEFAULT_MAX_FILE_LENGTH = 500;
+  private static final int DEFAULT_MAX_FILE_LENGTH = 1000;
 
   @RuleProperty(
     key = "maxLength",
-    description = "Maximum authorized lines in a file",
+    description = "Maximum authorized lines in a file.",
     defaultValue = "" + DEFAULT_MAX_FILE_LENGTH)
   public int maxLength = DEFAULT_MAX_FILE_LENGTH;
 

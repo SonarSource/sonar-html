@@ -40,11 +40,9 @@ import com.google.common.io.LineProcessor;
 @Rule(
   key = "HeaderCheck",
   priority = Priority.BLOCKER,
-  name = "Files should have a header comment")
+  name = "Copyright and license headers should be defined",
+  tags = {RuleTags.CONVENTION})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.CONVENTION
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_COMPLIANCE)
 @SqaleConstantRemediation("5min")
 public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {

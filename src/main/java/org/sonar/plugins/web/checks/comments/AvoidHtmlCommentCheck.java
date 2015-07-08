@@ -34,12 +34,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "AvoidHtmlCommentCheck",
   priority = Priority.MAJOR,
-  name = "HTML comments should not be used")
+  name = "HTML comments should not be used",
+  tags = {RuleTags.SECURITY, RuleTags.CWE, RuleTags.OWASP_AS6})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.JSP_JSF,
-  RuleTags.SECURITY
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("5min")
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
