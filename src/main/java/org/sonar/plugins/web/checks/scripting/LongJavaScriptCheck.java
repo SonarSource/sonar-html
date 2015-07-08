@@ -27,6 +27,7 @@ import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
@@ -38,7 +39,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   RuleTags.BRAIN_OVERLOADED
 })
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
-@SqaleConstantRemediation("2min")
+@SqaleLinearRemediation(effortToFixDescription = "number of lines over the threshold", coeff = "2min")
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;
@@ -58,7 +59,7 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
       linesOfCode += textNode.getLinesOfCode();
 
       if (linesOfCode > maxLines) {
-        createViolation(scriptNode.getStartLinePosition(), "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".");
+        createViolation(scriptNode.getStartLinePosition(), "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".", Double.valueOf(linesOfCode - maxLines));
         scriptNode = null;
       }
     }

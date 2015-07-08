@@ -109,4 +109,12 @@ public final class CheckMessagesVerifier {
     return this;
   }
 
+  public CheckMessagesVerifier withCost(@Nullable Double expectedCost) {
+    checkStateOfCurrent();
+    if (!Objects.equal(expectedCost, current.cost())) {
+      throw new AssertionError("\nExpected: " + expectedCost + "\ngot: " + current.cost());
+    }
+    return this;
+  }
+
 }
