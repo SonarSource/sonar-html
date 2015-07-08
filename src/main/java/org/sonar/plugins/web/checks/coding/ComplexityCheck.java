@@ -57,7 +57,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
 
     if (complexity > max) {
       String msg = String.format("Split this file to reduce complexity per file from %d to no more than the %d authorized.", complexity, max);
-      createViolation(0, msg, Double.valueOf(complexity));
+      createViolation(0, msg, Double.valueOf(complexity - max));
     }
   }
 
