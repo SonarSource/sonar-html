@@ -30,11 +30,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "FieldsetWithoutLegendCheck",
   priority = Priority.MAJOR,
-  name = "\"fieldset\" tags should contain a \"legend\"")
+  name = "\"fieldset\" tags should contain a \"legend\"",
+  tags = {RuleTags.ACCESSIBILITY})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.ACCESSIBILITY
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")
 public class FieldsetWithoutLegendCheck extends AbstractPageCheck {

@@ -36,12 +36,9 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 @Rule(
   key = "InternationalizationCheck",
   priority = Priority.MAJOR,
-  name = "Labels should be defined in the resource bundle")
+  name = "Labels should be defined in the resource bundle",
+  tags = {RuleTags.JSP_JSF, RuleTags.USER_EXPERIENCE})
 @WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.JSP_JSF,
-  RuleTags.USER_EXPERIENCE
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("15min")
 public class InternationalizationCheck extends AbstractPageCheck {
