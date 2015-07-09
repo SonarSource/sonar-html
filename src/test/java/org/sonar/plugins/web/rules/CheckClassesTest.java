@@ -25,12 +25,10 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.AnnotationUtils;
-import org.sonar.plugins.web.checks.WebRule;
 
 public class CheckClassesTest {
 
-  @Test(expected=IllegalAccessException.class)
+  @Test(expected = IllegalAccessException.class)
   public void create() throws Exception {
     CheckClasses.class.newInstance();
   }
@@ -41,7 +39,7 @@ public class CheckClassesTest {
   @Test
   public void count() {
     int count = 0;
-    List<File> files = (List<File>) FileUtils.listFiles(new File("src/main/java/org/sonar/plugins/web/checks/"), new String[]{"java"}, true);
+    List<File> files = (List<File>) FileUtils.listFiles(new File("src/main/java/org/sonar/plugins/web/checks/"), new String[] {"java"}, true);
     for (File file : files) {
       if (file.getName().endsWith("Check.java") && (!file.getName().endsWith("AbstractPageCheck.java"))) {
         count++;
@@ -62,11 +60,7 @@ public class CheckClassesTest {
       assertThat(getClass().getResource(testName))
         .overridingErrorMessage("No test for " + cls.getSimpleName())
         .isNotNull();
-      assertThat(AnnotationUtils.getClassAnnotation(cls, WebRule.class) != null)
-        .overridingErrorMessage("Add @WebRule to " + cls.getSimpleName())
-        .isTrue();
     }
-
 
     WebRulesDefinition rulesDefinition = new WebRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();

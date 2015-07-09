@@ -25,7 +25,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
@@ -38,7 +37,6 @@ import com.google.common.collect.Maps;
   priority = Priority.MAJOR,
   name = "Links with identical texts should have identical targets",
   tags = {RuleTags.ACCESSIBILITY})
-@WebRule(activeByDefault = false)
 @NoSqale
 public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck {
 

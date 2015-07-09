@@ -22,8 +22,8 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
@@ -32,7 +32,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.CRITICAL,
   name = "\"<li>\" and \"<dt>\" item tags should be in \"<ul>\", \"<ol>\" or \"<dl>\" container tags",
   tags = {RuleTags.BUG})
-@WebRule(activeByDefault = true)
+@ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("10min")
 public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {

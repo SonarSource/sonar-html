@@ -24,7 +24,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
@@ -34,7 +33,6 @@ import org.sonar.squidbridge.annotations.NoSqale;
   key = "IllegalNamespaceCheck",
   priority = Priority.MAJOR,
   name = "Disallowed namespaces should not be used in XHTML documents")
-@WebRule(activeByDefault = false)
 @NoSqale
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 

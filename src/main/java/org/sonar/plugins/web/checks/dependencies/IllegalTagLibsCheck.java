@@ -24,8 +24,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
@@ -39,10 +37,6 @@ import com.google.common.base.Strings;
   key = "IllegalTagLibsCheck",
   priority = Priority.CRITICAL,
   name = "Disallowed \"taglibs\" should not be used")
-@WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.JSP_JSF
-})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("1h")
 public class IllegalTagLibsCheck extends AbstractPageCheck {

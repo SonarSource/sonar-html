@@ -28,7 +28,6 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -42,7 +41,6 @@ import com.google.common.io.LineProcessor;
   priority = Priority.BLOCKER,
   name = "Copyright and license headers should be defined",
   tags = {RuleTags.CONVENTION})
-@WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_COMPLIANCE)
 @SqaleConstantRemediation("5min")
 public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {

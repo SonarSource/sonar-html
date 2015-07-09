@@ -21,8 +21,8 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.NoSqale;
   priority = Priority.MAJOR,
   name = "Images tags and buttons should have an \"alt\" attribute",
   tags = {RuleTags.ACCESSIBILITY})
-@WebRule(activeByDefault = true)
+@ActivatedByDefault
 @NoSqale
 public class ImgWithoutAltCheck extends AbstractPageCheck {
 

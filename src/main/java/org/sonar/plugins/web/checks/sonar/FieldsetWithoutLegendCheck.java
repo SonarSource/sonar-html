@@ -22,7 +22,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
@@ -32,7 +31,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.MAJOR,
   name = "\"fieldset\" tags should contain a \"legend\"",
   tags = {RuleTags.ACCESSIBILITY})
-@WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")
 public class FieldsetWithoutLegendCheck extends AbstractPageCheck {

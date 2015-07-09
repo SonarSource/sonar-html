@@ -21,8 +21,8 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
+import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
@@ -30,7 +30,7 @@ import org.sonar.squidbridge.annotations.NoSqale;
   priority = Priority.MAJOR,
   name = "<strong> and <em> tags should be used instead of <b> and <i>",
   tags = {RuleTags.ACCESSIBILITY})
-@WebRule(activeByDefault = true)
+@ActivatedByDefault
 @NoSqale
 public class BoldAndItalicTagsCheck extends AbstractPageCheck {
 

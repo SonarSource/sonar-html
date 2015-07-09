@@ -17,33 +17,30 @@
  */
 package org.sonar.plugins.web.rules;
 
+import org.sonar.api.profiles.ProfileDefinition;
+import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.RuleFinder;
-import org.sonar.api.utils.AnnotationUtils;
+import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.api.WebConstants;
-import org.sonar.plugins.web.checks.WebRule;
+import org.sonar.squidbridge.annotations.AnnotationBasedProfileBuilder;
 
 /**
  * Sonar way profile for the Web language
  */
-public final class SonarWayProfile extends BaseProfileDefinition {
+public final class SonarWayProfile extends ProfileDefinition {
+
+  private static final String NAME = "Sonar way";
+
+  private final RuleFinder ruleFinder;
 
   public SonarWayProfile(RuleFinder ruleFinder) {
-    super(ruleFinder);
+    this.ruleFinder = ruleFinder;
   }
 
   @Override
-  protected boolean isActive(Class ruleClass) {
-    WebRule ruleAnnotation = AnnotationUtils.getAnnotation(ruleClass, WebRule.class);
-    return ruleAnnotation != null && ruleAnnotation.activeByDefault();
+  public final RulesProfile createProfile(ValidationMessages messages) {
+    AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
+    return annotationBasedProfileBuilder.build(WebRulesDefinition.REPOSITORY_KEY, NAME, WebConstants.LANGUAGE_KEY, CheckClasses.getCheckClasses(), messages);
   }
 
-  @Override
-  protected String getLanguageKey() {
-    return WebConstants.LANGUAGE_KEY;
-  }
-
-  @Override
-  protected String getRepositoryKey() {
-    return WebConstants.LANGUAGE_NAME;
-  }
 }

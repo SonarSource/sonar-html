@@ -21,7 +21,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
@@ -35,7 +34,6 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
   key = "ChildElementRequiredCheck",
   priority = Priority.MAJOR,
   name = "Child element should be used")
-@WebRule(activeByDefault = false)
 @NoSqale
 @RuleTemplate
 public class ChildElementRequiredCheck extends AbstractPageCheck {

@@ -25,7 +25,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -36,7 +35,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.MAJOR,
   name = "HTML comments should not be used",
   tags = {RuleTags.SECURITY, RuleTags.CWE, RuleTags.OWASP_AS6})
-@WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("5min")
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {

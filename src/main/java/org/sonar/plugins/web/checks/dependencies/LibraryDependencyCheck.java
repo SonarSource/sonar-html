@@ -24,7 +24,6 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
@@ -37,11 +36,8 @@ import com.google.common.base.Splitter;
 @Rule(
   key = "LibraryDependencyCheck",
   priority = Priority.MAJOR,
-  name = "Some Java packages or classes should not be used in JSP files")
-@WebRule(activeByDefault = false)
-@RuleTags({
-  RuleTags.JSP_JSF
-})
+  name = "Some Java packages or classes should not be used in JSP files",
+  tags = {RuleTags.JSP_JSF})
 @RuleTemplate
 @NoSqale
 public class LibraryDependencyCheck extends AbstractPageCheck {

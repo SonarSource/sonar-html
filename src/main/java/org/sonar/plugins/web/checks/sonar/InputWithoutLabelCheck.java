@@ -26,7 +26,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.NoSqale;
@@ -40,7 +39,6 @@ import com.google.common.collect.Sets;
   priority = Priority.MAJOR,
   name = "\"input\", \"select\" and \"textarea\" tags should have an associated \"label\" one",
   tags = {RuleTags.ACCESSIBILITY, RuleTags.USER_EXPERIENCE})
-@WebRule(activeByDefault = false)
 @NoSqale
 public class InputWithoutLabelCheck extends AbstractPageCheck {
 

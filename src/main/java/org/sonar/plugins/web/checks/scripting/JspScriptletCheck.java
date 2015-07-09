@@ -23,7 +23,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -34,7 +33,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.MAJOR,
   name = "JSP expressions should not be used",
 tags = {RuleTags.JSP_JSF, RuleTags.OBSOLETE})
-@WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("30min")
 public class JspScriptletCheck extends AbstractPageCheck {

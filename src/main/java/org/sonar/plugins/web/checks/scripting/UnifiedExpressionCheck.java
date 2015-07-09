@@ -34,7 +34,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
@@ -45,7 +44,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   key = "UnifiedExpressionCheck",
   priority = Priority.BLOCKER,
   name = "JSF expressions should be syntactically valid")
-@WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("2min")
 public class UnifiedExpressionCheck extends AbstractPageCheck {

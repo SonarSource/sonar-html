@@ -27,7 +27,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -40,7 +39,6 @@ import com.google.common.io.Files;
   priority = Priority.MINOR,
   name = "Tabulation characters should not be used",
 tags = {RuleTags.CONVENTION})
-@WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")
 public class IllegalTabCheck extends AbstractPageCheck implements CharsetAwareVisitor {

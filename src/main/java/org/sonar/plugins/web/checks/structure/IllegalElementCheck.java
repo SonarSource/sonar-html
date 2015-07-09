@@ -24,7 +24,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.NoSqale;
@@ -33,7 +32,6 @@ import org.sonar.squidbridge.annotations.NoSqale;
   key = "IllegalElementCheck",
   priority = Priority.MAJOR,
   name = "Disallowed elements should not be used")
-@WebRule(activeByDefault = false)
 @NoSqale
 public class IllegalElementCheck extends AbstractPageCheck {
 

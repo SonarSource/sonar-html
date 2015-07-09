@@ -22,7 +22,6 @@ import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.WebRule;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
@@ -32,7 +31,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   key = "ParentElementRequiredCheck",
   priority = Priority.MAJOR,
   name = "Parent elements should be used")
-@WebRule(activeByDefault = false)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("5min")
 @RuleTemplate

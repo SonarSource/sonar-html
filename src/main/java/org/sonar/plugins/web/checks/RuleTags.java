@@ -17,31 +17,22 @@
  */
 package org.sonar.plugins.web.checks;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public class RuleTags {
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface RuleTags {
-
-  String ACCESSIBILITY = "accessibility";
-  String BRAIN_OVERLOADED = "brain-overload";
-  String BUG = "bug";
-  String CONVENTION = "convention";
-  String CROSS_BROWSER = "cross-browser";
-  String HTML5 = "html5";
-  String JSP_JSF = "jsp-jsf";
-  String OBSOLETE = "obsolete";
-  String PITFALL = "pitfall";
-  String SECURITY = "security";
-  String UNUSED = "unused";
-  String USER_EXPERIENCE = "user-experience";
-  String MISRA = "misra";
-  String OWASP_AS6 = "owasp-as6";
-  String CWE = "cwe";
-
-  String[] value();
+  public static final String ACCESSIBILITY = "accessibility";
+  public static final String BRAIN_OVERLOADED = "brain-overload";
+  public static final String BUG = "bug";
+  public static final String CONVENTION = "convention";
+  public static final String CROSS_BROWSER = "cross-browser";
+  public static final String HTML5 = "html5";
+  public static final String JSP_JSF = "jsp-jsf";
+  public static final String OBSOLETE = "obsolete";
+  public static final String PITFALL = "pitfall";
+  public static final String SECURITY = "security";
+  public static final String UNUSED = "unused";
+  public static final String USER_EXPERIENCE = "user-experience";
+  public static final String MISRA = "misra";
+  public static final String OWASP_AS6 = "owasp-as6";
+  public static final String CWE = "cwe";
 
 }
