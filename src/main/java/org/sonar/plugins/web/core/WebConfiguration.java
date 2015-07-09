@@ -26,13 +26,10 @@ public class WebConfiguration {
 
   private static final Logger LOG = LoggerFactory.getLogger(WebConfiguration.class);
 
-  private final Settings settings;
-
-  public WebConfiguration(Settings settings) {
-    this.settings = settings;
+  private WebConfiguration() {
   }
 
-  public String[] fileSuffixes() {
+  public static String[] fileSuffixes(Settings settings) {
     String[] result;
 
     String oldFileExtensions = settings.getString(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY);

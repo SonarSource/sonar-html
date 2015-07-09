@@ -46,7 +46,7 @@ import com.google.common.collect.ImmutableSet;
 @SqaleConstantRemediation("5min")
 public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
 
-  private static Map<String, Set<String>> DEPRECATED;
+  private static final Map<String, Set<String>> DEPRECATED;
 
   static {
     final String align = "align";

@@ -38,7 +38,7 @@ public final class SonarWayProfile extends ProfileDefinition {
   }
 
   @Override
-  public final RulesProfile createProfile(ValidationMessages messages) {
+  public RulesProfile createProfile(ValidationMessages messages) {
     AnnotationBasedProfileBuilder annotationBasedProfileBuilder = new AnnotationBasedProfileBuilder(ruleFinder);
     return annotationBasedProfileBuilder.build(WebRulesDefinition.REPOSITORY_KEY, NAME, WebConstants.LANGUAGE_KEY, CheckClasses.getCheckClasses(), messages);
   }

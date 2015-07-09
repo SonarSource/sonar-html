@@ -54,7 +54,9 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
       linesOfCode += textNode.getLinesOfCode();
 
       if (linesOfCode > maxLines) {
-        createViolation(scriptNode.getStartLinePosition(), "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".", Double.valueOf(linesOfCode - maxLines));
+        createViolation(scriptNode.getStartLinePosition(),
+          "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".",
+          Double.valueOf(linesOfCode) - Double.valueOf(maxLines));
         scriptNode = null;
       }
     }

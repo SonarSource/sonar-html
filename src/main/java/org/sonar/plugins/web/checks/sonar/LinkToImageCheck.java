@@ -46,7 +46,7 @@ import com.google.common.collect.Iterables;
 @SqaleConstantRemediation("15min")
 public class LinkToImageCheck extends AbstractPageCheck {
 
-  private static Set<String> IMG_SUFFIXES = ImmutableSet.of(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP");
+  private static final ImmutableSet<String> IMG_SUFFIXES = ImmutableSet.of(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP");
 
   @Override
   public void startElement(TagNode node) {

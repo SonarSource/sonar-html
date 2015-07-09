@@ -23,18 +23,16 @@ import org.sonar.plugins.web.api.WebConstants;
 
 public class Web extends AbstractLanguage {
 
-  private final String[] fileSuffixes;
-  private final WebConfiguration webConfiguration;
+  private Settings settings;
 
   public Web(Settings settings) {
     super(WebConstants.LANGUAGE_KEY, WebConstants.LANGUAGE_NAME);
-    webConfiguration = new WebConfiguration(settings);
-    fileSuffixes = webConfiguration.fileSuffixes();
+    this.settings = settings;
   }
 
   @Override
   public String[] getFileSuffixes() {
-    return fileSuffixes;
+    return WebConfiguration.fileSuffixes(settings);
   }
 
 }
