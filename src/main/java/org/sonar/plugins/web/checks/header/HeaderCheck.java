@@ -17,30 +17,27 @@
  */
 package org.sonar.plugins.web.checks.header;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
-
+import com.google.common.io.Files;
+import com.google.common.io.LineProcessor;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
-import com.google.common.io.Files;
-import com.google.common.io.LineProcessor;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 @Rule(
   key = "HeaderCheck",
   priority = Priority.BLOCKER,
-  name = "Copyright and license headers should be defined",
-  tags = {RuleTags.CONVENTION})
+  name = "Copyright and license headers should be defined")
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_COMPLIANCE)
 @SqaleConstantRemediation("5min")
 public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {

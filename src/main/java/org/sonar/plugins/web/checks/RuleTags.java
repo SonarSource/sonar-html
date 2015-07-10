@@ -35,7 +35,7 @@ public class RuleTags {
   public static final String UNUSED = "unused";
   public static final String USER_EXPERIENCE = "user-experience";
   public static final String MISRA = "misra";
-  public static final String OWASP_AS6 = "owasp-as6";
+  public static final String OWASP_A6 = "owasp-a6";
   public static final String CWE = "cwe";
 
 }

@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import java.util.List;
-
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -31,10 +29,12 @@ import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
+import java.util.List;
+
 @Rule(
   key = "DoctypePresenceCheck",
   priority = Priority.MAJOR,
-  name = "A <!DOCTYPE> declaration should always appear before the <html> tag",
+  name = "A <!DOCTYPE> declaration should appear before the <html> tag",
   tags = {RuleTags.USER_EXPERIENCE})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)

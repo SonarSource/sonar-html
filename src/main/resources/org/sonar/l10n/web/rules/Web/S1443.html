@@ -7,6 +7,10 @@ Imagine that user B takes control of a machine belonging to a user A.
 Accessing a secured web site as user A is trivial for user B if form input elements are automatically filled in by the browser on the site's login page.
 </p>
 
+<p>
+  Beginning with HTML 5 the ability to turn this functionality off exists on a field-by-field basis using the <code>autocomplete</code> attribute.
+</p>
+
 <h2>Noncompliant Code Example</h2>
 <p>For HTML5:</p>
 <pre>
@@ -18,4 +22,3 @@ Accessing a secured web site as user A is trivial for user B if form input eleme
 <pre>
 &lt;input type="password" autocomplete="off" /&gt;
 </pre>
-

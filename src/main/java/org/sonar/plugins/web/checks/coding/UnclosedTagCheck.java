@@ -17,9 +17,6 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
@@ -30,6 +27,9 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Rule(
   key = "UnclosedTagCheck",
@@ -44,7 +44,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "ignoreTags",
-    description = "Ignore Tags",
+    description = "Ignore tags",
     defaultValue = DEFAULT_IGNORE_TAGS)
   public String ignoreTags = DEFAULT_IGNORE_TAGS;
 
