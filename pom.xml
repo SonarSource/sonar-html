@@ -18,7 +18,6 @@
 
   <properties>
     <sonar.version>4.5.4</sonar.version>
-    <sslr.version>1.20</sslr.version>
     <license.name>AL2</license.name>
     <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
