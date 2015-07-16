@@ -18,7 +18,6 @@
 package org.sonar.plugins.web.checks.sonar;
 
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nullable;
 
