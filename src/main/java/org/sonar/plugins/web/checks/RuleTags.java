@@ -37,5 +37,5 @@ public class RuleTags {
   public static final String MISRA = "misra";
   public static final String OWASP_A6 = "owasp-a6";
   public static final String CWE = "cwe";
-
+  public static final String TESTS = "automated-tests";
 }

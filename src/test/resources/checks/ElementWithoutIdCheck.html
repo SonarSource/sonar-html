@@ -1,0 +1,30 @@
+<input type="password" />
+<input type="text" />
+<input type="radio"/>
+<select>
+	<option value="1">1</option>
+	<option value="2">1</option>
+</select>
+<input type="password" id="passwd"/>
+<input type="text" id="username"/>
+<input type="radio" id="radio"/>
+<select id="select">
+	<option value="1">1</option>
+	<option value="2">1</option>
+</select>
+
+<h:form id="form">
+	<h:commandButton action="#{fooBean.next}"
+					id="next"
+					value="#{labels['button.next']}"
+					styleClass="mainButton" />
+</h:form>
+<h:form>
+	<h:commandButton action="#{fooBean.next}"
+					value="#{labels['button.next']}"
+					styleClass="mainButton" />
+	<h:inputText action="#{fooBean.bar}"
+					value="#{labels['bar']}" />
+	<h:inputTextArea action="#{fooBean.zzz}"
+					value="#{labels['zzz']}" />
+</h:form>

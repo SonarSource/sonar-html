@@ -20,6 +20,7 @@ package org.sonar.plugins.web.rules;
 import java.util.Arrays;
 import java.util.List;
 
+import org.sonar.plugins.web.checks.attributes.ElementWithoutIdCheck;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.checks.coding.ComplexityCheck;
@@ -131,6 +132,7 @@ public final class CheckClasses {
     PageWithoutFaviconCheck.class,
     ElementWithGivenIdPresentCheck.class,
     PasswordAutocompleteCheck.class,
+    ElementWithoutIdCheck.class,
   };
 
   private CheckClasses() {

@@ -1,0 +1,57 @@
+<p>
+  This rule verifies if the <code>id</code> was set to the specified HTML elements.<br/>
+  <br/>
+  Motivation: The <code>id</code> helps HTML components' identification for automated tests (Functionals and Performance).<br/> 
+  	In JSF, this <code>id</code> is generated at runtime when it was not set, and may be different when the code is updated.
+</p>
+<p>
+  Some examples when the <code>id</code> should be informed: 
+</p>
+
+<h2>Noncompliant code samples</h2>
+<pre>
+  	&lt;input type="password" /&gt; &lt;!-- Id not given --&gt;
+	&lt;input type="text" /&gt; &lt;!-- Id not given --&gt;
+	&lt;input type="radio"/&gt; &lt;!-- Id not given --&gt;
+	&lt;select&gt; &lt;!-- Id not given --&gt;
+		&lt;option value="1"&gt;1&lt;/option&gt;
+		&lt;option value="2"&gt;1&lt;/option&gt;
+	&lt;/select&gt;
+  	&lt;h:form&gt; &lt;!-- Id not given --&gt;
+		&lt;h:commandButton action="#{fooBean.bar}" &lt;!-- Id not given --&gt;
+					value="#{labels['button.next']}"
+					styleClass="mainButton" /&gt;
+	&lt;/h:form&gt;
+</pre>
+
+<h2>Compliant Solutions</h2>
+<pre>
+ 	&lt;input type="password" id="passwd" /&gt;
+	&lt;input type="text" id="name" /&gt; 
+	&lt;input type="radio" id="radio:1"/&gt; 
+	&lt;select id="choose" &gt;
+		&lt;option value="1"&gt;1&lt;/option&gt;
+		&lt;option value="2"&gt;1&lt;/option&gt;
+	&lt;/select&gt;
+	&lt;h:form id="form1" &gt; 
+		&lt;h:commandButton id="btnNext" action="#{fooBean.bar}" 
+					value="#{labels['button.next']}"
+					styleClass="mainButton" /&gt;
+	&lt;/h:form&gt;
+</pre>
+
+<h2>Default elements that need <code>id</code></h2>
+<pre>
+ 	form
+ 	data
+ 	button
+ 	link
+ 	calendar
+ 	select
+ 	input
+ 	inputText
+ 	inputTextArea
+ 	table
+ 	commandButton
+ 	commandLink
+</pre>

@@ -108,7 +108,7 @@ public class WebSensorTest {
 
     newWebSensor(fs).analyse(loadProjectFromPom(), context);
 
-    verify(perspectives, times(84)).as(any(Class.class), any(InputFile.class));
+    verify(perspectives, times(93)).as(any(Class.class), any(InputFile.class));
   }
 
   private Project loadProjectFromPom() throws Exception {
