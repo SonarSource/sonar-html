@@ -19,7 +19,7 @@ package org.sonar.plugins.web.checks;
 
 public class RuleTags {
 
-  public RuleTags() {
+  private RuleTags() {
   }
 
   public static final String ACCESSIBILITY = "accessibility";
