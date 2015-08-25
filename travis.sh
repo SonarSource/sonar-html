@@ -31,7 +31,7 @@ plugin|ruling)
   ;;
 
 *)
-  echo "Unexpected TEST mode (ci, its expected): $TEST"
+  echo "Unexpected TEST mode: $TEST"
   exit 1
   ;;
 
