@@ -19,11 +19,14 @@
  */
 package org.sonar.web.it;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarRunner;
 import com.sonar.orchestrator.locator.FileLocation;
 import com.sonar.orchestrator.locator.MavenLocation;
+import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -39,8 +42,13 @@ public class WebRulingTest {
     .setOrchestratorProperty("orchestrator.it_sources", FileLocation.of("../sources").toString())
     .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
     .addPlugin(MavenLocation.create("org.sonarsource.sonar-lits-plugin", "sonar-lits-plugin", "0.5-SNAPSHOT"))
-    .restoreProfileAtStartup(FileLocation.of("src/test/resources/profile.xml"))
     .build();
+
+  @BeforeClass
+  public static void prepare_quality_profiles() {
+    ImmutableMap<String, ImmutableMap<String, String>> rulesParameters = ImmutableMap.<String, ImmutableMap<String, String>>builder().build();
+    ProfileGenerator.generate(orchestrator, "web", "Web", rulesParameters, ImmutableSet.<String>of());
+  }
 
   @Test
   public void ruling() throws Exception {
