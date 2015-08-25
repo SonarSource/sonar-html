@@ -38,8 +38,7 @@ public class StandardMeasuresTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
-    .addPlugin(WebTestSuite.PLUGIN_KEY)
-    .setMainPluginKey(WebTestSuite.PLUGIN_KEY)
+    .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
     .build();
 

@@ -37,15 +37,12 @@ import com.sonar.orchestrator.locator.FileLocation;
 })
 public class WebTestSuite {
 
-  public static final String PLUGIN_KEY = "web";
-
   @ClassRule
   public static final Orchestrator ORCHESTRATOR;
 
   static {
     OrchestratorBuilder orchestratorBuilder = Orchestrator.builderEnv()
-      .addPlugin(PLUGIN_KEY)
-      .setMainPluginKey(PLUGIN_KEY)
+      .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
       .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"));
     ORCHESTRATOR = orchestratorBuilder.build();
   }
