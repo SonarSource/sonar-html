@@ -19,15 +19,13 @@
  */
 package com.sonar.it.web;
 
+import com.sonar.orchestrator.Orchestrator;
+import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-
-import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.OrchestratorBuilder;
-import com.sonar.orchestrator.build.SonarRunner;
-import com.sonar.orchestrator.locator.FileLocation;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -38,14 +36,10 @@ import com.sonar.orchestrator.locator.FileLocation;
 public class WebTestSuite {
 
   @ClassRule
-  public static final Orchestrator ORCHESTRATOR;
-
-  static {
-    OrchestratorBuilder orchestratorBuilder = Orchestrator.builderEnv()
-      .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
-      .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"));
-    ORCHESTRATOR = orchestratorBuilder.build();
-  }
+  public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
+    .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
+    .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
+    .build();
 
   public static SonarRunner createSonarRunner() {
     return SonarRunner.create();

@@ -95,7 +95,7 @@ public class VariousTest {
   }
 
   private static String keyFor(String project, String resource) {
-    return project + ":" + (orchestrator.getConfiguration().getSonarVersion().isGreaterThanOrEquals("4.2") ? "src/" : "") + resource;
+    return project + ":src/" + resource;
   }
 
 }

@@ -47,7 +47,7 @@ public class StandardMeasuresTest {
   private static final String FILE = keyFor("TestOfWebPlugin", "WEB-INF/jsp/admin/buildQueueView.jsp");
 
   private static String keyFor(String project, String resource) {
-    return project + ":" + (orchestrator.getConfiguration().getSonarVersion().isGreaterThanOrEquals("4.2") ? "src/" : "") + resource;
+    return project + ":src/" + resource;
   }
 
   @BeforeClass
