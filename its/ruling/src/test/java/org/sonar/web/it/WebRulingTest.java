@@ -39,7 +39,6 @@ public class WebRulingTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
-    .setOrchestratorProperty("orchestrator.it_sources", FileLocation.of("../sources").toString())
     .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
     .addPlugin(MavenLocation.create("org.sonarsource.sonar-lits-plugin", "sonar-lits-plugin", "0.5-SNAPSHOT"))
     .build();
@@ -54,7 +53,7 @@ public class WebRulingTest {
   public void ruling() throws Exception {
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
     SonarRunner build = SonarRunner.create()
-      .setProjectDir(orchestrator.getFileLocationOfShared(".").getFile())
+      .setProjectDir(FileLocation.of("../sources").getFile())
       .setProjectKey("project")
       .setProjectName("project")
       .setProjectVersion("1")
