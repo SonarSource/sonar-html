@@ -22,9 +22,6 @@ plugin|ruling)
   if [ "$SQ_VERSION" = "DEV" ] ; then
     build_snapshot "SonarSource/sonarqube"
   fi
-  if [ "$TEST" = "ruling" ]; then
-    build_snapshot "SonarSource/sonar-lits"
-  fi
 
   cd its/$TEST
   mvn -Dsonar.runtimeVersion="$SQ_VERSION" -Dmaven.test.redirectTestOutputToFile=false install
