@@ -23,6 +23,13 @@
   </properties>
 
   <dependencies>
+    <!-- make LITS available on the machine -->
+    <dependency>
+      <groupId>org.sonarsource.sonar-lits-plugin</groupId>
+      <artifactId>sonar-lits-plugin</artifactId>
+      <version>0.5</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>com.sonarsource.orchestrator</groupId>
       <artifactId>sonar-orchestrator</artifactId>
