@@ -39,7 +39,7 @@ public class WebRulingTest {
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
     .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
-    .setOrchestratorProperty("litsVersion", "LATEST_RELEASE")
+    .setOrchestratorProperty("litsVersion", "0.5")
     .addPlugin("lits")
     .build();
 
