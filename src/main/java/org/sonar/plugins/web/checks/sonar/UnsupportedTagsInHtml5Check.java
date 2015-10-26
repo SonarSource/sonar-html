@@ -35,8 +35,8 @@ import com.google.common.collect.ImmutableSet;
 /** RSPEC-1083 */
 @Rule(
   key = "UnsupportedTagsInHtml5Check",
-  priority = Priority.MAJOR,
   name = "Elements deprecated in HTML5 should not be used",
+  priority = Priority.MAJOR,
   tags = {RuleTags.HTML5, RuleTags.OBSOLETE, RuleTags.USER_EXPERIENCE})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)

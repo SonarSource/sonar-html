@@ -17,15 +17,6 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.el.lang.ExpressionBuilder;
@@ -40,10 +31,18 @@ import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
+import java.lang.reflect.Method;
+import java.util.List;
+
 @Rule(
   key = "UnifiedExpressionCheck",
-  priority = Priority.BLOCKER,
-  name = "JSF expressions should be syntactically valid")
+  name = "JSF expressions should be syntactically valid",
+  priority = Priority.BLOCKER)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("2min")
 public class UnifiedExpressionCheck extends AbstractPageCheck {

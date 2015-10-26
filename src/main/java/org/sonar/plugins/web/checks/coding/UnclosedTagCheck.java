@@ -33,8 +33,8 @@ import java.util.List;
 
 @Rule(
   key = "UnclosedTagCheck",
-  priority = Priority.MINOR,
-  name = "All HTML tags should be closed")
+  name = "All HTML tags should be closed",
+  priority = Priority.MINOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("2min")
 public class UnclosedTagCheck extends AbstractPageCheck {

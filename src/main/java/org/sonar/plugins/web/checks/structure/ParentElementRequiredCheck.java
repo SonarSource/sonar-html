@@ -29,8 +29,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "ParentElementRequiredCheck",
-  priority = Priority.MAJOR,
-  name = "Parent elements should be used")
+  name = "Parent elements should be used",
+  priority = Priority.MAJOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("5min")
 @RuleTemplate

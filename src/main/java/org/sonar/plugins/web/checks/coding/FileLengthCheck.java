@@ -31,8 +31,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "FileLengthCheck",
-  priority = Priority.MAJOR,
   name = "Files should not have too many lines",
+  priority = Priority.MAJOR,
   tags = {RuleTags.BRAIN_OVERLOADED})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)

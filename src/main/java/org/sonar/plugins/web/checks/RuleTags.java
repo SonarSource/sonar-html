@@ -19,9 +19,6 @@ package org.sonar.plugins.web.checks;
 
 public class RuleTags {
 
-  private RuleTags() {
-  }
-
   public static final String ACCESSIBILITY = "accessibility";
   public static final String BRAIN_OVERLOADED = "brain-overload";
   public static final String BUG = "bug";
@@ -38,4 +35,6 @@ public class RuleTags {
   public static final String OWASP_A6 = "owasp-a6";
   public static final String CWE = "cwe";
 
+  private RuleTags() {
+  }
 }

@@ -26,8 +26,8 @@ import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "TableHeaderHasIdOrScopeCheck",
-  priority = Priority.MAJOR,
   name = "<th> table headers tags should have an 'id' or a 'scope' attribute",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY})
 @NoSqale
 public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {

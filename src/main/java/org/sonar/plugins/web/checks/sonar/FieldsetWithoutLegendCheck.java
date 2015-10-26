@@ -28,8 +28,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "FieldsetWithoutLegendCheck",
-  priority = Priority.MAJOR,
   name = "\"fieldset\" tags should contain a \"legend\"",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")

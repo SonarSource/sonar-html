@@ -28,8 +28,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "ImgWithoutWidthOrHeightCheck",
-  priority = Priority.MAJOR,
   name = "Images tags and buttons should have a \"width\" and a \"height\" attribute",
+  priority = Priority.MAJOR,
   tags = {RuleTags.USER_EXPERIENCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("10min")

@@ -17,8 +17,7 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import java.util.List;
-
+import com.google.common.base.Splitter;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -31,12 +30,12 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
-import com.google.common.base.Splitter;
+import java.util.List;
 
 @Rule(
   key = "LibraryDependencyCheck",
-  priority = Priority.MAJOR,
   name = "Some Java packages or classes should not be used in JSP files",
+  priority = Priority.MAJOR,
   tags = {RuleTags.JSP_JSF})
 @RuleTemplate
 @NoSqale

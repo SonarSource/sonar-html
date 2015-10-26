@@ -17,8 +17,7 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
-import java.util.Set;
-
+import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
@@ -35,12 +34,12 @@ import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Set;
 
 @Rule(
   key = "AvoidCommentedOutCodeCheck",
-  priority = Priority.MAJOR,
   name = "Sections of code should not be \"commented out\"",
+  priority = Priority.MAJOR,
   tags = {RuleTags.UNUSED, RuleTags.MISRA})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)

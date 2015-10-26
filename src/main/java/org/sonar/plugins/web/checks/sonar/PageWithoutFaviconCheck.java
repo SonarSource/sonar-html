@@ -30,8 +30,8 @@ import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "PageWithoutFaviconCheck",
-  priority = Priority.MAJOR,
   name = "Favicons should be used in all pages",
+  priority = Priority.MAJOR,
   tags = {RuleTags.USER_EXPERIENCE})
 @ActivatedByDefault
 @NoSqale

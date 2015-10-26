@@ -36,8 +36,8 @@ import com.google.common.io.Files;
 
 @Rule(
   key = "IllegalTabCheck",
-  priority = Priority.MINOR,
   name = "Tabulation characters should not be used",
+  priority = Priority.MINOR,
 tags = {RuleTags.CONVENTION})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")

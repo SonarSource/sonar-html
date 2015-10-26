@@ -32,8 +32,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "FlashUsesBothObjectAndEmbedCheck",
-  priority = Priority.MAJOR,
   name = "Flash animations should be embedded using both the <object> and <embed> tags",
+  priority = Priority.MAJOR,
   tags = RuleTags.CROSS_BROWSER)
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)

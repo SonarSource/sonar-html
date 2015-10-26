@@ -28,8 +28,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "DynamicJspIncludeCheck",
-  priority = Priority.CRITICAL,
   name = "Dynamic includes should not be used",
+  priority = Priority.CRITICAL,
   tags = {RuleTags.JSP_JSF})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.CPU_EFFICIENCY)
 @SqaleConstantRemediation("5min")

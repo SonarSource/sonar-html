@@ -34,8 +34,8 @@ import java.util.List;
 
 @Rule(
   key = "InternationalizationCheck",
-  priority = Priority.MAJOR,
   name = "Labels should be defined in the resource bundle",
+  priority = Priority.MAJOR,
   tags = {RuleTags.JSP_JSF, RuleTags.USER_EXPERIENCE, RuleTags.USER_EXPERIENCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("15min")

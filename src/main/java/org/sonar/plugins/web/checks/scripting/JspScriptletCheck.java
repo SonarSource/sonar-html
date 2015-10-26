@@ -30,8 +30,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "JspScriptletCheck",
-  priority = Priority.MAJOR,
   name = "JSP expressions should not be used",
+  priority = Priority.MAJOR,
 tags = {RuleTags.JSP_JSF, RuleTags.OBSOLETE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("30min")

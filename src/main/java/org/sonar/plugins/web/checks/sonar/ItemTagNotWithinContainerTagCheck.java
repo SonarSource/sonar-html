@@ -29,8 +29,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "ItemTagNotWithinContainerTagCheck",
-  priority = Priority.CRITICAL,
   name = "\"<li>\" and \"<dt>\" item tags should be in \"<ul>\", \"<ol>\" or \"<dl>\" container tags",
+  priority = Priority.CRITICAL,
   tags = {RuleTags.BUG})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)

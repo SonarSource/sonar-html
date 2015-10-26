@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
-import java.util.List;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -29,10 +27,13 @@ import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
+import java.util.List;
+
 @Rule(
   key = "IllegalAttributeCheck",
-  priority = Priority.MAJOR,
-  name = "Disallowed attributes should not be used")
+  name = "Disallowed attributes should not be used",
+  priority = Priority.MAJOR
+)
 @NoSqale
 @RuleTemplate
 public class IllegalAttributeCheck extends AbstractPageCheck {

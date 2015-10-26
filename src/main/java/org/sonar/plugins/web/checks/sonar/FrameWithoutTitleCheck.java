@@ -28,8 +28,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "FrameWithoutTitleCheck",
-  priority = Priority.MAJOR,
   name = "\"<frames>\" should have a \"title\" attribute",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("5min")

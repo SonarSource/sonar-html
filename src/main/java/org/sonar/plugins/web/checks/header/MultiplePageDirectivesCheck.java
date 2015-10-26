@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.header;
 
-import java.util.List;
-
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -29,14 +27,16 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
+import java.util.List;
+
 /**
  * @author Matthijs Galesloot
  * @since 1.0
  */
 @Rule(
   key = "MultiplePageDirectivesCheck",
-  priority = Priority.MINOR,
   name = "Multiple \"page\" directives should not be used",
+  priority = Priority.MINOR,
   tags = {RuleTags.CONVENTION, RuleTags.JSP_JSF})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("2min")

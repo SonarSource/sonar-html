@@ -17,10 +17,6 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -33,10 +29,14 @@ import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Rule(
   key = "S1829",
-  priority = Priority.CRITICAL,
   name = "Web pages should not contain absolute URIs",
+  priority = Priority.CRITICAL,
   tags = {RuleTags.PITFALL})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("5min")

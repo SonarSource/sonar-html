@@ -28,8 +28,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "S1443",
-  priority = Priority.CRITICAL,
   name = "\"autocomplete\" should be set to \"off\" on input elements of type \"password\"",
+  priority = Priority.CRITICAL,
 tags = {RuleTags.HTML5, RuleTags.SECURITY})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("5min")

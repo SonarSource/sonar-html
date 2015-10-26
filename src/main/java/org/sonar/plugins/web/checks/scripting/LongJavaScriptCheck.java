@@ -30,8 +30,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "LongJavaScriptCheck",
-  priority = Priority.CRITICAL,
   name = "Javascript scriptlets should not have too many lines of code",
+  priority = Priority.CRITICAL,
   tags = {RuleTags.BRAIN_OVERLOADED})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleLinearRemediation(effortToFixDescription = "number of lines over the threshold", coeff = "2min")

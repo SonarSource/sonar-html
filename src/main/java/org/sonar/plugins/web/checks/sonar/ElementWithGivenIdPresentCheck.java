@@ -31,8 +31,8 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
 
 @Rule(
   key = "S1436",
-  priority = Priority.MAJOR,
   name = "An element with a specific \"id\" attribute should be present in each HTML page",
+  priority = Priority.MAJOR,
   tags = {RuleTags.CONVENTION})
 @RuleTemplate
 @NoSqale

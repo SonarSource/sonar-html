@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import java.util.List;
-
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
@@ -30,10 +28,12 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
+import java.util.List;
+
 @Rule(
   key = "ComplexityCheck",
-  priority = Priority.MAJOR,
   name = "Files should not be too complex",
+  priority = Priority.MAJOR,
   tags = {RuleTags.BRAIN_OVERLOADED})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
 @SqaleLinearWithOffsetRemediation(offset = "30min", coeff = "1min", effortToFixDescription = "per complexity point above the threshold")

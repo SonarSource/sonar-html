@@ -27,8 +27,8 @@ import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "BoldAndItalicTagsCheck",
-  priority = Priority.MAJOR,
   name = "<strong> and <em> tags should be used instead of <b> and <i>",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY})
 @ActivatedByDefault
 @NoSqale

@@ -33,8 +33,8 @@ import java.util.List;
 
 @Rule(
   key = "DoctypePresenceCheck",
-  priority = Priority.MAJOR,
   name = "A <!DOCTYPE> declaration should appear before the <html> tag",
+  priority = Priority.MAJOR,
   tags = {RuleTags.USER_EXPERIENCE})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.LANGUAGE_RELATED_PORTABILITY)

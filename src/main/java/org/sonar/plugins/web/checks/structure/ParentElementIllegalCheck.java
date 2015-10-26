@@ -32,8 +32,8 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  */
 @Rule(
   key = "ParentElementIllegalCheck",
-  priority = Priority.MAJOR,
-  name = "Parent Element Illegal")
+  name = "Parent Element Illegal",
+  priority = Priority.MAJOR)
 @RuleTemplate
 @NoSqale
 public class ParentElementIllegalCheck extends AbstractPageCheck {

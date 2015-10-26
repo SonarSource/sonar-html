@@ -35,8 +35,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
  */
 @Rule(
   key = "InlineStyleCheck",
-  priority = Priority.MINOR,
-  name = "The \"style\" attribute should not be used")
+  name = "The \"style\" attribute should not be used",
+  priority = Priority.MINOR)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("15min")
 public class InlineStyleCheck extends AbstractPageCheck {

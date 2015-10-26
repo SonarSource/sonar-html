@@ -37,8 +37,8 @@ import com.google.common.collect.Iterables;
 
 @Rule(
   key = "LinkToImageCheck",
-  priority = Priority.MAJOR,
   name = "Links should not directly target images",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY, RuleTags.USER_EXPERIENCE})
 @ActivatedByDefault
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)

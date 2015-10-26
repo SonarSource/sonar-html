@@ -36,8 +36,8 @@ import com.google.common.collect.Sets;
 
 @Rule(
   key = "InputWithoutLabelCheck",
-  priority = Priority.MAJOR,
   name = "\"input\", \"select\" and \"textarea\" tags should have an associated \"label\" one",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY, RuleTags.USER_EXPERIENCE})
 @NoSqale
 public class InputWithoutLabelCheck extends AbstractPageCheck {

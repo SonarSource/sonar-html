@@ -36,8 +36,8 @@ import java.util.List;
 
 @Rule(
   key = "HeaderCheck",
-  priority = Priority.BLOCKER,
-  name = "Copyright and license headers should be defined")
+  name = "Copyright and license headers should be defined",
+  priority = Priority.BLOCKER)
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_COMPLIANCE)
 @SqaleConstantRemediation("5min")
 public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {

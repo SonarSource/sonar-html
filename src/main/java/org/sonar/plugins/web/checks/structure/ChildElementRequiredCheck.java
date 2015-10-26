@@ -32,8 +32,8 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  */
 @Rule(
   key = "ChildElementRequiredCheck",
-  priority = Priority.MAJOR,
-  name = "Child element should be used")
+  name = "Child element should be used",
+  priority = Priority.MAJOR)
 @NoSqale
 @RuleTemplate
 public class ChildElementRequiredCheck extends AbstractPageCheck {

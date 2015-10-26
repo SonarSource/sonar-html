@@ -26,8 +26,8 @@ import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "TableWithoutCaptionCheck",
+  name = "\"<table>\" tags should contain a \"<caption>\"",
   priority = Priority.MAJOR,
- name = "\"<table>\" tags should contain a \"<caption>\"",
   tags = {RuleTags.ACCESSIBILITY})
 @NoSqale
 public class TableWithoutCaptionCheck extends AbstractPageCheck {

@@ -28,8 +28,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "LinkToNothingCheck",
-  priority = Priority.MAJOR,
   name = "Links should not target \"#\" or \"javascript:void(0)\"",
+  priority = Priority.MAJOR,
   tags = {RuleTags.USER_EXPERIENCE})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("15min")

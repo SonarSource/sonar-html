@@ -32,8 +32,8 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  */
 @Rule(
   key = "ChildElementIllegalCheck",
-  priority = Priority.MAJOR,
-  name = "Disallowed child elements should not be used")
+  name = "Disallowed child elements should not be used",
+  priority = Priority.MAJOR)
 @NoSqale
 @RuleTemplate
 public class ChildElementIllegalCheck extends AbstractPageCheck {

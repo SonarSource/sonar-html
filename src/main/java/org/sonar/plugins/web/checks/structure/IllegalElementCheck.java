@@ -30,8 +30,8 @@ import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "IllegalElementCheck",
-  priority = Priority.MAJOR,
-  name = "Disallowed elements should not be used")
+  name = "Disallowed elements should not be used",
+  priority = Priority.MAJOR)
 @NoSqale
 public class IllegalElementCheck extends AbstractPageCheck {
 

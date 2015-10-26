@@ -26,8 +26,8 @@ import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "MouseEventWithoutKeyboardEquivalentCheck",
-  priority = Priority.MAJOR,
   name = "Mouse events should have a corresponding keyboard event",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY})
 @NoSqale
 public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck {

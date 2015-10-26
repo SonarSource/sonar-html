@@ -34,8 +34,8 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
  */
 @Rule(
   key = "DoubleQuotesCheck",
-  priority = Priority.MINOR,
   name = "Attributes should be quoted using double quotes rather than single ones",
+  priority = Priority.MINOR,
   tags = {RuleTags.CONVENTION})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")

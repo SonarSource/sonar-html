@@ -27,8 +27,8 @@ import org.sonar.squidbridge.annotations.NoSqale;
 
 @Rule(
   key = "WmodeIsWindowCheck",
-  priority = Priority.MAJOR,
   name = "Flash animations should be embedded using the window mode",
+  priority = Priority.MAJOR,
   tags = {RuleTags.ACCESSIBILITY})
 @NoSqale
 public class WmodeIsWindowCheck extends AbstractPageCheck {
