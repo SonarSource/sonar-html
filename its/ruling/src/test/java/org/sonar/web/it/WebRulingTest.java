@@ -52,15 +52,17 @@ public class WebRulingTest {
   @Test
   public void ruling() throws Exception {
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
+    String projectKey = "project";
+    orchestrator.getServer().provisionProject(projectKey, projectKey);
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "rules");
     SonarRunner build = SonarRunner.create()
       .setProjectDir(FileLocation.of("../sources").getFile())
-      .setProjectKey("project")
-      .setProjectName("project")
+      .setProjectKey(projectKey)
+      .setProjectName(projectKey)
       .setProjectVersion("1")
       .setSourceDirs(".")
       .setSourceEncoding("UTF-8")
       .setProperty("sonar.web.file.suffixes", "xhtml,jspf,jsp,html,php,erb")
-      .setProfile("rules")
       .setProperty("sonar.analysis.mode", "preview")
       .setProperty("sonar.issuesReport.html.enable", "true")
       .setProperty("dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())

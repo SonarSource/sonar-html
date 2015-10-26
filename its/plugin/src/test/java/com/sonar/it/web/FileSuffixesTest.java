@@ -24,8 +24,6 @@ import com.sonar.orchestrator.build.SonarRunner;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.Sonar;
-import org.sonar.wsclient.services.Measure;
 import org.sonar.wsclient.services.Resource;
 import org.sonar.wsclient.services.ResourceQuery;
 
@@ -35,121 +33,84 @@ import static org.fest.assertions.Assertions.assertThat;
 
 public class FileSuffixesTest {
 
+  private static final String PROJECT_KEY = "FileSuffixesTest";
+  private static final String FILES_METRIC = "files";
+
   @ClassRule
   public static Orchestrator orchestrator = WebTestSuite.ORCHESTRATOR;
 
   @BeforeClass
   public static void init() throws Exception {
     orchestrator.resetData();
+    orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
+    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "no_rule");
+  }
+
+  private static SonarRunner getSonarRunner() {
+    return WebTestSuite.createSonarRunner()
+      .setProjectDir(new File("projects/FileSuffixesTest/"))
+      .setProjectKey(PROJECT_KEY)
+      .setProjectName(PROJECT_KEY)
+      .setProjectVersion("1.0")
+      .setSourceDirs(".")
+      .setProperty("sonar.sourceEncoding", "UTF-8");
   }
 
   @Test
   public void filesExtensionsHtml() {
-    SonarRunner build = WebTestSuite.createSonarRunner()
-      .setProjectDir(new File("projects/FileSuffixesTest/"))
-      .setProjectKey("FileSuffixesTest")
-      .setProjectName("FileSuffixesTest")
-      .setProjectVersion("1.0")
-      .setSourceDirs(".")
-      .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.fileExtensions", ".html")
-      .setProfile("no_rule");
+    SonarRunner build = getSonarRunner()
+      .setProperty("sonar.web.fileExtensions", ".html");
     orchestrator.executeBuild(build);
-
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(getProjectMeasure(wsClient, "FileSuffixesTest", "files").getIntValue()).isEqualTo(1);
+    assertThat(getAnalyzedFilesNumber()).isEqualTo(1);
   }
 
   @Test
   public void filesSuffixesHtml() {
-    SonarRunner build = WebTestSuite.createSonarRunner()
-      .setProjectDir(new File("projects/FileSuffixesTest/"))
-      .setProjectKey("FileSuffixesTest")
-      .setProjectName("FileSuffixesTest")
-      .setProjectVersion("1.0")
-      .setSourceDirs(".")
-      .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.file.suffixes", ".html")
-      .setProfile("no_rule");
+    SonarRunner build = getSonarRunner()
+      .setProperty("sonar.web.file.suffixes", ".html");
     orchestrator.executeBuild(build);
-
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(getProjectMeasure(wsClient, "FileSuffixesTest", "files").getIntValue()).isEqualTo(1);
+    assertThat(getAnalyzedFilesNumber()).isEqualTo(1);
   }
 
   @Test
   public void filesExtensionsHtmlPhp() {
-    SonarRunner build = WebTestSuite.createSonarRunner()
-      .setProjectDir(new File("projects/FileSuffixesTest/"))
-      .setProjectKey("FileSuffixesTest")
-      .setProjectName("FileSuffixesTest")
-      .setProjectVersion("1.0")
-      .setSourceDirs(".")
-      .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.fileExtensions", ".html,.php")
-      .setProfile("no_rule");
+    SonarRunner build = getSonarRunner()
+      .setProperty("sonar.web.fileExtensions", ".html,.php");
     orchestrator.executeBuild(build);
-
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(getProjectMeasure(wsClient, "FileSuffixesTest", "files").getIntValue()).isEqualTo(2);
+    assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
   }
 
   @Test
   public void filesSuffixesHtmlPhp() {
-    SonarRunner build = WebTestSuite.createSonarRunner()
-      .setProjectDir(new File("projects/FileSuffixesTest/"))
-      .setProjectKey("FileSuffixesTest")
-      .setProjectName("FileSuffixesTest")
-      .setProjectVersion("1.0")
-      .setSourceDirs(".")
-      .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.file.suffixes", ".html,.php")
-      .setProfile("no_rule");
+    SonarRunner build = getSonarRunner()
+      .setProperty("sonar.web.file.suffixes", ".html,.php");
     orchestrator.executeBuild(build);
-
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(getProjectMeasure(wsClient, "FileSuffixesTest", "files").getIntValue()).isEqualTo(2);
+    assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
   }
 
   @Test
   public void should_analyze_all_files_with_empty_extensions() {
-    SonarRunner build = WebTestSuite.createSonarRunner()
-      .setProjectDir(new File("projects/FileSuffixesTest/"))
-      .setProjectKey("FileSuffixesTest")
-      .setProjectName("FileSuffixesTest")
-      .setProjectVersion("1.0")
+    SonarRunner build = getSonarRunner()
       .setLanguage("web")
-      .setSourceDirs(".")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.fileExtensions", "")
-      .setProfile("no_rule");
+      .setProperty("sonar.web.fileExtensions", "");
     orchestrator.executeBuild(build);
-
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(getProjectMeasure(wsClient, "FileSuffixesTest", "files").getIntValue()).isEqualTo(3);
+    assertThat(getAnalyzedFilesNumber()).isEqualTo(3);
   }
 
   @Test
   public void should_analyze_all_files_with_empty_suffixes() {
-    SonarRunner build = WebTestSuite.createSonarRunner()
-      .setProjectDir(new File("projects/FileSuffixesTest/"))
-      .setProjectKey("FileSuffixesTest")
-      .setProjectName("FileSuffixesTest")
-      .setProjectVersion("1.0")
+    SonarRunner build = getSonarRunner()
       .setLanguage("web")
-      .setSourceDirs(".")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.file.suffixes", "")
-      .setProfile("no_rule");
+      .setProperty("sonar.web.file.suffixes", "");
     orchestrator.executeBuild(build);
-
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(getProjectMeasure(wsClient, "FileSuffixesTest", "files").getIntValue()).isEqualTo(3);
+    assertThat(getAnalyzedFilesNumber()).isEqualTo(3);
   }
 
-  private Measure getProjectMeasure(Sonar wsClient, String resourceKey, String metricKey) {
-    Resource resource = wsClient.find(ResourceQuery.createForMetrics(resourceKey, metricKey));
-    return resource == null ? null : resource.getMeasure(metricKey);
+  private Integer getAnalyzedFilesNumber() {
+    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(PROJECT_KEY, FILES_METRIC));
+    return resource == null ? null : resource.getMeasure(FILES_METRIC).getIntValue();
   }
 
 }

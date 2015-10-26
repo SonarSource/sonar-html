@@ -51,22 +51,24 @@ public class VariousTest {
 
   @Test
   public void testExclusions() {
+    String projectKey = "exclusions";
+    orchestrator.getServer().provisionProject(projectKey, projectKey);
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
     SonarRunner build = WebTestSuite.createSonarRunner()
       .setProjectDir(new File("projects/exclusions/"))
-      .setProjectKey("exclusions")
-      .setProjectName("exclusions")
+      .setProjectKey(projectKey)
+      .setProjectName(projectKey)
       .setProjectVersion("1.0")
       .setSourceDirs("src")
       .setProperty("sonar.web.file.suffixes", "jsp")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.exclusions", "**/*Excluded*")
-      .setProfile("IT");
+      .setProperty("sonar.exclusions", "**/*Excluded*");
     orchestrator.executeBuild(build);
 
     Sonar wsClient = orchestrator.getServer().getWsClient();
     assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpError.jsp"))).isNotNull();
     assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpErrorExcluded.jsp"))).isNull();
-    assertThat(wsClient.find(ResourceQuery.createForMetrics("exclusions", "files")).getMeasureIntValue("files")).isEqualTo(1);
+    assertThat(wsClient.find(ResourceQuery.createForMetrics(projectKey, "files")).getMeasureIntValue("files")).isEqualTo(1);
   }
 
   /**
@@ -74,22 +76,24 @@ public class VariousTest {
    */
   @Test
   public void testCommentedOutCodeDetection() {
+    String projectKey = "test";
+    orchestrator.getServer().provisionProject(projectKey, projectKey);
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
     SonarRunner build = WebTestSuite.createSonarRunner()
       .setProjectDir(new File("projects/continuum-webapp/"))
-      .setProjectKey("test")
-      .setProjectName("test")
+      .setProjectKey(projectKey)
+      .setProjectName(projectKey)
       .setProjectVersion("1.0")
       .setSourceDirs("src")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.fileExtensions", ".xhtml,.jspf,.jsp")
-      .setProfile("IT");
+      .setProperty("sonar.web.fileExtensions", ".xhtml,.jspf,.jsp");
     orchestrator.executeBuild(build);
 
     IssueClient issueClient = orchestrator.getServer().wsClient().issueClient();
 
     List<Issue> issues = issueClient.find(
       IssueQuery.create()
-        .components(keyFor("test", "WEB-INF/jsp/components/projectGroupNotifierSummaryComponent.jsp"))
+        .components(keyFor(projectKey, "WEB-INF/jsp/components/projectGroupNotifierSummaryComponent.jsp"))
         .rules("Web:AvoidCommentedOutCodeCheck")).list();
     assertThat(issues.size()).isEqualTo(2);
   }

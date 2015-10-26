@@ -53,16 +53,17 @@ public class StandardMeasuresTest {
   @BeforeClass
   public static void init() throws Exception {
     orchestrator.resetData();
-
+    String projectKey = "TestOfWebPlugin";
+    orchestrator.getServer().provisionProject(projectKey, projectKey);
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
     SonarRunner build = WebTestSuite.createSonarRunner()
       .setProjectDir(new File("projects/continuum-webapp/"))
-      .setProjectKey("TestOfWebPlugin")
-      .setProjectName("TestOfWebPlugin")
+      .setProjectKey(projectKey)
+      .setProjectName(projectKey)
       .setProjectVersion("1.0")
       .setSourceDirs("src")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.fileExtensions", ".xhtml,.jspf,.jsp")
-      .setProfile("IT");
+      .setProperty("sonar.web.fileExtensions", ".xhtml,.jspf,.jsp");
     orchestrator.executeBuild(build);
   }
 
