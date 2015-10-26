@@ -31,7 +31,7 @@ public class WebSourceCode {
 
   private final InputFile inputFile;
   private final Resource resource;
-  private final List<Measure> measures = new ArrayList<Measure>();
+  private final List<Measure> measures = new ArrayList<>();
   private final List<WebIssue> issues = new ArrayList<>();
   private Set<Integer> detailedLinesOfCode;
   private Set<Integer> detailedLinesOfComments;

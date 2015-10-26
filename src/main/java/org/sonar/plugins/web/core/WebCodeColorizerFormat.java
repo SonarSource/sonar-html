@@ -29,7 +29,7 @@ import org.sonar.plugins.web.api.WebConstants;
 
 public class WebCodeColorizerFormat extends CodeColorizerFormat {
 
-  private final List<Tokenizer> tokenizers = new ArrayList<Tokenizer>();
+  private final List<Tokenizer> tokenizers = new ArrayList<>();
 
   public WebCodeColorizerFormat() {
     super(WebConstants.LANGUAGE_KEY);

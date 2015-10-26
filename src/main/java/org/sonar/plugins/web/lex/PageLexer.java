@@ -66,7 +66,7 @@ public final class PageLexer {
    */
   @SuppressWarnings("rawtypes")
   public List<Node> nestedParse(CodeReader reader) {
-    List<Node> nodeList = new ArrayList<Node>();
+    List<Node> nodeList = new ArrayList<>();
     for (AbstractTokenizer tokenizer : (List<AbstractTokenizer>) tokenizers) {
       if (tokenizer.consume(reader, nodeList)) {
         break;
@@ -84,7 +84,7 @@ public final class PageLexer {
     CodeReader codeReader = new CodeReader(reader);
 
     // ArrayList collects the nodes
-    List<Node> nodeList = new ArrayList<Node>();
+    List<Node> nodeList = new ArrayList<>();
 
     // ChannelDispatcher manages the tokenizers
     ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder().addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()])).build();

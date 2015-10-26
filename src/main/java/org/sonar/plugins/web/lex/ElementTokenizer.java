@@ -218,7 +218,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     private static final char DOUBLE_QUOTE = '"';
     private int previousChar;
 
-    private final Deque<Character> startChars = new ArrayDeque<Character>();
+    private final Deque<Character> startChars = new ArrayDeque<>();
 
     QuoteMatcher(char startChar) {
       this.startChars.addFirst(startChar);

@@ -49,7 +49,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   public String ignoreTags = DEFAULT_IGNORE_TAGS;
 
   private String[] ignoreTagsArray;
-  private final List<TagNode> nodes = new ArrayList<TagNode>();
+  private final List<TagNode> nodes = new ArrayList<>();
 
   @Override
   public void startDocument(List<Node> nodes) {
@@ -66,7 +66,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
       if (!previousNode.getNodeName().equals(element.getNodeName())) {
         createViolation(previousNode.getStartLinePosition(), "The tag \"" + previousNode.getNodeName() + "\" has no corresponding closing tag.");
 
-        List<TagNode> rollup = new ArrayList<TagNode>();
+        List<TagNode> rollup = new ArrayList<>();
         for (TagNode node : nodes) {
           rollup.add(node);
           if (node.getNodeName().equals(element.getNodeName())) {

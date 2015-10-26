@@ -44,7 +44,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 
-  private final List<RequiredAttribute> attributesList = new ArrayList<RequiredAttribute>();
+  private final List<RequiredAttribute> attributesList = new ArrayList<>();
 
   private static final class RequiredAttribute {
     private String elementName;

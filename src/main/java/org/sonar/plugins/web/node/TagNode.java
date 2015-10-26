@@ -32,8 +32,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class TagNode extends Node {
 
-  private final List<Attribute> attributes = new ArrayList<Attribute>();
-  private final List<TagNode> children = new ArrayList<TagNode>();
+  private final List<Attribute> attributes = new ArrayList<>();
+  private final List<TagNode> children = new ArrayList<>();
   private String nodeName;
   private TagNode parent;
 
