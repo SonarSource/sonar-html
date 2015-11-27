@@ -1,7 +1,7 @@
 SonarQube Web Plugin
 ====================
 
-[![Build Status](https://api.travis-ci.org/SonarCommunity/sonar-web.svg)](https://travis-ci.org/SonarCommunity/sonar-web)
+[![Build Status](https://api.travis-ci.org/SonarSource/sonar-web.svg)](https://travis-ci.org/SonarSource/sonar-web)
 
 Project homepage:
 http://redirect.sonarsource.com/plugins/web.html
