@@ -25,6 +25,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import java.io.File;
+
 @RunWith(Suite.class)
 @SuiteClasses({
   FileSuffixesTest.class,
@@ -35,7 +37,7 @@ public class WebTestSuite {
 
   @ClassRule
   public static final Orchestrator ORCHESTRATOR = Orchestrator.builderEnv()
-    .addPlugin(FileLocation.of("../../target/sonar-web-plugin.jar"))
+    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
     .build();
 
