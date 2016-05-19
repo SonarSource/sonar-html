@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>23</version>
+    <version>32</version>
   </parent>
 
   <groupId>com.sonarsource.it</groupId>
@@ -19,7 +19,11 @@
     <url>http://www.sonarsource.com</url>
   </organization>
   <properties>
+    <license.name>AL2</license.name>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
+    <license.mailto>sonarqube@googlegroups.com</license.mailto>
+    <gitRepositoryName>sonar-web</gitRepositoryName>
   </properties>
 
   <dependencies>

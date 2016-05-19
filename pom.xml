@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>23</version>
+    <version>32</version>
   </parent>
 
   <groupId>org.sonarsource.sonar-web-plugin</groupId>
@@ -13,7 +13,7 @@
   <packaging>sonar-plugin</packaging>
   <version>2.5-SNAPSHOT</version>
 
-  <name>SonarQube Web Plugin</name>
+  <name>SonarSource :: Web :: Sonar Plugin</name>
   <description>Analyze HTML (also within PHP/Ruby/etc. templates) and JSP/JSF code.</description>
 
   <properties>
@@ -21,6 +21,9 @@
     <license.name>AL2</license.name>
     <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
+    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
+    <license.mailto>sonarqube@googlegroups.com</license.mailto>
+    <gitRepositoryName>sonar-web</gitRepositoryName>
   </properties>
 
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
