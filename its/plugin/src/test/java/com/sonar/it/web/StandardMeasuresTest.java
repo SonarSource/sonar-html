@@ -137,7 +137,8 @@ public class StandardMeasuresTest {
     assertThat(value).contains("20=1");
     assertThat(value).contains(";38=1");
     assertThat(value).contains(";58=1");
-    assertThat(value.replaceAll("[^=]", "")).hasSize(338);
+    // SonarQube >= 5.6 removed =0 entries
+    assertThat(value.replaceAll("=0", "").replaceAll("[^=]", "")).hasSize(311);
 
     assertThat(getFileMeasure("comment_lines_data").getData()).contains("142=1");
   }
