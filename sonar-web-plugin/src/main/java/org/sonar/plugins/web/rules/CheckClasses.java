@@ -27,6 +27,7 @@ import org.sonar.plugins.web.checks.coding.DoubleQuotesCheck;
 import org.sonar.plugins.web.checks.coding.FileLengthCheck;
 import org.sonar.plugins.web.checks.coding.InternationalizationCheck;
 import org.sonar.plugins.web.checks.coding.MaxLineLengthCheck;
+import org.sonar.plugins.web.checks.coding.RegularExpressionNotAllowedOnLineCheck;
 import org.sonar.plugins.web.checks.coding.UnclosedTagCheck;
 import org.sonar.plugins.web.checks.comments.AvoidCommentedOutCodeCheck;
 import org.sonar.plugins.web.checks.comments.AvoidHtmlCommentCheck;
@@ -131,6 +132,7 @@ public final class CheckClasses {
     PageWithoutFaviconCheck.class,
     ElementWithGivenIdPresentCheck.class,
     PasswordAutocompleteCheck.class,
+    RegularExpressionNotAllowedOnLineCheck.class
   };
 
   private CheckClasses() {
