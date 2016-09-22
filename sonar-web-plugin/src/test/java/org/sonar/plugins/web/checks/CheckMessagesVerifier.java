@@ -19,7 +19,7 @@ package org.sonar.plugins.web.checks;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Ordering;
-import org.sonar.squid.api.CheckMessage;
+import org.sonar.squidbridge.api.CheckMessage;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
