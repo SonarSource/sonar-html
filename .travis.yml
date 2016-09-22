@@ -4,19 +4,26 @@ sudo: false
 jdk:
   - oraclejdk8
 
+# Skip "install" stage:
 install: true
+
 script: ./travis.sh
-env:
-  - TEST=ci
 
-matrix:
-  fast_finish: true
+before_cache:
+  # remove all the artifacts that are installed in local repo because of mvn deploy
+  - rm -rf $HOME/.m2/repository/org/sonarsource/sonar-web-plugin
+  - find $HOME/.m2 -name resolver-status.properties -exec rm {} \;
 
+# Keep Maven local repository between builds:
 cache:
   directories:
     - '$HOME/.m2/repository'
+    - '$HOME/.sonar'
+    - '$HOME/jvm'
 
 notifications:
   email: false
   webhooks:
+    urls:
       - secure: "cyT7LbrsyCWzqXQQrFLHDJ812iq9+5MeOq2DcG7uWkJdeSspHbI8WM+m++vtLNo1Q6J3k9ZITghJYNHxNeIJxTNnRzU1rlir+eZcfVdUiFJUTI1Cn8yeNmq9J5swaJ70fEotxTJEcN0BM6DqxXME19cv/oZKmcFu7l8zB0Xcv9E="
+    on_start: always
