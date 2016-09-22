@@ -17,9 +17,7 @@
  */
 package org.sonar.plugins.web.core;
 
-import java.io.FileReader;
-
-import org.apache.commons.io.IOUtils;
+import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Sensor;
@@ -51,7 +49,7 @@ import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import com.google.common.collect.ImmutableList;
+import java.io.FileReader;
 
 public final class WebSensor implements Sensor {
 
@@ -66,7 +64,7 @@ public final class WebSensor implements Sensor {
   private final FilePredicate mainFilesPredicate;
 
   public WebSensor(NoSonarFilter noSonarFilter, FileSystem fileSystem, FileLinesContextFactory fileLinesContextFactory,
-    CheckFactory checkFactory, ResourcePerspectives resourcePerspectives) {
+                   CheckFactory checkFactory, ResourcePerspectives resourcePerspectives) {
 
     this.noSonarFilter = noSonarFilter;
     this.resourcePerspectives = resourcePerspectives;
@@ -88,19 +86,14 @@ public final class WebSensor implements Sensor {
 
     for (InputFile inputFile : fileSystem.inputFiles(mainFilesPredicate)) {
       WebSourceCode sourceCode = new WebSourceCode(inputFile, sensorContext.getResource(inputFile));
-      FileReader reader = null;
 
-      try {
-        reader = new FileReader(inputFile.file());
+      try (FileReader reader = new FileReader(inputFile.file())) {
         scanner.scan(lexer.parse(reader), sourceCode, fileSystem.encoding());
         saveMetrics(sensorContext, sourceCode);
         saveLineLevelMeasures(inputFile, sourceCode);
 
       } catch (Exception e) {
         LOG.error("Cannot analyze file " + inputFile.file().getAbsolutePath(), e);
-
-      } finally {
-        IOUtils.closeQuietly(reader);
       }
     }
   }
@@ -119,7 +112,7 @@ public final class WebSensor implements Sensor {
         Issuable.IssueBuilder builder = issuable.newIssueBuilder();
 
         builder.ruleKey(issue.ruleKey())
-            .line(issue.line())
+          .line(issue.line())
           .message(issue.message());
 
         if (issue.hasEffortToFix()) {

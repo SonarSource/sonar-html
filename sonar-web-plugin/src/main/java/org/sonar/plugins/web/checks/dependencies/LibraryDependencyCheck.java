@@ -46,14 +46,14 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "libraries",
-    defaultValue = DEFAULT_LIBRARIES,
-    description = "Comma-separated list of Java packages or classes, such as java.sql or java.util.ArrayList")
+    description = "Comma-separated list of Java packages or classes, such as java.sql or java.util.ArrayList",
+    defaultValue = DEFAULT_LIBRARIES)
   public String libraries = DEFAULT_LIBRARIES;
 
   @RuleProperty(
     key = "message",
-    defaultValue = "" + DEFAULT_MESSAGE,
-    description = "Issue message which is displayed in case of violation")
+    description = "Issue message which is displayed in case of violation",
+    defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 
   private Iterable<String> librariesIterable;

@@ -17,16 +17,14 @@
  */
 package org.sonar.plugins.web.checks;
 
+import com.google.common.base.Objects;
+import com.google.common.collect.Ordering;
+import org.sonar.squid.api.CheckMessage;
+
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-
-import javax.annotation.Nullable;
-
-import org.sonar.squid.api.CheckMessage;
-
-import com.google.common.base.Objects;
-import com.google.common.collect.Ordering;
 
 /**
  * Helper class for testing checks without having to deploy them on a Sonar instance.
@@ -52,18 +50,15 @@ public final class CheckMessagesVerifier {
   private final Iterator<WebIssue> iterator;
   private WebIssue current;
 
-  private static final Comparator<WebIssue> ORDERING = new Comparator<WebIssue>() {
-    @Override
-    public int compare(WebIssue left, WebIssue right) {
-      if (Objects.equal(left.line(), right.line())) {
-        return left.message().compareTo(right.message());
-      } else if (left.line() == null) {
-        return -1;
-      } else if (right.line() == null) {
-        return 1;
-      } else {
-        return left.line().compareTo(right.line());
-      }
+  private static final Comparator<WebIssue> ORDERING = (left, right) -> {
+    if (Objects.equal(left.line(), right.line())) {
+      return left.message().compareTo(right.message());
+    } else if (left.line() == null) {
+      return -1;
+    } else if (right.line() == null) {
+      return 1;
+    } else {
+      return left.line().compareTo(right.line());
     }
   };
 

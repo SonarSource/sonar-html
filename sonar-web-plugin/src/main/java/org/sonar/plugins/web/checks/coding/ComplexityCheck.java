@@ -36,7 +36,7 @@ import java.util.List;
   priority = Priority.MAJOR,
   tags = {RuleTags.BRAIN_OVERLOADED})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
-@SqaleLinearWithOffsetRemediation(offset = "30min", coeff = "1min", effortToFixDescription = "per complexity point above the threshold")
+@SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "30min", effortToFixDescription = "per complexity point above the threshold")
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;

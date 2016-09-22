@@ -51,9 +51,9 @@ public class AbsoluteURICheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "Comma-separated list of tag.attributes to be checked for absolute URI. ",
-    type = "TEXT",
     description = "Comma-separated list of tag.attributes to be checked for absolute URI.",
-    defaultValue = DEFAULT_ATTRIBUTES)
+    defaultValue = DEFAULT_ATTRIBUTES,
+    type = "TEXT")
   public String attributes = DEFAULT_ATTRIBUTES;
 
   private QualifiedAttribute[] attributesArray;

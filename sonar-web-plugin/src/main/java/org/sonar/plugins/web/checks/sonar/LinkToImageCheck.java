@@ -17,10 +17,8 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import java.util.Locale;
-
-import javax.annotation.Nullable;
-
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -31,9 +29,7 @@ import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
+import java.util.Locale;
 
 @Rule(
   key = "LinkToImageCheck",
@@ -67,12 +63,7 @@ public class LinkToImageCheck extends AbstractPageCheck {
 
   private static boolean isPoitingToAnImage(String target) {
     final String upperTarget = target.toUpperCase(Locale.ENGLISH);
-    return Iterables.any(IMG_SUFFIXES, new Predicate<String>() {
-      @Override
-      public boolean apply(@Nullable String input) {
-        return input != null &&  upperTarget.endsWith(input);
-      }
-    });
+    return Iterables.any(IMG_SUFFIXES, input -> input != null &&  upperTarget.endsWith(input));
   }
 
 }

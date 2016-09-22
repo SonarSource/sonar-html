@@ -47,9 +47,9 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
 
   @RuleProperty(
     key = "headerFormat",
-    type = "TEXT",
     description = "Expected copyright and license header (plain text)",
-    defaultValue = DEFAULT_HEADER_FORMAT)
+    defaultValue = DEFAULT_HEADER_FORMAT,
+    type = "TEXT")
   public String headerFormat = DEFAULT_HEADER_FORMAT;
 
   private String[] expectedLines;

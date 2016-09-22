@@ -27,14 +27,11 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.squid.recognizer.CodeRecognizer;
 import org.sonar.squid.recognizer.ContainsDetector;
-import org.sonar.squid.recognizer.Detector;
 import org.sonar.squid.recognizer.EndWithDetector;
 import org.sonar.squid.recognizer.LanguageFootprint;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
-
-import java.util.Set;
 
 @Rule(
   key = "AvoidCommentedOutCodeCheck",
@@ -48,17 +45,10 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   private static final double THRESHOLD = 0.9;
 
-  private static final LanguageFootprint LANGUAGE_FOOTPRINT = new LanguageFootprint() {
-
-    @Override
-    public Set<Detector> getDetectors() {
-      return ImmutableSet.of(
-        new ContainsDetector(0.7, "=\"", "='"),
-        new ContainsDetector(0.8, "/>", "</", "<%", "%>"),
-        new EndWithDetector(0.9, '>'));
-    }
-
-  };
+  private static final LanguageFootprint LANGUAGE_FOOTPRINT = () -> ImmutableSet.of(
+    new ContainsDetector(0.7, "=\"", "='"),
+    new ContainsDetector(0.8, "/>", "</", "<%", "%>"),
+    new EndWithDetector(0.9, '>'));
 
   private static final CodeRecognizer CODE_RECOGNIZER = new CodeRecognizer(THRESHOLD, LANGUAGE_FOOTPRINT);
 

@@ -34,7 +34,7 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.CRITICAL,
   tags = {RuleTags.BRAIN_OVERLOADED})
 @SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
-@SqaleLinearRemediation(effortToFixDescription = "number of lines over the threshold", coeff = "2min")
+@SqaleLinearRemediation(coeff = "2min", effortToFixDescription = "number of lines over the threshold")
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;
