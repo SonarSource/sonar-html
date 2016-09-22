@@ -17,11 +17,11 @@
  */
 package org.sonar.plugins.web.rules;
 
-import static org.fest.assertions.Assertions.assertThat;
-
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.Rule;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class WebRulesDefinitionTest {
 
@@ -32,7 +32,7 @@ public class WebRulesDefinitionTest {
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("Web");
 
-    assertThat(repository.name()).isEqualTo("SonarQube");
+    assertThat(repository.name()).isEqualTo("SonarAnalyzer");
     assertThat(repository.language()).isEqualTo("web");
     assertThat(repository.rules()).hasSize(CheckClasses.getCheckClasses().size());
 

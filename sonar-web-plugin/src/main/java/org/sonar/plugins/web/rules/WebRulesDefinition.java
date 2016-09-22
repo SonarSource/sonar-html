@@ -24,7 +24,7 @@ import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
 public final class WebRulesDefinition implements RulesDefinition {
 
   public static final String REPOSITORY_KEY = WebConstants.LANGUAGE_NAME;
-  public static final String REPOSITORY_NAME = "SonarQube";
+  public static final String REPOSITORY_NAME = "SonarAnalyzer";
 
   @Override
   public void define(Context context) {
