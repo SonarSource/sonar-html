@@ -12,7 +12,7 @@
   <packaging>sonar-plugin</packaging>
 
   <name>SonarSource :: Web :: Sonar Plugin</name>
-  <description>Analyze HTML (also within PHP/Ruby/etc. templates) and JSP/JSF code.</description>
+  <description>Enables scanning of HTML, and JSP/JSF files.</description>
 
   <properties>
     <sonar.version>4.5.4</sonar.version>
