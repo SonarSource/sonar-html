@@ -20,6 +20,9 @@
     <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-web</gitRepositoryName>
+
+    <orchestrator.version>3.12</orchestrator.version>
+    <junit.version>4.12</junit.version>
   </properties>
 
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
