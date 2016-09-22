@@ -20,7 +20,6 @@ package org.sonar.plugins.web.checks.header;
 import com.google.common.io.Files;
 import com.google.common.io.LineProcessor;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -104,7 +103,7 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
     try {
       Files.readLines(getWebSourceCode().inputFile().file(), charset, processor);
     } catch (IOException e) {
-      throw new SonarException(e);
+      throw new IllegalStateException(e);
     }
     if (!processor.getResult()) {
       createViolation(0, MESSAGE);

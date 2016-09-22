@@ -19,7 +19,6 @@ package org.sonar.plugins.web.checks.coding;
 
 import com.google.common.io.Files;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -77,7 +76,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
     try {
       return Files.readLines(file, charset);
     } catch (IOException e) {
-      throw new SonarException("Unable to read " + file, e);
+      throw new IllegalStateException("Unable to read " + file, e);
     }
   }
 

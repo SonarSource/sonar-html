@@ -17,20 +17,6 @@
  */
 package org.sonar.plugins.web.core;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.io.File;
-import java.io.FileReader;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.configuration.MapConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -53,11 +39,24 @@ import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.resources.Project;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.core.helpers.IssuableMock;
 import org.sonar.plugins.web.rules.WebRulesDefinition;
 import org.sonar.test.TestUtils;
+
+import java.io.File;
+import java.io.FileReader;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class WebSensorTest {
 
@@ -133,7 +132,7 @@ public class WebSensorTest {
       return project;
 
     } catch (Exception e) {
-      throw new SonarException("Failed to read Maven project file : " + pomFile.getPath(), e);
+      throw new IllegalStateException("Failed to read Maven project file : " + pomFile.getPath(), e);
 
     } finally {
       IOUtils.closeQuietly(fileReader);

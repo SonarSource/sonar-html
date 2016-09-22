@@ -17,12 +17,8 @@
  */
 package org.sonar.plugins.web.checks.whitespace;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
-
+import com.google.common.io.Files;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.SonarException;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -32,7 +28,9 @@ import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
-import com.google.common.io.Files;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 @Rule(
   key = "IllegalTabCheck",
@@ -56,7 +54,7 @@ public class IllegalTabCheck extends AbstractPageCheck implements CharsetAwareVi
     try {
       lines = Files.readLines(getWebSourceCode().inputFile().file(), charset);
     } catch (IOException e) {
-      throw new SonarException(e);
+      throw new IllegalStateException(e);
     }
     for (int i = 0; i < lines.size(); i++) {
       if (lines.get(i).contains("\t")) {
