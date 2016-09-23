@@ -8,7 +8,8 @@ Accessing a secured web site as user A is trivial for user B if form input eleme
 </p>
 
 <p>
-  Beginning with HTML 5 the ability to turn this functionality off exists on a field-by-field basis using the <code>autocomplete</code> attribute.
+  HTML 5 specifies the ability to turn this functionality off on a field-by-field basis using the autocomplete attribute,
+  but most modern browsers ignore it in favor of their own password management.
 </p>
 
 <h2>Noncompliant Code Example</h2>
@@ -22,3 +23,8 @@ Accessing a secured web site as user A is trivial for user B if form input eleme
 <pre>
 &lt;input type="password" autocomplete="off" /&gt;
 </pre>
+
+<h2>Deprecated</h2>
+<p>
+  This rule is deprecated.
+</p>

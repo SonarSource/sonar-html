@@ -28,8 +28,10 @@ import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
   key = "S1443",
   name = "\"autocomplete\" should be set to \"off\" on input elements of type \"password\"",
   priority = Priority.CRITICAL,
-tags = {RuleTags.HTML5, RuleTags.SECURITY})
+  status = RuleTags.STATUS_DEPRECATED,
+  tags = {RuleTags.HTML5, RuleTags.SECURITY})
 @SqaleConstantRemediation("5min")
+@Deprecated
 public class PasswordAutocompleteCheck extends AbstractPageCheck {
 
   @Override

@@ -35,6 +35,8 @@ public class RuleTags {
   public static final String OWASP_A6 = "owasp-a6";
   public static final String CWE = "cwe";
 
+  public static final String STATUS_DEPRECATED = "DEPRECATED";
+
   private RuleTags() {
   }
 }
