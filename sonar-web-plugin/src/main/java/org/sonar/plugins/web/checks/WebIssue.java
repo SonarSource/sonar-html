@@ -60,17 +60,4 @@ public class WebIssue {
     return cost;
   }
 
-  public boolean hasEffortToFix() {
-    return cost != null;
-  }
-
-  @Override
-  public String toString() {
-    return "WebIssue{" +
-      "ruleKey=" + ruleKey +
-      ", line=" + line +
-      ", message='" + message + '\'' +
-      '}';
-  }
-
 }

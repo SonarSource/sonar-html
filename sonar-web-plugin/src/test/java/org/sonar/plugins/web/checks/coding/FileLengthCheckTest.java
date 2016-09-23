@@ -17,15 +17,15 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-import java.io.File;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.visitor.WebSourceCode;
+
+import java.io.File;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class FileLengthCheckTest {
 
@@ -45,13 +45,13 @@ public class FileLengthCheckTest {
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(null).withMessage("Current file has 4 lines, which is greater than 3 authorized. Split it into smaller files.");
+        .next().atLine(null).withMessage("Current file has 5 lines, which is greater than 3 authorized. Split it into smaller files.");
   }
 
   @Test
   public void custom_ok() {
     FileLengthCheck check = new FileLengthCheck();
-    check.maxLength = 4;
+    check.maxLength = 5;
 
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 

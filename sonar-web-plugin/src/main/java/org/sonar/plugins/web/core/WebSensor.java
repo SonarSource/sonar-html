@@ -20,23 +20,22 @@ package org.sonar.plugins.web.core;
 import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.batch.Sensor;
-import org.sonar.api.batch.SensorContext;
-import org.sonar.api.batch.fs.FilePredicate;
+import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.Checks;
-import org.sonar.api.component.ResourcePerspectives;
-import org.sonar.api.issue.Issuable;
+import org.sonar.api.batch.sensor.Sensor;
+import org.sonar.api.batch.sensor.SensorContext;
+import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.issue.NewIssue;
+import org.sonar.api.batch.sensor.issue.NewIssueLocation;
+import org.sonar.api.ce.measure.RangeDistributionBuilder;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.measures.Measure;
-import org.sonar.api.measures.PersistenceMode;
-import org.sonar.api.measures.RangeDistributionBuilder;
-import org.sonar.api.resources.Project;
+import org.sonar.api.measures.Metric;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.WebConstants;
@@ -50,6 +49,7 @@ import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
 import java.io.FileReader;
+import java.util.Map;
 
 public final class WebSensor implements Sensor {
 
@@ -57,35 +57,41 @@ public final class WebSensor implements Sensor {
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
   private final NoSonarFilter noSonarFilter;
-  private final ResourcePerspectives resourcePerspectives;
   private final Checks<Object> checks;
-  private final FileSystem fileSystem;
   private final FileLinesContextFactory fileLinesContextFactory;
-  private final FilePredicate mainFilesPredicate;
 
-  public WebSensor(NoSonarFilter noSonarFilter, FileSystem fileSystem, FileLinesContextFactory fileLinesContextFactory,
-                   CheckFactory checkFactory, ResourcePerspectives resourcePerspectives) {
-
+  public WebSensor(NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory, CheckFactory checkFactory) {
     this.noSonarFilter = noSonarFilter;
-    this.resourcePerspectives = resourcePerspectives;
     this.checks = checkFactory.create(WebRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks(CheckClasses.getCheckClasses());
-    this.fileSystem = fileSystem;
     this.fileLinesContextFactory = fileLinesContextFactory;
-    this.mainFilesPredicate = fileSystem.predicates().and(
-      fileSystem.predicates().hasType(InputFile.Type.MAIN),
-      fileSystem.predicates().hasLanguage(WebConstants.LANGUAGE_KEY));
   }
 
   @Override
-  public void analyse(Project project, SensorContext sensorContext) {
+  public void describe(SensorDescriptor descriptor) {
+    descriptor
+      .name(WebConstants.LANGUAGE_NAME)
+      .onlyOnFileType(InputFile.Type.MAIN)
+      .onlyOnLanguage(WebConstants.LANGUAGE_KEY);
+  }
+
+  @Override
+  public void execute(SensorContext sensorContext) {
     // configure the lexer
     final PageLexer lexer = new PageLexer();
 
     // configure page scanner and the visitors
     final HtmlAstScanner scanner = setupScanner();
 
-    for (InputFile inputFile : fileSystem.inputFiles(mainFilesPredicate)) {
-      WebSourceCode sourceCode = new WebSourceCode(inputFile, sensorContext.getResource(inputFile));
+    FileSystem fileSystem = sensorContext.fileSystem();
+    FilePredicates predicates = fileSystem.predicates();
+    Iterable<InputFile> inputFiles = fileSystem.inputFiles(
+      predicates.and(
+        predicates.hasType(InputFile.Type.MAIN),
+        predicates.hasLanguage(WebConstants.LANGUAGE_KEY))
+    );
+
+    for (InputFile inputFile : inputFiles) {
+      WebSourceCode sourceCode = new WebSourceCode(inputFile);
 
       try (FileReader reader = new FileReader(inputFile.file())) {
         scanner.scan(lexer.parse(reader), sourceCode, fileSystem.encoding());
@@ -98,49 +104,55 @@ public final class WebSensor implements Sensor {
     }
   }
 
-  private void saveMetrics(SensorContext sensorContext, WebSourceCode sourceCode) {
-    saveComplexityDistribution(sensorContext, sourceCode);
+  private static void saveMetrics(SensorContext context, WebSourceCode sourceCode) {
+    InputFile inputFile = sourceCode.inputFile();
+    saveComplexityDistribution(context, sourceCode);
 
-    for (Measure measure : sourceCode.getMeasures()) {
-      sensorContext.saveMeasure(sourceCode.inputFile(), measure);
+    for (Map.Entry<Metric<Integer>, Integer> entry : sourceCode.getMeasures().entrySet()) {
+      context.<Integer>newMeasure()
+        .on(inputFile)
+        .forMetric(entry.getKey())
+        .withValue(entry.getValue())
+        .save();
     }
 
     for (WebIssue issue : sourceCode.getIssues()) {
-      Issuable issuable = resourcePerspectives.as(Issuable.class, sourceCode.inputFile());
-
-      if (issuable != null) {
-        Issuable.IssueBuilder builder = issuable.newIssueBuilder();
-
-        builder.ruleKey(issue.ruleKey())
-          .line(issue.line())
-          .message(issue.message());
-
-        if (issue.hasEffortToFix()) {
-          builder.effortToFix(issue.cost());
-        }
-
-        issuable.addIssue(builder.build());
-      } else {
-        LOG.warn("Cannot save issue {}, because");
+      NewIssue newIssue = context.newIssue()
+        .forRule(issue.ruleKey())
+        .gap(issue.cost());
+      Integer line = issue.line();
+      NewIssueLocation location = newIssue.newLocation()
+        .on(inputFile)
+        .message(issue.message());
+      if (line != null) {
+        location.at(inputFile.selectLine(line));
       }
+      newIssue.at(location);
+      newIssue.save();
     }
   }
 
   private static void saveComplexityDistribution(SensorContext sensorContext, WebSourceCode sourceCode) {
     if (sourceCode.getMeasure(CoreMetrics.COMPLEXITY) != null) {
-      RangeDistributionBuilder complexityFileDistribution = new RangeDistributionBuilder(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION,
-        FILES_DISTRIB_BOTTOM_LIMITS);
-      complexityFileDistribution.add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY).getValue());
-      sensorContext.saveMeasure(sourceCode.inputFile(), complexityFileDistribution.build().setPersistenceMode(PersistenceMode.MEMORY));
+      String distribution = new RangeDistributionBuilder(FILES_DISTRIB_BOTTOM_LIMITS)
+        .add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY))
+        .build();
+      sensorContext.<String>newMeasure()
+        .on(sourceCode.inputFile())
+        .forMetric(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION)
+        .withValue(distribution)
+        .save();
     }
   }
 
   private void saveLineLevelMeasures(InputFile inputFile, WebSourceCode webSourceCode) {
     FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(inputFile);
 
-    for (int line = 1; line <= webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue(); line++) {
-      fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, webSourceCode.isLineOfCode(line) ? 1 : 0);
-      fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, webSourceCode.isLineOfComment(line) ? 1 : 0);
+    for (Integer line : webSourceCode.getDetailedLinesOfCode()) {
+      fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, 1);
+    }
+    for (Integer line : webSourceCode.getDetailedLinesOfComments()) {
+      fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, 1);
     }
 
     fileLinesContext.save();
@@ -160,19 +172,6 @@ public final class WebSensor implements Sensor {
       scanner.addVisitor((AbstractPageCheck) check);
     }
     return scanner;
-  }
-
-  /**
-   * This sensor only executes on Web projects.
-   */
-  @Override
-  public boolean shouldExecuteOnProject(Project project) {
-    return fileSystem.hasFiles(mainFilesPredicate);
-  }
-
-  @Override
-  public String toString() {
-    return getClass().getSimpleName();
   }
 
 }

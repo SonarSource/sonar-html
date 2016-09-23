@@ -20,7 +20,6 @@ package org.sonar.plugins.web.checks.scripting;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.el.lang.ExpressionBuilder;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -29,7 +28,6 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 import javax.el.ELContext;
 import javax.el.ELException;
@@ -43,7 +41,6 @@ import java.util.List;
   key = "UnifiedExpressionCheck",
   name = "JSF expressions should be syntactically valid",
   priority = Priority.BLOCKER)
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.INSTRUCTION_RELIABILITY)
 @SqaleConstantRemediation("2min")
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 

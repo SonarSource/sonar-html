@@ -17,11 +17,7 @@
  */
 package org.sonar.plugins.web.analyzers;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
+import com.google.common.collect.Sets;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +27,9 @@ import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import com.google.common.collect.Sets;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Count lines of code in web files.
@@ -63,10 +61,8 @@ public class PageCountLines extends DefaultNodeVisitor {
   }
 
   private void addMeasures() {
-
     WebSourceCode webSourceCode = getWebSourceCode();
 
-    webSourceCode.addMeasure(CoreMetrics.LINES, (double) linesOfCode + commentLines + headerCommentLines + blankLines);
     webSourceCode.addMeasure(CoreMetrics.NCLOC, linesOfCode);
     webSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
 

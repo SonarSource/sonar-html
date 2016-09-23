@@ -17,35 +17,34 @@
  */
 package org.sonar.plugins.web.analyzers;
 
-import static org.fest.assertions.Assertions.assertThat;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Collections;
-import java.util.List;
-
+import com.google.common.base.Charsets;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.resources.File;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 import org.sonar.test.TestUtils;
 
-import com.google.common.base.Charsets;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Collections;
+import java.util.List;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class PageCountLinesTest {
 
-  PageLexer lexer;
-  HtmlAstScanner scanner;
+  private PageLexer lexer;
+  private HtmlAstScanner scanner;
 
   @Before
   public void setUp() {
     lexer = new PageLexer();
-    scanner = new HtmlAstScanner(Collections.EMPTY_LIST);
+    scanner = new HtmlAstScanner(Collections.emptyList());
     scanner.addVisitor(new PageCountLines());
   }
 
@@ -57,13 +56,12 @@ public class PageCountLinesTest {
 
     //  new File("test", "user-properties.jsp");
     String relativePath = "test/user-properties.jsp";
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile(relativePath), File.create(relativePath));
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", relativePath).setModuleBaseDir(new File(".").toPath()));
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
-    assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(287);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC).getIntValue()).isEqualTo(227);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(227);
     assertThat(webSourceCode.getDetailedLinesOfCode().size()).isEqualTo(224);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES).getIntValue()).isEqualTo(14);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(14);
     assertThat(webSourceCode.getDetailedLinesOfComments().size()).isEqualTo(14);
   }
 
@@ -72,13 +70,12 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("checks/AvoidHtmlCommentCheck/document.html")));
 
     String relativePath = "test/document.html";
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile(relativePath), File.create(relativePath));
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", relativePath).setModuleBaseDir(new File(".").toPath()));
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
-    assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(9);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC).getIntValue()).isEqualTo(8);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(8);
     assertThat(webSourceCode.getDetailedLinesOfCode()).containsOnly(1, 2, 3, 4, 6, 7, 8, 9);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES).getIntValue()).isEqualTo(1);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(1);
     assertThat(webSourceCode.getDetailedLinesOfComments()).containsOnly(5);
   }
 
@@ -87,13 +84,12 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("checks/AvoidHtmlCommentCheck/document.jsp")));
 
     String relativePath = "testdocument.jsp";
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile(relativePath), File.create(relativePath));
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", relativePath).setModuleBaseDir(new File(".").toPath()));
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
-    assertThat(webSourceCode.getMeasure(CoreMetrics.LINES).getIntValue()).isEqualTo(11);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC).getIntValue()).isEqualTo(2);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(2);
     assertThat(webSourceCode.getDetailedLinesOfCode()).containsOnly(1, 3);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES).getIntValue()).isEqualTo(6);
+    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(6);
     assertThat(webSourceCode.getDetailedLinesOfComments()).containsOnly(2, 4, 6, 7, 8, 10);
   }
 

@@ -18,7 +18,6 @@
 package org.sonar.plugins.web.checks.coding;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -28,7 +27,6 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 import java.util.List;
 
@@ -37,7 +35,6 @@ import java.util.List;
   name = "Labels should be defined in the resource bundle",
   priority = Priority.MAJOR,
   tags = {RuleTags.JSP_JSF, RuleTags.USER_EXPERIENCE, RuleTags.USER_EXPERIENCE})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("15min")
 public class InternationalizationCheck extends AbstractPageCheck {
 

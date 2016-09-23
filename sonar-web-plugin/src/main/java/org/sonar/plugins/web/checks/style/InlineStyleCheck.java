@@ -17,18 +17,16 @@
  */
 package org.sonar.plugins.web.checks.style;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * Checker for occurrence of inline style.
  *
- * @see http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/paragraphCascading Style Sheets
+ * @see <a href="http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/paragraphCascading Style Sheets">link</a>
  *
  * @author Matthijs Galesloot
  * @since 1.0
@@ -37,7 +35,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   key = "InlineStyleCheck",
   name = "The \"style\" attribute should not be used",
   priority = Priority.MINOR)
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("15min")
 public class InlineStyleCheck extends AbstractPageCheck {
 

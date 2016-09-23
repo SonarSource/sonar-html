@@ -13,11 +13,13 @@
 
   <name>SonarSource :: Web :: Sonar Plugin</name>
   <description>Enables scanning of HTML, and JSP/JSF files.</description>
+  <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
   <properties>
-    <sonar.version>4.5.4</sonar.version>
+    <sonar.version>5.6</sonar.version>
     <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
+    <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
   </properties>
 
   <licenses>
@@ -30,7 +32,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.codehaus.sonar</groupId>
+      <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api</artifactId>
         <version>${sonar.version}</version>
       <scope>provided</scope>
@@ -39,6 +41,53 @@
       <groupId>org.sonarsource.sslr-squid-bridge</groupId>
       <artifactId>sslr-squid-bridge</artifactId>
       <version>2.6.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.sonar.sslr</groupId>
+          <artifactId>sslr-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.sonar.sslr</groupId>
+          <artifactId>sslr-xpath</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.sonar</groupId>
+          <artifactId>sonar-plugin-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.picocontainer</groupId>
+          <artifactId>picocontainer</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>jcl-over-slf4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>19.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.21</version>
+      <scope>provided</scope>
     </dependency>
 
     <!-- JSF Expression parser -->
@@ -63,7 +112,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.sonar</groupId>
+      <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
       <scope>test</scope>
@@ -93,6 +142,23 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>false</shadedArtifactAttached>
+              <minimizeJar>true</minimizeJar>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
           <execution>
@@ -104,8 +170,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <minsize>800000</minsize>
-                  <maxsize>1000000</maxsize>
+                  <minsize>1500000</minsize>
+                  <maxsize>1700000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

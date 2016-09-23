@@ -17,17 +17,21 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.measures.Measure;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
+import org.sonar.plugins.web.node.CommentNode;
+import org.sonar.plugins.web.node.DirectiveNode;
+import org.sonar.plugins.web.node.ExpressionNode;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.web.node.TextNode;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
+
+import java.util.List;
 
 @Rule(
   key = "FileLengthCheck",
@@ -35,7 +39,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.MAJOR,
   tags = {RuleTags.BRAIN_OVERLOADED})
 @ActivatedByDefault
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1h")
 public class FileLengthCheck extends AbstractPageCheck {
 
@@ -47,11 +50,53 @@ public class FileLengthCheck extends AbstractPageCheck {
     defaultValue = "" + DEFAULT_MAX_FILE_LENGTH)
   public int maxLength = DEFAULT_MAX_FILE_LENGTH;
 
+  private int maxLine = 0;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    maxLine = 0;
+  }
+
+  @Override
+  public void startElement(TagNode node) {
+    setMaxLine(node.getEndLinePosition());
+  }
+
+  @Override
+  public void endElement(TagNode node) {
+    setMaxLine(node.getEndLinePosition());
+  }
+
+  @Override
+  public void characters(TextNode node) {
+    setMaxLine(node.getEndLinePosition());
+  }
+
+  @Override
+  public void comment(CommentNode node) {
+    setMaxLine(node.getEndLinePosition());
+  }
+
+  @Override
+  public void directive(DirectiveNode node) {
+    setMaxLine(node.getEndLinePosition());
+  }
+
+  @Override
+  public void expression(ExpressionNode node) {
+    setMaxLine(node.getEndLinePosition());
+  }
+
+  private void setMaxLine(int line) {
+    if (line > maxLine) {
+      maxLine = line;
+    }
+  }
+
   @Override
   public void endDocument() {
-    Measure lines = getWebSourceCode().getMeasure(CoreMetrics.LINES);
-    if (lines != null && lines.getIntValue() > maxLength) {
-      createViolation(0, "Current file has " + lines.getIntValue() + " lines, which is greater than " + maxLength + " authorized. Split it into smaller files.");
+    if (maxLine > maxLength) {
+      createViolation(0, "Current file has " + maxLine + " lines, which is greater than " + maxLength + " authorized. Split it into smaller files.");
     }
   }
 

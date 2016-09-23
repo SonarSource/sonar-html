@@ -17,10 +17,9 @@
  */
 package org.sonar.plugins.web.checks;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
+import com.google.common.base.Charsets;
+import com.google.common.base.Throwables;
+import com.google.common.collect.ImmutableList;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
@@ -31,9 +30,9 @@ import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Throwables;
-import com.google.common.collect.ImmutableList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class TestHelper {
 
@@ -49,8 +48,8 @@ public class TestHelper {
     }
 
     WebSourceCode result = new WebSourceCode(
-      new DefaultInputFile(file.getPath()).setFile(file).setLanguage(WebConstants.LANGUAGE_KEY).setType(InputFile.Type.MAIN),
-      org.sonar.api.resources.File.create("test"));
+      new DefaultInputFile("key", file.getPath()).setLanguage(WebConstants.LANGUAGE_KEY).setType(InputFile.Type.MAIN).setModuleBaseDir(new File(".").toPath())
+    );
 
     HtmlAstScanner walker = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor()));
     walker.addVisitor(visitor);
