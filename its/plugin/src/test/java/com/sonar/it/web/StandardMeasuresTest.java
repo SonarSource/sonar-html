@@ -18,7 +18,7 @@
 package com.sonar.it.web;
 
 import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -54,7 +54,7 @@ public class StandardMeasuresTest {
     String projectKey = "TestOfWebPlugin";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
     orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
-    SonarRunner build = WebTestSuite.createSonarRunner()
+    SonarScanner build = WebTestSuite.createSonarScanner()
       .setProjectDir(new File("projects/continuum-webapp/"))
       .setProjectKey(projectKey)
       .setProjectName(projectKey)

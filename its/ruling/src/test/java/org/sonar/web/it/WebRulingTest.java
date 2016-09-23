@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
-import com.sonar.orchestrator.build.SonarRunner;
+import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -53,7 +53,7 @@ public class WebRulingTest {
     String projectKey = "project";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
     orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "rules");
-    SonarRunner build = SonarRunner.create()
+    SonarScanner build = SonarScanner.create()
       .setProjectDir(FileLocation.of("../sources").getFile())
       .setProjectKey(projectKey)
       .setProjectName(projectKey)
