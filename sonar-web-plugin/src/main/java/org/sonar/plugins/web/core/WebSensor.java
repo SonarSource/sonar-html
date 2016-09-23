@@ -62,7 +62,7 @@ public final class WebSensor implements Sensor {
 
   public WebSensor(NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory, CheckFactory checkFactory) {
     this.noSonarFilter = noSonarFilter;
-    this.checks = checkFactory.create(WebRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks(CheckClasses.getCheckClasses());
+    this.checks = checkFactory.create(WebRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks((Iterable) CheckClasses.getCheckClasses());
     this.fileLinesContextFactory = fileLinesContextFactory;
   }
 

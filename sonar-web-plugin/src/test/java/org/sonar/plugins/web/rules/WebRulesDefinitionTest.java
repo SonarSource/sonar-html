@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.web.rules;
 
+import com.google.common.collect.Iterables;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinition.Rule;
@@ -34,7 +35,7 @@ public class WebRulesDefinitionTest {
 
     assertThat(repository.name()).isEqualTo("SonarAnalyzer");
     assertThat(repository.language()).isEqualTo("web");
-    assertThat(repository.rules()).hasSize(CheckClasses.getCheckClasses().size());
+    assertThat(repository.rules()).hasSize(Iterables.size(CheckClasses.getCheckClasses()));
 
     RulesDefinition.Rule alertUseRule = repository.rule("IllegalAttributeCheck");
     assertThat(alertUseRule).isNotNull();

@@ -17,9 +17,7 @@
  */
 package org.sonar.plugins.web.rules;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.checks.coding.ComplexityCheck;
@@ -74,10 +72,11 @@ import org.sonar.plugins.web.checks.style.InlineStyleCheck;
 import org.sonar.plugins.web.checks.whitespace.IllegalTabCheck;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
 
+import java.util.List;
+
 public final class CheckClasses {
 
-  @SuppressWarnings("rawtypes")
-  private static final Class[] CLASSES = new Class[] {
+  private static final List<Class> CLASSES = ImmutableList.of(
     AbsoluteURICheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
@@ -130,8 +129,8 @@ public final class CheckClasses {
     ImgWithoutWidthOrHeightCheck.class,
     PageWithoutFaviconCheck.class,
     ElementWithGivenIdPresentCheck.class,
-    PasswordAutocompleteCheck.class,
-  };
+    PasswordAutocompleteCheck.class
+  );
 
   private CheckClasses() {
   }
@@ -140,8 +139,8 @@ public final class CheckClasses {
    * Gets the list of XML checks.
    */
   @SuppressWarnings("rawtypes")
-  public static List<Class> getCheckClasses() {
-    return Arrays.asList(CLASSES);
+  public static Iterable<Class> getCheckClasses() {
+    return CLASSES;
   }
 
 }
