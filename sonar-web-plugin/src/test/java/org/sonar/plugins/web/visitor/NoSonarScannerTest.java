@@ -17,26 +17,25 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import com.google.common.base.Charsets;
+import org.junit.Test;
+import org.mockito.ArgumentMatcher;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.issue.NoSonarFilter;
+import org.sonar.plugins.web.lex.PageLexer;
+import org.sonar.plugins.web.node.Node;
 
 import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Test;
-import org.mockito.ArgumentMatcher;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.issue.NoSonarFilter;
-import org.sonar.api.resources.File;
-import org.sonar.plugins.web.lex.PageLexer;
-import org.sonar.plugins.web.node.Node;
-
-import com.google.common.base.Charsets;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Matthijs Galesloot
@@ -46,22 +45,22 @@ public class NoSonarScannerTest {
   @Test
   public void scanNoSonar() {
     List<Node> nodeList = new PageLexer().parse(new StringReader("<table>\n<!-- //NOSONAR --><td>\n</table>"));
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("dummy.jsp"), File.create("dummy.jsp"));
+    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", "dummy.jsp"));
 
     NoSonarFilter noSonarFilter = spy(new NoSonarFilter());
-    HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.EMPTY_LIST);
+    HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.emptyList());
     pageScanner.addVisitor(new NoSonarScanner(noSonarFilter));
 
     pageScanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
-    verify(noSonarFilter, times(1)).addComponent(any(String.class), isOnlyIgnoringLine2());
+    verify(noSonarFilter, times(1)).noSonarInFile(any(InputFile.class), isOnlyIgnoringLine2());
   }
 
   private Set isOnlyIgnoringLine2() {
     return argThat(new IsOnlyIgnoringLine2());
   }
 
-  class IsOnlyIgnoringLine2 extends ArgumentMatcher<Set> {
+  private class IsOnlyIgnoringLine2 extends ArgumentMatcher<Set> {
 
     public boolean matches(Object set) {
       Set<Integer> lines = (Set) set;

@@ -17,9 +17,8 @@
  */
 package org.sonar.plugins.web;
 
-import java.util.List;
-
-import org.sonar.api.SonarPlugin;
+import com.google.common.collect.ImmutableList;
+import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.web.api.WebConstants;
@@ -30,42 +29,38 @@ import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.rules.SonarWayProfile;
 import org.sonar.plugins.web.rules.WebRulesDefinition;
 
-import com.google.common.collect.ImmutableList;
-
 /**
  * Web Plugin publishes extensions to sonar engine.
  *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-public final class WebPlugin extends SonarPlugin {
+public final class WebPlugin implements Plugin {
 
   private static final String CATEGORY = "Web";
 
   @Override
-  public List getExtensions() {
-    ImmutableList.Builder<Object> builder = ImmutableList.builder();
+  public void define(Context context) {
+    context.addExtensions(
+      // web language
+      Web.class,
 
-    // web language
-    builder.add(Web.class);
+      // web rules repository
+      WebRulesDefinition.class,
 
-    // web rules repository
-    builder.add(WebRulesDefinition.class);
+      // profiles
+      SonarWayProfile.class,
 
-    // profiles
-    builder.add(SonarWayProfile.class);
+      // web sensor
+      WebSensor.class,
 
-    // web sensor
-    builder.add(WebSensor.class);
+      // Code Colorizer
+      WebCodeColorizerFormat.class,
+      // Copy/Paste detection mechanism
+      WebCpdMapping.class
+    );
 
-    // Code Colorizer
-    builder.add(WebCodeColorizerFormat.class);
-    // Copy/Paste detection mechanism
-    builder.add(WebCpdMapping.class);
-
-    builder.addAll(pluginProperties());
-
-    return builder.build();
+    context.addExtensions(pluginProperties());
   }
 
   private static ImmutableList<PropertyDefinition> pluginProperties() {

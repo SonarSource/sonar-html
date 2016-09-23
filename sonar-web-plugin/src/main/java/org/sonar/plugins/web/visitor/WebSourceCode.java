@@ -17,66 +17,46 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
-import org.sonar.api.resources.Resource;
 import org.sonar.plugins.web.checks.WebIssue;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class WebSourceCode {
 
   private final InputFile inputFile;
-  private final Resource resource;
-  private final List<Measure> measures = new ArrayList<>();
+  private final Map<Metric<Integer>, Integer> measures = new HashMap<>();
   private final List<WebIssue> issues = new ArrayList<>();
   private Set<Integer> detailedLinesOfCode;
   private Set<Integer> detailedLinesOfComments;
 
-  public WebSourceCode(InputFile inputFile, Resource resource) {
+  public WebSourceCode(InputFile inputFile) {
     this.inputFile = inputFile;
-    this.resource = resource;
   }
 
   public InputFile inputFile() {
     return inputFile;
   }
 
-  public void addMeasure(Metric metric, double value) {
-    Measure measure = new Measure(metric, value);
-    this.measures.add(measure);
+  public void addMeasure(Metric<Integer> metric, int value) {
+    measures.put(metric, value);
   }
 
   public void addIssue(WebIssue issue) {
     this.issues.add(issue);
   }
 
-  public Measure getMeasure(Metric metric) {
-    for (Measure measure : measures) {
-      if (measure.getMetric().equals(metric)) {
-        return measure;
-      }
-    }
-    return null;
+  public Integer getMeasure(Metric metric) {
+    return measures.get(metric);
   }
 
-  public List<Measure> getMeasures() {
+  public Map<Metric<Integer>, Integer> getMeasures() {
     return measures;
-  }
-
-  /**
-   * <p> /!\ Should not be used /!\ </p>
-   * Only {@link org.sonar.api.batch.fs.InputFile InputFile} should be used. It is necessary only for
-   * {@link org.sonar.api.issue.NoSonarFilter#addComponent(String fileKey, java.util.Set noSonarLines)}
-   * in {@link org.sonar.plugins.web.visitor.NoSonarScanner NoSonarScanner} because SonarQube API provides
-   * the corresponding method taking an inputFile as a parameter only from version 5.0.
-   *
-   */
-  public Resource getResource() {
-    return resource;
   }
 
   public List<WebIssue> getIssues() {
@@ -85,7 +65,7 @@ public class WebSourceCode {
 
   @Override
   public String toString() {
-    return resource.getLongName();
+    return inputFile().absolutePath();
   }
 
   public Set<Integer> getDetailedLinesOfCode() {
@@ -94,14 +74,6 @@ public class WebSourceCode {
 
   public void setDetailedLinesOfCode(Set<Integer> detailedLinesOfCode) {
     this.detailedLinesOfCode = detailedLinesOfCode;
-  }
-
-  public boolean isLineOfCode(int line) {
-    return detailedLinesOfCode.contains(line);
-  }
-
-  public boolean isLineOfComment(int line) {
-    return detailedLinesOfComments.contains(line);
   }
 
   public Set<Integer> getDetailedLinesOfComments() {

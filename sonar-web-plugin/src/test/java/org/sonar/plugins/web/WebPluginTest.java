@@ -17,9 +17,11 @@
  */
 package org.sonar.plugins.web;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+import org.sonar.api.Plugin;
+import org.sonar.api.utils.Version;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
@@ -28,7 +30,9 @@ public class WebPluginTest {
 
   @Test
   public void webPluginTester() {
-    WebPlugin webPlugin = new WebPlugin();
-    assertEquals(8, webPlugin.getExtensions().size());
+    Plugin.Context context = new Plugin.Context(Version.create(5, 6));
+
+    new WebPlugin().define(context);
+    assertThat(context.getExtensions()).hasSize(8);
   }
 }

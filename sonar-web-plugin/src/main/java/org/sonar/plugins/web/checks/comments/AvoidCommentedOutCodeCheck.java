@@ -19,7 +19,6 @@ package org.sonar.plugins.web.checks.comments;
 
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang.StringUtils;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -27,7 +26,6 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 import org.sonar.squidbridge.recognizer.CodeRecognizer;
 import org.sonar.squidbridge.recognizer.ContainsDetector;
 import org.sonar.squidbridge.recognizer.EndWithDetector;
@@ -39,7 +37,6 @@ import org.sonar.squidbridge.recognizer.LanguageFootprint;
   priority = Priority.MAJOR,
   tags = {RuleTags.UNUSED, RuleTags.MISRA})
 @ActivatedByDefault
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNDERSTANDABILITY)
 @SqaleConstantRemediation("5min")
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 

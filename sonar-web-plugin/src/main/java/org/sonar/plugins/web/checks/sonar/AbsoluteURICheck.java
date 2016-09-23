@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -27,7 +26,6 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -38,7 +36,6 @@ import java.util.regex.Pattern;
   name = "Web pages should not contain absolute URIs",
   priority = Priority.CRITICAL,
   tags = {RuleTags.PITFALL})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.ARCHITECTURE_RELIABILITY)
 @SqaleConstantRemediation("5min")
 public class AbsoluteURICheck extends AbstractPageCheck {
 

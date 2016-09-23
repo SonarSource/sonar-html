@@ -17,9 +17,6 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import java.util.List;
-
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -28,7 +25,8 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
+
+import java.util.List;
 
 @Rule(
   key = "FlashUsesBothObjectAndEmbedCheck",
@@ -36,7 +34,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   priority = Priority.MAJOR,
   tags = RuleTags.CROSS_BROWSER)
 @ActivatedByDefault
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SOFTWARE_RELATED_PORTABILITY)
 @SqaleConstantRemediation("10min")
 public class FlashUsesBothObjectAndEmbedCheck extends AbstractPageCheck {
 

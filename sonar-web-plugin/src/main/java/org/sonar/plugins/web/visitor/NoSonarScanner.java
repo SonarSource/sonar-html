@@ -17,14 +17,14 @@
  */
 package org.sonar.plugins.web.visitor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Scans for //NOSONAR indicator.
@@ -64,7 +64,7 @@ public class NoSonarScanner extends DefaultNodeVisitor {
   @Override
   public void endDocument() {
     if (noSonarLines != null && !noSonarLines.isEmpty()) {
-      noSonarFilter.addComponent(getWebSourceCode().getResource().getKey(), noSonarLines);
+      noSonarFilter.noSonarInFile(getWebSourceCode().inputFile(), noSonarLines);
     }
   }
 

@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.web.checks.whitespace;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -27,7 +26,6 @@ import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 /**
  * @author Matthijs Galesloot
@@ -38,7 +36,6 @@ import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
   name = "White space should be used in JSP/JSF tags",
   priority = Priority.MINOR,
   tags = {RuleTags.CONVENTION, RuleTags.JSP_JSF})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 

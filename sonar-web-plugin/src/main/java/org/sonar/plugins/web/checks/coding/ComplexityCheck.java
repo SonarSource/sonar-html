@@ -18,7 +18,6 @@
 package org.sonar.plugins.web.checks.coding;
 
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -26,7 +25,6 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 import java.util.List;
 
@@ -35,7 +33,6 @@ import java.util.List;
   name = "Files should not be too complex",
   priority = Priority.MAJOR,
   tags = {RuleTags.BRAIN_OVERLOADED})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.UNIT_TESTABILITY)
 @SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "30min", effortToFixDescription = "per complexity point above the threshold")
 public final class ComplexityCheck extends AbstractPageCheck {
 
@@ -49,11 +46,11 @@ public final class ComplexityCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    int complexity = getWebSourceCode().getMeasure(CoreMetrics.COMPLEXITY).getIntValue();
+    int complexity = getWebSourceCode().getMeasure(CoreMetrics.COMPLEXITY);
 
     if (complexity > max) {
       String msg = String.format("Split this file to reduce complexity per file from %d to no more than the %d authorized.", complexity, max);
-      createViolation(0, msg, Double.valueOf(complexity) - Double.valueOf(max));
+      createViolation(0, msg, (double) (complexity - max));
     }
   }
 

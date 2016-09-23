@@ -18,7 +18,6 @@
 package org.sonar.plugins.web.checks.coding;
 
 import com.google.common.io.Files;
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -27,7 +26,6 @@ import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +37,6 @@ import java.util.List;
   name = "Lines should not be too long",
   priority = Priority.MINOR,
   tags = {RuleTags.CONVENTION})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.READABILITY)
 @SqaleConstantRemediation("1min")
 public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 

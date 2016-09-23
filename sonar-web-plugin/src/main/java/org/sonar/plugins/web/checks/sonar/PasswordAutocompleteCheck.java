@@ -17,21 +17,18 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
-import org.sonar.squidbridge.annotations.SqaleSubCharacteristic;
 
 @Rule(
   key = "S1443",
   name = "\"autocomplete\" should be set to \"off\" on input elements of type \"password\"",
   priority = Priority.CRITICAL,
 tags = {RuleTags.HTML5, RuleTags.SECURITY})
-@SqaleSubCharacteristic(RulesDefinition.SubCharacteristics.SECURITY_FEATURES)
 @SqaleConstantRemediation("5min")
 public class PasswordAutocompleteCheck extends AbstractPageCheck {
 
