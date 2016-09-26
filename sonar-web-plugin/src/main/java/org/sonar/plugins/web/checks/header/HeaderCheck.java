@@ -26,14 +26,17 @@ import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
+import org.sonar.squidbridge.api.AnalysisException;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Rule(
   key = "HeaderCheck",
-  name = "Copyright and license headers should be defined",
+  name = "Track lack of copyright and license headers",
   priority = Priority.BLOCKER)
 @SqaleConstantRemediation("5min")
 public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {
@@ -48,26 +51,71 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
     type = "TEXT")
   public String headerFormat = DEFAULT_HEADER_FORMAT;
 
-  private String[] expectedLines;
-  private Charset charset;
+  @RuleProperty(
+    key = "isRegularExpression",
+    description = "Whether the headerFormat is a regular expression",
+    defaultValue = "false")
+  public boolean isRegularExpression = false;
 
-  @Override
-  public void init() {
-    expectedLines = headerFormat.split("(?:\r)?\n|\r");
-  }
+  private Charset charset;
+  private String[] expectedLines;
+  private Pattern searchPattern = null;
 
   @Override
   public void setCharset(Charset charset) {
     this.charset = charset;
   }
 
-  static class HeaderLinesProcessor implements LineProcessor<Boolean> {
+  @Override
+  public void init() {
+    if (isRegularExpression) {
+      try {
+        searchPattern = Pattern.compile(headerFormat, Pattern.DOTALL);
+      } catch (RuntimeException e) {
+        throw new IllegalArgumentException("[" + getClass().getSimpleName() + "] Unable to compile the regular expression: " + headerFormat, e);
+      }
+    } else {
+      expectedLines = headerFormat.split("(?:\r)?\n|\r");
+    }
+  }
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    if (isRegularExpression) {
+      String fileContent;
+      try {
+        fileContent = Files.toString(getWebSourceCode().inputFile().file(), charset);
+      } catch (IOException e) {
+        throw new AnalysisException(e);
+      }
+      checkRegularExpression(fileContent);
+    } else {
+      LineProcessor<Boolean> processor = new HeaderLinesProcessor(expectedLines);
+      try {
+        Files.readLines(getWebSourceCode().inputFile().file(), charset, processor);
+      } catch (IOException e) {
+        throw new AnalysisException(e);
+      }
+      if (!processor.getResult()) {
+        createViolation(0, MESSAGE);
+      }
+    }
+  }
+
+  private void checkRegularExpression(String fileContent) {
+    Matcher matcher = searchPattern.matcher(fileContent);
+    if (!matcher.find() || matcher.start() != 0) {
+      createViolation(0, MESSAGE);
+    }
+  }
+
+  private static class HeaderLinesProcessor implements LineProcessor<Boolean> {
 
     private boolean result = false;
     private int lineNumber = 0;
     private String[] expectedLines;
 
-    public HeaderLinesProcessor(String[] expectedLines) {
+    HeaderLinesProcessor(String[] expectedLines) {
       this.expectedLines = expectedLines;
     }
 
@@ -92,19 +140,6 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
       return result && lineNumber >= expectedLines.length;
     }
 
-  }
-
-  @Override
-  public void startDocument(List<Node> nodes) {
-    LineProcessor<Boolean> processor = new HeaderLinesProcessor(expectedLines);
-    try {
-      Files.readLines(getWebSourceCode().inputFile().file(), charset, processor);
-    } catch (IOException e) {
-      throw new IllegalStateException(e);
-    }
-    if (!processor.getResult()) {
-      createViolation(0, MESSAGE);
-    }
   }
 
 }
