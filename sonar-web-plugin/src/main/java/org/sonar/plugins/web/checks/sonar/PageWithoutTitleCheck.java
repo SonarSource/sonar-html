@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import java.util.List;
-
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -27,6 +25,8 @@ import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.squidbridge.annotations.ActivatedByDefault;
 import org.sonar.squidbridge.annotations.NoSqale;
+
+import java.util.List;
 
 @Rule(
   key = "PageWithoutTitleCheck",
@@ -83,15 +83,15 @@ public class PageWithoutTitleCheck extends AbstractPageCheck {
   }
 
   private static boolean isHtmlTag(TagNode node) {
-    return "HTML".equalsIgnoreCase(node.getNodeName());
+    return "HTML".equalsIgnoreCase(node.getLocalName());
   }
 
   private static boolean isHeadTag(TagNode node) {
-    return "HEAD".equalsIgnoreCase(node.getNodeName());
+    return "HEAD".equalsIgnoreCase(node.getLocalName());
   }
 
   private static boolean isTitleTag(TagNode node) {
-    return "TITLE".equalsIgnoreCase(node.getNodeName());
+    return "TITLE".equalsIgnoreCase(node.getLocalName());
   }
 
 }
