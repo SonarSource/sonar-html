@@ -34,18 +34,20 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   @Override
   public void startElement(TagNode node) {
-    String attribute = null;
+    if (node.getLocalName().equals(node.getNodeName())) {
+      String attribute = null;
 
-    if (hasOnClick(node) && !hasOnKeyPress(node)) {
-      attribute = "onKeyPress";
-    } else if (hasOnMouseover(node) && !hasOnFocus(node)) {
-      attribute = "onFocus";
-    } else if (hasOnMouseout(node) && !hasOnBlur(node)) {
-      attribute = "onBlur";
-    }
+      if (hasOnClick(node) && !hasOnKeyPress(node)) {
+        attribute = "onKeyPress";
+      } else if (hasOnMouseover(node) && !hasOnFocus(node)) {
+        attribute = "onFocus";
+      } else if (hasOnMouseout(node) && !hasOnBlur(node)) {
+        attribute = "onBlur";
+      }
 
-    if (attribute != null) {
-      createViolation(node.getStartLinePosition(), "Add a '" + attribute + "' attribute to this <" + node.getNodeName() + "> tag.");
+      if (attribute != null) {
+        createViolation(node.getStartLinePosition(), "Add a '" + attribute + "' attribute to this <" + node.getNodeName() + "> tag.");
+      }
     }
   }
 
