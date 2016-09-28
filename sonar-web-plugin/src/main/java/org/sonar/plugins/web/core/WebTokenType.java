@@ -15,19 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.duplications;
+package org.sonar.plugins.web.core;
 
-import net.sourceforge.pmd.cpd.Tokens;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.TokenType;
 
-import org.sonar.channel.Channel;
-import org.sonar.channel.CodeReader;
-
-public class BlackHoleChannel extends Channel<Tokens> {
+public enum WebTokenType implements TokenType {
+  TAG,
+  EXPRESSION,
+  ATTRIBUTE,
+  DOCTYPE;
 
   @Override
-  public boolean consume(CodeReader code, Tokens cpdTokens) {
-    code.pop();
-    return true;
+  public String getName() {
+    return name();
+  }
+
+  @Override
+  public String getValue() {
+    return name();
+  }
+
+  @Override
+  public boolean hasToBeSkippedFromAst(AstNode node) {
+    return false;
   }
 
 }

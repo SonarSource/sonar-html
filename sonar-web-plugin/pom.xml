@@ -69,9 +69,20 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.sonarsource.sslr</groupId>
+      <artifactId>sslr-core</artifactId>
+      <version>${sslr.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.sslr</groupId>
+      <artifactId>sslr-testing-harness</artifactId>
+      <version>${sslr.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>19.0</version>
+      <version>15.0</version>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
@@ -124,6 +135,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
       <version>3.0.3</version>
@@ -170,8 +186,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <minsize>1500000</minsize>
-                  <maxsize>1700000</maxsize>
+                  <minsize>1600000</minsize>
+                  <maxsize>1800000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

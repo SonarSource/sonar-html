@@ -33,6 +33,6 @@ public class WebPluginTest {
     Plugin.Context context = new Plugin.Context(Version.create(5, 6));
 
     new WebPlugin().define(context);
-    assertThat(context.getExtensions()).hasSize(8);
+    assertThat(context.getExtensions()).hasSize(6);
   }
 }

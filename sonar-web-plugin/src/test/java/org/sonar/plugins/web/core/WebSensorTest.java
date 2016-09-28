@@ -28,6 +28,7 @@ import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.rule.internal.DefaultActiveRules;
 import org.sonar.api.batch.rule.internal.NewActiveRule;
+import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.issue.NoSonarFilter;
@@ -94,6 +95,14 @@ public class WebSensorTest {
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(227);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(14);
     assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(1);
+
+    assertThat(tester.cpdTokens(componentKey)).hasSize(224);
+
+    assertThat(tester.highlightingTypeAt(componentKey, 1, 0)).containsOnly(TypeOfText.COMMENT);
+    assertThat(tester.highlightingTypeAt(componentKey, 18, 0)).containsOnly(TypeOfText.COMMENT);
+    assertThat(tester.highlightingTypeAt(componentKey, 19, 0)).containsOnly(TypeOfText.ANNOTATION);
+    assertThat(tester.highlightingTypeAt(componentKey, 29, 17)).containsOnly(TypeOfText.STRING);
+    assertThat(tester.highlightingTypeAt(componentKey, 29, 0)).containsOnly(TypeOfText.KEYWORD);
 
     assertThat(tester.allIssues()).hasSize(84);
   }

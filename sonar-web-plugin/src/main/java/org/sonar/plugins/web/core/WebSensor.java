@@ -79,10 +79,11 @@ public final class WebSensor implements Sensor {
     // configure the lexer
     final PageLexer lexer = new PageLexer();
 
-    // configure page scanner and the visitors
-    final HtmlAstScanner scanner = setupScanner();
-
     FileSystem fileSystem = sensorContext.fileSystem();
+
+    // configure page scanner and the visitors
+    final HtmlAstScanner scanner = setupScanner(sensorContext);
+
     FilePredicates predicates = fileSystem.predicates();
     Iterable<InputFile> inputFiles = fileSystem.inputFiles(
       predicates.and(
@@ -161,8 +162,9 @@ public final class WebSensor implements Sensor {
   /**
    * Create PageScanner with Visitors.
    */
-  private HtmlAstScanner setupScanner() {
+  private HtmlAstScanner setupScanner(SensorContext context) {
     HtmlAstScanner scanner = new HtmlAstScanner(ImmutableList.of(
+      new WebTokensVisitor(context),
       new PageCountLines(),
       new ComplexityVisitor(),
       new NoSonarScanner(noSonarFilter)));

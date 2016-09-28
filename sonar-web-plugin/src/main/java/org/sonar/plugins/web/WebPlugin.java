@@ -23,9 +23,7 @@ import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.core.Web;
-import org.sonar.plugins.web.core.WebCodeColorizerFormat;
 import org.sonar.plugins.web.core.WebSensor;
-import org.sonar.plugins.web.duplications.WebCpdMapping;
 import org.sonar.plugins.web.rules.SonarWayProfile;
 import org.sonar.plugins.web.rules.WebRulesDefinition;
 
@@ -52,12 +50,7 @@ public final class WebPlugin implements Plugin {
       SonarWayProfile.class,
 
       // web sensor
-      WebSensor.class,
-
-      // Code Colorizer
-      WebCodeColorizerFormat.class,
-      // Copy/Paste detection mechanism
-      WebCpdMapping.class
+      WebSensor.class
     );
 
     context.addExtensions(pluginProperties());

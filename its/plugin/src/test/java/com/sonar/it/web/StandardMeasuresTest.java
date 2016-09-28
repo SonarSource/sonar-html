@@ -93,10 +93,10 @@ public class StandardMeasuresTest {
 
   @Test
   public void projectDuplications() {
-    assertThat(getProjectMeasure("duplicated_lines").getIntValue()).isEqualTo(106);
-    assertThat(getProjectMeasure("duplicated_blocks").getIntValue()).isEqualTo(4);
-    assertThat(getProjectMeasure("duplicated_files").getIntValue()).isEqualTo(3);
-    assertThat(getProjectMeasure("duplicated_lines_density").getValue()).isEqualTo(1.1);
+    assertThat(getProjectMeasure("duplicated_lines").getIntValue()).isEqualTo(170);
+    assertThat(getProjectMeasure("duplicated_blocks").getIntValue()).isEqualTo(8);
+    assertThat(getProjectMeasure("duplicated_files").getIntValue()).isEqualTo(7);
+    assertThat(getProjectMeasure("duplicated_lines_density").getValue()).isEqualTo(1.8);
   }
 
   @Test
