@@ -18,22 +18,16 @@
 package org.sonar.plugins.web.checks.coding;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Rule(
-  key = "UnclosedTagCheck",
-  name = "All HTML tags should be closed",
-  priority = Priority.MINOR)
-@SqaleConstantRemediation("2min")
+@Rule(key = "UnclosedTagCheck")
 public class UnclosedTagCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_IGNORE_TAGS = "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP" +

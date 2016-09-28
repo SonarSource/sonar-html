@@ -18,22 +18,16 @@
 package org.sonar.plugins.web.checks.attributes;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Rule(
-  key = "RequiredAttributeCheck",
-  name = "Required attributes should be used",
-  priority = Priority.MAJOR)
-@NoSqale
+@Rule(key = "RequiredAttributeCheck")
 public class RequiredAttributeCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";

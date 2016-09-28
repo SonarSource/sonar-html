@@ -18,22 +18,14 @@
 package org.sonar.plugins.web.checks.coding;
 
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.squidbridge.annotations.SqaleLinearWithOffsetRemediation;
 
 import java.util.List;
 
-@Rule(
-  key = "ComplexityCheck",
-  name = "Files should not be too complex",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.BRAIN_OVERLOADED})
-@SqaleLinearWithOffsetRemediation(coeff = "1min", offset = "30min", effortToFixDescription = "per complexity point above the threshold")
+@Rule(key = "ComplexityCheck")
 public final class ComplexityCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_COMPLEXITY = 10;

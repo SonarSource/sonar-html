@@ -17,12 +17,6 @@
  */
 package org.sonar.plugins.web.rules;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import org.fest.assertions.Assertions;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -32,6 +26,12 @@ import org.sonar.api.rules.Rule;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.api.WebConstants;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SonarWayProfileTest {
 
@@ -43,7 +43,7 @@ public class SonarWayProfileTest {
     Assertions.assertThat(profile.getName()).isEqualTo("Sonar way");
     Assertions.assertThat(profile.getLanguage()).isEqualTo(WebConstants.LANGUAGE_KEY);
     Assertions.assertThat(profile.getActiveRules()).onProperty("repositoryKey").containsOnly(WebRulesDefinition.REPOSITORY_KEY);
-    Assertions.assertThat(profile.getActiveRules().size()).isEqualTo(14);
+    Assertions.assertThat(profile.getActiveRules().size()).isEqualTo(16);
     assertThat(validationMessages.hasErrors(), is(false));
   }
 

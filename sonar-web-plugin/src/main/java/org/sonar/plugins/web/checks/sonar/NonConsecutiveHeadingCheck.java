@@ -17,22 +17,14 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import java.util.List;
-
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 
-@Rule(
-  key = "NonConsecutiveHeadingCheck",
-  name = "Heading tags should be used starting from H1 until H6",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.ACCESSIBILITY})
-@NoSqale
+import java.util.List;
+
+@Rule(key = "NonConsecutiveHeadingCheck")
 public class NonConsecutiveHeadingCheck extends AbstractPageCheck {
 
   private final int[] firstUsage = new int[6];

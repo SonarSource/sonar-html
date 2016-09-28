@@ -17,19 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 
-@Rule(
-  key = "MouseEventWithoutKeyboardEquivalentCheck",
-  name = "Mouse events should have a corresponding keyboard event",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.ACCESSIBILITY})
-@NoSqale
+@Rule(key = "MouseEventWithoutKeyboardEquivalentCheck")
 public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck {
 
   @Override

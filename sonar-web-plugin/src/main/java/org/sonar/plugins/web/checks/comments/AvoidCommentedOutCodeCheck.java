@@ -19,25 +19,15 @@ package org.sonar.plugins.web.checks.comments;
 
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.CommentNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.recognizer.CodeRecognizer;
 import org.sonar.squidbridge.recognizer.ContainsDetector;
 import org.sonar.squidbridge.recognizer.EndWithDetector;
 import org.sonar.squidbridge.recognizer.LanguageFootprint;
 
-@Rule(
-  key = "AvoidCommentedOutCodeCheck",
-  name = "Sections of code should not be \"commented out\"",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.UNUSED, RuleTags.MISRA})
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "AvoidCommentedOutCodeCheck")
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   private static final double THRESHOLD = 0.9;

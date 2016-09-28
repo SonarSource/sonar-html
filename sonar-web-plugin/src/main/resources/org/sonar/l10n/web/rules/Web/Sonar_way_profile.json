@@ -1,0 +1,21 @@
+{
+  "name": "Sonar way",
+  "ruleKeys": [
+    "AvoidCommentedOutCodeCheck",
+    "BoldAndItalicTagsCheck",
+    "DoctypePresenceCheck",
+    "FieldsetWithoutLegendCheck",
+    "FileLengthCheck",
+    "FlashUsesBothObjectAndEmbedCheck",
+    "FrameWithoutTitleCheck",
+    "ImgWithoutAltCheck",
+    "ItemTagNotWithinContainerTagCheck",
+    "LinkToImageCheck",
+    "MetaRefreshCheck",
+    "PageWithoutFaviconCheck",
+    "PageWithoutTitleCheck",
+    "S1827",
+    "ServerSideImageMapsCheck",
+    "UnsupportedTagsInHtml5Check"
+  ]
+}

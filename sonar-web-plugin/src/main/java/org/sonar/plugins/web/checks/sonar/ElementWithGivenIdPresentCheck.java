@@ -17,25 +17,15 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import java.util.List;
-
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
-import org.sonar.squidbridge.annotations.RuleTemplate;
 
-@Rule(
-  key = "S1436",
-  name = "An element with a specific \"id\" attribute should be present in each HTML page",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.CONVENTION})
-@RuleTemplate
-@NoSqale
+import java.util.List;
+
+@Rule(key = "S1436")
 public class ElementWithGivenIdPresentCheck extends AbstractPageCheck {
 
   @RuleProperty(

@@ -1,0 +1,14 @@
+{
+  "title": "Flash animations should be embedded using both \"<object>\" and \"<embed>\"",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "bug",
+    "cross-browser"
+  ],
+  "defaultSeverity": "Minor"
+}

@@ -17,23 +17,15 @@
  */
 package org.sonar.plugins.web.checks.comments;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.Iterator;
 import java.util.List;
 
-@Rule(
-  key = "AvoidHtmlCommentCheck",
-  name = "HTML comments should not be used",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.SECURITY, RuleTags.CWE, RuleTags.OWASP_A6})
-@SqaleConstantRemediation("5min")
+@Rule(key = "AvoidHtmlCommentCheck")
 public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
   private boolean isServerSidePage;

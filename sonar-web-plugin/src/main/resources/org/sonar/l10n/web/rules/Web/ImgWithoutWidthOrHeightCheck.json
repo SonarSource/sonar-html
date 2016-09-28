@@ -1,0 +1,14 @@
+{
+  "title": "Buttons and image tags should have \"width\" and \"height\" attributes",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "bug",
+    "user-experience"
+  ],
+  "defaultSeverity": "Major"
+}

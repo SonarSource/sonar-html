@@ -17,24 +17,14 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.NoSqale;
 
 import java.util.List;
 
-@Rule(
-  key = "PageWithoutTitleCheck",
-  name = "\"title\" should be present in all pages",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.USER_EXPERIENCE})
-@ActivatedByDefault
-@NoSqale
+@Rule(key = "PageWithoutTitleCheck")
 public class PageWithoutTitleCheck extends AbstractPageCheck {
 
   private int currentHtmlTagLine;

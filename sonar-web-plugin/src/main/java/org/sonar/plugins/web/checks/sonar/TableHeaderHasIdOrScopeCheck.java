@@ -17,19 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 
-@Rule(
-  key = "TableHeaderHasIdOrScopeCheck",
-  name = "<th> table headers tags should have an 'id' or a 'scope' attribute",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.ACCESSIBILITY})
-@NoSqale
+@Rule(key = "TableHeaderHasIdOrScopeCheck")
 public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
 
   @Override

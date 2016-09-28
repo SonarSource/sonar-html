@@ -19,23 +19,13 @@ package org.sonar.plugins.web.checks.sonar;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.Locale;
 
-@Rule(
-  key = "LinkToImageCheck",
-  name = "Links should not directly target images",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.ACCESSIBILITY, RuleTags.USER_EXPERIENCE})
-@ActivatedByDefault
-@SqaleConstantRemediation("15min")
+@Rule(key = "LinkToImageCheck")
 public class LinkToImageCheck extends AbstractPageCheck {
 
   private static final ImmutableSet<String> IMG_SUFFIXES = ImmutableSet.of(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP");

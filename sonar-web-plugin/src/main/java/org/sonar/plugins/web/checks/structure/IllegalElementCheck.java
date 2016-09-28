@@ -17,22 +17,16 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 
-@Rule(
-  key = "IllegalElementCheck",
-  name = "Disallowed elements should not be used",
-  priority = Priority.MAJOR)
-@NoSqale
+import java.util.List;
+
+@Rule(key = "IllegalElementCheck")
 public class IllegalElementCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ELEMENTS = "";

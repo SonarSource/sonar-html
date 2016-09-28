@@ -1,0 +1,14 @@
+{
+  "title": "\"<strong>\" and \"<em>\" tags should be used",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "accessibility",
+    "bug"
+  ],
+  "defaultSeverity": "Minor"
+}

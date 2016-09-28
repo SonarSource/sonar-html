@@ -17,12 +17,10 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
 /**
@@ -30,11 +28,7 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  *
  * e.g. head must have child element title.
  */
-@Rule(
-  key = "ChildElementRequiredCheck",
-  name = "Child element should be used",
-  priority = Priority.MAJOR)
-@NoSqale
+@Rule(key = "ChildElementRequiredCheck")
 @RuleTemplate
 public class ChildElementRequiredCheck extends AbstractPageCheck {
 

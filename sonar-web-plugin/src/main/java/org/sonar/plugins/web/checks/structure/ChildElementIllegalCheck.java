@@ -17,12 +17,10 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
 /**
@@ -30,11 +28,7 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  *
  * e.g. head cannnot have child element body.
  */
-@Rule(
-  key = "ChildElementIllegalCheck",
-  name = "Disallowed child elements should not be used",
-  priority = Priority.MAJOR)
-@NoSqale
+@Rule(key = "ChildElementIllegalCheck")
 @RuleTemplate
 public class ChildElementIllegalCheck extends AbstractPageCheck {
 

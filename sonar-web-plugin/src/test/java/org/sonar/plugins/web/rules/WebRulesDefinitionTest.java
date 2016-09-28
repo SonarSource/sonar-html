@@ -39,7 +39,7 @@ public class WebRulesDefinitionTest {
 
     RulesDefinition.Rule alertUseRule = repository.rule("IllegalAttributeCheck");
     assertThat(alertUseRule).isNotNull();
-    assertThat(alertUseRule.name()).isEqualTo("Disallowed attributes should not be used");
+    assertThat(alertUseRule.name()).isEqualTo("Track uses of disallowed attributes");
 
     for (Rule rule : repository.rules()) {
       for (RulesDefinition.Param param : rule.params()) {

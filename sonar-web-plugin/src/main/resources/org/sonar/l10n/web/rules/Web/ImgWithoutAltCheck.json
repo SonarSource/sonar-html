@@ -1,0 +1,14 @@
+{
+  "title": "Images tags and buttons should have an \"alt\" attribute",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility",
+    "bug"
+  ],
+  "defaultSeverity": "Minor"
+}

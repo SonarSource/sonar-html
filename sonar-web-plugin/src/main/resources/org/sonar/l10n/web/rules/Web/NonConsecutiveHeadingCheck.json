@@ -1,0 +1,13 @@
+{
+  "title": "Heading tags should be used consecutively from \"H1\" to \"H6\"",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Minor"
+}

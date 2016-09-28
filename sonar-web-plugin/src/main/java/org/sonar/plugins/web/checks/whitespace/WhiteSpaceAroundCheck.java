@@ -17,26 +17,18 @@
  */
 package org.sonar.plugins.web.checks.whitespace;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 /**
  * @author Matthijs Galesloot
  * @since 1.0
  */
-@Rule(
-  key = "WhiteSpaceAroundCheck",
-  name = "White space should be used in JSP/JSF tags",
-  priority = Priority.MINOR,
-  tags = {RuleTags.CONVENTION, RuleTags.JSP_JSF})
-@SqaleConstantRemediation("1min")
+@Rule(key = "WhiteSpaceAroundCheck")
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 
   private void checkEndWhitespace(Node node, String code, String end) {

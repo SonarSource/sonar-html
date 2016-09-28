@@ -18,27 +18,19 @@
 package org.sonar.plugins.web.checks.dependencies;
 
 import com.google.common.base.Splitter;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
 import java.util.List;
 
-@Rule(
-  key = "LibraryDependencyCheck",
-  name = "Some Java packages or classes should not be used in JSP files",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.JSP_JSF})
+@Rule(key = "LibraryDependencyCheck")
 @RuleTemplate
-@NoSqale
 public class LibraryDependencyCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_LIBRARIES = "";

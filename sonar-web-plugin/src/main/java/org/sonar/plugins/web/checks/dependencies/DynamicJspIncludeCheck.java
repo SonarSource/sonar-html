@@ -17,19 +17,11 @@
  */
 package org.sonar.plugins.web.checks.dependencies;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "DynamicJspIncludeCheck",
-  name = "Dynamic includes should not be used",
-  priority = Priority.CRITICAL,
-  tags = {RuleTags.JSP_JSF})
-@SqaleConstantRemediation("5min")
+@Rule(key = "DynamicJspIncludeCheck")
 public class DynamicJspIncludeCheck extends AbstractPageCheck {
 
   @Override

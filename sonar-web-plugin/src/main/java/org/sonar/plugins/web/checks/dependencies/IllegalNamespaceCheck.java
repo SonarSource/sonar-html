@@ -18,22 +18,16 @@
 package org.sonar.plugins.web.checks.dependencies;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 
 import java.util.List;
 
-@Rule(
-  key = "IllegalNamespaceCheck",
-  name = "Disallowed namespaces should not be used in XHTML documents",
-  priority = Priority.MAJOR)
-@NoSqale
+@Rule(key = "IllegalNamespaceCheck")
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_NAMESPACES = "";

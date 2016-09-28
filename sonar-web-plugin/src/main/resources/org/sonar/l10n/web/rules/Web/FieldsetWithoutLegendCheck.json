@@ -1,0 +1,14 @@
+{
+  "title": "\"<fieldset>\" tags should contain a \"<legend>\"",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility",
+    "bug"
+  ],
+  "defaultSeverity": "Minor"
+}

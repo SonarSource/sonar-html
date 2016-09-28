@@ -17,21 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.NoSqale;
 
-@Rule(
-  key = "MetaRefreshCheck",
-  name = "Meta tags should not be used to refresh the page nor for redirection",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.USER_EXPERIENCE})
-@ActivatedByDefault
-@NoSqale
+@Rule(key = "MetaRefreshCheck")
 public class MetaRefreshCheck extends AbstractPageCheck {
 
   @Override

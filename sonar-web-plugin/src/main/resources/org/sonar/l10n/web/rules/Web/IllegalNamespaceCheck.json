@@ -1,0 +1,9 @@
+{
+  "title": "Track uses of disallowed namespaces in XHTML documents",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    
+  ],
+  "defaultSeverity": "Major"
+}

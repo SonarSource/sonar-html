@@ -1,0 +1,10 @@
+{
+  "title": "\"<title>\" should be present in all pages",
+  "type": "BUG",
+  "status": "ready",
+  "tags": [
+    "bug",
+    "user-experience"
+  ],
+  "defaultSeverity": "Major"
+}

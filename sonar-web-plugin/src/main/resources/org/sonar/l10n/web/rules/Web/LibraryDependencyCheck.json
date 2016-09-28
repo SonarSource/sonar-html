@@ -1,0 +1,9 @@
+{
+  "title": "Some Java packages or classes should not be used in JSP files",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "jsp-jsf"
+  ],
+  "defaultSeverity": "Blocker"
+}

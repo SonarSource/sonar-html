@@ -17,29 +17,19 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.CommentNode;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.List;
 
-@Rule(
-  key = "FileLengthCheck",
-  name = "Files should not have too many lines",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.BRAIN_OVERLOADED})
-@ActivatedByDefault
-@SqaleConstantRemediation("1h")
+@Rule(key = "FileLengthCheck")
 public class FileLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_FILE_LENGTH = 1000;

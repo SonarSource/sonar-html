@@ -1,0 +1,9 @@
+{
+  "title": "Meta tags should not be used to refresh or redirect",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "user-experience"
+  ],
+  "defaultSeverity": "Major"
+}

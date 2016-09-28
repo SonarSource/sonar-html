@@ -1,0 +1,9 @@
+{
+  "title": "\"<th>\" tags should have \"id\" or \"scope\" attributes",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Major"
+}

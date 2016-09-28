@@ -20,26 +20,16 @@ package org.sonar.plugins.web.checks.sonar;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Rule(
-  key = "S1827",
-  name = "Attributes deprecated in HTML5 should not be used",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.HTML5, RuleTags.OBSOLETE})
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1827")
 public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
 
   private static final Map<String, Set<String>> DEPRECATED;

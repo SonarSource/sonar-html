@@ -17,29 +17,20 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import org.sonar.check.Rule;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.node.TagNode;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.sonar.check.Priority;
-import org.sonar.check.Rule;
-import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
-import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
-
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-
-@Rule(
-  key = "InputWithoutLabelCheck",
-  name = "\"input\", \"select\" and \"textarea\" tags should have an associated \"label\" one",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.ACCESSIBILITY, RuleTags.USER_EXPERIENCE})
-@NoSqale
+@Rule(key = "InputWithoutLabelCheck")
 public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   private static final Set<String> EXCLUDED_TYPES = ImmutableSet.of("SUBMIT", "BUTTON", "IMAGE", "HIDDEN");

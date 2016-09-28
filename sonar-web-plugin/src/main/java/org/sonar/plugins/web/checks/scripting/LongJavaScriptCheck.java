@@ -17,21 +17,13 @@
  */
 package org.sonar.plugins.web.checks.scripting;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
-import org.sonar.squidbridge.annotations.SqaleLinearRemediation;
 
-@Rule(
-  key = "LongJavaScriptCheck",
-  name = "Javascript scriptlets should not have too many lines of code",
-  priority = Priority.CRITICAL,
-  tags = {RuleTags.BRAIN_OVERLOADED})
-@SqaleLinearRemediation(coeff = "2min", effortToFixDescription = "number of lines over the threshold")
+@Rule(key = "LongJavaScriptCheck")
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;

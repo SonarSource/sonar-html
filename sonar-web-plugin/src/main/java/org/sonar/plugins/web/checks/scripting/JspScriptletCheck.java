@@ -18,20 +18,12 @@
 package org.sonar.plugins.web.checks.scripting;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.ExpressionNode;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "JspScriptletCheck",
-  name = "JSP expressions should not be used",
-  priority = Priority.MAJOR,
-tags = {RuleTags.JSP_JSF, RuleTags.OBSOLETE})
-@SqaleConstantRemediation("30min")
+@Rule(key = "JspScriptletCheck")
 public class JspScriptletCheck extends AbstractPageCheck {
 
   @Override

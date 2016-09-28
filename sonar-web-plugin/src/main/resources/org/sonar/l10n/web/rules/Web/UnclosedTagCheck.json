@@ -1,0 +1,13 @@
+{
+  "title": "All HTML tags should be closed ",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    
+  ],
+  "defaultSeverity": "Minor"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Web pages should not contain absolute URIs",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    
+  ],
+  "defaultSeverity": "Major"
+}

@@ -18,24 +18,16 @@
 package org.sonar.plugins.web.checks.coding;
 
 import org.apache.commons.lang.StringUtils;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
 import org.sonar.plugins.web.node.TextNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.List;
 
-@Rule(
-  key = "InternationalizationCheck",
-  name = "Labels should be defined in the resource bundle",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.JSP_JSF, RuleTags.USER_EXPERIENCE, RuleTags.USER_EXPERIENCE})
-@SqaleConstantRemediation("15min")
+@Rule(key = "InternationalizationCheck")
 public class InternationalizationCheck extends AbstractPageCheck {
 
   private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";

@@ -18,25 +18,15 @@
 package org.sonar.plugins.web.checks.sonar;
 
 import com.google.common.collect.ImmutableSet;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.Locale;
 import java.util.Set;
 
 /** RSPEC-1083 */
-@Rule(
-  key = "UnsupportedTagsInHtml5Check",
-  name = "Elements deprecated in HTML5 should not be used",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.HTML5, RuleTags.OBSOLETE, RuleTags.USER_EXPERIENCE})
-@ActivatedByDefault
-@SqaleConstantRemediation("20min")
+@Rule(key = "UnsupportedTagsInHtml5Check")
 public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
   private static final Set<String> UNSUPPORTED_TAGS = ImmutableSet.of(

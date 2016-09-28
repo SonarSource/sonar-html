@@ -18,7 +18,6 @@
 package org.sonar.plugins.web.checks.dependencies;
 
 import com.google.common.base.Strings;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
@@ -26,15 +25,10 @@ import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.List;
 
-@Rule(
-  key = "IllegalTagLibsCheck",
-  name = "Disallowed \"taglibs\" should not be used",
-  priority = Priority.CRITICAL)
-@SqaleConstantRemediation("1h")
+@Rule(key = "IllegalTagLibsCheck")
 public class IllegalTagLibsCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_TAG_LIBS = "http://java.sun.com/jstl/sql";

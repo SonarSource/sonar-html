@@ -1,0 +1,14 @@
+{
+  "title": "White space should be used in JSP\/JSF tags",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "1min"
+  },
+  "tags": [
+    "convention",
+    "jsp-jsf"
+  ],
+  "defaultSeverity": "Minor"
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Labels should be defined in the resource bundle",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "bug",
+    "user-experience"
+  ],
+  "defaultSeverity": "Major"
+}

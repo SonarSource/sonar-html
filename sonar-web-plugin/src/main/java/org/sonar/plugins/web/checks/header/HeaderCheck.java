@@ -19,13 +19,11 @@ package org.sonar.plugins.web.checks.header;
 
 import com.google.common.io.Files;
 import com.google.common.io.LineProcessor;
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 import org.sonar.squidbridge.api.AnalysisException;
 
 import java.io.IOException;
@@ -34,11 +32,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Rule(
-  key = "HeaderCheck",
-  name = "Track lack of copyright and license headers",
-  priority = Priority.BLOCKER)
-@SqaleConstantRemediation("5min")
+@Rule(key = "HeaderCheck")
 public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {
 
   private static final String DEFAULT_HEADER_FORMAT = "";

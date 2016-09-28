@@ -17,25 +17,15 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.DirectiveNode;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.List;
 
-@Rule(
-  key = "DoctypePresenceCheck",
-  name = "A <!DOCTYPE> declaration should appear before the <html> tag",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.USER_EXPERIENCE})
-@ActivatedByDefault
-@SqaleConstantRemediation("5min")
+@Rule(key = "DoctypePresenceCheck")
 public class DoctypePresenceCheck extends AbstractPageCheck {
 
   private boolean foundDoctype;

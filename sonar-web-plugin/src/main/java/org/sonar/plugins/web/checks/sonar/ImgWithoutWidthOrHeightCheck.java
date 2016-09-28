@@ -17,19 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "ImgWithoutWidthOrHeightCheck",
-  name = "Images tags and buttons should have a \"width\" and a \"height\" attribute",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.USER_EXPERIENCE})
-@SqaleConstantRemediation("10min")
+@Rule(key = "ImgWithoutWidthOrHeightCheck")
 public class ImgWithoutWidthOrHeightCheck extends AbstractPageCheck {
 
   @Override

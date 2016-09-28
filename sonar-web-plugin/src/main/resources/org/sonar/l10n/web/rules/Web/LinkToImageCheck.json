@@ -1,0 +1,14 @@
+{
+  "title": "Links should not directly target images",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "15min"
+  },
+  "tags": [
+    "accessibility",
+    "user-experience"
+  ],
+  "defaultSeverity": "Major"
+}

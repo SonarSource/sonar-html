@@ -1,0 +1,14 @@
+{
+  "title": "Flash animations should be embedded using the window mode",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [
+    "accessibility",
+    "bug"
+  ],
+  "defaultSeverity": "Minor"
+}

@@ -1,0 +1,14 @@
+{
+  "title": "\"input\", \"select\" and \"textarea\" tags should be labeled",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility",
+    "bug"
+  ],
+  "defaultSeverity": "Major"
+}

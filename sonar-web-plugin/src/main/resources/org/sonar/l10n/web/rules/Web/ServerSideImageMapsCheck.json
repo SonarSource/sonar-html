@@ -1,0 +1,14 @@
+{
+  "title": "Server-side image maps (\"ismap\" attribute) should not be used",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "1h"
+  },
+  "tags": [
+    "accessibility",
+    "bug"
+  ],
+  "defaultSeverity": "Minor"
+}

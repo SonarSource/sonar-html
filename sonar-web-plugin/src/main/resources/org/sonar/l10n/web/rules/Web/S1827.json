@@ -1,0 +1,14 @@
+{
+  "title": "Attributes deprecated  in HTML5 should not be used",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5 min"
+  },
+  "tags": [
+    "html5",
+    "obsolete"
+  ],
+  "defaultSeverity": "Major"
+}

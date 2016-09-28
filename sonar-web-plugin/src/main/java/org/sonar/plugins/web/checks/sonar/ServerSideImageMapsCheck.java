@@ -17,21 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.ActivatedByDefault;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "ServerSideImageMapsCheck",
-  name = "Server-side image maps (\"ismap\" attribute) should not be used",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.ACCESSIBILITY})
-@ActivatedByDefault
-@SqaleConstantRemediation("1h")
+@Rule(key = "ServerSideImageMapsCheck")
 public class ServerSideImageMapsCheck extends AbstractPageCheck {
 
   @Override

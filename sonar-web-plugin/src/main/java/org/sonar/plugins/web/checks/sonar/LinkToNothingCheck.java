@@ -17,19 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "LinkToNothingCheck",
-  name = "Links should not target \"#\" or \"javascript:void(0)\"",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.USER_EXPERIENCE})
-@SqaleConstantRemediation("15min")
+@Rule(key = "LinkToNothingCheck")
 public class LinkToNothingCheck extends AbstractPageCheck {
 
   @Override

@@ -17,26 +17,18 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Rule(
-  key = "S1829",
-  name = "Web pages should not contain absolute URIs",
-  priority = Priority.CRITICAL,
-  tags = {RuleTags.PITFALL})
-@SqaleConstantRemediation("5min")
+@Rule(key = "S1829")
 public class AbsoluteURICheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "a.href,applet.codebase,area.href,base.href,blockquote.cite,body.background,del.cite,form.action,frame.longdesc,frame.src," +

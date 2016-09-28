@@ -17,12 +17,10 @@
  */
 package org.sonar.plugins.web.checks.structure;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.NoSqale;
 import org.sonar.squidbridge.annotations.RuleTemplate;
 
 /**
@@ -30,12 +28,8 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  *
  * e.g. title must not have parent element body.
  */
-@Rule(
-  key = "ParentElementIllegalCheck",
-  name = "Parent Element Illegal",
-  priority = Priority.MAJOR)
+@Rule(key = "ParentElementIllegalCheck")
 @RuleTemplate
-@NoSqale
 public class ParentElementIllegalCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_CHILD = "";

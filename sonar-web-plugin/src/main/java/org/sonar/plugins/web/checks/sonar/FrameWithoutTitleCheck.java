@@ -17,19 +17,11 @@
  */
 package org.sonar.plugins.web.checks.sonar;
 
-import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.RuleTags;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.SqaleConstantRemediation;
 
-@Rule(
-  key = "FrameWithoutTitleCheck",
-  name = "\"<frames>\" should have a \"title\" attribute",
-  priority = Priority.MAJOR,
-  tags = {RuleTags.ACCESSIBILITY})
-@SqaleConstantRemediation("5min")
+@Rule(key = "FrameWithoutTitleCheck")
 public class FrameWithoutTitleCheck extends AbstractPageCheck {
 
   @Override
