@@ -1,11 +1,9 @@
-<p>
-  This rule verifies if some given Java packages or classes are used in a JSP file.
-  The following code illustrates this rule, with <code>java.sql,ArrayList</code> as libraries:</p>
-
+<p>This rule raises an issue when a configured Java package or class is used in a JSP file.</p>
 <h2>Noncompliant Code Example</h2>
-
+<p>Given a disallowed list of <code>java.sql,ArrayList</code>:</p>
 <pre>
-&lt;%@ page import="java.sql.*" %&gt;     &lt;!-- Non-Compliant --&gt;
-&lt;% java.util.ArrayList clients; %&gt;  &lt;!-- Non-Compliant --&gt;
+&lt;%@ page import="java.sql.*" %&gt;     &lt;!-- Noncompliant --&gt;
+&lt;% java.util.ArrayList clients; %&gt;  &lt;!-- Noncompliant --&gt;
 &lt;% java.lang.String name; %&gt;        &lt;!-- Compliant --&gt;
 </pre>
+

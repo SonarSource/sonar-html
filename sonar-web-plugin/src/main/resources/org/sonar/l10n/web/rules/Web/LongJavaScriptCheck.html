@@ -1,31 +1,27 @@
-<p>
-  Long pieces of JavaScript should be located in dedicated *.js source files.
-  This makes maintenance of both the script and the pages that use it easier.
-  Additionally, it offers some efficiencies in serving the files, since it takes better advantage of
-  browser caching to only re-serve the parts of a web page that have actually changed.
-</p>
-
+<p>Long pieces of JavaScript should be located in dedicated *.js source files. This makes maintenance of both the script and the pages that use it
+easier. Additionally, it offers some efficiencies in serving the files, since it takes better advantage of browser caching to only re-serve the parts
+of a web page that have actually changed.</p>
 <h2>Noncompliant Code Example</h2>
+<p>With the default parameter value of 5:</p>
 <pre>
 &lt;head&gt;
   ...
-  &lt;script type="text/javascript" language="JavaScript"&gt;
+  &lt;script type="text/javascript" language="JavaScript"&gt;  &lt;!-- Noncompliant --&gt;
     function doTheThing(arg1) {
-    ...
-    ...
+      ...
+      ...
     }
 
     function doTheOtherThing(arg1) {
-    ...
+      ...
     }
 
     function andSoOn() {
-    ...
+      ...
     }
   &lt;/script&gt;
 &lt;/head&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
 &lt;head&gt;
@@ -33,3 +29,4 @@
   &lt;script type="text/javascript" language="JavaScript" src="myLongScript.js"&gt; &lt;/script&gt;
 &lt;/head&gt;
 </pre>
+

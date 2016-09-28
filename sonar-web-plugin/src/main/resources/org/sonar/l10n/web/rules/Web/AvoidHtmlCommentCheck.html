@@ -1,38 +1,34 @@
-<p>
-  Using HTML-style comments in a page that will be generated or interpolated server-side before being served
-  to the user increases the risk of exposing data that should be kept private.
-  For instance, a developer comment or line of debugging information that's left in a page could easily (and has) inadvertently expose:
-</p>
+<p>Using HTML-style comments in a page that will be generated or interpolated server-side before being served to the user increases the risk of
+exposing data that should be kept private. For instance, a developer comment or line of debugging information that's left in a page could easily (and
+has) inadvertently expose:</p>
 <ul>
-  <li>Version numbers and host names</li>
-  <li>Full, server-side path names</li>
-  <li>Sensitive user data</li>
+  <li> Version numbers and host names </li>
+  <li> Full, server-side path names </li>
+  <li> Sensitive user data </li>
 </ul>
-<p>
-  Because every other language has its own native comment format, there is no justification for using HTML-style comments in anything other than a pure HTML or XML file.
-</p>
-
+<p>Because every other language has its own native comment format, there is no justification for using HTML-style comments in anything other than a
+pure HTML or XML file.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
   &lt;%
       out.write("&lt;!-- ${username} --&gt;");  // Noncompliant
   %&gt;
-  &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Noncompliant
-  &lt;!-- #{userPhone} --&gt;  // Noncompliant
-  &lt;!-- ${userAddress} --&gt; // Noncompliant
+      &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Noncompliant
+      &lt;!-- #{userPhone} --&gt;  // Noncompliant
+      &lt;!-- ${userAddress} --&gt; // Noncompliant
 
-  &lt;!-- Replace 'world' with name --&gt; // Noncompliant
-  &lt;h2&gt;Hello world!&lt;/h2&gt;
+      &lt;!-- Replace 'world' with name --&gt; // Noncompliant
+      &lt;h2&gt;Hello world!&lt;/h2&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
-  &lt;%-- Replace 'world' with name %&gt;  // Compliant
-  &lt;h2&gt;Hello world!&lt;/h2&gt;
+      &lt;%-- Replace 'world' with name %&gt;  // Compliant
+      &lt;h2&gt;Hello world!&lt;/h2&gt;
 </pre>
-
 <h2>See</h2>
 <ul>
-  <li><a href="http://cwe.mitre.org/data/definitions/615.html">MITRE, CWE-615</a> - Information Exposure Through Comments</li>
-  <li><a href="https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure">OWASP Top Ten 2013 Category A6</a> - Sensitive Data Exposure</li>
+  <li> <a href="http://cwe.mitre.org/data/definitions/615.html">MITRE, CWE-615</a> - Information Exposure Through Comments </li>
+  <li> <a href="https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure">OWASP Top Ten 2013 Category A6</a> - Sensitive Data Exposure
+  </li>
 </ul>
+

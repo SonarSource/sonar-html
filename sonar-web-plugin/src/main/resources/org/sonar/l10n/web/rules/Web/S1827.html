@@ -1,85 +1,302 @@
-<p>
-  With the advent of HTML5, many old attributes were deprecated.
-  To ensure the best user experience, deprecated attributes should not be used. This rule checks for the following deprecated attributes, where CSS should be used instead.
-</p>
-
+<p>With the advent of HTML5, many old attributes were deprecated. To ensure the best user experience, deprecated attributes should not be used. This
+rule checks for the following deprecated attributes, where CSS should be used instead.</p>
 <h3>Attributes</h3>
 <table>
-  <tr><th>Attribute</th><th>Removed from</th></tr>
-  <tr><td><code>accept</code></td><td><code>form</code></td></tr>
-  <tr><td><code>align</code></td><td><code>caption</code>, <code>col</code>, <code>div</code>, <code>embed</code>, <code>h1-h6</code>, <code>hr</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>legend</code>, <code>object</code>, <code>p</code>, <code>table</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td></tr>
-  <tr><td><code>alink</code></td><td><code>body</code></td></tr>
-  <tr><td><code>allowtransparency</code></td><td><code>iframe</code></td></tr>
-  <tr><td><code>archive</code></td><td><code>object</code></td></tr>
-  <tr><td><code>axis</code></td><td><code>td</code>, <code>th</code></td></tr>
-  <tr><td><code>background</code></td><td><code>body</code>, <code>table</code>, <code>thead</code>, <code>tbody</code>, <code>tfoot</code>, <code>tr</code>, <code>td</code>, <code>th</code></td></tr>
-  <tr><td><code>bgcolor</code></td><td><code>body</code>, <code>table</code>, <code>td</code>, <code>th</code>, <code>tr</code></td></tr>
-  <tr><td><code>border</code></td><td><code>img</code> (<code>border="0"</code> allowed), <code>object</code></td></tr>
-  <tr><td><code>bordercolor</code></td><td><code>table</code></td></tr>
-  <tr><td><code>cellpadding</code></td><td><code>table</code></td></tr>
-  <tr><td><code>cellspacing</code></td><td><code>table</code></td></tr>
-  <tr><td><code>char</code></td><td><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td></tr>
-  <tr><td><code>charoff</code></td><td><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td></tr>
-  <tr><td><code>charset</code></td><td><code>a</code>, <code>link</code></td></tr>
-  <tr><td><code>classid</code></td><td><code>object</code></td></tr>
-  <tr><td><code>clear</code></td><td><code>br</code></td></tr>
-  <tr><td><code>code</code></td><td><code>object</code></td></tr>
-  <tr><td><code>codebase</code></td><td><code>object</code></td></tr>
-  <tr><td><code>codetype</code></td><td><code>object</code></td></tr>
-  <tr><td><code>color</code></td><td><code>hr</code></td></tr>
-  <tr><td><code>compact</code></td><td><code>dl</code>, <code>ol</code>, <code>ul</code></td></tr>
-  <tr><td><code>coords</code></td><td><code>a</code></td></tr>
-  <tr><td><code>datafld</code></td><td><code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>fieldset</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>param</code>, <code>select</code>, <code>span</code>, <code>textarea</code></td></tr>
-  <tr><td><code>dataformatas</code></td><td><code>button</code>, <code>div</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, <code>table</code></td></tr>
-  <tr><td><code>datapagesize</code></td><td><code>table</code></td></tr>
-  <tr><td><code>datasrc</code></td><td><code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, <code>table</code>, <code>textarea</code></td></tr>
-  <tr><td><code>declare</code></td><td><code>object</code></td></tr>
-  <tr><td><code>event</code></td><td><code>script</code></td></tr>
-  <tr><td><code>for</code></td><td><code>script</code></td></tr>
-  <tr><td><code>frame</code></td><td><code>table</code></td></tr>
-  <tr><td><code>frameborder</code></td><td><code>iframe</code></td></tr>
-  <tr><td><code>height</code></td><td><code>td</code>, <code>th</code></td></tr>
-  <tr><td><code>hspace</code></td><td><code>embed</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>object</code></td></tr>
-  <tr><td><code>ismap</code></td><td><code>input</code></td></tr>
-  <tr><td><code>langauge</code></td><td><code>script</code> (<code>language="javascript"</code>, case insensitive, allowed)</td></tr>
-  <tr><td><code>link</code></td><td><code>body</code></td></tr>
-  <tr><td><code>lowsrc</code></td><td><code>img</code></td></tr>
-  <tr><td><code>marginbottom</code></td><td><code>body</code></td></tr>
-  <tr><td><code>marginheight</code></td><td><code>body</code>, <code>iframe</code></td></tr>
-  <tr><td><code>marginleft</code></td><td><code>body</code></td></tr>
-  <tr><td><code>marginright</code></td><td><code>body</code></td></tr>
-  <tr><td><code>margintop</code></td><td><code>body</code></td></tr>
-  <tr><td><code>marginwidth</code></td><td><code>body</code>, <code>iframe</code></td></tr>
-  <tr><td><code>methods</code></td><td><code>a</code>, <code>link</code></td></tr>
-  <tr><td><code>name</code></td><td><code>a</code> (<code>name="[a's element id]"</code> allowed), <code>embed</code>, <code>img</code>, <code>option</code></td></tr>
-  <tr><td><code>nohref</code></td><td><code>area</code></td></tr>
-  <tr><td><code>noshade</code></td><td><code>hr</code></td></tr>
-  <tr><td><code>nowrap</code></td><td><code>td</code>, <code>th</code></td></tr>
-  <tr><td><code>profile</code></td><td><code>head</code></td></tr>
-  <tr><td><code>rules</code></td><td><code>table</code></td></tr>
-  <tr><td><code>scheme</code></td><td><code>meta</code></td></tr>
-  <tr><td><code>scope</code></td><td><code>td</code></td></tr>
-  <tr><td><code>scrolling</code></td><td><code>iframe</code></td></tr>
-  <tr><td><code>shape</code></td><td><code>a</code></td></tr>
-  <tr><td><code>size</code></td><td><code>hr</code></td></tr>
-  <tr><td><code>standby</code></td><td><code>object</code></td></tr>
-  <tr><td><code>summary</code></td><td><code>table</code></td></tr>
-  <tr><td><code>target</code></td><td><code>link</code></td></tr>
-  <tr><td><code>text</code></td><td><code>body</code></td></tr>
-  <tr><td><code>type</code></td><td><code>li</code>, <code>param</code>, <code>ul</code></td></tr>
-  <tr><td><code>urn</code></td><td><code>a</code>, <code>link</code></td></tr>
-  <tr><td><code>usemap</code></td><td><code>input</code></td></tr>
-  <tr><td><code>valign</code></td><td><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td></tr>
-  <tr><td><code>valuetype</code></td><td><code>param</code></td></tr>
-  <tr><td><code>version</code></td><td><code>html</code></td></tr>
-  <tr><td><code>vlink</code></td><td><code>body</code></td></tr>
-  <tr><td><code>vspace</code></td><td><code>embed</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>object</code></td></tr>
-  <tr><td><code>width</code></td><td><code>col</code>, <code>hr</code>, <code>pre</code>, <code>table</code>, <code>td</code>, <code>th</code></td></tr>
+  <tbody>
+    <tr>
+      <th>Attribute</th>
+      <th>Removed from</th>
+    </tr>
+    <tr>
+      <td><code>accept</code></td>
+      <td><code>form</code></td>
+    </tr>
+    <tr>
+      <td><code>align</code></td>
+      <td><code>caption</code>, <code>col</code>, <code>div</code>, <code>embed</code>, <code>h1-h6</code>, <code>hr</code>, <code>iframe</code>,
+      <code>img</code>, <code>input</code>, <code>legend</code>, <code>object</code>, <code>p</code>, <code>table</code>, <code>tbody</code>,
+      <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td>
+    </tr>
+    <tr>
+      <td><code>alink</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>allowtransparency</code></td>
+      <td><code>iframe</code></td>
+    </tr>
+    <tr>
+      <td><code>archive</code></td>
+      <td><code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>axis</code></td>
+      <td><code>td</code>, <code>th</code></td>
+    </tr>
+    <tr>
+      <td><code>background</code></td>
+      <td><code>body</code>, <code>table</code>, <code>thead</code>, <code>tbody</code>, <code>tfoot</code>, <code>tr</code>, <code>td</code>,
+      <code>th</code></td>
+    </tr>
+    <tr>
+      <td><code>bgcolor</code></td>
+      <td><code>body</code>, <code>table</code>, <code>td</code>, <code>th</code>, <code>tr</code></td>
+    </tr>
+    <tr>
+      <td><code>border</code></td>
+      <td><code>img</code> (<code>border="0"</code> allowed), <code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>bordercolor</code></td>
+      <td><code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>cellpadding</code></td>
+      <td><code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>cellspacing</code></td>
+      <td><code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>char</code></td>
+      <td><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td>
+    </tr>
+    <tr>
+      <td><code>charoff</code></td>
+      <td><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td>
+    </tr>
+    <tr>
+      <td><code>charset</code></td>
+      <td><code>a</code>, <code>link</code></td>
+    </tr>
+    <tr>
+      <td><code>classid</code></td>
+      <td><code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>clear</code></td>
+      <td><code>br</code></td>
+    </tr>
+    <tr>
+      <td><code>code</code></td>
+      <td><code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>codebase</code></td>
+      <td><code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>codetype</code></td>
+      <td><code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>color</code></td>
+      <td><code>hr</code></td>
+    </tr>
+    <tr>
+      <td><code>compact</code></td>
+      <td><code>dl</code>, <code>ol</code>, <code>ul</code></td>
+    </tr>
+    <tr>
+      <td><code>coords</code></td>
+      <td><code>a</code></td>
+    </tr>
+    <tr>
+      <td><code>datafld</code></td>
+      <td><code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>fieldset</code>, <code>frame</code>, <code>iframe</code>,
+      <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>param</code>,
+      <code>select</code>, <code>span</code>, <code>textarea</code></td>
+    </tr>
+    <tr>
+      <td><code>dataformatas</code></td>
+      <td><code>button</code>, <code>div</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>,
+      <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, <code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>datapagesize</code></td>
+      <td><code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>datasrc</code></td>
+      <td><code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>,
+      <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>,
+      <code>select</code>, <code>span</code>, <code>table</code>, <code>textarea</code></td>
+    </tr>
+    <tr>
+      <td><code>declare</code></td>
+      <td><code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>event</code></td>
+      <td><code>script</code></td>
+    </tr>
+    <tr>
+      <td><code>for</code></td>
+      <td><code>script</code></td>
+    </tr>
+    <tr>
+      <td><code>frame</code></td>
+      <td><code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>frameborder</code></td>
+      <td><code>iframe</code></td>
+    </tr>
+    <tr>
+      <td><code>height</code></td>
+      <td><code>td</code>, <code>th</code></td>
+    </tr>
+    <tr>
+      <td><code>hspace</code></td>
+      <td><code>embed</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>ismap</code></td>
+      <td><code>input</code></td>
+    </tr>
+    <tr>
+      <td><code>langauge</code></td>
+      <td><code>script</code> (<code>language="javascript"</code>, case insensitive, allowed)</td>
+    </tr>
+    <tr>
+      <td><code>link</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>lowsrc</code></td>
+      <td><code>img</code></td>
+    </tr>
+    <tr>
+      <td><code>marginbottom</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>marginheight</code></td>
+      <td><code>body</code>, <code>iframe</code></td>
+    </tr>
+    <tr>
+      <td><code>marginleft</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>marginright</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>margintop</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>marginwidth</code></td>
+      <td><code>body</code>, <code>iframe</code></td>
+    </tr>
+    <tr>
+      <td><code>methods</code></td>
+      <td><code>a</code>, <code>link</code></td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td><code>a</code> (<code>name="[a's element id]"</code> allowed), <code>embed</code>, <code>img</code>, <code>option</code></td>
+    </tr>
+    <tr>
+      <td><code>nohref</code></td>
+      <td><code>area</code></td>
+    </tr>
+    <tr>
+      <td><code>noshade</code></td>
+      <td><code>hr</code></td>
+    </tr>
+    <tr>
+      <td><code>nowrap</code></td>
+      <td><code>td</code>, <code>th</code></td>
+    </tr>
+    <tr>
+      <td><code>profile</code></td>
+      <td><code>head</code></td>
+    </tr>
+    <tr>
+      <td><code>rules</code></td>
+      <td><code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>scheme</code></td>
+      <td><code>meta</code></td>
+    </tr>
+    <tr>
+      <td><code>scope</code></td>
+      <td><code>td</code></td>
+    </tr>
+    <tr>
+      <td><code>scrolling</code></td>
+      <td><code>iframe</code></td>
+    </tr>
+    <tr>
+      <td><code>shape</code></td>
+      <td><code>a</code></td>
+    </tr>
+    <tr>
+      <td><code>size</code></td>
+      <td><code>hr</code></td>
+    </tr>
+    <tr>
+      <td><code>standby</code></td>
+      <td><code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>summary</code></td>
+      <td><code>table</code></td>
+    </tr>
+    <tr>
+      <td><code>target</code></td>
+      <td><code>link</code></td>
+    </tr>
+    <tr>
+      <td><code>text</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td><code>li</code>, <code>param</code>, <code>ul</code></td>
+    </tr>
+    <tr>
+      <td><code>urn</code></td>
+      <td><code>a</code>, <code>link</code></td>
+    </tr>
+    <tr>
+      <td><code>usemap</code></td>
+      <td><code>input</code></td>
+    </tr>
+    <tr>
+      <td><code>valign</code></td>
+      <td><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></td>
+    </tr>
+    <tr>
+      <td><code>valuetype</code></td>
+      <td><code>param</code></td>
+    </tr>
+    <tr>
+      <td><code>version</code></td>
+      <td><code>html</code></td>
+    </tr>
+    <tr>
+      <td><code>vlink</code></td>
+      <td><code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>vspace</code></td>
+      <td><code>embed</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>object</code></td>
+    </tr>
+    <tr>
+      <td><code>width</code></td>
+      <td><code>col</code>, <code>hr</code>, <code>pre</code>, <code>table</code>, <code>td</code>, <code>th</code></td>
+    </tr>
+  </tbody>
 </table>
-
 <h2>See</h2>
 <ul>
-  <li>W3C, <a href="http://www.w3.org/TR/html5-diff">Differences in HTML5</a></li>
-  <li>W3C, <a href="http://www.w3.org/TR/html5/obsolete.html">Obsolete Features</a></li>
-  <li>WHATWG, <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html">Obsolete Features</a></li>
+  <li> W3C, <a href="http://www.w3.org/TR/html5-diff">Differences in HTML5</a> </li>
+  <li> W3C, <a href="http://www.w3.org/TR/html5/obsolete.html">Obsolete Features</a> </li>
+  <li> WHATWG, <a href="https://html.spec.whatwg.org/multipage/obsolete.html">Obsolete Features</a> </li>
 </ul>
+

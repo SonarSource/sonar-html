@@ -1,19 +1,17 @@
-<p>The <code>&lt;label&gt;</code> tag defines a label for the <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;textarea&gt;</code> elements.</p>
-
-<p>
-The <code>&lt;label&gt;</code> tag does not render as anything special.
-However, it provides a usability improvement for mouse users: When the text within the &lt;label&gt; element is clicked, the associated input field is toogled.
-It also improves the usability for visually impaired users: Screen readers will announce the label text whenever the focus is set on the input field.
-</p>
-
-<p>The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the related element to bind them together.</p>
-
-<p>The purpose of this rule is to make sure that any &lt;input&gt; (except "submit", "button", "image" and "hidden" ones), &lt;select&gt; and &lt;textarea&gt; field has an associated label element.</p>
-
+<p>The <code>&lt;label&gt;</code> tag defines a label for <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;textarea&gt;</code>
+elements.</p>
+<p>The <code>&lt;label&gt;</code> tag does not render as anything special. However, it provides a usability improvement for mouse users: when the text
+within the <code>&lt;label&gt;</code> element is clicked, the associated input field is toggled.</p>
+<p>It also improves usability for visually impaired users: Screen readers will announce the label text whenever the focus is set on the input
+field.</p>
+<p>The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the related element to
+bind them together.</p>
+<p>The purpose of this rule is to make sure that every <code>input</code> (except <code>submit</code>, <code>button</code>, <code>image</code> and
+<code>hidden</code> inputs), <code>select</code>, and &lt;textarea&gt; field has an associated label element.</p>
 <h2>Noncompliant Code Example</h2>
-
 <pre>
 &lt;input type="text" name="firstname" /&gt;               &lt;!-- Non-Compliant - no id --&gt;
+
 &lt;input type="text" name="lastname" id="lastname" /&gt;  &lt;!-- Non-Compliant - no matching label for "lastname" --&gt;
 
 &lt;label for="address"&gt;Address&lt;/label&gt;
@@ -22,9 +20,7 @@ It also improves the usability for visually impaired users: Screen readers will 
 &lt;input type="hidden" name="time" value="..."&gt;        &lt;!-- Compliant - "hidden" type is excluded --&gt;
 &lt;input type="submit" value="Send" /&gt;                 &lt;!-- Compliant - "submit" type is excluded --&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
-
 <pre>
 &lt;label for="firstname"&gt;First name&lt;/label&gt;
 &lt;input type="text" name="firstname" id="firstname" /&gt;
@@ -38,3 +34,4 @@ It also improves the usability for visually impaired users: Screen readers will 
 &lt;input type="hidden" name="time" value="..."&gt;
 &lt;input type="submit" value="Send" /&gt;
 </pre>
+

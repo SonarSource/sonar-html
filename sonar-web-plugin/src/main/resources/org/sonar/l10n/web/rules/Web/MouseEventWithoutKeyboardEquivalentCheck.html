@@ -1,20 +1,15 @@
-<p>
-Offering the same experience with the mouse and the keyboard allow users to pick their preferred device.
-Additionally, users of assistive technology will also be able to browse the site even if they cannot use the mouse.
-</p>
-
+<p>Offering the same experience with the mouse and the keyboard allow users to pick their preferred devices.</p>
+<p>Additionally, users of assistive technology will also be able to browse the site even if they cannot use the mouse.</p>
 <h2>Noncompliant Code Example</h2>
-
 <pre>
-&lt;a onClick="doSomething();" ...&gt;                                &lt;!-- Non-Compliant - 'onKeyPress' missing --&gt;
-&lt;a onMouseover="doSomething();" ...&gt;                            &lt;!-- Non-Compliant - 'onFocus' missing --&gt;
-&lt;a onMouseout="doSomething();" ...&gt;                             &lt;!-- Non-Compliant - 'onBlur' missing --&gt;
+&lt;a onClick="doSomething();" ...&gt;                                &lt;!-- Noncompliant - 'onKeyPress' missing --&gt;
+&lt;a onMouseover="doSomething();" ...&gt;                            &lt;!-- Noncompliant - 'onFocus' missing --&gt;
+&lt;a onMouseout="doSomething();" ...&gt;                             &lt;!-- Noncompliant - 'onBlur' missing --&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
-
 <pre>
 &lt;a onClick="doSomething();" onKeyPress="doSomething();" ...&gt;    &lt;!-- Compliant --&gt;
 &lt;a onMouseover="doSomething();" onFocus="doSomething();" ...&gt;   &lt;!-- Compliant --&gt;
 &lt;a onMouseout="doSomething();" onBlur="doSomething();" ...&gt;     &lt;!-- Compliant --&gt;
 </pre>
+

@@ -1,24 +1,19 @@
-<p>JSP expressions (using <code><%= ... %></code> have been deprecated because they:</p>
+<p>JSP expressions (using <code>&lt;%= ... %&gt;</code> have been deprecated because they:</p>
 <ul>
-  <li>Are not unit testable.</li>
-  <li>Are not reusable.</li>
-  <li>Cannot make use of object oriented concepts such as inheritence.</li>
-  <li>Have poor error handling capabilities: if an exception is thrown, an empty page is rended.</li>
-  <li>Mix the business and presentation logic.</li>
+  <li> Are not unit testable. </li>
+  <li> Are not reusable. </li>
+  <li> Cannot make use of object oriented concepts such as inheritence. </li>
+  <li> Have poor error handling capabilities: if an exception is thrown, an empty page is rended. </li>
+  <li> Mix the business and presentation logic. </li>
 </ul>
-
-<p>
-JSP Standard Tag Library (JSTL) and Expression Language should be used instead,
-enabiling the adoption of the model-view-controller (MVC) design pattern
-which reduces the coupling between the presentation tier and the business logic.
-</p>
-
+<p>JSP Standard Tag Library (JSTL) and Expression Language should be used instead, enabiling the adoption of the model-view-controller (MVC) design
+pattern which reduces the coupling between the presentation tier and the business logic.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;input type="text" name="foo" value="&lt;%= request.getParameter("foo") %&gt;" /&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
 &lt;input type="text" name="foo" value="${fn:escapeXml(param.foo)}" /&gt;
 </pre>
+

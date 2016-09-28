@@ -1,30 +1,18 @@
-<p>
-Most browsers automatically fill the content of input elements of type 'password' when this password has already been provided in the past.
-</p>
-
-<p>
-Imagine that user B takes control of a machine belonging to a user A.
-Accessing a secured web site as user A is trivial for user B if form input elements are automatically filled in by the browser on the site's login page.
-</p>
-
-<p>
-  HTML 5 specifies the ability to turn this functionality off on a field-by-field basis using the autocomplete attribute,
-  but most modern browsers ignore it in favor of their own password management.
-</p>
-
+<p>Most browsers automatically fill the content of input elements of type 'password' when this password has already been provided in the past.</p>
+<p>Imagine that user B takes control of a machine belonging to a user A. Accessing a secured web site as user A is trivial for user B if form input
+elements are automatically filled in by the browser on the site's login page. </p>
+<p>HTML 5 specifies the ability to turn this functionality off on a field-by-field basis using the <code>autocomplete</code> attribute, but most
+modern browsers ignore it in favor of their own password management.</p>
 <h2>Noncompliant Code Example</h2>
 <p>For HTML5:</p>
 <pre>
 &lt;input type="password" /&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <p>For HTML5:</p>
 <pre>
 &lt;input type="password" autocomplete="off" /&gt;
 </pre>
-
 <h2>Deprecated</h2>
-<p>
-  This rule is deprecated.
-</p>
+<p>This rule is deprecated, and will eventually be removed.</p>
+

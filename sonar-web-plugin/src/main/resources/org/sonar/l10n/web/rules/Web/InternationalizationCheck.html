@@ -1,22 +1,17 @@
-<p>
-  Web applications can be made available in multiple languages through the use of internationalization.
-  This allows the server to plug in the correct version of a piece of text based on the language chosen,
-  but it requires that internationalization messages be used instead of hard-coded text.
-</p>
-
+<p>Web applications can be made available in multiple languages through the use of internationalization. This allows the server to plug in the correct
+version of a piece of text based on the language chosen, but it requires that internationalization messages be used instead of hard-coded text.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
   &lt;form method="post"&gt;
-    &lt;label for="username"&gt;Username:&lt;/label&gt;
+    &lt;label for="username"&gt;Username:&lt;/label&gt;  &lt;!-- Noncompliant --&gt;
     &lt;input type="text" id="username" name="username"&gt;
     &lt;br&gt;
-    &lt;label for="password"&gt;Password:&lt;/label&gt;
+    &lt;label for="password"&gt;Password:&lt;/label&gt;  &lt;!-- Noncompliant --&gt;
     &lt;input type="password" id="password" name="password"&gt;
     &lt;br&gt;
     &lt;input type="submit" name="submit" value="${buttonValue}"&gt;
   &lt;/form&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
   &lt;form method="post"&gt;
@@ -29,3 +24,4 @@
     &lt;input type="submit" name="submit" value="${buttonValue}"&gt;
   &lt;/form&gt;
 </pre>
+

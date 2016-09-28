@@ -1,16 +1,11 @@
-<p>
-  This rule checks that the specified attributes are not present in HTML tags.
-</p>
-<p>
-  For a disallowed attribute list of: <code>a.name</code>
-</p>
-
+<p>This rule checks that the specified attributes are not present in HTML tags.</p>
 <h2>Noncompliant Code Example</h2>
+<p>For a disallowed attribute list of: <code>a.name</code>:</p>
 <pre>
-  &lt;a href="blah.com" name="Blah link"&gt; &lt;!-- Noncompliant; name attribute is used --&gt;
+&lt;a href="blah.com" name="Blah link"&gt; &lt;!-- Noncompliant; name attribute is used --&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
-  &lt;a href="blah.com"&gt;
+&lt;a href="blah.com"&gt;
 </pre>
+

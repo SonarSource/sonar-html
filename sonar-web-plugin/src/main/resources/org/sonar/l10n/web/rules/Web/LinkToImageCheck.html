@@ -1,22 +1,15 @@
-<p>
-Whenever a user clicks one a link that targets an image, the website's navigation menu will be lost.
-From a user point of view, it is as if she left the website.
-The only way to return to it is using the browser's 'Back' button.
-Instead, it is better to create a page which will display the image using the <code>&lt;img&gt;</code> tag and preserve the navigation menu.
-</p>
-
-<p>
-Further, in terms of accessibility, when the image is embedded into a page, content providers are able to provide an alternate text equivalent through the <code>alt</code> attribute.
-</p>
-
+<p>Whenever a user clicks on a link that targets an image, the website's navigation menu will be lost.</p>
+<p>From a user point of view, it is as if she left the website.</p>
+<p>The only way to return to it is using the browser's 'Back' button.</p>
+<p>Instead, it is better to create a page which will display the image using the <code>&lt;img&gt;</code> tag and preserve the navigation menu.</p>
+<p>Further, in terms of accessibility, when the image is embedded into a page, content providers are able to provide an alternate text equivalent
+through the <code>alt</code> attribute.</p>
 <h2>Noncompliant Code Example</h2>
-
 <pre>
 &lt;a href="image.png"&gt;...&lt;/a&gt;  &lt;!-- Non-Compliant --&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
-
 <pre>
 &lt;a href="page.html"&gt;...&lt;/a&gt;  &lt;!-- Compliant --&gt;
 </pre>
+

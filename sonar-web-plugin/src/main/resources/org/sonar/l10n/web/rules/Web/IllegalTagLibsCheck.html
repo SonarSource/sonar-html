@@ -1,12 +1,8 @@
-<p>
-  This rule checks that the disallowed tag libraries are not used.
-</p>
-<p>
-  Given the default parameter for this rule:
-</p>
-
+<p>This rule checks that the disallowed tag libraries are not used.</p>
 <h2>Noncompliant Code Example</h2>
+<p>Using the default parameter for this rule, "http://java.sun.com/jstl/sql":</p>
 <pre>
 &lt;%@ taglib uri="http://java.sun.com/jstl/sql" prefix="prefixOfTag" &gt; &lt;!-- Noncompliant --&gt;
 &lt;jsp:directive.taglib uri="http://java.sun.com/jstl/sql" prefix="prefixOfTag" /&gt; &lt;!-- Noncompliant --&gt;
 </pre>
+

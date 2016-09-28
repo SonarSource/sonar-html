@@ -1,11 +1,6 @@
-<p>
-  While you can use as many <code>page</code> directives as you like, it is more readable to set multiple page attributes in a single directive.
-</p>
-<p>
-  The exception to this rule is when multiple packages are being imported.
-  In that case, imports may be done in separate directives and all other attributes should be set in a single, additional directive.
-</p>
-
+<p>While you can use as many <code>page</code> directives as you like, it is more readable to set multiple page attributes in a single directive.</p>
+<p>The exception to this rule is when multiple packages are being imported. In that case, imports may be done in separate directives and all other
+attributes should be set in a single, additional directive.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;%@ page session="false" %&gt;
@@ -13,7 +8,6 @@
 &lt;%@ page errorPage="error.jsp" %&gt; &lt;!-- Noncompliant --&gt;
 &lt;%@ page import="java.text.*" %&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
 &lt;%@ page session="false"
@@ -21,3 +15,4 @@
 &lt;%@ page import="java.util.*" %&gt;
 &lt;%@ page import="java.text.*" %&gt;
 </pre>
+

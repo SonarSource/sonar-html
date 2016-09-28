@@ -1,10 +1,8 @@
-<p>
-  When links with different targets are given identical link text, this can produce confusion for users of assistive technologies,
-  some of which provide users the ability to view a list of all links on the page.
-  When this list of links is presented to the user they may be left not knowing the links go to different destinations.
-  Even if they do realize the links go to different destinations, they may be left not knowing which link to follow to go to the destination they desire.
-</p>
-
+<p>When links with different targets are given identical link text, this can produce confusion for users of assistive technologies, some of which
+provide users the ability to view a list of all links on the page.</p>
+<p>When this list of links is presented to the user they may be left not knowing the links go to different destinations.</p>
+<p>Even if they do realize the links go to different destinations, they may be left not knowing which link to follow to go to the destination they
+desire.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;a href="a.html"&gt;qux&lt;/a&gt;
@@ -13,7 +11,6 @@
 &lt;a href="c.html"&gt;foo&lt;/a&gt;
 &lt;a href="d.html"&gt;foo&lt;/a&gt;          &lt;!-- Noncompliant; same text, different targets --&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
 <pre>
 &lt;a href="a.html"&gt;qux&lt;/a&gt;
@@ -22,3 +19,4 @@
 &lt;a href="c.html"&gt;foo&lt;/a&gt;
 &lt;a href="c.html"&gt;foo&lt;/a&gt;          &lt;!-- Compliant; same text, same targets --&gt;
 </pre>
+

@@ -1,16 +1,12 @@
-<p>
-If the <code>width</code> and <code>height</code> attributes are set, the space required for the image is reserved immediately by the browser, even before it actually starts to load the image.
-Without those attributes, the page layout constantly changes as images are loaded until they are all loaded, which can disorient users.
-</p>
-
+<p>If the <code>width</code> and <code>height</code> attributes are set, the space required for the image is reserved immediately by the browser, even
+before it actually starts to load the image.</p>
+<p>Without those attributes, the page layout constantly changes as images are loaded until they are all loaded, which can disorient users.</p>
 <h2>Noncompliant Code Example</h2>
-
 <pre>
 &lt;img src="logo.png" alt="My Company" /&gt;                           &lt;!-- Non-Compliant --&gt;
 </pre>
-
 <h2>Compliant Solution</h2>
-
 <pre>
 &lt;img src="logo.png" alt="My Company" width="100" height="50" /&gt;   &lt;!-- Compliant --&gt;
 </pre>
+
