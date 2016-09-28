@@ -20,6 +20,7 @@
     <sonar.pluginName>Web</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
+    <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
   </properties>
 
   <licenses>

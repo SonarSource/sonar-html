@@ -31,7 +31,8 @@ import java.io.File;
 @SuiteClasses({
   FileSuffixesTest.class,
   StandardMeasuresTest.class,
-  VariousTest.class
+  VariousTest.class,
+  SonarLintTest.class
 })
 public class WebTestSuite {
 
