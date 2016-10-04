@@ -25,6 +25,8 @@
     <junit.version>4.12</junit.version>
     <sslr.version>1.21</sslr.version>
     <assertj.version>3.5.2</assertj.version>
+
+    <artifactsToPublish>${project.groupId}:sonar-web-plugin:jar</artifactsToPublish>
   </properties>
 
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
