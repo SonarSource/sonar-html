@@ -19,14 +19,14 @@ package com.sonar.it.web;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.services.Resource;
-import org.sonar.wsclient.services.ResourceQuery;
 
 import java.io.File;
 
+import static com.sonar.it.web.WebTestSuite.getMeasureAsInt;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileSuffixesTest {
@@ -35,7 +35,10 @@ public class FileSuffixesTest {
   private static final String FILES_METRIC = "files";
 
   @ClassRule
-  public static Orchestrator orchestrator = WebTestSuite.ORCHESTRATOR;
+  public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
+    .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
+    .build();
 
   @BeforeClass
   public static void init() throws Exception {
@@ -107,8 +110,7 @@ public class FileSuffixesTest {
   }
 
   private Integer getAnalyzedFilesNumber() {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(PROJECT_KEY, FILES_METRIC));
-    return resource == null ? null : resource.getMeasure(FILES_METRIC).getIntValue();
+    return getMeasureAsInt(orchestrator, PROJECT_KEY, FILES_METRIC);
   }
 
 }

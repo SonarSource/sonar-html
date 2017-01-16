@@ -23,13 +23,12 @@ import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.Sonar;
-import org.sonar.wsclient.services.Measure;
-import org.sonar.wsclient.services.Resource;
-import org.sonar.wsclient.services.ResourceQuery;
+import org.sonarqube.ws.WsMeasures.Measure;
 
 import java.io.File;
 
+import static com.sonar.it.web.WebTestSuite.createSonarScanner;
+import static com.sonar.it.web.WebTestSuite.getMeasure;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StandardMeasuresTest {
@@ -54,7 +53,7 @@ public class StandardMeasuresTest {
     String projectKey = "TestOfWebPlugin";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
     orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
-    SonarScanner build = WebTestSuite.createSonarScanner()
+    SonarScanner build = createSonarScanner()
       .setProjectDir(new File("projects/continuum-webapp/"))
       .setProjectKey(projectKey)
       .setProjectName(projectKey)
@@ -66,94 +65,92 @@ public class StandardMeasuresTest {
   }
 
   @Test
-  public void testProjectInfo() {
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(wsClient.find(new ResourceQuery(PROJECT)).getName()).isEqualTo("TestOfWebPlugin");
-    assertThat(wsClient.find(new ResourceQuery(PROJECT)).getVersion()).isEqualTo("1.0");
-  }
-
-  @Test
   public void testProjectMeasures() {
-    assertThat(getProjectMeasure("ncloc").getIntValue()).isEqualTo(6853);
-    assertThat(getProjectMeasure("lines").getIntValue()).isEqualTo(9252);
-    assertThat(getProjectMeasure("files").getIntValue()).isEqualTo(103);
-    assertThat(getProjectMeasure("directories").getIntValue()).isEqualTo(8);
-    assertThat(getProjectMeasure("functions")).isNull();
-    assertThat(getProjectMeasure("statements")).isNull();
-    assertThat(getProjectMeasure("comment_lines_density").getValue()).isEqualTo(0.3);
-    assertThat(getProjectMeasure("comment_lines").getIntValue()).isEqualTo(23);
+    assertThat(getProjectMeasureAsDouble("ncloc")).isEqualTo(6853d);
+    assertThat(getProjectMeasureAsDouble("lines")).isEqualTo(9252d);
+    assertThat(getProjectMeasureAsDouble("files")).isEqualTo(103d);
+    assertThat(getProjectMeasureAsDouble("directories")).isEqualTo(8d);
+    assertThat(getProjectMeasureAsDouble("functions")).isNull();
+    assertThat(getProjectMeasureAsDouble("statements")).isNull();
+    assertThat(getProjectMeasureAsDouble("comment_lines_density")).isEqualTo(0.3);
+    assertThat(getProjectMeasureAsDouble("comment_lines")).isEqualTo(23d);
 
-    assertThat(getProjectMeasure("public_api")).isNull();
-    assertThat(getProjectMeasure("complexity").getIntValue()).isEqualTo(391);
-    assertThat(getProjectMeasure("function_complexity")).isNull();
-    assertThat(getProjectMeasure("function_complexity_distribution")).isNull();
-    assertThat(getProjectMeasure("file_complexity").getValue()).isEqualTo(3.8);
-    assertThat(getProjectMeasure("file_complexity_distribution").getData()).isEqualTo("0=73;5=22;10=7;20=1;30=0;60=0;90=0");
+    assertThat(getProjectMeasureAsDouble("public_api")).isNull();
+    assertThat(getProjectMeasureAsDouble("complexity")).isEqualTo(391d);
+    assertThat(getProjectMeasureAsDouble("function_complexity")).isNull();
+    assertThat(getProjectMeasureAsDouble("function_complexity_distribution")).isNull();
+    assertThat(getProjectMeasureAsDouble("file_complexity")).isEqualTo(3.8);
+    assertThat(getProjectMeasure("file_complexity_distribution").getValue()).isEqualTo("0=73;5=22;10=7;20=1;30=0;60=0;90=0");
   }
 
   @Test
   public void projectDuplications() {
-    assertThat(getProjectMeasure("duplicated_lines").getIntValue()).isEqualTo(170);
-    assertThat(getProjectMeasure("duplicated_blocks").getIntValue()).isEqualTo(8);
-    assertThat(getProjectMeasure("duplicated_files").getIntValue()).isEqualTo(7);
-    assertThat(getProjectMeasure("duplicated_lines_density").getValue()).isEqualTo(1.8);
+    assertThat(getProjectMeasureAsDouble("duplicated_lines")).isEqualTo(170d);
+    assertThat(getProjectMeasureAsDouble("duplicated_blocks")).isEqualTo(8d);
+    assertThat(getProjectMeasureAsDouble("duplicated_files")).isEqualTo(7d);
+    assertThat(getProjectMeasureAsDouble("duplicated_lines_density")).isEqualTo(1.8);
   }
 
   @Test
   public void testDirectoryMeasures() {
-    assertThat(getMeasure("ncloc", DIR_ROOT).getIntValue()).isEqualTo(2878);
-    assertThat(getMeasure("comment_lines_density", DIR_ROOT).getValue()).isEqualTo(0.3);
-    assertThat(getMeasure("duplicated_lines_density", DIR_ROOT).getValue()).isEqualTo(1.4);
-    assertThat(getMeasure("complexity", DIR_ROOT).getIntValue()).isEqualTo(150);
+    assertThat(getMeasureAsDouble("ncloc", DIR_ROOT)).isEqualTo(2878d);
+    assertThat(getMeasureAsDouble("comment_lines_density", DIR_ROOT)).isEqualTo(0.3);
+    assertThat(getMeasureAsDouble("duplicated_lines_density", DIR_ROOT)).isEqualTo(1.4);
+    assertThat(getMeasureAsDouble("complexity", DIR_ROOT)).isEqualTo(150d);
   }
 
   @Test
   public void testFileMeasures() {
-    assertThat(getFileMeasure("ncloc").getIntValue()).isEqualTo(311);
-    assertThat(getFileMeasure("lines").getIntValue()).isEqualTo(338);
-    assertThat(getFileMeasure("files").getIntValue()).isEqualTo(1);
-    assertThat(getFileMeasure("directories")).isNull();
-    assertThat(getFileMeasure("functions")).isNull();
-    assertThat(getFileMeasure("comment_lines_density").getValue()).isEqualTo(0.3);
-    assertThat(getFileMeasure("comment_lines").getIntValue()).isEqualTo(1);
-    assertThat(getFileMeasure("public_api")).isNull();
-    assertThat(getFileMeasure("duplicated_lines")).isNull();
-    assertThat(getFileMeasure("duplicated_blocks")).isNull();
-    assertThat(getFileMeasure("duplicated_files")).isNull();
-    assertThat(getFileMeasure("duplicated_lines_density")).isNull();
-    assertThat(getFileMeasure("statements")).isNull();
-    assertThat(getFileMeasure("complexity").getIntValue()).isEqualTo(16);
-    assertThat(getFileMeasure("function_complexity")).isNull();
-    assertThat(getFileMeasure("function_complexity_distribution")).isNull();
-    assertThat(getFileMeasure("file_complexity").getValue()).isEqualTo(16.0);
-    assertThat(getFileMeasure("file_complexity_distribution")).isNull();
+    assertThat(getFileMeasureAsDouble("ncloc")).isEqualTo(311d);
+    assertThat(getFileMeasureAsDouble("lines")).isEqualTo(338d);
+    assertThat(getFileMeasureAsDouble("files")).isEqualTo(1d);
+    assertThat(getFileMeasureAsDouble("directories")).isNull();
+    assertThat(getFileMeasureAsDouble("functions")).isNull();
+    assertThat(getFileMeasureAsDouble("comment_lines_density")).isEqualTo(0.3);
+    assertThat(getFileMeasureAsDouble("comment_lines")).isEqualTo(1d);
+    assertThat(getFileMeasureAsDouble("public_api")).isNull();
+    assertThat(getFileMeasureAsDouble("duplicated_lines")).isZero();
+    assertThat(getFileMeasureAsDouble("duplicated_blocks")).isZero();
+    assertThat(getFileMeasureAsDouble("duplicated_files")).isZero();
+    assertThat(getFileMeasureAsDouble("duplicated_lines_density")).isZero();
+    assertThat(getFileMeasureAsDouble("statements")).isNull();
+    assertThat(getFileMeasureAsDouble("complexity")).isEqualTo(16d);
+    assertThat(getFileMeasureAsDouble("function_complexity")).isNull();
+    assertThat(getFileMeasureAsDouble("function_complexity_distribution")).isNull();
+    assertThat(getFileMeasureAsDouble("file_complexity")).isEqualTo(16.0d);
+    assertThat(getFileMeasureAsDouble("file_complexity_distribution")).isNull();
   }
 
   @Test
   public void lineLevelMeasures() throws Exception {
-    String value = getFileMeasure("ncloc_data").getData();
+    String value = getFileMeasure("ncloc_data").getValue();
     assertThat(value).contains("20=1");
     assertThat(value).contains(";38=1");
     assertThat(value).contains(";58=1");
     // SonarQube >= 5.6 removed =0 entries
     assertThat(value.replaceAll("=0", "").replaceAll("[^=]", "")).hasSize(311);
 
-    assertThat(getFileMeasure("comment_lines_data").getData()).contains("142=1");
+    assertThat(getFileMeasure("comment_lines_data").getValue()).contains("142=1");
   }
 
   private Measure getProjectMeasure(String metricKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(PROJECT, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
+    return getMeasure(orchestrator, PROJECT, metricKey);
+  }
+
+  private Double getProjectMeasureAsDouble(String metricKey) {
+    return WebTestSuite.getMeasureAsDouble(orchestrator, PROJECT, metricKey);
   }
 
   private Measure getFileMeasure(String metricKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(FILE, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
+    return getMeasure(orchestrator, FILE, metricKey);
   }
 
-  private Measure getMeasure(String metricKey, String resourceKey) {
-    Resource resource = orchestrator.getServer().getWsClient().find(ResourceQuery.createForMetrics(resourceKey, metricKey));
-    return resource != null ? resource.getMeasure(metricKey) : null;
+  private Double getFileMeasureAsDouble(String metricKey) {
+    return WebTestSuite.getMeasureAsDouble(orchestrator, FILE, metricKey);
+  }
+
+  private Double getMeasureAsDouble(String metricKey, String resourceKey) {
+    return WebTestSuite.getMeasureAsDouble(orchestrator, resourceKey, metricKey);
   }
 
 }
