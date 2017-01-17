@@ -23,15 +23,14 @@ import com.sonar.orchestrator.locator.FileLocation;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.Sonar;
 import org.sonar.wsclient.issue.Issue;
 import org.sonar.wsclient.issue.IssueClient;
 import org.sonar.wsclient.issue.IssueQuery;
-import org.sonar.wsclient.services.ResourceQuery;
 
 import java.io.File;
 import java.util.List;
 
+import static com.sonar.it.web.WebTestSuite.getMeasureAsInt;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VariousTest {
@@ -63,10 +62,9 @@ public class VariousTest {
       .setProperty("sonar.exclusions", "**/*Excluded*");
     orchestrator.executeBuild(build);
 
-    Sonar wsClient = orchestrator.getServer().getWsClient();
-    assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpError.jsp"))).isNotNull();
-    assertThat(wsClient.find(new ResourceQuery("exclusions:src/httpErrorExcluded.jsp"))).isNull();
-    assertThat(wsClient.find(ResourceQuery.createForMetrics(projectKey, "files")).getMeasureIntValue("files")).isEqualTo(1);
+    assertThat(WebTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpError.jsp")).isNotNull();
+    assertThat(WebTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpErrorExcluded.jsp")).isNull();
+    assertThat(getMeasureAsInt(orchestrator, projectKey, "files")).isEqualTo(1);
   }
 
   /**
@@ -92,7 +90,8 @@ public class VariousTest {
     List<Issue> issues = issueClient.find(
       IssueQuery.create()
         .components(keyFor(projectKey, "WEB-INF/jsp/components/projectGroupNotifierSummaryComponent.jsp"))
-        .rules("Web:AvoidCommentedOutCodeCheck")).list();
+        .rules("Web:AvoidCommentedOutCodeCheck"))
+      .list();
     assertThat(issues.size()).isEqualTo(2);
   }
 
