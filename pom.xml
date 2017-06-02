@@ -23,7 +23,7 @@
 
     <orchestrator.version>3.14.0.887</orchestrator.version>
     <junit.version>4.12</junit.version>
-    <sslr.version>1.21</sslr.version>
+    <sslr.version>1.22</sslr.version>
     <assertj.version>3.5.2</assertj.version>
 
     <artifactsToPublish>${project.groupId}:sonar-web-plugin:jar</artifactsToPublish>
