@@ -46,9 +46,12 @@ public class InternationalizationCheckTest {
 
 		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(2)
-				.withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(9)
-				.withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
+		this.checkMessagesVerifier.verify(sourceCode.getIssues())
+				.next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(2).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(9).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
 	}
 
 	@Test
@@ -58,8 +61,10 @@ public class InternationalizationCheckTest {
 
 		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(8)
-				.withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
+		this.checkMessagesVerifier.verify(sourceCode.getIssues())
+			.next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
+			.next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE)
+			.next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
 	}
 
 	@Test
@@ -69,8 +74,9 @@ public class InternationalizationCheckTest {
 		check.ignoredContentRegex = ".*cDe.*";
 		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(2)
-				.withMessage(EXPECTED_ERROR_MESSAGE);
+		this.checkMessagesVerifier.verify(sourceCode.getIssues())
+			.next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
+			.next().atLine(2).withMessage(EXPECTED_ERROR_MESSAGE);
 	}
 
 	@Test
