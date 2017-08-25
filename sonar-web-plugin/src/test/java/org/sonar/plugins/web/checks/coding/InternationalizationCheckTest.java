@@ -40,19 +40,16 @@ public class InternationalizationCheckTest {
 	}
 
 	@Test
-  public void custom() {
-    InternationalizationCheck check = new InternationalizationCheck();
-    check.attributes = "outputLabel.value";
+	public void custom() {
+		InternationalizationCheck check = new InternationalizationCheck();
+		check.attributes = "outputLabel.value";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
+		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-    this.checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
-      .next().atLine(2).withMessage(EXPECTED_ERROR_MESSAGE)
-      .next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE)
-      .next().atLine(9).withMessage(EXPECTED_ERROR_MESSAGE)
-      .next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
-  }
+		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(2)
+				.withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(9)
+				.withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
+	}
 
 	@Test
 	public void custom2() {
@@ -61,22 +58,19 @@ public class InternationalizationCheckTest {
 
 		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-		this.checkMessagesVerifier.verify(sourceCode.getIssues())
-	      .next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
-	      .next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE)
-		  .next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
+		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(8)
+				.withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
 	}
 
 	@Test
 	public void regexIgnore1() {
-	    InternationalizationCheck check = new InternationalizationCheck();
-	    check.attributes = "outputLabel.value";
-	    check.ignoredContentRegex = ".*cDe.*";
-	    WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
+		InternationalizationCheck check = new InternationalizationCheck();
+		check.attributes = "outputLabel.value";
+		check.ignoredContentRegex = ".*cDe.*";
+		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-	    this.checkMessagesVerifier.verify(sourceCode.getIssues())
-	      .next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
-	      .next().atLine(2).withMessage(EXPECTED_ERROR_MESSAGE);
+		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE).next().atLine(2)
+				.withMessage(EXPECTED_ERROR_MESSAGE);
 	}
 
 	@Test
@@ -87,8 +81,7 @@ public class InternationalizationCheckTest {
 
 		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-		this.checkMessagesVerifier.verify(sourceCode.getIssues())
-	      .next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE);
+		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE);
 	}
 
 }
