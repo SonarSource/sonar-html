@@ -9,7 +9,7 @@ function installTravisTools {
 }
 installTravisTools
 . installJDK8
-source ~/.local/bin/installMaven35
+. installMaven35
 
 export DEPLOY_PULL_REQUEST=true
 regular_mvn_build_deploy_analyze -Dmaven.test.redirectTestOutputToFile=true
