@@ -18,6 +18,7 @@
 package org.sonar.web.it;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -59,9 +60,10 @@ public class ProfileGenerator {
 
       List<String> ruleKeys = Lists.newArrayList();
       String json = new HttpRequestFactory(orchestrator.getServer().getUrl())
-        .get("/api/rules/search", ImmutableMap.<String, Object>of("languages", language, "repositories", repositoryKey, "ps", "1000"));
+        .get("/api/rules/search", ImmutableMap.<String, Object>of("languages", language, "repositories", repositoryKey, "ps", "500"));
       @SuppressWarnings("unchecked")
       List<Map> jsonRules = (List<Map>) ((Map) JSONValue.parse(json)).get("rules");
+      Preconditions.checkState(jsonRules.size() < 500);
       for (Map jsonRule : jsonRules) {
         String key = (String) jsonRule.get("key");
         ruleKeys.add(key.split(":")[1]);
