@@ -19,18 +19,16 @@ package org.sonar.plugins.web.checks.header;
 
 import com.google.common.io.Files;
 import com.google.common.io.LineProcessor;
-import org.sonar.check.Rule;
-import org.sonar.check.RuleProperty;
-import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
-import org.sonar.squidbridge.api.AnalysisException;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
+import org.sonar.plugins.web.checks.AbstractPageCheck;
+import org.sonar.plugins.web.node.Node;
+import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
 @Rule(key = "HeaderCheck")
 public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {
@@ -80,7 +78,7 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
       try {
         fileContent = Files.toString(getWebSourceCode().inputFile().file(), charset);
       } catch (IOException e) {
-        throw new AnalysisException(e);
+        throw new IllegalStateException(e);
       }
       checkRegularExpression(fileContent);
     } else {
@@ -88,7 +86,7 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
       try {
         Files.readLines(getWebSourceCode().inputFile().file(), charset, processor);
       } catch (IOException e) {
-        throw new AnalysisException(e);
+        throw new IllegalStateException(e);
       }
       if (!processor.getResult()) {
         createViolation(0, MESSAGE);
