@@ -32,7 +32,7 @@
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
   <issueManagement>
     <system>JIRA</system>
-    <url>http://jira.sonarsource.com/browse/SONARWEB</url>
+    <url>https://jira.sonarsource.com/browse/SONARWEB</url>
   </issueManagement>
 
   <scm>
@@ -45,7 +45,6 @@
   <inceptionYear>2010</inceptionYear>
   <organization>
     <name>SonarSource and Matthijs Galesloot</name>
-    <url>http://www.sonarsource.com</url>
   </organization>
   <developers>
     <developer>
