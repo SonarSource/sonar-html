@@ -7,20 +7,21 @@
     <artifactId>web</artifactId>
     <version>2.6-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>sonar-web-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>SonarSource :: Web :: Sonar Plugin</name>
-  <description>Enables scanning of HTML, and JSP/JSF files.</description>
+  <name>SonarWeb :: SonarQube Plugin</name>
+  <description>Code analyzer for Web (HTML, JSP, JSF)</description>
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
   <properties>
     <sonar.version>5.6</sonar.version>
-    <sonar.pluginName>Web</sonar.pluginName>
+    <sonar.pluginName>SonarWeb</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
     <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
+    <sslr-squid-bridge.version>2.6.1</sslr-squid-bridge.version>
   </properties>
 
   <licenses>
@@ -41,7 +42,7 @@
     <dependency>
       <groupId>org.sonarsource.sslr-squid-bridge</groupId>
       <artifactId>sslr-squid-bridge</artifactId>
-      <version>2.6.1</version>
+      <version>${sslr-squid-bridge.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.codehaus.sonar.sslr</groupId>
