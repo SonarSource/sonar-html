@@ -21,7 +21,6 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.RuleTemplate;
 
 /**
  * Checker for required child elements.
@@ -29,7 +28,6 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  * e.g. head must have child element title.
  */
 @Rule(key = "ChildElementRequiredCheck")
-@RuleTemplate
 public class ChildElementRequiredCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_CHILD = "";

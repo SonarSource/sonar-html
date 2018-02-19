@@ -21,7 +21,6 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.RuleTemplate;
 
 /**
  * Checker for illegal parent element.
@@ -29,7 +28,6 @@ import org.sonar.squidbridge.annotations.RuleTemplate;
  * e.g. title must not have parent element body.
  */
 @Rule(key = "ParentElementIllegalCheck")
-@RuleTemplate
 public class ParentElementIllegalCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_CHILD = "";

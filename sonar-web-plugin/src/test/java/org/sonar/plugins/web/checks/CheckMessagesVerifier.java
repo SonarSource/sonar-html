@@ -19,12 +19,10 @@ package org.sonar.plugins.web.checks;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Ordering;
-import org.sonar.squidbridge.api.CheckMessage;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import javax.annotation.Nullable;
 
 /**
  * Helper class for testing checks without having to deploy them on a Sonar instance.
@@ -35,7 +33,7 @@ import java.util.Iterator;
  *   .next().atLine(2).withMessage("bar")
  *   .noMore();
  * }</pre>
- * Strictly speaking this is just a wrapper over collection of {@link CheckMessage},
+ * Strictly speaking this is just a wrapper over collection of {@link WebIssue}
  * which guarantees order of traversal.
  *
  * @see CheckMessagesVerifierRule
