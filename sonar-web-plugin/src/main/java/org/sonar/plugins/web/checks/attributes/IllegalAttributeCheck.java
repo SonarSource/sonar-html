@@ -17,18 +17,15 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.RuleTemplate;
-
-import java.util.List;
 
 @Rule(key = "IllegalAttributeCheck")
-@RuleTemplate
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";

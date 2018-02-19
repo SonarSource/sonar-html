@@ -21,10 +21,8 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.RuleTemplate;
 
 @Rule(key = "ParentElementRequiredCheck")
-@RuleTemplate
 public class ParentElementRequiredCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_CHILD = "";
