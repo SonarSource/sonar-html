@@ -17,14 +17,22 @@
  */
 package org.sonar.plugins.web.checks.header;
 
+import java.io.File;
+import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
+import org.sonar.plugins.web.lex.PageLexer;
+import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
+import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-
-import java.io.File;
 
 public class HeaderCheckTest {
 
@@ -98,6 +106,48 @@ public class HeaderCheckTest {
     check.headerFormat = "*";
     check.isRegularExpression = true;
     check.init();
+  }
+
+  @Test
+  public void should_fail_if_unable_to_read_file_without_regex() throws Exception {
+    thrown.expect(IllegalStateException.class);
+
+    HeaderCheck check = new HeaderCheck();
+    check.headerFormat = "<!-- Copyright foo -->";
+
+    scanWithWrongInputFile(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
+  }
+
+  @Test
+  public void should_fail_if_unable_to_read_file_with_regex() throws Exception {
+    thrown.expect(IllegalStateException.class);
+
+    HeaderCheck check = new HeaderCheck();
+    check.headerFormat = "<!-- copyright \\\\d{4}\\\\n  mycompany -->";
+    check.isRegularExpression = true;
+
+    scanWithWrongInputFile(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
+  }
+
+  public static void scanWithWrongInputFile(File file, DefaultNodeVisitor visitor) {
+    HtmlAstScanner walker = new HtmlAstScanner(Collections.emptyList());
+    walker.addVisitor(visitor);
+    FileReader reader;
+    try {
+      reader = new FileReader(file);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("unable to read file");
+    }
+
+    WebSourceCode result = new WebSourceCode(
+      new DefaultInputFile("key", /* wrong path */ ".").setLanguage(WebConstants.LANGUAGE_KEY).setType(InputFile.Type.MAIN).setModuleBaseDir(new File(".").toPath())
+    );
+
+    walker.scan(
+      new PageLexer().parse(reader),
+      // won't be able to resolve the file
+      result,
+      StandardCharsets.UTF_8);
   }
 
 }
