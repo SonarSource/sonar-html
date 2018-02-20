@@ -15,32 +15,7 @@
 
   <name>SonarSource :: Web</name>
 
-  <properties>
-    <license.name>AL2</license.name>
-    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
-    <license.mailto>sonarqube@googlegroups.com</license.mailto>
-    <gitRepositoryName>sonar-web</gitRepositoryName>
-
-    <orchestrator.version>3.14.0.887</orchestrator.version>
-    <junit.version>4.12</junit.version>
-    <sslr.version>1.22</sslr.version>
-    <assertj.version>3.5.2</assertj.version>
-
-    <artifactsToPublish>${project.groupId}:sonar-web-plugin:jar</artifactsToPublish>
-  </properties>
-
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
-  <issueManagement>
-    <system>JIRA</system>
-    <url>https://jira.sonarsource.com/browse/SONARWEB</url>
-  </issueManagement>
-
-  <scm>
-    <connection>scm:git:git@github.com:SonarSource/sonar-web.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarSource/sonar-web.git</developerConnection>
-    <url>https://github.com/SonarSource/sonar-web</url>
-    <tag>HEAD</tag>
-  </scm>
 
   <inceptionYear>2010</inceptionYear>
   <organization>
@@ -67,6 +42,32 @@
   <modules>
     <module>sonar-web-plugin</module>
   </modules>
+
+  <scm>
+    <connection>scm:git:git@github.com:SonarSource/sonar-web.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarSource/sonar-web.git</developerConnection>
+    <url>https://github.com/SonarSource/sonar-web</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <issueManagement>
+    <system>JIRA</system>
+    <url>https://jira.sonarsource.com/browse/SONARWEB</url>
+  </issueManagement>
+
+  <properties>
+    <license.name>AL2</license.name>
+    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
+    <license.mailto>sonarqube@googlegroups.com</license.mailto>
+    <gitRepositoryName>sonar-web</gitRepositoryName>
+
+    <orchestrator.version>3.14.0.887</orchestrator.version>
+    <junit.version>4.12</junit.version>
+    <sslr.version>1.22</sslr.version>
+    <assertj.version>3.5.2</assertj.version>
+
+    <artifactsToPublish>${project.groupId}:sonar-web-plugin:jar</artifactsToPublish>
+  </properties>
 
   <profiles>
     <profile>
