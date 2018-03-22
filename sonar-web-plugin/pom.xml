@@ -30,7 +30,7 @@
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
     <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
     <analyzerCommons.version>1.5.0.178</analyzerCommons.version>
-    <sslrSquidBridge.version>2.6.1</sslrSquidBridge.version>
+    <sslrSquidBridge.version>2.7.0.377</sslrSquidBridge.version>
   </properties>
 
   <dependencies>
@@ -46,28 +46,12 @@
       <version>${sslrSquidBridge.version}</version>
       <exclusions>
         <exclusion>
-          <groupId>org.codehaus.sonar.sslr</groupId>
-          <artifactId>sslr-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.sonar.sslr</groupId>
-          <artifactId>sslr-xpath</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.sonar</groupId>
-          <artifactId>sonar-plugin-api</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.picocontainer</groupId>
           <artifactId>picocontainer</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
