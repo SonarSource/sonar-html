@@ -60,7 +60,7 @@ public class StandardMeasuresTest {
       .setProjectVersion("1.0")
       .setSourceDirs("src")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.fileExtensions", ".xhtml,.jspf,.jsp");
+      .setProperty("sonar.web.file.suffixes", ".xhtml,.jspf,.jsp");
     orchestrator.executeBuild(build);
   }
 
