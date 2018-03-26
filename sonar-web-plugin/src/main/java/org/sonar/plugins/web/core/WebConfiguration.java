@@ -17,33 +17,16 @@
  */
 package org.sonar.plugins.web.core;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.config.Settings;
 import org.sonar.plugins.web.api.WebConstants;
 
 public class WebConfiguration {
 
-  private static final Logger LOG = LoggerFactory.getLogger(WebConfiguration.class);
-
   private WebConfiguration() {
   }
 
   public static String[] fileSuffixes(Settings settings) {
-    String[] result;
-
-    String oldFileExtensions = settings.getString(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY);
-    if (oldFileExtensions != null) {
-      logDeprecatedPropertyUsage(WebConstants.FILE_EXTENSIONS_PROP_KEY, WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY);
-      result = settings.getStringArray(WebConstants.OLD_FILE_EXTENSIONS_PROP_KEY);
-    } else {
-      result = settings.getStringArray(WebConstants.FILE_EXTENSIONS_PROP_KEY);
-    }
-    return result;
-  }
-
-  private static void logDeprecatedPropertyUsage(String newPropertyKey, String oldProperty) {
-    LOG.warn("Use the new property \"" + newPropertyKey + "\" instead of the deprecated \"" + oldProperty + "\"");
+    return settings.getStringArray(WebConstants.FILE_EXTENSIONS_PROP_KEY);
   }
 
 }
