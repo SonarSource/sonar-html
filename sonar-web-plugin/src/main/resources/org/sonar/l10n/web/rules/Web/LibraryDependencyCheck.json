@@ -7,5 +7,5 @@
   ],
   "defaultSeverity": "Blocker",
   "ruleSpecification": "RSPEC-1932",
-  "sqKey": "S1932"
+  "sqKey": "LibraryDependencyCheck"
 }

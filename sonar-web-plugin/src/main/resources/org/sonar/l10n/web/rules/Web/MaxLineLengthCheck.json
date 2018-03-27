@@ -11,5 +11,5 @@
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-103",
-  "sqKey": "S103"
+  "sqKey": "MaxLineLengthCheck"
 }

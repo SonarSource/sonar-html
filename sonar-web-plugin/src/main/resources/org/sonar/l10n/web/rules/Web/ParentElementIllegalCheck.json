@@ -7,5 +7,5 @@
   ],
   "defaultSeverity": "Info",
   "ruleSpecification": "RSPEC-3734",
-  "sqKey": "S3734"
+  "sqKey": "ParentElementIllegalCheck"
 }
