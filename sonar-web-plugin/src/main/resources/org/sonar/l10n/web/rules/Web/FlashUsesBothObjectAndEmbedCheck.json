@@ -7,8 +7,9 @@
     "constantCost": "10min"
   },
   "tags": [
-    "bug",
     "cross-browser"
   ],
-  "defaultSeverity": "Minor"
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1087",
+  "sqKey": "FlashUsesBothObjectAndEmbedCheck"
 }

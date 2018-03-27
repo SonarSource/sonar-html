@@ -8,13 +8,14 @@
   },
   "tags": [
     "cwe",
-    "security",
     "jsp-jsf",
-    "owasp-a6"
+    "owasp-a3"
   ],
   "standards": [
     "CWE",
     "OWASP Top Ten"
   ],
-  "defaultSeverity": "Minor"
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1876",
+  "sqKey": "AvoidHtmlCommentCheck"
 }
