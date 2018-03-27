@@ -10,5 +10,7 @@
     "convention",
     "jsp-jsf"
   ],
-  "defaultSeverity": "Minor"
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1930",
+  "sqKey": "MultiplePageDirectivesCheck"
 }

@@ -7,8 +7,9 @@
     "constantCost": "5min"
   },
   "tags": [
-    "accessibility",
-    "bug"
+    "accessibility"
   ],
-  "defaultSeverity": "Minor"
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1077",
+  "sqKey": "ImgWithoutAltCheck"
 }

@@ -1,6 +1,6 @@
 {
   "title": "Dynamic includes should not be used",
-  "type": "BUG",
+  "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
@@ -8,8 +8,9 @@
   },
   "tags": [
     "performance",
-    "bug",
     "jsp-jsf"
   ],
-  "defaultSeverity": "Major"
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1937",
+  "sqKey": "DynamicJspIncludeCheck"
 }

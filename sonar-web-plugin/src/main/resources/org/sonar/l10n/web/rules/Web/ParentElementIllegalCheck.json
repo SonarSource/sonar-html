@@ -1,9 +1,11 @@
 {
   "title": "Track presence of forbidden parent element",
   "type": "CODE_SMELL",
-  "status": "deprecated",
+  "status": "ready",
   "tags": [
     
   ],
-  "defaultSeverity": "Info"
+  "defaultSeverity": "Info",
+  "ruleSpecification": "RSPEC-3734",
+  "sqKey": "S3734"
 }
