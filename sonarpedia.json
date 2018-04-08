@@ -1,0 +1,7 @@
+{
+  "rules-metadata-path": "./sonar-web-plugin/src/main/resources/org/sonar/l10n/web/rules/Web",
+  "languages": [
+    "WEB"
+  ],
+  "latest-update": "2018-03-27T08:59:33.040Z"
+}

@@ -1,7 +1,7 @@
 {
   "title": "Files should not be too complex",
   "type": "CODE_SMELL",
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Linear with offset",
     "linearDesc": "per complexity point above the threshold",
@@ -9,7 +9,9 @@
     "linearFactor": "1min"
   },
   "tags": [
-    "brain-overload"
+    
   ],
-  "defaultSeverity": "Major"
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1908",
+  "sqKey": "ComplexityCheck"
 }

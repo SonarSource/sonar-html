@@ -7,8 +7,9 @@
     "constantCost": "2min"
   },
   "tags": [
-    "accessibility",
-    "bug"
+    "accessibility"
   ],
-  "defaultSeverity": "Minor"
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1100",
+  "sqKey": "BoldAndItalicTagsCheck"
 }

@@ -1,6 +1,6 @@
 /*
- * SonarSource :: Web :: Sonar Plugin
- * Copyright (c) 2010-2017 SonarSource SA and Matthijs Galesloot
+ * SonarWeb :: SonarQube Plugin
+ * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,18 +17,15 @@
  */
 package org.sonar.plugins.web.checks.attributes;
 
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Attribute;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TagNode;
-import org.sonar.squidbridge.annotations.RuleTemplate;
-
-import java.util.List;
 
 @Rule(key = "IllegalAttributeCheck")
-@RuleTemplate
 public class IllegalAttributeCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";

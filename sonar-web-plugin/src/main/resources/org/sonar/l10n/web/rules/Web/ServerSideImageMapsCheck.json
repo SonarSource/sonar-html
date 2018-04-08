@@ -7,8 +7,9 @@
     "constantCost": "1h"
   },
   "tags": [
-    "accessibility",
-    "bug"
+    "accessibility"
   ],
-  "defaultSeverity": "Minor"
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1091",
+  "sqKey": "ServerSideImageMapsCheck"
 }

@@ -5,5 +5,7 @@
   "tags": [
     "convention"
   ],
-  "defaultSeverity": "Major"
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1436",
+  "sqKey": "S1436"
 }

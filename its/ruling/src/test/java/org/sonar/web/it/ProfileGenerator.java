@@ -1,6 +1,6 @@
 /*
  * SonarSource :: Web :: ITs :: Ruling
- * Copyright (c) 2013-2017 SonarSource SA and Matthijs Galesloot
+ * Copyright (c) 2013-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,50 +18,40 @@
 package org.sonar.web.it;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.locator.FileLocation;
-import org.sonar.wsclient.internal.HttpRequestFactory;
-import org.sonar.wsclient.jsonsimple.JSONValue;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.sonar.wsclient.internal.HttpRequestFactory;
+import org.sonar.wsclient.jsonsimple.JSONValue;
 
 public class ProfileGenerator {
 
-  static void generate(Orchestrator orchestrator, String language, String repositoryKey, ImmutableMap<String, ImmutableMap<String, String>> rulesParameters, Set<String> excluded) {
+  static final String LANGUAGE = "web";
+  static final String REPOSITORY_KEY = "Web";
+
+  static void generate(Orchestrator orchestrator, ImmutableMap<String, ImmutableMap<String, String>> rulesParameters, Set<String> excluded) {
     try {
       StringBuilder sb = new StringBuilder()
         .append("<profile>")
         .append("<name>rules</name>")
-        .append("<language>").append(language).append("</language>")
-        .append("<alerts>")
-        .append("<alert>")
-        .append("<metric>blocker_violations</metric>")
-        .append("<operator>&gt;</operator>")
-        .append("<warning></warning>")
-        .append("<error>0</error>")
-        .append("</alert>")
-        .append("<alert>")
-        .append("<metric>info_violations</metric>")
-        .append("<operator>&gt;</operator>")
-        .append("<warning></warning>")
-        .append("<error>0</error>")
-        .append("</alert>")
-        .append("</alerts>")
+        .append("<language>").append(LANGUAGE).append("</language>")
         .append("<rules>");
 
       List<String> ruleKeys = Lists.newArrayList();
       String json = new HttpRequestFactory(orchestrator.getServer().getUrl())
-        .get("/api/rules/search", ImmutableMap.<String, Object>of("languages", language, "repositories", repositoryKey, "ps", "1000"));
+        .get("/api/rules/search", ImmutableMap.<String, Object>of("languages", LANGUAGE, "repositories", REPOSITORY_KEY, "ps", "500"));
       @SuppressWarnings("unchecked")
       List<Map> jsonRules = (List<Map>) ((Map) JSONValue.parse(json)).get("rules");
+      Preconditions.checkState(jsonRules.size() < 500);
       for (Map jsonRule : jsonRules) {
         String key = (String) jsonRule.get("key");
         ruleKeys.add(key.split(":")[1]);
@@ -72,7 +62,7 @@ public class ProfileGenerator {
           continue;
         }
         sb.append("<rule>")
-          .append("<repositoryKey>").append(repositoryKey).append("</repositoryKey>")
+          .append("<repositoryKey>").append(REPOSITORY_KEY).append("</repositoryKey>")
           .append("<key>").append(key).append("</key>")
           .append("<priority>INFO</priority>");
         if (rulesParameters.containsKey(key)) {

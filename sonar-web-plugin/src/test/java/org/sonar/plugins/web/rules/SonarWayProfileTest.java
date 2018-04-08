@@ -1,6 +1,6 @@
 /*
- * SonarSource :: Web :: Sonar Plugin
- * Copyright (c) 2010-2017 SonarSource SA and Matthijs Galesloot
+ * SonarWeb :: SonarQube Plugin
+ * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +43,7 @@ public class SonarWayProfileTest {
     Assertions.assertThat(profile.getName()).isEqualTo("Sonar way");
     Assertions.assertThat(profile.getLanguage()).isEqualTo(WebConstants.LANGUAGE_KEY);
     Assertions.assertThat(profile.getActiveRules()).onProperty("repositoryKey").containsOnly(WebRulesDefinition.REPOSITORY_KEY);
-    Assertions.assertThat(profile.getActiveRules().size()).isEqualTo(16);
+    Assertions.assertThat(profile.getActiveRules().size()).isGreaterThan(10);
     assertThat(validationMessages.hasErrors(), is(false));
   }
 

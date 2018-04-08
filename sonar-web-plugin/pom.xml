@@ -5,23 +5,22 @@
   <parent>
     <groupId>org.sonarsource.web</groupId>
     <artifactId>web</artifactId>
-    <version>2.6-SNAPSHOT</version>
+    <version>2.7-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>sonar-web-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>SonarSource :: Web :: Sonar Plugin</name>
-  <description>Enables scanning of HTML, and JSP/JSF files.</description>
+  <name>SonarWeb :: SonarQube Plugin</name>
+  <description>Code analyzer for Web (HTML, JSP, JSF)</description>
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
-  <properties>
-    <sonar.version>5.6</sonar.version>
-    <sonar.pluginName>Web</sonar.pluginName>
-    <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
-    <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
-    <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
-  </properties>
+  <scm>
+    <connection>scm:git:git@github.com:SonarSource/sonar-web.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarSource/sonar-web.git</developerConnection>
+    <url>https://github.com/SonarSource/sonar-web</url>
+    <tag>HEAD</tag>
+  </scm>
 
   <licenses>
     <license>
@@ -30,6 +29,16 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <properties>
+    <sonar.version>5.6</sonar.version>
+    <sonar.pluginName>SonarWeb</sonar.pluginName>
+    <sonar.pluginClass>org.sonar.plugins.web.WebPlugin</sonar.pluginClass>
+    <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
+    <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
+    <analyzerCommons.version>1.5.0.178</analyzerCommons.version>
+    <sslrSquidBridge.version>2.7.0.377</sslrSquidBridge.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -41,20 +50,8 @@
     <dependency>
       <groupId>org.sonarsource.sslr-squid-bridge</groupId>
       <artifactId>sslr-squid-bridge</artifactId>
-      <version>2.6.1</version>
+      <version>${sslrSquidBridge.version}</version>
       <exclusions>
-        <exclusion>
-          <groupId>org.codehaus.sonar.sslr</groupId>
-          <artifactId>sslr-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.sonar.sslr</groupId>
-          <artifactId>sslr-xpath</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.codehaus.sonar</groupId>
-          <artifactId>sonar-plugin-api</artifactId>
-        </exclusion>
         <exclusion>
           <groupId>org.picocontainer</groupId>
           <artifactId>picocontainer</artifactId>
@@ -62,10 +59,6 @@
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -81,14 +74,14 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.sonarsource.analyzer-commons</groupId>
+      <artifactId>sonar-analyzer-commons</artifactId>
+      <version>${analyzerCommons.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>15.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.2.4</version>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
@@ -186,8 +179,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <minsize>1800000</minsize>
-                  <maxsize>2000000</maxsize>
+                  <minsize>1700000</minsize>
+                  <maxsize>1800000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

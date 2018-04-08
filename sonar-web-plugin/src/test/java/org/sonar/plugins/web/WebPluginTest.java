@@ -1,6 +1,6 @@
 /*
- * SonarSource :: Web :: Sonar Plugin
- * Copyright (c) 2010-2017 SonarSource SA and Matthijs Galesloot
+ * SonarWeb :: SonarQube Plugin
+ * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,6 @@ public class WebPluginTest {
     Plugin.Context context = new Plugin.Context(Version.create(5, 6));
 
     new WebPlugin().define(context);
-    assertThat(context.getExtensions()).hasSize(6);
+    assertThat(context.getExtensions()).hasSize(5);
   }
 }

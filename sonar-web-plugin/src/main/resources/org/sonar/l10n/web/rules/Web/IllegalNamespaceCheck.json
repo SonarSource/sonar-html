@@ -5,5 +5,7 @@
   "tags": [
     
   ],
-  "defaultSeverity": "Major"
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-1297",
+  "sqKey": "IllegalNamespaceCheck"
 }

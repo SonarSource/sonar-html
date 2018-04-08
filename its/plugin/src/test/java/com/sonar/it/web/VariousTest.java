@@ -1,6 +1,6 @@
 /*
  * SonarSource :: Web :: ITs :: Plugin
- * Copyright (c) 2011-2017 SonarSource SA and Matthijs Galesloot
+ * Copyright (c) 2011-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -82,7 +82,7 @@ public class VariousTest {
       .setProjectVersion("1.0")
       .setSourceDirs("src")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.fileExtensions", ".xhtml,.jspf,.jsp");
+      .setProperty("sonar.web.file.suffixes", ".xhtml,.jspf,.jsp");
     orchestrator.executeBuild(build);
 
     IssueClient issueClient = orchestrator.getServer().wsClient().issueClient();

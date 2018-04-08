@@ -7,8 +7,9 @@
     "constantCost": "10min"
   },
   "tags": [
-    "accessibility",
-    "bug"
+    "accessibility"
   ],
-  "defaultSeverity": "Minor"
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1088",
+  "sqKey": "WmodeIsWindowCheck"
 }

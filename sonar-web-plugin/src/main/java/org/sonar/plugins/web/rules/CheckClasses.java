@@ -1,6 +1,6 @@
 /*
- * SonarSource :: Web :: Sonar Plugin
- * Copyright (c) 2010-2017 SonarSource SA and Matthijs Galesloot
+ * SonarWeb :: SonarQube Plugin
+ * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.rules;
 
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 import org.sonar.plugins.web.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.web.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.web.checks.coding.ComplexityCheck;
@@ -71,8 +72,6 @@ import org.sonar.plugins.web.checks.structure.ParentElementRequiredCheck;
 import org.sonar.plugins.web.checks.style.InlineStyleCheck;
 import org.sonar.plugins.web.checks.whitespace.IllegalTabCheck;
 import org.sonar.plugins.web.checks.whitespace.WhiteSpaceAroundCheck;
-
-import java.util.List;
 
 public final class CheckClasses {
 
@@ -139,7 +138,7 @@ public final class CheckClasses {
    * Gets the list of XML checks.
    */
   @SuppressWarnings("rawtypes")
-  public static Iterable<Class> getCheckClasses() {
+  public static List<Class> getCheckClasses() {
     return CLASSES;
   }
 

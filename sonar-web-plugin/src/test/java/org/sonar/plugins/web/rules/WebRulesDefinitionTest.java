@@ -1,6 +1,6 @@
 /*
- * SonarSource :: Web :: Sonar Plugin
- * Copyright (c) 2010-2017 SonarSource SA and Matthijs Galesloot
+ * SonarWeb :: SonarQube Plugin
+ * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,9 +18,10 @@
 package org.sonar.plugins.web.rules;
 
 import com.google.common.collect.Iterables;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.server.rule.RulesDefinition.Rule;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -41,11 +42,22 @@ public class WebRulesDefinitionTest {
     assertThat(alertUseRule).isNotNull();
     assertThat(alertUseRule.name()).isEqualTo("Track uses of disallowed attributes");
 
-    for (Rule rule : repository.rules()) {
+    Set<String> templateRules = repository.rules().stream()
+      .filter(RulesDefinition.Rule::template)
+      .map(RulesDefinition.Rule::key)
+      .collect(Collectors.toSet());
+    assertThat(templateRules).hasSize(6);
+    assertThat(templateRules).containsOnly("IllegalAttributeCheck",
+      "LibraryDependencyCheck",
+      "ChildElementIllegalCheck",
+      "ChildElementRequiredCheck",
+      "ParentElementIllegalCheck",
+      "ParentElementRequiredCheck");
+
+    for (RulesDefinition.Rule rule : repository.rules()) {
       for (RulesDefinition.Param param : rule.params()) {
         assertThat(param.description()).as("description for " + param.key()).isNotEmpty();
       }
     }
   }
-
 }

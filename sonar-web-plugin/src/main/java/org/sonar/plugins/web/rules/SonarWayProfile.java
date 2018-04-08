@@ -1,6 +1,6 @@
 /*
- * SonarSource :: Web :: Sonar Plugin
- * Copyright (c) 2010-2017 SonarSource SA and Matthijs Galesloot
+ * SonarWeb :: SonarQube Plugin
+ * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,20 +17,12 @@
  */
 package org.sonar.plugins.web.rules;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
-import com.google.gson.Gson;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleAnnotationUtils;
 import org.sonar.api.rules.RuleFinder;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.plugins.web.api.WebConstants;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Set;
+import org.sonarsource.analyzer.commons.ProfileDefinitionReader;
 
 /**
  * Sonar way profile for the Web language
@@ -48,31 +40,9 @@ public final class SonarWayProfile extends ProfileDefinition {
   @Override
   public RulesProfile createProfile(ValidationMessages messages) {
     RulesProfile profile = RulesProfile.create(NAME, WebConstants.LANGUAGE_KEY);
-    Set<String> activeKeys = loadActiveKeysFromJsonProfile();
-    for (Class ruleClass : CheckClasses.getCheckClasses()) {
-      String ruleKey = RuleAnnotationUtils.getRuleKey(ruleClass);
-      if (activeKeys.contains(ruleKey)) {
-        Rule rule = ruleFinder.findByKey(WebRulesDefinition.REPOSITORY_KEY, ruleKey);
-        profile.activateRule(rule, null);
-      }
-    }
+    ProfileDefinitionReader definitionReader = new ProfileDefinitionReader(ruleFinder);
+    definitionReader.activateRules(profile, WebRulesDefinition.REPOSITORY_KEY, "org/sonar/l10n/web/rules/Web/Sonar_way_profile.json");
     return profile;
-  }
-
-  public static Set<String> loadActiveKeysFromJsonProfile() {
-    URL profileUrl = SonarWayProfile.class.getResource("/org/sonar/l10n/web/rules/Web/Sonar_way_profile.json");
-    try {
-      Gson gson = new Gson();
-      Profile profile = gson.fromJson(Resources.toString(profileUrl, Charsets.UTF_8), Profile.class);
-      return profile.ruleKeys;
-    } catch (IOException e) {
-      throw new IllegalStateException("Failed to read: " + profileUrl, e);
-    }
-  }
-
-  private static class Profile {
-    String name;
-    Set<String> ruleKeys;
   }
 
 }
