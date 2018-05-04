@@ -37,6 +37,7 @@ import org.sonar.plugins.web.checks.header.HeaderCheck;
 import org.sonar.plugins.web.checks.header.MultiplePageDirectivesCheck;
 import org.sonar.plugins.web.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.web.checks.scripting.LongJavaScriptCheck;
+import org.sonar.plugins.web.checks.scripting.NestedJavaScriptCheck;
 import org.sonar.plugins.web.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.web.checks.sonar.AbsoluteURICheck;
 import org.sonar.plugins.web.checks.sonar.BoldAndItalicTagsCheck;
@@ -91,6 +92,7 @@ public final class CheckClasses {
     JspScriptletCheck.class,
     LibraryDependencyCheck.class,
     LongJavaScriptCheck.class,
+    NestedJavaScriptCheck.class,
     MaxLineLengthCheck.class,
     ParentElementIllegalCheck.class,
     ParentElementRequiredCheck.class,
