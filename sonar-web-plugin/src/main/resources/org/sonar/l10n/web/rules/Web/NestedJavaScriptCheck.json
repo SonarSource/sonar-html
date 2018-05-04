@@ -1,0 +1,9 @@
+{
+  "title": "Script tags should not be nested",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+  ],
+  "defaultSeverity": "Major",
+  "sqKey": "NestedJavaScriptCheck"
+}
