@@ -19,9 +19,9 @@ package org.sonar.plugins.web.analyzers;
 
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
@@ -39,7 +39,7 @@ import java.util.Set;
  */
 public class PageCountLines extends DefaultNodeVisitor {
 
-  private static final Logger LOG = LoggerFactory.getLogger(PageCountLines.class);
+  private static final Logger LOG = Loggers.get(PageCountLines.class);
 
   private int blankLines;
   private int commentLines;
