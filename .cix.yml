@@ -7,12 +7,12 @@ TEST:
 
 SQ_VERSION:
   - DEV
-  - LTS
+  - LATEST_RELEASE[6.7]
   - LATEST_RELEASE
 
 exclude:
   - TEST: ruling
     SQ_VERSION: DEV
   - TEST: ruling
-    SQ_VERSION: LTS
+    SQ_VERSION: LATEST_RELEASE[6.7]
 

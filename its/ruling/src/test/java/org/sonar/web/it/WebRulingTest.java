@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.locator.FileLocation;
+import com.sonar.orchestrator.locator.MavenLocation;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.sonar.wsclient.SonarClient;
 
+import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebRulingTest {
@@ -42,9 +44,9 @@ public class WebRulingTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
-    .setOrchestratorProperty("litsVersion", "0.6")
-    .addPlugin("lits")
+    .addPlugin(MavenLocation.of("org.sonarsource.sonar-lits-plugin", "sonar-lits-plugin", "0.6"))
     .build();
 
   @BeforeClass

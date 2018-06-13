@@ -35,11 +35,18 @@
       <groupId>org.sonarsource.orchestrator</groupId>
       <artifactId>sonar-orchestrator</artifactId>
       <version>${orchestrator.version}</version>
+      <exclusions>
+        <exclusion>
+          <!-- conflict with sonarlint-core dependency -->
+          <groupId>com.squareup.okhttp3</groupId>
+          <artifactId>okhttp</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-ws</artifactId>
-      <version>5.6</version>
+      <version>6.7</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -50,6 +57,12 @@
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${assertj.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
