@@ -10145,9 +10145,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/bandai-co-jp-releases.html':[
 0,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/bom-in-content-utf16.html':[
-0,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/bom-in-content.html':[
 0,
 ],
@@ -10179,9 +10176,6 @@
 0,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-unicode.html':[
-0,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-utf16.html':[
 0,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-xuser-defined.html':[
@@ -10275,9 +10269,6 @@
 0,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/latin1-winlatin.html':[
-0,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/mailto-always-utf-8.html':[
 0,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/meta-charset.html':[
@@ -10775,16 +10766,7 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/url-host-name-non-ascii.html':[
 0,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-32-big-endian-bom.html':[
-0,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-32-little-endian-bom.html':[
-0,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/xmacroman-encoding-test.html':[
-0,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/xml-charset-utf16.html':[
 0,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/yahoo-mail.html':[

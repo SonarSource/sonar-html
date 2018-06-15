@@ -13471,12 +13471,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/121.html':[
 2,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-big-endian.html':[
-282,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-little-endian.html':[
-282,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/events/touch/resources/send-touch-up.html':[
 4,
 ],

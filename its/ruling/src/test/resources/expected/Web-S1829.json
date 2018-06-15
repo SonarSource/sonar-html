@@ -1741,9 +1741,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/dom/beforeload/remove-frame-in-beforeload-listener.html':[
 20,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/bom-in-content-utf16.html':[
-2,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/bom-in-content.html':[
 5,
 ],
@@ -1807,12 +1804,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/url-host-name-non-ascii.html':[
 2,
 5,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-big-endian.html':[
-300,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-little-endian.html':[
-300,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/xpath/ambiguous-operators.html':[
 14,

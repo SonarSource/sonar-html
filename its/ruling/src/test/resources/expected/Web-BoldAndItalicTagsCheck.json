@@ -1419,14 +1419,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/url-host-name-non-ascii.html':[
 2,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-big-endian.html':[
-13,
-281,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-little-endian.html':[
-13,
-281,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/xpath/xpath-functional-test.html':[
 177,
 ],

@@ -1154,9 +1154,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/invalid-multi-byte-over-consumption.html':[
 4,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/mailto-always-utf-8.html':[
-14,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/meta-in-body.html':[
 7,
 ],

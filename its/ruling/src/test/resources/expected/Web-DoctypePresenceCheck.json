@@ -893,9 +893,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-koi8-u.html':[
 1,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-utf16.html':[
-1,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-xuser-defined.html':[
 1,
 ],
@@ -1010,17 +1007,8 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/tag-name-digit.html':[
 1,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-big-endian.html':[
-2,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-little-endian.html':[
-2,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/xmacroman-encoding-test.html':[
 1,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/xml-charset-utf16.html':[
-2,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/yahoo-mail.html':[
 1,

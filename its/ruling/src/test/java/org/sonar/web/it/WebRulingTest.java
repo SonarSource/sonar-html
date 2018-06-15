@@ -76,6 +76,7 @@ public class WebRulingTest {
       .setProperty("dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
       .setProperty("dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("lits.differences", litsDifferencesFile.getAbsolutePath())
+      .setProperty("sonar.exclusions", "external_webkit-jb-mr1/LayoutTests/fast/encoding/*utf*")
       .setProperty("sonar.cpd.skip", "true")
       .setEnvironmentVariable("SONAR_RUNNER_OPTS", "-Xmx1024m");
     orchestrator.executeBuild(build);

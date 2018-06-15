@@ -1334,12 +1334,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/070.html':[
 2,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-big-endian.html':[
-23,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-little-endian.html':[
-23,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/yahoo-mail.html':[
 3,
 ],

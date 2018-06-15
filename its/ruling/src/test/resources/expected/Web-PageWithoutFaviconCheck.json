@@ -9586,9 +9586,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-unicode.html':[
 2,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-utf16.html':[
-2,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/charset-xuser-defined.html':[
 2,
 ],
@@ -9645,9 +9642,6 @@
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/latin1-winlatin.html':[
 2,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/mailto-always-utf-8.html':[
-3,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/meta-charset.html':[
 2,
@@ -9748,17 +9742,8 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/script-in-head.html':[
 21,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-big-endian.html':[
-3,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/utf-16-little-endian.html':[
-3,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/xmacroman-encoding-test.html':[
 2,
-],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/xml-charset-utf16.html':[
-3,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/yahoo-mail.html':[
 2,
