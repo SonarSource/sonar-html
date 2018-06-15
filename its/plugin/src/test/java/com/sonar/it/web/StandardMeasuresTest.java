@@ -29,12 +29,14 @@ import java.io.File;
 
 import static com.sonar.it.web.WebTestSuite.createSonarScanner;
 import static com.sonar.it.web.WebTestSuite.getMeasure;
+import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StandardMeasuresTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
     .build();
@@ -48,7 +50,7 @@ public class StandardMeasuresTest {
   }
 
   @BeforeClass
-  public static void init() throws Exception {
+  public static void init() {
     orchestrator.resetData();
     String projectKey = "TestOfWebPlugin";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
@@ -122,7 +124,7 @@ public class StandardMeasuresTest {
   }
 
   @Test
-  public void lineLevelMeasures() throws Exception {
+  public void lineLevelMeasures() {
     String value = getFileMeasure("ncloc_data").getValue();
     assertThat(value).contains("20=1");
     assertThat(value).contains(";38=1");

@@ -27,6 +27,7 @@ import org.junit.Test;
 import java.io.File;
 
 import static com.sonar.it.web.WebTestSuite.getMeasureAsInt;
+import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileSuffixesTest {
@@ -36,12 +37,13 @@ public class FileSuffixesTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
     .build();
 
   @BeforeClass
-  public static void init() throws Exception {
+  public static void init() {
     orchestrator.resetData();
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
     orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "no_rule");

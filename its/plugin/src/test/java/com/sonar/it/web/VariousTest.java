@@ -31,18 +31,20 @@ import java.io.File;
 import java.util.List;
 
 import static com.sonar.it.web.WebTestSuite.getMeasureAsInt;
+import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VariousTest {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
     .build();
 
   @BeforeClass
-  public static void init() throws Exception {
+  public static void init() {
     orchestrator.resetData();
   }
 
