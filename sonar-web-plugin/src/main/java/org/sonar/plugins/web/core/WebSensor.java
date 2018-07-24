@@ -18,8 +18,6 @@
 package org.sonar.plugins.web.core;
 
 import com.google.common.collect.ImmutableList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -36,6 +34,8 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.WebConstants;
@@ -54,7 +54,7 @@ import java.util.Map;
 public final class WebSensor implements Sensor {
 
   private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
-  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
+  private static final Logger LOG = Loggers.get(WebSensor.class);
 
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
