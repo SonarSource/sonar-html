@@ -33,7 +33,6 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
-import org.sonar.api.ce.measure.RangeDistributionBuilder;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
@@ -53,7 +52,6 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 public final class WebSensor implements Sensor {
 
-  private static final Number[] FILES_DISTRIB_BOTTOM_LIMITS = {0, 5, 10, 20, 30, 60, 90};
   private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
 
   private final NoSonarFilter noSonarFilter;
@@ -107,7 +105,6 @@ public final class WebSensor implements Sensor {
 
   private static void saveMetrics(SensorContext context, WebSourceCode sourceCode) {
     InputFile inputFile = sourceCode.inputFile();
-    saveComplexityDistribution(context, sourceCode);
 
     for (Map.Entry<Metric<Integer>, Integer> entry : sourceCode.getMeasures().entrySet()) {
       context.<Integer>newMeasure()
@@ -130,19 +127,6 @@ public final class WebSensor implements Sensor {
       }
       newIssue.at(location);
       newIssue.save();
-    }
-  }
-
-  private static void saveComplexityDistribution(SensorContext sensorContext, WebSourceCode sourceCode) {
-    if (sourceCode.getMeasure(CoreMetrics.COMPLEXITY) != null) {
-      String distribution = new RangeDistributionBuilder(FILES_DISTRIB_BOTTOM_LIMITS)
-        .add(sourceCode.getMeasure(CoreMetrics.COMPLEXITY))
-        .build();
-      sensorContext.<String>newMeasure()
-        .on(sourceCode.inputFile())
-        .forMetric(CoreMetrics.FILE_COMPLEXITY_DISTRIBUTION)
-        .withValue(distribution)
-        .save();
     }
   }
 
