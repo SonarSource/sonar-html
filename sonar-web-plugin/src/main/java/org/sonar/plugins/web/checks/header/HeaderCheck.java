@@ -17,10 +17,10 @@
  */
 package org.sonar.plugins.web.checks.header;
 
-import com.google.common.io.Files;
+import com.google.common.io.CharStreams;
 import com.google.common.io.LineProcessor;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.StringReader;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,10 +28,9 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
 
 @Rule(key = "HeaderCheck")
-public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisitor {
+public class HeaderCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_HEADER_FORMAT = "";
   private static final String MESSAGE = "Add or update the header of this file.";
@@ -49,14 +48,8 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
     defaultValue = "false")
   public boolean isRegularExpression = false;
 
-  private Charset charset;
   private String[] expectedLines;
   private Pattern searchPattern = null;
-
-  @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
-  }
 
   @Override
   public void init() {
@@ -73,18 +66,18 @@ public class HeaderCheck extends AbstractPageCheck implements CharsetAwareVisito
 
   @Override
   public void startDocument(List<Node> nodes) {
+    String fileContent;
+    try {
+      fileContent = getWebSourceCode().inputFile().contents();
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
+    }
     if (isRegularExpression) {
-      String fileContent;
-      try {
-        fileContent = Files.toString(getWebSourceCode().inputFile().file(), charset);
-      } catch (IOException e) {
-        throw new IllegalStateException(e);
-      }
       checkRegularExpression(fileContent);
     } else {
       LineProcessor<Boolean> processor = new HeaderLinesProcessor(expectedLines);
       try {
-        Files.readLines(getWebSourceCode().inputFile().file(), charset, processor);
+        CharStreams.readLines(new StringReader(fileContent), processor);
       } catch (IOException e) {
         throw new IllegalStateException(e);
       }

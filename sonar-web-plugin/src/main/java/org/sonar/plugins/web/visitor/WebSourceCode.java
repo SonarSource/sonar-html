@@ -65,7 +65,7 @@ public class WebSourceCode {
 
   @Override
   public String toString() {
-    return inputFile().absolutePath();
+    return inputFile().toString();
   }
 
   public Set<Integer> getDetailedLinesOfCode() {

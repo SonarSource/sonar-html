@@ -21,6 +21,7 @@ import com.sonar.sslr.api.GenericTokenType;
 import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.TokenType;
 import com.sonar.sslr.api.Trivia;
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.InputFile;
@@ -60,7 +61,14 @@ public class WebTokensVisitor extends DefaultNodeVisitor {
     NewCpdTokens cpdTokens = context.newCpdTokens();
     cpdTokens.onFile(inputFile);
 
-    for (Token token : WebLexer.create(context.fileSystem().encoding()).lex(inputFile.file())) {
+    String fileContent;
+    try {
+      fileContent = inputFile.contents();
+    } catch (IOException e) {
+      throw new IllegalStateException("Cannot read " + inputFile, e);
+    }
+
+    for (Token token : WebLexer.create(context.fileSystem().encoding()).lex(fileContent)) {
       TokenType tokenType = token.getType();
       if (!tokenType.equals(GenericTokenType.EOF)) {
         TokenLocation tokenLocation = new TokenLocation(token);

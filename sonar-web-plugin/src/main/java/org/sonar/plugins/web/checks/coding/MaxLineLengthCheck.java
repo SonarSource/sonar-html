@@ -17,20 +17,18 @@
  */
 package org.sonar.plugins.web.checks.coding;
 
-import com.google.common.io.Files;
+import com.google.common.io.CharStreams;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.List;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
 
 @Rule(key = "MaxLineLengthCheck")
-public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwareVisitor {
+public class MaxLineLengthCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINE_LENGTH = 120;
 
@@ -40,16 +38,9 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
     defaultValue = "" + DEFAULT_MAX_LINE_LENGTH)
   public int maxLength = DEFAULT_MAX_LINE_LENGTH;
 
-  private Charset charset;
-
-  @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
-  }
-
   @Override
   public void startDocument(List<Node> nodes) {
-    List<String> lines = readLines(getWebSourceCode().inputFile().file());
+    List<String> lines = readLines(getWebSourceCode().inputFile());
 
     for (int i = 0; i < lines.size(); i++) {
       int length = lines.get(i).length();
@@ -61,9 +52,9 @@ public class MaxLineLengthCheck extends AbstractPageCheck implements CharsetAwar
     }
   }
 
-  private List<String> readLines(File file) {
+  private static List<String> readLines(InputFile file) {
     try {
-      return Files.readLines(file, charset);
+      return CharStreams.readLines(new StringReader(file.contents()));
     } catch (IOException e) {
       throw new IllegalStateException("Unable to read " + file, e);
     }

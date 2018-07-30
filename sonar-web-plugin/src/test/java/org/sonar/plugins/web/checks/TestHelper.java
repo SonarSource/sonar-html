@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
@@ -51,6 +52,7 @@ public class TestHelper {
         .setLanguage(WebConstants.LANGUAGE_KEY)
         .setType(InputFile.Type.MAIN)
         .setModuleBaseDir(new File(".").toPath())
+        .setCharset(StandardCharsets.UTF_8)
         .build()
     );
 

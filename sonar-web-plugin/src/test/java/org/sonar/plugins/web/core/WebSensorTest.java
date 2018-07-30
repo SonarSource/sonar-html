@@ -87,6 +87,7 @@ public class WebSensorTest {
       .setLanguage(WebConstants.LANGUAGE_KEY)
       .setType(InputFile.Type.MAIN)
       .initMetadata(Files.toString(new File(TEST_DIR, "user-properties.jsp"), StandardCharsets.UTF_8))
+      .setCharset(StandardCharsets.UTF_8)
       .build();
 
     tester.fileSystem().add(inputFile);

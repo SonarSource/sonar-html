@@ -18,6 +18,9 @@
 package org.sonar.plugins.web.core;
 
 import com.google.common.collect.ImmutableList;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FilePredicates;
@@ -47,9 +50,6 @@ import org.sonar.plugins.web.rules.WebRulesDefinition;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-
-import java.io.FileReader;
-import java.util.Map;
 
 public final class WebSensor implements Sensor {
 
@@ -94,13 +94,13 @@ public final class WebSensor implements Sensor {
     for (InputFile inputFile : inputFiles) {
       WebSourceCode sourceCode = new WebSourceCode(inputFile);
 
-      try (FileReader reader = new FileReader(inputFile.file())) {
+      try (Reader reader = new StringReader(inputFile.contents())) {
         scanner.scan(lexer.parse(reader), sourceCode, fileSystem.encoding());
         saveMetrics(sensorContext, sourceCode);
         saveLineLevelMeasures(inputFile, sourceCode);
 
       } catch (Exception e) {
-        LOG.error("Cannot analyze file " + inputFile.file().getAbsolutePath(), e);
+        LOG.error("Cannot analyze file " + inputFile, e);
       }
     }
   }
