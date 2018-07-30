@@ -17,12 +17,17 @@
  */
 package org.sonar.plugins.web.core;
 
+import com.google.common.io.Files;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.batch.fs.internal.FileMetadata;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
@@ -39,11 +44,6 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.rules.WebRulesDefinition;
-
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -82,10 +82,12 @@ public class WebSensorTest {
    */
   @Test
   public void testSensor() throws Exception {
-    DefaultInputFile inputFile = new DefaultInputFile("key", "user-properties.jsp")
+    DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
+      .setModuleBaseDir(TEST_DIR.toPath())
       .setLanguage(WebConstants.LANGUAGE_KEY)
       .setType(InputFile.Type.MAIN)
-      .initMetadata(new FileMetadata().readMetadata(new FileReader(new File(TEST_DIR, "user-properties.jsp"))));
+      .initMetadata(Files.toString(new File(TEST_DIR, "user-properties.jsp"), StandardCharsets.UTF_8))
+      .build();
 
     tester.fileSystem().add(inputFile);
 

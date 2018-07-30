@@ -20,8 +20,11 @@ package org.sonar.plugins.web.checks;
 import com.google.common.base.Charsets;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
 import org.sonar.plugins.web.api.WebConstants;
@@ -29,10 +32,6 @@ import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 public class TestHelper {
 
@@ -48,7 +47,11 @@ public class TestHelper {
     }
 
     WebSourceCode result = new WebSourceCode(
-      new DefaultInputFile("key", file.getPath()).setLanguage(WebConstants.LANGUAGE_KEY).setType(InputFile.Type.MAIN).setModuleBaseDir(new File(".").toPath())
+      new TestInputFileBuilder("key", file.getPath())
+        .setLanguage(WebConstants.LANGUAGE_KEY)
+        .setType(InputFile.Type.MAIN)
+        .setModuleBaseDir(new File(".").toPath())
+        .build()
     );
 
     HtmlAstScanner walker = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor()));

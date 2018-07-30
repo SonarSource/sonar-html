@@ -19,6 +19,8 @@ package org.sonar.plugins.web;
 
 import org.junit.Test;
 import org.sonar.api.Plugin;
+import org.sonar.api.SonarQubeSide;
+import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -30,7 +32,7 @@ public class WebPluginTest {
 
   @Test
   public void webPluginTester() {
-    Plugin.Context context = new Plugin.Context(Version.create(5, 6));
+    Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER));
 
     new WebPlugin().define(context);
     assertThat(context.getExtensions()).hasSize(5);
