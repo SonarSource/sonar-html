@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.web.core;
 
-import org.sonar.api.config.Settings;
+import org.sonar.api.config.Configuration;
 import org.sonar.plugins.web.api.WebConstants;
 
 public class WebConfiguration {
@@ -25,8 +25,8 @@ public class WebConfiguration {
   private WebConfiguration() {
   }
 
-  public static String[] fileSuffixes(Settings settings) {
-    return settings.getStringArray(WebConstants.FILE_EXTENSIONS_PROP_KEY);
+  public static String[] fileSuffixes(Configuration configuration) {
+    return configuration.getStringArray(WebConstants.FILE_EXTENSIONS_PROP_KEY);
   }
 
 }

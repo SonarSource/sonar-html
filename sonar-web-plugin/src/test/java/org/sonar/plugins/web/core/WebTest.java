@@ -18,7 +18,6 @@
 package org.sonar.plugins.web.core;
 
 import org.junit.Test;
-import org.sonar.api.config.Settings;
 import org.sonar.api.config.internal.MapSettings;
 import org.sonar.plugins.web.api.WebConstants;
 
@@ -28,17 +27,17 @@ public class WebTest {
 
   @Test
   public void testDefaultFileSuffixes() {
-    Settings settings = new MapSettings();
+    MapSettings settings = new MapSettings();
     settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, WebConstants.FILE_EXTENSIONS_DEF_VALUE);
-    Web web = new Web(settings);
+    Web web = new Web(settings.asConfig());
     assertThat(web.getFileSuffixes()).containsOnly(".html", ".xhtml", ".rhtml", ".shtml");
   }
 
   @Test
   public void testCustomFileSuffixes() {
-    Settings settings = new MapSettings();
+    MapSettings settings = new MapSettings();
     settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
-    Web web = new Web(settings);
+    Web web = new Web(settings.asConfig());
     assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
   }
 
