@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonarsource.web</groupId>
-    <artifactId>web</artifactId>
+    <groupId>org.sonarsource.html</groupId>
+    <artifactId>html</artifactId>
     <version>2.7-SNAPSHOT</version>
   </parent>
 
-  <artifactId>web-its</artifactId>
+  <artifactId>html-its</artifactId>
   <name>SonarSource :: Web :: ITs</name>
   <packaging>pom</packaging>
 
@@ -44,13 +44,13 @@
                   <artifactItems>
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
-                      <artifactId>sonar-web-plugin</artifactId>
+                      <artifactId>sonar-html-plugin</artifactId>
                       <version>${project.version}</version>
                       <type>sonar-plugin</type>
                       <overWrite>true</overWrite>
                     </artifactItem>
                   </artifactItems>
-                  <outputDirectory>../../sonar-web-plugin/target</outputDirectory>
+                  <outputDirectory>../../sonar-html-plugin/target</outputDirectory>
                   <overWriteReleases>true</overWriteReleases>
                   <overWriteSnapshots>true</overWriteSnapshots>
                 </configuration>

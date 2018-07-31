@@ -3,16 +3,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonarsource.web</groupId>
-    <artifactId>web</artifactId>
+    <groupId>org.sonarsource.html</groupId>
+    <artifactId>html</artifactId>
     <version>2.7-SNAPSHOT</version>
   </parent>
 
-  <artifactId>sonar-web-plugin</artifactId>
+  <artifactId>sonar-html-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
   <name>SonarWeb :: SonarQube Plugin</name>
-  <description>Code analyzer for Web (HTML, JSP, JSF)</description>
+  <description>Code analyzer for HTML</description>
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
   <scm>
