@@ -33,6 +33,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.sonarsource.sonarlint.core.StandaloneSonarLintEngineImpl;
@@ -73,6 +74,7 @@ public class SonarLintTest {
   }
 
   @Test
+  @Ignore
   public void should_raise_three_issues() throws IOException {
     ClientInputFile inputFile = prepareInputFile("foo.html",
       "<html>\n" +
