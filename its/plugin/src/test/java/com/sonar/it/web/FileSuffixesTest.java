@@ -19,15 +19,12 @@ package com.sonar.it.web;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
-import com.sonar.orchestrator.locator.FileLocation;
+import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import java.io.File;
-
 import static com.sonar.it.web.WebTestSuite.getMeasureAsInt;
-import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileSuffixesTest {
@@ -36,11 +33,7 @@ public class FileSuffixesTest {
   private static final String FILES_METRIC = "files";
 
   @ClassRule
-  public static Orchestrator orchestrator = Orchestrator.builderEnv()
-    .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
-    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
-    .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
-    .build();
+  public static Orchestrator orchestrator = WebTestSuite.orchestrator;
 
   @BeforeClass
   public static void init() {

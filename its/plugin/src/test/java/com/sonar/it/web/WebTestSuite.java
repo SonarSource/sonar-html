@@ -19,6 +19,12 @@ package com.sonar.it.web;
 
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.locator.FileLocation;
+import java.io.File;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.CheckForNull;
+import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -32,9 +38,7 @@ import org.sonarqube.ws.client.component.ShowWsRequest;
 import org.sonarqube.ws.client.component.TreeWsRequest;
 import org.sonarqube.ws.client.measure.ComponentWsRequest;
 
-import javax.annotation.CheckForNull;
-import java.util.Collections;
-import java.util.List;
+import static java.util.Objects.requireNonNull;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -44,6 +48,14 @@ import java.util.List;
   SonarLintTest.class
 })
 public class WebTestSuite {
+
+  @ClassRule
+  public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
+    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
+    .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
+    .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
+    .build();
 
   public static SonarScanner createSonarScanner() {
     return SonarScanner.create();
