@@ -67,7 +67,6 @@ public class PageCountLines extends DefaultNodeVisitor {
     webSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
 
     webSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
-    webSourceCode.setDetailedLinesOfComments(detailedLinesOfComments);
 
     LOG.debug("WebSensor: " + getWebSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + headerCommentLines + "," + blankLines);
   }
