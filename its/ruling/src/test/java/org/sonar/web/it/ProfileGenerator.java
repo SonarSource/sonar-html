@@ -1,5 +1,5 @@
 /*
- * SonarSource :: Web :: ITs :: Ruling
+ * SonarSource :: HTML :: ITs :: Ruling
  * Copyright (c) 2013-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *

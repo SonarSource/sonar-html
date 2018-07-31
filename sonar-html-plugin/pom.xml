@@ -11,7 +11,7 @@
   <artifactId>sonar-html-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
 
-  <name>SonarWeb :: SonarQube Plugin</name>
+  <name>SonarHTML :: SonarQube Plugin</name>
   <description>Code analyzer for HTML</description>
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
