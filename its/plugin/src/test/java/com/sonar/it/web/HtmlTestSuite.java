@@ -47,12 +47,12 @@ import static java.util.Objects.requireNonNull;
   VariousTest.class,
   SonarLintTest.class
 })
-public class WebTestSuite {
+public class HtmlTestSuite {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
     .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
-    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
+    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
     .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
     .build();

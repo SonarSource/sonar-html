@@ -24,7 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import static com.sonar.it.web.WebTestSuite.getMeasureAsInt;
+import static com.sonar.it.web.HtmlTestSuite.getMeasureAsInt;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileSuffixesTest {
@@ -33,17 +33,17 @@ public class FileSuffixesTest {
   private static final String FILES_METRIC = "files";
 
   @ClassRule
-  public static Orchestrator orchestrator = WebTestSuite.orchestrator;
+  public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
 
   @BeforeClass
   public static void init() {
     orchestrator.resetData();
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "no_rule");
+    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "html", "no_rule");
   }
 
   private static SonarScanner getSonarRunner() {
-    return WebTestSuite.createSonarScanner()
+    return HtmlTestSuite.createSonarScanner()
       .setProjectDir(new File("projects/FileSuffixesTest/"))
       .setProjectKey(PROJECT_KEY)
       .setProjectName(PROJECT_KEY)
@@ -87,7 +87,7 @@ public class FileSuffixesTest {
   @Test
   public void should_analyze_all_files_with_empty_extensions() {
     SonarScanner build = getSonarRunner()
-      .setLanguage("web")
+      .setLanguage("html")
       .setProperty("sonar.sourceEncoding", "UTF-8")
       .setProperty("sonar.web.file.suffixes", "");
     orchestrator.executeBuild(build);
@@ -97,7 +97,7 @@ public class FileSuffixesTest {
   @Test
   public void should_analyze_all_files_with_empty_suffixes() {
     SonarScanner build = getSonarRunner()
-      .setLanguage("web")
+      .setLanguage("html")
       .setProperty("sonar.sourceEncoding", "UTF-8")
       .setProperty("sonar.web.file.suffixes", "");
     orchestrator.executeBuild(build);

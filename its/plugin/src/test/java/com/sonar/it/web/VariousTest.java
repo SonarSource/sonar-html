@@ -28,13 +28,13 @@ import org.sonar.wsclient.issue.Issue;
 import org.sonar.wsclient.issue.IssueClient;
 import org.sonar.wsclient.issue.IssueQuery;
 
-import static com.sonar.it.web.WebTestSuite.getMeasureAsInt;
+import static com.sonar.it.web.HtmlTestSuite.getMeasureAsInt;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VariousTest {
 
   @ClassRule
-  public static Orchestrator orchestrator = WebTestSuite.orchestrator;
+  public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
 
   @BeforeClass
   public static void init() {
@@ -45,8 +45,8 @@ public class VariousTest {
   public void testExclusions() {
     String projectKey = "exclusions";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
-    SonarScanner build = WebTestSuite.createSonarScanner()
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "IT");
+    SonarScanner build = HtmlTestSuite.createSonarScanner()
       .setProjectDir(new File("projects/exclusions/"))
       .setProjectKey(projectKey)
       .setProjectName(projectKey)
@@ -57,8 +57,8 @@ public class VariousTest {
       .setProperty("sonar.exclusions", "**/*Excluded*");
     orchestrator.executeBuild(build);
 
-    assertThat(WebTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpError.jsp")).isNotNull();
-    assertThat(WebTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpErrorExcluded.jsp")).isNull();
+    assertThat(HtmlTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpError.jsp")).isNotNull();
+    assertThat(HtmlTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpErrorExcluded.jsp")).isNull();
     assertThat(getMeasureAsInt(orchestrator, projectKey, "files")).isEqualTo(1);
   }
 
@@ -69,8 +69,8 @@ public class VariousTest {
   public void testCommentedOutCodeDetection() {
     String projectKey = "test";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
-    SonarScanner build = WebTestSuite.createSonarScanner()
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "IT");
+    SonarScanner build = HtmlTestSuite.createSonarScanner()
       .setProjectDir(new File("projects/continuum-webapp/"))
       .setProjectKey(projectKey)
       .setProjectName(projectKey)

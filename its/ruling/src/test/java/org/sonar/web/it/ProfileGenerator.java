@@ -35,7 +35,7 @@ import org.sonar.wsclient.jsonsimple.JSONValue;
 
 public class ProfileGenerator {
 
-  static final String LANGUAGE = "web";
+  static final String LANGUAGE = "html";
   static final String REPOSITORY_KEY = "Web";
 
   static void generate(Orchestrator orchestrator, ImmutableMap<String, ImmutableMap<String, String>> rulesParameters, Set<String> excluded) {
