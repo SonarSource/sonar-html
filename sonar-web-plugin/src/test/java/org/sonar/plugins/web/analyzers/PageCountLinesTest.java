@@ -62,7 +62,6 @@ public class PageCountLinesTest {
     assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(227);
     assertThat(webSourceCode.getDetailedLinesOfCode().size()).isEqualTo(224);
     assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(14);
-    assertThat(webSourceCode.getDetailedLinesOfComments().size()).isEqualTo(14);
   }
 
   @Test
@@ -76,7 +75,6 @@ public class PageCountLinesTest {
     assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(8);
     assertThat(webSourceCode.getDetailedLinesOfCode()).containsOnly(1, 2, 3, 4, 6, 7, 8, 9);
     assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(1);
-    assertThat(webSourceCode.getDetailedLinesOfComments()).containsOnly(5);
   }
 
   @Test
@@ -90,7 +88,6 @@ public class PageCountLinesTest {
     assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(2);
     assertThat(webSourceCode.getDetailedLinesOfCode()).containsOnly(1, 3);
     assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(6);
-    assertThat(webSourceCode.getDetailedLinesOfComments()).containsOnly(2, 4, 6, 7, 8, 10);
   }
 
   private Reader readFile(String fileName) {

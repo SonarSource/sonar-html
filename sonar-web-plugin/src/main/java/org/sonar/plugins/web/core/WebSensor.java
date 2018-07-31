@@ -136,9 +136,6 @@ public final class WebSensor implements Sensor {
     for (Integer line : webSourceCode.getDetailedLinesOfCode()) {
       fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, 1);
     }
-    for (Integer line : webSourceCode.getDetailedLinesOfComments()) {
-      fileLinesContext.setIntValue(CoreMetrics.COMMENT_LINES_DATA_KEY, line, 1);
-    }
 
     fileLinesContext.save();
   }

@@ -33,7 +33,6 @@ public class WebSourceCode {
   private final Map<Metric<Integer>, Integer> measures = new HashMap<>();
   private final List<WebIssue> issues = new ArrayList<>();
   private Set<Integer> detailedLinesOfCode;
-  private Set<Integer> detailedLinesOfComments;
 
   public WebSourceCode(InputFile inputFile) {
     this.inputFile = inputFile;
@@ -76,11 +75,4 @@ public class WebSourceCode {
     this.detailedLinesOfCode = detailedLinesOfCode;
   }
 
-  public Set<Integer> getDetailedLinesOfComments() {
-    return detailedLinesOfComments;
-  }
-
-  public void setDetailedLinesOfComments(Set<Integer> detailedLinesOfComments) {
-    this.detailedLinesOfComments = detailedLinesOfComments;
-  }
 }
