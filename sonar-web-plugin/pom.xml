@@ -16,9 +16,9 @@
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
   <scm>
-    <connection>scm:git:git@github.com:SonarSource/sonar-web.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarSource/sonar-web.git</developerConnection>
-    <url>https://github.com/SonarSource/sonar-web</url>
+    <connection>scm:git:git@github.com:SonarSource/sonar-html.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarSource/sonar-html.git</developerConnection>
+    <url>https://github.com/SonarSource/sonar-html</url>
     <tag>HEAD</tag>
   </scm>
 
