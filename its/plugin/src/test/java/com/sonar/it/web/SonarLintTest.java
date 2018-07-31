@@ -18,6 +18,17 @@
 package com.sonar.it.web;
 
 import com.sonar.orchestrator.locator.FileLocation;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -30,16 +41,6 @@ import org.sonarsource.sonarlint.core.client.api.common.analysis.Issue;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneAnalysisConfiguration;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneGlobalConfiguration;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneSonarLintEngine;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -83,7 +84,7 @@ public class SonarLintTest {
     List<Issue> issues = new ArrayList<>();
     sonarlintEngine.analyze(
       new StandaloneAnalysisConfiguration(baseDir.toPath(), temp.newFolder().toPath(), Collections.singletonList(inputFile), new HashMap<>()),
-      issues::add);
+      issues::add, null, null);
 
     assertThat(issues).extracting("ruleKey", "startLine", "inputFile.path", "severity").containsOnly(
       tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), "MAJOR"),
@@ -101,8 +102,8 @@ public class SonarLintTest {
     return new ClientInputFile() {
 
       @Override
-      public Path getPath() {
-        return path;
+      public String getPath() {
+        return path.toString();
       }
 
       @Override
@@ -120,6 +121,20 @@ public class SonarLintTest {
         return null;
       }
 
+      @Override
+      public InputStream inputStream() throws IOException {
+        return Files.newInputStream(path);
+      }
+
+      @Override
+      public String contents() throws IOException {
+        return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+      }
+
+      @Override
+      public String relativePath() {
+        return path.toString();
+      }
     };
   }
 
