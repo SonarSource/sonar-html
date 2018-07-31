@@ -28,18 +28,18 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
-import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.api.HtmlConstants;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class TestHelper {
 
   private TestHelper() {
   }
 
-  public static WebSourceCode scan(File file, DefaultNodeVisitor visitor) {
+  public static HtmlSourceCode scan(File file, DefaultNodeVisitor visitor) {
     FileReader fileReader;
     try {
       fileReader = new FileReader(file);
@@ -47,9 +47,9 @@ public class TestHelper {
       throw Throwables.propagate(e);
     }
 
-    WebSourceCode result = new WebSourceCode(
+    HtmlSourceCode result = new HtmlSourceCode(
       new TestInputFileBuilder("key", file.getPath())
-        .setLanguage(WebConstants.LANGUAGE_KEY)
+        .setLanguage(HtmlConstants.LANGUAGE_KEY)
         .setType(InputFile.Type.MAIN)
         .setModuleBaseDir(new File(".").toPath())
         .setCharset(StandardCharsets.UTF_8)

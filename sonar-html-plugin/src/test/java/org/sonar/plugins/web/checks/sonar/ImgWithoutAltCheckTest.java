@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class ImgWithoutAltCheckTest {
 
@@ -33,7 +33,7 @@ public class ImgWithoutAltCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheck.html"), new ImgWithoutAltCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheck.html"), new ImgWithoutAltCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add an \"alt\" attribute to this image.")

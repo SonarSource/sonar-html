@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class TableHeaderHasIdOrScopeCheckTest {
 
@@ -33,7 +33,7 @@ public class TableHeaderHasIdOrScopeCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableHeaderHasIdOrScopeCheck.html"), new TableHeaderHasIdOrScopeCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableHeaderHasIdOrScopeCheck.html"), new TableHeaderHasIdOrScopeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(7).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")

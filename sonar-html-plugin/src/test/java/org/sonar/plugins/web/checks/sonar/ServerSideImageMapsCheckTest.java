@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class ServerSideImageMapsCheckTest {
 
@@ -33,7 +33,7 @@ public class ServerSideImageMapsCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ServerSideImageMapsCheck.html"), new ServerSideImageMapsCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ServerSideImageMapsCheck.html"), new ServerSideImageMapsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Use the \"map\" tag and \"area\" tags instead.");

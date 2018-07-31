@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class FlashUsesBothObjectAndEmbedCheckTest {
 
@@ -33,7 +33,7 @@ public class FlashUsesBothObjectAndEmbedCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FlashUsesBothObjectAndEmbedCheck.html"), new FlashUsesBothObjectAndEmbedCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FlashUsesBothObjectAndEmbedCheck.html"), new FlashUsesBothObjectAndEmbedCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add an <embed> tag within this <object> one.")

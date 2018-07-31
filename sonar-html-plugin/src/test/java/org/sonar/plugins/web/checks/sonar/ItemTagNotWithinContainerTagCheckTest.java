@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class ItemTagNotWithinContainerTagCheckTest {
 
@@ -33,7 +33,7 @@ public class ItemTagNotWithinContainerTagCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheck.html"), new ItemTagNotWithinContainerTagCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheck.html"), new ItemTagNotWithinContainerTagCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")

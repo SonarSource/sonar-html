@@ -21,7 +21,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 import java.io.File;
 
@@ -42,7 +42,7 @@ public class FileLengthCheckTest {
     FileLengthCheck check = new FileLengthCheck();
     check.maxLength = 3;
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(null).withMessage("Current file has 5 lines, which is greater than 3 authorized. Split it into smaller files.");
@@ -53,7 +53,7 @@ public class FileLengthCheckTest {
     FileLengthCheck check = new FileLengthCheck();
     check.maxLength = 5;
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }

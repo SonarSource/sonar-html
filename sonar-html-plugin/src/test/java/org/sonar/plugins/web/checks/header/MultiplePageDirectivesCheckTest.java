@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class MultiplePageDirectivesCheckTest {
 
@@ -34,7 +34,7 @@ public class MultiplePageDirectivesCheckTest {
 
   @Test
   public void test1() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck1.html"), new MultiplePageDirectivesCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck1.html"), new MultiplePageDirectivesCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Combine these 2 page directives into one.");
@@ -42,7 +42,7 @@ public class MultiplePageDirectivesCheckTest {
 
   @Test
   public void test2() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck2.html"), new MultiplePageDirectivesCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck2.html"), new MultiplePageDirectivesCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Combine these 2 page directives into one.");
@@ -50,7 +50,7 @@ public class MultiplePageDirectivesCheckTest {
 
   @Test
   public void test3() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck3.html"), new MultiplePageDirectivesCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck3.html"), new MultiplePageDirectivesCheck());
 
     assertThat(sourceCode.getIssues()).isEmpty();
   }

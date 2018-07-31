@@ -21,21 +21,21 @@ import org.sonar.api.rule.RuleKey;
 
 import com.google.common.base.Preconditions;
 
-public class WebIssue {
+public class HtmlIssue {
 
   private final RuleKey ruleKey;
   private final Integer line;
   private final String message;
   private final Double cost;
 
-  public WebIssue(RuleKey ruleKey, Integer line, String message) {
+  public HtmlIssue(RuleKey ruleKey, Integer line, String message) {
     this.ruleKey = ruleKey;
     this.line = line;
     this.message = message;
     this.cost = null;
   }
 
-  public WebIssue(RuleKey ruleKey, Integer line, String message, Double cost) {
+  public HtmlIssue(RuleKey ruleKey, Integer line, String message, Double cost) {
     Preconditions.checkArgument(cost > 0);
 
     this.ruleKey = ruleKey;

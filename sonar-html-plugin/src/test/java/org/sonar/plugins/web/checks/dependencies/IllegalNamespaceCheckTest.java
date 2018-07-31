@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class IllegalNamespaceCheckTest {
 
@@ -42,7 +42,7 @@ public class IllegalNamespaceCheckTest {
     IllegalNamespaceCheck check = new IllegalNamespaceCheck();
     check.namespaces = "foo,baz";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalNamespaceCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalNamespaceCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Using \"baz\" namespace is not allowed.")

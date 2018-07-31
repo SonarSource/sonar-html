@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class WmodeIsWindowCheckTest {
 
@@ -33,7 +33,7 @@ public class WmodeIsWindowCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/WmodeIsWindowCheck.html"), new WmodeIsWindowCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/WmodeIsWindowCheck.html"), new WmodeIsWindowCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(9).withMessage("Set the value of the 'wmode' parameter to 'window'.")

@@ -34,13 +34,13 @@ import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 
 import java.util.List;
 
-public class WebTokensVisitor extends DefaultNodeVisitor {
+public class HtmlTokensVisitor extends DefaultNodeVisitor {
 
-  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
+  private static final Logger LOG = LoggerFactory.getLogger(HtmlSensor.class);
 
   private final SensorContext context;
 
-  public WebTokensVisitor(SensorContext context) {
+  public HtmlTokensVisitor(SensorContext context) {
     this.context = context;
   }
 
@@ -49,13 +49,13 @@ public class WebTokensVisitor extends DefaultNodeVisitor {
     try {
       highlightAndDuplicate();
     } catch (IllegalArgumentException e) {
-      LOG.warn("Giving up highlighting/handling duplication for file " + getWebSourceCode().inputFile(), e);
+      LOG.warn("Giving up highlighting/handling duplication for file " + getHtmlSourceCode().inputFile(), e);
     }
   }
 
   private void highlightAndDuplicate() {
     NewHighlighting highlighting = context.newHighlighting();
-    InputFile inputFile = getWebSourceCode().inputFile();
+    InputFile inputFile = getHtmlSourceCode().inputFile();
     highlighting.onFile(inputFile);
 
     NewCpdTokens cpdTokens = context.newCpdTokens();
@@ -68,19 +68,19 @@ public class WebTokensVisitor extends DefaultNodeVisitor {
       throw new IllegalStateException("Cannot read " + inputFile, e);
     }
 
-    for (Token token : WebLexer.create(context.fileSystem().encoding()).lex(fileContent)) {
+    for (Token token : HtmlLexer.create(context.fileSystem().encoding()).lex(fileContent)) {
       TokenType tokenType = token.getType();
       if (!tokenType.equals(GenericTokenType.EOF)) {
         TokenLocation tokenLocation = new TokenLocation(token);
         cpdTokens.addToken(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(), tokenLocation.endCharacter(), token.getValue());
       }
-      if (tokenType.equals(WebTokenType.DOCTYPE)) {
+      if (tokenType.equals(HtmlTokenType.DOCTYPE)) {
         highlight(highlighting, token, TypeOfText.STRUCTURED_COMMENT);
-      } else if (tokenType.equals(WebTokenType.EXPRESSION)) {
+      } else if (tokenType.equals(HtmlTokenType.EXPRESSION)) {
         highlight(highlighting, token, TypeOfText.ANNOTATION);
-      } else if (tokenType.equals(WebTokenType.TAG)) {
+      } else if (tokenType.equals(HtmlTokenType.TAG)) {
         highlight(highlighting, token, TypeOfText.KEYWORD);
-      } else if (tokenType.equals(WebTokenType.ATTRIBUTE)) {
+      } else if (tokenType.equals(HtmlTokenType.ATTRIBUTE)) {
         TokenLocation tokenLocation = new TokenLocation(token);
         highlighting.highlight(tokenLocation.startLine(), tokenLocation.startCharacter() + /* = */ 1, tokenLocation.endLine(), tokenLocation.endCharacter(), TypeOfText.STRING);
       }

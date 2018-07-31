@@ -41,7 +41,7 @@ public class ComplexityVisitor extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
-    getWebSourceCode().addMeasure(CoreMetrics.COMPLEXITY, complexity);
+    getHtmlSourceCode().addMeasure(CoreMetrics.COMPLEXITY, complexity);
   }
 
   @Override

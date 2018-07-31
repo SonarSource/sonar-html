@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 /**
  * @author Matthijs Galesloot
@@ -35,7 +35,7 @@ public class InlineStyleCheckTest {
 
   @Test
   public void test() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/inlineStyleCheck.html"), new InlineStyleCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/inlineStyleCheck.html"), new InlineStyleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Use CSS classes instead.");

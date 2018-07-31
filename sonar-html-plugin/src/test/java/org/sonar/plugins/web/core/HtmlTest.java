@@ -19,26 +19,26 @@ package org.sonar.plugins.web.core;
 
 import org.junit.Test;
 import org.sonar.api.config.internal.MapSettings;
-import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.api.HtmlConstants;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class WebTest {
+public class HtmlTest {
 
   @Test
   public void testDefaultFileSuffixes() {
     MapSettings settings = new MapSettings();
-    settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, WebConstants.FILE_EXTENSIONS_DEF_VALUE);
-    Web web = new Web(settings.asConfig());
-    assertThat(web.getFileSuffixes()).containsOnly(".html", ".xhtml", ".rhtml", ".shtml");
+    settings.setProperty(HtmlConstants.FILE_EXTENSIONS_PROP_KEY, HtmlConstants.FILE_EXTENSIONS_DEF_VALUE);
+    Html html = new Html(settings.asConfig());
+    assertThat(html.getFileSuffixes()).containsOnly(".html", ".xhtml", ".rhtml", ".shtml");
   }
 
   @Test
   public void testCustomFileSuffixes() {
     MapSettings settings = new MapSettings();
-    settings.setProperty(WebConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
-    Web web = new Web(settings.asConfig());
-    assertThat(web.getFileSuffixes()).containsOnly("foo", "bar", "toto");
+    settings.setProperty(HtmlConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
+    Html html = new Html(settings.asConfig());
+    assertThat(html.getFileSuffixes()).containsOnly("foo", "bar", "toto");
   }
 
 }

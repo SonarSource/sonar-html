@@ -15,15 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.api;
+package org.sonar.plugins.web.core;
 
-import org.junit.Test;
+import org.sonar.api.config.Configuration;
+import org.sonar.api.resources.AbstractLanguage;
+import org.sonar.plugins.web.api.HtmlConstants;
 
-public class WebConstantsTest {
+public class Html extends AbstractLanguage {
 
-  @Test(expected=IllegalAccessException.class)
-  public void create() throws Exception {
-    WebConstants.class.newInstance();
+  private Configuration configuration;
+
+  public Html(Configuration configuration) {
+    super(HtmlConstants.LANGUAGE_KEY, HtmlConstants.LANGUAGE_NAME);
+    this.configuration = configuration;
+  }
+
+  @Override
+  public String[] getFileSuffixes() {
+    return HtmlConfiguration.fileSuffixes(configuration);
   }
 
 }

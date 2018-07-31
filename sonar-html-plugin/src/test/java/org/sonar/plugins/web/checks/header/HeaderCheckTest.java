@@ -26,13 +26,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
-import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.api.HtmlConstants;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class HeaderCheckTest {
 
@@ -47,7 +47,7 @@ public class HeaderCheckTest {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
@@ -57,7 +57,7 @@ public class HeaderCheckTest {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MissingHeader.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MissingHeader.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(null).withMessage("Add or update the header of this file.");
@@ -68,7 +68,7 @@ public class HeaderCheckTest {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MisspelledHeader.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/MisspelledHeader.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(null).withMessage("Add or update the header of this file.");
@@ -80,7 +80,7 @@ public class HeaderCheckTest {
     check.headerFormat = "<!-- copyright \\d{4}\\n  mycompany -->";
     check.isRegularExpression = true;
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/Regex1.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/Regex1.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
@@ -91,7 +91,7 @@ public class HeaderCheckTest {
     check.headerFormat = "<!-- copyright \\d{4}\\n  mycompany -->";
     check.isRegularExpression = true;
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/Regex2.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/Regex2.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(null).withMessage("Add or update the header of this file.");
@@ -139,9 +139,9 @@ public class HeaderCheckTest {
       throw new IllegalArgumentException("unable to read file");
     }
 
-    WebSourceCode result = new WebSourceCode(
+    HtmlSourceCode result = new HtmlSourceCode(
       new TestInputFileBuilder("key", /* wrong path */ ".")
-        .setLanguage(WebConstants.LANGUAGE_KEY)
+        .setLanguage(HtmlConstants.LANGUAGE_KEY)
         .setType(InputFile.Type.MAIN)
         .setModuleBaseDir(new File(".").toPath())
         .build()

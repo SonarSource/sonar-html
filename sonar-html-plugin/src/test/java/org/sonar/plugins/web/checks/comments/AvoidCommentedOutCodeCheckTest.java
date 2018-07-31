@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class AvoidCommentedOutCodeCheckTest {
 
@@ -32,7 +32,7 @@ public class AvoidCommentedOutCodeCheckTest {
 
   @Test
   public void detected() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidCommentedOutCodeCheck.html"), new AvoidCommentedOutCodeCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidCommentedOutCodeCheck.html"), new AvoidCommentedOutCodeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(3).withMessage("Remove this commented out code.")

@@ -19,14 +19,14 @@ package org.sonar.plugins.web.rules;
 
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
-import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.api.HtmlConstants;
 import org.sonarsource.analyzer.commons.BuiltInQualityProfileJsonLoader;
 
-import static org.sonar.plugins.web.rules.WebRulesDefinition.REPOSITORY_KEY;
-import static org.sonar.plugins.web.rules.WebRulesDefinition.RESOURCE_BASE_PATH;
+import static org.sonar.plugins.web.rules.HtmlRulesDefinition.REPOSITORY_KEY;
+import static org.sonar.plugins.web.rules.HtmlRulesDefinition.RESOURCE_BASE_PATH;
 
 /**
- * Sonar way profile for the Web language
+ * Sonar way profile for the HTML language
  */
 public final class SonarWayProfile implements BuiltInQualityProfilesDefinition {
 
@@ -41,7 +41,7 @@ public final class SonarWayProfile implements BuiltInQualityProfilesDefinition {
 
   @Override
   public void define(Context context) {
-    NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(NAME, WebConstants.LANGUAGE_KEY);
+    NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(NAME, HtmlConstants.LANGUAGE_KEY);
     BuiltInQualityProfileJsonLoader.load(profile, REPOSITORY_KEY, JSON_PROFILE_PATH, RESOURCE_BASE_PATH, sonarRuntime);
     profile.done();
   }

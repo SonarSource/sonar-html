@@ -17,18 +17,18 @@
  */
 package org.sonar.plugins.web.api;
 
-public class WebConstants {
+public class HtmlConstants {
 
   /** The language key. */
-  public static final String LANGUAGE_KEY = "web";
-  public static final String LANGUAGE_NAME = "Web";
+  public static final String LANGUAGE_KEY = "html";
+  public static final String LANGUAGE_NAME = "HTML";
 
   // ================ Plugin properties ================
 
   public static final String FILE_EXTENSIONS_PROP_KEY = "sonar.web.file.suffixes";
   public static final String FILE_EXTENSIONS_DEF_VALUE = ".html,.xhtml,.rhtml,.shtml";
 
-  private WebConstants() {
+  private HtmlConstants() {
   }
 
 }

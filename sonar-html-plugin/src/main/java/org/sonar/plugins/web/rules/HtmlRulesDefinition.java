@@ -22,12 +22,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.api.HtmlConstants;
 import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
-public final class WebRulesDefinition implements RulesDefinition {
+public final class HtmlRulesDefinition implements RulesDefinition {
 
-  public static final String REPOSITORY_KEY = WebConstants.LANGUAGE_NAME;
+  public static final String REPOSITORY_KEY = "Web";
   public static final String REPOSITORY_NAME = "SonarAnalyzer";
 
   private static final Set<String> TEMPLATE_RULE_KEYS = Collections.unmodifiableSet(Stream.of(
@@ -43,7 +43,7 @@ public final class WebRulesDefinition implements RulesDefinition {
   @Override
   public void define(Context context) {
     NewRepository repository = context
-      .createRepository(REPOSITORY_KEY, WebConstants.LANGUAGE_KEY)
+      .createRepository(REPOSITORY_KEY, HtmlConstants.LANGUAGE_KEY)
       .setName(REPOSITORY_NAME);
 
     RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, SonarWayProfile.JSON_PROFILE_PATH);

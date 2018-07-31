@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class ComplexityCheckTest {
 
@@ -43,7 +43,7 @@ public class ComplexityCheckTest {
     ComplexityCheck check = new ComplexityCheck();
     check.max = 15;
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ComplexityCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ComplexityCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(null).withCost(2d).withMessage("Split this file to reduce complexity per file from 17 to no more than the 15 authorized.");

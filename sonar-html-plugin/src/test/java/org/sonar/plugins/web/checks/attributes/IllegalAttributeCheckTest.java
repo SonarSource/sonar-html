@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class IllegalAttributeCheckTest {
 
@@ -42,7 +42,7 @@ public class IllegalAttributeCheckTest {
     IllegalAttributeCheck check = new IllegalAttributeCheck();
     check.attributes = "foo.a,b";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalAttributeCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalAttributeCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Remove the \"a\" attribute from the \"foo\" tag")

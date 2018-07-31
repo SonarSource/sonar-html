@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class UnclosedTagCheckTest {
 
@@ -43,7 +43,7 @@ public class UnclosedTagCheckTest {
     UnclosedTagCheck check = new UnclosedTagCheck();
     check.ignoreTags = "html,foo";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(4).withMessage("The tag \"li\" has no corresponding closing tag.")

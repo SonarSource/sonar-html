@@ -17,22 +17,28 @@
  */
 package org.sonar.plugins.web.core;
 
-import org.sonar.api.config.Configuration;
-import org.sonar.api.resources.AbstractLanguage;
-import org.sonar.plugins.web.api.WebConstants;
+import com.sonar.sslr.api.AstNode;
+import com.sonar.sslr.api.TokenType;
 
-public class Web extends AbstractLanguage {
+public enum HtmlTokenType implements TokenType {
+  TAG,
+  EXPRESSION,
+  ATTRIBUTE,
+  DOCTYPE;
 
-  private Configuration configuration;
-
-  public Web(Configuration configuration) {
-    super(WebConstants.LANGUAGE_KEY, WebConstants.LANGUAGE_NAME);
-    this.configuration = configuration;
+  @Override
+  public String getName() {
+    return name();
   }
 
   @Override
-  public String[] getFileSuffixes() {
-    return WebConfiguration.fileSuffixes(configuration);
+  public String getValue() {
+    return name();
+  }
+
+  @Override
+  public boolean hasToBeSkippedFromAst(AstNode node) {
+    return false;
   }
 
 }

@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class MaxLineLengthCheckTest {
 
@@ -32,7 +32,7 @@ public class MaxLineLengthCheckTest {
 
   @Test
   public void test() {
-    WebSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), new MaxLineLengthCheck());
+    HtmlSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), new MaxLineLengthCheck());
     checkMessagesVerifier.verify(file.getIssues())
         .next().atLine(2).withMessage("Split this 121 characters long line (which is greater than 120 authorized).")
         .next().atLine(3).withMessage("Split this 122 characters long line (which is greater than 120 authorized).");
@@ -43,7 +43,7 @@ public class MaxLineLengthCheckTest {
     MaxLineLengthCheck check = new MaxLineLengthCheck();
     check.maxLength = 40;
 
-    WebSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), check);
+    HtmlSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), check);
     checkMessagesVerifier.verify(file.getIssues())
         .next().atLine(1)
         .next().atLine(2)

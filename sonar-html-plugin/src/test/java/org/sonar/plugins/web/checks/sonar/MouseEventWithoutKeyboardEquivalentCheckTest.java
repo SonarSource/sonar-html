@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class MouseEventWithoutKeyboardEquivalentCheckTest {
 
@@ -33,7 +33,7 @@ public class MouseEventWithoutKeyboardEquivalentCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.html"), new MouseEventWithoutKeyboardEquivalentCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.html"), new MouseEventWithoutKeyboardEquivalentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a 'onKeyPress' attribute to this <a> tag.")

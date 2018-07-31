@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class InternationalizationCheckTest {
 
@@ -42,7 +42,7 @@ public class InternationalizationCheckTest {
     InternationalizationCheck check = new InternationalizationCheck();
     check.attributes = "outputLabel.value";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Define this label in the resource bundle.")
@@ -54,7 +54,7 @@ public class InternationalizationCheckTest {
     InternationalizationCheck check = new InternationalizationCheck();
     check.attributes = "";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Define this label in the resource bundle.");

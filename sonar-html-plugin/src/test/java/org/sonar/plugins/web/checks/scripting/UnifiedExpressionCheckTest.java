@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class UnifiedExpressionCheckTest {
 
@@ -42,7 +42,7 @@ public class UnifiedExpressionCheckTest {
     UnifiedExpressionCheck check = new UnifiedExpressionCheck();
     check.functions = "myMethod2,myMethod3";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Fix this expression: Unknown function \"myMethod1\".")
@@ -54,7 +54,7 @@ public class UnifiedExpressionCheckTest {
     UnifiedExpressionCheck check = new UnifiedExpressionCheck();
     check.functions = "";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(5);

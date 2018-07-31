@@ -19,7 +19,7 @@ package org.sonar.plugins.web.visitor;
 
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.Metric;
-import org.sonar.plugins.web.checks.WebIssue;
+import org.sonar.plugins.web.checks.HtmlIssue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,14 +27,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class WebSourceCode {
+public class HtmlSourceCode {
 
   private final InputFile inputFile;
   private final Map<Metric<Integer>, Integer> measures = new HashMap<>();
-  private final List<WebIssue> issues = new ArrayList<>();
+  private final List<HtmlIssue> issues = new ArrayList<>();
   private Set<Integer> detailedLinesOfCode;
 
-  public WebSourceCode(InputFile inputFile) {
+  public HtmlSourceCode(InputFile inputFile) {
     this.inputFile = inputFile;
   }
 
@@ -46,7 +46,7 @@ public class WebSourceCode {
     measures.put(metric, value);
   }
 
-  public void addIssue(WebIssue issue) {
+  public void addIssue(HtmlIssue issue) {
     this.issues.add(issue);
   }
 
@@ -58,7 +58,7 @@ public class WebSourceCode {
     return measures;
   }
 
-  public List<WebIssue> getIssues() {
+  public List<HtmlIssue> getIssues() {
     return issues;
   }
 

@@ -28,13 +28,13 @@ import static org.fest.assertions.Assertions.assertThat;
 /**
  * @author Matthijs Galesloot
  */
-public class WebPluginTest {
+public class HtmlPluginTest {
 
   @Test
   public void webPluginTester() {
     Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER));
 
-    new WebPlugin().define(context);
+    new HtmlPlugin().define(context);
     assertThat(context.getExtensions()).hasSize(5);
   }
 }
