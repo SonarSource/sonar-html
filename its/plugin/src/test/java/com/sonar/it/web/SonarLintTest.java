@@ -57,9 +57,10 @@ public class SonarLintTest {
   @BeforeClass
   public static void prepare() throws Exception {
     StandaloneGlobalConfiguration sonarLintConfig = StandaloneGlobalConfiguration.builder()
-      .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar").getFile().toURI().toURL())
+      .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar").getFile().toURI().toURL())
       .setSonarLintUserHome(temp.newFolder().toPath())
       .setLogOutput((formattedMessage, level) -> {
+        System.out.println(formattedMessage);
         /* Don't pollute logs */ })
       .build();
     sonarlintEngine = new StandaloneSonarLintEngineImpl(sonarLintConfig);
@@ -84,7 +85,7 @@ public class SonarLintTest {
     List<Issue> issues = new ArrayList<>();
     sonarlintEngine.analyze(
       new StandaloneAnalysisConfiguration(baseDir.toPath(), temp.newFolder().toPath(), Collections.singletonList(inputFile), new HashMap<>()),
-      issues::add, null, null);
+      issues::add, (s, level) -> System.out.println(s), null);
 
     assertThat(issues).extracting("ruleKey", "startLine", "inputFile.path", "severity").containsOnly(
       tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), "MAJOR"),

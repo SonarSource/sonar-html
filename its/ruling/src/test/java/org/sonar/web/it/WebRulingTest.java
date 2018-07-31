@@ -45,7 +45,7 @@ public class WebRulingTest {
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
     .setSonarVersion(Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE[6.7]"))
-    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-web-plugin/target"), "sonar-web-plugin-*.jar"))
+    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
     .addPlugin(MavenLocation.of("org.sonarsource.sonar-lits-plugin", "sonar-lits-plugin", "0.6"))
     .build();
 
@@ -62,7 +62,7 @@ public class WebRulingTest {
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
     String projectKey = "project";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "rules");
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "rules");
     SonarScanner build = SonarScanner.create()
       .setProjectDir(FileLocation.of("../sources").getFile())
       .setProjectKey(projectKey)

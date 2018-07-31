@@ -25,14 +25,14 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.sonarqube.ws.WsMeasures.Measure;
 
-import static com.sonar.it.web.WebTestSuite.createSonarScanner;
-import static com.sonar.it.web.WebTestSuite.getMeasure;
+import static com.sonar.it.web.HtmlTestSuite.createSonarScanner;
+import static com.sonar.it.web.HtmlTestSuite.getMeasure;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StandardMeasuresTest {
 
   @ClassRule
-  public static Orchestrator orchestrator = WebTestSuite.orchestrator;
+  public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
 
   private static final String PROJECT = "TestOfWebPlugin";
   private static final String DIR_ROOT = keyFor("TestOfWebPlugin", "WEB-INF/jsp");
@@ -47,7 +47,7 @@ public class StandardMeasuresTest {
     orchestrator.resetData();
     String projectKey = "TestOfWebPlugin";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "IT");
     SonarScanner build = createSonarScanner()
       .setProjectDir(new File("projects/continuum-webapp/"))
       .setProjectKey(projectKey)
@@ -129,7 +129,7 @@ public class StandardMeasuresTest {
   }
 
   private Double getProjectMeasureAsDouble(String metricKey) {
-    return WebTestSuite.getMeasureAsDouble(orchestrator, PROJECT, metricKey);
+    return HtmlTestSuite.getMeasureAsDouble(orchestrator, PROJECT, metricKey);
   }
 
   private Measure getFileMeasure(String metricKey) {
@@ -137,11 +137,11 @@ public class StandardMeasuresTest {
   }
 
   private Double getFileMeasureAsDouble(String metricKey) {
-    return WebTestSuite.getMeasureAsDouble(orchestrator, FILE, metricKey);
+    return HtmlTestSuite.getMeasureAsDouble(orchestrator, FILE, metricKey);
   }
 
   private Double getMeasureAsDouble(String metricKey, String resourceKey) {
-    return WebTestSuite.getMeasureAsDouble(orchestrator, resourceKey, metricKey);
+    return HtmlTestSuite.getMeasureAsDouble(orchestrator, resourceKey, metricKey);
   }
 
 }

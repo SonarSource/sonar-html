@@ -76,7 +76,7 @@
           <configuration>
             <argLine>-server</argLine>
             <includes>
-              <include>**/WebTestSuite.java</include>
+              <include>**/HtmlTestSuite.java</include>
             </includes>
           </configuration>
         </plugin>
