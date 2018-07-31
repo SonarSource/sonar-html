@@ -64,7 +64,7 @@ public class NoSonarScanner extends DefaultNodeVisitor {
   @Override
   public void endDocument() {
     if (noSonarLines != null && !noSonarLines.isEmpty()) {
-      noSonarFilter.noSonarInFile(getWebSourceCode().inputFile(), noSonarLines);
+      noSonarFilter.noSonarInFile(getHtmlSourceCode().inputFile(), noSonarLines);
     }
   }
 

@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class FieldsetWithoutLegendCheckTest {
 
@@ -33,7 +33,7 @@ public class FieldsetWithoutLegendCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FieldsetWithoutLegendCheck.html"), new FieldsetWithoutLegendCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FieldsetWithoutLegendCheck.html"), new FieldsetWithoutLegendCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Add a <legend> tag to this fieldset.");

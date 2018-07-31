@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class DynamicJspIncludeCheckTest {
 
@@ -32,7 +32,7 @@ public class DynamicJspIncludeCheckTest {
 
   @Test
   public void test() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DynamicJspIncludeCheck.jsp"), new DynamicJspIncludeCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DynamicJspIncludeCheck.jsp"), new DynamicJspIncludeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Use an include action instead of an include directive.");

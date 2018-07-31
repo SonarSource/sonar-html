@@ -44,13 +44,13 @@ public class NoSonarScannerTest {
   @Test
   public void scanNoSonar() {
     List<Node> nodeList = new PageLexer().parse(new StringReader("<table>\n<!-- //NOSONAR --><td>\n</table>"));
-    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", "dummy.jsp").build());
+    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", "dummy.jsp").build());
 
     NoSonarFilter noSonarFilter = spy(new NoSonarFilter());
     HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.emptyList());
     pageScanner.addVisitor(new NoSonarScanner(noSonarFilter));
 
-    pageScanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
+    pageScanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
     verify(noSonarFilter, times(1)).noSonarInFile(any(InputFile.class), isOnlyIgnoringLine2());
   }

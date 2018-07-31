@@ -29,9 +29,9 @@ import java.nio.charset.Charset;
 import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.commentRegexp;
 import static com.sonar.sslr.impl.channel.RegexpChannelBuilder.regexp;
 
-final class WebLexer {
+final class HtmlLexer {
 
-  private WebLexer() {
+  private HtmlLexer() {
   }
 
   public static Lexer create(Charset charset) {
@@ -43,10 +43,10 @@ final class WebLexer {
       .withChannel(new BomCharacterChannel())
       .withChannel(new BlackHoleChannel("\\s++"))
 
-      .withChannel(regexp(WebTokenType.DOCTYPE, "<!DOCTYPE.*>"))
+      .withChannel(regexp(HtmlTokenType.DOCTYPE, "<!DOCTYPE.*>"))
 
-      .withChannel(regexp(WebTokenType.TAG, "</?[:\\w]+>?"))
-      .withChannel(regexp(WebTokenType.TAG, "/?>"))
+      .withChannel(regexp(HtmlTokenType.TAG, "</?[:\\w]+>?"))
+      .withChannel(regexp(HtmlTokenType.TAG, "/?>"))
 
       // JSP comment
       .withChannel(commentRegexp("<%--[\\w\\W]*?%>"))
@@ -57,10 +57,10 @@ final class WebLexer {
       // CPP comment
       .withChannel(commentRegexp("//[^\n\r]*"))
 
-      .withChannel(regexp(WebTokenType.EXPRESSION, "<%[\\w\\W]*?%>"))
+      .withChannel(regexp(HtmlTokenType.EXPRESSION, "<%[\\w\\W]*?%>"))
 
-      .withChannel(regexp(WebTokenType.ATTRIBUTE, "=[\"']{1}[\\w\\W]*?[\"']{1}"))
-      .withChannel(regexp(WebTokenType.ATTRIBUTE, "=[^\\s'\"=<>`]++"))
+      .withChannel(regexp(HtmlTokenType.ATTRIBUTE, "=[\"']{1}[\\w\\W]*?[\"']{1}"))
+      .withChannel(regexp(HtmlTokenType.ATTRIBUTE, "=[^\\s'\"=<>`]++"))
 
       .withChannel(new IdentifierAndKeywordChannel("\\w++", true, new TokenType[]{}))
 

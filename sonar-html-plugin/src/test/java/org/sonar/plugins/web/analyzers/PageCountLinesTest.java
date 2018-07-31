@@ -33,7 +33,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -56,12 +56,12 @@ public class PageCountLinesTest {
 
     //  new File("test", "user-properties.jsp");
     String relativePath = "test/user-properties.jsp";
-    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
-    scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
+    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
+    scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
-    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(227);
-    assertThat(webSourceCode.getDetailedLinesOfCode().size()).isEqualTo(224);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(14);
+    assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(227);
+    assertThat(htmlSourceCode.getDetailedLinesOfCode().size()).isEqualTo(224);
+    assertThat(htmlSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(14);
   }
 
   @Test
@@ -69,12 +69,12 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.html"));
 
     String relativePath = "test/document.html";
-    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
-    scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
+    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
+    scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
-    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(8);
-    assertThat(webSourceCode.getDetailedLinesOfCode()).containsOnly(1, 2, 3, 4, 6, 7, 8, 9);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(1);
+    assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(8);
+    assertThat(htmlSourceCode.getDetailedLinesOfCode()).containsOnly(1, 2, 3, 4, 6, 7, 8, 9);
+    assertThat(htmlSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(1);
   }
 
   @Test
@@ -82,12 +82,12 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.jsp"));
 
     String relativePath = "testdocument.jsp";
-    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
-    scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
+    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
+    scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
-    assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(2);
-    assertThat(webSourceCode.getDetailedLinesOfCode()).containsOnly(1, 3);
-    assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(6);
+    assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(2);
+    assertThat(htmlSourceCode.getDetailedLinesOfCode()).containsOnly(1, 3);
+    assertThat(htmlSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(6);
   }
 
   private Reader readFile(String fileName) {

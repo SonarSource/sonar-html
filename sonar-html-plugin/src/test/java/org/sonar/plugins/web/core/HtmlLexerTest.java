@@ -29,20 +29,20 @@ import static com.sonar.sslr.test.lexer.LexerMatchers.hasToken;
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasTokens;
 import static org.junit.Assert.assertThat;
 
-public class WebLexerTest {
+public class HtmlLexerTest {
   private static Lexer lexer;
 
   @BeforeClass
   public static void init() {
-    lexer = WebLexer.create(StandardCharsets.UTF_8);
+    lexer = HtmlLexer.create(StandardCharsets.UTF_8);
   }
 
   @Test
   public void tags() throws Exception {
-    assertThat("<a>", lexer.lex("<a>"), hasToken("<a>", WebTokenType.TAG));
-    assertThat("</a>", lexer.lex("</a>"), hasToken("</a>", WebTokenType.TAG));
-    assertThat("<a href=\"uri\">", lexer.lex("<a href=\"uri\">"), hasToken("<a", WebTokenType.TAG));
-    assertThat("<img src=\"uri\" />", lexer.lex("<img src=\"uri\" />"), hasToken("<img", WebTokenType.TAG));
+    assertThat("<a>", lexer.lex("<a>"), hasToken("<a>", HtmlTokenType.TAG));
+    assertThat("</a>", lexer.lex("</a>"), hasToken("</a>", HtmlTokenType.TAG));
+    assertThat("<a href=\"uri\">", lexer.lex("<a href=\"uri\">"), hasToken("<a", HtmlTokenType.TAG));
+    assertThat("<img src=\"uri\" />", lexer.lex("<img src=\"uri\" />"), hasToken("<img", HtmlTokenType.TAG));
   }
 
   @Test
@@ -60,8 +60,8 @@ public class WebLexerTest {
 
   @Test
   public void attribute() {
-    assertThat("<a href=\"uri\">", lexer.lex("<a href=\"uri\">"), hasToken("=\"uri\"", WebTokenType.ATTRIBUTE));
-    assertThat("<a src=uri/a />", lexer.lex("<a src=uri/a />"), hasToken("=uri/a", WebTokenType.ATTRIBUTE));
+    assertThat("<a href=\"uri\">", lexer.lex("<a href=\"uri\">"), hasToken("=\"uri\"", HtmlTokenType.ATTRIBUTE));
+    assertThat("<a src=uri/a />", lexer.lex("<a src=uri/a />"), hasToken("=uri/a", HtmlTokenType.ATTRIBUTE));
   }
 
   @Test

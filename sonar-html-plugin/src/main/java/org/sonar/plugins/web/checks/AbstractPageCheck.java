@@ -97,14 +97,14 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
   }
 
   protected final void createViolation(int line, String message) {
-    getWebSourceCode().addIssue(
-      new WebIssue(ruleKey, line == 0 ? null : line, message)
+    getHtmlSourceCode().addIssue(
+      new HtmlIssue(ruleKey, line == 0 ? null : line, message)
       );
   }
 
   protected final void createViolation(int line, String message, Double cost) {
-    getWebSourceCode().addIssue(
-      new WebIssue(ruleKey, line == 0 ? null : line, message, cost)
+    getHtmlSourceCode().addIssue(
+      new HtmlIssue(ruleKey, line == 0 ? null : line, message, cost)
     );
   }
 

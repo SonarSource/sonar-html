@@ -25,7 +25,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.node.TextNode;
 import org.sonar.plugins.web.visitor.DefaultNodeVisitor;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -61,14 +61,14 @@ public class PageCountLines extends DefaultNodeVisitor {
   }
 
   private void addMeasures() {
-    WebSourceCode webSourceCode = getWebSourceCode();
+    HtmlSourceCode htmlSourceCode = getHtmlSourceCode();
 
-    webSourceCode.addMeasure(CoreMetrics.NCLOC, linesOfCode);
-    webSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
+    htmlSourceCode.addMeasure(CoreMetrics.NCLOC, linesOfCode);
+    htmlSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
 
-    webSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
+    htmlSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
 
-    LOG.debug("WebSensor: " + getWebSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + headerCommentLines + "," + blankLines);
+    LOG.debug("HtmlSensor: " + getHtmlSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + headerCommentLines + "," + blankLines);
   }
 
   private void count(List<Node> nodeList) {

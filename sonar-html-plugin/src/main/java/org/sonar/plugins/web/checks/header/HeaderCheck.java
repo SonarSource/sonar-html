@@ -68,7 +68,7 @@ public class HeaderCheck extends AbstractPageCheck {
   public void startDocument(List<Node> nodes) {
     String fileContent;
     try {
-      fileContent = getWebSourceCode().inputFile().contents();
+      fileContent = getHtmlSourceCode().inputFile().contents();
     } catch (IOException e) {
       throw new IllegalStateException(e);
     }

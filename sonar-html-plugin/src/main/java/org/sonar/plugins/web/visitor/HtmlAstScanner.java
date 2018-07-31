@@ -55,15 +55,15 @@ public class HtmlAstScanner {
   /**
    * Scan a list of Nodes and send events to the visitors.
    */
-  public void scan(List<Node> nodeList, WebSourceCode webSourceCode, Charset charset) {
-    scan(nodeList, webSourceCode, charset, metricVisitors);
-    scan(nodeList, webSourceCode, charset, checkVisitors);
+  public void scan(List<Node> nodeList, HtmlSourceCode htmlSourceCode, Charset charset) {
+    scan(nodeList, htmlSourceCode, charset, metricVisitors);
+    scan(nodeList, htmlSourceCode, charset, checkVisitors);
   }
 
-  private void scan(List<Node> nodeList, WebSourceCode webSourceCode, Charset charset, List<DefaultNodeVisitor> visitors) {
+  private void scan(List<Node> nodeList, HtmlSourceCode htmlSourceCode, Charset charset, List<DefaultNodeVisitor> visitors) {
     // prepare the visitors
     for (DefaultNodeVisitor visitor : visitors) {
-      visitor.setSourceCode(webSourceCode);
+      visitor.setSourceCode(htmlSourceCode);
 
       if (visitor instanceof CharsetAwareVisitor) {
         ((CharsetAwareVisitor) visitor).setCharset(charset);

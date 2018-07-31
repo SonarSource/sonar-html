@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class PageWithoutTitleCheckTest {
 
@@ -33,7 +33,7 @@ public class PageWithoutTitleCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutTitleCheck.html"), new PageWithoutTitleCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutTitleCheck.html"), new PageWithoutTitleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a <title> tag to this page.")

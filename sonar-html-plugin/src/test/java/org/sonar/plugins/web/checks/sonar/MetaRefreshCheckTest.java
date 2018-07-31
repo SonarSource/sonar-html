@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class MetaRefreshCheckTest {
 
@@ -33,7 +33,7 @@ public class MetaRefreshCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MetaRefreshCheck.html"), new MetaRefreshCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MetaRefreshCheck.html"), new MetaRefreshCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Remove this meta refresh tag.")

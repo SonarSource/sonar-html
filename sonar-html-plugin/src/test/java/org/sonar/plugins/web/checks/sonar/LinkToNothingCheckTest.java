@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class LinkToNothingCheckTest {
 
@@ -33,7 +33,7 @@ public class LinkToNothingCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkToNothingCheck.html"), new LinkToNothingCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkToNothingCheck.html"), new LinkToNothingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(3).withMessage("Give this link a valid reference or remove the reference.")

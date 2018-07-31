@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class InputWithoutLabelCheckTest {
 
@@ -32,7 +32,7 @@ public class InputWithoutLabelCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InputWithoutLabelCheck.html"), new InputWithoutLabelCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InputWithoutLabelCheck.html"), new InputWithoutLabelCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(6).withMessage("Associate a valid label to this input field.")

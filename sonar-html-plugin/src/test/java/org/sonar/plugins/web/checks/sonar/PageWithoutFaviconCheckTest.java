@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class PageWithoutFaviconCheckTest {
 
@@ -33,7 +33,7 @@ public class PageWithoutFaviconCheckTest {
 
   @Test
   public void detected() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutFaviconCheck.html"), new PageWithoutFaviconCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/PageWithoutFaviconCheck.html"), new PageWithoutFaviconCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(5).withMessage("Add a 'favicon' declaration in this 'header' tag.")

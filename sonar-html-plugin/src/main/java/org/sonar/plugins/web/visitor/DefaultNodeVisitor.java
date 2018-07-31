@@ -31,7 +31,7 @@ import org.sonar.plugins.web.node.TextNode;
  */
 public abstract class DefaultNodeVisitor {
 
-  private WebSourceCode webSourceCode;
+  private HtmlSourceCode htmlSourceCode;
 
   public void init() {
   }
@@ -54,12 +54,12 @@ public abstract class DefaultNodeVisitor {
   public void expression(ExpressionNode node) {
   }
 
-  public WebSourceCode getWebSourceCode() {
-    return webSourceCode;
+  public HtmlSourceCode getHtmlSourceCode() {
+    return htmlSourceCode;
   }
 
-  public void setSourceCode(WebSourceCode sourceCode) {
-    this.webSourceCode = sourceCode;
+  public void setSourceCode(HtmlSourceCode sourceCode) {
+    this.htmlSourceCode = sourceCode;
   }
 
   public void startDocument(List<Node> nodes) {

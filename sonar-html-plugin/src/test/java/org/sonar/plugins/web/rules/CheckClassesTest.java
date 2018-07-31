@@ -60,7 +60,7 @@ public class CheckClassesTest {
         .isNotNull();
     }
 
-    WebRulesDefinition rulesDefinition = new WebRulesDefinition();
+    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("Web");

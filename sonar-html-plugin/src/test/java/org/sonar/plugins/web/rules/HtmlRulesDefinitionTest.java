@@ -26,17 +26,17 @@ import org.sonar.api.server.rule.RulesDefinition;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class WebRulesDefinitionTest {
+public class HtmlRulesDefinitionTest {
 
   @Test
   public void test() {
-    WebRulesDefinition rulesDefinition = new WebRulesDefinition();
+    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("Web");
 
     assertThat(repository.name()).isEqualTo("SonarAnalyzer");
-    assertThat(repository.language()).isEqualTo("web");
+    assertThat(repository.language()).isEqualTo("html");
     assertThat(repository.rules()).hasSize(Iterables.size(CheckClasses.getCheckClasses()));
 
     RulesDefinition.Rule alertUseRule = repository.rule("IllegalAttributeCheck");

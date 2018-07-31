@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class LongJavaScriptCheckTest {
 
@@ -42,7 +42,7 @@ public class LongJavaScriptCheckTest {
     LongJavaScriptCheck check = new LongJavaScriptCheck();
     check.maxLines = 4;
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LongJavaScriptCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LongJavaScriptCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(7).withCost(2d).withMessage("The length of this JS script (6) exceeds the maximum set to 4.");

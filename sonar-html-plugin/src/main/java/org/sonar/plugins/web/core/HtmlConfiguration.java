@@ -17,28 +17,16 @@
  */
 package org.sonar.plugins.web.core;
 
-import com.sonar.sslr.api.AstNode;
-import com.sonar.sslr.api.TokenType;
+import org.sonar.api.config.Configuration;
+import org.sonar.plugins.web.api.HtmlConstants;
 
-public enum WebTokenType implements TokenType {
-  TAG,
-  EXPRESSION,
-  ATTRIBUTE,
-  DOCTYPE;
+public class HtmlConfiguration {
 
-  @Override
-  public String getName() {
-    return name();
+  private HtmlConfiguration() {
   }
 
-  @Override
-  public String getValue() {
-    return name();
-  }
-
-  @Override
-  public boolean hasToBeSkippedFromAst(AstNode node) {
-    return false;
+  public static String[] fileSuffixes(Configuration configuration) {
+    return configuration.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY);
   }
 
 }

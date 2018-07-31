@@ -15,18 +15,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.core;
+package org.sonar.plugins.web.api;
 
-import org.sonar.api.config.Configuration;
-import org.sonar.plugins.web.api.WebConstants;
+import org.junit.Test;
 
-public class WebConfiguration {
+public class HtmlConstantsTest {
 
-  private WebConfiguration() {
-  }
-
-  public static String[] fileSuffixes(Configuration configuration) {
-    return configuration.getStringArray(WebConstants.FILE_EXTENSIONS_PROP_KEY);
+  @Test(expected=IllegalAccessException.class)
+  public void create() throws Exception {
+    HtmlConstants.class.newInstance();
   }
 
 }

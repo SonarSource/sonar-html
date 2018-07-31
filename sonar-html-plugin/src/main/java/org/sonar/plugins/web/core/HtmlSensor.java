@@ -40,36 +40,36 @@ import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
 import org.sonar.plugins.web.analyzers.ComplexityVisitor;
 import org.sonar.plugins.web.analyzers.PageCountLines;
-import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.api.HtmlConstants;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.checks.WebIssue;
+import org.sonar.plugins.web.checks.HtmlIssue;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.rules.CheckClasses;
-import org.sonar.plugins.web.rules.WebRulesDefinition;
+import org.sonar.plugins.web.rules.HtmlRulesDefinition;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.NoSonarScanner;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
-public final class WebSensor implements Sensor {
+public final class HtmlSensor implements Sensor {
 
-  private static final Logger LOG = LoggerFactory.getLogger(WebSensor.class);
+  private static final Logger LOG = LoggerFactory.getLogger(HtmlSensor.class);
 
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
 
-  public WebSensor(NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory, CheckFactory checkFactory) {
+  public HtmlSensor(NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory, CheckFactory checkFactory) {
     this.noSonarFilter = noSonarFilter;
-    this.checks = checkFactory.create(WebRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks((Iterable) CheckClasses.getCheckClasses());
+    this.checks = checkFactory.create(HtmlRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks((Iterable) CheckClasses.getCheckClasses());
     this.fileLinesContextFactory = fileLinesContextFactory;
   }
 
   @Override
   public void describe(SensorDescriptor descriptor) {
     descriptor
-      .name(WebConstants.LANGUAGE_NAME)
+      .name(HtmlConstants.LANGUAGE_NAME)
       .onlyOnFileType(InputFile.Type.MAIN)
-      .onlyOnLanguage(WebConstants.LANGUAGE_KEY);
+      .onlyOnLanguage(HtmlConstants.LANGUAGE_KEY);
   }
 
   @Override
@@ -86,11 +86,11 @@ public final class WebSensor implements Sensor {
     Iterable<InputFile> inputFiles = fileSystem.inputFiles(
       predicates.and(
         predicates.hasType(InputFile.Type.MAIN),
-        predicates.hasLanguage(WebConstants.LANGUAGE_KEY))
+        predicates.hasLanguage(HtmlConstants.LANGUAGE_KEY))
     );
 
     for (InputFile inputFile : inputFiles) {
-      WebSourceCode sourceCode = new WebSourceCode(inputFile);
+      HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
 
       try (Reader reader = new StringReader(inputFile.contents())) {
         scanner.scan(lexer.parse(reader), sourceCode, fileSystem.encoding());
@@ -103,7 +103,7 @@ public final class WebSensor implements Sensor {
     }
   }
 
-  private static void saveMetrics(SensorContext context, WebSourceCode sourceCode) {
+  private static void saveMetrics(SensorContext context, HtmlSourceCode sourceCode) {
     InputFile inputFile = sourceCode.inputFile();
 
     for (Map.Entry<Metric<Integer>, Integer> entry : sourceCode.getMeasures().entrySet()) {
@@ -114,7 +114,7 @@ public final class WebSensor implements Sensor {
         .save();
     }
 
-    for (WebIssue issue : sourceCode.getIssues()) {
+    for (HtmlIssue issue : sourceCode.getIssues()) {
       NewIssue newIssue = context.newIssue()
         .forRule(issue.ruleKey())
         .gap(issue.cost());
@@ -130,10 +130,10 @@ public final class WebSensor implements Sensor {
     }
   }
 
-  private void saveLineLevelMeasures(InputFile inputFile, WebSourceCode webSourceCode) {
+  private void saveLineLevelMeasures(InputFile inputFile, HtmlSourceCode htmlSourceCode) {
     FileLinesContext fileLinesContext = fileLinesContextFactory.createFor(inputFile);
 
-    for (Integer line : webSourceCode.getDetailedLinesOfCode()) {
+    for (Integer line : htmlSourceCode.getDetailedLinesOfCode()) {
       fileLinesContext.setIntValue(CoreMetrics.NCLOC_DATA_KEY, line, 1);
     }
 
@@ -145,7 +145,7 @@ public final class WebSensor implements Sensor {
    */
   private HtmlAstScanner setupScanner(SensorContext context) {
     HtmlAstScanner scanner = new HtmlAstScanner(ImmutableList.of(
-      new WebTokensVisitor(context),
+      new HtmlTokensVisitor(context),
       new PageCountLines(),
       new ComplexityVisitor(),
       new NoSonarScanner(noSonarFilter)));

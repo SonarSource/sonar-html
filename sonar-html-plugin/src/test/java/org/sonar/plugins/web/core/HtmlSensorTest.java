@@ -42,37 +42,37 @@ import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.plugins.web.api.WebConstants;
-import org.sonar.plugins.web.rules.WebRulesDefinition;
+import org.sonar.plugins.web.api.HtmlConstants;
+import org.sonar.plugins.web.rules.HtmlRulesDefinition;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class WebSensorTest {
+public class HtmlSensorTest {
 
   private static final File TEST_DIR = new File("src/test/resources/src/main/webapp");
 
-  private WebSensor sensor;
+  private HtmlSensor sensor;
   private SensorContextTester tester;
 
   @Before
   public void setUp() throws Exception {
-    WebRulesDefinition rulesDefinition = new WebRulesDefinition();
+    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
-    RulesDefinition.Repository repository = context.repository(WebRulesDefinition.REPOSITORY_KEY);
+    RulesDefinition.Repository repository = context.repository(HtmlRulesDefinition.REPOSITORY_KEY);
 
     List<NewActiveRule> ar = new ArrayList<>();
     for (RulesDefinition.Rule rule : repository.rules()) {
-      ar.add(new ActiveRulesBuilder().create(RuleKey.of(WebRulesDefinition.REPOSITORY_KEY, rule.key())));
+      ar.add(new ActiveRulesBuilder().create(RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, rule.key())));
     }
     ActiveRules activeRules = new DefaultActiveRules(ar);
 
     CheckFactory checkFactory = new CheckFactory(activeRules);
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
-    sensor = new WebSensor(new NoSonarFilter(), fileLinesContextFactory, checkFactory);
+    sensor = new HtmlSensor(new NoSonarFilter(), fileLinesContextFactory, checkFactory);
     tester = SensorContextTester.create(TEST_DIR);
   }
 
@@ -84,7 +84,7 @@ public class WebSensorTest {
   public void testSensor() throws Exception {
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
       .setModuleBaseDir(TEST_DIR.toPath())
-      .setLanguage(WebConstants.LANGUAGE_KEY)
+      .setLanguage(HtmlConstants.LANGUAGE_KEY)
       .setType(InputFile.Type.MAIN)
       .initMetadata(Files.toString(new File(TEST_DIR, "user-properties.jsp"), StandardCharsets.UTF_8))
       .setCharset(StandardCharsets.UTF_8)
@@ -114,7 +114,7 @@ public class WebSensorTest {
   public void testDescriptor() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
-    assertThat(descriptor.name()).isEqualTo("Web");
-    assertThat(descriptor.languages()).containsOnly("web");
+    assertThat(descriptor.name()).isEqualTo("HTML");
+    assertThat(descriptor.languages()).containsOnly("html");
   }
 }

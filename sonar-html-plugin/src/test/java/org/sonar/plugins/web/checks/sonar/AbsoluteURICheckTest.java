@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class AbsoluteURICheckTest {
 
@@ -32,7 +32,7 @@ public class AbsoluteURICheckTest {
 
   @Test
   public void detected() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/absoluteURICheck.html"), new AbsoluteURICheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/absoluteURICheck.html"), new AbsoluteURICheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Replace this absolute URI \"href\" with a relative one, or move this absolute URI to a configuration file.")
@@ -47,7 +47,7 @@ public class AbsoluteURICheckTest {
     AbsoluteURICheck check = new AbsoluteURICheck();
     check.attributes = "img.src";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/absoluteURICheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/absoluteURICheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(7).withMessage("Replace this absolute URI \"src\" with a relative one, or move this absolute URI to a configuration file.")

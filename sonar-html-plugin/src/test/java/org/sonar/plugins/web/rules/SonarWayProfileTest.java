@@ -25,7 +25,7 @@ import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInQualityProfile;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
 import org.sonar.api.utils.Version;
-import org.sonar.plugins.web.api.WebConstants;
+import org.sonar.plugins.web.api.HtmlConstants;
 
 public class SonarWayProfileTest {
 
@@ -35,9 +35,9 @@ public class SonarWayProfileTest {
     SonarWayProfile definition = new SonarWayProfile(sonarRuntime);
     Context context = new Context();
     definition.define(context);
-    BuiltInQualityProfile profile = context.profile("web", "Sonar way");
+    BuiltInQualityProfile profile = context.profile("html", "Sonar way");
     Assertions.assertThat(profile.name()).isEqualTo("Sonar way");
-    Assertions.assertThat(profile.language()).isEqualTo(WebConstants.LANGUAGE_KEY);
+    Assertions.assertThat(profile.language()).isEqualTo(HtmlConstants.LANGUAGE_KEY);
     Assertions.assertThat(profile.rules().size()).isGreaterThan(10);
   }
 

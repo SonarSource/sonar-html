@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class LinkToImageCheckTest {
 
@@ -33,7 +33,7 @@ public class LinkToImageCheckTest {
 
   @Test
   public void test() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkToImageCheck.html"), new LinkToImageCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkToImageCheck.html"), new LinkToImageCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(3).withMessage("Change this link to not directly target an image.")

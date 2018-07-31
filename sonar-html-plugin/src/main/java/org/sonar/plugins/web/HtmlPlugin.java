@@ -21,36 +21,36 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
-import org.sonar.plugins.web.api.WebConstants;
-import org.sonar.plugins.web.core.Web;
-import org.sonar.plugins.web.core.WebSensor;
+import org.sonar.plugins.web.api.HtmlConstants;
+import org.sonar.plugins.web.core.Html;
+import org.sonar.plugins.web.core.HtmlSensor;
 import org.sonar.plugins.web.rules.SonarWayProfile;
-import org.sonar.plugins.web.rules.WebRulesDefinition;
+import org.sonar.plugins.web.rules.HtmlRulesDefinition;
 
 /**
- * Web Plugin publishes extensions to sonar engine.
+ * HTML Plugin publishes extensions to sonar engine.
  *
  * @author Matthijs Galesloot
  * @since 1.0
  */
-public final class WebPlugin implements Plugin {
+public final class HtmlPlugin implements Plugin {
 
-  private static final String CATEGORY = "Web";
+  private static final String CATEGORY = "HTML";
 
   @Override
   public void define(Context context) {
     context.addExtensions(
       // web language
-      Web.class,
+      Html.class,
 
       // web rules repository
-      WebRulesDefinition.class,
+      HtmlRulesDefinition.class,
 
       // profiles
       SonarWayProfile.class,
 
       // web sensor
-      WebSensor.class
+      HtmlSensor.class
     );
 
     context.addExtensions(pluginProperties());
@@ -59,11 +59,11 @@ public final class WebPlugin implements Plugin {
   private static ImmutableList<PropertyDefinition> pluginProperties() {
     return ImmutableList.of(
 
-      PropertyDefinition.builder(WebConstants.FILE_EXTENSIONS_PROP_KEY)
+      PropertyDefinition.builder(HtmlConstants.FILE_EXTENSIONS_PROP_KEY)
         .name("File suffixes")
         .description("List of file suffixes that will be scanned.")
         .category(CATEGORY)
-        .defaultValue(WebConstants.FILE_EXTENSIONS_DEF_VALUE)
+        .defaultValue(HtmlConstants.FILE_EXTENSIONS_DEF_VALUE)
         .onQualifiers(Qualifiers.PROJECT)
         .build()
     );

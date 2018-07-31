@@ -40,7 +40,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    List<String> lines = readLines(getWebSourceCode().inputFile());
+    List<String> lines = readLines(getHtmlSourceCode().inputFile());
 
     for (int i = 0; i < lines.size(); i++) {
       int length = lines.get(i).length();

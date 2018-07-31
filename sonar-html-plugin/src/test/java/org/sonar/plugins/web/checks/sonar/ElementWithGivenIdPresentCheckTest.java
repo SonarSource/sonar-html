@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class ElementWithGivenIdPresentCheckTest {
 
@@ -32,7 +32,7 @@ public class ElementWithGivenIdPresentCheckTest {
 
   @Test
   public void test() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ok.html"), new ElementWithGivenIdPresentCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ok.html"), new ElementWithGivenIdPresentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
@@ -42,7 +42,7 @@ public class ElementWithGivenIdPresentCheckTest {
     ElementWithGivenIdPresentCheck check = new ElementWithGivenIdPresentCheck();
     check.id = "gotit";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ko.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ko.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().withMessage("The ID \"gotit\" is missing from this page and should be added.");
@@ -53,7 +53,7 @@ public class ElementWithGivenIdPresentCheckTest {
     ElementWithGivenIdPresentCheck check = new ElementWithGivenIdPresentCheck();
     check.id = "gotit";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ok.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ok.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }

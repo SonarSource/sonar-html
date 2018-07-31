@@ -26,7 +26,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class LibraryDependencyCheckTest {
 
@@ -45,7 +45,7 @@ public class LibraryDependencyCheckTest {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Remove the usage of this library which is not allowed.");
@@ -57,7 +57,7 @@ public class LibraryDependencyCheckTest {
     check.libraries = "java.sql";
     check.message = "Foo.";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalFullyQualifiedIdentifier.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Foo.");
@@ -68,7 +68,7 @@ public class LibraryDependencyCheckTest {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalImport.jsp"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/IllegalImport.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(2).withMessage("Remove the usage of this library which is not allowed.");
@@ -79,7 +79,7 @@ public class LibraryDependencyCheckTest {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/LegalFullyQualifiedIdentifierAndImport.jsp"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/LegalFullyQualifiedIdentifierAndImport.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
@@ -89,7 +89,7 @@ public class LibraryDependencyCheckTest {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/HtmlPage.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LibraryDependencyCheck/HtmlPage.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }

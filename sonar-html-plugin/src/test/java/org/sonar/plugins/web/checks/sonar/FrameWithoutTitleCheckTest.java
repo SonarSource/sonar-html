@@ -24,7 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class FrameWithoutTitleCheckTest {
 
@@ -33,7 +33,7 @@ public class FrameWithoutTitleCheckTest {
 
   @Test
   public void test() throws Exception {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FrameWithoutTitleCheck.html"), new FrameWithoutTitleCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FrameWithoutTitleCheck.html"), new FrameWithoutTitleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a \"title\" attribute to this <iframe> tag.")

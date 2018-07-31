@@ -30,7 +30,7 @@ public class IllegalTabCheck extends AbstractPageCheck {
   public void startDocument(List<Node> nodes) {
     String content;
     try {
-      content = getWebSourceCode().inputFile().contents();
+      content = getHtmlSourceCode().inputFile().contents();
     } catch (IOException e) {
       throw new IllegalStateException(e);
     }

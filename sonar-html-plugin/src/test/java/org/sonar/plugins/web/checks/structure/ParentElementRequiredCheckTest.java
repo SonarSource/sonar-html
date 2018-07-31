@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class ParentElementRequiredCheckTest {
 
@@ -45,7 +45,7 @@ public class ParentElementRequiredCheckTest {
     check.child = "bar";
     check.parent = "foo";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ParentElementRequiredCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ParentElementRequiredCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(6).withMessage("Add the missing \"foo\" parent element for \"bar\" element.")

@@ -44,7 +44,7 @@ public class CheckMessagesVerifierRule extends Verifier {
 
   private final List<CheckMessagesVerifier> verifiers = Lists.newArrayList();
 
-  public CheckMessagesVerifier verify(Collection<WebIssue> messages) {
+  public CheckMessagesVerifier verify(Collection<HtmlIssue> messages) {
     CheckMessagesVerifier verifier = CheckMessagesVerifier.verify(messages);
     verifiers.add(verifier);
     return verifier;

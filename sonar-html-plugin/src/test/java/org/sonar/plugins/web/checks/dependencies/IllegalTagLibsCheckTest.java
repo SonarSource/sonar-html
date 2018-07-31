@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.web.visitor.HtmlSourceCode;
 
 public class IllegalTagLibsCheckTest {
 
@@ -32,7 +32,7 @@ public class IllegalTagLibsCheckTest {
 
   @Test
   public void test() {
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/illegalTagLibsCheck.jsp"), new IllegalTagLibsCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/illegalTagLibsCheck.jsp"), new IllegalTagLibsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Remove the use of \"http://java.sun.com/jstl/sql\".")

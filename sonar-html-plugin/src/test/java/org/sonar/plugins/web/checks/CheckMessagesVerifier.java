@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  *   .next().atLine(2).withMessage("bar")
  *   .noMore();
  * }</pre>
- * Strictly speaking this is just a wrapper over collection of {@link WebIssue}
+ * Strictly speaking this is just a wrapper over collection of {@link HtmlIssue}
  * which guarantees order of traversal.
  *
  * @see CheckMessagesVerifierRule
@@ -41,14 +41,14 @@ import javax.annotation.Nullable;
  */
 public final class CheckMessagesVerifier {
 
-  public static CheckMessagesVerifier verify(Collection<WebIssue> messages) {
+  public static CheckMessagesVerifier verify(Collection<HtmlIssue> messages) {
     return new CheckMessagesVerifier(messages);
   }
 
-  private final Iterator<WebIssue> iterator;
-  private WebIssue current;
+  private final Iterator<HtmlIssue> iterator;
+  private HtmlIssue current;
 
-  private static final Comparator<WebIssue> ORDERING = (left, right) -> {
+  private static final Comparator<HtmlIssue> ORDERING = (left, right) -> {
     if (Objects.equal(left.line(), right.line())) {
       return left.message().compareTo(right.message());
     } else if (left.line() == null) {
@@ -60,7 +60,7 @@ public final class CheckMessagesVerifier {
     }
   };
 
-  private CheckMessagesVerifier(Collection<WebIssue> messages) {
+  private CheckMessagesVerifier(Collection<HtmlIssue> messages) {
     iterator = Ordering.from(ORDERING).sortedCopy(messages).iterator();
   }
 
@@ -74,7 +74,7 @@ public final class CheckMessagesVerifier {
 
   public void noMore() {
     if (iterator.hasNext()) {
-      WebIssue next = iterator.next();
+      HtmlIssue next = iterator.next();
       throw new AssertionError("\nNo more violations expected\ngot: at line " + next.line());
     }
   }
