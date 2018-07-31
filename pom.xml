@@ -8,8 +8,8 @@
     <version>44</version>
   </parent>
 
-  <groupId>org.sonarsource.web</groupId>
-  <artifactId>web</artifactId>
+  <groupId>org.sonarsource.html</groupId>
+  <artifactId>html</artifactId>
   <version>2.7-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -40,7 +40,7 @@
   </developers>
 
   <modules>
-    <module>sonar-web-plugin</module>
+    <module>sonar-html-plugin</module>
   </modules>
 
   <scm>
@@ -66,7 +66,7 @@
     <sslr.version>1.22</sslr.version>
     <assertj.version>3.5.2</assertj.version>
 
-    <artifactsToPublish>${project.groupId}:sonar-web-plugin:jar</artifactsToPublish>
+    <artifactsToPublish>${project.groupId}:sonar-html-plugin:jar</artifactsToPublish>
   </properties>
 
   <profiles>
