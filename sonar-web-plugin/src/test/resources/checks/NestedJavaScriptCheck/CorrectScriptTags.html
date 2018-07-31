@@ -1,0 +1,19 @@
+<script type="text/javascript">
+  function foo() {
+    alert('Hi!');
+  }
+</script>
+
+<script type="text/template">
+  <div>This is a template</div>
+</script>
+
+<script type="text/template">
+  var scriptTag = document.createElement('script');
+  scriptTag.setAttribute('type', 'text/javascript');
+  document.head.appendChild(scriptTag);
+</script>
+
+<script type="text/template">
+  document.write('<script type="text/javascript">alert('Hi!');<\/script>');
+</script>
