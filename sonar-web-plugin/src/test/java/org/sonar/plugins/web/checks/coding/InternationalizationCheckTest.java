@@ -29,35 +29,65 @@ import org.sonar.plugins.web.visitor.WebSourceCode;
 
 public class InternationalizationCheckTest {
 
-  @Rule
-  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+	private static final String TEST_FILE_LOCATION = "src/test/resources/checks/InternationalizationCheck.html";
+	private static final String EXPECTED_ERROR_MESSAGE = "Define this label in the resource bundle.";
+	@Rule
+	public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-  @Test
-  public void detected() {
-    assertThat(new InternationalizationCheck().attributes).isEqualTo("outputLabel.value, outputText.value");
-  }
+	@Test
+	public void detected() {
+		assertThat(new InternationalizationCheck().attributes).isEqualTo("outputLabel.value, outputText.value");
+	}
 
-  @Test
-  public void custom() {
-    InternationalizationCheck check = new InternationalizationCheck();
-    check.attributes = "outputLabel.value";
+	@Test
+	public void custom() {
+		InternationalizationCheck check = new InternationalizationCheck();
+		check.attributes = "outputLabel.value";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
+		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("Define this label in the resource bundle.")
-      .next().atLine(2).withMessage("Define this label in the resource bundle.");
-  }
+		this.checkMessagesVerifier.verify(sourceCode.getIssues())
+				.next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(2).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(9).withMessage(EXPECTED_ERROR_MESSAGE)
+				.next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
+	}
 
-  @Test
-  public void custom2() {
-    InternationalizationCheck check = new InternationalizationCheck();
-    check.attributes = "";
+	@Test
+	public void custom2() {
+		InternationalizationCheck check = new InternationalizationCheck();
+		check.attributes = "";
 
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
+		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
 
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("Define this label in the resource bundle.");
-  }
+		this.checkMessagesVerifier.verify(sourceCode.getIssues())
+			.next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
+			.next().atLine(8).withMessage(EXPECTED_ERROR_MESSAGE)
+			.next().atLine(11).withMessage(EXPECTED_ERROR_MESSAGE);
+	}
+
+	@Test
+	public void regexIgnore1() {
+		InternationalizationCheck check = new InternationalizationCheck();
+		check.attributes = "outputLabel.value";
+		check.ignoredContentRegex = ".*cDe.*";
+		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
+
+		this.checkMessagesVerifier.verify(sourceCode.getIssues())
+			.next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE)
+			.next().atLine(2).withMessage(EXPECTED_ERROR_MESSAGE);
+	}
+
+	@Test
+	public void regexIgnore2() {
+		InternationalizationCheck check = new InternationalizationCheck();
+		check.attributes = "";
+		check.ignoredContentRegex = ".*cDe.*";
+
+		WebSourceCode sourceCode = TestHelper.scan(new File(TEST_FILE_LOCATION), check);
+
+		this.checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage(EXPECTED_ERROR_MESSAGE);
+	}
 
 }
