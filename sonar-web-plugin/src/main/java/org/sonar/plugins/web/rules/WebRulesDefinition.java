@@ -38,14 +38,15 @@ public final class WebRulesDefinition implements RulesDefinition {
     "ParentElementIllegalCheck",
     "ParentElementRequiredCheck").collect(Collectors.toSet()));
 
+  public static final String RESOURCE_BASE_PATH = "org/sonar/l10n/web/rules/Web";
+
   @Override
   public void define(Context context) {
     NewRepository repository = context
       .createRepository(REPOSITORY_KEY, WebConstants.LANGUAGE_KEY)
       .setName(REPOSITORY_NAME);
 
-    // FIXME: with SonarQube 6.7, should use the sonar way profile location as extra parameter
-    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader("org/sonar/l10n/web/rules/Web");
+    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, SonarWayProfile.JSON_PROFILE_PATH);
 
     ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckClasses.getCheckClasses());
 

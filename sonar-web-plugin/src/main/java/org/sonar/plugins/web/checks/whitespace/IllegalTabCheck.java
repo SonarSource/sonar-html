@@ -17,36 +17,26 @@
  */
 package org.sonar.plugins.web.checks.whitespace;
 
-import com.google.common.io.Files;
+import java.io.IOException;
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.Node;
-import org.sonar.plugins.web.visitor.CharsetAwareVisitor;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.List;
 
 @Rule(key = "IllegalTabCheck")
-public class IllegalTabCheck extends AbstractPageCheck implements CharsetAwareVisitor {
-
-  private Charset charset;
-
-  @Override
-  public void setCharset(Charset charset) {
-    this.charset = charset;
-  }
+public class IllegalTabCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    List<String> lines;
+    String content;
     try {
-      lines = Files.readLines(getWebSourceCode().inputFile().file(), charset);
+      content = getWebSourceCode().inputFile().contents();
     } catch (IOException e) {
       throw new IllegalStateException(e);
     }
-    for (int i = 0; i < lines.size(); i++) {
-      if (lines.get(i).contains("\t")) {
+    String[] lines = content.split("\\r?\\n");
+    for (int i = 0; i < lines.length; i++) {
+      if (lines[i].contains("\t")) {
         createViolation(i + 1, "Replace all tab characters in this file by sequences of white-spaces.");
         break;
       }

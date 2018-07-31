@@ -17,22 +17,22 @@
  */
 package org.sonar.plugins.web.core;
 
-import org.sonar.api.config.Settings;
+import org.sonar.api.config.Configuration;
 import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.web.api.WebConstants;
 
 public class Web extends AbstractLanguage {
 
-  private Settings settings;
+  private Configuration configuration;
 
-  public Web(Settings settings) {
+  public Web(Configuration configuration) {
     super(WebConstants.LANGUAGE_KEY, WebConstants.LANGUAGE_NAME);
-    this.settings = settings;
+    this.configuration = configuration;
   }
 
   @Override
   public String[] getFileSuffixes() {
-    return WebConfiguration.fileSuffixes(settings);
+    return WebConfiguration.fileSuffixes(configuration);
   }
 
 }

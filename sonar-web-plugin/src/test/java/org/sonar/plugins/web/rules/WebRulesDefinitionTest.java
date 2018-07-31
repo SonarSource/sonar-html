@@ -18,6 +18,7 @@
 package org.sonar.plugins.web.rules;
 
 import com.google.common.collect.Iterables;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.Test;
@@ -59,5 +60,9 @@ public class WebRulesDefinitionTest {
         assertThat(param.description()).as("description for " + param.key()).isNotEmpty();
       }
     }
+
+    List<RulesDefinition.Rule> activated = repository.rules().stream().filter(RulesDefinition.Rule::activatedByDefault).collect(Collectors.toList());
+    assertThat(activated).isNotEmpty();
+    assertThat(activated.size()).isLessThan(CheckClasses.getCheckClasses().size());
   }
 }

@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.web.api.WebConstants;
 import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.web.checks.TestHelper;
@@ -140,7 +140,11 @@ public class HeaderCheckTest {
     }
 
     WebSourceCode result = new WebSourceCode(
-      new DefaultInputFile("key", /* wrong path */ ".").setLanguage(WebConstants.LANGUAGE_KEY).setType(InputFile.Type.MAIN).setModuleBaseDir(new File(".").toPath())
+      new TestInputFileBuilder("key", /* wrong path */ ".")
+        .setLanguage(WebConstants.LANGUAGE_KEY)
+        .setType(InputFile.Type.MAIN)
+        .setModuleBaseDir(new File(".").toPath())
+        .build()
     );
 
     walker.scan(

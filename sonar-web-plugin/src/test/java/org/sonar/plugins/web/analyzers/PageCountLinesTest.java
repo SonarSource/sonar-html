@@ -18,21 +18,22 @@
 package org.sonar.plugins.web.analyzers;
 
 import com.google.common.base.Charsets;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
+import org.sonar.api.internal.google.common.io.Files;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.web.lex.PageLexer;
 import org.sonar.plugins.web.node.Node;
 import org.sonar.plugins.web.visitor.HtmlAstScanner;
 import org.sonar.plugins.web.visitor.WebSourceCode;
-import org.sonar.test.TestUtils;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Collections;
-import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -49,14 +50,13 @@ public class PageCountLinesTest {
   }
 
   @Test
-  public void testCountLines() throws FileNotFoundException {
-    java.io.File file = TestUtils.getResource("src/main/webapp/user-properties.jsp");
-    List<Node> nodeList = lexer.parse(new FileReader(file));
+  public void testCountLines() {
+    List<Node> nodeList = lexer.parse(readFile("src/main/webapp/user-properties.jsp"));
     assertThat(nodeList.size()).isGreaterThan(100);
 
     //  new File("test", "user-properties.jsp");
     String relativePath = "test/user-properties.jsp";
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", relativePath).setModuleBaseDir(new File(".").toPath()));
+    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(227);
@@ -66,11 +66,11 @@ public class PageCountLinesTest {
   }
 
   @Test
-  public void testCountLinesHtmlFile() throws FileNotFoundException {
-    List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("checks/AvoidHtmlCommentCheck/document.html")));
+  public void testCountLinesHtmlFile() {
+    List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.html"));
 
     String relativePath = "test/document.html";
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", relativePath).setModuleBaseDir(new File(".").toPath()));
+    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(8);
@@ -80,11 +80,11 @@ public class PageCountLinesTest {
   }
 
   @Test
-  public void testCountLinesJspFile() throws FileNotFoundException {
-    List<Node> nodeList = lexer.parse(new FileReader(TestUtils.getResource("checks/AvoidHtmlCommentCheck/document.jsp")));
+  public void testCountLinesJspFile() {
+    List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.jsp"));
 
     String relativePath = "testdocument.jsp";
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", relativePath).setModuleBaseDir(new File(".").toPath()));
+    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
     scanner.scan(nodeList, webSourceCode, Charsets.UTF_8);
 
     assertThat(webSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(2);
@@ -92,5 +92,16 @@ public class PageCountLinesTest {
     assertThat(webSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(6);
     assertThat(webSourceCode.getDetailedLinesOfComments()).containsOnly(2, 4, 6, 7, 8, 10);
   }
+
+  private Reader readFile(String fileName) {
+    File root = new File("src/test/resources");
+    File file = new File(root, fileName);
+    try {
+      return new StringReader(Files.toString(file, StandardCharsets.UTF_8));
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Cannot read " + fileName, e);
+    }
+  }
+
 
 }

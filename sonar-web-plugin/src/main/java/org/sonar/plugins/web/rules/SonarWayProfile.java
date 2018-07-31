@@ -17,32 +17,33 @@
  */
 package org.sonar.plugins.web.rules;
 
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.RuleFinder;
-import org.sonar.api.utils.ValidationMessages;
+import org.sonar.api.SonarRuntime;
+import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.plugins.web.api.WebConstants;
-import org.sonarsource.analyzer.commons.ProfileDefinitionReader;
+import org.sonarsource.analyzer.commons.BuiltInQualityProfileJsonLoader;
+
+import static org.sonar.plugins.web.rules.WebRulesDefinition.REPOSITORY_KEY;
+import static org.sonar.plugins.web.rules.WebRulesDefinition.RESOURCE_BASE_PATH;
 
 /**
  * Sonar way profile for the Web language
  */
-public final class SonarWayProfile extends ProfileDefinition {
+public final class SonarWayProfile implements BuiltInQualityProfilesDefinition {
 
   private static final String NAME = "Sonar way";
+  public static final String JSON_PROFILE_PATH = RESOURCE_BASE_PATH + "/Sonar_way_profile.json";
 
-  private final RuleFinder ruleFinder;
+  private final SonarRuntime sonarRuntime;
 
-  public SonarWayProfile(RuleFinder ruleFinder) {
-    this.ruleFinder = ruleFinder;
+  public SonarWayProfile(SonarRuntime sonarRuntime) {
+    this.sonarRuntime = sonarRuntime;
   }
 
   @Override
-  public RulesProfile createProfile(ValidationMessages messages) {
-    RulesProfile profile = RulesProfile.create(NAME, WebConstants.LANGUAGE_KEY);
-    ProfileDefinitionReader definitionReader = new ProfileDefinitionReader(ruleFinder);
-    definitionReader.activateRules(profile, WebRulesDefinition.REPOSITORY_KEY, "org/sonar/l10n/web/rules/Web/Sonar_way_profile.json");
-    return profile;
+  public void define(Context context) {
+    NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(NAME, WebConstants.LANGUAGE_KEY);
+    BuiltInQualityProfileJsonLoader.load(profile, REPOSITORY_KEY, JSON_PROFILE_PATH, RESOURCE_BASE_PATH, sonarRuntime);
+    profile.done();
   }
 
 }

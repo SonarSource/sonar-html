@@ -18,18 +18,17 @@
 package org.sonar.plugins.web.visitor;
 
 import com.google.common.base.Charsets;
-import org.junit.Test;
-import org.mockito.ArgumentMatcher;
-import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.fs.internal.DefaultInputFile;
-import org.sonar.api.issue.NoSonarFilter;
-import org.sonar.plugins.web.lex.PageLexer;
-import org.sonar.plugins.web.node.Node;
-
 import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import org.junit.Test;
+import org.mockito.ArgumentMatcher;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
+import org.sonar.api.issue.NoSonarFilter;
+import org.sonar.plugins.web.lex.PageLexer;
+import org.sonar.plugins.web.node.Node;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
@@ -45,7 +44,7 @@ public class NoSonarScannerTest {
   @Test
   public void scanNoSonar() {
     List<Node> nodeList = new PageLexer().parse(new StringReader("<table>\n<!-- //NOSONAR --><td>\n</table>"));
-    WebSourceCode webSourceCode = new WebSourceCode(new DefaultInputFile("key", "dummy.jsp"));
+    WebSourceCode webSourceCode = new WebSourceCode(new TestInputFileBuilder("key", "dummy.jsp").build());
 
     NoSonarFilter noSonarFilter = spy(new NoSonarFilter());
     HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.emptyList());

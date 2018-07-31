@@ -19,41 +19,26 @@ package org.sonar.plugins.web.rules;
 
 import org.fest.assertions.Assertions;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.rules.Rule;
-import org.sonar.api.rules.RuleFinder;
-import org.sonar.api.utils.ValidationMessages;
+import org.sonar.api.SonarQubeSide;
+import org.sonar.api.SonarRuntime;
+import org.sonar.api.internal.SonarRuntimeImpl;
+import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInQualityProfile;
+import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
+import org.sonar.api.utils.Version;
 import org.sonar.plugins.web.api.WebConstants;
-
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SonarWayProfileTest {
 
   @Test
   public void test() {
-    ValidationMessages validationMessages = ValidationMessages.create();
-    RulesProfile profile = new SonarWayProfile(ruleFinder()).createProfile(validationMessages);
-
-    Assertions.assertThat(profile.getName()).isEqualTo("Sonar way");
-    Assertions.assertThat(profile.getLanguage()).isEqualTo(WebConstants.LANGUAGE_KEY);
-    Assertions.assertThat(profile.getActiveRules()).onProperty("repositoryKey").containsOnly(WebRulesDefinition.REPOSITORY_KEY);
-    Assertions.assertThat(profile.getActiveRules().size()).isGreaterThan(10);
-    assertThat(validationMessages.hasErrors(), is(false));
+    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(7, 3), SonarQubeSide.SERVER);
+    SonarWayProfile definition = new SonarWayProfile(sonarRuntime);
+    Context context = new Context();
+    definition.define(context);
+    BuiltInQualityProfile profile = context.profile("web", "Sonar way");
+    Assertions.assertThat(profile.name()).isEqualTo("Sonar way");
+    Assertions.assertThat(profile.language()).isEqualTo(WebConstants.LANGUAGE_KEY);
+    Assertions.assertThat(profile.rules().size()).isGreaterThan(10);
   }
 
-  static RuleFinder ruleFinder() {
-    return when(mock(RuleFinder.class).findByKey(anyString(), anyString())).thenAnswer(new Answer<Rule>() {
-      @Override
-      public Rule answer(InvocationOnMock invocation) {
-        Object[] arguments = invocation.getArguments();
-        return Rule.create((String) arguments[0], (String) arguments[1], (String) arguments[1]);
-      }
-    }).getMock();
-  }
 }
