@@ -58,7 +58,6 @@ import org.sonar.plugins.web.checks.sonar.MouseEventWithoutKeyboardEquivalentChe
 import org.sonar.plugins.web.checks.sonar.NonConsecutiveHeadingCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutFaviconCheck;
 import org.sonar.plugins.web.checks.sonar.PageWithoutTitleCheck;
-import org.sonar.plugins.web.checks.sonar.PasswordAutocompleteCheck;
 import org.sonar.plugins.web.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.web.checks.sonar.TableHeaderHasIdOrScopeCheck;
 import org.sonar.plugins.web.checks.sonar.TableWithoutCaptionCheck;
@@ -127,8 +126,7 @@ public final class CheckClasses {
     InputWithoutLabelCheck.class,
     ImgWithoutWidthOrHeightCheck.class,
     PageWithoutFaviconCheck.class,
-    ElementWithGivenIdPresentCheck.class,
-    PasswordAutocompleteCheck.class
+    ElementWithGivenIdPresentCheck.class
   );
 
   private CheckClasses() {
