@@ -14,7 +14,7 @@ RULE_CTX[profile]="${RULE_CTX[dir]}/Sonar_way_profile.json"
 declare -A RULE_API=(
   [groupId]="com.sonarsource.rule-api"
   [artifactId]="rule-api"
-  [version]="1.16-SNAPSHOT"
+  [version]="1.21.2.1138"
 )
 RULE_API[artifact]="${RULE_API[groupId]}:${RULE_API[artifactId]}:${RULE_API[version]}"
 RULE_API[jar_dir]="${DIR}/target/dependency"
@@ -44,7 +44,7 @@ function rule_api {
   if [[ ${RULE_CMD} == 'update' ]] && [[ -e "${RULE_CTX[profile]}" ]]; then
     print_and_exec rm "${RULE_CTX[profile]}"
   fi
-  print_and_exec java -Djava.awt.headless=true -jar "${RULE_API[jar]}" "${RULE_CMD}" -preserve-filenames -no-language-in-filenames -language "${RULE_CTX[lang]}" -directory "${RULE_CTX[dir]}" "$@"
+  print_and_exec java -Djava.awt.headless=true -jar "${RULE_API[jar]}" "${RULE_CMD}" -language "${RULE_CTX[lang]}" "$@"
 }
 
 if [[ -z $1 ]]; then

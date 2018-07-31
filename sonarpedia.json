@@ -3,5 +3,9 @@
   "languages": [
     "WEB"
   ],
-  "latest-update": "2018-03-27T08:59:33.040Z"
+  "latest-update": "2018-03-27T08:59:33.040Z",
+  "options": {
+    "no-language-in-filenames": true,
+    "preserve-filenames": true
+  }
 }
