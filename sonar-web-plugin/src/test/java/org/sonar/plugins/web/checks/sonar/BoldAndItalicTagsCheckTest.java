@@ -38,7 +38,11 @@ public class BoldAndItalicTagsCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Replace this <b> tag by <strong>.")
         .next().atLine(5).withMessage("Replace this <i> tag by <em>.")
-        .next().atLine(7).withMessage("Replace this <B> tag by <strong>.");
+        .next().atLine(7).withMessage("Replace this <B> tag by <strong>.")
+        .next().atLine(11).withMessage("Replace this <i> tag by <em>.")
+        .next().atLine(17).withMessage("Replace this <i> tag by <em>.")
+        .next().atLine(19).withMessage("Replace this <i> tag by <em>.")
+        .next().atLine(21).withMessage("Replace this <i> tag by <em>.");
   }
 
 }
