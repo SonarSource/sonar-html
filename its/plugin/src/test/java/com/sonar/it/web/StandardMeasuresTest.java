@@ -82,7 +82,6 @@ public class StandardMeasuresTest {
     assertThat(getProjectMeasureAsDouble("function_complexity")).isNull();
     assertThat(getProjectMeasureAsDouble("function_complexity_distribution")).isNull();
     assertThat(getProjectMeasureAsDouble("file_complexity")).isEqualTo(3.8);
-    assertThat(getProjectMeasure("file_complexity_distribution").getValue()).isEqualTo("0=73;5=22;10=7;20=1;30=0;60=0;90=0");
   }
 
   @Test
@@ -120,7 +119,6 @@ public class StandardMeasuresTest {
     assertThat(getFileMeasureAsDouble("function_complexity")).isNull();
     assertThat(getFileMeasureAsDouble("function_complexity_distribution")).isNull();
     assertThat(getFileMeasureAsDouble("file_complexity")).isEqualTo(16.0d);
-    assertThat(getFileMeasureAsDouble("file_complexity_distribution")).isNull();
   }
 
   @Test
@@ -131,8 +129,6 @@ public class StandardMeasuresTest {
     assertThat(value).contains(";58=1");
     // SonarQube >= 5.6 removed =0 entries
     assertThat(value.replaceAll("=0", "").replaceAll("[^=]", "")).hasSize(311);
-
-    assertThat(getFileMeasure("comment_lines_data").getValue()).contains("142=1");
   }
 
   private Measure getProjectMeasure(String metricKey) {
