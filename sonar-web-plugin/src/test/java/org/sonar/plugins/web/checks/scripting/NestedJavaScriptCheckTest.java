@@ -33,27 +33,21 @@ public class NestedJavaScriptCheckTest {
   @Test
   public void no_violations_should_be_reported_for_correct_script_tags() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/CorrectScriptTags.html"), check);
-    
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
   
   @Test
   public void dangling_script_end_tag_should_result_in_a_violation() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/DanglingScriptEndTag.html"), check);
-    
     checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(4).noMore();
   }
   
   @Test
   public void nested_script_node_should_result_in_a_violation() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    
     WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/NestedScriptNodes.html"), check);
-    
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(8)
       .next().atLine(16)
