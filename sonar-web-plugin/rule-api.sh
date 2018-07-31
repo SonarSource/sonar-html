@@ -14,7 +14,7 @@ RULE_CTX[profile]="${RULE_CTX[dir]}/Sonar_way_profile.json"
 declare -A RULE_API=(
   [groupId]="com.sonarsource.rule-api"
   [artifactId]="rule-api"
-  [version]="1.19.0.1084"
+  [version]="1.21.2.1138"
 )
 RULE_API[artifact]="${RULE_API[groupId]}:${RULE_API[artifactId]}:${RULE_API[version]}"
 RULE_API[jar_dir]="${DIR}/target/dependency"
