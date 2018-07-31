@@ -21,28 +21,25 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.web.checks.AbstractPageCheck;
 import org.sonar.plugins.web.node.TagNode;
 
-@Rule(key = "NestedJavaScriptCheck")
+@Rule(key = "S4645")
 public class NestedJavaScriptCheck extends AbstractPageCheck {
 
   private boolean insideScriptElement;
-  
+
   @Override
   public void startElement(TagNode element) {
     if (element.equalsElementName("script")) {
       insideScriptElement = true;
     }
   }
-  
+
   @Override
   public void endElement(TagNode element) {
     if (element.equalsElementName("script")) {
       if (!insideScriptElement) {
-        createViolation(element.getEndLinePosition(),
-            "A </script> was found without an opening tag. This may be caused by nested script tags." +
-            "Avoid nested script tags as they are not supported by the browsers.");
+        createViolation(element.getEndLinePosition(), "A </script> was found without a relating opening <script> tag. This may be caused by nested script tags.");
       }
       insideScriptElement = false;
     }
   }
-
 }

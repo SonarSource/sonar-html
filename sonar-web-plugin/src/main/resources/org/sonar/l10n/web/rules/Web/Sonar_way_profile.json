@@ -13,6 +13,7 @@
     "MetaRefreshCheck",
     "PageWithoutTitleCheck",
     "S1827",
+    "S4645",
     "ServerSideImageMapsCheck",
     "UnsupportedTagsInHtml5Check"
   ]
