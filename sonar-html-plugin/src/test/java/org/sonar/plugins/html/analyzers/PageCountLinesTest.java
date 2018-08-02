@@ -59,7 +59,7 @@ public class PageCountLinesTest {
     HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
     scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
-    assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(227);
+    assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(224);
     assertThat(htmlSourceCode.getDetailedLinesOfCode().size()).isEqualTo(224);
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(14);
   }

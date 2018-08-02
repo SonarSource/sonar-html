@@ -61,7 +61,7 @@ public class StandardMeasuresTest {
 
   @Test
   public void testProjectMeasures() {
-    assertThat(getProjectMeasureAsDouble("ncloc")).isEqualTo(6853d);
+    assertThat(getProjectMeasureAsDouble("ncloc")).isEqualTo(6840d);
     assertThat(getProjectMeasureAsDouble("lines")).isEqualTo(9252d);
     assertThat(getProjectMeasureAsDouble("files")).isEqualTo(103d);
     assertThat(getProjectMeasureAsDouble("directories")).isEqualTo(8d);
@@ -87,7 +87,7 @@ public class StandardMeasuresTest {
 
   @Test
   public void testDirectoryMeasures() {
-    assertThat(getMeasureAsDouble("ncloc", DIR_ROOT)).isEqualTo(2878d);
+    assertThat(getMeasureAsDouble("ncloc", DIR_ROOT)).isEqualTo(2870d);
     assertThat(getMeasureAsDouble("comment_lines_density", DIR_ROOT)).isEqualTo(0.3);
     assertThat(getMeasureAsDouble("duplicated_lines_density", DIR_ROOT)).isEqualTo(1.4);
     assertThat(getMeasureAsDouble("complexity", DIR_ROOT)).isEqualTo(150d);
