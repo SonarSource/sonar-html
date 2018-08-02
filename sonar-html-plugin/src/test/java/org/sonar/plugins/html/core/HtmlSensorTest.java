@@ -19,6 +19,7 @@ package org.sonar.plugins.html.core;
 
 import com.google.common.io.Files;
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,14 @@ import org.sonar.api.batch.rule.internal.NewActiveRule;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
+import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.utils.Version;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
@@ -82,14 +85,7 @@ public class HtmlSensorTest {
    */
   @Test
   public void testSensor() throws Exception {
-    DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
-      .setModuleBaseDir(TEST_DIR.toPath())
-      .setLanguage(HtmlConstants.LANGUAGE_KEY)
-      .setType(InputFile.Type.MAIN)
-      .initMetadata(Files.toString(new File(TEST_DIR, "user-properties.jsp"), StandardCharsets.UTF_8))
-      .setCharset(StandardCharsets.UTF_8)
-      .build();
-
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
     tester.fileSystem().add(inputFile);
 
     sensor.execute(tester);
@@ -111,10 +107,32 @@ public class HtmlSensorTest {
   }
 
   @Test
+  public void sonarlint() throws Exception {
+    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
+    tester.fileSystem().add(inputFile);
+    sensor.execute(tester);
+    String componentKey = inputFile.key();
+    assertThat(tester.allIssues()).isNotEmpty();
+    assertThat(tester.cpdTokens(componentKey)).isNull();
+    assertThat(tester.highlightingTypeAt(componentKey, 1, 0)).isEmpty();
+  }
+
+  @Test
   public void testDescriptor() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("HTML");
     assertThat(descriptor.languages()).containsOnly("html");
+  }
+
+  private DefaultInputFile createInputFile(File dir, String fileName) throws IOException {
+    return new TestInputFileBuilder("key", fileName)
+      .setModuleBaseDir(dir.toPath())
+      .setLanguage(HtmlConstants.LANGUAGE_KEY)
+      .setType(InputFile.Type.MAIN)
+      .initMetadata(Files.toString(new File(dir, fileName), StandardCharsets.UTF_8))
+      .setCharset(StandardCharsets.UTF_8)
+      .build();
   }
 }
