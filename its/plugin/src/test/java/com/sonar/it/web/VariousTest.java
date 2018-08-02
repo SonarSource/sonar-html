@@ -52,7 +52,7 @@ public class VariousTest {
       .setProjectName(projectKey)
       .setProjectVersion("1.0")
       .setSourceDirs("src")
-      .setProperty("sonar.web.file.suffixes", "jsp")
+      .setProperty("sonar.html.file.suffixes", "jsp")
       .setProperty("sonar.sourceEncoding", "UTF-8")
       .setProperty("sonar.exclusions", "**/*Excluded*");
     orchestrator.executeBuild(build);
@@ -77,7 +77,7 @@ public class VariousTest {
       .setProjectVersion("1.0")
       .setSourceDirs("src")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.file.suffixes", ".xhtml,.jspf,.jsp");
+      .setProperty("sonar.html.file.suffixes", ".xhtml,.jspf,.jsp");
     orchestrator.executeBuild(build);
 
     IssueClient issueClient = orchestrator.getServer().wsClient().issueClient();

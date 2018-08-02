@@ -70,7 +70,7 @@ public class WebRulingTest {
       .setProjectVersion("1")
       .setSourceDirs(".")
       .setSourceEncoding("UTF-8")
-      .setProperty("sonar.web.file.suffixes", "xhtml,jspf,jsp,html,php,erb")
+      .setProperty("sonar.html.file.suffixes", "xhtml,jspf,jsp,html,php,erb")
       .setProperty("sonar.analysis.mode", "preview")
       .setProperty("sonar.issuesReport.html.enable", "true")
       .setProperty("dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
