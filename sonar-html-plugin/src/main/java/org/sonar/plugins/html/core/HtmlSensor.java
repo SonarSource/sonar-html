@@ -17,10 +17,12 @@
  */
 package org.sonar.plugins.html.core;
 
-import com.google.common.collect.ImmutableList;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import org.sonar.api.SonarProduct;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -46,9 +48,10 @@ import org.sonar.plugins.html.checks.HtmlIssue;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.rules.CheckClasses;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
+import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.html.visitor.HtmlAstScanner;
-import org.sonar.plugins.html.visitor.NoSonarScanner;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
+import org.sonar.plugins.html.visitor.NoSonarScanner;
 
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
@@ -143,11 +146,14 @@ public final class HtmlSensor implements Sensor {
    * Create PageScanner with Visitors.
    */
   private HtmlAstScanner setupScanner(SensorContext context) {
-    HtmlAstScanner scanner = new HtmlAstScanner(ImmutableList.of(
-      new HtmlTokensVisitor(context),
-      new PageCountLines(),
-      new ComplexityVisitor(),
-      new NoSonarScanner(noSonarFilter)));
+    List<DefaultNodeVisitor> visitors = new ArrayList<>();
+    if (context.runtime().getProduct() != SonarProduct.SONARLINT) {
+      visitors.add(new HtmlTokensVisitor(context));
+    }
+    visitors.add(new PageCountLines());
+    visitors.add(new ComplexityVisitor());
+    visitors.add(new NoSonarScanner(noSonarFilter));
+    HtmlAstScanner scanner = new HtmlAstScanner(visitors);
 
     for (Object check : checks.all()) {
       ((AbstractPageCheck) check).setRuleKey(checks.ruleKey(check));
