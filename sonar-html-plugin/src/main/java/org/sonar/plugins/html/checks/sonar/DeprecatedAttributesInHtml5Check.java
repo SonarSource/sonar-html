@@ -20,6 +20,7 @@ package org.sonar.plugins.html.checks.sonar;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -113,7 +114,11 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    String elementName = element.getNodeName().toLowerCase();
+    String nodeName = element.getNodeName();
+    if (nodeName == null) {
+      return;
+    }
+    String elementName = nodeName.toLowerCase(Locale.ROOT);
     Set<String> deprecatedAttributes = DEPRECATED.get(elementName);
     if (deprecatedAttributes != null) {
       List<Attribute> attributes = element.getAttributes();
@@ -126,7 +131,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
   }
 
   private static boolean isDeprecated(TagNode element, Set<String> deprecatedAttributes, String attributeName, String attributeValue) {
-    String elementName = element.getNodeName().toLowerCase();
+    String elementName = element.getNodeName().toLowerCase(Locale.ROOT);
     if ("img".equals(elementName) && "border".equals(attributeName)) {
       return !"0".equals(attributeValue);
     } else if ("script".equals(elementName) && "language".equals(attributeName)) {
