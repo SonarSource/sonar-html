@@ -18,18 +18,17 @@
 package org.sonar.plugins.html.analyzers;
 
 import com.google.common.collect.Sets;
+import java.util.List;
+import java.util.Set;
+import javax.annotation.Nullable;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TextNode;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
-
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Count lines of code in web files.
@@ -39,7 +38,7 @@ import java.util.Set;
  */
 public class PageCountLines extends DefaultNodeVisitor {
 
-  private static final Logger LOG = LoggerFactory.getLogger(PageCountLines.class);
+  private static final Logger LOG = Loggers.get(PageCountLines.class);
 
   private int blankLines;
   private int commentLines;
