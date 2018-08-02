@@ -41,6 +41,7 @@ pipeline {
             runPlugin "LATEST_RELEASE"
             withMaven(maven: MAVEN_TOOL) {
               dir('its/ruling') {
+                sh 'git submodule update --init --recursive'
                 sh "mvn -Dsonar.runtimeVersion=\"LATEST_RELEASE\" -Dmaven.test.redirectTestOutputToFile=false test"
               }
             }
