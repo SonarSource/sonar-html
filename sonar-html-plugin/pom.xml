@@ -59,21 +59,6 @@
       <version>4.1</version>
     </dependency>
     <dependency>
-      <groupId>org.sonarsource.sslr-squid-bridge</groupId>
-      <artifactId>sslr-squid-bridge</artifactId>
-      <version>${sslrSquidBridge.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.picocontainer</groupId>
-          <artifactId>picocontainer</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>org.sonarsource.sslr</groupId>
       <artifactId>sslr-core</artifactId>
       <version>${sslr.version}</version>
@@ -87,6 +72,11 @@
     <dependency>
       <groupId>org.sonarsource.analyzer-commons</groupId>
       <artifactId>sonar-analyzer-commons</artifactId>
+      <version>${analyzerCommons.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.analyzer-commons</groupId>
+      <artifactId>sonar-analyzer-recognizers</artifactId>
       <version>${analyzerCommons.version}</version>
     </dependency>
     <dependency>
@@ -130,6 +120,12 @@
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.sslr-squid-bridge</groupId>
+      <artifactId>sslr-squid-bridge</artifactId>
+      <version>${sslrSquidBridge.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
