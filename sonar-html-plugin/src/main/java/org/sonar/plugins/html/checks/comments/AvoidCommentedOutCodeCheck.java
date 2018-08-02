@@ -22,10 +22,10 @@ import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.CommentNode;
-import org.sonar.squidbridge.recognizer.CodeRecognizer;
-import org.sonar.squidbridge.recognizer.ContainsDetector;
-import org.sonar.squidbridge.recognizer.EndWithDetector;
-import org.sonar.squidbridge.recognizer.LanguageFootprint;
+import org.sonarsource.analyzer.recognizers.CodeRecognizer;
+import org.sonarsource.analyzer.recognizers.ContainsDetector;
+import org.sonarsource.analyzer.recognizers.EndWithDetector;
+import org.sonarsource.analyzer.recognizers.LanguageFootprint;
 
 @Rule(key = "AvoidCommentedOutCodeCheck")
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
