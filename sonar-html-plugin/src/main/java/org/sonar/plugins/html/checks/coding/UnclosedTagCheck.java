@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
+import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -39,24 +40,23 @@ public class UnclosedTagCheck extends AbstractPageCheck {
     defaultValue = DEFAULT_IGNORE_TAGS)
   public String ignoreTags = DEFAULT_IGNORE_TAGS;
 
-  private String[] ignoreTagsArray;
+  private List<String> ignoreTagsList;
   private final List<TagNode> nodes = new ArrayList<>();
 
   @Override
   public void startDocument(List<Node> nodes) {
-    ignoreTagsArray = StringUtils.split(ignoreTags, ',');
+    if(ignoreTagsList == null) {
+      ignoreTagsList = Arrays.asList(StringUtils.split(ignoreTags, ','));
+    }
     this.nodes.clear();
   }
 
   @Override
   public void endElement(TagNode element) {
-    if (!ignoreTag(element) && !nodes.isEmpty()) {
-
+    if (isNotIgnoreTag(element) && !nodes.isEmpty()) {
       TagNode previousNode = nodes.remove(0);
-
       if (!previousNode.getNodeName().equals(element.getNodeName())) {
         createViolation(previousNode.getStartLinePosition(), "The tag \"" + previousNode.getNodeName() + "\" has no corresponding closing tag.");
-
         List<TagNode> rollup = new ArrayList<>();
         for (TagNode node : nodes) {
           rollup.add(node);
@@ -69,18 +69,13 @@ public class UnclosedTagCheck extends AbstractPageCheck {
     }
   }
 
-  private boolean ignoreTag(TagNode node) {
-    for (String ignoreTag : ignoreTagsArray) {
-      if (node.equalsElementName(ignoreTag)) {
-        return true;
-      }
-    }
-    return false;
+  private boolean isNotIgnoreTag(TagNode node) {
+    return ignoreTagsList.stream().noneMatch(node::equalsElementName);
   }
 
   @Override
   public void startElement(TagNode element) {
-    if (!ignoreTag(element)) {
+    if (isNotIgnoreTag(element)) {
       nodes.add(0, element);
     }
   }
