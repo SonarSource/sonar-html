@@ -105,6 +105,10 @@ public final class HtmlSensor implements Sensor {
 
       } catch (Exception e) {
         LOG.error("Cannot analyze file " + inputFile, e);
+        sensorContext.newAnalysisError()
+          .onFile(inputFile)
+          .message(e.getMessage())
+          .save();
       }
     }
   }

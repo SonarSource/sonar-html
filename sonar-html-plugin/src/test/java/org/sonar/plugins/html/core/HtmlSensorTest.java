@@ -104,6 +104,7 @@ public class HtmlSensorTest {
     assertThat(tester.highlightingTypeAt(componentKey, 29, 0)).containsOnly(TypeOfText.KEYWORD);
 
     assertThat(tester.allIssues()).hasSize(84);
+    assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
   @Test
@@ -125,6 +126,23 @@ public class HtmlSensorTest {
     assertThat(tester.allIssues()).isNotEmpty();
     assertThat(tester.cpdTokens(componentKey)).isNull();
     assertThat(tester.highlightingTypeAt(componentKey, 1, 0)).isEmpty();
+  }
+
+  @Test
+  public void unreadable_file() {
+    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
+    DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
+      .setModuleBaseDir(TEST_DIR.toPath())
+      .setLanguage(HtmlConstants.LANGUAGE_KEY)
+      .setType(InputFile.Type.MAIN)
+      .setCharset(StandardCharsets.UTF_8)
+      .build();
+    tester.fileSystem().add(inputFile);
+    sensor.execute(tester);
+    String componentKey = inputFile.key();
+    assertThat(tester.cpdTokens(componentKey)).isNull();
+    assertThat(tester.allAnalysisErrors()).hasSize(1);
+    assertThat(tester.allAnalysisErrors().iterator().next().inputFile()).isEqualTo(inputFile);
   }
 
   @Test
