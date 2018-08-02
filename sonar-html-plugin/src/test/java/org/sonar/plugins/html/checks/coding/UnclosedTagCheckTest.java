@@ -35,7 +35,7 @@ public class UnclosedTagCheckTest {
   public void detected() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     assertThat(check.ignoreTags).isEqualTo(
-      "!ENTITY,HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM");
+      "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM");
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -46,7 +46,7 @@ public class UnclosedTagCheckTest {
   @Test
   public void custom() {
     UnclosedTagCheck check = new UnclosedTagCheck();
-    check.ignoreTags = "!entity,html,foo";
+    check.ignoreTags = "html,foo";
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
 
