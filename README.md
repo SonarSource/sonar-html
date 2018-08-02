@@ -1,13 +1,13 @@
-SonarQube Web Plugin
+SonarQube HTML Plugin
 ====================
 
-[![Build Status](https://api.travis-ci.org/SonarSource/sonar-web.svg)](https://travis-ci.org/SonarSource/sonar-web)
+[![Build Status](https://api.travis-ci.org/SonarSource/sonar-html.svg)](https://travis-ci.org/SonarSource/sonar-html)
 
 Project homepage:
 http://redirect.sonarsource.com/plugins/web.html
 
 Issue tracking:
-http://jira.sonarsource.com/browse/SONARWEB
+http://jira.sonarsource.com/browse/SONARHTML
 
 ### License
 
