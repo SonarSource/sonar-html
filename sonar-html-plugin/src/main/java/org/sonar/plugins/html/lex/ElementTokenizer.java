@@ -152,7 +152,9 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
       if (isQuote((char) ch)) {
         codeReader.pop();
         if (codeReader.peek() != ch) {
-          codeReader.popTo(new QuoteMatcher((char) ch), sbValue);
+          QuoteMatcher quoteMatcher = new QuoteMatcher((char) ch);
+          quoteMatcher.match(codeReader.peek());
+          codeReader.popTo(quoteMatcher, sbValue);
           attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
         }
         codeReader.pop();
