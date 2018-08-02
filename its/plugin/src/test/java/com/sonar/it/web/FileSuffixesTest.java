@@ -55,7 +55,7 @@ public class FileSuffixesTest {
   @Test
   public void filesExtensionsHtml() {
     SonarScanner build = getSonarRunner()
-      .setProperty("sonar.web.file.suffixes", ".html");
+      .setProperty("sonar.html.file.suffixes", ".html");
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber()).isEqualTo(1);
   }
@@ -63,7 +63,7 @@ public class FileSuffixesTest {
   @Test
   public void filesSuffixesHtml() {
     SonarScanner build = getSonarRunner()
-      .setProperty("sonar.web.file.suffixes", ".html");
+      .setProperty("sonar.html.file.suffixes", ".html");
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber()).isEqualTo(1);
   }
@@ -71,7 +71,7 @@ public class FileSuffixesTest {
   @Test
   public void filesExtensionsHtmlPhp() {
     SonarScanner build = getSonarRunner()
-      .setProperty("sonar.web.file.suffixes", ".html,.php");
+      .setProperty("sonar.html.file.suffixes", ".html,.php");
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
   }
@@ -79,7 +79,7 @@ public class FileSuffixesTest {
   @Test
   public void filesSuffixesHtmlPhp() {
     SonarScanner build = getSonarRunner()
-      .setProperty("sonar.web.file.suffixes", ".html,.php");
+      .setProperty("sonar.html.file.suffixes", ".html,.php");
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
   }
@@ -89,7 +89,7 @@ public class FileSuffixesTest {
     SonarScanner build = getSonarRunner()
       .setLanguage("html")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.file.suffixes", "");
+      .setProperty("sonar.html.file.suffixes", "");
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber()).isEqualTo(3);
   }
@@ -99,7 +99,7 @@ public class FileSuffixesTest {
     SonarScanner build = getSonarRunner()
       .setLanguage("html")
       .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.web.file.suffixes", "");
+      .setProperty("sonar.html.file.suffixes", "");
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber()).isEqualTo(3);
   }
