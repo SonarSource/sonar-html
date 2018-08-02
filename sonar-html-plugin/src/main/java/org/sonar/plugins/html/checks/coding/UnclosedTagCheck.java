@@ -30,7 +30,7 @@ import java.util.List;
 @Rule(key = "UnclosedTagCheck")
 public class UnclosedTagCheck extends AbstractPageCheck {
 
-  private static final String DEFAULT_IGNORE_TAGS = "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP" +
+  private static final String DEFAULT_IGNORE_TAGS = "!ENTITY,HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP" +
     ",IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM";
 
   @RuleProperty(
