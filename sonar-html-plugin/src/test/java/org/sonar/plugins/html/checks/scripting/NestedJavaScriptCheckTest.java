@@ -1,5 +1,5 @@
 /*
- * SonarWeb :: SonarQube Plugin
+ * SonarHTML :: SonarQube Plugin
  * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
@@ -15,15 +15,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.scripting;
+package org.sonar.plugins.html.checks.scripting;
 
 import java.io.File;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.web.checks.CheckMessagesVerifierRule;
-import org.sonar.plugins.web.checks.TestHelper;
-import org.sonar.plugins.web.visitor.WebSourceCode;
+import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
+import org.sonar.plugins.html.checks.TestHelper;
+import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 public class NestedJavaScriptCheckTest {
 
@@ -33,21 +33,21 @@ public class NestedJavaScriptCheckTest {
   @Test
   public void no_violations_should_be_reported_for_correct_script_tags() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/CorrectScriptTags.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/CorrectScriptTags.html"), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
   
   @Test
   public void dangling_script_end_tag_should_result_in_a_violation() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/DanglingScriptEndTag.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/DanglingScriptEndTag.html"), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(4).noMore();
   }
   
   @Test
   public void nested_script_node_should_result_in_a_violation() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    WebSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/NestedScriptNodes.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/NestedScriptNodes.html"), check);
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(8)
       .next().atLine(16)
