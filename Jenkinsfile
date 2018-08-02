@@ -13,7 +13,7 @@ pipeline {
   }
   environment {
     SONARSOURCE_QA = 'true'
-    MAVEN_TOOL = 'Maven 3.5.2'
+    MAVEN_TOOL = 'Maven 3.3.x'
     // To simulate the build phase
     ARTIFACTORY_DEPLOY_REPO = "sonarsource-public-qa"
   }
