@@ -22,21 +22,20 @@ import com.sonar.sslr.api.Token;
 import com.sonar.sslr.api.TokenType;
 import com.sonar.sslr.api.Trivia;
 import java.io.IOException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
 import org.sonar.api.batch.sensor.highlighting.NewHighlighting;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 
-import java.util.List;
-
 public class HtmlTokensVisitor extends DefaultNodeVisitor {
 
-  private static final Logger LOG = LoggerFactory.getLogger(HtmlSensor.class);
+  private static final Logger LOG = Loggers.get(HtmlTokensVisitor.class);
 
   private final SensorContext context;
 

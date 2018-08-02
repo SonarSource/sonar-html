@@ -21,8 +21,6 @@ import com.google.common.collect.ImmutableList;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -38,6 +36,8 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.html.analyzers.ComplexityVisitor;
 import org.sonar.plugins.html.analyzers.PageCountLines;
 import org.sonar.plugins.html.api.HtmlConstants;
@@ -51,8 +51,7 @@ import org.sonar.plugins.html.visitor.NoSonarScanner;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 public final class HtmlSensor implements Sensor {
-
-  private static final Logger LOG = LoggerFactory.getLogger(HtmlSensor.class);
+  private static final Logger LOG = Loggers.get(HtmlSensor.class);
 
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
