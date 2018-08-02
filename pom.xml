@@ -52,7 +52,7 @@
 
   <issueManagement>
     <system>JIRA</system>
-    <url>https://jira.sonarsource.com/browse/SONARWEB</url>
+    <url>https://jira.sonarsource.com/browse/SONARHTML</url>
   </issueManagement>
 
   <properties>
