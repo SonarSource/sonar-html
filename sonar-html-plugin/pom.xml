@@ -44,8 +44,19 @@
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api</artifactId>
-        <version>${sonar.version}</version>
+      <version>${sonar.version}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.sonar</groupId>
+          <artifactId>sonar-channel</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-channel</artifactId>
+      <version>4.1</version>
     </dependency>
     <dependency>
       <groupId>org.sonarsource.sslr-squid-bridge</groupId>
