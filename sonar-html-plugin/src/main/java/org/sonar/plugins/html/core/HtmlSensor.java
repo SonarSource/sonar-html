@@ -92,6 +92,10 @@ public final class HtmlSensor implements Sensor {
     );
 
     for (InputFile inputFile : inputFiles) {
+      if (sensorContext.isCancelled()) {
+        return;
+      }
+
       HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
 
       try (Reader reader = new StringReader(inputFile.contents())) {

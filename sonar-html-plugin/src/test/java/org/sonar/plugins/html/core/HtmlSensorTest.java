@@ -107,6 +107,15 @@ public class HtmlSensorTest {
   }
 
   @Test
+  public void cancellation() throws Exception {
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
+    tester.fileSystem().add(inputFile);
+    tester.setCancelled(true);
+    sensor.execute(tester);
+    assertThat(tester.allIssues()).isEmpty();
+  }
+
+  @Test
   public void sonarlint() throws Exception {
     tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
