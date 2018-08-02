@@ -37,6 +37,7 @@ import org.sonar.plugins.html.checks.header.HeaderCheck;
 import org.sonar.plugins.html.checks.header.MultiplePageDirectivesCheck;
 import org.sonar.plugins.html.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.html.checks.scripting.LongJavaScriptCheck;
+import org.sonar.plugins.html.checks.scripting.NestedJavaScriptCheck;
 import org.sonar.plugins.html.checks.scripting.UnifiedExpressionCheck;
 import org.sonar.plugins.html.checks.sonar.AbsoluteURICheck;
 import org.sonar.plugins.html.checks.sonar.BoldAndItalicTagsCheck;

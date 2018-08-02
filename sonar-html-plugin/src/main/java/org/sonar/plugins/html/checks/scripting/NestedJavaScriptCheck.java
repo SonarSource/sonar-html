@@ -1,5 +1,5 @@
 /*
- * SonarWeb :: SonarQube Plugin
+ * SonarHTML :: SonarQube Plugin
  * Copyright (c) 2010-2018 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
@@ -15,11 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.web.checks.scripting;
+package org.sonar.plugins.html.checks.scripting;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.web.checks.AbstractPageCheck;
-import org.sonar.plugins.web.node.TagNode;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S4645")
 public class NestedJavaScriptCheck extends AbstractPageCheck {
