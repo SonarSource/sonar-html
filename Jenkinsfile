@@ -38,8 +38,8 @@ pipeline {
             label 'linux'
           }
           steps {
+            runPlugin "LATEST_RELEASE"
             withMaven(maven: MAVEN_TOOL) {
-              runPlugin "LATEST_RELEASE"
               dir('its/ruling') {
                 sh "mvn -Dsonar.runtimeVersion=\"LATEST_RELEASE\" -Dmaven.test.redirectTestOutputToFile=false test"
               }
@@ -75,12 +75,10 @@ pipeline {
 }
 
 def runPlugin(String sqRuntimeVersion) {
-  withQAEnv {
-    withMaven(maven: MAVEN_TOOL) {
-      mavenSetBuildVersion()
-      dir('its/plugin') {
-        sh "mvn -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false test"
-      }
+  withMaven(maven: MAVEN_TOOL) {
+    mavenSetBuildVersion()
+    dir('its/plugin') {
+      sh "mvn -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false test"
     }
   }
 }
