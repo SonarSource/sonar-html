@@ -310,4 +310,16 @@ public class PageLexerTest {
     assertEquals("c", attributeC.getName());
     assertEquals("3", attributeC.getValue());
   }
+
+  @Test
+  public void attribute_value_starting_with_quote() {
+    StringReader reader = new StringReader("<img src=\"'a'\"/>");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertEquals(1, nodeList.size());
+    assertTrue(nodeList.get(0) instanceof TagNode);
+    TagNode node = (TagNode) nodeList.get(0);
+    Attribute attribute = node.getAttributes().get(0);
+    assertEquals("src", attribute.getName());
+    assertEquals("'a'", attribute.getValue());
+  }
 }
