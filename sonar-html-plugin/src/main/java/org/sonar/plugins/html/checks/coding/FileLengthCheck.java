@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -27,8 +28,6 @@ import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
-import java.util.List;
-
 @Rule(key = "FileLengthCheck")
 public class FileLengthCheck extends AbstractPageCheck {
 
@@ -36,7 +35,7 @@ public class FileLengthCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "maxLength",
-    description = "Maximum authorized lines in a file.",
+    description = "Maximum authorized lines of code in a file.",
     defaultValue = "" + DEFAULT_MAX_FILE_LENGTH)
   public int maxLength = DEFAULT_MAX_FILE_LENGTH;
 
@@ -85,8 +84,9 @@ public class FileLengthCheck extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
-    if (maxLine > maxLength) {
-      createViolation(0, "Current file has " + maxLine + " lines, which is greater than " + maxLength + " authorized. Split it into smaller files.");
+    int loc = getHtmlSourceCode().getDetailedLinesOfCode().size();
+    if (loc > maxLength) {
+      createViolation(0, "Current file has " + loc + " lines, which is greater than " + maxLength + " authorized. Split it into smaller files.");
     }
   }
 

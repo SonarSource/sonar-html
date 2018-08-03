@@ -40,18 +40,18 @@ public class FileLengthCheckTest {
   @Test
   public void custom() {
     FileLengthCheck check = new FileLengthCheck();
-    check.maxLength = 3;
+    check.maxLength = 2;
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(null).withMessage("Current file has 5 lines, which is greater than 3 authorized. Split it into smaller files.");
+        .next().atLine(null).withMessage("Current file has 3 lines, which is greater than 2 authorized. Split it into smaller files.");
   }
 
   @Test
   public void custom_ok() {
     FileLengthCheck check = new FileLengthCheck();
-    check.maxLength = 5;
+    check.maxLength = 3;
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FileLengthCheck.html"), check);
 
