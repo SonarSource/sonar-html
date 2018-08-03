@@ -6258,6 +6258,12 @@
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLAppletElement11.xhtml':[
 11,
 ],
+'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBaseElement02.xhtml':[
+846,
+847,
+848,
+850,
+],
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBaseFontElement01.xhtml':[
 11,
 ],

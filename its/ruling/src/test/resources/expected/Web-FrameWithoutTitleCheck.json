@@ -213,6 +213,10 @@
 'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/resources/iframe.html':[
 8,
 ],
+'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBaseElement02.xhtml':[
+848,
+850,
+],
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLFrameElement01.xhtml':[
 11,
 13,

@@ -56,8 +56,10 @@ public final class PageLexer {
       new DirectiveTokenizer("<%@", "%>"),
       /* JSP Expressions */
       new ExpressionTokenizer("<%", "%>"),
+      /* CDATA */
+      new CdataTokenizer(),
       /* XML and HTML Tags */
-      new ElementTokenizer("<", ">"),
+      new NormalElementTokenizer(),
       /* Text (for everything else) */
       new TextTokenizer());
 

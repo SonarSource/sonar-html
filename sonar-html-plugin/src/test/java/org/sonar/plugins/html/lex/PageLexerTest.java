@@ -17,20 +17,20 @@
  */
 package org.sonar.plugins.html.lex;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import org.sonar.channel.CodeReader;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.CommentNode;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -321,5 +321,40 @@ public class PageLexerTest {
     Attribute attribute = node.getAttributes().get(0);
     assertEquals("src", attribute.getName());
     assertEquals("'a'", attribute.getValue());
+  }
+
+  @Test
+  public void text_containing_opening_angle_bracket() {
+    assertOnlyText("x = '<");
+    assertOnlyText("x = '<';");
+    assertOnlyText("x = '< ';");
+  }
+
+  private static void assertOnlyText(String code) {
+    StringReader reader = new StringReader(code);
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertTrue(nodeList.stream().allMatch(node -> node.getNodeType() == NodeType.TEXT));
+  }
+
+  @Test
+  public void entity() {
+    assertSingleTag("<!ENTITY delta \"&#948;\">");
+  }
+
+  @Test
+  public void cdata() {
+    assertSingleTag("<![CDATA[hello]]>");
+  }
+
+  @Test
+  public void tag_with_whitespace_before_name() {
+    assertSingleTag("<  html>");
+  }
+
+  private void assertSingleTag(String code) {
+    StringReader reader = new StringReader(code);
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertEquals(1, nodeList.size());
+    assertTrue(nodeList.get(0) instanceof TagNode);
   }
 }
