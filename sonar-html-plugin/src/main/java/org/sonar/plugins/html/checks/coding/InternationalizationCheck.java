@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
-import org.apache.commons.lang.StringUtils;
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -25,12 +25,9 @@ import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
-import java.util.List;
-
 @Rule(key = "InternationalizationCheck")
 public class InternationalizationCheck extends AbstractPageCheck {
 
-  private static final String PUNCTUATIONS_AND_SPACE = " \t\n\r|-%:,.?!/,'\"";
   private static final String DEFAULT_ATTRIBUTES = "outputLabel.value, outputText.value";
 
   @RuleProperty(
@@ -48,7 +45,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode textNode) {
-    if (!isUnifiedExpression(textNode.getCode()) && !isPunctuationOrSpace(textNode.getCode())) {
+    if (!isUnifiedExpression(textNode.getCode()) && hasNoPunctuationOrSpace(textNode.getCode())) {
       createViolation(textNode.getStartLinePosition(), "Define this label in the resource bundle.");
     }
   }
@@ -69,7 +66,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
       String value = element.getAttribute(attribute.getAttributeName());
       if (value != null) {
         value = value.trim();
-        if (value.length() > 0 && !isUnifiedExpression(value) && !isPunctuationOrSpace(value)) {
+        if (value.length() > 0 && !isUnifiedExpression(value) && hasNoPunctuationOrSpace(value)) {
           createViolation(element.getStartLinePosition(), "Define this label in the resource bundle.");
           return true;
         }
@@ -78,8 +75,8 @@ public class InternationalizationCheck extends AbstractPageCheck {
     return false;
   }
 
-  private static boolean isPunctuationOrSpace(String value) {
-    return StringUtils.containsAny(value, PUNCTUATIONS_AND_SPACE);
+  private static boolean hasNoPunctuationOrSpace(String value) {
+    return value.chars().allMatch(Character::isLetterOrDigit);
   }
 
 }
