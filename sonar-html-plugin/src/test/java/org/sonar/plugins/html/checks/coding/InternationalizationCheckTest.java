@@ -17,15 +17,14 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
-import static org.fest.assertions.Assertions.assertThat;
-
 import java.io.File;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class InternationalizationCheckTest {
 
@@ -48,6 +47,18 @@ public class InternationalizationCheckTest {
       .next().atLine(1).withMessage("Define this label in the resource bundle.")
       .next().atLine(2).withMessage("Define this label in the resource bundle.");
   }
+
+  @Test
+  public void should_not_raise_issue_with_bom() {
+    InternationalizationCheck check = new InternationalizationCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck_UTF8.html"), check);
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+
+    sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck_UTF8WithBom.html"), check);
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
 
   @Test
   public void custom2() {
