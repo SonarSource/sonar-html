@@ -38,6 +38,7 @@ public class HtmlTokensVisitor extends DefaultNodeVisitor {
   private static final Logger LOG = Loggers.get(HtmlTokensVisitor.class);
 
   private final SensorContext context;
+  private boolean htmlTag = false;
 
   public HtmlTokensVisitor(SensorContext context) {
     this.context = context;
@@ -71,7 +72,16 @@ public class HtmlTokensVisitor extends DefaultNodeVisitor {
       TokenType tokenType = token.getType();
       if (!tokenType.equals(GenericTokenType.EOF)) {
         TokenLocation tokenLocation = new TokenLocation(token);
-        cpdTokens.addToken(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(), tokenLocation.endCharacter(), token.getValue());
+        String tokenValue = token.getValue();
+        if(tokenValue.startsWith("<html")) {
+          htmlTag = true;
+        }
+        if(!tokenValue.startsWith("<!DOCTYPE") && !htmlTag) {
+          cpdTokens.addToken(tokenLocation.startLine(), tokenLocation.startCharacter(), tokenLocation.endLine(), tokenLocation.endCharacter(), tokenValue);
+        }
+        if(htmlTag && tokenValue.startsWith(">")) {
+          htmlTag = false;
+        }
       }
       if (tokenType.equals(HtmlTokenType.DOCTYPE)) {
         highlight(highlighting, token, TypeOfText.STRUCTURED_COMMENT);
