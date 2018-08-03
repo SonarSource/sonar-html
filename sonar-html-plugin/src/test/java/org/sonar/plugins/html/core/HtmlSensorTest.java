@@ -108,6 +108,21 @@ public class HtmlSensorTest {
   }
 
   @Test
+  public void should_not_count_doctype_and_html_tag_in_duplication() throws Exception {
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "create-salesorder_duplication.xhtml");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    String componentKey = inputFile.key();
+    // 206 tokens with no filtering
+    assertThat(tester.cpdTokens(componentKey)).hasSize(196);
+
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+
+  @Test
   public void cancellation() throws Exception {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
     tester.fileSystem().add(inputFile);
