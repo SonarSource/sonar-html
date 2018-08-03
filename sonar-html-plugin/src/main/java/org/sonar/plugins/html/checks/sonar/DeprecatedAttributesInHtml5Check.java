@@ -115,9 +115,6 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     String nodeName = element.getNodeName();
-    if (nodeName == null) {
-      return;
-    }
     String elementName = nodeName.toLowerCase(Locale.ROOT);
     Set<String> deprecatedAttributes = DEPRECATED.get(elementName);
     if (deprecatedAttributes != null) {
