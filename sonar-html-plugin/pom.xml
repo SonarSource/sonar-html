@@ -170,6 +170,15 @@
       </plugin>
 
       <plugin>
+        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+        <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <configuration>
+          <!-- SonarHTML replaces SonarWeb but we keep the plugin key "web" to make it easier for users to migrate -->
+          <pluginKey>web</pluginKey>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
           <execution>
