@@ -2,7 +2,7 @@
 
 pipeline {
   agent {
-    label 'linux'
+   label 'linux || shortbuilds'
   }
   parameters {
     string(name: 'GIT_SHA1', description: 'Git SHA1 (provided by travisci hook job)')
@@ -27,7 +27,7 @@ pipeline {
       parallel {
         stage('LATEST_RELEASE[6.7]') {
           agent {
-            label 'linux'
+            label 'linux || shortbuilds'
           }
           steps {
             runPlugin "LATEST_RELEASE[6.7]"
@@ -35,7 +35,7 @@ pipeline {
         }
         stage('LATEST_RELEASE') {
           agent {
-            label 'linux'
+            label 'linux || shortbuilds'
           }
           steps {
             runPlugin "LATEST_RELEASE"
@@ -49,7 +49,7 @@ pipeline {
         }
         stage('DEV') {
           agent {
-            label 'linux'
+            label 'linux || shortbuilds'
           }
           steps {
             runPlugin "DEV"
