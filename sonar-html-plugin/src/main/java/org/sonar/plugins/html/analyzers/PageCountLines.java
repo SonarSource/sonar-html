@@ -41,7 +41,6 @@ public class PageCountLines extends DefaultNodeVisitor {
   private static final Logger LOG = Loggers.get(PageCountLines.class);
 
   private int blankLines;
-  private int commentLines;
   private int headerCommentLines;
   private final Set<Integer> detailedLinesOfCode = Sets.newHashSet();
   private final Set<Integer> detailedLinesOfComments = Sets.newHashSet();
@@ -49,7 +48,6 @@ public class PageCountLines extends DefaultNodeVisitor {
   @Override
   public void startDocument(List<Node> nodes) {
     blankLines = 0;
-    commentLines = 0;
     headerCommentLines = 0;
     detailedLinesOfCode.clear();
     detailedLinesOfComments.clear();
@@ -61,11 +59,11 @@ public class PageCountLines extends DefaultNodeVisitor {
     HtmlSourceCode htmlSourceCode = getHtmlSourceCode();
 
     htmlSourceCode.addMeasure(CoreMetrics.NCLOC, detailedLinesOfCode.size());
-    htmlSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
+    htmlSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, detailedLinesOfComments.size());
 
     htmlSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
 
-    LOG.debug("HtmlSensor: " + getHtmlSourceCode().toString() + ": " + commentLines + "," + headerCommentLines + "," + blankLines);
+    LOG.debug("HtmlSensor: " + getHtmlSourceCode().toString() + ": " + detailedLinesOfComments.size() + "," + headerCommentLines + "," + blankLines);
   }
 
   private void count(List<Node> nodeList) {
@@ -107,7 +105,6 @@ public class PageCountLines extends DefaultNodeVisitor {
       // this is a header comment
       headerCommentLines += linesOfCodeCurrentNode;
     } else {
-      commentLines += linesOfCodeCurrentNode;
       addLineNumbers(node, detailedLinesOfComments);
     }
   }
@@ -152,8 +149,6 @@ public class PageCountLines extends DefaultNodeVisitor {
     if (previousNode.getStartLinePosition() == 1) {
       // this was a header comment
       headerCommentLines++;
-    } else {
-      commentLines++;
     }
     return nonBlankLines + 1;
   }

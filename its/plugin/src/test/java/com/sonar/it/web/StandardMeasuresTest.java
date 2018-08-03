@@ -124,10 +124,6 @@ public class StandardMeasuresTest {
     assertThat(value.replaceAll("=0", "").replaceAll("[^=]", "")).hasSize(311);
   }
 
-  private Measure getProjectMeasure(String metricKey) {
-    return getMeasure(orchestrator, PROJECT, metricKey);
-  }
-
   private Double getProjectMeasureAsDouble(String metricKey) {
     return HtmlTestSuite.getMeasureAsDouble(orchestrator, PROJECT, metricKey);
   }
