@@ -65,7 +65,7 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
   private static boolean isUnsupportedTag(TagNode node) {
     String nodeName = node.getNodeName();
-    return nodeName != null && UNSUPPORTED_TAGS.contains(nodeName.toUpperCase(Locale.ENGLISH));
+    return UNSUPPORTED_TAGS.contains(nodeName.toUpperCase(Locale.ENGLISH));
   }
 
 }
