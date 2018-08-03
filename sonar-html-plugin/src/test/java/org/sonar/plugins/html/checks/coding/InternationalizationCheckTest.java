@@ -45,7 +45,10 @@ public class InternationalizationCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Define this label in the resource bundle.")
-      .next().atLine(2).withMessage("Define this label in the resource bundle.");
+      .next().atLine(2).withMessage("Define this label in the resource bundle.")
+      .next().atLine(9).withMessage("Define this label in the resource bundle.")
+      .next().atLine(10).withMessage("Define this label in the resource bundle.")
+      .next().atLine(11).withMessage("Define this label in the resource bundle.");
   }
 
   @Test
@@ -68,7 +71,28 @@ public class InternationalizationCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("Define this label in the resource bundle.");
+      .next().atLine(1).withMessage("Define this label in the resource bundle.")
+      .next().atLine(9).withMessage("Define this label in the resource bundle.")
+      .next().atLine(11).withMessage("Define this label in the resource bundle.");
+  }
+
+  @Test
+  public void regexIgnore1() {
+    InternationalizationCheck check = new InternationalizationCheck();
+    check.attributes = "outputLabel.value";
+    check.ignoredContentRegex = ".*cDe.*";
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Define this label in the resource bundle.")
+      .next().atLine(2).withMessage("Define this label in the resource bundle.");
+  }
+  @Test
+  public void regexIgnore2() {
+    InternationalizationCheck check = new InternationalizationCheck();
+    check.attributes = "";
+    check.ignoredContentRegex = ".*cDe.*";
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
+    checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(1).withMessage("Define this label in the resource bundle.");
   }
 
 }
