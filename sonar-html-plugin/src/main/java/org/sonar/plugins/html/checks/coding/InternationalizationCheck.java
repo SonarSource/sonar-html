@@ -18,6 +18,8 @@
 package org.sonar.plugins.html.checks.coding;
 
 import java.util.List;
+import java.util.regex.Pattern;
+import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -36,27 +38,34 @@ public class InternationalizationCheck extends AbstractPageCheck {
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 
+  @RuleProperty(key = "ignoredContentRegex", description = "Text content matching this expression will be ignored", defaultValue = StringUtils.EMPTY)
+  public String ignoredContentRegex;
+  private Pattern ignoredContentPattern = null;
+
+
   private QualifiedAttribute[] attributesArray;
 
   @Override
   public void startDocument(List<Node> nodes) {
     this.attributesArray = parseAttributes(attributes);
+    if (!StringUtils.isEmpty(ignoredContentRegex)) {
+      ignoredContentPattern = Pattern.compile(ignoredContentRegex);
+    }
   }
 
   @Override
   public void characters(TextNode textNode) {
-    if (!isUnifiedExpression(textNode.getCode()) && hasNoPunctuationOrSpace(textNode.getCode())) {
+    String textNodeCode = textNode.getCode();
+    if (isValidText(textNodeCode)) {
       createViolation(textNode.getStartLinePosition(), "Define this label in the resource bundle.");
     }
   }
 
   @Override
   public void startElement(TagNode element) {
-    if (attributesArray.length > 0) {
-      for (QualifiedAttribute attribute : attributesArray) {
-        if (notValid(element, attribute)) {
-          return;
-        }
+    for (QualifiedAttribute attribute : attributesArray) {
+      if (notValid(element, attribute)) {
+        return;
       }
     }
   }
@@ -66,7 +75,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
       String value = element.getAttribute(attribute.getAttributeName());
       if (value != null) {
         value = value.trim();
-        if (value.length() > 0 && !isUnifiedExpression(value) && hasNoPunctuationOrSpace(value)) {
+        if (value.length() > 0 && isValidText(value)) {
           createViolation(element.getStartLinePosition(), "Define this label in the resource bundle.");
           return true;
         }
@@ -75,8 +84,15 @@ public class InternationalizationCheck extends AbstractPageCheck {
     return false;
   }
 
+  private boolean isValidText(String value) {
+    return !isUnifiedExpression(value) && hasNoPunctuationOrSpace(value) && !isIgnoredByRegex(value);
+  }
+
   private static boolean hasNoPunctuationOrSpace(String value) {
     return value.chars().allMatch(Character::isLetterOrDigit);
   }
 
+  private boolean isIgnoredByRegex(String value) {
+    return ignoredContentPattern != null && ignoredContentPattern.matcher(value).matches();
+  }
 }
