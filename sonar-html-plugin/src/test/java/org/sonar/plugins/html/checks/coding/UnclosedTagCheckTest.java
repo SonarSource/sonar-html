@@ -17,15 +17,14 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
-import static org.fest.assertions.Assertions.assertThat;
-
 import java.io.File;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
+
+import static org.fest.assertions.Assertions.assertThat;
 
 public class UnclosedTagCheckTest {
 
@@ -34,8 +33,14 @@ public class UnclosedTagCheckTest {
 
   @Test
   public void detected() {
-    assertThat(new UnclosedTagCheck().ignoreTags).isEqualTo(
+    UnclosedTagCheck check = new UnclosedTagCheck();
+    assertThat(check.ignoreTags).isEqualTo(
       "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM");
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(10).withMessage("The tag \"foo\" has no corresponding closing tag.")
+      .noMore();
   }
 
   @Test
