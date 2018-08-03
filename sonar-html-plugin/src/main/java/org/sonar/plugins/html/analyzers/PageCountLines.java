@@ -41,17 +41,13 @@ public class PageCountLines extends DefaultNodeVisitor {
   private static final Logger LOG = Loggers.get(PageCountLines.class);
 
   private int blankLines;
-  private int commentLines;
   private int headerCommentLines;
-  private int linesOfCode;
   private final Set<Integer> detailedLinesOfCode = Sets.newHashSet();
   private final Set<Integer> detailedLinesOfComments = Sets.newHashSet();
 
   @Override
   public void startDocument(List<Node> nodes) {
-    linesOfCode = 0;
     blankLines = 0;
-    commentLines = 0;
     headerCommentLines = 0;
     detailedLinesOfCode.clear();
     detailedLinesOfComments.clear();
@@ -62,19 +58,19 @@ public class PageCountLines extends DefaultNodeVisitor {
   private void addMeasures() {
     HtmlSourceCode htmlSourceCode = getHtmlSourceCode();
 
-    htmlSourceCode.addMeasure(CoreMetrics.NCLOC, linesOfCode);
-    htmlSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, commentLines);
+    htmlSourceCode.addMeasure(CoreMetrics.NCLOC, detailedLinesOfCode.size());
+    htmlSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, detailedLinesOfComments.size());
 
     htmlSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
 
-    LOG.debug("HtmlSensor: " + getHtmlSourceCode().toString() + ":" + linesOfCode + "," + commentLines + "," + headerCommentLines + "," + blankLines);
+    LOG.debug("HtmlSensor: " + getHtmlSourceCode().toString() + ": " + detailedLinesOfComments.size() + "," + headerCommentLines + "," + blankLines);
   }
 
   private void count(List<Node> nodeList) {
     for (int i = 0; i < nodeList.size(); i++) {
       Node node = nodeList.get(i);
       Node previousNode = i > 0 ? nodeList.get(i - 1) : null;
-      Node nextNode = i < nodeList.size() - 1 ? nodeList.get(i) : null;
+      Node nextNode = i < nodeList.size() - 1 ? nodeList.get(i + 1) : null;
       handleToken(node, previousNode, nextNode);
     }
     addMeasures();
@@ -91,7 +87,6 @@ public class PageCountLines extends DefaultNodeVisitor {
       case TAG:
       case DIRECTIVE:
       case EXPRESSION:
-        linesOfCode += linesOfCodeCurrentNode;
         addLineNumbers(node, detailedLinesOfCode);
         break;
       case COMMENT:
@@ -110,7 +105,6 @@ public class PageCountLines extends DefaultNodeVisitor {
       // this is a header comment
       headerCommentLines += linesOfCodeCurrentNode;
     } else {
-      commentLines += linesOfCodeCurrentNode;
       addLineNumbers(node, detailedLinesOfComments);
     }
   }
@@ -129,7 +123,6 @@ public class PageCountLines extends DefaultNodeVisitor {
           case TAG:
           case DIRECTIVE:
           case EXPRESSION:
-            linesOfCode++;
             nonBlankLines++;
             break;
           default:
@@ -139,8 +132,6 @@ public class PageCountLines extends DefaultNodeVisitor {
 
       // remaining newlines are added to blanklines
       blankLines += linesOfCodeCurrentNode - nonBlankLines;
-    } else {
-      linesOfCode += linesOfCodeCurrentNode;
     }
   }
 
@@ -158,8 +149,6 @@ public class PageCountLines extends DefaultNodeVisitor {
     if (previousNode.getStartLinePosition() == 1) {
       // this was a header comment
       headerCommentLines++;
-    } else {
-      commentLines++;
     }
     return nonBlankLines + 1;
   }

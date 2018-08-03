@@ -95,7 +95,7 @@ public class HtmlSensorTest {
     sensor.execute(tester);
 
     String componentKey = inputFile.key();
-    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(227);
+    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(224);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(14);
     assertThat(tester.measure(componentKey, CoreMetrics.COMPLEXITY).value()).isEqualTo(1);
 

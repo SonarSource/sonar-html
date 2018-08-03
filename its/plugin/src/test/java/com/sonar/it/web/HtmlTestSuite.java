@@ -23,6 +23,7 @@ import com.sonar.orchestrator.locator.FileLocation;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.CheckForNull;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
@@ -38,8 +39,6 @@ import org.sonarqube.ws.client.component.ShowWsRequest;
 import org.sonarqube.ws.client.component.TreeWsRequest;
 import org.sonarqube.ws.client.measure.ComponentWsRequest;
 
-import static java.util.Objects.requireNonNull;
-
 @RunWith(Suite.class)
 @SuiteClasses({
   FileSuffixesTest.class,
@@ -51,7 +50,7 @@ public class HtmlTestSuite {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
-    .setSonarVersion(requireNonNull(System.getProperty("sonar.runtimeVersion"), "Please set system property sonar.runtimeVersion"))
+    .setSonarVersion(Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE[6.7]"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
     .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
