@@ -66,6 +66,7 @@ public final class HtmlPlugin implements Plugin {
         .defaultValue(HtmlConstants.FILE_EXTENSIONS_DEF_VALUE)
         .deprecatedKey("sonar.web.file.suffixes")
         .onQualifiers(Qualifiers.PROJECT)
+        .multiValues(true)
         .build()
     );
   }
