@@ -1,7 +1,5 @@
 {
 'project:Silverpeas-Core-master/it-test-core/src/test/resources/com/silverpeas/converter/wysiwyg2.html':[
-7,
-22,
 27,
 74,
 78,
@@ -11,9 +9,6 @@
 108,
 112,
 115,
-126,
-140,
-146,
 ],
 'project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html':[
 15,
@@ -578,12 +573,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLElement99.html':[
 77,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBaseElement01.xhtml':[
-9,
-],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBaseElement02.xhtml':[
-9,
-],
 'project:external_webkit-jb-mr1/LayoutTests/fast/dom/DOMImplementation/createHTMLDocument-title.html':[
 1,
 ],
@@ -870,9 +859,6 @@
 ],
 'project:phpMyAdmin-4.0.4-english/db_datadict.php':[
 238,
-],
-'project:phpMyAdmin-4.0.4-english/js/get_image.js.php':[
-87,
 ],
 'project:phpMyAdmin-4.0.4-english/libraries/sql_query_form.lib.php':[
 87,
