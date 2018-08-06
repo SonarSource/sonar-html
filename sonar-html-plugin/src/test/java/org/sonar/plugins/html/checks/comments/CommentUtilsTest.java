@@ -17,24 +17,22 @@
  */
 package org.sonar.plugins.html.checks.comments;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.junit.Test;
 import org.sonar.plugins.html.node.CommentNode;
 
-@Rule(key = "S1135")
-public class TodoCommentCheck extends AbstractPageCheck {
+import static org.fest.assertions.Assertions.assertThat;
+import static org.sonar.plugins.html.checks.comments.CommentUtils.lineNumber;
 
-  private static final Pattern TODO_PATTERN = Pattern.compile("(?i)(^|[^\\p{L}])(todo)");
+public class CommentUtilsTest {
 
-  @Override
-  public void comment(CommentNode node) {
-    Matcher matcher = TODO_PATTERN.matcher(node.getCode());
-    if (matcher.find()) {
-      int lineNumber = CommentUtils.lineNumber(node, matcher.start(2));
-      createViolation(lineNumber, "Complete the task associated to this \"TODO\" comment.");
-    }
+  @Test
+  public void name() {
+    CommentNode node = new CommentNode();
+    node.setStartLinePosition(1);
+    node.setCode("<!--A\nB\nC-->");
+    assertThat(lineNumber(node, 4)).isEqualTo(1);
+    assertThat(lineNumber(node, 6)).isEqualTo(2);
+    assertThat(lineNumber(node, 8)).isEqualTo(3);
   }
 
 }
