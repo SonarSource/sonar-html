@@ -17,22 +17,22 @@
  */
 package org.sonar.plugins.html.visitor;
 
-import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.measures.Metric;
-import org.sonar.plugins.html.checks.HtmlIssue;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.measures.Metric;
+import org.sonar.plugins.html.checks.HtmlIssue;
 
 public class HtmlSourceCode {
 
   private final InputFile inputFile;
   private final Map<Metric<Integer>, Integer> measures = new HashMap<>();
   private final List<HtmlIssue> issues = new ArrayList<>();
-  private Set<Integer> detailedLinesOfCode;
+  private Set<Integer> detailedLinesOfCode = new HashSet<>();
 
   public HtmlSourceCode(InputFile inputFile) {
     this.inputFile = inputFile;
@@ -43,7 +43,9 @@ public class HtmlSourceCode {
   }
 
   public void addMeasure(Metric<Integer> metric, int value) {
-    measures.put(metric, value);
+    if (shouldComputeMetric()) {
+      measures.put(metric, value);
+    }
   }
 
   public void addIssue(HtmlIssue issue) {
@@ -73,6 +75,11 @@ public class HtmlSourceCode {
 
   public void setDetailedLinesOfCode(Set<Integer> detailedLinesOfCode) {
     this.detailedLinesOfCode = detailedLinesOfCode;
+  }
+
+  public boolean shouldComputeMetric() {
+    // if input file has language php, then we should not compute metrics for this file as they will be computed by php plugin
+    return !"php".equals(inputFile.language());
   }
 
 }

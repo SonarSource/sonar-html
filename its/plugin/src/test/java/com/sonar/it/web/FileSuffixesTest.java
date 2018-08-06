@@ -53,26 +53,11 @@ public class FileSuffixesTest {
   }
 
   @Test
-  public void filesExtensionsHtml() {
-    SonarScanner build = getSonarRunner()
-      .setProperty("sonar.html.file.suffixes", ".html");
-    orchestrator.executeBuild(build);
-    assertThat(getAnalyzedFilesNumber()).isEqualTo(1);
-  }
-
-  @Test
   public void filesSuffixesHtml() {
     SonarScanner build = getSonarRunner()
       .setProperty("sonar.html.file.suffixes", ".html");
     orchestrator.executeBuild(build);
-    assertThat(getAnalyzedFilesNumber()).isEqualTo(1);
-  }
-
-  @Test
-  public void filesExtensionsHtmlPhp() {
-    SonarScanner build = getSonarRunner()
-      .setProperty("sonar.html.file.suffixes", ".html,.php");
-    orchestrator.executeBuild(build);
+    // php file extension will be analyzed
     assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
   }
 
@@ -82,16 +67,6 @@ public class FileSuffixesTest {
       .setProperty("sonar.html.file.suffixes", ".html,.php");
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
-  }
-
-  @Test
-  public void should_analyze_all_files_with_empty_extensions() {
-    SonarScanner build = getSonarRunner()
-      .setLanguage("html")
-      .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.html.file.suffixes", "");
-    orchestrator.executeBuild(build);
-    assertThat(getAnalyzedFilesNumber()).isEqualTo(3);
   }
 
   @Test

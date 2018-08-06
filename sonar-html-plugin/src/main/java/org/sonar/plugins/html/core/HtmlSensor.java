@@ -22,7 +22,9 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import org.sonar.api.SonarProduct;
+import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -55,6 +57,7 @@ import org.sonar.plugins.html.visitor.NoSonarScanner;
 
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
+  private static final String[] PHP_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc"};
 
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
@@ -70,8 +73,7 @@ public final class HtmlSensor implements Sensor {
   public void describe(SensorDescriptor descriptor) {
     descriptor
       .name(HtmlConstants.LANGUAGE_NAME)
-      .onlyOnFileType(InputFile.Type.MAIN)
-      .onlyOnLanguage(HtmlConstants.LANGUAGE_KEY);
+      .onlyOnFileType(InputFile.Type.MAIN);
   }
 
   @Override
@@ -88,8 +90,11 @@ public final class HtmlSensor implements Sensor {
     Iterable<InputFile> inputFiles = fileSystem.inputFiles(
       predicates.and(
         predicates.hasType(InputFile.Type.MAIN),
-        predicates.hasLanguage(HtmlConstants.LANGUAGE_KEY))
-    );
+        predicates.or(
+          predicates.hasLanguage(HtmlConstants.LANGUAGE_KEY),
+          predicates.or(Stream.of(PHP_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
+          )
+    ));
 
     for (InputFile inputFile : inputFiles) {
       if (sensorContext.isCancelled()) {

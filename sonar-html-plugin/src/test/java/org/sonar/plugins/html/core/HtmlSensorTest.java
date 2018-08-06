@@ -150,7 +150,25 @@ public class HtmlSensorTest {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("HTML");
-    assertThat(descriptor.languages()).containsOnly("html");
+    assertThat(descriptor.languages()).isEmpty();
+  }
+
+  @Test
+  public void php_file_should_not_have_metrics() {
+    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
+    DefaultInputFile inputFile = new TestInputFileBuilder("key", "foo.php")
+      .setModuleBaseDir(TEST_DIR.toPath()).setContents("<html>\n" +
+        "<?php  ?>\n" +
+        "<html>\n")
+      .setLanguage("php")
+      .setType(InputFile.Type.MAIN)
+      .setCharset(StandardCharsets.UTF_8)
+      .build();
+    tester.fileSystem().add(inputFile);
+    sensor.execute(tester);
+    String componentKey = inputFile.key();
+    assertThat(tester.cpdTokens(componentKey)).isNull();
+    assertThat(tester.measures(componentKey)).isEmpty();
   }
 
   private DefaultInputFile createInputFile(File dir, String fileName) throws IOException {

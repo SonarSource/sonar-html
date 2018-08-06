@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
+import java.util.Optional;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -38,7 +39,7 @@ public final class ComplexityCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    int complexity = getHtmlSourceCode().getMeasure(CoreMetrics.COMPLEXITY);
+    int complexity = Optional.ofNullable(getHtmlSourceCode().getMeasure(CoreMetrics.COMPLEXITY)).orElse(0);
 
     if (complexity > max) {
       String msg = String.format("Split this file to reduce complexity per file from %d to no more than the %d authorized.", complexity, max);

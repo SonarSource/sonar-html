@@ -53,6 +53,9 @@ public class HtmlTokensVisitor extends DefaultNodeVisitor {
   }
 
   private void highlightAndDuplicate() {
+    if (!getHtmlSourceCode().shouldComputeMetric()) {
+      return;
+    }
     NewHighlighting highlighting = context.newHighlighting();
     InputFile inputFile = getHtmlSourceCode().inputFile();
     highlighting.onFile(inputFile);
