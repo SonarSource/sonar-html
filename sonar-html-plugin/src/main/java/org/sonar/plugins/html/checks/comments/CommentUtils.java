@@ -26,6 +26,9 @@ final class CommentUtils {
   }
 
   static int lineNumber(CommentNode node, int offset) {
+    if (offset < 0) {
+      throw new IllegalArgumentException("Negative offset: " + offset);
+    }
     int lineFeedCountBeforeOffset = (int) node.getCode().substring(0, offset).chars().filter(c -> c == '\n').count();
     return node.getStartLinePosition() + lineFeedCountBeforeOffset;
   }

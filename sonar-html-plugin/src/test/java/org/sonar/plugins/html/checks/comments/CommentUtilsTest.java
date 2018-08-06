@@ -42,7 +42,7 @@ public class CommentUtilsTest {
     assertThat(lineNumber(node, 8)).isEqualTo(3);
   }
 
-  @Test(expected = StringIndexOutOfBoundsException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void negative_offset() {
     lineNumber(node, -1);
   }
