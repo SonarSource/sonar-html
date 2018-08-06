@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.html.checks.comments;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.sonar.plugins.html.node.CommentNode;
 
@@ -25,14 +26,25 @@ import static org.sonar.plugins.html.checks.comments.CommentUtils.lineNumber;
 
 public class CommentUtilsTest {
 
-  @Test
-  public void name() {
-    CommentNode node = new CommentNode();
+  private CommentNode node;
+
+  @Before
+  public void before() {
+    node = new CommentNode();
     node.setStartLinePosition(1);
     node.setCode("<!--A\nB\nC-->");
+  }
+
+  @Test
+  public void positive_offset() {
     assertThat(lineNumber(node, 4)).isEqualTo(1);
     assertThat(lineNumber(node, 6)).isEqualTo(2);
     assertThat(lineNumber(node, 8)).isEqualTo(3);
+  }
+
+  @Test(expected = StringIndexOutOfBoundsException.class)
+  public void negative_offset() {
+    lineNumber(node, -1);
   }
 
 }

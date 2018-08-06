@@ -26,14 +26,8 @@ final class CommentUtils {
   }
 
   static int lineNumber(CommentNode node, int offset) {
-    int lineNumber = node.getStartLinePosition();
-    String contentBeforeTodo = node.getCode().substring(0, offset);
-    for (int i = 0; i < contentBeforeTodo.length(); i++) {
-      if (contentBeforeTodo.charAt(i) == '\n') {
-        lineNumber++;
-      }
-    }
-    return lineNumber;
+    int lineFeedCountBeforeOffset = (int) node.getCode().substring(0, offset).chars().filter(c -> c == '\n').count();
+    return node.getStartLinePosition() + lineFeedCountBeforeOffset;
   }
 
 }
