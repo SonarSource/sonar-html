@@ -44,7 +44,8 @@ import org.sonarqube.ws.client.measure.ComponentWsRequest;
   FileSuffixesTest.class,
   StandardMeasuresTest.class,
   VariousTest.class,
-  SonarLintTest.class
+  SonarLintTest.class,
+  PhpFilesTest.class
 })
 public class HtmlTestSuite {
 
@@ -54,6 +55,7 @@ public class HtmlTestSuite {
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
     .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
+    .restoreProfileAtStartup(FileLocation.of("profiles/IllegalTab_profile.xml"))
     .build();
 
   public static SonarScanner createSonarScanner() {

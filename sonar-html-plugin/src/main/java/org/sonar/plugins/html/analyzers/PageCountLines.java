@@ -52,7 +52,9 @@ public class PageCountLines extends DefaultNodeVisitor {
     detailedLinesOfCode.clear();
     detailedLinesOfComments.clear();
 
-    count(nodes);
+    if(getHtmlSourceCode().shouldComputeMetric()) {
+      count(nodes);
+    }
   }
 
   private void addMeasures() {
