@@ -1,0 +1,17 @@
+{
+  "title": "Videos should have subtitles",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5mn"
+  },
+  "tags": [
+    "accessibility",
+    "html5"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-4084",
+  "sqKey": "S4084",
+  "scope": "All"
+}
