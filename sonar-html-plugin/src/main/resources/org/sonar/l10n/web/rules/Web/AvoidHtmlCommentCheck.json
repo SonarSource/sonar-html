@@ -17,5 +17,13 @@
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1876",
-  "sqKey": "AvoidHtmlCommentCheck"
+  "sqKey": "AvoidHtmlCommentCheck",
+  "securityStandards": {
+    "CWE": [
+      615
+    ],
+    "OWASP": [
+      "A3"
+    ]
+  }
 }
