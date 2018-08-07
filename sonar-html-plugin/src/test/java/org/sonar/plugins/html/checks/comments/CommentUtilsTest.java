@@ -18,13 +18,18 @@
 package org.sonar.plugins.html.checks.comments;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.sonar.plugins.html.node.CommentNode;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.sonar.plugins.html.checks.comments.CommentUtils.lineNumber;
 
 public class CommentUtilsTest {
+
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
 
   private CommentNode node;
 
@@ -40,11 +45,21 @@ public class CommentUtilsTest {
     assertThat(lineNumber(node, 4)).isEqualTo(1);
     assertThat(lineNumber(node, 6)).isEqualTo(2);
     assertThat(lineNumber(node, 8)).isEqualTo(3);
+    assertThat(lineNumber(node, node.getCode().length())).isEqualTo(3);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void negative_offset() {
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("Out of range offset: -1 for comment content (size: 12)");
     lineNumber(node, -1);
+  }
+
+  @Test
+  public void overflow_offset() {
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("Out of range offset: 100 for comment content (size: 12)");
+    lineNumber(node, 100);
   }
 
 }

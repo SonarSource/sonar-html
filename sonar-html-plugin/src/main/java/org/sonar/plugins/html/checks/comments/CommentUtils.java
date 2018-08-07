@@ -26,10 +26,11 @@ final class CommentUtils {
   }
 
   static int lineNumber(CommentNode node, int offset) {
-    if (offset < 0) {
-      throw new IllegalArgumentException("Negative offset: " + offset);
+    String content = node.getCode();
+    if (offset < 0 || offset > content.length()) {
+      throw new IllegalArgumentException("Out of range offset: " + offset + " for comment content (size: " + content.length() + ")");
     }
-    int lineFeedCountBeforeOffset = (int) node.getCode().substring(0, offset).chars().filter(c -> c == '\n').count();
+    int lineFeedCountBeforeOffset = (int) content.substring(0, offset).chars().filter(c -> c == '\n').count();
     return node.getStartLinePosition() + lineFeedCountBeforeOffset;
   }
 
