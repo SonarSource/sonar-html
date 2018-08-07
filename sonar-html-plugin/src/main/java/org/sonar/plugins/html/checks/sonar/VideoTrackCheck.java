@@ -17,6 +17,9 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -25,9 +28,15 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S4084")
 public class VideoTrackCheck extends AbstractPageCheck {
 
+  private static final Set<String> ACCESSIBILITY_TRACK_KINDS = new HashSet<>(Arrays.asList(
+    "captions",
+    "descriptions",
+    "subtitles"
+  ));
+
   @Override
   public void startElement(TagNode node) {
-    if (isVideoTag(node) && hasVideoSrc(node) && !hasTrackChild(node)) {
+    if (isVideoTag(node) && hasVideoSrc(node) && !hasAccessibilityTrackChild(node)) {
       createViolation(node.getStartLinePosition(), "Add subtitle files for this video.");
     }
   }
@@ -37,8 +46,8 @@ public class VideoTrackCheck extends AbstractPageCheck {
       node.getChildren().stream().anyMatch(VideoTrackCheck::isSourceTag);
   }
 
-  private static boolean hasTrackChild(TagNode node) {
-    return node.getChildren().stream().anyMatch(VideoTrackCheck::isTrackTag);
+  private static boolean hasAccessibilityTrackChild(TagNode node) {
+    return node.getChildren().stream().anyMatch(VideoTrackCheck::isAccessibilityTrackTag);
   }
 
   private static boolean isVideoTag(TagNode node) {
@@ -53,8 +62,8 @@ public class VideoTrackCheck extends AbstractPageCheck {
     return "SRC".equalsIgnoreCase(attribute.getName());
   }
 
-  private static boolean isTrackTag(TagNode node) {
-    return node.equalsElementName("TRACK");
+  private static boolean isAccessibilityTrackTag(TagNode node) {
+    return node.equalsElementName("TRACK") && ACCESSIBILITY_TRACK_KINDS.contains(node.getAttribute("kind"));
   }
 
 }
