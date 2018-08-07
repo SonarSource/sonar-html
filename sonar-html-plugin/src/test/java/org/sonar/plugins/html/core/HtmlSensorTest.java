@@ -26,6 +26,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.sonar.api.SonarQubeSide;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
@@ -155,7 +156,7 @@ public class HtmlSensorTest {
 
   @Test
   public void php_file_should_not_have_metrics() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
+    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "foo.php")
       .setModuleBaseDir(TEST_DIR.toPath()).setContents("<html>\n" +
         "<?php  ?>\n" +
