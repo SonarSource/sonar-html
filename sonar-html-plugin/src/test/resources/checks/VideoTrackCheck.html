@@ -4,12 +4,28 @@
 
   <video>
     <source src="mov_bbb.ogg" type="video/ogg" />
-    <track src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English" />
+    <track src="captions_en.vtt" kind="captions" srclang="en" label="English" />
     Your browser does not support HTML5 video.
   </video>
 
   <video src="mov_bbb.ogg">
+    <track src="descriptions_en.vtt" kind="descriptions" srclang="en" label="English" />
+    Your browser does not support HTML5 video.
+  </video>
+
+
+  <video src="mov_bbb.ogg">
     <track src="subtitles_en.vtt" kind="subtitles" srclang="en" label="English" />
+    Your browser does not support HTML5 video.
+  </video>
+
+  <video src="mov_bbb.ogg"> <!-- Non-Compliant -->
+    <track src="chapters.txt" kind="chapters" srclang="en" label="English" />
+    Your browser does not support HTML5 video.
+  </video>
+
+  <video src="mov_bbb.ogg"> <!-- Non-Compliant -->
+    <track src="metadata.txt" kind="metadata" srclang="en" label="English" />
     Your browser does not support HTML5 video.
   </video>
 
