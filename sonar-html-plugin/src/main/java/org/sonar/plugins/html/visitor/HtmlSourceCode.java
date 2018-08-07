@@ -78,8 +78,8 @@ public class HtmlSourceCode {
   }
 
   public boolean shouldComputeMetric() {
-    // if input file has language php, then we should not compute metrics for this file as they will be computed by php plugin
-    return !"php".equals(inputFile.language());
+    // if input file has a language other than html, then we should not compute metrics for this file as we assume they will be computed by another plugin
+    return inputFile.language() == null || "html".equals(inputFile.language());
   }
 
 }
