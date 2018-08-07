@@ -42,11 +42,11 @@ public class VideoTrackCheck extends AbstractPageCheck {
   }
 
   private static boolean isVideoTag(TagNode node) {
-    return "VIDEO".equalsIgnoreCase(node.getNodeName());
+    return node.equalsElementName("VIDEO");
   }
 
   private static boolean isSourceTag(TagNode node) {
-    return "SOURCE".equalsIgnoreCase(node.getNodeName());
+    return node.equalsElementName("SOURCE");
   }
 
   private static boolean isSrcAttribute(Attribute attribute) {
@@ -54,7 +54,7 @@ public class VideoTrackCheck extends AbstractPageCheck {
   }
 
   private static boolean isTrackTag(TagNode node) {
-    return "TRACK".equalsIgnoreCase(node.getNodeName());
+    return node.equalsElementName("TRACK");
   }
 
 }
