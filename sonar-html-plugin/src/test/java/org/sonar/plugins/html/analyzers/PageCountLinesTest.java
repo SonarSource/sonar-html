@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.internal.google.common.io.Files;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.visitor.HtmlAstScanner;
@@ -54,9 +55,7 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(readFile("src/main/webapp/user-properties.jsp"));
     assertThat(nodeList.size()).isGreaterThan(100);
 
-    //  new File("test", "user-properties.jsp");
-    String relativePath = "test/user-properties.jsp";
-    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
+    HtmlSourceCode htmlSourceCode = createHtmlSourceCode("test/user-properties.jsp");
     scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(224);
@@ -68,8 +67,7 @@ public class PageCountLinesTest {
   public void testCountLinesHtmlFile() {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.html"));
 
-    String relativePath = "test/document.html";
-    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
+    HtmlSourceCode htmlSourceCode = createHtmlSourceCode("test/document.html");
     scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(8);
@@ -81,13 +79,16 @@ public class PageCountLinesTest {
   public void testCountLinesJspFile() {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.jsp"));
 
-    String relativePath = "testdocument.jsp";
-    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setModuleBaseDir(new File(".").toPath()).build());
+    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", "testdocument.jsp").setModuleBaseDir(new File(".").toPath()).build());
     scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
 
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(2);
     assertThat(htmlSourceCode.getDetailedLinesOfCode()).containsOnly(1, 3);
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(6);
+  }
+
+  private HtmlSourceCode createHtmlSourceCode(String relativePath) {
+    return new HtmlSourceCode(new TestInputFileBuilder("key", relativePath).setLanguage(HtmlConstants.LANGUAGE_KEY).setModuleBaseDir(new File(".").toPath()).build());
   }
 
   private Reader readFile(String fileName) {
