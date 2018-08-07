@@ -1,0 +1,20 @@
+<p>In order to make your site usable by as many people as possible, subtitles should be provided for videos.</p>
+<p>This rule raises an issue when a <code>video</code> does not include at least one subtitle <code>&lt;track/&gt;</code>.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;video id="video" controls preload="metadata"&gt;
+   &lt;source src="resources/myvideo.mp4" type="video/mp4"&gt;
+   &lt;source src="resources/myvideo.webm" type="video/webm"&gt;
+&lt;/video&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;video id="video" controls preload="metadata"&gt;
+   &lt;source src="resources/myvideo.mp4" type="video/mp4"&gt;
+   &lt;source src="resources/myvideo.webm" type="video/webm"&gt;
+   &lt;track label="English" kind="subtitles" srclang="en" src="resources/myvideo-en.vtt" default&gt;
+   &lt;track label="Deutsch" kind="subtitles" srclang="de" src="resources/myvideo-de.vtt"&gt;
+   &lt;track label="Español" kind="subtitles" srclang="es" src="resources/myvideo-es.vtt"&gt;
+&lt;/video&gt;
+</pre>
+

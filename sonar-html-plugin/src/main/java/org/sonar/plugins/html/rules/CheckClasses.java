@@ -64,6 +64,7 @@ import org.sonar.plugins.html.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.html.checks.sonar.TableHeaderHasIdOrScopeCheck;
 import org.sonar.plugins.html.checks.sonar.TableWithoutCaptionCheck;
 import org.sonar.plugins.html.checks.sonar.UnsupportedTagsInHtml5Check;
+import org.sonar.plugins.html.checks.sonar.VideoTrackCheck;
 import org.sonar.plugins.html.checks.sonar.WmodeIsWindowCheck;
 import org.sonar.plugins.html.checks.structure.ChildElementIllegalCheck;
 import org.sonar.plugins.html.checks.structure.ChildElementRequiredCheck;
@@ -118,6 +119,7 @@ public final class CheckClasses {
     BoldAndItalicTagsCheck.class,
     MouseEventWithoutKeyboardEquivalentCheck.class,
     PageWithoutTitleCheck.class,
+    VideoTrackCheck.class,
     ItemTagNotWithinContainerTagCheck.class,
     FieldsetWithoutLegendCheck.class,
     WmodeIsWindowCheck.class,
