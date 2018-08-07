@@ -23,17 +23,17 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.CommentNode;
 
-@Rule(key = "S1135")
-public class TodoCommentCheck extends AbstractPageCheck {
+@Rule(key = "S1134")
+public class FixmeCommentCheck extends AbstractPageCheck {
 
-  private static final Pattern TODO_PATTERN = Pattern.compile("(?i)(^|[^\\p{L}])(todo)");
+  private static final Pattern FIXME_PATTERN = Pattern.compile("(?i)(^|[^\\p{L}])(fixme)");
 
   @Override
   public void comment(CommentNode node) {
-    Matcher matcher = TODO_PATTERN.matcher(node.getCode());
+    Matcher matcher = FIXME_PATTERN.matcher(node.getCode());
     if (matcher.find()) {
       int lineNumber = CommentUtils.lineNumber(node, matcher.start(2));
-      createViolation(lineNumber, "Complete the task associated to this \"TODO\" comment.");
+      createViolation(lineNumber, "Take the required action to fix the issue indicated by this \"FIXME\" comment.");
     }
   }
 

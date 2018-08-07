@@ -29,6 +29,7 @@ import org.sonar.plugins.html.checks.coding.MaxLineLengthCheck;
 import org.sonar.plugins.html.checks.coding.UnclosedTagCheck;
 import org.sonar.plugins.html.checks.comments.AvoidCommentedOutCodeCheck;
 import org.sonar.plugins.html.checks.comments.AvoidHtmlCommentCheck;
+import org.sonar.plugins.html.checks.comments.FixmeCommentCheck;
 import org.sonar.plugins.html.checks.comments.TodoCommentCheck;
 import org.sonar.plugins.html.checks.dependencies.DynamicJspIncludeCheck;
 import org.sonar.plugins.html.checks.dependencies.IllegalNamespaceCheck;
@@ -132,6 +133,7 @@ public final class CheckClasses {
     ImgWithoutWidthOrHeightCheck.class,
     PageWithoutFaviconCheck.class,
     TodoCommentCheck.class,
+    FixmeCommentCheck.class,
     ElementWithGivenIdPresentCheck.class
   );
 
