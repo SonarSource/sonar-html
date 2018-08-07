@@ -13,7 +13,7 @@
   <version>2.7-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SonarSource :: Web</name>
+  <name>SonarSource :: HTML</name>
 
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 

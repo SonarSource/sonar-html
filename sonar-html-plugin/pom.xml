@@ -15,13 +15,6 @@
   <description>Code analyzer for HTML</description>
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
-  <scm>
-    <connection>scm:git:git@github.com:SonarSource/sonar-html.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarSource/sonar-html.git</developerConnection>
-    <url>https://github.com/SonarSource/sonar-html</url>
-    <tag>HEAD</tag>
-  </scm>
-
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -29,6 +22,13 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:SonarSource/sonar-html.git</connection>
+    <developerConnection>scm:git:git@github.com:SonarSource/sonar-html.git</developerConnection>
+    <url>https://github.com/SonarSource/sonar-html</url>
+    <tag>HEAD</tag>
+  </scm>
 
   <properties>
     <sonar.version>6.7</sonar.version>
