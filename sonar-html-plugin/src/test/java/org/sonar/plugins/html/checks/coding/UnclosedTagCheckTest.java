@@ -52,7 +52,19 @@ public class UnclosedTagCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(4).withMessage("The tag \"li\" has no corresponding closing tag.")
-      .next().atLine(7).withMessage("The tag \"br\" has no corresponding closing tag.");
+      .next().atLine(7).withMessage("The tag \"br\" has no corresponding closing tag.")
+      .next().atLine(15).withMessage("The tag \"li\" has no corresponding closing tag.");
+  }
+
+  @Test
+  public void empty_file() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/empty-file.html"), check);
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+
+    sourceCode = TestHelper.scan(new File("src/test/resources/checks/empty-file.html"), check);
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
 }
