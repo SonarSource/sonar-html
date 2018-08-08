@@ -36,18 +36,23 @@ public class VideoTrackCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isVideoTag(node) && hasVideoSrc(node) && !hasAccessibilityTrackChild(node)) {
+    if (isVideoTag(node) && hasVideoSrc(node) && !hasAccessibilityTrackDescendant(node)) {
       createViolation(node.getStartLinePosition(), "Add subtitle files for this video.");
     }
   }
 
   private static boolean hasVideoSrc(TagNode node) {
-    return node.getAttributes().stream().anyMatch(VideoTrackCheck::isSrcAttribute) ||
-      node.getChildren().stream().anyMatch(VideoTrackCheck::isSourceTag);
+    return node.getAttributes().stream().anyMatch(VideoTrackCheck::isSrcAttribute) || hasVideoSrcDescendant(node);
   }
 
-  private static boolean hasAccessibilityTrackChild(TagNode node) {
-    return node.getChildren().stream().anyMatch(VideoTrackCheck::isAccessibilityTrackTag);
+  private static boolean hasVideoSrcDescendant(TagNode node) {
+    return node.getChildren().stream().anyMatch(VideoTrackCheck::isSourceTag) ||
+      node.getChildren().stream().anyMatch(VideoTrackCheck::hasVideoSrcDescendant);
+  }
+
+  private static boolean hasAccessibilityTrackDescendant(TagNode node) {
+    return node.getChildren().stream().anyMatch(VideoTrackCheck::isAccessibilityTrackTag) ||
+      node.getChildren().stream().anyMatch(VideoTrackCheck::hasAccessibilityTrackDescendant);
   }
 
   private static boolean isVideoTag(TagNode node) {
