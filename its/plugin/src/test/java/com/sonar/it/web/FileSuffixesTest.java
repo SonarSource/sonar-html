@@ -39,7 +39,7 @@ public class FileSuffixesTest {
   public static void init() {
     orchestrator.resetData();
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "html", "no_rule");
+    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "no_rule");
   }
 
   private static SonarScanner getSonarRunner() {
@@ -72,7 +72,7 @@ public class FileSuffixesTest {
   @Test
   public void should_analyze_all_files_with_empty_suffixes() {
     SonarScanner build = getSonarRunner()
-      .setLanguage("html")
+      .setLanguage("web")
       .setProperty("sonar.sourceEncoding", "UTF-8")
       .setProperty("sonar.html.file.suffixes", "");
     orchestrator.executeBuild(build);

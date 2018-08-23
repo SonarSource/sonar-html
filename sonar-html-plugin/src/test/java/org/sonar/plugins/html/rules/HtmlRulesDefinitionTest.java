@@ -36,7 +36,7 @@ public class HtmlRulesDefinitionTest {
     RulesDefinition.Repository repository = context.repository("Web");
 
     assertThat(repository.name()).isEqualTo("SonarAnalyzer");
-    assertThat(repository.language()).isEqualTo("html");
+    assertThat(repository.language()).isEqualTo("web");
     assertThat(repository.rules()).hasSize(Iterables.size(CheckClasses.getCheckClasses()));
 
     RulesDefinition.Rule alertUseRule = repository.rule("IllegalAttributeCheck");

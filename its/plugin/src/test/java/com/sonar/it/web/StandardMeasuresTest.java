@@ -47,7 +47,7 @@ public class StandardMeasuresTest {
     orchestrator.resetData();
     String projectKey = "TestOfWebPlugin";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "IT");
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
     SonarScanner build = createSonarScanner()
       .setProjectDir(new File("projects/continuum-webapp/"))
       .setProjectKey(projectKey)

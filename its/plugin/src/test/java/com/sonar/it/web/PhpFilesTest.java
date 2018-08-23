@@ -53,9 +53,9 @@ public class PhpFilesTest {
   public static void init() {
     orchestratorWithPhp.resetData();
     orchestratorWithPhp.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    orchestratorWithPhp.getServer().associateProjectToQualityProfile(PROJECT_KEY, "html", "illegal_tab");
+    orchestratorWithPhp.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "illegal_tab");
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "html", "illegal_tab");
+    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "illegal_tab");
   }
 
   private static SonarScanner getSonarRunner() {
