@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.Metric;
+import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.HtmlIssue;
 
 public class HtmlSourceCode {
@@ -78,8 +79,8 @@ public class HtmlSourceCode {
   }
 
   public boolean shouldComputeMetric() {
-    // if input file has a language other than html, then we should not compute metrics for this file as we assume they will be computed by another plugin
-    return inputFile.language() == null || "html".equals(inputFile.language());
+    // if input file has a language other than web, then we should not compute metrics for this file as we assume they will be computed by another plugin
+    return inputFile.language() == null || HtmlConstants.LANGUAGE_KEY.equals(inputFile.language());
   }
 
 }

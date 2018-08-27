@@ -62,7 +62,7 @@ public class WebRulingTest {
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
     String projectKey = "project";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "rules");
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "rules");
     SonarScanner build = SonarScanner.create()
       .setProjectDir(FileLocation.of("../sources").getFile())
       .setProjectKey(projectKey)

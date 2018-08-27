@@ -45,7 +45,7 @@ public class VariousTest {
   public void testExclusions() {
     String projectKey = "exclusions";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "IT");
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
     SonarScanner build = HtmlTestSuite.createSonarScanner()
       .setProjectDir(new File("projects/exclusions/"))
       .setProjectKey(projectKey)
@@ -69,7 +69,7 @@ public class VariousTest {
   public void testCommentedOutCodeDetection() {
     String projectKey = "test";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
-    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "html", "IT");
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
     SonarScanner build = HtmlTestSuite.createSonarScanner()
       .setProjectDir(new File("projects/continuum-webapp/"))
       .setProjectKey(projectKey)

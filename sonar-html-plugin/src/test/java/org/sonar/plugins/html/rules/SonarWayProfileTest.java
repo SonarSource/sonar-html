@@ -35,7 +35,7 @@ public class SonarWayProfileTest {
     SonarWayProfile definition = new SonarWayProfile(sonarRuntime);
     Context context = new Context();
     definition.define(context);
-    BuiltInQualityProfile profile = context.profile("html", "Sonar way");
+    BuiltInQualityProfile profile = context.profile("web", "Sonar way");
     Assertions.assertThat(profile.name()).isEqualTo("Sonar way");
     Assertions.assertThat(profile.language()).isEqualTo(HtmlConstants.LANGUAGE_KEY);
     Assertions.assertThat(profile.rules().size()).isGreaterThan(10);

@@ -20,7 +20,7 @@ package org.sonar.plugins.html.api;
 public class HtmlConstants {
 
   /** The language key. */
-  public static final String LANGUAGE_KEY = "html";
+  public static final String LANGUAGE_KEY = "web";
   public static final String LANGUAGE_NAME = "HTML";
 
   // ================ Plugin properties ================
