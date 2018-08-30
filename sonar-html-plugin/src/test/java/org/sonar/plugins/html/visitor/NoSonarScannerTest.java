@@ -59,9 +59,10 @@ public class NoSonarScannerTest {
     return argThat(new IsOnlyIgnoringLine2());
   }
 
-  private class IsOnlyIgnoringLine2 extends ArgumentMatcher<Set> {
+  private class IsOnlyIgnoringLine2 implements ArgumentMatcher<Set> {
 
-    public boolean matches(Object set) {
+    @Override
+    public boolean matches(Set set) {
       Set<Integer> lines = (Set) set;
       return lines.size() == 1 && lines.contains(2);
     }
