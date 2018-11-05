@@ -1,9 +1,7 @@
-@Library('SonarSource@1.2') _
+@Library('SonarSource@2.1.1') _
 
 pipeline {
-  agent {
-   label 'linux || shortbuilds'
-  }
+  agent none
   parameters {
     string(name: 'GIT_SHA1', description: 'Git SHA1 (provided by travisci hook job)')
     string(name: 'CI_BUILD_NAME', defaultValue: 'cix-pipelines', description: 'Build Name (provided by travisci hook job)')
