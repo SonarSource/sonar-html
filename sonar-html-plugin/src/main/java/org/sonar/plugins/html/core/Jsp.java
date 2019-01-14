@@ -18,15 +18,21 @@
 package org.sonar.plugins.html.core;
 
 import org.sonar.api.config.Configuration;
+import org.sonar.api.resources.AbstractLanguage;
 import org.sonar.plugins.html.api.HtmlConstants;
 
-public class HtmlConfiguration {
+public class Jsp extends AbstractLanguage {
 
-  private HtmlConfiguration() {
+  private Configuration configuration;
+
+  public Jsp(Configuration configuration) {
+    super(HtmlConstants.JSP_LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_NAME);
+    this.configuration = configuration;
   }
 
-  public static String[] fileSuffixes(Configuration configuration) {
-    return configuration.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY);
+  @Override
+  public String[] getFileSuffixes() {
+    return configuration.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY);
   }
 
 }

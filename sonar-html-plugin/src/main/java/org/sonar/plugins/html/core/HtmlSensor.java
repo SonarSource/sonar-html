@@ -57,7 +57,7 @@ import org.sonar.plugins.html.visitor.NoSonarScanner;
 
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
-  private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "jsp"};
+  private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc"};
 
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
@@ -91,7 +91,7 @@ public final class HtmlSensor implements Sensor {
       predicates.and(
         predicates.hasType(InputFile.Type.MAIN),
         predicates.or(
-          predicates.hasLanguage(HtmlConstants.LANGUAGE_KEY),
+          predicates.hasLanguages(HtmlConstants.LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_KEY),
           predicates.or(Stream.of(OTHER_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
           )
     ));

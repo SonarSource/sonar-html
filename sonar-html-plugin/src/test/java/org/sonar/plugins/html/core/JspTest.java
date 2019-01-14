@@ -17,22 +17,28 @@
  */
 package org.sonar.plugins.html.core;
 
-import org.sonar.api.config.Configuration;
-import org.sonar.api.resources.AbstractLanguage;
+import org.junit.Test;
+import org.sonar.api.config.internal.MapSettings;
 import org.sonar.plugins.html.api.HtmlConstants;
 
-public class Html extends AbstractLanguage {
+import static org.fest.assertions.Assertions.assertThat;
 
-  private Configuration configuration;
+public class JspTest {
 
-  public Html(Configuration configuration) {
-    super(HtmlConstants.LANGUAGE_KEY, HtmlConstants.LANGUAGE_NAME);
-    this.configuration = configuration;
+  @Test
+  public void testDefaultFileSuffixes() {
+    MapSettings settings = new MapSettings();
+    settings.setProperty(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY, HtmlConstants.JSP_FILE_EXTENSIONS_DEF_VALUE);
+    Jsp jsp = new Jsp(settings.asConfig());
+    assertThat(jsp.getFileSuffixes()).containsOnly(".jsp", ".jspf", ".jspx");
   }
 
-  @Override
-  public String[] getFileSuffixes() {
-    return configuration.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY);
+  @Test
+  public void testCustomFileSuffixes() {
+    MapSettings settings = new MapSettings();
+    settings.setProperty(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
+    Jsp jsp = new Jsp(settings.asConfig());
+    assertThat(jsp.getFileSuffixes()).containsOnly("foo", "bar", "toto");
   }
 
 }

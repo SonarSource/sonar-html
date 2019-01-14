@@ -23,10 +23,16 @@ public class HtmlConstants {
   public static final String LANGUAGE_KEY = "web";
   public static final String LANGUAGE_NAME = "HTML";
 
+  /** JSP language key. */
+  public static final String JSP_LANGUAGE_KEY = "jsp";
+  public static final String JSP_LANGUAGE_NAME = "JSP";
+
   // ================ Plugin properties ================
 
   public static final String FILE_EXTENSIONS_PROP_KEY = "sonar.html.file.suffixes";
-  public static final String FILE_EXTENSIONS_DEF_VALUE = ".html,.xhtml,.jspf,.jspx,.cshtml,.vbhtml,.aspx,.ascx,.rhtml,.erb,.shtm,.shtml";
+  public static final String FILE_EXTENSIONS_DEF_VALUE = ".html,.xhtml,.cshtml,.vbhtml,.aspx,.ascx,.rhtml,.erb,.shtm,.shtml";
+  public static final String JSP_FILE_EXTENSIONS_PROP_KEY = "sonar.jsp.file.suffixes";
+  public static final String JSP_FILE_EXTENSIONS_DEF_VALUE = ".jsp,.jspf,.jspx";
   private HtmlConstants() {
   }
 
