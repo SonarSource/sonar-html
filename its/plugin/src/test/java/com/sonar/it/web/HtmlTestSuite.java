@@ -58,6 +58,10 @@ public class HtmlTestSuite {
     .restoreProfileAtStartup(FileLocation.of("profiles/IllegalTab_profile.xml"))
     .build();
 
+  public static boolean sonarqubeGreaterThan75() {
+    return orchestrator.getServer().version().isGreaterThanOrEquals(7, 6);
+  }
+
   public static SonarScanner createSonarScanner() {
     return SonarScanner.create();
   }

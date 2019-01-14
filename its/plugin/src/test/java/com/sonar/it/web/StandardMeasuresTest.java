@@ -87,6 +87,13 @@ public class StandardMeasuresTest {
 
   @Test
   public void testDirectoryMeasures() {
+    if (HtmlTestSuite.sonarqubeGreaterThan75()) {
+      assertThat(getMeasureAsDouble("ncloc", DIR_ROOT)).isEqualTo(6838d);
+      assertThat(getMeasureAsDouble("comment_lines_density", DIR_ROOT)).isEqualTo(0.3);
+      assertThat(getMeasureAsDouble("duplicated_lines_density", DIR_ROOT)).isEqualTo(1.8);
+      assertThat(getMeasureAsDouble("complexity", DIR_ROOT)).isEqualTo(389d);
+      return;
+    }
     assertThat(getMeasureAsDouble("ncloc", DIR_ROOT)).isEqualTo(2870d);
     assertThat(getMeasureAsDouble("comment_lines_density", DIR_ROOT)).isEqualTo(0.3);
     assertThat(getMeasureAsDouble("duplicated_lines_density", DIR_ROOT)).isEqualTo(1.4);
