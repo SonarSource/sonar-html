@@ -44,27 +44,43 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean hasOnClick(TagNode node) {
-    return node.getAttribute("ONCLICK") != null;
+    return hasEventHandlerAttribute(node, "CLICK");
   }
 
   private static boolean hasOnKeyPress(TagNode node) {
-    return node.getAttribute("ONKEYPRESS") != null;
+    return hasEventHandlerAttribute(node, "KEYPRESS");
   }
 
   private static boolean hasOnMouseover(TagNode node) {
-    return node.getAttribute("ONMOUSEOVER") != null;
+    return hasEventHandlerAttribute(node, "MOUSEOVER");
   }
 
   private static boolean hasOnFocus(TagNode node) {
-    return node.getAttribute("ONFOCUS") != null;
+    return hasEventHandlerAttribute(node, "FOCUS");
   }
 
   private static boolean hasOnMouseout(TagNode node) {
-    return node.getAttribute("ONMOUSEOUT") != null;
+    return hasAttribute(node, "ONMOUSEOUT")
+      || hasAttribute(node, "(MOUSEOUT)")
+      || hasAttribute(node, "ON-MOUSEOUT")
+      // Angular 1 only has a 'NG-MOUSELEAVE' attribute, no 'NG-MOUSEOUT'
+      || hasAttribute(node, "NG-MOUSELEAVE");
   }
 
   private static boolean hasOnBlur(TagNode node) {
-    return node.getAttribute("ONBLUR") != null;
+    return hasEventHandlerAttribute(node, "BLUR");
+  }
+
+  private static boolean hasEventHandlerAttribute(TagNode node, String eventName) {
+    return hasAttribute(node, "ON" + eventName)
+      // angular event binding attributes
+      || hasAttribute(node, "(" + eventName + ")")
+      || hasAttribute(node, "ON-" + eventName)
+      || hasAttribute(node, "NG-" + eventName);
+  }
+
+  private static boolean hasAttribute(TagNode node, String attributeName) {
+    return node.getAttribute(attributeName) != null;
   }
 
 }

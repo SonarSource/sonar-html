@@ -38,7 +38,16 @@ public class MouseEventWithoutKeyboardEquivalentCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a 'onKeyPress' attribute to this <a> tag.")
         .next().atLine(2).withMessage("Add a 'onFocus' attribute to this <A> tag.")
-        .next().atLine(3).withMessage("Add a 'onBlur' attribute to this <a> tag.");
+        .next().atLine(3).withMessage("Add a 'onBlur' attribute to this <a> tag.")
+        .next().atLine(11).withMessage("Add a 'onKeyPress' attribute to this <a> tag.")
+        .next().atLine(12).withMessage("Add a 'onFocus' attribute to this <a> tag.")
+        .next().atLine(13)
+        .next().atLine(21)
+        .next().atLine(22)
+        .next().atLine(23)
+        .next().atLine(32)
+        .next().atLine(33)
+        .next().atLine(34);
   }
 
 }
