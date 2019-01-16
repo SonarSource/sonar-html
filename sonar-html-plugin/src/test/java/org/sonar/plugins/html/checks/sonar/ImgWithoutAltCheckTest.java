@@ -37,7 +37,9 @@ public class ImgWithoutAltCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add an \"alt\" attribute to this image.")
-        .next().atLine(5);
+        .next().atLine(5)
+        .next().atLine(12)
+        .next().atLine(13);
   }
 
 }

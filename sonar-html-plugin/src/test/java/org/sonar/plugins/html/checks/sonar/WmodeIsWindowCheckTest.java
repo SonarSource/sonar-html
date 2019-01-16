@@ -40,7 +40,9 @@ public class WmodeIsWindowCheckTest {
         .next().atLine(14)
         .next().atLine(19)
         .next().atLine(58)
-        .next().atLine(64);
+        .next().atLine(64)
+        .next().atLine(90)
+        .next().atLine(106);
   }
 
 }

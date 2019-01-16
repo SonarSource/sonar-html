@@ -56,7 +56,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   }
 
   private static String getTarget(TagNode node) {
-    String target = node.getAttribute("href");
+    String target = node.getPropertyValue("href");
     return target == null ? "" : target;
   }
 

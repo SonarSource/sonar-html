@@ -38,6 +38,13 @@ public class ElementWithGivenIdPresentCheckTest {
   }
 
   @Test
+  public void test_angular() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Angular_Ok.html"), new ElementWithGivenIdPresentCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
   public void custom_ko() throws Exception {
     ElementWithGivenIdPresentCheck check = new ElementWithGivenIdPresentCheck();
     check.id = "gotit";

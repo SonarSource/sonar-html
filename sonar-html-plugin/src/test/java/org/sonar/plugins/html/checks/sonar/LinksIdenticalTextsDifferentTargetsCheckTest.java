@@ -39,7 +39,8 @@ public class LinksIdenticalTextsDifferentTargetsCheckTest {
         .next().atLine(5)
         .next().atLine(8)
         .next().atLine(11)
-        .next().atLine(15);
+        .next().atLine(15)
+        .next().atLine(23);
   }
 
 }

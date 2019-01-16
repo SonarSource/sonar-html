@@ -44,7 +44,7 @@ public class BoldAndItalicTagsCheck extends AbstractPageCheck {
    * @return true if violation should be applied, false otherwise
    */
   private static boolean isItalicAndNotAriaHidden(TagNode node) {
-    return "I".equalsIgnoreCase(node.getNodeName()) && !"true".equalsIgnoreCase(node.getAttribute("aria-hidden"));
+    return "I".equalsIgnoreCase(node.getNodeName()) && !"true".equalsIgnoreCase(node.getPropertyValue("aria-hidden"));
   }
 
 }

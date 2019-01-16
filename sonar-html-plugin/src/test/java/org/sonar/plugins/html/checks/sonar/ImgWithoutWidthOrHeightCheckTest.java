@@ -39,7 +39,9 @@ public class ImgWithoutWidthOrHeightCheckTest {
         .next().atLine(1).withMessage("Add both a 'width' and a 'height' attribute to this image.")
         .next().atLine(2)
         .next().atLine(3)
-        .next().atLine(5);
+        .next().atLine(4)
+        .next().atLine(8)
+        .next().atLine(10);
   }
 
 }

@@ -19,9 +19,7 @@ package org.sonar.plugins.html.node;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -49,8 +47,35 @@ public class TagNode extends Node {
     return StringUtils.equalsIgnoreCase(getLocalName(), elementName) || StringUtils.equalsIgnoreCase(getNodeName(), elementName);
   }
 
-  public String getAttribute(String attributeName) {
+  /**
+   *  This method takes into account the property binding mechanism of angular. See SONARHTML-92
+   */
+  @Nullable
+  public Attribute getProperty(String propertyName) {
+    String angularProperty = "[" + propertyName + "]";
+    for (Attribute a : attributes) {
+      String attributeName = a.getName();
+      if (propertyName.equalsIgnoreCase(attributeName) || angularProperty.equalsIgnoreCase(attributeName)) {
+        return a;
+      }
+    }
+    return null;
+  }
 
+  @Nullable
+  public String getPropertyValue(String propertyName) {
+    Attribute property = getProperty(propertyName);
+    if (property != null) {
+      return property.getValue();
+    }
+    return null;
+  }
+
+  public boolean hasProperty(String propertyName) {
+    return getProperty(propertyName) != null;
+  }
+
+  public String getAttribute(String attributeName) {
     for (Attribute a : attributes) {
       if (attributeName.equalsIgnoreCase(a.getName())) {
         return a.getValue();

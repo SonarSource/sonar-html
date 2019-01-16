@@ -120,7 +120,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     if (deprecatedAttributes != null) {
       List<Attribute> attributes = element.getAttributes();
       for (Attribute attribute : attributes) {
-        if (isDeprecated(element, deprecatedAttributes, attribute.getName().toLowerCase(), attribute.getValue().toLowerCase())) {
+        if (isDeprecated(element, deprecatedAttributes, getOriginalAttributeName(attribute.getName()), attribute.getValue().toLowerCase())) {
           createViolation(element.getStartLinePosition(), "Remove this deprecated \"" + attribute.getName() + "\" attribute.");
         }
       }
@@ -134,11 +134,23 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     } else if ("script".equals(elementName) && "language".equals(attributeName)) {
       return !"javascript".equals(attributeValue);
     } else if ("a".equals(elementName) && "name".equals(attributeName)) {
-      String id = element.getAttribute("id");
+      String id = element.getPropertyValue("id");
       return Strings.isNullOrEmpty(id) || !id.equals(attributeValue);
     } else {
-      return deprecatedAttributes.contains(attributeName.toLowerCase());
+      return deprecatedAttributes.contains(attributeName);
     }
+  }
+
+  /**
+   * Returns the original name of the attribute. So if a framework such as angular is used to set the property, such as '[src]=blalba', the
+   * method will strip the property name of '[' and ']'.
+   */
+  private static String getOriginalAttributeName(String attributeName) {
+    String attributeNameLower = attributeName.toLowerCase(Locale.ENGLISH);
+    if (attributeNameLower.startsWith("[") && attributeNameLower.endsWith("]")) {
+      return attributeNameLower.substring(1, attributeName.length() - 1);
+    }
+    return attributeNameLower;
   }
 
 }

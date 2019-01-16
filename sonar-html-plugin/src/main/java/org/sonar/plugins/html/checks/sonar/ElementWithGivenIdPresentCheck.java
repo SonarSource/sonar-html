@@ -42,7 +42,7 @@ public class ElementWithGivenIdPresentCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (id.equals(node.getAttribute("id"))) {
+    if (id.equals(node.getPropertyValue("id"))) {
       foundId = true;
     }
   }

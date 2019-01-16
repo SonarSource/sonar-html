@@ -26,7 +26,7 @@ public class FrameWithoutTitleCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isFrame(node) && !hasTitleAttribute(node)) {
+    if (isFrame(node) && !node.hasProperty("TITLE")) {
       createViolation(node.getStartLinePosition(), "Add a \"title\" attribute to this <" + node.getNodeName() + "> tag.");
     }
   }
@@ -34,10 +34,6 @@ public class FrameWithoutTitleCheck extends AbstractPageCheck {
   private static boolean isFrame(TagNode node) {
     return "FRAME".equalsIgnoreCase(node.getNodeName()) ||
       "IFRAME".equalsIgnoreCase(node.getNodeName());
-  }
-
-  private static boolean hasTitleAttribute(TagNode node) {
-    return node.getAttribute("TITLE") != null;
   }
 
 }

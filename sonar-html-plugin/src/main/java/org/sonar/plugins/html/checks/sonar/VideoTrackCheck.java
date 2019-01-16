@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S4084")
@@ -42,7 +41,7 @@ public class VideoTrackCheck extends AbstractPageCheck {
   }
 
   private static boolean hasVideoSrc(TagNode node) {
-    return node.getAttributes().stream().anyMatch(VideoTrackCheck::isSrcAttribute) || hasVideoSrcDescendant(node);
+    return node.hasProperty("SRC") || hasVideoSrcDescendant(node);
   }
 
   private static boolean hasVideoSrcDescendant(TagNode node) {
@@ -63,12 +62,8 @@ public class VideoTrackCheck extends AbstractPageCheck {
     return node.equalsElementName("SOURCE");
   }
 
-  private static boolean isSrcAttribute(Attribute attribute) {
-    return "SRC".equalsIgnoreCase(attribute.getName());
-  }
-
   private static boolean isAccessibilityTrackTag(TagNode node) {
-    return node.equalsElementName("TRACK") && ACCESSIBILITY_TRACK_KINDS.contains(node.getAttribute("kind"));
+    return node.equalsElementName("TRACK") && ACCESSIBILITY_TRACK_KINDS.contains(node.getPropertyValue("KIND"));
   }
 
 }

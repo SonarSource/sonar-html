@@ -16,3 +16,8 @@
 
 <a href="c.html"><img src="a.png"></a>
 <a href="d.html"><img src="b.png"></a>
+
+<a [href]="a.html">foo</a>
+<a [href]="a.html">foo</a>          <!-- Compliant -->
+
+<a [href]="c.html">baz</a>          <!-- Non-Compliant -->

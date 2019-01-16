@@ -64,7 +64,7 @@ public class PageWithoutFaviconCheck extends AbstractPageCheck {
   }
 
   private static boolean isFaviconTag(TagNode node) {
-    String rel = node.getAttribute("rel");
+    String rel = node.getPropertyValue("REL");
 
     return isLinkTag(node) &&
       rel != null &&

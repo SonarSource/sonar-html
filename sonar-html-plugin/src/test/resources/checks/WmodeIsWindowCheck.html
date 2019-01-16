@@ -84,3 +84,32 @@
        wmode="direct"                                                                       <!-- Compliant - not flash -->
        type="application/foo"
        pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
+<object type="application/x-shockwave-flash" width="550" height="400">
+    <param [name]="movie" [value]="movie_name.swf" />
+    <param [name]="wmode" [value]="direct" />                                               <!-- Non-Compliant -->
+</object>
+
+<object type="application/foo" width="550" height="400">
+    <param [name]="movie" [value]="movie_name.swf" />
+    <param [name]="wmode" [value]="direct" />                                               <!-- Compliant - not flash -->
+</object>
+
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400">
+    <param [name]="movie" [value]="movie_name.swf" />
+    <param [name]="wmode" [value]="window" />                                               <!-- Compliant -->
+</object>
+
+<embed
+        width="550"
+        height="400"
+        [wmode]="direct"                                                                    <!-- Non-Compliant -->
+        type="application/x-shockwave-FlAsH"
+pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
+<embed src="movie_name.swf"
+       width="550"
+       height="400"
+       [wmode]="window"                                                                     <!-- Compliant -->
+       type="application/x-shockwave-flash"
+       pluginspage="http://www.macromedia.com/go/getflashplayer" />
