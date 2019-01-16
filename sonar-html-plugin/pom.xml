@@ -53,6 +53,13 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <!-- jsr305 is provided as its javax.annotation package is shaded inside sonar-analyzer-commons -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-channel</artifactId>
@@ -88,11 +95,6 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.1</version>
     </dependency>
 
     <!-- JSF Expression parser -->
