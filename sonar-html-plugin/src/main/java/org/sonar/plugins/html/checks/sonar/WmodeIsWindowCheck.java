@@ -19,11 +19,12 @@ package org.sonar.plugins.html.checks.sonar;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "WmodeIsWindowCheck")
 public class WmodeIsWindowCheck extends AbstractPageCheck {
+
+  private static final String WMODE = "WMODE";
 
   @Override
   public void startElement(TagNode node) {
@@ -41,13 +42,7 @@ public class WmodeIsWindowCheck extends AbstractPageCheck {
   }
 
   private static int getWmodeAttributeLine(TagNode node) {
-    for (Attribute attribute : node.getAttributes()) {
-      if ("WMODE".equalsIgnoreCase(attribute.getName())) {
-        return attribute.getLine();
-      }
-    }
-
-    throw new IllegalStateException();
+    return node.getProperty(WMODE).getLine();
   }
 
   private static boolean isParam(TagNode node) {
@@ -55,12 +50,12 @@ public class WmodeIsWindowCheck extends AbstractPageCheck {
   }
 
   private static boolean hasInvalidObjectWmodeParam(TagNode node) {
-    String name = node.getAttribute("name");
-    String value = node.getAttribute("value");
+    String name = node.getPropertyValue("name");
+    String value = node.getPropertyValue("value");
 
     return name != null &&
       value != null &&
-      "WMODE".equalsIgnoreCase(name) &&
+      WMODE.equalsIgnoreCase(name) &&
       !"WINDOW".equalsIgnoreCase(value);
   }
 
@@ -69,7 +64,7 @@ public class WmodeIsWindowCheck extends AbstractPageCheck {
   }
 
   private static boolean hasInvalidEmbedWmodeAttribute(TagNode node) {
-    String wmode = node.getAttribute("wmode");
+    String wmode = node.getPropertyValue(WmodeIsWindowCheck.WMODE);
 
     return wmode != null &&
       !"WINDOW".equalsIgnoreCase(wmode);

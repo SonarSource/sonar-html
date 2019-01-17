@@ -26,21 +26,13 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isTableHeader(node) && !hasId(node) && !hasScope(node)) {
+    if (isTableHeader(node) && !node.hasProperty("ID") && !node.hasProperty("SCOPE")) {
       createViolation(node.getStartLinePosition(), "Add either an 'id' or a 'scope' attribute to this <" + node.getNodeName() + "> tag.");
     }
   }
 
   private static boolean isTableHeader(TagNode node) {
     return "TH".equalsIgnoreCase(node.getNodeName());
-  }
-
-  private static boolean hasId(TagNode node) {
-    return node.getAttribute("id") != null;
-  }
-
-  private static boolean hasScope(TagNode node) {
-    return node.getAttribute("scope") != null;
   }
 
 }

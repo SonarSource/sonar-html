@@ -42,7 +42,8 @@ public class BoldAndItalicTagsCheckTest {
         .next().atLine(11).withMessage("Replace this <i> tag by <em>.")
         .next().atLine(17).withMessage("Replace this <i> tag by <em>.")
         .next().atLine(19).withMessage("Replace this <i> tag by <em>.")
-        .next().atLine(21).withMessage("Replace this <i> tag by <em>.");
+        .next().atLine(21).withMessage("Replace this <i> tag by <em>.")
+        .next().atLine(25).withMessage("Replace this <i> tag by <em>.");
   }
 
 }

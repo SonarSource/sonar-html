@@ -26,7 +26,7 @@ public class ImgWithoutWidthOrHeightCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if ((isImgTag(node) || isImageInput(node)) && (!hasWidthAttribute(node) || !hasHeightAttribute(node))) {
+    if ((isImgTag(node) || isImageInput(node)) && (!node.hasProperty("WIDTH") || !node.hasProperty("HEIGHT"))) {
       createViolation(node.getStartLinePosition(), "Add both a 'width' and a 'height' attribute to this image.");
     }
   }
@@ -36,19 +36,11 @@ public class ImgWithoutWidthOrHeightCheck extends AbstractPageCheck {
   }
 
   private static boolean isImageInput(TagNode node) {
-    String type = node.getAttribute("TYPE");
+    String type = node.getPropertyValue("TYPE");
 
     return "INPUT".equalsIgnoreCase(node.getNodeName()) &&
       type != null &&
       "IMAGE".equalsIgnoreCase(type);
-  }
-
-  private static boolean hasWidthAttribute(TagNode node) {
-    return node.getAttribute("width") != null;
-  }
-
-  private static boolean hasHeightAttribute(TagNode node) {
-    return node.getAttribute("height") != null;
   }
 
 }

@@ -37,7 +37,8 @@ public class VideoTrackCheckTest {
       .next().atLine(28).withMessage("Add subtitles and description files for this video.")
       .next().atLine(33)
       .next().atLine(38)
-      .next().atLine(43);
+      .next().atLine(43)
+      .next().atLine(49);
   }
 
 }

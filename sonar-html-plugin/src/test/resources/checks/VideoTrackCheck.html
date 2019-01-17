@@ -46,5 +46,13 @@
 
   <video id="video" style="display:none;" />
 
+  <video [src]="mov_bbb.ogg"> <!-- Non-Compliant -->
+      Your browser does not support HTML5 video.
+  </video>
+
+  <video src="mov_bbb.ogg">
+      <track src="subtitles_en.vtt" [kind]="subtitles" srclang="en" label="English" />
+      Your browser does not support HTML5 video.
+  </video>
 </body>
 </html>
