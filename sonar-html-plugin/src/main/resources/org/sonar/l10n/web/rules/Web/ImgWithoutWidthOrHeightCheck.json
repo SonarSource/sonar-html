@@ -1,5 +1,5 @@
 {
-  "title": "Buttons and image tags should have \"width\" and \"height\" attributes",
+  "title": "Image tags should have \"width\" and \"height\" attributes",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -11,5 +11,6 @@
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1099",
-  "sqKey": "ImgWithoutWidthOrHeightCheck"
+  "sqKey": "ImgWithoutWidthOrHeightCheck",
+  "scope": "Main"
 }

@@ -11,5 +11,6 @@
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1458",
-  "sqKey": "UnclosedTagCheck"
+  "sqKey": "UnclosedTagCheck",
+  "scope": "Main"
 }

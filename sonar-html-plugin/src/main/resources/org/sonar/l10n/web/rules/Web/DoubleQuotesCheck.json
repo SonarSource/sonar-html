@@ -11,5 +11,6 @@
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1457",
-  "sqKey": "DoubleQuotesCheck"
+  "sqKey": "DoubleQuotesCheck",
+  "scope": "Main"
 }

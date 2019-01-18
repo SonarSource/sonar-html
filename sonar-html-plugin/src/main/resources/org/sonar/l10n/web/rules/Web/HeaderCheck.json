@@ -11,5 +11,6 @@
   ],
   "defaultSeverity": "Blocker",
   "ruleSpecification": "RSPEC-1451",
-  "sqKey": "HeaderCheck"
+  "sqKey": "HeaderCheck",
+  "scope": "All"
 }

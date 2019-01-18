@@ -11,5 +11,6 @@
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1923",
-  "sqKey": "ParentElementRequiredCheck"
+  "sqKey": "ParentElementRequiredCheck",
+  "scope": "Main"
 }

@@ -18,6 +18,7 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1876",
   "sqKey": "AvoidHtmlCommentCheck",
+  "scope": "Main",
   "securityStandards": {
     "CWE": [
       615

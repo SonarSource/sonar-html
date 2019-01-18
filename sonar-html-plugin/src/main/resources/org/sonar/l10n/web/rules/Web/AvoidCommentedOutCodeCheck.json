@@ -12,5 +12,6 @@
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-125",
-  "sqKey": "AvoidCommentedOutCodeCheck"
+  "sqKey": "AvoidCommentedOutCodeCheck",
+  "scope": "All"
 }

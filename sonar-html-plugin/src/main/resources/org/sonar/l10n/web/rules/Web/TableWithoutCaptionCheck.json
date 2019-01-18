@@ -11,5 +11,6 @@
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1085",
-  "sqKey": "TableWithoutCaptionCheck"
+  "sqKey": "TableWithoutCaptionCheck",
+  "scope": "Main"
 }

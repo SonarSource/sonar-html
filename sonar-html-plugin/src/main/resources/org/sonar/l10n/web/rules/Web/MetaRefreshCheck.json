@@ -7,5 +7,6 @@
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1094",
-  "sqKey": "MetaRefreshCheck"
+  "sqKey": "MetaRefreshCheck",
+  "scope": "Main"
 }

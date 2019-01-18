@@ -11,5 +11,6 @@
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1087",
-  "sqKey": "FlashUsesBothObjectAndEmbedCheck"
+  "sqKey": "FlashUsesBothObjectAndEmbedCheck",
+  "scope": "Main"
 }

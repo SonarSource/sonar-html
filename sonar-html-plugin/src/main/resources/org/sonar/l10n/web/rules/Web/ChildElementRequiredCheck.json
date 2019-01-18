@@ -7,5 +7,6 @@
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1933",
-  "sqKey": "ChildElementRequiredCheck"
+  "sqKey": "ChildElementRequiredCheck",
+  "scope": "Main"
 }

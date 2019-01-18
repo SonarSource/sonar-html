@@ -7,5 +7,6 @@
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1102",
-  "sqKey": "TableHeaderHasIdOrScopeCheck"
+  "sqKey": "TableHeaderHasIdOrScopeCheck",
+  "scope": "All"
 }
