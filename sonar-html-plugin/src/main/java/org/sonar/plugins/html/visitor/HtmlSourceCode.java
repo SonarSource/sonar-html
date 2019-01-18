@@ -80,7 +80,8 @@ public class HtmlSourceCode {
 
   public boolean shouldComputeMetric() {
     // if input file has a language other than web, then we should not compute metrics for this file as we assume they will be computed by another plugin
-    return inputFile.language() == null || HtmlConstants.LANGUAGE_KEY.equals(inputFile.language());
+    String language = inputFile.language();
+    return language == null || HtmlConstants.LANGUAGE_KEY.equals(language) || HtmlConstants.JSP_LANGUAGE_KEY.equals(language);
   }
 
 }

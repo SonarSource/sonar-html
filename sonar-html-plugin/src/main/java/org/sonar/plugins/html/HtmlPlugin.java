@@ -24,6 +24,8 @@ import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.core.Html;
 import org.sonar.plugins.html.core.HtmlSensor;
+import org.sonar.plugins.html.core.Jsp;
+import org.sonar.plugins.html.rules.JspQualityProfile;
 import org.sonar.plugins.html.rules.SonarWayProfile;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
@@ -42,12 +44,14 @@ public final class HtmlPlugin implements Plugin {
     context.addExtensions(
       // web language
       Html.class,
+      Jsp.class,
 
       // web rules repository
       HtmlRulesDefinition.class,
 
       // profiles
       SonarWayProfile.class,
+      JspQualityProfile.class,
 
       // web sensor
       HtmlSensor.class
@@ -60,11 +64,19 @@ public final class HtmlPlugin implements Plugin {
     return ImmutableList.of(
 
       PropertyDefinition.builder(HtmlConstants.FILE_EXTENSIONS_PROP_KEY)
-        .name("File suffixes")
+        .name("HTML File suffixes")
         .description("List of file suffixes that will be scanned.")
         .category(CATEGORY)
         .defaultValue(HtmlConstants.FILE_EXTENSIONS_DEF_VALUE)
         .deprecatedKey("sonar.web.file.suffixes")
+        .onQualifiers(Qualifiers.PROJECT)
+        .multiValues(true)
+        .build(),
+      PropertyDefinition.builder(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY)
+        .name("JSP File suffixes")
+        .description("List of JSP file suffixes that will be scanned.")
+        .category(CATEGORY)
+        .defaultValue(HtmlConstants.JSP_FILE_EXTENSIONS_DEF_VALUE)
         .onQualifiers(Qualifiers.PROJECT)
         .multiValues(true)
         .build()

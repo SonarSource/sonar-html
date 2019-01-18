@@ -35,6 +35,6 @@ public class HtmlPluginTest {
     Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER));
 
     new HtmlPlugin().define(context);
-    assertThat(context.getExtensions()).hasSize(5);
+    assertThat(context.getExtensions()).hasSize(8);
   }
 }

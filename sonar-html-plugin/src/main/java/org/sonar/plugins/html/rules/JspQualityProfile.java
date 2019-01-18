@@ -15,24 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.html.core;
+package org.sonar.plugins.html.rules;
 
-import org.sonar.api.config.Configuration;
-import org.sonar.api.resources.AbstractLanguage;
+import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.plugins.html.api.HtmlConstants;
 
-public class Html extends AbstractLanguage {
+/**
+ * Sonar way profile for the JSP language
+ */
+public final class JspQualityProfile implements BuiltInQualityProfilesDefinition {
 
-  private Configuration configuration;
-
-  public Html(Configuration configuration) {
-    super(HtmlConstants.LANGUAGE_KEY, HtmlConstants.LANGUAGE_NAME);
-    this.configuration = configuration;
-  }
+  private static final String NAME = "Sonar way";
 
   @Override
-  public String[] getFileSuffixes() {
-    return configuration.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY);
+  public void define(Context context) {
+    NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(NAME, HtmlConstants.JSP_LANGUAGE_KEY);
+    profile.done();
   }
 
 }
