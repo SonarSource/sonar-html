@@ -74,7 +74,7 @@ public final class HtmlPlugin implements Plugin {
         .build(),
       PropertyDefinition.builder(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY)
         .name("JSP File suffixes")
-        .description("List of file suffixes that will be scanned.")
+        .description("List of JSP file suffixes that will be scanned.")
         .category(CATEGORY)
         .defaultValue(HtmlConstants.JSP_FILE_EXTENSIONS_DEF_VALUE)
         .onQualifiers(Qualifiers.PROJECT)
