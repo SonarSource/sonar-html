@@ -17,8 +17,10 @@
  */
 package org.sonar.plugins.html.checks.style;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 /**
@@ -32,12 +34,11 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "InlineStyleCheck")
 public class InlineStyleCheck extends AbstractPageCheck {
 
-  @Override
   public void startElement(TagNode element) {
-
-    if ("style".equalsIgnoreCase(element.getNodeName()) ||
-        element.getProperty("style") != null) {
-      createViolation(element.getStartLinePosition(), "Use CSS classes instead.");
+    for (Attribute a : element.getAttributes()) {
+      if (StringUtils.startsWithIgnoreCase(a.getName(), "style")) {
+        createViolation(element.getStartLinePosition(), "Use CSS classes instead.");
+      }
     }
   }
 }
