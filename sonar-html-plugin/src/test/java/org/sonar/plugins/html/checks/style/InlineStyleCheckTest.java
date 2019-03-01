@@ -41,4 +41,12 @@ public class InlineStyleCheckTest {
       .next().atLine(1).withMessage("Use CSS classes instead.");
   }
 
+  @Test
+  public void inline_Style_As_Property_Should_Fail() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/inlinePropertyStyleCheck.html"), new InlineStyleCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Use CSS classes instead.");
+  }
+
 }
