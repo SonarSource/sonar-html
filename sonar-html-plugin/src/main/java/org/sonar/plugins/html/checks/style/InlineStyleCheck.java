@@ -34,6 +34,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "InlineStyleCheck")
 public class InlineStyleCheck extends AbstractPageCheck {
 
+  @Override
   public void startElement(TagNode element) {
     for (Attribute a : element.getAttributes()) {
       if (StringUtils.startsWithIgnoreCase(a.getName(), "style")) {
