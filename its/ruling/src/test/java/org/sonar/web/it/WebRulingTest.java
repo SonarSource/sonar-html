@@ -72,13 +72,11 @@ public class WebRulingTest {
       .setSourceEncoding("UTF-8")
       .setProperty("sonar.html.file.suffixes", "xhtml,html,php,erb")
       .setProperty("sonar.jsp.file.suffixes", "jspf,jsp")
-      .setProperty("sonar.analysis.mode", "preview")
-      .setProperty("sonar.issuesReport.html.enable", "true")
       .setProperty("dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
       .setProperty("dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.exclusions", "external_webkit-jb-mr1/LayoutTests/fast/encoding/*utf*")
-      .setProperty("sonar.cpd.skip", "true")
+      .setProperty("sonar.cpd.exclusions", "**/*")
       .setEnvironmentVariable("SONAR_RUNNER_OPTS", "-Xmx1024m");
     orchestrator.executeBuild(build);
 
