@@ -64,9 +64,6 @@ public class StandardMeasuresTest {
   @Test
   public void testProjectMeasures() {
     assertThat(getProjectMeasureAsDouble("ncloc")).isEqualTo(6840d);
-    assertThat(getProjectMeasureAsDouble("lines")).isEqualTo(9252d);
-    assertThat(getProjectMeasureAsDouble("files")).isEqualTo(103d);
-    assertThat(getProjectMeasureAsDouble("directories")).isEqualTo(8d);
     assertThat(getProjectMeasureAsDouble("functions")).isNull();
     assertThat(getProjectMeasureAsDouble("statements")).isNull();
     assertThat(getProjectMeasureAsDouble("comment_lines_density")).isEqualTo(0.3);
@@ -105,9 +102,6 @@ public class StandardMeasuresTest {
   @Test
   public void testFileMeasures() {
     assertThat(getFileMeasureAsDouble("ncloc")).isEqualTo(311d);
-    assertThat(getFileMeasureAsDouble("lines")).isEqualTo(338d);
-    assertThat(getFileMeasureAsDouble("files")).isEqualTo(1d);
-    assertThat(getFileMeasureAsDouble("directories")).isNull();
     assertThat(getFileMeasureAsDouble("functions")).isNull();
     assertThat(getFileMeasureAsDouble("comment_lines_density")).isEqualTo(0.3);
     assertThat(getFileMeasureAsDouble("comment_lines")).isEqualTo(1d);
