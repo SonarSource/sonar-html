@@ -43,6 +43,9 @@ public class PhpFilesTest {
 
   @ClassRule
   public static Orchestrator orchestratorWithPhp =  Orchestrator.builderEnv()
+    // This a second instance of orchestrator with SonarPhp plugin, if 'orchestrator.container.port' is set
+    // it should not be used by this instance to not have two sonarqube servers on the same port
+    .setOrchestratorProperty("orchestrator.container.port", "")
     .setSonarVersion(Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE[6.7]"))
     .addPlugin(MavenLocation.of("org.sonarsource.php", "sonar-php-plugin", Optional.ofNullable(System.getProperty("sonarPhp.version")).orElse("LATEST_RELEASE")))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
@@ -51,7 +54,6 @@ public class PhpFilesTest {
 
   @BeforeClass
   public static void init() {
-    orchestratorWithPhp.resetData();
     orchestratorWithPhp.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
     orchestratorWithPhp.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "illegal_tab");
     orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);

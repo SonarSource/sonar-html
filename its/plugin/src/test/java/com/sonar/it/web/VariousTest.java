@@ -21,7 +21,6 @@ import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
 import java.io.File;
 import java.util.List;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.sonar.wsclient.issue.Issue;
@@ -35,11 +34,6 @@ public class VariousTest {
 
   @ClassRule
   public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
-
-  @BeforeClass
-  public static void init() {
-    orchestrator.resetData();
-  }
 
   @Test
   public void testExclusions() {
