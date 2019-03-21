@@ -20,7 +20,6 @@ package com.sonar.it.web;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
 import java.io.File;
-import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -29,24 +28,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileSuffixesTest {
 
-  private static final String PROJECT_KEY = "FileSuffixesTest";
   private static final String FILES_METRIC = "files";
 
   @ClassRule
   public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
 
-  @BeforeClass
-  public static void init() {
-    orchestrator.resetData();
-    orchestrator.getServer().provisionProject(PROJECT_KEY, PROJECT_KEY);
-    orchestrator.getServer().associateProjectToQualityProfile(PROJECT_KEY, "web", "no_rule");
-  }
-
-  private static SonarScanner getSonarRunner() {
+  private static SonarScanner getSonarRunner(String projectKey) {
+    orchestrator.getServer().provisionProject(projectKey, projectKey);
+    orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "no_rule");
     return HtmlTestSuite.createSonarScanner()
       .setProjectDir(new File("projects/FileSuffixesTest/"))
-      .setProjectKey(PROJECT_KEY)
-      .setProjectName(PROJECT_KEY)
+      .setProjectKey(projectKey)
+      .setProjectName(projectKey)
       .setProjectVersion("1.0")
       .setSourceDirs(".")
       .setProperty("sonar.sourceEncoding", "UTF-8");
@@ -54,33 +47,35 @@ public class FileSuffixesTest {
 
   @Test
   public void filesSuffixesHtml() {
-    SonarScanner build = getSonarRunner()
+    String projectKey = "FileSuffixesTest-filesSuffixesHtml";
+    SonarScanner build = getSonarRunner(projectKey)
       .setProperty("sonar.html.file.suffixes", ".html");
     orchestrator.executeBuild(build);
     // php file extension will be analyzed
-    assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
+    assertThat(getAnalyzedFilesNumber(projectKey)).isEqualTo(2);
   }
 
   @Test
   public void filesSuffixesHtmlPhp() {
-    SonarScanner build = getSonarRunner()
+    String projectKey = "FileSuffixesTest-filesSuffixesHtmlPhp";
+    SonarScanner build = getSonarRunner(projectKey)
       .setProperty("sonar.html.file.suffixes", ".html,.php");
     orchestrator.executeBuild(build);
-    assertThat(getAnalyzedFilesNumber()).isEqualTo(2);
+    assertThat(getAnalyzedFilesNumber(projectKey)).isEqualTo(2);
   }
 
   @Test
-  public void should_analyze_all_files_with_empty_suffixes() {
-    SonarScanner build = getSonarRunner()
-      .setLanguage("web")
+  public void should_analyze_only_php_files_with_empty_suffixes() {
+    String projectKey = "FileSuffixesTest-empty_suffixes";
+    SonarScanner build = getSonarRunner(projectKey)
       .setProperty("sonar.sourceEncoding", "UTF-8")
       .setProperty("sonar.html.file.suffixes", "");
     orchestrator.executeBuild(build);
-    assertThat(getAnalyzedFilesNumber()).isEqualTo(3);
+    assertThat(getAnalyzedFilesNumber(projectKey)).isEqualTo(1);
   }
 
-  private Integer getAnalyzedFilesNumber() {
-    return getMeasureAsInt(orchestrator, PROJECT_KEY, FILES_METRIC);
+  private Integer getAnalyzedFilesNumber(String projectKey) {
+    return getMeasureAsInt(orchestrator, projectKey, FILES_METRIC);
   }
 
 }

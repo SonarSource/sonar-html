@@ -44,7 +44,6 @@ public class StandardMeasuresTest {
 
   @BeforeClass
   public static void init() {
-    orchestrator.resetData();
     String projectKey = "TestOfWebPlugin";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
     orchestrator.getServer().associateProjectToQualityProfile(projectKey, "web", "IT");
