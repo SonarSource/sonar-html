@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>49</version>
+    <version>51</version>
   </parent>
 
   <groupId>org.sonarsource.html</groupId>
@@ -61,7 +61,7 @@
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
-    <orchestrator.version>3.22.0.1791</orchestrator.version>
+    <orchestrator.version>3.24.0.1993</orchestrator.version>
     <junit.version>4.12</junit.version>
     <sslr.version>1.22</sslr.version>
     <assertj.version>3.5.2</assertj.version>
