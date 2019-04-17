@@ -23,7 +23,7 @@ import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonarqube.ws.WsMeasures.Measure;
+import org.sonarqube.ws.Measures;
 
 import static com.sonar.it.web.HtmlTestSuite.createSonarScanner;
 import static com.sonar.it.web.HtmlTestSuite.getMeasure;
@@ -130,7 +130,7 @@ public class StandardMeasuresTest {
     return HtmlTestSuite.getMeasureAsDouble(orchestrator, PROJECT, metricKey);
   }
 
-  private Measure getFileMeasure(String metricKey) {
+  private Measures.Measure getFileMeasure(String metricKey) {
     return getMeasure(orchestrator, FILE, metricKey);
   }
 

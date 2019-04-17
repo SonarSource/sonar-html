@@ -20,14 +20,15 @@ package com.sonar.it.web;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.issue.Issue;
-import org.sonar.wsclient.issue.IssueClient;
-import org.sonar.wsclient.issue.IssueQuery;
+import org.sonarqube.ws.Issues;
+import org.sonarqube.ws.client.issues.SearchRequest;
 
 import static com.sonar.it.web.HtmlTestSuite.getMeasureAsInt;
+import static com.sonar.it.web.HtmlTestSuite.newWsClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VariousTest {
@@ -50,8 +51,8 @@ public class VariousTest {
       .setProperty("sonar.exclusions", "**/*Excluded*");
     orchestrator.executeBuild(build);
 
-    assertThat(HtmlTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpError.jsp")).isNotNull();
-    assertThat(HtmlTestSuite.searchComponent(orchestrator, projectKey, "exclusions:src/httpErrorExcluded.jsp")).isNull();
+    assertThat(HtmlTestSuite.searchComponent(orchestrator, projectKey + ":src/httpError.jsp")).isNotNull();
+    assertThat(HtmlTestSuite.searchComponent(orchestrator, projectKey + ":src/httpErrorExcluded.jsp")).isNull();
     assertThat(getMeasureAsInt(orchestrator, projectKey, "files")).isEqualTo(1);
   }
 
@@ -72,14 +73,15 @@ public class VariousTest {
       .setProperty("sonar.sourceEncoding", "UTF-8");
     orchestrator.executeBuild(build);
 
-    IssueClient issueClient = orchestrator.getServer().wsClient().issueClient();
+    SearchRequest request = new SearchRequest();
+    request
+      .setComponentKeys(Collections.singletonList(keyFor(projectKey, "WEB-INF/jsp/components/projectGroupNotifierSummaryComponent.jsp")))
+      .setRules(Collections.singletonList("Web:AvoidCommentedOutCodeCheck"));
 
-    List<Issue> issues = issueClient.find(
-      IssueQuery.create()
-        .components(keyFor(projectKey, "WEB-INF/jsp/components/projectGroupNotifierSummaryComponent.jsp"))
-        .rules("Web:AvoidCommentedOutCodeCheck"))
-      .list();
-    assertThat(issues.size()).isEqualTo(2);
+
+    List<Issues.Issue> issues = newWsClient(orchestrator).issues().search(request).getIssuesList();
+
+    assertThat(issues).hasSize(2);
   }
 
   private static String keyFor(String project, String resource) {

@@ -27,11 +27,12 @@ import java.util.Optional;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.issue.Issue;
-import org.sonar.wsclient.issue.IssueClient;
-import org.sonar.wsclient.issue.IssueQuery;
+import org.sonarqube.ws.Issues;
+import org.sonarqube.ws.client.issues.SearchRequest;
 
 import static com.sonar.it.web.HtmlTestSuite.getMeasureAsInt;
+import static com.sonar.it.web.HtmlTestSuite.newWsClient;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PhpFilesTest {
@@ -84,13 +85,14 @@ public class PhpFilesTest {
     SonarScanner build = getSonarRunner();
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber(orchestrator)).isEqualTo(2);
-    IssueClient issueClient = orchestrator.getServer().wsClient().issueClient();
-    List<Issue> issues = issueClient.find(
-      IssueQuery.create()
-        .components(PROJECT_KEY+":foo.php")
-        .rules("Web:IllegalTabCheck"))
-      .list();
-    assertThat(issues.size()).isEqualTo(1);
+
+    SearchRequest request = new SearchRequest()
+      .setProjects(singletonList(PROJECT_KEY))
+      .setComponentKeys(singletonList(PROJECT_KEY + ":" + "foo.php"))
+      .setRules(singletonList("Web:IllegalTabCheck"));
+    List<Issues.Issue> issues = newWsClient(orchestrator).issues().search(request).getIssuesList();
+
+    assertThat(issues).hasSize(1);
   }
 
   private Integer getAnalyzedFilesNumber(Orchestrator orchestrator) {
