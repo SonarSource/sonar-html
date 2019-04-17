@@ -88,8 +88,10 @@ public class HtmlTestSuite {
 
   @CheckForNull
   static Components.Component searchComponent(Orchestrator orchestrator, String componentKey) {
+    // FIL - file
+    SearchRequest searchRequest = new SearchRequest().setQ(componentKey).setQualifiers(singletonList("FIL"));
     List<Components.Component> components = newWsClient(orchestrator).components()
-      .search(new SearchRequest().setQ(componentKey).setQualifiers(singletonList("FIL")))
+      .search(searchRequest)
       .getComponentsList();
 
     return components.size() == 1 ? components.get(0) : null;
