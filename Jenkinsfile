@@ -11,9 +11,10 @@ pipeline {
   }
   environment {
     SONARSOURCE_QA = 'true'
-    MAVEN_TOOL = 'Maven 3.3.x'
+    MAVEN_TOOL = 'Maven 3.5.x'
     // To simulate the build phase
     ARTIFACTORY_DEPLOY_REPO = "sonarsource-public-qa"
+    JDK_VERSION = 'Java 11'
   }
   stages {
     stage('Notify BURGR QA start') {
@@ -37,7 +38,7 @@ pipeline {
           }
           steps {
             runPlugin "LATEST_RELEASE"
-            withMaven(maven: MAVEN_TOOL) {
+            withQAEnv {
               dir('its/ruling') {
                 sh 'git submodule update --init --recursive'
                 sh "mvn -Dsonar.runtimeVersion=\"LATEST_RELEASE\" -Dmaven.test.redirectTestOutputToFile=false test"
@@ -73,13 +74,22 @@ pipeline {
   }
 }
 
-def runPlugin(String sqRuntimeVersion) {
+def withQAEnv(def body) {
   withCredentials([string(credentialsId: 'ARTIFACTORY_PRIVATE_API_KEY', variable: 'ARTIFACTORY_API_KEY')]) {
-    withMaven(maven: MAVEN_TOOL) {
-      mavenSetBuildVersion()
-      dir('its/plugin') {
-        sh "mvn -B -e -V  -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false -Dorchestrator.artifactory.apiKey=${env.ARTIFACTORY_API_KEY} -Dorchestrator.configUrl=${env.ARTIFACTORY_URL}/orchestrator.properties/orch-h2.properties  test"
+    def jdk = tool name: 'Java 11', type: 'jdk'
+    withEnv(["JAVA_HOME=${jdk}"]) {
+      withMaven(maven: env.MAVEN_TOOL) {
+        body.call()
       }
+    }
+  }
+}
+
+def runPlugin(String sqRuntimeVersion) {
+  withQAEnv {
+    mavenSetBuildVersion()
+    dir('its/plugin') {
+      sh "mvn -B -e -V  -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false -Dorchestrator.artifactory.apiKey=${env.ARTIFACTORY_API_KEY} -Dorchestrator.configUrl=${env.ARTIFACTORY_URL}/orchestrator.properties/orch-h2.properties  test"
     }
   }
 }
