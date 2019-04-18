@@ -74,10 +74,12 @@ pipeline {
 }
 
 def runPlugin(String sqRuntimeVersion) {
-  withMaven(maven: MAVEN_TOOL) {
-    mavenSetBuildVersion()
-    dir('its/plugin') {
-      sh "mvn -B -e -V  -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false -Dorchestrator.artifactory.apiKey=${env.ARTIFACTORY_API_KEY} -Dorchestrator.configUrl=${env.ARTIFACTORY_URL}/orchestrator.properties/orch-h2.properties  test"
+  withCredentials([string(credentialsId: 'ARTIFACTORY_PRIVATE_API_KEY', variable: 'ARTIFACTORY_API_KEY')]) {
+    withMaven(maven: MAVEN_TOOL) {
+      mavenSetBuildVersion()
+      dir('its/plugin') {
+        sh "mvn -B -e -V  -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false -Dorchestrator.artifactory.apiKey=${env.ARTIFACTORY_API_KEY} -Dorchestrator.configUrl=${env.ARTIFACTORY_URL}/orchestrator.properties/orch-h2.properties  test"
+      }
     }
   }
 }
