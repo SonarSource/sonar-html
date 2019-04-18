@@ -45,12 +45,12 @@ pipeline {
             }
           }
         }
-        stage('DEV') {
+        stage('DOGFOOD') {
           agent {
             label 'linux || shortbuilds'
           }
           steps {
-            runPlugin "DEV"
+            runPlugin "DOGFOOD"
           }
         }
       }
@@ -77,7 +77,7 @@ def runPlugin(String sqRuntimeVersion) {
   withMaven(maven: MAVEN_TOOL) {
     mavenSetBuildVersion()
     dir('its/plugin') {
-      sh "mvn -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false test"
+      sh "mvn -B -e -V  -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false -Dorchestrator.artifactory.apiKey=${env.ARTIFACTORY_API_KEY} -Dorchestrator.configUrl=${env.ARTIFACTORY_URL}/orchestrator.properties/orch-h2.properties  test"
     }
   }
 }
