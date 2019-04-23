@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>51</version>
+    <version>52</version>
   </parent>
 
   <groupId>org.sonarsource.html</groupId>
@@ -68,21 +68,8 @@
     <assertj.version>3.5.2</assertj.version>
 
     <artifactsToPublish>${project.groupId}:sonar-html-plugin:jar</artifactsToPublish>
+    <maven.compiler.release>8</maven.compiler.release>
   </properties>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <release>8</release>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
 
   <profiles>
     <profile>

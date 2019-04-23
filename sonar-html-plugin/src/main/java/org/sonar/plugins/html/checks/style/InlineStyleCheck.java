@@ -24,7 +24,6 @@ import org.sonar.plugins.html.node.TagNode;
 /**
  * Checker for occurrence of inline style.
  *
- * @see <a href="http://java.sun.com/developer/technicalArticles/javaserverpages/code_convention/paragraphCascading Style Sheets">link</a>
  *
  * @author Matthijs Galesloot
  * @since 1.0
