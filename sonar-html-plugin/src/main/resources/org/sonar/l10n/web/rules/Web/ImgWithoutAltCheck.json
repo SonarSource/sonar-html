@@ -1,5 +1,5 @@
 {
-  "title": "Images tags and buttons should have an \"alt\" attribute",
+  "title": "Image, area and button with image tags should have an \"alt\" attribute",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -7,7 +7,8 @@
     "constantCost": "5min"
   },
   "tags": [
-    "accessibility"
+    "accessibility",
+    "wcag2-a"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1077",

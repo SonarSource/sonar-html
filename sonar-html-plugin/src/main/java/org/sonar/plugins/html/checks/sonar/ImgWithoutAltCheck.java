@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -26,7 +27,8 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if ((isImgTag(node) || isImageInput(node)) && !node.hasProperty("ALT")) {
+    if ((isImgTag(node) && !node.hasProperty("ALT")) || 
+        ((isImageInput(node) || isAreaTag(node)) && (!node.hasProperty("ALT") || StringUtils.trim(node.getPropertyValue("ALT")).isEmpty()))) {
       createViolation(node.getStartLinePosition(), "Add an \"alt\" attribute to this image.");
     }
   }
@@ -43,4 +45,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
       "IMAGE".equalsIgnoreCase(type);
   }
 
+  private static boolean isAreaTag(TagNode node) {
+    return "AREA".equalsIgnoreCase(node.getNodeName());
+  }
 }
