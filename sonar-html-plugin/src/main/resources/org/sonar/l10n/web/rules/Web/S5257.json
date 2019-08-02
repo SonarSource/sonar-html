@@ -1,0 +1,12 @@
+{
+  "title": "HTML \"<table>\" should not be used for layout purposes",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-5257",
+  "sqKey": "S5257",
+  "scope": "All"
+}
