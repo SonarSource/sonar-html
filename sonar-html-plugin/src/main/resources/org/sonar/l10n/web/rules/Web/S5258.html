@@ -1,0 +1,36 @@
+<p>Tables used for layout should not include semantic markup, such as <code>&lt;th&gt;</code> elements, as it can confuses assistive technologies. At
+best this information will be ignored by screen readers and makes the code less maintainable. However it can also confuse some screen readers and
+reduce the web page accessibility.</p>
+<p>This rule raises an issue when a <code>&lt;table&gt;</code> element containing the&nbsp;<code>role</code> attribute set to
+<code>"presentation"</code> or <code>"none"</code> also contains any of:</p>
+<p> * a <code>&lt;caption&gt;</code> element</p>
+<p> * a <code>&lt;th&gt;</code> element</p>
+<p> * a non-empty <code>summary</code> attribute</p>
+<p> * an <code>&lt;td&gt;</code> element with a <code>headers</code> or <code>scope</code> attribute</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;table role="presentation" summary="bla"&gt; &lt;!-- Noncompliant --&gt;
+  &lt;caption&gt;People&lt;/caption&gt; &lt;!-- Noncompliant --&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;th&gt;Name&lt;/th&gt; &lt;!-- Noncompliant --&gt;
+    &lt;th id="myid1"&gt;Age&lt;/th&gt; &lt;!-- Noncompliant --&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td scope="row"&gt;1&lt;/td&gt; &lt;!-- Noncompliant --&gt;
+    &lt;td&gt;John Doe&lt;/td&gt;
+    &lt;td&gt;24&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td id="myid2"&gt;2&lt;/td&gt;
+    &lt;td headers="myid1 myid2"&gt;Alice Doe&lt;/td&gt; &lt;!-- Noncompliant --&gt;
+    &lt;td&gt;54&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<h2>See</h2>
+<p> * <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-content-structure-separation-programmatic">WCAG2, 1.3.1</a>&nbsp;-&nbsp;Info
+and Relationships</p>
+<p> * <a href="https://www.w3.org/TR/WCAG20-TECHS/F46.html">WCAG2, F46</a> - Failure of Success Criterion 1.3.1 due to using th elements, caption
+elements, or non-empty summary attributes in layout tables</p>
+

@@ -1,0 +1,43 @@
+<table>
+
+</table>
+
+<table>
+  <caption></caption>
+  <tr>
+    <th></th>
+  </tr>
+  <tr>
+    <td></td>
+    <td headers="h"></td>
+    <td scope="s"></td>
+  </tr>
+</table>
+
+<table role="presentation" summary="This is a summary"> <!-- Noncompliant -->
+  <caption></caption> <!-- Noncompliant -->
+  <tr>
+    <th></th> <!-- Noncompliant -->
+  </tr>
+  <tr>
+    <td></td>
+    <td headers="h"></td> <!-- Noncompliant -->
+    <td scope="s"></td> <!-- Noncompliant -->
+  </tr>
+</table>
+
+<table role="none" summary="This is a summary"> <!-- Noncompliant -->
+
+</table>
+
+<table role="void" summary="This is a summary">
+  <caption></caption>
+  <tr>
+    <th></th>
+  </tr>
+  <tr>
+    <td></td>
+    <td headers="h"></td>
+    <td scope="s"></td>
+  </tr>
+</table>
