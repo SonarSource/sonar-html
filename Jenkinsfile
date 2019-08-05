@@ -24,31 +24,9 @@ pipeline {
     }
     stage('QA') {
       parallel {
-        stage('LATEST_RELEASE[6.7]') {
-          agent {
-            label 'linux || shortbuilds'
-          }
-          steps {
-            runPlugin "LATEST_RELEASE[6.7]"
-          }
-        }
-        stage('LATEST_RELEASE') {
-          agent {
-            label 'linux || shortbuilds'
-          }
-          steps {
-            runPlugin "LATEST_RELEASE"
-            withQAEnv {
-              dir('its/ruling') {
-                sh 'git submodule update --init --recursive'
-                sh "mvn -Dsonar.runtimeVersion=\"LATEST_RELEASE\" -Dmaven.test.redirectTestOutputToFile=false test"
-              }
-            }
-          }
-        }
         stage('DOGFOOD') {
           agent {
-            label 'linux || shortbuilds'
+            label 'macosx'
           }
           steps {
             runPlugin "DOGFOOD"
