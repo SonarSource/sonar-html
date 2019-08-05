@@ -32,10 +32,10 @@ public class LangAttributeCheck extends AbstractPageCheck {
   }
 
   private static boolean isHtmlTag(TagNode node) {
-    return "HTML".equalsIgnoreCase(node.getLocalName());
+    return "HTML".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean hasLangAttribute(TagNode node) {
-    return node.getAttribute("lang") != null || node.getAttribute("xml:lang") != null;
+    return node.hasProperty("lang") || node.hasProperty("xml:lang");
   }
 }

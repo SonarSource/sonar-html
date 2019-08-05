@@ -7888,9 +7888,6 @@
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/nodeissamenode10.xhtml':[
 26,
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/nodelookupnamespaceuri01.xhtml':[
-19,
-],
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/nodelookupnamespaceuri02.xhtml':[
 26,
 ],
@@ -7998,9 +7995,6 @@
 ],
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/nodelookupprefix18.xhtml':[
 26,
-],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/nodelookupprefix19.xhtml':[
-19,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/nodelookupprefix20.xhtml':[
 26,
@@ -9282,7 +9276,6 @@
 1,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/namespace-tolerance.html':[
-1,
 15,
 ],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/no-charset-on-dynamic-script-load.html':[
