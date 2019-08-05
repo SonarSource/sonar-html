@@ -1,17 +1,21 @@
 <p>The <code>alt</code> attribute provides a textual alternative to an image.</p>
 <p> It is used whenever the actual image cannot be rendered.</p>
 <p> Common reasons for that include:</p>
-<p> * The image can no longer be found</p>
-<p> * Visually impaired users using a screen reader software</p>
-<p> * Images loading is disabled, to reduce data consumption on mobile phones</p>
+<ul>
+  <li> The image can no longer be found </li>
+  <li> Visually impaired users using a screen reader software </li>
+  <li> Images loading is disabled, to reduce data consumption on mobile phones </li>
+</ul>
 <p>It is also very important to not set an <code>alt</code> attribute to a non-informative value. For example <code>&lt;img ... alt="logo"&gt;</code>
 is useless as it doesn't give any information to the user. In this case, as for any other decorative image, it is better to use a CSS background image
 instead of an <code>&lt;img&gt;</code> tag. If using CSS background-image is not possible, an empty <code>alt=""</code> is tolerated. See Exceptions
 bellow.</p>
 <p>This rule raises an issue when</p>
-<p> * an <code>&lt;input type="image"&gt;</code> tag or an <code>&lt;area&gt;</code> tag have no <code>alt</code> attribute or their
-<code>alt</code>&nbsp;attribute has an empty string value.</p>
-<p> * an <code>&lt;img&gt;</code> tag has no <code>alt</code> attribute.</p>
+<ul>
+  <li> an <code>&lt;input type="image"&gt;</code> tag or an <code>&lt;area&gt;</code> tag have no <code>alt</code> attribute or their
+  <code>alt</code>&nbsp;attribute has an empty string value. </li>
+  <li> an <code>&lt;img&gt;</code> tag has no <code>alt</code> attribute. </li>
+</ul>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;img src="foo.png" /&gt; &lt;!-- Noncompliant --&gt;
