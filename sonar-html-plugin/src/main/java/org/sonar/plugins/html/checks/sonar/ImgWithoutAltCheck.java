@@ -28,7 +28,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if ((isImgTag(node) && !hasAltAttribute(node)) ||
-       ((isImageInput(node) || isAreaTag(node)) && !hasNonEmptyAltAttribute(node))) {
+       ((isImageInput(node) || isAreaTag(node)) && hasInvalidAltAttribute(node))) {
       createViolation(node.getStartLinePosition(), "Add an \"alt\" attribute to this image.");
     }
   }
@@ -53,7 +53,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     return node.hasProperty("ALT");
   }
 
-  private static boolean hasNonEmptyAltAttribute(TagNode node) {
-    return hasAltAttribute(node) && !StringUtils.trim(node.getPropertyValue("ALT")).isEmpty();
+  private static boolean hasInvalidAltAttribute(TagNode node) {
+    return !hasAltAttribute(node) || StringUtils.trim(node.getPropertyValue("ALT")).isEmpty();
   }
 }
