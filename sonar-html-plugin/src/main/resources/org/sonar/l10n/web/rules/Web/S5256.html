@@ -1,0 +1,50 @@
+<p>Assistive technologies, such as screen readers, use <code>&lt;th&gt;</code> headers to provide some context when users navigates a table. Without
+it the user gets rapidly lost in the flow of data.</p>
+<p>Headers should be properly associated with the corresponding <code>&lt;td&gt;</code>&nbsp;cells by using either a <code>scope</code> attribute or
+<code>headers</code> and <code>id</code> attributes. See&nbsp;<a href="https://www.w3.org/WAI/tutorials/tables/tips/">W3C WAI&nbsp;Web Accessibility
+Tutorials</a>&nbsp;for more information.</p>
+<p>This rule raises an issue whenever a <code>&lt;table&gt;</code> does not contain any&nbsp;<code>&lt;th&gt;</code>&nbsp;elements.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;table&gt; &lt;!-- Noncompliant --&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Name&lt;/td&gt;
+    &lt;td&gt;Age&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;John Doe&lt;/td&gt;
+    &lt;td&gt;24&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Alice Doe&lt;/td&gt;
+    &lt;td&gt;54&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th scope="col"&gt;Name&lt;/th&gt;
+    &lt;th scope="col"&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;John Doe&lt;/td&gt;
+    &lt;td&gt;24&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Alice Doe&lt;/td&gt;
+    &lt;td&gt;54&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised on &lt;table&gt; used for layout purpose, i.e. when it contains a <code>role</code> attribute set to
+<code>"presentation"</code> or <code>"none"</code>. Note that <a href="https://www.w3schools.com/html/html_layout.asp">using &lt;table&gt; for layout
+purpose is a bad practice</a>.</p>
+<p>No issue will be raised on &lt;table&gt; containing an <code>aria-hidden</code> attribute set to <code>"true"</code>.</p>
+<h2>See</h2>
+<p> * <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-content-structure-separation-programmatic">WCAG2, 1.3.1</a>&nbsp;-&nbsp;Info
+and Relationships</p>
+<p> * <a href="https://www.w3.org/TR/WCAG20-TECHS/H51">WCAG2,&nbsp;H51</a> - Using table markup to present tabular information</p>
+

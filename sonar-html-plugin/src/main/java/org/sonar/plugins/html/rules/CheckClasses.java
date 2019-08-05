@@ -65,6 +65,7 @@ import org.sonar.plugins.html.checks.sonar.PageWithoutTitleCheck;
 import org.sonar.plugins.html.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.html.checks.sonar.TableHeaderHasIdOrScopeCheck;
 import org.sonar.plugins.html.checks.sonar.TableWithoutCaptionCheck;
+import org.sonar.plugins.html.checks.sonar.TableWithoutHeaderCheck;
 import org.sonar.plugins.html.checks.sonar.UnsupportedTagsInHtml5Check;
 import org.sonar.plugins.html.checks.sonar.VideoTrackCheck;
 import org.sonar.plugins.html.checks.sonar.WmodeIsWindowCheck;
@@ -136,7 +137,8 @@ public final class CheckClasses {
     TodoCommentCheck.class,
     FixmeCommentCheck.class,
     ElementWithGivenIdPresentCheck.class,
-    LayoutTableCheck.class
+    LayoutTableCheck.class,
+    TableWithoutHeaderCheck.class
   );
 
   private CheckClasses() {

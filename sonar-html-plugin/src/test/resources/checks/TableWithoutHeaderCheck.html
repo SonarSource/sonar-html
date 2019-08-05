@@ -1,0 +1,63 @@
+<table> <!-- Non-Compliant -->
+
+</table>
+
+<table> <!-- Compliant -->
+  <th></th>
+</table>
+
+<table> <!-- Compliant -->
+  <th></th>
+  <table></table> <!-- Non-Compliant -->
+</table>
+
+<table> <!-- Non-Compliant -->
+  <table> <!-- Compliant -->
+    <th></th>
+  </table>
+</table>
+
+<table> <!-- Compliant -->
+  <th></th>
+  <table> <!-- Compliant -->
+    <th></th>
+  </table>
+</table>
+
+<th>
+  
+</th>
+
+<table role="presentation">
+
+</table>
+
+<table role="None">
+
+</table>
+
+<table role="dummy"> <!-- Non-Compliant -->
+
+</table>
+
+<table role="presentation">
+  <table></table>
+</table>
+
+<table aria-hidden="true">
+
+</table>
+
+<table aria-hidden="false"> <!-- Non-Compliant -->
+  
+</table>
+
+<table aria-hidden="true">
+  <table></table>
+</table>
+
+<table aria-hidden="true">
+  <table aria-hidden="false"></table>
+</table>
+
+</table> <!-- malformed -->
