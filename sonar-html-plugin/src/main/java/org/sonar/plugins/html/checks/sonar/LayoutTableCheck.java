@@ -32,7 +32,7 @@ public class LayoutTableCheck extends AbstractPageCheck {
   }
 
   private static boolean isTable(TagNode node) {
-    return "TABLE".equalsIgnoreCase(node.getLocalName());
+    return "TABLE".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isLayout(TagNode node) {

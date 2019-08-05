@@ -36,6 +36,7 @@ public class LayoutTableCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(19).withMessage("Replace this layout table with a CSS layout.")
-        .next().atLine(25);
+        .next().atLine(25)
+        .next().atLine(31);
   }
 }
