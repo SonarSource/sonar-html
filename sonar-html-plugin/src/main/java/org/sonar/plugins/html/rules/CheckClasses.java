@@ -53,6 +53,7 @@ import org.sonar.plugins.html.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.html.checks.sonar.ImgWithoutWidthOrHeightCheck;
 import org.sonar.plugins.html.checks.sonar.InputWithoutLabelCheck;
 import org.sonar.plugins.html.checks.sonar.ItemTagNotWithinContainerTagCheck;
+import org.sonar.plugins.html.checks.sonar.LayoutTableCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToNothingCheck;
 import org.sonar.plugins.html.checks.sonar.LinksIdenticalTextsDifferentTargetsCheck;
@@ -134,7 +135,8 @@ public final class CheckClasses {
     PageWithoutFaviconCheck.class,
     TodoCommentCheck.class,
     FixmeCommentCheck.class,
-    ElementWithGivenIdPresentCheck.class
+    ElementWithGivenIdPresentCheck.class,
+    LayoutTableCheck.class
   );
 
   private CheckClasses() {
