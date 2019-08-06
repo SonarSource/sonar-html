@@ -20,6 +20,16 @@
     <th></th> <!-- Noncompliant -->
   </tr>
   <tr>
+    <td>first</td>
+    <td>
+      <table>
+        <caption></caption> <!-- Compliant, unrelated to the outer layout table -->
+        <tr><td>nested table</td></tr>
+        <tr><td>nested table</td></tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
     <td></td>
     <td headers="h"></td> <!-- Noncompliant -->
     <td scope="s"></td> <!-- Noncompliant -->
@@ -41,3 +51,5 @@
     <td scope="s"></td>
   </tr>
 </table>
+
+</table> <!-- malformed -->

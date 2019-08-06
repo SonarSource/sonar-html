@@ -3,10 +3,12 @@ best this information will be ignored by screen readers and makes the code less 
 reduce the web page accessibility.</p>
 <p>This rule raises an issue when a <code>&lt;table&gt;</code> element containing the&nbsp;<code>role</code> attribute set to
 <code>"presentation"</code> or <code>"none"</code> also contains any of:</p>
-<p> * a <code>&lt;caption&gt;</code> element</p>
-<p> * a <code>&lt;th&gt;</code> element</p>
-<p> * a non-empty <code>summary</code> attribute</p>
-<p> * an <code>&lt;td&gt;</code> element with a <code>headers</code> or <code>scope</code> attribute</p>
+<ul>
+  <li> a <code>&lt;caption&gt;</code> element </li>
+  <li> a <code>&lt;th&gt;</code> element </li>
+  <li> a non-empty <code>summary</code> attribute </li>
+  <li> an <code>&lt;td&gt;</code> element with a <code>headers</code> or <code>scope</code> attribute </li>
+</ul>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;table role="presentation" summary="bla"&gt; &lt;!-- Noncompliant --&gt;
@@ -29,8 +31,10 @@ reduce the web page accessibility.</p>
 &lt;/table&gt;
 </pre>
 <h2>See</h2>
-<p> * <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-content-structure-separation-programmatic">WCAG2, 1.3.1</a>&nbsp;-&nbsp;Info
-and Relationships</p>
-<p> * <a href="https://www.w3.org/TR/WCAG20-TECHS/F46.html">WCAG2, F46</a> - Failure of Success Criterion 1.3.1 due to using th elements, caption
-elements, or non-empty summary attributes in layout tables</p>
+<ul>
+  <li> <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-content-structure-separation-programmatic">WCAG2, 1.3.1</a>&nbsp;-&nbsp;Info
+  and Relationships </li>
+  <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/F46.html">WCAG2, F46</a> - Failure of Success Criterion 1.3.1 due to using th elements, caption
+  elements, or non-empty summary attributes in layout tables </li>
+</ul>
 

@@ -19,6 +19,8 @@ package org.sonar.plugins.html.checks.sonar;
 
 import static java.lang.String.format;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Optional;
 
 import org.sonar.check.Rule;
@@ -29,29 +31,41 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5258")
 public class LayoutTableWithSemanticMarkupCheck extends AbstractPageCheck {
 
-  private boolean isWithinLayoutTable = false;
+  private Deque<Boolean> isWithinLayoutTable = new LinkedList<>();
+
+  @Override
+  public void init() {
+    isWithinLayoutTable.clear();
+  }
 
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node) && isLayout(node)) {
-      findAttribute(node, "SUMMARY").ifPresent(a -> createViolation(a.getLine(), format("Remove this \"%s\" attribute", a.getName())));
-      isWithinLayoutTable = true;
+    if (isTable(node)) {
+      if (isLayout(node)) {
+        isWithinLayoutTable.addFirst(true);
+        findAttribute(node, "SUMMARY").ifPresent(attribute ->
+            createViolation(attribute.getLine(), format("Remove this \"%s\" attribute", attribute.getName())));
+      } else {
+        isWithinLayoutTable.addFirst(false);
+      }
     }
-    if (isWithinLayoutTable) {
+    if (!isWithinLayoutTable.isEmpty() && isWithinLayoutTable.peekFirst()) {
       if (isCaption(node) || isTableHeader(node)) {
         createViolation(node.getStartLinePosition(), format("Remove this \"%s\" element", node.getNodeName()));
       }
       if (isTableColumn(node)) {
-        findAttribute(node, "HEADERS").ifPresent(a -> createViolation(a.getLine(), format("Remove this \"%s\" attribute", a.getName())));
-        findAttribute(node, "SCOPE").ifPresent(a -> createViolation(a.getLine(), format("Remove this \"%s\" attribute", a.getName())));
+        findAttribute(node, "HEADERS").ifPresent(attribute ->
+            createViolation(attribute.getLine(), format("Remove this \"%s\" attribute", attribute.getName())));
+        findAttribute(node, "SCOPE").ifPresent(attribute ->
+            createViolation(attribute.getLine(), format("Remove this \"%s\" attribute", attribute.getName())));
       }
     }
   }
 
   @Override
   public void endElement(TagNode node) {
-    if (isTable(node) && isWithinLayoutTable) {
-      isWithinLayoutTable = false;
+    if (isTable(node) && !isWithinLayoutTable.isEmpty()) {
+      isWithinLayoutTable.removeFirst();
     }
   }
 
