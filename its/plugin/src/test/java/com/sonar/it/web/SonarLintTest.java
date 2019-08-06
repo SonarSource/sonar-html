@@ -73,7 +73,7 @@ public class SonarLintTest {
   }
 
   @Test
-  public void should_raise_three_issues() throws IOException {
+  public void should_raise_four_issues() throws IOException {
     ClientInputFile inputFile = prepareInputFile("foo.html",
       "<html>\n" +
         "<body>\n" +
@@ -89,6 +89,7 @@ public class SonarLintTest {
 
     assertThat(issues).extracting("ruleKey", "startLine", "inputFile.path", "severity").containsOnly(
       tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), "MAJOR"),
+      tuple("Web:S5254", 1, inputFile.getPath(), "MAJOR"),
       tuple("Web:LinkToImageCheck", 3, inputFile.getPath(), "MAJOR"),
       tuple("Web:PageWithoutTitleCheck", 1, inputFile.getPath(), "MAJOR"));
   }

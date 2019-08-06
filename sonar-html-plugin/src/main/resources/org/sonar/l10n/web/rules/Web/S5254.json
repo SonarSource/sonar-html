@@ -1,0 +1,13 @@
+{
+  "title": "\"<html>\" element should have a language attribute",
+  "type": "BUG",
+  "status": "ready",
+  "tags": [
+    "accessibility",
+    "wcag2-a"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-5254",
+  "sqKey": "S5254",
+  "scope": "Main"
+}
