@@ -2,25 +2,39 @@
 
 </table>
 
-<table> <!-- Compliant -->
+<table> <!-- Non-Compliant -->
   <th></th>
 </table>
 
 <table> <!-- Compliant -->
-  <th></th>
+  <tr>
+    <th></th>
+  </tr>
+</table>
+
+<table> <!-- Compliant -->
+  <tr>
+    <th></th>
+  </tr>
   <table></table> <!-- Non-Compliant -->
 </table>
 
 <table> <!-- Non-Compliant -->
   <table> <!-- Compliant -->
-    <th></th>
+    <tr>
+      <th></th>
+    </tr>
   </table>
 </table>
 
 <table> <!-- Compliant -->
-  <th></th>
-  <table> <!-- Compliant -->
+  <tr>
     <th></th>
+  </tr>
+  <table> <!-- Compliant -->
+    <tr>
+      <th></th>
+    </tr>
   </table>
 </table>
 
@@ -41,7 +55,7 @@
 </table>
 
 <table role="presentation">
-  <table></table>
+  <table></table> <!-- Non-Compliant, no recursive check on parent -->
 </table>
 
 <table aria-hidden="true">
@@ -53,11 +67,5 @@
 </table>
 
 <table aria-hidden="true">
-  <table></table>
+  <table></table> <!-- Non-Compliant, no recursive check on parent -->
 </table>
-
-<table aria-hidden="true">
-  <table aria-hidden="false"></table>
-</table>
-
-</table> <!-- malformed -->

@@ -36,9 +36,12 @@ public class TableWithoutHeaderCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add \"<th>\" headers to this \"<table>\".")
-        .next().atLine(11)
-        .next().atLine(14)
-        .next().atLine(39)
-        .next().atLine(51);
+        .next().atLine(5)
+        .next().atLine(19)
+        .next().atLine(22)
+        .next().atLine(53)
+        .next().atLine(58)
+        .next().atLine(65)
+        .next().atLine(70);
   }
 }

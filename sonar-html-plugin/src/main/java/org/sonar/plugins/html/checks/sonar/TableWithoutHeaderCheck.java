@@ -17,9 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -27,43 +24,10 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
-  private static class TableEntry {
-
-    int line;
-    boolean ignored;
-    boolean hasHeader;
-
-    public TableEntry(int line, boolean ignored) {
-      this.line = line;
-      this.ignored = ignored;
-      this.hasHeader = false;
-    }
-  }
-
-  private Deque<TableEntry> tables = new LinkedList<>();
-
-  @Override
-  public void init() {
-    tables.clear();
-  }
-
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node)) {
-      boolean ignored = isParentIgnored() || isLayout(node) || isHidden(node);
-      tables.addFirst(new TableEntry(node.getStartLinePosition(), ignored));
-    } else if (isTableHeader(node) && !tables.isEmpty()) {
-      tables.peekFirst().hasHeader = true;
-    }
-  }
-
-  @Override
-  public void endElement(TagNode node) {
-    if (isTable(node) && !tables.isEmpty()) {
-      TableEntry table = tables.removeFirst();
-      if (!table.hasHeader && !table.ignored) {
-        createViolation(table.line, "Add \"<th>\" headers to this \"<table>\".");
-      }
+    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node)) {
+      createViolation(node.getStartLinePosition(), "Add \"<th>\" headers to this \"<table>\".");
     }
   }
 
@@ -76,16 +40,21 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     return role != null && ("PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role));
   }
 
-  private static boolean isTableHeader(TagNode node) {
-    return "TH".equalsIgnoreCase(node.getNodeName());
-  }
-
   private static boolean isHidden(TagNode node) {
     String ariaHidden = node.getAttribute("aria-hidden");
     return ariaHidden != null && "TRUE".equalsIgnoreCase(ariaHidden);
   }
 
-  private boolean isParentIgnored() {
-    return !tables.isEmpty() && tables.peekFirst().ignored;
+  private static boolean hasHeader(TagNode node) {
+    return node.getChildren().stream().filter(TableWithoutHeaderCheck::isTableRow).anyMatch(
+        row -> row.getChildren().stream().filter(TableWithoutHeaderCheck::isTableHeader).findAny().isPresent());
+  }
+
+  private static boolean isTableRow(TagNode node) {
+    return "TR".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isTableHeader(TagNode node) {
+    return "TH".equalsIgnoreCase(node.getNodeName());
   }
 }
