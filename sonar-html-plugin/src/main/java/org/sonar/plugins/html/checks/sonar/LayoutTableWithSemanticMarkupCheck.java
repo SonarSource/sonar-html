@@ -49,7 +49,7 @@ public class LayoutTableWithSemanticMarkupCheck extends AbstractPageCheck {
         isWithinLayoutTable.addFirst(false);
       }
     }
-    if (!isWithinLayoutTable.isEmpty() && isWithinLayoutTable.peekFirst()) {
+    if (!isWithinLayoutTable.isEmpty() && Boolean.TRUE.equals(isWithinLayoutTable.peekFirst())) {
       if (isCaption(node) || isTableHeader(node)) {
         createViolation(node.getStartLinePosition(), format("Remove this \"%s\" element", node.getNodeName()));
       }
