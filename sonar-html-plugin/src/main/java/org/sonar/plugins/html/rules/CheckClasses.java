@@ -51,6 +51,7 @@ import org.sonar.plugins.html.checks.sonar.FlashUsesBothObjectAndEmbedCheck;
 import org.sonar.plugins.html.checks.sonar.FrameWithoutTitleCheck;
 import org.sonar.plugins.html.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.html.checks.sonar.ImgWithoutWidthOrHeightCheck;
+import org.sonar.plugins.html.checks.sonar.IndistinguishableSimilarElementsCheck;
 import org.sonar.plugins.html.checks.sonar.InputWithoutLabelCheck;
 import org.sonar.plugins.html.checks.sonar.ItemTagNotWithinContainerTagCheck;
 import org.sonar.plugins.html.checks.sonar.LangAttributeCheck;
@@ -144,7 +145,8 @@ public final class CheckClasses {
     LayoutTableWithSemanticMarkupCheck.class,
     TableWithoutHeaderCheck.class,
     LangAttributeCheck.class,
-    ObjectWithAlternativeContentCheck.class
+    ObjectWithAlternativeContentCheck.class,
+    IndistinguishableSimilarElementsCheck.class
   );
 
   private CheckClasses() {

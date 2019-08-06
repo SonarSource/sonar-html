@@ -1,0 +1,73 @@
+<p>If a page contains multiple <code>&lt;nav&gt;</code>&nbsp;or <code>&lt;aside&gt;</code> elements, each one should have an <code>aria-label</code>
+or <code>aria-labelledby</code> attribute so that they can be differentiated. The same rule applies when multiple elements have
+a&nbsp;<code>role</code> attribute with the same "landmark" value.</p>
+<p>Landmark roles are: <code>banner</code>, <code>complementary</code>, <code>contentinfo</code>, <code>form</code>, <code>main</code>,
+<code>navigation</code>, <code>search</code>, <code>application</code>.&nbsp;</p>
+<p>The use of ARIA markup helps users of&nbsp;screen readers navigate across blocks of content. For example it makes groups of links easier to locate
+or skip.</p>
+<h2>Noncompliant Code Example</h2>
+<p>Multiple <code>&lt;nav&gt;</code> element</p>
+<pre>
+&lt;nav&gt; &lt;!-- Noncompliant --&gt;
+    &lt;ul&gt;
+        &lt;li&gt;A list of navigation links&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;article&gt;
+    &lt;nav&gt; &lt;!-- Noncompliant --&gt;
+        Another list of navigation links
+    &lt;/nav&gt;
+&lt;/article&gt;
+</pre>
+<p>Repeated "landmark" role <code>"navigation"</code></p>
+<pre>
+&lt;div id="mainnav" role="navigation"&gt; &lt;!-- Noncompliant --&gt;
+    &lt;h2 id="mainnavheading"&gt;Site Navigation&lt;/h2&gt;
+    &lt;ul&gt;
+       &lt;li&gt;List of links&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id="secondarynav" role="navigation"&gt; &lt;!-- Noncompliant --&gt;
+    &lt;h2 id="secondarynavheading"&gt;Related links&lt;/h2&gt;
+    &lt;ul&gt;
+       &lt;li&gt;List of links&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;nav aria-label="Site menu"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;A list of navigation links&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;article&gt;
+    &lt;nav aria-label="Related links"&gt;
+        Another list of navigation links
+    &lt;/nav&gt;
+&lt;/article&gt;
+</pre>
+<pre>
+&lt;div id="mainnav" role="navigation" aria-labelledby="mainnavheading"&gt;
+    &lt;h2 id="mainnavheading"&gt;Site Navigation&lt;/h2&gt;
+    &lt;ul&gt;
+       &lt;li&gt;List of links&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id="secondarynav" role="navigation" aria-labelledby="secondarynavheading"&gt;
+    &lt;h2 id="secondarynavheading"&gt;Related links&lt;/h2&gt;
+    &lt;ul&gt;
+       &lt;li&gt;List of links&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+<h2>See</h2>
+<ul>
+  <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html">WCAG2, ARIA11</a> - Using ARIA landmarks to identify regions of a page </li>
+  <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/H97.html">WCAG2, H97</a> - Grouping related links using the nav element </li>
+  <li> <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&amp;showtechniques=131#qr-content-structure-separation-programmatic">WCAG2
+  1.3.1</a> Info and Relationships </li>
+</ul>
+
