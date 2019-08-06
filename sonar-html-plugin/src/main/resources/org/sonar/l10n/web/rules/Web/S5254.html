@@ -1,0 +1,58 @@
+<p>The <code>&lt;html&gt;</code>&nbsp;element should provide the <code>lang</code> and/or <code>xml:lang</code> attribute in order to identify the
+default language of a document.</p>
+<p>It enables assistive technologies, such as screen readers,&nbsp;to provide a comfortable reading experience by adapting the pronunciation and
+accent to the language. It also helps braille translation software, telling it to switch the control codes for accented characters for instance.</p>
+<p>Other benefits of marking the language include assisting user agents in providing dictionary definitions or helping users benefit from translation
+tools.</p>
+<p>Both the <code>lang</code> and the <code>xml:lang</code> attributes can take only one value.</p>
+<p>&nbsp;</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt; &lt;!-- Noncompliant --&gt;
+&nbsp;&nbsp;&nbsp; &lt;head&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;title&gt;A page written in english&lt;/title&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;meta content="text/html; charset=utf-8" /&gt;
+&nbsp;&nbsp;&nbsp; &lt;/head&gt; &nbsp;
+
+
+&nbsp;&nbsp;&nbsp; &lt;body&gt; &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&nbsp;&nbsp;&nbsp; &lt;head&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;title&gt;A page written in english&lt;/title&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;meta content="text/html; charset=utf-8" /&gt;
+&nbsp;&nbsp;&nbsp; &lt;/head&gt; &nbsp;
+
+
+&nbsp;&nbsp;&nbsp; &lt;body&gt; &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en" xml:lang="en"&gt;
+&nbsp;&nbsp;&nbsp; &lt;head&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;title&gt;A page written in english&lt;/title&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;meta content="text/html; charset=utf-8" /&gt;
+&nbsp;&nbsp;&nbsp; &lt;/head&gt; &nbsp;
+
+
+&nbsp;&nbsp;&nbsp; &lt;body&gt; &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h2>See</h2>
+<ul>
+  <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/html.html#H57">WCAG2, H57</a> - Using language attributes on the html element </li>
+  <li> <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-meaning-doc-lang-id">WCAG2, 3.1.1</a> - Language of Page </li>
+</ul>
+

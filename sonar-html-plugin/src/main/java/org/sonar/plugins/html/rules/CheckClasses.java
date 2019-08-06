@@ -55,6 +55,7 @@ import org.sonar.plugins.html.checks.sonar.InputWithoutLabelCheck;
 import org.sonar.plugins.html.checks.sonar.ItemTagNotWithinContainerTagCheck;
 import org.sonar.plugins.html.checks.sonar.LayoutTableCheck;
 import org.sonar.plugins.html.checks.sonar.LayoutTableWithSemanticMarkupCheck;
+import org.sonar.plugins.html.checks.sonar.LangAttributeCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToNothingCheck;
 import org.sonar.plugins.html.checks.sonar.LinksIdenticalTextsDifferentTargetsCheck;
@@ -138,7 +139,8 @@ public final class CheckClasses {
     FixmeCommentCheck.class,
     ElementWithGivenIdPresentCheck.class,
     LayoutTableCheck.class,
-    LayoutTableWithSemanticMarkupCheck.class
+    LayoutTableWithSemanticMarkupCheck.class,
+    LangAttributeCheck.class
   );
 
   private CheckClasses() {

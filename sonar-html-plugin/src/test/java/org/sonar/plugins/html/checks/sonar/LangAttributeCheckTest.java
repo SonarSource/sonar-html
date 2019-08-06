@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-
 import java.io.File;
 
 import org.junit.Rule;
@@ -26,27 +25,16 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class ImgWithoutAltCheckTest {
-
+public class LangAttributeCheckTest {
+  
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   public void detected() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheck.html"), new ImgWithoutAltCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheck.html"), new LangAttributeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add an \"alt\" attribute to this image.")
-        .next().atLine(5)
-        .next().atLine(6)
-        .next().atLine(7)
-        .next().atLine(14)
-        .next().atLine(15)
-        .next().atLine(16)
-        .next().atLine(17)
-        .next().atLine(19)
-        .next().atLine(20)
-        .next().atLine(21);
+        .next().atLine(1).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
   }
-
 }
