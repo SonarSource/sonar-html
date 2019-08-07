@@ -17,13 +17,11 @@
  */
 package org.sonar.plugins.html.checks;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Throwables;
-import com.google.common.collect.ImmutableList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.html.analyzers.ComplexityVisitor;
@@ -44,7 +42,7 @@ public class TestHelper {
     try {
       fileReader = new FileReader(file);
     } catch (FileNotFoundException e) {
-      throw Throwables.propagate(e);
+      throw new IllegalStateException(e);
     }
 
     HtmlSourceCode result = new HtmlSourceCode(
@@ -56,12 +54,12 @@ public class TestHelper {
         .build()
     );
 
-    HtmlAstScanner walker = new HtmlAstScanner(ImmutableList.of(new PageCountLines(), new ComplexityVisitor()));
+    HtmlAstScanner walker = new HtmlAstScanner(Arrays.asList(new PageCountLines(), new ComplexityVisitor()));
     walker.addVisitor(visitor);
     walker.scan(
       new PageLexer().parse(fileReader),
       result,
-      Charsets.UTF_8);
+      StandardCharsets.UTF_8);
 
     return result;
   }

@@ -17,8 +17,7 @@
  */
 package org.sonar.plugins.html.checks.header;
 
-import com.google.common.io.CharStreams;
-import com.google.common.io.LineProcessor;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
@@ -75,12 +74,9 @@ public class HeaderCheck extends AbstractPageCheck {
     if (isRegularExpression) {
       checkRegularExpression(fileContent);
     } else {
-      LineProcessor<Boolean> processor = new HeaderLinesProcessor(expectedLines);
-      try {
-        CharStreams.readLines(new StringReader(fileContent), processor);
-      } catch (IOException e) {
-        throw new IllegalStateException(e);
-      }
+      HeaderLinesProcessor processor = new HeaderLinesProcessor(expectedLines);
+      new BufferedReader(new StringReader(fileContent)).lines()
+          .forEachOrdered(processor::processLine);
       if (!processor.getResult()) {
         createViolation(0, MESSAGE);
       }
@@ -94,7 +90,7 @@ public class HeaderCheck extends AbstractPageCheck {
     }
   }
 
-  private static class HeaderLinesProcessor implements LineProcessor<Boolean> {
+  private static class HeaderLinesProcessor {
 
     private boolean result = false;
     private int lineNumber = 0;
@@ -104,8 +100,7 @@ public class HeaderCheck extends AbstractPageCheck {
       this.expectedLines = expectedLines;
     }
 
-    @Override
-    public boolean processLine(String line) throws IOException {
+    public boolean processLine(String line) {
       lineNumber++;
       if (lineNumber == 1) {
         result = true;
@@ -120,8 +115,7 @@ public class HeaderCheck extends AbstractPageCheck {
       return false;
     }
 
-    @Override
-    public Boolean getResult() {
+    boolean getResult() {
       return result && lineNumber >= expectedLines.length;
     }
 

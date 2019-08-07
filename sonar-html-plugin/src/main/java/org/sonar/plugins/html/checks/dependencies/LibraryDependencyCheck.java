@@ -17,8 +17,9 @@
  */
 package org.sonar.plugins.html.checks.dependencies;
 
-import com.google.common.base.Splitter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -45,11 +46,14 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
     defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 
-  private Iterable<String> librariesIterable;
+  private List<String> librariesIterable;
 
   @Override
   public void startDocument(List<Node> nodes) {
-    librariesIterable = Splitter.on(',').trimResults().omitEmptyStrings().split(libraries);
+    librariesIterable = Arrays.stream(libraries.split(","))
+      .map(String::trim)
+      .filter(s -> !s.isEmpty())
+      .collect(Collectors.toList());
   }
 
   @Override

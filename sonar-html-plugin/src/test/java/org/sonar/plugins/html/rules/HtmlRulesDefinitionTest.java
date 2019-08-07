@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.rules;
 
-import com.google.common.collect.Iterables;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class HtmlRulesDefinitionTest {
 
     assertThat(repository.name()).isEqualTo("SonarAnalyzer");
     assertThat(repository.language()).isEqualTo("web");
-    assertThat(repository.rules()).hasSize(Iterables.size(CheckClasses.getCheckClasses()));
+    assertThat(repository.rules()).hasSize(CheckClasses.getCheckClasses().size());
 
     RulesDefinition.Rule alertUseRule = repository.rule("IllegalAttributeCheck");
     assertThat(alertUseRule).isNotNull();

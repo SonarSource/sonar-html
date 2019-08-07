@@ -36,7 +36,6 @@
     <sonar.pluginClass>org.sonar.plugins.html.HtmlPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
     <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
-    <analyzerCommons.version>1.9.0.327</analyzerCommons.version>
     <sslrSquidBridge.version>2.7.0.377</sslrSquidBridge.version>
   </properties>
 
@@ -85,11 +84,6 @@
       <groupId>org.sonarsource.analyzer-commons</groupId>
       <artifactId>sonar-analyzer-recognizers</artifactId>
       <version>${analyzerCommons.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>15.0</version>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
@@ -192,8 +186,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <minsize>1700000</minsize>
-                  <maxsize>1800000</maxsize>
+                  <minsize>700000</minsize>
+                  <maxsize>900000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

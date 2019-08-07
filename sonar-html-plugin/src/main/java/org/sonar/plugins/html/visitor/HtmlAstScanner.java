@@ -18,16 +18,14 @@
 package org.sonar.plugins.html.visitor;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
-
 import org.sonar.plugins.html.node.CommentNode;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
-
-import com.google.common.collect.Lists;
 
 /**
  * Scans the nodes of a page and send events to the visitors.
@@ -38,7 +36,7 @@ import com.google.common.collect.Lists;
 public class HtmlAstScanner {
 
   private final List<DefaultNodeVisitor> metricVisitors;
-  private final List<DefaultNodeVisitor> checkVisitors = Lists.newArrayList();
+  private final List<DefaultNodeVisitor> checkVisitors = new ArrayList<>();
 
   public HtmlAstScanner(List<DefaultNodeVisitor> metricVisitors) {
     this.metricVisitors = metricVisitors;

@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.html.analyzers;
 
-import com.google.common.collect.Sets;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
@@ -42,8 +42,8 @@ public class PageCountLines extends DefaultNodeVisitor {
 
   private int blankLines;
   private int headerCommentLines;
-  private final Set<Integer> detailedLinesOfCode = Sets.newHashSet();
-  private final Set<Integer> detailedLinesOfComments = Sets.newHashSet();
+  private final Set<Integer> detailedLinesOfCode = new HashSet<>();
+  private final Set<Integer> detailedLinesOfComments = new HashSet<>();
 
   @Override
   public void startDocument(List<Node> nodes) {

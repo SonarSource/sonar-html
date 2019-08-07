@@ -17,12 +17,10 @@
  */
 package org.sonar.plugins.html.checks;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.junit.rules.Verifier;
-
-import com.google.common.collect.Lists;
 
 /**
  * This JUnit Rule allows to automatically execute {@link CheckMessagesVerifier#noMore()}.
@@ -42,7 +40,7 @@ import com.google.common.collect.Lists;
  */
 public class CheckMessagesVerifierRule extends Verifier {
 
-  private final List<CheckMessagesVerifier> verifiers = Lists.newArrayList();
+  private final List<CheckMessagesVerifier> verifiers = new ArrayList<>();
 
   public CheckMessagesVerifier verify(Collection<HtmlIssue> messages) {
     CheckMessagesVerifier verifier = CheckMessagesVerifier.verify(messages);

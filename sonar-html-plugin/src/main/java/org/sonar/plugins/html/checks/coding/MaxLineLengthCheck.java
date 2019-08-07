@@ -17,10 +17,11 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
-import com.google.common.io.CharStreams;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -54,7 +55,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
 
   private static List<String> readLines(InputFile file) {
     try {
-      return CharStreams.readLines(new StringReader(file.contents()));
+      return new BufferedReader(new StringReader(file.contents())).lines().collect(Collectors.toList());
     } catch (IOException e) {
       throw new IllegalStateException("Unable to read " + file, e);
     }

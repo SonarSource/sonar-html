@@ -17,7 +17,8 @@
  */
 package org.sonar.plugins.html.checks.comments;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Arrays;
+import java.util.HashSet;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -32,10 +33,10 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   private static final double THRESHOLD = 0.9;
 
-  private static final LanguageFootprint LANGUAGE_FOOTPRINT = () -> ImmutableSet.of(
+  private static final LanguageFootprint LANGUAGE_FOOTPRINT = () -> new HashSet<>(Arrays.asList(
     new ContainsDetector(0.7, "=\"", "='"),
     new ContainsDetector(0.8, "/>", "</", "<%", "%>"),
-    new EndWithDetector(0.9, '>'));
+    new EndWithDetector(0.9, '>')));
 
   private static final CodeRecognizer CODE_RECOGNIZER = new CodeRecognizer(THRESHOLD, LANGUAGE_FOOTPRINT);
 

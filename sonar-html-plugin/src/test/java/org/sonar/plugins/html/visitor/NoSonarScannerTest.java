@@ -17,8 +17,8 @@
  */
 package org.sonar.plugins.html.visitor;
 
-import com.google.common.base.Charsets;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -30,8 +30,8 @@ import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.node.Node;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.argThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -50,20 +50,19 @@ public class NoSonarScannerTest {
     HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.emptyList());
     pageScanner.addVisitor(new NoSonarScanner(noSonarFilter));
 
-    pageScanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
+    pageScanner.scan(nodeList, htmlSourceCode, StandardCharsets.UTF_8);
 
     verify(noSonarFilter, times(1)).noSonarInFile(any(InputFile.class), isOnlyIgnoringLine2());
   }
 
-  private Set isOnlyIgnoringLine2() {
+  private Set<Integer> isOnlyIgnoringLine2() {
     return argThat(new IsOnlyIgnoringLine2());
   }
 
-  private class IsOnlyIgnoringLine2 implements ArgumentMatcher<Set> {
+  private static class IsOnlyIgnoringLine2 implements ArgumentMatcher<Set<Integer>> {
 
     @Override
-    public boolean matches(Set set) {
-      Set<Integer> lines = (Set) set;
+    public boolean matches(Set<Integer> lines) {
       return lines.size() == 1 && lines.contains(2);
     }
   }

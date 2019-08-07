@@ -17,18 +17,18 @@
  */
 package org.sonar.plugins.html.lex;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Tokenizer for elements.
@@ -201,14 +201,14 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   }
 
   private static final class EndUnquotedAttributeMatcher implements EndMatcher {
-    private static final Set<Character> FORBIDDEN = ImmutableSet.of(
+    private static final Set<Character> FORBIDDEN = new HashSet<>(Arrays.asList(
       '"',
       '\'',
       '=',
       '<',
       '>',
       '`'
-    );
+    ));
 
     @Override
     public boolean match(int character) {

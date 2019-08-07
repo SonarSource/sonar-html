@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.analyzers;
 
-import com.google.common.base.Charsets;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -56,7 +55,7 @@ public class PageCountLinesTest {
     assertThat(nodeList.size()).isGreaterThan(100);
 
     HtmlSourceCode htmlSourceCode = createHtmlSourceCode("test/user-properties.jsp");
-    scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
+    scanner.scan(nodeList, htmlSourceCode, StandardCharsets.UTF_8);
 
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(224);
     assertThat(htmlSourceCode.getDetailedLinesOfCode().size()).isEqualTo(224);
@@ -68,7 +67,7 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.html"));
 
     HtmlSourceCode htmlSourceCode = createHtmlSourceCode("test/document.html");
-    scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
+    scanner.scan(nodeList, htmlSourceCode, StandardCharsets.UTF_8);
 
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(8);
     assertThat(htmlSourceCode.getDetailedLinesOfCode()).containsOnly(1, 2, 3, 4, 6, 7, 8, 9);
@@ -80,7 +79,7 @@ public class PageCountLinesTest {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.jsp"));
 
     HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", "testdocument.jsp").setModuleBaseDir(new File(".").toPath()).build());
-    scanner.scan(nodeList, htmlSourceCode, Charsets.UTF_8);
+    scanner.scan(nodeList, htmlSourceCode, StandardCharsets.UTF_8);
 
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(2);
     assertThat(htmlSourceCode.getDetailedLinesOfCode()).containsOnly(1, 3);
