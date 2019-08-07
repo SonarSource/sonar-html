@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.sonar.check.Rule;
@@ -30,53 +28,53 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S5264")
 public class ObjectWithAlternativeContentCheck extends AbstractPageCheck {
 
-  private static class ObjectEntry {
+  private static class ObjectTag {
 
-    TagNode object;
+    TagNode node;
     boolean hasAlternativeContent;
     
-    public ObjectEntry(TagNode object) {
-      this.object = object;
+    public ObjectTag(TagNode node) {
+      this.node = node;
       this.hasAlternativeContent = false;
     }
   }
 
-  private Deque<ObjectEntry> stack = new LinkedList<>();
+  private ObjectTag object;
 
   @Override
   public void startDocument(List<Node> nodes) {
-    stack.clear();
+    object = null;
   }
 
   @Override
   public void endDocument() {
-    stack.clear();
+    object = null;
   }
 
   @Override
   public void startElement(TagNode node) {
-    if (!stack.isEmpty()) {
-      stack.peekFirst().hasAlternativeContent = true;
+    if (object != null) {
+      object.hasAlternativeContent = true;
     }
     if (isObject(node)) {
-      stack.addFirst(new ObjectEntry(node));
+      object = new ObjectTag(node);
     }
   }
 
   @Override
   public void endElement(TagNode node) {
-    if (isObject(node) && !stack.isEmpty()) {
-      ObjectEntry entry = stack.removeFirst();
-      if (!entry.hasAlternativeContent) {
-        createViolation(entry.object.getStartLinePosition(), "Add an accessible content to this \"<object>\" tag.");
+    if (isObject(node) && object != null) {
+      if (!object.hasAlternativeContent) {
+        createViolation(object.node.getStartLinePosition(), "Add an accessible content to this \"<object>\" tag.");
       }
+      object = null;
     }
   }
 
   @Override
   public void characters(TextNode textNode) {
-    if (!textNode.isBlank() && !stack.isEmpty()) {
-      stack.peekFirst().hasAlternativeContent = true;
+    if (!textNode.isBlank() && object != null) {
+      object.hasAlternativeContent = true;
     }
   }
   
