@@ -24,29 +24,19 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "TableWithoutCaptionCheck")
 public class TableWithoutCaptionCheck extends AbstractPageCheck {
 
-  private int tableLine = 0;
-  private boolean foundCaption;
-
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node)) {
-      foundCaption = false;
-      tableLine = node.getStartLinePosition();
-    } else if (isCaption(node)) {
-      foundCaption = true;
+    if (isTable(node) && !isIgnored(node) && !hasDescription(node)) {
+      createViolation(node.getStartLinePosition(), "Add a description to this table.");
     }
   }
 
-  @Override
-  public void endElement(TagNode node) {
-    if (isTable(node)) {
-      if (!foundCaption && tableLine != 0) {
-        createViolation(tableLine, "Add a <caption> tag to this table.");
-      }
+  private static boolean isIgnored(TagNode node) {
+    return isLayout(node) || isHidden(node);
+  }
 
-      foundCaption = false;
-      tableLine = 0;
-    }
+  private static boolean hasDescription(TagNode node) {
+    return hasSummary(node) || hasAriaDescribedBy(node) || hasCaption(node) || isEmbeddedInFigureWithCaption(node.getParent());
   }
 
   private static boolean isTable(TagNode node) {
@@ -57,4 +47,55 @@ public class TableWithoutCaptionCheck extends AbstractPageCheck {
     return "CAPTION".equalsIgnoreCase(node.getNodeName());
   }
 
+  private static boolean isFigure(TagNode node) {
+    return "FIGURE".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isFigCaption(TagNode node) {
+    return "FIGCAPTION".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isLayout(TagNode node) {
+    String role = node.getAttribute("ROLE");
+    return role != null && ("PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role));
+  }
+
+  private static boolean isHidden(TagNode node) {
+    String ariaHidden = node.getAttribute("ARIA-HIDDEN");
+    return ariaHidden != null && "TRUE".equalsIgnoreCase(ariaHidden);
+  }
+
+  private static boolean isEmbeddedInFigureWithCaption(TagNode node) {
+    if (node == null || isTable(node)) {
+      return false;
+    } else if (isFigure(node) && hasFigCaption(node)) {
+      return true;
+    } else {
+      return isEmbeddedInFigureWithCaption(node.getParent());
+    }
+  }
+
+  private static boolean hasSummary(TagNode node) {
+    return node.hasProperty("SUMMARY");
+  }
+
+  private static boolean hasAriaDescribedBy(TagNode node) {
+    return node.hasProperty("ARIA-DESCRIBEDBY");
+  }
+
+  private static boolean hasCaption(TagNode node) {
+    if (node.getChildren().stream().anyMatch(TableWithoutCaptionCheck::isCaption)) {
+      return true;
+    } else {
+      return node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutCaptionCheck::hasCaption);
+    }
+  }
+
+  private static boolean hasFigCaption(TagNode node) {
+    if (node.getChildren().stream().anyMatch(TableWithoutCaptionCheck::isFigCaption)) {
+      return true;
+    } else {
+      return node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutCaptionCheck::hasFigCaption);
+    }
+  }
 }

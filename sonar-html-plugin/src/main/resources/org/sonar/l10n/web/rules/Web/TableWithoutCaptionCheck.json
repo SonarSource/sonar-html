@@ -1,5 +1,5 @@
 {
-  "title": "\"<table>\" tags should contain a \"<caption>\"",
+  "title": "\"<table>\" tags should have a description",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -7,7 +7,8 @@
     "constantCost": "5min"
   },
   "tags": [
-    "accessibility"
+    "accessibility",
+    "wcag2-a"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1085",
