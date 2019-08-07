@@ -69,6 +69,7 @@ import org.sonar.plugins.html.checks.sonar.PageWithoutFaviconCheck;
 import org.sonar.plugins.html.checks.sonar.PageWithoutTitleCheck;
 import org.sonar.plugins.html.checks.sonar.ServerSideImageMapsCheck;
 import org.sonar.plugins.html.checks.sonar.TableHeaderHasIdOrScopeCheck;
+import org.sonar.plugins.html.checks.sonar.TableHeaderReferenceCheck;
 import org.sonar.plugins.html.checks.sonar.TableWithoutCaptionCheck;
 import org.sonar.plugins.html.checks.sonar.TableWithoutHeaderCheck;
 import org.sonar.plugins.html.checks.sonar.UnsupportedTagsInHtml5Check;
@@ -148,7 +149,8 @@ public final class CheckClasses {
     TableWithoutHeaderCheck.class,
     LangAttributeCheck.class,
     ObjectWithAlternativeContentCheck.class,
-    IndistinguishableSimilarElementsCheck.class
+    IndistinguishableSimilarElementsCheck.class,
+    TableHeaderReferenceCheck.class
   );
 
   private CheckClasses() {
