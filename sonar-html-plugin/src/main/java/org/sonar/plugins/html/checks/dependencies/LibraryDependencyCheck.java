@@ -46,11 +46,11 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
     defaultValue = "" + DEFAULT_MESSAGE)
   public String message = DEFAULT_MESSAGE;
 
-  private List<String> librariesIterable;
+  private List<String> librariesList;
 
   @Override
   public void startDocument(List<Node> nodes) {
-    librariesIterable = Arrays.stream(libraries.split(","))
+    librariesList = Arrays.stream(libraries.split(","))
       .map(String::trim)
       .filter(s -> !s.isEmpty())
       .collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   private boolean isIllegalImport(Attribute a) {
     if ("import".equals(a.getName())) {
-      for (String library : librariesIterable) {
+      for (String library : librariesList) {
         if (a.getValue().contains(library)) {
           return true;
         }
@@ -80,7 +80,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
 
   @Override
   public void expression(ExpressionNode node) {
-    for (String library : librariesIterable) {
+    for (String library : librariesList) {
       if (node.getCode().contains(library)) {
         createViolation(node.getStartLinePosition(), message);
       }

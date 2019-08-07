@@ -23,6 +23,7 @@ import java.io.StringReader;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -75,10 +76,18 @@ public class HeaderCheck extends AbstractPageCheck {
       checkRegularExpression(fileContent);
     } else {
       HeaderLinesProcessor processor = new HeaderLinesProcessor(expectedLines);
-      new BufferedReader(new StringReader(fileContent)).lines()
-          .forEachOrdered(processor::processLine);
-      if (!processor.getResult()) {
-        createViolation(0, MESSAGE);
+      try (BufferedReader br = new BufferedReader(new StringReader(fileContent))) {
+        List<String> lines = br.lines().collect(Collectors.toList());
+        for (String line : lines) {
+          if (!processor.processLine(line)) {
+            break;
+          }
+        }
+        if (!processor.getResult()) {
+          createViolation(0, MESSAGE);
+        }
+      } catch (IOException e) {
+        throw new IllegalStateException(e);
       }
     }
   }
@@ -100,19 +109,20 @@ public class HeaderCheck extends AbstractPageCheck {
       this.expectedLines = expectedLines;
     }
 
-    public boolean processLine(String line) {
+    boolean processLine(String line) {
       lineNumber++;
       if (lineNumber == 1) {
         result = true;
       }
       if (lineNumber > expectedLines.length) {
         // we are done checking, stop processor
+        return false;
       } else if (line.equals(expectedLines[lineNumber - 1])) {
         return true;
       } else {
         result = false;
+        return false;
       }
-      return false;
     }
 
     boolean getResult() {

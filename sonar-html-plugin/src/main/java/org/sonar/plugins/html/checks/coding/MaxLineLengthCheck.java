@@ -54,8 +54,8 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
   }
 
   private static List<String> readLines(InputFile file) {
-    try {
-      return new BufferedReader(new StringReader(file.contents())).lines().collect(Collectors.toList());
+    try (BufferedReader br = new BufferedReader(new StringReader(file.contents()))) {
+      return br.lines().collect(Collectors.toList());
     } catch (IOException e) {
       throw new IllegalStateException("Unable to read " + file, e);
     }
