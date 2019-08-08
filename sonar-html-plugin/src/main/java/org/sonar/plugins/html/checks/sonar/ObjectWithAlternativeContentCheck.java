@@ -28,18 +28,7 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S5264")
 public class ObjectWithAlternativeContentCheck extends AbstractPageCheck {
 
-  private static class ObjectTag {
-
-    TagNode node;
-    boolean hasAlternativeContent;
-    
-    public ObjectTag(TagNode node) {
-      this.node = node;
-      this.hasAlternativeContent = false;
-    }
-  }
-
-  private ObjectTag object;
+  private TagNode object;
 
   @Override
   public void startDocument(List<Node> nodes) {
@@ -47,34 +36,22 @@ public class ObjectWithAlternativeContentCheck extends AbstractPageCheck {
   }
 
   @Override
-  public void endDocument() {
-    object = null;
-  }
-
-  @Override
   public void startElement(TagNode node) {
-    if (object != null) {
-      object.hasAlternativeContent = true;
-    }
-    if (isObject(node)) {
-      object = new ObjectTag(node);
-    }
+    object = isObject(node) ? node : null;
   }
 
   @Override
   public void endElement(TagNode node) {
     if (isObject(node) && object != null) {
-      if (!object.hasAlternativeContent) {
-        createViolation(object.node.getStartLinePosition(), "Add an accessible content to this \"<object>\" tag.");
-      }
+      createViolation(object.getStartLinePosition(), "Add an accessible content to this \"<object>\" tag.");
       object = null;
     }
   }
 
   @Override
   public void characters(TextNode textNode) {
-    if (!textNode.isBlank() && object != null) {
-      object.hasAlternativeContent = true;
+    if (!textNode.isBlank()) {
+      object = null;
     }
   }
   
