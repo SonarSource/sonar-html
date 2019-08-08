@@ -17,18 +17,18 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
-import java.util.Locale;
-
 @Rule(key = "LinkToImageCheck")
 public class LinkToImageCheck extends AbstractPageCheck {
 
-  private static final ImmutableSet<String> IMG_SUFFIXES = ImmutableSet.of(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP");
+  private static final Set<String> IMG_SUFFIXES = new HashSet<>(Arrays.asList(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP"));
 
   @Override
   public void startElement(TagNode node) {
@@ -45,12 +45,12 @@ public class LinkToImageCheck extends AbstractPageCheck {
     String href = node.getAttribute("href");
 
     return href != null &&
-      isPoitingToAnImage(href);
+      isPointingToAnImage(href);
   }
 
-  private static boolean isPoitingToAnImage(String target) {
+  private static boolean isPointingToAnImage(String target) {
     final String upperTarget = target.toUpperCase(Locale.ENGLISH);
-    return Iterables.any(IMG_SUFFIXES, input -> input != null &&  upperTarget.endsWith(input));
+    return IMG_SUFFIXES.stream().anyMatch(input -> input != null && upperTarget.endsWith(input));
   }
 
 }

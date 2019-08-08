@@ -17,13 +17,13 @@
  */
 package org.sonar.plugins.html.checks.header;
 
-import com.google.common.io.CharStreams;
-import com.google.common.io.LineProcessor;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -75,14 +75,19 @@ public class HeaderCheck extends AbstractPageCheck {
     if (isRegularExpression) {
       checkRegularExpression(fileContent);
     } else {
-      LineProcessor<Boolean> processor = new HeaderLinesProcessor(expectedLines);
-      try {
-        CharStreams.readLines(new StringReader(fileContent), processor);
+      HeaderLinesProcessor processor = new HeaderLinesProcessor(expectedLines);
+      try (BufferedReader br = new BufferedReader(new StringReader(fileContent))) {
+        List<String> lines = br.lines().collect(Collectors.toList());
+        for (String line : lines) {
+          if (!processor.processLine(line)) {
+            break;
+          }
+        }
+        if (!processor.getResult()) {
+          createViolation(0, MESSAGE);
+        }
       } catch (IOException e) {
         throw new IllegalStateException(e);
-      }
-      if (!processor.getResult()) {
-        createViolation(0, MESSAGE);
       }
     }
   }
@@ -94,7 +99,7 @@ public class HeaderCheck extends AbstractPageCheck {
     }
   }
 
-  private static class HeaderLinesProcessor implements LineProcessor<Boolean> {
+  private static class HeaderLinesProcessor {
 
     private boolean result = false;
     private int lineNumber = 0;
@@ -104,24 +109,23 @@ public class HeaderCheck extends AbstractPageCheck {
       this.expectedLines = expectedLines;
     }
 
-    @Override
-    public boolean processLine(String line) throws IOException {
+    boolean processLine(String line) {
       lineNumber++;
       if (lineNumber == 1) {
         result = true;
       }
       if (lineNumber > expectedLines.length) {
         // we are done checking, stop processor
+        return false;
       } else if (line.equals(expectedLines[lineNumber - 1])) {
         return true;
       } else {
         result = false;
+        return false;
       }
-      return false;
     }
 
-    @Override
-    public Boolean getResult() {
+    boolean getResult() {
       return result && lineNumber >= expectedLines.length;
     }
 

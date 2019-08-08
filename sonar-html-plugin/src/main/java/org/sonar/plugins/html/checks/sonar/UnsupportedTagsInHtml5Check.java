@@ -17,19 +17,19 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
-
-import java.util.Locale;
-import java.util.Set;
 
 /** RSPEC-1083 */
 @Rule(key = "UnsupportedTagsInHtml5Check")
 public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
-  private static final Set<String> UNSUPPORTED_TAGS = ImmutableSet.of(
+  private static final Set<String> UNSUPPORTED_TAGS = new HashSet<>(Arrays.asList(
       "ACRONYM",
       "APPLET",
       "BASEFONT",
@@ -54,7 +54,7 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
       "SPACER",
       "STRIKE",
       "TT",
-      "XMP");
+      "XMP"));
 
   @Override
   public void startElement(TagNode node) {

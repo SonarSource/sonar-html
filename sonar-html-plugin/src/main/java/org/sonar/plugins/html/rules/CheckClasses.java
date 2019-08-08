@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.html.rules;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
 import java.util.List;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.html.checks.attributes.RequiredAttributeCheck;
@@ -53,9 +53,9 @@ import org.sonar.plugins.html.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.html.checks.sonar.ImgWithoutWidthOrHeightCheck;
 import org.sonar.plugins.html.checks.sonar.InputWithoutLabelCheck;
 import org.sonar.plugins.html.checks.sonar.ItemTagNotWithinContainerTagCheck;
+import org.sonar.plugins.html.checks.sonar.LangAttributeCheck;
 import org.sonar.plugins.html.checks.sonar.LayoutTableCheck;
 import org.sonar.plugins.html.checks.sonar.LayoutTableWithSemanticMarkupCheck;
-import org.sonar.plugins.html.checks.sonar.LangAttributeCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToNothingCheck;
 import org.sonar.plugins.html.checks.sonar.LinksIdenticalTextsDifferentTargetsCheck;
@@ -83,7 +83,7 @@ import org.sonar.plugins.html.checks.whitespace.WhiteSpaceAroundCheck;
 
 public final class CheckClasses {
 
-  private static final List<Class> CLASSES = ImmutableList.of(
+  private static final List<Class> CLASSES = Arrays.asList(
     AbsoluteURICheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,

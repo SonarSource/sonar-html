@@ -17,22 +17,21 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import com.google.common.collect.Maps;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 @Rule(key = "LinksIdenticalTextsDifferentTargetsCheck")
 public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck {
 
   private boolean inLink;
-  private final Map<String, Link> links = Maps.newHashMap();
+  private final Map<String, Link> links = new HashMap<>();
 
   private final StringBuilder text = new StringBuilder();
   private String target = "";

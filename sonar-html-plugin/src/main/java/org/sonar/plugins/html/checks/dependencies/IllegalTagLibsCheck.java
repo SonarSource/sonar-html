@@ -17,7 +17,8 @@
  */
 package org.sonar.plugins.html.checks.dependencies;
 
-import com.google.common.base.Strings;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -25,8 +26,6 @@ import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
-
-import java.util.List;
 
 @Rule(key = "IllegalTagLibsCheck")
 public class IllegalTagLibsCheck extends AbstractPageCheck {
@@ -53,12 +52,13 @@ public class IllegalTagLibsCheck extends AbstractPageCheck {
     }
   }
 
-  private void checkIt(Node node, String uri) {
-    if (!Strings.isNullOrEmpty(uri)) {
-      for (String tagLib : tagLibsArray) {
-        if (tagLib.equalsIgnoreCase(uri)) {
-          createViolation(node.getStartLinePosition(), "Remove the use of \"" + tagLib + "\".");
-        }
+  private void checkIt(Node node, @Nullable String uri) {
+    if (uri == null || uri.isEmpty()) {
+      return;
+    }
+    for (String tagLib : tagLibsArray) {
+      if (tagLib.equalsIgnoreCase(uri)) {
+        createViolation(node.getStartLinePosition(), "Remove the use of \"" + tagLib + "\".");
       }
     }
   }

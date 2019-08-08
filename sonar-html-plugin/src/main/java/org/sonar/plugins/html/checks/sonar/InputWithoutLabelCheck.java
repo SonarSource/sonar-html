@@ -17,26 +17,25 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
 @Rule(key = "InputWithoutLabelCheck")
 public class InputWithoutLabelCheck extends AbstractPageCheck {
 
-  private static final Set<String> EXCLUDED_TYPES = ImmutableSet.of("SUBMIT", "BUTTON", "IMAGE", "HIDDEN");
+  private static final Set<String> EXCLUDED_TYPES = new HashSet<>(Arrays.asList("SUBMIT", "BUTTON", "IMAGE", "HIDDEN"));
 
-  private final Set<String> labelFor = Sets.newHashSet();
-  private final Map<String, Integer> inputIdToLine = Maps.newHashMap();
+  private final Set<String> labelFor = new HashSet<>();
+  private final Map<String, Integer> inputIdToLine = new HashMap<>();
 
   @Override
   public void startDocument(List<Node> nodes) {

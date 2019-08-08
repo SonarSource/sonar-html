@@ -17,18 +17,17 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Rule(key = "S1827")
 public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
@@ -49,67 +48,70 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     final String compact = "compact";
     final String border = "border";
     final String valign = "valign";
-    ImmutableMap.Builder<String, Set<String>> builder = ImmutableMap.builder();
-    builder.put("a", ImmutableSet.of("charset", "coords", datafld, datasrc, "methods", "name", "shape", "urn"));
-    builder.put("applet", ImmutableSet.of(datafld, datasrc));
-    builder.put("area", ImmutableSet.of("nohref"));
-    builder.put(
+    DEPRECATED = new HashMap<>();
+    put("a", "charset", "coords", datafld, datasrc, "methods", "name", "shape", "urn");
+    put("applet", datafld, datasrc);
+    put("area", "nohref");
+    put(
       "body",
-      ImmutableSet.of("alink", background, bgcolor, "link", "marginbottom", "marginheight", "marginleft", "marginright", "margintop", "marginwidth", "text", "vlink"));
-    builder.put("br", ImmutableSet.of("clear"));
-    builder.put("button", ImmutableSet.of(datafld, dataformatas, datasrc));
-    builder.put("caption", ImmutableSet.of(align));
-    builder.put("col", ImmutableSet.of(align, "char", charoff, valign, width));
-    builder.put("div", ImmutableSet.of(align, datafld, dataformatas, datasrc));
-    builder.put("dl", ImmutableSet.of(compact));
-    builder.put("embed", ImmutableSet.of(align, hspace, "name", vspace));
-    builder.put("fieldset", ImmutableSet.of(datafld));
-    builder.put("form", ImmutableSet.of("accept"));
-    builder.put("frame", ImmutableSet.of(datafld, datasrc));
-    builder.put("h1", ImmutableSet.of(align));
-    builder.put("h2", ImmutableSet.of(align));
-    builder.put("h3", ImmutableSet.of(align));
-    builder.put("h4", ImmutableSet.of(align));
-    builder.put("h5", ImmutableSet.of(align));
-    builder.put("h6", ImmutableSet.of(align));
-    builder.put("head", ImmutableSet.of("profile"));
-    builder.put("hr", ImmutableSet.of(align, "color", "noshade", "size", width));
-    builder.put("html", ImmutableSet.of("version"));
-    builder.put("iframe", ImmutableSet.of(align, "allowtransparency", datafld, datasrc, "frameborder", hspace, "marginheight", "marginwidth", "scrolling", vspace));
-    builder.put("img", ImmutableSet.of(align, border, datafld, datasrc, hspace, "lowsrc", "name", vspace));
-    builder.put("input", ImmutableSet.of(align, datafld, dataformatas, datasrc, hspace, "ismap", "usemap", vspace));
-    builder.put("label", ImmutableSet.of(datafld, dataformatas, datasrc));
-    builder.put("legend", ImmutableSet.of(align, datafld, dataformatas, datasrc));
-    builder.put("li", ImmutableSet.of("type"));
-    builder.put("link", ImmutableSet.of("charset", "methods", "target", "urn"));
-    builder.put("marquee", ImmutableSet.of(datafld, dataformatas, datasrc));
-    builder.put("meta", ImmutableSet.of("scheme"));
-    builder.put(
+      "alink", background, bgcolor, "link", "marginbottom", "marginheight", "marginleft", "marginright", "margintop", "marginwidth", "text", "vlink");
+    put("br", "clear");
+    put("button", datafld, dataformatas, datasrc);
+    put("caption", align);
+    put("col", align, "char", charoff, valign, width);
+    put("div", align, datafld, dataformatas, datasrc);
+    put("dl", compact);
+    put("embed", align, hspace, "name", vspace);
+    put("fieldset", datafld);
+    put("form", "accept");
+    put("frame", datafld, datasrc);
+    put("h1", align);
+    put("h2", align);
+    put("h3", align);
+    put("h4", align);
+    put("h5", align);
+    put("h6", align);
+    put("head", "profile");
+    put("hr", align, "color", "noshade", "size", width);
+    put("html", "version");
+    put("iframe", align, "allowtransparency", datafld, datasrc, "frameborder", hspace, "marginheight", "marginwidth", "scrolling", vspace);
+    put("img", align, border, datafld, datasrc, hspace, "lowsrc", "name", vspace);
+    put("input", align, datafld, dataformatas, datasrc, hspace, "ismap", "usemap", vspace);
+    put("label", datafld, dataformatas, datasrc);
+    put("legend", align, datafld, dataformatas, datasrc);
+    put("li", "type");
+    put("link", "charset", "methods", "target", "urn");
+    put("marquee", datafld, dataformatas, datasrc);
+    put("meta", "scheme");
+    put(
       "object",
-      ImmutableSet.of(align, "archive", border, "classid", "code", "codebase", "codetype", datafld, dataformatas, datasrc, "declare", hspace, "standby", vspace));
-    builder.put("ol", ImmutableSet.of(compact));
-    builder.put("option", ImmutableSet.of(datafld, dataformatas, datasrc, "name"));
-    builder.put("p", ImmutableSet.of(align));
-    builder.put("param", ImmutableSet.of(datafld, "type", "valuetype"));
-    builder.put("params", ImmutableSet.of("type"));
-    builder.put("pre", ImmutableSet.of(width));
-    builder.put("script", ImmutableSet.of("event", "for", "langauge"));
-    builder.put("select", ImmutableSet.of(datafld, dataformatas, datasrc));
-    builder.put("span", ImmutableSet.of(datafld, dataformatas, datasrc));
-    builder.put(
+      align, "archive", border, "classid", "code", "codebase", "codetype", datafld, dataformatas, datasrc, "declare", hspace, "standby", vspace);
+    put("ol", compact);
+    put("option", datafld, dataformatas, datasrc, "name");
+    put("p", align);
+    put("param", datafld, "type", "valuetype");
+    put("params", "type");
+    put("pre", width);
+    put("script", "event", "for", "language");
+    put("select", datafld, dataformatas, datasrc);
+    put("span", datafld, dataformatas, datasrc);
+    put(
       "table",
-      ImmutableSet.of(align, background, bgcolor, "bordercolor", "cellpadding", "cellspacing",
-        dataformatas, "datapagesize", datasrc, "frame", "rules", "summary", width));
-    builder.put("text", ImmutableSet.of("body"));
-    builder.put("textarea", ImmutableSet.of(datafld, datasrc));
-    builder.put("tbody", ImmutableSet.of(align, background, "char", charoff, valign));
-    builder.put("thead", ImmutableSet.of(align, background, bgcolor, "char", charoff, valign));
-    builder.put("tfoot", ImmutableSet.of(align, background, "char", charoff, valign));
-    builder.put("td", ImmutableSet.of(align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", "scope", valign, width));
-    builder.put("th", ImmutableSet.of(align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", valign, width));
-    builder.put("tr", ImmutableSet.of(align, background, bgcolor, "char", charoff, valign));
-    builder.put("ul", ImmutableSet.of(compact, "type"));
-    DEPRECATED = builder.build();
+      align, background, bgcolor, "bordercolor", "cellpadding", "cellspacing",
+        dataformatas, "datapagesize", datasrc, "frame", "rules", "summary", width);
+    put("text", "body");
+    put("textarea", datafld, datasrc);
+    put("tbody", align, background, "char", charoff, valign);
+    put("thead", align, background, bgcolor, "char", charoff, valign);
+    put("tfoot", align, background, "char", charoff, valign);
+    put("td", align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", "scope", valign, width);
+    put("th", align, "axis", background, bgcolor, "char", charoff, "height", "nowrap", valign, width);
+    put("tr", align, background, bgcolor, "char", charoff, valign);
+    put("ul", compact, "type");
+  }
+
+  private static void put(String key, String... values) {
+    DEPRECATED.put(key, new HashSet<>(Arrays.asList(values)));
   }
 
   @Override
@@ -135,7 +137,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
       return !"javascript".equals(attributeValue);
     } else if ("a".equals(elementName) && "name".equals(attributeName)) {
       String id = element.getPropertyValue("id");
-      return Strings.isNullOrEmpty(id) || !id.equals(attributeValue);
+      return id == null || id.isEmpty() || !id.equals(attributeValue);
     } else {
       return deprecatedAttributes.contains(attributeName);
     }

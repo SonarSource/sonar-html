@@ -17,11 +17,11 @@
  */
 package org.sonar.plugins.html.checks;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Ordering;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 /**
@@ -49,7 +49,7 @@ public final class CheckMessagesVerifier {
   private HtmlIssue current;
 
   private static final Comparator<HtmlIssue> ORDERING = (left, right) -> {
-    if (Objects.equal(left.line(), right.line())) {
+    if (Objects.equals(left.line(), right.line())) {
       return left.message().compareTo(right.message());
     } else if (left.line() == null) {
       return -1;
@@ -61,7 +61,9 @@ public final class CheckMessagesVerifier {
   };
 
   private CheckMessagesVerifier(Collection<HtmlIssue> messages) {
-    iterator = Ordering.from(ORDERING).sortedCopy(messages).iterator();
+    ArrayList<HtmlIssue> messagesList = new ArrayList<>(messages);
+    messagesList.sort(ORDERING);
+    iterator = messagesList.iterator();
   }
 
   public CheckMessagesVerifier next() {
@@ -87,7 +89,7 @@ public final class CheckMessagesVerifier {
 
   public CheckMessagesVerifier atLine(@Nullable Integer expectedLine) {
     checkStateOfCurrent();
-    if (!Objects.equal(expectedLine, current.line())) {
+    if (!Objects.equals(expectedLine, current.line())) {
       throw new AssertionError("\nExpected: " + expectedLine + "\ngot: " + current.line());
     }
     return this;
@@ -104,7 +106,7 @@ public final class CheckMessagesVerifier {
 
   public CheckMessagesVerifier withCost(@Nullable Double expectedCost) {
     checkStateOfCurrent();
-    if (!Objects.equal(expectedCost, current.cost())) {
+    if (!Objects.equals(expectedCost, current.cost())) {
       throw new AssertionError("\nExpected: " + expectedCost + "\ngot: " + current.cost());
     }
     return this;

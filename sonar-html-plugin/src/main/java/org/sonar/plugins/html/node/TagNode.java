@@ -19,6 +19,7 @@ package org.sonar.plugins.html.node;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 import org.apache.commons.lang.StringUtils;
 
@@ -75,6 +76,7 @@ public class TagNode extends Node {
     return getProperty(propertyName) != null;
   }
 
+  @CheckForNull
   public String getAttribute(String attributeName) {
     for (Attribute a : attributes) {
       if (attributeName.equalsIgnoreCase(a.getName())) {

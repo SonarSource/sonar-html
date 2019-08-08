@@ -17,10 +17,11 @@
  */
 package org.sonar.plugins.html.core;
 
-import com.google.common.io.Files;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -55,7 +56,7 @@ import static org.mockito.Mockito.when;
 
 public class HtmlSensorTest {
 
-  private static final File TEST_DIR = new File("src/test/resources/src/main/webapp");
+  private static final Path TEST_DIR = Paths.get("src/test/resources/src/main/webapp");
 
   private HtmlSensor sensor;
   private SensorContextTester tester;
@@ -133,7 +134,7 @@ public class HtmlSensorTest {
   public void unreadable_file() {
     tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
-      .setModuleBaseDir(TEST_DIR.toPath())
+      .setModuleBaseDir(TEST_DIR)
       .setLanguage(HtmlConstants.LANGUAGE_KEY)
       .setType(InputFile.Type.MAIN)
       .setCharset(StandardCharsets.UTF_8)
@@ -158,7 +159,7 @@ public class HtmlSensorTest {
   public void php_file_should_not_have_metrics() {
     tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "foo.php")
-      .setModuleBaseDir(TEST_DIR.toPath()).setContents("<html>\n" +
+      .setModuleBaseDir(TEST_DIR).setContents("<html>\n" +
         "<?php  ?>\n" +
         "<html>\n")
       .setLanguage("php")
@@ -172,12 +173,12 @@ public class HtmlSensorTest {
     assertThat(tester.measures(componentKey)).isEmpty();
   }
 
-  private DefaultInputFile createInputFile(File dir, String fileName) throws IOException {
+  private DefaultInputFile createInputFile(Path dir, String fileName) throws IOException {
     return new TestInputFileBuilder("key", fileName)
-      .setModuleBaseDir(dir.toPath())
+      .setModuleBaseDir(dir)
       .setLanguage(HtmlConstants.LANGUAGE_KEY)
       .setType(InputFile.Type.MAIN)
-      .initMetadata(Files.toString(new File(dir, fileName), StandardCharsets.UTF_8))
+      .initMetadata(new String(Files.readAllBytes(dir.resolve(fileName)), StandardCharsets.UTF_8))
       .setCharset(StandardCharsets.UTF_8)
       .build();
   }

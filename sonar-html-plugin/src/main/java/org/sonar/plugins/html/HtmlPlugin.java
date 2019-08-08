@@ -17,7 +17,8 @@
  */
 package org.sonar.plugins.html;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+import java.util.List;
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
@@ -25,9 +26,9 @@ import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.core.Html;
 import org.sonar.plugins.html.core.HtmlSensor;
 import org.sonar.plugins.html.core.Jsp;
+import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 import org.sonar.plugins.html.rules.JspQualityProfile;
 import org.sonar.plugins.html.rules.SonarWayProfile;
-import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
 /**
  * HTML Plugin publishes extensions to sonar engine.
@@ -60,8 +61,8 @@ public final class HtmlPlugin implements Plugin {
     context.addExtensions(pluginProperties());
   }
 
-  private static ImmutableList<PropertyDefinition> pluginProperties() {
-    return ImmutableList.of(
+  private static List<PropertyDefinition> pluginProperties() {
+    return Arrays.asList(
 
       PropertyDefinition.builder(HtmlConstants.FILE_EXTENSIONS_PROP_KEY)
         .name("HTML File suffixes")
