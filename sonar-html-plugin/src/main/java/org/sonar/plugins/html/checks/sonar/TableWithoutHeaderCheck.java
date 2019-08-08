@@ -46,11 +46,8 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   }
 
   private static boolean hasHeader(TagNode node) {
-    if (node.getChildren().stream().anyMatch(TableWithoutHeaderCheck::isTableHeader)) {
-      return true;
-    } else {
-      return node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
-    }
+    return node.getChildren().stream().anyMatch(TableWithoutHeaderCheck::isTableHeader) ||
+      node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
   }
 
   private static boolean isTableHeader(TagNode node) {
