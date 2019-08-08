@@ -1,14 +1,16 @@
-<a onClick="doSomething();">                                    <!-- Non-Compliant - 'onKeyPress' missing -->
 <A onMouseoVeR="doSomething();">                                <!-- Non-Compliant - 'onFocus' missing -->
 <a onMouseout="doSomething();">                                 <!-- Non-Compliant - 'onBlur' missing -->
 <custom:a onMouseout="doSomething();">
 
+<a onClick="doSomething();">                                    <!-- Compliant -->
 <a onClick="doSomething();" onKeyPress="doSomething();" ...>    <!-- Compliant -->
+<a onClick="doSomething();" onKeyDown="doSomething();" ...>     <!-- Compliant -->
+<a onClick="doSomething();" onKeyUp="doSomething();" ...>       <!-- Compliant -->
 <a onMouseover="doSomething();" onFocUS="doSomething();" ...>   <!-- Compliant -->
 <a onMouseout="doSomething();" onBlur="doSomething();" ...>     <!-- Compliant -->
 
 <!-- Angular 2+ -->
-<a (click)="doSomething();"></a>                                <!-- Non-Compliant - 'onKeyPress' missing -->
+<a (click)="doSomething();"></a>
 <a (mouseover)="doSomething();"></a>                            <!-- Non-Compliant - 'onFocus' missing -->
 <a (mouseout)="doSomething();"></a>                             <!-- Non-Compliant -->
 <a onClick="doSomething();" (keypress)="doSomething();"></a>    <!-- Compliant -->
@@ -18,7 +20,7 @@
 <a (mouseover)="doSomething();" (focus)="doSomething();"></a>   <!-- Compliant -->
 <a (mouseout)="doSomething();" (blur)="doSomething();"></a>     <!-- Compliant -->
 
-<a on-click="doSomething();"></a>                               <!-- Non-Compliant -->
+<a on-click="doSomething();"></a>
 <a on-mouseover="doSomething();"></a>                           <!-- Non-Compliant -->
 <a on-mouseout="doSomething();"></a>                            <!-- Non-Compliant -->
 <a onClick="doSomething();" on-keypress="doSomething();"></a>   <!-- Compliant -->
@@ -29,7 +31,7 @@
 <a on-mouseout="doSomething();" on-blur="doSomething();"></a>   <!-- Compliant -->
 
 <!-- Angular 1 -->
-<a ng-click="doSomething();"></a>                               <!-- Non-Compliant -->
+<a ng-click="doSomething();"></a>
 <a ng-mouseover="doSomething();"></a>                           <!-- Non-Compliant -->
 <a ng-mouseleave="doSomething();"></a>                          <!-- Non-Compliant -->
 <a onClick="doSomething();" ng-keypress="doSomething();"></a>   <!-- Compliant -->
@@ -39,7 +41,22 @@
 <a ng-mouseover="doSomething();" ng-focus="doSomething();"></a> <!-- Compliant -->
 <a ng-mouseleave="doSomething();" ng-blur="doSomething();"></a> <!-- Compliant -->
 
-
 <a (myClick)="clickMessage=$event" clickable>ClickMe</a>
+<a></a>
+<a role="button"></a>                                           <!-- Non-Compliant -->
 
-<a>
+<input type="button" onClick="doSomething();">                  <!-- Compliant -->
+<input type="submit" onClick="doSomething();">                  <!-- Compliant -->
+<input>
+<input role="button">                                           <!-- Non-Compliant -->
+
+<button role="button"></button>                                 <!-- Non-Compliant -->
+<button onClick="doSomething();" role="button"></button>        <!-- Non-Compliant -->
+<button onClick="doSomething();"></button>                      <!-- Compliant -->
+<button></button>
+
+<div role="button"></div>                                       <!-- Non-Compliant -->
+<div onClick="doSomething();"></div>                            <!-- Non-Compliant -->
+<div onClick="doSomething();" onKeyPress="doSomething();" ...>  <!-- Compliant -->
+<div onClick="doSomething();" onKeyDown="doSomething();" ...>   <!-- Compliant -->
+<div onClick="doSomething();" onKeyUp="doSomething();" ...>     <!-- Compliant -->

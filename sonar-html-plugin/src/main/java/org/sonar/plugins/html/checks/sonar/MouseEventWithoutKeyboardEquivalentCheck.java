@@ -29,8 +29,12 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     if (node.getLocalName().equals(node.getNodeName())) {
       String attribute = null;
 
-      if (hasOnClick(node) && !hasOnKeyPress(node)) {
-        attribute = "onKeyPress";
+      if (isException(node)) {
+        return;
+      }
+
+      if ((hasOnClick(node) || hasButtonRole(node)) && !(hasOnKeyPress(node) || hasOnKeyDown(node) || hasOnKeyUp(node))) {
+        attribute = "onKeyPress|onKeyDown|onKeyUp";
       } else if (hasOnMouseover(node) && !hasOnFocus(node)) {
         attribute = "onFocus";
       } else if (hasOnMouseout(node) && !hasOnBlur(node)) {
@@ -43,12 +47,24 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     }
   }
 
+  private static boolean isException(TagNode node) {
+    return (isInput(node) || isButton(node) || isHyperlink(node)) && hasOnClick(node) && !hasButtonRole(node);
+  }
+
   private static boolean hasOnClick(TagNode node) {
     return hasEventHandlerAttribute(node, "CLICK");
   }
 
   private static boolean hasOnKeyPress(TagNode node) {
     return hasEventHandlerAttribute(node, "KEYPRESS");
+  }
+
+  private static boolean hasOnKeyDown(TagNode node) {
+    return hasEventHandlerAttribute(node, "KEYDOWN");
+  }
+
+  private static boolean hasOnKeyUp(TagNode node) {
+    return hasEventHandlerAttribute(node, "KEYUP");
   }
 
   private static boolean hasOnMouseover(TagNode node) {
@@ -83,4 +99,20 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     return node.getAttribute(attributeName) != null;
   }
 
+  private static boolean hasButtonRole(TagNode node) {
+    return "BUTTON".equalsIgnoreCase(node.getPropertyValue("role"));
+  }
+
+  private static boolean isInput(TagNode node) {
+    return "INPUT".equalsIgnoreCase(node.getNodeName()) &&
+        ("BUTTON".equalsIgnoreCase(node.getPropertyValue("type")) || "SUBMIT".equalsIgnoreCase(node.getPropertyValue("type")));
+  }
+
+  private static boolean isButton(TagNode node) {
+    return "BUTTON".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isHyperlink(TagNode node) {
+    return "A".equalsIgnoreCase(node.getNodeName());
+  }
 }

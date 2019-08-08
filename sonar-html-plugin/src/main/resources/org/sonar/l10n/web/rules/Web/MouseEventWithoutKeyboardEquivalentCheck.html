@@ -1,15 +1,36 @@
 <p>Offering the same experience with the mouse and the keyboard allow users to pick their preferred devices.</p>
-<p>Additionally, users of assistive technology will also be able to browse the site even if they cannot use the mouse.</p>
+<p> Additionally, users of assistive technology will also be able to browse the site even if they cannot use the mouse.</p>
+<p>This rule raises an issue when:</p>
+<ul>
+  <li> an HTML element with an <code>onMouseover</code> attribute doesn't also have an&nbsp;<code>onFocus&nbsp;attribute.</code> </li>
+  <li> an HTML element with an <code>onMouseout</code> attribute doesn't also have an&nbsp;<code>onBlur&nbsp;attribute.</code> </li>
+  <li> an HTML element with an <code>onClick</code> attribute doesn't also have one of the following attributes: <code>onKeyDown</code>,
+  <code>onKeyUp</code>, <code>onKeyPress</code>. </li>
+</ul>
+<p>Note that in the case of&nbsp;<code>onClick</code>, the equivalent keyboard handler should support both the "Enter" and "Space" keys as these are
+usually used by screen-readers.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
-&lt;a onClick="doSomething();" ...&gt;                                &lt;!-- Noncompliant - 'onKeyPress' missing --&gt;
+&lt;div onClick="doSomething();" ...&gt;                                &lt;!-- Noncompliant - 'onKeyDown/onKeyUp/onKeyPress' missing --&gt;
 &lt;a onMouseover="doSomething();" ...&gt;                            &lt;!-- Noncompliant - 'onFocus' missing --&gt;
 &lt;a onMouseout="doSomething();" ...&gt;                             &lt;!-- Noncompliant - 'onBlur' missing --&gt;
 </pre>
 <h2>Compliant Solution</h2>
+<p>Note that setting the <code>tabindex</code> attribute is necessary to make the <code>&lt;div&gt;</code> element focusable.</p>
 <pre>
-&lt;a onClick="doSomething();" onKeyPress="doSomething();" ...&gt;    &lt;!-- Compliant --&gt;
+&lt;div onClick="doSomething();" onKeyDown="doSomething();" tabindex="0" ...&gt;    &lt;!-- Compliant --&gt;
 &lt;a onMouseover="doSomething();" onFocus="doSomething();" ...&gt;   &lt;!-- Compliant --&gt;
 &lt;a onMouseout="doSomething();" onBlur="doSomething();" ...&gt;     &lt;!-- Compliant --&gt;
 </pre>
+<h2>Exceptions</h2>
+<p>For the following elements, <a href="https://www.w3.org/TR/WCAG20-TECHS/SCR35.html">pressing a key will trigger the <code>onClick</code>
+attribute</a>: <code>&lt;input type="button"&gt;</code>, <code>&lt;input type="submit"&gt;</code>, <code>&lt;button&gt;</code>,
+<code>&lt;a&gt;</code>. Thus no issue will be raised when an <code>onClick</code> attribute is found in these elements without a
+<code>onKeyDown/onKeyUp/onKeyPress</code>.</p>
+<p>An issue will still be raised for <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role">elements with the
+<code>role="button"</code> attribute</a> as they don't behave the same way.</p>
+<h2>See</h2>
+<ul>
+  <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/SCR2.html">SCR2: Using redundant keyboard and mouse event handlers</a> </li>
+</ul>
 
