@@ -20,6 +20,7 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -70,21 +71,20 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
   }
 
   private void raiseViolationOnMissingAriaLabel(List<TagNode> nodes) {
-    List<TagNode> matches = nodes.stream().filter(node -> !hasAriaLabel(node)).collect(Collectors.toList());
-    raiseViolationOnSize(matches);
-  }
-
-  private void raiseViolationOnDuplicateLandmarkRole(List<TagNode> nodes) {
-    Map<String, List<TagNode>> matched = nodes.stream().collect(Collectors.groupingBy(node -> node.getAttribute("role")));
-    for (List<TagNode> matches : matched.values()) {
-      raiseViolationOnSize(matches);
+    if (nodes.size() > 1) {
+      nodes.stream().filter(node -> !hasAriaLabel(node)).forEach(node ->
+        createViolation(node.getStartLinePosition(), "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element."));
     }
   }
 
-  private void raiseViolationOnSize(List<TagNode> nodes) {
-    if (nodes.size() > 1) {
-      for (TagNode node : nodes) {
-        createViolation(node.getStartLinePosition(), "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.");
+  private void raiseViolationOnDuplicateLandmarkRole(List<TagNode> nodes) {
+    Map<String, List<TagNode>> matched = nodes.stream().collect(Collectors.groupingBy(node -> node.getAttribute("ROLE").toUpperCase(Locale.ROOT)));
+    for (List<TagNode> matches : matched.values()) {
+      List<TagNode> labeless = matches.stream().filter(match -> !hasAriaLabel(match)).collect(Collectors.toList());
+      if (labeless.size() > 1) {
+        for (TagNode node : labeless) {
+          createViolation(node.getStartLinePosition(), "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.");
+        }
       }
     }
   }

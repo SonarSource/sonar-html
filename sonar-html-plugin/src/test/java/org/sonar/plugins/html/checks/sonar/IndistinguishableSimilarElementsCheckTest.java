@@ -31,8 +31,15 @@ public class IndistinguishableSimilarElementsCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck.html"), new IndistinguishableSimilarElementsCheck());
+  public void singleNavAside() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck/SingleNavAside.html"), new IndistinguishableSimilarElementsCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
+  public void multipleNavAside() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck/MultipleNavAside.html"), new IndistinguishableSimilarElementsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.")
@@ -40,6 +47,7 @@ public class IndistinguishableSimilarElementsCheckTest {
         .next().atLine(13)
         .next().atLine(16)
         .next().atLine(25)
-        .next().atLine(28);
+        .next().atLine(28)
+        .next().atLine(31);
   }
 }

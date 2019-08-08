@@ -19,14 +19,17 @@
 <aside aria-label="foo"> <!-- Compliant -->
 </aside>
 
-<aside aria-labelledby="foo">  <!-- Compliant -->
+<aside aria-labelledby="foo"> <!-- Compliant -->
 </aside>
 
 <div role="banner"> <!-- Noncompliant -->
 </div>
 
-<p role="banner"></p> <!-- Noncompliant -->
+<p role="banner">   <!-- Noncompliant -->
 </p>
+
+<strong role="Banner"> <!-- Noncompliant -->
+</strong>
 
 <table role="complementary"> <!-- Compliant -->
 </table>
@@ -48,6 +51,9 @@
 
 <div role="application"> <!-- Compliant -->
 </div>
+
+<p role="application"  aria-labelledby="foo1"> <!-- Compliant-->
+</p>
 
 <div role="none"></div>
 
