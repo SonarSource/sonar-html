@@ -59,6 +59,7 @@ import org.sonar.plugins.html.checks.sonar.LayoutTableCheck;
 import org.sonar.plugins.html.checks.sonar.LayoutTableWithSemanticMarkupCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToImageCheck;
 import org.sonar.plugins.html.checks.sonar.LinkToNothingCheck;
+import org.sonar.plugins.html.checks.sonar.LinkWithTargetBlankCheck;
 import org.sonar.plugins.html.checks.sonar.LinksIdenticalTextsDifferentTargetsCheck;
 import org.sonar.plugins.html.checks.sonar.MetaRefreshCheck;
 import org.sonar.plugins.html.checks.sonar.MouseEventWithoutKeyboardEquivalentCheck;
@@ -121,6 +122,7 @@ public final class CheckClasses {
     MetaRefreshCheck.class,
     LinkToImageCheck.class,
     LinkToNothingCheck.class,
+    LinkWithTargetBlankCheck.class,
     ServerSideImageMapsCheck.class,
     FrameWithoutTitleCheck.class,
     BoldAndItalicTagsCheck.class,
