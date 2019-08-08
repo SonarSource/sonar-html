@@ -37,12 +37,17 @@ public class TableWithoutCaptionCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a description to this table.")
-        .next().atLine(21)
-        .next().atLine(35)
-        .next().atLine(43)
-        .next().atLine(50)
+        .next().atLine(8)
+        .next().atLine(32)
+        .next().atLine(39)
+        .next().atLine(47)
+        .next().atLine(53)
         .next().atLine(61)
-        .next().atLine(67);
+        .next().atLine(65)
+        .next().atLine(66)
+        .next().atLine(78)
+        .next().atLine(89)
+        .next().atLine(95);
   }
 
 }

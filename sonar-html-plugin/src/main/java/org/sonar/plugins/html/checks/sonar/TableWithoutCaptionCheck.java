@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import javax.annotation.Nullable;
+
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -57,15 +59,14 @@ public class TableWithoutCaptionCheck extends AbstractPageCheck {
 
   private static boolean isLayout(TagNode node) {
     String role = node.getAttribute("ROLE");
-    return role != null && ("PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role));
+    return "PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role);
   }
 
   private static boolean isHidden(TagNode node) {
-    String ariaHidden = node.getAttribute("ARIA-HIDDEN");
-    return ariaHidden != null && "TRUE".equalsIgnoreCase(ariaHidden);
+    return "TRUE".equalsIgnoreCase(node.getAttribute("ARIA-HIDDEN"));
   }
 
-  private static boolean isEmbeddedInFigureWithCaption(TagNode node) {
+  private static boolean isEmbeddedInFigureWithCaption(@Nullable TagNode node) {
     if (node == null || isTable(node)) {
       return false;
     } else if (isFigure(node) && hasFigCaption(node)) {
@@ -84,18 +85,11 @@ public class TableWithoutCaptionCheck extends AbstractPageCheck {
   }
 
   private static boolean hasCaption(TagNode node) {
-    if (node.getChildren().stream().anyMatch(TableWithoutCaptionCheck::isCaption)) {
-      return true;
-    } else {
-      return node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutCaptionCheck::hasCaption);
-    }
+    return !node.getChildren().isEmpty() && isCaption(node.getChildren().get(0));
   }
 
   private static boolean hasFigCaption(TagNode node) {
-    if (node.getChildren().stream().anyMatch(TableWithoutCaptionCheck::isFigCaption)) {
-      return true;
-    } else {
-      return node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutCaptionCheck::hasFigCaption);
-    }
+    // node has one child at least
+    return isFigCaption(node.getChildren().get(0)) || isFigCaption(node.getChildren().get(node.getChildren().size() - 1));
   }
 }

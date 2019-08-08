@@ -5,16 +5,34 @@
   <caption>foo</caption>
 </table>
 
+<table>                                <!-- Non-Compliant -->
+  <tr></tr>
+  <caption>foo</caption>
+</table>
+
 <table summary="foo">                  <!-- Compliant -->
 </table>
 
-<table aria-describedby=="foo">        <!-- Compliant -->
+<table aria-describedby="foo">         <!-- Compliant -->
 </table>
 
 <figure>
   <figcaption>foo</figcaption>
   <table>                              <!-- Compliant -->
   </table>
+</figure>
+
+<figure>
+  <table>                              <!-- Compliant -->
+  </table>
+  <figcaption>foo</figcaption>
+</figure>
+
+<figure>
+  <table>                              <!-- Non-Compliant -->
+  </table>
+  <figcaption>foo</figcaption>
+  <tr></tr>
 </figure>
 
 <figure>
@@ -26,7 +44,7 @@
   <div>
     <figcaption>foo</figcaption>
   </div>
-  <table>                              <!-- Compliant -->
+  <table>                              <!-- Non-Compliant -->
   </table>
 </figure>
 
@@ -42,6 +60,16 @@
   <caption>foo</caption>
   <table>                              <!-- Non-Compliant -->
   </table>
+</table>
+
+<table>                               <!-- Non-Compliant -->
+  <table></table>                     <!-- Non-Compliant -->
+</table>
+
+<table summary="foo">                 <!-- Compliant -->
+  <table>                             <!-- Compliant -->
+    <caption>bar</caption>
+  </table>                     
 </table>
 
 <figure>
