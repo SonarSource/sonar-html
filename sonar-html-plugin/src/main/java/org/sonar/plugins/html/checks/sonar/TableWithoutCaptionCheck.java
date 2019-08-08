@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import javax.annotation.Nullable;
+
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -24,29 +26,19 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "TableWithoutCaptionCheck")
 public class TableWithoutCaptionCheck extends AbstractPageCheck {
 
-  private int tableLine = 0;
-  private boolean foundCaption;
-
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node)) {
-      foundCaption = false;
-      tableLine = node.getStartLinePosition();
-    } else if (isCaption(node)) {
-      foundCaption = true;
+    if (isTable(node) && !isIgnored(node) && !hasDescription(node)) {
+      createViolation(node.getStartLinePosition(), "Add a description to this table.");
     }
   }
 
-  @Override
-  public void endElement(TagNode node) {
-    if (isTable(node)) {
-      if (!foundCaption && tableLine != 0) {
-        createViolation(tableLine, "Add a <caption> tag to this table.");
-      }
+  private static boolean isIgnored(TagNode node) {
+    return isLayout(node) || isHidden(node);
+  }
 
-      foundCaption = false;
-      tableLine = 0;
-    }
+  private static boolean hasDescription(TagNode node) {
+    return hasSummary(node) || hasAriaDescribedBy(node) || hasCaption(node) || isEmbeddedInFigureWithCaption(node.getParent());
   }
 
   private static boolean isTable(TagNode node) {
@@ -57,4 +49,47 @@ public class TableWithoutCaptionCheck extends AbstractPageCheck {
     return "CAPTION".equalsIgnoreCase(node.getNodeName());
   }
 
+  private static boolean isFigure(TagNode node) {
+    return "FIGURE".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isFigCaption(TagNode node) {
+    return "FIGCAPTION".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isLayout(TagNode node) {
+    String role = node.getAttribute("ROLE");
+    return "PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role);
+  }
+
+  private static boolean isHidden(TagNode node) {
+    return "TRUE".equalsIgnoreCase(node.getAttribute("ARIA-HIDDEN"));
+  }
+
+  private static boolean isEmbeddedInFigureWithCaption(@Nullable TagNode node) {
+    if (node == null || isTable(node)) {
+      return false;
+    } else if (isFigure(node) && hasFigCaption(node)) {
+      return true;
+    } else {
+      return isEmbeddedInFigureWithCaption(node.getParent());
+    }
+  }
+
+  private static boolean hasSummary(TagNode node) {
+    return node.hasProperty("SUMMARY");
+  }
+
+  private static boolean hasAriaDescribedBy(TagNode node) {
+    return node.hasProperty("ARIA-DESCRIBEDBY");
+  }
+
+  private static boolean hasCaption(TagNode node) {
+    return !node.getChildren().isEmpty() && isCaption(node.getChildren().get(0));
+  }
+
+  private static boolean hasFigCaption(TagNode node) {
+    // node has one child at least
+    return isFigCaption(node.getChildren().get(0)) || isFigCaption(node.getChildren().get(node.getChildren().size() - 1));
+  }
 }

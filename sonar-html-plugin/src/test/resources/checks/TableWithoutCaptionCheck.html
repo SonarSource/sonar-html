@@ -1,16 +1,98 @@
 <table>                                <!-- Non-Compliant -->
 </table>
 
-<table>
-  <caption>foo</caption>               <!-- Compliant -->
+<table>                                <!-- Compliant -->
+  <caption>foo</caption>
 </table>
 
-</table>                               <!-- Compliant -->
+<table>                                <!-- Non-Compliant -->
+  <tr></tr>
+  <caption>foo</caption>
+</table>
 
-<table>                                <!-- Compliant - limitation in nesting -->
-  <table>
+<table summary="foo">                  <!-- Compliant -->
+</table>
+
+<table aria-describedby="foo">         <!-- Compliant -->
+</table>
+
+<figure>
+  <figcaption>foo</figcaption>
+  <table>                              <!-- Compliant -->
+  </table>
+</figure>
+
+<figure>
+  <table>                              <!-- Compliant -->
+  </table>
+  <figcaption>foo</figcaption>
+</figure>
+
+<figure>
+  <table>                              <!-- Non-Compliant -->
+  </table>
+  <figcaption>foo</figcaption>
+  <tr></tr>
+</figure>
+
+<figure>
+  <table>                              <!-- Non-Compliant -->
+  </table>
+</figure>
+
+<figure>
+  <div>
+    <figcaption>foo</figcaption>
+  </div>
+  <table>                              <!-- Non-Compliant -->
+  </table>
+</figure>
+
+</table>
+
+<table>                                <!-- Non-Compliant -->
+  <table>                              <!-- Compliant -->
     <caption>foo</caption>
   </table>
+</table>
+
+<table>                                <!-- Compliant -->
+  <caption>foo</caption>
+  <table>                              <!-- Non-Compliant -->
+  </table>
+</table>
+
+<table>                               <!-- Non-Compliant -->
+  <table></table>                     <!-- Non-Compliant -->
+</table>
+
+<table summary="foo">                 <!-- Compliant -->
+  <table>                             <!-- Compliant -->
+    <caption>bar</caption>
+  </table>                     
+</table>
+
+<figure>
+  <figcaption>foo</figcaption>
+  <table>                              <!-- Compliant -->
+    <table>                            <!-- Non-Compliant -->
+    </table>
+  </table>
+</figure>
+
+<table role="presentation">            <!-- Compliant -->
+</table>
+
+<table role="none">                    <!-- Compliant -->
+</table>
+
+<table role="foo">                     <!-- Non-Compliant -->
+</table>
+
+<table aria-hidden="true">             <!-- Compliant -->
+</table>
+
+<table aria-hidden="false">            <!-- Non-Compliant -->
 </table>
 
 <foo />

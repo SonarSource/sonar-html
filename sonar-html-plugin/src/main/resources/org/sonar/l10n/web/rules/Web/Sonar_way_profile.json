@@ -23,6 +23,7 @@
     "S5254",
     "S5264",
     "ServerSideImageMapsCheck",
+    "TableWithoutCaptionCheck",
     "UnsupportedTagsInHtml5Check"
   ]
 }

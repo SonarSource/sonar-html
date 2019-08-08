@@ -36,7 +36,18 @@ public class TableWithoutCaptionCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableWithoutCaptionCheck.html"), new TableWithoutCaptionCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add a <caption> tag to this table.");
+        .next().atLine(1).withMessage("Add a description to this table.")
+        .next().atLine(8)
+        .next().atLine(32)
+        .next().atLine(39)
+        .next().atLine(47)
+        .next().atLine(53)
+        .next().atLine(61)
+        .next().atLine(65)
+        .next().atLine(66)
+        .next().atLine(78)
+        .next().atLine(89)
+        .next().atLine(95);
   }
 
 }
