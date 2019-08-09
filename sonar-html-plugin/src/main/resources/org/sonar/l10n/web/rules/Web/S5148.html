@@ -1,0 +1,33 @@
+<p>When a link opens a URL in a new tab with <code>target="_blank"</code>, it is very simple for the opened page to change the <code>location</code>
+of the original page because the JavaScript variable <code>window.opener</code> is not <code>null</code> and thus <code>"window.opener.location</code>
+can be set by the opened page. This exposes the user to very simple phishing attacks.</p>
+<p>Imagine a link posted on a comment of a popular web site (say: <a href="http://petssocialnetwork.io/">http://petssocialnetwork.io/</a>) that opens
+a new tab that changes the URL of the original page to <a href="http://petssocialnetwork-pishing.io/">http://petssocialnetwork-pishing.io/</a>. On
+"http://petssocialnetwork-pishing.io/" you land at a fake login page similar to the one at "http://petssocialnetwork.io/" but controlled by the hacker
+and asking the user to log in again, pretending that the session just timed-out.</p>
+<p>To prevent pages from abusing <code>window.opener</code>, use <code>rel=noopener</code> on <code>&lt;a href=&gt;</code> to force its value to be
+<code>null</code> on the opened pages. With this in place, <code>window.opener</code> is <code>null</code> in Chrome 49+, Opera 36+, Firefox 52+,
+Desktop Safari 10.1+, and iOS Safari 10.3+. For older browsers, use "noreferrer". Cumulatively, <code>rel="noopener noreferrer"</code> is the safest
+way to mitigate this vulnerability.</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+&lt;a href="http://dangerouswebsite.com" target="_blank"&gt; &lt;!-- Noncompliant; "window.opener" will be not null on the new tab/window and can be changed by http://dangerouswebsite.com --&gt;
+
+&lt;a href="http://dangerouswebsite.com" target="_blank" rel="noopener"&gt; &lt;!-- Noncompliant; will not prevent the attack on old browsers --&gt;
+
+&lt;a href="{{variable}}" target="_blank" rel="noopener"&gt; &lt;!-- Noncompliant  --&gt;
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+&lt;a href="http://dangerouswebsite.com" target="_blank" rel="noopener noreferrer"&gt; &lt;!-- Compliant --&gt;
+</pre>
+<h2>Exceptions</h2>
+<p>No Issue will be raised when <code>href</code> contains a hardcoded relative url as there it has less chances of being vulnerable. An url is
+considered hardcoded and relative if it doesn't start with <code>http://</code> or <code>https://</code>, and if it does not contain any of the
+characters {}$()[]</p>
+<pre>
+&lt;a href="internal.html" target="_blank" &gt; &lt;!-- Compliant --&gt;
+</pre>
+<h2>See</h2>
+<p> * <a href="https://mathiasbynens.github.io/rel-noopener/">https://mathiasbynens.github.io/rel-noopener/</a></p>
+
