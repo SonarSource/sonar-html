@@ -81,7 +81,7 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
     Map<String, List<TagNode>> matched = nodes.stream().collect(Collectors.groupingBy(node -> node.getAttribute("ROLE").toUpperCase(Locale.ROOT)));
     for (List<TagNode> matches : matched.values()) {
       List<TagNode> labeless = matches.stream().filter(match -> !hasAriaLabel(match)).collect(Collectors.toList());
-      if (labeless.size() > 1) {
+      if (labeless.size() > 1 || (!labeless.isEmpty() && labeless.size() != matches.size())) {
         for (TagNode node : labeless) {
           createViolation(node.getStartLinePosition(), "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.");
         }

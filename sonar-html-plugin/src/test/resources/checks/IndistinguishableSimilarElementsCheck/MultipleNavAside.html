@@ -7,7 +7,7 @@
 <nav aria-label="foo"> <!-- Compliant -->
 </nav>
 
-<nav aria-labelledby="foo">  <!-- Compliant -->
+<nav aria-labelledby="foo"> <!-- Compliant -->
 </nav>
 
 <aside> <!-- Noncompliant -->
@@ -25,7 +25,7 @@
 <div role="banner"> <!-- Noncompliant -->
 </div>
 
-<p role="banner">   <!-- Noncompliant -->
+<p role="banner"> <!-- Noncompliant -->
 </p>
 
 <strong role="Banner"> <!-- Noncompliant -->
@@ -46,13 +46,16 @@
 <div role="navigation"> <!-- Compliant -->
 </div>
 
-<div role="search"> <!-- Compliant -->
+<div role="search" aria-labelledby="foo"> <!-- Compliant -->
 </div>
 
-<div role="application"> <!-- Compliant -->
+<div role="search" aria-labelledby="bar"> <!-- Compliant -->
 </div>
 
-<p role="application"  aria-labelledby="foo1"> <!-- Compliant-->
+<div role="application"> <!-- Noncompliant -->
+</div>
+
+<p role="application" aria-labelledby="foo1"> <!-- Compliant-->
 </p>
 
 <div role="none"></div>
