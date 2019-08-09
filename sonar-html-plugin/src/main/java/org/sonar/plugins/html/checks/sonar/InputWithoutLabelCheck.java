@@ -17,7 +17,9 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,16 +38,24 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   private final Set<String> labelFor = new HashSet<>();
   private final Map<String, Integer> inputIdToLine = new HashMap<>();
+  private Deque<TagNode> elementStack;
 
   @Override
   public void startDocument(List<Node> nodes) {
     labelFor.clear();
     inputIdToLine.clear();
+    elementStack = new ArrayDeque<>();
   }
 
   @Override
   public void startElement(TagNode node) {
+    if (isLabel(node) || insideLabelNode()) {
+      elementStack.push(node);
+    }
     if (isInputRequiredLabel(node) || isSelect(node) || isTextarea(node)) {
+      if (hasAriaLabel(node) || insideLabelNode()) {
+        return;
+      }
       String id = node.getAttribute("id");
 
       if (id == null) {
@@ -56,6 +66,21 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     } else if (isLabel(node) && node.getAttribute("for") != null) {
       labelFor.add(node.getAttribute("for"));
     }
+  }
+
+  @Override
+  public void endElement(TagNode node) {
+    if (insideLabelNode()) {
+      // close all elements until we find matching element or stack is empty
+      TagNode pop = elementStack.pop();
+      while (!pop.equalsElementName(node.getNodeName()) && !elementStack.isEmpty()) {
+        pop = elementStack.pop();
+      }
+    }
+  }
+
+  private boolean insideLabelNode() {
+    return !elementStack.isEmpty();
   }
 
   private static boolean isSelect(TagNode node) {
@@ -84,6 +109,10 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   private static boolean isLabel(TagNode node) {
     return "LABEL".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean hasAriaLabel(TagNode node) {
+    return node.getPropertyValue("aria-label") != null || node.getPropertyValue("aria-labelledby") != null;
   }
 
   @Override

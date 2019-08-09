@@ -7,7 +7,8 @@
     "constantCost": "5min"
   },
   "tags": [
-    "accessibility"
+    "accessibility",
+    "wcag2-a"
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1097",

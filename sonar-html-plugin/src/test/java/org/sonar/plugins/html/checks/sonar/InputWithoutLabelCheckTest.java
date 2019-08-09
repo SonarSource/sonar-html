@@ -18,7 +18,6 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.io.File;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
@@ -41,7 +40,9 @@ public class InputWithoutLabelCheckTest {
       .next().atLine(25).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
       .next().atLine(26).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
       .next().atLine(28).withMessage("Associate a valid label to this input field.")
-      .next().atLine(32);
+      .next().atLine(32)
+      .next().atLine(43)
+      .next().atLine(56);
   }
 
 }

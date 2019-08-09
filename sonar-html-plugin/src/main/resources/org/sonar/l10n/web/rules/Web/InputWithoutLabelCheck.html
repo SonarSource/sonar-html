@@ -1,13 +1,16 @@
 <p>The <code>&lt;label&gt;</code> tag defines a label for <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> and <code>&lt;textarea&gt;</code>
 elements.</p>
-<p>The <code>&lt;label&gt;</code> tag does not render as anything special. However, it provides a usability improvement for mouse users: when the text
-within the <code>&lt;label&gt;</code> element is clicked, the associated input field is toggled.</p>
-<p>It also improves usability for visually impaired users: Screen readers will announce the label text whenever the focus is set on the input
-field.</p>
-<p>The <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the related element to
-bind them together.</p>
-<p>The purpose of this rule is to make sure that every <code>input</code> (except <code>submit</code>, <code>button</code>, <code>image</code> and
-<code>hidden</code> inputs), <code>select</code>, and &lt;textarea&gt; field has an associated label element.</p>
+<p>The <code>&lt;label&gt;</code> tag improves usability for visually impaired users: Screen readers will announce the label text whenever the focus
+is set on the input field.</p>
+<p>It also improves usability for users with impaired motor control: when the text within the <code>&lt;label&gt;</code> element is clicked, the
+associated input field is toggled.</p>
+<p>In most cases, <code>for</code> attribute of the <code>&lt;label&gt;</code> tag should be equal to the <code>id</code> attribute of the related
+element to bind them together.</p>
+<p>Sometimes the field is explained by an icon. In this case the label can be either hidden or the <code>&lt;input&gt;</code>,
+<code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code> tags should contain one of the following attributes: <code>aria-label</code>,
+<code>aria-labelledby</code>. Screen-readers will use those attributes to describe the field.</p>
+<p>The purpose of this rule is to make sure that every <code>input</code> (except <code>submit</code>, <code>button</code>, <code>image</code>, and
+<code>hidden</code> inputs), <code>select</code>, and <code>textarea</code> field has a label.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;input type="text" name="firstname" /&gt;               &lt;!-- Non-Compliant - no id --&gt;
@@ -28,10 +31,32 @@ bind them together.</p>
 &lt;label for="lastname"&gt;Last name&lt;/label&gt;
 &lt;input type="text" name="lastname" id="lastname" /&gt;
 
+&lt;!-- OR --&gt;
+
+&lt;input type="text" name="firstname" aria-label="firstname"&gt;
+
+&lt;div id="lastNameId"&gt;Last name&lt;/div&gt;
+&lt;input type="text" name="lastname"  aria-labelledby="lastNameId"/&gt;
+
+&lt;!-- still compliant --&gt;
+
 &lt;label for="address"&gt;Address&lt;/label&gt;
 &lt;input type="text" name="address" id="address" /&gt;
 
 &lt;input type="hidden" name="time" value="..."&gt;
 &lt;input type="submit" value="Send" /&gt;
 </pre>
+<h2>Exceptions</h2>
+<p>No issue will be raised on "implicit labels", i.e. <code>&lt;label&gt;</code> tags enclosing an <code>&lt;input&gt;</code>,
+<code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code> instead of being referencing via an&nbsp;<code>id</code>. However, note that the support
+of this technic is not supported by all assistive technologies. Thus it is better to reference them by id.</p>
+<pre>
+&lt;label&gt;
+  Name:
+  &lt;input type="text" name="name"&gt;
+&lt;/label&gt;
+</pre>
+<h2>See</h2>
+<p> * <a href="https://www.w3.org/TR/WCAG20-TECHS/H44.html">WCAG2, H97</a> - Using label elements to associate text labels with form controls</p>
+<p> * <a href="https://www.w3.org/WAI/tutorials/forms/labels/">W3C Web Accessibility Tutorials</a> - Labeling Controls</p>
 
