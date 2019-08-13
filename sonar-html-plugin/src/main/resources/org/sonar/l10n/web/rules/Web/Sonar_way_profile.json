@@ -24,6 +24,7 @@
     "S5264",
     "S5255",
     "S5257",
+    "S5260",
     "ServerSideImageMapsCheck",
     "TableWithoutCaptionCheck",
     "UnsupportedTagsInHtml5Check"
