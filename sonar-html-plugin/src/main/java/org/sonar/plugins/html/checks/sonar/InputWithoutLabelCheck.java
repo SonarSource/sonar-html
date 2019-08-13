@@ -17,13 +17,17 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import javax.annotation.CheckForNull;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
@@ -36,26 +40,60 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   private final Set<String> labelFor = new HashSet<>();
   private final Map<String, Integer> inputIdToLine = new HashMap<>();
+  private Deque<TagNode> elementStack;
+  private Set<String> ids;
+  private Map<TagNode, Set<String>> expectedIds;
 
   @Override
   public void startDocument(List<Node> nodes) {
     labelFor.clear();
     inputIdToLine.clear();
+    elementStack = new ArrayDeque<>();
+    ids = new HashSet<>();
+    expectedIds = new HashMap<>();
   }
 
   @Override
   public void startElement(TagNode node) {
+    if (isLabel(node) || insideLabelNode()) {
+      elementStack.push(node);
+    }
+    if (getNodeId(node) != null) {
+      ids.add(getNodeId(node));
+    }
     if (isInputRequiredLabel(node) || isSelect(node) || isTextarea(node)) {
-      String id = node.getAttribute("id");
+      if (node.getPropertyValue("aria-label") != null || insideLabelNode()) {
+        return;
+      }
+      if (node.getPropertyValue("aria-labelledby") != null) {
+        expectedIds.put(node, Arrays.stream(node.getPropertyValue("aria-labelledby").split(" ")).collect(Collectors.toSet()));
+        return;
+      }
+      String id = getNodeId(node);
 
       if (id == null) {
         createViolation(node.getStartLinePosition(), "Add an \"id\" attribute to this input field and associate it with a label.");
       } else {
-        inputIdToLine.put(node.getAttribute("id"), node.getStartLinePosition());
+        inputIdToLine.put(id, node.getStartLinePosition());
       }
     } else if (isLabel(node) && node.getAttribute("for") != null) {
       labelFor.add(node.getAttribute("for"));
     }
+  }
+
+  @Override
+  public void endElement(TagNode node) {
+    if (insideLabelNode()) {
+      // close all elements until we find matching element or stack is empty
+      TagNode pop = elementStack.pop();
+      while (!pop.equalsElementName(node.getNodeName()) && !elementStack.isEmpty()) {
+        pop = elementStack.pop();
+      }
+    }
+  }
+
+  private boolean insideLabelNode() {
+    return !elementStack.isEmpty();
   }
 
   private static boolean isSelect(TagNode node) {
@@ -93,6 +131,17 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
         createViolation(entry.getValue(), "Associate a valid label to this input field.");
       }
     }
+    expectedIds.forEach((node, expected) -> {
+      if (!ids.containsAll(expected)) {
+        String missingIds = expected.stream().filter(id -> !ids.contains(id)).map(s -> "\"" + s + "\"").collect(Collectors.joining(","));
+        createViolation(node.getStartLinePosition(), "Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: " + missingIds + ".");
+      }
+    });
+  }
+
+  @CheckForNull
+  private static String getNodeId(TagNode node) {
+    return node.getPropertyValue("ID");
   }
 
 }

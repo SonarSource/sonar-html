@@ -32,3 +32,28 @@
 <textarea id="foo13" />                 <!-- Noncompliant -->
 <label for="foo14" />
 <textarea id="foo14">                   <!-- Compliant -->
+
+<label>
+  Name:
+  <input type="text" name="name">    <!-- Compliant -->
+  <input type="text" name="name">    <!-- Compliant -->
+  <input type="text" name="name">    <!-- Compliant -->
+</label>
+
+<input type="text" name="name">    <!-- Non-Compliant -->
+
+<input type="text" name="firstname" aria-label="firstname">  <!-- Compliant -->
+
+<input type="text" name="lastname"  aria-labelledby="lastNameId"/> <!-- Compliant -->
+
+<p>
+<label>
+  Unclosed label
+  <input type="text" />
+
+  </p>
+
+<input type="text" name="name">    <!-- Non-Compliant -->
+
+<div id="lastNameId">This is label for input above</div>
+<input type="text" name="lastname"  aria-labelledby="missing missing2"/> <!-- Non-Compliant -->
