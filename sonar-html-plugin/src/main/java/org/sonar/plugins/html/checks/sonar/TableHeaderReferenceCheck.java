@@ -31,8 +31,6 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
@@ -41,50 +39,67 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5260")
 public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
+  private static final Table.Cell NIL = new Table.Cell(null);
+
   private static final Pattern DYNAMIC_HEADERS = Pattern.compile("[{}$()\\[\\]]");
   private static final String HEADERS = "HEADERS";
+
   private Deque<TableBuilder> stack = new LinkedList<>();
+
+  @FunctionalInterface
+  private interface TriFunction<A, B, C> {
+
+    void apply(A a, B b, C c);
+  }
 
   private static class Table {
 
-    private final List<List<Column>> rows;
+    private final List<List<Cell>> rows;
 
-    private static class Column {
+    private static class Cell {
       
       private final TagNode node;
 
-      public Column(TagNode node) {
+      Cell(TagNode node) {
         this.node = node;
       }
 
-      public TagNode node() {
+      TagNode node() {
         return node;
+      }
+
+      List<String> headers() {
+        if (node.hasProperty(HEADERS) && !DYNAMIC_HEADERS.matcher(node.getPropertyValue(HEADERS)).find()) {
+          return Arrays.asList(node.getPropertyValue(HEADERS).split("\\s+")).stream().filter(header -> !header.isEmpty()).collect(Collectors.toList());
+        } else {
+          return Collections.emptyList();
+        }
       }
     }
 
-    private static class Header extends Column {
+    private static class Header extends Cell {
       
       private String id;
 
-      public Header(TagNode node) {
+      Header(TagNode node) {
         super(node);
         id = node.getPropertyValue("ID");
       }
 
-      public String id() {
+      String id() {
         return id;
       }
     }
 
-    public Table(List<List<Column>> rows) {
+    Table(List<List<Cell>> rows) {
       this.rows = Collections.unmodifiableList(rows);
     }
 
-    public List<List<Column>> rows() {
+    List<List<Cell>> rows() {
       return rows;
     }
 
-    public int numberOfColumns() {
+    int numberOfCells() {
       int max = 0;
       for (int i = 0; i < rows.size(); ++i) {
         max = Integer.max(max, rows.get(i).size());
@@ -92,8 +107,60 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
       return max;
     }
 
-    public int numberOfRows() {
+    int numberOfRows() {
       return rows.size();
+    }
+
+    void forEachCell(TriFunction<Table.Cell, Integer, Integer> action) {
+      for (int row = 0; row < rows.size(); ++row) {
+        for (int column = 0; column < rows.get(row).size(); ++column) {
+          Table.Cell cell = rows.get(row).get(column);
+          action.apply(cell, row, column);
+        }
+      }
+    }
+
+    List<Set<String>> findHorizontalHeaders() {
+      List<Set<String>> headers = new ArrayList<>();
+      for (int i = 0; i < numberOfCells(); ++i) {
+        headers.add(new HashSet<>());
+      }
+      forEachCell((cell, row, column) -> {
+        if (cell instanceof Table.Header) {
+          Table.Header header = (Table.Header) cell;
+          headers.get(column).add(header.id());
+        }
+      });
+      return headers;
+    }
+
+    List<Set<String>> findVerticalHeaders() {
+      List<Set<String>> headers = new ArrayList<>();
+      for (int i = 0; i < numberOfRows(); ++i) {
+        headers.add(new HashSet<>());
+      }
+      forEachCell((cell, row, column) -> {
+        if (cell instanceof Table.Header) {
+          Table.Header header = (Table.Header) cell;
+          headers.get(row).add(header.id());
+        }
+      });
+      return headers;
+    }
+
+    Map<TagNode, List<String>> findReferenceableHeadersPerCellNode() {
+      List<Set<String>> horizontalHeaders = findHorizontalHeaders();
+      List<Set<String>> verticalHeaders = findVerticalHeaders();
+      Map<TagNode, List<String>> referenceable = new HashMap<>();
+      forEachCell((cell, row, column) -> {
+        if (cell != NIL && !cell.headers().isEmpty()) {
+          List<String> headers = new ArrayList<>();
+          headers.addAll(horizontalHeaders.get(column));
+          headers.addAll(verticalHeaders.get(row));
+          referenceable.merge(cell.node(), headers, (acc, val) -> { acc.addAll(val); return acc; });
+        }
+      });
+      return referenceable;
     }
   }
 
@@ -104,128 +171,94 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
     private static class RowBuilder {
 
-      private List<Table.Column> columns = new ArrayList<>();
+      private List<Table.Cell> cells = new ArrayList<>();
 
-      public int indexOfVacantColumn() {
-        for (int i = 0; i < columns.size(); ++i) {
-          if (columns.get(i) == null) {
+      int indexOfVacantCell() {
+        for (int i = 0; i < cells.size(); ++i) {
+          if (cells.get(i) == NIL) {
             return i;
           }
         }
         return -1;
       }
 
-      public List<Table.Column> build() {
-        return Collections.unmodifiableList(columns);
+      List<Table.Cell> build() {
+        return Collections.unmodifiableList(cells);
       }
 
-      public void set(int columnIndex, Table.Column column) {
-        columns.set(columnIndex, column);
+      void set(int cellIndex, Table.Cell cell) {
+        cells.set(cellIndex, cell);
       }
 
-      public int size() {
-        return columns.size();
+      int size() {
+        return cells.size();
       }
 
-      public void add(@Nullable Table.Column column) {
-        columns.add(column);
-      }
-    }
-
-    public void newRow() {
-      rows.add(new RowBuilder());
-      currentRow = rows.get(rows.indexOf(currentRow) + 1);
-    }
-
-    public void newColumn(Table.Column column) {
-      if (!rows.isEmpty()) {
-        TagNode node = column.node();
-        if (hasColSpan(node) && hasRowSpan(node)) {
-          newColumnWithRowColSpan(column);
-        } else if (hasColSpan(node)) {
-          newColumnWithColSpan(column);
-        } else if (hasRowSpan(node)) {
-          newColumnWithRowSpan(column);
-        } else {
-          newColumnWithoutSpan(column);
-        }
+      void add(Table.Cell cell) {
+        cells.add(cell);
       }
     }
 
-    private void newColumnWithoutSpan(Table.Column column) {
-      int columnIndex = currentRow.indexOfVacantColumn();
-      if (columnIndex > -1) {
-        currentRow.set(columnIndex, column);
+    void newRow() {
+      int indexOfCurrentRow = rows.indexOf(currentRow);
+      if (indexOfCurrentRow == rows.size() - 1) {
+        currentRow = new RowBuilder();
+        rows.add(currentRow);
       } else {
-        currentRow.add(column);
+        currentRow = rows.get(rows.indexOf(currentRow) + 1);
       }
     }
 
-    private void newColumnWithColSpan(Table.Column column) {
-      int colspan = getColSpan(column.node());
-      while (colspan > 0) {
-        int columnIndex = currentRow.indexOfVacantColumn();
-        if (columnIndex > -1) {
-          currentRow.set(columnIndex, column);
-        } else {
-          currentRow.add(column);
-        }
-        colspan--;
+    void newCell(Table.Cell cell) {
+      if (rows.isEmpty()) {
+        return;
       }
-    }
-
-    private void newColumnWithRowSpan(Table.Column column) {
-      int rowspan = getRowSpan(column.node());
+      int rowspan = getRowSpan(cell.node());
       int rowStart = rows.indexOf(currentRow);
       int rowEnd = rowStart + rowspan;
-      int columnIndex = rows.get(rowStart).indexOfVacantColumn();
-      if (columnIndex == -1) {
-        columnIndex = rows.get(rowStart).size();
+      int colspan = getColSpan(cell.node());
+      int cellStart = rows.get(rowStart).indexOfVacantCell();
+      if (cellStart == -1) {
+        cellStart = rows.get(rowStart).size();
       }
+      int cellEnd = cellStart + colspan;
       for (int row = rowStart; row < rowEnd; ++row) {
         if (row == rows.size()) {
           rows.add(new RowBuilder());
         }
-        if (columnIndex < rows.get(row).size()) {
-          rows.get(row).set(columnIndex, column);
-        } else {
-          for (int i = rows.get(row).size(); i < columnIndex; ++i) {
-            rows.get(row).add(null);
-          }
-          rows.get(row).add(column);
-        }
-      }
-    }
-
-    private void newColumnWithRowColSpan(Table.Column column) {
-      int rowspan = getRowSpan(column.node());
-      int rowStart = rows.indexOf(currentRow);
-      int rowEnd = rowStart + rowspan;
-      int colspan = getColSpan(column.node());
-      int columnStart = rows.get(rowStart).indexOfVacantColumn();
-      if (columnStart == -1) {
-        columnStart = rows.get(rowStart).size();
-      }
-      int columnEnd = columnStart + colspan;
-      for (int row = rowStart; row < rowEnd; ++row) {
-        if (row == rows.size()) {
-          rows.add(new RowBuilder());
-        }
-        for (int col = columnStart; col < columnEnd; ++col) {
+        for (int col = cellStart; col < cellEnd; ++col) {
           if (col < rows.get(row).size()) {
-            rows.get(row).set(col, column);
+            rows.get(row).set(col, cell);
           } else {
             for (int i = rows.get(row).size(); i < col; ++i) {
-              rows.get(row).add(null);
+              rows.get(row).add(NIL);
             }
-            rows.get(row).add(column);
+            rows.get(row).add(cell);
           }
         }
       }
     }
 
-    public Table build() {
+    Table build() {
       return new Table(rows.stream().map(RowBuilder::build).collect(Collectors.toList()));
+    }
+
+    private static int getRowSpan(TagNode node) {
+      String rowspan = node.getPropertyValue("ROWSPAN");
+      try {
+        return Integer.parseInt(rowspan);
+      } catch (NumberFormatException ex) {
+        return 1;
+      }
+    }
+  
+    private static int getColSpan(TagNode node) {
+      String rowspan = node.getPropertyValue("COLSPAN");
+      try {
+        return Integer.parseInt(rowspan);
+      } catch (NumberFormatException ex) {
+        return 1;
+      }
     }
   }
 
@@ -241,10 +274,10 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
     } else if (!stack.isEmpty()) {
       if (isTableRow(node)) {
         stack.peek().newRow();
-      } else if (isTableColumn(node)) {
-        stack.peek().newColumn(new Table.Column(node));
+      } else if (isTableData(node)) {
+        stack.peek().newCell(new Table.Cell(node));
       } else if (isTableHeader(node)) {
-        stack.peek().newColumn(new Table.Header(node));
+        stack.peek().newCell(new Table.Header(node));
       }
     }
   }
@@ -257,142 +290,46 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
   }
 
   private void raiseViolationOnInvalidReference(Table table) {
-    Map<TagNode, List<String>> referenceableHeaders = findReferenceableHeadersPerColumnNode(table);
-    for (int row = 0; row < table.rows().size(); ++row) {
-      for (int col = 0; col < table.rows().get(row).size(); ++col) {
-        Table.Column column = table.rows().get(row).get(col);
-        if (column != null) {
-          TagNode node = column.node();
-          if (hasHeaders(node)) {
-            List<String> actual = getHeaders(column.node());
-            List<String> expected = referenceableHeaders.getOrDefault(node, new ArrayList<>());
-            for (String header : actual) {
-              if (!expected.contains(header)) {
-                if (isExistingHeader(table, header)) {
-                  createViolation(node.getStartLinePosition(),
-                    format("id \"%s\" in \"headers\" reference the header of another column/row.", header));
-                } else {
-                  createViolation(node.getStartLinePosition(),
-                    format("id \"%s\" in \"headers\" does not reference any <th> header.", header));
-                }
-                break;
-              }
+    Map<TagNode, List<String>> referenceableHeaders = table.findReferenceableHeadersPerCellNode();
+    table.forEachCell((cell, row, column) -> {
+      if (cell != NIL) {
+        TagNode node = cell.node();
+        List<String> actual = cell.headers();
+        List<String> expected = referenceableHeaders.getOrDefault(node, Collections.emptyList());
+        for (String header : actual) {
+          if (!expected.contains(header)) {
+            if (isExistingHeader(table, header)) {
+              createViolation(node.getStartLinePosition(),
+                format("id \"%s\" in \"headers\" reference the header of another column/row.", header));
+            } else {
+              createViolation(node.getStartLinePosition(),
+                format("id \"%s\" in \"headers\" does not reference any <th> header.", header));
             }
+            break;
           }
         }
       }
-    }
-  }
-
-  private static List<Set<String>> findHorizontalHeaders(Table table) {
-    List<Set<String>> headers = new ArrayList<>();
-    for (int i = 0; i < table.numberOfColumns(); ++i) {
-      headers.add(new HashSet<>());
-    }
-    for (int row = 0; row < table.rows().size(); ++row) {
-      for (int col = 0; col < table.rows().get(row).size(); ++col) {
-        Table.Column column = table.rows().get(row).get(col);
-        if (column instanceof Table.Header) {
-          Table.Header header = (Table.Header) column;
-          headers.get(col).add(header.id());
-        }
-      }
-    }
-    return headers;
-  }
-
-  private static List<Set<String>> findVerticalHeaders(Table table) {
-    List<Set<String>> headers = new ArrayList<>();
-    for (int i = 0; i < table.numberOfRows(); ++i) {
-      headers.add(new HashSet<>());
-    }
-    for (int row = 0; row < table.rows().size(); ++row) {
-      for (int col = 0; col < table.rows().get(row).size(); ++col) {
-        Table.Column column = table.rows().get(row).get(col);
-        if (column instanceof Table.Header) {
-          Table.Header header = (Table.Header) column;
-          headers.get(row).add(header.id());
-        }
-      }
-    }
-    return headers;
-  }
-
-  private static Map<TagNode, List<String>> findReferenceableHeadersPerColumnNode(Table table) {
-    List<Set<String>> horizontalHeaders = findHorizontalHeaders(table);
-    List<Set<String>> verticalHeaders = findVerticalHeaders(table);
-    Map<TagNode, List<String>> referenceable = new HashMap<>();
-    for (int row = 0; row < table.rows().size(); ++row) {
-      for (int col = 0; col < table.rows().get(row).size(); ++col) {
-        Table.Column column = table.rows().get(row).get(col);
-        if (column != null && hasHeaders(column.node())) {
-          List<String> headers = new ArrayList<>();
-          headers.addAll(horizontalHeaders.get(col));
-          headers.addAll(verticalHeaders.get(row));
-          referenceable.merge(column.node(), headers, (acc, val) -> { acc.addAll(val); return acc; });
-        }
-      }
-    }
-    return referenceable;
+    });
   }
 
   private static boolean isExistingHeader(Table table, String headerName) {
-    return table.rows().stream().flatMap(List::stream).filter(column -> column instanceof Table.Header)
-        .map(column -> (Table.Header) column).anyMatch(header -> headerName.equalsIgnoreCase(header.id()));
+    return table.rows().stream().flatMap(List::stream).filter(cell -> cell instanceof Table.Header)
+        .map(cell -> (Table.Header) cell).anyMatch(header -> headerName.equalsIgnoreCase(header.id()));
   }
 
   private static boolean isTable(TagNode node) {
-    return "TABLE".equalsIgnoreCase(node.getNodeName());
+    return node.equalsElementName("TABLE");
   }
 
   private static boolean isTableRow(TagNode node) {
-    return "TR".equalsIgnoreCase(node.getNodeName());
+    return node.equalsElementName("TR");
   }
 
-  private static boolean isTableColumn(TagNode node) {
-    return "TD".equalsIgnoreCase(node.getNodeName());
+  private static boolean isTableData(TagNode node) {
+    return node.equalsElementName("TD");
   }
 
   private static boolean isTableHeader(TagNode node) {
-    return "TH".equalsIgnoreCase(node.getNodeName());
-  }
-
-  private static boolean hasHeaders(TagNode node) {
-    return node.hasProperty(HEADERS) && !isDynamicHeaders(node);
-  }
-
-  private static boolean isDynamicHeaders(TagNode node) {
-    return DYNAMIC_HEADERS.matcher(node.getPropertyValue(HEADERS)).find();
-  }
-
-  private static List<String> getHeaders(TagNode node) {
-    return Arrays.asList(node.getPropertyValue(HEADERS).split("\\s+")).stream()
-        .filter(header -> !header.isEmpty()).collect(Collectors.toList());
-  }
-
-  private static boolean hasRowSpan(TagNode node) {
-    return node.hasProperty("ROWSPAN");
-  }
-
-  private static boolean hasColSpan(TagNode node) {
-    return node.hasProperty("COLSPAN");
-  }
-
-  private static int getRowSpan(TagNode node) {
-    String rowspan = node.getPropertyValue("ROWSPAN");
-    try {
-      return Integer.parseInt(rowspan);
-    } catch (NumberFormatException ex) {
-      return 1;
-    }
-  }
-
-  private static int getColSpan(TagNode node) {
-    String rowspan = node.getPropertyValue("COLSPAN");
-    try {
-      return Integer.parseInt(rowspan);
-    } catch (NumberFormatException ex) {
-      return 1;
-    }
+    return node.equalsElementName("TH");
   }
 }
