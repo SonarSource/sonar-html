@@ -50,12 +50,20 @@ public class HtmlTestSuite {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
-    .setSonarVersion(Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE[6.7]"))
-    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
+    .setSonarVersion(sonarVersion())
+    .addPlugin(htmlPlugin())
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))
     .restoreProfileAtStartup(FileLocation.of("profiles/no_rule.xml"))
     .restoreProfileAtStartup(FileLocation.of("profiles/IllegalTab_profile.xml"))
     .build();
+
+  static FileLocation htmlPlugin() {
+    return FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar");
+  }
+
+  static String sonarVersion() {
+    return Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE");
+  }
 
   public static boolean sonarqubeGreaterThan75() {
     return orchestrator.getServer().version().isGreaterThanOrEquals(7, 6);
