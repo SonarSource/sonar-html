@@ -48,6 +48,7 @@ import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.checks.HtmlIssue;
 import org.sonar.plugins.html.lex.PageLexer;
+import org.sonar.plugins.html.lex.VueLexer;
 import org.sonar.plugins.html.rules.CheckClasses;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
@@ -57,7 +58,7 @@ import org.sonar.plugins.html.visitor.NoSonarScanner;
 
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
-  private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc"};
+  private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "vue"};
 
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
@@ -78,8 +79,9 @@ public final class HtmlSensor implements Sensor {
 
   @Override
   public void execute(SensorContext sensorContext) {
-    // configure the lexer
-    final PageLexer lexer = new PageLexer();
+    // configure the lexers
+    final PageLexer pageLexer = new PageLexer();
+    final VueLexer vueLexer = new VueLexer();
 
     FileSystem fileSystem = sensorContext.fileSystem();
 
@@ -104,6 +106,7 @@ public final class HtmlSensor implements Sensor {
       HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
 
       try (Reader reader = new InputStreamReader(inputFile.inputStream(), inputFile.charset())) {
+        PageLexer lexer = inputFile.filename().endsWith(".vue") ? vueLexer : pageLexer;
         scanner.scan(lexer.parse(reader), sourceCode);
         saveMetrics(sensorContext, sourceCode);
         saveLineLevelMeasures(inputFile, sourceCode);

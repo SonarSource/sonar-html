@@ -173,6 +173,21 @@ public class HtmlSensorTest {
     assertThat(tester.measures(componentKey)).isEmpty();
   }
 
+  @Test
+  public void vue_file_should_be_analyzed() throws Exception {
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.vue");
+    tester.fileSystem().add(inputFile);
+    
+    sensor.execute(tester);
+
+    String componentKey = inputFile.key();
+    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(6);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
+
+    assertThat(tester.allIssues()).hasSize(4);
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
   private DefaultInputFile createInputFile(Path dir, String fileName) throws IOException {
     return new TestInputFileBuilder("key", fileName)
       .setModuleBaseDir(dir)

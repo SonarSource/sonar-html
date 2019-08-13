@@ -35,7 +35,7 @@ import org.sonar.plugins.html.node.TagNode;
  * @author Matthijs Galesloot
  */
 @SuppressWarnings("unchecked")
-public final class PageLexer {
+public class PageLexer {
 
   /**
    * The order of the tokenizers is significant, as they are processed in this order.
