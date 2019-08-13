@@ -74,7 +74,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
       if (id == null) {
         createViolation(node.getStartLinePosition(), "Add an \"id\" attribute to this input field and associate it with a label.");
       } else {
-        inputIdToLine.put(getNodeId(node), node.getStartLinePosition());
+        inputIdToLine.put(id, node.getStartLinePosition());
       }
     } else if (isLabel(node) && node.getAttribute("for") != null) {
       labelFor.add(node.getAttribute("for"));
