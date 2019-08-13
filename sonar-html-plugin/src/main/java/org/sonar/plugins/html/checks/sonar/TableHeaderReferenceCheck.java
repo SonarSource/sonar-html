@@ -70,7 +70,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
       List<String> headers() {
         if (node.hasProperty(HEADERS) && !DYNAMIC_HEADERS.matcher(node.getPropertyValue(HEADERS)).find()) {
-          return Arrays.asList(node.getPropertyValue(HEADERS).split("\\s+")).stream().filter(header -> !header.isEmpty()).collect(Collectors.toList());
+          return Arrays.stream(node.getPropertyValue(HEADERS).split("\\s+")).filter(header -> !header.isEmpty()).collect(Collectors.toList());
         } else {
           return Collections.emptyList();
         }
