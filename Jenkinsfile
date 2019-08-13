@@ -24,12 +24,12 @@ pipeline {
     }
     stage('QA') {
       parallel {
-        stage('LATEST_RELEASE[6.7]') {
+        stage('LATEST_RELEASE[7.9]') {
           agent {
             label 'linux || shortbuilds'
           }
           steps {
-            runPlugin "LATEST_RELEASE[6.7]"
+            runPlugin "LATEST_RELEASE[7.9]"
           }
         }
         stage('LATEST_RELEASE') {

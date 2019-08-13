@@ -47,9 +47,9 @@ public class PhpFilesTest {
     // This a second instance of orchestrator with SonarPhp plugin, if 'orchestrator.container.port' is set
     // it should not be used by this instance to not have two sonarqube servers on the same port
     .setOrchestratorProperty("orchestrator.container.port", "")
-    .setSonarVersion(Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE[6.7]"))
+    .setSonarVersion(HtmlTestSuite.sonarVersion())
     .addPlugin(MavenLocation.of("org.sonarsource.php", "sonar-php-plugin", Optional.ofNullable(System.getProperty("sonarPhp.version")).orElse("LATEST_RELEASE")))
-    .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
+    .addPlugin(HtmlTestSuite.htmlPlugin())
     .restoreProfileAtStartup(FileLocation.of("profiles/IllegalTab_profile.xml"))
     .build();
 
