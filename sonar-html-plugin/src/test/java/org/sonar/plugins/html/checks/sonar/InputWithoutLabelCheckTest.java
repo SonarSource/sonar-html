@@ -42,7 +42,8 @@ public class InputWithoutLabelCheckTest {
       .next().atLine(28).withMessage("Associate a valid label to this input field.")
       .next().atLine(32)
       .next().atLine(43)
-      .next().atLine(56);
+      .next().atLine(56)
+      .next().atLine(59).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missing\",\"missing2\".");
   }
 
 }
