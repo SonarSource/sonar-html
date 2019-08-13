@@ -58,8 +58,8 @@ public class TestHelper {
     walker.addVisitor(visitor);
     walker.scan(
       new PageLexer().parse(fileReader),
-      result,
-      StandardCharsets.UTF_8);
+      result
+    );
 
     return result;
   }

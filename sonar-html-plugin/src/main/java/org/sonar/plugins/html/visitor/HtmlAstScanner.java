@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.visitor;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import org.sonar.plugins.html.node.CommentNode;
@@ -53,19 +52,15 @@ public class HtmlAstScanner {
   /**
    * Scan a list of Nodes and send events to the visitors.
    */
-  public void scan(List<Node> nodeList, HtmlSourceCode htmlSourceCode, Charset charset) {
-    scan(nodeList, htmlSourceCode, charset, metricVisitors);
-    scan(nodeList, htmlSourceCode, charset, checkVisitors);
+  public void scan(List<Node> nodeList, HtmlSourceCode htmlSourceCode) {
+    scan(nodeList, htmlSourceCode, metricVisitors);
+    scan(nodeList, htmlSourceCode, checkVisitors);
   }
 
-  private void scan(List<Node> nodeList, HtmlSourceCode htmlSourceCode, Charset charset, List<DefaultNodeVisitor> visitors) {
+  private static void scan(List<Node> nodeList, HtmlSourceCode htmlSourceCode, List<DefaultNodeVisitor> visitors) {
     // prepare the visitors
     for (DefaultNodeVisitor visitor : visitors) {
       visitor.setSourceCode(htmlSourceCode);
-
-      if (visitor instanceof CharsetAwareVisitor) {
-        ((CharsetAwareVisitor) visitor).setCharset(charset);
-      }
     }
 
     // notify visitors for a new document
@@ -89,7 +84,7 @@ public class HtmlAstScanner {
   /**
    * Scan a single element and send appropriate event: start element, end element, characters, comment, expression or directive.
    */
-  private void scanElement(DefaultNodeVisitor visitor, Node node) {
+  private static void scanElement(DefaultNodeVisitor visitor, Node node) {
     switch (node.getNodeType()) {
       case TAG:
         scanElementTag(visitor, (TagNode) node);

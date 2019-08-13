@@ -17,8 +17,8 @@
  */
 package org.sonar.plugins.html.core;
 
+import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -103,8 +103,8 @@ public final class HtmlSensor implements Sensor {
 
       HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
 
-      try (Reader reader = new StringReader(inputFile.contents())) {
-        scanner.scan(lexer.parse(reader), sourceCode, fileSystem.encoding());
+      try (Reader reader = new InputStreamReader(inputFile.inputStream(), inputFile.charset())) {
+        scanner.scan(lexer.parse(reader), sourceCode);
         saveMetrics(sensorContext, sourceCode);
         saveLineLevelMeasures(inputFile, sourceCode);
 
