@@ -19,7 +19,6 @@ package org.sonar.plugins.html.checks.header;
 
 import java.io.File;
 import java.io.FileReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import org.junit.Rule;
 import org.junit.Test;
@@ -150,8 +149,8 @@ public class HeaderCheckTest {
     walker.scan(
       new PageLexer().parse(reader),
       // won't be able to resolve the file
-      result,
-      StandardCharsets.UTF_8);
+      result
+    );
   }
 
 }

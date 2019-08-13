@@ -18,7 +18,6 @@
 package org.sonar.plugins.html.visitor;
 
 import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +49,7 @@ public class NoSonarScannerTest {
     HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.emptyList());
     pageScanner.addVisitor(new NoSonarScanner(noSonarFilter));
 
-    pageScanner.scan(nodeList, htmlSourceCode, StandardCharsets.UTF_8);
+    pageScanner.scan(nodeList, htmlSourceCode);
 
     verify(noSonarFilter, times(1)).noSonarInFile(any(InputFile.class), isOnlyIgnoringLine2());
   }
