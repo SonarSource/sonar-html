@@ -115,7 +115,9 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
       for (int row = 0; row < rows.size(); ++row) {
         for (int column = 0; column < rows.get(row).size(); ++column) {
           Table.Cell cell = rows.get(row).get(column);
-          action.apply(cell, row, column);
+          if (cell != NIL) {
+            action.apply(cell, row, column);
+          }
         }
       }
     }
@@ -153,7 +155,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
       List<Set<String>> verticalHeaders = findVerticalHeaders();
       Map<TagNode, List<String>> referenceable = new HashMap<>();
       forEachCell((cell, row, column) -> {
-        if (cell != NIL && !cell.headers().isEmpty()) {
+        if (!cell.headers().isEmpty()) {
           List<String> headers = new ArrayList<>();
           headers.addAll(horizontalHeaders.get(column));
           headers.addAll(verticalHeaders.get(row));
@@ -291,22 +293,22 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
   private void raiseViolationOnInvalidReference(Table table) {
     Map<TagNode, List<String>> referenceableHeaders = table.findReferenceableHeadersPerCellNode();
+    Map<TagNode, List<String>> raisedFor = new HashMap<>();
     table.forEachCell((cell, row, column) -> {
-      if (cell != NIL) {
-        TagNode node = cell.node();
-        List<String> actual = cell.headers();
-        List<String> expected = referenceableHeaders.getOrDefault(node, Collections.emptyList());
-        for (String header : actual) {
-          if (!expected.contains(header)) {
-            if (isExistingHeader(table, header)) {
-              createViolation(node.getStartLinePosition(),
-                format("id \"%s\" in \"headers\" reference the header of another column/row.", header));
-            } else {
-              createViolation(node.getStartLinePosition(),
-                format("id \"%s\" in \"headers\" does not reference any <th> header.", header));
-            }
-            break;
+      TagNode node = cell.node();
+      List<String> actual = cell.headers();
+      List<String> expected = referenceableHeaders.getOrDefault(node, Collections.emptyList());
+      for (String header : actual) {
+        if (!expected.contains(header) && !raisedFor.getOrDefault(node, Collections.emptyList()).contains(header)) {
+          if (isExistingHeader(table, header)) {
+            createViolation(node.getStartLinePosition(),
+              format("id \"%s\" in \"headers\" reference the header of another column/row.", header));
+          } else {
+            createViolation(node.getStartLinePosition(),
+              format("id \"%s\" in \"headers\" does not reference any <th> header.", header));
           }
+          raisedFor.merge(node, Arrays.asList(header), (acc, val) -> { acc.addAll(val); return acc; });
+          break;
         }
       }
     });
