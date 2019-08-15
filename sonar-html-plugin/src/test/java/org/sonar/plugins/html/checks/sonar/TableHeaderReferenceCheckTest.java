@@ -45,6 +45,8 @@ public class TableHeaderReferenceCheckTest {
         .next().atLine(123).withMessage("id \"foo\" in \"headers\" reference the header of another column/row.")
         .next().atLine(152).withMessage("id \"bar\" in \"headers\" does not reference any <th> header.")
         .next().atLine(220).withMessage("id \"bar\" in \"headers\" does not reference any <th> header.")
-        .next().atLine(227).withMessage("id \"bar\" in \"headers\" does not reference any <th> header.");
+        .next().atLine(227).withMessage("id \"bar\" in \"headers\" does not reference any <th> header.")
+        .next().atLine(275).withMessage("id \"foo\" in \"headers\" does not reference any <th> header.")
+        .next().atLine(281).withMessage("id \"foo\" in \"headers\" does not reference any <th> header.");
   }
 }

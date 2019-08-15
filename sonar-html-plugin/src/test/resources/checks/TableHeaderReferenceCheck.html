@@ -272,6 +272,18 @@
 
 <table>
   <tr>
+    <td rowspan="4" headers="foo"></td> <!-- Non-Compliant -->
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="4" headers="foo"></td> <!-- Non-Compliant -->
+  </tr>
+</table>
+
+<table>
+  <tr>
     <td colspan="foo"></td>
   </tr>
 </table>
