@@ -397,4 +397,10 @@
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_trace.erb':[
 18,
 ],
+'project:voten/resources/assets/js/components/Preferences.vue':[
+12,
+19,
+26,
+35,
+],
 }

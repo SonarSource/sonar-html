@@ -568,4 +568,15 @@
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/gwt/page.html.erb':[
 4,
 ],
+'project:voten/resources/views/vendor/notifications/email.blade.php':[
+70,
+79,
+85,
+98,
+105,
+134,
+141,
+146,
+171,
+],
 }

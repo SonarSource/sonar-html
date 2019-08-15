@@ -559,4 +559,14 @@
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_options.html.erb':[
 26,
 ],
+'project:voten/resources/assets/js/components/GifPlayer.vue':[
+22,
+],
+'project:voten/resources/assets/js/components/submission/GifSubmission.vue':[
+19,
+],
+'project:voten/resources/views/passport/index.blade.php':[
+26,
+27,
+],
 }

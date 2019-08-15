@@ -6003,4 +6003,11 @@
 127,
 129,
 ],
+'project:voten/resources/views/vendor/pagination/default.blade.php':[
+24,
+34,
+],
+'project:voten/resources/views/vendor/pagination/simple-default.blade.php':[
+13,
+],
 }
