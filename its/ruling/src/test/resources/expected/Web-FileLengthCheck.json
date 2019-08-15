@@ -107,4 +107,7 @@
 'project:phpMyAdmin-4.0.4-english/themes/pmahomme/css/common.css.php':[
 0,
 ],
+'project:voten/app/Http/Controllers/EmojiController.php':[
+0,
+],
 }

@@ -13949,4 +13949,15 @@
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/setup/migration_running.html.erb':[
 1,
 ],
+'project:voten/resources/views/backend/emails/index.blade.php':[
+54,
+72,
+76,
+],
+'project:voten/resources/views/layouts/guest.blade.php':[
+54,
+],
+'project:voten/resources/views/layouts/no-sidebar.blade.php':[
+40,
+],
 }

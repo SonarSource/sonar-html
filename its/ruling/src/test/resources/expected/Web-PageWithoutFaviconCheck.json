@@ -11351,4 +11351,16 @@
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/scaffold/templates/layout.html.erb':[
 5,
 ],
+'project:voten/resources/views/errors/403.blade.php':[
+3,
+],
+'project:voten/resources/views/errors/503.blade.php':[
+3,
+],
+'project:voten/resources/views/vendor/mail/html/layout.blade.php':[
+3,
+],
+'project:voten/resources/views/vendor/notifications/email.blade.php':[
+4,
+],
 }

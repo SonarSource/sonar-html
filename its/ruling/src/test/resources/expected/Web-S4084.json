@@ -20,4 +20,10 @@
 'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/video-statistics.html':[
 6,
 ],
+'project:voten/resources/assets/js/components/GifPlayer.vue':[
+22,
+],
+'project:voten/resources/assets/js/components/submission/GifSubmission.vue':[
+19,
+],
 }
