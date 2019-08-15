@@ -79,9 +79,6 @@ public final class HtmlSensor implements Sensor {
 
   @Override
   public void execute(SensorContext sensorContext) {
-    // configure the lexers
-    final PageLexer pageLexer = new PageLexer();
-    final VueLexer vueLexer = new VueLexer();
 
     FileSystem fileSystem = sensorContext.fileSystem();
 
@@ -106,7 +103,7 @@ public final class HtmlSensor implements Sensor {
       HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
 
       try (Reader reader = new InputStreamReader(inputFile.inputStream(), inputFile.charset())) {
-        PageLexer lexer = inputFile.filename().endsWith(".vue") ? vueLexer : pageLexer;
+        PageLexer lexer = inputFile.filename().endsWith(".vue") ? new VueLexer() : new PageLexer();
         scanner.scan(lexer.parse(reader), sourceCode);
         saveMetrics(sensorContext, sourceCode);
         saveLineLevelMeasures(inputFile, sourceCode);
