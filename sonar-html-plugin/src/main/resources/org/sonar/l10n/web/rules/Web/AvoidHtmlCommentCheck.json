@@ -11,10 +11,6 @@
     "jsp-jsf",
     "owasp-a3"
   ],
-  "standards": [
-    "CWE",
-    "OWASP Top Ten"
-  ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1876",
   "sqKey": "AvoidHtmlCommentCheck",

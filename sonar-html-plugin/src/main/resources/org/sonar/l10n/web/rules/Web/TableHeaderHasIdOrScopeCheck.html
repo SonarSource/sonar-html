@@ -1,5 +1,17 @@
-<p>Associating table headers with a row, column, or a group of rows or columns enables screen readers to announce the header prior to the data. This
-considerably increases the accessibility of tables to visually impaired users.</p>
+<p>Associating <code>&lt;table&gt;</code> headers, i.e. <code>&lt;th&gt;</code> elements, with their <code>&lt;td&gt;</code> cells enables screen
+readers to announce the header prior to the data. This considerably increases the accessibility of tables to visually impaired users.</p>
+<p>There are two ways of doing it:</p>
+<ul>
+  <li> Adding a <code>scope</code> attribute to <code>&lt;th&gt;</code> headers. </li>
+  <li> Adding an <code>id</code> attribute to <code>&lt;th&gt;</code> headers and a <code>headers</code> attribute to every <code>&lt;td&gt;</code>
+  element. </li>
+</ul>
+<p>It is recommended to add <code>scope</code> attributes to <code>&lt;th&gt;</code> headers whenever possible. Use <code>&lt;th id="..."&gt;</code>
+and <code>&lt;td headers="..."&gt;</code> only when <code>&lt;th scope="..."&gt;</code> is not capable of associating cells to their headers. This
+happens for very complex tables which have headers splitting the data in multiple subtables. See&nbsp;<a
+href="https://www.w3.org/WAI/tutorials/tables/tips/">W3C WAI&nbsp;Web Accessibility Tutorials</a>&nbsp;for more information.</p>
+<p>Note that complex tables can often be split into multiple smaller tables, which improves the user experience.</p>
+<p>This rule raises an issue when a <code>&lt;th&gt;</code> element has neither <code>id</code> nor <code>scope</code> attributes set.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;table border="1"&gt;
@@ -72,4 +84,11 @@ considerably increases the accessibility of tables to visually impaired users.</
   &lt;/tr&gt;
 &lt;/table&gt;
 </pre>
+<h2>See</h2>
+<p> * <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-content-structure-separation-programmatic">WCAG2, 1.3.1</a>&nbsp;-&nbsp;Info
+and Relationships</p>
+<ul>
+  <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/html.html#H43">WCAG2, H43</a> - Using id and headers attributes to associate data cells with header
+  cells in data tables </li>
+</ul>
 
