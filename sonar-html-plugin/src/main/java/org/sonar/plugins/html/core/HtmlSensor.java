@@ -47,6 +47,7 @@ import org.sonar.plugins.html.analyzers.PageCountLines;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.checks.HtmlIssue;
+import org.sonar.plugins.html.checks.PreciseHtmlIssue;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.lex.VueLexer;
 import org.sonar.plugins.html.rules.CheckClasses;
@@ -144,8 +145,12 @@ public final class HtmlSensor implements Sensor {
       .on(inputFile)
       .message(issue.message());
     Integer line = issue.line();
-    if (issue.startColumn() != null) {
-      location.at(inputFile.newRange(issue.line(), issue.startColumn(), issue.endLine(), issue.endColumn()));
+    if (issue instanceof PreciseHtmlIssue) {
+      PreciseHtmlIssue preciseHtmlIssue = (PreciseHtmlIssue) issue;
+      location.at(inputFile.newRange(issue.line(),
+        preciseHtmlIssue.startColumn(),
+        preciseHtmlIssue.endLine(),
+        preciseHtmlIssue.endColumn()));
     } else if (line != null) {
       location.at(inputFile.selectLine(line));
     }

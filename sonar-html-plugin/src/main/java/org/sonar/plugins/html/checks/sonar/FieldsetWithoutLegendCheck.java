@@ -17,8 +17,10 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "FieldsetWithoutLegendCheck")
@@ -26,6 +28,11 @@ public class FieldsetWithoutLegendCheck extends AbstractPageCheck {
 
   private boolean foundLegend;
   private TagNode fieldset;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    fieldset = null;
+  }
 
   @Override
   public void startElement(TagNode node) {

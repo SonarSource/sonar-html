@@ -97,17 +97,18 @@ public final class CheckMessagesVerifier {
 
   public CheckMessagesVerifier atLocation(int startLine, int startColumn, int endLine, int endColumn) {
     checkStateOfCurrent();
+    PreciseHtmlIssue preciseHtmlIssue = (PreciseHtmlIssue) current;
     if (!Objects.equals(startLine, current.line())) {
       throw new AssertionError("\nExpected: " + startLine + "\ngot: " + current.line());
     }
-    if (!Objects.equals(startColumn, current.startColumn())) {
-      throw new AssertionError("\nExpected: " + startColumn + "\ngot: " + current.startColumn());
+    if (!Objects.equals(startColumn, preciseHtmlIssue.startColumn())) {
+      throw new AssertionError("\nExpected: " + startColumn + "\ngot: " + preciseHtmlIssue.startColumn());
     }
-    if (!Objects.equals(endLine, current.endLine())) {
-      throw new AssertionError("\nExpected: " + endColumn + "\ngot: " + current.line());
+    if (!Objects.equals(endLine, preciseHtmlIssue.endLine())) {
+      throw new AssertionError("\nExpected: " + endLine + "\ngot: " + preciseHtmlIssue.endLine());
     }
-    if (!Objects.equals(endColumn, current.endColumn())) {
-      throw new AssertionError("\nExpected: " + endColumn + "\ngot: " + current.endColumn());
+    if (!Objects.equals(endColumn, preciseHtmlIssue.endColumn())) {
+      throw new AssertionError("\nExpected: " + endColumn + "\ngot: " + preciseHtmlIssue.endColumn());
     }
     return this;
   }

@@ -97,7 +97,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
   }
 
   protected final void createViolation(Node node, String message) {
-    getHtmlSourceCode().addIssue(new HtmlIssue(ruleKey, node.getStartLinePosition(), message, null,
+    getHtmlSourceCode().addIssue(new PreciseHtmlIssue(ruleKey, node.getStartLinePosition(), message,
       node.getStartColumnPosition(),
       node.getEndLinePosition(),
       node.getEndColumnPosition()));
