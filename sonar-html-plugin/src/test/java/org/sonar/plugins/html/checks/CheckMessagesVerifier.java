@@ -95,6 +95,23 @@ public final class CheckMessagesVerifier {
     return this;
   }
 
+  public CheckMessagesVerifier atLocation(int startLine, int startColumn, int endLine, int endColumn) {
+    checkStateOfCurrent();
+    if (!Objects.equals(startLine, current.line())) {
+      throw new AssertionError("\nExpected: " + startLine + "\ngot: " + current.line());
+    }
+    if (!Objects.equals(startColumn, current.startColumn())) {
+      throw new AssertionError("\nExpected: " + startColumn + "\ngot: " + current.startColumn());
+    }
+    if (!Objects.equals(endLine, current.endLine())) {
+      throw new AssertionError("\nExpected: " + endColumn + "\ngot: " + current.line());
+    }
+    if (!Objects.equals(endColumn, current.endColumn())) {
+      throw new AssertionError("\nExpected: " + endColumn + "\ngot: " + current.endColumn());
+    }
+    return this;
+  }
+
   public CheckMessagesVerifier withMessage(String expectedMessage) {
     checkStateOfCurrent();
     String actual = current.message();

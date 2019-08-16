@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.html.checks;
 
+import javax.annotation.Nullable;
 import org.sonar.api.rule.RuleKey;
 
 public class HtmlIssue {
@@ -25,23 +26,30 @@ public class HtmlIssue {
   private final Integer line;
   private final String message;
   private final Double cost;
+  private final Integer startColumn;
+  private final Integer endColumn;
+  private final Integer endLine;
 
   public HtmlIssue(RuleKey ruleKey, Integer line, String message) {
-    this.ruleKey = ruleKey;
-    this.line = line;
-    this.message = message;
-    this.cost = null;
+    this(ruleKey, line, message, null);
   }
 
-  public HtmlIssue(RuleKey ruleKey, Integer line, String message, Double cost) {
-    if (cost <= 0) {
+  public HtmlIssue(RuleKey ruleKey, Integer line, String message, @Nullable Double cost) {
+    this(ruleKey, line, message, cost, null, null, null);
+  }
+
+  public HtmlIssue(RuleKey ruleKey, Integer line, String message, @Nullable Double cost, @Nullable Integer startColumn,
+                   @Nullable Integer endLine, @Nullable Integer endColumn) {
+    if (cost != null && cost <= 0) {
       throw new IllegalArgumentException("Cost cannot be <= 0");
     }
-
     this.ruleKey = ruleKey;
     this.line = line;
     this.message = message;
     this.cost = cost;
+    this.startColumn = startColumn;
+    this.endColumn = endColumn;
+    this.endLine = endLine;
   }
 
   public RuleKey ruleKey() {
@@ -58,6 +66,18 @@ public class HtmlIssue {
 
   public Double cost() {
     return cost;
+  }
+
+  public Integer endLine() {
+    return endLine;
+  }
+
+  public Integer startColumn() {
+    return startColumn;
+  }
+
+  public Integer endColumn() {
+    return endColumn;
   }
 
 }
