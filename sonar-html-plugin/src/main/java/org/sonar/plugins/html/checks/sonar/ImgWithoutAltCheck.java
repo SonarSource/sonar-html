@@ -29,7 +29,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if ((isImgTag(node) && !hasAltAttribute(node)) ||
        ((isImageInput(node) || isAreaTag(node)) && hasInvalidAltAttribute(node))) {
-      createViolation(node.getStartLinePosition(), "Add an \"alt\" attribute to this image.");
+      createViolation(node, "Add an \"alt\" attribute to this image.");
     }
   }
 

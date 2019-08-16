@@ -27,7 +27,7 @@ public class ServerSideImageMapsCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isImgTag(node) && hasIsMapAttribute(node)) {
-      createViolation(node.getStartLinePosition(), "Use the \"map\" tag and \"area\" tags instead.");
+      createViolation(node, "Use the \"map\" tag and \"area\" tags instead.");
     }
   }
 

@@ -43,7 +43,7 @@ public class ParentElementRequiredCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     if (element.equalsElementName(child) && (element.getParent() == null || !element.getParent().equalsElementName(parent))) {
-      createViolation(element.getStartLinePosition(), "Add the missing \"" + parent + "\" parent element for \"" + child + "\" element.");
+      createViolation(element, "Add the missing \"" + parent + "\" parent element for \"" + child + "\" element.");
     }
   }
 

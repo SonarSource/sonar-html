@@ -56,7 +56,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
     if (isNotIgnoreTag(element) && !nodes.isEmpty()) {
       TagNode previousNode = nodes.remove(0);
       if (!previousNode.getNodeName().equals(element.getNodeName())) {
-        createViolation(previousNode.getStartLinePosition(), "The tag \"" + previousNode.getNodeName() + "\" has no corresponding closing tag.");
+        createViolation(previousNode, "The tag \"" + previousNode.getNodeName() + "\" has no corresponding closing tag.");
         List<TagNode> rollup = new ArrayList<>();
         for (TagNode node : nodes) {
           rollup.add(node);
@@ -84,7 +84,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   @Override
   public void endDocument() {
     for (TagNode node : nodes) {
-      createViolation(node.getStartLinePosition(), "The tag \"" + node.getNodeName() + "\" has no corresponding closing tag.");
+      createViolation(node, "The tag \"" + node.getNodeName() + "\" has no corresponding closing tag.");
     }
   }
 

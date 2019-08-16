@@ -15,28 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.html.checks.sonar;
+package org.sonar.plugins.html.checks;
 
-import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.TagNode;
+import org.sonar.api.rule.RuleKey;
 
-@Rule(key = "MetaRefreshCheck")
-public class MetaRefreshCheck extends AbstractPageCheck {
+public class PreciseHtmlIssue extends HtmlIssue {
 
-  @Override
-  public void startElement(TagNode node) {
-    if (isMetaRefreshTag(node)) {
-      createViolation(node, "Remove this meta refresh tag.");
-    }
+  private final int startColumn;
+  private final int endColumn;
+  private final int endLine;
+
+  PreciseHtmlIssue(RuleKey ruleKey, int line, String message, int startColumn, int endLine, int endColumn) {
+    super(ruleKey, line, message);
+    this.startColumn = startColumn;
+    this.endLine = endLine;
+    this.endColumn = endColumn;
   }
 
-  private static boolean isMetaRefreshTag(TagNode node) {
-    String httpEquiv = node.getAttribute("HTTP-EQUIV");
-
-    return "META".equalsIgnoreCase(node.getNodeName()) &&
-      httpEquiv != null &&
-      "REFRESH".equalsIgnoreCase(httpEquiv);
+  public int startColumn() {
+    return startColumn;
   }
 
+  public int endLine() {
+    return endLine;
+  }
+
+  public int endColumn() {
+    return endColumn;
+  }
 }

@@ -95,6 +95,24 @@ public final class CheckMessagesVerifier {
     return this;
   }
 
+  public CheckMessagesVerifier atLocation(int startLine, int startColumn, int endLine, int endColumn) {
+    checkStateOfCurrent();
+    PreciseHtmlIssue preciseHtmlIssue = (PreciseHtmlIssue) current;
+    if (!Objects.equals(startLine, current.line())) {
+      throw new AssertionError("\nExpected: " + startLine + "\ngot: " + current.line());
+    }
+    if (!Objects.equals(startColumn, preciseHtmlIssue.startColumn())) {
+      throw new AssertionError("\nExpected: " + startColumn + "\ngot: " + preciseHtmlIssue.startColumn());
+    }
+    if (!Objects.equals(endLine, preciseHtmlIssue.endLine())) {
+      throw new AssertionError("\nExpected: " + endLine + "\ngot: " + preciseHtmlIssue.endLine());
+    }
+    if (!Objects.equals(endColumn, preciseHtmlIssue.endColumn())) {
+      throw new AssertionError("\nExpected: " + endColumn + "\ngot: " + preciseHtmlIssue.endColumn());
+    }
+    return this;
+  }
+
   public CheckMessagesVerifier withMessage(String expectedMessage) {
     checkStateOfCurrent();
     String actual = current.message();

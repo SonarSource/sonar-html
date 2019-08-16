@@ -36,7 +36,7 @@ public class VideoTrackCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isVideoTag(node) && hasVideoSrc(node) && !hasAccessibilityTrackDescendant(node)) {
-      createViolation(node.getStartLinePosition(), "Add subtitles and description files for this video.");
+      createViolation(node, "Add subtitles and description files for this video.");
     }
   }
 

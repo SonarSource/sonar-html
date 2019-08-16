@@ -27,7 +27,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node)) {
-      createViolation(node.getStartLinePosition(), "Add \"<th>\" headers to this \"<table>\".");
+      createViolation(node, "Add \"<th>\" headers to this \"<table>\".");
     }
   }
 

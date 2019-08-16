@@ -36,7 +36,7 @@ public class UnsupportedTagsInHtml5CheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnsupportedTagsInHtml5Check.html"), new UnsupportedTagsInHtml5Check());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Remove this deprecated \"acronym\" element.")
+        .next().atLocation(1, 0, 1, 9).withMessage("Remove this deprecated \"acronym\" element.")
         .next().atLine(2).withMessage("Remove this deprecated \"applet\" element.")
         .next().atLine(3)
         .next().atLine(4)

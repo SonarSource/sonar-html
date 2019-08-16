@@ -48,7 +48,7 @@ public class ChildElementRequiredCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ChildElementRequiredCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(8).withMessage("Add the missing \"bar\" element to this \"foo\".")
+        .next().atLocation(8, 0, 8, 5).withMessage("Add the missing \"bar\" element to this \"foo\".")
         .next().atLine(12);
   }
 

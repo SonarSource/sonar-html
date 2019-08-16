@@ -36,7 +36,7 @@ public class LayoutTableWithSemanticMarkupCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(17).withMessage("Remove this \"summary\" attribute")
-        .next().atLine(18).withMessage("Remove this \"caption\" element")
+        .next().atLocation(18, 2, 18, 11).withMessage("Remove this \"caption\" element")
         .next().atLine(20).withMessage("Remove this \"th\" element")
         .next().atLine(34).withMessage("Remove this \"headers\" attribute")
         .next().atLine(35).withMessage("Remove this \"scope\" attribute")

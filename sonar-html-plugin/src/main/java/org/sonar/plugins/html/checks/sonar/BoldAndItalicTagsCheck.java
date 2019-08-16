@@ -27,9 +27,9 @@ public class BoldAndItalicTagsCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isBold(node)) {
-      createViolation(node.getStartLinePosition(), "Replace this <" + node.getNodeName() + "> tag by <strong>.");
+      createViolation(node, "Replace this <" + node.getNodeName() + "> tag by <strong>.");
     } else if (isItalicAndNotAriaHidden(node)) {
-      createViolation(node.getStartLinePosition(), "Replace this <" + node.getNodeName() + "> tag by <em>.");
+      createViolation(node, "Replace this <" + node.getNodeName() + "> tag by <em>.");
     }
   }
 

@@ -17,15 +17,15 @@
  */
 package org.sonar.plugins.html.checks;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nullable;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Abtract superclass for checks.
@@ -94,6 +94,13 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
       n++;
     }
     return qualifiedAttributes;
+  }
+
+  protected final void createViolation(Node node, String message) {
+    getHtmlSourceCode().addIssue(new PreciseHtmlIssue(ruleKey, node.getStartLinePosition(), message,
+      node.getStartColumnPosition(),
+      node.getEndLinePosition(),
+      node.getEndColumnPosition()));
   }
 
   protected final void createViolation(int line, String message) {

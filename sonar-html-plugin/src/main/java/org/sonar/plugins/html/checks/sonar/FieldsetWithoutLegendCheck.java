@@ -17,21 +17,28 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "FieldsetWithoutLegendCheck")
 public class FieldsetWithoutLegendCheck extends AbstractPageCheck {
 
-  private int fieldsetLine = 0;
   private boolean foundLegend;
+  private TagNode fieldset;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    fieldset = null;
+  }
 
   @Override
   public void startElement(TagNode node) {
     if (isFieldSet(node)) {
       foundLegend = false;
-      fieldsetLine = node.getStartLinePosition();
+      fieldset = node;
     } else if (isLegend(node)) {
       foundLegend = true;
     }
@@ -40,12 +47,12 @@ public class FieldsetWithoutLegendCheck extends AbstractPageCheck {
   @Override
   public void endElement(TagNode node) {
     if (isFieldSet(node)) {
-      if (!foundLegend && fieldsetLine != 0) {
-        createViolation(fieldsetLine, "Add a <legend> tag to this fieldset.");
+      if (!foundLegend && fieldset != null) {
+        createViolation(fieldset, "Add a <legend> tag to this fieldset.");
       }
 
       foundLegend = false;
-      fieldsetLine = 0;
+      fieldset = null;
     }
   }
 

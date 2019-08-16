@@ -39,7 +39,7 @@ public class UnclosedTagCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(10).withMessage("The tag \"foo\" has no corresponding closing tag.")
+      .next().atLocation(10, 0, 10, 5).withMessage("The tag \"foo\" has no corresponding closing tag.")
       .noMore();
   }
 

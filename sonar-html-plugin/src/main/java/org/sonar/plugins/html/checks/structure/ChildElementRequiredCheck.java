@@ -55,7 +55,7 @@ public class ChildElementRequiredCheck extends AbstractPageCheck {
         }
       }
       if (!ruleOK) {
-        createViolation(element.getStartLinePosition(), "Add the missing \"" + child + "\" element to this \"" + parent + "\".");
+        createViolation(element, "Add the missing \"" + child + "\" element to this \"" + parent + "\".");
       }
     }
   }

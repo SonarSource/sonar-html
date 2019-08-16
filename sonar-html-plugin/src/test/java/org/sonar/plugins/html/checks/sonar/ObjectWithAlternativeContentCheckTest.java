@@ -35,7 +35,7 @@ public class ObjectWithAlternativeContentCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ObjectWithAlternativeContentCheck.html"), new ObjectWithAlternativeContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add an accessible content to this \"<object>\" tag.")
+        .next().atLocation(1, 0, 1, 8).withMessage("Add an accessible content to this \"<object>\" tag.")
         .next().atLine(3)
         .next().atLine(14)
         .next().atLine(18);

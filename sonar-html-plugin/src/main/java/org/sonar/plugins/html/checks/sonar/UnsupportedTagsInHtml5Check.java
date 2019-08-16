@@ -59,7 +59,7 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isUnsupportedTag(node)) {
-      createViolation(node.getStartLinePosition(), "Remove this deprecated \"" + node.getNodeName() + "\" element.");
+      createViolation(node, "Remove this deprecated \"" + node.getNodeName() + "\" element.");
     }
   }
 

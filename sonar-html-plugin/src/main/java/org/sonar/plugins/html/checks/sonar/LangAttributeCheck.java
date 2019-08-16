@@ -27,7 +27,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isHtmlTag(node) && !hasLangAttribute(node)) {
-      createViolation(node.getStartLinePosition(), "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+      createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
     }
   }
 

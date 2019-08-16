@@ -36,7 +36,7 @@ public class TableWithoutCaptionCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableWithoutCaptionCheck.html"), new TableWithoutCaptionCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add a description to this table.")
+        .next().atLocation(1, 0, 1, 7).withMessage("Add a description to this table.")
         .next().atLine(8)
         .next().atLine(32)
         .next().atLine(39)

@@ -57,7 +57,7 @@ public class DoctypePresenceCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/NoDoctypeBeforeHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(3).withMessage("Insert a <!DOCTYPE> declaration to before this <hTmL> tag.");
+        .next().atLocation(3, 0, 3, 6).withMessage("Insert a <!DOCTYPE> declaration to before this <hTmL> tag.");
   }
 
   @Test

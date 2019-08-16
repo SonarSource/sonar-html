@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.html.checks;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 import org.sonar.api.rule.RuleKey;
 
 public class HtmlIssue {
@@ -26,14 +28,14 @@ public class HtmlIssue {
   private final String message;
   private final Double cost;
 
-  public HtmlIssue(RuleKey ruleKey, Integer line, String message) {
+  public HtmlIssue(RuleKey ruleKey, @Nullable Integer line, String message) {
     this.ruleKey = ruleKey;
     this.line = line;
     this.message = message;
     this.cost = null;
   }
 
-  public HtmlIssue(RuleKey ruleKey, Integer line, String message, Double cost) {
+  public HtmlIssue(RuleKey ruleKey, Integer line, String message, double cost) {
     if (cost <= 0) {
       throw new IllegalArgumentException("Cost cannot be <= 0");
     }
@@ -48,6 +50,7 @@ public class HtmlIssue {
     return ruleKey;
   }
 
+  @CheckForNull
   public Integer line() {
     return line;
   }
