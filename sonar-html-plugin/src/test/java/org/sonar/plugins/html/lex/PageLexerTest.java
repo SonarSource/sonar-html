@@ -291,7 +291,7 @@ public class PageLexerTest {
 
     assertEquals(1, nodeList.size());
     assertTrue(nodeList.get(0) instanceof TagNode);
-    final TagNode node = (TagNode)nodeList.get(0);
+    final TagNode node = (TagNode) nodeList.get(0);
     assertEquals(4, node.getAttributes().size());
 
     final Attribute attribute = node.getAttributes().get(0);
@@ -328,6 +328,160 @@ public class PageLexerTest {
     assertOnlyText("x = '<");
     assertOnlyText("x = '<';");
     assertOnlyText("x = '< ';");
+  }
+
+  @Test
+  public void testUnmatchedClosingElement() {
+    assertNodes("<html><table><tr></table><p>",
+      node("html",
+        node("table", node("tr")),
+        node("p")
+      ));
+
+    assertNodes("</html>", node("html"));
+
+    assertNodes("<html><p></b>",
+      node("html",
+        node("p")));
+  }
+
+  @Test
+  public void testUnmatchedNonHtmlElements() {
+    assertNodes("<html><ul><c:if></ul></c:if><li></ul><p>",
+      node("html",
+        node("ul", node("c:if"), node("li")),
+        node("p")
+      ));
+  }
+
+  @Test
+  public void testHead() {
+    assertNodes("<html><head><title>Foo </title><body></body></html>",
+      node("html",
+        node("head", node("title")),
+        node("body")
+      ));
+  }
+
+  @Test
+  public void testLi() {
+    assertNodes("<html><ul><li>1 <li>2 <li>3</ul>",
+      node("html",
+        node("ul", node("li"), node("li"), node("li"))));
+  }
+
+  @Test
+  public void testDtDd() {
+    assertNodes("<html><dl>" +
+        "<dt>What is my favorite drink? " +
+        "<dd>Tea " +
+        "<dt>What is my favorite food? " +
+        "<dd>Sushi " +
+        "<dd>dd1 " +
+        "<dd>dd2 " +
+        "<dt>dt1 " +
+        "<dt>dt2 " +
+        "</dl>",
+      node("html",
+        node("dl", node("dt"), node("dd"), node("dt"), node("dd"), node("dd"), node("dd"), node("dt"), node("dt"))));
+  }
+
+  @Test
+  public void testP() {
+    assertNodes("<html><p>P1<table></table><p>P2<p>P3<h1>heading</h1><p>P4",
+      node("html",
+        node("p"), node("table"), node("p"), node("p"), node("h1"), node("p")));
+  }
+
+  @Test
+  public void testRubyElements() {
+    assertNodes("<html><ruby> 漢 <rb>字 <rp> (  <rt>かん  <rt>じ  <rp>) <rtc> <rtc> <rb> </ruby>",
+      node("html",
+        node("ruby",
+          node("rb"), node("rp"), node("rt"), node("rt"), node("rp"), node("rtc"), node("rtc"), node("rb"))));
+  }
+
+  @Test
+  public void testOptgroup() {
+    assertNodes("<html>" +
+        "<optgroup>" +
+        " <option>1" +
+        " <option>2" +
+        " <option>3" +
+        "<optgroup>" +
+        " <option>1" +
+        " <option>2" +
+        " <option>3",
+      node("html",
+        node("optgroup", node("option"), node("option"), node("option")),
+        node("optgroup", node("option"), node("option"), node("option"))));
+  }
+
+  @Test
+  public void testColgroup() {
+    assertNodes("<table><colgroup><col><col><col><template></template><thead>",
+      node("table",
+        node("colgroup",
+          node("col"), node("col"), node("col"), node("template")),
+        node("thead"))
+    );
+  }
+
+  @Test
+  public void testCaption() {
+    assertNodes("<table><caption>Caption <a>link</a><thead>",
+      node("table",
+        node("caption", node("a")),
+        node("thead")
+      ));
+  }
+
+  @Test
+  public void testThead() {
+    assertNodes("<table><thead><tr><tbody>",
+      node("table",
+        node("thead", node("tr")),
+        node("tbody")
+      ));
+
+    assertNodes("<table><thead><tr><tfoot>",
+      node("table",
+        node("thead", node("tr")),
+        node("tfoot")
+      ));
+  }
+
+
+  private static void assertNodes(String code, TestNode expected) {
+    StringReader reader = new StringReader(code);
+    List<Node> nodes = new PageLexer().parse(reader);
+    assertNodes((TagNode) nodes.get(0), expected);
+  }
+
+  private static void assertNodes(TagNode actual, TestNode expected) {
+    assertThat(actual.getNodeName()).isEqualTo(expected.nodeName);
+    assertThat(actual.getChildren())
+      .as(actual.getNodeName() + " children:")
+      .hasSize(expected.children.length);
+    int i = 0;
+    for (TagNode child : actual.getChildren()) {
+      assertNodes(child, expected.children[i]);
+      i++;
+    }
+  }
+
+  static class TestNode {
+    final String nodeName;
+    final TestNode[] children;
+
+    TestNode(String nodeName, TestNode... children) {
+      this.nodeName = nodeName;
+      this.children = children;
+    }
+  }
+
+  private static TestNode node(String nodeName, TestNode... children) {
+    return new TestNode(nodeName, children);
   }
 
   private static void assertOnlyText(String code) {
