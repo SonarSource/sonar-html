@@ -36,7 +36,7 @@ public class ImgWithoutAltCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheck.html"), new ImgWithoutAltCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add an \"alt\" attribute to this image.")
+        .next().atLocation(1, 0, 1, 7).withMessage("Add an \"alt\" attribute to this image.")
         .next().atLine(5)
         .next().atLine(6)
         .next().atLine(7)

@@ -38,7 +38,7 @@ public class LinkWithTargetBlankCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if (isAnchorWithTargetBlank(node)
       && ((isExternalAndNotDynamicUrl(node) && missingRelAttribute(node)) || incompleteRelAttribute(node))) {
-      createViolation(node.getStartLinePosition(), "Add rel=\"noopener noreferrer\" to this link to prevent the original page from being modified by the opened link.");
+      createViolation(node, "Add rel=\"noopener noreferrer\" to this link to prevent the original page from being modified by the opened link.");
     }
   }
 

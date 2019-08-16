@@ -45,7 +45,7 @@ public class IllegalElementCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(3).withMessage("Remove this \"title\" element.");
+        .next().atLocation(3, 2, 3, 9).withMessage("Remove this \"title\" element.");
   }
 
 }

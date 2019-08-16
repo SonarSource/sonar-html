@@ -29,7 +29,7 @@ public class TableWithoutCaptionCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isTable(node) && !isIgnored(node) && !hasDescription(node)) {
-      createViolation(node.getStartLinePosition(), "Add a description to this table.");
+      createViolation(node, "Add a description to this table.");
     }
   }
 

@@ -27,7 +27,7 @@ public class FrameWithoutTitleCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isFrame(node) && !node.hasProperty("TITLE")) {
-      createViolation(node.getStartLinePosition(), "Add a \"title\" attribute to this <" + node.getNodeName() + "> tag.");
+      createViolation(node, "Add a \"title\" attribute to this <" + node.getNodeName() + "> tag.");
     }
   }
 

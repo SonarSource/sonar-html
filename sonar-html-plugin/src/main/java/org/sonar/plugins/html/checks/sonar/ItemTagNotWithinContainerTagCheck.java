@@ -27,9 +27,9 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isLi(node) && !hasLiOrUlOrOlAncestor(node)) {
-      createViolation(node.getStartLinePosition(), "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
+      createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
     } else if (isDt(node) && !hasDtOrDlAncestor(node)) {
-      createViolation(node.getStartLinePosition(), "Surround this <" + node.getNodeName() + "> item tag by a <dl> container one.");
+      createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <dl> container one.");
     }
   }
 

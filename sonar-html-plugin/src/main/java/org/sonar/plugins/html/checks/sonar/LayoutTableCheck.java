@@ -27,7 +27,7 @@ public class LayoutTableCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isTable(node) && isLayout(node)) {
-      createViolation(node.getStartLinePosition(), "Replace this layout table with a CSS layout.");
+      createViolation(node, "Replace this layout table with a CSS layout.");
     }
   }
 

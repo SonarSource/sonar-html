@@ -36,7 +36,7 @@ public class TableHeaderHasIdOrScopeCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableHeaderHasIdOrScopeCheck.html"), new TableHeaderHasIdOrScopeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(7).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")
+        .next().atLocation(7, 4, 7, 8).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")
         .next().atLine(8).withMessage("Add either an 'id' or a 'scope' attribute to this <tH> tag.")
         .next().atLine(34)
         .next().atLine(59);

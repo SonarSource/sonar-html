@@ -43,7 +43,7 @@ public class ObjectWithAlternativeContentCheck extends AbstractPageCheck {
   @Override
   public void endElement(TagNode node) {
     if (isObject(node) && object != null) {
-      createViolation(object.getStartLinePosition(), "Add an accessible content to this \"<object>\" tag.");
+      createViolation(object, "Add an accessible content to this \"<object>\" tag.");
       object = null;
     }
   }

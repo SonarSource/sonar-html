@@ -35,7 +35,7 @@ public class TableWithoutHeaderCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableWithoutHeaderCheck.html"), new TableWithoutHeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add \"<th>\" headers to this \"<table>\".")
+        .next().atLocation(1, 0, 1, 7).withMessage("Add \"<th>\" headers to this \"<table>\".")
         .next().atLine(27)
         .next().atLine(30)
         .next().atLine(61)

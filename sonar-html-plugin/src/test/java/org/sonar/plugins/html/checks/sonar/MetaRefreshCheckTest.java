@@ -36,7 +36,7 @@ public class MetaRefreshCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MetaRefreshCheck.html"), new MetaRefreshCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Remove this meta refresh tag.")
+        .next().atLocation(1, 0, 1, 27).withMessage("Remove this meta refresh tag.")
         .next().atLine(2);
   }
 

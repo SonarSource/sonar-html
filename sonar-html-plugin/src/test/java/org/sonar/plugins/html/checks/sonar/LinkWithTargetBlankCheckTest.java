@@ -32,7 +32,7 @@ public class LinkWithTargetBlankCheckTest {
   public void detected() throws Exception {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkWithTargetBlank.html"), new LinkWithTargetBlankCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("Add rel=\"noopener noreferrer\" to this link to prevent the original page from being modified by the opened link.")
+      .next().atLocation(1, 0, 1, 54).withMessage("Add rel=\"noopener noreferrer\" to this link to prevent the original page from being modified by the opened link.")
       .next().atLine(2)
       .next().atLine(4)
       .next().atLine(6)

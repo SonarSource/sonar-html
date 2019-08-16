@@ -51,7 +51,7 @@ public class DoctypePresenceCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isHtml(node) && !foundDoctype && !reported) {
-      createViolation(node.getStartLinePosition(), "Insert a <!DOCTYPE> declaration to before this <" + node.getNodeName() + "> tag.");
+      createViolation(node, "Insert a <!DOCTYPE> declaration to before this <" + node.getNodeName() + "> tag.");
       reported = true;
     }
   }

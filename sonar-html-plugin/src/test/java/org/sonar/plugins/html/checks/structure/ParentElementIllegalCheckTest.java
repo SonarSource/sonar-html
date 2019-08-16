@@ -48,7 +48,7 @@ public class ParentElementIllegalCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ParentElementIllegalCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(2).withMessage("The element 'bar' must not have a 'foo' parent.");
+        .next().atLocation(2, 2, 2, 7).withMessage("The element 'bar' must not have a 'foo' parent.");
   }
 
 }

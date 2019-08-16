@@ -301,10 +301,10 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
       for (String header : actual) {
         if (!expected.contains(header) && !raisedFor.getOrDefault(node, Collections.emptyList()).contains(header)) {
           if (isExistingHeader(table, header)) {
-            createViolation(node.getStartLinePosition(),
+            createViolation(node,
               format("id \"%s\" in \"headers\" reference the header of another column/row.", header));
           } else {
-            createViolation(node.getStartLinePosition(),
+            createViolation(node,
               format("id \"%s\" in \"headers\" does not reference any <th> header.", header));
           }
           raisedFor.merge(node, Arrays.asList(header), (acc, val) -> { acc.addAll(val); return acc; });

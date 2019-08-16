@@ -35,7 +35,7 @@ public class LayoutTableCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LayoutTableCheck.html"), new LayoutTableCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(19).withMessage("Replace this layout table with a CSS layout.")
+        .next().atLocation(19, 0, 19, 27).withMessage("Replace this layout table with a CSS layout.")
         .next().atLine(25)
         .next().atLine(31);
   }

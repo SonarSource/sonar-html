@@ -42,7 +42,7 @@ public class IndistinguishableSimilarElementsCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck/MultipleNavAside.html"), new IndistinguishableSimilarElementsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.")
+        .next().atLocation(1, 0, 1, 5).withMessage("Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.")
         .next().atLine(4)
         .next().atLine(13)
         .next().atLine(16)

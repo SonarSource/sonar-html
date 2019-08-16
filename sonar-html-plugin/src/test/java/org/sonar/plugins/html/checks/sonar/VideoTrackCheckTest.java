@@ -34,7 +34,7 @@ public class VideoTrackCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/VideoTrackCheck.html"), new VideoTrackCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(28).withMessage("Add subtitles and description files for this video.")
+      .next().atLocation(28, 2, 28, 27).withMessage("Add subtitles and description files for this video.")
       .next().atLine(33)
       .next().atLine(38)
       .next().atLine(43)

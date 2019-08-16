@@ -33,7 +33,7 @@ public class LinkToImageCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isATag(node) && hasHrefToImage(node)) {
-      createViolation(node.getStartLinePosition(), "Change this link to not directly target an image.");
+      createViolation(node, "Change this link to not directly target an image.");
     }
   }
 

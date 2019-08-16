@@ -27,24 +27,24 @@ import java.util.List;
 @Rule(key = "FlashUsesBothObjectAndEmbedCheck")
 public class FlashUsesBothObjectAndEmbedCheck extends AbstractPageCheck {
 
-  private int objectLine;
+  private TagNode object;
   private boolean foundEmbed;
 
   @Override
   public void startDocument(List<Node> nodes) {
-    objectLine = 0;
+    object = null;
   }
 
   @Override
   public void startElement(TagNode node) {
     if (isObject(node) && FlashHelper.isFlashObject(node)) {
-      objectLine = node.getStartLinePosition();
+      object = node;
       foundEmbed = false;
     } else if (isEmbed(node) && FlashHelper.isFlashEmbed(node)) {
       foundEmbed = true;
 
       if (node.getParent() == null || !isObject(node.getParent())) {
-        createViolation(node.getStartLinePosition(), "Surround this <embed> tag by an <object> one.");
+        createViolation(node, "Surround this <embed> tag by an <object> one.");
       }
     }
   }
@@ -52,10 +52,10 @@ public class FlashUsesBothObjectAndEmbedCheck extends AbstractPageCheck {
   @Override
   public void endElement(TagNode node) {
     if (isObject(node)) {
-      if (objectLine != 0 && !foundEmbed) {
-        createViolation(objectLine, "Add an <embed> tag within this <object> one.");
+      if (object != null && !foundEmbed) {
+        createViolation(object, "Add an <embed> tag within this <object> one.");
       }
-      objectLine = 0;
+      object = null;
     }
   }
 

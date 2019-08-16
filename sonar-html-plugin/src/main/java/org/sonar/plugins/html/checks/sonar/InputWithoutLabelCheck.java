@@ -39,7 +39,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   private static final Set<String> EXCLUDED_TYPES = new HashSet<>(Arrays.asList("SUBMIT", "BUTTON", "IMAGE", "HIDDEN"));
 
   private final Set<String> labelFor = new HashSet<>();
-  private final Map<String, Integer> inputIdToLine = new HashMap<>();
+  private final Map<String, TagNode> inputIdToNode = new HashMap<>();
   private Deque<TagNode> elementStack;
   private Set<String> ids;
   private Map<TagNode, Set<String>> expectedIds;
@@ -47,7 +47,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     labelFor.clear();
-    inputIdToLine.clear();
+    inputIdToNode.clear();
     elementStack = new ArrayDeque<>();
     ids = new HashSet<>();
     expectedIds = new HashMap<>();
@@ -72,9 +72,9 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
       String id = getNodeId(node);
 
       if (id == null) {
-        createViolation(node.getStartLinePosition(), "Add an \"id\" attribute to this input field and associate it with a label.");
+        createViolation(node, "Add an \"id\" attribute to this input field and associate it with a label.");
       } else {
-        inputIdToLine.put(id, node.getStartLinePosition());
+        inputIdToNode.put(id, node);
       }
     } else if (isLabel(node) && node.getAttribute("for") != null) {
       labelFor.add(node.getAttribute("for"));
@@ -126,7 +126,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
-    for (Map.Entry<String, Integer> entry : inputIdToLine.entrySet()) {
+    for (Map.Entry<String, TagNode> entry : inputIdToNode.entrySet()) {
       if (!labelFor.contains(entry.getKey())) {
         createViolation(entry.getValue(), "Associate a valid label to this input field.");
       }
@@ -134,7 +134,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     expectedIds.forEach((node, expected) -> {
       if (!ids.containsAll(expected)) {
         String missingIds = expected.stream().filter(id -> !ids.contains(id)).map(s -> "\"" + s + "\"").collect(Collectors.joining(","));
-        createViolation(node.getStartLinePosition(), "Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: " + missingIds + ".");
+        createViolation(node, "Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: " + missingIds + ".");
       }
     });
   }

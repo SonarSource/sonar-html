@@ -48,7 +48,7 @@ public class ParentElementIllegalCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     if (element.equalsElementName(child) && element.getParent() != null && element.getParent().equalsElementName(parent)) {
-      createViolation(element.getStartLinePosition(), "The element '" + child + "' must not have a '" + parent + "' parent.");
+      createViolation(element, "The element '" + child + "' must not have a '" + parent + "' parent.");
     }
   }
 

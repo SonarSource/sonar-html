@@ -57,7 +57,7 @@ public class AbsoluteURICheck extends AbstractPageCheck {
     for (Attribute a : getMatchingAttributes(element, attributesArray)) {
       if (matcher.reset(a.getValue()).matches()) {
         createViolation(
-          element.getStartLinePosition(), "Replace this absolute URI \"" + a.getName() + "\" with a relative one, or move this absolute URI to a configuration file.");
+          element, "Replace this absolute URI \"" + a.getName() + "\" with a relative one, or move this absolute URI to a configuration file.");
       }
     }
   }

@@ -36,10 +36,10 @@ public class FlashUsesBothObjectAndEmbedCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FlashUsesBothObjectAndEmbedCheck.html"), new FlashUsesBothObjectAndEmbedCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add an <embed> tag within this <object> one.")
+        .next().atLocation(1, 0, 1, 86).withMessage("Add an <embed> tag within this <object> one.")
         .next().atLine(5)
         .next().atLine(9)
-        .next().atLine(25).withMessage("Surround this <embed> tag by an <object> one.")
+        .next().atLocation(25, 0, 28, 67).withMessage("Surround this <embed> tag by an <object> one.")
         .next().atLine(30)
         .next().atLine(54);
   }

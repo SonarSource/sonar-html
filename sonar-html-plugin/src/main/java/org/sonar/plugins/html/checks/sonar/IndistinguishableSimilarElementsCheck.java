@@ -73,7 +73,7 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
   private void raiseViolationOnMissingAriaLabel(List<TagNode> nodes) {
     if (nodes.size() > 1) {
       nodes.stream().filter(node -> !hasAriaLabel(node)).forEach(node ->
-        createViolation(node.getStartLinePosition(), "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element."));
+        createViolation(node, "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element."));
     }
   }
 
@@ -83,7 +83,7 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
       List<TagNode> labeless = matches.stream().filter(match -> !hasAriaLabel(match)).collect(Collectors.toList());
       if (labeless.size() > 1 || matches.size() > 1) {
         for (TagNode node : labeless) {
-          createViolation(node.getStartLinePosition(), "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.");
+          createViolation(node, "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.");
         }
       }
     }

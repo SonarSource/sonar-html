@@ -36,7 +36,7 @@ public class MouseEventWithoutKeyboardEquivalentCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.html"), new MouseEventWithoutKeyboardEquivalentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add a 'onFocus' attribute to this <A> tag.")
+        .next().atLocation(1, 0, 1, 32).withMessage("Add a 'onFocus' attribute to this <A> tag.")
         .next().atLine(2).withMessage("Add a 'onBlur' attribute to this <a> tag.")
         .next().atLine(14).withMessage("Add a 'onFocus' attribute to this <a> tag.")
         .next().atLine(15)

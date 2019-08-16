@@ -27,7 +27,7 @@ public class LinkToNothingCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isATag(node) && hasHrefToNothing(node)) {
-      createViolation(node.getStartLinePosition(), "Give this link a valid reference or remove the reference.");
+      createViolation(node, "Give this link a valid reference or remove the reference.");
     }
   }
 

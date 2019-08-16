@@ -35,7 +35,7 @@ public class TableHeaderReferenceCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableHeaderReferenceCheck.html"), new TableHeaderReferenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(35).withMessage("id \"bar\" in \"headers\" does not reference any <th> header.")
+        .next().atLocation(35, 4, 35, 22).withMessage("id \"bar\" in \"headers\" does not reference any <th> header.")
         .next().atLine(56).withMessage("id \"bar\" in \"headers\" does not reference any <th> header.")
         .next().atLine(78).withMessage("id \"oof\" in \"headers\" does not reference any <th> header.")
         .next().atLine(89).withMessage("id \"bar\" in \"headers\" reference the header of another column/row.")

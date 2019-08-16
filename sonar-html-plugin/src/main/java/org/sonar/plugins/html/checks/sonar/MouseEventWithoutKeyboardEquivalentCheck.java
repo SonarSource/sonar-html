@@ -42,7 +42,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       }
 
       if (attribute != null) {
-        createViolation(node.getStartLinePosition(), "Add a '" + attribute + "' attribute to this <" + node.getNodeName() + "> tag.");
+        createViolation(node, "Add a '" + attribute + "' attribute to this <" + node.getNodeName() + "> tag.");
       }
     }
   }

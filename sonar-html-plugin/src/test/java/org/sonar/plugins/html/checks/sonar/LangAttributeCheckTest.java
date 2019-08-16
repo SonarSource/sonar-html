@@ -35,6 +35,6 @@ public class LangAttributeCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheck.html"), new LangAttributeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+        .next().atLocation(1, 0, 1, 6).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
   }
 }

@@ -34,16 +34,16 @@ public class InputWithoutLabelCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InputWithoutLabelCheck.html"), new InputWithoutLabelCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(6).withMessage("Associate a valid label to this input field.")
+      .next().atLocation(6, 0, 6, 31).withMessage("Associate a valid label to this input field.")
       .next().atLine(19)
-      .next().atLine(23).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
+      .next().atLocation(23, 0, 23, 19).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
       .next().atLine(25).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
       .next().atLine(26).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
       .next().atLine(28).withMessage("Associate a valid label to this input field.")
       .next().atLine(32)
       .next().atLine(43)
       .next().atLine(56)
-      .next().atLine(59).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missing\",\"missing2\".");
+      .next().atLocation(59, 0, 59, 72).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missing\",\"missing2\".");
   }
 
 }

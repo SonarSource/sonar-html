@@ -27,7 +27,7 @@ public class MetaRefreshCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isMetaRefreshTag(node)) {
-      createViolation(node.getStartLinePosition(), "Remove this meta refresh tag.");
+      createViolation(node, "Remove this meta refresh tag.");
     }
   }
 
