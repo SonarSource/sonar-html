@@ -1,9 +1,10 @@
 {
   "title": "\"<th>\" tags should have \"id\" or \"scope\" attributes",
-  "type": "CODE_SMELL",
+  "type": "BUG",
   "status": "ready",
   "tags": [
-    "accessibility"
+    "accessibility",
+    "wcag2-a"
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1102",

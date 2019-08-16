@@ -19,13 +19,14 @@
     "S4645",
     "S5148",
     "S5254",
-    "S5256",
-    "S5258",
-    "S5264",
     "S5255",
+    "S5256",
     "S5257",
+    "S5258",
     "S5260",
+    "S5264",
     "ServerSideImageMapsCheck",
+    "TableHeaderHasIdOrScopeCheck",
     "TableWithoutCaptionCheck",
     "UnsupportedTagsInHtml5Check"
   ]
