@@ -56,10 +56,12 @@ public class TagNode extends Node {
     String angularProperty = "[" + propertyName + "]";
     String vueProperty = "v-bind:" + propertyName;
     String vueShorthandProperty = ":" + propertyName;
+    String vueSquaredShorthandProperty = ":[" + propertyName + "]";
     for (Attribute a : attributes) {
       String attributeName = a.getName();
       if (propertyName.equalsIgnoreCase(attributeName) || angularProperty.equalsIgnoreCase(attributeName)
-          || vueProperty.equalsIgnoreCase(attributeName) || vueShorthandProperty.equalsIgnoreCase(attributeName)) {
+          || vueProperty.equalsIgnoreCase(attributeName) || vueShorthandProperty.equalsIgnoreCase(attributeName)
+          || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
         return a;
       }
     }
