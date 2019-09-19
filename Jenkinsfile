@@ -1,7 +1,9 @@
-@Library('SonarSource@2.1.2') _
+@Library('SonarSource@2.2') _
 
 pipeline {
-  agent none
+  agent {
+    label 'linux'
+  }
   parameters {
     string(name: 'GIT_SHA1', description: 'Git SHA1 (provided by travisci hook job)')
     string(name: 'CI_BUILD_NAME', defaultValue: 'cix-pipelines', description: 'Build Name (provided by travisci hook job)')
@@ -11,9 +13,7 @@ pipeline {
   }
   environment {
     SONARSOURCE_QA = 'true'
-    MAVEN_TOOL = 'Maven 3.5.x'
-    // To simulate the build phase
-    ARTIFACTORY_DEPLOY_REPO = "sonarsource-public-qa"
+    MAVEN_TOOL = 'Maven 3.6.x'
     JDK_VERSION = 'Java 11'
   }
   stages {
@@ -29,7 +29,7 @@ pipeline {
             label 'linux || shortbuilds'
           }
           steps {
-            runPlugin "LATEST_RELEASE[7.9]"
+            runITs("plugin","LATEST_RELEASE[7.9]")
           }
         }
         stage('LATEST_RELEASE') {
@@ -37,13 +37,15 @@ pipeline {
             label 'linux || shortbuilds'
           }
           steps {
-            runPlugin "LATEST_RELEASE"
-            withQAEnv {
-              dir('its/ruling') {
-                sh 'git submodule update --init --recursive'
-                sh "mvn -Dsonar.runtimeVersion=\"LATEST_RELEASE\" -Dmaven.test.redirectTestOutputToFile=false test"
-              }
-            }
+            runITs("plugin","LATEST_RELEASE")
+          }          
+        }
+        stage('RULING/LATEST_RELEASE') {
+          agent {
+            label 'linux || shortbuilds'
+          }
+          steps {
+            runITs("ruling","LATEST_RELEASE")            
           }
         }
         stage('DOGFOOD') {
@@ -51,7 +53,7 @@ pipeline {
             label 'linux || shortbuilds'
           }
           steps {
-            runPlugin "DOGFOOD"
+            runITs("plugin","DOGFOOD")
           }
         }
       }
@@ -74,22 +76,12 @@ pipeline {
   }
 }
 
-def withQAEnv(def body) {
-  withCredentials([string(credentialsId: 'ARTIFACTORY_PRIVATE_API_KEY', variable: 'ARTIFACTORY_API_KEY')]) {
-    def jdk = tool name: 'Java 11', type: 'jdk'
-    withEnv(["JAVA_HOME=${jdk}"]) {
-      withMaven(maven: env.MAVEN_TOOL) {
-        body.call()
-      }
-    }
-  }
-}
-
-def runPlugin(String sqRuntimeVersion) {
-  withQAEnv {
+def runITs(TEST, SQ_VERSION) {
+  withMaven(maven: MAVEN_TOOL) {
     mavenSetBuildVersion()
-    dir('its/plugin') {
-      sh "mvn -B -e -V  -Dsonar.runtimeVersion=\"${sqRuntimeVersion}\" -Dmaven.test.redirectTestOutputToFile=false -Dorchestrator.artifactory.apiKey=${env.ARTIFACTORY_API_KEY} -Dorchestrator.configUrl=${env.ARTIFACTORY_URL}/orchestrator.properties/orch-h2.properties  test"
+    gitFetchSubmodules()
+    dir("its/$TEST") {
+      runMavenOrch(JDK_VERSION, "test -Dsonar.runtimeVersion=$SQ_VERSION", "-Dmaven.test.redirectTestOutputToFile=false")
     }
   }
 }
