@@ -131,6 +131,6 @@ promote_task:
   script:
     - source cirrus-env PROMOTE
     - source set_maven_build_version $BUILD_NUMBER
-    - curl --fail -s -H "Authorization: Bearer $GCF_ACCESS_TOKEN" "$PROMOTE_URL/$GITHUB_REPO/$GITHUB_BRANCH/$BUILD_NUMBER/$PULL_REQUEST"
+    - curl -sfSL -H "Authorization: Bearer $GCF_ACCESS_TOKEN" "$PROMOTE_URL/$GITHUB_REPO/$GITHUB_BRANCH/$BUILD_NUMBER/$PULL_REQUEST"
     - burgr-notify-promotion
 
