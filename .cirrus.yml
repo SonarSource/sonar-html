@@ -64,7 +64,8 @@ build_win_task:
     #windows cache is buggy if using ${CIRRUS_WORKING_DIR}
     folder: ~/.m2/repository
   build_script:
-    - mvn.cmd test
+    - source cirrus-env CI
+    - mvn test
   cleanup_before_cache_script: cleanup_maven_repository
  
 plugin_qa_task:
