@@ -117,8 +117,8 @@ public class WebRulingTest {
 
     // activate the rule
     sonarClient.post("api/qualityprofiles/activate_rule",
-      "profile_key", profileKey,
-      "rule_key", REPOSITORY_KEY + ":" + instantiationKey,
+      "key", profileKey,
+      "rule", REPOSITORY_KEY + ":" + instantiationKey,
       "severity", "INFO",
       "params", "");
   }
