@@ -31,9 +31,10 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.sonarqube.ws.Components;
 import org.sonarqube.ws.Measures;
 import org.sonarqube.ws.client.HttpConnector;
+import org.sonarqube.ws.client.HttpException;
 import org.sonarqube.ws.client.WsClient;
 import org.sonarqube.ws.client.WsClientFactories;
-import org.sonarqube.ws.client.components.SearchRequest;
+import org.sonarqube.ws.client.components.ShowRequest;
 import org.sonarqube.ws.client.measures.ComponentRequest;
 
 import static java.util.Collections.singletonList;
@@ -93,16 +94,24 @@ public class HtmlTestSuite {
     return (measure == null) ? null : Double.parseDouble(measure.getValue());
   }
 
-
+  /**
+   * Since SQ 8.4, it is not possible anymore to use "search" API to get a component when knowing its key.
+   * As a workaround, this method tries to "show" a component. If it is not found (404), it returns null.
+   * Any other unexpected issue when querying the web API will be thrown.
+   */
   @CheckForNull
   static Components.Component searchComponent(Orchestrator orchestrator, String componentKey) {
-    // FIL - file
-    SearchRequest searchRequest = new SearchRequest().setQ(componentKey).setQualifiers(singletonList("FIL"));
-    List<Components.Component> components = newWsClient(orchestrator).components()
-      .search(searchRequest)
-      .getComponentsList();
-
-    return components.size() == 1 ? components.get(0) : null;
+    ShowRequest showRequest = new ShowRequest().setComponent(componentKey);
+    try {
+      return newWsClient(orchestrator).components().show(showRequest).getComponent();
+    } catch (HttpException e) {
+      // has not been able to find the component
+      if (e.code() == 404) {
+        return null;
+      }
+      // any other unexpected event
+      throw e;
+    }
   }
 
   static WsClient newWsClient(Orchestrator orchestrator) {
