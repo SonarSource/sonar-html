@@ -22,6 +22,7 @@ import java.io.File;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.sonar.plugins.html.checks.CheckMessagesVerifier;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -32,23 +33,24 @@ public class DeprecatedAttributesInHtml5CheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test() throws Exception {
+  public void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/deprecatedAttributesInHtml5.html"), new DeprecatedAttributesInHtml5Check());
 
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLocation(3, 2, 3, 209).withMessage("Remove this deprecated \"CHARSET\" attribute.")
-      .next().atLine(3).withMessage("Remove this deprecated \"COORDS\" attribute.")
-      .next().atLine(3).withMessage("Remove this deprecated \"NAME\" attribute.")
-      .next().atLine(3).withMessage("Remove this deprecated \"SHAPE\" attribute.")
-      .next().atLine(6).withMessage("Remove this deprecated \"bordercolor\" attribute.")
-      .next().atLine(15).withMessage("Remove this deprecated \"code\" attribute.")
-      .next().atLine(18).withMessage("Remove this deprecated \"border\" attribute.")
-      .next().atLine(20).withMessage("Remove this deprecated \"name\" attribute.")
-      .next().atLine(22).withMessage("Remove this deprecated \"name\" attribute.")
-      .next().atLine(25).withMessage("Remove this deprecated \"align\" attribute.")
-      .next().atLine(27).withMessage("Remove this deprecated \"language\" attribute.")
-      .next().atLine(32).withMessage("Remove this deprecated \"[border]\" attribute.")
-      .next().atLine(33).withMessage("Remove this deprecated \"[datafld]\" attribute.");
+    this.checkMessagesVerifier.verify(sourceCode.getIssues())
+            .next().atLocation(3, 2, 3, 209).withMessage("Remove this deprecated \"CHARSET\" attribute.")
+            .next().atLine(3).withMessage("Remove this deprecated \"COORDS\" attribute.")
+            .next().atLine(3).withMessage("Remove this deprecated \"NAME\" attribute.")
+            .next().atLine(3).withMessage("Remove this deprecated \"SHAPE\" attribute.")
+            .next().atLine(6).withMessage("Remove this deprecated \"bordercolor\" attribute.")
+            .next().atLine(15).withMessage("Remove this deprecated \"code\" attribute.")
+            .next().atLine(18).withMessage("Remove this deprecated \"border\" attribute.")
+            .next().atLine(20).withMessage("Remove this deprecated \"name\" attribute.")
+            .next().atLine(22).withMessage("Remove this deprecated \"name\" attribute.")
+            .next().atLine(25).withMessage("Remove this deprecated \"align\" attribute.")
+            .next().atLine(27).withMessage("Remove this deprecated \"language\" attribute.")
+            .next().atLine(32).withMessage("Remove this deprecated \"[border]\" attribute.")
+            .next().atLine(33).withMessage("Remove this deprecated \"[datafld]\" attribute.")
+            .next().atLine(35).withMessage("Remove this deprecated \"[attr.datafld]\" attribute.");
   }
 
 }
