@@ -20,6 +20,7 @@ package org.sonar.web.it;
 import com.google.gson.Gson;
 import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.http.HttpMethod;
 import com.sonar.orchestrator.locator.FileLocation;
 import com.sonar.orchestrator.locator.MavenLocation;
 import java.io.File;
@@ -33,7 +34,6 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonar.wsclient.SonarClient;
 import org.sonarsource.analyzer.commons.ProfileGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -87,24 +87,29 @@ public class WebRulingTest {
   }
 
   private static void instantiateTemplateRule(String ruleTemplateKey, String instantiationKey, String params) {
-    SonarClient sonarClient = orchestrator.getServer().adminWsClient();
-
-    // create the template rule
-    sonarClient.post("/api/rules/create",
-      "name", instantiationKey,
-      "markdown_description", instantiationKey,
-      "severity", "INFO",
-      "status", "READY",
-      "template_key", REPOSITORY_KEY + ":" + ruleTemplateKey,
-      "custom_key", instantiationKey,
-      "prevent_reactivation", "true",
-      "params", "name=\"" + instantiationKey + "\";key=\"" + instantiationKey + "\";markdown_description=\"" + instantiationKey + "\";" + params
-      );
+    orchestrator.getServer()
+      .newHttpCall("/api/rules/create")
+      .setAdminCredentials()
+      .setMethod(HttpMethod.POST)
+      .setParams(
+        "name", instantiationKey,
+        "markdown_description", instantiationKey,
+        "severity", "INFO",
+        "status", "READY",
+        "template_key", REPOSITORY_KEY + ":" + ruleTemplateKey,
+        "custom_key", instantiationKey,
+        "prevent_reactivation", "true",
+        "params", "name=\"" + instantiationKey + "\";key=\"" + instantiationKey + "\";markdown_description=\"" + instantiationKey + "\";" + params)
+      .execute();
 
     // check that the rule has been created
-    String post = sonarClient.get("api/qualityprofiles/search");
+    String get = orchestrator.getServer()
+      .newHttpCall("api/qualityprofiles/search")
+      .execute()
+      .getBodyAsString();
+
     String profileKey = null;
-    Map map = GSON.fromJson(post, Map.class);
+    Map map = GSON.fromJson(get, Map.class);
     for (Map qp : ((List<Map>) map.get("profiles"))) {
       if ("rules".equals(qp.get("name"))) {
         profileKey = (String) qp.get("key");
@@ -116,11 +121,16 @@ public class WebRulingTest {
     }
 
     // activate the rule
-    sonarClient.post("api/qualityprofiles/activate_rule",
-      "key", profileKey,
-      "rule", REPOSITORY_KEY + ":" + instantiationKey,
-      "severity", "INFO",
-      "params", "");
+    orchestrator.getServer()
+      .newHttpCall("api/qualityprofiles/activate_rule")
+      .setAdminCredentials()
+      .setMethod(HttpMethod.POST)
+      .setParams(
+        "key", profileKey,
+        "rule", REPOSITORY_KEY + ":" + instantiationKey,
+        "severity", "INFO",
+        "params", "")
+      .execute();
   }
 
 }
