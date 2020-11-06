@@ -39,7 +39,7 @@ public class AbsoluteURICheck extends AbstractPageCheck {
   private Matcher matcher = Pattern.compile("[A-Za-z0-9]*://.*").matcher("");
 
   @RuleProperty(
-    key = "Comma-separated list of tag.attributes to be checked for absolute URI. ",
+    key = "attributes",
     description = "Comma-separated list of tag.attributes to be checked for absolute URI.",
     defaultValue = DEFAULT_ATTRIBUTES,
     type = "TEXT")
