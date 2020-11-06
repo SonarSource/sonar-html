@@ -1,5 +1,6 @@
 # sonar-runner
 .sonar/
+.scannerwork/
 
 # ---- Maven
 target/
