@@ -45,10 +45,18 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
     if (node.isHtml()) {
       String comment = node.getCode();
 
-      if (!comment.startsWith("<!--[if") && !StringUtils.containsIgnoreCase(comment, "copyright") && CODE_RECOGNIZER.isLineOfCode(comment)) {
+      if (!isIgnored(comment) && CODE_RECOGNIZER.isLineOfCode(comment)) {
         createViolation(node.getStartLinePosition(), "Remove this commented out code.");
       }
     }
+  }
+
+  private static boolean isIgnored(String comment) {
+    return StringUtils.containsIgnoreCase(comment, "copyright")
+      // Conditional comments
+      || comment.startsWith("<!--[if")
+      // Server Side Includes
+      || comment.startsWith("<!--#");
   }
 
 }

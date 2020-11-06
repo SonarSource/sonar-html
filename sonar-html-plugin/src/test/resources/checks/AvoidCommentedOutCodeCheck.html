@@ -14,6 +14,23 @@
 <foo>...</foo><bar>...</bar>
 <![endif]-->
 
+<!-- Following comments are compliant, they are used for Server Side Includes-->
+<!--#include virtual="somefile.html" -->
+
+<!--#if expr="${Sec_Nav}" -->
+<!--#include virtual="secondary_nav.txt" -->
+<!--#elif expr="${Pri_Nav}" -->
+<!--#include virtual="primary_nav.txt" -->
+<!--#else -->
+<!--#include virtual="article.txt" -->
+<!--#endif -->
+
+<!--#set var="foo" value="bar" -->
+
+<!--#printenv -->
+
+<!--#hashtag this comment is looking like a SSI, this is a FN -->
+
 <!--
     Copyright (C) 2000 - 2012 Silverpeas
 
