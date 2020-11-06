@@ -1,4 +1,4 @@
-SonarQube HTML Plugin
+Code Quality and Security for HTML
 ====================
 
 [![Build Status](https://api.travis-ci.org/SonarSource/sonar-html.svg)](https://travis-ci.org/SonarSource/sonar-html)
