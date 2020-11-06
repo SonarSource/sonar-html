@@ -38,7 +38,8 @@ public class InlineStyleCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/inlineStyleCheck.html"), new InlineStyleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLocation(1, 6, 1, 13).withMessage("Use CSS classes instead.");
+      .next().atLocation(6, 4, 6, 29).withMessage("Use CSS classes instead.")
+      .next().atLocation(7, 4, 7, 42).withMessage("Use CSS classes instead.");
   }
 
 }
