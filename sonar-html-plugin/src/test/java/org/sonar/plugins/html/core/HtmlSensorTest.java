@@ -105,7 +105,7 @@ public class HtmlSensorTest {
     assertThat(tester.highlightingTypeAt(componentKey, 29, 17)).containsOnly(TypeOfText.STRING);
     assertThat(tester.highlightingTypeAt(componentKey, 29, 0)).containsOnly(TypeOfText.KEYWORD);
 
-    assertThat(tester.allIssues()).hasSize(95);
+    assertThat(tester.allIssues()).hasSize(106);
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 

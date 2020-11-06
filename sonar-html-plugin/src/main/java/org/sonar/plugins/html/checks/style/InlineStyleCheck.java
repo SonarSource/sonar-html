@@ -33,8 +33,7 @@ public class InlineStyleCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-
-    if ("style".equalsIgnoreCase(element.getNodeName())) {
+    if (element.hasProperty("style")) {
       createViolation(element, "Use CSS classes instead.");
     }
   }
