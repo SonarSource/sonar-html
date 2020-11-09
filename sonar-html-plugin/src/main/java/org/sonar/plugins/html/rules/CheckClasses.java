@@ -41,6 +41,7 @@ import org.sonar.plugins.html.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.html.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.html.checks.scripting.NestedJavaScriptCheck;
 import org.sonar.plugins.html.checks.scripting.UnifiedExpressionCheck;
+import org.sonar.plugins.html.checks.security.ResourceIntegrityCheck;
 import org.sonar.plugins.html.checks.sonar.AbsoluteURICheck;
 import org.sonar.plugins.html.checks.sonar.BoldAndItalicTagsCheck;
 import org.sonar.plugins.html.checks.sonar.DeprecatedAttributesInHtml5Check;
@@ -150,7 +151,8 @@ public final class CheckClasses {
     LangAttributeCheck.class,
     ObjectWithAlternativeContentCheck.class,
     IndistinguishableSimilarElementsCheck.class,
-    TableHeaderReferenceCheck.class
+    TableHeaderReferenceCheck.class,
+    ResourceIntegrityCheck.class
   );
 
   private CheckClasses() {

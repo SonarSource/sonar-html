@@ -25,6 +25,7 @@
     "S5258",
     "S5260",
     "S5264",
+    "S5725",
     "ServerSideImageMapsCheck",
     "TableHeaderHasIdOrScopeCheck",
     "TableWithoutCaptionCheck",
