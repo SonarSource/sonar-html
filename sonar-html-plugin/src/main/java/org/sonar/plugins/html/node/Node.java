@@ -34,7 +34,7 @@ public abstract class Node {
   private int startColumnPosition;
   private int startLinePosition;
 
-  public Node(NodeType nodeType) {
+  protected Node(NodeType nodeType) {
     this.nodeType = nodeType;
   }
 

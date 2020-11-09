@@ -68,7 +68,7 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 
   private final char[] startChars;
 
-  public AbstractTokenizer(String startChars, String endChars) {
+  protected AbstractTokenizer(String startChars, String endChars) {
     this.startChars = startChars.toCharArray();
     this.endChars = endChars.toCharArray();
   }
