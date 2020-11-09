@@ -1,0 +1,15 @@
+<script src="https://cdnexample.com/script.js"></script> <!-- Sensitive -->
+<script src="//cdnexample.com/script.js"></script> <!-- Sensitive -->
+<script src="http://cdnexample.com/script.js"></script> <!-- Sensitive -->
+<script type="module" src="https://cdnexample.com/script.js"></script> <!-- Sensitive -->
+
+<!-- compliant, integrity correctly set -->
+<script src="https://cdnexample.com/script.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+</script>
+
+<script src="text/javascript.js"></script> <!-- compliant , not external-->
+
+<script></script> <!-- compliant , no source-->
+
+<img alt="foo" src="https://cdnexample.com/myImage.js" /> <!-- compliant , not a script-->
+<img src="https://cdnexample.com/myImage.png" /> <!-- compliant , not a script-->
