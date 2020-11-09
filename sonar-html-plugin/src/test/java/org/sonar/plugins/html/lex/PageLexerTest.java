@@ -32,9 +32,7 @@ import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Matthijs Galesloot
@@ -48,13 +46,13 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
 
-    assertTrue(nodeList.size() > 50);
+    assertThat(nodeList.size()).isGreaterThan(50);
 
     // check tagnodes
     for (Node node : nodeList) {
       if (node instanceof TagNode) {
-        assertTrue(node.getCode().startsWith("<"));
-        assertTrue(node.getCode().endsWith(">"));
+        assertThat(node.getCode()).startsWith("<");
+        assertThat(node.getCode()).endsWith(">");
       }
     }
 
@@ -67,9 +65,11 @@ public class PageLexerTest {
 
         if (!tagNode.isEndElement()) {
           if (tagNode.equalsElementName("define")) {
-            assertTrue("Tag should have children: " + tagNode.getCode(), tagNode.getChildren().size() > 0);
+            assertThat(tagNode.getChildren())
+              .as("Tag should have children: " + tagNode.getCode())
+              .isNotEmpty();
           } else if (tagNode.equalsElementName("outputText")) {
-            assertThat(tagNode.getChildren().size()).isEqualTo(0);
+            assertThat(tagNode.getChildren()).isEmpty();
           }
         }
       }
@@ -83,7 +83,7 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
 
-    assertTrue(nodeList.size() > 50);
+    assertThat(nodeList.size()).isGreaterThan(50);
 
     // TODO - better parsing of erb.
   }
@@ -132,11 +132,10 @@ public class PageLexerTest {
     List<Node> nodeList = new ArrayList<>();
     CodeReader codeReader = new CodeReader(directive);
     tokenizer.consume(codeReader, nodeList);
-    assertEquals(nodeList.size(), 1);
+    assertThat(nodeList).hasSize(1);
     Node node = nodeList.get(0);
-    assertEquals(node.getClass(), DirectiveNode.class);
-    DirectiveNode directiveNode = (DirectiveNode) node;
-    assertEquals(4, directiveNode.getAttributes().size());
+    assertThat(node).isInstanceOf(DirectiveNode.class);
+    assertThat(((DirectiveNode) node).getAttributes()).hasSize(4);
   }
 
   @Test
@@ -148,13 +147,13 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(3, nodeList.size());
-    assertTrue(nodeList.get(0) instanceof TagNode);
-    assertTrue(nodeList.get(1) instanceof TextNode);
-    assertTrue(nodeList.get(2) instanceof TagNode);
+    assertThat(nodeList).hasSize(3);
+    assertThat(nodeList.get(0)).isInstanceOf(TagNode.class);
+    assertThat(nodeList.get(1)).isInstanceOfAny(TextNode.class);
+    assertThat(nodeList.get(2)).isInstanceOf(TagNode.class);
 
     TagNode tagNode = (TagNode) nodeList.get(0);
-    assertEquals(4, tagNode.getAttributes().size());
+    assertThat(tagNode.getAttributes()).hasSize(4);
 
     // the embedded tags are added as attributes
     assertThat(tagNode.getAttributes().get(1).getValue()).isEmpty();
@@ -169,15 +168,16 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(1, nodeList.size());
+    assertThat(nodeList).hasSize(1);
 
     TagNode tagNode = (TagNode) nodeList.get(0);
-    assertEquals(2, tagNode.getAttributes().size());
+    assertThat(tagNode.getAttributes()).hasSize(2);
 
     // the embedded tags are added as attributes
-    assertEquals(tagNode.getAttributes().get(0).getName(), "value");
-    assertEquals(tagNode.getAttributes().get(0).getValue(), "<%= key -%>");
-    assertEquals(tagNode.getAttributes().get(1).getName(), "<%= 'selected' if alert.operator==key -%>");
+    assertThat(tagNode.getAttributes().get(0).getName()).isEqualTo("value");
+    assertThat(tagNode.getAttributes().get(0).getValue()).isEqualTo("<%= key -%>");
+
+    assertThat(tagNode.getAttributes().get(1).getName()).isEqualTo("<%= 'selected' if alert.operator==key -%>");
     assertThat(tagNode.getAttributes().get(1).getValue()).isEmpty();
   }
 
@@ -189,13 +189,13 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(3, nodeList.size());
-    assertTrue(nodeList.get(0) instanceof TagNode);
-    assertTrue(nodeList.get(1) instanceof TextNode);
-    assertTrue(nodeList.get(2) instanceof TagNode);
+    assertThat(nodeList).hasSize(3);
+    assertThat(nodeList.get(0)).isInstanceOf(TagNode.class);
+    assertThat(nodeList.get(1)).isInstanceOf(TextNode.class);
+    assertThat(nodeList.get(2)).isInstanceOf(TagNode.class);
 
     TagNode tagNode = (TagNode) nodeList.get(0);
-    assertEquals(1, tagNode.getAttributes().size());
+    assertThat(tagNode.getAttributes()).hasSize(1);
   }
 
   @Test
@@ -215,9 +215,9 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(1, nodeList.size());
+    assertThat(nodeList).hasSize(1);
     TagNode tagNode = (TagNode) nodeList.get(0);
-    assertEquals(1, tagNode.getAttributes().size());
+    assertThat(tagNode.getAttributes()).hasSize(1);
   }
 
   @Test
@@ -228,9 +228,9 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(1, nodeList.size());
+    assertThat(nodeList).hasSize(1);
     TagNode tagNode = (TagNode) nodeList.get(0);
-    assertEquals(1, tagNode.getAttributes().size());
+    assertThat(tagNode.getAttributes()).hasSize(1);
   }
 
   @Test
@@ -238,14 +238,14 @@ public class PageLexerTest {
     String fileName = "src/test/resources/lexer/javascript-nestedtags.jsp";
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
-    assertEquals(12, nodeList.size());
+    assertThat(nodeList).hasSize(12);
 
     // check script node
     Node node = nodeList.get(2);
-    assertTrue(node instanceof TagNode);
+    assertThat(node).isInstanceOf(TagNode.class);
     TagNode scriptNode = (TagNode) node;
-    assertEquals("script", scriptNode.getNodeName());
-    assertEquals(0, scriptNode.getChildren().size());
+    assertThat(scriptNode.getNodeName()).isEqualTo("script");
+    assertThat(scriptNode.getChildren()).isEmpty();
   }
 
   @Test
@@ -253,7 +253,7 @@ public class PageLexerTest {
     String fileName = "src/test/resources/lexer/script-with-comments.jsp";
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
-    assertEquals(3, nodeList.size());
+    assertThat(nodeList).hasSize(3);
   }
 
   @Test
@@ -264,8 +264,8 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(4, nodeList.size());
-    assertTrue(nodeList.get(0) instanceof CommentNode);
+    assertThat(nodeList).hasSize(4);
+    assertThat(nodeList.get(0)).isInstanceOf(CommentNode.class);
   }
 
   @Test
@@ -276,11 +276,11 @@ public class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(4, nodeList.size());
-    assertTrue(nodeList.get(0) instanceof CommentNode);
-    assertTrue(nodeList.get(1) instanceof TagNode);
-    assertTrue(nodeList.get(2) instanceof TextNode);
-    assertTrue(nodeList.get(3) instanceof TagNode);
+    assertThat(nodeList).hasSize(4);
+    assertThat(nodeList.get(0)).isInstanceOf(CommentNode.class);
+    assertThat(nodeList.get(1)).isInstanceOf(TagNode.class);
+    assertThat(nodeList.get(2)).isInstanceOf(TextNode.class);
+    assertThat(nodeList.get(3)).isInstanceOf(TagNode.class);
   }
 
   @Test
@@ -289,38 +289,38 @@ public class PageLexerTest {
     final PageLexer lexer = new PageLexer();
     final List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(1, nodeList.size());
-    assertTrue(nodeList.get(0) instanceof TagNode);
+    assertThat(nodeList).hasSize(1);
+    assertThat(nodeList.get(0)).isInstanceOf(TagNode.class);
     final TagNode node = (TagNode) nodeList.get(0);
-    assertEquals(4, node.getAttributes().size());
+    assertThat(node.getAttributes()).hasSize(4);
 
     final Attribute attribute = node.getAttributes().get(0);
-    assertEquals("src", attribute.getName());
-    assertEquals("http://foo/sfds?sjg", attribute.getValue());
+    assertThat(attribute.getName()).isEqualTo("src");
+    assertThat(attribute.getValue()).isEqualTo("http://foo/sfds?sjg");
 
     final Attribute attributeA = node.getAttributes().get(1);
-    assertEquals("a", attributeA.getName());
-    assertEquals("1", attributeA.getValue());
+    assertThat(attributeA.getName()).isEqualTo("a");
+    assertThat(attributeA.getValue()).isEqualTo("1");
 
     final Attribute attributeB = node.getAttributes().get(2);
-    assertEquals("b", attributeB.getName());
-    assertEquals("2", attributeB.getValue());
+    assertThat(attributeB.getName()).isEqualTo("b");
+    assertThat(attributeB.getValue()).isEqualTo("2");
 
     final Attribute attributeC = node.getAttributes().get(3);
-    assertEquals("c", attributeC.getName());
-    assertEquals("3", attributeC.getValue());
+    assertThat(attributeC.getName()).isEqualTo("c");
+    assertThat(attributeC.getValue()).isEqualTo("3");
   }
 
   @Test
   public void attribute_value_starting_with_quote() {
     StringReader reader = new StringReader("<img src=\"'a'\"/>");
     List<Node> nodeList = new PageLexer().parse(reader);
-    assertEquals(1, nodeList.size());
-    assertTrue(nodeList.get(0) instanceof TagNode);
+    assertThat(nodeList).hasSize(1);
+    assertThat(nodeList.get(0)).isInstanceOf(TagNode.class);
     TagNode node = (TagNode) nodeList.get(0);
     Attribute attribute = node.getAttributes().get(0);
-    assertEquals("src", attribute.getName());
-    assertEquals("'a'", attribute.getValue());
+    assertThat(attribute.getName()).isEqualTo("src");
+    assertThat(attribute.getValue()).isEqualTo("'a'");
   }
 
   @Test
@@ -487,7 +487,9 @@ public class PageLexerTest {
   private static void assertOnlyText(String code) {
     StringReader reader = new StringReader(code);
     List<Node> nodeList = new PageLexer().parse(reader);
-    assertTrue(nodeList.stream().allMatch(node -> node.getNodeType() == NodeType.TEXT));
+    assertThat(nodeList)
+      .isNotEmpty()
+      .allMatch(node -> node.getNodeType() == NodeType.TEXT);
   }
 
   @Test
@@ -508,7 +510,7 @@ public class PageLexerTest {
   private void assertSingleTag(String code) {
     StringReader reader = new StringReader(code);
     List<Node> nodeList = new PageLexer().parse(reader);
-    assertEquals(1, nodeList.size());
-    assertTrue(nodeList.get(0) instanceof TagNode);
+    assertThat(nodeList).hasSize(1);
+    assertThat(nodeList.get(0)).isInstanceOf(TagNode.class);
   }
 }

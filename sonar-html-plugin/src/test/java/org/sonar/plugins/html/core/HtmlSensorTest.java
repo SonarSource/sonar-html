@@ -50,7 +50,7 @@ import org.sonar.api.utils.Version;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class HtmlRulesDefinitionTest {
 
@@ -46,13 +46,15 @@ public class HtmlRulesDefinitionTest {
       .filter(RulesDefinition.Rule::template)
       .map(RulesDefinition.Rule::key)
       .collect(Collectors.toSet());
-    assertThat(templateRules).hasSize(6);
-    assertThat(templateRules).containsOnly("IllegalAttributeCheck",
-      "LibraryDependencyCheck",
-      "ChildElementIllegalCheck",
-      "ChildElementRequiredCheck",
-      "ParentElementIllegalCheck",
-      "ParentElementRequiredCheck");
+    assertThat(templateRules)
+      .hasSize(6)
+      .containsExactlyInAnyOrder(
+        "IllegalAttributeCheck",
+        "LibraryDependencyCheck",
+        "ChildElementIllegalCheck",
+        "ChildElementRequiredCheck",
+        "ParentElementIllegalCheck",
+        "ParentElementRequiredCheck");
 
     for (RulesDefinition.Rule rule : repository.rules()) {
       for (RulesDefinition.Param param : rule.params()) {

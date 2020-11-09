@@ -17,14 +17,13 @@
  */
 package org.sonar.plugins.html.lex;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.StringReader;
 import java.util.List;
 
 import org.junit.Test;
 import org.sonar.plugins.html.node.Node;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class VueLexerTest {
 
@@ -36,7 +35,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertTrue(nodeList.isEmpty());
+    assertThat(nodeList).isEmpty();
   }
 
   @Test
@@ -47,7 +46,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertTrue(nodeList.isEmpty());
+    assertThat(nodeList).isEmpty();
   }
 
   @Test
@@ -58,7 +57,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertTrue(nodeList.isEmpty());
+    assertThat(nodeList).isEmpty();
   }
 
   @Test
@@ -69,7 +68,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertTrue(nodeList.isEmpty());
+    assertThat(nodeList).isEmpty();
   }
 
   @Test
@@ -91,7 +90,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(15, nodeList.size());
+    assertThat(nodeList).hasSize(15);
   }
 
   @Test
@@ -102,7 +101,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(3, nodeList.size());
+    assertThat(nodeList).hasSize(3);
   }
 
   @Test
@@ -113,7 +112,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(6, nodeList.size());
+    assertThat(nodeList).hasSize(6);
   }
 
   @Test
@@ -124,7 +123,7 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertEquals(2, nodeList.size());
+    assertThat(nodeList).hasSize(2);
   }
 
   @Test
@@ -135,6 +134,6 @@ public class VueLexerTest {
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
 
-    assertTrue(nodeList.isEmpty());
+    assertThat(nodeList).isEmpty();
   }
 }

@@ -35,7 +35,7 @@ import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.visitor.HtmlAstScanner;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PageCountLinesTest {
 
