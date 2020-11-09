@@ -122,7 +122,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     if (deprecatedAttributes != null) {
       List<Attribute> attributes = element.getAttributes();
       for (Attribute attribute : attributes) {
-        if (isDeprecated(element, deprecatedAttributes, getOriginalAttributeName(attribute.getName()), attribute.getValue().toLowerCase())) {
+        if (isDeprecated(element, deprecatedAttributes, getOriginalAttributeName(attribute.getName()), attribute.getValue().toLowerCase(Locale.ROOT))) {
           createViolation(element, "Remove this deprecated \"" + attribute.getName() + "\" attribute.");
         }
       }

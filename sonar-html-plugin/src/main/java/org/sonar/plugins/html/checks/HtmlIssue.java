@@ -35,7 +35,7 @@ public class HtmlIssue {
     this.cost = null;
   }
 
-  public HtmlIssue(RuleKey ruleKey, Integer line, String message, double cost) {
+  public HtmlIssue(RuleKey ruleKey, @Nullable Integer line, String message, double cost) {
     if (cost <= 0) {
       throw new IllegalArgumentException("Cost cannot be <= 0");
     }
