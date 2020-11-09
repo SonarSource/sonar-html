@@ -66,10 +66,6 @@ public class HtmlTestSuite {
     return Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE");
   }
 
-  public static boolean sonarqubeGreaterThan75() {
-    return orchestrator.getServer().version().isGreaterThanOrEquals(7, 6);
-  }
-
   public static SonarScanner createSonarScanner() {
     return SonarScanner.create();
   }

@@ -27,13 +27,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
-import org.sonar.api.batch.rule.internal.ActiveRulesBuilder;
 import org.sonar.api.batch.rule.internal.DefaultActiveRules;
 import org.sonar.api.batch.rule.internal.NewActiveRule;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
@@ -70,7 +70,7 @@ public class HtmlSensorTest {
 
     List<NewActiveRule> ar = new ArrayList<>();
     for (RulesDefinition.Rule rule : repository.rules()) {
-      ar.add(new ActiveRulesBuilder().create(RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, rule.key())));
+      ar.add(new NewActiveRule.Builder().setRuleKey(RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, rule.key())).build());
     }
     ActiveRules activeRules = new DefaultActiveRules(ar);
 
@@ -157,7 +157,7 @@ public class HtmlSensorTest {
 
   @Test
   public void php_file_should_not_have_metrics() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER));
+    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "foo.php")
       .setModuleBaseDir(TEST_DIR).setContents("<html>\n" +
         "<?php  ?>\n" +
@@ -177,7 +177,7 @@ public class HtmlSensorTest {
   public void vue_file_should_be_analyzed() throws Exception {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.vue");
     tester.fileSystem().add(inputFile);
-    
+
     sensor.execute(tester);
 
     String componentKey = inputFile.key();

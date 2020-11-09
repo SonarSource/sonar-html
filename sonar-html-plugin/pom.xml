@@ -31,7 +31,7 @@
   </scm>
 
   <properties>
-    <sonar.version>6.7</sonar.version>
+    <sonar.version>7.9</sonar.version>
     <sonar.pluginName>HTML Code Quality and Security</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.html.HtmlPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
