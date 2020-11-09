@@ -21,13 +21,12 @@ import com.sonar.orchestrator.locator.FileLocation;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
@@ -36,6 +35,7 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.sonarsource.sonarlint.core.StandaloneSonarLintEngineImpl;
+import org.sonarsource.sonarlint.core.client.api.common.Language;
 import org.sonarsource.sonarlint.core.client.api.common.analysis.ClientInputFile;
 import org.sonarsource.sonarlint.core.client.api.common.analysis.Issue;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneAnalysisConfiguration;
@@ -59,9 +59,8 @@ public class SonarLintTest {
     StandaloneGlobalConfiguration sonarLintConfig = StandaloneGlobalConfiguration.builder()
       .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar").getFile().toURI().toURL())
       .setSonarLintUserHome(temp.newFolder().toPath())
-      .setLogOutput((formattedMessage, level) -> {
-        System.out.println(formattedMessage);
-        /* Don't pollute logs */ })
+      .addEnabledLanguage(Language.HTML)
+      .setLogOutput((formattedMessage, level) -> { /* Don't pollute logs */ })
       .build();
     sonarlintEngine = new StandaloneSonarLintEngineImpl(sonarLintConfig);
     baseDir = temp.newFolder();
@@ -83,9 +82,11 @@ public class SonarLintTest {
       false);
 
     List<Issue> issues = new ArrayList<>();
-    sonarlintEngine.analyze(
-      new StandaloneAnalysisConfiguration(baseDir.toPath(), temp.newFolder().toPath(), Collections.singletonList(inputFile), new HashMap<>()),
-      issues::add, (s, level) -> System.out.println(s), null);
+    StandaloneAnalysisConfiguration config = StandaloneAnalysisConfiguration.builder()
+       .setBaseDir(baseDir.toPath())
+       .addInputFile(inputFile)
+       .build();
+    sonarlintEngine.analyze(config, issues::add, (s, level) -> System.out.println(s), null);
 
     assertThat(issues).extracting("ruleKey", "startLine", "inputFile.path", "severity").containsOnly(
       tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), "MAJOR"),
@@ -136,6 +137,11 @@ public class SonarLintTest {
       @Override
       public String relativePath() {
         return path.toString();
+      }
+
+      @Override
+      public URI uri() {
+        return path.toUri();
       }
     };
   }

@@ -17,7 +17,9 @@
  */
 package org.sonar.plugins.html.visitor;
 
+import java.io.Reader;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -29,8 +31,8 @@ import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.node.Node;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -39,23 +41,25 @@ import static org.mockito.Mockito.verify;
  * @author Matthijs Galesloot
  */
 public class NoSonarScannerTest {
+  private static final String CONTENT = "<table>\n<!-- //NOSONAR --><td>\n</table>";
 
   @Test
-  public void scanNoSonar() {
-    List<Node> nodeList = new PageLexer().parse(new StringReader("<table>\n<!-- //NOSONAR --><td>\n</table>"));
-    HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", "dummy.jsp").build());
-
+  public void scanNoSonar() throws Exception {
+    List<Node> nodeList;
+    try (Reader reader = new StringReader(CONTENT)) {
+      nodeList = new PageLexer().parse(reader);
+    }
+    InputFile inputFile = new TestInputFileBuilder("key", "dummy.jsp")
+      .setContents(CONTENT)
+      .setCharset(StandardCharsets.UTF_8)
+      .build();
     NoSonarFilter noSonarFilter = spy(new NoSonarFilter());
     HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.emptyList());
     pageScanner.addVisitor(new NoSonarScanner(noSonarFilter));
 
-    pageScanner.scan(nodeList, htmlSourceCode);
+    pageScanner.scan(nodeList, new HtmlSourceCode(inputFile));
 
-    verify(noSonarFilter, times(1)).noSonarInFile(any(InputFile.class), isOnlyIgnoringLine2());
-  }
-
-  private Set<Integer> isOnlyIgnoringLine2() {
-    return argThat(new IsOnlyIgnoringLine2());
+    verify(noSonarFilter, times(1)).noSonarInFile(eq(inputFile), argThat(new IsOnlyIgnoringLine2()));
   }
 
   private static class IsOnlyIgnoringLine2 implements ArgumentMatcher<Set<Integer>> {

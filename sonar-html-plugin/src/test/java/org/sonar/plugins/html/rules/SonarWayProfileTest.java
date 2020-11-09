@@ -19,6 +19,7 @@ package org.sonar.plugins.html.rules;
 
 import org.fest.assertions.Assertions;
 import org.junit.Test;
+import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.internal.SonarRuntimeImpl;
@@ -31,7 +32,7 @@ public class SonarWayProfileTest {
 
   @Test
   public void test() {
-    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(7, 3), SonarQubeSide.SERVER);
+    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY);
     SonarWayProfile definition = new SonarWayProfile(sonarRuntime);
     Context context = new Context();
     definition.define(context);

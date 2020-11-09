@@ -19,6 +19,7 @@ package org.sonar.plugins.html;
 
 import org.junit.Test;
 import org.sonar.api.Plugin;
+import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
@@ -32,7 +33,7 @@ public class HtmlPluginTest {
 
   @Test
   public void webPluginTester() {
-    Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.SERVER));
+    Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
 
     new HtmlPlugin().define(context);
     assertThat(context.getExtensions()).hasSize(8);

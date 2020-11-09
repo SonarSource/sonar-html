@@ -22,7 +22,8 @@
     <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
-    <sonarlint.version>3.8.0.1826</sonarlint.version>
+    <sonarlint.version>4.14.1.22545</sonarlint.version>
+    <sonar.version>7.9</sonar.version>
   </properties>
 
   <dependencies>
@@ -46,7 +47,7 @@
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-ws</artifactId>
-      <version>7.7</version>
+      <version>${sonar.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
