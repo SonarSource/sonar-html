@@ -22,7 +22,6 @@ import java.io.File;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.sonar.plugins.html.checks.CheckMessagesVerifier;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;

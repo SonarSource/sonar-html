@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.sonar.api.config.internal.MapSettings;
 import org.sonar.plugins.html.api.HtmlConstants;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class JspTest {
 
