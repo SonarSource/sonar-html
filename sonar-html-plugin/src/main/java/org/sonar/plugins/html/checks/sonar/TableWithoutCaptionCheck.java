@@ -38,7 +38,7 @@ public class TableWithoutCaptionCheck extends AbstractPageCheck {
   }
 
   private static boolean hasDescription(TagNode node) {
-    return hasSummary(node) || hasAriaDescribedBy(node) || hasCaption(node) || isEmbeddedInFigureWithCaption(node.getParent());
+    return hasSummary(node) || hasAriaDescription(node) || hasCaption(node) || isEmbeddedInFigureWithCaption(node.getParent());
   }
 
   private static boolean isTable(TagNode node) {
@@ -80,8 +80,10 @@ public class TableWithoutCaptionCheck extends AbstractPageCheck {
     return node.hasProperty("SUMMARY");
   }
 
-  private static boolean hasAriaDescribedBy(TagNode node) {
-    return node.hasProperty("ARIA-DESCRIBEDBY");
+  private static boolean hasAriaDescription(TagNode node) {
+    return node.hasProperty("ARIA-LABEL")
+      || node.hasProperty("ARIA-LABELLEDBY")
+      || node.hasProperty("ARIA-DESCRIBEDBY");
   }
 
   private static boolean hasCaption(TagNode node) {
