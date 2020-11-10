@@ -35,7 +35,7 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
     String comment = node.getCode();
 
     if (isServerSidePage && node.isHtml() && !comment.startsWith("<!--[if")) {
-      createViolation(node.getStartLinePosition(), "Remove this comment or change its style so that it is not output to the client.");
+      createViolation(node.getStartLinePosition(), "Make sure that the HTML comment does not contain sensitive information.");
     }
   }
 

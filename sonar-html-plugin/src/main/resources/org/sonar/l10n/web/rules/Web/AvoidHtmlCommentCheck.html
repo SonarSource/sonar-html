@@ -6,18 +6,25 @@ has) inadvertently expose:</p>
   <li> Full, server-side path names </li>
   <li> Sensitive user data </li>
 </ul>
-<p>Because every other language has its own native comment format, there is no justification for using HTML-style comments in anything other than a
-pure HTML or XML file.</p>
-<h2>Noncompliant Code Example</h2>
+<p>Every other language has its own native comment format, thus there is no justification for using HTML-style comments in anything other than a pure
+HTML or XML file.</p>
+<h2>Ask Yourself Whether</h2>
+<ul>
+  <li> The comment contains sensitive information. </li>
+  <li> The comment can be removed. </li>
+</ul>
+<h2>Recommended Secure Coding Practices</h2>
+<p>It is recommended to remove the comment or change its style so that it is not output to the client.</p>
+<h2>Sensitive Code Example</h2>
 <pre>
   &lt;%
-      out.write("&lt;!-- ${username} --&gt;");  // Noncompliant
+      out.write("&lt;!-- ${username} --&gt;");  // Sensitive
   %&gt;
-      &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Noncompliant
-      &lt;!-- #{userPhone} --&gt;  // Noncompliant
-      &lt;!-- ${userAddress} --&gt; // Noncompliant
+      &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Sensitive
+      &lt;!-- #{userPhone} --&gt;  // Sensitive
+      &lt;!-- ${userAddress} --&gt; // Sensitive
 
-      &lt;!-- Replace 'world' with name --&gt; // Noncompliant
+      &lt;!-- Replace 'world' with name --&gt; // Sensitive
       &lt;h2&gt;Hello world!&lt;/h2&gt;
 </pre>
 <h2>Compliant Solution</h2>

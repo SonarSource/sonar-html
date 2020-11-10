@@ -1,6 +1,6 @@
 {
-  "title": "HTML comments should not be used",
-  "type": "VULNERABILITY",
+  "title": "Using HTML comments is security-sensitive",
+  "type": "SECURITY_HOTSPOT",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
