@@ -35,7 +35,7 @@ public class AvoidHtmlCommentCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(2).withMessage("Remove this comment or change its style so that it is not output to the client.")
+        .next().atLine(2).withMessage("Make sure that the HTML comment does not contain sensitive information.")
         .next().atLine(4);
   }
 
@@ -44,7 +44,7 @@ public class AvoidHtmlCommentCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.php"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(6).withMessage("Remove this comment or change its style so that it is not output to the client.");
+      .next().atLine(6).withMessage("Make sure that the HTML comment does not contain sensitive information.");
   }
 
   @Test
@@ -52,7 +52,7 @@ public class AvoidHtmlCommentCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.html.erb"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(6).withMessage("Remove this comment or change its style so that it is not output to the client.");
+      .next().atLine(6).withMessage("Make sure that the HTML comment does not contain sensitive information.");
   }
 
   @Test
