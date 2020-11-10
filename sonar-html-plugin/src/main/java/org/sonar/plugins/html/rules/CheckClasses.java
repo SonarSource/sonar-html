@@ -87,7 +87,7 @@ import org.sonar.plugins.html.checks.whitespace.WhiteSpaceAroundCheck;
 
 public final class CheckClasses {
 
-  private static final List<Class> CLASSES = Arrays.asList(
+  private static final List<Class<?>> CLASSES = Arrays.asList(
     AbsoluteURICheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
@@ -161,8 +161,7 @@ public final class CheckClasses {
   /**
    * Gets the list of XML checks.
    */
-  @SuppressWarnings("rawtypes")
-  public static List<Class> getCheckClasses() {
+  public static List<Class<?>> getCheckClasses() {
     return CLASSES;
   }
 

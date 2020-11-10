@@ -19,21 +19,15 @@ package org.sonar.plugins.html.rules;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.sonar.api.SonarEdition;
-import org.sonar.api.SonarQubeSide;
-import org.sonar.api.SonarRuntime;
-import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInQualityProfile;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
-import org.sonar.api.utils.Version;
 import org.sonar.plugins.html.api.HtmlConstants;
 
 public class SonarWayProfileTest {
 
   @Test
   public void test() {
-    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY);
-    SonarWayProfile definition = new SonarWayProfile(sonarRuntime);
+    SonarWayProfile definition = new SonarWayProfile();
     Context context = new Context();
     definition.define(context);
     BuiltInQualityProfile profile = context.profile("web", "Sonar way");

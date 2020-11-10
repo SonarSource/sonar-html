@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.rules;
 
-import org.sonar.api.SonarRuntime;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonarsource.analyzer.commons.BuiltInQualityProfileJsonLoader;
@@ -33,16 +32,10 @@ public final class SonarWayProfile implements BuiltInQualityProfilesDefinition {
   private static final String NAME = "Sonar way";
   public static final String JSON_PROFILE_PATH = RESOURCE_BASE_PATH + "/Sonar_way_profile.json";
 
-  private final SonarRuntime sonarRuntime;
-
-  public SonarWayProfile(SonarRuntime sonarRuntime) {
-    this.sonarRuntime = sonarRuntime;
-  }
-
   @Override
   public void define(Context context) {
     NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(NAME, HtmlConstants.LANGUAGE_KEY);
-    BuiltInQualityProfileJsonLoader.load(profile, REPOSITORY_KEY, JSON_PROFILE_PATH, RESOURCE_BASE_PATH, sonarRuntime);
+    BuiltInQualityProfileJsonLoader.load(profile, REPOSITORY_KEY, JSON_PROFILE_PATH);
     profile.done();
   }
 
