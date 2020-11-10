@@ -1,0 +1,47 @@
+@model List<Namespace.Model> <!-- Compliant -->
+
+<p>@GenericMethod<int>()</p> <!-- Compliant -->
+
+<p>@(GenericMethod<int>())</p> <!-- Compliant -->
+
+@{
+    GenericMethod<int>() <!-- Compliant -->
+}
+
+@{GenericMethod<int>()
+GenericMethod<int>()}
+
+@for (var i = 0; i < people.Length; i++)
+{
+    GenericMethod<int>() <!-- Compliant -->
+}
+
+@functions {
+    GenericMethod<int>() <!-- Compliant -->
+}
+
+@functions {GenericMethod<int>()
+GenericMethod<int>()}
+<p>
+@DateTime.Now</p> <!-- Compliant, end tags are still taken into consideration -->
+
+<p>@DateTime.Now <!-- Compliant -->
+
+<bar> <!-- Compliant ...-->
+
+@Html.Raw("<\bar>")
+
+@if (value % 2 == 0)
+{
+    GenericMethod<int>() <!-- Compliant -->
+}
+else if (value >= 1337)
+{
+    GenericMethod<int>() <!-- Compliant -->
+}
+else
+{
+    GenericMethod<int>() <!-- Compliant -->
+}
+
+<foo>

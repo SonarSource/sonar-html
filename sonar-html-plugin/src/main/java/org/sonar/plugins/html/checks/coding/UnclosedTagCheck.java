@@ -43,8 +43,18 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   private List<String> ignoreTagsList;
   private final List<TagNode> nodes = new ArrayList<>();
 
+  private boolean skipFile = false;
+
   @Override
   public void startDocument(List<Node> nodes) {
+    skipFile = false;
+    if (getHtmlSourceCode().inputFile().filename().endsWith(".cshtml")) {
+      // This rule is performing poorly in presence of Razor syntax (https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-3.1)
+      // present in cshtml files, we skip this file for this rule.
+      skipFile = true;
+      return;
+    }
+
     if(ignoreTagsList == null) {
       ignoreTagsList = Arrays.asList(StringUtils.split(ignoreTags, ','));
     }
@@ -53,6 +63,9 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @Override
   public void endElement(TagNode element) {
+    if (skipFile) {
+      return;
+    }
     if (isNotIgnoreTag(element) && !nodes.isEmpty()) {
       TagNode previousNode = nodes.remove(0);
       if (!previousNode.getNodeName().equals(element.getNodeName())) {
@@ -76,6 +89,9 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
+    if (skipFile) {
+      return;
+    }
     if (isNotIgnoreTag(element)) {
       nodes.add(0, element);
     }
@@ -83,6 +99,9 @@ public class UnclosedTagCheck extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
+    if (skipFile) {
+      return;
+    }
     for (TagNode node : nodes) {
       createViolation(node, "The tag \"" + node.getNodeName() + "\" has no corresponding closing tag.");
     }
