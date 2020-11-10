@@ -21,12 +21,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.Test;
-import org.sonar.api.SonarEdition;
-import org.sonar.api.SonarQubeSide;
-import org.sonar.api.internal.SonarRuntimeImpl;
-import org.sonar.api.rules.RuleType;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,7 +29,7 @@ public class HtmlRulesDefinitionTest {
 
   @Test
   public void test() {
-    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER));
+    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("Web");
@@ -46,10 +41,6 @@ public class HtmlRulesDefinitionTest {
     RulesDefinition.Rule alertUseRule = repository.rule("IllegalAttributeCheck");
     assertThat(alertUseRule).isNotNull();
     assertThat(alertUseRule.name()).isEqualTo("Track uses of disallowed attributes");
-
-    RulesDefinition.Rule hotspotsRule = repository.rule("S5725");
-    assertThat(hotspotsRule).isNotNull();
-    assertThat(hotspotsRule.type()).isEqualTo(RuleType.SECURITY_HOTSPOT);
 
     Set<String> templateRules = repository.rules().stream()
       .filter(RulesDefinition.Rule::template)

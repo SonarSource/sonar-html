@@ -19,14 +19,10 @@ package org.sonar.plugins.html.rules;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.sonar.api.SonarEdition;
-import org.sonar.api.SonarQubeSide;
-import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.server.rule.RulesDefinition;
 
 import java.io.File;
 import java.util.List;
-import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -64,7 +60,7 @@ public class CheckClassesTest {
         .isNotNull();
     }
 
-    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER));
+    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("Web");

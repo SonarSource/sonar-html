@@ -63,7 +63,7 @@ public class HtmlSensorTest {
 
   @Before
   public void setUp() throws Exception {
-    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SCANNER, SonarEdition.DEVELOPER));
+    HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository(HtmlRulesDefinition.REPOSITORY_KEY);
