@@ -48,7 +48,7 @@ public final class HtmlPlugin implements Plugin {
       Jsp.class,
 
       // web rules repository
-      HtmlRulesDefinition.class,
+      new HtmlRulesDefinition(context.getRuntime()),
 
       // profiles
       SonarWayProfile.class,

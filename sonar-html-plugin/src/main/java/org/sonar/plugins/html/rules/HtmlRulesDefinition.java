@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.sonar.api.SonarRuntime;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonarsource.analyzer.commons.RuleMetadataLoader;
@@ -40,13 +41,19 @@ public final class HtmlRulesDefinition implements RulesDefinition {
 
   public static final String RESOURCE_BASE_PATH = "org/sonar/l10n/web/rules/Web";
 
+  private final SonarRuntime sonarRuntime;
+
+  public HtmlRulesDefinition(SonarRuntime sonarRuntime) {
+    this.sonarRuntime = sonarRuntime;
+  }
+
   @Override
   public void define(Context context) {
     NewRepository repository = context
       .createRepository(REPOSITORY_KEY, HtmlConstants.LANGUAGE_KEY)
       .setName(REPOSITORY_NAME);
 
-    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, SonarWayProfile.JSON_PROFILE_PATH);
+    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH, SonarWayProfile.JSON_PROFILE_PATH, sonarRuntime);
 
     ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckClasses.getCheckClasses());
 
