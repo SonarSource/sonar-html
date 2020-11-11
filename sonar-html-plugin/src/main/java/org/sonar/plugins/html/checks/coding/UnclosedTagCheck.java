@@ -48,7 +48,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     skipFile = false;
-    if (getHtmlSourceCode().inputFile().filename().endsWith(".cshtml")) {
+    if (isCshtmlFile()) {
       // This rule is performing poorly in presence of Razor syntax (https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-3.1)
       // present in cshtml files, we skip this file for this rule.
       skipFile = true;
@@ -105,6 +105,10 @@ public class UnclosedTagCheck extends AbstractPageCheck {
     for (TagNode node : nodes) {
       createViolation(node, "The tag \"" + node.getNodeName() + "\" has no corresponding closing tag.");
     }
+  }
+
+  private boolean isCshtmlFile() {
+    return getHtmlSourceCode().inputFile().filename().endsWith(".cshtml");
   }
 
 }
