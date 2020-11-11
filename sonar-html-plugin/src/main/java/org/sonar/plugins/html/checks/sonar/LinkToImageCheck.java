@@ -50,7 +50,7 @@ public class LinkToImageCheck extends AbstractPageCheck {
 
   private static boolean isPointingToAnImage(String target) {
     final String upperTarget = target.toUpperCase(Locale.ENGLISH);
-    return IMG_SUFFIXES.stream().anyMatch(input -> input != null && upperTarget.endsWith(input));
+    return !upperTarget.contains("?") && IMG_SUFFIXES.stream().anyMatch(input -> input != null && upperTarget.endsWith(input));
   }
 
 }
