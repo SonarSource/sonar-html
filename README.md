@@ -35,7 +35,7 @@ By default, Integration Tests (ITs) are skipped during build. If you want to run
     git submodule init 
     git submodule update
 
-Integration tests consist of Plugin tests and Ruling tests. To run them both you need to activate its profile:
+Integration tests consist of Plugin tests and Ruling tests. To run them both you need to activate its profile (Make sure you've built the project and plugin .jar is up-to-date before running its, otherwise you might receive outdated results):
 
     mvn verify -Pits
 
