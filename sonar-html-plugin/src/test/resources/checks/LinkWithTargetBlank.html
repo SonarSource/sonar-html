@@ -1,20 +1,22 @@
-<a href="http://dangerouswebsite.com" target="_blank">     <!-- Noncompliant; "window.opener" will be not null on the new tab/window and can be changed by http://dangerouswebsite.com -->
-<a href="https://dangerouswebsite.com" target="_blank">     <!-- Noncompliant; "window.opener" will be not null on the new tab/window and can be changed by http://dangerouswebsite.com -->
-
-<a href="http://dangerouswebsite.com" target="_blank" rel="noopener">   <!-- Noncompliant; will not prevent the attack on old browsers -->
-
-<a href="{{variable}}" target="_blank" rel="noopener"> <!-- Noncompliant  -->
-<a href="{{variable}}" target="_blank" rel="noreferrer"> <!-- Noncompliant  -->
+<a href="http://dangerouswebsite.com" target="_blank">     <!-- Noncompliant; Make sure not using rel="noopener" is safe here. -->
+<a href="https://dangerouswebsite.com" target="_blank">     <!-- Noncompliant; Make sure not using rel="noopener" is safe here. -->
 
 <a href="http://dangerouswebsite.com" target="_blank" rel="noopener noreferrer"> <!-- Compliant -->
+<a href="http://dangerouswebsite.com" target="_blank" rel="noopener">   <!-- Compliant -->
 
+<a href="{{variable}}" target="_blank" rel="noreferrer"> <!-- Noncompliant; Make sure not using rel="noopener" is safe here.  -->
+<a href="{{variable}}" target="_blank" rel="noopener"> <!-- Compliant  -->
+<a href="{{variable}}" target="_blank"> <!-- Noncompliant  -->
+<a href="/{{variable}}" target="_blank"> <!-- Compliant  -->
+<a href="./{{variable}}" target="_blank"> <!-- Compliant  -->
+<a href="../{{variable}}" target="_blank"> <!-- Compliant  -->
+    
 <a href="internal.html" target="_blank" > <!-- Compliant -->
-
 <a href="http://[dynamic]" target="_blank" > <!-- Compliant -->
 
 <a target="_parent"></a> <!-- Compliant -->
 <a target="_blank"></a> <!-- Compliant -->
 <a target="_blank" href=""></a> <!-- Compliant -->
-<a ></a> <!-- Compliant -->
+<a ></a> <!-- Compliant -->    
 
 <foo/>

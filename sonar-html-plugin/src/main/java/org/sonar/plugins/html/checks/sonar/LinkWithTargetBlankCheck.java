@@ -32,25 +32,16 @@ public class LinkWithTargetBlankCheck extends AbstractPageCheck {
 
   private static final Pattern DYNAMIC_URL = Pattern.compile("[{}$()\\[\\]]");
   private static final String NOOPENER = "NOOPENER";
-  private static final String NOREFERRER = "NOREFERRER";
 
   @Override
   public void startElement(TagNode node) {
-    if (isAnchorWithTargetBlank(node)
-      && ((isExternalAndNotDynamicUrl(node) && missingRelAttribute(node)) || incompleteRelAttribute(node))) {
-      createViolation(node, "Add rel=\"noopener noreferrer\" to this link to prevent the original page from being modified by the opened link.");
+    if (isAnchorWithTargetBlank(node) && isInsecureUrl(node) && missingRelAttribute(node)) {
+      createViolation(node, "Make sure not using rel=\"noopener\" is safe here.");
     }
   }
 
-  private static boolean incompleteRelAttribute(TagNode node) {
-    List<String> relValue = relAttributeValues(node);
-    return (relValue.contains(NOOPENER) && !relValue.contains(NOREFERRER))
-      || (!relValue.contains(NOOPENER) && relValue.contains(NOREFERRER));
-  }
-
   private static boolean missingRelAttribute(TagNode node) {
-    List<String> relValue = relAttributeValues(node);
-    return !relValue.contains(NOOPENER) || !relValue.contains(NOREFERRER);
+    return !relAttributeValues(node).contains(NOOPENER);
   }
 
   private static List<String> relAttributeValues(TagNode node) {
@@ -67,10 +58,25 @@ public class LinkWithTargetBlankCheck extends AbstractPageCheck {
     return node.equalsElementName("A") && "_BLANK".equalsIgnoreCase(node.getPropertyValue("TARGET"));
   }
 
-  private static boolean isExternalAndNotDynamicUrl(TagNode node) {
+  private static boolean isInsecureUrl(TagNode node) {
     String href = node.getPropertyValue("HREF");
-    return href != null
-      && (href.startsWith("http://") || href.startsWith("https://"))
-      && !DYNAMIC_URL.matcher(href).find();
+    if (href == null) {
+      return false;
+    }
+    boolean external = isExternalUrl(href);
+    boolean dynamic = isDynamic(href);
+    return (external && !dynamic) || (!external && dynamic && !isRelativelUrl(href));
+  }
+
+  private static boolean isDynamic(String href) {
+    return DYNAMIC_URL.matcher(href).find();
+  }
+
+  private static boolean isExternalUrl(String href) {
+    return href.startsWith("http://") || href.startsWith("https://");
+  }
+
+  private static boolean isRelativelUrl(String href) {
+    return href.startsWith("/") || href.startsWith(".");
   }
 }

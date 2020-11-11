@@ -1,6 +1,6 @@
 {
-  "title": "Links with \"target=_blank\" should prevent phishing attacks",
-  "type": "VULNERABILITY",
+  "title": "Links with \"target=_blank\" are security-sensitive",
+  "type": "SECURITY_HOTSPOT",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
@@ -9,7 +9,7 @@
   "tags": [
     "phishing"
   ],
-  "defaultSeverity": "Blocker",
+  "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-5148",
   "sqKey": "S5148",
   "scope": "All"
