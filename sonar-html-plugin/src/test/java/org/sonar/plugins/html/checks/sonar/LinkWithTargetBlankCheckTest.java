@@ -34,7 +34,8 @@ public class LinkWithTargetBlankCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLocation(1, 0, 1, 54).withMessage("Make sure not using rel=\"noopener\" is safe here.")
       .next().atLine(2)
-      .next().atLine(7);
+      .next().atLine(7)
+      .next().atLine(9);
   }
 
 }

@@ -6,6 +6,10 @@
 
 <a href="{{variable}}" target="_blank" rel="noreferrer"> <!-- Noncompliant; Make sure not using rel="noopener" is safe here.  -->
 <a href="{{variable}}" target="_blank" rel="noopener"> <!-- Compliant  -->
+<a href="{{variable}}" target="_blank"> <!-- Noncompliant  -->
+<a href="/{{variable}}" target="_blank"> <!-- Compliant  -->
+<a href="./{{variable}}" target="_blank"> <!-- Compliant  -->
+<a href="../{{variable}}" target="_blank"> <!-- Compliant  -->
     
 <a href="internal.html" target="_blank" > <!-- Compliant -->
 <a href="http://[dynamic]" target="_blank" > <!-- Compliant -->

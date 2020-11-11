@@ -60,9 +60,12 @@ public class LinkWithTargetBlankCheck extends AbstractPageCheck {
 
   private static boolean isInsecureUrl(TagNode node) {
     String href = node.getPropertyValue("HREF");
-    return href != null
-      // XOR operator is used here
-      && (isExternalUrl(href) ^ isDynamic(href));
+    if (href == null) {
+      return false;
+    }
+    boolean external = isExternalUrl(href);
+    boolean dynamic = isDynamic(href);
+    return (external && !dynamic) || (!external && dynamic && !isRelativelUrl(href));
   }
 
   private static boolean isDynamic(String href) {
@@ -71,5 +74,9 @@ public class LinkWithTargetBlankCheck extends AbstractPageCheck {
 
   private static boolean isExternalUrl(String href) {
     return href.startsWith("http://") || href.startsWith("https://");
+  }
+
+  private static boolean isRelativelUrl(String href) {
+    return href.startsWith("/") || href.startsWith(".");
   }
 }
