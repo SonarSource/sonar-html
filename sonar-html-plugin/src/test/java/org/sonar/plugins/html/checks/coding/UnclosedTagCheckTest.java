@@ -36,7 +36,7 @@ public class UnclosedTagCheckTest {
     UnclosedTagCheck check = new UnclosedTagCheck();
     assertThat(check.ignoreTags).isEqualTo(
       "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM");
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLocation(10, 0, 10, 5).withMessage("The tag \"foo\" has no corresponding closing tag.")
@@ -48,7 +48,7 @@ public class UnclosedTagCheckTest {
     UnclosedTagCheck check = new UnclosedTagCheck();
     check.ignoreTags = "html,foo";
 
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck.html"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(4).withMessage("The tag \"li\" has no corresponding closing tag.")
@@ -64,6 +64,14 @@ public class UnclosedTagCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
 
     sourceCode = TestHelper.scan(new File("src/test/resources/checks/empty-file.html"), check);
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  public void cshtml_are_ignored_by_the_rule() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"), check);
+
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
