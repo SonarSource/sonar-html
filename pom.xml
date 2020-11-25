@@ -62,7 +62,7 @@
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
-    <orchestrator.version>3.31.0.2646</orchestrator.version>
+    <orchestrator.version>3.34.0.2692</orchestrator.version>
     <junit.version>4.12</junit.version>
     <sslr.version>1.22</sslr.version>
     <assertj.version>3.17.2</assertj.version>
