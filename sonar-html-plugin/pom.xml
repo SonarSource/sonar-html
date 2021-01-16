@@ -36,7 +36,6 @@
     <sonar.pluginClass>org.sonar.plugins.html.HtmlPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
     <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
-    <sslrSquidBridge.version>2.7.0.377</sslrSquidBridge.version>
   </properties>
 
   <dependencies>
@@ -116,12 +115,6 @@
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.sonarsource.sslr-squid-bridge</groupId>
-      <artifactId>sslr-squid-bridge</artifactId>
-      <version>${sslrSquidBridge.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
