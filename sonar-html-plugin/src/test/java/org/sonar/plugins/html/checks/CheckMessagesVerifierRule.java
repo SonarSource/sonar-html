@@ -35,8 +35,6 @@ import org.junit.rules.Verifier;
  *     .next().atLine(2);
  * }
  * </pre>
- *
- * @since sslr-squid-bridge 2.1
  */
 public class CheckMessagesVerifierRule extends Verifier {
 

@@ -37,7 +37,6 @@ import javax.annotation.Nullable;
  * which guarantees order of traversal.
  *
  * @see CheckMessagesVerifierRule
- * @since sslr-squid-bridge 2.1
  */
 public final class CheckMessagesVerifier {
 
