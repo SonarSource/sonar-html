@@ -17,12 +17,18 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "MouseEventWithoutKeyboardEquivalentCheck")
 public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck {
+
+  // Angular 2+ allows key names for the onKeydown pseudo-event to prevent checking the key name manually
+  // This pseudo-event also allows key combinations
+  // Key names are limited to 10 charters and the combination of keys is realistic limited to 5
+  private static final Pattern KEY_DOWN_WITH_KEY_NAME = Pattern.compile("\\(keydown(\\.\\w{1,10}){1,5}\\)");
 
   @Override
   public void startElement(TagNode node) {
@@ -60,7 +66,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean hasOnKeyDown(TagNode node) {
-    return hasEventHandlerAttribute(node, "KEYDOWN");
+    return hasEventHandlerAttribute(node, "KEYDOWN") || hasAngularKeyDownWithKeyName(node);
   }
 
   private static boolean hasOnKeyUp(TagNode node) {
@@ -114,5 +120,9 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   private static boolean isHyperlink(TagNode node) {
     return "A".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean hasAngularKeyDownWithKeyName(TagNode node) {
+    return node.getAttributes().stream().anyMatch(a -> KEY_DOWN_WITH_KEY_NAME.matcher(a.getName()).find());
   }
 }
