@@ -1,9 +1,9 @@
 {
   "rules-metadata-path": "./sonar-html-plugin/src/main/resources/org/sonar/l10n/web/rules/Web",
   "languages": [
-    "WEB"
+    "HTML"
   ],
-  "latest-update": "2020-11-11T13:14:50.219942Z",
+  "latest-update": "2021-04-21T11:09:42.247144Z",
   "options": {
     "no-language-in-filenames": true,
     "preserve-filenames": true
