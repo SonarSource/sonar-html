@@ -1,10 +1,11 @@
 <p>When a link opens a URL in a new tab with <code>target="_blank"</code>, it is very simple for the opened page to change the <code>location</code>
 of the original page because the JavaScript variable <code>window.opener</code> is not <code>null</code> and thus <code>window.opener.location</code>
 can be set by the opened page. This exposes the user to very simple phishing attacks.</p>
-<p>Imagine a link posted on a comment of a popular web site (say: <a href="http://petssocialnetwork.io/">http://petssocialnetwork.io/</a>) that opens
-a new tab that changes the URL of the original page to <a href="http://petssocialnetwork-pishing.io/">http://petssocialnetwork-pishing.io/</a>. On
-"http://petssocialnetwork-pishing.io/" you land at a fake login page similar to the one at "http://petssocialnetwork.io/" but controlled by the hacker
-and asking the user to log in again, pretending that the session just timed-out.</p>
+<p>Imagine a link posted on a comment of a popular web site (say: <a href="https://www.sonarsource.com/">http://petssocialnetwork.io</a>) that opens a
+new tab that changes the URL of the original page to <a href="https://www.sonarsource.com/">http://petssocialnetwork-pishing.io</a>. On "<a
+href="https://www.sonarsource.com/">http://petssocialnetwork-pishing.io</a>" you land at a fake login page similar to the one at "<a
+href="https://www.sonarsource.com/">http://petssocialnetwork.io</a>" but controlled by the hacker and asking the user to log in again, pretending that
+the session just timed-out.</p>
 <p>To prevent pages from abusing <code>window.opener</code>, use <code>rel=noopener</code> on <code>&lt;a href=&gt;</code> to force its value to be
 <code>null</code> on the opened pages.</p>
 <p>In Chrome 88+, Firefox 79+ or Safari 12.1+ <code>target=_blank</code> on anchors implies <code>rel=noopener</code> which make the protection
@@ -21,13 +22,13 @@ enabled by default.</p>
 </ul>
 <h2>Sensitive Code Example</h2>
 <pre>
-&lt;a href="http://dangerouswebsite.com" target="_blank"&gt; &lt;!-- Sensitive; "window.opener" may not null on the new tab/window and could be changed by http://dangerouswebsite.com --&gt;
+&lt;a href="http://petssocialnetwork.io" target="_blank"&gt; &lt;!-- Sensitive; "window.opener" may not null on the new tab/window and could be changed by http://petssocialnetwork.io --&gt;
 
 &lt;a href="{{variable}}" target="_blank"&gt; &lt;!-- Sensitive  --&gt;
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-&lt;a href="http://dangerouswebsite.com" target="_blank" rel="noopener"&gt; &lt;!-- Compliant --&gt;
+&lt;a href="http://petssocialnetwork.io" target="_blank" rel="noopener"&gt; &lt;!-- Compliant --&gt;
 </pre>
 <h2>Exceptions</h2>
 <p>No Issue will be raised when <code>href</code> contains a hardcoded relative url as there it has less chances of being vulnerable. An url is
