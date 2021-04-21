@@ -60,3 +60,12 @@
 <div onClick="doSomething();" onKeyPress="doSomething();" ...>  <!-- Compliant -->
 <div onClick="doSomething();" onKeyDown="doSomething();" ...>   <!-- Compliant -->
 <div onClick="doSomething();" onKeyUp="doSomething();" ...>     <!-- Compliant -->
+
+<!-- Angular 2+ keydown event with key name -->
+<div (click)="doSomething();" ></div>                                               <!-- Non-Compliant -->
+<div (click)="doSomething();" (keydown)="doSomething();"></div>                     <!-- Compliant -->
+<div (click)="doSomething();" (keydown.enter)="doSomething();"></div>               <!-- Compliant -->
+<div (click)="doSomething();" (keydown.enter,shift)="doSomething();"></div>         <!-- Non-Compliant -->
+<div (click)="doSomething();" (keydown.shift.control.z)="doSomething();"></div>     <!-- Compliant -->
+<div (click)="doSomething();" (keydown.undefinedkeyname)="doSomething();"></div>    <!-- Non-Compliant - too long key name -->
+<div (click)="doSomething();" (keydown.1.2.3.4.5.6)="doSomething();"></div>         <!-- Non-Compliant - unrealistic key combination -->
