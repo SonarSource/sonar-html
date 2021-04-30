@@ -11,7 +11,7 @@
 
   <groupId>org.sonarsource.html</groupId>
   <artifactId>html</artifactId>
-  <version>3.4.0-SNAPSHOT</version>
+  <version>3.5.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>SonarSource :: HTML</name>
@@ -57,6 +57,7 @@
   </issueManagement>
 
   <properties>
+    <revision>3.5-SNAPSHOT</revision>
     <license.name>AL2</license.name>
     <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
