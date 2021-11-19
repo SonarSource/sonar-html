@@ -54,7 +54,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean isException(TagNode node) {
-    return (isInput(node) || isButton(node) || isHyperlink(node)) && hasOnClick(node) && !hasButtonRole(node);
+    return isClickableLightningButton(node) || ((isInput(node) || isButton(node) || isHyperlink(node)) && hasOnClick(node) && !hasButtonRole(node));
   }
 
   private static boolean hasOnClick(TagNode node) {
@@ -120,6 +120,12 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   private static boolean isHyperlink(TagNode node) {
     return "A".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isClickableLightningButton(TagNode node) {
+    return "LIGHTNING-BUTTON".equalsIgnoreCase(node.getNodeName())
+      || "LIGHTNING-BUTTON-ICON".equalsIgnoreCase(node.getNodeName())
+      || "LIGHTNING-BUTTON-MENU".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean hasAngularKeyDownWithKeyName(TagNode node) {
