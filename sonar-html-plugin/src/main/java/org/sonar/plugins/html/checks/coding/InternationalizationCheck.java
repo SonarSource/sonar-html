@@ -57,7 +57,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
   public void characters(TextNode textNode) {
     String textNodeCode = textNode.getCode();
     if (isValidText(textNodeCode)) {
-      createViolation(textNode.getStartLinePosition(), "Define this label in the resource bundle.");
+      createViolation(textNode, "Define this label in the resource bundle.");
     }
   }
 
@@ -76,7 +76,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
       if (value != null) {
         value = value.trim();
         if (value.length() > 0 && isValidText(value)) {
-          createViolation(element.getStartLinePosition(), "Define this label in the resource bundle.");
+          createViolation(element, "Define this label in the resource bundle.");
           return true;
         }
       }

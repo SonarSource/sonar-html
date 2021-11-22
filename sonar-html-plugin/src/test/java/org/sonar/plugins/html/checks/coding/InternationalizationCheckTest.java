@@ -44,8 +44,8 @@ public class InternationalizationCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("Define this label in the resource bundle.")
-      .next().atLine(2).withMessage("Define this label in the resource bundle.")
+      .next().atLocation(1, 13, 1, 16).withMessage("Define this label in the resource bundle.")
+      .next().atLocation(2, 0, 2, 25).withMessage("Define this label in the resource bundle.")
       .next().atLine(9).withMessage("Define this label in the resource bundle.")
       .next().atLine(10).withMessage("Define this label in the resource bundle.")
       .next().atLine(11).withMessage("Define this label in the resource bundle.");
