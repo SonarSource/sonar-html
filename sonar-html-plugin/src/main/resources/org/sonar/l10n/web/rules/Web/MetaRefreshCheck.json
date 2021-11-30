@@ -2,11 +2,16 @@
   "title": "Meta tags should not be used to refresh or redirect",
   "type": "CODE_SMELL",
   "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "20min"
+  },
   "tags": [
     "user-experience"
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1094",
   "sqKey": "MetaRefreshCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

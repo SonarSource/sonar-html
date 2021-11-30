@@ -7,7 +7,7 @@
   <li> Images loading is disabled, to reduce data consumption on mobile phones </li>
 </ul>
 <p>It is also very important to not set an <code>alt</code> attribute to a non-informative value. For example <code>&lt;img ... alt="logo"&gt;</code>
-is useless as it doesn't give any information to the user. In this case, as for any other decorative image, it is better to use a CSS background image
+is useless as it doesn’t give any information to the user. In this case, as for any other decorative image, it is better to use a CSS background image
 instead of an <code>&lt;img&gt;</code> tag. If using CSS background-image is not possible, an empty <code>alt=""</code> is tolerated. See Exceptions
 bellow.</p>
 <p>This rule raises an issue when</p>
@@ -46,7 +46,7 @@ bellow.</p>
 &lt;/map&gt;
 </pre>
 <h2>Exceptions</h2>
-<p><code>&lt;img&gt;</code> tags with empty string&nbsp;<code>alt=""</code> attributes won't raise any issue. However this technic should be used in
+<p><code>&lt;img&gt;</code> tags with empty string&nbsp;<code>alt=""</code> attributes won’t raise any issue. However this technic should be used in
 two cases only:</p>
 <p>When the image is decorative and it is not possible to use a CSS background image. For example, when the decorative <code>&lt;img&gt;</code> is
 generated via javascript with a source image coming from a database, it is better to use an <code>&lt;img alt=""&gt;</code> tag rather than generate
@@ -56,8 +56,8 @@ CSS code.</p>
     &lt;img [src]="image" alt=""&gt;
 &lt;/li&gt;
 </pre>
-<p>When the image is not decorative but it's <code>alt</code> text would repeat a nearby text. For example, images contained in links should not
-duplicate the link's text in their <code>alt</code> attribute, as it would make the screen reader repeat the text twice.</p>
+<p>When the image is not decorative but it’s <code>alt</code> text would repeat a nearby text. For example, images contained in links should not
+duplicate the link’s text in their <code>alt</code> attribute, as it would make the screen reader repeat the text twice.</p>
 <pre>
 &lt;a href="flowers.html"&gt;
     &lt;img src="tulip.gif" alt="" /&gt;

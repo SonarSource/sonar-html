@@ -1,16 +1,15 @@
 {
-  "title": "\"<li>\" and \"<dt>\" item tags should be in \"<ul>\", \"<ol>\" or \"<dl>\" container tags",
+  "title": "\"\u003cli\u003e\" and \"\u003cdt\u003e\" item tags should be in \"\u003cul\u003e\", \"\u003col\u003e\" or \"\u003cdl\u003e\" container tags",
   "type": "BUG",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "10min"
   },
-  "tags": [
-    
-  ],
+  "tags": [],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1093",
   "sqKey": "ItemTagNotWithinContainerTagCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

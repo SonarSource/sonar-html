@@ -1,43 +1,44 @@
-<p>When a link opens a URL in a new tab with <code>target="_blank"</code>, it is very simple for the opened page to change the <code>location</code>
-of the original page because the JavaScript variable <code>window.opener</code> is not <code>null</code> and thus <code>window.opener.location</code>
-can be set by the opened page. This exposes the user to very simple phishing attacks.</p>
-<p>Imagine a link posted on a comment of a popular web site (say: "http://example.com/dangerous") that opens a new tab that changes the URL of the
-original page to "http://example.com/dangerous". On "http://example.com/dangerous" you land at a fake login page similar to the one at
-"http://example.com/dangerous" but controlled by the hacker and asking the user to log in again, pretending that the session just timed-out.</p>
-<p>To prevent pages from abusing <code>window.opener</code>, use <code>rel=noopener</code> on <code>&lt;a href=&gt;</code> to force its value to be
-<code>null</code> on the opened pages.</p>
-<p>In Chrome 88+, Firefox 79+ or Safari 12.1+ <code>target=_blank</code> on anchors implies <code>rel=noopener</code> which make the protection
-enabled by default.</p>
+<p>A newly opened window having access back to the originating window could allow basic phishing attacks (the <code>window.opener</code> object is not
+<code>null</code> and thus <code>window.opener.location</code> can be set to a malicious website by the opened page).</p>
+<p>For instance, an attacker can put a link (say: "http://example.com/mylink") on a popular website that changes, when opened, the original page to
+"http://example.com/fake_login". On "http://example.com/fake_login" there is a fake login page which could trick real users to enter their
+credentials.</p>
 <h2>Ask Yourself Whether</h2>
 <ul>
-  <li> The application opens untrusted external URL in a new tab using <code>target=_blank</code> </li>
-  <li> The application supports web browsers before Chrome 88, Firefox 79 or Safari 12.1 </li>
+  <li> The application opens untrusted external URL. </li>
 </ul>
-<p>There is a risk if you answered yes to all of those questions.</p>
+<p>There is a risk if you answered yes to this question.</p>
 <h2>Recommended Secure Coding Practices</h2>
-<ul>
-  <li> Use <code>rel=noopener</code> on <code>&lt;a href=&gt;</code> prevent untrusted pages from abusing <code>window.opener</code>. </li>
-</ul>
+<p>Use <code>noopener</code> to prevent untrusted pages from abusing <code>window.opener</code>.</p>
+<p>Note: In Chrome 88+, Firefox 79+ or Safari 12.1+ <code>target=_blank</code> on anchors implies <code>rel=noopener</code> which make the protection
+enabled by default.</p>
 <h2>Sensitive Code Example</h2>
 <pre>
-&lt;a href="http://example.com/dangerous" target="_blank"&gt; &lt;!-- Sensitive; "window.opener" may not null on the new tab/window and could be changed by http://example.com/dangerous --&gt;
+&lt;a href="http://example.com/dangerous" target="_blank"&gt; &lt;!-- Sensitive --&gt;
 
-&lt;a href="{{variable}}" target="_blank"&gt; &lt;!-- Sensitive  --&gt;
+&lt;a href="{{variable}}" target="_blank"&gt; &lt;!-- Sensitive --&gt;
 </pre>
 <h2>Compliant Solution</h2>
+<p>To prevent pages from abusing <code>window.opener</code>, use <code>rel=noopener</code> on <code>&lt;a href=&gt;</code> to force its value to be
+<code>null</code> on the opened pages.</p>
 <pre>
 &lt;a href="http://petssocialnetwork.io" target="_blank" rel="noopener"&gt; &lt;!-- Compliant --&gt;
 </pre>
 <h2>Exceptions</h2>
 <p>No Issue will be raised when <code>href</code> contains a hardcoded relative url as there it has less chances of being vulnerable. An url is
-considered hardcoded and relative if it doesn't start with <code>http://</code> or <code>https://</code>, and if it does not contain any of the
+considered hardcoded and relative if it doesn’t start with <code>http://</code> or <code>https://</code>, and if it does not contain any of the
 characters {}$()[]</p>
 <pre>
 &lt;a href="internal.html" target="_blank" &gt; &lt;!-- Compliant --&gt;
 </pre>
 <h2>See</h2>
 <ul>
+  <li> <a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP Top 10 2021 Category A5</a> - Security Misconfiguration </li>
   <li> <a href="https://owasp.org/www-community/attacks/Reverse_Tabnabbing">Reverse Tabnabbing</a> </li>
+  <li> <a href="https://cwe.mitre.org/data/definitions/1022.html">MITRE, CWE-1022</a> - Use of Web Link to Untrusted Target with window.opener Access
+  </li>
+  <li> <a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security
+  Misconfiguration </li>
   <li> <a href="https://mathiasbynens.github.io/rel-noopener/">https://mathiasbynens.github.io/rel-noopener/</a> </li>
 </ul>
 

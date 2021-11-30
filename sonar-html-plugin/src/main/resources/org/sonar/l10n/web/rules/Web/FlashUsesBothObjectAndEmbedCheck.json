@@ -1,5 +1,5 @@
 {
-  "title": "Flash animations should be embedded using both \"<object>\" and \"<embed>\"",
+  "title": "Flash animations should be embedded using both \"\u003cobject\u003e\" and \"\u003cembed\u003e\"",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -12,5 +12,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1087",
   "sqKey": "FlashUsesBothObjectAndEmbedCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

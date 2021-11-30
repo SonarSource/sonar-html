@@ -1,12 +1,17 @@
 {
-  "title": "\"<title>\" should be present in all pages",
+  "title": "\"\u003ctitle\u003e\" should be present in all pages",
   "type": "BUG",
   "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
   "tags": [
     "user-experience"
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1096",
   "sqKey": "PageWithoutTitleCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

@@ -1,10 +1,10 @@
 <p>If a <code>&lt;td&gt;</code> cell has a <code>headers</code> attribute, it should reference only IDs of headers in the same column and row.</p>
 <p>Note that it is usually better to use <code>scope</code> attributes of <code>&lt;th&gt;</code> headers instead of <code>headers</code> attribute.
-<code>headers</code> attribute requires you to list every corresponding <code>&lt;th&gt;</code> header's <code>id</code>, which is error-prone and
+<code>headers</code> attribute requires you to list every corresponding <code>&lt;th&gt;</code> header’s <code>id</code>, which is error-prone and
 makes the code less maintainable. See&nbsp;<a href="https://www.w3.org/WAI/tutorials/tables/tips/">W3C WAI&nbsp;Web Accessibility
 Tutorials</a>&nbsp;for more information.</p>
 <p>If your table is too complex, it might be better to split it into multiple small tables as it improves both readability and maintainability.</p>
-<p>This rule raises an issue when the <code>headers</code> attribute of a <code>&lt;td&gt;</code> cell contains IDs which don't belong to a header in
+<p>This rule raises an issue when the <code>headers</code> attribute of a <code>&lt;td&gt;</code> cell contains IDs which don’t belong to a header in
 the same row or column.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>

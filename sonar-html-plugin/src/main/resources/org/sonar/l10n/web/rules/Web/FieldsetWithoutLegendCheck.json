@@ -1,5 +1,5 @@
 {
-  "title": "\"<fieldset>\" tags should contain a \"<legend>\"",
+  "title": "\"\u003cfieldset\u003e\" tags should contain a \"\u003clegend\u003e\"",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -12,5 +12,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1089",
   "sqKey": "FieldsetWithoutLegendCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

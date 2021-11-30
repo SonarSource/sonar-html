@@ -1,5 +1,5 @@
 {
-  "title": "\"<table>\" tags should have a description",
+  "title": "\"\u003ctable\u003e\" tags should have a description",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -13,5 +13,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1085",
   "sqKey": "TableWithoutCaptionCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

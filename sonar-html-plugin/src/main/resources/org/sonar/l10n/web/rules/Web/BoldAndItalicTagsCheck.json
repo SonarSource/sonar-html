@@ -1,5 +1,5 @@
 {
-  "title": "\"<strong>\" and \"<em>\" tags should be used",
+  "title": "\"\u003cstrong\u003e\" and \"\u003cem\u003e\" tags should be used",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -12,5 +12,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1100",
   "sqKey": "BoldAndItalicTagsCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

@@ -1,7 +1,11 @@
 {
-  "title": "\"<th>\" tags should have \"id\" or \"scope\" attributes",
+  "title": "\"\u003cth\u003e\" tags should have \"id\" or \"scope\" attributes",
   "type": "BUG",
   "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
   "tags": [
     "accessibility",
     "wcag2-a"
@@ -9,5 +13,6 @@
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1102",
   "sqKey": "TableHeaderHasIdOrScopeCheck",
-  "scope": "All"
+  "scope": "All",
+  "quickfix": "unknown"
 }
