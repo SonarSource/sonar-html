@@ -2,6 +2,10 @@
   "title": "\"aria-label\" or \"aria-labelledby\" attributes should be used to differentiate similar elements",
   "type": "CODE_SMELL",
   "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
   "tags": [
     "accessibility",
     "wcag2-a"
@@ -9,5 +13,6 @@
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-5255",
   "sqKey": "S5255",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

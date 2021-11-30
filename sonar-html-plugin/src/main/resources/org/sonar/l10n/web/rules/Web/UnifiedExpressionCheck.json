@@ -6,11 +6,10 @@
     "func": "Constant\/Issue",
     "constantCost": "2min"
   },
-  "tags": [
-    
-  ],
+  "tags": [],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-1298",
   "sqKey": "UnifiedExpressionCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

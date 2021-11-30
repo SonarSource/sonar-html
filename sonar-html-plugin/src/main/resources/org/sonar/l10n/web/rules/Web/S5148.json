@@ -1,5 +1,5 @@
 {
-  "title": "Links with \"target=_blank\" are security-sensitive",
+  "title": "Authorizing an opened window to access back to the originating window is security-sensitive",
   "type": "SECURITY_HOTSPOT",
   "status": "ready",
   "remediation": {
@@ -7,10 +7,23 @@
     "constantCost": "1min"
   },
   "tags": [
-    "phishing"
+    "cwe",
+    "phishing",
+    "owasp-a6"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-5148",
   "sqKey": "S5148",
-  "scope": "All"
+  "scope": "All",
+  "securityStandards": {
+    "CWE": [
+      1022
+    ],
+    "OWASP": [
+      "A6"
+    ],
+    "OWASP Top 10 2021": [
+      "A5"
+    ]
+  }
 }

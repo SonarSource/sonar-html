@@ -6,11 +6,10 @@
     "func": "Constant\/Issue",
     "constantCost": "1h"
   },
-  "tags": [
-    
-  ],
+  "tags": [],
   "defaultSeverity": "Blocker",
   "ruleSpecification": "RSPEC-1928",
   "sqKey": "IllegalTagLibsCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

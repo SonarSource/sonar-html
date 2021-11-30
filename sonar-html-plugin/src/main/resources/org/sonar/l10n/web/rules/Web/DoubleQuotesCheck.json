@@ -12,5 +12,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1457",
   "sqKey": "DoubleQuotesCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

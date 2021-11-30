@@ -13,5 +13,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1077",
   "sqKey": "ImgWithoutAltCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

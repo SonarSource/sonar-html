@@ -2,11 +2,16 @@
   "title": "Some Java packages or classes should not be used in JSP files",
   "type": "CODE_SMELL",
   "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "20min"
+  },
   "tags": [
     "jsp-jsf"
   ],
   "defaultSeverity": "Blocker",
   "ruleSpecification": "RSPEC-1932",
   "sqKey": "LibraryDependencyCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }

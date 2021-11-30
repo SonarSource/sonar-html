@@ -2,11 +2,14 @@
   "title": "Track presence of forbidden parent element",
   "type": "CODE_SMELL",
   "status": "deprecated",
-  "tags": [
-    
-  ],
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
   "defaultSeverity": "Info",
   "ruleSpecification": "RSPEC-3734",
   "sqKey": "ParentElementIllegalCheck",
-  "scope": "All"
+  "scope": "All",
+  "quickfix": "unknown"
 }

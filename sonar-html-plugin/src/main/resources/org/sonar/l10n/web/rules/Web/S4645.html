@@ -1,9 +1,9 @@
 <p>When parsing a script node, the browser treats its contents as plain text, and immediately finishes parsing when it finds the first closing
 <code>&lt;/script&gt;</code> character sequence.</p>
-<p>As a consequence, nested script nodes are not possible, because all opening <code>&lt;script&gt;</code> tags found along the way are ignored. </p>
-<p>Web browsers doesn't support nested <code>&lt;script&gt;...&lt;/script&gt;</code> elements. But there is no error in such case and browsers just
+<p>As a consequence, nested script nodes are not possible, because all opening <code>&lt;script&gt;</code> tags found along the way are ignored.</p>
+<p>Web browsers doesn’t support nested <code>&lt;script&gt;...&lt;/script&gt;</code> elements. But there is no error in such case and browsers just
 close the first encountered <code>&lt;script&gt;</code> tag as soon as a closing <code>&lt;/script&gt;</code> tag is found along the way. So there is
-a big chance to display something totally unexpected to the end-users. </p>
+a big chance to display something totally unexpected to the end-users.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;script type="text/template"&gt;

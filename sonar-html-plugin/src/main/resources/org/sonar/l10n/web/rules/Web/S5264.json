@@ -1,7 +1,11 @@
 {
-  "title": "\"<object>\" tags should provide an alternative content",
+  "title": "\"\u003cobject\u003e\" tags should provide an alternative content",
   "type": "CODE_SMELL",
   "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
   "tags": [
     "accessibility",
     "wcag2-a"
@@ -9,5 +13,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-5264",
   "sqKey": "S5264",
-  "scope": "All"
+  "scope": "All",
+  "quickfix": "unknown"
 }

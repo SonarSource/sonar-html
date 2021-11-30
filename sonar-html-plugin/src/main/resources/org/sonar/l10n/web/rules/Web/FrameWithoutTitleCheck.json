@@ -1,5 +1,5 @@
 {
-  "title": "\"<frames>\" should have a \"title\" attribute",
+  "title": "\"\u003cframes\u003e\" should have a \"title\" attribute",
   "type": "BUG",
   "status": "ready",
   "remediation": {
@@ -12,5 +12,6 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1090",
   "sqKey": "FrameWithoutTitleCheck",
-  "scope": "Main"
+  "scope": "Main",
+  "quickfix": "unknown"
 }
