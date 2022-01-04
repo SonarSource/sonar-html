@@ -63,11 +63,11 @@
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
-    <orchestrator.version>3.35.0.2707</orchestrator.version>
-    <junit.version>4.12</junit.version>
+    <orchestrator.version>3.36.0.63</orchestrator.version>
+    <junit.version>4.13.2</junit.version>
     <sslr.version>1.24.0.633</sslr.version>
-    <assertj.version>3.17.2</assertj.version>
-    <analyzerCommons.version>1.14.1.690</analyzerCommons.version>
+    <assertj.version>3.22.0</assertj.version>
+    <analyzerCommons.version>1.22.0.848</analyzerCommons.version>
 
     <artifactsToPublish>${project.groupId}:sonar-html-plugin:jar</artifactsToPublish>
     <maven.compiler.release>8</maven.compiler.release>
