@@ -92,12 +92,6 @@
 
     <!-- JSF Expression parser -->
     <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-      <version>2.2</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.el</groupId>
       <artifactId>jboss-el</artifactId>
       <version>1.0_02.CR4</version>
