@@ -19,11 +19,13 @@ package org.sonar.plugins.html.core;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.sonar.api.SonarProduct;
+import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
@@ -40,6 +42,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
+import org.sonar.api.utils.Version;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.html.analyzers.ComplexityVisitor;
@@ -61,11 +64,13 @@ public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
   private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "vue"};
 
+  private final SonarRuntime sonarRuntime;
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
 
-  public HtmlSensor(NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory, CheckFactory checkFactory) {
+  public HtmlSensor(SonarRuntime sonarRuntime, NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory, CheckFactory checkFactory) {
+    this.sonarRuntime = sonarRuntime;
     this.noSonarFilter = noSonarFilter;
     this.checks = checkFactory.create(HtmlRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks((Iterable) CheckClasses.getCheckClasses());
     this.fileLinesContextFactory = fileLinesContextFactory;
@@ -76,6 +81,20 @@ public final class HtmlSensor implements Sensor {
     descriptor
       .name(HtmlConstants.LANGUAGE_NAME)
       .onlyOnFileType(InputFile.Type.MAIN);
+    processesFilesIndependently(descriptor);
+  }
+
+  private void processesFilesIndependently(SensorDescriptor descriptor) {
+    if ((sonarRuntime.getProduct() == SonarProduct.SONARLINT)
+      || !sonarRuntime.getApiVersion().isGreaterThanOrEqual(Version.create(9, 3))) {
+      return;
+    }
+    try {
+      Method method = descriptor.getClass().getMethod("processesFilesIndependently");
+      method.invoke(descriptor);
+    } catch (ReflectiveOperationException e) {
+      LOG.warn("Could not call SensorDescriptor.processesFilesIndependently() method", e);
+    }
   }
 
   @Override

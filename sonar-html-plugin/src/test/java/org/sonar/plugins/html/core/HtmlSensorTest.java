@@ -23,12 +23,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
+import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
@@ -36,6 +39,7 @@ import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
 import org.sonar.api.batch.rule.internal.DefaultActiveRules;
 import org.sonar.api.batch.rule.internal.NewActiveRule;
+import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
@@ -47,10 +51,12 @@ import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.utils.Version;
+import org.sonar.api.utils.log.LogTester;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -61,8 +67,11 @@ public class HtmlSensorTest {
   private HtmlSensor sensor;
   private SensorContextTester tester;
 
+  @Rule
+  public LogTester logTester = new LogTester();
+
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition();
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
@@ -77,8 +86,9 @@ public class HtmlSensorTest {
     CheckFactory checkFactory = new CheckFactory(activeRules);
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
-    sensor = new HtmlSensor(new NoSonarFilter(), fileLinesContextFactory, checkFactory);
-    tester = SensorContextTester.create(TEST_DIR);
+    final SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
+    sensor = new HtmlSensor(sonarRuntime, new NoSonarFilter(), fileLinesContextFactory, checkFactory);
+    tester = SensorContextTester.create(TEST_DIR).setRuntime(sonarRuntime);
   }
 
   /**
@@ -153,6 +163,41 @@ public class HtmlSensorTest {
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("HTML");
     assertThat(descriptor.languages()).isEmpty();
+  }
+
+  @Test
+  public void test_descriptor_sonarlint() {
+    DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor();
+    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarLint(Version.create(6, 5));
+    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList()))).describe(sensorDescriptor);
+    assertThat(sensorDescriptor.name()).isEqualTo("HTML");
+    assertThat(sensorDescriptor.languages()).isEmpty();
+  }
+
+  @Test
+  public void test_descriptor_sonarqube_9_3() {
+    final boolean[] called = {false};
+    DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor() {
+      public SensorDescriptor processesFilesIndependently() {
+        called[0] = true;
+        return this;
+      }
+    };
+    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
+    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList()))).describe(sensorDescriptor);
+    assertThat(sensorDescriptor.name()).isEqualTo("HTML");
+    assertThat(sensorDescriptor.languages()).isEmpty();
+    assertTrue(called[0]);
+  }
+
+  @Test
+  public void test_descriptor_sonarqube_9_3_reflection_failure() {
+    DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor();
+    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
+    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList()))).describe(sensorDescriptor);
+    assertThat(sensorDescriptor.name()).isEqualTo("HTML");
+    assertThat(sensorDescriptor.languages()).isEmpty();
+    assertTrue(logTester.logs().contains("Could not call SensorDescriptor.processesFilesIndependently() method"));
   }
 
   @Test
