@@ -1,6 +1,6 @@
 /*
  * SonarSource :: HTML :: ITs :: Plugin
- * Copyright (c) 2011-2021 SonarSource SA and Matthijs Galesloot
+ * Copyright (c) 2011-2022 SonarSource SA and Matthijs Galesloot
  * sonarqube@googlegroups.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
