@@ -40,10 +40,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   private static boolean isImageInput(TagNode node) {
     String type = node.getPropertyValue("TYPE");
-
-    return "INPUT".equalsIgnoreCase(node.getNodeName()) &&
-      type != null &&
-      "IMAGE".equalsIgnoreCase(type);
+    return "INPUT".equalsIgnoreCase(node.getNodeName()) && "IMAGE".equalsIgnoreCase(type);
   }
 
   private static boolean isAreaTag(TagNode node) {
