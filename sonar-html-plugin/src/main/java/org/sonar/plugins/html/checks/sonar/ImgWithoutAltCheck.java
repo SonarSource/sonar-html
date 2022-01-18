@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Locale;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
