@@ -35,7 +35,9 @@ public class MaxLineLengthCheckTest {
     HtmlSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), new MaxLineLengthCheck());
     checkMessagesVerifier.verify(file.getIssues())
         .next().atLine(2).withMessage("Split this 121 characters long line (which is greater than 120 authorized).")
-        .next().atLine(3).withMessage("Split this 122 characters long line (which is greater than 120 authorized).");
+        .next().atLine(3).withMessage("Split this 122 characters long line (which is greater than 120 authorized).")
+        .next().atLine(8).withMessage("Split this 133 characters long line (which is greater than 120 authorized).")
+        .next().atLine(15).withMessage("Split this 137 characters long line (which is greater than 120 authorized).");
   }
 
   @Test
