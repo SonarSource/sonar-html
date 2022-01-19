@@ -28,7 +28,6 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "MaxLineLengthCheck")
@@ -45,11 +44,6 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
   private final Set<Integer> ignoredLines = new HashSet<>();
 
   @Override
-  public void startDocument(List<Node> nodes) {
-    ignoredLines.clear();
-  }
-
-  @Override
   public void endDocument() {
     List<String> lines = readLines(getHtmlSourceCode().inputFile());
 
@@ -61,6 +55,7 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
             "Split this " + length + " characters long line (which is greater than " + maxLength + " authorized).");
       }
     }
+    ignoredLines.clear();
   }
 
   @Override
