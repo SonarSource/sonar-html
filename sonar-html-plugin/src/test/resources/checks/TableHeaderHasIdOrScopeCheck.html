@@ -1,61 +1,625 @@
+<!-- Simple table: all TH elements are ONLY in the first row, so they don't need "id" or "scope" attribute -->
 <table border="1">
-  <caption>Contact Information</caption>
-  <tr>
-    <td></td>
-    <th scope="col">Name</th>
-    <tH ScOpE="col">Phone#</th>
-    <th>Fax#</th>                                 <!-- Non-Compliant -->
-    <tH>City</th>                                 <!-- Non-Compliant -->
-  </tr><tr>
-    <td>1.</td>
-    <th scope="row">Joel Garner</th>
-    <td>412-212-5421</td>
-    <td>412-212-5400</td>
-    <td>Pittsburgh</td>
-  </tr><tr>
-    <td>2.</td>
-    <th scope="row">Clive Lloyd</th>
-    <td>410-306-1420</td>
-    <td>410-306-5400</td>
-    <td>Baltimore</td>
-  </tr><tr>
-    <td>3.</td>
-    <th scope="row">Gordon Greenidge</th>
-    <td>281-564-6720</td>
-    <td>281-511-6600</td>
-    <td>Houston</td>
-  </tr>
+    <caption>Headers all in first row</caption>
+    <tr>
+        <th>Name</th>
+        <tH>Surname</th>
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>Doe</td>
+    </tr>
+    <tr>
+        <td>Marco</td>
+        <td>Rossi</td>
+    </tr>
 </table>
 
+<!-- Simple table: all TH elements are ONLY in the first column, so they don't need "id" or "scope" attribute -->
+<table border="1">
+    <caption>Headers all in first column</caption>
+    <tr>
+        <th>Name</th>
+        <td>Marco</td>
+        <td>John</td>
+    </tr>
+    <tr>
+        <th>Surname</th>
+        <td>Rossi</td>
+        <td>Doe</td>
+    </tr>
+</table>
+
+<!-- Not simple table: all TH elements are in a single row, which is not the first, so they need "id" or "scope" attribute -->
+<table border="1">
+    <caption>Headers all in a row, which is not the first</caption>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <th>Name</th>                                <!-- Non-Compliant -->
+        <th>Surname</th>                                <!-- Non-Compliant -->
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>Doe</td>
+    </tr>
+</table>
+<table border="1">
+    <caption>Headers all in a row, which is not the first</caption>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>Doe</td>
+    </tr>
+</table>
+
+<!-- Not simple table: all TH elements are in a single column, which is not the first, so they need "id" or "scope" attribute -->
+<table border="1">
+    <caption>Headers all in a column, which is not the first</caption>
+    <tr>
+        <td>1</td>
+        <th>Name</th>                                <!-- Non-Compliant -->
+        <td>Marco</td>
+        <td>John</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <th>Surname</th>                                <!-- Non-Compliant -->
+        <td>Rossi</td>
+        <td>Doe</td>
+    </tr>
+</table>
+<table border="1">
+    <caption>Headers all in a column, which is not the first</caption>
+    <tr>
+        <td>1</td>
+        <th scope="row">Name</th>
+        <td>Marco</td>
+        <td>John</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <th scope="row">Surname</th>
+        <td>Rossi</td>
+        <td>Doe</td>
+    </tr>
+</table>
+
+<!-- Not simple table: all TH elements are all in the first row and in the first column, so they need "id" or "scope" attribute -->
+<table border="1">
+    <caption>Headers all in first column AND first row</caption>
+    <tr>
+        <th>Time</th>                                <!-- Non-Compliant -->
+        <th>Monday</th>                                <!-- Non-Compliant -->
+        <th>Tuesday</th>                                <!-- Non-Compliant -->
+    </tr>
+    <tr>
+        <th>10.00 AM</th>                                <!-- Non-Compliant -->
+        <td>YES</td>
+        <td>NO</td>
+    </tr>
+    <tr>
+        <th>11.00 AM</th>                                <!-- Non-Compliant -->
+        <td>NO</td>
+        <td>YES</td>
+    </tr>
+</table>
+<table border="1">
+    <caption>Headers all in first column AND first row</caption>
+    <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+    </tr>
+    <tr>
+        <th scope="row">10.00 AM</th>
+        <td>YES</td>
+        <td>NO</td>
+    </tr>
+    <tr>
+        <th scope="row">11.00 AM</th>
+        <td>NO</td>
+        <td>YES</td>
+    </tr>
+</table>
+
+<!-- Not simple table: all TH elements are all in the first row and in the first column, except the first cell, so they need "id" or "scope" attribute -->
+<table border="1">
+    <caption>Headers all in first column AND first row, except the first cell</caption>
+    <tr>
+        <td></td>
+        <th>Monday</th>                                <!-- Non-Compliant -->
+        <th>Tuesday</th>                                <!-- Non-Compliant -->
+    </tr>
+    <tr>
+        <th>10.00 AM</th>                                <!-- Non-Compliant -->
+        <td>YES</td>
+        <td>NO</td>
+    </tr>
+    <tr>
+        <th>11.00 AM</th>                                <!-- Non-Compliant -->
+        <td>NO</td>
+        <td>YES</td>
+    </tr>
+</table>
+<table border="1">
+    <caption>Headers all in first column AND first row, except the first cell</caption>
+    <tr>
+        <td></td>
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+    </tr>
+    <tr>
+        <th scope="row">10.00 AM</th>
+        <td>YES</td>
+        <td>NO</td>
+    </tr>
+    <tr>
+        <th scope="row">11.00 AM</th>
+        <td>NO</td>
+        <td>YES</td>
+    </tr>
+</table>
+
+<!-- Not simple table: first row  is entirely composed by THs elements, but there is at least one more TH element in the table -->
+<table border="1">
+    <caption>Headers all in first row AND in another cell of the table</caption>
+    <tr>
+        <th>Name</th>                                <!-- Non-Compliant -->
+        <tH>Surname</th>                                <!-- Non-Compliant -->
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>Doe</td>
+    </tr>
+    <tr>
+        <td>Marco</td>
+        <th>Rossi</th>                                <!-- Non-Compliant -->
+    </tr>
+</table>
+<table border="1">
+    <caption>Headers all in first row AND in another cell of the table</caption>
+    <tr>
+        <th scope="col">Name</th>
+        <tH scope="col">Surname</th>
+    </tr>
+    <tr>
+        <td>John</td>
+        <td>Doe</td>
+    </tr>
+    <tr>
+        <td>Marco</td>
+        <th scope="unknwon">Rossi</th>
+    </tr>
+</table>
+
+<!-- Not simple table: first column is entirely composed by THs elements, but there is at least one more TH element in the table -->
+<table border="1">
+    <caption>Headers in first column, AND in another cell of the table</caption>
+    <tr>
+        <th>Name</th>                                <!-- Non-Compliant -->
+        <th>Marco</th>                                <!-- Non-Compliant -->
+        <td>John</td>
+    </tr>
+    <tr>
+        <th>Surname</th>                                <!-- Non-Compliant -->
+        <td>Rossi</td>
+        <td>Doe</td>
+    </tr>
+</table>
+<table border="1">
+    <caption>Headers in first column, AND in another cell of the table</caption>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Marco</th>
+        <td>John</td>
+    </tr>
+    <tr>
+        <th scope="row">Surname</th>
+        <td>Rossi</td>
+        <td>Doe</td>
+    </tr>
+</table>
+
+<!-- Not simple table: THs elements are only in the first row, which is composed also by at least one not-TH element -->
+<table border="1">
+    <caption>Mixed headers and data cell in first row</caption>
+    <tr>
+        <td>Empty</td>
+        <th>Name</th>                                <!-- Non-Compliant -->
+        <tH>Surname</th>                                <!-- Non-Compliant -->
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <td>John</td>
+        <td>Doe</td>
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <td>Marco</td>
+        <td>Rossi</td>
+    </tr>
+</table>
+<table border="1">
+    <caption>Mixed headers and data cell in first row</caption>
+    <tr>
+        <td>Empty</td>
+        <th scope="col">Name</th>
+        <tH scope="col">Surname</th>
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <td>John</td>
+        <td>Doe</td>
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <td>Marco</td>
+        <td>Rossi</td>
+    </tr>
+</table>
+
+<!-- Not simple table: THs elements are only in the first column, which is composed also by at least one not-TH element -->
+<table border="1">
+    <caption>Mixed headers and data cell in first column</caption>
+    <tr>
+        <th>Name</th>                                <!-- Non-Compliant -->
+        <td>Marco</td>
+        <td>John</td>
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <td>Empty</td>
+        <td>Empty</td>
+    </tr>
+    <tr>
+        <th>Surname</th>                                <!-- Non-Compliant -->
+        <td>Rossi</td>
+        <td>Doe</td>
+    </tr>
+</table>
+<table border="1">
+    <caption>Mixed headers and data cell in first column</caption>
+    <tr>
+        <th scope="col">Name</th>
+        <td>Marco</td>
+        <td>John</td>
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <td>Empty</td>
+        <td>Empty</td>
+    </tr>
+    <tr>
+        <th scope="row">Surname</th>
+        <td>Rossi</td>
+        <td>Doe</td>
+    </tr>
+</table>
+
+<!-- Not simple table involving THEAD, TBODY and TFOOT elements -->
+<table border="1">
+    <caption>THEAD, TBODY and TFOOT</caption>
+    <thead>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <th>Name</th>                                <!-- Non-Compliant -->
+        <td>John</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Empty</td>
+        <th>Surname</th>>                                <!-- Non-Compliant -->
+        <td>Doe</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td>Empty</td>
+        <th>Age</th>                                <!-- Non-Compliant -->
+        <td>42</td>
+    </tr>
+    </tfoot>
+</table>
+<table border="1">
+    <caption>THEAD, TBODY and TFOOT</caption>
+    <thead>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Empty</td>
+        <th scope="row">Name</th>
+        <td>John</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Empty</td>
+        <th scope="row">Surname</th>>
+        <td>Doe</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td>Empty</td>
+        <th scope="row">Age</th>
+        <td>42</td>
+    </tr>
+    </tfoot>
+</table>
+
+<!-- Nested Table -->
+<caption> Nested Table </caption>
+<table border="1px">
+    <tr><th>Header</th><th>Header</th><th>Header</th><th>Header</th></tr>
+    <tr>
+        <td >
+            <table border="1px">
+                <tr> <th>Header1</th> <th>Header2</th> </tr>
+                <tr> <td>Data</td> <td>Data</td> </tr>
+            </table>
+            <table border="1px">
+                <tr> <th>Header1</th> <td>Data</td> </tr> <!-- Non-Compliant -->
+                <tr> <td>Header2</td> <td>Data</td> </tr>
+            </table>
+        </td>
+        <td>Data</td>
+        <td>
+            <table border="1px">
+                <tr> <td>Empty</td><th>Header1 </th> <th> Header2</th> </tr> <!-- Non-Compliant -->
+                <tr> <td>Empty</td><td>Content</td> <td>Content</td> </tr>
+            </table>
+            <table border="1px">
+                <tr> <td>Empty</td><td>Data</td>
+                <tr> <th>Header1</th><td>Data</td>  <!-- Non-Compliant -->
+                <tr> <th>Header2</th><td>Data</td>  <!-- Non-Compliant -->
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <table border="1px">
+            <tr><th>Header</th><td>Data</td><td>Data</td><td>Data</td></tr>
+            <tr>
+                <th>Header</th>
+                <td>
+                    <table border="1px">
+                        <tr> <th>Header1</th> <th>Header2</th> </tr>
+                        <tr> <td>Data</td> <td>Data</td> </tr>
+                    </table>
+                    <table border="1px">
+                        <tr> <th>Header1</th> <td>Data</td> </tr>  <!-- Non-Compliant -->
+                        <tr> <td>Header2</td> <td>Data</td> </tr>
+                    </table>
+                </td>
+                <td>Data</td>
+                <td>
+                    <table border="1px">
+                        <tr> <td>Empty</td><th>Header1 </th> <th> Header2</th> </tr> <!-- Non-Compliant -->
+                        <tr> <td>Empty</td><td>Content</td> <td>Content</td> </tr>
+                    </table>
+                    <table border="1px">
+                        <tr> <td>Empty</td><td>Data</td>
+                        <tr> <th>Header1</th><td>Data</td>  <!-- Non-Compliant -->
+                        <tr> <th>Header2</th><td>Data</td>  <!-- Non-Compliant -->
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </tr>
+</table>
+<caption> Nested Table </caption>
+<table border="1px">
+    <tr><th>Header</th><th>Header</th><th>Header</th><th>Header</th></tr>
+    <tr>
+        <td >
+            <table border="1px">
+                <tr> <th>Header1</th> <th>Header2</th> </tr>
+                <tr> <td>Data</td> <td>Data</td> </tr>
+            </table>
+            <table border="1px">
+                <tr> <th scope="row">Header1</th> <td>Data</td> </tr>
+                <tr> <td>Header2</td> <td>Data</td> </tr>
+            </table>
+        </td>
+        <td>Data</td>
+        <td>
+            <table border="1px">
+                <tr> <td>Empty</td><th scope="col">Header1 </th> <th scope="col"> Header2</th> </tr>
+                <tr> <td>Empty</td><td>Content</td> <td>Content</td> </tr>
+            </table>
+            <table border="1px">
+                <tr> <td>Empty</td><td>Data</td>
+                <tr> <th scope="row">Header1</th><td>Data</td>
+                <tr> <th scope="row">Header2</th><td>Data</td>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <table border="1px">
+            <tr><th>Header</th><td>Data</td><td>Data</td><td>Data</td></tr>
+            <tr>
+                <th>Header</th>
+                <td>
+                    <table border="1px">
+                        <tr> <th>Header1</th> <th>Header2</th> </tr>
+                        <tr> <td>Data</td> <td>Data</td> </tr>
+                    </table>
+                    <table border="1px">
+                        <tr> <th scope="col">Header1</th> <td>Data</td> </tr>
+                        <tr> <td>Header2</td> <td>Data</td> </tr>
+                    </table>
+                </td>
+                <td>Data</td>
+                <td>
+                    <table border="1px">
+                        <tr> <td>Empty</td><th scope="col">Header1 </th> <th scope="col"> Header2</th> </tr>
+                        <tr> <td>Empty</td><td>Content</td> <td>Content</td> </tr>
+                    </table>
+                    <table border="1px">
+                        <tr> <td>Empty</td><td>Data</td>
+                        <tr> <th scope="row">Header1</th><td>Data</td>
+                        <tr> <th scope="row">Header2</th><td>Data</td>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </tr>
+</table>
+
+<!-- Here some tests where ending tags are mostly omitted, except for the table one, that is supposed to be mandatory -->
+<table border="1">
+    <caption> Ending only last TD element
+        <tr>
+            <td>1
+            <td>2
+        <tr>
+            <th>Name                                <!-- Non-Compliant -->
+            <th>Surname                               <!-- Non-Compliant -->
+        <tr>
+            <td>John
+            <td>Doe</td>
+</table>
+<table border="1">
+    <caption>Ending only last TR element
+        <tr>
+            <td>1
+            <td>2
+        <tr>
+            <th>Name                                <!-- Non-Compliant -->
+            <th>Surname                               <!-- Non-Compliant -->
+        <tr>
+            <td>John
+            <td>Doe
+        </tr>
+</table>
+<table border="1">
+    <caption>Ending only TABLE element
+        <tr>
+            <td>1
+            <td>2
+        <tr>
+            <th>Name                                <!-- Non-Compliant -->
+            <th>Surname                               <!-- Non-Compliant -->
+        <tr>
+            <td>John
+            <td>Doe
+</table>
+
+<table border="1">
+    <caption> Ending only last TD element
+        <tr>
+            <td>1
+            <td>2
+        <tr>
+            <th scope="col">Name
+            <th scope="col">Surname
+        <tr>
+            <td>John
+            <td>Doe</td>
+</table>
+<table border="1">
+    <caption>Ending only last TR element
+        <tr>
+            <td>1
+            <td>2
+        <tr>
+            <th scope="col">Name
+            <th scope="col">Surname
+        <tr>
+            <td>John
+            <td>Doe
+        </tr>
+</table>
+<table border="1">
+    <caption>Ending only TABLE element
+        <tr>
+            <td>1
+            <td>2
+        <tr>
+            <th scope="col">Name
+            <th scope="col">Surname
+        <tr>
+            <td>John
+            <td>Doe
+</table>
+
+
+
 <table>
- <tr>
-    <th rowspan="2" id="h">Homework</th>
-    <th colspan="3" iD="e">Exams</th>
-    <th colspan="3">Projects</th>                 <!-- Non-Compliant -->
-  </tr>
-  <tr>
-    <th id="e1" headers="e">1</th>
-    <th id="e2" headers="e">2</th>
-    <th id="ef" headers="e">Final</th>
-    <th id="p1" headers="p">1</th>
-    <th id="p2" headers="p">2</th>
-    <th id="pf" headers="p">Final</th>
-  </tr>
-  <tr>
-    <td headers="h">15%</td>
-    <td headers="e e1">15%</td>
-    <td headers="e e2">15%</td>
-    <td headers="e ef">20%</td>
-    <td headers="p p1">10%</td>
-    <td headers="p p2">10%</td>
-    <td headers="p pf">15%</td>
-  </tr>
+    <tr>
+        <th rowspan="2" id="h">Homework</th>
+        <th colspan="3" iD="e">Exams</th>
+        <th colspan="3">Projects</th>                 <!-- Non-Compliant -->
+    </tr>
+    <tr>
+        <th id="e1" headers="e">1</th>
+        <th>2</th>                                    <!-- Non-Compliant -->
+        <th id="ef" headers="e">Final</th>
+        <th id="p1" headers="p">1</th>
+        <th id="p2" headers="p">2</th>
+        <th id="pf" headers="p">Final</th>
+    </tr>
+    <tr>
+        <td headers="h">15%</td>
+        <td headers="e e1">15%</td>
+        <td headers="e e2">15%</td>
+        <td headers="e ef">20%</td>
+        <td headers="p p1">10%</td>
+        <td headers="p p2">10%</td>
+        <td headers="p pf">15%</td>
+    </tr>
 </table>
 
 <table>
     <tr>
+        <td></td>
         <th rowspan="2" [id]="h">Homework</th>
         <th [scope]="col">Exams</th>
-        <th colspan="3">Projects</th>             <!-- Non-Compliant -->
+        <th [scope]="col"colspan="3">Projects</th>
     </tr>
 </table>
+
+
+<table>
+    <tr>
+        <td></td>
+        <th rowspan="2" [id]="h">Homework</th>
+        <th>Exams</th>                             <!-- Non-Compliant -->
+        <th [scope]="col"colspan="3">Projects</th>
+    </tr>
+</table>
+
+<table>
+    <tr><td></td><td></td></tr>
+    <tr>
+        <table>
+            <tr><th>header</th></tr>
+        </table>
+    </tr>
+    <tr><td></td><th></th></tr>         <!-- Non-Compliant -->
+</table>
+
+</table>
+<tr><th>header</th></tr>        <!-- Non-Compliant -->
+<thead><tr><th>header</th></tr></thead>        <!-- Non-Compliant -->
+<thead><tr><th scope="col">header</th></tr></thead>
+<table></table>
+<table><tr></tr></table>
