@@ -50,7 +50,9 @@ public class MaxLineLengthCheckTest {
         .next().atLine(1)
         .next().atLine(2)
         .next().atLine(3)
-        .next().atLine(6).withMessage("Split this 41 characters long line (which is greater than 40 authorized).");
+        .next().atLine(6).withMessage("Split this 41 characters long line (which is greater than 40 authorized).")
+        .next().atLine(8).withMessage("Split this 133 characters long line (which is greater than 40 authorized).")
+        .next().atLine(15).withMessage("Split this 137 characters long line (which is greater than 40 authorized).");
   }
 
 }
