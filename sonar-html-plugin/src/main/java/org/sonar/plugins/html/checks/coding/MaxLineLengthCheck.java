@@ -20,13 +20,15 @@ package org.sonar.plugins.html.checks.coding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "MaxLineLengthCheck")
 public class MaxLineLengthCheck extends AbstractPageCheck {
@@ -39,16 +41,30 @@ public class MaxLineLengthCheck extends AbstractPageCheck {
     defaultValue = "" + DEFAULT_MAX_LINE_LENGTH)
   public int maxLength = DEFAULT_MAX_LINE_LENGTH;
 
+  private final Set<Integer> ignoredLines = new HashSet<>();
+
   @Override
-  public void startDocument(List<Node> nodes) {
+  public void endDocument() {
     List<String> lines = readLines(getHtmlSourceCode().inputFile());
 
     for (int i = 0; i < lines.size(); i++) {
       int length = lines.get(i).length();
-      if (length > maxLength) {
+      if (length > maxLength && !ignoredLines.contains(i + 1)) {
         createViolation(
             i + 1,
             "Split this " + length + " characters long line (which is greater than " + maxLength + " authorized).");
+      }
+    }
+    ignoredLines.clear();
+  }
+
+  @Override
+  public void startElement(TagNode node) {
+    TagNode nodeParent = node.getParent();
+    // We do ignore lines that include an SVG path tag. Splitting SVG path descriptions does not necessarily make them more readable. See SONARHTML-147.
+    if ("PATH".equalsIgnoreCase(node.getNodeName()) && nodeParent != null && "SVG".equalsIgnoreCase(nodeParent.getNodeName())) {
+      for (int i = node.getStartLinePosition(); i <= node.getEndLinePosition(); i++) {
+        ignoredLines.add(i);
       }
     }
   }
