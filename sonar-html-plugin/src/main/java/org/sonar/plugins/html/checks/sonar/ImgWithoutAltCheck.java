@@ -27,7 +27,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if ((isImgTag(node) && !hasAltAttribute(node)) ||
+    if ((isImgTag(node) && !hasAltAttribute(node) && !hasThymeleafAltAttribute(node)) ||
        ((isImageInput(node) || isAreaTag(node)) && hasInvalidAltAttribute(node))) {
       createViolation(node, "Add an \"alt\" attribute to this image.");
     }
@@ -39,10 +39,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   private static boolean isImageInput(TagNode node) {
     String type = node.getPropertyValue("TYPE");
-
-    return "INPUT".equalsIgnoreCase(node.getNodeName()) &&
-      type != null &&
-      "IMAGE".equalsIgnoreCase(type);
+    return "INPUT".equalsIgnoreCase(node.getNodeName()) && "IMAGE".equalsIgnoreCase(type);
   }
 
   private static boolean isAreaTag(TagNode node) {
@@ -55,5 +52,16 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   private static boolean hasInvalidAltAttribute(TagNode node) {
     return !hasAltAttribute(node) || StringUtils.trim(node.getPropertyValue("ALT")).isEmpty();
+  }
+
+  /**
+   * In Thymeleaf there are multiple ways of specifying the alt for an img tag:
+   * - using the th:alt or th:alt-title attributes (th:alt-title would set the title and alt to the same value)
+   * - using the th:attr attribute for specifying different attributes. Example "th:attr="src=@{logo.png},title=#{logo},alt=#{logo}""
+   */
+  private static boolean hasThymeleafAltAttribute(TagNode node) {
+    String thAttrValue = node.getAttribute("th:attr");
+    return node.hasProperty("th:alt") || node.hasProperty("th:alt-title") ||
+      (thAttrValue != null && thAttrValue.contains("alt="));
   }
 }

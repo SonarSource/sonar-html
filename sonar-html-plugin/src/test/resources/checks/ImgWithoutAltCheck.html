@@ -23,3 +23,8 @@
 <area shape="rect" v-bind:alt="foo">
 <area shape="rect" :alt="foo">
 <area shape="rect" :[alt]="foo">
+
+<img th:src="${x}" th:alt="foo"/>
+<img th:src="${x}" th:alt-title="foo"/>
+<img th:attr="src=@{logo.png},title=#{logo},alt=#{logo}"/>
+<img th:attr="src=@{logo.png},title=#{logo}"/>
