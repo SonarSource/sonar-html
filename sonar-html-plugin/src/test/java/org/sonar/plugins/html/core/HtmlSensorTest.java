@@ -233,6 +233,21 @@ public class HtmlSensorTest {
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
+  @Test
+  public void twig_file_should_be_analyzed() throws Exception {
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.twig");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    String componentKey = inputFile.key();
+    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(15);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(0);
+
+    assertThat(tester.allIssues()).hasSize(3);
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
   private DefaultInputFile createInputFile(Path dir, String fileName) throws IOException {
     return new TestInputFileBuilder("key", fileName)
       .setModuleBaseDir(dir)
