@@ -242,7 +242,7 @@ public class HtmlSensorTest {
 
     String componentKey = inputFile.key();
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(15);
-    assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(0);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
 
     assertThat(tester.allIssues()).hasSize(3);
     assertThat(tester.allAnalysisErrors()).isEmpty();
