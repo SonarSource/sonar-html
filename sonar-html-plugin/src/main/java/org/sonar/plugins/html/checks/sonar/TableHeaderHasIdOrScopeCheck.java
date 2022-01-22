@@ -18,6 +18,7 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
@@ -38,68 +39,33 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     if (isTableTag(node)) {
       tables.push(new TableElement());
     }
-    if (isTrTag(node)) {
-      if (!tables.isEmpty()) {
-        TableElement currentTable = tables.peek();
-        currentTable.numberOfRows++;
-        List<TagNode> rowElements = node.getChildren();
 
-        if (!rowElements.isEmpty()) {
-          if (!currentTable.firstRowWasVisited) {
-            currentTable.firstRowWasVisited = true;
-            if (isThTag(rowElements.get(0))) {
-              currentTable.firstCellIsTh = true;
-              currentTable.visitedThs.add(rowElements.get(0));
-              currentTable.numberOfCols++;
-            }
-            for (int i = 1; i < rowElements.size(); i++) {
-              currentTable.numberOfCols++;
-              TagNode child = rowElements.get(i);
-              if (isThTag(child)) {
-                currentTable.firstRowContainsTh = true;
-                currentTable.visitedThs.add(rowElements.get(i));
-              } else {
-                currentTable.firstRowContainsNotTh = true;
-              }
-            }
-          } else {
-            TagNode el0 = rowElements.get(0);
-            if (isThTag(el0)) {
-              currentTable.firstColContainsTh = true;
-              currentTable.visitedThs.add(el0);
+    if (isTrTag(node)) {
+      List<TagNode> row = node.getChildren();
+      if (!tables.isEmpty() && !row.isEmpty()) {
+
+        TableElement currentTable = tables.peek();
+
+        if (currentTable.firstRow.isEmpty()) {
+          currentTable.firstRow = row;
+        } else {
+          TagNode firstColumnElement = row.get(0);
+
+          for (TagNode tagNode : row) {
+            if (tagNode.equals(firstColumnElement)) {
+              currentTable.firstCol.add(tagNode);
             } else {
-              currentTable.firstColContainsNotTh = true;
-            }
-            for (int i = 1; i < rowElements.size(); i++) {
-              TagNode child = rowElements.get(i);
-              if (isThTag(child)) {
+              if (isThTag(tagNode)) {
                 currentTable.containsThInNotFirstRowOrColumn = true;
-                currentTable.visitedThs.add(child);
+                currentTable.headers.add(tagNode);
               }
             }
           }
-
         }
 
-//
-//        if (!rowElements.isEmpty()) {
-//          if (currentTable.firstRow.isEmpty()) {
-//            // if it is the first row store it in the table
-//            currentTable.firstRow.addAll(rowElements);
-//          } else {
-//            // if it is another row, check the tags and if there are ths add them to the visited ones.
-//            for (TagNode child : rowElements.subList(1, rowElements.size())) {
-//              if (isThTag(child)) {
-//                currentTable.visitedThs.add(child);
-//              }
-//            }
-//          }
-//          // in any case store the elements found in the first column
-//          currentTable.firstCol.add(rowElements.get(0));
-//        }
       } else {
         // Sometimes rows are defined in separate files. In this case we treat them as part of "not simple tables".
-        for (TagNode child : node.getChildren()) {
+        for (TagNode child : row) {
           if (isHeaderTableWithoutScopeOrId(child)) {
             createViolation(child, MESSAGE);
           }
@@ -112,47 +78,22 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
   public void endElement(TagNode node) {
     if (isTableTag(node) && !tables.isEmpty()) {
       TableElement currentTable = tables.peek();
-//
-//      boolean containsThInNotFirstRowOrColumn = currentTable.containsThInNotFirstRowOrColumn;
-//      boolean firstCellIsTh = currentTable.firstCellIsTh;
-//      boolean firstRowContainsTh = currentTable.firstRowContainsTh;
-//      boolean firstRowContainsNotTh = currentTable.firstRowContainsNotTh;
-//      boolean firstColContainsTh = currentTable.firstColContainsTh;
-//      boolean firstColContainsNotTh = currentTable.firstColContainsNotTh;
-//
-//
-//      boolean isFirstRowAllTh = !firstRowContainsNotTh || currentTable.numberOfCols == 1;
-//      boolean isFirstColAllTh = !firstColContainsNotTh  || currentTable.numberOfRows == 1;
-//
-//
-//      if ( !(firstCellIsTh && !containsThInNotFirstRowOrColumn && (
-//        (isFirstRowAllTh && !firstColContainsTh) || (isFirstColAllTh && !firstRowContainsTh))))
 
-      if (!currentTable.isSimpleTable())
-      {
-        for (TagNode visitedTh : currentTable.visitedThs) {
-          if (isHeaderTableWithoutScopeOrId(visitedTh)) {
-            createViolation(visitedTh, MESSAGE);
-          }
-        }
-
+      if (!currentTable.isSimpleTable()) {
+        currentTable.headers.stream()
+          .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
+          .forEach(th -> createViolation(th, MESSAGE));
+        currentTable.firstRow.stream()
+          .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
+          .forEach(th -> createViolation(th, MESSAGE));
+        currentTable.firstCol.stream()
+          .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
+          .forEach(th -> createViolation(th, MESSAGE));
       }
       tables.pop();
-
     }
   }
 
-  /**
-   * We consider as simple tables, tables which have all headers only in the first row or in the first column.
-   * If both first row and first column are all (or partially) composed by headers are not considered simple tables.
-   **/
-//  private static boolean isSimpleTable(TableElement currentTable) {
-//    return !currentTable.firstCol.isEmpty() && !currentTable.firstRow.isEmpty() && currentTable.visitedThs.isEmpty() &&
-//      (
-//        currentTable.firstRow.stream().allMatch(el -> isThTag(el)) && currentTable.firstCol.subList(1, currentTable.firstCol.size()).stream().noneMatch(el -> isThTag(el)) ||
-//          currentTable.firstCol.stream().allMatch(el -> isThTag(el)) && currentTable.firstRow.subList(1, currentTable.firstRow.size()).stream().noneMatch(el -> isThTag(el))
-//      );
-//  }
   private static boolean isThTag(TagNode node) {
     return "th".equalsIgnoreCase(node.getNodeName());
   }
@@ -170,26 +111,22 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
   }
 
   private static class TableElement {
-    Set<TagNode> visitedThs = new HashSet<>();
-    boolean firstRowContainsNotTh = false;
-    boolean firstColContainsNotTh = false;
-    boolean firstCellIsTh = false;
+    Set<TagNode> headers = new HashSet<>();
+    List<TagNode> firstRow = new ArrayList<>();
+    List<TagNode> firstCol = new ArrayList<>();
     boolean containsThInNotFirstRowOrColumn = false;
 
-    int numberOfRows = 0;
-    int numberOfCols = 0;
 
-    boolean firstRowWasVisited = false;
-    boolean firstRowContainsTh = false;
-    boolean firstColContainsTh = false;
-
+    /**
+     * We consider as simple tables, tables which have all headers only in the first row or in the first column.
+     * If both first row and first column are all (or partially) composed by headers are not considered simple tables.
+     **/
     boolean isSimpleTable() {
 
-      boolean isFirstRowAllTh = !firstRowContainsNotTh;
-      boolean isFirstColAllTh = !firstColContainsNotTh;
-
-      return ( (firstCellIsTh && !containsThInNotFirstRowOrColumn && (
-        (isFirstRowAllTh && !firstColContainsTh) || (isFirstColAllTh && !firstRowContainsTh))));
+      return !containsThInNotFirstRowOrColumn &&
+        ( (firstRow.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstCol.stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag)) ||
+          (isThTag(firstRow.get(0)) && firstCol.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstRow.subList(1, firstRow.size()).stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag))
+          );
 
     }
   }
