@@ -18,9 +18,10 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -39,8 +40,63 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     }
     if (isTrTag(node)) {
       if (!tables.isEmpty()) {
-        // This should be the standard case: we find a <tr> tag, so we expect that we are visiting a table, which should be stacked already.
-        tables.peek().rows.add(node);
+        TableElement currentTable = tables.peek();
+        currentTable.numberOfRows++;
+        List<TagNode> rowElements = node.getChildren();
+
+        if (!rowElements.isEmpty()) {
+          if (!currentTable.firstRowWasVisited) {
+            currentTable.firstRowWasVisited = true;
+            if (isThTag(rowElements.get(0))) {
+              currentTable.firstCellIsTh = true;
+              currentTable.visitedThs.add(rowElements.get(0));
+              currentTable.numberOfCols++;
+            }
+            for (int i = 1; i < rowElements.size(); i++) {
+              currentTable.numberOfCols++;
+              TagNode child = rowElements.get(i);
+              if (isThTag(child)) {
+                currentTable.firstRowContainsTh = true;
+                currentTable.visitedThs.add(rowElements.get(i));
+              } else {
+                currentTable.firstRowContainsNotTh = true;
+              }
+            }
+          } else {
+            TagNode el0 = rowElements.get(0);
+            if (isThTag(el0)) {
+              currentTable.firstColContainsTh = true;
+              currentTable.visitedThs.add(el0);
+            } else {
+              currentTable.firstColContainsNotTh = true;
+            }
+            for (int i = 1; i < rowElements.size(); i++) {
+              TagNode child = rowElements.get(i);
+              if (isThTag(child)) {
+                currentTable.containsThInNotFirstRowOrColumn = true;
+                currentTable.visitedThs.add(child);
+              }
+            }
+          }
+
+        }
+
+//
+//        if (!rowElements.isEmpty()) {
+//          if (currentTable.firstRow.isEmpty()) {
+//            // if it is the first row store it in the table
+//            currentTable.firstRow.addAll(rowElements);
+//          } else {
+//            // if it is another row, check the tags and if there are ths add them to the visited ones.
+//            for (TagNode child : rowElements.subList(1, rowElements.size())) {
+//              if (isThTag(child)) {
+//                currentTable.visitedThs.add(child);
+//              }
+//            }
+//          }
+//          // in any case store the elements found in the first column
+//          currentTable.firstCol.add(rowElements.get(0));
+//        }
       } else {
         // Sometimes rows are defined in separate files. In this case we treat them as part of "not simple tables".
         for (TagNode child : node.getChildren()) {
@@ -54,20 +110,35 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
 
   @Override
   public void endElement(TagNode node) {
-    if (!tables.isEmpty() && isTableTag(node)) {
+    if (isTableTag(node) && !tables.isEmpty()) {
       TableElement currentTable = tables.peek();
-      List<TagNode> rows = currentTable.rows;
+//
+//      boolean containsThInNotFirstRowOrColumn = currentTable.containsThInNotFirstRowOrColumn;
+//      boolean firstCellIsTh = currentTable.firstCellIsTh;
+//      boolean firstRowContainsTh = currentTable.firstRowContainsTh;
+//      boolean firstRowContainsNotTh = currentTable.firstRowContainsNotTh;
+//      boolean firstColContainsTh = currentTable.firstColContainsTh;
+//      boolean firstColContainsNotTh = currentTable.firstColContainsNotTh;
+//
+//
+//      boolean isFirstRowAllTh = !firstRowContainsNotTh || currentTable.numberOfCols == 1;
+//      boolean isFirstColAllTh = !firstColContainsNotTh  || currentTable.numberOfRows == 1;
+//
+//
+//      if ( !(firstCellIsTh && !containsThInNotFirstRowOrColumn && (
+//        (isFirstRowAllTh && !firstColContainsTh) || (isFirstColAllTh && !firstRowContainsTh))))
 
-      currentTable.isSimple = isSimpleTable(rows);
-
-      for (TagNode rowElement : rows) {
-        for (TagNode colElement : rowElement.getChildren()) {
-          if (!currentTable.isSimple && isHeaderTableWithoutScopeOrId(colElement)) {
-            createViolation(colElement, MESSAGE);
+      if (!currentTable.isSimpleTable())
+      {
+        for (TagNode visitedTh : currentTable.visitedThs) {
+          if (isHeaderTableWithoutScopeOrId(visitedTh)) {
+            createViolation(visitedTh, MESSAGE);
           }
         }
+
       }
       tables.pop();
+
     }
   }
 
@@ -75,42 +146,13 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
    * We consider as simple tables, tables which have all headers only in the first row or in the first column.
    * If both first row and first column are all (or partially) composed by headers are not considered simple tables.
    **/
-  private static boolean isSimpleTable(List<TagNode> tableRows) {
-    boolean firstRowAllHeaders = isFirstRowAllHeaders(tableRows);
-    boolean firstColumnAllHeaders = isFirstColumnAllHeaders(tableRows);
-    boolean otherCellsDifferentFromFirstRowContainHeaders = otherCellsDifferentFromFirstRowContainHeaders(tableRows);
-    boolean otherCellsDifferentFromFirstColumnContainHeaders = otherCellsDifferentFromFirstColumnContainHeaders(tableRows);
-
-    return (firstRowAllHeaders && !otherCellsDifferentFromFirstRowContainHeaders) || (firstColumnAllHeaders && !otherCellsDifferentFromFirstColumnContainHeaders);
-  }
-
-  private static boolean isFirstRowAllHeaders(List<TagNode> tableRows) {
-    if (tableRows.isEmpty()) {
-      return false;
-    }
-    List<TagNode> firstRow = tableRows.get(0).getChildren();
-    return firstRow.stream().allMatch(node -> "th".equalsIgnoreCase(node.getNodeName()));
-  }
-
-  private static boolean isFirstColumnAllHeaders(List<TagNode> tableRows) {
-    return tableRows.stream().allMatch(tr ->
-    {
-      List<TagNode> row = tr.getChildren();
-      return !row.isEmpty() && "th".equalsIgnoreCase(row.get(0).getNodeName());
-    });
-  }
-
-  private static boolean otherCellsDifferentFromFirstRowContainHeaders(List<TagNode> tableRows) {
-    return tableRows.stream()
-      .anyMatch(tr -> tr != tableRows.get(0) && tr.getChildren().stream()
-        .anyMatch(trChild -> "th".equalsIgnoreCase(trChild.getNodeName())));
-  }
-
-  private static boolean otherCellsDifferentFromFirstColumnContainHeaders(List<TagNode> tableRows) {
-    return tableRows.stream().anyMatch(tr -> tr.getChildren().stream()
-      .anyMatch(trChild -> !trChild.equals(tr.getChildren().get(0)) && "th".equalsIgnoreCase(trChild.getNodeName())));
-  }
-
+//  private static boolean isSimpleTable(TableElement currentTable) {
+//    return !currentTable.firstCol.isEmpty() && !currentTable.firstRow.isEmpty() && currentTable.visitedThs.isEmpty() &&
+//      (
+//        currentTable.firstRow.stream().allMatch(el -> isThTag(el)) && currentTable.firstCol.subList(1, currentTable.firstCol.size()).stream().noneMatch(el -> isThTag(el)) ||
+//          currentTable.firstCol.stream().allMatch(el -> isThTag(el)) && currentTable.firstRow.subList(1, currentTable.firstRow.size()).stream().noneMatch(el -> isThTag(el))
+//      );
+//  }
   private static boolean isThTag(TagNode node) {
     return "th".equalsIgnoreCase(node.getNodeName());
   }
@@ -128,7 +170,27 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
   }
 
   private static class TableElement {
-    List<TagNode> rows = new ArrayList<>();
-    boolean isSimple = false;
+    Set<TagNode> visitedThs = new HashSet<>();
+    boolean firstRowContainsNotTh = false;
+    boolean firstColContainsNotTh = false;
+    boolean firstCellIsTh = false;
+    boolean containsThInNotFirstRowOrColumn = false;
+
+    int numberOfRows = 0;
+    int numberOfCols = 0;
+
+    boolean firstRowWasVisited = false;
+    boolean firstRowContainsTh = false;
+    boolean firstColContainsTh = false;
+
+    boolean isSimpleTable() {
+
+      boolean isFirstRowAllTh = !firstRowContainsNotTh;
+      boolean isFirstColAllTh = !firstColContainsNotTh;
+
+      return ( (firstCellIsTh && !containsThInNotFirstRowOrColumn && (
+        (isFirstRowAllTh && !firstColContainsTh) || (isFirstColAllTh && !firstRowContainsTh))));
+
+    }
   }
 }
