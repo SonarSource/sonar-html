@@ -31,7 +31,7 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Add either an 'id' or a 'scope' attribute to this <th> tag.";
 
-  private Deque<TableElement> tables = new ArrayDeque<>();
+  private final Deque<TableElement> tables = new ArrayDeque<>();
 
   @Override
   public void startElement(TagNode node) {
@@ -70,12 +70,16 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
   @Override
   public void endElement(TagNode node) {
     if (isTableTag(node) && !tables.isEmpty()) {
-      TableElement currentTable = tables.peek();
+      TableElement currentTable = tables.pop();
       if (!currentTable.isSimpleTable()) {
         raiseIssueOnTableHeadersWithoutScopeOrId(currentTable.headers);
       }
-      tables.pop();
     }
+  }
+
+  @Override
+  public void endDocument() {
+    tables.clear();
   }
 
   private static boolean isThTag(TagNode node) {
@@ -106,8 +110,7 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     List<TagNode> firstCol = new ArrayList<>();
 
     /**
-     * We consider as simple tables, tables which have all headers only in the first row or in the first column.
-     * If both first row and first column are all (or partially) composed by headers are not considered simple tables.
+     * Simple tables are considered as such when the headers are either all in the first row, or all in the first column. The two conditions must not apply together.
      **/
     boolean isSimpleTable() {
       return headers.equals(firstRow) || headers.equals(firstCol);
