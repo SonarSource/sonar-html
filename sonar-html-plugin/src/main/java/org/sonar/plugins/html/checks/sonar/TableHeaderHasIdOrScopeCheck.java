@@ -19,10 +19,12 @@ package org.sonar.plugins.html.checks.sonar;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -41,37 +43,31 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     }
 
     if (isTrTag(node)) {
-      List<TagNode> row = node.getChildren();
-      if (!tables.isEmpty() && !row.isEmpty()) {
-
-        TableElement currentTable = tables.peek();
-
-        if (currentTable.firstRow.isEmpty()) {
-          currentTable.firstRow = row;
-        } else {
-          TagNode firstColumnElement = row.get(0);
-
-          for (TagNode tagNode : row) {
-            if (tagNode.equals(firstColumnElement)) {
-              currentTable.firstCol.add(tagNode);
-            } else {
-              if (isThTag(tagNode)) {
-                currentTable.containsThInNotFirstRowOrColumn = true;
-                currentTable.headers.add(tagNode);
-              }
-            }
-          }
-        }
-
-      } else {
-        // Sometimes rows are defined in separate files. In this case we treat them as part of "not simple tables".
-        for (TagNode child : row) {
-          if (isHeaderTableWithoutScopeOrId(child)) {
-            createViolation(child, MESSAGE);
-          }
-        }
-      }
+      visitTrNode(node);
     }
+  }
+
+  private void visitTrNode(TagNode node) {
+    List<TagNode> row = node.getChildren();
+    if (!tables.isEmpty() && !row.isEmpty()) {
+
+      TableElement currentTable = tables.peek();
+
+      if (currentTable.firstRow.isEmpty()) {
+        currentTable.firstRow = row;
+      } else {
+        currentTable.headers.addAll(row.subList(1, row.size()).stream().filter(TableHeaderHasIdOrScopeCheck::isThTag).collect(Collectors.toList()));
+      }
+      currentTable.firstCol.add(row.get(0));
+
+    } else {
+      // Sometimes rows are defined in separate files. In this case we treat them as part of "not simple tables".
+      raiseIssueOnTableHeadersWithoutScopeOrId(row);
+    }
+  }
+
+  private void raiseIssueOnTableHeadersWithoutScopeOrId(Collection<TagNode> row) {
+    row.stream().filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId).forEach(th -> createViolation(th, MESSAGE));
   }
 
   @Override
@@ -80,15 +76,9 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
       TableElement currentTable = tables.peek();
 
       if (!currentTable.isSimpleTable()) {
-        currentTable.headers.stream()
-          .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
-          .forEach(th -> createViolation(th, MESSAGE));
-        currentTable.firstRow.stream()
-          .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
-          .forEach(th -> createViolation(th, MESSAGE));
-        currentTable.firstCol.stream()
-          .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
-          .forEach(th -> createViolation(th, MESSAGE));
+        currentTable.headers.addAll(currentTable.firstRow);
+        currentTable.headers.addAll(currentTable.firstCol);
+        raiseIssueOnTableHeadersWithoutScopeOrId(currentTable.headers);
       }
       tables.pop();
     }
@@ -114,7 +104,6 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     Set<TagNode> headers = new HashSet<>();
     List<TagNode> firstRow = new ArrayList<>();
     List<TagNode> firstCol = new ArrayList<>();
-    boolean containsThInNotFirstRowOrColumn = false;
 
 
     /**
@@ -123,10 +112,10 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
      **/
     boolean isSimpleTable() {
 
-      return !containsThInNotFirstRowOrColumn &&
-        ( (firstRow.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstCol.stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag)) ||
-          (isThTag(firstRow.get(0)) && firstCol.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstRow.subList(1, firstRow.size()).stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag))
-          );
+      return firstRow.isEmpty() || (headers.isEmpty() &&
+        ((firstRow.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstCol.subList(1, firstCol.size()).stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag)) ||
+          (firstCol.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstRow.subList(1, firstRow.size()).stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag))
+        ));
 
     }
   }
