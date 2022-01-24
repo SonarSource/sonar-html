@@ -21,10 +21,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -52,32 +49,29 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     if (!tables.isEmpty() && !row.isEmpty()) {
 
       TableElement currentTable = tables.peek();
-
-      if (currentTable.firstRow.isEmpty()) {
-        currentTable.firstRow = row;
-      } else {
-        currentTable.headers.addAll(row.subList(1, row.size()).stream().filter(TableHeaderHasIdOrScopeCheck::isThTag).collect(Collectors.toList()));
+      for (TagNode element : row) {
+        if (isThTag(element)) {
+          currentTable.headers.add(element);
+        }
       }
       currentTable.firstCol.add(row.get(0));
 
+      if (currentTable.firstRow.isEmpty()) {
+        currentTable.firstRow = row;
+      }
+
     } else {
-      // Sometimes rows are defined in separate files. In this case we treat them as part of "not simple tables".
+      // Sometimes rows are defined in separate files, and at this point we don't see them as part of a current table.
+      // In this case we treat them as belonging to "not simple tables".
       raiseIssueOnTableHeadersWithoutScopeOrId(row);
     }
-  }
-
-  private void raiseIssueOnTableHeadersWithoutScopeOrId(Collection<TagNode> row) {
-    row.stream().filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId).forEach(th -> createViolation(th, MESSAGE));
   }
 
   @Override
   public void endElement(TagNode node) {
     if (isTableTag(node) && !tables.isEmpty()) {
       TableElement currentTable = tables.peek();
-
       if (!currentTable.isSimpleTable()) {
-        currentTable.headers.addAll(currentTable.firstRow);
-        currentTable.headers.addAll(currentTable.firstCol);
         raiseIssueOnTableHeadersWithoutScopeOrId(currentTable.headers);
       }
       tables.pop();
@@ -96,27 +90,27 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     return "table".equalsIgnoreCase(node.getNodeName());
   }
 
+  private void raiseIssueOnTableHeadersWithoutScopeOrId(Collection<TagNode> row) {
+    row.stream()
+      .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
+      .forEach(th -> createViolation(th, MESSAGE));
+  }
+
   private static boolean isHeaderTableWithoutScopeOrId(TagNode child) {
-    return isThTag(child) && !child.hasProperty("ID") && !child.hasProperty("SCOPE");
+    return isThTag(child) && !child.hasProperty("id") && !child.hasProperty("scope");
   }
 
   private static class TableElement {
-    Set<TagNode> headers = new HashSet<>();
+    List<TagNode> headers = new ArrayList<>();
     List<TagNode> firstRow = new ArrayList<>();
     List<TagNode> firstCol = new ArrayList<>();
-
 
     /**
      * We consider as simple tables, tables which have all headers only in the first row or in the first column.
      * If both first row and first column are all (or partially) composed by headers are not considered simple tables.
      **/
     boolean isSimpleTable() {
-
-      return firstRow.isEmpty() || (headers.isEmpty() &&
-        ((firstRow.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstCol.subList(1, firstCol.size()).stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag)) ||
-          (firstCol.stream().allMatch(TableHeaderHasIdOrScopeCheck::isThTag) && firstRow.subList(1, firstRow.size()).stream().noneMatch(TableHeaderHasIdOrScopeCheck::isThTag))
-        ));
-
+      return headers.equals(firstRow) || headers.equals(firstCol);
     }
   }
 }

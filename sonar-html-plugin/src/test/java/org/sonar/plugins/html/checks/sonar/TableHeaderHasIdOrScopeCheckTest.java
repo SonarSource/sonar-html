@@ -83,7 +83,7 @@ public class TableHeaderHasIdOrScopeCheckTest {
       .next().atLine(605)
       .next().atLine(617)
       .next().atLine(621)
-      .next().atLine(622)
+      .next().atLine(623)
     ;
   }
 
