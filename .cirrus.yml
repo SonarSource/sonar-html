@@ -1,4 +1,4 @@
-gcp_credentials: ENCRYPTED[!17c59813193e86cc337bce848b358412b90f50bc5fe1b8b39d363cdf14a41ebe76cfba0482e7f81d076994b9f6dbfb4c!]
+gcp_credentials: ENCRYPTED[!149d4005ecdba4cdd78bb5ba22756ebb98bf8e3367ee2e9ab08c5a1608c0d3e3b501904b67a1d67c0b63085e469d7dde!]
  
 env:
   CIRRUS_CLONE_DEPTH: 20
@@ -18,23 +18,23 @@ env:
   CIRRUS_SHELL: bash
 
 container_definition: &CONTAINER_DEFINITION
-  image: gcr.io/language-team/base:latest
-  cluster_name: cirrus-ci-lt-cluster
-  zone: us-central1-a
+  image: eu.gcr.io/release-engineering-ci-prod/base:j11-latest
+  cluster_name: cirrus-ci
+  zone: europe-west4-b
   namespace: default
 
 win_vm_definition: &WINDOWS_VM_DEFINITION
   gce_instance:
-    image_project: language-team
-    image_family: lt-base-windows
+    image_project: release-engineering-ci-prod
+    image_family: lt-base-windows-jdk11
     platform: windows
-    zone: us-central1-a
+    zone: europe-west4-b
     preemptible: false
-    disk: 60
+    disk: 80
     type: n1-standard-4
 
 only_sonarsource_qa: &ONLY_SONARSOURCE_QA
-  only_if: $CIRRUS_USER_COLLABORATOR == 'true' && ($CIRRUS_PR != "" || $CIRRUS_BRANCH == "master" || $CIRRUS_BRANCH =~ "branch-.*" || $CIRRUS_BRANCH =~ "dogfood-on-.*")
+  only_if: $CIRRUS_USER_COLLABORATOR == 'true' && $CIRRUS_TAG == "" && ($CIRRUS_PR != "" || $CIRRUS_BRANCH == "master" || $CIRRUS_BRANCH =~ "branch-.*" || $CIRRUS_BRANCH =~ "dogfood-on-.*")
 
 build_task:
   gke_container:
