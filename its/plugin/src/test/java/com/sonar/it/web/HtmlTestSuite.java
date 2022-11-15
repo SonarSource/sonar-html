@@ -51,6 +51,7 @@ public class HtmlTestSuite {
 
   @ClassRule
   public static Orchestrator orchestrator = Orchestrator.builderEnv()
+    .useDefaultAdminCredentialsForBuilds(true)
     .setSonarVersion(sonarVersion())
     .addPlugin(htmlPlugin())
     .restoreProfileAtStartup(FileLocation.ofClasspath("/com/sonar/it/web/backup.xml"))

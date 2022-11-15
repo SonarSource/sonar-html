@@ -44,6 +44,7 @@ public class PhpFilesTest {
 
   @ClassRule
   public static Orchestrator orchestratorWithPhp =  Orchestrator.builderEnv()
+    .useDefaultAdminCredentialsForBuilds(true)
     // This a second instance of orchestrator with SonarPhp plugin, if 'orchestrator.container.port' is set
     // it should not be used by this instance to not have two sonarqube servers on the same port
     .setOrchestratorProperty("orchestrator.container.port", "")
