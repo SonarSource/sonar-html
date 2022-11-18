@@ -19,7 +19,7 @@ jobs:
           distribute: true
           publish_to_binaries: true
           attach_artifacts_to_github_release: true
-          slack_channel: lang-html
+          slack_channel: team-lang-html
         env:
           ARTIFACTORY_API_KEY: ${{ secrets.ARTIFACTORY_API_KEY }}
           BURGRX_USER: ${{ secrets.BURGRX_USER }}
