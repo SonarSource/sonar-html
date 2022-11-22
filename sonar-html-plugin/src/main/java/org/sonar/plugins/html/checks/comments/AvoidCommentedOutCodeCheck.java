@@ -41,7 +41,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   private static final CodeRecognizer CODE_RECOGNIZER = new CodeRecognizer(THRESHOLD, LANGUAGE_FOOTPRINT);
 
-  private static final List<String> IGNORED_COMMENT_ANNOTATIONS  = Arrays.asList("@thymesVar", "@elvariable");
+  private static final List<String> IGNORED_COMMENT_ANNOTATIONS = Arrays.asList("@thymesVar", "@elvariable");
 
   @Override
   public void comment(CommentNode node) {
