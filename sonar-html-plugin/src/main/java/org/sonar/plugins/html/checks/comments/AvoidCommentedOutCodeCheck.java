@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.comments;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -40,6 +41,8 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
   private static final CodeRecognizer CODE_RECOGNIZER = new CodeRecognizer(THRESHOLD, LANGUAGE_FOOTPRINT);
 
+  private static final List<String> IGNORED_COMMENT_ANNOTATIONS  = Arrays.asList("@thymesVar", "@elvariable");
+
   @Override
   public void comment(CommentNode node) {
     if (node.isHtml()) {
@@ -56,7 +59,9 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
       // Conditional comments
       || comment.startsWith("<!--[if")
       // Server Side Includes
-      || comment.startsWith("<!--#");
+      || comment.startsWith("<!--#")
+      // Annotated comments
+      || IGNORED_COMMENT_ANNOTATIONS.stream().anyMatch(comment::contains);
   }
 
 }
