@@ -46,12 +46,8 @@ public class LangAttributeCheck extends AbstractPageCheck {
    * Using WordPress, HTML attributes can be set using the php function `language_attributes`
    */
   private static boolean hasLangAttributeFromWordPress(TagNode node) {
-    for (Attribute attribute : node.getAttributes()) {
-      String attributeName = attribute.getName();
-      if (attributeName.contains("?php") && attributeName.contains("language_attributes")) {
-        return true;
-      }
-    }
-    return false;
+    return node.getAttributes().stream()
+      .map(Attribute::getName)
+      .anyMatch(attributeName -> attributeName.contains("?php") && attributeName.contains("language_attributes"));
   }
 }
