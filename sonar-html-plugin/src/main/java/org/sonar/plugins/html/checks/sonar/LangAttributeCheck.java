@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.sonar;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S5254")
@@ -36,6 +37,21 @@ public class LangAttributeCheck extends AbstractPageCheck {
   }
 
   private static boolean hasLangAttribute(TagNode node) {
-    return node.hasProperty("lang") || node.hasProperty("xml:lang");
+    return node.hasProperty("lang")
+      || node.hasProperty("xml:lang")
+      || hasLangAttributeFromWordPress(node);
+  }
+
+  /**
+   * Using WordPress, HTML attributes can be set using the php function `language_attributes`
+   */
+  private static boolean hasLangAttributeFromWordPress(TagNode node) {
+    for (Attribute attribute : node.getAttributes()) {
+      String attributeName = attribute.getName();
+      if (attributeName.contains("?php") && attributeName.contains("language_attributes")) {
+        return true;
+      }
+    }
+    return false;
   }
 }
