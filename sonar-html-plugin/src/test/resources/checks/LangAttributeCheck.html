@@ -15,3 +15,23 @@
 </html>
 
 <html  <?php language_attributes(); ?>> <head></head> </html> <!-- Compliant -->
+
+<html th:lang="${#locale.language}" > <!-- Compliant -->
+<head></head>
+</html>
+
+<html th:xmllang="${#locale.language}" > <!-- Compliant -->
+<head></head>
+</html>
+
+<html th:lang-xmllang="${#locale.language}" > <!-- Compliant -->
+<head></head>
+</html>
+
+<html th:attr="lang="en"" > <!-- Compliant -->
+<head></head>
+</html>
+
+<html th:attr="xml:lang="en"" > <!-- Compliant -->
+<head></head>
+</html>

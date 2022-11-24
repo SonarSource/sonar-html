@@ -39,15 +39,31 @@ public class LangAttributeCheck extends AbstractPageCheck {
   private static boolean hasLangAttribute(TagNode node) {
     return node.hasProperty("lang")
       || node.hasProperty("xml:lang")
-      || hasLangAttributeFromWordPress(node);
+      || hasWordPressLangAttribute(node)
+      || hasThymeleafLangAttribute(node);
   }
 
   /**
    * Using WordPress, HTML attributes can be set using the php function `language_attributes`
    */
-  private static boolean hasLangAttributeFromWordPress(TagNode node) {
+  private static boolean hasWordPressLangAttribute(TagNode node) {
     return node.getAttributes().stream()
       .map(Attribute::getName)
       .anyMatch(attributeName -> attributeName.contains("?php") && attributeName.contains("language_attributes"));
   }
+
+  /**
+   * In Thymeleaf there are multiple ways of specifying the lang attribute:
+   * - using the th:lang, th:xmllang, th:lang-xmllang attributes (lang-xmllang would set both xmllang and lang attributes)
+   * - using the th:attr attribute for specifying different attributes. Example "th:attr="lang=html,xml:lang=html""
+   */
+  private static boolean hasThymeleafLangAttribute(TagNode node) {
+    String thAttrValue = node.getAttribute("th:attr");
+    return node.hasProperty("th:lang")
+      || node.hasProperty("th:xmllang")
+      || node.hasProperty("th:lang-xmllang")
+      || (thAttrValue != null && thAttrValue.contains("lang")
+    );
+  }
+
 }
