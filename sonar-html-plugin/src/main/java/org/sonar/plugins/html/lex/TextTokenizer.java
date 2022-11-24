@@ -37,14 +37,23 @@ import org.sonar.plugins.html.node.TextNode;
 class TextTokenizer extends AbstractTokenizer<List<Node>> {
 
   private static final class EndTokenMatcher implements EndMatcher {
+    private final CodeReader codeReader;
+
+    public EndTokenMatcher(CodeReader codeReader) {
+      this.codeReader = codeReader;
+    }
 
     @Override
     public boolean match(int endFlag) {
-      return endFlag == '<';
+      return endFlag == '<' && !isFollowedByWhitespaceCharacter();
+    }
+
+    private boolean isFollowedByWhitespaceCharacter() {
+      // Look for whitespace on the character after the next one (as here we already know that the next character is '<').
+      char followingChar = codeReader.peek(2)[1];
+      return followingChar == 0 || Character.isWhitespace(followingChar);
     }
   }
-
-  private final EndMatcher endTokenMatcher = new EndTokenMatcher();
 
   public TextTokenizer() {
     super("", "");
@@ -85,7 +94,7 @@ class TextTokenizer extends AbstractTokenizer<List<Node>> {
     if (inScript(nodeList)) {
       codeReader.popTo(new EndScriptMatcher(codeReader), stringBuilder);
     } else {
-      codeReader.popTo(endTokenMatcher, stringBuilder);
+      codeReader.popTo(new EndTokenMatcher(codeReader), stringBuilder);
     }
     node.setCode(stringBuilder.toString());
     setEndPosition(codeReader, node);

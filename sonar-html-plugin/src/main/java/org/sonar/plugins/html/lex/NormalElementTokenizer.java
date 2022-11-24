@@ -33,9 +33,6 @@ public class NormalElementTokenizer extends ElementTokenizer {
       return false;
     }
     int i = 1;
-    while (Character.isWhitespace(codeReader.charAt(i))) {
-      i++;
-    }
     if (codeReader.charAt(i) == '/' || codeReader.charAt(i) == '!') {
       i++;
     }
