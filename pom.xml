@@ -70,7 +70,7 @@
     <analyzerCommons.version>1.22.0.848</analyzerCommons.version>
 
     <artifactsToPublish>${project.groupId}:sonar-html-plugin:jar</artifactsToPublish>
-    <maven.compiler.release>8</maven.compiler.release>
+    <jdk.min.version>11</jdk.min.version>
   </properties>
 
   <profiles>
