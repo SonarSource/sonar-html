@@ -62,7 +62,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
     return node.hasProperty("th:lang")
       || node.hasProperty("th:xmllang")
       || node.hasProperty("th:lang-xmllang")
-      || (thAttrValue != null && thAttrValue.contains("lang")
+      || (thAttrValue != null && thAttrValue.contains("lang=")
     );
   }
 
