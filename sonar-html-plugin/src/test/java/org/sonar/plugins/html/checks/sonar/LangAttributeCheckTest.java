@@ -26,7 +26,7 @@ import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 public class LangAttributeCheckTest {
-  
+
   @Rule
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
@@ -35,6 +35,8 @@ public class LangAttributeCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheck.html"), new LangAttributeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLocation(1, 0, 1, 6).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+      .next().atLocation(1, 0, 1, 6)
+      .next().atLocation(3, 0, 3, 39)
+      .withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
   }
 }

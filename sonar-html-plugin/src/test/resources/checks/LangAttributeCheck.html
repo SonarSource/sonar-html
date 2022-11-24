@@ -1,17 +1,22 @@
-<html> <!-- Non-Compliant -->
-  <head></head>
-</html>
+<html> </html> <!-- Non-Compliant -->
 
-<html lang="en"> <!-- Compliant -->
-  <head></head>
-</html>
+<html th:attr="class="my-lang-class"" > </html>  <!-- Non-Compliant -->
 
-<html xml:lang="en"> <!-- Compliant -->
-  <head></head>
-</html>
+<html lang="en"> </html> <!-- Compliant -->
 
-<html lang="en" xml:lang="en"> <!-- Compliant -->
-  <head></head>
-</html>
+<html xml:lang="en"> </html> <!-- Compliant -->
+
+<html lang="en" xml:lang="en"> </html> <!-- Compliant -->
 
 <html  <?php language_attributes(); ?>> <head></head> </html> <!-- Compliant -->
+
+<html th:lang="${#locale.language}" > </html> <!-- Compliant -->
+
+<html th:xmllang="${#locale.language}" > </html> <!-- Compliant -->
+
+<html th:lang-xmllang="${#locale.language}" > </html>  <!-- Compliant -->
+
+<html th:attr="lang="en"" > </html>  <!-- Compliant -->
+
+<html th:attr="xml:lang="en"" > </html> <!-- Compliant -->
+
