@@ -4,7 +4,7 @@
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
-    "constantCost": "5mn"
+    "constantCost": "5min"
   },
   "tags": [
     "accessibility",
