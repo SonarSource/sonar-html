@@ -1,14 +1,12 @@
 {
   "title": "\"\u003cstrong\u003e\" and \"\u003cem\u003e\" tags should be used",
   "type": "BUG",
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "2min"
   },
-  "tags": [
-    "accessibility"
-  ],
+  "tags": [],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1100",
   "sqKey": "BoldAndItalicTagsCheck",
