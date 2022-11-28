@@ -77,3 +77,21 @@
 <table aria-hidden="true">
   <table></table> <!-- Non-Compliant, no recursive check on parent -->
 </table>
+
+<table>
+  <caption>Some Table</caption>
+  <th:block th:insert="/ContainsTRAndTHAndTD.html" />
+</table>
+
+<table>
+  <caption>Some Table</caption>
+  <th:block th:replace="/ContainsTRAndTHAndTD.html" />
+</table>
+
+<table th:insert="/ContainsTRAndTHAndTD.html" >
+  <caption>Some Table</caption>
+</table>
+
+<table th:replace="/ContainsTRAndTHAndTD.html">
+  <caption>Some Table</caption>
+</table>

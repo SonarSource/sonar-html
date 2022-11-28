@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.sonar;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S5256")
@@ -26,7 +27,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node)) {
+    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node) && !hasThymeleafTemplate(node)) {
       createViolation(node, "Add \"<th>\" headers to this \"<table>\".");
     }
   }
@@ -37,12 +38,23 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean isLayout(TagNode node) {
     String role = node.getAttribute("role");
-    return role != null && ("PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role));
+    return ("PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role));
   }
 
   private static boolean isHidden(TagNode node) {
     String ariaHidden = node.getAttribute("aria-hidden");
-    return ariaHidden != null && "TRUE".equalsIgnoreCase(ariaHidden);
+    return "TRUE".equalsIgnoreCase(ariaHidden);
+  }
+
+  private static boolean hasThymeleafTemplate(TagNode node) {
+    return node.getAttributes().stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated) // Thymeleaf in table attributes ?
+      || node.getChildren().stream().map(TagNode::getAttributes).anyMatch(                                // Thymeleaf in children attributes ?
+        attributes -> attributes.stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated));
+  }
+
+  private static boolean isAttributeThymeleafTemplated(Attribute attribute) {
+    String attributeName = attribute.getName();
+    return attributeName.startsWith("th:replace") || attributeName.startsWith("th:insert");
   }
 
   private static boolean hasHeader(TagNode node) {
