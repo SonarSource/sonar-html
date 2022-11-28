@@ -57,7 +57,10 @@ public class NormalElementTokenizerTest {
     assertThat(isValidRangeForFirstCharacter('\u3001', '\uD7FF')).isTrue();
     assertThat(isValidRangeForFirstCharacter('\uF900', '\uFDCF')).isTrue();
     assertThat(isValidRangeForFirstCharacter('\uFDF0', '\uFFFD')).isTrue();
+  }
 
+  @Test
+  public void is_invalid_single_char_code_name_start_char() {
     // Invalid character codepoints (encoded on a single char): all ranges in between the above valid ranges.
     assertThat(isInvalidRangeForFirstCharacter('\u0000', '\u0039')).isTrue();
     assertThat(isInvalidRangeForFirstCharacter('\u003B', '\u0040')).isTrue();
