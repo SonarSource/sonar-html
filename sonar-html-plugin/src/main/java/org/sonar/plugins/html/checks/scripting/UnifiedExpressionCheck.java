@@ -122,6 +122,13 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
 
     for (Attribute attribute : element.getAttributes()) {
+
+      // Ignore thymeleaf expressions
+      String name = attribute.getName();
+      if (name.startsWith("th:")) {
+        continue;
+      }
+
       String value = attribute.getValue();
       if (value != null) {
         value = value.trim();
