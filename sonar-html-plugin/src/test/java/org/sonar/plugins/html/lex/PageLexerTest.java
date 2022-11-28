@@ -507,27 +507,29 @@ public class PageLexerTest {
   }
 
   @Test
-  public void tag_with_whitespace_before_name_is_considered_as_text() {
-    // Tag names cannot start with whitespace character: https://www.w3.org/TR/REC-xml/#sec-starttags.
+  public void tag_with_invalid_character_before_name_is_considered_as_text() {
+    // Tag names cannot start with a whitespace, a digit or any other invalid character: https://www.w3.org/TR/REC-xml/#sec-starttags.
     assertOnlyText("<  html>");
+    assertOnlyText("<5html>");
+    assertOnlyText("<\u2190html>");
   }
 
   @Test
   public void start_tag_character_is_considered_as_text_when_followed_by_whitespace() {
     PageLexer lexer = new PageLexer();
     List<Node> nodes = lexer.parse(new StringReader("<a> < a </a>"));
-    assertThat(nodes).hasSize(3);
-    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.TAG, NodeType.TEXT, NodeType.TAG);
-    assertThat(nodes).extracting(Node::getCode).containsExactly("<a>", " < a ", "</a>");
+    assertThat(nodes).hasSize(4);
+    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.TAG, NodeType.TEXT, NodeType.TEXT, NodeType.TAG);
+    assertThat(nodes).extracting(Node::getCode).containsExactly("<a>", " ", "< a ", "</a>");
   }
 
   @Test
   public void start_tag_character_is_considered_as_text_when_last_character_of_code() {
     PageLexer lexer = new PageLexer();
     List<Node> nodes = lexer.parse(new StringReader("<a> <"));
-    assertThat(nodes).hasSize(2);
-    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.TAG, NodeType.TEXT);
-    assertThat(nodes).extracting(Node::getCode).containsExactly("<a>", " <");
+    assertThat(nodes).hasSize(3);
+    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.TAG, NodeType.TEXT, NodeType.TEXT);
+    assertThat(nodes).extracting(Node::getCode).containsExactly("<a>", " ", "<");
   }
 
   private void assertSingleTag(String code) {

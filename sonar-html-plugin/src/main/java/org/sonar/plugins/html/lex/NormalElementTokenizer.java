@@ -36,10 +36,48 @@ public class NormalElementTokenizer extends ElementTokenizer {
     if (codeReader.charAt(i) == '/' || codeReader.charAt(i) == '!') {
       i++;
     }
-    int elementNameIndex = i;
-    while (Character.isLetterOrDigit(codeReader.charAt(i))) {
-      i++;
-    }
-    return i > elementNameIndex && super.consume(codeReader, nodeList);
+    return isValidTagNameStartChar(codeReader, i) && super.consume(codeReader, nodeList);
   }
+
+  /**
+   * To avoid to wrongly consider a '<' character as being the start of a tag, the first character of the expected tag name is checked for validity.
+   * The ranges of valid starting characters for a tag name are defined here: https://www.w3.org/TR/REC-xml/#NT-NameStartChar.
+   * The method returns true in the following two cases:
+   *  - Current character code value is a valid single UTF-16 character codepoint in the expected range
+   *  - Current character and next character are a valid UTF-16 surrogate pair in the expected range
+   */
+  public static boolean isValidTagNameStartChar(CodeReader codeReader, int index) {
+    char nameStartChar = codeReader.charAt(index);
+    return isValidSingleCharCodeNameStartChar(nameStartChar) || isValidSurrogatePairNameStartChar(nameStartChar, codeReader.charAt(index + 1));
+  }
+
+  // Visible for testing
+  static boolean isValidSingleCharCodeNameStartChar(char currentChar) {
+    return currentChar == ':'
+      || currentChar >= 'A' && currentChar <= 'Z'
+      || currentChar == '_'
+      || currentChar >= 'a' && currentChar <= 'z'
+      || currentChar >= '\u00C0' && currentChar <= '\u00D6'
+      || currentChar >= '\u00D8' && currentChar <= '\u00F6'
+      || currentChar >= '\u00F8' && currentChar <= '\u02FF'
+      || currentChar >= '\u0370' && currentChar <= '\u037D'
+      || currentChar >= '\u037F' && currentChar <= '\u1FFF'
+      || currentChar >= '\u200C' && currentChar <= '\u200D'
+      || currentChar >= '\u2070' && currentChar <= '\u218F'
+      || currentChar >= '\u2C00' && currentChar <= '\u2FEF'
+      || currentChar >= '\u3001' && currentChar <= '\uD7FF'
+      || currentChar >= '\uF900' && currentChar <= '\uFDCF'
+      || currentChar >= '\uFDF0' && currentChar <= '\uFFFD';
+  }
+
+  // Visible for testing
+  static boolean isValidSurrogatePairNameStartChar(char currentChar, char nextChar) {
+    if (!Character.isSurrogatePair(currentChar, nextChar)) {
+      return false;
+    }
+
+    int codePoint = Character.toCodePoint(currentChar, nextChar);
+    return codePoint >= 0x10000 && codePoint <= 0xEFFFF;
+  }
+
 }
