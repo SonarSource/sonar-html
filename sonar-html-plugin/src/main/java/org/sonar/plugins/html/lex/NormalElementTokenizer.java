@@ -54,20 +54,20 @@ public class NormalElementTokenizer extends ElementTokenizer {
   // Visible for testing
   static boolean isValidSingleCharCodeNameStartChar(char currentChar) {
     return currentChar == ':'
+      || (currentChar >= 'A' && currentChar <= 'Z')
       || currentChar == '_'
-      || isInCharRange(currentChar, 'A', 'Z')
-      || isInCharRange(currentChar, 'a', 'z')
-      || isInCharRange(currentChar, '\u00C0', '\u00D6')
-      || isInCharRange(currentChar, '\u00D8', '\u00F6')
-      || isInCharRange(currentChar, '\u00F8', '\u02FF')
-      || isInCharRange(currentChar, '\u0370', '\u037D')
-      || isInCharRange(currentChar, '\u037F', '\u1FFF')
-      || isInCharRange(currentChar, '\u200C', '\u200D')
-      || isInCharRange(currentChar, '\u2070', '\u218F')
-      || isInCharRange(currentChar, '\u2C00', '\u2FEF')
-      || isInCharRange(currentChar, '\u3001', '\uD7FF')
-      || isInCharRange(currentChar, '\uF900', '\uFDCF')
-      || isInCharRange(currentChar, '\uFDF0', '\uFFFD');
+      || (currentChar >= 'a' && currentChar <= 'z')
+      || (currentChar >= '\u00C0' && currentChar <= '\u00D6')
+      || (currentChar >= '\u00D8' && currentChar <= '\u00F6')
+      || (currentChar >= '\u00F8' && currentChar <= '\u02FF')
+      || (currentChar >= '\u0370' && currentChar <= '\u037D')
+      || (currentChar >= '\u037F' && currentChar <= '\u1FFF')
+      || (currentChar >= '\u200C' && currentChar <= '\u200D')
+      || (currentChar >= '\u2070' && currentChar <= '\u218F')
+      || (currentChar >= '\u2C00' && currentChar <= '\u2FEF')
+      || (currentChar >= '\u3001' && currentChar <= '\uD7FF')
+      || (currentChar >= '\uF900' && currentChar <= '\uFDCF')
+      || (currentChar >= '\uFDF0' && currentChar <= '\uFFFD');
   }
 
   // Visible for testing
