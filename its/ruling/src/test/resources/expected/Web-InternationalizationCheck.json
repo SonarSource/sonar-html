@@ -56455,6 +56455,9 @@
 11,
 12,
 ],
+'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/groups/select_user.html.erb':[
+26,
+],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/manual_rules/index.html.erb':[
 8,
 9,

@@ -2798,6 +2798,7 @@
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/groups/select_user.html.erb':[
 13,
+28,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_comment_form.html.erb':[
 7,
@@ -2876,9 +2877,11 @@
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/edit_groups.html.erb':[
 17,
+32,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/edit_users.html.erb':[
 18,
+33,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_options.html.erb':[
 26,
@@ -2892,15 +2895,19 @@
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_default_project_groups.html.erb':[
 21,
+36,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_default_project_users.html.erb':[
 20,
+35,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_groups.html.erb':[
 26,
+41,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_users.html.erb':[
 26,
+41,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/projects.html.erb':[
 76,
@@ -2942,6 +2949,7 @@
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/select_group.html.erb':[
 12,
+28,
 ],
 'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/index.html':[
 212,

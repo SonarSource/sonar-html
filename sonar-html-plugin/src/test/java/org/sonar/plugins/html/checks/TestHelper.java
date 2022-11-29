@@ -28,6 +28,7 @@ import org.sonar.plugins.html.analyzers.ComplexityVisitor;
 import org.sonar.plugins.html.analyzers.PageCountLines;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.lex.PageLexer;
+import org.sonar.plugins.html.lex.VueLexer;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.html.visitor.HtmlAstScanner;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -55,9 +56,10 @@ public class TestHelper {
     );
 
     HtmlAstScanner walker = new HtmlAstScanner(Arrays.asList(new PageCountLines(), new ComplexityVisitor()));
+    PageLexer lexer = file.getName().endsWith(".vue") ? new VueLexer() : new PageLexer();
     walker.addVisitor(visitor);
     walker.scan(
-      new PageLexer().parse(fileReader),
+      lexer.parse(fileReader),
       result
     );
 
