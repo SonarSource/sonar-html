@@ -38,7 +38,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean isLayout(TagNode node) {
     String role = node.getAttribute("role");
-    return ("PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role));
+    return "PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role);
   }
 
   private static boolean isHidden(TagNode node) {
@@ -47,9 +47,8 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   }
 
   private static boolean hasThymeleafTemplate(TagNode node) {
-    return node.getAttributes().stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated) // Thymeleaf in table attributes ?
-      || node.getChildren().stream().map(TagNode::getAttributes).anyMatch(                                // Thymeleaf in children attributes ?
-        attributes -> attributes.stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated));
+    return node.getAttributes().stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated)
+      || node.getChildren().stream().map(TagNode::getAttributes).anyMatch(attributes -> attributes.stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated));
   }
 
   private static boolean isAttributeThymeleafTemplated(Attribute attribute) {
