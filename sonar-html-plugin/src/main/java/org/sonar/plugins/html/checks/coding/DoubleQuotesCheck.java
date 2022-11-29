@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -45,7 +44,7 @@ public class DoubleQuotesCheck extends AbstractPageCheck {
    * Single quoted attributes are allowed only when used because the value contains a double quote.
    */
   private static boolean isSingleQuoteAttribute(Attribute a) {
-    return a.isSingleQuoted() && !StringUtils.contains(a.getValue(), '"');
+    return a.isSingleQuoted() && !a.getValue().contains("\"");
   }
 
 }

@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.scripting;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.ExpressionNode;
@@ -26,24 +25,33 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "JspScriptletCheck")
 public class JspScriptletCheck extends AbstractPageCheck {
 
+  private static final String SCRIPTLET_PREFIX = "<%";
+  private static final String SCRIPTLET_SUFFIX = "%>";
+
   @Override
   public void expression(ExpressionNode node) {
     String content = trimScriptlet(node.getCode());
 
-    if (StringUtils.isNotBlank(content)) {
+    if (!content.isBlank()) {
       createIssue(node.getStartLinePosition());
     }
   }
 
   @Override
   public void startElement(TagNode element) {
-    if (StringUtils.equalsIgnoreCase(element.getLocalName(), "scriptlet")) {
+    if ("scriptlet".equalsIgnoreCase(element.getLocalName())) {
       createIssue(element.getStartLinePosition());
     }
   }
 
   private static String trimScriptlet(String code) {
-    return StringUtils.removeEnd(StringUtils.removeStart(code, "<%"), "%>");
+    if (code.startsWith(SCRIPTLET_PREFIX)){
+      code = code.substring(SCRIPTLET_PREFIX.length());
+    }
+    if (code.endsWith(SCRIPTLET_SUFFIX)){
+      code = code.substring(0, code.length() - SCRIPTLET_SUFFIX.length());
+    }
+    return code;
   }
 
   private void createIssue(int line) {

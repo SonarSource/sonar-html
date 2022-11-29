@@ -46,7 +46,7 @@ class DoctypeTokenizer extends AbstractTokenizer<List<Node>> {
     try {
       while (tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
         if (tokenizer.sval != null) {
-          if (node.getNodeName() == null) {
+          if (node.getNodeName().isEmpty()) {
             node.setNodeName(tokenizer.sval);
           } else {
             node.getAttributes().add(new Attribute(tokenizer.sval));

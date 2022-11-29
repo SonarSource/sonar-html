@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.structure;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -47,8 +46,7 @@ public class IllegalElementCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     for (String elementName : elementsArray) {
-      if (StringUtils.equalsIgnoreCase(element.getLocalName(), elementName)
-        || StringUtils.equalsIgnoreCase(element.getNodeName(), elementName)) {
+      if (elementName.equalsIgnoreCase(element.getLocalName()) || elementName.equalsIgnoreCase(element.getNodeName())) {
         createViolation(element, "Remove this \"" + elementName + "\" element.");
       }
     }

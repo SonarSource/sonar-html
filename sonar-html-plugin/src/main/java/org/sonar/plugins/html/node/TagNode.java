@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Defines a tag.
@@ -45,7 +44,7 @@ public class TagNode extends Node {
   }
 
   public boolean equalsElementName(String elementName) {
-    return StringUtils.equalsIgnoreCase(getLocalName(), elementName) || StringUtils.equalsIgnoreCase(getNodeName(), elementName);
+    return getLocalName().equalsIgnoreCase(elementName) || getNodeName().equalsIgnoreCase(elementName);
   }
 
   /**
@@ -102,16 +101,17 @@ public class TagNode extends Node {
   }
 
   public String getLocalName() {
-    String localPart = StringUtils.substringAfterLast(getNodeName(), ":");
-    if (StringUtils.isEmpty(localPart)) {
-      return nodeName;
+    String[] parts = getNodeName().split(":");
+    String localPart = parts[parts.length - 1];
+    if (localPart.isEmpty()) {
+      return getNodeName();
     } else {
       return localPart;
     }
   }
 
   public String getNodeName() {
-    return nodeName;
+    return nodeName == null ? "" : nodeName;
   }
 
   @Nullable

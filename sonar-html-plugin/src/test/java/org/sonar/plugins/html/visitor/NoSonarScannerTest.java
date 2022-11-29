@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
+import org.sonar.api.batch.sensor.issue.internal.DefaultNoSonarFilter;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.node.Node;
@@ -53,7 +54,7 @@ public class NoSonarScannerTest {
       .setContents(CONTENT)
       .setCharset(StandardCharsets.UTF_8)
       .build();
-    NoSonarFilter noSonarFilter = spy(new NoSonarFilter());
+    NoSonarFilter noSonarFilter = spy(new DefaultNoSonarFilter());
     HtmlAstScanner pageScanner = new HtmlAstScanner(Collections.emptyList());
     pageScanner.addVisitor(new NoSonarScanner(noSonarFilter));
 

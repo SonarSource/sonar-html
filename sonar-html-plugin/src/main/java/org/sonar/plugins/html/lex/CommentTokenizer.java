@@ -17,9 +17,9 @@
  */
 package org.sonar.plugins.html.lex;
 
+import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.html.node.CommentNode;
@@ -43,7 +43,7 @@ class CommentTokenizer<T extends List<Node>> extends AbstractTokenizer<T> {
 
     @Override
     public boolean match(int endFlag) {
-      return ArrayUtils.isEquals(codeReader.peek(endChars.length), endChars);
+      return Arrays.equals(codeReader.peek(endChars.length), endChars);
     }
 
   }

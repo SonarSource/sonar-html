@@ -19,7 +19,6 @@ package org.sonar.plugins.html.checks.coding;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -38,17 +37,19 @@ public class InternationalizationCheck extends AbstractPageCheck {
     defaultValue = DEFAULT_ATTRIBUTES)
   public String attributes = DEFAULT_ATTRIBUTES;
 
-  @RuleProperty(key = "ignoredContentRegex", description = "Text content matching this expression will be ignored", defaultValue = StringUtils.EMPTY)
-  public String ignoredContentRegex;
+  @RuleProperty(
+    key = "ignoredContentRegex",
+    description = "Text content matching this expression will be ignored",
+    defaultValue = "")
+  public String ignoredContentRegex = "";
+
   private Pattern ignoredContentPattern = null;
-
-
   private QualifiedAttribute[] attributesArray;
 
   @Override
   public void startDocument(List<Node> nodes) {
     this.attributesArray = parseAttributes(attributes);
-    if (!StringUtils.isEmpty(ignoredContentRegex)) {
+    if (!ignoredContentRegex.isEmpty()) {
       ignoredContentPattern = Pattern.compile(ignoredContentRegex);
     }
   }

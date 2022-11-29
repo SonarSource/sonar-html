@@ -17,7 +17,8 @@
  */
 package org.sonar.plugins.html.checks.dependencies;
 
-import org.apache.commons.lang.StringUtils;
+import java.util.List;
+import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -25,11 +26,10 @@ import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
-import java.util.List;
-
 @Rule(key = "IllegalNamespaceCheck")
 public class IllegalNamespaceCheck extends AbstractPageCheck {
 
+  private static final Pattern XMLNS_PREFIX = Pattern.compile("^xmlns", Pattern.CASE_INSENSITIVE);
   private static final String DEFAULT_NAMESPACES = "";
 
   @RuleProperty(
@@ -42,13 +42,13 @@ public class IllegalNamespaceCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    namespacesArray = StringUtils.split(namespaces, ",");
+    namespacesArray = namespaces.isEmpty() ? new String[0] : namespaces.split(",");
   }
 
   @Override
   public void startElement(TagNode element) {
     for (Attribute a : element.getAttributes()) {
-      if (StringUtils.startsWithIgnoreCase(a.getName(), "xmlns")) {
+      if (XMLNS_PREFIX.matcher(a.getName()).find()) {
         for (String namespace : namespacesArray) {
           if (a.getValue().equalsIgnoreCase(namespace)) {
             createViolation(element.getStartLinePosition(), "Using \"" + a.getValue() + "\" namespace is not allowed.");

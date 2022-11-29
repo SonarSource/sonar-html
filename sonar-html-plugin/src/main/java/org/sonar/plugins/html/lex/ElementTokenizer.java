@@ -23,7 +23,6 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.html.node.Attribute;
@@ -185,7 +184,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
    * Unescape the quotes from the attribute value.
    */
   private static String unescapeQuotes(String value, char ch) {
-    return StringUtils.replace(value, "\\" + ch, Character.toString(ch));
+    return value.replaceAll("\\\\" + ch, Character.toString(ch));
   }
 
   private static boolean isQuote(char c) {

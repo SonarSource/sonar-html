@@ -17,9 +17,9 @@
  */
 package org.sonar.plugins.html.lex;
 
+import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.sonar.channel.Channel;
 import org.sonar.channel.CodeReader;
 import org.sonar.channel.EndMatcher;
@@ -53,7 +53,7 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
         if (started) {
           nesting++;
         } else {
-          boolean ended = ArrayUtils.isEquals(codeReader.peek(endChars.length), endChars);
+          boolean ended = Arrays.equals(codeReader.peek(endChars.length), endChars);
           if (ended) {
             nesting--;
             return nesting < 0;

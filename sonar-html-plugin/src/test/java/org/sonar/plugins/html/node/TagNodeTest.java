@@ -50,6 +50,14 @@ public class TagNodeTest {
     assertThat(node.hasProperty("name3")).isTrue();
   }
 
+  @Test
+  public void emptyTagNode() {
+    TagNode tagNode = new TagNode();
+    assertThat(tagNode.getNodeName()).isNotNull();
+    assertThat(tagNode.getLocalName()).isNotNull();
+    assertThat(tagNode.getCode()).isNotNull();
+  }
+
   private TagNode createNode() {
     Attribute attribute1 = new Attribute("name1", "value1");
     Attribute attribute2 = new Attribute("[name2]", "value2");

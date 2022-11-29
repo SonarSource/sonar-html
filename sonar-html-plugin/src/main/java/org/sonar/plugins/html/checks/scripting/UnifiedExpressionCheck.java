@@ -17,8 +17,16 @@
  */
 package org.sonar.plugins.html.checks.scripting;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
 import org.jboss.el.lang.ExpressionBuilder;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -27,19 +35,11 @@ import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
-import java.lang.reflect.Method;
-import java.util.List;
-
 @Rule(key = "UnifiedExpressionCheck")
 public class UnifiedExpressionCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_FUNCTIONS = "";
-  private static final String[] JSTL_FUNCTIONS = new String[] {
+  private static final Set<String> JSTL_FUNCTIONS = Set.of(
     "contains",
     "containsIgnoreCase",
     "endsWith",
@@ -56,7 +56,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
     "toLowerCase",
     "toUpperCase",
     "trim"
-  };
+  );
 
   /**
    * List of supported functions. Use of unknown functions raises a violation.
@@ -68,7 +68,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
     defaultValue = DEFAULT_FUNCTIONS)
   public String functions = DEFAULT_FUNCTIONS;
 
-  private String[] functionsArray;
+  private Set<String> functionsSet = Set.of();
 
   /**
    * ELContext for use by ExpressionBuilder.
@@ -95,7 +95,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
 
           @Override
           public Method resolveFunction(String prefix, String localName) {
-            if (!ArrayUtils.contains(JSTL_FUNCTIONS, localName) && !ArrayUtils.contains(functionsArray, localName)) {
+            if (!JSTL_FUNCTIONS.contains(localName) && !functionsSet.contains(localName)) {
               createViolation(element.getStartLinePosition(), "Fix this expression: Unknown function \"" + localName + "\".");
             }
 
@@ -115,7 +115,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    functionsArray = StringUtils.stripAll(StringUtils.split(functions, ","));
+    functionsSet = Arrays.stream(functions.split(",")).map(String::strip).collect(Collectors.toSet());
   }
 
   @Override

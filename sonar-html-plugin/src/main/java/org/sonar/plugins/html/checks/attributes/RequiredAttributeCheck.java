@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.attributes;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -49,7 +48,7 @@ public class RequiredAttributeCheck extends AbstractPageCheck {
   public void startDocument(List<Node> nodes) {
     attributesList.clear();
     for (String item : trimSplitCommaSeparatedList(attributes)) {
-      String[] pair = StringUtils.split(item, ".");
+      String[] pair = item.split("\\.");
       if (pair.length > 1) {
         RequiredAttribute a = new RequiredAttribute();
         a.elementName = pair[0];
