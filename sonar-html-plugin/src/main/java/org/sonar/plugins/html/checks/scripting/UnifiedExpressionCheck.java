@@ -122,15 +122,11 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
 
     for (Attribute attribute : element.getAttributes()) {
+      String name = attribute.getName();
+      String value = attribute.getValue();
 
       // Ignore thymeleaf expressions
-      String name = attribute.getName();
-      if (name.startsWith("th:")) {
-        continue;
-      }
-
-      String value = attribute.getValue();
-      if (value != null) {
+      if (!name.startsWith("th:") && value != null) {
         value = value.trim();
         if (value.length() > 0 && isUnifiedExpression(value)) {
           validateExpression(element, attribute);
