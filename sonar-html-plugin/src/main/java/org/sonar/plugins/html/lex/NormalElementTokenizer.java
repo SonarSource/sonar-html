@@ -80,8 +80,4 @@ public class NormalElementTokenizer extends ElementTokenizer {
     return codePoint >= 0x10000 && codePoint <= 0xEFFFF;
   }
 
-  private static boolean isInCharRange(char c, char lowerInclusive, char higherInclusive) {
-    return c >= lowerInclusive && c <= higherInclusive;
-  }
-
 }
