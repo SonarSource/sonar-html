@@ -45,7 +45,7 @@ public class ComplexityVisitor extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     // count jstl tags
-    if (TAGS.contains(node.getLocalName()) || TAGS.contains(node.getNodeName())) {
+    if (TAGS.contains(node.getNodeName()) || TAGS.contains(node.getLocalName())) {
       complexity++;
       return;
     }

@@ -125,7 +125,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 
     for (QualifiedAttribute qualifiedAttribute : attributes) {
       String nodeName = qualifiedAttribute.getNodeName();
-      if (nodeName == null || nodeName.equalsIgnoreCase(element.getLocalName()) || nodeName.equalsIgnoreCase(element.getNodeName())) {
+      if (nodeName == null || nodeName.equalsIgnoreCase(element.getNodeName()) || nodeName.equalsIgnoreCase(element.getLocalName())) {
         for (Attribute a : element.getAttributes()) {
           if (qualifiedAttribute.getAttributeName().equalsIgnoreCase(a.getName())) {
             matchingAttributes.add(a);
