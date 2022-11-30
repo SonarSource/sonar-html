@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.scripting;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -68,7 +69,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
     defaultValue = DEFAULT_FUNCTIONS)
   public String functions = DEFAULT_FUNCTIONS;
 
-  private Set<String> functionsSet = Set.of();
+  private Set<String> functionsSet = new HashSet<>();
 
   /**
    * ELContext for use by ExpressionBuilder.

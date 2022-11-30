@@ -49,7 +49,7 @@ public abstract class Node {
   }
 
   public int getLinesOfCode() {
-    return (int) getCode().chars().filter(charCode -> charCode == '\n').count();
+    return (int) getCode().lines().count();
   }
 
   public NodeType getNodeType() {
@@ -86,7 +86,7 @@ public abstract class Node {
 
   @Override
   public String toString() {
-    return code;
+    return getCode();
   }
 
 }
