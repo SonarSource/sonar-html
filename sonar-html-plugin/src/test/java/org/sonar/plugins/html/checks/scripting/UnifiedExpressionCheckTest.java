@@ -46,7 +46,8 @@ public class UnifiedExpressionCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Fix this expression: Unknown function \"myMethod1\".")
-      .next().atLine(5).withMessage("Fix this expression: Error Parsing: ${}");
+      .next().atLine(5).withMessage("Fix this expression: Error Parsing: ${}")
+      .next().atLine(9).withMessage("Fix this expression: Error Parsing: ${{'one':1,}");
   }
 
   @Test
@@ -57,7 +58,8 @@ public class UnifiedExpressionCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnifiedExpressionCheck.jsp"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(5);
+      .next().atLine(5)
+      .next().atLine(9);
   }
 
 }

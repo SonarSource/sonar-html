@@ -63,6 +63,7 @@
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
+    <jakarta.el.version>4.0.2</jakarta.el.version>
     <sslr.version>1.24.0.633</sslr.version>
     <analyzerCommons.version>2.1.0.1111</analyzerCommons.version>
     <sonar.plugin.api.version>7.9</sonar.plugin.api.version>
