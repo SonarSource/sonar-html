@@ -18,9 +18,7 @@
 package org.sonar.plugins.html.analyzers;
 
 import java.util.List;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import java.util.Set;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -29,8 +27,8 @@ import org.sonar.plugins.html.node.TagNode;
 
 public class ComplexityVisitor extends AbstractPageCheck {
 
-  private static final String[] OPERATORS = new String[] {"&&", "||", "and", "or"};
-  private static final String[] TAGS = new String[] {"catch", "choose", "if", "forEach", "forTokens", "when"};
+  private static final Set<String> OPERATORS = Set.of("&&", "||", "and", "or");
+  private static final Set<String> TAGS = Set.of("catch", "choose", "if", "forEach", "forTokens", "when");
 
   private int complexity;
 
@@ -47,18 +45,19 @@ public class ComplexityVisitor extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     // count jstl tags
-    if (ArrayUtils.contains(TAGS, node.getLocalName()) || ArrayUtils.contains(TAGS, node.getNodeName())) {
+    if (TAGS.contains(node.getNodeName()) || TAGS.contains(node.getLocalName())) {
       complexity++;
-    } else {
-      // count complexity in expressions
-      for (Attribute a : node.getAttributes()) {
-        if (isUnifiedExpression(a.getValue())) {
-          String[] tokens = StringUtils.split(a.getValue(), " \t\n");
+      return;
+    }
 
-          for (String token : tokens) {
-            if (ArrayUtils.contains(OPERATORS, token)) {
-              complexity++;
-            }
+    // count complexity in expressions
+    for (Attribute a : node.getAttributes()) {
+      if (isUnifiedExpression(a.getValue())) {
+        String[] tokens = a.getValue().split("[ \t\n]");
+
+        for (String token : tokens) {
+          if (OPERATORS.contains(token)) {
+            complexity++;
           }
         }
       }

@@ -17,19 +17,17 @@
  */
 package org.sonar.plugins.html.node;
 
-/**
- * Defines a text node.
- *
- * @author Matthijs Galesloot
- * @since 1.0
- */
-public class TextNode extends Node {
+import org.junit.Test;
 
-  public TextNode() {
-    super(NodeType.TEXT);
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class TextNodeTest {
+
+  @Test
+  public void emptyTextNode() {
+    TextNode textNode = new TextNode();
+    assertThat(textNode.isBlank()).isTrue();
+    assertThat(textNode.getCode()).isEmpty();
   }
 
-  public boolean isBlank() {
-    return getCode().isBlank();
-  }
 }

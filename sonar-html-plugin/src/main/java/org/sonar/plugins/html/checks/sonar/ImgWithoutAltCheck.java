@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -51,7 +50,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   }
 
   private static boolean hasInvalidAltAttribute(TagNode node) {
-    return !hasAltAttribute(node) || StringUtils.trim(node.getPropertyValue("ALT")).isEmpty();
+    return !hasAltAttribute(node) || node.getPropertyValue("ALT").trim().isEmpty();
   }
 
   /**

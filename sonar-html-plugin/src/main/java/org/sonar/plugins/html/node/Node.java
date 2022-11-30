@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.html.node;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * Defines a node.
  *
@@ -39,7 +37,7 @@ public abstract class Node {
   }
 
   public String getCode() {
-    return code;
+    return code == null ? "" : code;
   }
 
   public int getEndColumnPosition() {
@@ -51,7 +49,7 @@ public abstract class Node {
   }
 
   public int getLinesOfCode() {
-    return StringUtils.countMatches(code, "\n");
+    return (int) getCode().chars().filter(charCode -> charCode == '\n').count();
   }
 
   public NodeType getNodeType() {
@@ -88,7 +86,7 @@ public abstract class Node {
 
   @Override
   public String toString() {
-    return code;
+    return getCode();
   }
 
 }

@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
-import java.util.Arrays;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -56,7 +54,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
     }
 
     if(ignoreTagsList == null) {
-      ignoreTagsList = Arrays.asList(StringUtils.split(ignoreTags, ','));
+      ignoreTagsList = List.of(ignoreTags.split(","));
     }
     this.nodes.clear();
   }

@@ -31,7 +31,6 @@
   </scm>
 
   <properties>
-    <sonar.version>7.9</sonar.version>
     <sonar.pluginName>HTML Code Quality and Security</sonar.pluginName>
     <sonar.pluginClass>org.sonar.plugins.html.HtmlPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
@@ -42,20 +41,7 @@
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api</artifactId>
-      <version>${sonar.version}</version>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.codehaus.sonar</groupId>
-          <artifactId>sonar-channel</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!-- jsr305 is provided as its javax.annotation package is shaded inside sonar-analyzer-commons -->
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.2</version>
+      <version>${sonar.plugin.api.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -69,12 +55,6 @@
       <version>${sslr.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.sonarsource.sslr</groupId>
-      <artifactId>sslr-testing-harness</artifactId>
-      <version>${sslr.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.sonarsource.analyzer-commons</groupId>
       <artifactId>sonar-analyzer-commons</artifactId>
       <version>${analyzerCommons.version}</version>
@@ -83,11 +63,6 @@
       <groupId>org.sonarsource.analyzer-commons</groupId>
       <artifactId>sonar-analyzer-recognizers</artifactId>
       <version>${analyzerCommons.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.11.0</version>
     </dependency>
 
     <!-- JSF Expression parser -->
@@ -106,18 +81,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-testing-harness</artifactId>
-      <version>${sonar.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-all</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${assertj.version}</version>
@@ -126,7 +89,25 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>4.2.0</version>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-plugin-api-impl</artifactId>
+      <version>${sonarqube.api.impl.version}</version>
+      <scope>test</scope>
+    </dependency>
+        <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-testing-harness</artifactId>
+      <version>${sonarqube.api.impl.version}</version>
+      <scope>test</scope>
+    </dependency>
+        <dependency>
+      <groupId>org.sonarsource.sslr</groupId>
+      <artifactId>sslr-testing-harness</artifactId>
+      <version>${sslr.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -179,8 +160,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <minsize>700000</minsize>
-                  <maxsize>900000</maxsize>
+                  <minsize>600000</minsize>
+                  <maxsize>800000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>

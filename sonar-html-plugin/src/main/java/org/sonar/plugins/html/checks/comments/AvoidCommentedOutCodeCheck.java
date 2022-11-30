@@ -20,7 +20,7 @@ package org.sonar.plugins.html.checks.comments;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
+import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.CommentNode;
@@ -32,6 +32,7 @@ import org.sonarsource.analyzer.commons.recognizers.LanguageFootprint;
 @Rule(key = "AvoidCommentedOutCodeCheck")
 public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
 
+  private static final Pattern COPYRIGHT_CASE_INSENSITIVE = Pattern.compile("copyright", Pattern.CASE_INSENSITIVE);
   private static final double THRESHOLD = 0.9;
 
   private static final LanguageFootprint LANGUAGE_FOOTPRINT = () -> new HashSet<>(Arrays.asList(
@@ -55,7 +56,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
   }
 
   private static boolean isIgnored(String comment) {
-    return StringUtils.containsIgnoreCase(comment, "copyright")
+    return COPYRIGHT_CASE_INSENSITIVE.matcher(comment).find()
       // Conditional comments
       || comment.startsWith("<!--[if")
       // Server Side Includes

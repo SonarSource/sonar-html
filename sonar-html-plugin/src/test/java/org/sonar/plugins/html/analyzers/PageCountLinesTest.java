@@ -22,12 +22,14 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
-import org.sonar.api.internal.google.common.io.Files;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.lex.PageLexer;
@@ -91,14 +93,12 @@ public class PageCountLinesTest {
   }
 
   private Reader readFile(String fileName) {
-    File root = new File("src/test/resources");
-    File file = new File(root, fileName);
+    Path filePath = Paths.get("src", "test", "resources", fileName);
     try {
-      return new StringReader(Files.toString(file, StandardCharsets.UTF_8));
+      return new StringReader(Files.readString(filePath, StandardCharsets.UTF_8));
     } catch (IOException e) {
       throw new IllegalArgumentException("Cannot read " + fileName, e);
     }
   }
-
 
 }

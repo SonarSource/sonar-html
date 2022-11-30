@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -141,7 +140,7 @@ public class PageCountLines extends DefaultNodeVisitor {
     String[] element = textNode.getCode().split("\n", -1);
     int startLine = textNode.getStartLinePosition();
     for (int i = 0; i < element.length; i++) {
-      if (!StringUtils.isBlank(element[i])) {
+      if (!element[i].isBlank()) {
         detailedLinesOfCode.add(startLine + i);
       }
     }

@@ -20,7 +20,6 @@ package org.sonar.plugins.html.checks;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
-import org.apache.commons.lang.StringUtils;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
@@ -71,7 +70,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
   }
 
   public String[] trimSplitCommaSeparatedList(String value) {
-    String[] tokens = StringUtils.split(value, ",");
+    String[] tokens = value.split(",");
     for (int i = 0; i < tokens.length; i++) {
       tokens[i] = tokens[i].trim();
     }
@@ -79,15 +78,17 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
   }
 
   public QualifiedAttribute[] parseAttributes(String attributesList) {
-    String[] qualifiedAttributeList = StringUtils.split(attributesList, ",");
+    String[] qualifiedAttributeList = attributesList.split(",");
 
     QualifiedAttribute[] qualifiedAttributes = new QualifiedAttribute[qualifiedAttributeList.length];
     int n = 0;
     for (String qualifiedAttribute : qualifiedAttributeList) {
       qualifiedAttribute = qualifiedAttribute.trim();
-      if (qualifiedAttribute.indexOf('.') >= 0) {
-        qualifiedAttributes[n] = new QualifiedAttribute(StringUtils.substringBefore(qualifiedAttribute, "."), StringUtils.substringAfter(
-          qualifiedAttribute, "."));
+      int indexOfFirstDot = qualifiedAttribute.indexOf('.');
+      if (indexOfFirstDot >= 0) {
+        String nodeName = qualifiedAttribute.substring(0, indexOfFirstDot);
+        String attributeName = qualifiedAttribute.substring(indexOfFirstDot + 1);
+        qualifiedAttributes[n] = new QualifiedAttribute(nodeName, attributeName);
       } else {
         qualifiedAttributes[n] = new QualifiedAttribute(null, qualifiedAttribute);
       }
@@ -123,9 +124,8 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     List<Attribute> matchingAttributes = new ArrayList<>();
 
     for (QualifiedAttribute qualifiedAttribute : attributes) {
-      if (qualifiedAttribute.getNodeName() == null
-        || StringUtils.equalsIgnoreCase(element.getLocalName(), qualifiedAttribute.getNodeName())
-        || StringUtils.equalsIgnoreCase(element.getNodeName(), qualifiedAttribute.getNodeName())) {
+      String nodeName = qualifiedAttribute.getNodeName();
+      if (nodeName == null || nodeName.equalsIgnoreCase(element.getNodeName()) || nodeName.equalsIgnoreCase(element.getLocalName())) {
         for (Attribute a : element.getAttributes()) {
           if (qualifiedAttribute.getAttributeName().equalsIgnoreCase(a.getName())) {
             matchingAttributes.add(a);
