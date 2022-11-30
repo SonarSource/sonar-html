@@ -114,20 +114,9 @@
 </table>
 
 <table>
-  <div th:include="/blabla.html"></div>
-  <th:block th:replace="/ContainsTRAndTHAndTD.html" />
-</table>
-
-<table>
-  <th:block th:replace="/ContainsTRAndTHAndTD.html" />
-  <div th:include="/blabla.html"></div>
-</table>
-
-<table>
   <thead>
   <tr>
-    <th:block th:replace="/ContainsTRAndTHAndTD.html" />
-    <div th:include="/blabla.html"></div>
+    <tr th:include="/ContainsTH.html"></tr>
   </tr>
   </thead>
 </table>
