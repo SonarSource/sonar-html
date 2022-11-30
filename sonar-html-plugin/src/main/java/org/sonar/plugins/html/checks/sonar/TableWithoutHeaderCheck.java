@@ -50,27 +50,6 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     return "TRUE".equalsIgnoreCase(ariaHidden);
   }
 
-  private static boolean hasThymeleafFragmentInsertion(TagNode node) {
-    return hasThymeleafFragmentInsertionFromTableAttribute(node.getAttributes()) || hasThymeleafFragmentInsertionFromTableChildren(node.getChildren());
-  }
-
-  private static boolean hasThymeleafFragmentInsertionFromTableChildren(List<TagNode> nodes) {
-    boolean hasInsertion = false;
-    for (TagNode node : nodes) {
-      if (node.getNodeName().startsWith("th:block")) {
-        hasInsertion = hasInsertion || node.getAttributes().stream().map(Attribute::getName).anyMatch(THYMELEAF_FRAGMENT_INSERTION_KEYWORDS::contains);
-      } else {
-        hasInsertion = hasInsertion || node.getAttributes().stream().map(Attribute::getName).anyMatch(attributeName -> attributeName.equals("th:replace"));
-      }
-      hasInsertion = hasInsertion || hasThymeleafFragmentInsertionFromTableChildren(node.getChildren());
-    }
-    return hasInsertion;
-  }
-
-  private static boolean hasThymeleafFragmentInsertionFromTableAttribute(List<Attribute> tableAttributes) {
-    return tableAttributes.stream().map(Attribute::getName).anyMatch(attributeName -> attributeName.equals("th:insert") || attributeName.equals("th:include"));
-  }
-
   private static boolean hasHeader(TagNode node) {
     return node.getChildren().stream().anyMatch(TableWithoutHeaderCheck::isTableHeader) ||
       node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
@@ -78,5 +57,23 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean isTableHeader(TagNode node) {
     return "TH".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean hasThymeleafFragmentInsertion(TagNode node) {
+    return hasThymeleafFragmentInsertionFromTableAttribute(node.getAttributes()) || hasThymeleafFragmentInsertionFromTableChildren(node.getChildren());
+  }
+
+  private static boolean hasThymeleafFragmentInsertionFromTableAttribute(List<Attribute> tableAttributes) {
+    return tableAttributes.stream().map(Attribute::getName).anyMatch(attributeName -> attributeName.equals("th:insert") || attributeName.equals("th:include"));
+  }
+
+  private static boolean hasThymeleafFragmentInsertionFromTableChildren(List<TagNode> nodes) {
+    for (TagNode node : nodes) {
+      if (node.getAttributes().stream().map(Attribute::getName).anyMatch(THYMELEAF_FRAGMENT_INSERTION_KEYWORDS::contains)
+        || hasThymeleafFragmentInsertionFromTableChildren(node.getChildren())) {
+        return true;
+      }
+    }
+    return false;
   }
 }

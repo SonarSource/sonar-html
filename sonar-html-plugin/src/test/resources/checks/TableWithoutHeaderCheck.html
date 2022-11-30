@@ -102,15 +102,15 @@
 </table>
 
 <table>
-  <div th:include="/blabla.html"></div> <!-- Non-Compliant : insertion will occur inside div -->
+  <tr th:include="/ContainsTH.html"></tr>
 </table>
 
 <table>
-  <div th:insert="/blabla.html"></div> <!-- Non-Compliant : insertion will occur inside div -->
+  <tr th:insert="/ContainsTH.html"></tr>
 </table>
 
 <table>
-  <div th:replace="/ContainsTRAndTHAndTD.html"></div> <!-- Compliant : div will be replaced, maybe by <TH> -->
+  <tr th:replace="/ContainsTRAndTHAndTD.html"></tr>
 </table>
 
 <table>

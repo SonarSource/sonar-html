@@ -40,9 +40,7 @@ public class TableWithoutHeaderCheckTest {
         .next().atLine(61)
         .next().atLine(66)
         .next().atLine(73)
-        .next().atLine(78)
-        .next().atLine(104)
-        .next().atLine(108);
+        .next().atLine(78);
 
   }
 }
