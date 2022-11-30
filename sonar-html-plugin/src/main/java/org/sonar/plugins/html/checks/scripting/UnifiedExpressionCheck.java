@@ -17,18 +17,18 @@
  */
 package org.sonar.plugins.html.checks.scripting;
 
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ELResolver;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.FunctionMapper;
+import jakarta.el.VariableMapper;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
-import org.jboss.el.lang.ExpressionBuilder;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -138,10 +138,10 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
 
   private void validateExpression(TagNode element, Attribute attribute) {
     ExpressionLanguageContext context = new ExpressionLanguageContext(element);
-    ExpressionBuilder builder = new ExpressionBuilder(attribute.getValue(), context);
 
     try {
-      builder.createValueExpression(Object.class);
+      ExpressionFactory expressionFactory = ExpressionFactory.newInstance();
+      expressionFactory.createValueExpression(context, attribute.getValue(), Object.class);
     } catch (ELException e) {
       if (e.getMessage().startsWith("Error")) {
         createViolation(element.getStartLinePosition(), "Fix this expression: " + (e.getMessage() == null ? "" : e.getMessage()));

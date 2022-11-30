@@ -67,10 +67,9 @@
 
     <!-- JSF Expression parser -->
     <dependency>
-      <groupId>org.jboss.el</groupId>
-      <artifactId>jboss-el</artifactId>
-      <version>1.0_02.CR4</version>
-      <scope>compile</scope>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.el</artifactId>
+      <version>${jakarta.el.version}</version>
     </dependency>
 
     <!-- Test dependencies -->
@@ -160,8 +159,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <minsize>600000</minsize>
-                  <maxsize>800000</maxsize>
+                  <minsize>500000</minsize>
+                  <maxsize>700000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>
