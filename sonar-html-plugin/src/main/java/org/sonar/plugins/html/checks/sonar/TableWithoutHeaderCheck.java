@@ -62,6 +62,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
       } else {
         hasInsertion = hasInsertion || node.getAttributes().stream().map(Attribute::getName).anyMatch(attributeName -> attributeName.equals("th:replace"));
       }
+      hasInsertion = hasInsertion || hasThymeleafFragmentInsertionFromTableChildren(node.getChildren());
     }
     return hasInsertion;
   }
