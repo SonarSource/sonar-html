@@ -112,3 +112,13 @@
 <table>
   <div th:replace="/ContainsTRAndTHAndTD.html"></div> <!-- Compliant : div will be replaced, maybe by <TH> -->
 </table>
+
+<table>
+  <div th:include="/blabla.html"></div>
+  <th:block th:replace="/ContainsTRAndTHAndTD.html" />
+</table>
+
+<table>
+  <th:block th:replace="/ContainsTRAndTHAndTD.html" />
+  <div th:include="/blabla.html"></div>
+</table>
