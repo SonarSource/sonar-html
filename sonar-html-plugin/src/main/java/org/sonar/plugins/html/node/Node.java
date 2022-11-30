@@ -49,7 +49,7 @@ public abstract class Node {
   }
 
   public int getLinesOfCode() {
-    return (int) getCode().lines().count();
+    return (int) getCode().chars().filter(charCode -> charCode == '\n').count();
   }
 
   public NodeType getNodeType() {
