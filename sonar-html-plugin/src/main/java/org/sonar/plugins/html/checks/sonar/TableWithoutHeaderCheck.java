@@ -27,7 +27,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
-  private final Set<String> THYMELEAF_FRAGMENT_INSERTION_KEYWORDS = Set.of("th:insert", "th:include", "th:replace");
+  private static final Set<String> THYMELEAF_FRAGMENT_INSERTION_KEYWORDS = Set.of("th:insert", "th:include", "th:replace");
 
   @Override
   public void startElement(TagNode node) {
