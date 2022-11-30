@@ -48,19 +48,20 @@ public class TagNode extends Node {
   }
 
   /**
-   *  This method takes into account the property binding mechanism of angular and vue.js. See SONARHTML-92, SONARHTML-113 SONARHTML-118
+   *  This method takes into account the property binding mechanism of angular and vue.js. See SONARHTML-92, SONARHTML-113, SONARHTML-118, SONARHTML-158
    */
   @Nullable
   public Attribute getProperty(String propertyName) {
     String angularProperty = "[" + propertyName + "]";
     String angularAttrProperty = "[attr." + propertyName + "]";
+    String shortAngularAttrProperty = "attr." + propertyName;
     String vueProperty = "v-bind:" + propertyName;
     String vueShorthandProperty = ":" + propertyName;
     String vueSquaredShorthandProperty = ":[" + propertyName + "]";
     for (Attribute a : attributes) {
       String attributeName = a.getName();
       if (propertyName.equalsIgnoreCase(attributeName)
-          || angularProperty.equalsIgnoreCase(attributeName) || angularAttrProperty.equalsIgnoreCase(attributeName)
+          || angularProperty.equalsIgnoreCase(attributeName) || angularAttrProperty.equalsIgnoreCase(attributeName) ||  shortAngularAttrProperty.equalsIgnoreCase(attributeName)
           || vueProperty.equalsIgnoreCase(attributeName) || vueShorthandProperty.equalsIgnoreCase(attributeName)
           || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
         return a;

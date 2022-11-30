@@ -49,7 +49,8 @@ public class DeprecatedAttributesInHtml5CheckTest {
             .next().atLine(27).withMessage("Remove this deprecated \"language\" attribute.")
             .next().atLine(32).withMessage("Remove this deprecated \"[border]\" attribute.")
             .next().atLine(33).withMessage("Remove this deprecated \"[datafld]\" attribute.")
-            .next().atLine(35).withMessage("Remove this deprecated \"[attr.datafld]\" attribute.");
+            .next().atLine(35).withMessage("Remove this deprecated \"[attr.datafld]\" attribute.")
+            .next().atLine(36).withMessage("Remove this deprecated \"attr.datafld\" attribute.");
   }
 
 }

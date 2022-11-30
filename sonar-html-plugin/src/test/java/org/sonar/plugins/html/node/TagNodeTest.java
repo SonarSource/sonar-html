@@ -26,7 +26,7 @@ public class TagNodeTest {
   @Test
   public void property() {
     TagNode node = createNode();
-    assertThat(node.getAttributes()).hasSize(3);
+    assertThat(node.getAttributes()).hasSize(4);
 
     assertThat(node.getAttribute("name1")).isEqualTo("value1");
     assertThat(node.getPropertyValue("name1")).isEqualTo("value1");
@@ -45,6 +45,12 @@ public class TagNodeTest {
     assertThat(node.getAttribute("[attr.name3]")).isEqualTo("value3");
     assertThat(node.getPropertyValue("[attr.name3]")).isEqualTo("value3");
     assertThat(node.hasProperty("[attr.name3]")).isTrue();
+
+    assertThat(node.getAttribute("attr.name4")).isEqualTo("value4");
+    assertThat(node.getPropertyValue("attr.name4")).isEqualTo("value4");
+    assertThat(node.hasProperty("attr.name4")).isTrue();
+
+
     assertThat(node.getAttribute("name3")).isNull();
     assertThat(node.getPropertyValue("name3")).isEqualTo("value3");
     assertThat(node.hasProperty("name3")).isTrue();
@@ -62,10 +68,13 @@ public class TagNodeTest {
     Attribute attribute1 = new Attribute("name1", "value1");
     Attribute attribute2 = new Attribute("[name2]", "value2");
     Attribute attribute3 = new Attribute("[attr.name3]", "value3");
+    Attribute attribute4 = new Attribute("attr.name4", "value4");
+
     TagNode node = new TagNode();
     node.getAttributes().add(attribute1);
     node.getAttributes().add(attribute2);
     node.getAttributes().add(attribute3);
+    node.getAttributes().add(attribute4);
     return node;
   }
 
