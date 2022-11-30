@@ -61,7 +61,7 @@ public class TagNode extends Node {
     for (Attribute a : attributes) {
       String attributeName = a.getName();
       if (propertyName.equalsIgnoreCase(attributeName)
-          || angularProperty.equalsIgnoreCase(attributeName) || angularAttrProperty.equalsIgnoreCase(attributeName) ||  shortAngularAttrProperty.equalsIgnoreCase(attributeName)
+          || angularProperty.equalsIgnoreCase(attributeName) || angularAttrProperty.equalsIgnoreCase(attributeName) || shortAngularAttrProperty.equalsIgnoreCase(attributeName)
           || vueProperty.equalsIgnoreCase(attributeName) || vueShorthandProperty.equalsIgnoreCase(attributeName)
           || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
         return a;
