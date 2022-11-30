@@ -77,3 +77,47 @@
 <table aria-hidden="true">
   <table></table> <!-- Non-Compliant, no recursive check on parent -->
 </table>
+
+<table>
+  <caption>Some Table</caption>
+  <th:block th:insert="/ContainsTRAndTHAndTD.html" />
+</table>
+
+<table>
+  <caption>Some Table</caption>
+  <th:block th:replace="/ContainsTRAndTHAndTD.html" />
+</table>
+
+<table>
+  <caption>Some Table</caption>
+  <th:block th:include="/ContainsTRAndTHAndTD.html" />
+</table>
+
+<table th:include="/ContainsTRAndTHAndTD.html" >
+  <caption>Some Table</caption>
+</table>
+
+<table th:insert="/ContainsTRAndTHAndTD.html" >
+  <caption>Some Table</caption>
+</table>
+
+<table>
+  <tr th:include="/ContainsTH.html"></tr>
+</table>
+
+<table>
+  <tr th:insert="/ContainsTH.html"></tr>
+</table>
+
+<table>
+  <tr th:replace="/ContainsTRAndTHAndTD.html"></tr>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <div th:replace="/ContainsTH.html"></div>
+    </tr>
+  </thead>
+</table>
+
