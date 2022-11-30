@@ -145,12 +145,15 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
 
   /**
    * Returns the original name of the attribute. So if a framework such as angular is used to set the property, such as '[src]=blalba' or '[attr.src]=blabla', the
-   * method will strip the property name of '[' or '[attr.' and ']'.
+   * method will strip the property name of '[' or '[attr.' and ']' or 'attr.'.
    */
   private static String getOriginalAttributeName(String attributeName) {
     String attributeNameLower = attributeName.toLowerCase(Locale.ENGLISH);
     if (attributeNameLower.startsWith("[attr.") && attributeNameLower.endsWith("]")) {
       return attributeNameLower.substring("[attr.".length(), attributeName.length() - 1);
+    }
+    if (attributeNameLower.startsWith("attr.")) {
+      return attributeNameLower.substring("attr.".length(), attributeName.length());
     }
     if (attributeNameLower.startsWith("[") && attributeNameLower.endsWith("]")) {
       return attributeNameLower.substring(1, attributeName.length() - 1);
