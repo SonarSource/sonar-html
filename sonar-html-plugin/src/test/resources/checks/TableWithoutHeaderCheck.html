@@ -88,10 +88,27 @@
   <th:block th:replace="/ContainsTRAndTHAndTD.html" />
 </table>
 
+<table>
+  <caption>Some Table</caption>
+  <th:block th:include="/ContainsTRAndTHAndTD.html" />
+</table>
+
+<table th:include="/ContainsTRAndTHAndTD.html" >
+  <caption>Some Table</caption>
+</table>
+
 <table th:insert="/ContainsTRAndTHAndTD.html" >
   <caption>Some Table</caption>
 </table>
 
-<table th:replace="/ContainsTRAndTHAndTD.html">
-  <caption>Some Table</caption>
+<table>
+  <div th:include="/blabla.html"></div> <!-- Non-Compliant : insertion will occur inside div -->
+</table>
+
+<table>
+  <div th:insert="/blabla.html"></div> <!-- Non-Compliant : insertion will occur inside div -->
+</table>
+
+<table>
+  <div th:replace="/ContainsTRAndTHAndTD.html"></div> <!-- Compliant : div will be replaced, maybe by <TH> -->
 </table>

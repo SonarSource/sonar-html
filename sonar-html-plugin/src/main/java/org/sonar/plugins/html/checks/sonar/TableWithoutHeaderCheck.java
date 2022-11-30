@@ -17,6 +17,8 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.List;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -25,9 +27,11 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
+  private final static Set<String> THYMELEAF_FRAGMENT_INSERTION_KEYWORDS = Set.of("th:insert", "th:include", "th:replace");
+
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node) && !hasThymeleafTemplate(node)) {
+    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node) && !hasThymeleafFragmentInsertion(node)) {
       createViolation(node, "Add \"<th>\" headers to this \"<table>\".");
     }
   }
@@ -46,14 +50,24 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     return "TRUE".equalsIgnoreCase(ariaHidden);
   }
 
-  private static boolean hasThymeleafTemplate(TagNode node) {
-    return node.getAttributes().stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated)
-      || node.getChildren().stream().map(TagNode::getAttributes).anyMatch(attributes -> attributes.stream().anyMatch(TableWithoutHeaderCheck::isAttributeThymeleafTemplated));
+  private static boolean hasThymeleafFragmentInsertion(TagNode node) {
+    return hasThymeleafFragmentInsertionFromTableAttribute(node.getAttributes()) || hasThymeleafFragmentInsertionFromTableChildren(node.getChildren());
   }
 
-  private static boolean isAttributeThymeleafTemplated(Attribute attribute) {
-    String attributeName = attribute.getName();
-    return attributeName.startsWith("th:replace") || attributeName.startsWith("th:insert");
+  private static boolean hasThymeleafFragmentInsertionFromTableChildren(List<TagNode> nodes) {
+    boolean hasInsertion = false;
+    for (TagNode node : nodes) {
+      if (node.getNodeName().startsWith("th:block")) {
+        hasInsertion = hasInsertion || node.getAttributes().stream().map(Attribute::getName).anyMatch(THYMELEAF_FRAGMENT_INSERTION_KEYWORDS::contains);
+      } else {
+        hasInsertion = hasInsertion || node.getAttributes().stream().map(Attribute::getName).anyMatch(attributeName -> attributeName.equals("th:replace"));
+      }
+    }
+    return hasInsertion;
+  }
+
+  private static boolean hasThymeleafFragmentInsertionFromTableAttribute(List<Attribute> tableAttributes) {
+    return tableAttributes.stream().map(Attribute::getName).anyMatch(attributeName -> attributeName.equals("th:insert") || attributeName.equals("th:include"));
   }
 
   private static boolean hasHeader(TagNode node) {
