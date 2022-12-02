@@ -18,8 +18,8 @@
 package org.sonar.plugins.html.lex;
 
 import java.util.List;
-import org.sonar.channel.CodeReader;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.sslr.channel.CodeReader;
 
 public class NormalElementTokenizer extends ElementTokenizer {
 

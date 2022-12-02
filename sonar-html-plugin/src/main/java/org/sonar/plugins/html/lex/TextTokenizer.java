@@ -18,13 +18,12 @@
 package org.sonar.plugins.html.lex;
 
 import java.util.List;
-
-import org.sonar.channel.CodeReader;
-import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
+import org.sonar.sslr.channel.CodeReader;
+import org.sonar.sslr.channel.EndMatcher;
 
 /**
  * Tokenizer for content.
@@ -83,9 +82,9 @@ class TextTokenizer extends AbstractTokenizer<List<Node>> {
 
     StringBuilder stringBuilder = new StringBuilder();
     if (inScript(nodeList)) {
-      codeReader.popTo(new EndScriptMatcher(codeReader), stringBuilder);
+      popTo(codeReader, new EndScriptMatcher(codeReader), stringBuilder);
     } else {
-      codeReader.popTo(endTokenMatcher, stringBuilder);
+      popTo(codeReader, endTokenMatcher, stringBuilder);
     }
     node.setCode(stringBuilder.toString());
     setEndPosition(codeReader, node);

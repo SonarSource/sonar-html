@@ -19,11 +19,10 @@ package org.sonar.plugins.html.lex;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.sonar.channel.Channel;
-import org.sonar.channel.CodeReader;
-import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.sslr.channel.Channel;
+import org.sonar.sslr.channel.CodeReader;
+import org.sonar.sslr.channel.EndMatcher;
 
 /**
  * AbstractTokenizer provides basic token parsing.
@@ -84,7 +83,7 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
       setStartPosition(codeReader, node);
 
       StringBuilder stringBuilder = new StringBuilder();
-      codeReader.popTo(getEndMatcher(codeReader), stringBuilder);
+      popTo(codeReader, getEndMatcher(codeReader), stringBuilder);
       for (int i = 0; i < endChars.length; i++) {
         codeReader.pop(stringBuilder);
       }
@@ -97,6 +96,14 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
     } else {
       return false;
     }
+  }
+
+  protected static String popTo(CodeReader codeReader, EndMatcher endMatcher, StringBuilder stringBuilder) {
+    do {
+      stringBuilder.append((char) codeReader.pop());
+    } while (!endMatcher.match(codeReader.peek()) && codeReader.peek() != -1);
+
+    return stringBuilder.toString();
   }
 
   abstract Node createNode();

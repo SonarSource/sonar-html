@@ -45,11 +45,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-channel</artifactId>
-      <version>4.2</version>
-    </dependency>
-    <dependency>
       <groupId>org.sonarsource.sslr</groupId>
       <artifactId>sslr-core</artifactId>
       <version>${sslr.version}</version>

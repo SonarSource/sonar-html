@@ -23,11 +23,11 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.sonar.channel.CodeReader;
-import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.sslr.channel.CodeReader;
+import org.sonar.sslr.channel.EndMatcher;
 
 /**
  * Tokenizer for elements.
@@ -38,9 +38,7 @@ import org.sonar.plugins.html.node.TagNode;
 class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
   private static EndQNameMatcher endQNameMatcher = new EndQNameMatcher();
-
   private static EndTokenMatcher endTokenMatcher = new EndTokenMatcher();
-
   private static EndUnquotedAttributeMatcher endUnquotedAttributeMatcher = new EndUnquotedAttributeMatcher();
 
   public ElementTokenizer(String startToken, String endToken) {
@@ -153,13 +151,13 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         if (codeReader.peek() != ch) {
           QuoteMatcher quoteMatcher = new QuoteMatcher((char) ch);
           quoteMatcher.match(codeReader.peek());
-          codeReader.popTo(quoteMatcher, sbValue);
+          popTo(codeReader, quoteMatcher, sbValue);
           attribute.setValue(unescapeQuotes(sbValue.toString(), (char) ch));
         }
         codeReader.pop();
         attribute.setQuoteChar((char) ch);
       } else {
-        codeReader.popTo(endUnquotedAttributeMatcher, sbValue);
+        popTo(codeReader, endUnquotedAttributeMatcher, sbValue);
         attribute.setValue(sbValue.toString().trim());
       }
     }
@@ -168,7 +166,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   private static void handleBeforeAttributeName(CodeReader codeReader, TagNode element) {
     Attribute attribute;
     StringBuilder sbQName = new StringBuilder();
-    codeReader.popTo(endQNameMatcher, sbQName);
+    popTo(codeReader, endQNameMatcher, sbQName);
     attribute = new Attribute(sbQName.toString().trim());
     attribute.setLine(codeReader.getLinePosition() + element.getStartLinePosition() - 1);
     element.getAttributes().add(attribute);
@@ -176,7 +174,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
   private static void handleBeforeNodeName(CodeReader codeReader, TagNode element) {
     StringBuilder sbNodeName = new StringBuilder();
-    codeReader.popTo(endTokenMatcher, sbNodeName);
+    popTo(codeReader, endTokenMatcher, sbNodeName);
     element.setNodeName(sbNodeName.toString());
   }
 
