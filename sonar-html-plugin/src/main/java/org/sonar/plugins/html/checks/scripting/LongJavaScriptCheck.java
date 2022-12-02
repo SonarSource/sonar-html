@@ -27,6 +27,7 @@ import org.sonar.plugins.html.node.TextNode;
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;
+
   private final StringBuilder text = new StringBuilder();
 
   private TagNode scriptNode;

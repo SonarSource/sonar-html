@@ -44,7 +44,8 @@ public class LongJavaScriptCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LongJavaScriptCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(7).withCost(1d).withMessage("The length of this JS script (5) exceeds the maximum set to 4.");
+        .next().atLine(7).withCost(1d).withMessage("The length of this JS script (5) exceeds the maximum set to 4.")
+        .next().atLine(15).withCost(1d).withMessage("The length of this JS script (5) exceeds the maximum set to 4.");
   }
 
 }

@@ -48,10 +48,6 @@ public abstract class Node {
     return endLinePosition;
   }
 
-  public int getLinesOfCode() {
-    return (int) getCode().chars().filter(charCode -> charCode == '\n').count();
-  }
-
   public NodeType getNodeType() {
     return nodeType;
   }
