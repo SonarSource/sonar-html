@@ -17,15 +17,14 @@
  */
 package org.sonar.plugins.html.checks.scripting;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.File;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LongJavaScriptCheckTest {
 
@@ -45,7 +44,7 @@ public class LongJavaScriptCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LongJavaScriptCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(7).withCost(2d).withMessage("The length of this JS script (6) exceeds the maximum set to 4.");
+        .next().atLine(7).withCost(1d).withMessage("The length of this JS script (5) exceeds the maximum set to 4.");
   }
 
 }

@@ -27,6 +27,11 @@ import org.sonar.plugins.html.node.TextNode;
 public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private static final int DEFAULT_MAX_LINES = 5;
+  private final StringBuilder text = new StringBuilder();
+
+  private TagNode scriptNode;
+
+  private int startingNodeLinePosition;
 
   @RuleProperty(
     key = "maxLines",
@@ -34,33 +39,34 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
     defaultValue = "" + DEFAULT_MAX_LINES)
   public int maxLines = DEFAULT_MAX_LINES;
 
-  private int linesOfCode;
-  private TagNode scriptNode;
+  @Override
+  public void startElement(TagNode node) {
+    if ("script".equalsIgnoreCase(node.getNodeName())) {
+      scriptNode = node;
+      startingNodeLinePosition = node.getStartLinePosition();
+      text.delete(0, text.length());
+    }
+  }
 
   @Override
   public void characters(TextNode textNode) {
-    if (scriptNode != null) {
-      linesOfCode += textNode.getLinesOfCode();
-
-      if (linesOfCode > maxLines) {
-        createViolation(scriptNode.getStartLinePosition(),
-          "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".",
-          Double.valueOf(linesOfCode) - Double.valueOf(maxLines));
-        scriptNode = null;
-      }
+    if(scriptNode != null){
+      text.append(textNode.getCode());
     }
   }
 
   @Override
   public void endElement(TagNode element) {
-    scriptNode = null;
-  }
+    if ("script".equalsIgnoreCase(element.getNodeName()) && scriptNode != null) {
 
-  @Override
-  public void startElement(TagNode element) {
-    if ("script".equalsIgnoreCase(element.getNodeName())) {
-      scriptNode = element;
-      linesOfCode = 0;
+      // We dot not consider 1st line and last line, where <script> tags are
+      int linesOfCode = (int) (text.toString().trim().lines().count());
+      if (linesOfCode > maxLines) {
+        createViolation(startingNodeLinePosition,
+          "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".",
+          (double) linesOfCode - (double) maxLines);
+      }
+      scriptNode = null;
     }
   }
 
