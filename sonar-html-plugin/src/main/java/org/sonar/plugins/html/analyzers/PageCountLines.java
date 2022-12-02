@@ -72,18 +72,12 @@ public class PageCountLines extends DefaultNodeVisitor {
       Node node = nodeList.get(i);
       Node previousNode = i > 0 ? nodeList.get(i - 1) : null;
       Node nextNode = i < nodeList.size() - 1 ? nodeList.get(i + 1) : null;
-      handleToken(node, previousNode, nextNode);
+      handleToken(node, previousNode);
     }
     addMeasures();
   }
 
-  private void handleToken(Node node, @Nullable Node previousNode, @Nullable Node nextNode) {
-
-    int linesOfCodeCurrentNode = node.getLinesOfCode();
-    if (nextNode == null) {
-      linesOfCodeCurrentNode++;
-    }
-
+  private void handleToken(Node node, @Nullable Node previousNode) {
     switch (node.getNodeType()) {
       case TAG:
       case DIRECTIVE:
@@ -91,48 +85,19 @@ public class PageCountLines extends DefaultNodeVisitor {
         addLineNumbers(node, detailedLinesOfCode);
         break;
       case COMMENT:
-        handleTokenComment(node, previousNode, linesOfCodeCurrentNode);
+        handleTokenComment(node, previousNode);
         break;
       case TEXT:
-        handleTextToken((TextNode) node, previousNode, linesOfCodeCurrentNode);
+        handleDetailedTextToken((TextNode) node);
         break;
       default:
         break;
     }
   }
 
-  private void handleTokenComment(Node node, @Nullable Node previousNode, int linesOfCodeCurrentNode) {
-    if (previousNode == null) {
-      // this is a header comment
-      headerCommentLines += linesOfCodeCurrentNode;
-    } else {
+  private void handleTokenComment(Node node, @Nullable Node previousNode) {
+    if (previousNode != null) {
       addLineNumbers(node, detailedLinesOfComments);
-    }
-  }
-
-  private void handleTextToken(TextNode textNode, @Nullable Node previousNode, int linesOfCodeCurrentNode) {
-    handleDetailedTextToken(textNode);
-    if (textNode.isBlank() && linesOfCodeCurrentNode > 0) {
-      int nonBlankLines = 0;
-
-      // add one newline to the previous node
-      if (previousNode != null) {
-        switch (previousNode.getNodeType()) {
-          case COMMENT:
-            nonBlankLines = handleTextTokenComment(previousNode, nonBlankLines);
-            break;
-          case TAG:
-          case DIRECTIVE:
-          case EXPRESSION:
-            nonBlankLines++;
-            break;
-          default:
-            break;
-        }
-      }
-
-      // remaining newlines are added to blanklines
-      blankLines += linesOfCodeCurrentNode - nonBlankLines;
     }
   }
 
