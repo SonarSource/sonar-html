@@ -32,7 +32,6 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
 
   private TagNode scriptNode;
 
-  private int startingNodeLinePosition;
 
   @RuleProperty(
     key = "maxLines",
@@ -44,14 +43,13 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if ("script".equalsIgnoreCase(node.getNodeName())) {
       scriptNode = node;
-      startingNodeLinePosition = node.getStartLinePosition();
       text.delete(0, text.length());
     }
   }
 
   @Override
   public void characters(TextNode textNode) {
-    if(scriptNode != null){
+    if (scriptNode != null) {
       text.append(textNode.getCode());
     }
   }
@@ -59,11 +57,9 @@ public class LongJavaScriptCheck extends AbstractPageCheck {
   @Override
   public void endElement(TagNode element) {
     if ("script".equalsIgnoreCase(element.getNodeName()) && scriptNode != null) {
-
-      // We dot not consider 1st line and last line, where <script> tags are
-      int linesOfCode = (int) (text.toString().trim().lines().count());
+      int linesOfCode = (int) text.toString().trim().lines().count();
       if (linesOfCode > maxLines) {
-        createViolation(startingNodeLinePosition,
+        createViolation(scriptNode.getStartLinePosition(),
           "The length of this JS script (" + linesOfCode + ") exceeds the maximum set to " + maxLines + ".",
           (double) linesOfCode - (double) maxLines);
       }

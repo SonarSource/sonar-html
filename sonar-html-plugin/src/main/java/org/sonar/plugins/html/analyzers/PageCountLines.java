@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TextNode;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
@@ -37,17 +35,11 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
  */
 public class PageCountLines extends DefaultNodeVisitor {
 
-  private static final Logger LOG = Loggers.get(PageCountLines.class);
-
-  private int blankLines;
-  private int headerCommentLines;
   private final Set<Integer> detailedLinesOfCode = new HashSet<>();
   private final Set<Integer> detailedLinesOfComments = new HashSet<>();
 
   @Override
   public void startDocument(List<Node> nodes) {
-    blankLines = 0;
-    headerCommentLines = 0;
     detailedLinesOfCode.clear();
     detailedLinesOfComments.clear();
 
@@ -63,8 +55,6 @@ public class PageCountLines extends DefaultNodeVisitor {
     htmlSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, detailedLinesOfComments.size());
 
     htmlSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
-
-    LOG.debug("HtmlSensor: " + getHtmlSourceCode().toString() + ": " + detailedLinesOfComments.size() + "," + headerCommentLines + "," + blankLines);
   }
 
   private void count(List<Node> nodeList) {
