@@ -71,7 +71,6 @@ public class PageCountLines extends DefaultNodeVisitor {
     for (int i = 0; i < nodeList.size(); i++) {
       Node node = nodeList.get(i);
       Node previousNode = i > 0 ? nodeList.get(i - 1) : null;
-      Node nextNode = i < nodeList.size() - 1 ? nodeList.get(i + 1) : null;
       handleToken(node, previousNode);
     }
     addMeasures();
@@ -109,14 +108,6 @@ public class PageCountLines extends DefaultNodeVisitor {
         detailedLinesOfCode.add(startLine + i);
       }
     }
-  }
-
-  private int handleTextTokenComment(Node previousNode, int nonBlankLines) {
-    if (previousNode.getStartLinePosition() == 1) {
-      // this was a header comment
-      headerCommentLines++;
-    }
-    return nonBlankLines + 1;
   }
 
   private static void addLineNumbers(Node node, Set<Integer> detailedLines) {
