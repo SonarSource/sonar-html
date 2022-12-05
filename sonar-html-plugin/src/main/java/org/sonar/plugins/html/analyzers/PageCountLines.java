@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TextNode;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
@@ -37,17 +35,11 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
  */
 public class PageCountLines extends DefaultNodeVisitor {
 
-  private static final Logger LOG = Loggers.get(PageCountLines.class);
-
-  private int blankLines;
-  private int headerCommentLines;
   private final Set<Integer> detailedLinesOfCode = new HashSet<>();
   private final Set<Integer> detailedLinesOfComments = new HashSet<>();
 
   @Override
   public void startDocument(List<Node> nodes) {
-    blankLines = 0;
-    headerCommentLines = 0;
     detailedLinesOfCode.clear();
     detailedLinesOfComments.clear();
 
@@ -63,27 +55,18 @@ public class PageCountLines extends DefaultNodeVisitor {
     htmlSourceCode.addMeasure(CoreMetrics.COMMENT_LINES, detailedLinesOfComments.size());
 
     htmlSourceCode.setDetailedLinesOfCode(detailedLinesOfCode);
-
-    LOG.debug("HtmlSensor: " + getHtmlSourceCode().toString() + ": " + detailedLinesOfComments.size() + "," + headerCommentLines + "," + blankLines);
   }
 
   private void count(List<Node> nodeList) {
     for (int i = 0; i < nodeList.size(); i++) {
       Node node = nodeList.get(i);
       Node previousNode = i > 0 ? nodeList.get(i - 1) : null;
-      Node nextNode = i < nodeList.size() - 1 ? nodeList.get(i + 1) : null;
-      handleToken(node, previousNode, nextNode);
+      handleToken(node, previousNode);
     }
     addMeasures();
   }
 
-  private void handleToken(Node node, @Nullable Node previousNode, @Nullable Node nextNode) {
-
-    int linesOfCodeCurrentNode = node.getLinesOfCode();
-    if (nextNode == null) {
-      linesOfCodeCurrentNode++;
-    }
-
+  private void handleToken(Node node, @Nullable Node previousNode) {
     switch (node.getNodeType()) {
       case TAG:
       case DIRECTIVE:
@@ -91,48 +74,19 @@ public class PageCountLines extends DefaultNodeVisitor {
         addLineNumbers(node, detailedLinesOfCode);
         break;
       case COMMENT:
-        handleTokenComment(node, previousNode, linesOfCodeCurrentNode);
+        handleTokenComment(node, previousNode);
         break;
       case TEXT:
-        handleTextToken((TextNode) node, previousNode, linesOfCodeCurrentNode);
+        handleDetailedTextToken((TextNode) node);
         break;
       default:
         break;
     }
   }
 
-  private void handleTokenComment(Node node, @Nullable Node previousNode, int linesOfCodeCurrentNode) {
-    if (previousNode == null) {
-      // this is a header comment
-      headerCommentLines += linesOfCodeCurrentNode;
-    } else {
+  private void handleTokenComment(Node node, @Nullable Node previousNode) {
+    if (previousNode != null) {
       addLineNumbers(node, detailedLinesOfComments);
-    }
-  }
-
-  private void handleTextToken(TextNode textNode, @Nullable Node previousNode, int linesOfCodeCurrentNode) {
-    handleDetailedTextToken(textNode);
-    if (textNode.isBlank() && linesOfCodeCurrentNode > 0) {
-      int nonBlankLines = 0;
-
-      // add one newline to the previous node
-      if (previousNode != null) {
-        switch (previousNode.getNodeType()) {
-          case COMMENT:
-            nonBlankLines = handleTextTokenComment(previousNode, nonBlankLines);
-            break;
-          case TAG:
-          case DIRECTIVE:
-          case EXPRESSION:
-            nonBlankLines++;
-            break;
-          default:
-            break;
-        }
-      }
-
-      // remaining newlines are added to blanklines
-      blankLines += linesOfCodeCurrentNode - nonBlankLines;
     }
   }
 
@@ -144,14 +98,6 @@ public class PageCountLines extends DefaultNodeVisitor {
         detailedLinesOfCode.add(startLine + i);
       }
     }
-  }
-
-  private int handleTextTokenComment(Node previousNode, int nonBlankLines) {
-    if (previousNode.getStartLinePosition() == 1) {
-      // this was a header comment
-      headerCommentLines++;
-    }
-    return nonBlankLines + 1;
   }
 
   private static void addLineNumbers(Node node, Set<Integer> detailedLines) {
