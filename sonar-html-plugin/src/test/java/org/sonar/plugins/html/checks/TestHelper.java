@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.List;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.html.analyzers.ComplexityVisitor;
@@ -55,7 +55,7 @@ public class TestHelper {
         .build()
     );
 
-    HtmlAstScanner walker = new HtmlAstScanner(Arrays.asList(new PageCountLines(), new ComplexityVisitor()));
+    HtmlAstScanner walker = new HtmlAstScanner(List.of(new PageCountLines(), new ComplexityVisitor()));
     PageLexer lexer = file.getName().endsWith(".vue") ? new VueLexer() : new PageLexer();
     walker.addVisitor(visitor);
     walker.scan(

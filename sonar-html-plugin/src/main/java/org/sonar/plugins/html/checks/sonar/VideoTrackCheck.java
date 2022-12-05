@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -27,11 +25,11 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S4084")
 public class VideoTrackCheck extends AbstractPageCheck {
 
-  private static final Set<String> ACCESSIBILITY_TRACK_KINDS = new HashSet<>(Arrays.asList(
+  private static final Set<String> ACCESSIBILITY_TRACK_KINDS = Set.of(
     "captions",
     "descriptions",
     "subtitles"
-  ));
+  );
 
   @Override
   public void startElement(TagNode node) {

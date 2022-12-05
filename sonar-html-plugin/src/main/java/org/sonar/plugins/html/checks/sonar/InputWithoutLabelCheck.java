@@ -36,7 +36,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "InputWithoutLabelCheck")
 public class InputWithoutLabelCheck extends AbstractPageCheck {
 
-  private static final Set<String> EXCLUDED_TYPES = new HashSet<>(Arrays.asList("SUBMIT", "BUTTON", "IMAGE", "HIDDEN"));
+  private static final Set<String> EXCLUDED_TYPES = Set.of("SUBMIT", "BUTTON", "IMAGE", "HIDDEN");
 
   private final Set<String> labelFor = new HashSet<>();
   private final Map<String, TagNode> inputIdToNode = new HashMap<>();

@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -32,7 +31,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5255")
 public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
 
-  private static final List<String> LANDMARK_ROLES = Arrays.asList(
+  private static final List<String> LANDMARK_ROLES = List.of(
     "BANNER", "COMPLEMENTARY", "CONTENTINFO", "FORM", "MAIN", "NAVIGATION", "SEARCH", "APPLICATION"
   );
 

@@ -28,6 +28,7 @@ public class TextNodeTest {
     TextNode textNode = new TextNode();
     assertThat(textNode.isBlank()).isTrue();
     assertThat(textNode.getCode()).isEmpty();
+    assertThat(textNode.toString()).isEmpty();
   }
 
 }

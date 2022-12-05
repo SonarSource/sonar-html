@@ -49,6 +49,7 @@ public class TagNodeTest {
     assertThat(node.getAttribute("attr.name4")).isEqualTo("value4");
     assertThat(node.getPropertyValue("attr.name4")).isEqualTo("value4");
     assertThat(node.hasProperty("attr.name4")).isTrue();
+    assertThat(node.hasProperty("name4")).isTrue();
 
     assertThat(node.getAttribute("name3")).isNull();
     assertThat(node.getPropertyValue("name3")).isEqualTo("value3");

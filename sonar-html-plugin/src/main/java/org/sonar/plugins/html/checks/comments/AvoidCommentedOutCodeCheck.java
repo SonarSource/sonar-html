@@ -17,9 +17,8 @@
  */
 package org.sonar.plugins.html.checks.comments;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -35,14 +34,14 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
   private static final Pattern COPYRIGHT_CASE_INSENSITIVE = Pattern.compile("copyright", Pattern.CASE_INSENSITIVE);
   private static final double THRESHOLD = 0.9;
 
-  private static final LanguageFootprint LANGUAGE_FOOTPRINT = () -> new HashSet<>(Arrays.asList(
+  private static final LanguageFootprint LANGUAGE_FOOTPRINT = () -> Set.of(
     new ContainsDetector(0.7, "=\"", "='"),
     new ContainsDetector(0.8, "/>", "</", "<%", "%>"),
-    new EndWithDetector(0.9, '>')));
+    new EndWithDetector(0.9, '>'));
 
   private static final CodeRecognizer CODE_RECOGNIZER = new CodeRecognizer(THRESHOLD, LANGUAGE_FOOTPRINT);
 
-  private static final List<String> IGNORED_COMMENT_ANNOTATIONS = Arrays.asList("@thymesVar", "@elvariable");
+  private static final List<String> IGNORED_COMMENT_ANNOTATIONS = List.of("@thymesVar", "@elvariable");
 
   @Override
   public void comment(CommentNode node) {

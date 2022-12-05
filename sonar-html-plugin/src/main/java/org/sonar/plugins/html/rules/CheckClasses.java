@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.rules;
 
-import java.util.Arrays;
 import java.util.List;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.html.checks.attributes.RequiredAttributeCheck;
@@ -87,7 +86,7 @@ import org.sonar.plugins.html.checks.whitespace.WhiteSpaceAroundCheck;
 
 public final class CheckClasses {
 
-  private static final List<Class<?>> CLASSES = Arrays.asList(
+  private static final List<Class<?>> CLASSES = List.of(
     AbsoluteURICheck.class,
     AvoidHtmlCommentCheck.class,
     ChildElementRequiredCheck.class,
