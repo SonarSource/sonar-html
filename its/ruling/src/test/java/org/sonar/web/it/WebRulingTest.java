@@ -19,17 +19,18 @@ package org.sonar.web.it;
 
 import com.google.gson.Gson;
 import com.sonar.orchestrator.Orchestrator;
+import com.sonar.orchestrator.build.BuildResult;
 import com.sonar.orchestrator.build.SonarScanner;
 import com.sonar.orchestrator.http.HttpMethod;
 import com.sonar.orchestrator.locator.FileLocation;
 import com.sonar.orchestrator.locator.MavenLocation;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -81,9 +82,14 @@ public class WebRulingTest {
       .setProperty("sonar.exclusions", "external_webkit-jb-mr1/LayoutTests/fast/encoding/*utf*")
       .setProperty("sonar.cpd.exclusions", "**/*")
       .setEnvironmentVariable("SONAR_RUNNER_OPTS", "-Xmx1024m");
-    orchestrator.executeBuild(build);
 
-    String differences = new String(Files.readAllBytes(litsDifferencesFile.toPath()), StandardCharsets.UTF_8);
+    // To prevent adding error or exception that may be unseen in the logs
+    BuildResult result = orchestrator.executeBuild(build);
+    List<String> errorList = result.getLogs().lines().filter(line -> line.startsWith("ERROR")).collect(Collectors.toList());
+    assertThat(errorList).hasSize(1);
+    assertThat(errorList.get(0)).contains("decoder-allow-null-chars.html");
+
+    String differences = Files.readString(litsDifferencesFile.toPath());
     assertThat(differences).isEmpty();
   }
 
