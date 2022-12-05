@@ -18,9 +18,7 @@
 package org.sonar.plugins.html.lex;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.sonar.plugins.html.node.Attribute;
@@ -198,14 +196,14 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   }
 
   private static final class EndUnquotedAttributeMatcher implements EndMatcher {
-    private static final Set<Character> FORBIDDEN = new HashSet<>(Arrays.asList(
+    private static final Set<Character> FORBIDDEN = Set.of(
       '"',
       '\'',
       '=',
       '<',
       '>',
       '`'
-    ));
+    );
 
     @Override
     public boolean match(int character) {

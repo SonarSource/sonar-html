@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import org.sonar.check.Rule;
@@ -28,7 +26,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "LinkToImageCheck")
 public class LinkToImageCheck extends AbstractPageCheck {
 
-  private static final Set<String> IMG_SUFFIXES = new HashSet<>(Arrays.asList(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP"));
+  private static final Set<String> IMG_SUFFIXES = Set.of(".GIF", ".JPG", ".JPEG", ".PNG", ".BMP");
 
   @Override
   public void startElement(TagNode node) {

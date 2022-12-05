@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html;
 
-import java.util.Arrays;
 import java.util.List;
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
@@ -62,8 +61,7 @@ public final class HtmlPlugin implements Plugin {
   }
 
   private static List<PropertyDefinition> pluginProperties() {
-    return Arrays.asList(
-
+    return List.of(
       PropertyDefinition.builder(HtmlConstants.FILE_EXTENSIONS_PROP_KEY)
         .name("HTML File suffixes")
         .description("List of file suffixes that will be scanned.")

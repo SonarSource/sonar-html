@@ -99,22 +99,24 @@ public class NormalElementTokenizerTest {
    * Helper test method: returns true if all invocations to {@link NormalElementTokenizer#isValidSingleCharCodeNameStartChar} returns true for the given character range.
    */
   private static boolean isValidRangeForFirstCharacter(char startInclusive, char endInclusive) {
-    boolean allValid = true;
     for (int i = startInclusive; i <= endInclusive; i++) {
-      allValid = allValid && isValidSingleCharCodeNameStartChar((char) i);
+      if (!isValidSingleCharCodeNameStartChar((char) i)) {
+        return false;
+      }
     }
-    return allValid;
+    return true;
   }
 
   /**
    * Helper test method: returns true if all invocations to {@link NormalElementTokenizer#isValidSingleCharCodeNameStartChar} returns false for the given character range.
    */
   private static boolean isInvalidRangeForFirstCharacter(char startInclusive, char endInclusive) {
-    boolean allInvalid = true;
     for (int i = startInclusive; i <= endInclusive; i++) {
-      allInvalid = allInvalid && !isValidSingleCharCodeNameStartChar((char) i);
+      if (isValidSingleCharCodeNameStartChar((char) i)) {
+        return false;
+      }
     }
-    return allInvalid;
+    return true;
   }
 
 }

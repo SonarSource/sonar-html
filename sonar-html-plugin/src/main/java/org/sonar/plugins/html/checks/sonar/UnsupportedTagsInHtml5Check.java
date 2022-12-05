@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import org.sonar.check.Rule;
@@ -29,7 +27,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "UnsupportedTagsInHtml5Check")
 public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
-  private static final Set<String> UNSUPPORTED_TAGS = new HashSet<>(Arrays.asList(
+  private static final Set<String> UNSUPPORTED_TAGS = Set.of(
       "ACRONYM",
       "APPLET",
       "BASEFONT",
@@ -54,7 +52,7 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
       "SPACER",
       "STRIKE",
       "TT",
-      "XMP"));
+      "XMP");
 
   @Override
   public void startElement(TagNode node) {
