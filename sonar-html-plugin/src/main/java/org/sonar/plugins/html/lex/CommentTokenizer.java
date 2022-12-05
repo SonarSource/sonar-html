@@ -20,10 +20,10 @@ package org.sonar.plugins.html.lex;
 import java.util.Arrays;
 import java.util.List;
 
-import org.sonar.channel.CodeReader;
-import org.sonar.channel.EndMatcher;
 import org.sonar.plugins.html.node.CommentNode;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.sslr.channel.CodeReader;
+import org.sonar.sslr.channel.EndMatcher;
 
 /**
  * Tokenizer for a HTML or JSP comment.

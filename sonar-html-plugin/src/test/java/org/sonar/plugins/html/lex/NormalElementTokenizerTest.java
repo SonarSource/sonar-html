@@ -18,7 +18,7 @@
 package org.sonar.plugins.html.lex;
 
 import org.junit.Test;
-import org.sonar.channel.CodeReader;
+import org.sonar.sslr.channel.CodeReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.plugins.html.lex.NormalElementTokenizer.isValidSingleCharCodeNameStartChar;
