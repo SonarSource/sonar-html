@@ -99,9 +99,11 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
   }
 
   protected static String popTo(CodeReader codeReader, EndMatcher endMatcher, StringBuilder stringBuilder) {
-    do {
+    boolean shouldContinue = codeReader.peek() != -1;
+    while (shouldContinue) {
       stringBuilder.append((char) codeReader.pop());
-    } while (!endMatcher.match(codeReader.peek()) && codeReader.peek() != -1);
+      shouldContinue = !endMatcher.match(codeReader.peek()) && codeReader.peek() != -1;
+    }
 
     return stringBuilder.toString();
   }
