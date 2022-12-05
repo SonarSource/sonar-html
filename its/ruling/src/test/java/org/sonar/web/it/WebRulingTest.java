@@ -63,7 +63,6 @@ public class WebRulingTest {
 
   @Test
   public void ruling() throws Exception {
-
     File litsDifferencesFile = FileLocation.of("target/differences").getFile();
     String projectKey = "project";
     orchestrator.getServer().provisionProject(projectKey, projectKey);
@@ -92,11 +91,6 @@ public class WebRulingTest {
 
     String differences = Files.readString(litsDifferencesFile.toPath());
     assertThat(differences).isEmpty();
-  }
-
-  private static String filterLogsForWarnAndErrors(String unfilteredLogs) {
-    List<String> filteredLines = unfilteredLogs.lines().filter(line -> line.startsWith("WARN") || line.startsWith("ERROR")).collect(Collectors.toList());
-    return String.join("\n", filteredLines);
   }
 
   private static void instantiateTemplateRule(String ruleTemplateKey, String instantiationKey, String params) {
