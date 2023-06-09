@@ -1,11 +1,12 @@
+<h2>Why is this an issue?</h2>
 <p>The goal of this rule is to ban the usage of HTML "style" property to make sure that all CSS styles are defined in CSS classes. Consolidating all
 styling into classes makes it easier to read, understand and maintain.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 &lt;body&gt;
   &lt;h1 style="color: blue;"&gt;Hello World!&lt;/h1&gt;  &lt;!-- Noncompliant --&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 &lt;head&gt;
   &lt;style&gt;

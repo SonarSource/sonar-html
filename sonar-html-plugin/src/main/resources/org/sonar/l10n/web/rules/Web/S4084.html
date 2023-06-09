@@ -1,16 +1,17 @@
+<h2>Why is this an issue?</h2>
 <p>In order to make your site usable by as many people as possible, subtitles should be provided for videos.</p>
 <p>This rule raises an issue when a <code>video</code> does not include at least one <code>&lt;track/&gt;</code> tag with the <code>kind</code>
 attribute set to <code>captions</code>, or <code>descriptions</code> or at the very least <code>subtitles</code>.</p>
 <p>Note that the <code>subtitles</code> kind is not meant for accessibility but for translation. The kind <code>captions</code> targets people with
 hearing impairment, whereas <code>descriptions</code> targets people with vision impairment.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 &lt;video id="video" controls preload="metadata"&gt;
    &lt;source src="resources/myvideo.mp4" type="video/mp4"&gt;
    &lt;source src="resources/myvideo.webm" type="video/webm"&gt;
 &lt;/video&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 &lt;video id="video" controls preload="metadata"&gt;
    &lt;source src="resources/myvideo.mp4" type="video/mp4"&gt;

@@ -8,8 +8,7 @@
   },
   "tags": [
     "cwe",
-    "jsp-jsf",
-    "owasp-a3"
+    "jsp-jsf"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-1876",

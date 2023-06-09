@@ -1,6 +1,7 @@
+<h2>Why is this an issue?</h2>
 <p>Using a <code>&lt;li&gt;</code> or <code>&lt;dt&gt;</code> item tag outside of a <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> or
 <code>&lt;dl&gt;</code> one does not make sense and indicates a bug.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 &lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Noncompliant --&gt;
 &lt;li&gt;Strawberry&lt;/li&gt;     &lt;!-- Noncompliant --&gt;
@@ -11,7 +12,7 @@
 &lt;dt&gt;Apple&lt;/dt&gt;          &lt;!-- Noncompliant --&gt;
 &lt;dt&gt;Strawberry&lt;/dt&gt;     &lt;!-- Noncompliant --&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 &lt;ul&gt;
   &lt;li&gt;Apple&lt;/li&gt;

@@ -1,10 +1,11 @@
+<h2>Why is this an issue?</h2>
 <p>This rule checks that the specified attributes are present in HTML tags.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <p>Given a required attribute list of: <code>img.alt,img.height,img.width</code>:</p>
 <pre>
 &lt;img src="/images/queen.png"&gt; &lt;!-- Noncompliant; missing all required attributes --&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 &lt;img src="/images/queen.png" width="60" height="85" alt="Elizabeth II"&gt;
 </pre>

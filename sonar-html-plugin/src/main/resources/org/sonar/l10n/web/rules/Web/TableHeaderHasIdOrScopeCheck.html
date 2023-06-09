@@ -1,3 +1,4 @@
+<h2>Why is this an issue?</h2>
 <p>Associating <code>&lt;table&gt;</code> headers, i.e. <code>&lt;th&gt;</code> elements, with their <code>&lt;td&gt;</code> cells enables screen
 readers to announce the header prior to the data. This considerably increases the accessibility of tables to visually impaired users.</p>
 <p>There are two ways of doing it:</p>
@@ -12,7 +13,7 @@ happens for very complex tables which have headers splitting the data in multipl
 href="https://www.w3.org/WAI/tutorials/tables/tips/">W3C WAI&nbsp;Web Accessibility Tutorials</a>&nbsp;for more information.</p>
 <p>Note that complex tables can often be split into multiple smaller tables, which improves the user experience.</p>
 <p>This rule raises an issue when a <code>&lt;th&gt;</code> element has neither <code>id</code> nor <code>scope</code> attributes set.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 &lt;table border="1"&gt;
   &lt;caption&gt;Contact Information&lt;/caption&gt;
@@ -36,7 +37,7 @@ href="https://www.w3.org/WAI/tutorials/tables/tips/">W3C WAI&nbsp;Web Accessibil
   &lt;/tr&gt;
 &lt;/table&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 &lt;table border="1"&gt;
   &lt;caption&gt;Contact Information&lt;/caption&gt;
@@ -84,7 +85,7 @@ href="https://www.w3.org/WAI/tutorials/tables/tips/">W3C WAI&nbsp;Web Accessibil
   &lt;/tr&gt;
 &lt;/table&gt;
 </pre>
-<h2>Exceptions</h2>
+<h3>Exceptions</h3>
 <p>This rule is not applied in case of simple tables.</p>
 <p>Tables are considered as such when the headers are either all in the first row, or all in the first column. The two conditions must not apply
 together.</p>
@@ -113,7 +114,7 @@ together.</p>
     &lt;/tr&gt;
 &lt;/table&gt;
 </pre>
-<h2>See</h2>
+<h2>Resources</h2>
 <ul>
   <li> <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-content-structure-separation-programmatic">WCAG2, 1.3.1</a>&nbsp;-&nbsp;Info
   and Relationships </li>
