@@ -69,8 +69,8 @@
     <sonar.plugin.api.version>7.9</sonar.plugin.api.version>
 
     <sonarlint.api.impl.version>6.3.0.36253</sonarlint.api.impl.version>
-    <sonarqube.api.impl.version>9.7.1.62043</sonarqube.api.impl.version>
-    <sonarqube.sonar.ws.version>9.7.1.62043</sonarqube.sonar.ws.version>
+    <sonarqube.api.impl.version>9.9.0.65466</sonarqube.api.impl.version>
+    <sonarqube.sonar.ws.version>9.9.0.65466</sonarqube.sonar.ws.version>
     <orchestrator.version>3.40.0.183</orchestrator.version>
     <junit.version>4.13.2</junit.version>
     <assertj.version>3.23.1</assertj.version>
