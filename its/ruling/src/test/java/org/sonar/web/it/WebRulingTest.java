@@ -91,8 +91,7 @@ public class WebRulingTest {
     // To prevent adding error or exception that may be unseen in the logs
     BuildResult result = orchestrator.executeBuild(build);
     List<String> errorList = result.getLogs().lines().filter(line -> line.startsWith("ERROR")).collect(Collectors.toList());
-    assertThat(errorList).hasSize(1);
-    assertThat(errorList.get(0)).contains("decoder-allow-null-chars.html");
+    assertThat(errorList).hasSize(0);
 
     String differences = Files.readString(litsDifferencesFile.toPath());
     assertThat(differences).isEmpty();
