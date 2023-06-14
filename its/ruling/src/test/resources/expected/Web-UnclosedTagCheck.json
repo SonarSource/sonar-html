@@ -610,6 +610,9 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/bracket-in-tag.html':[
 3,
 ],
+'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/decoder-allow-null-chars.html':[
+12,
+],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/escaped-bracket.html':[
 3,
 ],

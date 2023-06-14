@@ -888,6 +888,9 @@
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/css-link-charset.html':[
 2,
 ],
+'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/decoder-allow-null-chars.html':[
+1,
+],
 'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/default-xhtml-encoding.xhtml':[
 1,
 ],

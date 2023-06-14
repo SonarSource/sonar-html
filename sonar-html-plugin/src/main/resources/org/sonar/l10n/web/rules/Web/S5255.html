@@ -1,3 +1,4 @@
+<h2>Why is this an issue?</h2>
 <p>If a page contains multiple <code>&lt;nav&gt;</code>&nbsp;or <code>&lt;aside&gt;</code> elements, each one should have an <code>aria-label</code>
 or <code>aria-labelledby</code> attribute so that they can be differentiated. The same rule applies when multiple elements have
 a&nbsp;<code>role</code> attribute with the same "landmark" value.</p>
@@ -5,7 +6,7 @@ a&nbsp;<code>role</code> attribute with the same "landmark" value.</p>
 <code>navigation</code>, <code>search</code>, <code>application</code>.&nbsp;</p>
 <p>The use of ARIA markup helps users of&nbsp;screen readers navigate across blocks of content. For example it makes groups of links easier to locate
 or skip.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <p>Multiple <code>&lt;nav&gt;</code> element</p>
 <pre>
 &lt;nav&gt; &lt;!-- Noncompliant --&gt;
@@ -35,7 +36,7 @@ or skip.</p>
     &lt;/ul&gt;
 &lt;/div&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 &lt;nav aria-label="Site menu"&gt;
     &lt;ul&gt;
@@ -63,7 +64,7 @@ or skip.</p>
     &lt;/ul&gt;
 &lt;/div&gt;
 </pre>
-<h2>See</h2>
+<h2>Resources</h2>
 <ul>
   <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/ARIA11.html">WCAG2, ARIA11</a> - Using ARIA landmarks to identify regions of a page </li>
   <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/H97.html">WCAG2, H97</a> - Grouping related links using the nav element </li>

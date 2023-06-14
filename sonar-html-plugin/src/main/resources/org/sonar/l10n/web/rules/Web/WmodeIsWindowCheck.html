@@ -1,7 +1,8 @@
+<h2>Why is this an issue?</h2>
 <p>Browsers best support the <code>window</code> mode for the <code>wmode</code> parameter, also in terms of accessibility.</p>
 <p>As it is the default mode, it is acceptable to either not specify a <code>wmode</code> parameter altogether, or to set it explicitly to
 <code>window</code>.</p>
-<h2>Noncompliant Code Example</h2>
+<h3>Noncompliant code example</h3>
 <pre>
 &lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;
   &lt;param name="movie" value="movie_name.swf" /&gt;
@@ -15,7 +16,7 @@
        type="application/x-shockwave-flash"
        pluginspage="http://www.macromedia.com/go/getflashplayer" /&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h3>Compliant solution</h3>
 <pre>
 &lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="550" height="400"&gt;
   &lt;param name="movie" value="movie_name.swf" /&gt;
