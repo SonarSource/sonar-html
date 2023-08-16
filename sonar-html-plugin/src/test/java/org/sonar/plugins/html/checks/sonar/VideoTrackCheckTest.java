@@ -38,7 +38,8 @@ public class VideoTrackCheckTest {
       .next().atLine(33)
       .next().atLine(38)
       .next().atLine(43)
-      .next().atLine(49);
+      .next().atLine(49)
+      .next().atLine(58);
   }
 
 }

@@ -61,7 +61,8 @@ public class VideoTrackCheck extends AbstractPageCheck {
   }
 
   private static boolean isAccessibilityTrackTag(TagNode node) {
-    return node.equalsElementName("TRACK") && ACCESSIBILITY_TRACK_KINDS.contains(node.getPropertyValue("KIND"));
+    var kind = node.getPropertyValue("KIND");
+    return node.equalsElementName("TRACK") && kind != null && ACCESSIBILITY_TRACK_KINDS.contains(kind);
   }
 
 }
