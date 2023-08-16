@@ -19,8 +19,7 @@ package org.sonar.plugins.html.lex;
 
 import java.io.StringReader;
 import java.util.List;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.plugins.html.node.Node;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -17,23 +17,21 @@
  */
 package org.sonar.plugins.html.checks.comments;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.sonar.plugins.html.node.CommentNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.sonar.plugins.html.checks.comments.CommentUtils.lineNumber;
 
 public class CommentUtilsTest {
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
   private CommentNode node;
 
-  @Before
+  @BeforeEach
   public void before() {
     node = new CommentNode();
     node.setStartLinePosition(1);
@@ -50,16 +48,14 @@ public class CommentUtilsTest {
 
   @Test
   public void negative_offset() {
-    thrown.expect(IllegalArgumentException.class);
-    thrown.expectMessage("Out of range offset: -1 for comment content (size: 12)");
-    lineNumber(node, -1);
+    var e = assertThrows(IllegalArgumentException.class, () -> lineNumber(node, -1));
+    assertEquals("Out of range offset: -1 for comment content (size: 12)", e.getMessage());
   }
 
   @Test
   public void overflow_offset() {
-    thrown.expect(IllegalArgumentException.class);
-    thrown.expectMessage("Out of range offset: 100 for comment content (size: 12)");
-    lineNumber(node, 100);
+    var e = assertThrows(IllegalArgumentException.class, () -> lineNumber(node, 100));
+    assertEquals("Out of range offset: 100 for comment content (size: 12)", e.getMessage());
   }
 
 }

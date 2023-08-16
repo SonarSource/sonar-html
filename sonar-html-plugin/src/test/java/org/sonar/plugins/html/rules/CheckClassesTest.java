@@ -17,25 +17,25 @@
  */
 package org.sonar.plugins.html.rules;
 
+import java.io.File;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.server.rule.RulesDefinition;
-
-import java.io.File;
-import java.util.List;
 import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CheckClassesTest {
 
-  @Test(expected = IllegalAccessException.class)
+  @Test
   public void create() throws Exception {
-    CheckClasses.class.newInstance();
+    assertThrows(IllegalAccessException.class, () -> CheckClasses.class.newInstance());
   }
 
   /**

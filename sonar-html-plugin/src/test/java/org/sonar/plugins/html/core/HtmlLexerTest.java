@@ -19,20 +19,19 @@ package org.sonar.plugins.html.core;
 
 import com.sonar.sslr.impl.Lexer;
 import com.sonar.sslr.impl.channel.BomCharacterChannel;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasComment;
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasToken;
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasTokens;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HtmlLexerTest {
   private static Lexer lexer;
 
-  @BeforeClass
+  @BeforeAll
   public static void init() {
     lexer = HtmlLexer.create(StandardCharsets.UTF_8);
   }
