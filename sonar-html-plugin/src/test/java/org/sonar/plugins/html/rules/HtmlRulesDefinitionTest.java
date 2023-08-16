@@ -41,7 +41,7 @@ public class HtmlRulesDefinitionTest {
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository("Web");
 
-    assertThat(repository.name()).isEqualTo("SonarAnalyzer");
+    assertThat(repository.name()).isEqualTo("Sonar");
     assertThat(repository.language()).isEqualTo("web");
     assertThat(repository.rules()).hasSize(CheckClasses.getCheckClasses().size());
 

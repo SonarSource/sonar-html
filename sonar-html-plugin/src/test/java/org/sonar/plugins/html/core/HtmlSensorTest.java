@@ -50,8 +50,8 @@ import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonar.api.testfixtures.log.LogTesterJUnit5;
 import org.sonar.api.utils.Version;
-import org.sonar.api.utils.log.LogTesterJUnit5;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
@@ -190,15 +190,6 @@ public class HtmlSensorTest {
     assertTrue(called[0]);
   }
 
-  @Test
-  public void test_descriptor_sonarqube_9_3_reflection_failure() {
-    DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor();
-    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
-    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList()))).describe(sensorDescriptor);
-    assertThat(sensorDescriptor.name()).isEqualTo("HTML");
-    assertThat(sensorDescriptor.languages()).isEmpty();
-    assertTrue(logTester.logs().contains("Could not call SensorDescriptor.processesFilesIndependently() method"));
-  }
 
   @Test
   public void php_file_should_not_have_metrics() {

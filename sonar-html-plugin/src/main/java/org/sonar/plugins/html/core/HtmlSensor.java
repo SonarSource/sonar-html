@@ -89,12 +89,7 @@ public final class HtmlSensor implements Sensor {
       || !sonarRuntime.getApiVersion().isGreaterThanOrEqual(Version.create(9, 3))) {
       return;
     }
-    try {
-      Method method = descriptor.getClass().getMethod("processesFilesIndependently");
-      method.invoke(descriptor);
-    } catch (ReflectiveOperationException e) {
-      LOG.warn("Could not call SensorDescriptor.processesFilesIndependently() method", e);
-    }
+    descriptor.processesFilesIndependently();
   }
 
   @Override
