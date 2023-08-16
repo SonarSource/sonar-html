@@ -39,7 +39,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
+      <groupId>org.sonarsource.api.plugin</groupId>
       <artifactId>sonar-plugin-api</artifactId>
       <version>${sonar.plugin.api.version}</version>
       <scope>provided</scope>
@@ -121,6 +121,14 @@
           </exclusion>
         </exclusions>
     </dependency>
+
+     <dependency>
+        <groupId>org.sonarsource.api.plugin</groupId>
+        <artifactId>sonar-plugin-api-test-fixtures</artifactId>
+        <version>${sonar.plugin.api.version}</version>
+        <scope>test</scope>
+      </dependency>
+
   </dependencies>
 
 
@@ -150,6 +158,9 @@
           <!-- SonarHTML replaces SonarWeb but we keep the plugin key "web" to make it easier for users to migrate -->
           <pluginKey>web</pluginKey>
           <jreMinVersion>${jdk.min.version}</jreMinVersion>
+          <!-- this value is translated to Sonar-Version property in META-INF/MANIFEST.MF file inside jar. It is used at runtime
+          by products to detect compatibility. We keep LTS -->
+          <sonarQubeMinVersion>9.9</sonarQubeMinVersion>
         </configuration>
       </plugin>
 
