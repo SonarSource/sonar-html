@@ -40,7 +40,7 @@
     <dependency>
       <groupId>org.sonarsource.sonarlint.core</groupId>
       <artifactId>sonarlint-core</artifactId>
-      <version>${sonarlint.api.impl.version}</version>
+      <version>9.0.0.74282</version>
       <scope>test</scope>
     </dependency>
     <dependency>
