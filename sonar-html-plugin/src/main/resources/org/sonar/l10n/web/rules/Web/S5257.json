@@ -1,6 +1,12 @@
 {
   "title": "HTML \"\u003ctable\u003e\" should not be used for layout purposes",
   "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "LOGICAL"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",

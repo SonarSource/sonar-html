@@ -1,6 +1,12 @@
 {
   "title": "\"\u003chtml\u003e\" element should have a language attribute",
   "type": "BUG",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "COMPLETE"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",

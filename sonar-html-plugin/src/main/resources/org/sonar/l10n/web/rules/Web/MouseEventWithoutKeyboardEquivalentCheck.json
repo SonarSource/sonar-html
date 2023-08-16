@@ -1,6 +1,12 @@
 {
   "title": "Mouse events should have corresponding keyboard events",
   "type": "BUG",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "LOW"
+    },
+    "attribute": "COMPLETE"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",

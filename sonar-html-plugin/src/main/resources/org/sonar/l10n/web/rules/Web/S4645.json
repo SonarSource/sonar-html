@@ -1,6 +1,12 @@
 {
   "title": "\u003cscript\u003e...\u003c\/script\u003e elements should not be nested",
   "type": "BUG",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "LOGICAL"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",

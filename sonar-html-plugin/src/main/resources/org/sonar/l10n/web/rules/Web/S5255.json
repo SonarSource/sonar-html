@@ -1,6 +1,12 @@
 {
   "title": "\"aria-label\" or \"aria-labelledby\" attributes should be used to differentiate similar elements",
   "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "COMPLETE"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
