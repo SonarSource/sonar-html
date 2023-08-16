@@ -35,15 +35,17 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.sonarsource.sonarlint.core.StandaloneSonarLintEngineImpl;
-import org.sonarsource.sonarlint.core.client.api.common.Language;
-import org.sonarsource.sonarlint.core.client.api.common.analysis.ClientInputFile;
+import org.sonarsource.sonarlint.core.analysis.api.ClientInputFile;
+import org.sonarsource.sonarlint.core.analysis.api.WithTextRange;
 import org.sonarsource.sonarlint.core.client.api.common.analysis.Issue;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneAnalysisConfiguration;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneGlobalConfiguration;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneSonarLintEngine;
+import org.sonarsource.sonarlint.core.commons.Language;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
+import static org.sonarsource.sonarlint.core.commons.IssueSeverity.MAJOR;
 
 public class SonarLintTest {
 
@@ -57,7 +59,7 @@ public class SonarLintTest {
   @BeforeClass
   public static void prepare() throws Exception {
     StandaloneGlobalConfiguration sonarLintConfig = StandaloneGlobalConfiguration.builder()
-      .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar").getFile().toURI().toURL())
+      .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar").getFile().toPath())
       .setSonarLintUserHome(temp.newFolder().toPath())
       .addEnabledLanguage(Language.HTML)
       .setLogOutput((formattedMessage, level) -> { /* Don't pollute logs */ })
@@ -88,11 +90,12 @@ public class SonarLintTest {
        .build();
     sonarlintEngine.analyze(config, issues::add, (s, level) -> System.out.println(s), null);
 
-    assertThat(issues).extracting("ruleKey", "startLine", "inputFile.path", "severity").containsOnly(
-      tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), "MAJOR"),
-      tuple("Web:S5254", 1, inputFile.getPath(), "MAJOR"),
-      tuple("Web:LinkToImageCheck", 3, inputFile.getPath(), "MAJOR"),
-      tuple("Web:PageWithoutTitleCheck", 1, inputFile.getPath(), "MAJOR"));
+    assertThat(issues)
+      .extracting(Issue::getRuleKey, WithTextRange::getStartLine, i -> i.getInputFile().getPath(), Issue::getSeverity).containsOnly(
+      tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), MAJOR),
+      tuple("Web:S5254", 1, inputFile.getPath(), MAJOR),
+      tuple("Web:LinkToImageCheck", 3, inputFile.getPath(), MAJOR),
+      tuple("Web:PageWithoutTitleCheck", 1, inputFile.getPath(), MAJOR));
   }
 
   private ClientInputFile prepareInputFile(String relativePath, String content, final boolean isTest) throws IOException {

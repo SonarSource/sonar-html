@@ -68,7 +68,6 @@
     <analyzerCommons.version>2.5.0.1358</analyzerCommons.version>
     <sonar.plugin.api.version>10.1.0.809</sonar.plugin.api.version>
 
-    <sonarlint.api.impl.version>6.3.0.36253</sonarlint.api.impl.version>
     <sonarqube.api.impl.version>10.1.0.73491</sonarqube.api.impl.version>
     <sonarqube.sonar.ws.version>10.1.0.73491</sonarqube.sonar.ws.version>
     <orchestrator.version>3.40.0.183</orchestrator.version>
