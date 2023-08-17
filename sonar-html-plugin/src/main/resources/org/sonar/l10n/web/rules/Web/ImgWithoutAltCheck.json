@@ -1,6 +1,12 @@
 {
   "title": "Image, area and button with image tags should have an \"alt\" attribute",
   "type": "BUG",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "LOW"
+    },
+    "attribute": "COMPLETE"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
