@@ -34,7 +34,6 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonarsource.analyzer.commons.ProfileGenerator;
 import org.sonarqube.ws.Qualityprofiles;
 import org.sonarqube.ws.client.HttpConnector;
 import org.sonarqube.ws.client.WsClient;
@@ -42,6 +41,7 @@ import org.sonarqube.ws.client.WsClientFactories;
 import org.sonarqube.ws.client.qualityprofiles.ActivateRuleRequest;
 import org.sonarqube.ws.client.qualityprofiles.SearchRequest;
 import org.sonarqube.ws.client.rules.CreateRequest;
+import org.sonarsource.analyzer.commons.ProfileGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -27,8 +27,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.html.api.HtmlConstants;
@@ -44,7 +44,7 @@ public class PageCountLinesTest {
   private PageLexer lexer;
   private HtmlAstScanner scanner;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     lexer = new PageLexer();
     scanner = new HtmlAstScanner(Collections.emptyList());

@@ -17,13 +17,15 @@
  */
 package org.sonar.plugins.html.api;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HtmlConstantsTest {
 
-  @Test(expected=IllegalAccessException.class)
+  @Test
   public void create() throws Exception {
-    HtmlConstants.class.newInstance();
+    assertThrows(IllegalAccessException.class, () -> HtmlConstants.class.newInstance());
   }
 
 }

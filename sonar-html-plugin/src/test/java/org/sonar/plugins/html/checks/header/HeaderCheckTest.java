@@ -20,9 +20,8 @@ package org.sonar.plugins.html.checks.header;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Collections;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.html.api.HtmlConstants;
@@ -33,12 +32,13 @@ import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.html.visitor.HtmlAstScanner;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class HeaderCheckTest {
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
-  @Rule
+  @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
@@ -98,34 +98,32 @@ public class HeaderCheckTest {
 
   @Test
   public void should_fail_with_bad_regular_expression() {
-    thrown.expect(IllegalArgumentException.class);
-    thrown.expectMessage("[" + HeaderCheck.class.getSimpleName() + "] Unable to compile the regular expression: *");
-
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "*";
     check.isRegularExpression = true;
-    check.init();
+
+    var e = assertThrows(IllegalArgumentException.class, () -> check.init());
+    assertEquals("[" + HeaderCheck.class.getSimpleName() + "] Unable to compile the regular expression: *", e.getMessage());
+
   }
 
   @Test
   public void should_fail_if_unable_to_read_file_without_regex() throws Exception {
-    thrown.expect(IllegalStateException.class);
-
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
-    scanWithWrongInputFile(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
+    assertThrows(IllegalStateException.class,
+      () -> scanWithWrongInputFile(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check));
   }
 
   @Test
   public void should_fail_if_unable_to_read_file_with_regex() throws Exception {
-    thrown.expect(IllegalStateException.class);
-
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- copyright \\\\d{4}\\\\n  mycompany -->";
     check.isRegularExpression = true;
 
-    scanWithWrongInputFile(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check);
+      assertThrows(IllegalStateException.class,
+        () -> scanWithWrongInputFile(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check));
   }
 
   public static void scanWithWrongInputFile(File file, DefaultNodeVisitor visitor) {

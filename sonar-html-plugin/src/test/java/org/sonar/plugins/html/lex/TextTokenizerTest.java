@@ -19,7 +19,7 @@ package org.sonar.plugins.html.lex;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.sslr.channel.CodeReader;
 

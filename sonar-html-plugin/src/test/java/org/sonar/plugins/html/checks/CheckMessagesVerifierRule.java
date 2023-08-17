@@ -20,15 +20,16 @@ package org.sonar.plugins.html.checks;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.junit.rules.Verifier;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * This JUnit Rule allows to automatically execute {@link CheckMessagesVerifier#noMore()}.
+ * This JUnit Extension allows to automatically execute {@link CheckMessagesVerifier#noMore()}.
  * <pre>
- * &#064;org.junit.Rule
+ * &#064;org.junit.jupiter.api.extension.RegisterExtension
  * public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
  *
- * &#064;org.junit.Test
+ * &#064;org.junit.jupiter.api.Test;
  * public void test() {
  *   checkMessagesVerifier.verify(messages)
  *     .next().atLine(1)
@@ -36,7 +37,7 @@ import org.junit.rules.Verifier;
  * }
  * </pre>
  */
-public class CheckMessagesVerifierRule extends Verifier {
+public class CheckMessagesVerifierRule implements AfterEachCallback {
 
   private final List<CheckMessagesVerifier> verifiers = new ArrayList<>();
 
@@ -46,11 +47,14 @@ public class CheckMessagesVerifierRule extends Verifier {
     return verifier;
   }
 
-  @Override
   protected void verify() {
     for (CheckMessagesVerifier verifier : verifiers) {
       verifier.noMore();
     }
   }
 
+  @Override
+  public void afterEach(ExtensionContext extensionContext) throws Exception {
+    verify();
+  }
 }
