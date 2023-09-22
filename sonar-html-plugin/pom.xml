@@ -154,13 +154,14 @@
       <plugin>
         <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
         <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <version>1.22.0.705</version>
         <configuration>
           <!-- SonarHTML replaces SonarWeb but we keep the plugin key "web" to make it easier for users to migrate -->
           <pluginKey>web</pluginKey>
           <jreMinVersion>${jdk.min.version}</jreMinVersion>
           <!-- this value is translated to Sonar-Version property in META-INF/MANIFEST.MF file inside jar. It is used at runtime
           by products to detect compatibility. We keep LTS -->
-          <sonarQubeMinVersion>9.9</sonarQubeMinVersion>
+          <pluginApiMinVersion>9.9</pluginApiMinVersion>
         </configuration>
       </plugin>
 
