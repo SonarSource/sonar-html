@@ -154,7 +154,6 @@
       <plugin>
         <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
         <artifactId>sonar-packaging-maven-plugin</artifactId>
-        <version>1.22.0.705</version>
         <configuration>
           <!-- SonarHTML replaces SonarWeb but we keep the plugin key "web" to make it easier for users to migrate -->
           <pluginKey>web</pluginKey>
