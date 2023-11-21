@@ -36,6 +36,7 @@ import org.sonar.plugins.html.checks.dependencies.IllegalTagLibsCheck;
 import org.sonar.plugins.html.checks.dependencies.LibraryDependencyCheck;
 import org.sonar.plugins.html.checks.header.HeaderCheck;
 import org.sonar.plugins.html.checks.header.MultiplePageDirectivesCheck;
+import org.sonar.plugins.html.checks.security.DisabledAutoescapeCheck;
 import org.sonar.plugins.html.checks.scripting.JspScriptletCheck;
 import org.sonar.plugins.html.checks.scripting.LongJavaScriptCheck;
 import org.sonar.plugins.html.checks.scripting.NestedJavaScriptCheck;
@@ -139,6 +140,7 @@ public final class CheckClasses {
     DoctypePresenceCheck.class,
     TableHeaderHasIdOrScopeCheck.class,
     InputWithoutLabelCheck.class,
+    DisabledAutoescapeCheck.class,
     ImgWithoutWidthOrHeightCheck.class,
     PageWithoutFaviconCheck.class,
     TodoCommentCheck.class,

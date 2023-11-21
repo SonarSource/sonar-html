@@ -104,6 +104,10 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
       node.getEndColumnPosition()));
   }
 
+  protected final void createViolation(int startLine, int startColumn, int endLine, int endColumn , String message) {
+    getHtmlSourceCode().addIssue(new PreciseHtmlIssue(ruleKey, startLine, message, startColumn, endLine, endColumn));
+  }
+
   protected final void createViolation(int line, String message) {
     getHtmlSourceCode().addIssue(
       new HtmlIssue(ruleKey, line == 0 ? null : line, message)
