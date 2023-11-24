@@ -39,6 +39,8 @@ class DisabledAutoescapeCheckTest {
       .next().atLocation(9, 34, 11, 40).withMessage("Make sure disabling auto-escaping feature is safe here.")
       .next().atLocation(12, 42, 12, 49).withMessage("Make sure disabling auto-escaping feature is safe here.")
       .next().atLocation(13, 43, 13, 51).withMessage("Make sure disabling auto-escaping feature is safe here.")
-      .next().atLocation(16, 12, 16, 32).withMessage("Make sure disabling auto-escaping feature is safe here.");
+      .next().atLocation(16, 12, 16, 32).withMessage("Make sure disabling auto-escaping feature is safe here.")
+      .next().atLocation(19, 12, 19, 32).withMessage("Make sure disabling auto-escaping feature is safe here.")
+      .next().atLocation(19, 60, 19, 80).withMessage("Make sure disabling auto-escaping feature is safe here.");
   }
 }

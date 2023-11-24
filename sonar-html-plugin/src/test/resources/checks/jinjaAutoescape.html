@@ -13,8 +13,11 @@
         <p style="font-size:2em;"> {{hello2|safe }}</p>
         <p style="font-size:2em;"> {{thisissafe}}</p>
         <p style="font-size:2em;"> bla
-            {%autoescape false%}{{xss3}}{% endautoescape %}
+            {%autoescape false%}{{xss4}}{% endautoescape %}
         bla </p>
+        <p style="font-size:2em;"> bla
+            {%autoescape false%}{{xss5}}{% endautoescape %} {%autoescape false%}{{xss6}}{% endautoescape %}
+            bla </p>
     </center>
 </main>
 </body>
