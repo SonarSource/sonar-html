@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<main class="container">
+    <center>
+        <p style="font-size:2em;"> {% autoescape false %}{{xss}}{% endautoescape %} </p>
+        <p style="font-size:2em;"> {% autoescape off %}{{xss2}}{% endautoescape %} </p>
+        <p style="font-size:2em;"> {%autoescape false%}{{xss3}}{% endautoescape %} </p>
+        <p style="font-size:2em;"> {%autoescape
+            false%}
+            {{xss4}}{% endautoescape %} </p>
+        <p style="font-size:2em;"> {{hello|safe}}</p>
+        <p style="font-size:2em;"> {{hello2|safe }}</p>
+        <p style="font-size:2em;"> {{thisissafe}}</p>
+        <p style="font-size:2em;"> bla
+            {%autoescape false%}{{xss4}}{% endautoescape %}
+        bla </p>
+        <p style="font-size:2em;"> bla
+            {%autoescape false%}{{xss5}}{% endautoescape %} {%autoescape false%}{{xss6}}{% endautoescape %}
+            bla </p>
+    </center>
+</main>
+</body>
+</html>
