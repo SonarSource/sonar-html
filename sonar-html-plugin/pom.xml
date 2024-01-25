@@ -161,7 +161,7 @@
           <!-- this value is translated to Sonar-Version property in META-INF/MANIFEST.MF file inside jar. It is used at runtime
           by products to detect compatibility. We keep LTS -->
           <pluginApiMinVersion>9.9</pluginApiMinVersion>
-          <requiredForLanguages>web,jsp</requiredForLanguages>
+          <requiredForLanguages>web,jsp,js,php</requiredForLanguages>
         </configuration>
       </plugin>
 
