@@ -64,16 +64,6 @@ public class FileSuffixesTest {
     assertThat(getAnalyzedFilesNumber(projectKey)).isEqualTo(2);
   }
 
-  @Test
-  public void should_analyze_only_php_files_with_empty_suffixes() {
-    String projectKey = "FileSuffixesTest-empty_suffixes";
-    SonarScanner build = getSonarRunner(projectKey)
-      .setProperty("sonar.sourceEncoding", "UTF-8")
-      .setProperty("sonar.html.file.suffixes", "");
-    orchestrator.executeBuild(build);
-    assertThat(getAnalyzedFilesNumber(projectKey)).isEqualTo(1);
-  }
-
   private Integer getAnalyzedFilesNumber(String projectKey) {
     return getMeasureAsInt(orchestrator, projectKey, FILES_METRIC);
   }

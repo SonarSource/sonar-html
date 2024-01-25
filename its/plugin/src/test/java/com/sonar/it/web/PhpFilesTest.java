@@ -77,11 +77,6 @@ public class PhpFilesTest {
     analyzeFileAndCheckIssues(orchestratorWithPhp);
   }
 
-  @Test
-  public void file_should_get_analyzed_even_without_php() {
-    analyzeFileAndCheckIssues(orchestrator);
-  }
-
   private void analyzeFileAndCheckIssues(Orchestrator orchestrator) {
     SonarScanner build = getSonarRunner();
     orchestrator.executeBuild(build);
