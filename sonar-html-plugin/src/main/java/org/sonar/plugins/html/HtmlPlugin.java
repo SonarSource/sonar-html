@@ -67,7 +67,6 @@ public final class HtmlPlugin implements Plugin {
         .description("List of file suffixes that will be scanned.")
         .category(CATEGORY)
         .defaultValue(HtmlConstants.FILE_EXTENSIONS_DEF_VALUE)
-        .deprecatedKey("sonar.web.file.suffixes")
         .onQualifiers(Qualifiers.PROJECT)
         .multiValues(true)
         .build(),
