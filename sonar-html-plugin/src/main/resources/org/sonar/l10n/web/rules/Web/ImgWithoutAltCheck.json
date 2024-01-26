@@ -1,6 +1,6 @@
 {
-  "title": "Image, area and button with image tags should have an \"alt\" attribute",
-  "type": "BUG",
+  "title": "Image, area and button with image elements should have an \"alt\" attribute",
+  "type": "CODE_SMELL",
   "code": {
     "impacts": {
       "RELIABILITY": "LOW"
@@ -20,5 +20,5 @@
   "ruleSpecification": "RSPEC-1077",
   "sqKey": "ImgWithoutAltCheck",
   "scope": "Main",
-  "quickfix": "unknown"
+  "quickfix": "infeasible"
 }

@@ -1,307 +1,425 @@
 <h2>Why is this an issue?</h2>
-<p>With the advent of HTML5, many old attributes were deprecated. To ensure the best user experience, deprecated attributes should not be used. This
-rule checks for the following deprecated attributes, where CSS should be used instead.</p>
+<p>HTML5 is the fifth and current major version of HTML. HTML5 introduced many new elements, attributes, and behaviors. While HTML5 also aimed to be
+backward-compatible with common parsing of older versions of HTML, many old attributes were deprecated.</p>
+<p>The main reason these attributes were deprecated in HTML5 is to separate the concerns of content structure (HTML) and presentation (CSS). This is a
+fundamental principle of modern web design known as the separation of concerns, which provides multiple advantages:</p>
+<ul>
+  <li> Maintainability: By separating content and presentation, you can change the look and feel of a website without touching the HTML. You only need
+  to modify the CSS. </li>
+  <li> Reusability: CSS styles can be reused across multiple pages, making it easier to keep a consistent look and feel across an entire website.
+  </li>
+  <li> Accessibility: Using CSS for presentation makes it easier to create websites that are accessible to users with disabilities. For example,
+  screen readers can more easily interpret web content when it’s separated from the presentation. </li>
+</ul>
+<h3>What is the potential impact?</h3>
+<p>Deprecated attributes are not guaranteed to be supported by all browsers, especially newer ones. This can lead to inconsistent behavior or
+appearance across different browsers.</p>
+<h2>How to fix it</h2>
+<p>To ensure the best user experience, deprecated attributes should not be used. This table lists the deprecated attributes this rule is checking for,
+and how to fix them.</p>
 <table>
   <colgroup>
-    <col style="width: 50%;">
-    <col style="width: 50%;">
+    <col style="width: 33.3333%;">
+    <col style="width: 33.3333%;">
+    <col style="width: 33.3334%;">
   </colgroup>
   <thead>
     <tr>
       <th>Attribute</th>
       <th>Removed from</th>
+      <th>Fix</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><p><code>accept</code></p></td>
       <td><p><code>form</code></p></td>
+      <td> <p>Use the <code>accept</code> attribute directly on the <code>input</code> elements instead</p> </td>
     </tr>
     <tr>
       <td><p><code>align</code></p></td>
       <td><p><code>caption</code>, <code>col</code>, <code>div</code>, <code>embed</code>, <code>h1-h6</code>, <code>hr</code>, <code>iframe</code>,
       <code>img</code>, <code>input</code>, <code>legend</code>, <code>object</code>, <code>p</code>, <code>table</code>, <code>tbody</code>,
       <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>alink</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>allowtransparency</code></p></td>
       <td><p><code>iframe</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>archive</code></p></td>
       <td><p><code>object</code></p></td>
+      <td> <p>Use the <code>data</code> and <code>type</code> attributes to invoke plugins</p> </td>
     </tr>
     <tr>
       <td><p><code>axis</code></p></td>
       <td><p><code>td</code>, <code>th</code></p></td>
+      <td> <p>Use the <code>scope</code> attribute on the relevant <code>th</code></p> </td>
     </tr>
     <tr>
       <td><p><code>background</code></p></td>
       <td><p><code>body</code>, <code>table</code>, <code>thead</code>, <code>tbody</code>, <code>tfoot</code>, <code>tr</code>, <code>td</code>,
       <code>th</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>bgcolor</code></p></td>
       <td><p><code>body</code>, <code>table</code>, <code>td</code>, <code>th</code>, <code>tr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>border</code></p></td>
       <td><p><code>img</code> (<code>border="0"</code> allowed), <code>object</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>bordercolor</code></p></td>
       <td><p><code>table</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>cellpadding</code></p></td>
       <td><p><code>table</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>cellspacing</code></p></td>
       <td><p><code>table</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>char</code></p></td>
       <td><p><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>charoff</code></p></td>
       <td><p><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>charset</code></p></td>
       <td><p><code>a</code>, <code>link</code></p></td>
+      <td> <p>Use an HTTP <code>`Content-Type`</code> header on the linked resource instead</p> </td>
     </tr>
     <tr>
       <td><p><code>classid</code></p></td>
       <td><p><code>object</code></p></td>
+      <td> <p>Use the <code>data</code> and <code>type</code> attributes to invoke plugins</p> </td>
     </tr>
     <tr>
       <td><p><code>clear</code></p></td>
       <td><p><code>br</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>code</code></p></td>
       <td><p><code>object</code></p></td>
+      <td> <p>Use the <code>data</code> and <code>type</code> attributes to invoke plugins</p> </td>
     </tr>
     <tr>
       <td><p><code>codebase</code></p></td>
       <td><p><code>object</code></p></td>
+      <td> <p>Use the <code>data</code> and <code>type</code> attributes to invoke plugins</p> </td>
     </tr>
     <tr>
       <td><p><code>codetype</code></p></td>
       <td><p><code>object</code></p></td>
+      <td> <p>Use the <code>data</code> and <code>type</code> attributes to invoke plugins</p> </td>
     </tr>
     <tr>
       <td><p><code>color</code></p></td>
       <td><p><code>hr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>compact</code></p></td>
       <td><p><code>dl</code>, <code>ol</code>, <code>ul</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>coords</code></p></td>
       <td><p><code>a</code></p></td>
+      <td> <p>Use <code>area</code> instead of <code>a</code> for image maps</p> </td>
     </tr>
     <tr>
       <td><p><code>datafld</code></p></td>
       <td><p><code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>fieldset</code>, <code>frame</code>,
       <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>,
       <code>param</code>, <code>select</code>, <code>span</code>, <code>textarea</code></p></td>
+      <td> <p>Use script and a mechanism such as <code>XMLHttpRequest</code> to populate the page dynamically</p> </td>
     </tr>
     <tr>
       <td><p><code>dataformatas</code></p></td>
       <td><p><code>button</code>, <code>div</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>,
       <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, <code>table</code></p></td>
+      <td> <p>Use script and a mechanism such as <code>XMLHttpRequest</code> to populate the page dynamically</p> </td>
     </tr>
     <tr>
       <td><p><code>datapagesize</code></p></td>
       <td><p><code>table</code></p></td>
+      <td> <p>Unnecessary. Omit it altogether</p> </td>
     </tr>
     <tr>
       <td><p><code>datasrc</code></p></td>
       <td><p><code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>,
       <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>,
       <code>select</code>, <code>span</code>, <code>table</code>, <code>textarea</code></p></td>
+      <td> <p>Use script and a mechanism such as <code>XMLHttpRequest</code> to populate the page dynamically</p> </td>
     </tr>
     <tr>
       <td><p><code>declare</code></p></td>
       <td><p><code>object</code></p></td>
+      <td> <p>Repeat the <code>object</code> element completely each time the resource is to be reused</p> </td>
     </tr>
     <tr>
       <td><p><code>event</code></p></td>
       <td><p><code>script</code></p></td>
+      <td> <p>Use DOM events mechanisms to register event listeners</p> </td>
     </tr>
     <tr>
       <td><p><code>for</code></p></td>
       <td><p><code>script</code></p></td>
+      <td> <p>Use DOM events mechanisms to register event listeners</p> </td>
     </tr>
     <tr>
       <td><p><code>frame</code></p></td>
       <td><p><code>table</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>frameborder</code></p></td>
       <td><p><code>iframe</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>height</code></p></td>
       <td><p><code>td</code>, <code>th</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>hspace</code></p></td>
       <td><p><code>embed</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>object</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>ismap</code></p></td>
       <td><p><code>input</code></p></td>
+      <td> <p>Unnecessary. Omit it altogether</p> </td>
     </tr>
     <tr>
-      <td><p><code>langauge</code></p></td>
+      <td><p><code>language</code></p></td>
       <td><p><code>script</code> (<code>language="javascript"</code>, case insensitive, allowed)</p></td>
+      <td> <p>use the <code>type</code> attribute instead</p> </td>
     </tr>
     <tr>
       <td><p><code>link</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>lowsrc</code></p></td>
       <td><p><code>img</code></p></td>
+      <td> <p>Use a progressive JPEG image (given in the <code>src</code> attribute), instead of using two separate images</p> </td>
     </tr>
     <tr>
       <td><p><code>marginbottom</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>marginheight</code></p></td>
       <td><p><code>body</code>, <code>iframe</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>marginleft</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>marginright</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>margintop</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>marginwidth</code></p></td>
       <td><p><code>body</code>, <code>iframe</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>methods</code></p></td>
       <td><p><code>a</code>, <code>link</code></p></td>
+      <td> <p>Use the HTTP OPTIONS feature instead</p> </td>
     </tr>
     <tr>
       <td><p><code>name</code></p></td>
       <td><p><code>a</code> (<code>name="[a's element id]"</code> allowed), <code>embed</code>, <code>img</code>, <code>option</code></p></td>
+      <td> <p>Use the <code>id</code> attribute instead</p> </td>
     </tr>
     <tr>
       <td><p><code>nohref</code></p></td>
       <td><p><code>area</code></p></td>
+      <td> <p>Omitting the <code>href</code> attribute is sufficient; the <code>nohref</code> attribute is unnecessary. Omit it altogether</p> </td>
     </tr>
     <tr>
       <td><p><code>noshade</code></p></td>
       <td><p><code>hr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>nowrap</code></p></td>
       <td><p><code>td</code>, <code>th</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>profile</code></p></td>
       <td><p><code>head</code></p></td>
+      <td> <p>Unnecessary. Omit it altogether</p> </td>
     </tr>
     <tr>
       <td><p><code>rules</code></p></td>
       <td><p><code>table</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>scheme</code></p></td>
       <td><p><code>meta</code></p></td>
+      <td> <p>Use only one scheme per field, or make the scheme declaration part of the value</p> </td>
     </tr>
     <tr>
       <td><p><code>scope</code></p></td>
       <td><p><code>td</code></p></td>
+      <td> <p>Use <code>th</code> elements for heading cells</p> </td>
     </tr>
     <tr>
       <td><p><code>scrolling</code></p></td>
       <td><p><code>iframe</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>shape</code></p></td>
       <td><p><code>a</code></p></td>
+      <td> <p>Use <code>area</code> instead of <code>a</code> for image maps</p> </td>
     </tr>
     <tr>
       <td><p><code>size</code></p></td>
       <td><p><code>hr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>standby</code></p></td>
       <td><p><code>object</code></p></td>
+      <td> <p>Optimize the linked resource so that it loads quickly or, at least, incrementally</p> </td>
     </tr>
     <tr>
       <td><p><code>summary</code></p></td>
       <td><p><code>table</code></p></td>
+      <td>
+        <ul>
+          <li> Use a <code>p</code> element before the <code>table</code> </li>
+          <li> In the table’s <code>caption</code> </li>
+          <li> Before the table, in a <code>figcaption</code> in the same <code>figure</code> as the <code>table</code> </li>
+        </ul> </td>
     </tr>
     <tr>
       <td><p><code>target</code></p></td>
       <td><p><code>link</code></p></td>
+      <td> <p>Unnecessary. Omit it altogether</p> </td>
     </tr>
     <tr>
       <td><p><code>text</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>type</code></p></td>
       <td><p><code>li</code>, <code>param</code>, <code>ul</code></p></td>
+      <td> <p><code>param</code> element is deprecated. Use the <code>data</code> attribute of the <code>object</code> element to set the URL of the
+      external resource. Use CSS for <code>li</code> and <code>ul</code> elements</p> </td>
     </tr>
     <tr>
       <td><p><code>urn</code></p></td>
       <td><p><code>a</code>, <code>link</code></p></td>
+      <td> <p>Specify the preferred persistent identifier using the <code>href</code> attribute</p> </td>
     </tr>
     <tr>
       <td><p><code>usemap</code></p></td>
       <td><p><code>input</code></p></td>
+      <td> <p>Use the <code>img</code> element for image maps</p> </td>
     </tr>
     <tr>
       <td><p><code>valign</code></p></td>
       <td><p><code>col</code>, <code>tbody</code>, <code>thead</code>, <code>tfoot</code>, <code>td</code>, <code>th</code>, <code>tr</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>valuetype</code></p></td>
       <td><p><code>param</code></p></td>
+      <td> <p><code>param</code> element is deprecated. Use the <code>data</code> attribute of the <code>object</code> element to set the URL of the
+      external resource</p> </td>
     </tr>
     <tr>
       <td><p><code>version</code></p></td>
       <td><p><code>html</code></p></td>
+      <td> <p>Unnecessary. Omit it altogether</p> </td>
     </tr>
     <tr>
       <td><p><code>vlink</code></p></td>
       <td><p><code>body</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>vspace</code></p></td>
       <td><p><code>embed</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>object</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
     <tr>
       <td><p><code>width</code></p></td>
       <td><p><code>col</code>, <code>hr</code>, <code>pre</code>, <code>table</code>, <code>td</code>, <code>th</code></p></td>
+      <td> <p>Use CSS</p> </td>
     </tr>
   </tbody>
 </table>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;table&gt;
+	&lt;tr&gt;
+		&lt;td width="50%"&gt;1st cell&lt;/td&gt;&lt;!-- Noncompliant: 'width' attribute is deprecated --&gt;
+		&lt;td width="50%"&gt;1st cell&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;style&gt;
+	.equal-width td { width: 50%; }
+&lt;/style&gt;
+&lt;table class="equal-width"&gt;
+	&lt;tr&gt;
+		&lt;td&gt;1st cell&lt;/td&gt;
+		&lt;td&gt;2nd cell&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
 <h2>Resources</h2>
+<h3>Documentation</h3>
 <ul>
   <li> W3C, <a href="https://www.w3.org/TR/html5-diff">Differences in HTML5</a> </li>
   <li> WHATWG, <a href="https://html.spec.whatwg.org/multipage/obsolete.html">Obsolete Features</a> </li>
+  <li> HTML Standard, <a href="https://html.spec.whatwg.org/#non-conforming-features">Non-conforming features</a> </li>
 </ul>
 
