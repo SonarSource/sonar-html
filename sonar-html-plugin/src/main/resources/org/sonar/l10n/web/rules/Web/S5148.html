@@ -22,22 +22,22 @@ enabled by default.</p>
 <p>To prevent pages from abusing <code>window.opener</code>, use <code>rel=noopener</code> on <code>&lt;a href=&gt;</code> to force its value to be
 <code>null</code> on the opened pages.</p>
 <pre>
-&lt;a href="http://petssocialnetwork.io" target="_blank" rel="noopener"&gt; &lt;!-- Compliant --&gt;
+&lt;a href="http://petssocialnetwork.io" target="_blank" rel="noopener"&gt;
 </pre>
 <h2>Exceptions</h2>
 <p>No Issue will be raised when <code>href</code> contains a hardcoded relative url as there it has less chances of being vulnerable. An url is
 considered hardcoded and relative if it doesn’t start with <code>http://</code> or <code>https://</code>, and if it does not contain any of the
 characters {}$()[]</p>
 <pre>
-&lt;a href="internal.html" target="_blank" &gt; &lt;!-- Compliant --&gt;
+&lt;a href="internal.html" target="_blank" &gt;
 </pre>
 <h2>See</h2>
 <ul>
-  <li> <a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP Top 10 2021 Category A5</a> - Security Misconfiguration </li>
+  <li> OWASP - <a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">Top 10 2021 Category A5 - Security Misconfiguration</a> </li>
   <li> <a href="https://owasp.org/www-community/attacks/Reverse_Tabnabbing">Reverse Tabnabbing</a> </li>
-  <li> <a href="https://cwe.mitre.org/data/definitions/1022">MITRE, CWE-1022</a> - Use of Web Link to Untrusted Target with window.opener Access </li>
-  <li> <a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration">OWASP Top 10 2017 Category A6</a> - Security
-  Misconfiguration </li>
+  <li> CWE - <a href="https://cwe.mitre.org/data/definitions/1022">CWE-1022 - Use of Web Link to Untrusted Target with window.opener Access</a> </li>
+  <li> OWASP - <a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration">Top 10 2017 Category A6 - Security
+  Misconfiguration</a> </li>
   <li> <a href="https://mathiasbynens.github.io/rel-noopener/">https://mathiasbynens.github.io/rel-noopener/</a> </li>
 </ul>
 
