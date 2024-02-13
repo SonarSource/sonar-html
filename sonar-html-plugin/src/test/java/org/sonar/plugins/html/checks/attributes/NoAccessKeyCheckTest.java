@@ -17,8 +17,6 @@
  */
 package org.sonar.plugins.html.checks.attributes;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -31,7 +29,6 @@ class NoAccessKeyCheckTest {
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-
   @Test
   void detected() {
     NoAccessKeyCheck check = new NoAccessKeyCheck();
@@ -42,5 +39,4 @@ class NoAccessKeyCheckTest {
             .next().atLine(1).withMessage("Remove the \"accessKey\" attribute from the \"foo\" tag")
             .next().atLine(3).withMessage("Remove the \"accessKey\" attribute from the \"div\" tag");
   }
-
 }
