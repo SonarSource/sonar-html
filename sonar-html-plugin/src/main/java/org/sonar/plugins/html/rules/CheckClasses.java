@@ -19,6 +19,7 @@ package org.sonar.plugins.html.rules;
 
 import java.util.List;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
+import org.sonar.plugins.html.checks.attributes.NoAccessKeyCheck;
 import org.sonar.plugins.html.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.html.checks.coding.ComplexityCheck;
 import org.sonar.plugins.html.checks.coding.DoubleQuotesCheck;
@@ -153,7 +154,8 @@ public final class CheckClasses {
     ObjectWithAlternativeContentCheck.class,
     IndistinguishableSimilarElementsCheck.class,
     TableHeaderReferenceCheck.class,
-    ResourceIntegrityCheck.class
+    ResourceIntegrityCheck.class,
+    NoAccessKeyCheck.class
   );
 
   private CheckClasses() {
