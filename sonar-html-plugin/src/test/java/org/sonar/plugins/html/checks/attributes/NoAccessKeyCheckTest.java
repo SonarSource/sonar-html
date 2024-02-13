@@ -26,14 +26,14 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class NoAccessKeyCheckTest {
+class NoAccessKeyCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
 
   @Test
-  public void custom() {
+  void detected() {
     NoAccessKeyCheck check = new NoAccessKeyCheck();
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NoAccessKeyCheck.html"), check);
