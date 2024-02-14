@@ -32,7 +32,13 @@ public class NoAccessKeyCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     if (element.getProperty(attribute) != null) {
-      createViolation(element.getStartLinePosition(), "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.");
+      var start = element.getStartColumnPosition() + 1;
+      createViolation(
+        element.getStartLinePosition(),
+        start,
+        element.getStartLinePosition(),
+        start + element.getNodeName().length() + 1,
+        "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.");
     }
   }
 }
