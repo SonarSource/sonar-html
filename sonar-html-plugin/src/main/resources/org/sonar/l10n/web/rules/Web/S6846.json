@@ -13,7 +13,7 @@
   "ruleSpecification": "RSPEC-6846",
   "sqKey": "S6846",
   "scope": "All",
-  "quickfix": "targeted",
+  "quickfix": "infeasible",
   "code": {
     "impacts": {
       "MAINTAINABILITY": "LOW",
