@@ -1,0 +1,18 @@
+<a></a>                                         <!-- Noncompliant -->
+<a> <!-- blank--> </a>                          <!-- Noncompliant -->
+<a><input type="hidden"/></a>                   <!-- Noncompliant -->
+<a><button aria-hidden="true"></button></a>     <!-- Noncompliant -->
+<a />                                           <!-- Noncompliant -->
+
+<a>Click me</a>
+<a title="Click me"></a>
+<a aria-label="Click me"></a>
+<a><img src="img.jpg"/></a>
+<a><input type="text"/></a>
+<a><button aria-hidden="foo"></button></a>
+<a><button aria-hidden="false"></button></a>
+<a><% "hello" %></a>
+<a title="Click me"><% "hello" %></a>
+<a><img src="img.jpg"/>Click me</a>
+<div></div>
+</a> <!-- malformed on purpose -->
