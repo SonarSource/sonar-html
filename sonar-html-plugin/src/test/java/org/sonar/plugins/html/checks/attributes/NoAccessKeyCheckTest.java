@@ -37,6 +37,7 @@ class NoAccessKeyCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
             .next().atLine(1).withMessage("No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.")
-            .next().atLine(3);
+            .next().atLine(3)
+            .next().atLine(7);
   }
 }
