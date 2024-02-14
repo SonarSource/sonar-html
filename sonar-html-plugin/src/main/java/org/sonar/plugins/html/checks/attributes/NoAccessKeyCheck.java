@@ -17,11 +17,8 @@
  */
 package org.sonar.plugins.html.checks.attributes;
 
-import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.Attribute;
-import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6846")
