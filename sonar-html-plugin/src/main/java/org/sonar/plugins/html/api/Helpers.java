@@ -20,13 +20,13 @@ package org.sonar.plugins.html.api;
 import org.sonar.plugins.html.node.TagNode;
 
 public class Helpers {
-    private Helpers() {
-    }
+  private Helpers() {
+  }
 
-    public static boolean isHeadingTag(TagNode node) {
-        return node.getNodeName().length() == 2 &&
-                Character.toUpperCase(node.getNodeName().charAt(0)) == 'H' &&
-                node.getNodeName().charAt(1) >= '1' &&
-                node.getNodeName().charAt(1) <= '6';
-    }
+  public static boolean isHeadingTag(TagNode node) {
+    return node.getNodeName().length() == 2 &&
+      Character.toUpperCase(node.getNodeName().charAt(0)) == 'H' &&
+      node.getNodeName().charAt(1) >= '1' &&
+      node.getNodeName().charAt(1) <= '6';
+  }
 }

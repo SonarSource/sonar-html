@@ -28,59 +28,58 @@ import java.util.List;
 
 @Rule(key = "S6850")
 public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
-    private final List<String> invalidAttributes = List.of(
-            "aria-hidden"
-    );
+  private final List<String> invalidAttributes = List.of(
+    "aria-hidden"
+  );
 
-    private TagNode processedHeadingNode = null;
+  private TagNode processedHeadingNode = null;
 
-    private boolean hasTextContent = false;
+  private boolean hasTextContent = false;
 
-    @Override
-    public void startElement(TagNode node) {
-        if (Helpers.isHeadingTag(node)) {
-            processedHeadingNode = node;
-            hasTextContent = false;
+  @Override
+  public void startElement(TagNode node) {
+    if (Helpers.isHeadingTag(node)) {
+      processedHeadingNode = node;
+      hasTextContent = false;
 
-            if (hasAnInvalidAttribute(node)) {
-                createViolation(node);
-            }
-        }
-
-        super.startElement(node);
+      if (hasAnInvalidAttribute(node)) {
+        createViolation(node);
+      }
     }
 
-    @Override
-    public void endElement(TagNode node) {
-        if (processedHeadingNode != null) {
-            if (!hasTextContent) {
-                createViolation(processedHeadingNode);
-            }
+    super.startElement(node);
+  }
 
-            processedHeadingNode = null;
-        }
+  @Override
+  public void endElement(TagNode node) {
+    if (processedHeadingNode != null) {
+      if (!hasTextContent) {
+        createViolation(processedHeadingNode);
+      }
 
-        super.endElement(node);
+      processedHeadingNode = null;
     }
 
-    @Override
-    public void characters(TextNode textNode) {
-        if (processedHeadingNode != null) {
-            hasTextContent = !textNode.isBlank();
-        }
+    super.endElement(node);
+  }
 
-        super.characters(textNode);
+  @Override
+  public void characters(TextNode textNode) {
+    if (processedHeadingNode != null) {
+      hasTextContent = !textNode.isBlank();
     }
 
-    private boolean hasAnInvalidAttribute(TagNode node) {
-        return node.getAttributes().stream()
-                .map(Attribute::getName)
-                .anyMatch(invalidAttributes::contains);
-    }
+    super.characters(textNode);
+  }
+
+  private boolean hasAnInvalidAttribute(TagNode node) {
+    return node.getAttributes().stream()
+      .map(Attribute::getName)
+      .anyMatch(invalidAttributes::contains);
+  }
 
 
-
-    private void createViolation(TagNode node) {
-        super.createViolation(node.getStartLinePosition(), "Headings must have content and the content must be accessible by a screen reader.");
-    }
+  private void createViolation(TagNode node) {
+    super.createViolation(node.getStartLinePosition(), "Headings must have content and the content must be accessible by a screen reader.");
+  }
 }
