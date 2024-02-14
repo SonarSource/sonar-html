@@ -1,515 +1,515 @@
 {
-'project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/processManager/DemandeDeMission/printForm/DemandeDeMission_print.html':[
-15,
+"project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/processManager/DemandeDeMission/printForm/DemandeDeMission_print.html": [
+15
 ],
-'project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html':[
-2,
+"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html": [
+2
 ],
-'project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html':[
-2,
+"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html": [
+2
 ],
-'project:Silverpeas-Core-master/src/site/resources/legal/agpl-3.0-standalone.html':[
-9,
+"project:Silverpeas-Core-master/src/site/resources/legal/agpl-3.0-standalone.html": [
+9
 ],
-'project:Silverpeas-Core-master/src/site/resources/screenshots.html':[
-44,
+"project:Silverpeas-Core-master/src/site/resources/screenshots.html": [
+44
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/errorpage.jsp':[
-97,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/errorpage.jsp": [
+97
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/accessForbidden.jsp':[
-56,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/accessForbidden.jsp": [
+56
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/documentNotFound.jsp':[
-70,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/documentNotFound.jsp": [
+70
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/AjaxFileUpload.html':[
-62,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/AjaxFileUpload.html": [
+62
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp':[
-196,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+196
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainContent.jsp':[
-171,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainContent.jsp": [
+171
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp':[
-137,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
+137
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/error.jsp':[
-72,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/error.jsp": [
+72
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp':[
-53,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp": [
+53
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp':[
-59,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp": [
+59
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portlet.jsp':[
-40,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portlet.jsp": [
+40
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp':[
-48,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
+48
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/undeploy-portlet.jsp':[
-51,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/undeploy-portlet.jsp": [
+51
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp':[
-885,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp": [
+885
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfile.jsp':[
-79,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfile.jsp": [
+79
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp':[
-197,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp": [
+197
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp':[
-69,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp": [
+69
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/subscription/jsp/subscriptionpanel.jsp':[
-555,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/subscription/jsp/subscriptionpanel.jsp": [
+555
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp':[
-86,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp": [
+86
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/tools/index.jsp':[
-55,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/tools/index.jsp": [
+55
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html':[
-37,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html": [
+37
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html':[
-43,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html": [
+43
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/divreplace.html':[
-106,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/divreplace.html": [
+106
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html':[
-20,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html": [
+20
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level1/core/resources/COPYRIGHT.html':[
-17,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level1/core/resources/COPYRIGHT.html": [
+17
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/core/resources/COPYRIGHT.html':[
-17,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/core/resources/COPYRIGHT.html": [
+17
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/events/resources/COPYRIGHT.html':[
-17,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/events/resources/COPYRIGHT.html": [
+17
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/resources/COPYRIGHT.html':[
-17,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/resources/COPYRIGHT.html": [
+17
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level1/core/resources/COPYRIGHT.xhtml':[
-13,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level1/core/resources/COPYRIGHT.xhtml": [
+13
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/core/resources/COPYRIGHT.xhtml':[
-13,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/core/resources/COPYRIGHT.xhtml": [
+13
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/events/resources/COPYRIGHT.xhtml':[
-13,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/events/resources/COPYRIGHT.xhtml": [
+13
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/resources/COPYRIGHT.xhtml':[
-13,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/resources/COPYRIGHT.xhtml": [
+13
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/resources/COPYRIGHT.xhtml':[
-17,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/resources/COPYRIGHT.xhtml": [
+17
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/denormalised-voiced-japanese-chars.html':[
-8,
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/denormalised-voiced-japanese-chars.html": [
+8
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/SunSpider/hosted/sunspider.html':[
-37,
+"project:external_webkit-jb-mr1/PerformanceTests/SunSpider/hosted/sunspider.html": [
+37
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/SunSpider/hosted/versions.html':[
-38,
+"project:external_webkit-jb-mr1/PerformanceTests/SunSpider/hosted/versions.html": [
+38
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/TEMPLATE.html':[
-36,
+"project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/TEMPLATE.html": [
+36
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/driver-TEMPLATE.html':[
-38,
+"project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/driver-TEMPLATE.html": [
+38
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/results-TEMPLATE.html':[
-37,
+"project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/results-TEMPLATE.html": [
+37
 ],
-'project:external_webkit-jb-mr1/Source/JavaScriptCore/tests/mozilla/expected.html':[
-6,
+"project:external_webkit-jb-mr1/Source/JavaScriptCore/tests/mozilla/expected.html": [
+6
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animate-none.html':[
-164,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animate-none.html": [
+164
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/autofill-popup-location.html':[
-9,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/autofill-popup-location.html": [
+9
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/canvas-mask-redraw.html':[
-55,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/canvas-mask-redraw.html": [
+55
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/dom/form-control-for-label.html':[
-7,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/dom/form-control-for-label.html": [
+7
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-with-div-or-image-as-data-image.html':[
-34,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-with-div-or-image-as-data-image.html": [
+34
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/hash-ref.html':[
-9,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/hash-ref.html": [
+9
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/keep_spelling_markers.html':[
-2,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/keep_spelling_markers.html": [
+2
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/popup-width-restriction-within-screen.html':[
-10,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/popup-width-restriction-within-screen.html": [
+10
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/textarea-reset-default-value.html':[
-11,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/textarea-reset-default-value.html": [
+11
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/transition-events.html':[
-76,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/transition-events.html": [
+76
 ],
-'project:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html':[
-208,
+"project:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html": [
+208
 ],
-'project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/queuestatus.html':[
-10,
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/queuestatus.html": [
+10
 ],
-'project:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html':[
-95,
+"project:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html": [
+95
 ],
-'project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.3.2/htdocs/index.html':[
-7,
+"project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.3.2/htdocs/index.html": [
+7
 ],
-'project:phpMyAdmin-4.0.4-english/db_tracking.php':[
-73,
+"project:phpMyAdmin-4.0.4-english/db_tracking.php": [
+73
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/copyright.html':[
-35,
+"project:phpMyAdmin-4.0.4-english/doc/html/copyright.html": [
+35
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/developers.html':[
-35,
+"project:phpMyAdmin-4.0.4-english/doc/html/developers.html": [
+35
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/glossary.html':[
-34,
+"project:phpMyAdmin-4.0.4-english/doc/html/glossary.html": [
+34
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/index.html':[
-34,
+"project:phpMyAdmin-4.0.4-english/doc/html/index.html": [
+34
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/search.html':[
-39,
+"project:phpMyAdmin-4.0.4-english/doc/html/search.html": [
+39
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/user.html':[
-35,
+"project:phpMyAdmin-4.0.4-english/doc/html/user.html": [
+35
 ],
-'project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php':[
-186,
+"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
+186
 ],
-'project:phpMyAdmin-4.0.4-english/prefs_manage.php':[
-232,
+"project:phpMyAdmin-4.0.4-english/prefs_manage.php": [
+232
 ],
-'project:phpMyAdmin-4.0.4-english/setup/frames/config.inc.php':[
-25,
+"project:phpMyAdmin-4.0.4-english/setup/frames/config.inc.php": [
+25
 ],
-'project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php':[
-107,
+"project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
+107
 ],
-'project:phpMyAdmin-4.0.4-english/setup/lib/form_processing.lib.php':[
-45,
+"project:phpMyAdmin-4.0.4-english/setup/lib/form_processing.lib.php": [
+45
 ],
-'project:phpMyAdmin-4.0.4-english/transformation_overview.php':[
-21,
+"project:phpMyAdmin-4.0.4-english/transformation_overview.php": [
+21
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/comments_duplications.html.erb':[
-19,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/comments_duplications.html.erb": [
+19
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb':[
-14,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb": [
+14
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/coverage.html.erb':[
-43,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/coverage.html.erb": [
+43
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb':[
-57,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
+57
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_metric.html.erb':[
-37,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_metric.html.erb": [
+37
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_resources.html.erb':[
-34,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_resources.html.erb": [
+34
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb':[
-39,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb": [
+39
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/action_plans.html.erb':[
-18,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/action_plans.html.erb": [
+18
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_per_assignee.html.erb':[
-35,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_per_assignee.html.erb": [
+35
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_statuses.html.erb':[
-15,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_statuses.html.erb": [
+15
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/it_coverage.html.erb':[
-76,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/it_coverage.html.erb": [
+76
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/rules.html.erb':[
-15,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/rules.html.erb": [
+15
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/size.html.erb':[
-19,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/size.html.erb": [
+19
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/time_machine.html.erb':[
-76,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/time_machine.html.erb": [
+76
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/timeline.html.erb':[
-148,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/timeline.html.erb": [
+148
 ],
-'project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/lcom4.html.erb':[
-14,
+"project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/lcom4.html.erb": [
+14
 ],
-'project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/response_for_class.html.erb':[
-13,
+"project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/response_for_class.html.erb": [
+13
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_global_notifications.html.erb':[
-1,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_global_notifications.html.erb": [
+1
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb':[
-1,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb": [
+1
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/_new.html.erb':[
-1,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/_new.html.erb": [
+1
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/index.html.erb':[
-37,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/index.html.erb": [
+37
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/components/index.html.erb':[
-21,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/components/index.html.erb": [
+21
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_header.html.erb':[
-18,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_header.html.erb": [
+18
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb':[
-9,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb": [
+9
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dependencies/index.html.erb':[
-37,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dependencies/index.html.erb": [
+37
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb':[
-48,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb": [
+48
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/measures.html.erb':[
-24,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/measures.html.erb": [
+24
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb':[
-48,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb": [
+48
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_copy_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_copy_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_edit_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_edit_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_save_as_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_save_as_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_iframe.html.erb':[
-2,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_iframe.html.erb": [
+2
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb':[
-170,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb": [
+170
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_projects.html.erb':[
-12,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_projects.html.erb": [
+12
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_nolayout.html.erb':[
-2,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_nolayout.html.erb": [
+2
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/markdown/help.html.erb':[
-2,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/markdown/help.html.erb": [
+2
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb':[
-6,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb": [
+6
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb':[
-6,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb": [
+6
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_restore_form.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_restore_form.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/index.html.erb':[
-27,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/index.html.erb": [
+27
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/inheritance.html.erb':[
-32,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/inheritance.html.erb": [
+32
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/_snapshot_title.html.erb':[
-3,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/_snapshot_title.html.erb": [
+3
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/widgets/issues/_issues_list_widget.html.erb':[
-5,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/widgets/issues/_issues_list_widget.html.erb": [
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules/_show_modal.html.erb':[
-3,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules/_show_modal.html.erb": [
+3
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/index.html.erb':[
-134,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/index.html.erb": [
+134
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/server_id_configuration/index.html.erb':[
-30,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/server_id_configuration/index.html.erb": [
+30
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/login.html.erb':[
-6,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/login.html.erb": [
+6
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/new.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/new.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_properties.html.erb':[
-34,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_properties.html.erb": [
+34
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/setup/form.html.erb':[
-4,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/setup/form.html.erb": [
+4
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/new.html.erb':[
-6,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/new.html.erb": [
+6
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb':[
-16,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
+16
 ],
-'project:voten/resources/assets/js/components/AdminPanelDashboard.vue':[
-62,
+"project:voten/resources/assets/js/components/AdminPanelDashboard.vue": [
+62
 ],
-'project:voten/resources/assets/js/components/AdminPanelInactiveChannels.vue':[
-4,
+"project:voten/resources/assets/js/components/AdminPanelInactiveChannels.vue": [
+4
 ],
-'project:voten/resources/assets/js/components/AdminPanelStatistics.vue':[
-5,
+"project:voten/resources/assets/js/components/AdminPanelStatistics.vue": [
+5
 ],
-'project:voten/resources/assets/js/components/AdminPanelSuggestedChannels.vue':[
-4,
+"project:voten/resources/assets/js/components/AdminPanelSuggestedChannels.vue": [
+4
 ],
-'project:voten/resources/assets/js/components/AdminPanelUsers.vue':[
-5,
+"project:voten/resources/assets/js/components/AdminPanelUsers.vue": [
+5
 ],
-'project:voten/resources/assets/js/components/BookmarkedChannel.vue':[
-12,
+"project:voten/resources/assets/js/components/BookmarkedChannel.vue": [
+12
 ],
-'project:voten/resources/assets/js/components/BookmarkedUser.vue':[
-12,
+"project:voten/resources/assets/js/components/BookmarkedUser.vue": [
+12
 ],
-'project:voten/resources/assets/js/components/ChannelSearchItem.vue':[
-9,
+"project:voten/resources/assets/js/components/ChannelSearchItem.vue": [
+9
 ],
-'project:voten/resources/assets/js/components/ChannelSettings.vue':[
-3,
+"project:voten/resources/assets/js/components/ChannelSettings.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/CommentForm.vue':[
-23,
+"project:voten/resources/assets/js/components/CommentForm.vue": [
+23
 ],
-'project:voten/resources/assets/js/components/EmojiPicker.vue':[
-14,
+"project:voten/resources/assets/js/components/EmojiPicker.vue": [
+14
 ],
-'project:voten/resources/assets/js/components/FindChannels.vue':[
-4,
+"project:voten/resources/assets/js/components/FindChannels.vue": [
+4
 ],
-'project:voten/resources/assets/js/components/FindChannelsItem.vue':[
-10,
+"project:voten/resources/assets/js/components/FindChannelsItem.vue": [
+10
 ],
-'project:voten/resources/assets/js/components/GuestSidebar.vue':[
-87,
+"project:voten/resources/assets/js/components/GuestSidebar.vue": [
+87
 ],
-'project:voten/resources/assets/js/components/Messages.vue':[
-122,
+"project:voten/resources/assets/js/components/Messages.vue": [
+122
 ],
-'project:voten/resources/assets/js/components/ModeratorPanelBanUsers.vue':[
-3,
+"project:voten/resources/assets/js/components/ModeratorPanelBanUsers.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/ModeratorPanelBlockDomains.vue':[
-3,
+"project:voten/resources/assets/js/components/ModeratorPanelBlockDomains.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/ModeratorPanelModerators.vue':[
-3,
+"project:voten/resources/assets/js/components/ModeratorPanelModerators.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/ModeratorPanelReportedComments.vue':[
-3,
+"project:voten/resources/assets/js/components/ModeratorPanelReportedComments.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/ModeratorPanelReportedSubmissions.vue':[
-3,
+"project:voten/resources/assets/js/components/ModeratorPanelReportedSubmissions.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/ModeratorPanelRules.vue':[
-3,
+"project:voten/resources/assets/js/components/ModeratorPanelRules.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/NoMoreItems.vue':[
-4,
+"project:voten/resources/assets/js/components/NoMoreItems.vue": [
+4
 ],
-'project:voten/resources/assets/js/components/Notifications.vue':[
-17,
+"project:voten/resources/assets/js/components/Notifications.vue": [
+17
 ],
-'project:voten/resources/assets/js/components/Rules.vue':[
-28,
+"project:voten/resources/assets/js/components/Rules.vue": [
+28
 ],
-'project:voten/resources/assets/js/components/Submission.vue':[
-190,
+"project:voten/resources/assets/js/components/Submission.vue": [
+190
 ],
-'project:voten/resources/assets/js/components/SubmissionChannelHeader.vue':[
-10,
+"project:voten/resources/assets/js/components/SubmissionChannelHeader.vue": [
+10
 ],
-'project:voten/resources/assets/js/components/SuggestedChannel.vue':[
-20,
+"project:voten/resources/assets/js/components/SuggestedChannel.vue": [
+20
 ],
-'project:voten/resources/assets/js/components/Tour.vue':[
-41,
+"project:voten/resources/assets/js/components/Tour.vue": [
+41
 ],
-'project:voten/resources/assets/js/components/UserSearchItem.vue':[
-9,
+"project:voten/resources/assets/js/components/UserSearchItem.vue": [
+9
 ],
-'project:voten/resources/assets/js/components/UserSettingsDeleteAccount.vue':[
-3,
+"project:voten/resources/assets/js/components/UserSettingsDeleteAccount.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/UserSettingsEditAccount.vue':[
-3,
+"project:voten/resources/assets/js/components/UserSettingsEditAccount.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/UserSettingsEditEmailAndPassword.vue':[
-3,
+"project:voten/resources/assets/js/components/UserSettingsEditEmailAndPassword.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/UserSettingsEditProfile.vue':[
-3,
+"project:voten/resources/assets/js/components/UserSettingsEditProfile.vue": [
+3
 ],
-'project:voten/resources/assets/js/components/pages/Credits.vue':[
-30,
+"project:voten/resources/assets/js/components/pages/Credits.vue": [
+30
 ],
-'project:voten/resources/assets/js/components/passport/Clients.vue':[
-80,
+"project:voten/resources/assets/js/components/passport/Clients.vue": [
+80
 ],
-'project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue':[
-63,
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+63
 ],
-'project:voten/resources/assets/js/components/submission/ImgSubmission.vue':[
-52,
+"project:voten/resources/assets/js/components/submission/ImgSubmission.vue": [
+52
 ],
-'project:voten/resources/assets/js/components/submission/TextSubmission.vue':[
-53,
+"project:voten/resources/assets/js/components/submission/TextSubmission.vue": [
+53
 ],
-'project:voten/resources/views/backend/messages.blade.php':[
-5,
-],
+"project:voten/resources/views/backend/messages.blade.php": [
+5
+]
 }

@@ -1,59 +1,59 @@
 {
-'project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/repositorySharing/explorer.html':[
-320,
+"project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/repositorySharing/explorer.html": [
+320
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DomainsBarSilverpeasV5.jsp':[
-291,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DomainsBarSilverpeasV5.jsp": [
+291
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp':[
-156,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp": [
+156
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp':[
-249,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp": [
+249
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
 272,
-301,
+301
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultChangePassword.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultChangePassword.jsp": [
 180,
-184,
+184
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultForcePasswordChange.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultForcePasswordChange.jsp": [
 108,
-112,
+112
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp':[
-240,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
+240
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestion.jsp':[
-101,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestion.jsp": [
+101
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestionSelection.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestionSelection.jsp": [
+121
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordAboutToExpire.jsp": [
 121,
+141
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordAboutToExpire.jsp':[
-121,
-141,
-],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordExpired.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordExpired.jsp": [
 110,
-114,
+114
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultReInitPassword.jsp':[
-99,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultReInitPassword.jsp": [
+99
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultResetPassword.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultResetPassword.jsp": [
 104,
-108,
+108
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp':[
-125,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
+125
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp':[
-241,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
+241
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
 615,
 640,
 641,
@@ -62,122 +62,122 @@
 664,
 672,
 687,
-710,
+710
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp':[
-118,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
+118
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletAdminBarre.jsp':[
-56,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletAdminBarre.jsp": [
+56
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp": [
 899,
-912,
+912
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfile.jsp':[
-92,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfile.jsp": [
+92
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfileTabIdentity.jsp':[
-41,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfileTabIdentity.jsp": [
+41
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp": [
 202,
 204,
 206,
 207,
 209,
-210,
+210
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp": [
 70,
-133,
+133
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabInvitations.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabInvitations.jsp": [
 209,
 211,
 212,
-214,
+214
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabNetworks.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabNetworks.jsp": [
 61,
-65,
+65
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabWall.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabWall.jsp": [
 65,
 66,
 67,
 68,
 69,
 70,
-76,
+76
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp": [
 80,
 82,
-104,
+104
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/adobeair/sample.html':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/adobeair/sample.html": [
 37,
-40,
+40
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/link-cursor-auto.html':[
-21,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/link-cursor-auto.html": [
+21
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/pre-tab-selection-rect.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/pre-tab-selection-rect.html": [
 44,
 49,
 54,
-59,
+59
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/target_new-1.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/target_new-1.html": [
 7,
 8,
-9,
+9
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/config.html':[
-4816,
+"project:phpMyAdmin-4.0.4-english/doc/html/config.html": [
+4816
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/copyright.html':[
-130,
+"project:phpMyAdmin-4.0.4-english/doc/html/copyright.html": [
+130
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/credits.html':[
-601,
+"project:phpMyAdmin-4.0.4-english/doc/html/credits.html": [
+601
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/faq.html':[
-1561,
+"project:phpMyAdmin-4.0.4-english/doc/html/faq.html": [
+1561
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/genindex.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/genindex.html": [
 38,
-3689,
+3689
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/index.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/index.html": [
 42,
 156,
 158,
-198,
+198
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/intro.html':[
-127,
+"project:phpMyAdmin-4.0.4-english/doc/html/intro.html": [
+127
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/other.html':[
-79,
+"project:phpMyAdmin-4.0.4-english/doc/html/other.html": [
+79
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/privileges.html':[
-111,
+"project:phpMyAdmin-4.0.4-english/doc/html/privileges.html": [
+111
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/require.html':[
-113,
+"project:phpMyAdmin-4.0.4-english/doc/html/require.html": [
+113
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/setup.html':[
-412,
+"project:phpMyAdmin-4.0.4-english/doc/html/setup.html": [
+412
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/transformations.html':[
-183,
+"project:phpMyAdmin-4.0.4-english/doc/html/transformations.html": [
+183
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/vendors.html':[
-93,
+"project:phpMyAdmin-4.0.4-english/doc/html/vendors.html": [
+93
 ],
-'project:phpMyAdmin-4.0.4-english/pmd_general.php':[
+"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 80,
 85,
 89,
@@ -194,71 +194,71 @@
 145,
 158,
 172,
-176,
+176
 ],
-'project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php':[
-115,
+"project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
+115
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/web/tests_viewer.html.erb':[
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/web/tests_viewer.html.erb": [
 109,
-110,
+110
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/description.html.erb':[
-44,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/description.html.erb": [
+44
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb':[
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
 86,
-102,
+102
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb':[
-35,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb": [
+35
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb':[
-45,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb": [
+45
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/bulk_deletion/index.html.erb':[
-52,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/bulk_deletion/index.html.erb": [
+52
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/cloud/index.html.erb':[
-67,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/cloud/index.html.erb": [
+67
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/comparison/index.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/comparison/index.html.erb": [
 167,
 174,
 179,
 221,
 224,
-226,
+226
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb':[
-20,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb": [
+20
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_widget_definitions.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_widget_definitions.html.erb": [
 7,
-11,
+11
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_widget_properties.html.erb':[
-52,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_widget_properties.html.erb": [
+52
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb':[
-34,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb": [
+34
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb':[
-15,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb": [
+15
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb':[
-37,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb": [
+37
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb':[
-153,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb": [
+153
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/measures.html.erb':[
-74,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/measures.html.erb": [
+74
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb':[
-15,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb": [
+15
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb": [
 4,
 9,
 24,
@@ -274,133 +274,133 @@
 113,
 117,
 125,
-133,
+133
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_rule.html.erb':[
-18,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_rule.html.erb": [
+18
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_copy_form.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_copy_form.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_edit_form.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_edit_form.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_save_as_form.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_save_as_form.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_iframe.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_iframe.html.erb": [
 3,
 4,
-5,
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb": [
 173,
 176,
-179,
+179
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_administration.html.erb':[
-2,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_administration.html.erb": [
+2
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_projects.html.erb':[
-8,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_projects.html.erb": [
+8
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_resource_settings.html.erb':[
-2,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_resource_settings.html.erb": [
+2
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_user.html.erb':[
-2,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_user.html.erb": [
+2
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_nolayout.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_nolayout.html.erb": [
 3,
 4,
-5,
+5
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/markdown/_tips.html.erb':[
-2,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/markdown/_tips.html.erb": [
+2
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb':[
-26,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb": [
+26
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_display_list.html.erb':[
-140,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_display_list.html.erb": [
+140
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_display_treemap.html.erb':[
-52,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_display_treemap.html.erb": [
+52
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb':[
-32,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb": [
+32
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb':[
-28,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb": [
+28
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb':[
-22,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb": [
+22
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb':[
-31,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb": [
+31
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb':[
-21,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb": [
+21
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_restore_form.html.erb':[
-19,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_restore_form.html.erb": [
+19
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_tabs.html.erb':[
-26,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_tabs.html.erb": [
+26
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/index.html.erb':[
-82,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/index.html.erb": [
+82
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/_key_modules.html.erb':[
-10,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/_key_modules.html.erb": [
+10
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/history.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/history.html.erb": [
 66,
 75,
 85,
 101,
 113,
 121,
-131,
+131
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/property_sets/_list.html.erb':[
-15,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/property_sets/_list.html.erb": [
+15
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_duplications.html.erb':[
-61,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_duplications.html.erb": [
+61
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_tabs.html.erb':[
-43,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_tabs.html.erb": [
+43
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_active_rule_note.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_active_rule_note.html.erb": [
 19,
 32,
-52,
+52
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule_note.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule_note.html.erb": [
 25,
-48,
+48
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_multi_value.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_multi_value.html.erb": [
+3
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_set_instance.html.erb": [
+25
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_scm.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
 3,
+19
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_set_instance.html.erb':[
-25,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_trace.erb": [
+18
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_scm.html.erb':[
-2,
-],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb':[
-3,
-19,
-],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_trace.erb':[
-18,
-],
-'project:voten/resources/assets/js/components/Preferences.vue':[
+"project:voten/resources/assets/js/components/Preferences.vue": [
 12,
 19,
 26,
-35,
-],
+35
+]
 }

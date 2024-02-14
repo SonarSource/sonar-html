@@ -1,11 +1,11 @@
 {
-'project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/repositorySharing/explorer.html':[
-307,
+"project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/repositorySharing/explorer.html": [
+307
 ],
-'project:Silverpeas-Core-master/src/site/resources/css/tn3/tn3.html':[
-19,
+"project:Silverpeas-Core-master/src/site/resources/css/tn3/tn3.html": [
+19
 ],
-'project:Silverpeas-Core-master/src/site/resources/screenshots.html':[
+"project:Silverpeas-Core-master/src/site/resources/screenshots.html": [
 52,
 59,
 66,
@@ -17,28 +17,28 @@
 108,
 115,
 122,
-129,
+129
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readMessage.jsp':[
-108,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readMessage.jsp": [
+108
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readSendedNotification.jsp':[
-96,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readSendedNotification.jsp": [
+96
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp": [
 198,
-207,
+207
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/writeMessage.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/writeMessage.jsp": [
 98,
 115,
 127,
-144,
+144
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/applicationIndexer.jsp':[
-224,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/applicationIndexer.jsp": [
+224
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp": [
 198,
 199,
 200,
@@ -60,24 +60,24 @@
 258,
 259,
 262,
-263,
+263
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
 224,
 227,
-301,
+301
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/clipboard.jsp':[
-143,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/clipboard.jsp": [
+143
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordAboutToExpire.jsp':[
-85,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordAboutToExpire.jsp": [
+85
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultReInitPassword.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultReInitPassword.jsp": [
 87,
-99,
+99
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp": [
 303,
 306,
 370,
@@ -85,9 +85,9 @@
 397,
 413,
 434,
-446,
+446
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/genericPanelPeas.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/genericPanelPeas.jsp": [
 249,
 267,
 291,
@@ -97,20 +97,20 @@
 390,
 393,
 406,
-409,
+409
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/welcome.jsp':[
-60,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/welcome.jsp": [
+60
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainCreate.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainCreate.jsp": [
 99,
 107,
 111,
 115,
 119,
-132,
+132
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainNavigation.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainNavigation.jsp": [
 65,
 66,
 69,
@@ -150,44 +150,44 @@
 200,
 201,
 204,
-207,
+207
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSQLCreate.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSQLCreate.jsp": [
 92,
 104,
 111,
-116,
+116
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupCreate.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupCreate.jsp": [
 112,
 127,
-131,
+131
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupImport.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupImport.jsp": [
 83,
-87,
+87
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupManagers.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupManagers.jsp": [
 87,
 94,
 117,
-122,
+122
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp": [
 169,
 187,
 329,
-336,
+336
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userImport.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userImport.jsp": [
 201,
-209,
+209
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/usersCsvImport.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/usersCsvImport.jsp": [
 98,
-108,
+108
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/topBarManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/topBarManager.jsp": [
 74,
 82,
 99,
@@ -217,30 +217,30 @@
 210,
 224,
 227,
-228,
+228
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobSearchPeas/jsp/jobSearchResult.jsp':[
-179,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobSearchPeas/jsp/jobSearchResult.jsp": [
+179
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createInstance.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createInstance.jsp": [
 277,
-352,
+352
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createSpace.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createSpace.jsp": [
 137,
 175,
 181,
-185,
+185
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/descriptionProfileInstance.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/descriptionProfileInstance.jsp": [
 135,
-150,
+150
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/descriptionSpaceManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/descriptionSpaceManager.jsp": [
 129,
-144,
+144
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp": [
 79,
 80,
 83,
@@ -269,9 +269,9 @@
 184,
 185,
 188,
-191,
+191
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/roleInstance.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/roleInstance.jsp": [
 178,
 185,
 211,
@@ -279,13 +279,13 @@
 229,
 236,
 262,
-267,
+267
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/spaceLook.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/spaceLook.jsp": [
 133,
-147,
+147
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/spaceManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/spaceManager.jsp": [
 133,
 140,
 146,
@@ -297,64 +297,64 @@
 189,
 191,
 199,
-204,
+204
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/updateInstance.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/updateInstance.jsp": [
 293,
-364,
+364
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/updateSpace.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/updateSpace.jsp": [
 159,
 168,
 174,
-192,
+192
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
 209,
-241,
+241
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/linkManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/linkManager.jsp": [
 134,
-171,
+171
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/notificationUser/jsp/notificationSender.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/notificationUser/jsp/notificationSender.jsp": [
 169,
-210,
+210
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
 274,
-317,
+317
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp':[
-246,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
+246
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp':[
-183,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp": [
+183
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp':[
-177,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
+177
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 128,
-160,
+160
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
 121,
-157,
+157
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
 413,
 416,
 424,
-425,
+425
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionEdit.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionEdit.jsp": [
 382,
 385,
 394,
-395,
+395
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
 266,
 407,
 553,
@@ -365,26 +365,26 @@
 663,
 671,
 687,
-710,
+710
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
 381,
 542,
 565,
 701,
-727,
+727
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp':[
-215,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
+215
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
 443,
 603,
 631,
 768,
-796,
+796
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/viewValueManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/viewValueManager.jsp": [
 98,
 105,
 134,
@@ -392,308 +392,308 @@
 150,
 157,
 183,
-193,
+193
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/editNotification.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/editNotification.jsp": [
 141,
 161,
-167,
+167
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/addColumnList.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/addColumnList.jsp": [
 78,
-78,
+78
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
 113,
 123,
-154,
+154
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletList.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletList.jsp": [
 105,
-105,
+105
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletTitle.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletTitle.jsp": [
 62,
 71,
 74,
 78,
 109,
-122,
+122
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitle.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitle.jsp": [
 58,
 67,
 70,
 72,
 78,
 80,
-84,
+84
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemax.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemax.jsp": [
 60,
 69,
 72,
 74,
 80,
-83,
+83
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemin.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemin.jsp": [
 60,
 69,
 72,
 74,
 78,
 80,
-84,
+84
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/ticketManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/ticketManager.jsp": [
 195,
 202,
-206,
+206
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp':[
-224,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp": [
+224
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewConnection.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewConnection.jsp": [
 279,
-283,
+283
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewEvolutionAccess.jsp':[
-158,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewEvolutionAccess.jsp": [
+158
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewEvolutionVolumeSizeServer.jsp':[
-129,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewEvolutionVolumeSizeServer.jsp": [
+129
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewFrequence.jsp':[
-155,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewFrequence.jsp": [
+155
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolume.jsp':[
-250,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolume.jsp": [
+250
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeServer.jsp':[
-135,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeServer.jsp": [
+135
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeServices.jsp':[
-92,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeServices.jsp": [
+92
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeSizeServer.jsp':[
-132,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeSizeServer.jsp": [
+132
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp':[
-92,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp": [
+92
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldExplorer.jsp':[
-57,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldExplorer.jsp": [
+57
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldMultivalues.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldMultivalues.jsp": [
 299,
-301,
+301
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/templateHeader.jsp':[
-194,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/templateHeader.jsp": [
+194
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/createVocabulary.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/createVocabulary.jsp": [
 114,
 123,
-127,
+127
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/editVocabulary.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/editVocabulary.jsp": [
 123,
 132,
-136,
+136
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/thumbnail/jsp/thumbnailManager.jsp':[
-219,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thumbnail/jsp/thumbnailManager.jsp": [
+219
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/todoEdit.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/todoEdit.jsp": [
 455,
-611,
+611
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connectionManager.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connectionManager.jsp": [
 173,
-183,
+183
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/actions.jsp':[
-112,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/actions.jsp": [
+112
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/dataFolder.jsp':[
-64,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/dataFolder.jsp": [
+64
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/forms.jsp':[
-115,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/forms.jsp": [
+115
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/participants.jsp':[
-108,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/participants.jsp": [
+108
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/presentation.jsp':[
-116,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/presentation.jsp": [
+116
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/roles.jsp':[
-103,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/roles.jsp": [
+103
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/states.jsp':[
-110,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/states.jsp": [
+110
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/userInfos.jsp':[
-65,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/userInfos.jsp": [
+65
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/welcome.jsp':[
-101,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/welcome.jsp": [
+101
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/workflow.jsp':[
-148,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/workflow.jsp": [
+148
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement01.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement01.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement02.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement02.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement03.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement03.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement04.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement04.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement05.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement05.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement06.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement06.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement07.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement07.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement08.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement08.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement09.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement09.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement10.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement10.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement11.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement11.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement12.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement12.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement13.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement13.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement14.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement14.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement15.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement15.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement16.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement16.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement17.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement17.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement18.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement18.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement19.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement19.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement20.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement20.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement21.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement21.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement22.html':[
-46,
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLInputElement22.html": [
+46
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement01.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement01.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement02.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement02.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement03.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement03.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement04.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement04.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement05.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement05.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement06.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement06.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement07.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement07.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement08.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement08.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement09.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement09.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement10.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement10.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement11.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement11.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement12.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement12.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement13.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement13.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement14.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement14.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement15.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement15.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement16.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement16.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement17.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement17.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement18.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement18.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement19.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement19.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement20.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement20.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement21.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement21.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement22.xhtml':[
-48,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLInputElement22.xhtml": [
+48
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLinkElement/link-and-subresource-test.html':[
-35,
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLinkElement/link-and-subresource-test.html": [
+35
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLinkElement/onload-completion-test.html':[
-23,
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLinkElement/onload-completion-test.html": [
+23
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/dom/beforeload/image-before-load.html':[
-13,
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/beforeload/image-before-load.html": [
+13
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/dom/beforeload/remove-image-in-beforeload-listener.html':[
-22,
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/beforeload/remove-image-in-beforeload-listener.html": [
+22
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/noscript-in-head.html':[
-2,
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/noscript-in-head.html": [
+2
 ],
-'project:external_webkit-jb-mr1/LayoutTests/http/tests/canvas/webgl/origin-clean-conformance.html':[
-215,
+"project:external_webkit-jb-mr1/LayoutTests/http/tests/canvas/webgl/origin-clean-conformance.html": [
+215
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/XSSFilter/resources/target-for-large-post-many-inline-scripts-and-events.html':[
+"project:external_webkit-jb-mr1/PerformanceTests/XSSFilter/resources/target-for-large-post-many-inline-scripts-and-events.html": [
 8,
 12,
 16,
@@ -1013,135 +1013,135 @@
 1272,
 1276,
 1280,
-1284,
+1284
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animated-gif-looping.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animated-gif-looping.html": [
 4,
-8,
+8
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/caret-image.html':[
-7,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/caret-image.html": [
+7
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-enter-alert.html':[
-27,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-enter-alert.html": [
+27
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image-to-address-bar.html':[
-21,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image-to-address-bar.html": [
+21
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image-to-desktop.html':[
-11,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image-to-desktop.html": [
+11
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image.html':[
-22,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image.html": [
+22
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-with-div-or-image-as-data-image.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-with-div-or-image-as-data-image.html": [
 46,
-49,
+49
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/gtk/copy-htmltext.html':[
-12,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/gtk/copy-htmltext.html": [
+12
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/input-empty-on-focus.html':[
-1,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/input-empty-on-focus.html": [
+1
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/inspector/display-form-data.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/inspector/display-form-data.html": [
 107,
 108,
-109,
+109
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/large-size-image-crash.html':[
-4,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/large-size-image-crash.html": [
+4
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/linkjump-4.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/linkjump-4.html": [
 35,
 60,
 85,
 85,
-110,
+110
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/pointer-events.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/pointer-events.html": [
 169,
 175,
 180,
 186,
 192,
-198,
+198
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/print-onload-with-image.html':[
-7,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/print-onload-with-image.html": [
+7
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/qt/qtplugin.html':[
-4,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/qt/qtplugin.html": [
+4
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/reset-initiatedDrag.html':[
-24,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/reset-initiatedDrag.html": [
+24
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/containsAnimatedGif.html':[
-2,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/containsAnimatedGif.html": [
+2
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/popup200x100.html':[
-6,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/popup200x100.html": [
+6
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/popup200x200.html':[
-6,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/popup200x200.html": [
+6
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/simple-image-compositing.html':[
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/simple-image-compositing.html": [
 43,
 48,
 53,
 58,
 63,
-68,
+68
 ],
-'project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/embed_iframe.html':[
-3,
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/embed_iframe.html": [
+3
 ],
-'project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/object_iframe.html':[
-3,
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/object_iframe.html": [
+3
 ],
-'project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/simple_iframe.html':[
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/simple_iframe.html": [
 9,
-10,
+10
 ],
-'project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/simple_page.html':[
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/simple_page.html": [
 20,
 21,
 24,
 43,
 44,
 45,
-46,
+46
 ],
-'project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/top_frame.html':[
-11,
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/top_frame.html": [
+11
 ],
-'project:external_webkit-jb-mr1/Source/WebKit/qt/tests/hybridPixmap/test.html':[
+"project:external_webkit-jb-mr1/Source/WebKit/qt/tests/hybridPixmap/test.html": [
 60,
 61,
 62,
-63,
+63
 ],
-'project:external_webkit-jb-mr1/Tools/BuildSlaveSupport/build.webkit.org-config/public_html/LeaksViewer/index.html':[
-65,
+"project:external_webkit-jb-mr1/Tools/BuildSlaveSupport/build.webkit.org-config/public_html/LeaksViewer/index.html": [
+65
 ],
-'project:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html':[
+"project:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html": [
 98,
-99,
+99
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/web/tests_viewer.html.erb':[
-94,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/web/tests_viewer.html.erb": [
+94
 ],
-'project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb':[
-87,
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
+87
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb':[
-45,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb": [
+45
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/index.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/index.html.erb": [
 28,
-84,
+84
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/comparison/index.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/comparison/index.html.erb": [
 167,
 169,
 174,
@@ -1149,21 +1149,21 @@
 181,
 221,
 224,
-226,
+226
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb':[
-14,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb": [
+14
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb':[
-9,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb": [
+9
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb':[
-91,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb": [
+91
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb':[
-9,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb": [
+9
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb": [
 4,
 7,
 12,
@@ -1173,54 +1173,54 @@
 68,
 83,
 101,
-148,
+148
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_list.html.erb':[
-66,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_list.html.erb": [
+66
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_breadcrumb.html.erb':[
-32,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_breadcrumb.html.erb": [
+32
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb':[
-30,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb": [
+30
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_sidebar.html.erb':[
-120,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_sidebar.html.erb": [
+120
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/widgets/issues/_issues_list.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/widgets/issues/_issues_list.html.erb": [
 90,
-96,
+96
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_tabs.html.erb':[
-47,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_tabs.html.erb": [
+47
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule_param.html.erb':[
-24,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule_param.html.erb": [
+24
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_properties.html.erb':[
-79,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_properties.html.erb": [
+79
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/test/_testable.html.erb':[
-26,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/test/_testable.html.erb": [
+26
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/treemap/_gradient.html.erb':[
-15,
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/treemap/_gradient.html.erb": [
+15
 ],
-'project:voten/resources/assets/js/components/Comment.vue':[
-86,
+"project:voten/resources/assets/js/components/Comment.vue": [
+86
 ],
-'project:voten/resources/assets/js/components/Messages.vue':[
-30,
+"project:voten/resources/assets/js/components/Messages.vue": [
+30
 ],
-'project:voten/resources/assets/js/components/pages/Credits.vue':[
-136,
+"project:voten/resources/assets/js/components/pages/Credits.vue": [
+136
 ],
-'project:voten/resources/views/backend/spams/comments.blade.php':[
+"project:voten/resources/views/backend/spams/comments.blade.php": [
 53,
-60,
+60
 ],
-'project:voten/resources/views/backend/spams/submissions.blade.php':[
+"project:voten/resources/views/backend/spams/submissions.blade.php": [
 53,
-60,
-],
+60
+]
 }

@@ -1,110 +1,110 @@
 {
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/alreadyRegistered.jsp':[
-73,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/alreadyRegistered.jsp": [
+73
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/newRegistration.jsp':[
-258,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/newRegistration.jsp": [
+258
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp':[
-255,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp": [
+255
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp':[
-156,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp": [
+156
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp':[
-287,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
+287
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp':[
-323,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp": [
+323
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/roleInstance.jsp':[
-148,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/roleInstance.jsp": [
+148
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp':[
-271,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
+271
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/addPdc_test.jsp':[
-98,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/addPdc_test.jsp": [
+98
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp':[
-183,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
+183
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/webTab.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/webTab.jsp": [
 150,
-151,
+151
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp':[
-134,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
+134
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletTitle.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletTitle.jsp": [
 81,
-111,
+111
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp':[
-91,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp": [
+91
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp':[
-70,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp": [
+70
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp": [
 72,
-76,
+76
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp':[
-92,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
+92
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmin.jsp':[
-47,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmin.jsp": [
+47
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/displayTicketInfo.jsp':[
-57,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/displayTicketInfo.jsp": [
+57
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfileTabIdentity.jsp':[
-41,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfileTabIdentity.jsp": [
+41
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp':[
-70,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp": [
+70
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabSettings.jsp':[
-38,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabSettings.jsp": [
+38
 ],
-'project:external_webkit-jb-mr1/Examples/NetscapeCoreAnimationMoviePlugin/test.html':[
-8,
+"project:external_webkit-jb-mr1/Examples/NetscapeCoreAnimationMoviePlugin/test.html": [
+8
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement01.xhtml':[
-7,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement01.xhtml": [
+7
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement02.xhtml':[
-7,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement02.xhtml": [
+7
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement03.xhtml':[
-7,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement03.xhtml": [
+7
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement04.xhtml':[
-7,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement04.xhtml": [
+7
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement05.xhtml':[
-7,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement05.xhtml": [
+7
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement06.xhtml':[
-7,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement06.xhtml": [
+7
 ],
-'project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/body01.xhtml':[
-7,
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/body01.xhtml": [
+7
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/hanarei-blog32-fc2-com.html':[
-13,
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/hanarei-blog32-fc2-com.html": [
+13
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/040.html':[
-2,
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/040.html": [
+2
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/041.html':[
-2,
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/041.html": [
+2
 ],
-'project:external_webkit-jb-mr1/LayoutTests/fast/xpath/4XPath/Borrowed/od_20000608.html':[
-1,
+"project:external_webkit-jb-mr1/LayoutTests/fast/xpath/4XPath/Borrowed/od_20000608.html": [
+1
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html':[
+"project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html": [
 196,
 1256,
 3883,
@@ -672,41 +672,41 @@
 84300,
 84316,
 84355,
-84945,
+84945
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/NPN_Invoke/test.html':[
-8,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/NPN_Invoke/test.html": [
+8
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/liveconnect-applet-array-parameters.html':[
-25,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/liveconnect-applet-array-parameters.html": [
+25
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plugins/windowed.html':[
-67,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plugins/windowed.html": [
+67
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plugins/windowless.html':[
-67,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plugins/windowless.html": [
+67
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/qt/plugin-sibling-frame-include.html':[
-10,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/qt/plugin-sibling-frame-include.html": [
+10
 ],
-'project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/top_frame.html':[
-23,
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/top_frame.html": [
+23
 ],
-'project:voten/resources/assets/js/components/AdminPanelInactiveChannels.vue':[
-55,
+"project:voten/resources/assets/js/components/AdminPanelInactiveChannels.vue": [
+55
 ],
-'project:voten/resources/assets/js/components/FullSubmission.vue':[
-62,
+"project:voten/resources/assets/js/components/FullSubmission.vue": [
+62
 ],
-'project:voten/resources/assets/js/components/NewSubmission.vue':[
+"project:voten/resources/assets/js/components/NewSubmission.vue": [
 87,
-216,
+216
 ],
-'project:voten/resources/assets/js/components/SubmissionFooter.vue':[
+"project:voten/resources/assets/js/components/SubmissionFooter.vue": [
 3,
-14,
+14
 ],
-'project:voten/resources/assets/js/components/pages/Credits.vue':[
-115,
-],
+"project:voten/resources/assets/js/components/pages/Credits.vue": [
+115
+]
 }
