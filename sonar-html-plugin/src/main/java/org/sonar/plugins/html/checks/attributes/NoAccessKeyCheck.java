@@ -17,13 +17,29 @@
  */
 package org.sonar.plugins.html.checks.attributes;
 
+import java.util.List;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6846")
-public class NoAccessKeyCheck extends IllegalAttributeCheck {
+public class NoAccessKeyCheck extends AbstractPageCheck {
 
-  public NoAccessKeyCheck() {
-    super();
-    attributes = "accessKey";
+  private final String attributes = "accessKey";
+
+  private QualifiedAttribute[] attributesArray;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    this.attributesArray = parseAttributes(attributes);
+  }
+
+  @Override
+  public void startElement(TagNode element) {
+    for (Attribute a : getMatchingAttributes(element, attributesArray)) {
+      createViolation(element.getStartLinePosition(), "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.");
+    }
   }
 }
