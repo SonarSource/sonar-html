@@ -28,7 +28,7 @@ public class NoAccessKeyCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if (element.getProperty(ATTRIBUTE) != null) {
+    if (element.hasProperty(ATTRIBUTE)) {
       var start = element.getStartColumnPosition() + 1;
       createViolation(
         element.getStartLinePosition(),
