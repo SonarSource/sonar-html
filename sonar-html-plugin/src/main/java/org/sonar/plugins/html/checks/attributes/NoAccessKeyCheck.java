@@ -24,6 +24,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S6846")
 public class NoAccessKeyCheck extends AbstractPageCheck {
 
+  private static final String MESSAGE = "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.";
   private static final String ATTRIBUTE = "accessKey";
 
   @Override
@@ -35,7 +36,7 @@ public class NoAccessKeyCheck extends AbstractPageCheck {
         start,
         element.getStartLinePosition(),
         start + element.getNodeName().length() + 1,
-        "No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.");
+        MESSAGE);
     }
   }
 }
