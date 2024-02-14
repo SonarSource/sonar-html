@@ -24,11 +24,11 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S6846")
 public class NoAccessKeyCheck extends AbstractPageCheck {
 
-  private final static String attribute = "accessKey";
+  private static final String ATTRIBUTE = "accessKey";
 
   @Override
   public void startElement(TagNode element) {
-    if (element.getProperty(attribute) != null) {
+    if (element.getProperty(ATTRIBUTE) != null) {
       var start = element.getStartColumnPosition() + 1;
       createViolation(
         element.getStartLinePosition(),
