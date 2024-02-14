@@ -16,6 +16,35 @@
     <url>http://www.sonarsource.com</url>
   </organization>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>Sync actual and expected results</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>rsync</executable>
+              <arguments>
+                <argument>-avh</argument>
+                <argument>target/actual/</argument>
+                <argument>src/test/resources/expected/</argument>
+                <argument>--delete</argument>
+                <argument>--ignore-missing-args</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
   <properties>
     <license.name>AL2</license.name>
     <webVersion>2.2-SNAPSHOT</webVersion>
