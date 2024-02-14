@@ -53,6 +53,10 @@ The "Ruling Test" are an integration test suite which launches the analysis of a
     cd its/ruling
     mvn verify
 
+To update the ruling results run:
+
+    rsync -avh its/ruling/target/actual/ its/ruling/src/test/resources/expected/ --delete
+
 ### License
 
 Copyright 2010-2022 SonarSource.
