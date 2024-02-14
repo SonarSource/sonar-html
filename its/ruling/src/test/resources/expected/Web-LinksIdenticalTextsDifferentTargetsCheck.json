@@ -1,23 +1,23 @@
 {
-'project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html':[
-33,
+"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html": [
+33
 ],
-'project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html':[
-33,
+"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html": [
+33
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp':[
-223,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp": [
+223
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html':[
-255,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html": [
+255
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html':[
-84,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html": [
+84
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html':[
-81,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html": [
+81
 ],
-'project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html':[
+"project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html": [
 234,
 1664,
 1715,
@@ -5163,9 +5163,9 @@
 83730,
 83738,
 84117,
-84908,
+84908
 ],
-'project:external_webkit-jb-mr1/Source/JavaScriptCore/tests/mozilla/expected.html':[
+"project:external_webkit-jb-mr1/Source/JavaScriptCore/tests/mozilla/expected.html": [
 27,
 33,
 33,
@@ -5264,18 +5264,18 @@
 429,
 429,
 435,
-435,
+435
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/indexeddb-persists.html':[
-11,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/indexeddb-persists.html": [
+11
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/localstorage-empty-database.html':[
-11,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/localstorage-empty-database.html": [
+11
 ],
-'project:external_webkit-jb-mr1/Source/WebCore/manual-tests/spatial-navigation/spatial-navigation-test-cases.html':[
-94,
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/spatial-navigation/spatial-navigation-test-cases.html": [
+94
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/config.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/config.html": [
 80,
 83,
 116,
@@ -5532,15 +5532,15 @@
 4758,
 4775,
 4791,
-4849,
+4849
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/credits.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/credits.html": [
 58,
 357,
 513,
-551,
+551
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/faq.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/faq.html": [
 61,
 63,
 69,
@@ -5698,9 +5698,9 @@
 1683,
 1697,
 1704,
-1736,
+1736
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/genindex.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/genindex.html": [
 105,
 145,
 165,
@@ -5940,37 +5940,37 @@
 3333,
 3333,
 3393,
-3427,
+3427
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/glossary.html':[
-292,
+"project:phpMyAdmin-4.0.4-english/doc/html/glossary.html": [
+292
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/index.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/index.html": [
 114,
 142,
-146,
+146
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/intro.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/intro.html": [
 63,
-99,
+99
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/other.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/other.html": [
 60,
-66,
+66
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/privileges.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/privileges.html": [
 69,
 80,
 87,
-93,
+93
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/require.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/require.html": [
 58,
 63,
 86,
-99,
+99
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/setup.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/setup.html": [
 70,
 94,
 128,
@@ -5987,27 +5987,27 @@
 420,
 422,
 434,
-437,
+437
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/transformations.html':[
+"project:phpMyAdmin-4.0.4-english/doc/html/transformations.html": [
 60,
 82,
-124,
+124
 ],
-'project:phpMyAdmin-4.0.4-english/doc/html/vendors.html':[
-68,
+"project:phpMyAdmin-4.0.4-english/doc/html/vendors.html": [
+68
 ],
-'project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/projects.html.erb':[
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/projects.html.erb": [
 117,
 119,
 127,
-129,
+129
 ],
-'project:voten/resources/views/vendor/pagination/default.blade.php':[
+"project:voten/resources/views/vendor/pagination/default.blade.php": [
 24,
-34,
+34
 ],
-'project:voten/resources/views/vendor/pagination/simple-default.blade.php':[
-13,
-],
+"project:voten/resources/views/vendor/pagination/simple-default.blade.php": [
+13
+]
 }

@@ -1,19 +1,19 @@
 {
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/admin.jsp':[
-42,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/admin.jsp": [
+42
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deployer.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deployer.jsp": [
 44,
-45,
+45
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/desktop.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/desktop.jsp": [
 77,
 80,
-83,
+83
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/spaceDesktop.jsp':[
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/spaceDesktop.jsp": [
 59,
 62,
-65,
-],
+65
+]
 }
