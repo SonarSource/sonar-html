@@ -51,6 +51,7 @@ class AnchorsHaveContentCheckTest {
 
       checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1)
+        .next().atLine(2)
         .noMore();
   }
 }
