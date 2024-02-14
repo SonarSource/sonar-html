@@ -1,0 +1,24 @@
+{
+  "title": "\"tabIndex\" values should be 0 or -1",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-6841",
+  "sqKey": "S6841",
+  "scope": "All",
+  "quickfix": "infeasible",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW",
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "CONVENTIONAL"
+  }
+}
