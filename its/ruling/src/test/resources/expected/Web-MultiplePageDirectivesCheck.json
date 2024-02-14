@@ -1,230 +1,230 @@
 {
-'project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/errorpage.jsp':[
-36,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/errorpage.jsp": [
+36
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readMessage.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readMessage.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readSendedNotification.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readSendedNotification.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/alreadyRegistered.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/alreadyRegistered.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMain.jsp':[
-41,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMain.jsp": [
+41
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/newRegistration.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/newRegistration.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registrationFailed.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registrationFailed.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registrationSuccess.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registrationSuccess.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/reloadMainFrame.jsp':[
-29,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/reloadMainFrame.jsp": [
+29
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/check.jsp':[
-69,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/check.jsp": [
+69
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/applicationIndexer.jsp':[
-53,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/applicationIndexer.jsp": [
+53
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp':[
-49,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp": [
+49
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/checkAttachment.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/checkAttachment.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/checkIn.jsp':[
-58,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/checkIn.jsp": [
+58
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/publicVersions.jsp':[
-63,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/publicVersions.jsp": [
+63
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/warning_locked.jsp':[
-35,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/warning_locked.jsp": [
+35
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/Idle.jsp':[
-44,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/Idle.jsp": [
+44
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/IdleSilverpeasV5.jsp':[
-46,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/IdleSilverpeasV5.jsp": [
+46
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp':[
-27,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
+27
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/explorer/jsp/explorer.jsp':[
-44,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/explorer/jsp/explorer.jsp": [
+44
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/check.jsp':[
-55,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/check.jsp": [
+55
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/check.jsp':[
-69,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/check.jsp": [
+69
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/check.jsp':[
-71,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/check.jsp": [
+71
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/checkICenter.jsp':[
-66,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/checkICenter.jsp": [
+66
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/check.jsp':[
-70,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/check.jsp": [
+70
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/check.jsp':[
-69,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/check.jsp": [
+69
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobOrganizationPeas/jsp/check.jsp':[
-67,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobOrganizationPeas/jsp/check.jsp": [
+67
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobSearchPeas/jsp/check.jsp':[
-54,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobSearchPeas/jsp/check.jsp": [
+54
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/check.jsp':[
-74,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/check.jsp": [
+74
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp':[
-27,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
+27
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/check.jsp':[
-65,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/check.jsp": [
+65
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/notificationUser/jsp/notificationSender.jsp':[
-52,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/notificationUser/jsp/notificationSender.jsp": [
+52
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/checkAdvancedSearch.jsp':[
-107,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/checkAdvancedSearch.jsp": [
+107
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/checkPdc.jsp':[
-97,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/checkPdc.jsp": [
+97
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/help.jsp':[
-44,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/help.jsp": [
+44
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/checkPersonalization.jsp':[
-70,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/checkPersonalization.jsp": [
+70
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/adminPortlet.jsp':[
-35,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/adminPortlet.jsp": [
+35
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/column.jsp':[
-37,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/column.jsp": [
+37
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/columnSet.jsp':[
-35,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/columnSet.jsp": [
+35
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/language.jsp':[
-33,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/language.jsp": [
+33
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/main.jsp':[
-35,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/main.jsp": [
+35
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portlet.jsp':[
-35,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portlet.jsp": [
+35
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/main.jsp':[
-35,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/main.jsp": [
+35
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portlet.jsp':[
-32,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portlet.jsp": [
+32
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitle.jsp':[
-44,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitle.jsp": [
+44
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemax.jsp':[
-45,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemax.jsp": [
+45
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemin.jsp':[
-45,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemin.jsp": [
+45
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmax.jsp':[
-32,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmax.jsp": [
+32
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmin.jsp':[
-32,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmin.jsp": [
+32
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/componentInstance/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/componentInstance/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/favoriteQueries/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/favoriteQueries/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/iframe/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/iframe/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/lastPublications/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/lastPublications/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myBookmarks/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myBookmarks/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myCheckOutFiles/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myCheckOutFiles/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myNotifications/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myNotifications/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myTodos/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myTodos/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/nextEvents/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/nextEvents/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/quickInfos/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/quickInfos/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/spaceResponsibles/edit.jsp':[
-34,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/spaceResponsibles/edit.jsp": [
+34
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/check.jsp':[
-73,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/check.jsp": [
+73
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/check.jsp':[
-63,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/check.jsp": [
+63
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/displayTicketInfo.jsp':[
-30,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/displayTicketInfo.jsp": [
+30
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/invalidTicket.jsp':[
-30,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/invalidTicket.jsp": [
+30
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/checkSilverStatistics.jsp':[
-77,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/checkSilverStatistics.jsp": [
+77
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/statistic/jsp/checkStatistic.jsp':[
-65,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/statistic/jsp/checkStatistic.jsp": [
+65
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/check.jsp':[
-72,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/check.jsp": [
+72
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/checkThesaurus.jsp':[
-82,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/checkThesaurus.jsp": [
+82
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/checkTodo.jsp':[
-61,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/checkTodo.jsp": [
+61
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/tools/check.jsp':[
-67,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/tools/check.jsp": [
+67
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/check.jsp':[
-72,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/check.jsp": [
+72
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connection.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connection.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/viewConnections.jsp':[
-28,
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/viewConnections.jsp": [
+28
 ],
-'project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/check.jsp':[
-106,
-],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/check.jsp": [
+106
+]
 }
