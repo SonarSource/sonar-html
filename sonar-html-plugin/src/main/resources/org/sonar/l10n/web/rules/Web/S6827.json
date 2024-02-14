@@ -1,0 +1,24 @@
+{
+  "title": "Anchors should contain accessible content",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-6827",
+  "sqKey": "S6827",
+  "scope": "All",
+  "quickfix": "infeasible",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW",
+      "RELIABILITY": "LOW"
+    },
+    "attribute": "CONVENTIONAL"
+  }
+}
