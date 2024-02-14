@@ -100,10 +100,7 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
         return true;
       }
     }
-    if (element.hasProperty("title") || element.hasProperty("aria-label")) {
-      return true;
-    }
-    return false;
+    return element.hasProperty("title") || element.hasProperty("aria-label");
   }
 
   private static boolean isHidden(TagNode element) {
