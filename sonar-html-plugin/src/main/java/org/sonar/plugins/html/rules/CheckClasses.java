@@ -56,7 +56,7 @@ import org.sonar.plugins.html.checks.sonar.ElementWithGivenIdPresentCheck;
 import org.sonar.plugins.html.checks.sonar.FieldsetWithoutLegendCheck;
 import org.sonar.plugins.html.checks.sonar.FlashUsesBothObjectAndEmbedCheck;
 import org.sonar.plugins.html.checks.sonar.FrameWithoutTitleCheck;
-import org.sonar.plugins.html.checks.sonar.HeadingHasAccessibleContentCheck;
+import org.sonar.plugins.html.checks.accessibility.HeadingHasAccessibleContentCheck;
 import org.sonar.plugins.html.checks.sonar.ImgWithoutAltCheck;
 import org.sonar.plugins.html.checks.sonar.ImgWithoutWidthOrHeightCheck;
 import org.sonar.plugins.html.checks.sonar.IndistinguishableSimilarElementsCheck;
