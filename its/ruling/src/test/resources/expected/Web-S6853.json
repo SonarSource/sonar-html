@@ -1,0 +1,180 @@
+{
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/newRegistration.jsp": [
+245,
+246
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp": [
+242,
+243
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+1031,
+1033,
+1036,
+1038,
+1042,
+1045,
+1048,
+1050,
+1053,
+1056,
+1070,
+1074,
+1076,
+1078,
+1081,
+1084,
+1111,
+1114
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/editAttachedFiles.jsp": [
+535,
+538,
+540,
+550,
+553,
+555
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultChangePassword.jsp": [
+163,
+167,
+171
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultForcePasswordChange.jsp": [
+98,
+102
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
+220,
+230
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestionSelection.jsp": [
+111,
+115
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordAboutToExpire.jsp": [
+104,
+108
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordExpired.jsp": [
+97,
+101
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultReInitPassword.jsp": [
+94
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultResetPassword.jsp": [
+98
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp": [
+506
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
+225,
+230
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp": [
+185
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/modify-window.jsp": [
+82
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/click-label.html": [
+37,
+38
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/form/test1.html": [
+39,
+43
+],
+"project:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html": [
+123,
+124,
+149,
+173,
+174,
+175
+],
+"project:external_webkit-jb-mr1/Tools/TestResultServer/templates/uploadform.html": [
+13,
+17,
+21
+],
+"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
+296
+],
+"project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
+144,
+155,
+422,
+426,
+447,
+449,
+452,
+456,
+460,
+462,
+467,
+480
+],
+"project:phpMyAdmin-4.0.4-english/libraries/sql_query_form.lib.php": [
+314,
+320
+],
+"project:phpMyAdmin-4.0.4-english/prefs_manage.php": [
+242,
+246,
+264,
+299,
+302
+],
+"project:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
+135,
+163,
+178,
+181
+],
+"project:phpMyAdmin-4.0.4-english/tbl_indexes.php": [
+233,
+248
+],
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb": [
+87,
+93
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb": [
+22,
+27
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb": [
+21,
+26,
+30
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_shared_form.html.erb": [
+8,
+12
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb": [
+16,
+20
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb": [
+16,
+21,
+26
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb": [
+22
+],
+"project:voten/resources/assets/js/components/passport/Clients.vue": [
+103,
+117,
+171,
+185
+],
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+86,
+95
+]
+}

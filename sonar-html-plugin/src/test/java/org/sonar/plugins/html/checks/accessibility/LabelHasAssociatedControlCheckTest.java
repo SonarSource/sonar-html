@@ -35,7 +35,7 @@ public class LabelHasAssociatedControlCheckTest {
             new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLine(2)
+            .next().atLine(2).withMessage("A form label must be associated with a control.")
             .next().atLine(3)
             .next().atLine(5)
             .next().atLine(10)
@@ -50,7 +50,7 @@ public class LabelHasAssociatedControlCheckTest {
             new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLine(2)
+            .next().atLine(2).withMessage("A form label must be associated with a control.")
             .next().atLine(3)
             .next().atLine(6)
             .next().atLine(8)
