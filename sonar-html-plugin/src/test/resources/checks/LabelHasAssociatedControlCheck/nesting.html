@@ -1,0 +1,19 @@
+<label>foo<input /></label>
+<label>foo <notControl /></label> <!-- Noncompliant -->
+<label><input /></label> <!-- Noncompliant -->
+<label><img alt="foo" /><input /></label>
+<label><img alt="foo" /></label> <!-- Noncompliant -->
+<label><img aria-label="foo" /><input /></label>
+<label><span>foo<input /></span></label>
+<label><span><span>foo<input /></span></span></label>
+<label><span><span><span>foo<input /></span></span></span></label>
+<label><span><span><span>foo</span></span></span></label> <!-- Noncompliant -->
+<label><span><span><span><span>foo</span><input /></span></span></span></label>
+<label><span><span><span><span aria-label="foo" /><input /></span></span></span></label>
+<label><span><span><span><input aria-label="foo" /></span></span></span></label>
+<!--other controls-->
+<label><meter />foo</label>
+<label><output />foo</label>
+<label><progress />foo</label>
+<label><textarea />foo</label>
+<label><select />foo</label>
