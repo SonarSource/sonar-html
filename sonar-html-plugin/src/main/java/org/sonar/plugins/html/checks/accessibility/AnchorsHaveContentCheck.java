@@ -26,6 +26,8 @@ import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
+import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHidden;
+
 @Rule(key = "S6827")
 public class AnchorsHaveContentCheck extends AbstractPageCheck {
 
@@ -101,11 +103,5 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
       }
     }
     return element.hasProperty("title") || element.hasProperty("aria-label");
-  }
-
-  private static boolean isHidden(TagNode element) {
-    return ("input".equalsIgnoreCase(element.getNodeName())
-        && "hidden".equalsIgnoreCase(element.getPropertyValue("type")))
-        || "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"));
   }
 }
