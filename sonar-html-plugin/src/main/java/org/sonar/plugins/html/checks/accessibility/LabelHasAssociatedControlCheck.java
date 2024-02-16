@@ -17,8 +17,8 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
@@ -75,7 +75,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   }
 
   private static boolean isControl(TagNode node) {
-    return CONTROL_TAGS.contains(node.getNodeName().toUpperCase());
+    return CONTROL_TAGS.contains(node.getNodeName().toUpperCase(Locale.ROOT));
   }
 
   @Override
