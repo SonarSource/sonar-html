@@ -31,31 +31,52 @@ public class LabelHasAssociatedControlCheckTest {
   @Test
   void nesting() throws Exception {
     HtmlSourceCode sourceCode = TestHelper.scan(
-            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/nesting.html"),
-            new LabelHasAssociatedControlCheck());
+      new File("src/test/resources/checks/LabelHasAssociatedControlCheck/nesting.html"),
+      new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLine(2).withMessage("A form label must be associated with a control.")
-            .next().atLine(3)
-            .next().atLine(5)
-            .next().atLine(10)
-            .noMore();
+      .next().atLine(2).withMessage("A form label must be associated with a control.")
+      .next().atLine(3)
+      .next().atLine(5)
+      .next().atLine(10)
+      .noMore();
   }
 
   @Test
   void forAttribute() throws Exception {
     HtmlSourceCode sourceCode = TestHelper.scan(
-            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/" +
-                    "for.html"),
+      new File("src/test/resources/checks/LabelHasAssociatedControlCheck/for.html"),
+      new LabelHasAssociatedControlCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("A form label must be associated with a control.")
+      .next().atLine(3)
+      .next().atLine(6)
+      .next().atLine(8)
+      .next().atLine(10)
+      .next().atLine(12)
+      .noMore();
+  }
+
+  @Test
+  void php() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/LabelHasAssociatedControlCheck/bundle.php"),
+      new LabelHasAssociatedControlCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("A form label must be associated with a control.")
+      .noMore();
+  }
+
+  @Test
+  void jsp() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/bundle.jsp"),
             new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLine(2).withMessage("A form label must be associated with a control.")
-            .next().atLine(3)
-            .next().atLine(6)
-            .next().atLine(8)
-            .next().atLine(10)
-            .next().atLine(12)
+            .next().atLine(1).withMessage("A form label must be associated with a control.")
             .noMore();
   }
 }

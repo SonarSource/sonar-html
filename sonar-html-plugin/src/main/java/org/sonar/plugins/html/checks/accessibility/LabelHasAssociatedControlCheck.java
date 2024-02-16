@@ -68,6 +68,17 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
     }
   }
 
+  @Override
+  public void directive(DirectiveNode node) {
+    foundAccessibleLabel = "?php".equalsIgnoreCase(node.getNodeName());
+  }
+
+  @Override
+  public void expression(ExpressionNode node) {
+    // for JSP
+    foundAccessibleLabel = true;
+  }
+
   private boolean hasAccessibleLabel(TagNode node) {
     return
       node.hasProperty("alt") ||
