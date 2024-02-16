@@ -1,0 +1,92 @@
+<h1>Compliant: h1 with a content</h1>
+<h2>Compliant: h2 with a content</h2>
+<h3>Compliant: h3 with a content</h3>
+<h4>Compliant: h4 with a content</h4>
+<h5>Compliant: h5 with a content</h5>
+<h6>Compliant: h6 with a content</h6>
+
+<h1 aria-hidden>h1 with an aria-hidden attribute</h1> <!-- Noncompliant: the heading has an aria-hidden attribute -->
+<h2 aria-hidden>h2 with an aria-hidden attribute</h2> <!-- Noncompliant: the heading has an aria-hidden attribute -->
+<h3 aria-hidden>h3 with an aria-hidden attribute</h3> <!-- Noncompliant: the heading has an aria-hidden attribute -->
+<h4 aria-hidden>h4 with an aria-hidden attribute</h4> <!-- Noncompliant: the heading has an aria-hidden attribute -->
+<h5 aria-hidden>h5 with an aria-hidden attribute</h5> <!-- Noncompliant: the heading has an aria-hidden attribute -->
+<h6 aria-hidden>h6 with an aria-hidden attribute</h6> <!-- Noncompliant: the heading has an aria-hidden attribute -->
+
+<h1/> <!-- Noncompliant: the heading is empty -->
+<h2/> <!-- Noncompliant: the heading is empty -->
+<h3/> <!-- Noncompliant: the heading is empty -->
+<h4/> <!-- Noncompliant: the heading is empty -->
+<h5/> <!-- Noncompliant: the heading is empty -->
+<h6/> <!-- Noncompliant: the heading is empty -->
+
+<!-- At that point, it is assumed that all heading levels behave the same -->
+<h1>
+</h1> <!-- Noncompliant: the heading contains a blank text -->
+
+<h1
+/> <!-- Noncompliant: the heading is empty -->
+
+<h1>
+    <span>Compliant: with a non-empty child</span>
+</h1>
+
+<h1> <!-- Non-compliant: with an empty heading child -->
+    <h2></h2> <!-- Noncompliant: the heading is empty -->
+</h1>
+
+<h1> <!-- Noncompliant: With an empty child -->
+    <span></span>
+</h1>
+
+<h1>
+    Compliant: With a content and an empty heading child
+    <h2></h2> <!-- Noncompliant: empty heading -->
+</h1>
+
+<h1>
+    <h2>
+        Compliant: with a non empty heading child
+    </h2>
+</h1>
+
+<h1>
+    <span>
+        <span>
+            <span></span>
+            <span>Compliant: with one non-empty descendant</span>
+            <span></span>
+        </span>
+    </span>
+</h1>
+
+<h1>
+    <span>
+        <span>
+            <span></span>
+            <span>Compliant: with one non-empty descendant</span>
+            <span>Compliant: with two non-empty descendants</span>
+        </span>
+    </span>
+</h1>
+
+<h1> <!-- Noncompliant: with only empty descendants -->
+    <span>
+        <span>
+            <span></span>
+        </span>
+    </span>
+</h1>
+
+<h1>
+    Compliant: With a content before an empty child
+    <span></span>
+</h1>
+
+<h1>
+    <span></span>
+    Compliant: With a content after an empty child
+</h1>
+
+</h1>
+
+<h7></h7> <!-- Compliant: out of scope -->

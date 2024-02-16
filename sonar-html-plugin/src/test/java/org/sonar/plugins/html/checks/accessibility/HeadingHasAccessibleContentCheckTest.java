@@ -31,7 +31,7 @@ class HeadingHasAccessibleContentCheckTest {
 
   @Test
   void html() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck.html"), new HeadingHasAccessibleContentCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.html"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(8).withMessage("Headings must have content and the content must be accessible by a screen reader.")
@@ -57,7 +57,7 @@ class HeadingHasAccessibleContentCheckTest {
 
   @Test
   void jsp() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck.jsp"), new HeadingHasAccessibleContentCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.jsp"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2);
@@ -65,7 +65,7 @@ class HeadingHasAccessibleContentCheckTest {
 
   @Test
   void php() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck.php"), new HeadingHasAccessibleContentCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.php"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2);
@@ -73,7 +73,7 @@ class HeadingHasAccessibleContentCheckTest {
 
   @Test
   void vue() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck.vue"), new HeadingHasAccessibleContentCheck());
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.vue"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2)
