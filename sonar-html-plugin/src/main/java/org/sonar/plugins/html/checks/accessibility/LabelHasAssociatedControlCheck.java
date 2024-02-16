@@ -30,7 +30,7 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S6853")
 public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   private static final String MESSAGE = "A form label must be associated with a control.";
-  private static final String[] CONTROL_TAGS = {"input", "meter", "output", "progress", "select", "textarea"};
+  private static final List<String> CONTROL_TAGS = List.of("INPUT", "METER", "OUTPUT", "PROGRESS", "SELECT", "TEXTAREA");
   private boolean foundControl;
   private boolean foundAccessibleLabel;
   private TagNode label;
@@ -75,7 +75,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   }
 
   private static boolean isControl(TagNode node) {
-    return Arrays.stream(CONTROL_TAGS).anyMatch(node.getNodeName()::equalsIgnoreCase);
+    return CONTROL_TAGS.contains(node.getNodeName().toUpperCase());
   }
 
   @Override
