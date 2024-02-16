@@ -1,0 +1,53 @@
+<!-- Non-aria attribute -->
+<div aria-foo="true" />
+<div foo="true" />
+
+<!-- Boolean -->
+<div aria-hidden="true" />
+<div aria-hidden="false" />
+<div aria-hidden="undefined" />
+<div aria-hidden />
+<div aria-hidden="foo" />  <!-- Noncompliant -->
+
+<!-- String -->
+<div aria-label="Close" />'
+<div aria-label="" />  <!-- Noncompliant -->
+<div aria-label="  " /> <!-- Noncompliant -->
+
+<!-- Tristate -->
+<div aria-checked="true" />
+<div aria-checked="false" />
+<div aria-checked="mixed" />
+<div aria-checked="foo" />  <!-- Noncompliant -->
+
+<!-- Number -->
+<div aria-valuemax="3" />
+<div aria-valuemax="-3" />
+<div aria-valuemax="42" />
+<div aria-valuemax="foo" />  <!-- Noncompliant -->
+
+<!-- Integer -->
+<div aria-posinset="3" />
+<div aria-posinset="-3" />
+<div aria-posinset="42" />
+<div aria-posinset="foo" />  <!-- Noncompliant -->
+
+<!-- Token -->
+<div aria-orientation="horizontal" />
+<div aria-orientation="vertical" />
+<div aria-orientation="foo" />  <!-- Noncompliant -->
+
+<!-- Token list -->
+<div aria-dropeffect="copy" />
+<div aria-dropeffect="move copy" />
+<div aria-dropeffect="move foo" />  <!-- Noncompliant -->
+<div aria-dropeffect="" />  <!-- Noncompliant -->
+
+<!-- ID list -->
+<div aria-controls="id1" />
+<div aria-controls="id1 id2" />
+<div aria-controls="" />  <!-- Noncompliant -->
+
+<!-- ID -->
+<div aria-details="id1" />
+<div aria-details="" />  <!-- Noncompliant -->
