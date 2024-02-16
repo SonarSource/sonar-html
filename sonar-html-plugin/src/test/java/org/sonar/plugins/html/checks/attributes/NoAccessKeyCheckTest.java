@@ -36,8 +36,8 @@ class NoAccessKeyCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NoAccessKeyCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLocation(1, 1, 1, 5).withMessage("No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.")
-            .next().atLocation(3, 1, 3, 5)
-            .next().atLocation(7, 1, 7, 11);
+            .next().atLocation(1, 1, 1, 4).withMessage("No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.")
+            .next().atLocation(3, 1, 3, 4)
+            .next().atLocation(7, 1, 7, 10);
   }
 }
