@@ -1,0 +1,14 @@
+<label for="js_id">foo</label>
+<label for="js_id"></label> <!-- Noncompliant -->
+<label>foo</label> <!-- Noncompliant -->
+<label for="js_id"><span><span><span>foo</span></span></span></label>
+<label for="js_id" alt="foo" />
+<label alt="foo" /> <!-- Noncompliant -->
+<label for="js_id" aria-label="foo" />
+<label aria-label="foo" /> <!-- Noncompliant -->
+<label for="js_id" aria-labelledby="foo" />
+<label aria-labelledby="foo" /> <!-- Noncompliant -->
+<div><label for="js_id">foo</label><input id="js_id" /></div>
+<div><label>foo</label><input id="js_id_2" /></div>
+<label htmlFor="js_id">foo</label>
+<label htmlFor="js_id"></label> <!-- Noncompliant -->
