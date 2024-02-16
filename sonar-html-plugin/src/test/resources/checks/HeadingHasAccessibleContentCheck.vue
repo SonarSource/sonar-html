@@ -6,6 +6,8 @@
   <h1>
     <custom-element-guranteed-to-output-something></custom-element-guranteed-to-output-something>
   </h1>
+  <h1 v-text=""></h1> <!-- Non-compliant -->
+  <h1 v-html=""></h1> <!-- Non-compliant -->
   <h1 v-text="compliant"></h1>
   <h1 v-html="compliant"></h1>
   <h1>

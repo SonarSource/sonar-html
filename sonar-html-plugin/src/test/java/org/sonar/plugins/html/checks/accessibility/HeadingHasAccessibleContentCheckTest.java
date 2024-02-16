@@ -77,6 +77,8 @@ class HeadingHasAccessibleContentCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2)
-      .next().atLine(3);
+      .next().atLine(3)
+      .next().atLine(9)
+      .next().atLine(10);
   }
 }
