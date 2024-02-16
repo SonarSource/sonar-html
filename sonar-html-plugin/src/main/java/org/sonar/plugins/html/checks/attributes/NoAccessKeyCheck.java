@@ -35,7 +35,7 @@ public class NoAccessKeyCheck extends AbstractPageCheck {
         element.getStartLinePosition(),
         start,
         element.getStartLinePosition(),
-        start + element.getNodeName().length() + 1,
+        start + element.getNodeName().length(),
         MESSAGE);
     }
   }
