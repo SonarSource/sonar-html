@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.html.checks.attributes;
+package org.sonar.plugins.html.checks.accessibility;
 
 import java.io.File;
 import org.junit.jupiter.api.Test;
@@ -24,20 +24,24 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-class NoAccessKeyCheckTest {
+class ImgRedundantAltCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void detected() {
-    NoAccessKeyCheck check = new NoAccessKeyCheck();
-
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NoAccessKeyCheck.html"), check);
+  void test() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/ImgRedundantAltCheck.html"),
+      new ImgRedundantAltCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLocation(1, 1, 1, 4).withMessage("No access key attribute allowed. Inconsistencies between keyboard shortcuts and keyboard commands used by screenreaders and keyboard-only users create a11y complications.")
-            .next().atLocation(3, 1, 3, 4)
-            .next().atLocation(7, 1, 7, 10);
+      .next().atLine(1).withMessage(
+        "Remove redundant words \"photo\", \"picture\" from the \"alt\" attribute of your \"img\" tag.")
+      .next().atLine(2).withMessage(
+        "Remove redundant word \"photo\" from the \"alt\" attribute of your \"img\" tag.")
+      .next().atLine(3)
+      .next().atLine(4)
+      .noMore();
   }
 }

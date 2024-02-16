@@ -20,6 +20,7 @@ package org.sonar.plugins.html.rules;
 import java.util.List;
 
 import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
+import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.html.checks.attributes.NoAccessKeyCheck;
@@ -104,6 +105,7 @@ public final class CheckClasses {
     IllegalElementCheck.class,
     IllegalTabCheck.class,
     IllegalTagLibsCheck.class,
+    ImgRedundantAltCheck.class,
     InlineStyleCheck.class,
     InternationalizationCheck.class,
     JspScriptletCheck.class,
