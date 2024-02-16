@@ -1,52 +1,7 @@
 {
-"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/newRegistration.jsp": [
-245,
-246
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp": [
-242,
-243
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
-1031,
-1033,
-1036,
-1038,
-1042,
-1045,
-1048,
-1050,
-1053,
-1056,
-1070,
-1074,
-1076,
-1078,
-1081,
-1084,
-1111,
-1114
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/editAttachedFiles.jsp": [
-535,
-538,
-540,
-550,
-553,
-555
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultChangePassword.jsp": [
-163,
-167,
-171
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/defaultForcePasswordChange.jsp": [
 98,
 102
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
-220,
-230
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestionSelection.jsp": [
 111,
@@ -70,14 +25,10 @@
 506
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
-225,
-230
+225
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp": [
 185
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/modify-window.jsp": [
-82
 ],
 "project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/click-label.html": [
 37,
