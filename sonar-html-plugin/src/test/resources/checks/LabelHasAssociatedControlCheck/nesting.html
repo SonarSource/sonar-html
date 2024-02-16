@@ -1,5 +1,11 @@
-<label>foo<input /></label>
-<label>foo <notControl /></label> <!-- Noncompliant -->
+<label></label> <!-- Noncompliant -->
+<label><input /></label> <!-- Noncompliant -->
+<label>foo</label> <!-- Noncompliant -->
+<label>foo <input /></label>
+<foo></foo>
+<foo><input /></foo>
+<foo>foo</foo>
+<foo>foo <input /></foo>
 <label><input /></label> <!-- Noncompliant -->
 <label><img alt="foo" /><input /></label>
 <label><img alt="foo" /></label> <!-- Noncompliant -->
@@ -19,5 +25,4 @@
 <label><textarea />foo</label>
 <label><select />foo</label>
 <!-- coverage -->
-<label></label> <!-- Noncompliant -->
-<foo></foo>
+</label>

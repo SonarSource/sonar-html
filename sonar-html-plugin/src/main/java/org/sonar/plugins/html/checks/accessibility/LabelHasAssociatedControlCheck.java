@@ -80,20 +80,24 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode textNode) {
-    if (!textNode.isBlank()) {
+    if (!textNode.isBlank() && label != null) {
       foundAccessibleLabel = true;
     }
   }
 
   @Override
   public void directive(DirectiveNode node) {
-    foundAccessibleLabel = "?php".equalsIgnoreCase(node.getNodeName());
+     if (label != null) {
+       foundAccessibleLabel = "?php".equalsIgnoreCase(node.getNodeName());
+     }
   }
 
   @Override
   public void expression(ExpressionNode node) {
     // for JSP
-    foundAccessibleLabel = true;
+    if (label != null) {
+      foundAccessibleLabel = true;
+    }
   }
 
   @Override
