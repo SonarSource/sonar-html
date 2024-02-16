@@ -55,6 +55,7 @@ public class LabelHasAssociatedControlCheckTest {
       .next().atLine(8)
       .next().atLine(10)
       .next().atLine(12)
+      .next().atLine(14)
       .noMore();
   }
 

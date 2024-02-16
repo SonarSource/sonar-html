@@ -48,7 +48,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if (isLabel(node)) {
       label = node;
-      if (label.hasProperty("for")) {
+      if (hasForAttribute(label)) {
         foundControl = true;
       } else {
         foundControl = false;
@@ -59,6 +59,27 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
     if (hasAccessibleLabel(node)) {
       foundAccessibleLabel = true;
     }
+  }
+
+  private boolean hasForAttribute(TagNode label) {
+    return label.hasProperty("for") || label.hasProperty("htmlFor");
+  }
+
+  private boolean hasAccessibleLabel(TagNode node) {
+    return
+      node.hasProperty("alt") ||
+      node.hasProperty("aria-labelledby") ||
+      node.hasProperty("aria-label") ||
+      // see https://sonarsource.github.io/rspec/#/rspec/S1926
+      "FMT:MESSAGE".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private boolean isLabel(TagNode node) {
+    return "LABEL".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private boolean isControl(TagNode node) {
+    return Arrays.stream(CONTROL_TAGS).anyMatch(node.getNodeName()::equalsIgnoreCase);
   }
 
   @Override
@@ -79,15 +100,6 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
     foundAccessibleLabel = true;
   }
 
-  private boolean hasAccessibleLabel(TagNode node) {
-    return
-      node.hasProperty("alt") ||
-      node.hasProperty("aria-labelledby") ||
-      node.hasProperty("aria-label") ||
-      // see https://sonarsource.github.io/rspec/#/rspec/S1926
-      "FMT:MESSAGE".equalsIgnoreCase(node.getNodeName());
-  }
-
   @Override
   public void endElement(TagNode node) {
     if (isLabel(node)) {
@@ -98,13 +110,5 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
       foundAccessibleLabel = false;
       label = null;
     }
-  }
-
-  private boolean isLabel(TagNode node) {
-    return "LABEL".equalsIgnoreCase(node.getNodeName());
-  }
-
-  private boolean isControl(TagNode node) {
-    return Arrays.stream(CONTROL_TAGS).anyMatch(node.getNodeName()::equalsIgnoreCase);
   }
 }
