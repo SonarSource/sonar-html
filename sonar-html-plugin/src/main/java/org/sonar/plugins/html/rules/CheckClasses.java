@@ -22,6 +22,7 @@ import java.util.List;
 import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
+import org.sonar.plugins.html.checks.accessibility.TabIndexNoPositiveCheck;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.html.checks.attributes.NoAccessKeyCheck;
 import org.sonar.plugins.html.checks.attributes.RequiredAttributeCheck;
@@ -162,7 +163,8 @@ public final class CheckClasses {
     TableHeaderReferenceCheck.class,
     ResourceIntegrityCheck.class,
     LabelHasAssociatedControlCheck.class,
-    NoAccessKeyCheck.class
+    NoAccessKeyCheck.class,
+    TabIndexNoPositiveCheck.class
   );
 
   private CheckClasses() {
