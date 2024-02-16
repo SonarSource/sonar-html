@@ -72,7 +72,9 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
     return
       node.hasProperty("alt") ||
       node.hasProperty("aria-labelledby") ||
-      node.hasProperty("aria-label");
+      node.hasProperty("aria-label") ||
+      // see https://sonarsource.github.io/rspec/#/rspec/S1926
+      "FMT:MESSAGE".equalsIgnoreCase(node.getNodeName());
   }
 
   @Override
