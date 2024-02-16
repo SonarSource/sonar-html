@@ -24,7 +24,7 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class LabelHasAssociatedControlCheckTest {
+class LabelHasAssociatedControlCheckTest {
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 

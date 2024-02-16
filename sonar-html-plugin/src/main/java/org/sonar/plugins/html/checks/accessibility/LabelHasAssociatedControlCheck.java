@@ -17,12 +17,8 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
@@ -61,11 +57,11 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
     }
   }
 
-  private boolean hasForAttribute(TagNode label) {
+  private static boolean hasForAttribute(TagNode label) {
     return label.hasProperty("for") || label.hasProperty("htmlFor");
   }
 
-  private boolean hasAccessibleLabel(TagNode node) {
+  private static boolean hasAccessibleLabel(TagNode node) {
     return
       node.hasProperty("alt") ||
       node.hasProperty("aria-labelledby") ||
@@ -74,11 +70,11 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
       "FMT:MESSAGE".equalsIgnoreCase(node.getNodeName());
   }
 
-  private boolean isLabel(TagNode node) {
+  private static boolean isLabel(TagNode node) {
     return "LABEL".equalsIgnoreCase(node.getNodeName());
   }
 
-  private boolean isControl(TagNode node) {
+  private static boolean isControl(TagNode node) {
     return Arrays.stream(CONTROL_TAGS).anyMatch(node.getNodeName()::equalsIgnoreCase);
   }
 
