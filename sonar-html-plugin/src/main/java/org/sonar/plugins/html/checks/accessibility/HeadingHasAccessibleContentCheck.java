@@ -22,7 +22,11 @@ import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.BufferStack;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.*;
+import org.sonar.plugins.html.node.DirectiveNode;
+import org.sonar.plugins.html.node.ExpressionNode;
+import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
+import org.sonar.plugins.html.node.Attribute;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -52,8 +56,7 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
       if (hasAnInvalidAttribute(node)) {
         createViolation(node);
       }
-    }
-    else {
+    } else {
       String nodeName = node.getNodeName();
 
       // tags that are not part of the known HTML tags list are considered as content
@@ -63,13 +66,11 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
     }
 
     // vueJS attributes that maps to content are considered as content
-    vueJsContentLikeAttributes.forEach((attributeName) -> {
+    vueJsContentLikeAttributes.forEach(attributeName -> {
       String nodeAttribute = node.getAttribute(attributeName);
 
-      if (nodeAttribute != null && !nodeAttribute.isBlank()) {
-        if (bufferStack.getLevel() > 0) {
-          bufferStack.write(nodeAttribute);
-        }
+      if (nodeAttribute != null && !nodeAttribute.isBlank() && bufferStack.getLevel() > 0) {
+        bufferStack.write(nodeAttribute);
       }
     });
 
@@ -132,9 +133,5 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
 
   private void createViolation(TagNode node) {
     super.createViolation(node.getStartLinePosition(), "Headings must have content and the content must be accessible by a screen reader.");
-  }
-
-  private boolean shouldConsiderChildrenContent() {
-    return !getHtmlSourceCode().inputFile().filename().endsWith(".vue");
   }
 }
