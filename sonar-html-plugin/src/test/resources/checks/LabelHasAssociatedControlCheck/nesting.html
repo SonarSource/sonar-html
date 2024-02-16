@@ -12,9 +12,11 @@
 <label><span><span><span><span aria-label="foo" /><input /></span></span></span></label>
 <label><span><span><span><input aria-label="foo" /></span></span></span></label>
 <label><fmt:message key="login.label.username" /><input /></label>
-<!--other controls-->
+<!--other controls -->
 <label><meter />foo</label>
 <label><output />foo</label>
 <label><progress />foo</label>
 <label><textarea />foo</label>
 <label><select />foo</label>
+<!-- coverage -->
+<label></label> <!-- Noncompliant -->
