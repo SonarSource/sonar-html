@@ -73,8 +73,6 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
         bufferStack.write(nodeAttribute);
       }
     });
-
-    super.startElement(node);
   }
 
   @Override
@@ -87,15 +85,11 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
         createViolation(openingTag);
       }
     }
-
-    super.endElement(node);
   }
 
   @Override
   public void endDocument() {
     openingHeadingTags.clear();
-
-    super.endDocument();
   }
 
   @Override
@@ -103,8 +97,6 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
     if (bufferStack.getLevel() > 0) {
       bufferStack.write(textNode.toString());
     }
-
-    super.characters(textNode);
   }
 
   @Override
@@ -112,8 +104,6 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
     if (bufferStack.getLevel() > 0) {
       bufferStack.write(expressionNode.toString());
     }
-
-    super.expression(expressionNode);
   }
 
   @Override
@@ -121,8 +111,6 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
     if (bufferStack.getLevel() > 0) {
       bufferStack.write(directiveNode.toString());
     }
-
-    super.directive(directiveNode);
   }
 
   private boolean hasAnInvalidAttribute(TagNode node) {
