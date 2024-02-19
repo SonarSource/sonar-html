@@ -17,7 +17,6 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
