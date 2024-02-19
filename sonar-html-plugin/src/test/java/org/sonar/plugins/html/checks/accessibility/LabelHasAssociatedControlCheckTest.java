@@ -82,4 +82,13 @@ class LabelHasAssociatedControlCheckTest {
             .next().atLine(1).withMessage("A form label must be associated with a control.")
             .noMore();
   }
+
+  @Test
+  void phtml() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/file.phtml"),
+            new LabelHasAssociatedControlCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+            .noMore();
+  }
 }

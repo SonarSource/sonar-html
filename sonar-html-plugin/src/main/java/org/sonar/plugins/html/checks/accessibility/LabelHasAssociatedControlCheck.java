@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
@@ -30,7 +31,7 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S6853")
 public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   private static final String MESSAGE = "A form label must be associated with a control.";
-  private static final List<String> CONTROL_TAGS = List.of("INPUT", "METER", "OUTPUT", "PROGRESS", "SELECT", "TEXTAREA");
+  private static final Set<String> CONTROL_TAGS = Set.of("INPUT", "METER", "OUTPUT", "PROGRESS", "SELECT", "TEXTAREA");
   private boolean foundControl;
   private boolean foundAccessibleLabel;
   private TagNode label;
@@ -88,7 +89,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   @Override
   public void directive(DirectiveNode node) {
     if (label != null) {
-      foundAccessibleLabel = "?php".equalsIgnoreCase(node.getNodeName());
+      foundAccessibleLabel = true;
     }
   }
 
