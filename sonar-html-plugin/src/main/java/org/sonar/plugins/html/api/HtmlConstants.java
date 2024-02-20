@@ -171,8 +171,8 @@ public class HtmlConstants {
   );
 
   // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveElement.js
-  public static final Set<String> INTERACTIVE_ELEMENTS = Set.of("a", "audio", "button", "canvas", "datalist", "embed", "input", "menuitem", "option", "select", "td", "textarea", "th",
-    "tr", "video");
+  public static final Set<String> INTERACTIVE_ELEMENTS = Set.of("a", "audio", "button", "canvas", "datalist", "embed", "input", "menuitem", "option", "select", "td", "textarea",
+    "th", "tr", "video");
 
   // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveElement.js
   public static final Set<String> NON_INTERACTIVE_ELEMENTS = Set.of("abbr", "address", "article", "aside", "blockquote", "br", "caption", "code", "dd", "del", "details", "dfn",
