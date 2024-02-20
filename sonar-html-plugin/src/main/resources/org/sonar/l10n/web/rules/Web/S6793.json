@@ -1,0 +1,24 @@
+{
+  "title": "ARIA properties in DOM elements should have valid values",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-6793",
+  "sqKey": "S6793",
+  "scope": "All",
+  "quickfix": "infeasible",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW",
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "LOGICAL"
+  }
+}
