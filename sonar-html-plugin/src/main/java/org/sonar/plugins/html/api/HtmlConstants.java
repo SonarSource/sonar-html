@@ -18,6 +18,7 @@
 package org.sonar.plugins.html.api;
 
 import java.util.List;
+import java.util.Set;
 
 public class HtmlConstants {
 
@@ -147,6 +148,11 @@ public class HtmlConstants {
     "video",
     "wbr"
   );
+
+  // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveElement.js
+  public static final Set<String> NON_INTERACTIVE_ELEMENTS = Set.of("abbr","address","article","aside","blockquote","br","caption","code","dd","del","details","dfn","dialog","dl","dt","em","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","hr","iframe","img","ins","label","legend","li","main","mark","menu","meter","nav","ol","optgroup","output","p","pre","progress","ruby","strong","sub","sup","table","tbody","tfoot","thead","time","ul");
+  // computed as https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveRole.js
+  public static final Set<String> INTERACTIVE_ROLES = Set.of("button","checkbox","columnheader","combobox","grid","gridcell","link","listbox","menu","menubar","menuitem","menuitemcheckbox","menuitemradio","option","progressbar","radio","radiogroup","row","rowheader","scrollbar","searchbox","slider","spinbutton","switch","tab","tablist","textbox","tree","treegrid","treeitem","doc-backlink","doc-biblioref","doc-glossref","doc-noteref");
 
   private HtmlConstants() {
   }
