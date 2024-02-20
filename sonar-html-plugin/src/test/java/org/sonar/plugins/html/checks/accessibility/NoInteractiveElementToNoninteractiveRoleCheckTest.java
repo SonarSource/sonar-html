@@ -45,7 +45,6 @@ class NoInteractiveElementToNoninteractiveRoleCheckTest {
       new NoInteractiveElementToNoninteractiveRoleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      // we don't cover <a> tags with `href` attribute
       .next().atLine(2).withMessage("Interactive elements should not be assigned non-interactive roles.")
       .next().atLine(3)
       //.next().atLine(4)
@@ -80,7 +79,6 @@ class NoInteractiveElementToNoninteractiveRoleCheckTest {
       .next().atLine(33)
       .next().atLine(34)
       //.next().atLine(35)
-      // we don't cover <a> tags with `href` attribute
       .next().atLine(36)
       .next().atLine(37)
       //.next().atLine(38)
