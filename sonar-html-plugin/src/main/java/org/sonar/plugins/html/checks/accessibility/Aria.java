@@ -18,11 +18,10 @@
 
 package org.sonar.plugins.html.checks.accessibility;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public class Aria {
 
@@ -85,20 +84,17 @@ public class Aria {
     private final String name;
     private final AriaPropertyType type;
     private final Optional<Boolean> allowUndefined;
-    private final List<String> values;
+    private final Set<String> values;
 
     public AriaProperty(String name, AriaPropertyType type, String... values) {
-      this.name = name;
-      this.type = type;
-      this.allowUndefined = Optional.empty();
-      this.values = Arrays.asList(values);
+      this(name, type, false, values);
     }
 
     public AriaProperty(String name, AriaPropertyType type, boolean allowUndefined, String... values) {
       this.name = name;
       this.type = type;
       this.allowUndefined = Optional.of(allowUndefined);
-      this.values = Arrays.asList(values);
+      this.values = Set.of(values);
     }
 
     public String getName() {
@@ -113,7 +109,7 @@ public class Aria {
       return allowUndefined;
     }
 
-    public List<String> getValues() {
+    public Set<String> getValues() {
       return values;
     }
   }

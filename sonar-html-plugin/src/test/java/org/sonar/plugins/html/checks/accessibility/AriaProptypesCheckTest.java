@@ -36,17 +36,17 @@ class AriaProptypesCheckTest {
       new AriaProptypesCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(10).withMessage("The value of the attribute \"aria-hidden\" must be a boolean.")
-      .next().atLine(14).withMessage("The value of the attribute \"aria-label\" must be a string.")
-      .next().atLine(15)
-      .next().atLine(21).withMessage("The value of the attribute \"aria-checked\" must be a boolean or the string \"mixed\".")
-      .next().atLine(27).withMessage("The value of the attribute \"aria-valuemax\" must be a number.")
-      .next().atLine(33).withMessage("The value of the attribute \"aria-posinset\" must be a integer.")
-      .next().atLine(38).withMessage("The value of the attribute \"aria-orientation\" must be a single token from the following: horizontal, vertical, undefined.")
-      .next().atLine(43).withMessage("The value of the attribute \"aria-dropeffect\" must be a list of one or more tokens from the following: copy, move, link, execute, none, popup.")
-      .next().atLine(44)
-      .next().atLine(49).withMessage("The value of the attribute \"aria-controls\" must be a list of strings that represent DOM element IDs (idlist).")
-      .next().atLine(53).withMessage("The value of the attribute \"aria-details\" must be a string that represents a DOM element ID.")
+      .next().atLine(9).withMessage("The value of the attribute \"aria-hidden\" must be a boolean.")
+      .next().atLine(13).withMessage("The value of the attribute \"aria-label\" must be a string.")
+      .next().atLine(14)
+      .next().atLine(20).withMessage("The value of the attribute \"aria-checked\" must be a boolean or the string \"mixed\".")
+      .next().atLine(26).withMessage("The value of the attribute \"aria-valuemax\" must be a number.")
+      .next().atLine(32).withMessage("The value of the attribute \"aria-posinset\" must be a integer.")
+      .next().atLine(37)
+      .next().atLine(42)
+      .next().atLine(43)
+      .next().atLine(48).withMessage("The value of the attribute \"aria-controls\" must be a list of strings that represent DOM element IDs (idlist).")
+      .next().atLine(52).withMessage("The value of the attribute \"aria-details\" must be a string that represents a DOM element ID.")
       .noMore();
   }
 }

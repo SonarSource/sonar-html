@@ -18,8 +18,8 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -56,7 +56,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
     var allowUndefined = property.getAllowUndefined().orElse(false);
     var expectedValues = property.getValues();
 
-    if (allowUndefined.booleanValue() && ("undefined".equalsIgnoreCase(value) || "".equalsIgnoreCase(value))) {
+    if (allowUndefined.booleanValue() && ("".equalsIgnoreCase(value))) {
       return true;
     }
 
@@ -85,7 +85,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
     }
   }
 
-  private static String message(String name, AriaPropertyType type, List<String> values) {
+  private static String message(String name, AriaPropertyType type, Set<String> values) {
     switch (type) {
       case TRISTATE:
         return "The value of the attribute \"" + name + "\" must be a boolean or the string \"mixed\".";
