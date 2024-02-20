@@ -18,6 +18,7 @@
 package org.sonar.plugins.html.api;
 
 import java.util.List;
+import java.util.Set;
 
 public class HtmlConstants {
 
@@ -37,6 +38,7 @@ public class HtmlConstants {
   public static final String JSP_FILE_EXTENSIONS_DEF_VALUE = ".jsp,.jspf,.jspx";
   public static final List<String> KNOWN_HTML_TAGS = List.of(
     "a",
+    "acronym", // deprecated
     "area",
     "abbr",
     "address",
@@ -45,16 +47,19 @@ public class HtmlConstants {
     "audio",
     "b",
     "base",
+    "big", // deprecated
     "blockquote",
     "body",
     "br",
     "button",
     "canvas",
     "caption",
+    "center", // deprecated
     "cite",
     "code",
     "col",
     "colgroup",
+    "content", // deprecated
     "data",
     "datalist",
     "dd",
@@ -62,6 +67,7 @@ public class HtmlConstants {
     "details",
     "dfn",
     "dialog",
+    "dir", // deprecated
     "div",
     "dl",
     "dt",
@@ -71,7 +77,10 @@ public class HtmlConstants {
     "figcaption",
     "figure",
     "footer",
+    "font", // deprecated
     "form",
+    "frame", // deprecated
+    "frameset", // deprecated
     "h1",
     "h2",
     "h3",
@@ -82,8 +91,10 @@ public class HtmlConstants {
     "header",
     "hgroup",
     "hr",
+    "html",
     "i",
     "iframe",
+    "image", // deprecated
     "img",
     "input",
     "ins",
@@ -95,10 +106,15 @@ public class HtmlConstants {
     "main",
     "map",
     "mark",
+    "marquee", // deprecated
     "menu",
+    "menuitem", // deprecated
     "meta",
     "meter",
     "nav",
+    "nobr", // deprecated
+    "noembed", // deprecated
+    "noframes", // deprecated
     "noscript",
     "object",
     "ol",
@@ -106,13 +122,15 @@ public class HtmlConstants {
     "option",
     "output",
     "p",
-    "param",
+    "param", // deprecated
     "picture",
+    "plaintext", // deprecated
     "pre",
     "progress",
     "q",
+    "rb", // deprecated
     "rp",
-    "rt",
+    "rt", // deprecated
     "ruby",
     "s",
     "samp",
@@ -120,9 +138,11 @@ public class HtmlConstants {
     "search",
     "section",
     "select",
+    "shadow", // deprecated
     "small",
     "source",
     "span",
+    "strike", // deprecated
     "strong",
     "style",
     "sub",
@@ -141,12 +161,25 @@ public class HtmlConstants {
     "title",
     "tr",
     "track",
+    "tt", // deprecated
     "u",
     "ul",
     "var",
     "video",
-    "wbr"
+    "wbr",
+    "xmp" // deprecated
   );
+
+  // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveElement.js
+  public static final Set<String> NON_INTERACTIVE_ELEMENTS = Set.of("abbr", "address", "article", "aside", "blockquote", "br", "caption", "code", "dd", "del", "details", "dfn",
+    "dialog", "dir", "dl", "dt", "em", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "html", "iframe", "img", "ins", "label",
+    "legend", "li", "main", "mark", "marquee", "menu", "meter", "nav", "ol", "optgroup", "output", "p", "pre", "progress", "ruby", "strong", "sub", "sup", "table", "tbody",
+    "tfoot", "thead", "time", "ul");
+
+  // computed as https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveRole.js
+  public static final Set<String> INTERACTIVE_ROLES = Set.of("button", "checkbox", "columnheader", "combobox", "grid", "gridcell", "link", "listbox", "menu", "menubar", "menuitem",
+    "menuitemcheckbox", "menuitemradio", "option", "progressbar", "radio", "radiogroup", "row", "rowheader", "scrollbar", "searchbox", "slider", "spinbutton", "switch", "tab",
+    "tablist", "textbox", "tree", "treegrid", "treeitem", "doc-backlink", "doc-biblioref", "doc-glossref", "doc-noteref");
 
   private HtmlConstants() {
   }
