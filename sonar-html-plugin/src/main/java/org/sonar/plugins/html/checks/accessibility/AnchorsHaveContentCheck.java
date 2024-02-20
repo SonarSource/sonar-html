@@ -26,7 +26,7 @@ import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
-import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHidden;
+import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 @Rule(key = "S6827")
 public class AnchorsHaveContentCheck extends AbstractPageCheck {
@@ -98,7 +98,7 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
   private static boolean hasContent(TagNode element) {
     var children = element.getChildren();
     for (TagNode child : children) {
-      if (!isHidden(child)) {
+      if (!isHiddenFromScreenReader(child)) {
         return true;
       }
     }
