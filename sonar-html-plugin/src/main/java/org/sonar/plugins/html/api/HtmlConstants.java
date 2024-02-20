@@ -175,6 +175,7 @@ public class HtmlConstants {
     "dialog", "dir", "dl", "dt", "em", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "html", "iframe", "img", "ins", "label",
     "legend", "li", "main", "mark", "marquee", "menu", "meter", "nav", "ol", "optgroup", "output", "p", "pre", "progress", "ruby", "strong", "sub", "sup", "table", "tbody",
     "tfoot", "thead", "time", "ul");
+
   // computed as https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveRole.js
   public static final Set<String> INTERACTIVE_ROLES = Set.of("button", "checkbox", "columnheader", "combobox", "grid", "gridcell", "link", "listbox", "menu", "menubar", "menuitem",
     "menuitemcheckbox", "menuitemradio", "option", "progressbar", "radio", "radiogroup", "row", "rowheader", "scrollbar", "searchbox", "slider", "spinbutton", "switch", "tab",
