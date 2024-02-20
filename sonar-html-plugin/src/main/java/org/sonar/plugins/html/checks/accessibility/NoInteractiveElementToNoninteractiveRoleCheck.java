@@ -23,9 +23,7 @@ import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ELEMENTS;
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ROLES;
 import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
-import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ELEMENTS;
 import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ROLES;
 import static org.sonar.plugins.html.api.HtmlConstants.PRESENTATION_ROLES;
 
