@@ -29,7 +29,6 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S6842")
 public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageCheck {
 
-
   private static final String MESSAGE = "Non-interactive elements should not be assigned interactive roles.";
 
   @Override
@@ -39,7 +38,7 @@ public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageC
     if (
       role != null &&
       KNOWN_HTML_TAGS.contains(tagName) &&
-      NON_INTERACTIVE_ELEMENTS.contains(node.getNodeName().toLowerCase(Locale.ROOT)) &&
+      NON_INTERACTIVE_ELEMENTS.contains(tagName) &&
       INTERACTIVE_ROLES.contains(role)
     ) {
       createViolation(node, MESSAGE);
