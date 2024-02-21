@@ -20,6 +20,7 @@ package org.sonar.plugins.html.rules;
 import java.util.List;
 
 import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
+import org.sonar.plugins.html.checks.accessibility.AnchorsShouldNotBeUsedAsButtonsCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
 import org.sonar.plugins.html.checks.accessibility.ValidAutocompleteCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
@@ -103,6 +104,7 @@ public final class CheckClasses {
   private static final List<Class<?>> CLASSES = List.of(
     AbsoluteURICheck.class,
     AnchorsHaveContentCheck.class,
+    AnchorsShouldNotBeUsedAsButtonsCheck.class,
     AriaProptypesCheck.class,
     AvoidCommentedOutCodeCheck.class,
     AvoidHtmlCommentCheck.class,
