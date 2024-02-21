@@ -23,6 +23,7 @@ import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
+import org.sonar.plugins.html.checks.accessibility.NoInteractiveElementToNoninteractiveRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNoninteractiveElementToInteractiveRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.TabIndexNoPositiveCheck;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
@@ -170,7 +171,8 @@ public final class CheckClasses {
     LabelHasAssociatedControlCheck.class,
     NoAccessKeyCheck.class,
     TabIndexNoPositiveCheck.class,
-    NoNoninteractiveElementToInteractiveRoleCheck.class
+    NoNoninteractiveElementToInteractiveRoleCheck.class,
+    NoInteractiveElementToNoninteractiveRoleCheck.class
   );
 
   private CheckClasses() {
