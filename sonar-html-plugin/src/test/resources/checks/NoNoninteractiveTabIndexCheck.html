@@ -1,0 +1,20 @@
+<!-- Ignored: Custom -->
+<Foo tabindex="42" />
+
+<!-- Ignored: Interactive element -->
+<button tabIndex="42" />
+
+<!-- Ignored: Interactive role -->
+<dialog role="button" tabIndex="42" />
+
+<!-- Ignored: NaN -->
+<div tabIndex="NaN" />
+
+<!-- Compliant-s -->
+<div />
+<div tabindex="-1"/>
+
+<!-- Noncompliant-s -->
+<div tabIndex="0" />
+<div tabIndex="42" />
+<div role="article" tabIndex="42" />
