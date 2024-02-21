@@ -19,6 +19,7 @@ package org.sonar.plugins.html.api;
 
 import java.util.List;
 import java.util.Set;
+import org.sonar.plugins.html.node.TagNode;
 
 public class HtmlConstants {
 
@@ -209,6 +210,36 @@ public class HtmlConstants {
   public static final Set<String> ABSTRACT_ROLES = Set.of(
     "command", "composite", "input", "landmark", "range", "roletype", "section", "sectionhead", "select", "structure", "toolbar", "widget", "window"
   );
+
+  public static boolean isInteractiveElement(TagNode element) {
+    var tagName = element.getNodeName();
+    return INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
+  }
+
+  public static boolean isNonInteractiveElement(TagNode element) {
+    var tagName = element.getNodeName();
+    return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
+  }
+
+  public static boolean isInteractiveRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
+  public static boolean isNonInteractiveRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && NON_INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
+  public static boolean isPresentationRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && PRESENTATION_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
+  public static boolean isAbstractRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && ABSTRACT_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
 
   private HtmlConstants() {
   }

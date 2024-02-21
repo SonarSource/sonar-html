@@ -24,6 +24,12 @@ import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
 import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ELEMENTS;
 import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ROLES;
 import static org.sonar.plugins.html.api.HtmlConstants.PRESENTATION_ROLES;
+import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
+import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
+import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
+import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.isPresentationRole;
 import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 import java.util.HashSet;
@@ -76,35 +82,5 @@ public class NoNonInteractiveElementsWithHandlersCheck extends AbstractPageCheck
   private static boolean isContentEditable(TagNode element) {
     var contentEditable = element.getAttribute("contenteditable");
     return contentEditable != null && contentEditable.equalsIgnoreCase("true");
-  }
-
-  private static boolean isInteractiveElement(TagNode element) {
-    var tagName = element.getNodeName();
-    return INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
-  }
-
-  private static boolean isNonInteractiveElement(TagNode element) {
-    var tagName = element.getNodeName();
-    return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
-  }
-
-  private static boolean isInteractiveRole(TagNode element) {
-    var role = element.getAttribute("role");
-    return role != null && INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
-  }
-
-  private static boolean isNonInteractiveRole(TagNode element) {
-    var role = element.getAttribute("role");
-    return role != null && NON_INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
-  }
-
-  private static boolean isPresentationRole(TagNode element) {
-    var role = element.getAttribute("role");
-    return role != null && PRESENTATION_ROLES.stream().anyMatch(role::equalsIgnoreCase);
-  }
-
-  private static boolean isAbstractRole(TagNode element) {
-    var role = element.getAttribute("role");
-    return role != null && ABSTRACT_ROLES.stream().anyMatch(role::equalsIgnoreCase);
   }
 }
