@@ -121,7 +121,6 @@ class NoNoninteractiveElementToInteractiveRoleCheckTest {
       .next().atLine(74)
       .next().atLine(75)
       .next().atLine(76)
-      //.next().atLine(77)
       .next().atLine(78)
       .next().atLine(79)
       .next().atLine(80)
