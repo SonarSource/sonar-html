@@ -17,13 +17,7 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.ABSTRACT_ROLES;
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ELEMENTS;
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ROLES;
 import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
-import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ELEMENTS;
-import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ROLES;
-import static org.sonar.plugins.html.api.HtmlConstants.PRESENTATION_ROLES;
 import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveRole;
