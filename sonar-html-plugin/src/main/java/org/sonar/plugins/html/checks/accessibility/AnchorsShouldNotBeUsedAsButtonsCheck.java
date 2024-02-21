@@ -21,7 +21,6 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Rule(key = "S6844")
