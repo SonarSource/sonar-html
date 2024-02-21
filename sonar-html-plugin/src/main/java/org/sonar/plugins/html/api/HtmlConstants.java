@@ -170,6 +170,10 @@ public class HtmlConstants {
     "xmp" // deprecated
   );
 
+  // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveElement.js
+  public static final Set<String> INTERACTIVE_ELEMENTS = Set.of("a", "audio", "button", "canvas", "datalist", "embed", "input", "menuitem", "option", "select", "td", "textarea",
+    "th", "tr", "video");
+
   // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveElement.js
   public static final Set<String> NON_INTERACTIVE_ELEMENTS = Set.of("abbr", "address", "article", "aside", "blockquote", "br", "caption", "code", "dd", "del", "details", "dfn",
     "dialog", "dir", "dl", "dt", "em", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "html", "iframe", "img", "ins", "label",
@@ -180,6 +184,24 @@ public class HtmlConstants {
   public static final Set<String> INTERACTIVE_ROLES = Set.of("button", "checkbox", "columnheader", "combobox", "grid", "gridcell", "link", "listbox", "menu", "menubar", "menuitem",
     "menuitemcheckbox", "menuitemradio", "option", "progressbar", "radio", "radiogroup", "row", "rowheader", "scrollbar", "searchbox", "slider", "spinbutton", "switch", "tab",
     "tablist", "textbox", "tree", "treegrid", "treeitem", "doc-backlink", "doc-biblioref", "doc-glossref", "doc-noteref");
+
+  // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveRole.js
+  public static final Set<String> NON_INTERACTIVE_ROLES = Set.of("alert", "alertdialog", "application", "article", "banner", "blockquote", "caption", "cell", "code",
+    "complementary", "contentinfo", "definition", "deletion", "dialog", "directory", "document", "emphasis", "feed", "figure", "form", "generic", "group", "heading", "img",
+    "insertion", "list", "listitem", "log", "main", "mark", "marquee", "math", "meter", "navigation", "none", "note", "paragraph", "presentation", "region", "rowgroup", "search",
+    "separator", "status", "strong", "subscript", "superscript", "table", "tabpanel", "term", "time", "timer", "toolbar", "tooltip", "doc-abstract", "doc-acknowledgments",
+    "doc-afterword", "doc-appendix", "doc-biblioentry", "doc-bibliography", "doc-chapter", "doc-colophon", "doc-conclusion", "doc-cover", "doc-credit", "doc-credits",
+    "doc-dedication", "doc-endnote", "doc-endnotes", "doc-epigraph", "doc-epilogue", "doc-errata", "doc-example", "doc-footnote", "doc-foreword", "doc-glossary", "doc-index",
+    "doc-introduction", "doc-notice", "doc-pagebreak", "doc-pagelist", "doc-part", "doc-preface", "doc-prologue", "doc-pullquote", "doc-qna", "doc-subtitle", "doc-tip", "doc-toc",
+    "graphics-document", "graphics-object", "graphics-symbol");
+
+  // inspired by https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isPresentationRole.js
+  public static final Set<String> PRESENTATION_ROLES = Set.of("none", "presentation");
+
+  // computed from https://github.com/A11yance/aria-query/blob/main/src/etc/roles/ariaAbstractRoles.js
+  public static final Set<String> ABSTRACT_ROLES = Set.of(
+    "command", "composite", "input", "landmark", "range", "roletype", "section", "sectionhead", "select", "structure", "toolbar", "widget", "window"
+  );
 
   private HtmlConstants() {
   }
