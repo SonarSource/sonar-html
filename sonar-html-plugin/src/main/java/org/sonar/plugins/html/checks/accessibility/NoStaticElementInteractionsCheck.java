@@ -32,7 +32,7 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
-@Rule(key = "S6843")
+@Rule(key = "S6848")
 public class NoStaticElementInteractionsCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Avoid non-native interactive elements. If using native HTML is not possible," +

@@ -26,6 +26,7 @@ import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlChec
 import org.sonar.plugins.html.checks.accessibility.NoInteractiveElementToNoninteractiveRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNonInteractiveElementsWithHandlersCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNoninteractiveElementToInteractiveRoleCheck;
+import org.sonar.plugins.html.checks.accessibility.NoStaticElementInteractionsCheck;
 import org.sonar.plugins.html.checks.accessibility.TabIndexNoPositiveCheck;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.html.checks.attributes.NoAccessKeyCheck;
@@ -174,7 +175,8 @@ public final class CheckClasses {
     NoAccessKeyCheck.class,
     TabIndexNoPositiveCheck.class,
     NoNoninteractiveElementToInteractiveRoleCheck.class,
-    NoInteractiveElementToNoninteractiveRoleCheck.class
+    NoInteractiveElementToNoninteractiveRoleCheck.class,
+    NoStaticElementInteractionsCheck.class
   );
 
   private CheckClasses() {
