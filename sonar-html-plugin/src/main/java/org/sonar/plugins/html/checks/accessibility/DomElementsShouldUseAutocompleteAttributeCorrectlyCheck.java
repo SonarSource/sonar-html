@@ -102,7 +102,7 @@ public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends Abs
       /*
        * Directives are considered as wildcards - i.e. they always match the passed token
        */
-      return (isADirective(this.value) || this.value.equals(token.value)) && token.controlGroupPredicate.test(this.tagNode);
+      return (isADirective(this.value) || this.value.equalsIgnoreCase(token.value)) && token.controlGroupPredicate.test(this.tagNode);
     }
   }
 
@@ -222,13 +222,13 @@ public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends Abs
   }
 
   static boolean isAMediumTypeToken(Candidate candidate) {
-    return List.of(
+    return Stream.of(
       "home",
       "work",
       "mobile",
       "fax",
       "pager"
-    ).contains(candidate.value);
+    ).anyMatch(item -> item.equalsIgnoreCase(candidate.value));
   }
 
   static boolean isAMediumValueToken(Candidate candidate) {
@@ -247,14 +247,14 @@ public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends Abs
   }
 
   static boolean isASection(Candidate candidate) {
-    return candidate.value.startsWith("section-");
+    return candidate.value.toLowerCase().startsWith("section-");
   }
 
   static boolean isAnAddressType(Candidate candidate) {
-    return List.of(
+    return Stream.of(
       "billing",
       "shipping"
-    ).contains(candidate.value);
+    ).anyMatch(item -> item.equalsIgnoreCase(candidate.value));
   }
 
   static boolean isAnAutofillFieldNameToken(Candidate candidate) {
@@ -308,7 +308,7 @@ public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends Abs
 
   static boolean isAWebAuthnToken(Candidate candidate) {
     return Stream.of(
-      new Token("webauthn", node -> node.getNodeName().equals(HtmlConstants.NAME_INPUT) || node.getNodeName().equals(HtmlConstants.NAME_TEXTAREA))
+      new Token("webauthn", node -> node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT) || node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_TEXTAREA))
     ).anyMatch(candidate::satisfies);
   }
 

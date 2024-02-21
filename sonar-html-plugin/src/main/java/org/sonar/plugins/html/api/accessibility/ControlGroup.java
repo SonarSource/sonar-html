@@ -22,13 +22,13 @@ import org.sonar.plugins.html.node.TagNode;
 
 public class ControlGroup {
   public static boolean belongsToAutofillExpectationMantleControlGroup(TagNode node) {
-    if (!node.getNodeName().equals(HtmlConstants.NAME_INPUT)) {
+    if (!node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT)) {
       return true;
     }
 
     String type = node.getAttribute("type");
 
-    return type == null || !type.equals(HtmlConstants.TYPE_HIDDEN);
+    return type == null || !type.equalsIgnoreCase(HtmlConstants.TYPE_HIDDEN);
   }
 
   public static boolean belongsToDateControlGroup(TagNode node) {
@@ -38,13 +38,13 @@ public class ControlGroup {
 
     String type = node.getAttribute("type");
 
-    return type != null && type.equals("date");
+    return type != null && type.equalsIgnoreCase("date");
   }
 
   public static boolean belongsToMonthControlGroup(TagNode node) {
     String type = node.getAttribute("type");
 
-    if (type != null && type.equals("month")) {
+    if (type != null && type.equalsIgnoreCase("month")) {
       return true;
     }
 
@@ -52,23 +52,23 @@ public class ControlGroup {
   }
 
   public static boolean belongsToMultilineControlGroup(TagNode node) {
-    if (node.getNodeName().equals(HtmlConstants.NAME_TEXTAREA) || node.getNodeName().equals("select")) {
+    if (node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_TEXTAREA) || node.getNodeName().equalsIgnoreCase("select")) {
       return true;
     }
 
-    if (!node.getNodeName().equals(HtmlConstants.NAME_INPUT)) {
+    if (!node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT)) {
       return false;
     }
 
     String type = node.getAttribute("type");
 
-    return type != null && type.equals(HtmlConstants.TYPE_HIDDEN);
+    return type != null && type.equalsIgnoreCase(HtmlConstants.TYPE_HIDDEN);
   }
 
   public static boolean belongsToNumericControlGroup(TagNode node) {
     String type = node.getAttribute("type");
 
-    if (type != null && type.equals("number")) {
+    if (type != null && type.equalsIgnoreCase("number")) {
       return true;
     }
 
@@ -78,7 +78,7 @@ public class ControlGroup {
   public static boolean belongsToPasswordControlGroup(TagNode node) {
     String type = node.getAttribute("type");
 
-    if (type != null && type.equals("password")) {
+    if (type != null && type.equalsIgnoreCase("password")) {
       return true;
     }
 
@@ -88,7 +88,7 @@ public class ControlGroup {
   public static boolean belongsToTelControlGroup(TagNode node) {
     String type = node.getAttribute("type");
 
-    if (type != null && type.equals("tel")) {
+    if (type != null && type.equalsIgnoreCase("tel")) {
       return true;
     }
 
@@ -96,11 +96,11 @@ public class ControlGroup {
   }
 
   public static boolean belongsToTextControlGroup(TagNode node) {
-    if (node.getNodeName().equals(HtmlConstants.NAME_TEXTAREA) || node.getNodeName().equals("select")) {
+    if (node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_TEXTAREA) || node.getNodeName().equalsIgnoreCase("select")) {
       return true;
     }
 
-    if (!node.getNodeName().equals(HtmlConstants.NAME_INPUT)) {
+    if (!node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT)) {
       return false;
     }
 
@@ -110,13 +110,13 @@ public class ControlGroup {
       return false;
     }
 
-    return type.equals(HtmlConstants.TYPE_HIDDEN) || type.equals("text") || type.equals("search");
+    return type.equalsIgnoreCase(HtmlConstants.TYPE_HIDDEN) || type.equalsIgnoreCase("text") || type.equalsIgnoreCase("search");
   }
 
   public static boolean belongsToUrlControlGroup(TagNode node) {
     String type = node.getAttribute("type");
 
-    if (type != null && type.equals("url")) {
+    if (type != null && type.equalsIgnoreCase("url")) {
       return true;
     }
 
@@ -126,7 +126,7 @@ public class ControlGroup {
   public static boolean belongsToUsernameControlGroup(TagNode node) {
     String type = node.getAttribute("type");
 
-    if (type != null && type.equals("email")) {
+    if (type != null && type.equalsIgnoreCase("email")) {
       return true;
     }
 
