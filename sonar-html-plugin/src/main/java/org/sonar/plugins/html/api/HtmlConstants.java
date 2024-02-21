@@ -198,6 +198,11 @@ public class HtmlConstants {
   // inspired by https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isPresentationRole.js
   public static final Set<String> PRESENTATION_ROLES = Set.of("none", "presentation");
 
+  // computed from https://github.com/A11yance/aria-query/blob/main/src/etc/roles/ariaAbstractRoles.js
+  public static final Set<String> ABSTRACT_ROLES = Set.of(
+    "command", "composite", "input", "landmark", "range", "roletype", "section", "sectionhead", "select", "structure", "toolbar", "widget", "window"
+  );
+
   private HtmlConstants() {
   }
 

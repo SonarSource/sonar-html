@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHidden;
+import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 @Rule(key = "S6851")
 public class ImgRedundantAltCheck extends AbstractPageCheck {
@@ -34,7 +34,7 @@ public class ImgRedundantAltCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    if (!isImg(element) || isHidden(element)) {
+    if (!isImg(element) || isHiddenFromScreenReader(element)) {
       return;
     }
 
