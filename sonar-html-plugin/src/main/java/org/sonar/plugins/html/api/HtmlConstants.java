@@ -147,6 +147,7 @@ public class HtmlConstants {
     "shadow", // deprecated
     "small",
     "source",
+    "spacer", // deprecated
     "span",
     "strike", // deprecated
     "strong",
