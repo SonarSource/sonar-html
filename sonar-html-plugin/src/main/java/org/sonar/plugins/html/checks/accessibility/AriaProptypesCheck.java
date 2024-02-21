@@ -44,11 +44,19 @@ public class AriaProptypesCheck extends AbstractPageCheck {
       }
 
       var value = attribute.getValue();
+      if (isDynamicValue(value)) {
+        continue;
+      }
+
       var property = ARIA_PROPERTIES.get(normalizedName);
       if (!isValid(property, value)) {
         createViolation(element.getStartLinePosition(), message(name, property.getType(), property.getValues()));
       }
     }
+  }
+
+  private static boolean isDynamicValue(String value) {
+    return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%");
   }
 
   private static boolean isValid(AriaProperty property, String value) {

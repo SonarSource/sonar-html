@@ -50,3 +50,8 @@
 <!-- ID -->
 <div aria-details="id1" />
 <div aria-details="" />  <!-- Noncompliant -->
+
+<!-- Dynamic -->
+<div aria-details="{{ foo() }}" />
+<div aria-details="{% foo() %}" />
+<div aria-details="<?php foo() ?>" />
