@@ -42,12 +42,16 @@ public class HtmlConstants {
     "area",
     "abbr",
     "address",
+    "applet", // deprecated
     "article",
     "aside",
     "audio",
     "b",
     "base",
+    "bdi",
+    "bdo",
     "big", // deprecated
+    "blink", // deprecated
     "blockquote",
     "body",
     "br",
@@ -99,6 +103,7 @@ public class HtmlConstants {
     "input",
     "ins",
     "kbd",
+    "keygen", // deprecated
     "label",
     "legend",
     "li",
@@ -131,6 +136,7 @@ public class HtmlConstants {
     "rb", // deprecated
     "rp",
     "rt", // deprecated
+    "rtc", // deprecated
     "ruby",
     "s",
     "samp",
