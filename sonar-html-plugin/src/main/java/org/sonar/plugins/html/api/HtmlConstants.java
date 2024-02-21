@@ -36,13 +36,6 @@ public class HtmlConstants {
   public static final String FILE_EXTENSIONS_DEF_VALUE = ".html,.xhtml,.cshtml,.vbhtml,.aspx,.ascx,.rhtml,.erb,.shtm,.shtml,.cmp,.twig";
   public static final String JSP_FILE_EXTENSIONS_PROP_KEY = "sonar.jsp.file.suffixes";
   public static final String JSP_FILE_EXTENSIONS_DEF_VALUE = ".jsp,.jspf,.jspx";
-
-  public static final String NAME_INPUT = "input";
-
-  public static final String NAME_TEXTAREA = "textarea";
-
-  public static final String TYPE_HIDDEN = "hidden";
-
   public static final List<String> KNOWN_HTML_TAGS = List.of(
     "a",
     "acronym", // deprecated
@@ -103,7 +96,7 @@ public class HtmlConstants {
     "iframe",
     "image", // deprecated
     "img",
-    NAME_INPUT,
+    "input",
     "ins",
     "kbd",
     "label",
@@ -160,7 +153,7 @@ public class HtmlConstants {
     "tbody",
     "td",
     "template",
-    NAME_TEXTAREA,
+    "textarea",
     "tfoot",
     "th",
     "thead",

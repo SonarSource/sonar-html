@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
-import org.sonar.plugins.html.checks.accessibility.DomElementsShouldUseAutocompleteAttributeCorrectlyCheck;
+import org.sonar.plugins.html.checks.accessibility.ValidAutocompleteCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNoninteractiveElementToInteractiveRoleCheck;
@@ -105,7 +105,7 @@ public final class CheckClasses {
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,
     DeprecatedAttributesInHtml5Check.class,
-    DomElementsShouldUseAutocompleteAttributeCorrectlyCheck.class,
+    ValidAutocompleteCheck.class,
     DoubleQuotesCheck.class,
     DynamicJspIncludeCheck.class,
     FileLengthCheck.class,

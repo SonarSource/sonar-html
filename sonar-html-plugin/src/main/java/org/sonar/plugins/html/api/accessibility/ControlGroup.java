@@ -17,18 +17,17 @@
  */
 package org.sonar.plugins.html.api.accessibility;
 
-import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.node.TagNode;
 
 public class ControlGroup {
   public static boolean belongsToAutofillExpectationMantleControlGroup(TagNode node) {
-    if (!node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT)) {
+    if (!node.getNodeName().equalsIgnoreCase("input")) {
       return true;
     }
 
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
-    return type == null || !type.equalsIgnoreCase(HtmlConstants.TYPE_HIDDEN);
+    return type == null || !type.equalsIgnoreCase("hidden");
   }
 
   public static boolean belongsToDateControlGroup(TagNode node) {
@@ -36,13 +35,13 @@ public class ControlGroup {
       return true;
     }
 
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     return type != null && type.equalsIgnoreCase("date");
   }
 
   public static boolean belongsToMonthControlGroup(TagNode node) {
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     if (type != null && type.equalsIgnoreCase("month")) {
       return true;
@@ -52,21 +51,23 @@ public class ControlGroup {
   }
 
   public static boolean belongsToMultilineControlGroup(TagNode node) {
-    if (node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_TEXTAREA) || node.getNodeName().equalsIgnoreCase("select")) {
+    var nodeName = node.getNodeName();
+
+    if (nodeName.equalsIgnoreCase("textarea") || nodeName.equalsIgnoreCase("select")) {
       return true;
     }
 
-    if (!node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT)) {
+    if (!nodeName.equalsIgnoreCase("input")) {
       return false;
     }
 
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
-    return type != null && type.equalsIgnoreCase(HtmlConstants.TYPE_HIDDEN);
+    return type != null && type.equalsIgnoreCase("hidden");
   }
 
   public static boolean belongsToNumericControlGroup(TagNode node) {
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     if (type != null && type.equalsIgnoreCase("number")) {
       return true;
@@ -76,7 +77,7 @@ public class ControlGroup {
   }
 
   public static boolean belongsToPasswordControlGroup(TagNode node) {
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     if (type != null && type.equalsIgnoreCase("password")) {
       return true;
@@ -86,7 +87,7 @@ public class ControlGroup {
   }
 
   public static boolean belongsToTelControlGroup(TagNode node) {
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     if (type != null && type.equalsIgnoreCase("tel")) {
       return true;
@@ -96,25 +97,27 @@ public class ControlGroup {
   }
 
   public static boolean belongsToTextControlGroup(TagNode node) {
-    if (node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_TEXTAREA) || node.getNodeName().equalsIgnoreCase("select")) {
+    var nodeName = node.getNodeName();
+
+    if (nodeName.equalsIgnoreCase("textarea") || nodeName.equalsIgnoreCase("select")) {
       return true;
     }
 
-    if (!node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT)) {
+    if (!nodeName.equalsIgnoreCase("input")) {
       return false;
     }
 
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     if (type == null) {
       return false;
     }
 
-    return type.equalsIgnoreCase(HtmlConstants.TYPE_HIDDEN) || type.equalsIgnoreCase("text") || type.equalsIgnoreCase("search");
+    return type.equalsIgnoreCase("hidden") || type.equalsIgnoreCase("text") || type.equalsIgnoreCase("search");
   }
 
   public static boolean belongsToUrlControlGroup(TagNode node) {
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     if (type != null && type.equalsIgnoreCase("url")) {
       return true;
@@ -124,7 +127,7 @@ public class ControlGroup {
   }
 
   public static boolean belongsToUsernameControlGroup(TagNode node) {
-    String type = node.getAttribute("type");
+    var type = node.getAttribute("type");
 
     if (type != null && type.equalsIgnoreCase("email")) {
       return true;

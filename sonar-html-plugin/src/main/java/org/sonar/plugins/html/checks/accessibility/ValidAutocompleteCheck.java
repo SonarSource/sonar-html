@@ -18,7 +18,6 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.api.accessibility.ControlGroup;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -28,49 +27,52 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 @Rule(key = "S6840")
-public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends AbstractPageCheck {
-  static boolean isADirective(String value) {
-    return value.startsWith("<%=") || value.startsWith("<?");
-  }
-
+public class ValidAutocompleteCheck extends AbstractPageCheck {
+  /**
+   * A very naive and straightforward implementation of a validator capable of testing a candidate against a series
+   * of predicates until either one is matched or none is. Should totally be replaced by a validation library would
+   * we eventually decide to use one.
+   */
   static class Validator {
-    protected List<Predicate<Candidate>> constraints;
+    protected List<Predicate<Candidate>> predicates;
 
-    public Validator(List<Predicate<Candidate>> constraints) {
-      this.constraints = constraints;
+    public Validator(List<Predicate<Candidate>> predicates) {
+      this.predicates = predicates;
     }
 
     boolean isValid(TagNode tagNode) {
-      String autocomplete = tagNode.getAttribute("autocomplete");
+      var autocomplete = tagNode.getAttribute("autocomplete");
 
       if (autocomplete == null) {
         return true;
       }
 
-      String[] tokens = isADirective(autocomplete) ? new String[]{autocomplete} : autocomplete.split(" ");
+      var tokens = isADirective(autocomplete) ? new String[]{autocomplete} : autocomplete.split("\\s+");
+      var numberOfPredicates = predicates.size();
 
-      if (tokens.length != this.size()) {
+      if (tokens.length != numberOfPredicates) {
         return false;
       }
 
-      boolean isValid = true;
+      var isValid = true;
 
-      for (int i = 0; i < constraints.size(); i++) {
-        Predicate<Candidate> constraint = constraints.get(i);
-        String token = tokens[i];
-        Candidate candidate = new Candidate(token, tagNode);
+      for (int i = 0; i < numberOfPredicates; i++) {
+        var predicate = predicates.get(i);
+        var token = tokens[i];
+        var candidate = new Candidate(token, tagNode);
 
-        isValid = isValid && constraint.test(candidate);
+        isValid = isValid && predicate.test(candidate);
       }
 
       return isValid;
     }
-
-    int size() {
-      return constraints.size();
-    }
   }
 
+  /**
+   * A class representing an autocomplete token as defined by the HTML specification - i.e. a value and a control
+   * group this value belongs to.
+   * See https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
+   */
   static class Token {
     private final String value;
 
@@ -85,10 +87,14 @@ public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends Abs
     }
   }
 
+  /**
+   * A class representing an autocomplete value in the context of a tag - e.g. "cc-exp" in the context of an "input" -
+   * that can be validated as a whole.
+   */
   static class Candidate {
-    public final String value;
+    private final String value;
 
-    public final TagNode tagNode;
+    private final TagNode tagNode;
 
     Candidate(
       String value,
@@ -108,111 +114,115 @@ public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends Abs
 
   static List<Validator> validators = List.of(
     new Validator(List.of(
-      value -> value.value.isBlank()
+      candidate -> candidate.value.isBlank()
     )),
     new Validator(List.of(
       candidate -> isADirective(candidate.value)
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAOnOffToken
+      ValidAutocompleteCheck::isAOnOffToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumValueToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumValueToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumTypeToken,
+      ValidAutocompleteCheck::isAMediumValueToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isASection,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isASection,
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumTypeToken,
+      ValidAutocompleteCheck::isAMediumValueToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumTypeToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumTypeToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumTypeToken,
+      ValidAutocompleteCheck::isAMediumValueToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAddressType,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isAnAddressType,
+      ValidAutocompleteCheck::isAMediumTypeToken,
+      ValidAutocompleteCheck::isAMediumValueToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAnAutofillFieldNameToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isAnAutofillFieldNameToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken
+      ValidAutocompleteCheck::isAMediumValueToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isAMediumValueToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken
+      ValidAutocompleteCheck::isAMediumTypeToken,
+      ValidAutocompleteCheck::isAMediumValueToken
     )),
     new Validator(List.of(
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumTypeToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAMediumValueToken,
-      DomElementsShouldUseAutocompleteAttributeCorrectlyCheck::isAWebAuthnToken
+      ValidAutocompleteCheck::isAMediumTypeToken,
+      ValidAutocompleteCheck::isAMediumValueToken,
+      ValidAutocompleteCheck::isAWebAuthnToken
     ))
   );
+
+  static boolean isADirective(String value) {
+    return value.startsWith("<%=") || value.startsWith("<?");
+  }
 
   static boolean isAOnOffToken(Candidate candidate) {
     return Stream.of(
@@ -308,16 +318,16 @@ public class DomElementsShouldUseAutocompleteAttributeCorrectlyCheck extends Abs
 
   static boolean isAWebAuthnToken(Candidate candidate) {
     return Stream.of(
-      new Token("webauthn", node -> node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_INPUT) || node.getNodeName().equalsIgnoreCase(HtmlConstants.NAME_TEXTAREA))
+      new Token("webauthn", node -> node.getNodeName().equalsIgnoreCase("input") || node.getNodeName().equalsIgnoreCase("textarea"))
     ).anyMatch(candidate::satisfies);
   }
 
   @Override
   public void startElement(TagNode node) {
-    boolean isValid = validators.stream().anyMatch(validator -> validator.isValid(node));
+    var isValid = validators.stream().anyMatch(validator -> validator.isValid(node));
 
     if (!isValid) {
-      createViolation(node, "DOM elements should use the \"autocomplete\" attribute correctly");
+      createViolation(node, "DOM elements should use the \"autocomplete\" attribute correctly.");
     }
   }
 }
