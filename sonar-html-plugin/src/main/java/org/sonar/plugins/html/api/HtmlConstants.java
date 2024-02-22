@@ -254,10 +254,6 @@ public class HtmlConstants {
     return INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
   }
 
-  public static boolean isInteractiveElement(TagNode element) {
-    return INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
-  }
-
   public static boolean isNoninteractiveElement(TagNode element) {
     return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
   }
