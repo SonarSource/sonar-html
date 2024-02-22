@@ -1,0 +1,23 @@
+{
+  "title": "DOM elements with the `aria-activedescendant` property should be accessible via the tab key",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-6823",
+  "sqKey": "S6823",
+  "scope": "All",
+  "quickfix": "targeted",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "LOGICAL"
+  }
+}

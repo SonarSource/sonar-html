@@ -1,0 +1,21 @@
+<div aria-activedescendant="foo"></div> <!-- Noncompliant -->
+<span aria-activedescendant="foo"></span> <!-- Noncompliant -->
+<table aria-activedescendant="foo"></table> <!-- Noncompliant -->
+<div aria-activedescendant="foo" tabindex=""></div> <!-- Noncompliant -->
+<div aria-activedescendant="descendantId"> <!-- Noncompliant -->
+    <div id="descendantId"></div>
+</div>
+<div></div>
+<input/>
+<div tabIndex="0"></div>
+<div aria-activedescendant="foo" tabIndex="0"></div>
+<div aria-activedescendant="foo" tabIndex="1"></div>
+<div aria-activedescendant="foo" tabIndex="-1"></div>
+<input aria-activedescendant="foo"/>
+<input aria-activedescendant="foo" tabIndex="0"/>
+<input aria-activedescendant="foo" tabIndex="-1"/>
+<select aria-activedescendant="foo"></select>
+<div aria-activedescendant="descendantId" tabIndex="0">
+    <div id="descendantId"></div>
+</div>
+<input aria-activedescendant="foo" tabIndex=""/>

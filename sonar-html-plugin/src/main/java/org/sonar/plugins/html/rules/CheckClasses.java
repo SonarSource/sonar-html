@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
 import org.sonar.plugins.html.checks.accessibility.AnchorsShouldNotBeUsedAsButtonsCheck;
+import org.sonar.plugins.html.checks.accessibility.AriaActiveDescendantHasTabIndexCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
 import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.NoAriaHiddenOnFocusableCheck;
@@ -108,6 +109,7 @@ public final class CheckClasses {
     AbsoluteURICheck.class,
     AnchorsHaveContentCheck.class,
     AnchorsShouldNotBeUsedAsButtonsCheck.class,
+    AriaActiveDescendantHasTabIndexCheck.class,
     AriaProptypesCheck.class,
     AvoidCommentedOutCodeCheck.class,
     AvoidHtmlCommentCheck.class,
