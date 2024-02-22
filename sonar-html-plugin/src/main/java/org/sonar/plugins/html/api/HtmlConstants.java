@@ -20,6 +20,8 @@ package org.sonar.plugins.html.api;
 import java.util.List;
 import java.util.Set;
 
+import org.sonar.plugins.html.node.TagNode;
+
 public class HtmlConstants {
 
   /** The language key. */
@@ -206,4 +208,27 @@ public class HtmlConstants {
   private HtmlConstants() {
   }
 
+  public static boolean isHTMLTag(TagNode element) {
+    return KNOWN_HTML_TAGS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
+  }
+
+  public static boolean hasInteractiveRole(TagNode element) {
+    return INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
+  }
+
+  public static boolean isInteractiveElement(TagNode element) {
+    return INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
+  }
+
+  public static boolean isNoninteractiveElement(TagNode element) {
+    return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
+  }
+
+  public static boolean hasPresentationRole(TagNode element) {
+    return PRESENTATION_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
+  }
+
+  public static boolean hasNoninteractiveRole(TagNode element) {
+    return NON_INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
+  }
 }

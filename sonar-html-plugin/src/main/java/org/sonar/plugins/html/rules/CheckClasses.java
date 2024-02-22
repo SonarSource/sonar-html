@@ -22,6 +22,7 @@ import java.util.List;
 import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
 import org.sonar.plugins.html.checks.accessibility.AnchorsShouldNotBeUsedAsButtonsCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
+import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.ValidAutocompleteCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
@@ -122,6 +123,7 @@ public final class CheckClasses {
     FileLengthCheck.class,
     FixmeCommentCheck.class,
     FlashUsesBothObjectAndEmbedCheck.class,
+    FocusableInteractiveElementsCheck.class,
     FrameWithoutTitleCheck.class,
     HeaderCheck.class,
     HeadingHasAccessibleContentCheck.class,
