@@ -1,0 +1,981 @@
+{
+"project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/look/login/Login.jsp": [
+59,
+60
+],
+"project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/repositorySharing/explorer.html": [
+326,
+327
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/POPUP/jsp/readMessage.jsp": [
+88
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DomainsBarSilverpeasV5.jsp": [
+286,
+310,
+311,
+312,
+313,
+384,
+425,
+429,
+430,
+431
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/ExploitationSilverTrace.jsp": [
+317,
+318
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/Map.jsp": [
+202
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp": [
+228
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpage.jsp": [
+89,
+90,
+91
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMain.jsp": [
+84,
+85,
+86
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMainMax.jsp": [
+74,
+75,
+76
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMainMin.jsp": [
+73,
+74,
+75
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpagePopup.jsp": [
+94,
+95,
+96
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageTrapped.jsp": [
+97,
+98,
+99
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/pdcSearchSilverpeasV5.jsp": [
+225,
+226,
+227,
+228,
+229,
+230,
+231,
+232,
+233,
+234
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/popupError.jsp": [
+67,
+68,
+69,
+70,
+113,
+114,
+115,
+116,
+158,
+159,
+160,
+161
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp": [
+227,
+228
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/agenda.jsp": [
+347,
+374,
+432,
+433,
+437,
+438,
+439
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/busyTime.jsp": [
+289,
+290
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/calendar.jsp": [
+189,
+190,
+191,
+192,
+193,
+194
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/category.jsp": [
+180
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/chooseWorkingDays.jsp": [
+285,
+286,
+289,
+290,
+291
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
+586,
+587,
+588,
+589,
+590,
+950
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/tentative.jsp": [
+237,
+238,
+239,
+240,
+241
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+1024,
+1066,
+1067,
+1106,
+1107,
+1108
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/editAttachedFiles.jsp": [
+534,
+547,
+548,
+549
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/Idle.jsp": [
+187
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/IdleSilverpeasV5.jsp": [
+174
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/clipboard.jsp": [
+120,
+121,
+122,
+123,
+124,
+125,
+126
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultChangePassword.jsp": [
+174,
+175
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
+216,
+224,
+227
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestion.jsp": [
+105,
+106
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordExpired.jsp": [
+104,
+105
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultResetPassword.jsp": [
+114,
+115
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/explorer/jsp/explorer.jsp": [
+199
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/edit.jsp": [
+72
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/genericPanelPeas.jsp": [
+203,
+204
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/iCenterList.jsp": [
+81
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/newICenter.jsp": [
+102
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupCreate.jsp": [
+104,
+105
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp": [
+159,
+230,
+321
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userImport.jsp": [
+165,
+166,
+167
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createInstance.jsp": [
+263
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createSpace.jsp": [
+125
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp": [
+121
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
+187,
+188,
+189,
+222,
+228
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/linkManager.jsp": [
+139,
+158
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/viewLinks.jsp": [
+81,
+157,
+158,
+159,
+160,
+161,
+162
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/notificationUser/jsp/notificationSender.jsp": [
+214,
+217,
+219,
+220
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/FakeContent.jsp": [
+51
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
+266
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
+259
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchInit.jsp": [
+113
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
+216,
+218
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
+536,
+704,
+736,
+737,
+738,
+739,
+740,
+741,
+742,
+743,
+744,
+745
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
+590,
+591,
+592,
+593,
+594,
+595,
+596,
+597,
+598,
+765
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearchXML.jsp": [
+219,
+220,
+221,
+222
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/moveValue.jsp": [
+98
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
+180
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
+175
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/pdc.jsp": [
+102
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
+410,
+411,
+451
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionEdit.jsp": [
+379,
+380,
+418,
+419
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positions.jsp": [
+164
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionsInComponent.jsp": [
+180,
+181
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/resultSearchToSelect.jsp": [
+165,
+166,
+167,
+168,
+169,
+170,
+171,
+172,
+173,
+174
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
+209,
+210,
+211,
+212
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
+326,
+327,
+328,
+329
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
+176,
+177,
+178
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
+384,
+385,
+386,
+387,
+399
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/tree.jsp": [
+157,
+158
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilization.jsp": [
+101
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationAdd.jsp": [
+103,
+136,
+138,
+151,
+153
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationEdit.jsp": [
+102
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/subscription.jsp": [
+75
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/subscriptionList.jsp": [
+198
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionComponent.jsp": [
+85,
+152
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionTheme.jsp": [
+86,
+153
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/editNotification.jsp": [
+135
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/editPreference.jsp": [
+113
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
+192,
+193
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
+150
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp": [
+87,
+88
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/undeploy-portlet.jsp": [
+71
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp": [
+951,
+952,
+953
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/selectionCart.jsp": [
+227,
+228,
+229,
+230,
+231,
+232,
+233,
+234,
+235,
+236
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/selectionPeas.jsp": [
+347,
+348,
+349,
+350,
+351,
+352,
+353,
+354,
+355,
+356,
+357,
+358
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/ticketManager.jsp": [
+173,
+174,
+175,
+176
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/viewTickets.jsp": [
+61,
+136,
+137,
+138,
+139,
+143
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp": [
+186,
+195,
+201
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp": [
+100,
+101,
+102
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewConnection.jsp": [
+224,
+225
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewCrossPDCAccess.jsp": [
+103,
+104
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolume.jsp": [
+220,
+229,
+234
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabNetworks.jsp": [
+75,
+78
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabSettings.jsp": [
+66
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldMultivalues.jsp": [
+269,
+269
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldPdc.jsp": [
+121,
+122,
+123,
+124,
+125
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldWysiwyg.jsp": [
+88,
+91
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/templateHeader.jsp": [
+194,
+237,
+264
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/choiceAssignVoca.jsp": [
+80
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/thesaurus.jsp": [
+217
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/validateAssignVoca.jsp": [
+80
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thumbnail/jsp/thumbnailManager.jsp": [
+183,
+184,
+185,
+186,
+188,
+191,
+203,
+205,
+214,
+215,
+216,
+217,
+218
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/todo.jsp": [
+340,
+341,
+345,
+346,
+347,
+351
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/todoEdit.jsp": [
+621
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp": [
+159
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connection.jsp": [
+48
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connectionManager.jsp": [
+179,
+180,
+199
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/viewConnections.jsp": [
+108,
+109,
+110,
+111,
+114
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editAction.jsp": [
+329
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editColumns.jsp": [
+136
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editConsequence.jsp": [
+276
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editContextualDesignation.jsp": [
+140,
+141,
+142,
+143
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editForm.jsp": [
+278,
+279,
+280
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editInput.jsp": [
+161
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editItem.jsp": [
+223,
+224
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editParameter.jsp": [
+115,
+116
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editParticipant.jsp": [
+133
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editQualifiedUsers.jsp": [
+208,
+209
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editRelatedUser.jsp": [
+167,
+168,
+169,
+170,
+171
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editRole.jsp": [
+119
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editState.jsp": [
+331
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/htmlEditor.jsp": [
+421,
+422,
+423
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/floraexpress-ru.html": [
+1,
+1,
+1,
+1
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/percent-escaping.html": [
+10
+],
+"project:external_webkit-jb-mr1/PerformanceTests/XSSFilter/large-post-many-inline-scripts-and-events.html": [
+2
+],
+"project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.3.2/htdocs/index.html": [
+24
+],
+"project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/src/index.html": [
+87,
+96
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/config.html": [
+4864,
+4865
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/copyright.html": [
+102,
+103
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/credits.html": [
+626,
+627
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/developers.html": [
+86,
+87
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/faq.html": [
+1748,
+1749
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/genindex.html": [
+3673,
+3674
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/glossary.html": [
+598,
+599
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/index.html": [
+177,
+178
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/intro.html": [
+150,
+151
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/other.html": [
+102,
+103
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/privileges.html": [
+136,
+137
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/require.html": [
+138,
+139
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/setup.html": [
+449,
+450
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/transformations.html": [
+207,
+208
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/user.html": [
+103,
+104
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/vendors.html": [
+115,
+116
+],
+"project:phpMyAdmin-4.0.4-english/libraries/display_create_database.lib.php": [
+27
+],
+"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
+170,
+305
+],
+"project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
+290,
+307,
+336,
+342
+],
+"project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
+133,
+196,
+440,
+444,
+445
+],
+"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
+231,
+232,
+233,
+234
+],
+"project:phpMyAdmin-4.0.4-english/prefs_manage.php": [
+121,
+122,
+124,
+127,
+238
+],
+"project:phpMyAdmin-4.0.4-english/setup/frames/config.inc.php": [
+27
+],
+"project:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
+169,
+170,
+197,
+198,
+208
+],
+"project:phpMyAdmin-4.0.4-english/view_operations.php": [
+84
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/_new.html.erb": [
+3,
+4
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/autocomplete/_text_field.html.erb": [
+6
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/bulk_deletion/ghosts.html.erb": [
+58
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/bulk_deletion/index.html.erb": [
+24,
+54
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/comparison/index.html.erb": [
+70,
+71
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_header.html.erb": [
+22
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_widget_definition.html.erb": [
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create.html.erb": [
+32
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb": [
+3,
+5
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit.html.erb": [
+32
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb": [
+2,
+4,
+6
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/measures.html.erb": [
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/groups/select_user.html.erb": [
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_assign_form.html.erb": [
+3,
+4
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_comment_form.html.erb": [
+2,
+3
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_create_form.html.erb": [
+25,
+26
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_edit_comment_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_plan_form.html.erb": [
+29,
+30
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_severity_form.html.erb": [
+2,
+3
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_copy_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_edit_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_save_as_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_sidebar.html.erb": [
+7,
+9,
+10
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/manual_measures/new.html.erb": [
+21,
+84
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/manual_rules/index.html.erb": [
+40
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb": [
+2,
+3
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_sidebar.html.erb": [
+66,
+71
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/metrics/index.html.erb": [
+55
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb": [
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/projects.html.erb": [
+6
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/prepare_key_bulk_update.html.erb": [
+43,
+44,
+45
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/profile.html.erb": [
+19,
+20
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/edit_groups.html.erb": [
+10,
+11
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/edit_users.html.erb": [
+10,
+11,
+12
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_options.html.erb": [
+16,
+17,
+18
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_default_project_groups.html.erb": [
+11,
+12,
+13,
+14,
+15
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_default_project_users.html.erb": [
+10,
+11,
+12,
+13,
+14
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_groups.html.erb": [
+15,
+16,
+17,
+18,
+19,
+20
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_users.html.erb": [
+15,
+16,
+17,
+18,
+19,
+20
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/projects.html.erb": [
+75
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/index.html.erb": [
+124,
+125
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/treemap/_treemap_container.html.erb": [
+22
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/select_group.html.erb": [
+6
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/index.html": [
+211
+],
+"project:voten/resources/assets/js/components/passport/Clients.vue": [
+84,
+152
+],
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+67,
+135
+],
+"project:voten/resources/views/auth/passwords/reset.blade.php": [
+39
+],
+"project:voten/resources/views/backend/announcements.blade.php": [
+35
+],
+"project:voten/resources/views/backend/firewall.blade.php": [
+168,
+169,
+228
+],
+"project:voten/resources/views/backend/spams/comments.blade.php": [
+84,
+96
+],
+"project:voten/resources/views/backend/spams/submissions.blade.php": [
+84,
+96
+],
+"project:voten/resources/views/backend/user.blade.php": [
+26,
+28,
+213,
+215,
+248
+]
+}
