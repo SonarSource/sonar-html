@@ -33,7 +33,7 @@ public class AnchorsShouldNotBeUsedAsButtonsCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (node.getNodeName().equalsIgnoreCase("a")) {
+    if ("a".equalsIgnoreCase(node.getNodeName())) {
       String onClickAttribute = node.getAttribute("onclick");
 
       if (onClickAttribute == null) {
