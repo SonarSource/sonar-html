@@ -36,12 +36,13 @@ public class AnchorsShouldNotBeUsedAsButtonsCheck extends AbstractPageCheck {
     if (node.getNodeName().equalsIgnoreCase("a")) {
       String onClickAttribute = node.getAttribute("onclick");
 
-      if (onClickAttribute != null) {
-        String hrefAttribute = node.getAttribute("href");
+      if (onClickAttribute == null) {
+        return;
+      }
+      String hrefAttribute = node.getAttribute("href");
 
-        if (hrefAttribute == null || hrefAttribute.isBlank() || hrefAttribute.equals("#") || isAJavascriptHandler(hrefAttribute)) {
-          createViolation(node, "Anchor tags should not be used as buttons.");
-        }
+      if (hrefAttribute == null || hrefAttribute.isBlank() || "#".equals(hrefAttribute) || isAJavascriptHandler(hrefAttribute)) {
+        createViolation(node, "Anchor tags should not be used as buttons.");
       }
     }
   }
