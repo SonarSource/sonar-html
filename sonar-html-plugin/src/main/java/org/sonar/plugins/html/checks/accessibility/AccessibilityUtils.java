@@ -26,8 +26,22 @@ public class AccessibilityUtils {
   }
 
   public static boolean isHiddenFromScreenReader(TagNode element) {
-    return ("input".equalsIgnoreCase(element.getNodeName())
-        && "hidden".equalsIgnoreCase(element.getPropertyValue("type")))
-        || "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"));
+    return (
+      (
+        "input".equalsIgnoreCase(element.getNodeName()) &&
+        "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
+      ) ||
+      "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
+    );
+  }
+
+  public static boolean isDisabledElement(TagNode element) {
+    var disabledAttr = element.getAttribute("disabled");
+    if (disabledAttr != null) {
+      return true;
+    }
+
+    var ariaDisabledAttr = element.getAttribute("aria-disabled");
+    return "true".equalsIgnoreCase(ariaDisabledAttr);
   }
 }

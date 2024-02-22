@@ -19,6 +19,9 @@ package org.sonar.plugins.html.api;
 
 import java.util.List;
 import java.util.Set;
+import org.sonar.plugins.html.node.TagNode;
+
+import org.sonar.plugins.html.node.TagNode;
 
 public class HtmlConstants {
 
@@ -42,12 +45,16 @@ public class HtmlConstants {
     "area",
     "abbr",
     "address",
+    "applet", // deprecated
     "article",
     "aside",
     "audio",
     "b",
     "base",
+    "bdi",
+    "bdo",
     "big", // deprecated
+    "blink", // deprecated
     "blockquote",
     "body",
     "br",
@@ -99,6 +106,7 @@ public class HtmlConstants {
     "input",
     "ins",
     "kbd",
+    "keygen", // deprecated
     "label",
     "legend",
     "li",
@@ -131,6 +139,7 @@ public class HtmlConstants {
     "rb", // deprecated
     "rp",
     "rt", // deprecated
+    "rtc", // deprecated
     "ruby",
     "s",
     "samp",
@@ -141,6 +150,7 @@ public class HtmlConstants {
     "shadow", // deprecated
     "small",
     "source",
+    "spacer", // deprecated
     "span",
     "strike", // deprecated
     "strong",
@@ -203,7 +213,60 @@ public class HtmlConstants {
     "command", "composite", "input", "landmark", "range", "roletype", "section", "sectionhead", "select", "structure", "toolbar", "widget", "window"
   );
 
+  public static boolean isInteractiveElement(TagNode element) {
+    var tagName = element.getNodeName();
+    return INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
+  }
+
+  public static boolean isNonInteractiveElement(TagNode element) {
+    var tagName = element.getNodeName();
+    return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
+  }
+
+  public static boolean isInteractiveRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
+  public static boolean isNonInteractiveRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && NON_INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
+  public static boolean isPresentationRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && PRESENTATION_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
+  public static boolean isAbstractRole(TagNode element) {
+    var role = element.getAttribute("role");
+    return role != null && ABSTRACT_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
   private HtmlConstants() {
   }
 
+  public static boolean isHTMLTag(TagNode element) {
+    return KNOWN_HTML_TAGS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
+  }
+
+  public static boolean hasInteractiveRole(TagNode element) {
+    return INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
+  }
+
+  public static boolean isInteractiveElement(TagNode element) {
+    return INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
+  }
+
+  public static boolean isNoninteractiveElement(TagNode element) {
+    return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
+  }
+
+  public static boolean hasPresentationRole(TagNode element) {
+    return PRESENTATION_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
+  }
+
+  public static boolean hasNoninteractiveRole(TagNode element) {
+    return NON_INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
+  }
 }

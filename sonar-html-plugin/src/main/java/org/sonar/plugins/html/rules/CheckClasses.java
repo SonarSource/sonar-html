@@ -20,7 +20,9 @@ package org.sonar.plugins.html.rules;
 import java.util.List;
 
 import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
+import org.sonar.plugins.html.checks.accessibility.AnchorsShouldNotBeUsedAsButtonsCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
+import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.ValidAutocompleteCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
@@ -28,6 +30,7 @@ import org.sonar.plugins.html.checks.accessibility.NoInteractiveElementToNoninte
 import org.sonar.plugins.html.checks.accessibility.NoNonInteractiveElementsWithHandlersCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNoninteractiveElementToInteractiveRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNoninteractiveTabIndexCheck;
+import org.sonar.plugins.html.checks.accessibility.NoStaticElementInteractionsCheck;
 import org.sonar.plugins.html.checks.accessibility.TabIndexNoPositiveCheck;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.html.checks.attributes.NoAccessKeyCheck;
@@ -103,6 +106,7 @@ public final class CheckClasses {
   private static final List<Class<?>> CLASSES = List.of(
     AbsoluteURICheck.class,
     AnchorsHaveContentCheck.class,
+    AnchorsShouldNotBeUsedAsButtonsCheck.class,
     AriaProptypesCheck.class,
     AvoidCommentedOutCodeCheck.class,
     AvoidHtmlCommentCheck.class,
@@ -120,6 +124,7 @@ public final class CheckClasses {
     FileLengthCheck.class,
     FixmeCommentCheck.class,
     FlashUsesBothObjectAndEmbedCheck.class,
+    FocusableInteractiveElementsCheck.class,
     FrameWithoutTitleCheck.class,
     HeaderCheck.class,
     HeadingHasAccessibleContentCheck.class,
@@ -157,6 +162,7 @@ public final class CheckClasses {
     NonConsecutiveHeadingCheck.class,
     NoNonInteractiveElementsWithHandlersCheck.class,
     NoNoninteractiveElementToInteractiveRoleCheck.class,
+    NoStaticElementInteractionsCheck.class,
     NoNoninteractiveTabIndexCheck.class,
     ObjectWithAlternativeContentCheck.class,
     PageWithoutFaviconCheck.class,

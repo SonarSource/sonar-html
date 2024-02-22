@@ -1,0 +1,36 @@
+<!-- Ignored: Missing role -->
+<Foo />
+
+<!-- Ignored: Custom -->
+<Foo role="bar" />
+
+<!-- Ignored: No interactive props -->
+<div role="foo" onBar="" />
+<div role="foo" onBar />
+<div role="foo" onClick />
+<div role="foo" onClick="" />
+
+<!-- Ignored: Disabled -->
+<div role="button" onClick="bar()" disabled />
+<div role="button" onClick="bar()" aria-disabled="true" />
+
+<!-- Ignored: Hidden -->
+<div role="button" onClick="bar()" aria-hidden="true" />
+
+<!-- Ignored: Interactive element -->
+<audio role="button" onClick="bar()" />
+
+<!-- Ignored: Noninteractive element -->
+<dialog role="button" onClick="bar()" />
+
+<!-- Ignored: Presentation role -->
+<div role="presentation" onClick="bar()" />
+
+<!-- Ignored: Noninteractive role -->
+<div role="alert" onClick="bar()" />
+
+<!-- Ignored: tabindex -->
+<div role="button" onClick="bar()" tabindex="-1" />
+
+<!-- Noncompliant -->
+<div role="button" onClick="foo" />

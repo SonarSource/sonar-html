@@ -32,15 +32,15 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
-@Rule(key = "S6847")
-public class NoNonInteractiveElementsWithHandlersCheck extends AbstractPageCheck {
+@Rule(key = "S6848")
+public class NoStaticElementInteractionsCheck extends AbstractPageCheck {
 
-  private static final String MESSAGE = "Non-interactive elements should not be assigned mouse or keyboard event listeners.";
+  private static final String MESSAGE = "Avoid non-native interactive elements. If using native HTML is not possible," +
+    " add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.";
   private static final Set<String> INTERACTIVE_PROPS = new HashSet<>();
 
   static {
     INTERACTIVE_PROPS.addAll(EventHandlers.EVENT_HANDLERS_BY_TYPE.get("focus"));
-    INTERACTIVE_PROPS.addAll(EventHandlers.EVENT_HANDLERS_BY_TYPE.get("image"));
     INTERACTIVE_PROPS.addAll(EventHandlers.EVENT_HANDLERS_BY_TYPE.get("keyboard"));
     INTERACTIVE_PROPS.addAll(EventHandlers.EVENT_HANDLERS_BY_TYPE.get("mouse"));
   }
@@ -48,18 +48,21 @@ public class NoNonInteractiveElementsWithHandlersCheck extends AbstractPageCheck
   @Override
   public void startElement(TagNode element) {
     var tagName = element.getNodeName();
+
     if (!KNOWN_HTML_TAGS.contains(tagName)) {
       return;
     }
 
-    if (!hasInteractiveProps(element)
-        || isContentEditable(element)
-        || isHiddenFromScreenReader(element)
-        || isPresentationRole(element)
-        || isInteractiveElement(element)
-        || isInteractiveRole(element)
-        || (!isNonInteractiveElement(element) && !isNonInteractiveRole(element))
-        || isAbstractRole(element)) {
+    if (
+      !hasInteractiveProps(element) ||
+      isHiddenFromScreenReader(element) ||
+      isPresentationRole(element) ||
+      isInteractiveElement(element) ||
+      isInteractiveRole(element) ||
+      isNonInteractiveElement(element) ||
+      isNonInteractiveRole(element) ||
+      isAbstractRole(element)
+    ) {
       return;
     }
 
@@ -71,10 +74,5 @@ public class NoNonInteractiveElementsWithHandlersCheck extends AbstractPageCheck
       var attr = element.getAttribute(prop);
       return attr != null && !attr.isEmpty();
     });
-  }
-
-  private static boolean isContentEditable(TagNode element) {
-    var contentEditable = element.getAttribute("contenteditable");
-    return contentEditable != null && contentEditable.equalsIgnoreCase("true");
   }
 }
