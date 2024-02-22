@@ -17,12 +17,12 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ELEMENTS;
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ROLES;
-import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
-import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ELEMENTS;
-import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ROLES;
-import static org.sonar.plugins.html.api.HtmlConstants.PRESENTATION_ROLES;
+import static org.sonar.plugins.html.api.HtmlConstants.isHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
+import static org.sonar.plugins.html.api.HtmlConstants.isNoninteractiveElement;
+import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasNoninteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasPresentationRole;
 import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isDisabledElement;
 import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
@@ -69,34 +69,10 @@ public class FocusableInteractiveElementsCheck extends AbstractPageCheck {
     createViolation(element.getStartLinePosition(), message);
   }
 
-  private static boolean isHTMLTag(TagNode element) {
-    return KNOWN_HTML_TAGS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
-  }
-
   private static boolean hasInteractiveProps(TagNode element) {
     return INTERACTIVE_PROPS.stream().anyMatch(prop -> {
       var attr = element.getAttribute(prop);
       return attr != null && !attr.isEmpty();
     });
-  }
-
-  private static boolean hasInteractiveRole(TagNode element) {
-    return INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
-  }
-
-  private static boolean isInteractiveElement(TagNode element) {
-    return INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
-  }
-
-  private static boolean isNoninteractiveElement(TagNode element) {
-    return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
-  }
-
-  private static boolean hasPresentationRole(TagNode element) {
-    return PRESENTATION_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
-  }
-
-  private static boolean hasNoninteractiveRole(TagNode element) {
-    return NON_INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
   }
 }
