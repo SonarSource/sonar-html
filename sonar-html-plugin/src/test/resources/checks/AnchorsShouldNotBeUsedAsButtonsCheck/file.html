@@ -1,0 +1,11 @@
+<a onClick="foo"/> <!-- Noncompliant -->
+<a href="javascript:void(0)" onClick="foo"/> <!-- Noncompliant -->
+<a href="#" onClick="foo"/> <!-- Noncompliant -->
+<a href="" onClick="foo"/> <!-- Noncompliant -->
+
+<button onClick="foo">Perform action</button>
+<a href="#section" onClick="foo"/>
+<a href="#section" onClick="foo"/>
+<a href="#section" onClick="javascript"/>
+<a href=""/>
+<a/>
