@@ -15,9 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.sonar.plugins.html.checks.accessibility;
+package org.sonar.plugins.html.api.accessibility;
 
 import org.sonar.plugins.html.node.TagNode;
+
+import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 
 public class AccessibilityUtils {
 
@@ -43,5 +45,13 @@ public class AccessibilityUtils {
 
     var ariaDisabledAttr = element.getAttribute("aria-disabled");
     return "true".equalsIgnoreCase(ariaDisabledAttr);
+  }
+
+  public static boolean isFocusableElement(TagNode element) {
+    String tabindex = element.getAttribute("tabindex");
+    if (isInteractiveElement(element)) {
+      return tabindex == null || Double.parseDouble(tabindex) >= 0;
+    }
+    return tabindex != null && Double.parseDouble(tabindex) >= 0;
   }
 }

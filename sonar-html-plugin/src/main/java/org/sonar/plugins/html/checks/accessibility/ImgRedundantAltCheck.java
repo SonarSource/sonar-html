@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 @Rule(key = "S6851")
 public class ImgRedundantAltCheck extends AbstractPageCheck {
