@@ -23,11 +23,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.checks.accessibility.Aria.AriaProperty;
-import org.sonar.plugins.html.checks.accessibility.Aria.AriaPropertyType;
+import org.sonar.plugins.html.api.accessibility.Aria.AriaProperty;
+import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyType;
 import org.sonar.plugins.html.node.TagNode;
 
-import static org.sonar.plugins.html.checks.accessibility.Aria.ARIA_PROPERTIES;
+import static org.sonar.plugins.html.api.accessibility.Aria.ARIA_PROPERTIES;
 
 @Rule(key = "S6793")
 public class AriaProptypesCheck extends AbstractPageCheck {
