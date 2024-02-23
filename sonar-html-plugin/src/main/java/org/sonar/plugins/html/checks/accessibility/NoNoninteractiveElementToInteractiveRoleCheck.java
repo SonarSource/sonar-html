@@ -21,7 +21,6 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
 
-import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
