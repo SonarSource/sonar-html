@@ -28,6 +28,12 @@ or
 
     mvn clean verify
 
+To generate coverage while running the tests, execute this command:
+
+    mvn clean verify -Pcoverage -Dmaven.test.redirectTestOutputToFile=false
+
+Then find the coverage report in `sonar-html-plugin/target/site/jacoco/index.html`.
+
 ### Integration Tests
 
 By default, Integration Tests (ITs) are skipped during build. If you want to run them, you need first to retrieve the related projects which are used as input:
@@ -52,6 +58,10 @@ The "Ruling Test" are an integration test suite which launches the analysis of a
 
     cd its/ruling
     mvn verify
+
+To update the ruling results run:
+
+    rsync -avh its/ruling/target/actual/ its/ruling/src/test/resources/expected/ --delete
 
 ### License
 
