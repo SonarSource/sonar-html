@@ -17,31 +17,30 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import org.sonar.check.Rule;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
-public class AccessibilityUtils {
+import static org.sonar.plugins.html.api.HtmlConstants.isKnownHTMLTag;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isFocusableElement;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
-  private AccessibilityUtils() {
-    // utility class
-  }
+@Rule(key = "S6825")
+public class NoAriaHiddenOnFocusableCheck extends AbstractPageCheck {
 
-  public static boolean isHiddenFromScreenReader(TagNode element) {
-    return (
-      (
-        "input".equalsIgnoreCase(element.getNodeName()) &&
-        "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
-      ) ||
-      "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
-    );
-  }
+  private static final String MESSAGE = "aria-hidden=\"true\" must not be set on focusable elements.";
 
-  public static boolean isDisabledElement(TagNode element) {
-    var disabledAttr = element.getAttribute("disabled");
-    if (disabledAttr != null) {
-      return true;
+  @Override
+  public void startElement(TagNode node) {
+    if (!isKnownHTMLTag(node)) {
+      return;
     }
-
-    var ariaDisabledAttr = element.getAttribute("aria-disabled");
-    return "true".equalsIgnoreCase(ariaDisabledAttr);
+    if (
+        isFocusableElement(node) &&
+        isHiddenFromScreenReader(node)
+    ) {
+      createViolation(node, MESSAGE);
+    }
   }
+
 }

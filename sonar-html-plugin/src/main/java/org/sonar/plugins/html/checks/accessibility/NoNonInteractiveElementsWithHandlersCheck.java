@@ -24,7 +24,7 @@ import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
 import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.isPresentationRole;
-import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 import java.util.HashSet;
 import java.util.Set;

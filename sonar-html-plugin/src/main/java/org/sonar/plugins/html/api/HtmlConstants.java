@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Set;
 import org.sonar.plugins.html.node.TagNode;
 
-import org.sonar.plugins.html.node.TagNode;
-
 public class HtmlConstants {
 
   /** The language key. */
@@ -246,7 +244,7 @@ public class HtmlConstants {
   private HtmlConstants() {
   }
 
-  public static boolean isHTMLTag(TagNode element) {
+  public static boolean isKnownHTMLTag(TagNode element) {
     return KNOWN_HTML_TAGS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
   }
 

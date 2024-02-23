@@ -17,14 +17,14 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.isHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.isKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 import static org.sonar.plugins.html.api.HtmlConstants.isNoninteractiveElement;
 import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.hasNoninteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.hasPresentationRole;
-import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isDisabledElement;
-import static org.sonar.plugins.html.checks.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isDisabledElement;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +51,7 @@ public class FocusableInteractiveElementsCheck extends AbstractPageCheck {
       return;
     }
 
-    if (!isHTMLTag(element)
+    if (!isKnownHTMLTag(element)
       || !hasInteractiveProps(element)
       || !hasInteractiveRole(element)
       || isDisabledElement(element)

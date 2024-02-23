@@ -24,6 +24,7 @@ import org.sonar.plugins.html.checks.accessibility.AnchorsShouldNotBeUsedAsButto
 import org.sonar.plugins.html.checks.accessibility.AriaActiveDescendantHasTabIndexCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
 import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
+import org.sonar.plugins.html.checks.accessibility.NoAriaHiddenOnFocusableCheck;
 import org.sonar.plugins.html.checks.accessibility.ValidAutocompleteCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
@@ -160,6 +161,7 @@ public final class CheckClasses {
     MultiplePageDirectivesCheck.class,
     NestedJavaScriptCheck.class,
     NoAccessKeyCheck.class,
+    NoAriaHiddenOnFocusableCheck.class,
     NoInteractiveElementToNoninteractiveRoleCheck.class,
     NonConsecutiveHeadingCheck.class,
     NoNonInteractiveElementsWithHandlersCheck.class,
