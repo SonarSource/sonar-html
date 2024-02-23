@@ -17,7 +17,7 @@ important to ensure that non-interactive DOM elements are not given interactive 
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
 <pre data-diff-id="1" data-diff-type="noncompliant">
-&lt;li role="button"&gt;Foo&lt;/li&gt;; // Noncompliant; "li" isn't interactive, but "button" is
+&lt;li role="button"&gt;Foo&lt;/li&gt; &lt;!--Noncompliant; "li" isn't interactive, but "button" is--&gt;
 </pre>
 <h4>Compliant solution</h4>
 <pre data-diff-id="1" data-diff-type="compliant">
