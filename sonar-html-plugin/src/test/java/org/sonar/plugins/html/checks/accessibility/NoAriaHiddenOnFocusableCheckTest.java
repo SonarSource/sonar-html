@@ -34,7 +34,7 @@ class NoAriaHiddenOnFocusableCheckTest {
       new File("src/test/resources/checks/NoAriaHiddenOnFocusableCheck/valid.html"),
       new NoAriaHiddenOnFocusableCheck());
 
-  checkMessagesVerifier.verify(sourceCode.getIssues())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .noMore();
   }
 
