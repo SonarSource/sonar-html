@@ -17,11 +17,11 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.isKnownHTMLTag;
-import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
-import static org.sonar.plugins.html.api.HtmlConstants.isNoninteractiveElement;
 import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
-import static org.sonar.plugins.html.api.HtmlConstants.hasNoninteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
+import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
+import static org.sonar.plugins.html.api.HtmlConstants.hasNonInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.hasPresentationRole;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isDisabledElement;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
@@ -51,15 +51,15 @@ public class FocusableInteractiveElementsCheck extends AbstractPageCheck {
       return;
     }
 
-    if (!isKnownHTMLTag(element)
+    if (!hasKnownHTMLTag(element)
       || !hasInteractiveProps(element)
       || !hasInteractiveRole(element)
       || isDisabledElement(element)
       || isHiddenFromScreenReader(element)
       || isInteractiveElement(element)
-      || isNoninteractiveElement(element)
+      || isNonInteractiveElement(element)
       || hasPresentationRole(element)
-      || hasNoninteractiveRole(element)
+      || hasNonInteractiveRole(element)
       || element.hasProperty("tabindex")
       ) {
       return;

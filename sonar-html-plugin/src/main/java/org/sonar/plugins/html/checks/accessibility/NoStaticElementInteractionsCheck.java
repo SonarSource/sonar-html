@@ -18,12 +18,12 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
-import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasAbstractRole;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
-import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
-import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveRole;
-import static org.sonar.plugins.html.api.HtmlConstants.isPresentationRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasNonInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasPresentationRole;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 import java.util.HashSet;
@@ -56,12 +56,12 @@ public class NoStaticElementInteractionsCheck extends AbstractPageCheck {
     if (
       !hasInteractiveProps(element) ||
       isHiddenFromScreenReader(element) ||
-      isPresentationRole(element) ||
+      hasPresentationRole(element) ||
       isInteractiveElement(element) ||
-      isInteractiveRole(element) ||
+      hasInteractiveRole(element) ||
       isNonInteractiveElement(element) ||
-      isNonInteractiveRole(element) ||
-      isAbstractRole(element)
+      hasNonInteractiveRole(element) ||
+      hasAbstractRole(element)
     ) {
       return;
     }
