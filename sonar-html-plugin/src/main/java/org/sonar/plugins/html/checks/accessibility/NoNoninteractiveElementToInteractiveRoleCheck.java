@@ -17,9 +17,9 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ROLES;
-import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
-import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ELEMENTS;
+import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
 
 import java.util.Locale;
 import org.sonar.check.Rule;
@@ -33,13 +33,10 @@ public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageC
 
   @Override
   public void startElement(TagNode node) {
-    var role = node.getPropertyValue("role");
-    var tagName = node.getNodeName().toLowerCase(Locale.ROOT);
     if (
-      role != null &&
-      KNOWN_HTML_TAGS.contains(tagName) &&
-      NON_INTERACTIVE_ELEMENTS.contains(tagName) &&
-      INTERACTIVE_ROLES.contains(role)
+      hasKnownHTMLTag(node) &&
+      isNonInteractiveElement(node) &&
+      hasInteractiveRole(node)
     ) {
       createViolation(node, MESSAGE);
     }

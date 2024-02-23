@@ -17,15 +17,14 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ELEMENTS;
-import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
-import static org.sonar.plugins.html.api.HtmlConstants.NON_INTERACTIVE_ROLES;
-import static org.sonar.plugins.html.api.HtmlConstants.PRESENTATION_ROLES;
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.hasNonInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasPresentationRole;
+import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 
 @Rule(key = "S6843")
 public class NoInteractiveElementToNoninteractiveRoleCheck extends AbstractPageCheck {
@@ -34,13 +33,10 @@ public class NoInteractiveElementToNoninteractiveRoleCheck extends AbstractPageC
 
   @Override
   public void startElement(TagNode node) {
-    var role = node.getPropertyValue("role");
-    var tagName = node.getNodeName().toLowerCase(Locale.ROOT);
     if (
-      role != null &&
-      KNOWN_HTML_TAGS.contains(tagName) &&
-      INTERACTIVE_ELEMENTS.contains(tagName) &&
-      (NON_INTERACTIVE_ROLES.contains(role) || PRESENTATION_ROLES.contains(role))
+      hasKnownHTMLTag(node) &&
+      isInteractiveElement(node) &&
+      (hasNonInteractiveRole(node) || hasPresentationRole(node))
     ) {
       createViolation(node, MESSAGE);
     }

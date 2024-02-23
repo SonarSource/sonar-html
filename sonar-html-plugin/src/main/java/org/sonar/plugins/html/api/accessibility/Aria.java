@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.sonar.plugins.html.checks.accessibility;
+package org.sonar.plugins.html.api.accessibility;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,7 +80,7 @@ public class Aria {
     ARIA_PROPERTIES.put("aria-valuetext", new AriaProperty("aria-valuetext", AriaPropertyType.STRING));
   }
 
-  static class AriaProperty {
+  public static class AriaProperty {
     private final String name;
     private final AriaPropertyType type;
     private final Optional<Boolean> allowUndefined;
@@ -114,7 +114,7 @@ public class Aria {
     }
   }
 
-  enum AriaPropertyType {
+  public enum AriaPropertyType {
     BOOLEAN("boolean"),
     STRING("string"),
     TOKEN("token"),
