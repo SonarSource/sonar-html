@@ -20,7 +20,6 @@ package org.sonar.plugins.html.checks.accessibility;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.BufferStack;
-import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
@@ -31,6 +30,8 @@ import org.sonar.plugins.html.node.Attribute;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
+
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 @Rule(key = "S6850")
 public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
@@ -60,7 +61,7 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
       String nodeName = node.getNodeName();
 
       // tags that are not part of the known HTML tags list are considered as content
-      if (!HtmlConstants.KNOWN_HTML_TAGS.contains(nodeName)) {
+      if (!hasKnownHTMLTag(node)) {
         bufferStack.write(nodeName);
       }
     }

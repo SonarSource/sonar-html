@@ -17,9 +17,9 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ELEMENTS;
-import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ROLES;
-import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
+import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -32,7 +32,7 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (!isHTMLTag(node) || isInteractiveElement(node) || hasInteractiveRole(node)) {
+    if (!hasKnownHTMLTag(node) || isInteractiveElement(node) || hasInteractiveRole(node)) {
       return;
     }
 
@@ -49,20 +49,5 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
     } catch (NumberFormatException e) {
       // ignore
     }
-  }
-
-  private static boolean isHTMLTag(TagNode element) {
-    var tagName = element.getNodeName();
-    return KNOWN_HTML_TAGS.stream().anyMatch(tagName::equalsIgnoreCase);
-  }
-
-  private static boolean isInteractiveElement(TagNode element) {
-    var tagName = element.getNodeName();
-    return INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
-  }
-
-  private static boolean hasInteractiveRole(TagNode element) {
-    var role = element.getAttribute("role");
-    return role != null && INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
   }
 }

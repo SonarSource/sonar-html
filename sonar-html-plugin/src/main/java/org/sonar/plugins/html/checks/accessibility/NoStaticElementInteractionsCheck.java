@@ -17,8 +17,8 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.KNOWN_HTML_TAGS;
 import static org.sonar.plugins.html.api.HtmlConstants.hasAbstractRole;
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
@@ -47,9 +47,7 @@ public class NoStaticElementInteractionsCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {
-    var tagName = element.getNodeName();
-
-    if (!KNOWN_HTML_TAGS.contains(tagName)) {
+    if (!hasKnownHTMLTag(element)) {
       return;
     }
 
