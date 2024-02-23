@@ -221,46 +221,30 @@ public class HtmlConstants {
     return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
   }
 
-  public static boolean isInteractiveRole(TagNode element) {
+  public static boolean hasInteractiveRole(TagNode element) {
     var role = element.getAttribute("role");
     return role != null && INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
   }
 
-  public static boolean isNonInteractiveRole(TagNode element) {
+  public static boolean hasNonInteractiveRole(TagNode element) {
     var role = element.getAttribute("role");
     return role != null && NON_INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
   }
 
-  public static boolean isPresentationRole(TagNode element) {
+  public static boolean hasPresentationRole(TagNode element) {
     var role = element.getAttribute("role");
     return role != null && PRESENTATION_ROLES.stream().anyMatch(role::equalsIgnoreCase);
   }
 
-  public static boolean isAbstractRole(TagNode element) {
+  public static boolean hasAbstractRole(TagNode element) {
     var role = element.getAttribute("role");
     return role != null && ABSTRACT_ROLES.stream().anyMatch(role::equalsIgnoreCase);
   }
 
-  private HtmlConstants() {
-  }
-
-  public static boolean isKnownHTMLTag(TagNode element) {
+  public static boolean hasKnownHTMLTag(TagNode element) {
     return KNOWN_HTML_TAGS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
   }
 
-  public static boolean hasInteractiveRole(TagNode element) {
-    return INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
-  }
-
-  public static boolean isNoninteractiveElement(TagNode element) {
-    return NON_INTERACTIVE_ELEMENTS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
-  }
-
-  public static boolean hasPresentationRole(TagNode element) {
-    return PRESENTATION_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
-  }
-
-  public static boolean hasNoninteractiveRole(TagNode element) {
-    return NON_INTERACTIVE_ROLES.stream().anyMatch(role -> role.equalsIgnoreCase(element.getAttribute("role")));
+  private HtmlConstants() {
   }
 }

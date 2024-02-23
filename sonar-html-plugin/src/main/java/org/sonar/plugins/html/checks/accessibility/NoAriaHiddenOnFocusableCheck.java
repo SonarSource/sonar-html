@@ -21,7 +21,7 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
-import static org.sonar.plugins.html.api.HtmlConstants.isKnownHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isFocusableElement;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
@@ -32,7 +32,7 @@ public class NoAriaHiddenOnFocusableCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (!isKnownHTMLTag(node)) {
+    if (!hasKnownHTMLTag(node)) {
       return;
     }
     if (
