@@ -37,10 +37,14 @@ public class NoAriaHiddenOnFocusableCheck extends AbstractPageCheck {
     }
     if (
         isFocusableElement(node) &&
-        isHiddenFromScreenReader(node)
+        hasAriaHidden(node)
     ) {
       createViolation(node, MESSAGE);
     }
+  }
+
+  private static boolean hasAriaHidden(TagNode node) {
+    return "true".equalsIgnoreCase(node.getPropertyValue("aria-hidden"));
   }
 
 }
