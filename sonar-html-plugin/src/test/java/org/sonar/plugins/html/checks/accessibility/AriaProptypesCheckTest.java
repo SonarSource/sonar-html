@@ -42,11 +42,11 @@ class AriaProptypesCheckTest {
       .next().atLine(20).withMessage("The value of the attribute \"aria-checked\" must be a boolean or the string \"mixed\".")
       .next().atLine(26).withMessage("The value of the attribute \"aria-valuemax\" must be a number.")
       .next().atLine(32).withMessage("The value of the attribute \"aria-posinset\" must be a integer.")
-      .next().atLine(37)
-      .next().atLine(42)
+      .next().atLine(38)
       .next().atLine(43)
-      .next().atLine(48).withMessage("The value of the attribute \"aria-controls\" must be a list of strings that represent DOM element IDs (idlist).")
-      .next().atLine(52).withMessage("The value of the attribute \"aria-details\" must be a string that represents a DOM element ID.")
+      .next().atLine(44)
+      .next().atLine(49).withMessage("The value of the attribute \"aria-controls\" must be a list of strings that represent DOM element IDs (idlist).")
+      .next().atLine(53).withMessage("The value of the attribute \"aria-details\" must be a string that represents a DOM element ID.")
       .noMore();
   }
 }
