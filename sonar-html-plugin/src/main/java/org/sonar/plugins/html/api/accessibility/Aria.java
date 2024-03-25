@@ -48,7 +48,7 @@ public class Aria {
     ARIA_PROPERTIES.put("aria-expanded", new AriaProperty("aria-expanded", AriaPropertyType.BOOLEAN, true, "true", "false"));
     ARIA_PROPERTIES.put("aria-flowto", new AriaProperty("aria-flowto", AriaPropertyType.IDLIST));
     ARIA_PROPERTIES.put("aria-grabbed", new AriaProperty("aria-grabbed", AriaPropertyType.BOOLEAN, true, "true", "false", "undefined"));
-    ARIA_PROPERTIES.put("aria-haspopup", new AriaProperty("aria-haspopup", AriaPropertyType.BOOLEAN, true, "true", "false", "menu", "listbox", "tree", "grid", "dialog"));
+    ARIA_PROPERTIES.put("aria-haspopup", new AriaProperty("aria-haspopup", AriaPropertyType.TOKEN, true, "true", "false", "menu", "listbox", "tree", "grid", "dialog"));
     ARIA_PROPERTIES.put("aria-hidden", new AriaProperty("aria-hidden", AriaPropertyType.BOOLEAN, true, "true", "false"));
     ARIA_PROPERTIES.put("aria-invalid", new AriaProperty("aria-invalid", AriaPropertyType.TOKEN, "true", "false", "grammar", "spelling"));
     ARIA_PROPERTIES.put("aria-keyshortcuts", new AriaProperty("aria-keyshortcuts", AriaPropertyType.STRING));
