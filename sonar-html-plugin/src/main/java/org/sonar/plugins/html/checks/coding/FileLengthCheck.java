@@ -17,17 +17,9 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
-import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.CommentNode;
-import org.sonar.plugins.html.node.DirectiveNode;
-import org.sonar.plugins.html.node.ExpressionNode;
-import org.sonar.plugins.html.node.Node;
-import org.sonar.plugins.html.node.TagNode;
-import org.sonar.plugins.html.node.TextNode;
-
 @Rule(key = "FileLengthCheck")
 public class FileLengthCheck extends AbstractPageCheck {
 
@@ -38,49 +30,6 @@ public class FileLengthCheck extends AbstractPageCheck {
     description = "Maximum authorized lines of code in a file.",
     defaultValue = "" + DEFAULT_MAX_FILE_LENGTH)
   public int maxLength = DEFAULT_MAX_FILE_LENGTH;
-
-  private int maxLine = 0;
-
-  @Override
-  public void startDocument(List<Node> nodes) {
-    maxLine = 0;
-  }
-
-  @Override
-  public void startElement(TagNode node) {
-    setMaxLine(node.getEndLinePosition());
-  }
-
-  @Override
-  public void endElement(TagNode node) {
-    setMaxLine(node.getEndLinePosition());
-  }
-
-  @Override
-  public void characters(TextNode node) {
-    setMaxLine(node.getEndLinePosition());
-  }
-
-  @Override
-  public void comment(CommentNode node) {
-    setMaxLine(node.getEndLinePosition());
-  }
-
-  @Override
-  public void directive(DirectiveNode node) {
-    setMaxLine(node.getEndLinePosition());
-  }
-
-  @Override
-  public void expression(ExpressionNode node) {
-    setMaxLine(node.getEndLinePosition());
-  }
-
-  private void setMaxLine(int line) {
-    if (line > maxLine) {
-      maxLine = line;
-    }
-  }
 
   @Override
   public void endDocument() {
