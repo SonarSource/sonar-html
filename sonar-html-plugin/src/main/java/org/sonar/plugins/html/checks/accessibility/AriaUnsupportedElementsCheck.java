@@ -33,7 +33,7 @@ public class AriaUnsupportedElementsCheck extends AbstractPageCheck {
     @Override
     public void startElement(TagNode element) {
         // Following logic from: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/rules/aria-unsupported-elements.js
-        if (element.getNodeType() != NodeType.TAG || !isReservedNode(element)) {
+        if (!isReservedNode(element)) {
             return;
         }
         var invalidAttributes = new HashSet<String>(Aria.ARIA_PROPERTIES.keySet());
