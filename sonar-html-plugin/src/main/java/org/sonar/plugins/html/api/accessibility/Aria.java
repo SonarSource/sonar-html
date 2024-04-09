@@ -27,10 +27,10 @@ import org.sonar.plugins.html.node.TagNode;
 
 public class Aria {
 
-  public static final Map<String, AriaProperty> ARIA_PROPERTIES =
+  protected static final Map<String, AriaProperty> ARIA_PROPERTIES =
     new HashMap<>();
-  public static final Map<String, Role> ROLES = new HashMap<>();
-  public static final Map<String, Element> ELEMENTS = new HashMap<>();
+  protected static final Map<String, Role> ROLES = new HashMap<>();
+  protected static final Map<String, Element> ELEMENTS = new HashMap<>();
 
   static {
     ARIA_PROPERTIES.put(
@@ -4003,6 +4003,18 @@ public class Aria {
     ELEMENTS.put("textarea", new Element("textarea").setRoles("textbox"));
     ELEMENTS.put("time", new Element("time").setRoles("time"));
 
+  }
+
+  public static AriaProperty getProperty(String name) {
+    return ARIA_PROPERTIES.get(name);
+  }
+
+  public static Role getRole(String name) {
+    return ROLES.get(name);
+  }
+
+  public static Element getElement(String name) {
+    return ELEMENTS.get(name);
   }
 
   public static class AriaProperty {

@@ -37,14 +37,14 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
     }
 
     if (role != null) {
-      var roleObj = Aria.ROLES.get(role);
+      var roleObj = Aria.getRole(role);
       if (roleObj == null) {
         return;
       }
       String finalRole = role;
       element.getAttributes().forEach(attr -> {
         var normalizedAttr = attr.getName().toLowerCase(Locale.ROOT);
-        if (Aria.ARIA_PROPERTIES.containsKey(normalizedAttr) && !roleObj.propertyIsAllowed(normalizedAttr)) {
+        if (Aria.getProperty(normalizedAttr) != null && !roleObj.propertyIsAllowed(normalizedAttr)) {
           createViolation(
             element,
             isImplicit ?
