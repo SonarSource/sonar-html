@@ -211,6 +211,11 @@ public class HtmlConstants {
     "command", "composite", "input", "landmark", "range", "roletype", "section", "sectionhead", "select", "structure", "toolbar", "widget", "window"
   );
 
+  // computed from https://github.com/A11yance/aria-query/blob/main/src/domMap.js
+  public static final Set<String> RESERVED_NODE_SET = Set.of(
+    "base", "col", "colgroup", "head", "html", "link", "meta", "noembed", "noscript", "param", "picture", "script", "source", "style", "title", "track"
+  );
+
   public static boolean isInteractiveElement(TagNode element) {
     var tagName = element.getNodeName();
     return INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
@@ -243,6 +248,10 @@ public class HtmlConstants {
 
   public static boolean hasKnownHTMLTag(TagNode element) {
     return KNOWN_HTML_TAGS.stream().anyMatch(tag -> tag.equalsIgnoreCase(element.getNodeName()));
+  }
+
+  public static boolean isReservedNode(TagNode element) {
+    return RESERVED_NODE_SET.contains(element.getNodeName());
   }
 
   private HtmlConstants() {
