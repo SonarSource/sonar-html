@@ -24,6 +24,7 @@ import org.sonar.plugins.html.node.TagNode;
 import static org.sonar.plugins.html.api.HtmlConstants.isReservedNode;
 
 import java.util.HashSet;
+import java.util.Locale;
 
 import org.sonar.check.Rule;
 
@@ -39,7 +40,7 @@ public class AriaUnsupportedElementsCheck extends AbstractPageCheck {
     var invalidAttributes = new HashSet<String>(Aria.ARIA_PROPERTIES.keySet());
     invalidAttributes.add("role");
     element.getAttributes().forEach(attr -> {
-      if (invalidAttributes.contains(attr.getName().toLowerCase())) {
+      if (invalidAttributes.contains(attr.getName().toLowerCase(Locale.ROOT))) {
         createViolation(
             element,
             String.format("This element does not support ARIA roles, states and properties. Try removing the prop %s.",

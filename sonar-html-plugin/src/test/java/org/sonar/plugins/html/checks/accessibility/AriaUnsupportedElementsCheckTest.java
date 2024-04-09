@@ -25,7 +25,7 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class AriaUnsupportedElementsCheckTest {
+class AriaUnsupportedElementsCheckTest {
     @RegisterExtension
     public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
