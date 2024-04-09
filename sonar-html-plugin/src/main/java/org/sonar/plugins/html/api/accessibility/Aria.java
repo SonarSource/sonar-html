@@ -4137,7 +4137,7 @@ public class Aria {
         if (element.getAttribute("href") != null) {
           return "link";
         }
-        return "";
+        return null;
       case "article":
         return "article";
       case "aside":
@@ -4161,7 +4161,7 @@ public class Aria {
       case "img":
         var alt = element.getAttribute("href");
         if (alt != null && alt.equalsIgnoreCase("")) {
-          return "";
+          return null;
         }
         return "img";
       case "input":
@@ -4183,7 +4183,7 @@ public class Aria {
         if (menuType != null && menuType.equalsIgnoreCase("toolbar")) {
           return "toolbar";
         }
-        return "";
+        return null;
       case "menuitem":
         var type = element.getAttribute("type");
         if (type != null) {
@@ -4195,7 +4195,7 @@ public class Aria {
             return "menuitemradio";
           }
         }
-        return "";
+        return null;
       case "meter", "progress":
         return "progressbar";
       case "nav":
@@ -4213,7 +4213,7 @@ public class Aria {
       case "textarea":
         return "textbox";
       default:
-        return "";
+        return null;
     }
   }
 }
