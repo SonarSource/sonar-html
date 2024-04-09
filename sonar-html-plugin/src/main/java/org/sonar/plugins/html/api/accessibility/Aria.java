@@ -3795,8 +3795,8 @@ public class Aria {
     ELEMENTS.put(Element.ARTICLE, new ElementRoles(Element.ARTICLE).setRoles(AriaRole.ARTICLE));
     ELEMENTS.put(Element.HEADER, new ElementRoles(Element.HEADER).setRoles(AriaRole.BANNER, AriaRole.GENERIC));
     ELEMENTS.put(Element.BLOCKQUOTE, new ElementRoles(Element.BLOCKQUOTE).setRoles(AriaRole.BLOCKQUOTE));
-    ELEMENTS.put(Element.INPUT,
-      new ElementRoles(Element.INPUT).setRoles(AriaRole.BUTTON, AriaRole.CHECKBOX, AriaRole.COMBOBOX, AriaRole.RADIO, AriaRole.SEARCHBOX, AriaRole.SLIDER, AriaRole.SPINBUTTON, AriaRole.TEXTBOX));
+    ELEMENTS.put(Element.INPUT, new ElementRoles(Element.INPUT).setRoles(AriaRole.BUTTON, AriaRole.CHECKBOX, AriaRole.COMBOBOX,
+      AriaRole.RADIO, AriaRole.SEARCHBOX, AriaRole.SLIDER, AriaRole.SPINBUTTON, AriaRole.TEXTBOX));
     ELEMENTS.put(Element.BUTTON, new ElementRoles(Element.BUTTON).setRoles(AriaRole.BUTTON));
     ELEMENTS.put(Element.CAPTION, new ElementRoles(Element.CAPTION).setRoles(AriaRole.CAPTION));
     ELEMENTS.put(Element.TD, new ElementRoles(Element.TD).setRoles(AriaRole.CELL, AriaRole.GRIDCELL));
