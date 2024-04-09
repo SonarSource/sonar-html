@@ -29,20 +29,20 @@ import org.sonar.check.Rule;
 
 @Rule(key = "S6824")
 public class AriaUnsupportedElementsCheck extends AbstractPageCheck {
-    @Override
-    public void startElement(TagNode element) {
-        // Following logic from: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/rules/aria-unsupported-elements.js
-        if (!isReservedNode(element)) {
-            return;
-        }
-        var invalidAttributes = new HashSet<String>(Aria.ARIA_PROPERTIES.keySet());
-        invalidAttributes.add("role");
-        element.getAttributes().forEach(attr -> {
-            if (invalidAttributes.contains(attr.getName().toLowerCase())) {
-                createViolation(
-                    element,
-                    String.format("This element does not support ARIA roles, states and properties. Try removing the prop %s.", attr.getName()));
-            }
-        });
+  @Override
+  public void startElement(TagNode element) {
+    // Following logic from: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/rules/aria-unsupported-elements.js
+    if (!isReservedNode(element)) {
+      return;
     }
+    var invalidAttributes = new HashSet<String>(Aria.ARIA_PROPERTIES.keySet());
+    invalidAttributes.add("role");
+    element.getAttributes().forEach(attr -> {
+      if (invalidAttributes.contains(attr.getName().toLowerCase())) {
+        createViolation(
+          element,
+          String.format("This element does not support ARIA roles, states and properties. Try removing the prop %s.", attr.getName()));
+      }
+    });
+  }
 }
