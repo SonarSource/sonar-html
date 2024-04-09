@@ -20,6 +20,8 @@ package org.sonar.plugins.html.checks.accessibility;
 import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
+import org.sonar.plugins.html.api.accessibility.Property;
+import org.sonar.plugins.html.api.accessibility.Role;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -37,14 +39,15 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
     }
 
     if (role != null) {
-      var roleObj = Aria.getRole(role);
+      var roleObj = Aria.getRole(Role.of(role));
       if (roleObj == null) {
         return;
       }
       String finalRole = role;
       element.getAttributes().forEach(attr -> {
         var normalizedAttr = attr.getName().toLowerCase(Locale.ROOT);
-        if (Aria.getProperty(normalizedAttr) != null && !roleObj.propertyIsAllowed(normalizedAttr)) {
+        var property = Aria.getProperty(Property.of(normalizedAttr));
+        if (property != null && !roleObj.propertyIsAllowed(property.getName())) {
           createViolation(
             element,
             isImplicit ?

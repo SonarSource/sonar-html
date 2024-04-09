@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
+import org.sonar.plugins.html.api.accessibility.Property;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.api.accessibility.Aria.AriaProperty;
 import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyType;
@@ -38,7 +39,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
       var name = attribute.getName();
       var normalizedName = name.toLowerCase(Locale.ENGLISH);
 
-      var property = Aria.getProperty(normalizedName);
+      var property = Aria.getProperty(Property.of(normalizedName));
       if (property == null) {
         continue;
       }
