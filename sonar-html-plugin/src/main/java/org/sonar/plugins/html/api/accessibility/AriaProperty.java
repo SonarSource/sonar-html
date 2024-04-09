@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public enum Property {
+public enum AriaProperty {
   ACTIVEDESCENDANT("aria-activedescendant"),
   ATOMIC("aria-atomic"),
   AUTOCOMPLETE("aria-autocomplete"),
@@ -78,7 +78,7 @@ public enum Property {
 
   private final String value;
 
-  Property(String value) {
+  AriaProperty(String value) {
     this.value = value;
   }
 
@@ -87,10 +87,10 @@ public enum Property {
     return value;
   }
 
-  private static final Map<String, Property> stringMap = Arrays.stream(values())
+  private static final Map<String, AriaProperty> stringMap = Arrays.stream(values())
     .collect(Collectors.toMap(Enum::toString, Function.identity()));
 
-  public static Property of(String value) {
+  public static AriaProperty of(String value) {
     return stringMap.get(value);
   }
 }

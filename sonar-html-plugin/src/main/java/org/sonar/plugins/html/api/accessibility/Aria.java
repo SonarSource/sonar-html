@@ -26,24 +26,24 @@ import org.sonar.plugins.html.node.TagNode;
 
 public class Aria {
 
-  protected static final EnumMap<Property, AriaProperty> ARIA_PROPERTIES =
-    new EnumMap<>(Property.class);
-  protected static final EnumMap<Role, RoleProperties> ROLES = new EnumMap<>(Role.class);
+  protected static final EnumMap<AriaProperty, AriaPropertyValues> ARIA_PROPERTIES =
+    new EnumMap<>(AriaProperty.class);
+  protected static final EnumMap<AriaRole, RoleProperties> ROLES = new EnumMap<>(AriaRole.class);
   protected static final EnumMap<Element, ElementRoles> ELEMENTS = new EnumMap<>(Element.class);
 
   static {
     ARIA_PROPERTIES.put(
-      Property.ACTIVEDESCENDANT,
-      new AriaProperty(Property.ACTIVEDESCENDANT, AriaPropertyType.ID)
+      AriaProperty.ACTIVEDESCENDANT,
+      new AriaPropertyValues(AriaProperty.ACTIVEDESCENDANT, AriaPropertyType.ID)
     );
     ARIA_PROPERTIES.put(
-      Property.ATOMIC,
-      new AriaProperty(Property.ATOMIC, AriaPropertyType.BOOLEAN)
+      AriaProperty.ATOMIC,
+      new AriaPropertyValues(AriaProperty.ATOMIC, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.AUTOCOMPLETE,
-      new AriaProperty(
-        Property.AUTOCOMPLETE,
+      AriaProperty.AUTOCOMPLETE,
+      new AriaPropertyValues(
+        AriaProperty.AUTOCOMPLETE,
         AriaPropertyType.TOKEN,
         "inline",
         "list",
@@ -52,41 +52,41 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.BRAILLELABEL,
-      new AriaProperty(Property.BRAILLELABEL, AriaPropertyType.STRING)
+      AriaProperty.BRAILLELABEL,
+      new AriaPropertyValues(AriaProperty.BRAILLELABEL, AriaPropertyType.STRING)
     );
     ARIA_PROPERTIES.put(
-      Property.BRAILLEROLEDESCRIPTION,
-      new AriaProperty(Property.BRAILLEROLEDESCRIPTION, AriaPropertyType.STRING)
+      AriaProperty.BRAILLEROLEDESCRIPTION,
+      new AriaPropertyValues(AriaProperty.BRAILLEROLEDESCRIPTION, AriaPropertyType.STRING)
     );
     ARIA_PROPERTIES.put(
-      Property.BUSY,
-      new AriaProperty(Property.BUSY, AriaPropertyType.BOOLEAN)
+      AriaProperty.BUSY,
+      new AriaPropertyValues(AriaProperty.BUSY, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.CHECKED,
-      new AriaProperty(Property.CHECKED, AriaPropertyType.TRISTATE)
+      AriaProperty.CHECKED,
+      new AriaPropertyValues(AriaProperty.CHECKED, AriaPropertyType.TRISTATE)
     );
     ARIA_PROPERTIES.put(
-      Property.COLCOUNT,
-      new AriaProperty(Property.COLCOUNT, AriaPropertyType.INTEGER)
+      AriaProperty.COLCOUNT,
+      new AriaPropertyValues(AriaProperty.COLCOUNT, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.COLINDEX,
-      new AriaProperty(Property.COLINDEX, AriaPropertyType.INTEGER)
+      AriaProperty.COLINDEX,
+      new AriaPropertyValues(AriaProperty.COLINDEX, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.COLSPAN,
-      new AriaProperty(Property.COLSPAN, AriaPropertyType.INTEGER)
+      AriaProperty.COLSPAN,
+      new AriaPropertyValues(AriaProperty.COLSPAN, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.CONTROLS,
-      new AriaProperty(Property.CONTROLS, AriaPropertyType.IDLIST)
+      AriaProperty.CONTROLS,
+      new AriaPropertyValues(AriaProperty.CONTROLS, AriaPropertyType.IDLIST)
     );
     ARIA_PROPERTIES.put(
-      Property.CURRENT,
-      new AriaProperty(
-        Property.CURRENT,
+      AriaProperty.CURRENT,
+      new AriaPropertyValues(
+        AriaProperty.CURRENT,
         AriaPropertyType.TOKEN,
         "page",
         "step",
@@ -98,25 +98,25 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.DESCRIBEDBY,
-      new AriaProperty(Property.DESCRIBEDBY, AriaPropertyType.IDLIST)
+      AriaProperty.DESCRIBEDBY,
+      new AriaPropertyValues(AriaProperty.DESCRIBEDBY, AriaPropertyType.IDLIST)
     );
     ARIA_PROPERTIES.put(
-      Property.DESCRIPTION,
-      new AriaProperty(Property.DESCRIPTION, AriaPropertyType.STRING)
+      AriaProperty.DESCRIPTION,
+      new AriaPropertyValues(AriaProperty.DESCRIPTION, AriaPropertyType.STRING)
     );
     ARIA_PROPERTIES.put(
-      Property.DETAILS,
-      new AriaProperty(Property.DETAILS, AriaPropertyType.ID)
+      AriaProperty.DETAILS,
+      new AriaPropertyValues(AriaProperty.DETAILS, AriaPropertyType.ID)
     );
     ARIA_PROPERTIES.put(
-      Property.DISABLED,
-      new AriaProperty(Property.DISABLED, AriaPropertyType.BOOLEAN)
+      AriaProperty.DISABLED,
+      new AriaPropertyValues(AriaProperty.DISABLED, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.DROPEFFECT,
-      new AriaProperty(
-        Property.DROPEFFECT,
+      AriaProperty.DROPEFFECT,
+      new AriaPropertyValues(
+        AriaProperty.DROPEFFECT,
         AriaPropertyType.TOKENLIST,
         "copy",
         "move",
@@ -127,13 +127,13 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.ERRORMESSAGE,
-      new AriaProperty(Property.ERRORMESSAGE, AriaPropertyType.ID)
+      AriaProperty.ERRORMESSAGE,
+      new AriaPropertyValues(AriaProperty.ERRORMESSAGE, AriaPropertyType.ID)
     );
     ARIA_PROPERTIES.put(
-      Property.EXPANDED,
-      new AriaProperty(
-        Property.EXPANDED,
+      AriaProperty.EXPANDED,
+      new AriaPropertyValues(
+        AriaProperty.EXPANDED,
         AriaPropertyType.BOOLEAN,
         true,
         "true",
@@ -141,13 +141,13 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.FLOWTO,
-      new AriaProperty(Property.FLOWTO, AriaPropertyType.IDLIST)
+      AriaProperty.FLOWTO,
+      new AriaPropertyValues(AriaProperty.FLOWTO, AriaPropertyType.IDLIST)
     );
     ARIA_PROPERTIES.put(
-      Property.GRABBED,
-      new AriaProperty(
-        Property.GRABBED,
+      AriaProperty.GRABBED,
+      new AriaPropertyValues(
+        AriaProperty.GRABBED,
         AriaPropertyType.BOOLEAN,
         true,
         "true",
@@ -156,9 +156,9 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.HASPOPUP,
-      new AriaProperty(
-        Property.HASPOPUP,
+      AriaProperty.HASPOPUP,
+      new AriaPropertyValues(
+        AriaProperty.HASPOPUP,
         AriaPropertyType.TOKEN,
         true,
         "true",
@@ -171,9 +171,9 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.HIDDEN,
-      new AriaProperty(
-        Property.HIDDEN,
+      AriaProperty.HIDDEN,
+      new AriaPropertyValues(
+        AriaProperty.HIDDEN,
         AriaPropertyType.BOOLEAN,
         true,
         "true",
@@ -181,9 +181,9 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.INVALID,
-      new AriaProperty(
-        Property.INVALID,
+      AriaProperty.INVALID,
+      new AriaPropertyValues(
+        AriaProperty.INVALID,
         AriaPropertyType.TOKEN,
         "true",
         "false",
@@ -192,25 +192,25 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.KEYSHORTCUTS,
-      new AriaProperty(Property.KEYSHORTCUTS, AriaPropertyType.STRING)
+      AriaProperty.KEYSHORTCUTS,
+      new AriaPropertyValues(AriaProperty.KEYSHORTCUTS, AriaPropertyType.STRING)
     );
     ARIA_PROPERTIES.put(
-      Property.LABEL,
-      new AriaProperty(Property.LABEL, AriaPropertyType.STRING)
+      AriaProperty.LABEL,
+      new AriaPropertyValues(AriaProperty.LABEL, AriaPropertyType.STRING)
     );
     ARIA_PROPERTIES.put(
-      Property.LABELLEDBY,
-      new AriaProperty(Property.LABELLEDBY, AriaPropertyType.IDLIST)
+      AriaProperty.LABELLEDBY,
+      new AriaPropertyValues(AriaProperty.LABELLEDBY, AriaPropertyType.IDLIST)
     );
     ARIA_PROPERTIES.put(
-      Property.LEVEL,
-      new AriaProperty(Property.LEVEL, AriaPropertyType.INTEGER)
+      AriaProperty.LEVEL,
+      new AriaPropertyValues(AriaProperty.LEVEL, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.LIVE,
-      new AriaProperty(
-        Property.LIVE,
+      AriaProperty.LIVE,
+      new AriaPropertyValues(
+        AriaProperty.LIVE,
         AriaPropertyType.TOKEN,
         "off",
         "assertive",
@@ -218,21 +218,21 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.MODAL,
-      new AriaProperty(Property.MODAL, AriaPropertyType.BOOLEAN)
+      AriaProperty.MODAL,
+      new AriaPropertyValues(AriaProperty.MODAL, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.MULTILINE,
-      new AriaProperty(Property.MULTILINE, AriaPropertyType.BOOLEAN)
+      AriaProperty.MULTILINE,
+      new AriaPropertyValues(AriaProperty.MULTILINE, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.MULTISELECTABLE,
-      new AriaProperty(Property.MULTISELECTABLE, AriaPropertyType.BOOLEAN)
+      AriaProperty.MULTISELECTABLE,
+      new AriaPropertyValues(AriaProperty.MULTISELECTABLE, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.ORIENTATION,
-      new AriaProperty(
-        Property.ORIENTATION,
+      AriaProperty.ORIENTATION,
+      new AriaPropertyValues(
+        AriaProperty.ORIENTATION,
         AriaPropertyType.TOKEN,
         "horizontal",
         "vertical",
@@ -240,29 +240,29 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.OWNS,
-      new AriaProperty(Property.OWNS, AriaPropertyType.IDLIST)
+      AriaProperty.OWNS,
+      new AriaPropertyValues(AriaProperty.OWNS, AriaPropertyType.IDLIST)
     );
     ARIA_PROPERTIES.put(
-      Property.PLACEHOLDER,
-      new AriaProperty(Property.PLACEHOLDER, AriaPropertyType.STRING)
+      AriaProperty.PLACEHOLDER,
+      new AriaPropertyValues(AriaProperty.PLACEHOLDER, AriaPropertyType.STRING)
     );
     ARIA_PROPERTIES.put(
-      Property.POSINSET,
-      new AriaProperty(Property.POSINSET, AriaPropertyType.INTEGER)
+      AriaProperty.POSINSET,
+      new AriaPropertyValues(AriaProperty.POSINSET, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.PRESSED,
-      new AriaProperty(Property.PRESSED, AriaPropertyType.TRISTATE)
+      AriaProperty.PRESSED,
+      new AriaPropertyValues(AriaProperty.PRESSED, AriaPropertyType.TRISTATE)
     );
     ARIA_PROPERTIES.put(
-      Property.READONLY,
-      new AriaProperty(Property.READONLY, AriaPropertyType.BOOLEAN)
+      AriaProperty.READONLY,
+      new AriaPropertyValues(AriaProperty.READONLY, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.RELEVANT,
-      new AriaProperty(
-        Property.RELEVANT,
+      AriaProperty.RELEVANT,
+      new AriaPropertyValues(
+        AriaProperty.RELEVANT,
         AriaPropertyType.TOKENLIST,
         "additions",
         "removals",
@@ -271,29 +271,29 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.REQUIRED,
-      new AriaProperty(Property.REQUIRED, AriaPropertyType.BOOLEAN)
+      AriaProperty.REQUIRED,
+      new AriaPropertyValues(AriaProperty.REQUIRED, AriaPropertyType.BOOLEAN)
     );
     ARIA_PROPERTIES.put(
-      Property.ROLEDESCRIPTION,
-      new AriaProperty(Property.ROLEDESCRIPTION, AriaPropertyType.STRING)
+      AriaProperty.ROLEDESCRIPTION,
+      new AriaPropertyValues(AriaProperty.ROLEDESCRIPTION, AriaPropertyType.STRING)
     );
     ARIA_PROPERTIES.put(
-      Property.ROWCOUNT,
-      new AriaProperty(Property.ROWCOUNT, AriaPropertyType.INTEGER)
+      AriaProperty.ROWCOUNT,
+      new AriaPropertyValues(AriaProperty.ROWCOUNT, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.ROWINDEX,
-      new AriaProperty(Property.ROWINDEX, AriaPropertyType.INTEGER)
+      AriaProperty.ROWINDEX,
+      new AriaPropertyValues(AriaProperty.ROWINDEX, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.ROWSPAN,
-      new AriaProperty(Property.ROWSPAN, AriaPropertyType.INTEGER)
+      AriaProperty.ROWSPAN,
+      new AriaPropertyValues(AriaProperty.ROWSPAN, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.SELECTED,
-      new AriaProperty(
-        Property.SELECTED,
+      AriaProperty.SELECTED,
+      new AriaPropertyValues(
+        AriaProperty.SELECTED,
         AriaPropertyType.BOOLEAN,
         true,
         "true",
@@ -301,13 +301,13 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.SETSIZE,
-      new AriaProperty(Property.SETSIZE, AriaPropertyType.INTEGER)
+      AriaProperty.SETSIZE,
+      new AriaPropertyValues(AriaProperty.SETSIZE, AriaPropertyType.INTEGER)
     );
     ARIA_PROPERTIES.put(
-      Property.SORT,
-      new AriaProperty(
-        Property.SORT,
+      AriaProperty.SORT,
+      new AriaPropertyValues(
+        AriaProperty.SORT,
         AriaPropertyType.TOKEN,
         "ascending",
         "descending",
@@ -316,3565 +316,3565 @@ public class Aria {
       )
     );
     ARIA_PROPERTIES.put(
-      Property.VALUEMAX,
-      new AriaProperty(Property.VALUEMAX, AriaPropertyType.NUMBER)
+      AriaProperty.VALUEMAX,
+      new AriaPropertyValues(AriaProperty.VALUEMAX, AriaPropertyType.NUMBER)
     );
     ARIA_PROPERTIES.put(
-      Property.VALUEMIN,
-      new AriaProperty(Property.VALUEMIN, AriaPropertyType.NUMBER)
+      AriaProperty.VALUEMIN,
+      new AriaPropertyValues(AriaProperty.VALUEMIN, AriaPropertyType.NUMBER)
     );
     ARIA_PROPERTIES.put(
-      Property.VALUENOW,
-      new AriaProperty(Property.VALUENOW, AriaPropertyType.NUMBER)
+      AriaProperty.VALUENOW,
+      new AriaPropertyValues(AriaProperty.VALUENOW, AriaPropertyType.NUMBER)
     );
     ARIA_PROPERTIES.put(
-      Property.VALUETEXT,
-      new AriaProperty(Property.VALUETEXT, AriaPropertyType.STRING)
+      AriaProperty.VALUETEXT,
+      new AriaPropertyValues(AriaProperty.VALUETEXT, AriaPropertyType.STRING)
     );
 
-    ROLES.put(Role.COMMAND,
-      new RoleProperties(Role.COMMAND)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.COMPOSITE,
-      new RoleProperties(Role.COMPOSITE)
-        .setProperties(
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.INPUT,
-      new RoleProperties(Role.INPUT)
-        .setProperties(
-          Property.DISABLED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.LANDMARK,
-      new RoleProperties(Role.LANDMARK)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.RANGE,
-      new RoleProperties(Role.RANGE)
-        .setProperties(
-          Property.VALUEMAX,
-          Property.VALUEMIN,
-          Property.VALUENOW,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.ROLETYPE,
-      new RoleProperties(Role.ROLETYPE)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SECTION,
-      new RoleProperties(Role.SECTION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SECTIONHEAD,
-      new RoleProperties(Role.SECTIONHEAD)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SELECT,
-      new RoleProperties(Role.SELECT)
-        .setProperties(
-          Property.ORIENTATION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.STRUCTURE,
-      new RoleProperties(Role.STRUCTURE)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.WIDGET,
-      new RoleProperties(Role.WIDGET)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.WINDOW,
-      new RoleProperties(Role.WINDOW)
-        .setProperties(
-          Property.MODAL,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.ALERT,
-      new RoleProperties(Role.ALERT)
-        .setProperties(
-          Property.ATOMIC,
-          Property.LIVE,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.ALERTDIALOG,
-      new RoleProperties(Role.ALERTDIALOG)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.MODAL
-        )
-    );
-    ROLES.put(Role.APPLICATION,
-      new RoleProperties(Role.APPLICATION)
-        .setProperties(
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.ARTICLE,
-      new RoleProperties(Role.ARTICLE)
-        .setProperties(
-          Property.POSINSET,
-          Property.SETSIZE,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.BANNER,
-      new RoleProperties(Role.BANNER)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.BLOCKQUOTE,
-      new RoleProperties(Role.BLOCKQUOTE)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.BUTTON,
-      new RoleProperties(Role.BUTTON)
-        .setProperties(
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.PRESSED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.CAPTION,
-      new RoleProperties(Role.CAPTION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.CELL,
-      new RoleProperties(Role.CELL)
-        .setProperties(
-          Property.COLINDEX,
-          Property.COLSPAN,
-          Property.ROWINDEX,
-          Property.ROWSPAN,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.CHECKBOX,
-      new RoleProperties(Role.CHECKBOX)
-        .setProperties(
-          Property.CHECKED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.CODE,
-      new RoleProperties(Role.CODE)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.COLUMNHEADER,
-      new RoleProperties(Role.COLUMNHEADER)
-        .setProperties(
-          Property.SORT,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.COLINDEX,
-          Property.COLSPAN,
-          Property.ROWINDEX,
-          Property.ROWSPAN,
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.SELECTED
-        )
-    );
-    ROLES.put(Role.COMBOBOX,
-      new RoleProperties(Role.COMBOBOX)
-        .setProperties(
-          Property.ACTIVEDESCENDANT,
-          Property.AUTOCOMPLETE,
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.COMPLEMENTARY,
-      new RoleProperties(Role.COMPLEMENTARY)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.CONTENTINFO,
-      new RoleProperties(Role.CONTENTINFO)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DEFINITION,
-      new RoleProperties(Role.DEFINITION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DELETION,
-      new RoleProperties(Role.DELETION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DIALOG,
-      new RoleProperties(Role.DIALOG)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.MODAL
-        )
-    );
-    ROLES.put(Role.DIRECTORY,
-      new RoleProperties(Role.DIRECTORY)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOCUMENT,
-      new RoleProperties(Role.DOCUMENT)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.EMPHASIS,
-      new RoleProperties(Role.EMPHASIS)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.FEED,
-      new RoleProperties(Role.FEED)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.FIGURE,
-      new RoleProperties(Role.FIGURE)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.FORM,
-      new RoleProperties(Role.FORM)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.GENERIC,
-      new RoleProperties(Role.GENERIC)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.GRID,
-      new RoleProperties(Role.GRID)
-        .setProperties(
-          Property.MULTISELECTABLE,
-          Property.READONLY,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED,
-          Property.COLCOUNT,
-          Property.ROWCOUNT
-        )
-    );
-    ROLES.put(Role.GRIDCELL,
-      new RoleProperties(Role.GRIDCELL)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.SELECTED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.COLINDEX,
-          Property.COLSPAN,
-          Property.ROWINDEX,
-          Property.ROWSPAN
-        )
-    );
-    ROLES.put(Role.GROUP,
-      new RoleProperties(Role.GROUP)
-        .setProperties(
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.HEADING,
-      new RoleProperties(Role.HEADING)
-        .setProperties(
-          Property.LEVEL,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.IMG,
-      new RoleProperties(Role.IMG)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.INSERTION,
-      new RoleProperties(Role.INSERTION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.LINK,
-      new RoleProperties(Role.LINK)
-        .setProperties(
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.LIST,
-      new RoleProperties(Role.LIST)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.LISTBOX,
-      new RoleProperties(Role.LISTBOX)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.INVALID,
-          Property.MULTISELECTABLE,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.ORIENTATION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.LISTITEM,
-      new RoleProperties(Role.LISTITEM)
-        .setProperties(
-          Property.LEVEL,
-          Property.POSINSET,
-          Property.SETSIZE,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.LOG,
-      new RoleProperties(Role.LOG)
-        .setProperties(
-          Property.LIVE,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.MAIN,
-      new RoleProperties(Role.MAIN)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.MARK,
-      new RoleProperties(Role.MARK)
-        .setProperties(
-          Property.BRAILLELABEL,
-          Property.BRAILLEROLEDESCRIPTION,
-          Property.DESCRIPTION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.MARQUEE,
-      new RoleProperties(Role.MARQUEE)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.MATH,
-      new RoleProperties(Role.MATH)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.MENU,
-      new RoleProperties(Role.MENU)
-        .setProperties(
-          Property.ORIENTATION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.MENUBAR,
-      new RoleProperties(Role.MENUBAR)
-        .setProperties(
-          Property.ORIENTATION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.MENUITEM,
-      new RoleProperties(Role.MENUITEM)
-        .setProperties(
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.POSINSET,
-          Property.SETSIZE,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.MENUITEMCHECKBOX,
-      new RoleProperties(Role.MENUITEMCHECKBOX)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.CHECKED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.HASPOPUP,
-          Property.POSINSET,
-          Property.SETSIZE
-        )
-    );
-    ROLES.put(Role.MENUITEMRADIO,
-      new RoleProperties(Role.MENUITEMRADIO)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.CHECKED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.HASPOPUP,
-          Property.POSINSET,
-          Property.SETSIZE
-        )
-    );
-    ROLES.put(Role.METER,
-      new RoleProperties(Role.METER)
-        .setProperties(
-          Property.VALUETEXT,
-          Property.VALUEMAX,
-          Property.VALUEMIN,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.VALUENOW
-        )
-    );
-    ROLES.put(Role.NAVIGATION,
-      new RoleProperties(Role.NAVIGATION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.NOTE,
-      new RoleProperties(Role.NOTE)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.OPTION,
-      new RoleProperties(Role.OPTION)
-        .setProperties(
-          Property.CHECKED,
-          Property.POSINSET,
-          Property.SETSIZE,
-          Property.SELECTED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.PARAGRAPH,
-      new RoleProperties(Role.PARAGRAPH)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.PRESENTATION,
-      new RoleProperties(Role.PRESENTATION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.PROGRESSBAR,
-      new RoleProperties(Role.PROGRESSBAR)
-        .setProperties(
-          Property.VALUETEXT,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.VALUEMAX,
-          Property.VALUEMIN,
-          Property.VALUENOW
-        )
-    );
-    ROLES.put(Role.RADIO,
-      new RoleProperties(Role.RADIO)
-        .setProperties(
-          Property.CHECKED,
-          Property.POSINSET,
-          Property.SETSIZE,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.RADIOGROUP,
-      new RoleProperties(Role.RADIOGROUP)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED,
-          Property.ORIENTATION
-        )
-    );
-    ROLES.put(Role.REGION,
-      new RoleProperties(Role.REGION)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.ROW,
-      new RoleProperties(Role.ROW)
-        .setProperties(
-          Property.COLINDEX,
-          Property.EXPANDED,
-          Property.LEVEL,
-          Property.POSINSET,
-          Property.ROWINDEX,
-          Property.SELECTED,
-          Property.SETSIZE,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.ROWGROUP,
-      new RoleProperties(Role.ROWGROUP)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.ROWHEADER,
-      new RoleProperties(Role.ROWHEADER)
-        .setProperties(
-          Property.SORT,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.COLINDEX,
-          Property.COLSPAN,
-          Property.ROWINDEX,
-          Property.ROWSPAN,
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.SELECTED
-        )
-    );
-    ROLES.put(Role.SCROLLBAR,
-      new RoleProperties(Role.SCROLLBAR)
-        .setProperties(
-          Property.DISABLED,
-          Property.VALUETEXT,
-          Property.ORIENTATION,
-          Property.VALUEMAX,
-          Property.VALUEMIN,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.VALUENOW
-        )
-    );
-    ROLES.put(Role.SEARCH,
-      new RoleProperties(Role.SEARCH)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SEARCHBOX,
-      new RoleProperties(Role.SEARCHBOX)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.ACTIVEDESCENDANT,
-          Property.AUTOCOMPLETE,
-          Property.ERRORMESSAGE,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.MULTILINE,
-          Property.PLACEHOLDER,
-          Property.READONLY,
-          Property.REQUIRED
-        )
-    );
-    ROLES.put(Role.SEPARATOR,
-      new RoleProperties(Role.SEPARATOR)
-        .setProperties(
-          Property.DISABLED,
-          Property.ORIENTATION,
-          Property.VALUEMAX,
-          Property.VALUEMIN,
-          Property.VALUENOW,
-          Property.VALUETEXT,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SLIDER,
-      new RoleProperties(Role.SLIDER)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.READONLY,
-          Property.VALUETEXT,
-          Property.ORIENTATION,
-          Property.VALUEMAX,
-          Property.VALUEMIN,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.VALUENOW
-        )
-    );
-    ROLES.put(Role.SPINBUTTON,
-      new RoleProperties(Role.SPINBUTTON)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.VALUETEXT,
-          Property.VALUENOW,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED,
-          Property.VALUEMAX,
-          Property.VALUEMIN
-        )
-    );
-    ROLES.put(Role.STATUS,
-      new RoleProperties(Role.STATUS)
-        .setProperties(
-          Property.ATOMIC,
-          Property.LIVE,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.STRONG,
-      new RoleProperties(Role.STRONG)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SUBSCRIPT,
-      new RoleProperties(Role.SUBSCRIPT)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SUPERSCRIPT,
-      new RoleProperties(Role.SUPERSCRIPT)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.SWITCH,
-      new RoleProperties(Role.SWITCH)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.CHECKED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.INVALID,
-          Property.READONLY,
-          Property.REQUIRED
-        )
-    );
-    ROLES.put(Role.TAB,
-      new RoleProperties(Role.TAB)
-        .setProperties(
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.POSINSET,
-          Property.SETSIZE,
-          Property.SELECTED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.TABLE,
-      new RoleProperties(Role.TABLE)
-        .setProperties(
-          Property.COLCOUNT,
-          Property.ROWCOUNT,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.TABLIST,
-      new RoleProperties(Role.TABLIST)
-        .setProperties(
-          Property.LEVEL,
-          Property.MULTISELECTABLE,
-          Property.ORIENTATION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.TABPANEL,
-      new RoleProperties(Role.TABPANEL)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.TERM,
-      new RoleProperties(Role.TERM)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.TEXTBOX,
-      new RoleProperties(Role.TEXTBOX)
-        .setProperties(
-          Property.ACTIVEDESCENDANT,
-          Property.AUTOCOMPLETE,
-          Property.ERRORMESSAGE,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.MULTILINE,
-          Property.PLACEHOLDER,
-          Property.READONLY,
-          Property.REQUIRED,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.TIME,
-      new RoleProperties(Role.TIME)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.TIMER,
-      new RoleProperties(Role.TIMER)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.TOOLBAR,
-      new RoleProperties(Role.TOOLBAR)
-        .setProperties(
-          Property.ORIENTATION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.TOOLTIP,
-      new RoleProperties(Role.TOOLTIP)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.TREE,
-      new RoleProperties(Role.TREE)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.MULTISELECTABLE,
-          Property.REQUIRED,
-          Property.ORIENTATION,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.TREEGRID,
-      new RoleProperties(Role.TREEGRID)
-        .setProperties(
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED,
-          Property.MULTISELECTABLE,
-          Property.READONLY,
-          Property.COLCOUNT,
-          Property.ROWCOUNT,
-          Property.ORIENTATION,
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.REQUIRED
-        )
-    );
-    ROLES.put(Role.TREEITEM,
-      new RoleProperties(Role.TREEITEM)
-        .setProperties(
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.LEVEL,
-          Property.POSINSET,
-          Property.SETSIZE,
-          Property.DISABLED,
-          Property.CHECKED,
-          Property.SELECTED
-        )
-    );
-    ROLES.put(Role.DOC_ABSTRACT,
-      new RoleProperties(Role.DOC_ABSTRACT)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_ACKNOWLEDGMENTS,
-      new RoleProperties(Role.DOC_ACKNOWLEDGMENTS)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_AFTERWORD,
-      new RoleProperties(Role.DOC_AFTERWORD)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_APPENDIX,
-      new RoleProperties(Role.DOC_APPENDIX)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_BACKLINK,
-      new RoleProperties(Role.DOC_BACKLINK)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP
-        )
-    );
-    ROLES.put(Role.DOC_BIBLIOENTRY,
-      new RoleProperties(Role.DOC_BIBLIOENTRY)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.LEVEL,
-          Property.POSINSET,
-          Property.SETSIZE
-        )
-    );
-    ROLES.put(Role.DOC_BIBLIOGRAPHY,
-      new RoleProperties(Role.DOC_BIBLIOGRAPHY)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_BIBLIOREF,
-      new RoleProperties(Role.DOC_BIBLIOREF)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP
-        )
-    );
-    ROLES.put(Role.DOC_CHAPTER,
-      new RoleProperties(Role.DOC_CHAPTER)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_COLOPHON,
-      new RoleProperties(Role.DOC_COLOPHON)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_CONCLUSION,
-      new RoleProperties(Role.DOC_CONCLUSION)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_COVER,
-      new RoleProperties(Role.DOC_COVER)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_CREDIT,
-      new RoleProperties(Role.DOC_CREDIT)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_CREDITS,
-      new RoleProperties(Role.DOC_CREDITS)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_DEDICATION,
-      new RoleProperties(Role.DOC_DEDICATION)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_ENDNOTE,
-      new RoleProperties(Role.DOC_ENDNOTE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.LEVEL,
-          Property.POSINSET,
-          Property.SETSIZE
-        )
-    );
-    ROLES.put(Role.DOC_ENDNOTES,
-      new RoleProperties(Role.DOC_ENDNOTES)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_EPIGRAPH,
-      new RoleProperties(Role.DOC_EPIGRAPH)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_EPILOGUE,
-      new RoleProperties(Role.DOC_EPILOGUE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_ERRATA,
-      new RoleProperties(Role.DOC_ERRATA)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_EXAMPLE,
-      new RoleProperties(Role.DOC_EXAMPLE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_FOOTNOTE,
-      new RoleProperties(Role.DOC_FOOTNOTE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_FOREWORD,
-      new RoleProperties(Role.DOC_FOREWORD)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_GLOSSARY,
-      new RoleProperties(Role.DOC_GLOSSARY)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_GLOSSREF,
-      new RoleProperties(Role.DOC_GLOSSREF)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP
-        )
-    );
-    ROLES.put(Role.DOC_INDEX,
-      new RoleProperties(Role.DOC_INDEX)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_INTRODUCTION,
-      new RoleProperties(Role.DOC_INTRODUCTION)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_NOTEREF,
-      new RoleProperties(Role.DOC_NOTEREF)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.EXPANDED,
-          Property.HASPOPUP
-        )
-    );
-    ROLES.put(Role.DOC_NOTICE,
-      new RoleProperties(Role.DOC_NOTICE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_PAGEBREAK,
-      new RoleProperties(Role.DOC_PAGEBREAK)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.DISABLED,
-          Property.ORIENTATION,
-          Property.VALUEMAX,
-          Property.VALUEMIN,
-          Property.VALUENOW,
-          Property.VALUETEXT
-        )
-    );
-    ROLES.put(Role.DOC_PAGELIST,
-      new RoleProperties(Role.DOC_PAGELIST)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_PART,
-      new RoleProperties(Role.DOC_PART)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_PREFACE,
-      new RoleProperties(Role.DOC_PREFACE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_PROLOGUE,
-      new RoleProperties(Role.DOC_PROLOGUE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_QNA,
-      new RoleProperties(Role.DOC_QNA)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_SUBTITLE,
-      new RoleProperties(Role.DOC_SUBTITLE)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_TIP,
-      new RoleProperties(Role.DOC_TIP)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.DOC_TOC,
-      new RoleProperties(Role.DOC_TOC)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.GRAPHICS_DOCUMENT,
-      new RoleProperties(Role.GRAPHICS_DOCUMENT)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ROLES.put(Role.GRAPHICS_OBJECT,
-      new RoleProperties(Role.GRAPHICS_OBJECT)
-        .setProperties(
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION,
-          Property.ACTIVEDESCENDANT,
-          Property.DISABLED
-        )
-    );
-    ROLES.put(Role.GRAPHICS_SYMBOL,
-      new RoleProperties(Role.GRAPHICS_SYMBOL)
-        .setProperties(
-          Property.DISABLED,
-          Property.ERRORMESSAGE,
-          Property.EXPANDED,
-          Property.HASPOPUP,
-          Property.INVALID,
-          Property.ATOMIC,
-          Property.BUSY,
-          Property.CONTROLS,
-          Property.CURRENT,
-          Property.DESCRIBEDBY,
-          Property.DETAILS,
-          Property.DROPEFFECT,
-          Property.FLOWTO,
-          Property.GRABBED,
-          Property.HIDDEN,
-          Property.KEYSHORTCUTS,
-          Property.LABEL,
-          Property.LABELLEDBY,
-          Property.LIVE,
-          Property.OWNS,
-          Property.RELEVANT,
-          Property.ROLEDESCRIPTION
-        )
-    );
-    ELEMENTS.put(Element.ARTICLE, new ElementRoles(Element.ARTICLE).setRoles(Role.ARTICLE));
-    ELEMENTS.put(Element.HEADER, new ElementRoles(Element.HEADER).setRoles(Role.BANNER,Role.GENERIC));
-    ELEMENTS.put(Element.BLOCKQUOTE, new ElementRoles(Element.BLOCKQUOTE).setRoles(Role.BLOCKQUOTE));
+    ROLES.put(AriaRole.COMMAND,
+      new RoleProperties(AriaRole.COMMAND)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.COMPOSITE,
+      new RoleProperties(AriaRole.COMPOSITE)
+        .setProperties(
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.INPUT,
+      new RoleProperties(AriaRole.INPUT)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.LANDMARK,
+      new RoleProperties(AriaRole.LANDMARK)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.RANGE,
+      new RoleProperties(AriaRole.RANGE)
+        .setProperties(
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN,
+          AriaProperty.VALUENOW,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.ROLETYPE,
+      new RoleProperties(AriaRole.ROLETYPE)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SECTION,
+      new RoleProperties(AriaRole.SECTION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SECTIONHEAD,
+      new RoleProperties(AriaRole.SECTIONHEAD)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SELECT,
+      new RoleProperties(AriaRole.SELECT)
+        .setProperties(
+          AriaProperty.ORIENTATION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.STRUCTURE,
+      new RoleProperties(AriaRole.STRUCTURE)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.WIDGET,
+      new RoleProperties(AriaRole.WIDGET)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.WINDOW,
+      new RoleProperties(AriaRole.WINDOW)
+        .setProperties(
+          AriaProperty.MODAL,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.ALERT,
+      new RoleProperties(AriaRole.ALERT)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.LIVE,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.ALERTDIALOG,
+      new RoleProperties(AriaRole.ALERTDIALOG)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.MODAL
+        )
+    );
+    ROLES.put(AriaRole.APPLICATION,
+      new RoleProperties(AriaRole.APPLICATION)
+        .setProperties(
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.ARTICLE,
+      new RoleProperties(AriaRole.ARTICLE)
+        .setProperties(
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.BANNER,
+      new RoleProperties(AriaRole.BANNER)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.BLOCKQUOTE,
+      new RoleProperties(AriaRole.BLOCKQUOTE)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.BUTTON,
+      new RoleProperties(AriaRole.BUTTON)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.PRESSED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.CAPTION,
+      new RoleProperties(AriaRole.CAPTION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.CELL,
+      new RoleProperties(AriaRole.CELL)
+        .setProperties(
+          AriaProperty.COLINDEX,
+          AriaProperty.COLSPAN,
+          AriaProperty.ROWINDEX,
+          AriaProperty.ROWSPAN,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.CHECKBOX,
+      new RoleProperties(AriaRole.CHECKBOX)
+        .setProperties(
+          AriaProperty.CHECKED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.CODE,
+      new RoleProperties(AriaRole.CODE)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.COLUMNHEADER,
+      new RoleProperties(AriaRole.COLUMNHEADER)
+        .setProperties(
+          AriaProperty.SORT,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.COLINDEX,
+          AriaProperty.COLSPAN,
+          AriaProperty.ROWINDEX,
+          AriaProperty.ROWSPAN,
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.SELECTED
+        )
+    );
+    ROLES.put(AriaRole.COMBOBOX,
+      new RoleProperties(AriaRole.COMBOBOX)
+        .setProperties(
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.AUTOCOMPLETE,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.COMPLEMENTARY,
+      new RoleProperties(AriaRole.COMPLEMENTARY)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.CONTENTINFO,
+      new RoleProperties(AriaRole.CONTENTINFO)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DEFINITION,
+      new RoleProperties(AriaRole.DEFINITION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DELETION,
+      new RoleProperties(AriaRole.DELETION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DIALOG,
+      new RoleProperties(AriaRole.DIALOG)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.MODAL
+        )
+    );
+    ROLES.put(AriaRole.DIRECTORY,
+      new RoleProperties(AriaRole.DIRECTORY)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOCUMENT,
+      new RoleProperties(AriaRole.DOCUMENT)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.EMPHASIS,
+      new RoleProperties(AriaRole.EMPHASIS)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.FEED,
+      new RoleProperties(AriaRole.FEED)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.FIGURE,
+      new RoleProperties(AriaRole.FIGURE)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.FORM,
+      new RoleProperties(AriaRole.FORM)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.GENERIC,
+      new RoleProperties(AriaRole.GENERIC)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.GRID,
+      new RoleProperties(AriaRole.GRID)
+        .setProperties(
+          AriaProperty.MULTISELECTABLE,
+          AriaProperty.READONLY,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED,
+          AriaProperty.COLCOUNT,
+          AriaProperty.ROWCOUNT
+        )
+    );
+    ROLES.put(AriaRole.GRIDCELL,
+      new RoleProperties(AriaRole.GRIDCELL)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.SELECTED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.COLINDEX,
+          AriaProperty.COLSPAN,
+          AriaProperty.ROWINDEX,
+          AriaProperty.ROWSPAN
+        )
+    );
+    ROLES.put(AriaRole.GROUP,
+      new RoleProperties(AriaRole.GROUP)
+        .setProperties(
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.HEADING,
+      new RoleProperties(AriaRole.HEADING)
+        .setProperties(
+          AriaProperty.LEVEL,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.IMG,
+      new RoleProperties(AriaRole.IMG)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.INSERTION,
+      new RoleProperties(AriaRole.INSERTION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.LINK,
+      new RoleProperties(AriaRole.LINK)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.LIST,
+      new RoleProperties(AriaRole.LIST)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.LISTBOX,
+      new RoleProperties(AriaRole.LISTBOX)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.INVALID,
+          AriaProperty.MULTISELECTABLE,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.ORIENTATION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.LISTITEM,
+      new RoleProperties(AriaRole.LISTITEM)
+        .setProperties(
+          AriaProperty.LEVEL,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.LOG,
+      new RoleProperties(AriaRole.LOG)
+        .setProperties(
+          AriaProperty.LIVE,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.MAIN,
+      new RoleProperties(AriaRole.MAIN)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.MARK,
+      new RoleProperties(AriaRole.MARK)
+        .setProperties(
+          AriaProperty.BRAILLELABEL,
+          AriaProperty.BRAILLEROLEDESCRIPTION,
+          AriaProperty.DESCRIPTION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.MARQUEE,
+      new RoleProperties(AriaRole.MARQUEE)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.MATH,
+      new RoleProperties(AriaRole.MATH)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.MENU,
+      new RoleProperties(AriaRole.MENU)
+        .setProperties(
+          AriaProperty.ORIENTATION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.MENUBAR,
+      new RoleProperties(AriaRole.MENUBAR)
+        .setProperties(
+          AriaProperty.ORIENTATION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.MENUITEM,
+      new RoleProperties(AriaRole.MENUITEM)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.MENUITEMCHECKBOX,
+      new RoleProperties(AriaRole.MENUITEMCHECKBOX)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.CHECKED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE
+        )
+    );
+    ROLES.put(AriaRole.MENUITEMRADIO,
+      new RoleProperties(AriaRole.MENUITEMRADIO)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.CHECKED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE
+        )
+    );
+    ROLES.put(AriaRole.METER,
+      new RoleProperties(AriaRole.METER)
+        .setProperties(
+          AriaProperty.VALUETEXT,
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.VALUENOW
+        )
+    );
+    ROLES.put(AriaRole.NAVIGATION,
+      new RoleProperties(AriaRole.NAVIGATION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.NOTE,
+      new RoleProperties(AriaRole.NOTE)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.OPTION,
+      new RoleProperties(AriaRole.OPTION)
+        .setProperties(
+          AriaProperty.CHECKED,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE,
+          AriaProperty.SELECTED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.PARAGRAPH,
+      new RoleProperties(AriaRole.PARAGRAPH)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.PRESENTATION,
+      new RoleProperties(AriaRole.PRESENTATION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.PROGRESSBAR,
+      new RoleProperties(AriaRole.PROGRESSBAR)
+        .setProperties(
+          AriaProperty.VALUETEXT,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN,
+          AriaProperty.VALUENOW
+        )
+    );
+    ROLES.put(AriaRole.RADIO,
+      new RoleProperties(AriaRole.RADIO)
+        .setProperties(
+          AriaProperty.CHECKED,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.RADIOGROUP,
+      new RoleProperties(AriaRole.RADIOGROUP)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED,
+          AriaProperty.ORIENTATION
+        )
+    );
+    ROLES.put(AriaRole.REGION,
+      new RoleProperties(AriaRole.REGION)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.ROW,
+      new RoleProperties(AriaRole.ROW)
+        .setProperties(
+          AriaProperty.COLINDEX,
+          AriaProperty.EXPANDED,
+          AriaProperty.LEVEL,
+          AriaProperty.POSINSET,
+          AriaProperty.ROWINDEX,
+          AriaProperty.SELECTED,
+          AriaProperty.SETSIZE,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.ROWGROUP,
+      new RoleProperties(AriaRole.ROWGROUP)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.ROWHEADER,
+      new RoleProperties(AriaRole.ROWHEADER)
+        .setProperties(
+          AriaProperty.SORT,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.COLINDEX,
+          AriaProperty.COLSPAN,
+          AriaProperty.ROWINDEX,
+          AriaProperty.ROWSPAN,
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.SELECTED
+        )
+    );
+    ROLES.put(AriaRole.SCROLLBAR,
+      new RoleProperties(AriaRole.SCROLLBAR)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.VALUETEXT,
+          AriaProperty.ORIENTATION,
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.VALUENOW
+        )
+    );
+    ROLES.put(AriaRole.SEARCH,
+      new RoleProperties(AriaRole.SEARCH)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SEARCHBOX,
+      new RoleProperties(AriaRole.SEARCHBOX)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.AUTOCOMPLETE,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.MULTILINE,
+          AriaProperty.PLACEHOLDER,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED
+        )
+    );
+    ROLES.put(AriaRole.SEPARATOR,
+      new RoleProperties(AriaRole.SEPARATOR)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ORIENTATION,
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN,
+          AriaProperty.VALUENOW,
+          AriaProperty.VALUETEXT,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SLIDER,
+      new RoleProperties(AriaRole.SLIDER)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.VALUETEXT,
+          AriaProperty.ORIENTATION,
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.VALUENOW
+        )
+    );
+    ROLES.put(AriaRole.SPINBUTTON,
+      new RoleProperties(AriaRole.SPINBUTTON)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.VALUETEXT,
+          AriaProperty.VALUENOW,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED,
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN
+        )
+    );
+    ROLES.put(AriaRole.STATUS,
+      new RoleProperties(AriaRole.STATUS)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.LIVE,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.STRONG,
+      new RoleProperties(AriaRole.STRONG)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SUBSCRIPT,
+      new RoleProperties(AriaRole.SUBSCRIPT)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SUPERSCRIPT,
+      new RoleProperties(AriaRole.SUPERSCRIPT)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.SWITCH,
+      new RoleProperties(AriaRole.SWITCH)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.CHECKED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.INVALID,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED
+        )
+    );
+    ROLES.put(AriaRole.TAB,
+      new RoleProperties(AriaRole.TAB)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE,
+          AriaProperty.SELECTED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.TABLE,
+      new RoleProperties(AriaRole.TABLE)
+        .setProperties(
+          AriaProperty.COLCOUNT,
+          AriaProperty.ROWCOUNT,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.TABLIST,
+      new RoleProperties(AriaRole.TABLIST)
+        .setProperties(
+          AriaProperty.LEVEL,
+          AriaProperty.MULTISELECTABLE,
+          AriaProperty.ORIENTATION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.TABPANEL,
+      new RoleProperties(AriaRole.TABPANEL)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.TERM,
+      new RoleProperties(AriaRole.TERM)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.TEXTBOX,
+      new RoleProperties(AriaRole.TEXTBOX)
+        .setProperties(
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.AUTOCOMPLETE,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.MULTILINE,
+          AriaProperty.PLACEHOLDER,
+          AriaProperty.READONLY,
+          AriaProperty.REQUIRED,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.TIME,
+      new RoleProperties(AriaRole.TIME)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.TIMER,
+      new RoleProperties(AriaRole.TIMER)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.TOOLBAR,
+      new RoleProperties(AriaRole.TOOLBAR)
+        .setProperties(
+          AriaProperty.ORIENTATION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.TOOLTIP,
+      new RoleProperties(AriaRole.TOOLTIP)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.TREE,
+      new RoleProperties(AriaRole.TREE)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.MULTISELECTABLE,
+          AriaProperty.REQUIRED,
+          AriaProperty.ORIENTATION,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.TREEGRID,
+      new RoleProperties(AriaRole.TREEGRID)
+        .setProperties(
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED,
+          AriaProperty.MULTISELECTABLE,
+          AriaProperty.READONLY,
+          AriaProperty.COLCOUNT,
+          AriaProperty.ROWCOUNT,
+          AriaProperty.ORIENTATION,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.REQUIRED
+        )
+    );
+    ROLES.put(AriaRole.TREEITEM,
+      new RoleProperties(AriaRole.TREEITEM)
+        .setProperties(
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.LEVEL,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE,
+          AriaProperty.DISABLED,
+          AriaProperty.CHECKED,
+          AriaProperty.SELECTED
+        )
+    );
+    ROLES.put(AriaRole.DOC_ABSTRACT,
+      new RoleProperties(AriaRole.DOC_ABSTRACT)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_ACKNOWLEDGMENTS,
+      new RoleProperties(AriaRole.DOC_ACKNOWLEDGMENTS)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_AFTERWORD,
+      new RoleProperties(AriaRole.DOC_AFTERWORD)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_APPENDIX,
+      new RoleProperties(AriaRole.DOC_APPENDIX)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_BACKLINK,
+      new RoleProperties(AriaRole.DOC_BACKLINK)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP
+        )
+    );
+    ROLES.put(AriaRole.DOC_BIBLIOENTRY,
+      new RoleProperties(AriaRole.DOC_BIBLIOENTRY)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.LEVEL,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE
+        )
+    );
+    ROLES.put(AriaRole.DOC_BIBLIOGRAPHY,
+      new RoleProperties(AriaRole.DOC_BIBLIOGRAPHY)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_BIBLIOREF,
+      new RoleProperties(AriaRole.DOC_BIBLIOREF)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP
+        )
+    );
+    ROLES.put(AriaRole.DOC_CHAPTER,
+      new RoleProperties(AriaRole.DOC_CHAPTER)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_COLOPHON,
+      new RoleProperties(AriaRole.DOC_COLOPHON)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_CONCLUSION,
+      new RoleProperties(AriaRole.DOC_CONCLUSION)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_COVER,
+      new RoleProperties(AriaRole.DOC_COVER)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_CREDIT,
+      new RoleProperties(AriaRole.DOC_CREDIT)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_CREDITS,
+      new RoleProperties(AriaRole.DOC_CREDITS)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_DEDICATION,
+      new RoleProperties(AriaRole.DOC_DEDICATION)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_ENDNOTE,
+      new RoleProperties(AriaRole.DOC_ENDNOTE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.LEVEL,
+          AriaProperty.POSINSET,
+          AriaProperty.SETSIZE
+        )
+    );
+    ROLES.put(AriaRole.DOC_ENDNOTES,
+      new RoleProperties(AriaRole.DOC_ENDNOTES)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_EPIGRAPH,
+      new RoleProperties(AriaRole.DOC_EPIGRAPH)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_EPILOGUE,
+      new RoleProperties(AriaRole.DOC_EPILOGUE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_ERRATA,
+      new RoleProperties(AriaRole.DOC_ERRATA)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_EXAMPLE,
+      new RoleProperties(AriaRole.DOC_EXAMPLE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_FOOTNOTE,
+      new RoleProperties(AriaRole.DOC_FOOTNOTE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_FOREWORD,
+      new RoleProperties(AriaRole.DOC_FOREWORD)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_GLOSSARY,
+      new RoleProperties(AriaRole.DOC_GLOSSARY)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_GLOSSREF,
+      new RoleProperties(AriaRole.DOC_GLOSSREF)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP
+        )
+    );
+    ROLES.put(AriaRole.DOC_INDEX,
+      new RoleProperties(AriaRole.DOC_INDEX)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_INTRODUCTION,
+      new RoleProperties(AriaRole.DOC_INTRODUCTION)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_NOTEREF,
+      new RoleProperties(AriaRole.DOC_NOTEREF)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP
+        )
+    );
+    ROLES.put(AriaRole.DOC_NOTICE,
+      new RoleProperties(AriaRole.DOC_NOTICE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_PAGEBREAK,
+      new RoleProperties(AriaRole.DOC_PAGEBREAK)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.DISABLED,
+          AriaProperty.ORIENTATION,
+          AriaProperty.VALUEMAX,
+          AriaProperty.VALUEMIN,
+          AriaProperty.VALUENOW,
+          AriaProperty.VALUETEXT
+        )
+    );
+    ROLES.put(AriaRole.DOC_PAGELIST,
+      new RoleProperties(AriaRole.DOC_PAGELIST)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_PART,
+      new RoleProperties(AriaRole.DOC_PART)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_PREFACE,
+      new RoleProperties(AriaRole.DOC_PREFACE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_PROLOGUE,
+      new RoleProperties(AriaRole.DOC_PROLOGUE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_QNA,
+      new RoleProperties(AriaRole.DOC_QNA)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_SUBTITLE,
+      new RoleProperties(AriaRole.DOC_SUBTITLE)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_TIP,
+      new RoleProperties(AriaRole.DOC_TIP)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.DOC_TOC,
+      new RoleProperties(AriaRole.DOC_TOC)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.GRAPHICS_DOCUMENT,
+      new RoleProperties(AriaRole.GRAPHICS_DOCUMENT)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ROLES.put(AriaRole.GRAPHICS_OBJECT,
+      new RoleProperties(AriaRole.GRAPHICS_OBJECT)
+        .setProperties(
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.ACTIVEDESCENDANT,
+          AriaProperty.DISABLED
+        )
+    );
+    ROLES.put(AriaRole.GRAPHICS_SYMBOL,
+      new RoleProperties(AriaRole.GRAPHICS_SYMBOL)
+        .setProperties(
+          AriaProperty.DISABLED,
+          AriaProperty.ERRORMESSAGE,
+          AriaProperty.EXPANDED,
+          AriaProperty.HASPOPUP,
+          AriaProperty.INVALID,
+          AriaProperty.ATOMIC,
+          AriaProperty.BUSY,
+          AriaProperty.CONTROLS,
+          AriaProperty.CURRENT,
+          AriaProperty.DESCRIBEDBY,
+          AriaProperty.DETAILS,
+          AriaProperty.DROPEFFECT,
+          AriaProperty.FLOWTO,
+          AriaProperty.GRABBED,
+          AriaProperty.HIDDEN,
+          AriaProperty.KEYSHORTCUTS,
+          AriaProperty.LABEL,
+          AriaProperty.LABELLEDBY,
+          AriaProperty.LIVE,
+          AriaProperty.OWNS,
+          AriaProperty.RELEVANT,
+          AriaProperty.ROLEDESCRIPTION
+        )
+    );
+    ELEMENTS.put(Element.ARTICLE, new ElementRoles(Element.ARTICLE).setRoles(AriaRole.ARTICLE));
+    ELEMENTS.put(Element.HEADER, new ElementRoles(Element.HEADER).setRoles(AriaRole.BANNER, AriaRole.GENERIC));
+    ELEMENTS.put(Element.BLOCKQUOTE, new ElementRoles(Element.BLOCKQUOTE).setRoles(AriaRole.BLOCKQUOTE));
     ELEMENTS.put(Element.INPUT,
-      new ElementRoles(Element.INPUT).setRoles(Role.BUTTON,Role.CHECKBOX,Role.COMBOBOX,Role.RADIO,Role.SEARCHBOX,Role.SLIDER,Role.SPINBUTTON,Role.TEXTBOX));
-    ELEMENTS.put(Element.BUTTON, new ElementRoles(Element.BUTTON).setRoles(Role.BUTTON));
-    ELEMENTS.put(Element.CAPTION, new ElementRoles(Element.CAPTION).setRoles(Role.CAPTION));
-    ELEMENTS.put(Element.TD, new ElementRoles(Element.TD).setRoles(Role.CELL,Role.GRIDCELL));
-    ELEMENTS.put(Element.CODE, new ElementRoles(Element.CODE).setRoles(Role.CODE));
-    ELEMENTS.put(Element.TH, new ElementRoles(Element.TH).setRoles(Role.COLUMNHEADER,Role.ROWHEADER));
-    ELEMENTS.put(Element.SELECT, new ElementRoles(Element.SELECT).setRoles(Role.COMBOBOX, Role.LISTBOX));
-    ELEMENTS.put(Element.ASIDE, new ElementRoles(Element.ASIDE).setRoles(Role.GENERIC, Role.COMPLEMENTARY));
-    ELEMENTS.put(Element.FOOTER, new ElementRoles(Element.FOOTER).setRoles(Role.GENERIC, Role.CONTENTINFO));
-    ELEMENTS.put(Element.DD, new ElementRoles(Element.DD).setRoles(Role.DEFINITION));
-    ELEMENTS.put(Element.DEL, new ElementRoles(Element.DEL).setRoles(Role.DELETION));
-    ELEMENTS.put(Element.DIALOG, new ElementRoles(Element.DIALOG).setRoles(Role.DIALOG));
-    ELEMENTS.put(Element.HTML, new ElementRoles(Element.HTML).setRoles(Role.DOCUMENT));
-    ELEMENTS.put(Element.EM, new ElementRoles(Element.EM).setRoles(Role.EMPHASIS));
-    ELEMENTS.put(Element.FIGURE, new ElementRoles(Element.FIGURE).setRoles(Role.FIGURE));
-    ELEMENTS.put(Element.FORM, new ElementRoles(Element.FORM).setRoles(Role.FORM));
-    ELEMENTS.put(Element.A, new ElementRoles(Element.A).setRoles(Role.GENERIC, Role.LINK));
-    ELEMENTS.put(Element.AREA, new ElementRoles(Element.AREA).setRoles(Role.GENERIC, Role.LINK));
-    ELEMENTS.put(Element.B, new ElementRoles(Element.B).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.BDO, new ElementRoles(Element.BDO).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.BODY, new ElementRoles(Element.BODY).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.DATA, new ElementRoles(Element.DATA).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.DIV, new ElementRoles(Element.DIV).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.HGROUP, new ElementRoles(Element.HGROUP).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.I, new ElementRoles(Element.I).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.PRE, new ElementRoles(Element.PRE).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.Q, new ElementRoles(Element.Q).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.SAMP, new ElementRoles(Element.SAMP).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.SECTION, new ElementRoles(Element.SECTION).setRoles(Role.GENERIC, Role.REGION));
-    ELEMENTS.put(Element.SMALL, new ElementRoles(Element.SMALL).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.SPAN, new ElementRoles(Element.SPAN).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.U, new ElementRoles(Element.U).setRoles(Role.GENERIC));
-    ELEMENTS.put(Element.DETAILS, new ElementRoles(Element.DETAILS).setRoles(Role.GROUP));
-    ELEMENTS.put(Element.FIELDSET, new ElementRoles(Element.FIELDSET).setRoles(Role.GROUP));
-    ELEMENTS.put(Element.OPTGROUP, new ElementRoles(Element.OPTGROUP).setRoles(Role.GROUP));
-    ELEMENTS.put(Element.ADDRESS, new ElementRoles(Element.ADDRESS).setRoles(Role.GROUP));
-    ELEMENTS.put(Element.H1, new ElementRoles(Element.H1).setRoles(Role.HEADING));
-    ELEMENTS.put(Element.H2, new ElementRoles(Element.H2).setRoles(Role.HEADING));
-    ELEMENTS.put(Element.H3, new ElementRoles(Element.H3).setRoles(Role.HEADING));
-    ELEMENTS.put(Element.H4, new ElementRoles(Element.H4).setRoles(Role.HEADING));
-    ELEMENTS.put(Element.H5, new ElementRoles(Element.H5).setRoles(Role.HEADING));
-    ELEMENTS.put(Element.H6, new ElementRoles(Element.H6).setRoles(Role.HEADING));
-    ELEMENTS.put(Element.IMG, new ElementRoles(Element.IMG).setRoles(Role.IMG, Role.PRESENTATION));
-    ELEMENTS.put(Element.INS, new ElementRoles(Element.INS).setRoles(Role.INSERTION));
-    ELEMENTS.put(Element.MENU, new ElementRoles(Element.MENU).setRoles(Role.LIST));
-    ELEMENTS.put(Element.OL, new ElementRoles(Element.OL).setRoles(Role.LIST));
-    ELEMENTS.put(Element.UL, new ElementRoles(Element.UL).setRoles(Role.LIST));
-    ELEMENTS.put(Element.DATALIST, new ElementRoles(Element.DATALIST).setRoles(Role.LISTBOX));
-    ELEMENTS.put(Element.LI, new ElementRoles(Element.LI).setRoles(Role.LISTITEM));
-    ELEMENTS.put(Element.MAIN, new ElementRoles(Element.MAIN).setRoles(Role.MAIN));
-    ELEMENTS.put(Element.MARK, new ElementRoles(Element.MARK).setRoles(Role.MARK));
-    ELEMENTS.put(Element.MATH, new ElementRoles(Element.MATH).setRoles(Role.MATH));
-    ELEMENTS.put(Element.METER, new ElementRoles(Element.METER).setRoles(Role.METER));
-    ELEMENTS.put(Element.NAV, new ElementRoles(Element.NAV).setRoles(Role.NAVIGATION));
-    ELEMENTS.put(Element.OPTION, new ElementRoles(Element.OPTION).setRoles(Role.OPTION));
-    ELEMENTS.put(Element.P, new ElementRoles(Element.P).setRoles(Role.PARAGRAPH));
-    ELEMENTS.put(Element.PROGRESS, new ElementRoles(Element.PROGRESS).setRoles(Role.PROGRESSBAR));
-    ELEMENTS.put(Element.TR, new ElementRoles(Element.TR).setRoles(Role.ROW));
-    ELEMENTS.put(Element.TBODY, new ElementRoles(Element.TBODY).setRoles(Role.ROWGROUP));
-    ELEMENTS.put(Element.TFOOT, new ElementRoles(Element.TFOOT).setRoles(Role.ROWGROUP));
-    ELEMENTS.put(Element.THEAD, new ElementRoles(Element.THEAD).setRoles(Role.ROWGROUP));
-    ELEMENTS.put(Element.HR, new ElementRoles(Element.HR).setRoles(Role.SEPARATOR));
-    ELEMENTS.put(Element.OUTPUT, new ElementRoles(Element.OUTPUT).setRoles(Role.STATUS));
-    ELEMENTS.put(Element.STRONG, new ElementRoles(Element.STRONG).setRoles(Role.STRONG));
-    ELEMENTS.put(Element.SUB, new ElementRoles(Element.SUB).setRoles(Role.SUBSCRIPT));
-    ELEMENTS.put(Element.SUP, new ElementRoles(Element.SUP).setRoles(Role.SUPERSCRIPT));
-    ELEMENTS.put(Element.TABLE, new ElementRoles(Element.TABLE).setRoles(Role.TABLE));
-    ELEMENTS.put(Element.DFN, new ElementRoles(Element.DFN).setRoles(Role.TERM));
-    ELEMENTS.put(Element.DT, new ElementRoles(Element.DT).setRoles(Role.TERM));
-    ELEMENTS.put(Element.TEXTAREA, new ElementRoles(Element.TEXTAREA).setRoles(Role.TEXTBOX));
-    ELEMENTS.put(Element.TIME, new ElementRoles(Element.TIME).setRoles(Role.TIME));
+      new ElementRoles(Element.INPUT).setRoles(AriaRole.BUTTON, AriaRole.CHECKBOX, AriaRole.COMBOBOX, AriaRole.RADIO, AriaRole.SEARCHBOX, AriaRole.SLIDER, AriaRole.SPINBUTTON, AriaRole.TEXTBOX));
+    ELEMENTS.put(Element.BUTTON, new ElementRoles(Element.BUTTON).setRoles(AriaRole.BUTTON));
+    ELEMENTS.put(Element.CAPTION, new ElementRoles(Element.CAPTION).setRoles(AriaRole.CAPTION));
+    ELEMENTS.put(Element.TD, new ElementRoles(Element.TD).setRoles(AriaRole.CELL, AriaRole.GRIDCELL));
+    ELEMENTS.put(Element.CODE, new ElementRoles(Element.CODE).setRoles(AriaRole.CODE));
+    ELEMENTS.put(Element.TH, new ElementRoles(Element.TH).setRoles(AriaRole.COLUMNHEADER, AriaRole.ROWHEADER));
+    ELEMENTS.put(Element.SELECT, new ElementRoles(Element.SELECT).setRoles(AriaRole.COMBOBOX, AriaRole.LISTBOX));
+    ELEMENTS.put(Element.ASIDE, new ElementRoles(Element.ASIDE).setRoles(AriaRole.GENERIC, AriaRole.COMPLEMENTARY));
+    ELEMENTS.put(Element.FOOTER, new ElementRoles(Element.FOOTER).setRoles(AriaRole.GENERIC, AriaRole.CONTENTINFO));
+    ELEMENTS.put(Element.DD, new ElementRoles(Element.DD).setRoles(AriaRole.DEFINITION));
+    ELEMENTS.put(Element.DEL, new ElementRoles(Element.DEL).setRoles(AriaRole.DELETION));
+    ELEMENTS.put(Element.DIALOG, new ElementRoles(Element.DIALOG).setRoles(AriaRole.DIALOG));
+    ELEMENTS.put(Element.HTML, new ElementRoles(Element.HTML).setRoles(AriaRole.DOCUMENT));
+    ELEMENTS.put(Element.EM, new ElementRoles(Element.EM).setRoles(AriaRole.EMPHASIS));
+    ELEMENTS.put(Element.FIGURE, new ElementRoles(Element.FIGURE).setRoles(AriaRole.FIGURE));
+    ELEMENTS.put(Element.FORM, new ElementRoles(Element.FORM).setRoles(AriaRole.FORM));
+    ELEMENTS.put(Element.A, new ElementRoles(Element.A).setRoles(AriaRole.GENERIC, AriaRole.LINK));
+    ELEMENTS.put(Element.AREA, new ElementRoles(Element.AREA).setRoles(AriaRole.GENERIC, AriaRole.LINK));
+    ELEMENTS.put(Element.B, new ElementRoles(Element.B).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.BDO, new ElementRoles(Element.BDO).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.BODY, new ElementRoles(Element.BODY).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.DATA, new ElementRoles(Element.DATA).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.DIV, new ElementRoles(Element.DIV).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.HGROUP, new ElementRoles(Element.HGROUP).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.I, new ElementRoles(Element.I).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.PRE, new ElementRoles(Element.PRE).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.Q, new ElementRoles(Element.Q).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.SAMP, new ElementRoles(Element.SAMP).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.SECTION, new ElementRoles(Element.SECTION).setRoles(AriaRole.GENERIC, AriaRole.REGION));
+    ELEMENTS.put(Element.SMALL, new ElementRoles(Element.SMALL).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.SPAN, new ElementRoles(Element.SPAN).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.U, new ElementRoles(Element.U).setRoles(AriaRole.GENERIC));
+    ELEMENTS.put(Element.DETAILS, new ElementRoles(Element.DETAILS).setRoles(AriaRole.GROUP));
+    ELEMENTS.put(Element.FIELDSET, new ElementRoles(Element.FIELDSET).setRoles(AriaRole.GROUP));
+    ELEMENTS.put(Element.OPTGROUP, new ElementRoles(Element.OPTGROUP).setRoles(AriaRole.GROUP));
+    ELEMENTS.put(Element.ADDRESS, new ElementRoles(Element.ADDRESS).setRoles(AriaRole.GROUP));
+    ELEMENTS.put(Element.H1, new ElementRoles(Element.H1).setRoles(AriaRole.HEADING));
+    ELEMENTS.put(Element.H2, new ElementRoles(Element.H2).setRoles(AriaRole.HEADING));
+    ELEMENTS.put(Element.H3, new ElementRoles(Element.H3).setRoles(AriaRole.HEADING));
+    ELEMENTS.put(Element.H4, new ElementRoles(Element.H4).setRoles(AriaRole.HEADING));
+    ELEMENTS.put(Element.H5, new ElementRoles(Element.H5).setRoles(AriaRole.HEADING));
+    ELEMENTS.put(Element.H6, new ElementRoles(Element.H6).setRoles(AriaRole.HEADING));
+    ELEMENTS.put(Element.IMG, new ElementRoles(Element.IMG).setRoles(AriaRole.IMG, AriaRole.PRESENTATION));
+    ELEMENTS.put(Element.INS, new ElementRoles(Element.INS).setRoles(AriaRole.INSERTION));
+    ELEMENTS.put(Element.MENU, new ElementRoles(Element.MENU).setRoles(AriaRole.LIST));
+    ELEMENTS.put(Element.OL, new ElementRoles(Element.OL).setRoles(AriaRole.LIST));
+    ELEMENTS.put(Element.UL, new ElementRoles(Element.UL).setRoles(AriaRole.LIST));
+    ELEMENTS.put(Element.DATALIST, new ElementRoles(Element.DATALIST).setRoles(AriaRole.LISTBOX));
+    ELEMENTS.put(Element.LI, new ElementRoles(Element.LI).setRoles(AriaRole.LISTITEM));
+    ELEMENTS.put(Element.MAIN, new ElementRoles(Element.MAIN).setRoles(AriaRole.MAIN));
+    ELEMENTS.put(Element.MARK, new ElementRoles(Element.MARK).setRoles(AriaRole.MARK));
+    ELEMENTS.put(Element.MATH, new ElementRoles(Element.MATH).setRoles(AriaRole.MATH));
+    ELEMENTS.put(Element.METER, new ElementRoles(Element.METER).setRoles(AriaRole.METER));
+    ELEMENTS.put(Element.NAV, new ElementRoles(Element.NAV).setRoles(AriaRole.NAVIGATION));
+    ELEMENTS.put(Element.OPTION, new ElementRoles(Element.OPTION).setRoles(AriaRole.OPTION));
+    ELEMENTS.put(Element.P, new ElementRoles(Element.P).setRoles(AriaRole.PARAGRAPH));
+    ELEMENTS.put(Element.PROGRESS, new ElementRoles(Element.PROGRESS).setRoles(AriaRole.PROGRESSBAR));
+    ELEMENTS.put(Element.TR, new ElementRoles(Element.TR).setRoles(AriaRole.ROW));
+    ELEMENTS.put(Element.TBODY, new ElementRoles(Element.TBODY).setRoles(AriaRole.ROWGROUP));
+    ELEMENTS.put(Element.TFOOT, new ElementRoles(Element.TFOOT).setRoles(AriaRole.ROWGROUP));
+    ELEMENTS.put(Element.THEAD, new ElementRoles(Element.THEAD).setRoles(AriaRole.ROWGROUP));
+    ELEMENTS.put(Element.HR, new ElementRoles(Element.HR).setRoles(AriaRole.SEPARATOR));
+    ELEMENTS.put(Element.OUTPUT, new ElementRoles(Element.OUTPUT).setRoles(AriaRole.STATUS));
+    ELEMENTS.put(Element.STRONG, new ElementRoles(Element.STRONG).setRoles(AriaRole.STRONG));
+    ELEMENTS.put(Element.SUB, new ElementRoles(Element.SUB).setRoles(AriaRole.SUBSCRIPT));
+    ELEMENTS.put(Element.SUP, new ElementRoles(Element.SUP).setRoles(AriaRole.SUPERSCRIPT));
+    ELEMENTS.put(Element.TABLE, new ElementRoles(Element.TABLE).setRoles(AriaRole.TABLE));
+    ELEMENTS.put(Element.DFN, new ElementRoles(Element.DFN).setRoles(AriaRole.TERM));
+    ELEMENTS.put(Element.DT, new ElementRoles(Element.DT).setRoles(AriaRole.TERM));
+    ELEMENTS.put(Element.TEXTAREA, new ElementRoles(Element.TEXTAREA).setRoles(AriaRole.TEXTBOX));
+    ELEMENTS.put(Element.TIME, new ElementRoles(Element.TIME).setRoles(AriaRole.TIME));
 
   }
 
-  public static AriaProperty getProperty(Property name) {
+  public static AriaPropertyValues getProperty(AriaProperty name) {
     return ARIA_PROPERTIES.get(name);
   }
 
-  public static RoleProperties getRole(Role name) {
+  public static RoleProperties getRole(AriaRole name) {
     return ROLES.get(name);
   }
 
@@ -3882,19 +3882,19 @@ public class Aria {
     return ELEMENTS.get(name);
   }
 
-  public static class AriaProperty {
+  public static class AriaPropertyValues {
 
-    private final Property name;
+    private final AriaProperty name;
     private final AriaPropertyType type;
     private final Optional<Boolean> allowUndefined;
     private final Set<String> values;
 
-    public AriaProperty(Property name, AriaPropertyType type, String... values) {
+    public AriaPropertyValues(AriaProperty name, AriaPropertyType type, String... values) {
       this(name, type, false, values);
     }
 
-    public AriaProperty(
-      Property name,
+    public AriaPropertyValues(
+      AriaProperty name,
       AriaPropertyType type,
       boolean allowUndefined,
       String... values
@@ -3905,7 +3905,7 @@ public class Aria {
       this.values = Set.of(values);
     }
 
-    public Property getName() {
+    public AriaProperty getName() {
       return name;
     }
 
@@ -3946,31 +3946,31 @@ public class Aria {
   }
 
   public static class RoleProperties {
-    private final Role name;
-    private Set<Property> ariaProperties;
+    private final AriaRole name;
+    private Set<AriaProperty> ariaProperties;
 
-    public RoleProperties(Role name) {
+    public RoleProperties(AriaRole name) {
       this.name = name;
       this.ariaProperties = Set.of();
     }
 
-    public Role getName() {
+    public AriaRole getName() {
       return name;
     }
 
-    public RoleProperties setProperties(Property... values) {
+    public RoleProperties setProperties(AriaProperty... values) {
       this.ariaProperties = Set.of(values);
       return this;
     }
 
-    public boolean propertyIsAllowed(Property name) {
+    public boolean propertyIsAllowed(AriaProperty name) {
       return ariaProperties.contains(name);
     }
   }
 
   public static class ElementRoles {
     private final Element name;
-    private Set<Role> roles;
+    private Set<AriaRole> roles;
 
     public ElementRoles(Element name) {
       this.name = name;
@@ -3981,12 +3981,12 @@ public class Aria {
       return name;
     }
 
-    public ElementRoles setRoles(Role... values) {
+    public ElementRoles setRoles(AriaRole... values) {
       this.roles = Set.of(values);
       return this;
     }
 
-    public boolean roleIsAllowed(Role name) {
+    public boolean roleIsAllowed(AriaRole name) {
       return roles.contains(name);
     }
   }
@@ -3996,87 +3996,87 @@ public class Aria {
   }
 
   // from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/implicitRoles/index.js
-  public static Role getImplicitRole(TagNode element) {
+  public static AriaRole getImplicitRole(TagNode element) {
     switch (element.getNodeName()) {
       case "a", "area", "link":
         if (element.getAttribute("href") != null) {
-          return Role.LINK;
+          return AriaRole.LINK;
         }
         return null;
       case "article":
-        return Role.ARTICLE;
+        return AriaRole.ARTICLE;
       case "aside":
-        return Role.COMPLEMENTARY;
+        return AriaRole.COMPLEMENTARY;
       case "body":
-        return Role.DOCUMENT;
+        return AriaRole.DOCUMENT;
       case "button":
-        return Role.BUTTON;
+        return AriaRole.BUTTON;
       case "datalist", "select":
-        return Role.LISTBOX;
+        return AriaRole.LISTBOX;
       case "details":
-        return Role.GROUP;
+        return AriaRole.GROUP;
       case "dialog":
-        return Role.DIALOG;
+        return AriaRole.DIALOG;
       case "form":
-        return Role.FORM;
+        return AriaRole.FORM;
       case "h1", "h2", "h3", "h4", "h5", "h6":
-        return Role.HEADING;
+        return AriaRole.HEADING;
       case "hr":
-        return Role.SEPARATOR;
+        return AriaRole.SEPARATOR;
       case "img":
         var alt = element.getAttribute("href");
         if (alt != null && alt.equalsIgnoreCase("")) {
           return null;
         }
-        return Role.IMG;
+        return AriaRole.IMG;
       case "input":
         var inputType = element.getAttribute("type");
         if (inputType != null) {
           return switch (inputType.toLowerCase(Locale.ROOT)) {
-            case "button", "image", "reset", "submit" -> Role.BUTTON;
-            case "checkbox" -> Role.CHECKBOX;
-            case "radio" -> Role.RADIO;
-            case "range" -> Role.SLIDER;
-            default -> Role.TEXTBOX;
+            case "button", "image", "reset", "submit" -> AriaRole.BUTTON;
+            case "checkbox" -> AriaRole.CHECKBOX;
+            case "radio" -> AriaRole.RADIO;
+            case "range" -> AriaRole.SLIDER;
+            default -> AriaRole.TEXTBOX;
           };
         }
-        return Role.TEXTBOX;
+        return AriaRole.TEXTBOX;
       case "li":
-        return Role.LISTITEM;
+        return AriaRole.LISTITEM;
       case "menu":
         var menuType = element.getAttribute("type");
         if (menuType != null && menuType.equalsIgnoreCase("toolbar")) {
-          return Role.TOOLBAR;
+          return AriaRole.TOOLBAR;
         }
         return null;
       case "menuitem":
         var type = element.getAttribute("type");
         if (type != null) {
           if (type.equalsIgnoreCase("command")) {
-            return Role.MENUITEM;
+            return AriaRole.MENUITEM;
           } else if (type.equalsIgnoreCase("checkbox")) {
-            return Role.MENUITEMCHECKBOX;
+            return AriaRole.MENUITEMCHECKBOX;
           } else if (type.equalsIgnoreCase("radio")) {
-            return Role.MENUITEMRADIO;
+            return AriaRole.MENUITEMRADIO;
           }
         }
         return null;
       case "meter", "progress":
-        return Role.PROGRESSBAR;
+        return AriaRole.PROGRESSBAR;
       case "nav":
-        return Role.NAVIGATION;
+        return AriaRole.NAVIGATION;
       case "ol", "ul":
-        return Role.LIST;
+        return AriaRole.LIST;
       case "option":
-        return Role.OPTION;
+        return AriaRole.OPTION;
       case "output":
-        return Role.STATUS;
+        return AriaRole.STATUS;
       case "section":
-        return Role.REGION;
+        return AriaRole.REGION;
       case "tbody", "tfoot", "thead":
-        return Role.ROWGROUP;
+        return AriaRole.ROWGROUP;
       case "textarea":
-        return Role.TEXTBOX;
+        return AriaRole.TEXTBOX;
       default:
         return null;
     }
