@@ -29,21 +29,23 @@ import org.sonar.plugins.html.node.TagNode;
 public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
-    var role = element.getAttribute("role");
+    var roleAttr = element.getAttribute("role");
+    Role role;
     boolean isImplicit;
-    if (role == null) {
+    if (roleAttr == null) {
       isImplicit = true;
       role = Aria.getImplicitRole(element);
     } else {
       isImplicit = false;
+      role = Role.of(roleAttr);
     }
 
     if (role != null) {
-      var roleObj = Aria.getRole(Role.of(role));
+      var roleObj = Aria.getRole(role);
       if (roleObj == null) {
         return;
       }
-      String finalRole = role;
+      String finalRole = role.toString();
       element.getAttributes().forEach(attr -> {
         var normalizedAttr = attr.getName().toLowerCase(Locale.ROOT);
         var property = Aria.getProperty(Property.of(normalizedAttr));
