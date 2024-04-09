@@ -25,6 +25,7 @@ import org.sonar.plugins.html.checks.accessibility.AriaActiveDescendantHasTabInd
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
 import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.NoAriaHiddenOnFocusableCheck;
+import org.sonar.plugins.html.checks.accessibility.RoleSupportsAriaPropertyCheck;
 import org.sonar.plugins.html.checks.accessibility.ValidAutocompleteCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
 import org.sonar.plugins.html.checks.accessibility.LabelHasAssociatedControlCheck;
@@ -175,6 +176,7 @@ public final class CheckClasses {
     ParentElementRequiredCheck.class,
     RequiredAttributeCheck.class,
     ResourceIntegrityCheck.class,
+    RoleSupportsAriaPropertyCheck.class,
     ServerSideImageMapsCheck.class,
     TabIndexNoPositiveCheck.class,
     TableHeaderHasIdOrScopeCheck.class,
