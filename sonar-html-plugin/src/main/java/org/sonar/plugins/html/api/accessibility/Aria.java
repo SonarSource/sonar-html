@@ -18,19 +18,18 @@
 
 package org.sonar.plugins.html.api.accessibility;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.sonar.plugins.html.node.TagNode;
 
 public class Aria {
 
-  protected static final Map<Property, AriaProperty> ARIA_PROPERTIES =
-    new HashMap<>();
-  protected static final Map<Role, RoleProperties> ROLES = new HashMap<>();
-  protected static final Map<Element, ElementRoles> ELEMENTS = new HashMap<>();
+  protected static final EnumMap<Property, AriaProperty> ARIA_PROPERTIES =
+    new EnumMap<>(Property.class);
+  protected static final EnumMap<Role, RoleProperties> ROLES = new EnumMap<>(Role.class);
+  protected static final EnumMap<Element, ElementRoles> ELEMENTS = new EnumMap<>(Element.class);
 
   static {
     ARIA_PROPERTIES.put(
@@ -2728,7 +2727,7 @@ public class Aria {
           Property.ROLEDESCRIPTION
         )
     );
-      ROLES.put(Role.DOC_AFTERWORD,
+    ROLES.put(Role.DOC_AFTERWORD,
       new RoleProperties(Role.DOC_AFTERWORD)
         .setProperties(
           Property.DISABLED,
@@ -3879,7 +3878,7 @@ public class Aria {
     return ROLES.get(name);
   }
 
-  public static ElementRoles getElement(String name) {
+  public static ElementRoles getElement(Element name) {
     return ELEMENTS.get(name);
   }
 
@@ -3987,7 +3986,7 @@ public class Aria {
       return this;
     }
 
-    public boolean roleIsAllowed(String name) {
+    public boolean roleIsAllowed(Role name) {
       return roles.contains(name);
     }
   }
