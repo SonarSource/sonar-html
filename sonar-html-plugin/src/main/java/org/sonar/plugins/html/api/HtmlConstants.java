@@ -219,6 +219,11 @@ public class HtmlConstants {
     "base", "col", "colgroup", "head", "html", "link", "meta", "noembed", "noscript", "param", "picture", "script", "source", "style", "title", "track"
   );
 
+  // computed from https://github.com/A11yance/aria-query/blob/main/src/domMap.js
+  public static final Set<String> RESERVED_NODE_SET = Set.of(
+    "base", "col", "colgroup", "head", "html", "link", "meta", "noembed", "noscript", "param", "picture", "script", "source", "style", "title", "track"
+  );
+
   public static boolean isInteractiveElement(TagNode element) {
     var tagName = element.getNodeName();
     return INTERACTIVE_ELEMENTS.stream().anyMatch(tagName::equalsIgnoreCase);
