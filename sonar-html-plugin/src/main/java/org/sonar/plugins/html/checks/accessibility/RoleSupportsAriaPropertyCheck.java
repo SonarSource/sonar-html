@@ -20,8 +20,8 @@ package org.sonar.plugins.html.checks.accessibility;
 import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
-import org.sonar.plugins.html.api.accessibility.Property;
-import org.sonar.plugins.html.api.accessibility.Role;
+import org.sonar.plugins.html.api.accessibility.AriaProperty;
+import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -29,15 +29,15 @@ import org.sonar.plugins.html.node.TagNode;
 public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
-    var roleAttr = element.getAttribute("role");
-    Role role;
+    var roleAttr = element.getPropertyValue("role");
+    AriaRole role;
     boolean isImplicit;
     if (roleAttr == null) {
       isImplicit = true;
       role = Aria.getImplicitRole(element);
     } else {
       isImplicit = false;
-      role = Role.of(roleAttr);
+      role = AriaRole.of(roleAttr);
     }
 
     if (role != null) {
@@ -48,7 +48,7 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
       String finalRole = role.toString();
       element.getAttributes().forEach(attr -> {
         var normalizedAttr = attr.getName().toLowerCase(Locale.ROOT);
-        var property = Aria.getProperty(Property.of(normalizedAttr));
+        var property = Aria.getProperty(AriaProperty.of(normalizedAttr));
         if (property != null && !roleObj.propertyIsAllowed(property.getName())) {
           createViolation(
             element,

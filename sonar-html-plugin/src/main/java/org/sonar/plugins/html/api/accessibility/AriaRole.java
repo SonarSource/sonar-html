@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public enum Role {
+public enum AriaRole {
   COMMAND("command"),
   COMPOSITE("composite"),
   INPUT("input"),
@@ -162,7 +162,7 @@ public enum Role {
 
   private final String value;
 
-  Role(String value) {
+  AriaRole(String value) {
     this.value = value;
   }
 
@@ -171,10 +171,10 @@ public enum Role {
     return value;
   }
 
-  private static final Map<String, Role> stringMap = Arrays.stream(values())
+  private static final Map<String, AriaRole> stringMap = Arrays.stream(values())
     .collect(Collectors.toMap(Enum::toString, Function.identity()));
 
-  public static Role of(String value) {
+  public static AriaRole of(String value) {
     return stringMap.get(value);
   }
 }
