@@ -3996,87 +3996,87 @@ public class Aria {
   }
 
   // from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/implicitRoles/index.js
-  public static String getImplicitRole(TagNode element) {
+  public static Role getImplicitRole(TagNode element) {
     switch (element.getNodeName()) {
       case "a", "area", "link":
         if (element.getAttribute("href") != null) {
-          return "link";
+          return Role.LINK;
         }
         return null;
       case "article":
-        return "article";
+        return Role.ARTICLE;
       case "aside":
-        return "complementary";
+        return Role.COMPLEMENTARY;
       case "body":
-        return "document";
+        return Role.DOCUMENT;
       case "button":
-        return "button";
+        return Role.BUTTON;
       case "datalist", "select":
-        return "listbox";
+        return Role.LISTBOX;
       case "details":
-        return "group";
+        return Role.GROUP;
       case "dialog":
-        return "dialog";
+        return Role.DIALOG;
       case "form":
-        return "form";
+        return Role.FORM;
       case "h1", "h2", "h3", "h4", "h5", "h6":
-        return "heading";
+        return Role.HEADING;
       case "hr":
-        return "separator";
+        return Role.SEPARATOR;
       case "img":
         var alt = element.getAttribute("href");
         if (alt != null && alt.equalsIgnoreCase("")) {
           return null;
         }
-        return "img";
+        return Role.IMG;
       case "input":
         var inputType = element.getAttribute("type");
         if (inputType != null) {
           return switch (inputType.toLowerCase(Locale.ROOT)) {
-            case "button", "image", "reset", "submit" -> "button";
-            case "checkbox" -> "checkbox";
-            case "radio" -> "radio";
-            case "range" -> "slider";
-            default -> "textbox";
+            case "button", "image", "reset", "submit" -> Role.BUTTON;
+            case "checkbox" -> Role.CHECKBOX;
+            case "radio" -> Role.RADIO;
+            case "range" -> Role.SLIDER;
+            default -> Role.TEXTBOX;
           };
         }
-        return "textbox";
+        return Role.TEXTBOX;
       case "li":
-        return "listitem";
+        return Role.LISTITEM;
       case "menu":
         var menuType = element.getAttribute("type");
         if (menuType != null && menuType.equalsIgnoreCase("toolbar")) {
-          return "toolbar";
+          return Role.TOOLBAR;
         }
         return null;
       case "menuitem":
         var type = element.getAttribute("type");
         if (type != null) {
           if (type.equalsIgnoreCase("command")) {
-            return "menuitem";
+            return Role.MENUITEM;
           } else if (type.equalsIgnoreCase("checkbox")) {
-            return "menuitemcheckbox";
+            return Role.MENUITEMCHECKBOX;
           } else if (type.equalsIgnoreCase("radio")) {
-            return "menuitemradio";
+            return Role.MENUITEMRADIO;
           }
         }
         return null;
       case "meter", "progress":
-        return "progressbar";
+        return Role.PROGRESSBAR;
       case "nav":
-        return "navigation";
+        return Role.NAVIGATION;
       case "ol", "ul":
-        return "list";
+        return Role.LIST;
       case "option":
-        return "option";
+        return Role.OPTION;
       case "output":
-        return "status";
+        return Role.STATUS;
       case "section":
-        return "region";
+        return Role.REGION;
       case "tbody", "tfoot", "thead":
-        return "rowgroup";
+        return Role.ROWGROUP;
       case "textarea":
-        return "textbox";
+        return Role.TEXTBOX;
       default:
         return null;
     }
