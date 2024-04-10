@@ -80,6 +80,12 @@ public final class CheckMessagesVerifier {
     }
   }
 
+  public void consume() {
+    while (iterator.hasNext()) {
+      iterator.next();
+    }
+  }
+
   private void checkStateOfCurrent() {
     if (current == null) {
       throw new IllegalStateException("Prior to this method you should call next()");

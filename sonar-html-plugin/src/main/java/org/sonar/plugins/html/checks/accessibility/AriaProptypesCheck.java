@@ -22,12 +22,12 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.accessibility.Aria;
+import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.api.accessibility.Aria.AriaProperty;
+import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyValues;
 import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyType;
 import org.sonar.plugins.html.node.TagNode;
-
-import static org.sonar.plugins.html.api.accessibility.Aria.ARIA_PROPERTIES;
 
 @Rule(key = "S6793")
 public class AriaProptypesCheck extends AbstractPageCheck {
@@ -39,7 +39,8 @@ public class AriaProptypesCheck extends AbstractPageCheck {
       var name = attribute.getName();
       var normalizedName = name.toLowerCase(Locale.ENGLISH);
 
-      if (!ARIA_PROPERTIES.containsKey(normalizedName)) {
+      var property = Aria.getProperty(AriaProperty.of(normalizedName));
+      if (property == null) {
         continue;
       }
 
@@ -48,7 +49,6 @@ public class AriaProptypesCheck extends AbstractPageCheck {
         continue;
       }
 
-      var property = ARIA_PROPERTIES.get(normalizedName);
       if (!isValid(property, value)) {
         createViolation(element.getStartLinePosition(), message(name, property.getType(), property.getValues()));
       }
@@ -59,7 +59,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
     return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%");
   }
 
-  private static boolean isValid(AriaProperty property, String value) {
+  private static boolean isValid(AriaPropertyValues property, String value) {
     var expectedType = property.getType();
     var allowUndefined = property.getAllowUndefined().orElse(false);
     var expectedValues = property.getValues();
