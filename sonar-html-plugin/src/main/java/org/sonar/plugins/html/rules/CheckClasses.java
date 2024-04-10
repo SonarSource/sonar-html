@@ -35,6 +35,7 @@ import org.sonar.plugins.html.checks.accessibility.NoInteractiveElementToNoninte
 import org.sonar.plugins.html.checks.accessibility.NoNonInteractiveElementsWithHandlersCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNoninteractiveElementToInteractiveRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.NoNoninteractiveTabIndexCheck;
+import org.sonar.plugins.html.checks.accessibility.NoRedundantRolesCheck;
 import org.sonar.plugins.html.checks.accessibility.NoStaticElementInteractionsCheck;
 import org.sonar.plugins.html.checks.accessibility.TabIndexNoPositiveCheck;
 import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
@@ -173,6 +174,7 @@ public final class CheckClasses {
     NoNoninteractiveElementToInteractiveRoleCheck.class,
     NoStaticElementInteractionsCheck.class,
     NoNoninteractiveTabIndexCheck.class,
+    NoRedundantRolesCheck.class,
     ObjectWithAlternativeContentCheck.class,
     PageWithoutFaviconCheck.class,
     PageWithoutTitleCheck.class,
