@@ -25,19 +25,28 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-class AriaUnsupportedElementsCheckTest {
-    @RegisterExtension
-    public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+class AriaRoleCheckTest {
 
-    @Test
-    void html() throws Exception {
-        HtmlSourceCode sourceCode = TestHelper.scan(
-                new File("src/test/resources/checks/AriaUnsupportedElementsCheck.html"),
-                new AriaUnsupportedElementsCheck());
-        checkMessagesVerifier.verify(sourceCode.getIssues())
-                .next().atLine(1).withMessage(
-                        "This element does not support ARIA roles, states and properties. Try removing the prop aria-hidden.")
-                .next().atLine(2)
-                .noMore();;
-    }
+  @RegisterExtension
+  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
+
+  @Test
+  void html() throws Exception {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/AriaRoleCheck.html"),
+        new AriaRoleCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(1)
+        .withMessage(
+            "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"foobar\" is not a valid role.")
+        .next().atLine(2)
+        .next().atLine(3)
+        .next().atLine(4)
+        .next().atLine(5)
+        .next().atLine(6)
+        .next().atLine(7)
+        .next().atLine(8)
+        .next().atLine(9)
+        .noMore();
+  }
 }

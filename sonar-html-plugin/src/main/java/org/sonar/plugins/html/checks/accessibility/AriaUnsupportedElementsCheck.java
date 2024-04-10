@@ -17,13 +17,12 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import org.sonar.plugins.html.api.accessibility.Aria;
+import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.isReservedNode;
 
-import java.util.HashSet;
 import java.util.Locale;
 
 import org.sonar.check.Rule;
@@ -37,10 +36,9 @@ public class AriaUnsupportedElementsCheck extends AbstractPageCheck {
     if (!isReservedNode(element)) {
       return;
     }
-    var invalidAttributes = new HashSet<String>(Aria.ARIA_PROPERTIES.keySet());
-    invalidAttributes.add("role");
     element.getAttributes().forEach(attr -> {
-      if (invalidAttributes.contains(attr.getName().toLowerCase(Locale.ROOT))) {
+      var attrName = attr.getName().toLowerCase(Locale.ROOT);
+      if (AriaProperty.of(attrName) != null || attrName.equals("role")) {
         createViolation(
             element,
             String.format("This element does not support ARIA roles, states and properties. Try removing the prop %s.",

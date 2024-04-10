@@ -17,8 +17,12 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+
+import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.node.TagNode;
 
 public class HtmlConstants {
@@ -207,9 +211,10 @@ public class HtmlConstants {
   public static final Set<String> PRESENTATION_ROLES = Set.of("none", "presentation");
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/etc/roles/ariaAbstractRoles.js
-  public static final Set<String> ABSTRACT_ROLES = Set.of(
-    "command", "composite", "input", "landmark", "range", "roletype", "section", "sectionhead", "select", "structure", "toolbar", "widget", "window"
-  );
+  protected static final Set<AriaRole> ABSTRACT_ROLES = EnumSet.of(
+    AriaRole.COMMAND, AriaRole.COMPOSITE, AriaRole.INPUT, AriaRole.LANDMARK, AriaRole.RANGE, AriaRole.ROLETYPE,
+    AriaRole.SECTION, AriaRole.SECTIONHEAD, AriaRole.SELECT, AriaRole.STRUCTURE, AriaRole.TOOLBAR, AriaRole.WIDGET,
+    AriaRole.WINDOW);
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/domMap.js
   public static final Set<String> RESERVED_NODE_SET = Set.of(
@@ -243,7 +248,11 @@ public class HtmlConstants {
 
   public static boolean hasAbstractRole(TagNode element) {
     var role = element.getAttribute("role");
-    return role != null && ABSTRACT_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+    if (role == null) {
+      return false;
+    }
+    var ariaRole = AriaRole.of(role.toLowerCase(Locale.ROOT));
+    return ariaRole != null && ABSTRACT_ROLES.stream().anyMatch(ariaRole::equals);
   }
 
   public static boolean hasKnownHTMLTag(TagNode element) {
@@ -252,6 +261,10 @@ public class HtmlConstants {
 
   public static boolean isReservedNode(TagNode element) {
     return RESERVED_NODE_SET.contains(element.getNodeName());
+  }
+
+  public static boolean isAbstractRole(AriaRole ariaRole) {
+    return ABSTRACT_ROLES.contains(ariaRole);
   }
 
   private HtmlConstants() {

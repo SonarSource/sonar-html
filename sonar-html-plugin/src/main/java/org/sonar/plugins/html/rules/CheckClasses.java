@@ -23,6 +23,7 @@ import org.sonar.plugins.html.checks.accessibility.AnchorsHaveContentCheck;
 import org.sonar.plugins.html.checks.accessibility.AnchorsShouldNotBeUsedAsButtonsCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaActiveDescendantHasTabIndexCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
+import org.sonar.plugins.html.checks.accessibility.AriaRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaUnsupportedElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.NoAriaHiddenOnFocusableCheck;
@@ -113,6 +114,7 @@ public final class CheckClasses {
     AnchorsShouldNotBeUsedAsButtonsCheck.class,
     AriaActiveDescendantHasTabIndexCheck.class,
     AriaProptypesCheck.class,
+    AriaRoleCheck.class,
     AriaUnsupportedElementsCheck.class,
     AvoidCommentedOutCodeCheck.class,
     AvoidHtmlCommentCheck.class,

@@ -1,7 +1,6 @@
 {
   "name": "Sonar way",
   "ruleKeys": [
-    "S6811",
     "AvoidCommentedOutCodeCheck",
     "DoctypePresenceCheck",
     "FieldsetWithoutLegendCheck",
@@ -28,6 +27,8 @@
     "S5264",
     "S5725",
     "S6793",
+    "S6811",
+    "S6821",
     "S6823",
     "S6824",
     "S6825",
