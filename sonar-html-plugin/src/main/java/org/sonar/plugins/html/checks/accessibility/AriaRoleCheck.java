@@ -17,7 +17,7 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.ABSTRACT_ROLES;
+import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
@@ -35,7 +35,7 @@ public class AriaRoleCheck extends AbstractPageCheck {
     var values = role.split(" ");
     for (var value : values) {
       AriaRole ariaRole = AriaRole.of(value);
-      if (ariaRole == null || ABSTRACT_ROLES.contains(ariaRole)) {
+      if (ariaRole == null || isAbstractRole(ariaRole)) {
         createViolation(element, String.format(
             "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"%s\" is not a valid role.",
             value));
