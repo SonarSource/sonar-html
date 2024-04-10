@@ -28,11 +28,11 @@ import org.sonar.plugins.html.node.TagNode;
 public class AriaRoleCheck extends AbstractPageCheck {
     @Override
     public void startElement(TagNode element) {
-        var roleValue = element.getProperty("role");
-        if (roleValue == null) {
+        var role = element.getAttribute("role");
+        if (role == null) {
             return;
         }
-        var values = roleValue.getValue().split(" ");
+        var values = role.split(" ");
         for (var value : values) {
             AriaRole ariaRole = AriaRole.of(value);
             if (ariaRole == null || ABSTRACT_ROLES.contains(ariaRole)) {
