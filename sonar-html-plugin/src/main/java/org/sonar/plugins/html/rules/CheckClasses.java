@@ -25,6 +25,7 @@ import org.sonar.plugins.html.checks.accessibility.AriaActiveDescendantHasTabInd
 import org.sonar.plugins.html.checks.accessibility.AriaProptypesCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.AriaUnsupportedElementsCheck;
+import org.sonar.plugins.html.checks.accessibility.ElementWithRoleShouldHaveRequiredPropertiesCheck;
 import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.NoAriaHiddenOnFocusableCheck;
 import org.sonar.plugins.html.checks.accessibility.RoleSupportsAriaPropertyCheck;
@@ -128,6 +129,7 @@ public final class CheckClasses {
     DoubleQuotesCheck.class,
     DynamicJspIncludeCheck.class,
     ElementWithGivenIdPresentCheck.class,
+    ElementWithRoleShouldHaveRequiredPropertiesCheck.class,
     FieldsetWithoutLegendCheck.class,
     FileLengthCheck.class,
     FixmeCommentCheck.class,
