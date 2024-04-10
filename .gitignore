@@ -11,6 +11,9 @@ target/
 *.ipr
 .idea/
 
+# ---- VSCode
+.vscode/
+
 # ---- Eclipse
 .classpath
 .project
