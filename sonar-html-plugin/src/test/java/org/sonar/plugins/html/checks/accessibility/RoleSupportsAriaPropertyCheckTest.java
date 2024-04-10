@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import java.io.File;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
@@ -34,8 +35,11 @@ class RoleSupportsAriaPropertyCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/RoleSupportsAriaPropertyCheck.html"),
       new RoleSupportsAriaPropertyCheck());
+    var issues = sourceCode.getIssues();
+    assertThat(issues.size()).isEqualTo(39);
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("The attribute aria-selected is not supported by the role button. This role is implicit on the element button.")
-      .next().atLine(3).withMessage("The attribute aria-selected is not supported by the role button.");
+      .next().atLine(3).withMessage("The attribute aria-selected is not supported by the role button.")
+      .consume();
   }
 }

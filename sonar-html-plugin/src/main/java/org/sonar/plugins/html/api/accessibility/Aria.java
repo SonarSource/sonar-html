@@ -3997,7 +3997,7 @@ public class Aria {
 
   // from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/implicitRoles/index.js
   public static AriaRole getImplicitRole(TagNode element) {
-    switch (element.getNodeName()) {
+    switch (element.getNodeName().toLowerCase()) {
       case "a", "area", "link":
         if (element.getAttribute("href") != null) {
           return AriaRole.LINK;
