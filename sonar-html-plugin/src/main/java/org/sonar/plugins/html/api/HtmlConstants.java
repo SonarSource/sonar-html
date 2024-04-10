@@ -19,6 +19,8 @@ package org.sonar.plugins.html.api;
 
 import java.util.List;
 import java.util.Set;
+
+import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.node.TagNode;
 
 public class HtmlConstants {
@@ -207,9 +209,10 @@ public class HtmlConstants {
   public static final Set<String> PRESENTATION_ROLES = Set.of("none", "presentation");
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/etc/roles/ariaAbstractRoles.js
-  public static final Set<String> ABSTRACT_ROLES = Set.of(
-    "command", "composite", "input", "landmark", "range", "roletype", "section", "sectionhead", "select", "structure", "toolbar", "widget", "window"
-  );
+  public static final Set<AriaRole> ABSTRACT_ROLES = Set.of(
+    AriaRole.COMMAND, AriaRole.COMPOSITE, AriaRole.INPUT, AriaRole.LANDMARK, AriaRole.RANGE, AriaRole.ROLETYPE,
+    AriaRole.SECTION, AriaRole.SECTIONHEAD, AriaRole.SELECT, AriaRole.STRUCTURE, AriaRole.TOOLBAR, AriaRole.WIDGET,
+    AriaRole.WINDOW);
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/domMap.js
   public static final Set<String> RESERVED_NODE_SET = Set.of(
@@ -243,7 +246,7 @@ public class HtmlConstants {
 
   public static boolean hasAbstractRole(TagNode element) {
     var role = element.getAttribute("role");
-    return role != null && ABSTRACT_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+    return role != null && AriaRole.of(role) != null && ABSTRACT_ROLES.stream().anyMatch(AriaRole.of(role)::equals);
   }
 
   public static boolean hasKnownHTMLTag(TagNode element) {
