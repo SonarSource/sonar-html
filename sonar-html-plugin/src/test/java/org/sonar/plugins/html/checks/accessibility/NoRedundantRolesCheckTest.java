@@ -54,4 +54,18 @@ class NoRedundantRolesCheckTest {
       .next().atLine(6).withMessage("The element nav has an implicit role of navigation. Definig this explicitly is redundant and should be avoided.")
       .noMore();
   }
+
+  @Test
+  void html_with_invalid_custom_property() throws Exception {
+    var check = new NoRedundantRolesCheck();
+    // the second pair is invalid, should be ignored
+    check.allowedRedundantRoles = "button=button,body=document=invalid";
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoRedundantRolesCheck.html"),
+        check);
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2)
+      .next().atLine(6).withMessage("The element nav has an implicit role of navigation. Definig this explicitly is redundant and should be avoided.")
+      .noMore();
+  }
 }
