@@ -19,6 +19,7 @@ package org.sonar.plugins.html.api;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.sonar.plugins.html.api.accessibility.AriaRole;
@@ -247,7 +248,11 @@ public class HtmlConstants {
 
   public static boolean hasAbstractRole(TagNode element) {
     var role = element.getAttribute("role");
-    return role != null && AriaRole.of(role) != null && ABSTRACT_ROLES.stream().anyMatch(AriaRole.of(role)::equals);
+    if (role == null) {
+      return false;
+    }
+    var ariaRole = AriaRole.of(role.toLowerCase(Locale.ROOT));
+    return ariaRole != null && ABSTRACT_ROLES.stream().anyMatch(ariaRole::equals);
   }
 
   public static boolean hasKnownHTMLTag(TagNode element) {
