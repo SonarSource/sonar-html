@@ -20,16 +20,17 @@ package org.sonar.plugins.html.api.accessibility;
 
 import java.util.EnumMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.sonar.plugins.html.node.TagNode;
 
 public class Aria {
 
-  protected static final EnumMap<AriaProperty, AriaPropertyValues> ARIA_PROPERTIES =
+  protected static final Map<AriaProperty, AriaPropertyValues> ARIA_PROPERTIES =
     new EnumMap<>(AriaProperty.class);
-  protected static final EnumMap<AriaRole, RoleProperties> ROLES = new EnumMap<>(AriaRole.class);
-  protected static final EnumMap<Element, ElementRoles> ELEMENTS = new EnumMap<>(Element.class);
+  protected static final Map<AriaRole, RoleProperties> ROLES = new EnumMap<>(AriaRole.class);
+  protected static final Map<Element, ElementRoles> ELEMENTS = new EnumMap<>(Element.class);
 
   static {
     ARIA_PROPERTIES.put(
@@ -3880,6 +3881,10 @@ public class Aria {
 
   public static ElementRoles getElement(Element name) {
     return ELEMENTS.get(name);
+  }
+
+  public static Set<AriaProperty> getProperties() {
+    return ARIA_PROPERTIES.keySet();
   }
 
   public static class AriaPropertyValues {

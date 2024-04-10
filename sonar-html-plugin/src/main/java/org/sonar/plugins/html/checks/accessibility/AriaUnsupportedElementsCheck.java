@@ -18,6 +18,7 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.plugins.html.api.accessibility.Aria;
+import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -37,10 +38,10 @@ public class AriaUnsupportedElementsCheck extends AbstractPageCheck {
     if (!isReservedNode(element)) {
       return;
     }
-    var invalidAttributes = new HashSet<String>(Aria.ARIA_PROPERTIES.keySet());
-    invalidAttributes.add("role");
+    var invalidAttributes = new HashSet<AriaProperty>(Aria.getProperties());
     element.getAttributes().forEach(attr -> {
-      if (invalidAttributes.contains(attr.getName().toLowerCase(Locale.ROOT))) {
+      var attrName = attr.getName().toLowerCase(Locale.ROOT);
+      if (invalidAttributes.contains(AriaProperty.of(attrName)) || attrName.equals("role")) {
         createViolation(
             element,
             String.format("This element does not support ARIA roles, states and properties. Try removing the prop %s.",
