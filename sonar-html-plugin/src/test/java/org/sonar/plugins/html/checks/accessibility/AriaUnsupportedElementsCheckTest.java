@@ -36,6 +36,8 @@ class AriaUnsupportedElementsCheckTest {
                 new AriaUnsupportedElementsCheck());
         checkMessagesVerifier.verify(sourceCode.getIssues())
                 .next().atLine(1).withMessage(
-                        "This element does not support ARIA roles, states and properties. Try removing the prop aria-hidden.");
+                        "This element does not support ARIA roles, states and properties. Try removing the prop aria-hidden.")
+                .next().atLine(2)
+                .noMore();;
     }
 }
