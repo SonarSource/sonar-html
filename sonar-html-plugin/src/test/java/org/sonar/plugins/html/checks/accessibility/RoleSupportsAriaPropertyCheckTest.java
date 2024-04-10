@@ -36,7 +36,7 @@ class RoleSupportsAriaPropertyCheckTest {
       new File("src/test/resources/checks/RoleSupportsAriaPropertyCheck.html"),
       new RoleSupportsAriaPropertyCheck());
     var issues = sourceCode.getIssues();
-    assertThat(issues.size()).isEqualTo(39);
+    assertThat(issues).hasSize(39);
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("The attribute aria-selected is not supported by the role button. This role is implicit on the element button.")
       .next().atLine(3).withMessage("The attribute aria-selected is not supported by the role button.")
