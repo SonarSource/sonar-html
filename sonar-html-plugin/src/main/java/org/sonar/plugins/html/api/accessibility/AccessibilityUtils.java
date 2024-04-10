@@ -31,9 +31,9 @@ public class AccessibilityUtils {
     return (
       (
         "input".equalsIgnoreCase(element.getNodeName()) &&
-        "hidden".equalsIgnoreCase(element.getPropertyValue("type"))) ||
-        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden")
-        )
+        "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
+      ) ||
+      "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
     );
   }
 
