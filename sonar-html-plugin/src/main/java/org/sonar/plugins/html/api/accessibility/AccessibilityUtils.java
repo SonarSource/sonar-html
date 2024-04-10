@@ -28,9 +28,13 @@ public class AccessibilityUtils {
   }
 
   public static boolean isHiddenFromScreenReader(TagNode element) {
-    return (("input".equalsIgnoreCase(element.getNodeName()) &&
+    return (
+      (
+        "input".equalsIgnoreCase(element.getNodeName()) &&
         "hidden".equalsIgnoreCase(element.getPropertyValue("type"))) ||
-        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden")));
+        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden")
+        )
+    );
   }
 
   public static boolean isDisabledElement(TagNode element) {

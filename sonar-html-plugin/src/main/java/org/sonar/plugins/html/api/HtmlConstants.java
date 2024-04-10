@@ -42,191 +42,172 @@ public class HtmlConstants {
   public static final String JSP_FILE_EXTENSIONS_PROP_KEY = "sonar.jsp.file.suffixes";
   public static final String JSP_FILE_EXTENSIONS_DEF_VALUE = ".jsp,.jspf,.jspx";
   public static final List<String> KNOWN_HTML_TAGS = List.of(
-      "a",
-      "acronym", // deprecated
-      "area",
-      "abbr",
-      "address",
-      "applet", // deprecated
-      "article",
-      "aside",
-      "audio",
-      "b",
-      "base",
-      "bdi",
-      "bdo",
-      "big", // deprecated
-      "blink", // deprecated
-      "blockquote",
-      "body",
-      "br",
-      "button",
-      "canvas",
-      "caption",
-      "center", // deprecated
-      "cite",
-      "code",
-      "col",
-      "colgroup",
-      "content", // deprecated
-      "data",
-      "datalist",
-      "dd",
-      "del",
-      "details",
-      "dfn",
-      "dialog",
-      "dir", // deprecated
-      "div",
-      "dl",
-      "dt",
-      "em",
-      "embed",
-      "fieldset",
-      "figcaption",
-      "figure",
-      "footer",
-      "font", // deprecated
-      "form",
-      "frame", // deprecated
-      "frameset", // deprecated
-      "h1",
-      "h2",
-      "h3",
-      "h4",
-      "h5",
-      "h6",
-      "head",
-      "header",
-      "hgroup",
-      "hr",
-      "html",
-      "i",
-      "iframe",
-      "image", // deprecated
-      "img",
-      "input",
-      "ins",
-      "kbd",
-      "keygen", // deprecated
-      "label",
-      "legend",
-      "li",
-      "link",
-      "main",
-      "map",
-      "mark",
-      "marquee", // deprecated
-      "menu",
-      "menuitem", // deprecated
-      "meta",
-      "meter",
-      "nav",
-      "nobr", // deprecated
-      "noembed", // deprecated
-      "noframes", // deprecated
-      "noscript",
-      "object",
-      "ol",
-      "optgroup",
-      "option",
-      "output",
-      "p",
-      "param", // deprecated
-      "picture",
-      "plaintext", // deprecated
-      "pre",
-      "progress",
-      "q",
-      "rb", // deprecated
-      "rp",
-      "rt", // deprecated
-      "rtc", // deprecated
-      "ruby",
-      "s",
-      "samp",
-      "script",
-      "search",
-      "section",
-      "select",
-      "shadow", // deprecated
-      "small",
-      "source",
-      "spacer", // deprecated
-      "span",
-      "strike", // deprecated
-      "strong",
-      "style",
-      "sub",
-      "summary",
-      "sup",
-      "svg",
-      "table",
-      "tbody",
-      "td",
-      "template",
-      "textarea",
-      "tfoot",
-      "th",
-      "thead",
-      "time",
-      "title",
-      "tr",
-      "track",
-      "tt", // deprecated
-      "u",
-      "ul",
-      "var",
-      "video",
-      "wbr",
-      "xmp" // deprecated
+    "a",
+    "acronym", // deprecated
+    "area",
+    "abbr",
+    "address",
+    "applet", // deprecated
+    "article",
+    "aside",
+    "audio",
+    "b",
+    "base",
+    "bdi",
+    "bdo",
+    "big", // deprecated
+    "blink", // deprecated
+    "blockquote",
+    "body",
+    "br",
+    "button",
+    "canvas",
+    "caption",
+    "center", // deprecated
+    "cite",
+    "code",
+    "col",
+    "colgroup",
+    "content", // deprecated
+    "data",
+    "datalist",
+    "dd",
+    "del",
+    "details",
+    "dfn",
+    "dialog",
+    "dir", // deprecated
+    "div",
+    "dl",
+    "dt",
+    "em",
+    "embed",
+    "fieldset",
+    "figcaption",
+    "figure",
+    "footer",
+    "font", // deprecated
+    "form",
+    "frame", // deprecated
+    "frameset", // deprecated
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "head",
+    "header",
+    "hgroup",
+    "hr",
+    "html",
+    "i",
+    "iframe",
+    "image", // deprecated
+    "img",
+    "input",
+    "ins",
+    "kbd",
+    "keygen", // deprecated
+    "label",
+    "legend",
+    "li",
+    "link",
+    "main",
+    "map",
+    "mark",
+    "marquee", // deprecated
+    "menu",
+    "menuitem", // deprecated
+    "meta",
+    "meter",
+    "nav",
+    "nobr", // deprecated
+    "noembed", // deprecated
+    "noframes", // deprecated
+    "noscript",
+    "object",
+    "ol",
+    "optgroup",
+    "option",
+    "output",
+    "p",
+    "param", // deprecated
+    "picture",
+    "plaintext", // deprecated
+    "pre",
+    "progress",
+    "q",
+    "rb", // deprecated
+    "rp",
+    "rt", // deprecated
+    "rtc", // deprecated
+    "ruby",
+    "s",
+    "samp",
+    "script",
+    "search",
+    "section",
+    "select",
+    "shadow", // deprecated
+    "small",
+    "source",
+    "spacer", // deprecated
+    "span",
+    "strike", // deprecated
+    "strong",
+    "style",
+    "sub",
+    "summary",
+    "sup",
+    "svg",
+    "table",
+    "tbody",
+    "td",
+    "template",
+    "textarea",
+    "tfoot",
+    "th",
+    "thead",
+    "time",
+    "title",
+    "tr",
+    "track",
+    "tt", // deprecated
+    "u",
+    "ul",
+    "var",
+    "video",
+    "wbr",
+    "xmp" // deprecated
   );
 
-  // computed from
-  // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveElement.js
-  public static final Set<String> INTERACTIVE_ELEMENTS = Set.of("a", "audio", "button", "canvas", "datalist", "embed",
-      "input", "menuitem", "option", "select", "td", "textarea",
-      "th", "tr", "video");
+  // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveElement.js
+  public static final Set<String> INTERACTIVE_ELEMENTS = Set.of("a", "audio", "button", "canvas", "datalist", "embed", "input", "menuitem", "option", "select", "td", "textarea",
+    "th", "tr", "video");
 
-  // computed from
-  // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveElement.js
-  public static final Set<String> NON_INTERACTIVE_ELEMENTS = Set.of("abbr", "address", "article", "aside", "blockquote",
-      "br", "caption", "code", "dd", "del", "details", "dfn",
-      "dialog", "dir", "dl", "dt", "em", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4",
-      "h5", "h6", "hr", "html", "iframe", "img", "ins", "label",
-      "legend", "li", "main", "mark", "marquee", "menu", "meter", "nav", "ol", "optgroup", "output", "p", "pre",
-      "progress", "ruby", "strong", "sub", "sup", "table", "tbody",
-      "tfoot", "thead", "time", "ul");
+  // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveElement.js
+  public static final Set<String> NON_INTERACTIVE_ELEMENTS = Set.of("abbr", "address", "article", "aside", "blockquote", "br", "caption", "code", "dd", "del", "details", "dfn",
+    "dialog", "dir", "dl", "dt", "em", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "html", "iframe", "img", "ins", "label",
+    "legend", "li", "main", "mark", "marquee", "menu", "meter", "nav", "ol", "optgroup", "output", "p", "pre", "progress", "ruby", "strong", "sub", "sup", "table", "tbody",
+    "tfoot", "thead", "time", "ul");
 
-  // computed as
-  // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveRole.js
-  public static final Set<String> INTERACTIVE_ROLES = Set.of("button", "checkbox", "columnheader", "combobox", "grid",
-      "gridcell", "link", "listbox", "menu", "menubar", "menuitem",
-      "menuitemcheckbox", "menuitemradio", "option", "progressbar", "radio", "radiogroup", "row", "rowheader",
-      "scrollbar", "searchbox", "slider", "spinbutton", "switch", "tab",
-      "tablist", "textbox", "tree", "treegrid", "treeitem", "doc-backlink", "doc-biblioref", "doc-glossref",
-      "doc-noteref");
+  // computed as https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveRole.js
+  public static final Set<String> INTERACTIVE_ROLES = Set.of("button", "checkbox", "columnheader", "combobox", "grid", "gridcell", "link", "listbox", "menu", "menubar", "menuitem",
+    "menuitemcheckbox", "menuitemradio", "option", "progressbar", "radio", "radiogroup", "row", "rowheader", "scrollbar", "searchbox", "slider", "spinbutton", "switch", "tab",
+    "tablist", "textbox", "tree", "treegrid", "treeitem", "doc-backlink", "doc-biblioref", "doc-glossref", "doc-noteref");
 
-  // computed from
-  // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveRole.js
-  public static final Set<String> NON_INTERACTIVE_ROLES = Set.of("alert", "alertdialog", "application", "article",
-      "banner", "blockquote", "caption", "cell", "code",
-      "complementary", "contentinfo", "definition", "deletion", "dialog", "directory", "document", "emphasis", "feed",
-      "figure", "form", "generic", "group", "heading", "img",
-      "insertion", "list", "listitem", "log", "main", "mark", "marquee", "math", "meter", "navigation", "none", "note",
-      "paragraph", "presentation", "region", "rowgroup", "search",
-      "separator", "status", "strong", "subscript", "superscript", "table", "tabpanel", "term", "time", "timer",
-      "toolbar", "tooltip", "doc-abstract", "doc-acknowledgments",
-      "doc-afterword", "doc-appendix", "doc-biblioentry", "doc-bibliography", "doc-chapter", "doc-colophon",
-      "doc-conclusion", "doc-cover", "doc-credit", "doc-credits",
-      "doc-dedication", "doc-endnote", "doc-endnotes", "doc-epigraph", "doc-epilogue", "doc-errata", "doc-example",
-      "doc-footnote", "doc-foreword", "doc-glossary", "doc-index",
-      "doc-introduction", "doc-notice", "doc-pagebreak", "doc-pagelist", "doc-part", "doc-preface", "doc-prologue",
-      "doc-pullquote", "doc-qna", "doc-subtitle", "doc-tip", "doc-toc",
-      "graphics-document", "graphics-object", "graphics-symbol");
+  // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveRole.js
+  public static final Set<String> NON_INTERACTIVE_ROLES = Set.of("alert", "alertdialog", "application", "article", "banner", "blockquote", "caption", "cell", "code",
+    "complementary", "contentinfo", "definition", "deletion", "dialog", "directory", "document", "emphasis", "feed", "figure", "form", "generic", "group", "heading", "img",
+    "insertion", "list", "listitem", "log", "main", "mark", "marquee", "math", "meter", "navigation", "none", "note", "paragraph", "presentation", "region", "rowgroup", "search",
+    "separator", "status", "strong", "subscript", "superscript", "table", "tabpanel", "term", "time", "timer", "toolbar", "tooltip", "doc-abstract", "doc-acknowledgments",
+    "doc-afterword", "doc-appendix", "doc-biblioentry", "doc-bibliography", "doc-chapter", "doc-colophon", "doc-conclusion", "doc-cover", "doc-credit", "doc-credits",
+    "doc-dedication", "doc-endnote", "doc-endnotes", "doc-epigraph", "doc-epilogue", "doc-errata", "doc-example", "doc-footnote", "doc-foreword", "doc-glossary", "doc-index",
+    "doc-introduction", "doc-notice", "doc-pagebreak", "doc-pagelist", "doc-part", "doc-preface", "doc-prologue", "doc-pullquote", "doc-qna", "doc-subtitle", "doc-tip", "doc-toc",
+    "graphics-document", "graphics-object", "graphics-symbol");
 
-  // inspired by
-  // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isPresentationRole.js
+  // inspired by https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isPresentationRole.js
   public static final Set<String> PRESENTATION_ROLES = Set.of("none", "presentation");
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/etc/roles/ariaAbstractRoles.js
