@@ -26,20 +26,20 @@ import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6821")
 public class AriaRoleCheck extends AbstractPageCheck {
-    @Override
-    public void startElement(TagNode element) {
-        var role = element.getAttribute("role");
-        if (role == null) {
-            return;
-        }
-        var values = role.split(" ");
-        for (var value : values) {
-            AriaRole ariaRole = AriaRole.of(value);
-            if (ariaRole == null || ABSTRACT_ROLES.contains(ariaRole)) {
-                createViolation(element, String.format(
-                        "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"%s\" is not a valid role.",
-                        value));
-            }
-        }
+  @Override
+  public void startElement(TagNode element) {
+    var role = element.getAttribute("role");
+    if (role == null) {
+      return;
     }
+    var values = role.split(" ");
+    for (var value : values) {
+      AriaRole ariaRole = AriaRole.of(value);
+      if (ariaRole == null || ABSTRACT_ROLES.contains(ariaRole)) {
+        createViolation(element, String.format(
+            "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"%s\" is not a valid role.",
+            value));
+      }
+    }
+  }
 }

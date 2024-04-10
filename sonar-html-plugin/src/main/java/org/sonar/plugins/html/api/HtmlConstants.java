@@ -17,6 +17,7 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -209,7 +210,7 @@ public class HtmlConstants {
   public static final Set<String> PRESENTATION_ROLES = Set.of("none", "presentation");
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/etc/roles/ariaAbstractRoles.js
-  public static final Set<AriaRole> ABSTRACT_ROLES = Set.of(
+  public static final Set<AriaRole> ABSTRACT_ROLES = EnumSet.of(
     AriaRole.COMMAND, AriaRole.COMPOSITE, AriaRole.INPUT, AriaRole.LANDMARK, AriaRole.RANGE, AriaRole.ROLETYPE,
     AriaRole.SECTION, AriaRole.SECTIONHEAD, AriaRole.SELECT, AriaRole.STRUCTURE, AriaRole.TOOLBAR, AriaRole.WIDGET,
     AriaRole.WINDOW);
