@@ -857,6 +857,9 @@ public class Aria {
           AriaProperty.DISABLED
         )
         .setElements(Element.INPUT)
+        .setRequiredProperties(
+          AriaProperty.CHECKED
+        )
     );
     ROLES.put(AriaRole.CODE,
       new RoleDefinition(AriaRole.CODE)
@@ -948,6 +951,10 @@ public class Aria {
           AriaProperty.DISABLED
         )
         .setElements(Element.INPUT, Element.SELECT)
+        .setRequiredProperties(
+          AriaProperty.CONTROLS,
+          AriaProperty.EXPANDED
+        )
     );
     ROLES.put(AriaRole.COMPLEMENTARY,
       new RoleDefinition(AriaRole.COMPLEMENTARY)
@@ -1355,6 +1362,9 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION
         )
         .setElements(Element.H1, Element.H2, Element.H3, Element.H4, Element.H5, Element.H6)
+        .setRequiredProperties(
+          AriaProperty.LEVEL
+        )
     );
     ROLES.put(AriaRole.IMG,
       new RoleDefinition(AriaRole.IMG)
@@ -1733,6 +1743,9 @@ public class Aria {
           AriaProperty.POSINSET,
           AriaProperty.SETSIZE
         )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
+        )
     );
     ROLES.put(AriaRole.MENUITEMRADIO,
       new RoleDefinition(AriaRole.MENUITEMRADIO)
@@ -1765,6 +1778,9 @@ public class Aria {
           AriaProperty.POSINSET,
           AriaProperty.SETSIZE
         )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
+        )
     );
     ROLES.put(AriaRole.METER,
       new RoleDefinition(AriaRole.METER)
@@ -1792,6 +1808,9 @@ public class Aria {
           AriaProperty.VALUENOW
         )
         .setElements(Element.METER)
+        .setRequiredProperties(
+          AriaProperty.VALUENOW
+        )
     );
     ROLES.put(AriaRole.NAVIGATION,
       new RoleDefinition(AriaRole.NAVIGATION)
@@ -1865,6 +1884,9 @@ public class Aria {
           AriaProperty.DISABLED
         )
         .setElements(Element.OPTION)
+        .setRequiredProperties(
+          AriaProperty.SELECTED
+        )
     );
     ROLES.put(AriaRole.PARAGRAPH,
       new RoleDefinition(AriaRole.PARAGRAPH)
@@ -1965,6 +1987,9 @@ public class Aria {
           AriaProperty.DISABLED
         )
         .setElements(Element.INPUT)
+        .setRequiredProperties(
+          AriaProperty.CHECKED
+        )
     );
     ROLES.put(AriaRole.RADIOGROUP,
       new RoleDefinition(AriaRole.RADIOGROUP)
@@ -2136,6 +2161,10 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.VALUENOW
         )
+        .setRequiredProperties(
+          AriaProperty.CONTROLS,
+          AriaProperty.VALUENOW
+        )
     );
     ROLES.put(AriaRole.SEARCH,
       new RoleDefinition(AriaRole.SEARCH)
@@ -2253,6 +2282,9 @@ public class Aria {
           AriaProperty.VALUENOW
         )
         .setElements(Element.INPUT)
+        .setRequiredProperties(
+          AriaProperty.VALUENOW
+        )
     );
     ROLES.put(AriaRole.SPINBUTTON,
       new RoleDefinition(AriaRole.SPINBUTTON)
@@ -2406,6 +2438,9 @@ public class Aria {
           AriaProperty.INVALID,
           AriaProperty.READONLY,
           AriaProperty.REQUIRED
+        )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
         )
     );
     ROLES.put(AriaRole.TAB,
@@ -2746,6 +2781,9 @@ public class Aria {
           AriaProperty.SETSIZE,
           AriaProperty.DISABLED,
           AriaProperty.CHECKED,
+          AriaProperty.SELECTED
+        )
+        .setRequiredProperties(
           AriaProperty.SELECTED
         )
     );
@@ -4029,11 +4067,13 @@ public class Aria {
     private final AriaRole name;
     private Set<AriaProperty> ariaProperties;
     private Set<Element> elements;
+    private Set<AriaProperty> requiredAriaProperties;
 
     public RoleDefinition(AriaRole name) {
       this.name = name;
       this.ariaProperties = Set.of();
       this.elements = Set.of();
+      this.requiredAriaProperties = Set.of();
     }
 
     public AriaRole getName() {
@@ -4054,8 +4094,17 @@ public class Aria {
       return this.elements;
     }
 
+    public RoleProperties setRequiredProperties(AriaProperty... values) {
+      this.requiredAriaProperties = Set.of(values);
+      return this;
+    }
+
     public boolean propertyIsAllowed(AriaProperty name) {
       return ariaProperties.contains(name);
+    }
+
+    public Set<AriaProperty> getRequiredProperties() {
+      return this.requiredAriaProperties;
     }
   }
 
