@@ -62,6 +62,8 @@ class ElementWithRoleShouldHaveRequiredPropertiesCheckTest {
       .next().atLine(11).withMessage("The attribute \"aria-valuenow\" is required by the role \"slider\".")
       .next().atLine(12).withMessage("The attribute \"aria-checked\" is required by the role \"switch\".")
       .next().atLine(13).withMessage("The attribute \"aria-selected\" is required by the role \"treeitem\".")
+      .next().atLine(14).withMessage("The attribute \"aria-checked\" is required by the role \"radio\".")
+      .next().atLine(15).withMessage("The attribute \"aria-selected\" is required by the role \"option\".")
     ;
   }
 }
