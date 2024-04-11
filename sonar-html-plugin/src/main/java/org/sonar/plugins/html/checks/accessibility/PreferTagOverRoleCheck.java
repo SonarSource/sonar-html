@@ -18,11 +18,9 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.Locale;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
-import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.api.accessibility.Element;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
