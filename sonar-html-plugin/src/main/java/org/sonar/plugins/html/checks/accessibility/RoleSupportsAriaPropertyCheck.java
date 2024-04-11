@@ -45,6 +45,11 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
     }
 
     var rolesProperties = Arrays.stream(roles).map(Aria::getRole).filter(Objects::nonNull).toArray(RoleProperties[]::new);
+
+    if (rolesProperties.length  == 0) {
+      return;
+    }
+
     element.getAttributes().forEach(attr -> {
       var normalizedAttr = attr.getName().toLowerCase(Locale.ROOT);
       var property = Aria.getProperty(AriaProperty.of(normalizedAttr));
