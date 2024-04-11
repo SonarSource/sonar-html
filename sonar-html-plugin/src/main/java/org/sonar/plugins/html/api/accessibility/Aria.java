@@ -850,6 +850,9 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
         )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
+        )
     );
     ROLES.put(AriaRole.CODE,
       new RoleProperties(AriaRole.CODE)
@@ -937,6 +940,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
+        )
+        .setRequiredProperties(
+          AriaProperty.CONTROLS,
+          AriaProperty.EXPANDED
         )
     );
     ROLES.put(AriaRole.COMPLEMENTARY,
@@ -1312,6 +1319,9 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setRequiredProperties(
+          AriaProperty.LEVEL
+        )
     );
     ROLES.put(AriaRole.IMG,
       new RoleProperties(AriaRole.IMG)
@@ -1681,6 +1691,9 @@ public class Aria {
           AriaProperty.POSINSET,
           AriaProperty.SETSIZE
         )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
+        )
     );
     ROLES.put(AriaRole.MENUITEMRADIO,
       new RoleProperties(AriaRole.MENUITEMRADIO)
@@ -1713,6 +1726,9 @@ public class Aria {
           AriaProperty.POSINSET,
           AriaProperty.SETSIZE
         )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
+        )
     );
     ROLES.put(AriaRole.METER,
       new RoleProperties(AriaRole.METER)
@@ -1737,6 +1753,9 @@ public class Aria {
           AriaProperty.OWNS,
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION,
+          AriaProperty.VALUENOW
+        )
+        .setRequiredProperties(
           AriaProperty.VALUENOW
         )
     );
@@ -1809,6 +1828,9 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
+        )
+        .setRequiredProperties(
+          AriaProperty.SELECTED
         )
     );
     ROLES.put(AriaRole.PARAGRAPH,
@@ -1905,6 +1927,9 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
+        )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
         )
     );
     ROLES.put(AriaRole.RADIOGROUP,
@@ -2073,6 +2098,10 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.VALUENOW
         )
+        .setRequiredProperties(
+          AriaProperty.CONTROLS,
+          AriaProperty.VALUENOW
+        )
     );
     ROLES.put(AriaRole.SEARCH,
       new RoleProperties(AriaRole.SEARCH)
@@ -2185,6 +2214,9 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED,
+          AriaProperty.VALUENOW
+        )
+        .setRequiredProperties(
           AriaProperty.VALUENOW
         )
     );
@@ -2335,6 +2367,9 @@ public class Aria {
           AriaProperty.INVALID,
           AriaProperty.READONLY,
           AriaProperty.REQUIRED
+        )
+        .setRequiredProperties(
+          AriaProperty.CHECKED
         )
     );
     ROLES.put(AriaRole.TAB,
@@ -2671,6 +2706,9 @@ public class Aria {
           AriaProperty.SETSIZE,
           AriaProperty.DISABLED,
           AriaProperty.CHECKED,
+          AriaProperty.SELECTED
+        )
+        .setRequiredProperties(
           AriaProperty.SELECTED
         )
     );
@@ -3953,10 +3991,12 @@ public class Aria {
   public static class RoleProperties {
     private final AriaRole name;
     private Set<AriaProperty> ariaProperties;
+    private Set<AriaProperty> requiredAriaProperties;
 
     public RoleProperties(AriaRole name) {
       this.name = name;
       this.ariaProperties = Set.of();
+      this.requiredAriaProperties = Set.of();
     }
 
     public AriaRole getName() {
@@ -3968,8 +4008,17 @@ public class Aria {
       return this;
     }
 
+    public RoleProperties setRequiredProperties(AriaProperty... values) {
+      this.requiredAriaProperties = Set.of(values);
+      return this;
+    }
+
     public boolean propertyIsAllowed(AriaProperty name) {
       return ariaProperties.contains(name);
+    }
+
+    public Set<AriaProperty> getRequiredProperties() {
+      return this.requiredAriaProperties;
     }
   }
 
