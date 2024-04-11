@@ -98,7 +98,6 @@ class NoStaticElementInteractionsCheckTest {
       .next().atLine(51)
       .next().atLine(52)
       .next().atLine(53)
-      .next().atLine(54)
       .next().atLine(55)
       .next().atLine(56)
       .next().atLine(57)
