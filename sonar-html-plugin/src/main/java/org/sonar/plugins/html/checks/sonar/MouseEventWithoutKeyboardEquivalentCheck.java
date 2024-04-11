@@ -54,7 +54,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean isException(TagNode node) {
-    return isClickableLightningButton(node) || ((isInput(node) || isButton(node) || isHyperlink(node)) && hasOnClick(node) && !hasButtonRole(node));
+    return isClickableLightningButton(node) || ((isInput(node) || isButton(node) || isHyperlink(node) || isSummary(node)) && hasOnClick(node) && !hasButtonRole(node));
   }
 
   private static boolean hasOnClick(TagNode node) {
@@ -120,6 +120,10 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   private static boolean isHyperlink(TagNode node) {
     return "A".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isSummary(TagNode node) {
+    return "SUMMARY".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isClickableLightningButton(TagNode node) {
