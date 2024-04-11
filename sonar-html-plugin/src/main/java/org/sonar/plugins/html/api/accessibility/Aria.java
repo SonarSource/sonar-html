@@ -4094,7 +4094,7 @@ public class Aria {
       return this.elements;
     }
 
-    public RoleProperties setRequiredProperties(AriaProperty... values) {
+    public RoleDefinition setRequiredProperties(AriaProperty... values) {
       this.requiredAriaProperties = Set.of(values);
       return this;
     }
