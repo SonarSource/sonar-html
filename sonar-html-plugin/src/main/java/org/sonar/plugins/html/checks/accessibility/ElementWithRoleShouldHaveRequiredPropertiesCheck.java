@@ -18,7 +18,6 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Objects;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
