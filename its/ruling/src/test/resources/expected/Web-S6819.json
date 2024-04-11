@@ -1,0 +1,30 @@
+{
+"project:custom/S6842.html": [
+1,
+2,
+3
+],
+"project:custom/S6843.html": [
+1,
+2,
+3
+],
+"project:custom/S6852.html": [
+1
+],
+"project:voten/resources/assets/js/components/passport/Clients.vue": [
+76,
+144
+],
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+59,
+127
+],
+"project:voten/resources/views/auth/register.blade.php": [
+56
+],
+"project:voten/resources/views/passport/index.blade.php": [
+26,
+27
+]
+}
