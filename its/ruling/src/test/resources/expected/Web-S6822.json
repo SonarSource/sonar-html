@@ -1,0 +1,15 @@
+{
+"project:voten/resources/assets/js/components/passport/Clients.vue": [
+100,
+168
+],
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+83
+],
+"project:voten/resources/views/auth/passwords/email.blade.php": [
+42
+],
+"project:voten/resources/views/auth/passwords/reset.blade.php": [
+36
+]
+}
