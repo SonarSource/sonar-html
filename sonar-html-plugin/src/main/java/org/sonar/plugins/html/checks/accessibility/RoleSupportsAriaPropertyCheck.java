@@ -17,9 +17,13 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
+import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
+import org.sonar.plugins.html.api.accessibility.Aria.RoleProperties;
 import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -30,35 +34,33 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     var roleAttr = element.getPropertyValue("role");
-    AriaRole role;
+    AriaRole[] roles;
     boolean isImplicit;
     if (roleAttr == null) {
       isImplicit = true;
-      role = Aria.getImplicitRole(element);
+      roles = new AriaRole[]{Aria.getImplicitRole(element)};
     } else {
       isImplicit = false;
-      role = AriaRole.of(roleAttr);
+      roles = Arrays.stream(roleAttr.split("\\s+")).map(String::trim).map(AriaRole::of).toArray(AriaRole[]::new);
     }
 
-    if (role != null) {
-      var roleObj = Aria.getRole(role);
-      if (roleObj == null) {
-        return;
+    var rolesProperties = Arrays.stream(roles).map(Aria::getRole).filter(Objects::nonNull).toArray(RoleProperties[]::new);
+    element.getAttributes().forEach(attr -> {
+      var normalizedAttr = attr.getName().toLowerCase(Locale.ROOT);
+      var property = Aria.getProperty(AriaProperty.of(normalizedAttr));
+      if (property != null && Arrays.stream(rolesProperties).noneMatch(role -> role.propertyIsAllowed(property.getName()))) {
+        createViolation(
+          element,
+          isImplicit ?
+            String.format("The attribute %s is not supported by the role %s. This role is implicit on the element %s.",
+              attr.getName(), rolesProperties[0].getName(), element.getNodeName()) :
+            String.format(
+              "The attribute %s is not supported by the role %s.",
+              attr.getName(),
+              StringUtils.join(Arrays.stream(rolesProperties).map(RoleProperties::getName).map(AriaRole::toString).toArray(String[]::new), " or ")
+            )
+        );
       }
-      String finalRole = role.toString();
-      element.getAttributes().forEach(attr -> {
-        var normalizedAttr = attr.getName().toLowerCase(Locale.ROOT);
-        var property = Aria.getProperty(AriaProperty.of(normalizedAttr));
-        if (property != null && !roleObj.propertyIsAllowed(property.getName())) {
-          createViolation(
-            element,
-            isImplicit ?
-              String.format("The attribute %s is not supported by the role %s. This role is implicit on the element %s.", attr.getName(), finalRole, element.getNodeName()) :
-              String.format("The attribute %s is not supported by the role %s.", attr.getName(), finalRole));
-        }
-      });
-    }
-
+    });
   }
-
 }
