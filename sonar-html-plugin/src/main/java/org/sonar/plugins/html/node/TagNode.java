@@ -97,6 +97,10 @@ public class TagNode extends Node {
     return attributes;
   }
 
+  public boolean hasAttribute(String attributeName) {
+    return getAttribute(attributeName) != null;
+  }
+
   public List<TagNode> getChildren() {
     return children;
   }

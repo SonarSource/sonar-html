@@ -102,6 +102,7 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
         return true;
       }
     }
-    return element.hasProperty("title") || element.hasProperty("aria-label");
+    return element.hasProperty("title") || element.hasProperty("aria-label") || element.hasAttribute("th:text")
+       || element.hasAttribute("th:utext");
   }
 }
