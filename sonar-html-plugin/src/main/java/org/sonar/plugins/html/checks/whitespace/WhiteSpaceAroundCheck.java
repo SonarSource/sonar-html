@@ -48,15 +48,11 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
     int position = start.length();
     if (code.startsWith(start) && code.length() > position) {
       char ch = code.charAt(position);
-      switch (ch) {
-        case '!', '=':
-          handleEqualSign(node, code, position);
-          break;
-        default:
-          if (!Character.isWhitespace(ch)) {
-            createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
-          }
-          break;
+      if (ch == '!' || ch == '=') {
+        handleEqualSign(node, code, position);
+      }
+      else if (!Character.isWhitespace(ch)) {
+        createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
       }
     }
   }
