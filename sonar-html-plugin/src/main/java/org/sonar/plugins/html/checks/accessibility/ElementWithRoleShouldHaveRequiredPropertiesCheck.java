@@ -17,9 +17,12 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import java.util.Arrays;
+import java.util.Objects;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
+import org.sonar.plugins.html.api.accessibility.Aria.RoleProperties;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
@@ -34,20 +37,23 @@ public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPa
       return;
     }
 
-    var role = Aria.getRole(AriaRole.of(roleName));
-
-    if (role == null) {
-      return;
-    }
-
     var attributeNames = element.getAttributes().stream().map(Attribute::getName).toList();
-    var requiredProperties = role.getRequiredProperties();
+    var roles = Arrays.stream(roleName.split("\\s+"))
+      .map(String::trim)
+      .map(AriaRole::of)
+      .filter(Objects::nonNull)
+      .map(Aria::getRole)
+      .filter(Objects::nonNull)
+      .toArray(RoleProperties[]::new);
 
-    for (var requiredProperty : requiredProperties) {
-      var requiredPropertyName = requiredProperty.toString();
+    for (var role : roles) {
+      var requiredProperties = role.getRequiredProperties();
+      for (var requiredProperty : requiredProperties) {
+        var requiredPropertyName = requiredProperty.toString();
 
-      if (!attributeNames.contains(requiredPropertyName)) {
-        createViolation(element, String.format("The attribute \"%s\" is required by the role \"%s\".", requiredPropertyName, roleName));
+        if (!attributeNames.contains(requiredPropertyName)) {
+          createViolation(element, String.format("The attribute \"%s\" is required by the role \"%s\".", requiredPropertyName, role.getName()));
+        }
       }
     }
   }
