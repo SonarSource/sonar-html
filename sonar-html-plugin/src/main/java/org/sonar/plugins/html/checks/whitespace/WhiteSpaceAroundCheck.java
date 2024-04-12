@@ -50,8 +50,7 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
       char ch = code.charAt(position);
       if (ch == '!' || ch == '=') {
         handleEqualSign(node, code, position);
-      }
-      else if (!Character.isWhitespace(ch)) {
+      } else if (!Character.isWhitespace(ch)) {
         createStartIssue(node.getStartLinePosition(), node.getStartColumnPosition() + position);
       }
     }
