@@ -23,7 +23,7 @@ import java.util.Objects;
 import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
-import org.sonar.plugins.html.api.accessibility.Aria.RoleProperties;
+import org.sonar.plugins.html.api.accessibility.Aria.RoleDefinition;
 import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -44,7 +44,7 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
       roles = Arrays.stream(roleAttr.split("\\s+")).map(String::trim).map(AriaRole::of).toArray(AriaRole[]::new);
     }
 
-    var rolesProperties = Arrays.stream(roles).map(Aria::getRole).filter(Objects::nonNull).toArray(RoleProperties[]::new);
+    var rolesProperties = Arrays.stream(roles).map(Aria::getRole).filter(Objects::nonNull).toArray(RoleDefinition[]::new);
 
     if (rolesProperties.length  == 0) {
       return;
@@ -62,7 +62,7 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
             String.format(
               "The attribute %s is not supported by the role %s.",
               attr.getName(),
-              StringUtils.join(Arrays.stream(rolesProperties).map(RoleProperties::getName).map(AriaRole::toString).toArray(String[]::new), " or ")
+              StringUtils.join(Arrays.stream(rolesProperties).map(RoleDefinition::getName).map(AriaRole::toString).toArray(String[]::new), " or ")
             )
         );
       }

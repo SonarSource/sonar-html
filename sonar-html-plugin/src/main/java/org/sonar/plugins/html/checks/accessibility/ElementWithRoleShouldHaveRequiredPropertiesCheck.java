@@ -22,7 +22,7 @@ import java.util.Objects;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
-import org.sonar.plugins.html.api.accessibility.Aria.RoleProperties;
+import org.sonar.plugins.html.api.accessibility.Aria.RoleDefinition;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
@@ -44,7 +44,7 @@ public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPa
       .filter(Objects::nonNull)
       .map(Aria::getRole)
       .filter(Objects::nonNull)
-      .toArray(RoleProperties[]::new);
+      .toArray(RoleDefinition[]::new);
 
     for (var role : roles) {
       var requiredProperties = role.getRequiredProperties();
