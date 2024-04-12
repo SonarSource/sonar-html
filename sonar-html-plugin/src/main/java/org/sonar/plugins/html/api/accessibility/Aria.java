@@ -29,7 +29,7 @@ public class Aria {
 
   protected static final Map<AriaProperty, AriaPropertyValues> ARIA_PROPERTIES =
     new EnumMap<>(AriaProperty.class);
-  protected static final Map<AriaRole, RoleProperties> ROLES = new EnumMap<>(AriaRole.class);
+  protected static final Map<AriaRole, RoleDefinition> ROLES = new EnumMap<>(AriaRole.class);
   protected static final Map<Element, ElementRoles> ELEMENTS = new EnumMap<>(Element.class);
 
   static {
@@ -334,7 +334,7 @@ public class Aria {
     );
 
     ROLES.put(AriaRole.COMMAND,
-      new RoleProperties(AriaRole.COMMAND)
+      new RoleDefinition(AriaRole.COMMAND)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -356,7 +356,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.COMPOSITE,
-      new RoleProperties(AriaRole.COMPOSITE)
+      new RoleDefinition(AriaRole.COMPOSITE)
         .setProperties(
           AriaProperty.ACTIVEDESCENDANT,
           AriaProperty.DISABLED,
@@ -380,7 +380,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.INPUT,
-      new RoleProperties(AriaRole.INPUT)
+      new RoleDefinition(AriaRole.INPUT)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ATOMIC,
@@ -403,7 +403,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.LANDMARK,
-      new RoleProperties(AriaRole.LANDMARK)
+      new RoleDefinition(AriaRole.LANDMARK)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -425,7 +425,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.RANGE,
-      new RoleProperties(AriaRole.RANGE)
+      new RoleDefinition(AriaRole.RANGE)
         .setProperties(
           AriaProperty.VALUEMAX,
           AriaProperty.VALUEMIN,
@@ -450,7 +450,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.ROLETYPE,
-      new RoleProperties(AriaRole.ROLETYPE)
+      new RoleDefinition(AriaRole.ROLETYPE)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -472,7 +472,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.SECTION,
-      new RoleProperties(AriaRole.SECTION)
+      new RoleDefinition(AriaRole.SECTION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -494,7 +494,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.SECTIONHEAD,
-      new RoleProperties(AriaRole.SECTIONHEAD)
+      new RoleDefinition(AriaRole.SECTIONHEAD)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -516,7 +516,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.SELECT,
-      new RoleProperties(AriaRole.SELECT)
+      new RoleDefinition(AriaRole.SELECT)
         .setProperties(
           AriaProperty.ORIENTATION,
           AriaProperty.ATOMIC,
@@ -541,7 +541,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.STRUCTURE,
-      new RoleProperties(AriaRole.STRUCTURE)
+      new RoleDefinition(AriaRole.STRUCTURE)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -563,7 +563,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.WIDGET,
-      new RoleProperties(AriaRole.WIDGET)
+      new RoleDefinition(AriaRole.WIDGET)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -585,7 +585,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.WINDOW,
-      new RoleProperties(AriaRole.WINDOW)
+      new RoleDefinition(AriaRole.WINDOW)
         .setProperties(
           AriaProperty.MODAL,
           AriaProperty.ATOMIC,
@@ -608,7 +608,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.ALERT,
-      new RoleProperties(AriaRole.ALERT)
+      new RoleDefinition(AriaRole.ALERT)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.LIVE,
@@ -630,7 +630,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.ALERTDIALOG,
-      new RoleProperties(AriaRole.ALERTDIALOG)
+      new RoleDefinition(AriaRole.ALERTDIALOG)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -653,7 +653,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.APPLICATION,
-      new RoleProperties(AriaRole.APPLICATION)
+      new RoleDefinition(AriaRole.APPLICATION)
         .setProperties(
           AriaProperty.ACTIVEDESCENDANT,
           AriaProperty.DISABLED,
@@ -681,7 +681,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.ARTICLE,
-      new RoleProperties(AriaRole.ARTICLE)
+      new RoleDefinition(AriaRole.ARTICLE)
         .setProperties(
           AriaProperty.POSINSET,
           AriaProperty.SETSIZE,
@@ -703,9 +703,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.ARTICLE)
     );
     ROLES.put(AriaRole.BANNER,
-      new RoleProperties(AriaRole.BANNER)
+      new RoleDefinition(AriaRole.BANNER)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -725,9 +726,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.HEADER)
     );
     ROLES.put(AriaRole.BLOCKQUOTE,
-      new RoleProperties(AriaRole.BLOCKQUOTE)
+      new RoleDefinition(AriaRole.BLOCKQUOTE)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -747,9 +749,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.BLOCKQUOTE)
     );
     ROLES.put(AriaRole.BUTTON,
-      new RoleProperties(AriaRole.BUTTON)
+      new RoleDefinition(AriaRole.BUTTON)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.EXPANDED,
@@ -773,9 +776,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.INPUT, Element.BUTTON)
     );
     ROLES.put(AriaRole.CAPTION,
-      new RoleProperties(AriaRole.CAPTION)
+      new RoleDefinition(AriaRole.CAPTION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -795,9 +799,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.CAPTION)
     );
     ROLES.put(AriaRole.CELL,
-      new RoleProperties(AriaRole.CELL)
+      new RoleDefinition(AriaRole.CELL)
         .setProperties(
           AriaProperty.COLINDEX,
           AriaProperty.COLSPAN,
@@ -821,9 +826,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.TD)
     );
     ROLES.put(AriaRole.CHECKBOX,
-      new RoleProperties(AriaRole.CHECKBOX)
+      new RoleDefinition(AriaRole.CHECKBOX)
         .setProperties(
           AriaProperty.CHECKED,
           AriaProperty.ERRORMESSAGE,
@@ -850,12 +856,13 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
         )
+        .setElements(Element.INPUT)
         .setRequiredProperties(
           AriaProperty.CHECKED
         )
     );
     ROLES.put(AriaRole.CODE,
-      new RoleProperties(AriaRole.CODE)
+      new RoleDefinition(AriaRole.CODE)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -875,9 +882,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.CODE)
     );
     ROLES.put(AriaRole.COLUMNHEADER,
-      new RoleProperties(AriaRole.COLUMNHEADER)
+      new RoleDefinition(AriaRole.COLUMNHEADER)
         .setProperties(
           AriaProperty.SORT,
           AriaProperty.ATOMIC,
@@ -910,9 +918,10 @@ public class Aria {
           AriaProperty.REQUIRED,
           AriaProperty.SELECTED
         )
+        .setElements(Element.TH)
     );
     ROLES.put(AriaRole.COMBOBOX,
-      new RoleProperties(AriaRole.COMBOBOX)
+      new RoleDefinition(AriaRole.COMBOBOX)
         .setProperties(
           AriaProperty.ACTIVEDESCENDANT,
           AriaProperty.AUTOCOMPLETE,
@@ -941,13 +950,14 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
         )
+        .setElements(Element.INPUT, Element.SELECT)
         .setRequiredProperties(
           AriaProperty.CONTROLS,
           AriaProperty.EXPANDED
         )
     );
     ROLES.put(AriaRole.COMPLEMENTARY,
-      new RoleProperties(AriaRole.COMPLEMENTARY)
+      new RoleDefinition(AriaRole.COMPLEMENTARY)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -967,9 +977,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.ASIDE)
     );
     ROLES.put(AriaRole.CONTENTINFO,
-      new RoleProperties(AriaRole.CONTENTINFO)
+      new RoleDefinition(AriaRole.CONTENTINFO)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -989,9 +1000,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.FOOTER)
     );
     ROLES.put(AriaRole.DEFINITION,
-      new RoleProperties(AriaRole.DEFINITION)
+      new RoleDefinition(AriaRole.DEFINITION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1011,9 +1023,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.DD)
     );
     ROLES.put(AriaRole.DELETION,
-      new RoleProperties(AriaRole.DELETION)
+      new RoleDefinition(AriaRole.DELETION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1033,9 +1046,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.DEL)
     );
     ROLES.put(AriaRole.DIALOG,
-      new RoleProperties(AriaRole.DIALOG)
+      new RoleDefinition(AriaRole.DIALOG)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1056,9 +1070,10 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.MODAL
         )
+        .setElements(Element.DIALOG)
     );
     ROLES.put(AriaRole.DIRECTORY,
-      new RoleProperties(AriaRole.DIRECTORY)
+      new RoleDefinition(AriaRole.DIRECTORY)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1080,7 +1095,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOCUMENT,
-      new RoleProperties(AriaRole.DOCUMENT)
+      new RoleDefinition(AriaRole.DOCUMENT)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1100,9 +1115,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.HTML)
     );
     ROLES.put(AriaRole.EMPHASIS,
-      new RoleProperties(AriaRole.EMPHASIS)
+      new RoleDefinition(AriaRole.EMPHASIS)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1122,9 +1138,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.EM)
     );
     ROLES.put(AriaRole.FEED,
-      new RoleProperties(AriaRole.FEED)
+      new RoleDefinition(AriaRole.FEED)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1146,7 +1163,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.FIGURE,
-      new RoleProperties(AriaRole.FIGURE)
+      new RoleDefinition(AriaRole.FIGURE)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1166,9 +1183,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.FIGURE)
     );
     ROLES.put(AriaRole.FORM,
-      new RoleProperties(AriaRole.FORM)
+      new RoleDefinition(AriaRole.FORM)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1188,9 +1206,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.FORM)
     );
     ROLES.put(AriaRole.GENERIC,
-      new RoleProperties(AriaRole.GENERIC)
+      new RoleDefinition(AriaRole.GENERIC)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1209,10 +1228,31 @@ public class Aria {
           AriaProperty.OWNS,
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
+        )
+        .setElements(
+          Element.A,
+          Element.AREA,
+          Element.ASIDE,
+          Element.B,
+          Element.BDO,
+          Element.BODY,
+          Element.DATA,
+          Element.DIV,
+          Element.FOOTER,
+          Element.HEADER,
+          Element.HGROUP,
+          Element.I,
+          Element.PRE,
+          Element.Q,
+          Element.SAMP,
+          Element.SECTION,
+          Element.SMALL,
+          Element.SPAN,
+          Element.U
         )
     );
     ROLES.put(AriaRole.GRID,
-      new RoleProperties(AriaRole.GRID)
+      new RoleDefinition(AriaRole.GRID)
         .setProperties(
           AriaProperty.MULTISELECTABLE,
           AriaProperty.READONLY,
@@ -1240,7 +1280,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.GRIDCELL,
-      new RoleProperties(AriaRole.GRIDCELL)
+      new RoleDefinition(AriaRole.GRIDCELL)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -1272,9 +1312,10 @@ public class Aria {
           AriaProperty.ROWINDEX,
           AriaProperty.ROWSPAN
         )
+        .setElements(Element.TD)
     );
     ROLES.put(AriaRole.GROUP,
-      new RoleProperties(AriaRole.GROUP)
+      new RoleDefinition(AriaRole.GROUP)
         .setProperties(
           AriaProperty.ACTIVEDESCENDANT,
           AriaProperty.DISABLED,
@@ -1296,9 +1337,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.DETAILS, Element.FIELDSET, Element.OPTGROUP, Element.ADDRESS)
     );
     ROLES.put(AriaRole.HEADING,
-      new RoleProperties(AriaRole.HEADING)
+      new RoleDefinition(AriaRole.HEADING)
         .setProperties(
           AriaProperty.LEVEL,
           AriaProperty.ATOMIC,
@@ -1319,12 +1361,13 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.H1, Element.H2, Element.H3, Element.H4, Element.H5, Element.H6)
         .setRequiredProperties(
           AriaProperty.LEVEL
         )
     );
     ROLES.put(AriaRole.IMG,
-      new RoleProperties(AriaRole.IMG)
+      new RoleDefinition(AriaRole.IMG)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1344,9 +1387,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.IMG)
     );
     ROLES.put(AriaRole.INSERTION,
-      new RoleProperties(AriaRole.INSERTION)
+      new RoleDefinition(AriaRole.INSERTION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1366,9 +1410,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.INS)
     );
     ROLES.put(AriaRole.LINK,
-      new RoleProperties(AriaRole.LINK)
+      new RoleDefinition(AriaRole.LINK)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.EXPANDED,
@@ -1391,9 +1436,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.A, Element.AREA)
     );
     ROLES.put(AriaRole.LIST,
-      new RoleProperties(AriaRole.LIST)
+      new RoleDefinition(AriaRole.LIST)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1413,9 +1459,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.MENU, Element.OL, Element.UL)
     );
     ROLES.put(AriaRole.LISTBOX,
-      new RoleProperties(AriaRole.LISTBOX)
+      new RoleDefinition(AriaRole.LISTBOX)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.EXPANDED,
@@ -1444,9 +1491,10 @@ public class Aria {
           AriaProperty.ACTIVEDESCENDANT,
           AriaProperty.DISABLED
         )
+        .setElements(Element.SELECT, Element.DATALIST)
     );
     ROLES.put(AriaRole.LISTITEM,
-      new RoleProperties(AriaRole.LISTITEM)
+      new RoleDefinition(AriaRole.LISTITEM)
         .setProperties(
           AriaProperty.LEVEL,
           AriaProperty.POSINSET,
@@ -1469,9 +1517,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.LI)
     );
     ROLES.put(AriaRole.LOG,
-      new RoleProperties(AriaRole.LOG)
+      new RoleDefinition(AriaRole.LOG)
         .setProperties(
           AriaProperty.LIVE,
           AriaProperty.ATOMIC,
@@ -1493,7 +1542,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.MAIN,
-      new RoleProperties(AriaRole.MAIN)
+      new RoleDefinition(AriaRole.MAIN)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1513,9 +1562,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.MAIN)
     );
     ROLES.put(AriaRole.MARK,
-      new RoleProperties(AriaRole.MARK)
+      new RoleDefinition(AriaRole.MARK)
         .setProperties(
           AriaProperty.BRAILLELABEL,
           AriaProperty.BRAILLEROLEDESCRIPTION,
@@ -1538,9 +1588,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.MARK)
     );
     ROLES.put(AriaRole.MARQUEE,
-      new RoleProperties(AriaRole.MARQUEE)
+      new RoleDefinition(AriaRole.MARQUEE)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1562,7 +1613,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.MATH,
-      new RoleProperties(AriaRole.MATH)
+      new RoleDefinition(AriaRole.MATH)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1582,9 +1633,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.MATH)
     );
     ROLES.put(AriaRole.MENU,
-      new RoleProperties(AriaRole.MENU)
+      new RoleDefinition(AriaRole.MENU)
         .setProperties(
           AriaProperty.ORIENTATION,
           AriaProperty.ATOMIC,
@@ -1609,7 +1661,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.MENUBAR,
-      new RoleProperties(AriaRole.MENUBAR)
+      new RoleDefinition(AriaRole.MENUBAR)
         .setProperties(
           AriaProperty.ORIENTATION,
           AriaProperty.ATOMIC,
@@ -1634,7 +1686,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.MENUITEM,
-      new RoleProperties(AriaRole.MENUITEM)
+      new RoleDefinition(AriaRole.MENUITEM)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.EXPANDED,
@@ -1661,7 +1713,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.MENUITEMCHECKBOX,
-      new RoleProperties(AriaRole.MENUITEMCHECKBOX)
+      new RoleDefinition(AriaRole.MENUITEMCHECKBOX)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1696,7 +1748,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.MENUITEMRADIO,
-      new RoleProperties(AriaRole.MENUITEMRADIO)
+      new RoleDefinition(AriaRole.MENUITEMRADIO)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1731,7 +1783,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.METER,
-      new RoleProperties(AriaRole.METER)
+      new RoleDefinition(AriaRole.METER)
         .setProperties(
           AriaProperty.VALUETEXT,
           AriaProperty.VALUEMAX,
@@ -1755,12 +1807,13 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.VALUENOW
         )
+        .setElements(Element.METER)
         .setRequiredProperties(
           AriaProperty.VALUENOW
         )
     );
     ROLES.put(AriaRole.NAVIGATION,
-      new RoleProperties(AriaRole.NAVIGATION)
+      new RoleDefinition(AriaRole.NAVIGATION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1780,9 +1833,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.NAV)
     );
     ROLES.put(AriaRole.NOTE,
-      new RoleProperties(AriaRole.NOTE)
+      new RoleDefinition(AriaRole.NOTE)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1804,7 +1858,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.OPTION,
-      new RoleProperties(AriaRole.OPTION)
+      new RoleDefinition(AriaRole.OPTION)
         .setProperties(
           AriaProperty.CHECKED,
           AriaProperty.POSINSET,
@@ -1829,12 +1883,13 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
         )
+        .setElements(Element.OPTION)
         .setRequiredProperties(
           AriaProperty.SELECTED
         )
     );
     ROLES.put(AriaRole.PARAGRAPH,
-      new RoleProperties(AriaRole.PARAGRAPH)
+      new RoleDefinition(AriaRole.PARAGRAPH)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1854,9 +1909,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.P)
     );
     ROLES.put(AriaRole.PRESENTATION,
-      new RoleProperties(AriaRole.PRESENTATION)
+      new RoleDefinition(AriaRole.PRESENTATION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1876,9 +1932,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.IMG)
     );
     ROLES.put(AriaRole.PROGRESSBAR,
-      new RoleProperties(AriaRole.PROGRESSBAR)
+      new RoleDefinition(AriaRole.PROGRESSBAR)
         .setProperties(
           AriaProperty.VALUETEXT,
           AriaProperty.ATOMIC,
@@ -1902,9 +1959,10 @@ public class Aria {
           AriaProperty.VALUEMIN,
           AriaProperty.VALUENOW
         )
+        .setElements(Element.PROGRESS)
     );
     ROLES.put(AriaRole.RADIO,
-      new RoleProperties(AriaRole.RADIO)
+      new RoleDefinition(AriaRole.RADIO)
         .setProperties(
           AriaProperty.CHECKED,
           AriaProperty.POSINSET,
@@ -1928,12 +1986,13 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
         )
+        .setElements(Element.INPUT)
         .setRequiredProperties(
           AriaProperty.CHECKED
         )
     );
     ROLES.put(AriaRole.RADIOGROUP,
-      new RoleProperties(AriaRole.RADIOGROUP)
+      new RoleDefinition(AriaRole.RADIOGROUP)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.INVALID,
@@ -1962,7 +2021,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.REGION,
-      new RoleProperties(AriaRole.REGION)
+      new RoleDefinition(AriaRole.REGION)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -1982,9 +2041,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.SECTION)
     );
     ROLES.put(AriaRole.ROW,
-      new RoleProperties(AriaRole.ROW)
+      new RoleDefinition(AriaRole.ROW)
         .setProperties(
           AriaProperty.COLINDEX,
           AriaProperty.EXPANDED,
@@ -2013,9 +2073,10 @@ public class Aria {
           AriaProperty.ACTIVEDESCENDANT,
           AriaProperty.DISABLED
         )
+        .setElements(Element.TR)
     );
     ROLES.put(AriaRole.ROWGROUP,
-      new RoleProperties(AriaRole.ROWGROUP)
+      new RoleDefinition(AriaRole.ROWGROUP)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2035,9 +2096,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.TBODY, Element.TFOOT, Element.THEAD)
     );
     ROLES.put(AriaRole.ROWHEADER,
-      new RoleProperties(AriaRole.ROWHEADER)
+      new RoleDefinition(AriaRole.ROWHEADER)
         .setProperties(
           AriaProperty.SORT,
           AriaProperty.ATOMIC,
@@ -2070,9 +2132,10 @@ public class Aria {
           AriaProperty.REQUIRED,
           AriaProperty.SELECTED
         )
+        .setElements(Element.TH)
     );
     ROLES.put(AriaRole.SCROLLBAR,
-      new RoleProperties(AriaRole.SCROLLBAR)
+      new RoleDefinition(AriaRole.SCROLLBAR)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.VALUETEXT,
@@ -2104,7 +2167,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.SEARCH,
-      new RoleProperties(AriaRole.SEARCH)
+      new RoleDefinition(AriaRole.SEARCH)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2126,7 +2189,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.SEARCHBOX,
-      new RoleProperties(AriaRole.SEARCHBOX)
+      new RoleDefinition(AriaRole.SEARCHBOX)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2156,9 +2219,10 @@ public class Aria {
           AriaProperty.READONLY,
           AriaProperty.REQUIRED
         )
+        .setElements(Element.INPUT)
     );
     ROLES.put(AriaRole.SEPARATOR,
-      new RoleProperties(AriaRole.SEPARATOR)
+      new RoleDefinition(AriaRole.SEPARATOR)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ORIENTATION,
@@ -2184,9 +2248,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.HR)
     );
     ROLES.put(AriaRole.SLIDER,
-      new RoleProperties(AriaRole.SLIDER)
+      new RoleDefinition(AriaRole.SLIDER)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.HASPOPUP,
@@ -2216,12 +2281,13 @@ public class Aria {
           AriaProperty.DISABLED,
           AriaProperty.VALUENOW
         )
+        .setElements(Element.INPUT)
         .setRequiredProperties(
           AriaProperty.VALUENOW
         )
     );
     ROLES.put(AriaRole.SPINBUTTON,
-      new RoleProperties(AriaRole.SPINBUTTON)
+      new RoleDefinition(AriaRole.SPINBUTTON)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.INVALID,
@@ -2251,9 +2317,10 @@ public class Aria {
           AriaProperty.VALUEMAX,
           AriaProperty.VALUEMIN
         )
+        .setElements(Element.INPUT)
     );
     ROLES.put(AriaRole.STATUS,
-      new RoleProperties(AriaRole.STATUS)
+      new RoleDefinition(AriaRole.STATUS)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.LIVE,
@@ -2273,9 +2340,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.OUTPUT)
     );
     ROLES.put(AriaRole.STRONG,
-      new RoleProperties(AriaRole.STRONG)
+      new RoleDefinition(AriaRole.STRONG)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2295,9 +2363,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.STRONG)
     );
     ROLES.put(AriaRole.SUBSCRIPT,
-      new RoleProperties(AriaRole.SUBSCRIPT)
+      new RoleDefinition(AriaRole.SUBSCRIPT)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2317,9 +2386,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.SUB)
     );
     ROLES.put(AriaRole.SUPERSCRIPT,
-      new RoleProperties(AriaRole.SUPERSCRIPT)
+      new RoleDefinition(AriaRole.SUPERSCRIPT)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2339,9 +2409,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.SUP)
     );
     ROLES.put(AriaRole.SWITCH,
-      new RoleProperties(AriaRole.SWITCH)
+      new RoleDefinition(AriaRole.SWITCH)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2373,7 +2444,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TAB,
-      new RoleProperties(AriaRole.TAB)
+      new RoleDefinition(AriaRole.TAB)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.EXPANDED,
@@ -2401,7 +2472,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TABLE,
-      new RoleProperties(AriaRole.TABLE)
+      new RoleDefinition(AriaRole.TABLE)
         .setProperties(
           AriaProperty.COLCOUNT,
           AriaProperty.ROWCOUNT,
@@ -2423,9 +2494,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.TABLE)
     );
     ROLES.put(AriaRole.TABLIST,
-      new RoleProperties(AriaRole.TABLIST)
+      new RoleDefinition(AriaRole.TABLIST)
         .setProperties(
           AriaProperty.LEVEL,
           AriaProperty.MULTISELECTABLE,
@@ -2452,7 +2524,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TABPANEL,
-      new RoleProperties(AriaRole.TABPANEL)
+      new RoleDefinition(AriaRole.TABPANEL)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2474,7 +2546,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TERM,
-      new RoleProperties(AriaRole.TERM)
+      new RoleDefinition(AriaRole.TERM)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2494,9 +2566,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.DFN, Element.DT)
     );
     ROLES.put(AriaRole.TEXTBOX,
-      new RoleProperties(AriaRole.TEXTBOX)
+      new RoleDefinition(AriaRole.TEXTBOX)
         .setProperties(
           AriaProperty.ACTIVEDESCENDANT,
           AriaProperty.AUTOCOMPLETE,
@@ -2526,9 +2599,10 @@ public class Aria {
           AriaProperty.ROLEDESCRIPTION,
           AriaProperty.DISABLED
         )
+        .setElements(Element.INPUT, Element.TEXTAREA)
     );
     ROLES.put(AriaRole.TIME,
-      new RoleProperties(AriaRole.TIME)
+      new RoleDefinition(AriaRole.TIME)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2548,9 +2622,10 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
+        .setElements(Element.TIME)
     );
     ROLES.put(AriaRole.TIMER,
-      new RoleProperties(AriaRole.TIMER)
+      new RoleDefinition(AriaRole.TIMER)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2572,7 +2647,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TOOLBAR,
-      new RoleProperties(AriaRole.TOOLBAR)
+      new RoleDefinition(AriaRole.TOOLBAR)
         .setProperties(
           AriaProperty.ORIENTATION,
           AriaProperty.ATOMIC,
@@ -2597,7 +2672,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TOOLTIP,
-      new RoleProperties(AriaRole.TOOLTIP)
+      new RoleDefinition(AriaRole.TOOLTIP)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2619,7 +2694,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TREE,
-      new RoleProperties(AriaRole.TREE)
+      new RoleDefinition(AriaRole.TREE)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.INVALID,
@@ -2648,7 +2723,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TREEGRID,
-      new RoleProperties(AriaRole.TREEGRID)
+      new RoleDefinition(AriaRole.TREEGRID)
         .setProperties(
           AriaProperty.ATOMIC,
           AriaProperty.BUSY,
@@ -2680,7 +2755,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.TREEITEM,
-      new RoleProperties(AriaRole.TREEITEM)
+      new RoleDefinition(AriaRole.TREEITEM)
         .setProperties(
           AriaProperty.EXPANDED,
           AriaProperty.HASPOPUP,
@@ -2713,7 +2788,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_ABSTRACT,
-      new RoleProperties(AriaRole.DOC_ABSTRACT)
+      new RoleDefinition(AriaRole.DOC_ABSTRACT)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2740,7 +2815,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_ACKNOWLEDGMENTS,
-      new RoleProperties(AriaRole.DOC_ACKNOWLEDGMENTS)
+      new RoleDefinition(AriaRole.DOC_ACKNOWLEDGMENTS)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2767,7 +2842,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_AFTERWORD,
-      new RoleProperties(AriaRole.DOC_AFTERWORD)
+      new RoleDefinition(AriaRole.DOC_AFTERWORD)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2794,7 +2869,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_APPENDIX,
-      new RoleProperties(AriaRole.DOC_APPENDIX)
+      new RoleDefinition(AriaRole.DOC_APPENDIX)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2821,7 +2896,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_BACKLINK,
-      new RoleProperties(AriaRole.DOC_BACKLINK)
+      new RoleDefinition(AriaRole.DOC_BACKLINK)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.INVALID,
@@ -2848,7 +2923,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_BIBLIOENTRY,
-      new RoleProperties(AriaRole.DOC_BIBLIOENTRY)
+      new RoleDefinition(AriaRole.DOC_BIBLIOENTRY)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2878,7 +2953,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_BIBLIOGRAPHY,
-      new RoleProperties(AriaRole.DOC_BIBLIOGRAPHY)
+      new RoleDefinition(AriaRole.DOC_BIBLIOGRAPHY)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2905,7 +2980,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_BIBLIOREF,
-      new RoleProperties(AriaRole.DOC_BIBLIOREF)
+      new RoleDefinition(AriaRole.DOC_BIBLIOREF)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.INVALID,
@@ -2932,7 +3007,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_CHAPTER,
-      new RoleProperties(AriaRole.DOC_CHAPTER)
+      new RoleDefinition(AriaRole.DOC_CHAPTER)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2959,7 +3034,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_COLOPHON,
-      new RoleProperties(AriaRole.DOC_COLOPHON)
+      new RoleDefinition(AriaRole.DOC_COLOPHON)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -2986,7 +3061,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_CONCLUSION,
-      new RoleProperties(AriaRole.DOC_CONCLUSION)
+      new RoleDefinition(AriaRole.DOC_CONCLUSION)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3013,7 +3088,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_COVER,
-      new RoleProperties(AriaRole.DOC_COVER)
+      new RoleDefinition(AriaRole.DOC_COVER)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3040,7 +3115,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_CREDIT,
-      new RoleProperties(AriaRole.DOC_CREDIT)
+      new RoleDefinition(AriaRole.DOC_CREDIT)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3067,7 +3142,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_CREDITS,
-      new RoleProperties(AriaRole.DOC_CREDITS)
+      new RoleDefinition(AriaRole.DOC_CREDITS)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3094,7 +3169,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_DEDICATION,
-      new RoleProperties(AriaRole.DOC_DEDICATION)
+      new RoleDefinition(AriaRole.DOC_DEDICATION)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3121,7 +3196,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_ENDNOTE,
-      new RoleProperties(AriaRole.DOC_ENDNOTE)
+      new RoleDefinition(AriaRole.DOC_ENDNOTE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3151,7 +3226,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_ENDNOTES,
-      new RoleProperties(AriaRole.DOC_ENDNOTES)
+      new RoleDefinition(AriaRole.DOC_ENDNOTES)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3178,7 +3253,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_EPIGRAPH,
-      new RoleProperties(AriaRole.DOC_EPIGRAPH)
+      new RoleDefinition(AriaRole.DOC_EPIGRAPH)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3205,7 +3280,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_EPILOGUE,
-      new RoleProperties(AriaRole.DOC_EPILOGUE)
+      new RoleDefinition(AriaRole.DOC_EPILOGUE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3232,7 +3307,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_ERRATA,
-      new RoleProperties(AriaRole.DOC_ERRATA)
+      new RoleDefinition(AriaRole.DOC_ERRATA)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3259,7 +3334,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_EXAMPLE,
-      new RoleProperties(AriaRole.DOC_EXAMPLE)
+      new RoleDefinition(AriaRole.DOC_EXAMPLE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3286,7 +3361,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_FOOTNOTE,
-      new RoleProperties(AriaRole.DOC_FOOTNOTE)
+      new RoleDefinition(AriaRole.DOC_FOOTNOTE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3313,7 +3388,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_FOREWORD,
-      new RoleProperties(AriaRole.DOC_FOREWORD)
+      new RoleDefinition(AriaRole.DOC_FOREWORD)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3340,7 +3415,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_GLOSSARY,
-      new RoleProperties(AriaRole.DOC_GLOSSARY)
+      new RoleDefinition(AriaRole.DOC_GLOSSARY)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3367,7 +3442,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_GLOSSREF,
-      new RoleProperties(AriaRole.DOC_GLOSSREF)
+      new RoleDefinition(AriaRole.DOC_GLOSSREF)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.INVALID,
@@ -3394,7 +3469,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_INDEX,
-      new RoleProperties(AriaRole.DOC_INDEX)
+      new RoleDefinition(AriaRole.DOC_INDEX)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3421,7 +3496,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_INTRODUCTION,
-      new RoleProperties(AriaRole.DOC_INTRODUCTION)
+      new RoleDefinition(AriaRole.DOC_INTRODUCTION)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3448,7 +3523,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_NOTEREF,
-      new RoleProperties(AriaRole.DOC_NOTEREF)
+      new RoleDefinition(AriaRole.DOC_NOTEREF)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.INVALID,
@@ -3475,7 +3550,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_NOTICE,
-      new RoleProperties(AriaRole.DOC_NOTICE)
+      new RoleDefinition(AriaRole.DOC_NOTICE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3502,7 +3577,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_PAGEBREAK,
-      new RoleProperties(AriaRole.DOC_PAGEBREAK)
+      new RoleDefinition(AriaRole.DOC_PAGEBREAK)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.EXPANDED,
@@ -3534,7 +3609,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_PAGELIST,
-      new RoleProperties(AriaRole.DOC_PAGELIST)
+      new RoleDefinition(AriaRole.DOC_PAGELIST)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3561,7 +3636,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_PART,
-      new RoleProperties(AriaRole.DOC_PART)
+      new RoleDefinition(AriaRole.DOC_PART)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3588,7 +3663,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_PREFACE,
-      new RoleProperties(AriaRole.DOC_PREFACE)
+      new RoleDefinition(AriaRole.DOC_PREFACE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3615,7 +3690,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_PROLOGUE,
-      new RoleProperties(AriaRole.DOC_PROLOGUE)
+      new RoleDefinition(AriaRole.DOC_PROLOGUE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3642,7 +3717,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_QNA,
-      new RoleProperties(AriaRole.DOC_QNA)
+      new RoleDefinition(AriaRole.DOC_QNA)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3669,7 +3744,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_SUBTITLE,
-      new RoleProperties(AriaRole.DOC_SUBTITLE)
+      new RoleDefinition(AriaRole.DOC_SUBTITLE)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3696,7 +3771,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_TIP,
-      new RoleProperties(AriaRole.DOC_TIP)
+      new RoleDefinition(AriaRole.DOC_TIP)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3723,7 +3798,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.DOC_TOC,
-      new RoleProperties(AriaRole.DOC_TOC)
+      new RoleDefinition(AriaRole.DOC_TOC)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3750,7 +3825,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.GRAPHICS_DOCUMENT,
-      new RoleProperties(AriaRole.GRAPHICS_DOCUMENT)
+      new RoleDefinition(AriaRole.GRAPHICS_DOCUMENT)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3777,7 +3852,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.GRAPHICS_OBJECT,
-      new RoleProperties(AriaRole.GRAPHICS_OBJECT)
+      new RoleDefinition(AriaRole.GRAPHICS_OBJECT)
         .setProperties(
           AriaProperty.ERRORMESSAGE,
           AriaProperty.EXPANDED,
@@ -3805,7 +3880,7 @@ public class Aria {
         )
     );
     ROLES.put(AriaRole.GRAPHICS_SYMBOL,
-      new RoleProperties(AriaRole.GRAPHICS_SYMBOL)
+      new RoleDefinition(AriaRole.GRAPHICS_SYMBOL)
         .setProperties(
           AriaProperty.DISABLED,
           AriaProperty.ERRORMESSAGE,
@@ -3913,7 +3988,7 @@ public class Aria {
     return ARIA_PROPERTIES.get(name);
   }
 
-  public static RoleProperties getRole(AriaRole name) {
+  public static RoleDefinition getRole(AriaRole name) {
     return ROLES.get(name);
   }
 
@@ -3988,14 +4063,16 @@ public class Aria {
     }
   }
 
-  public static class RoleProperties {
+  public static class RoleDefinition {
     private final AriaRole name;
     private Set<AriaProperty> ariaProperties;
+    private Set<Element> elements;
     private Set<AriaProperty> requiredAriaProperties;
 
-    public RoleProperties(AriaRole name) {
+    public RoleDefinition(AriaRole name) {
       this.name = name;
       this.ariaProperties = Set.of();
+      this.elements = Set.of();
       this.requiredAriaProperties = Set.of();
     }
 
@@ -4003,12 +4080,21 @@ public class Aria {
       return name;
     }
 
-    public RoleProperties setProperties(AriaProperty... values) {
+    public RoleDefinition setProperties(AriaProperty... values) {
       this.ariaProperties = Set.of(values);
       return this;
     }
 
-    public RoleProperties setRequiredProperties(AriaProperty... values) {
+    public RoleDefinition setElements(Element... values) {
+      this.elements = Set.of(values);
+      return this;
+    }
+
+    public Set<Element> getElements() {
+      return this.elements;
+    }
+
+    public RoleDefinition setRequiredProperties(AriaProperty... values) {
       this.requiredAriaProperties = Set.of(values);
       return this;
     }

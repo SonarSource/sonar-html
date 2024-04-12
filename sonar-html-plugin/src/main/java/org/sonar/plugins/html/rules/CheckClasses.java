@@ -28,6 +28,7 @@ import org.sonar.plugins.html.checks.accessibility.AriaUnsupportedElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.ElementWithRoleShouldHaveRequiredPropertiesCheck;
 import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.NoAriaHiddenOnFocusableCheck;
+import org.sonar.plugins.html.checks.accessibility.PreferTagOverRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.RoleSupportsAriaPropertyCheck;
 import org.sonar.plugins.html.checks.accessibility.ValidAutocompleteCheck;
 import org.sonar.plugins.html.checks.accessibility.ImgRedundantAltCheck;
@@ -182,6 +183,7 @@ public final class CheckClasses {
     PageWithoutTitleCheck.class,
     ParentElementIllegalCheck.class,
     ParentElementRequiredCheck.class,
+    PreferTagOverRoleCheck.class,
     RequiredAttributeCheck.class,
     ResourceIntegrityCheck.class,
     RoleSupportsAriaPropertyCheck.class,
