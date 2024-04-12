@@ -17,8 +17,10 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -39,6 +41,25 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
         return;
       }
 
+      var roleAttributeValue = node.getAttribute("role");
+      String[] roles = new String[]{};
+
+      if (roleAttributeValue != null) {
+        roles = roleAttributeValue.split(" ");
+      } else {
+        var role = Aria.getImplicitRole(node);
+
+        if (role != null) {
+          roles = new String[]{
+            role.toString()
+          };
+        }
+      }
+
+      if (Arrays.stream(roles).anyMatch(MouseEventWithoutKeyboardEquivalentCheck::isAnInteractiveRole)) {
+        return;
+      }
+
       if ((hasOnClick(node) || hasButtonRole(node)) && !(hasOnKeyPress(node) || hasOnKeyDown(node) || hasOnKeyUp(node))) {
         attribute = "onKeyPress|onKeyDown|onKeyUp";
       } else if (hasOnMouseover(node) && !hasOnFocus(node)) {
@@ -51,6 +72,10 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
         createViolation(node, "Add a '" + attribute + "' attribute to this <" + node.getNodeName() + "> tag.");
       }
     }
+  }
+
+  private static boolean isAnInteractiveRole(String role) {
+    return "textbox".equalsIgnoreCase(role);
   }
 
   private static boolean isException(TagNode node) {

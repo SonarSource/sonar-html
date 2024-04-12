@@ -75,3 +75,9 @@
 <lightning-button-menu onclick={doSomething}></lightning-button-menu>               <!-- Compliant -->
 
 <summary onclick="foo"></summary> <!-- Compliant -->
+
+<div onclick="console.log(this)">Div with a button role</div> <!-- Non-Compliant - Add a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag. -->
+<input onclick="console.log(this)"/> <!-- Compliant -->
+<details>
+    <summary onclick="console.log(this.target)">Summary</summary> <!-- Compliant -->
+</details>
