@@ -53,7 +53,7 @@ public class LibraryDependencyCheck extends AbstractPageCheck {
     librariesList = Arrays.stream(libraries.split(","))
       .map(String::trim)
       .filter(s -> !s.isEmpty())
-      .collect(Collectors.toList());
+      .toList();
   }
 
   @Override

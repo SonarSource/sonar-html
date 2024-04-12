@@ -192,15 +192,12 @@ public class PageLexer {
         return !METADATA_CONTENT.contains(element);
       case "li":
         return "li".equals(element);
-      case "dt":
-      case "dd":
+      case "dt", "dd":
         return "dt".equals(element) || "dd".equals(element);
       case "p":
         // note that we don't validate the parent of the <p> as described in spec
         return PARAGRAPH_CLOSING.contains(element);
-      case "rb":
-      case "rp":
-      case "rt":
+      case "rb", "rp", "rt":
         return RUBY_CLOSING.contains(element);
       case "rtc":
         return "rb".equals(element) || "rtc".equals(element);
@@ -212,13 +209,11 @@ public class PageLexer {
         return !("col".equals(element) || "template".equals(element));
       case "caption":
         return TABLE_DESCENDANTS.contains(element);
-      case "thead":
-      case "tbody":
+      case "thead", "tbody":
         return "tbody".equals(element) || "tfoot".equals(element);
       case "tr":
         return !("td".equals(element) || "th".equals(element));
-      case "td":
-      case "th":
+      case "td", "th":
         return "td".equals(element) || "th".equals(element);
       default:
         return false;

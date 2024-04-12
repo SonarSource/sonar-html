@@ -68,9 +68,7 @@ public class PageCountLines extends DefaultNodeVisitor {
 
   private void handleToken(Node node, @Nullable Node previousNode) {
     switch (node.getNodeType()) {
-      case TAG:
-      case DIRECTIVE:
-      case EXPRESSION:
+      case TAG, DIRECTIVE, EXPRESSION:
         addLineNumbers(node, detailedLinesOfCode);
         break;
       case COMMENT:

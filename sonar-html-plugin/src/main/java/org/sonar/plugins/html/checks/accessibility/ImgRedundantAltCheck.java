@@ -43,7 +43,7 @@ public class ImgRedundantAltCheck extends AbstractPageCheck {
       return;
     }
 
-    var words = REDUNDANT_WORDS.stream().filter(w -> alt.toLowerCase(Locale.ENGLISH).contains(w)).collect(Collectors.toList());
+    var words = REDUNDANT_WORDS.stream().filter(w -> alt.toLowerCase(Locale.ENGLISH).contains(w)).toList();
     if (!words.isEmpty()) {
       var quotedWords = words.stream().map(w -> "\"" + w + "\"" ).collect(Collectors.joining(", "));
       var punctuation = words.size() == 1 ? "" : "s";
