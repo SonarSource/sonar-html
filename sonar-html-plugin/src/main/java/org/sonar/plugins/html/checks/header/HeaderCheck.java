@@ -77,7 +77,7 @@ public class HeaderCheck extends AbstractPageCheck {
     } else {
       HeaderLinesProcessor processor = new HeaderLinesProcessor(expectedLines);
       try (BufferedReader br = new BufferedReader(new StringReader(fileContent))) {
-        List<String> lines = br.lines().collect(Collectors.toList());
+        List<String> lines = br.lines().toList();
         for (String line : lines) {
           if (!processor.processLine(line)) {
             break;

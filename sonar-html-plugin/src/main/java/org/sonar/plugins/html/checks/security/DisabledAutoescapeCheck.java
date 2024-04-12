@@ -40,8 +40,7 @@ public class DisabledAutoescapeCheck extends AbstractPageCheck {
     if (!matcher.find()) {
       return;
     }
-    var lines = textNode.getCode().lines()
-        .collect(Collectors.toList());
+    var lines = textNode.getCode().lines().toList();
     boolean raisedWithPreciseLocation = false;
     for (int i=0; i<lines.size(); i++) {
       Matcher lineMatcher = pattern.matcher(lines.get(i));

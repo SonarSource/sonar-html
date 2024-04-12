@@ -51,7 +51,7 @@ public class LinkWithTargetBlankCheck extends AbstractPageCheck {
     }
     return Arrays.stream(rel.split(" "))
       .map(s -> s.trim().toUpperCase(Locale.ROOT))
-      .collect(Collectors.toList());
+      .toList();
   }
 
   private static boolean isAnchorWithTargetBlank(TagNode node) {

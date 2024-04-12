@@ -19,7 +19,6 @@ package org.sonar.plugins.html.core;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -159,8 +158,7 @@ public final class HtmlSensor implements Sensor {
       .on(inputFile)
       .message(issue.message());
     Integer line = issue.line();
-    if (issue instanceof PreciseHtmlIssue) {
-      PreciseHtmlIssue preciseHtmlIssue = (PreciseHtmlIssue) issue;
+    if (issue instanceof PreciseHtmlIssue preciseHtmlIssue) {
       location.at(inputFile.newRange(issue.line(),
         preciseHtmlIssue.startColumn(),
         preciseHtmlIssue.endLine(),

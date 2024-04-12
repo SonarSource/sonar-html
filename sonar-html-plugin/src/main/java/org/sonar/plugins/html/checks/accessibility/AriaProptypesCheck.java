@@ -71,13 +71,11 @@ public class AriaProptypesCheck extends AbstractPageCheck {
     switch (expectedType) {
       case BOOLEAN:
         return "true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value);
-      case STRING:
-      case ID:
+      case STRING, ID:
         return !value.isBlank();
       case TRISTATE:
         return "true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value) || "mixed".equalsIgnoreCase(value);
-      case INTEGER:
-      case NUMBER:
+      case INTEGER, NUMBER:
         return value.matches("^-?\\d+$");
       case TOKEN:
         return expectedValues.contains(value.toLowerCase(Locale.ENGLISH));
@@ -105,10 +103,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
         return "The value of the attribute \"" + name + "\" must be a list of strings that represent DOM element IDs (idlist).";
       case ID:
         return "The value of the attribute \"" + name + "\" must be a string that represents a DOM element ID.";
-      case BOOLEAN:
-      case STRING:
-      case INTEGER:
-      case NUMBER:
+      case BOOLEAN, STRING, INTEGER, NUMBER:
       default:
         return "The value of the attribute \"" + name + "\" must be a " + type + ".";
     }

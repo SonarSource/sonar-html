@@ -49,8 +49,7 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
     if (code.startsWith(start) && code.length() > position) {
       char ch = code.charAt(position);
       switch (ch) {
-        case '!':
-        case '=':
+        case '!', '=':
           handleEqualSign(node, code, position);
           break;
         default:

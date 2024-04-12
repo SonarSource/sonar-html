@@ -70,7 +70,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
       List<String> headers() {
         if (node.hasProperty(HEADERS) && !DYNAMIC_HEADERS.matcher(node.getPropertyValue(HEADERS)).find()) {
-          return Arrays.stream(node.getPropertyValue(HEADERS).split("\\s+")).filter(header -> !header.isEmpty()).collect(Collectors.toList());
+          return Arrays.stream(node.getPropertyValue(HEADERS).split("\\s+")).filter(header -> !header.isEmpty()).toList();
         } else {
           return Collections.emptyList();
         }
@@ -128,8 +128,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
         headers.add(new HashSet<>());
       }
       forEachCell((cell, row, column) -> {
-        if (cell instanceof Table.Header) {
-          Table.Header header = (Table.Header) cell;
+        if (cell instanceof Table.Header header) {
           headers.get(column).add(header.id());
         }
       });
@@ -142,8 +141,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
         headers.add(new HashSet<>());
       }
       forEachCell((cell, row, column) -> {
-        if (cell instanceof Table.Header) {
-          Table.Header header = (Table.Header) cell;
+        if (cell instanceof Table.Header header) {
           headers.get(row).add(header.id());
         }
       });
@@ -242,7 +240,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
     }
 
     Table build() {
-      return new Table(rows.stream().map(RowBuilder::build).collect(Collectors.toList()));
+      return new Table(rows.stream().map(RowBuilder::build).toList());
     }
 
     private static int getRowSpan(TagNode node) {

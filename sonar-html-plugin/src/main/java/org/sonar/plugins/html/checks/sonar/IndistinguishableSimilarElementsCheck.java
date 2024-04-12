@@ -79,7 +79,7 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
   private void raiseViolationOnDuplicateLandmarkRole(List<TagNode> nodes) {
     Map<String, List<TagNode>> matched = nodes.stream().collect(Collectors.groupingBy(node -> node.getAttribute("ROLE").toUpperCase(Locale.ROOT)));
     for (List<TagNode> matches : matched.values()) {
-      List<TagNode> labeless = matches.stream().filter(match -> !hasAriaLabel(match)).collect(Collectors.toList());
+      List<TagNode> labeless = matches.stream().filter(match -> !hasAriaLabel(match)).toList();
       if (labeless.size() > 1 || matches.size() > 1) {
         for (TagNode node : labeless) {
           createViolation(node, "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.");
