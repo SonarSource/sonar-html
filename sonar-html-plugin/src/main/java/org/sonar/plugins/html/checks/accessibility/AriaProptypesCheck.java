@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -45,7 +46,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
       }
 
       var value = attribute.getValue();
-      if (isDynamicValue(value)) {
+      if (Helpers.isDynamicValue(value)) {
         continue;
       }
 
@@ -53,10 +54,6 @@ public class AriaProptypesCheck extends AbstractPageCheck {
         createViolation(element.getStartLinePosition(), message(name, property.getType(), property.getValues()));
       }
     }
-  }
-
-  private static boolean isDynamicValue(String value) {
-    return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%");
   }
 
   private static boolean isValid(AriaPropertyValues property, String value) {

@@ -20,6 +20,7 @@ package org.sonar.plugins.html.checks.accessibility;
 import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -29,7 +30,7 @@ public class AriaRoleCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     var role = element.getAttribute("role");
-    if (role == null) {
+    if (role == null || Helpers.isDynamicValue(role)) {
       return;
     }
     var values = role.split(" ");
