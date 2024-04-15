@@ -51,7 +51,6 @@
     "S6853",
     "ServerSideImageMapsCheck",
     "TableHeaderHasIdOrScopeCheck",
-    "TableWithoutCaptionCheck",
     "UnsupportedTagsInHtml5Check"
   ]
 }
