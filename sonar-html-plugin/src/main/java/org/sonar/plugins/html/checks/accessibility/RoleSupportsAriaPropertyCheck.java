@@ -20,7 +20,6 @@ package org.sonar.plugins.html.checks.accessibility;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
-import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.Aria.RoleDefinition;
@@ -62,7 +61,7 @@ public class RoleSupportsAriaPropertyCheck extends AbstractPageCheck {
             String.format(
               "The attribute %s is not supported by the role %s.",
               attr.getName(),
-              StringUtils.join(Arrays.stream(rolesProperties).map(RoleDefinition::getName).map(AriaRole::toString).toArray(String[]::new), " or ")
+              String.join(" or ", Arrays.stream(rolesProperties).map(RoleDefinition::getName).map(AriaRole::toString).toArray(String[]::new))
             )
         );
       }
