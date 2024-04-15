@@ -20,6 +20,7 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
@@ -42,6 +43,9 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       }
 
       var roleAttributeValue = node.getAttribute("role");
+      if (roleAttributeValue != null && Helpers.isDynamicValue(roleAttributeValue)) {
+        return;
+      }
       String[] roles = new String[]{};
 
       if (roleAttributeValue != null) {

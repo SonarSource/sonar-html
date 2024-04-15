@@ -20,6 +20,7 @@ package org.sonar.plugins.html.checks.accessibility;
 import java.util.Arrays;
 import java.util.Objects;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.api.accessibility.Aria.RoleDefinition;
@@ -33,7 +34,7 @@ public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPa
   public void startElement(TagNode element) {
     var roleName = element.getAttribute("role");
 
-    if (roleName == null) {
+    if (roleName == null || Helpers.isDynamicValue(roleName)) {
       return;
     }
 
