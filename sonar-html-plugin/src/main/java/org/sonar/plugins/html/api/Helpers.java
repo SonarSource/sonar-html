@@ -29,4 +29,8 @@ public class Helpers {
       node.getNodeName().charAt(1) >= '1' &&
       node.getNodeName().charAt(1) <= '6';
   }
+
+  public static boolean isDynamicValue(String value) {
+    return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%") || value.startsWith("<?=");
+  }
 }

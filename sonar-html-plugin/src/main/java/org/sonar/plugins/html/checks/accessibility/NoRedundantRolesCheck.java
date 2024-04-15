@@ -29,6 +29,7 @@ import java.util.Set;
 
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
@@ -55,7 +56,7 @@ public class NoRedundantRolesCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     var implicitRole = getImplicitRole(element);
     var explicitRoleRaw = element.getAttribute("role");
-    if (explicitRoleRaw == null) {
+    if (explicitRoleRaw == null || Helpers.isDynamicValue(explicitRoleRaw)) {
       return;
     }
     var explicitRole = AriaRole.of(explicitRoleRaw.toLowerCase(Locale.ROOT));

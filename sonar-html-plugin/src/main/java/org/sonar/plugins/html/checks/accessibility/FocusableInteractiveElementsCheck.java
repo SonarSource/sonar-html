@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -47,7 +48,7 @@ public class FocusableInteractiveElementsCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     var role = element.getAttribute("role");
-    if (role == null) {
+    if (role == null || Helpers.isDynamicValue(role)) {
       return;
     }
 
