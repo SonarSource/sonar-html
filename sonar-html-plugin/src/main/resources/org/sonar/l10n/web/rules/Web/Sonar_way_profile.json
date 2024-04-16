@@ -8,7 +8,6 @@
     "FrameWithoutTitleCheck",
     "ImgWithoutAltCheck",
     "ItemTagNotWithinContainerTagCheck",
-    "LinkToImageCheck",
     "MetaRefreshCheck",
     "PageWithoutTitleCheck",
     "S1134",
