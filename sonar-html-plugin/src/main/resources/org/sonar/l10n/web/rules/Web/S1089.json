@@ -1,0 +1,17 @@
+{
+  "title": "\"\u003cfieldset\u003e\" tags should contain a \"\u003clegend\u003e\"",
+  "type": "BUG",
+  "status": "deprecated",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-1089",
+  "sqKey": "FieldsetWithoutLegendCheck",
+  "scope": "Main",
+  "quickfix": "unknown"
+}

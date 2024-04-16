@@ -3,7 +3,6 @@
   "ruleKeys": [
     "AvoidCommentedOutCodeCheck",
     "DoctypePresenceCheck",
-    "FieldsetWithoutLegendCheck",
     "FlashUsesBothObjectAndEmbedCheck",
     "FrameWithoutTitleCheck",
     "ImgWithoutAltCheck",
