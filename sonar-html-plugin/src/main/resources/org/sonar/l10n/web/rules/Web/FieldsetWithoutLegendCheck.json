@@ -1,7 +1,7 @@
 {
   "title": "\"\u003cfieldset\u003e\" tags should contain a \"\u003clegend\u003e\"",
   "type": "BUG",
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "5min"
