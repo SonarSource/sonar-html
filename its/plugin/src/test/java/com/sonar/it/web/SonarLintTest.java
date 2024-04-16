@@ -94,7 +94,6 @@ public class SonarLintTest {
       .extracting(Issue::getRuleKey, WithTextRange::getStartLine, i -> i.getInputFile().getPath(), Issue::getSeverity).containsOnly(
       tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), MAJOR),
       tuple("Web:S5254", 1, inputFile.getPath(), MAJOR),
-      tuple("Web:LinkToImageCheck", 3, inputFile.getPath(), MAJOR),
       tuple("Web:PageWithoutTitleCheck", 1, inputFile.getPath(), MAJOR));
   }
 
