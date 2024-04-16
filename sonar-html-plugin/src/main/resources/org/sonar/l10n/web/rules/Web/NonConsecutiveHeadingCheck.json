@@ -1,7 +1,7 @@
 {
   "title": "Heading tags should be used consecutively from \"H1\" to \"H6\"",
   "type": "CODE_SMELL",
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "5min"
