@@ -37,7 +37,7 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     TagNode parent = node.getParent();
 
     while (parent != null) {
-      if (isLi(parent) || isUlOrOlOrMenu(parent)) {
+      if (isLi(parent) || isLiAllowedParent(parent)) {
         return true;
       }
       parent = parent.getParent();
@@ -67,7 +67,7 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     return "DT".equalsIgnoreCase(node.getNodeName());
   }
 
-  private static boolean isUlOrOlOrMenu(TagNode node) {
+  private static boolean isLiAllowedParent(TagNode node) {
     return isUl(node) || isOl(node) || isMenu(node);
   }
 
