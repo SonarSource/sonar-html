@@ -47,7 +47,6 @@
     "S6851",
     "S6852",
     "S6853",
-    "ServerSideImageMapsCheck",
     "TableHeaderHasIdOrScopeCheck",
     "UnsupportedTagsInHtml5Check"
   ]

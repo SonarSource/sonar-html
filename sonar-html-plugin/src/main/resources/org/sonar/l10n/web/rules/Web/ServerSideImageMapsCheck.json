@@ -1,7 +1,7 @@
 {
   "title": "Server-side image maps (\"ismap\" attribute) should not be used",
   "type": "BUG",
-  "status": "ready",
+  "status": "deprecated",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "1h"
