@@ -1,32 +1,35 @@
 <h2>Why is this an issue?</h2>
-<p>Using a <code>&lt;li&gt;</code> or <code>&lt;dt&gt;</code> item tag outside of a <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> or
-<code>&lt;dl&gt;</code> one does not make sense and indicates a bug.</p>
-<h3>Noncompliant code example</h3>
-<pre>
-&lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Noncompliant --&gt;
-&lt;li&gt;Strawberry&lt;/li&gt;     &lt;!-- Noncompliant --&gt;
-
+<p>The <code>&lt;dt&gt;</code> HTML element specifies a term in a description or definition list, and as such must be used inside a
+<code>&lt;dl&gt;</code> element, which represents a description list. Common uses for this element are to implement a glossary or to display
+metadata.</p>
+<p>The <code>&lt;li&gt;</code> HTML element is used to represent an item in a list. It must be contained in a parent element: an ordered list
+(<code>&lt;ol&gt;</code>), an unordered list (<code>&lt;ul&gt;</code>), or a menu (<code>&lt;menu&gt;</code>).</p>
+<p>Using a <code>&lt;li&gt;</code> or <code>&lt;dt&gt;</code> item tag outside of the aforementioned parent elements does not follow the HTML
+specification.</p>
+<pre data-diff-id="1" data-diff-type="noncompliant">
 &lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Noncompliant --&gt;
 &lt;li&gt;Strawberry&lt;/li&gt;     &lt;!-- Noncompliant --&gt;
 
 &lt;dt&gt;Apple&lt;/dt&gt;          &lt;!-- Noncompliant --&gt;
 &lt;dt&gt;Strawberry&lt;/dt&gt;     &lt;!-- Noncompliant --&gt;
 </pre>
-<h3>Compliant solution</h3>
-<pre>
-&lt;ul&gt;
+<p>To fix this issue, enclose <code>&lt;li&gt;</code> and <code>&lt;dt&gt;</code> with their respective allowed parent tags.</p>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;ul&gt; &lt;!-- or &lt;ul&gt; or &lt;menu&gt; --&gt;
   &lt;li&gt;Apple&lt;/li&gt;
   &lt;li&gt;Strawberry&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Apple&lt;/li&gt;
-  &lt;li&gt;Strawberry&lt;/li&gt;
-&lt;/ol&gt;
 
 &lt;dl&gt;
   &lt;dt&gt;Apple&lt;/dt&gt;
   &lt;dt&gt;Strawberry&lt;/dt&gt;
 &lt;/dl&gt;
 </pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li> MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li"><code>&lt;li&gt;</code>: The List Item element</a> </li>
+  <li> MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dt"><code>&lt;dt&gt;</code>: The Description Term element</a>
+  </li>
+</ul>
 
