@@ -31,7 +31,7 @@ class AriaRoleCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void html() throws Exception {
+  void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/AriaRoleCheck.html"),
         new AriaRoleCheck());
