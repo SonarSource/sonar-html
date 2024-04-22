@@ -30,7 +30,7 @@ class NoRedundantRolesCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void html() throws Exception {
+  void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoRedundantRolesCheck.html"),
         new NoRedundantRolesCheck());
@@ -44,7 +44,7 @@ class NoRedundantRolesCheckTest {
   }
 
   @Test
-  void html_with_custom_property() throws Exception {
+  void html_with_custom_property() {
     var check = new NoRedundantRolesCheck();
     check.allowedRedundantRoles = "button=button,body=document";
     HtmlSourceCode sourceCode = TestHelper.scan(
@@ -56,7 +56,7 @@ class NoRedundantRolesCheckTest {
   }
 
   @Test
-  void html_with_invalid_custom_property() throws Exception {
+  void html_with_invalid_custom_property() {
     var check = new NoRedundantRolesCheck();
     // the second pair is invalid, should be ignored
     check.allowedRedundantRoles = "button=button,body=document=invalid";

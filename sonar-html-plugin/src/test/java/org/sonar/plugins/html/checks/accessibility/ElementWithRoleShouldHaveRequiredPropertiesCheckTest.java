@@ -30,7 +30,7 @@ class ElementWithRoleShouldHaveRequiredPropertiesCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void validHTML() throws Exception {
+  void validHTML() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/ElementWithRoleShouldHaveRequiredPropertiesCheckTest/valid.html"),
       new ElementWithRoleShouldHaveRequiredPropertiesCheck()
@@ -41,7 +41,7 @@ class ElementWithRoleShouldHaveRequiredPropertiesCheckTest {
   }
 
   @Test
-  void invalidHTML() throws Exception {
+  void invalidHTML() {
     HtmlSourceCode invalidSourceCode = TestHelper.scan(
       new File("src/test/resources/checks/ElementWithRoleShouldHaveRequiredPropertiesCheckTest/invalid.html"),
       new ElementWithRoleShouldHaveRequiredPropertiesCheck()
