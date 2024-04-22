@@ -8,6 +8,7 @@
     "ImgWithoutAltCheck",
     "ItemTagNotWithinContainerTagCheck",
     "MetaRefreshCheck",
+    "MouseEventWithoutKeyboardEquivalentCheck",
     "PageWithoutTitleCheck",
     "S1134",
     "S1135",
