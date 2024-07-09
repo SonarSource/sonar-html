@@ -145,7 +145,6 @@ promote_task:
     #see https://xtranet-sonarsource.atlassian.net/wiki/spaces/RE/pages/2931064959/Cirrus+CI+-+How+to+migrate+away+of+GCP+promote+function
     ARTIFACTORY_PROMOTE_ACCESS_TOKEN: VAULT[development/artifactory/token/${CIRRUS_REPO_OWNER}-${CIRRUS_REPO_NAME}-promoter access_token]
     GITHUB_TOKEN: VAULT[development/github/token/${CIRRUS_REPO_OWNER}-${CIRRUS_REPO_NAME}-promotion token]
-    ARTIFACTS: org.sonarsource.html:sonar-html-plugin:jar
   maven_cache:
     folder: ${CIRRUS_WORKING_DIR}/.m2/repository
   script: cirrus_promote_maven
