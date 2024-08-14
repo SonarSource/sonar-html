@@ -38,6 +38,6 @@ class AriaUnsupportedElementsCheckTest {
                 .next().atLine(1).withMessage(
                         "This element does not support ARIA roles, states and properties. Try removing the prop aria-hidden.")
                 .next().atLine(2)
-                .noMore();;
+                .noMore();
     }
 }
