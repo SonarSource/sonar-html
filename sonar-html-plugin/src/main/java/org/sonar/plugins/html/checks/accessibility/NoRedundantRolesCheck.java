@@ -72,7 +72,7 @@ public class NoRedundantRolesCheck extends AbstractPageCheck {
       }
       createViolation(element,
           String.format(
-              "The element %s has an implicit role of %s. Definig this explicitly is redundant and should be avoided.",
+              "The element %s has an implicit role of %s. Defining this explicitly is redundant and should be avoided.",
               element.getNodeName(), implicitRole));
     }
   }
