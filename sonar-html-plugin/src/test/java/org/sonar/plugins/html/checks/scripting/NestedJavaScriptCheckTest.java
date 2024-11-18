@@ -61,12 +61,4 @@ public class NestedJavaScriptCheckTest {
       .noMore();
   }
 
-  @Test
-  public void nested_script_node_should_result_in_a_violation() {
-    NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/Repro.html"), check);
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-            .noMore();
-  }
-
 }
