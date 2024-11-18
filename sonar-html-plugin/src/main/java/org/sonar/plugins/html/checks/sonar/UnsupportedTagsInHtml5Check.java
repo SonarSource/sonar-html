@@ -39,7 +39,6 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
       "FONT",
       "FRAME",
       "FRAMESET",
-      "HGROUP",
       "ISINDEX",
       "LISTING",
       "MARQUEE",
