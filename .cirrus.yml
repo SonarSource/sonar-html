@@ -28,7 +28,6 @@ win_vm_definition: &WINDOWS_VM_DEFINITION
     platform: windows
     region: eu-central-1
     type: t3.xlarge
-    subnet_id: ${CIRRUS_AWS_SUBNET}
 
 only_sonarsource_qa: &ONLY_SONARSOURCE_QA
   only_if: $CIRRUS_USER_COLLABORATOR == 'true' && $CIRRUS_TAG == "" && ($CIRRUS_PR != "" || $CIRRUS_BRANCH == "master" || $CIRRUS_BRANCH =~ "branch-.*" || $CIRRUS_BRANCH =~ "dogfood-on-.*")
