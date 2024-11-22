@@ -32,10 +32,10 @@ public class LinkWithTargetBlankCheckTest {
   public void detected() throws Exception {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkWithTargetBlank.html"), new LinkWithTargetBlankCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLocation(1, 0, 1, 54).withMessage("Make sure not using rel=\"noopener\" is safe here.")
+      .next().atLocation(1, 0, 1, 67).withMessage("Make sure using target=\"_blank\" and rel=\"opener\" is safe here.")
       .next().atLine(2)
-      .next().atLine(7)
-      .next().atLine(9);
+      .next().atLine(3)
+      .next().atLine(8);
   }
 
 }

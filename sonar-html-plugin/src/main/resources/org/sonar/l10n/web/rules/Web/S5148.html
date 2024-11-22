@@ -8,28 +8,24 @@ credentials.</p>
   <li> The application opens untrusted external URL. </li>
 </ul>
 <p>There is a risk if you answered yes to this question.</p>
-<h2>Recommended Secure Coding Practices</h2>
-<p>Use <code>noopener</code> to prevent untrusted pages from abusing <code>window.opener</code>.</p>
-<p>Note: In Chrome 88+, Firefox 79+ or Safari 12.1+ <code>target=_blank</code> on anchors implies <code>rel=noopener</code> which make the protection
-enabled by default.</p>
 <h2>Sensitive Code Example</h2>
 <pre>
-&lt;a href="http://example.com/dangerous" target="_blank"&gt; &lt;!-- Sensitive --&gt;
+&lt;a href="http://example.com/" rel="opener" target="_blank"&gt; &lt;!-- Sensitive --&gt;
 
-&lt;a href="{{variable}}" target="_blank"&gt; &lt;!-- Sensitive --&gt;
+&lt;a href="{{variable}}" rel="opener" target="_blank"&gt; &lt;!-- Sensitive --&gt;
 </pre>
 <h2>Compliant Solution</h2>
-<p>To prevent pages from abusing <code>window.opener</code>, use <code>rel=noopener</code> on <code>&lt;a href=&gt;</code> to force its value to be
-<code>null</code> on the opened pages.</p>
+<p>In Chrome 88+, Firefox 79+ or Safari 12.1+ <code>target=_blank</code> on anchors implies <code>rel=noopener</code> which makes the protection
+enabled by default.</p>
 <pre>
-&lt;a href="http://petssocialnetwork.io" target="_blank" rel="noopener"&gt;
+&lt;a href="https://example.com/" target="_blank" &gt;
 </pre>
 <h2>Exceptions</h2>
 <p>No Issue will be raised when <code>href</code> contains a hardcoded relative url as there it has less chances of being vulnerable. An url is
 considered hardcoded and relative if it doesn’t start with <code>http://</code> or <code>https://</code>, and if it does not contain any of the
 characters {}$()[]</p>
 <pre>
-&lt;a href="internal.html" target="_blank" &gt;
+&lt;a href="internal.html" rel="opener" target="_blank" &gt;
 </pre>
 <h2>See</h2>
 <ul>
