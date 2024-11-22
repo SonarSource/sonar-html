@@ -1,12 +1,14 @@
-<a href="http://dangerouswebsite.com" target="_blank">     <!-- Noncompliant; Make sure not using rel="noopener" is safe here. -->
-<a href="https://dangerouswebsite.com" target="_blank">     <!-- Noncompliant; Make sure not using rel="noopener" is safe here. -->
+<a href="http://dangerouswebsite.com" target="_blank" rel="opener">     <!-- Noncompliant; Make sure using target="_blank" and rel="opener" is safe here. -->
+<a href="https://dangerouswebsite.com" target="_blank" rel="opener">     <!-- Noncompliant; Make sure using target="_blank" and rel="opener" is safe here. -->
+<a href="https://dangerouswebsite.com" target="_blank" rel="whatever opener">     <!-- Noncompliant; Make sure using target="_blank" and rel="opener" is safe here. -->
 
 <a href="http://dangerouswebsite.com" target="_blank" rel="noopener noreferrer"> <!-- Compliant -->
 <a href="http://dangerouswebsite.com" target="_blank" rel="noopener">   <!-- Compliant -->
 
-<a href="{{variable}}" target="_blank" rel="noreferrer"> <!-- Noncompliant; Make sure not using rel="noopener" is safe here.  -->
+<a href="{{variable}}" target="_blank" rel="opener">  <!-- Noncompliant; Make sure using target="_blank" and rel="opener" is safe here. -->
+<a href="{{variable}}" target="_blank" rel="noreferrer"> <!-- Compliant  -->
 <a href="{{variable}}" target="_blank" rel="noopener"> <!-- Compliant  -->
-<a href="{{variable}}" target="_blank"> <!-- Noncompliant  -->
+<a href="{{variable}}" target="_blank"> <!-- Compliant  -->
 <a href="/{{variable}}" target="_blank"> <!-- Compliant  -->
 <a href="./{{variable}}" target="_blank"> <!-- Compliant  -->
 <a href="../{{variable}}" target="_blank"> <!-- Compliant  -->
