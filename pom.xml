@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>71.0.0.1314</version>
+    <version>81.0.0.2300</version>
   </parent>
 
   <groupId>org.sonarsource.html</groupId>
@@ -22,6 +22,13 @@
   <organization>
     <name>SonarSource and Matthijs Galesloot</name>
   </organization>
+  <licenses>
+    <license>
+      <name>SSALv1</name>
+      <url>https://sonarsource.com/license/ssal/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <developers>
     <developer>
       <id>mgalesloot</id>
@@ -58,9 +65,7 @@
 
   <properties>
     <revision>3.5-SNAPSHOT</revision>
-    <license.name>AL2</license.name>
     <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
-    <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
     <jakarta.el.version>4.0.2</jakarta.el.version>
