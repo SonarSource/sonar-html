@@ -70,7 +70,7 @@
 
     <jakarta.el.version>4.0.2</jakarta.el.version>
     <sslr.version>1.24.0.633</sslr.version>
-    <analyzerCommons.version>2.7.0.1482</analyzerCommons.version>
+    <analyzerCommons.version>2.16.0.3141</analyzerCommons.version>
     <sonar.plugin.api.version>10.1.0.809</sonar.plugin.api.version>
 
     <sonarqube.api.impl.version>10.1.0.73491</sonarqube.api.impl.version>
