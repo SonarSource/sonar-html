@@ -120,13 +120,6 @@
               <excludes>
                 <!-- Folders -->
                 <exclude>its/sources/**/*</exclude>
-                <!-- Generated -->
-                <exclude>**/bin/**/*</exclude>
-                <exclude>**/dist/**/*</exclude>
-                <exclude>**/lib/**/*</exclude>
-                <!-- Fixtures -->
-                <exclude>**/fixtures/**/*</exclude>
-                <exclude>**/*.fixture.*</exclude>
                 <!-- Resources -->
                 <exclude>**/src/test/resources/**/*</exclude>
               </excludes>
