@@ -14,13 +14,13 @@
   <version>3.18.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SonarSource :: HTML</name>
+  <name>SonarQube HTML Plugin</name>
 
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
   <inceptionYear>2010</inceptionYear>
   <organization>
-    <name>SonarSource and Matthijs Galesloot</name>
+    <name>SonarSource</name>
   </organization>
   <licenses>
     <license>
@@ -65,7 +65,7 @@
 
   <properties>
     <revision>3.5-SNAPSHOT</revision>
-    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
+    <license.title>SonarQube HTML</license.title>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
     <jakarta.el.version>4.0.2</jakarta.el.version>

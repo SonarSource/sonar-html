@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>html-its</artifactId>
-  <name>SonarSource :: Web :: ITs</name>
+  <name>SonarQube HTML Plugin :: ITs</name>
   <packaging>pom</packaging>
 
   <modules>

@@ -1,6 +1,6 @@
 /*
- * SonarSource HTML analyzer :: Sonar Plugin
- * Copyright (C) 2010-2024 SonarSource SA and Matthijs Galesloot
+ * SonarQube HTML
+ * Copyright (C) 2010-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -23,10 +23,7 @@ import org.sonar.plugins.html.node.Node;
 
 import java.util.List;
 
-/**
- * @author Matthijs Galesloot
- * @since 1.0
- */
+
 @Rule(key = "MultiplePageDirectivesCheck")
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 
