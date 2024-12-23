@@ -24,8 +24,7 @@ import org.sonar.plugins.html.node.TagNode;
  * Checker for occurrence of inline style.
  *
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 @Rule(key = "InlineStyleCheck")
 public class InlineStyleCheck extends AbstractPageCheck {

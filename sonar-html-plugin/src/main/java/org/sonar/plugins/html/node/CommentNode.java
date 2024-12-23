@@ -20,8 +20,7 @@ package org.sonar.plugins.html.node;
 /**
  * Defines a comment.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public class CommentNode extends Node {
 

@@ -24,8 +24,7 @@ import org.sonar.plugins.html.node.Node;
 /**
  * Tokenizer for expressions.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 class ExpressionTokenizer extends AbstractTokenizer<List<Node>> {
 

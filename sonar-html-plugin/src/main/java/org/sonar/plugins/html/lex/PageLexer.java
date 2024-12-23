@@ -34,8 +34,7 @@ import org.sonar.sslr.channel.CodeReader;
 
 /**
  * Lexical analysis of a web page.
- *
- * @author Matthijs Galesloot
+
  */
 @SuppressWarnings("unchecked")
 public class PageLexer {

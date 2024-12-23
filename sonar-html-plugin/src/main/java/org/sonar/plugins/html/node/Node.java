@@ -20,8 +20,7 @@ package org.sonar.plugins.html.node;
 /**
  * Defines a node.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public abstract class Node {
 

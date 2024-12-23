@@ -20,8 +20,7 @@ package org.sonar.plugins.html.node;
 /**
  * Defines an expression.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public class ExpressionNode extends Node {
 

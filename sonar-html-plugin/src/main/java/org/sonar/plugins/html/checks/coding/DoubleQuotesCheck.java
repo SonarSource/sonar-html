@@ -21,10 +21,7 @@ import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
-/**
- * @author Matthijs Galesloot
- * @since 1.0
- */
+
 @Rule(key = "DoubleQuotesCheck")
 public class DoubleQuotesCheck extends AbstractPageCheck {
 

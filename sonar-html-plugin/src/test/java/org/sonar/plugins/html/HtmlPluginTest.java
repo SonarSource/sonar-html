@@ -25,9 +25,7 @@ import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
+
 public class HtmlPluginTest {
 
   @Test

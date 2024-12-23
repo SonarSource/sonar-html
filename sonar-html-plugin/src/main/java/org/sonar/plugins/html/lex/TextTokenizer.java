@@ -27,8 +27,7 @@ import org.sonar.sslr.channel.EndMatcher;
 /**
  * Tokenizer for content.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  *
  *        TODO - handle CDATA
  */

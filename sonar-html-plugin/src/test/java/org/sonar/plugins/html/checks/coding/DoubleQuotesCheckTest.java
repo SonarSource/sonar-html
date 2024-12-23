@@ -23,9 +23,7 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-/**
- * @author Matthijs Galesloot
- */
+
 public class DoubleQuotesCheckTest {
 
   @RegisterExtension

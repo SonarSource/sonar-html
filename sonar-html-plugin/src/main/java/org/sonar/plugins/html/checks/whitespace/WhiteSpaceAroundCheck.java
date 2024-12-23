@@ -23,10 +23,7 @@ import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.Node;
 
-/**
- * @author Matthijs Galesloot
- * @since 1.0
- */
+
 @Rule(key = "WhiteSpaceAroundCheck")
 public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 

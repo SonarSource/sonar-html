@@ -20,8 +20,7 @@ package org.sonar.plugins.html.node;
 /**
  * Defines nodetypes.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public enum NodeType {
   COMMENT, DIRECTIVE, EXPRESSION, TAG, TEXT

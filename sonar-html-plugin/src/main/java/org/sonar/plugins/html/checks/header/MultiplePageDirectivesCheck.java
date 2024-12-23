@@ -23,10 +23,7 @@ import org.sonar.plugins.html.node.Node;
 
 import java.util.List;
 
-/**
- * @author Matthijs Galesloot
- * @since 1.0
- */
+
 @Rule(key = "MultiplePageDirectivesCheck")
 public class MultiplePageDirectivesCheck extends AbstractPageCheck {
 

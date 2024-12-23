@@ -27,8 +27,7 @@ import org.sonar.sslr.channel.EndMatcher;
 /**
  * Tokenizer for a HTML or JSP comment.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 class CommentTokenizer<T extends List<Node>> extends AbstractTokenizer<T> {
 

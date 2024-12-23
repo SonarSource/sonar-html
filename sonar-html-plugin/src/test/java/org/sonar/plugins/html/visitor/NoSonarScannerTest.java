@@ -37,9 +37,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-/**
- * @author Matthijs Galesloot
- */
+
 public class NoSonarScannerTest {
   private static final String CONTENT = "<table>\n<!-- //NOSONAR --><td>\n</table>";
 

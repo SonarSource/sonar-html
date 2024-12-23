@@ -28,8 +28,7 @@ import org.sonar.plugins.html.node.TextNode;
 /**
  * Scans the nodes of a page and send events to the visitors.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public class HtmlAstScanner {
 

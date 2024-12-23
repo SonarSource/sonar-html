@@ -26,8 +26,7 @@ import org.sonar.sslr.channel.EndMatcher;
 /**
  * AbstractTokenizer provides basic token parsing.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 

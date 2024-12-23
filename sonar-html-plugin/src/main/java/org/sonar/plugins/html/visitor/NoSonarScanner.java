@@ -28,8 +28,7 @@ import java.util.Set;
 /**
  * Scans for //NOSONAR indicator.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public class NoSonarScanner extends DefaultNodeVisitor {
 

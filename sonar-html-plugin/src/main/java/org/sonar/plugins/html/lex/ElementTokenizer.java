@@ -29,8 +29,7 @@ import org.sonar.sslr.channel.EndMatcher;
 /**
  * Tokenizer for elements.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 

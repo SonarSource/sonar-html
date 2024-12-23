@@ -29,8 +29,7 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 /**
  * Count lines of code in web files.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public class PageCountLines extends DefaultNodeVisitor {
 

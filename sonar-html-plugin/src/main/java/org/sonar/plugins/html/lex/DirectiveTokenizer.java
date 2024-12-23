@@ -22,8 +22,7 @@ import org.sonar.plugins.html.node.Node;
 /**
  * Tokenizer for directives.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 class DirectiveTokenizer extends ElementTokenizer {
 

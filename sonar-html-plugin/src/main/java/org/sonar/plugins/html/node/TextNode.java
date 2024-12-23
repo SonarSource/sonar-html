@@ -20,8 +20,7 @@ package org.sonar.plugins.html.node;
 /**
  * Defines a text node.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public class TextNode extends Node {
 

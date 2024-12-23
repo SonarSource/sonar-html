@@ -27,8 +27,7 @@ import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 
 /**
  * Abtract superclass for checks.
- *
- * @author Matthijs Galesloot
+
  */
 public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 

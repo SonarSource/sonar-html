@@ -25,8 +25,7 @@ import javax.annotation.Nullable;
 /**
  * Defines a tag.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public class TagNode extends Node {
 

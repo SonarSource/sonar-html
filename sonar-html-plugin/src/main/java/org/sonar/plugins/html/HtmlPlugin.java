@@ -31,8 +31,7 @@ import org.sonar.plugins.html.rules.SonarWayProfile;
 /**
  * HTML Plugin publishes extensions to sonar engine.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public final class HtmlPlugin implements Plugin {
 

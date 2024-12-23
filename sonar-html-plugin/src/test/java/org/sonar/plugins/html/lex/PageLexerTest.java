@@ -33,9 +33,7 @@ import org.sonar.sslr.channel.CodeReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author Matthijs Galesloot
- */
+
 public class PageLexerTest {
 
   @Test
