@@ -1,5 +1,5 @@
 /*
- * SonarSource HTML analyzer :: Sonar Plugin
+ * SonarQube HTML Plugin :: Sonar Plugin
  * Copyright (C) 2010-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
