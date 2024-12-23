@@ -1,6 +1,6 @@
 /*
- * SonarQube HTML Plugin
- * Copyright (C) 2010-2024 SonarSource SA
+ * SonarQube HTML Plugin :: ITs :: Ruling
+ * Copyright (C) 2013-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or

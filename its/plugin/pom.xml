@@ -17,10 +17,7 @@
     <url>http://www.sonarsource.com</url>
   </organization>
   <properties>
-    <license.name>AL2</license.name>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
-    <license.owner>SonarSource SA</license.owner>
-    <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
   </properties>
 
