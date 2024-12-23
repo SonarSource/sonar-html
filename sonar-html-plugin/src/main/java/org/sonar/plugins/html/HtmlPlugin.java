@@ -1,6 +1,6 @@
 /*
- * SonarSource HTML analyzer :: Sonar Plugin
- * Copyright (C) 2010-2024 SonarSource SA and Matthijs Galesloot
+ * SonarQube HTML
+ * Copyright (C) 2010-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -31,8 +31,7 @@ import org.sonar.plugins.html.rules.SonarWayProfile;
 /**
  * HTML Plugin publishes extensions to sonar engine.
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 public final class HtmlPlugin implements Plugin {
 

@@ -9,7 +9,7 @@
 
   <artifactId>it-html-ruling</artifactId>
 
-  <name>SonarSource :: HTML :: ITs :: Ruling</name>
+  <name>SonarQube HTML Plugin :: ITs :: Ruling</name>
   <inceptionYear>2013</inceptionYear>
   <organization>
     <name>SonarSource</name>
@@ -17,14 +17,9 @@
   </organization>
 
   <properties>
-    <license.name>AL2</license.name>
     <webVersion>2.2-SNAPSHOT</webVersion>
-
     <surefire.argLine>-server -Xmx512m</surefire.argLine>
-    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
-    <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
-
     <gson.version>2.10</gson.version>
   </properties>
 

@@ -1,6 +1,6 @@
 /*
- * SonarSource HTML analyzer :: Sonar Plugin
- * Copyright (C) 2010-2024 SonarSource SA and Matthijs Galesloot
+ * SonarQube HTML
+ * Copyright (C) 2010-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -23,9 +23,7 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-/**
- * @author Matthijs Galesloot
- */
+
 public class JspScriptletCheckTest {
 
   @RegisterExtension

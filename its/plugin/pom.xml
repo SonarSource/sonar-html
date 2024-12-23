@@ -10,17 +10,14 @@
 
   <artifactId>it-html-plugin</artifactId>
 
-  <name>SonarSource :: HTML :: ITs :: Plugin</name>
+  <name>SonarQube HTML Plugin :: ITs :: Plugin</name>
   <inceptionYear>2011</inceptionYear>
   <organization>
     <name>SonarSource</name>
     <url>http://www.sonarsource.com</url>
   </organization>
   <properties>
-    <license.name>AL2</license.name>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
-    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
-    <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
   </properties>
 

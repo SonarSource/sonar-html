@@ -1,6 +1,6 @@
 /*
- * SonarSource HTML analyzer :: Sonar Plugin
- * Copyright (C) 2010-2024 SonarSource SA and Matthijs Galesloot
+ * SonarQube HTML
+ * Copyright (C) 2010-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -37,9 +37,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-/**
- * @author Matthijs Galesloot
- */
+
 public class NoSonarScannerTest {
   private static final String CONTENT = "<table>\n<!-- //NOSONAR --><td>\n</table>";
 

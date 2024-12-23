@@ -1,6 +1,6 @@
 /*
- * SonarSource HTML analyzer :: Sonar Plugin
- * Copyright (C) 2010-2024 SonarSource SA and Matthijs Galesloot
+ * SonarQube HTML
+ * Copyright (C) 2010-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
  * This program is free software; you can redistribute it and/or
@@ -24,8 +24,7 @@ import org.sonar.plugins.html.node.TagNode;
  * Checker for occurrence of inline style.
  *
  *
- * @author Matthijs Galesloot
- * @since 1.0
+
  */
 @Rule(key = "InlineStyleCheck")
 public class InlineStyleCheck extends AbstractPageCheck {
