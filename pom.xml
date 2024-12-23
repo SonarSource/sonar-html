@@ -105,4 +105,45 @@
     </profile>
   </profiles>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <!-- This plugin is already configured in parent pom, however we want a configuration specific to this project -->
+        <configuration>
+          <licenseSets>
+            <licenseSet>
+              <includes>
+                <include>**/*.java</include>
+              </includes>
+              <excludes>
+                <!-- Folders -->
+                <exclude>its/sources/**/*</exclude>
+                <!-- Generated -->
+                <exclude>**/bin/**/*</exclude>
+                <exclude>**/dist/**/*</exclude>
+                <exclude>**/lib/**/*</exclude>
+                <!-- Fixtures -->
+                <exclude>**/fixtures/**/*</exclude>
+                <exclude>**/*.fixture.*</exclude>
+                <!-- Resources -->
+                <exclude>**/src/test/resources/**/*</exclude>
+              </excludes>
+            </licenseSet>
+          </licenseSets>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.5.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
 </project>
