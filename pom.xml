@@ -14,7 +14,7 @@
   <version>3.18.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SonarSource :: HTML</name>
+  <name>SonarQube HTML Plugin</name>
 
   <url>http://redirect.sonarsource.com/plugins/web.html</url>
 
