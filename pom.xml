@@ -65,7 +65,7 @@
 
   <properties>
     <revision>3.5-SNAPSHOT</revision>
-    <license.owner>SonarSource SA</license.owner>
+    <license.title>SonarQube HTML</license.title>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
     <jakarta.el.version>4.0.2</jakarta.el.version>
@@ -104,39 +104,5 @@
       </modules>
     </profile>
   </profiles>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <!-- This plugin is already configured in parent pom, however we want a configuration specific to this project -->
-        <configuration>
-          <licenseSets>
-            <licenseSet>
-              <includes>
-                <include>**/*.java</include>
-              </includes>
-              <excludes>
-                <!-- Folders -->
-                <exclude>its/sources/**/*</exclude>
-                <!-- Resources -->
-                <exclude>**/src/test/resources/**/*</exclude>
-              </excludes>
-            </licenseSet>
-          </licenseSets>
-        </configuration>
-      </plugin>
-    </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
-          <version>3.5.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
 
 </project>
