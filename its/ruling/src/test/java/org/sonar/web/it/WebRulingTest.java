@@ -1,5 +1,5 @@
 /*
- * SonarQube HTML Plugin :: ITs :: Ruling
+ * SonarQube HTML
  * Copyright (C) 2013-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *

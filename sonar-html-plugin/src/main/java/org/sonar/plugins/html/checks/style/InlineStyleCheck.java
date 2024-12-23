@@ -1,5 +1,5 @@
 /*
- * SonarQube HTML Plugin :: Sonar Plugin
+ * SonarQube HTML
  * Copyright (C) 2010-2024 SonarSource SA
  * mailto:info AT sonarsource DOT com
  *
