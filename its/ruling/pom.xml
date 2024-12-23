@@ -9,7 +9,7 @@
 
   <artifactId>it-html-ruling</artifactId>
 
-  <name>SonarSource :: HTML :: ITs :: Ruling</name>
+  <name>SonarQube HTML Plugin :: ITs :: Ruling</name>
   <inceptionYear>2013</inceptionYear>
   <organization>
     <name>SonarSource</name>

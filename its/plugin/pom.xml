@@ -10,7 +10,7 @@
 
   <artifactId>it-html-plugin</artifactId>
 
-  <name>SonarSource :: HTML :: ITs :: Plugin</name>
+  <name>SonarQube HTML Plugin :: ITs :: Plugin</name>
   <inceptionYear>2011</inceptionYear>
   <organization>
     <name>SonarSource</name>
