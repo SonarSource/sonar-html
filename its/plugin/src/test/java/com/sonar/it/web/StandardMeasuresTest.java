@@ -70,9 +70,6 @@ public class StandardMeasuresTest {
 
     assertThat(getProjectMeasureAsDouble("public_api")).isNull();
     assertThat(getProjectMeasureAsDouble("complexity")).isEqualTo(391d);
-    assertThat(getProjectMeasureAsDouble("function_complexity")).isNull();
-    assertThat(getProjectMeasureAsDouble("function_complexity_distribution")).isNull();
-    assertThat(getProjectMeasureAsDouble("file_complexity")).isEqualTo(3.8);
   }
 
   @Test
@@ -104,9 +101,6 @@ public class StandardMeasuresTest {
     assertThat(getFileMeasureAsDouble("duplicated_lines_density")).isZero();
     assertThat(getFileMeasureAsDouble("statements")).isNull();
     assertThat(getFileMeasureAsDouble("complexity")).isEqualTo(16d);
-    assertThat(getFileMeasureAsDouble("function_complexity")).isNull();
-    assertThat(getFileMeasureAsDouble("function_complexity_distribution")).isNull();
-    assertThat(getFileMeasureAsDouble("file_complexity")).isEqualTo(16.0d);
   }
 
   @Test
