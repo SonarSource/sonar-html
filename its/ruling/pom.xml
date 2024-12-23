@@ -21,7 +21,7 @@
     <webVersion>2.2-SNAPSHOT</webVersion>
 
     <surefire.argLine>-server -Xmx512m</surefire.argLine>
-    <license.owner>SonarSource SA and Matthijs Galesloot</license.owner>
+    <license.owner>SonarSource SA</license.owner>
     <license.mailto>sonarqube@googlegroups.com</license.mailto>
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
