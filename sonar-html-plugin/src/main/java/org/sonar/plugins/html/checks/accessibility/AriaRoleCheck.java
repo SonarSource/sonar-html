@@ -29,7 +29,7 @@ public class AriaRoleCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     var role = element.getAttribute("role");
-    if (role == null || Helpers.isDynamicValue(role)) {
+    if (role == null || Helpers.isDynamicValue(role, getHtmlSourceCode())) {
       return;
     }
     var values = role.split(" ");

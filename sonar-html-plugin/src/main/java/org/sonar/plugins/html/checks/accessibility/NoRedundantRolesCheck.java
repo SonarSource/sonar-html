@@ -54,7 +54,7 @@ public class NoRedundantRolesCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     var implicitRole = getImplicitRole(element);
     var explicitRoleRaw = element.getAttribute("role");
-    if (explicitRoleRaw == null || Helpers.isDynamicValue(explicitRoleRaw)) {
+    if (explicitRoleRaw == null || Helpers.isDynamicValue(explicitRoleRaw, getHtmlSourceCode())) {
       return;
     }
     var explicitRole = AriaRole.of(explicitRoleRaw.toLowerCase(Locale.ROOT));
