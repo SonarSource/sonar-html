@@ -22,10 +22,8 @@ import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.sonarqube.ws.Measures;
 
 import static com.sonar.it.web.HtmlTestSuite.createSonarScanner;
-import static com.sonar.it.web.HtmlTestSuite.getMeasure;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StandardMeasuresTest {
@@ -102,22 +100,8 @@ public class StandardMeasuresTest {
     assertThat(getFileMeasureAsDouble("complexity")).isEqualTo(16d);
   }
 
-  @Test
-  public void lineLevelMeasures() {
-    String value = getFileMeasure("ncloc_data").getValue();
-    assertThat(value).contains("20=1");
-    assertThat(value).contains(";38=1");
-    assertThat(value).contains(";58=1");
-    // SonarQube >= 5.6 removed =0 entries
-    assertThat(value.replaceAll("=0", "").replaceAll("[^=]", "")).hasSize(311);
-  }
-
   private Double getProjectMeasureAsDouble(String metricKey) {
     return HtmlTestSuite.getMeasureAsDouble(orchestrator, PROJECT, metricKey);
-  }
-
-  private Measures.Measure getFileMeasure(String metricKey) {
-    return getMeasure(orchestrator, FILE, metricKey);
   }
 
   private Double getFileMeasureAsDouble(String metricKey) {

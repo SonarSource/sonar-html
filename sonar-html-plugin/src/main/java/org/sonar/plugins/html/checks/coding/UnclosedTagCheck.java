@@ -25,6 +25,8 @@ import org.sonar.plugins.html.node.TagNode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.sonar.plugins.html.api.Helpers.isCshtmlFile;
+
 @Rule(key = "UnclosedTagCheck")
 public class UnclosedTagCheck extends AbstractPageCheck {
 
@@ -45,7 +47,7 @@ public class UnclosedTagCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     skipFile = false;
-    if (isCshtmlFile()) {
+    if (isCshtmlFile(getHtmlSourceCode())) {
       // This rule is performing poorly in presence of Razor syntax (https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-3.1)
       // present in cshtml files, we skip this file for this rule.
       skipFile = true;
@@ -103,9 +105,4 @@ public class UnclosedTagCheck extends AbstractPageCheck {
       createViolation(node, "The tag \"" + node.getNodeName() + "\" has no corresponding closing tag.");
     }
   }
-
-  private boolean isCshtmlFile() {
-    return getHtmlSourceCode().inputFile().filename().endsWith(".cshtml");
-  }
-
 }

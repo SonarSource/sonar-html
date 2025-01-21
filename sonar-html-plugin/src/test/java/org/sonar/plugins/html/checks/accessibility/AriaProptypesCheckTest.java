@@ -29,7 +29,7 @@ class AriaProptypesCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void html() throws Exception {
+  void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/AriaProptypesCheck.html"),
       new AriaProptypesCheck());
@@ -46,6 +46,20 @@ class AriaProptypesCheckTest {
       .next().atLine(44)
       .next().atLine(49).withMessage("The value of the attribute \"aria-controls\" must be a list of strings that represent DOM element IDs (idlist).")
       .next().atLine(53).withMessage("The value of the attribute \"aria-details\" must be a string that represents a DOM element ID.")
+      .noMore();
+  }
+
+  @Test
+  void cshtml() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AriaProptypesCheck.cshtml"),
+      new AriaProptypesCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(5).withMessage("The value of the attribute \"aria-checked\" must be a boolean or the string \"mixed\".")
+      .next().atLine(7).withMessage("The value of the attribute \"aria-checked\" must be a boolean or the string \"mixed\".")
+      .next().atLine(13).withMessage("The value of the attribute \"aria-valuemax\" must be a number.")
+      .next().atLine(15).withMessage("The value of the attribute \"aria-valuemax\" must be a number.")
       .noMore();
   }
 }

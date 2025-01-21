@@ -45,7 +45,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
       }
 
       var value = attribute.getValue();
-      if (Helpers.isDynamicValue(value)) {
+      if (Helpers.isDynamicValue(value, getHtmlSourceCode())) {
         continue;
       }
 
