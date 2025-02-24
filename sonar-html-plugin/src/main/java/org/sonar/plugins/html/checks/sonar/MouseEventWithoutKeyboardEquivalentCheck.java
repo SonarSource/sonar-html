@@ -42,7 +42,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       }
 
       var roleAttributeValue = node.getAttribute("role");
-      if (roleAttributeValue != null && Helpers.isDynamicValue(roleAttributeValue)) {
+      if (roleAttributeValue != null && Helpers.isDynamicValue(roleAttributeValue, getHtmlSourceCode())) {
         return;
       }
       String[] roles = new String[]{};

@@ -17,6 +17,9 @@
 package org.sonar.plugins.html.api;
 
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.visitor.HtmlSourceCode;
+
+import java.util.regex.Pattern;
 
 public class Helpers {
   private Helpers() {
@@ -29,7 +32,12 @@ public class Helpers {
       node.getNodeName().charAt(1) <= '6';
   }
 
-  public static boolean isDynamicValue(String value) {
-    return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%") || value.startsWith("<?=");
+  public static boolean isDynamicValue(String value, HtmlSourceCode code) {
+    return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%") || value.startsWith("<?=") ||
+            (isCshtmlFile(code) && Pattern.compile("(?<!@)@(?!@)").matcher(value).find());
+  }
+
+  public static boolean isCshtmlFile(HtmlSourceCode code) {
+    return code.inputFile().filename().endsWith(".cshtml");
   }
 }

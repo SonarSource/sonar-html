@@ -37,7 +37,7 @@ class NoRedundantRolesCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1)
         .withMessage(
-            "The element button has an implicit role of button. Definig this explicitly is redundant and should be avoided.")
+            "The element button has an implicit role of button. Defining this explicitly is redundant and should be avoided.")
         .next().atLine(2)
         .noMore();
   }
@@ -50,7 +50,7 @@ class NoRedundantRolesCheckTest {
         new File("src/test/resources/checks/NoRedundantRolesCheck.html"),
         check);
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(6).withMessage("The element nav has an implicit role of navigation. Definig this explicitly is redundant and should be avoided.")
+      .next().atLine(6).withMessage("The element nav has an implicit role of navigation. Defining this explicitly is redundant and should be avoided.")
       .noMore();
   }
 
@@ -64,7 +64,7 @@ class NoRedundantRolesCheckTest {
         check);
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2)
-      .next().atLine(6).withMessage("The element nav has an implicit role of navigation. Definig this explicitly is redundant and should be avoided.")
+      .next().atLine(6).withMessage("The element nav has an implicit role of navigation. Defining this explicitly is redundant and should be avoided.")
       .noMore();
   }
 }

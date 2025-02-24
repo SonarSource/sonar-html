@@ -1,0 +1,15 @@
+<!-- Tristate -->
+<div aria-checked="true" />
+<div aria-checked="false" />
+<div aria-checked="mixed" />
+<div aria-checked="foo" />  <!-- Noncompliant -->
+<div aria-checked="@foo" />
+<div aria-checked="@@foo" />  <!-- Noncompliant -->
+
+<!-- Number -->
+<div aria-valuemax="3" />
+<div aria-valuemax="-3" />
+<div aria-valuemax="42" />
+<div aria-valuemax="foo" />  <!-- Noncompliant -->
+<div aria-valuemax="@foo" />
+<div aria-valuemax="@@foo" />   <!-- Noncompliant -->

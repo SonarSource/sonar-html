@@ -54,7 +54,7 @@ public class NoRedundantRolesCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     var implicitRole = getImplicitRole(element);
     var explicitRoleRaw = element.getAttribute("role");
-    if (explicitRoleRaw == null || Helpers.isDynamicValue(explicitRoleRaw)) {
+    if (explicitRoleRaw == null || Helpers.isDynamicValue(explicitRoleRaw, getHtmlSourceCode())) {
       return;
     }
     var explicitRole = AriaRole.of(explicitRoleRaw.toLowerCase(Locale.ROOT));
@@ -70,7 +70,7 @@ public class NoRedundantRolesCheck extends AbstractPageCheck {
       }
       createViolation(element,
           String.format(
-              "The element %s has an implicit role of %s. Definig this explicitly is redundant and should be avoided.",
+              "The element %s has an implicit role of %s. Defining this explicitly is redundant and should be avoided.",
               element.getNodeName(), implicitRole));
     }
   }
