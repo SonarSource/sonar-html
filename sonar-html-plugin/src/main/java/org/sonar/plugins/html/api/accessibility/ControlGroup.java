@@ -102,10 +102,6 @@ public class ControlGroup {
       return true;
     }
 
-    if (!nodeName.equalsIgnoreCase("input")) {
-      return false;
-    }
-
     var type = node.getAttribute("type");
 
     if (type == null) {
