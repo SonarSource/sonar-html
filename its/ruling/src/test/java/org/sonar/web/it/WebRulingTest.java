@@ -16,10 +16,11 @@
  */
 package org.sonar.web.it;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.BuildResult;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.container.Edition;
 import com.sonar.orchestrator.container.Server;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import com.sonar.orchestrator.locator.FileLocation;
 import com.sonar.orchestrator.locator.MavenLocation;
 import java.io.File;
@@ -50,7 +51,9 @@ public class WebRulingTest {
   private static final String REPOSITORY_KEY = "Web";
 
   @ClassRule
-  public static Orchestrator orchestrator = Orchestrator.builderEnv()
+  public static OrchestratorRule orchestrator = OrchestratorRule.builderEnv()
+    .setEdition(Edition.ENTERPRISE_LW)
+    .activateLicense()
     .useDefaultAdminCredentialsForBuilds(true)
     .setSonarVersion(Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE"))
     .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar"))
@@ -154,7 +157,7 @@ public class WebRulingTest {
     }
   }
 
-  static WsClient newAdminWsClient(Orchestrator orchestrator) {
+  static WsClient newAdminWsClient(OrchestratorRule orchestrator) {
     return WsClientFactories
       .getDefault()
       .newClient(
