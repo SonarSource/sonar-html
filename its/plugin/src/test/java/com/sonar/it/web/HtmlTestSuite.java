@@ -16,8 +16,9 @@
  */
 package com.sonar.it.web;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.container.Edition;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import com.sonar.orchestrator.locator.FileLocation;
 import java.io.File;
 import java.util.List;
@@ -49,7 +50,9 @@ import static java.util.Collections.singletonList;
 public class HtmlTestSuite {
 
   @ClassRule
-  public static Orchestrator orchestrator = Orchestrator.builderEnv()
+  public static OrchestratorRule orchestrator = OrchestratorRule.builderEnv()
+    .setEdition(Edition.ENTERPRISE_LW)
+    .activateLicense()
     .useDefaultAdminCredentialsForBuilds(true)
     .setSonarVersion(sonarVersion())
     .addPlugin(htmlPlugin())
@@ -71,7 +74,7 @@ public class HtmlTestSuite {
       .setProperty("sonar.scanner.skipJreProvisioning", "true");
   }
 
-  static Measures.Measure getMeasure(Orchestrator orchestrator, String componentKey, String metricKey) {
+  static Measures.Measure getMeasure(OrchestratorRule orchestrator, String componentKey, String metricKey) {
     Measures.ComponentWsResponse response = newWsClient(orchestrator).measures().component(new ComponentRequest()
       .setComponent(componentKey)
       .setMetricKeys(singletonList(metricKey)));
@@ -80,13 +83,13 @@ public class HtmlTestSuite {
   }
 
   @CheckForNull
-  static Integer getMeasureAsInt(Orchestrator orchestrator, String componentKey, String metricKey) {
+  static Integer getMeasureAsInt(OrchestratorRule orchestrator, String componentKey, String metricKey) {
     Measures.Measure measure = getMeasure(orchestrator, componentKey, metricKey);
     return (measure == null) ? null : Integer.parseInt(measure.getValue());
   }
 
   @CheckForNull
-  static Double getMeasureAsDouble(Orchestrator orchestrator, String componentKey, String metricKey) {
+  static Double getMeasureAsDouble(OrchestratorRule orchestrator, String componentKey, String metricKey) {
     Measures.Measure measure = getMeasure(orchestrator, componentKey, metricKey);
     return (measure == null) ? null : Double.parseDouble(measure.getValue());
   }
@@ -97,7 +100,7 @@ public class HtmlTestSuite {
    * Any other unexpected issue when querying the web API will be thrown.
    */
   @CheckForNull
-  static Components.Component searchComponent(Orchestrator orchestrator, String componentKey) {
+  static Components.Component searchComponent(OrchestratorRule orchestrator, String componentKey) {
     ShowRequest showRequest = new ShowRequest().setComponent(componentKey);
     try {
       return newWsClient(orchestrator).components().show(showRequest).getComponent();
@@ -111,7 +114,7 @@ public class HtmlTestSuite {
     }
   }
 
-  static WsClient newWsClient(Orchestrator orchestrator) {
+  static WsClient newWsClient(OrchestratorRule orchestrator) {
     return WsClientFactories.getDefault().newClient(HttpConnector.newBuilder()
       .url(orchestrator.getServer().getUrl())
       .build());

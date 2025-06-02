@@ -16,7 +16,7 @@
  */
 package com.sonar.it.web;
 
-import com.sonar.orchestrator.Orchestrator;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import com.sonar.orchestrator.build.SonarScanner;
 import java.io.File;
 import java.util.Collections;
@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class VariousTest {
 
   @ClassRule
-  public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
+  public static OrchestratorRule orchestrator = HtmlTestSuite.orchestrator;
 
   @Test
   public void testExclusions() {

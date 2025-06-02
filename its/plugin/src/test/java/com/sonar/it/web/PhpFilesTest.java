@@ -16,8 +16,9 @@
  */
 package com.sonar.it.web;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.container.Edition;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import com.sonar.orchestrator.locator.FileLocation;
 import com.sonar.orchestrator.locator.MavenLocation;
 import java.io.File;
@@ -39,10 +40,12 @@ public class PhpFilesTest {
   private static final String PROJECT_KEY = "PhpFilesTest";
   private static final String FILES_METRIC = "files";
   @ClassRule
-  public static Orchestrator orchestrator =  HtmlTestSuite.orchestrator;
+  public static OrchestratorRule orchestrator =  HtmlTestSuite.orchestrator;
 
   @ClassRule
-  public static Orchestrator orchestratorWithPhp =  Orchestrator.builderEnv()
+  public static OrchestratorRule orchestratorWithPhp =  OrchestratorRule.builderEnv()
+    .setEdition(Edition.ENTERPRISE_LW)
+    .activateLicense()
     .useDefaultAdminCredentialsForBuilds(true)
     // This a second instance of orchestrator with SonarPhp plugin, if 'orchestrator.container.port' is set
     // it should not be used by this instance to not have two sonarqube servers on the same port
@@ -76,7 +79,7 @@ public class PhpFilesTest {
     analyzeFileAndCheckIssues(orchestratorWithPhp);
   }
 
-  private void analyzeFileAndCheckIssues(Orchestrator orchestrator) {
+  private void analyzeFileAndCheckIssues(OrchestratorRule orchestrator) {
     SonarScanner build = getSonarRunner();
     orchestrator.executeBuild(build);
     assertThat(getAnalyzedFilesNumber(orchestrator)).isEqualTo(2);
@@ -90,7 +93,7 @@ public class PhpFilesTest {
     assertThat(issues).hasSize(1);
   }
 
-  private Integer getAnalyzedFilesNumber(Orchestrator orchestrator) {
+  private Integer getAnalyzedFilesNumber(OrchestratorRule orchestrator) {
     return getMeasureAsInt(orchestrator, PROJECT_KEY, FILES_METRIC);
   }
 

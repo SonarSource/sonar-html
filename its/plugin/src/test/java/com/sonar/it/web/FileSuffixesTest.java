@@ -16,8 +16,8 @@
  */
 package com.sonar.it.web;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import java.io.File;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class FileSuffixesTest {
   private static final String FILES_METRIC = "files";
 
   @ClassRule
-  public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
+  public static OrchestratorRule orchestrator = HtmlTestSuite.orchestrator;
 
   private static SonarScanner getSonarRunner(String projectKey) {
     orchestrator.getServer().provisionProject(projectKey, projectKey);

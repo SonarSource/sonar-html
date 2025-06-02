@@ -16,8 +16,8 @@
  */
 package com.sonar.it.web;
 
-import com.sonar.orchestrator.Orchestrator;
 import com.sonar.orchestrator.build.SonarScanner;
+import com.sonar.orchestrator.junit4.OrchestratorRule;
 import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StandardMeasuresTest {
 
   @ClassRule
-  public static Orchestrator orchestrator = HtmlTestSuite.orchestrator;
+  public static OrchestratorRule orchestrator = HtmlTestSuite.orchestrator;
 
   private static final String PROJECT = "TestOfWebPlugin";
   private static final String DIR_ROOT = keyFor("TestOfWebPlugin", "WEB-INF/jsp");
