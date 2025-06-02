@@ -67,7 +67,8 @@ public class HtmlTestSuite {
   }
 
   public static SonarScanner createSonarScanner() {
-    return SonarScanner.create();
+    return SonarScanner.create()
+      .setProperty("sonar.scanner.skipJreProvisioning", "true");
   }
 
   static Measures.Measure getMeasure(Orchestrator orchestrator, String componentKey, String metricKey) {
