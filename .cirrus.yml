@@ -16,10 +16,13 @@ env:
   CIRRUS_SHELL: bash
 
 container_definition: &CONTAINER_DEFINITION
-  image: ${CIRRUS_AWS_ACCOUNT}.dkr.ecr.eu-central-1.amazonaws.com/base:j17-latest
-  cluster_name: ${CIRRUS_CLUSTER_NAME}
-  region: eu-central-1
-  namespace: default
+  eks_container:
+    image: ${CIRRUS_AWS_ACCOUNT}.dkr.ecr.eu-central-1.amazonaws.com/base:j17-latest
+    cluster_name: ${CIRRUS_CLUSTER_NAME}
+    region: eu-central-1
+    namespace: default
+    cpu: 2
+    memory: 2G
 
 win_vm_definition: &WINDOWS_VM_DEFINITION
   ec2_instance:
@@ -60,10 +63,7 @@ analyze_definition: &ANALYZE_DEFINITION
     - PULL_REQUEST_SHA=$GIT_SHA1 regular_mvn_build_deploy_analyze -P-deploy-sonarsource,-release,-sign -Dsonar.organization=sonarsource -Dsonar.projectKey="${SONAR_PROJECT_KEY}" -Dcommercial -Dmaven.shade.skip=true -Dmaven.install.skip=true -Dmaven.deploy.skip=true -DskipTests
 
 build_task:
-  eks_container:
-    <<: *CONTAINER_DEFINITION
-    cpu: 2
-    memory: 2G
+  <<: *CONTAINER_DEFINITION
   env:
     SIGN_KEY: VAULT[development/kv/data/sign data.key]
     PGP_PASSPHRASE: VAULT[development/kv/data/sign data.passphrase]
@@ -124,12 +124,9 @@ run_iris_task:
     - source .cirrus/run-iris.sh
 
 ws_scan_task:
+  <<: *CONTAINER_DEFINITION
   depends_on:
     - build
-  eks_container:
-    <<: *CONTAINER_DEFINITION
-    cpu: 2
-    memory: 2G
   # run only on master and long-term branches
   only_if: $CIRRUS_USER_COLLABORATOR == 'true' && ($CIRRUS_BRANCH == "master" || $CIRRUS_BRANCH =~ "branch-.*")
   env:
@@ -163,8 +160,8 @@ plugin_qa_task:
   depends_on:
     - build
   <<: *ONLY_SONARSOURCE_QA
+  <<: *CONTAINER_DEFINITION
   eks_container:
-    <<: *CONTAINER_DEFINITION
     cpu: 3
     memory: 8G
   env:
@@ -185,8 +182,8 @@ ruling_task:
   depends_on:
     - build
   <<: *ONLY_SONARSOURCE_QA
+  <<: *CONTAINER_DEFINITION
   eks_container:
-    <<: *CONTAINER_DEFINITION
     cpu: 4
     memory: 8G
   env:
@@ -203,6 +200,10 @@ ruling_task:
   cleanup_before_cache_script: cleanup_maven_repository
 
 promote_task:
+  <<: *CONTAINER_DEFINITION
+  eks_container:
+    cpu: 0.5
+    memory: 500M
   depends_on:
     - build
     - build_win
@@ -210,10 +211,6 @@ promote_task:
     - ruling
     - plugin_qa
   <<: *ONLY_SONARSOURCE_QA
-  eks_container:
-    <<: *CONTAINER_DEFINITION
-    cpu: 0.5
-    memory: 500M
   env:
     #see https://xtranet-sonarsource.atlassian.net/wiki/spaces/RE/pages/2931064959/Cirrus+CI+-+How+to+migrate+away+of+GCP+promote+function
     ARTIFACTORY_PROMOTE_ACCESS_TOKEN: VAULT[development/artifactory/token/${CIRRUS_REPO_OWNER}-${CIRRUS_REPO_NAME}-promoter access_token]
