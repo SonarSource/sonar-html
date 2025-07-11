@@ -182,4 +182,111 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>license-regeneration</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>license-maven-plugin</artifactId>
+            <version>2.6.0</version>
+            <configuration>
+              <errorRemedy>failFast</errorRemedy>
+              <writeVersions>false</writeVersions>
+              <socketTimeout>20000</socketTimeout>
+              <licensesOutputDirectory>${project.basedir}/src/main/resources/licenses/THIRD_PARTY_LICENSES</licensesOutputDirectory>
+              <licensesOutputFile>${project.build.directory}/licenses.xml</licensesOutputFile>
+              <organizeLicensesByDependencies>true</organizeLicensesByDependencies>
+              <excludedGroups>org.sonarsource.javascript|org.sonarsource.analyzer-commons|org.sonarsource.sslr</excludedGroups>
+              <licenseUrlReplacements>
+                <licenseUrlReplacement>
+                  <regexp>https://www.gnu.org/software/classpath/license.html</regexp>
+                  <replacement>file://${basedir}/src/main/license-resources/GNU-general-public-license-version2-w-classpath-exception.txt</replacement>
+                </licenseUrlReplacement>
+                <licenseUrlReplacement>
+                  <regexp>https://asm.ow2.io/license.html</regexp>
+                  <replacement>file://${basedir}/src/main/license-resources/asm-ow2-bsd.txt</replacement>
+                </licenseUrlReplacement>
+              </licenseUrlReplacements>
+              <licenseUrlFileNameSanitizers>
+                <LicenseUrlReplacement>
+                  <regexp>.txt</regexp>
+                </LicenseUrlReplacement>
+                <!--                 Append .txt -->
+                <LicenseUrlReplacement>
+                  <regexp>$</regexp>
+                  <replacement>.txt</replacement>
+                </LicenseUrlReplacement>
+              </licenseUrlFileNameSanitizers>
+            </configuration>
+            <executions>
+              <execution>
+                <id>download-licenses</id>
+                <goals>
+                  <goal>download-licenses</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.3.1</version>
+            <executions>
+              <execution>
+                <id>copy-main-license</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>..</directory>
+                      <includes>
+                        <include>LICENSE.txt</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                  <outputDirectory>src/main/resources/licenses</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+              <execution>
+                <id>check-license-files</id>
+                <phase>verify</phase>
+                <configuration>
+                  <target>
+                    <fileset id="invalid.files" dir="${project.basedir}/src/main/resources/licenses">
+                      <exclude name="**/*.txt"/>
+                      <include name="**/*"/>
+                    </fileset>
+                    <condition property="has.invalid.files">
+                      <resourcecount refid="invalid.files" when="greater" count="0"/>
+                    </condition>
+                    <fail message="There are files in ${project.basedir}/src/main/resources/licenses that do not end with .txt">
+                      <condition>
+                        <isset property="has.invalid.files"/>
+                      </condition>
+                    </fail>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
