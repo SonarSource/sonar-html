@@ -75,6 +75,7 @@ analyze_task:
     - build
   <<: *MAVEN_CACHE
   <<: *JAVA_COVERAGE_CACHE
+  alias: analyze
   matrix:
     - name: "Analyze in SQ NEXT"
       env:
