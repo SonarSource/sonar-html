@@ -83,13 +83,13 @@ analyze_task:
         SONAR_HOST_URL: https://next.sonarqube.com/sonarqube
         SONAR_PROJECT_KEY: org.sonarsource.html:html
     - name: "Analyze in Sonarcloud.io"
-      #only_if: $CIRRUS_CRON == "nightly"
+      only_if: $CIRRUS_CRON == "nightly"
       env:
         SONAR_TOKEN: VAULT[development/kv/data/sonarcloud data.token]
         SONAR_HOST_URL: https://sonarcloud.io
         SONAR_PROJECT_KEY: SonarSource_sonar-html
     - name: "Analyze in SonarQube.us"
-      #only_if: $CIRRUS_CRON == "nightly"
+      only_if: $CIRRUS_CRON == "nightly"
       env:
         SONAR_TOKEN: VAULT[development/kv/data/sonarqube-us data.token]
         SONAR_HOST_URL: https://sonarqube.us
@@ -101,7 +101,7 @@ analyze_task:
 
 run_iris_task:
   <<: *CONTAINER_DEFINITION
-  #only_if: $CIRRUS_CRON == "nightly"
+  only_if: $CIRRUS_CRON == "nightly"
   depends_on:
     - analyze
   env:
