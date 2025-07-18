@@ -54,6 +54,8 @@ java_coverage_cache_definition: &JAVA_COVERAGE_CACHE
 
 build_task:
   <<: *CONTAINER_DEFINITION
+  <<: *MAVEN_CACHE
+  <<: *JAVA_COVERAGE_CACHE
   env:
     SIGN_KEY: VAULT[development/kv/data/sign data.key]
     PGP_PASSPHRASE: VAULT[development/kv/data/sign data.passphrase]
@@ -62,8 +64,6 @@ build_task:
     SONAR_HOST_URL: https://next.sonarqube.com/sonarqube
     #allow deployment of pull request artifacts to repox
     DEPLOY_PULL_REQUEST: true
-  maven_cache:
-    folder: ${CIRRUS_WORKING_DIR}/.m2/repository
   build_script:
     - source cirrus-env BUILD
     - regular_mvn_build_deploy_analyze -Dsonar.skip=true -Pcoverage-report
@@ -71,10 +71,10 @@ build_task:
 
 analyze_task:
   <<: *CONTAINER_DEFINITION
-  depends_on:
-    - build
   <<: *MAVEN_CACHE
   <<: *JAVA_COVERAGE_CACHE
+  depends_on:
+    - build
   alias: analyze
   matrix:
     - name: "Analyze in SQ NEXT"
@@ -94,7 +94,6 @@ analyze_task:
         SONAR_TOKEN: VAULT[development/kv/data/sonarqube-us data.token]
         SONAR_HOST_URL: https://sonarqube.us
         SONAR_PROJECT_KEY: SonarSource_sonar-html
-
   analyze_script:
     - source cirrus-env BUILD
     - PULL_REQUEST_SHA=$GIT_SHA1 regular_mvn_build_deploy_analyze -P-deploy-sonarsource,-release,-sign -Dsonar.organization=sonarsource -Dsonar.projectKey="${SONAR_PROJECT_KEY}" -Dcommercial -Dmaven.shade.skip=true -Dmaven.install.skip=true -Dmaven.deploy.skip=true -DskipTests
