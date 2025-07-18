@@ -103,6 +103,12 @@
         <module>its</module>
       </modules>
     </profile>
+    <profile>
+      <id>coverage-report</id>
+      <modules>
+        <module>coverage-report</module>
+      </modules>
+    </profile>
   </profiles>
 
 </project>
