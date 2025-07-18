@@ -102,8 +102,7 @@ run_iris_task:
   <<: *CONTAINER_DEFINITION
   #only_if: $CIRRUS_CRON == "nightly"
   depends_on:
-    - analyze_SQC_EU_shadow
-    - analyze_SQC_US_shadow
+    - analyze
   env:
     SONAR_SOURCE_IRIS_TOKEN: VAULT[development/kv/data/iris data.next]
   matrix:
