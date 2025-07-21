@@ -29,8 +29,7 @@
     },
     {
       "matchPackageNames": ["org.sonarsource.html:html-its"],
-      "enabled": false,
-      "skipReason": "Local integration test module"
+      "enabled": false
     }
   ],
   "autoApprove": true,
