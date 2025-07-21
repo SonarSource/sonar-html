@@ -31,21 +31,17 @@
   </licenses>
   <developers>
     <developer>
-      <id>mgalesloot</id>
-      <name>Matthijs Galesloot</name>
-      <email>matthijs@codehaus.org</email>
-    </developer>
-    <developer>
-      <id>fabemn</id>
-      <name>Fabrice Bellingard</name>
+      <id>zglicz</id>
+      <name>Michał Zgliczyński</name>
       <organization>SonarSource</organization>
     </developer>
     <developer>
-      <id>dbolkensteyn</id>
-      <name>Dinesh Bolkensteyn</name>
+      <id>vdiez</id>
+      <name>Victor Diez</name>
       <organization>SonarSource</organization>
     </developer>
   </developers>
+
 
   <modules>
     <module>sonar-html-plugin</module>
