@@ -26,6 +26,11 @@
     {
       "matchUpdateTypes": ["minor", "patch"],
       "matchCurrentVersion": "!/^0/"
+    },
+    {
+      "matchPackageNames": ["org.sonarsource.html:html-its"],
+      "enabled": false,
+      "skipReason": "Local integration test module"
     }
   ],
   "autoApprove": true,
