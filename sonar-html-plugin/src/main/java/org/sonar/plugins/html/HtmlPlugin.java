@@ -19,7 +19,6 @@ package org.sonar.plugins.html;
 import java.util.List;
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
-import org.sonar.api.resources.Qualifiers;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.core.Html;
 import org.sonar.plugins.html.core.HtmlSensor;
@@ -65,7 +64,7 @@ public final class HtmlPlugin implements Plugin {
         .description("List of file suffixes that will be scanned.")
         .category(CATEGORY)
         .defaultValue(HtmlConstants.FILE_EXTENSIONS_DEF_VALUE)
-        .onQualifiers(Qualifiers.PROJECT)
+        .onConfigScopes(PropertyDefinition.ConfigScope.PROJECT)
         .multiValues(true)
         .build(),
       PropertyDefinition.builder(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY)
@@ -73,7 +72,7 @@ public final class HtmlPlugin implements Plugin {
         .description("List of JSP file suffixes that will be scanned.")
         .category(CATEGORY)
         .defaultValue(HtmlConstants.JSP_FILE_EXTENSIONS_DEF_VALUE)
-        .onQualifiers(Qualifiers.PROJECT)
+        .onConfigScopes(PropertyDefinition.ConfigScope.PROJECT)
         .multiValues(true)
         .build()
     );
