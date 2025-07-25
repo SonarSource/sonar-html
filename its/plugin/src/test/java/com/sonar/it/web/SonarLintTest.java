@@ -16,135 +16,124 @@
  */
 package com.sonar.it.web;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
+
 import com.sonar.orchestrator.locator.FileLocation;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.sonarsource.sonarlint.core.StandaloneSonarLintEngineImpl;
-import org.sonarsource.sonarlint.core.analysis.api.ClientInputFile;
-import org.sonarsource.sonarlint.core.analysis.api.WithTextRange;
-import org.sonarsource.sonarlint.core.client.api.common.analysis.Issue;
-import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneAnalysisConfiguration;
-import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneGlobalConfiguration;
-import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneSonarLintEngine;
-import org.sonarsource.sonarlint.core.commons.Language;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import org.sonarsource.sonarlint.core.rpc.protocol.backend.file.DidOpenFileParams;
+import org.sonarsource.sonarlint.core.rpc.protocol.backend.file.DidUpdateFileSystemParams;
+import org.sonarsource.sonarlint.core.rpc.protocol.client.issue.RaisedIssueDto;
+import org.sonarsource.sonarlint.core.rpc.protocol.common.ClientFileDto;
+import org.junit.jupiter.api.io.TempDir;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-import static org.sonarsource.sonarlint.core.commons.IssueSeverity.MAJOR;
+import org.sonarsource.sonarlint.core.test.utils.SonarLintBackendFixture;
+import org.sonarsource.sonarlint.core.test.utils.SonarLintTestRpcServer;
+import org.sonarsource.sonarlint.core.test.utils.junit5.SonarLintTest;
+import org.sonarsource.sonarlint.core.test.utils.junit5.SonarLintTestHarness;
+import org.sonarsource.sonarlint.core.test.utils.plugins.Plugin;
 
-public class SonarLintTest {
+class SonarLintIntegrationTest {
 
-  @ClassRule
-  public static TemporaryFolder temp = new TemporaryFolder();
+  private static final String CONFIG_SCOPE_ID = "CONFIG_SCOPE_ID";
+  private SonarLintBackendFixture.FakeSonarLintRpcClient client;
+  private SonarLintTestRpcServer backend;
 
-  private static StandaloneSonarLintEngine sonarlintEngine;
+  @SonarLintTest
+  void should_report_issues(SonarLintTestHarness harness, @TempDir Path baseDir) {
+    var fileDTO = createFile(baseDir, "foo.html", "<html>\n<body>\n<a href=\"foo.png\">a</a>\n</body>\n</html>\n");
+    initWithFiles(harness, baseDir, fileDTO);
 
-  private static File baseDir;
+    triggerAnalysisByFileOpened(fileDTO);
 
-  @BeforeClass
-  public static void prepare() throws Exception {
-    StandaloneGlobalConfiguration sonarLintConfig = StandaloneGlobalConfiguration.builder()
-      .addPlugin(FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar").getFile().toPath())
-      .setSonarLintUserHome(temp.newFolder().toPath())
-      .addEnabledLanguage(Language.HTML)
-      .setLogOutput((formattedMessage, level) -> { /* Don't pollute logs */ })
+    assertResults(results -> {
+      assertThat(results).hasSize(1);
+      assertThat(results.get(0).getRuleKey()).isEqualTo("Web:DoctypePresenceCheck");
+    });
+
+    triggerAnalysisByFileChanged(fileDTO, "x = true ? 42 : 43");
+
+    assertResults(results -> {
+      assertThat(results).isEmpty();
+    });
+  }
+
+
+  private static ClientFileDto createFile(Path folderPath, String fileName, String content) {
+    var filePath = folderPath.resolve(fileName);
+    try {
+      Files.writeString(filePath, content);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return new ClientFileDto(
+      filePath.toUri(),
+      folderPath.relativize(filePath),
+      CONFIG_SCOPE_ID,
+      false,
+      null,
+      filePath,
+      null,
+      null,
+      true
+    );
+  }
+
+  private void triggerAnalysisByFileOpened(ClientFileDto fileDTO) {
+    backend.getFileService().didOpenFile(new DidOpenFileParams(CONFIG_SCOPE_ID, fileDTO.getUri()));
+  }
+
+  private void triggerAnalysisByFileChanged(ClientFileDto fileDTO, String content) {
+    try {
+      Files.writeString(fileDTO.getFsPath(), content);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    backend
+      .getFileService()
+      .didUpdateFileSystem(new DidUpdateFileSystemParams(List.of(), List.of(fileDTO), List.of()));
+  }
+
+  private void initWithFiles(
+    SonarLintTestHarness harness,
+    Path baseDir,
+    ClientFileDto... fileDTOs
+  ) {
+    client = harness
+      .newFakeClient()
+      .withInitialFs(CONFIG_SCOPE_ID, baseDir, Arrays.asList(fileDTOs))
       .build();
-    sonarlintEngine = new StandaloneSonarLintEngineImpl(sonarLintConfig);
-    baseDir = temp.newFolder();
+
+    backend = harness
+      .newBackend()
+      .withStandaloneEmbeddedPluginAndEnabledLanguage(
+        new Plugin(
+          Set.of(org.sonarsource.sonarlint.core.rpc.protocol.common.Language.HTML),
+          FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar").getFile().toPath(),
+          "",
+          ""
+        )
+      )
+      .withUnboundConfigScope(CONFIG_SCOPE_ID)
+      .start(client);
   }
 
-  @AfterClass
-  public static void stop() {
-    sonarlintEngine.stop();
+  private void assertResults(Consumer<List<RaisedIssueDto>> assertionLambda) {
+    await()
+      .atMost(15, TimeUnit.SECONDS)
+      .untilAsserted(() -> {
+        var results = client.getRaisedIssuesForScopeIdAsList(CONFIG_SCOPE_ID);
+        assertionLambda.accept(results);
+      });
   }
-
-  @Test
-  public void should_raise_four_issues() throws IOException {
-    ClientInputFile inputFile = prepareInputFile("foo.html",
-      "<html>\n" +
-        "<body>\n" +
-        "<a href=\"foo.png\">a</a>\n" +
-        "</body>\n" +
-        "</html>\n",
-      false);
-
-    List<Issue> issues = new ArrayList<>();
-    StandaloneAnalysisConfiguration config = StandaloneAnalysisConfiguration.builder()
-       .setBaseDir(baseDir.toPath())
-       .addInputFile(inputFile)
-       .build();
-    sonarlintEngine.analyze(config, issues::add, (s, level) -> System.out.println(s), null);
-
-    assertThat(issues)
-      .extracting(Issue::getRuleKey, WithTextRange::getStartLine, i -> i.getInputFile().getPath(), Issue::getSeverity).containsOnly(
-      tuple("Web:DoctypePresenceCheck", 1, inputFile.getPath(), MAJOR),
-      tuple("Web:S5254", 1, inputFile.getPath(), MAJOR),
-      tuple("Web:PageWithoutTitleCheck", 1, inputFile.getPath(), MAJOR));
-  }
-
-  private ClientInputFile prepareInputFile(String relativePath, String content, final boolean isTest) throws IOException {
-    File file = new File(baseDir, relativePath);
-    FileUtils.write(file, content, StandardCharsets.UTF_8);
-    return createInputFile(file.toPath(), isTest);
-  }
-
-  private ClientInputFile createInputFile(final Path path, final boolean isTest) {
-    return new ClientInputFile() {
-
-      @Override
-      public String getPath() {
-        return path.toString();
-      }
-
-      @Override
-      public boolean isTest() {
-        return isTest;
-      }
-
-      @Override
-      public Charset getCharset() {
-        return StandardCharsets.UTF_8;
-      }
-
-      @Override
-      public <G> G getClientObject() {
-        return null;
-      }
-
-      @Override
-      public InputStream inputStream() throws IOException {
-        return Files.newInputStream(path);
-      }
-
-      @Override
-      public String contents() throws IOException {
-        return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
-      }
-
-      @Override
-      public String relativePath() {
-        return path.toString();
-      }
-
-      @Override
-      public URI uri() {
-        return path.toUri();
-      }
-    };
-  }
-
 }
+
