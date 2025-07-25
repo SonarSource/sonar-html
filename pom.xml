@@ -67,15 +67,15 @@
     <jakarta.el.version>4.0.2</jakarta.el.version>
     <sslr.version>1.24.0.633</sslr.version>
     <analyzerCommons.version>2.18.0.3393</analyzerCommons.version>
-    <sonar.plugin.api.version>10.1.0.809</sonar.plugin.api.version>
+    <sonar.plugin.api.version>13.0.0.3026</sonar.plugin.api.version>
 
-    <sonarqube.api.impl.version>10.1.0.73491</sonarqube.api.impl.version>
-    <sonarqube.sonar.ws.version>10.1.0.73491</sonarqube.sonar.ws.version>
+    <sonarqube.api.impl.version>25.7.0.110598</sonarqube.api.impl.version>
+    <sonarqube.sonar.ws.version>25.7.0.110598</sonarqube.sonar.ws.version>
     <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/coverage/java/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     <orchestrator.version>5.6.2.2625</orchestrator.version>
     <junit.version>4.13.2</junit.version>
-    <assertj.version>3.23.1</assertj.version>
-    <mockito.version>4.9.0</mockito.version>
+    <assertj.version>3.27.3</assertj.version>
+    <mockito.version>5.18.0</mockito.version>
 
     <artifactsToPublish>${project.groupId}:sonar-html-plugin:jar</artifactsToPublish>
     <jdk.min.version>17</jdk.min.version>
@@ -86,7 +86,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.0</version>
+        <version>5.13.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
