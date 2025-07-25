@@ -55,11 +55,13 @@ class SonarLintIntegrationTest {
     triggerAnalysisByFileOpened(fileDTO);
 
     assertResults(results -> {
-      assertThat(results).hasSize(1);
+      assertThat(results).hasSize(3);
       assertThat(results.get(0).getRuleKey()).isEqualTo("Web:DoctypePresenceCheck");
+      assertThat(results.get(1).getRuleKey()).isEqualTo("Web:S5254");
+      assertThat(results.get(2).getRuleKey()).isEqualTo("Web:PageWithoutTitleCheck");
     });
 
-    triggerAnalysisByFileChanged(fileDTO, "x = true ? 42 : 43");
+    triggerAnalysisByFileChanged(fileDTO, "<!DOCTYPE html><html lang=\"en\"><head><title>Title</title></head>\n<body>\n<a href=\"foo.png\">a</a>\n</body>\n</html>\n");
 
     assertResults(results -> {
       assertThat(results).isEmpty();
