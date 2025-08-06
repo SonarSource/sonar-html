@@ -48,7 +48,7 @@
     <dependency>
       <groupId>org.sonarsource.sonarlint.core</groupId>
       <artifactId>sonarlint-rpc-protocol</artifactId>
-      <version>10.27.0.81966</version>
+      <version>10.27.1.81985</version>
       <scope>test</scope>
     </dependency>
     <dependency>
