@@ -70,7 +70,7 @@
     <sonar.plugin.api.version>13.0.0.3026</sonar.plugin.api.version>
 
     <sonarqube.api.impl.version>25.8.0.112029</sonarqube.api.impl.version>
-    <sonarqube.sonar.ws.version>25.8.0.111929</sonarqube.sonar.ws.version>
+    <sonarqube.sonar.ws.version>25.8.0.112029</sonarqube.sonar.ws.version>
     <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/coverage/java/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     <orchestrator.version>5.6.2.2625</orchestrator.version>
     <junit.version>4.13.2</junit.version>
