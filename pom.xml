@@ -68,8 +68,7 @@
     <sslr.version>1.24.0.633</sslr.version>
     <analyzerCommons.version>2.18.0.3393</analyzerCommons.version>
     <sonar.plugin.api.version>13.0.0.3026</sonar.plugin.api.version>
-
-    <sonarqube.api.impl.version>25.8.0.112029</sonarqube.api.impl.version>
+    <sonarqube.api.impl.version>25.9.0.112764</sonarqube.api.impl.version>
     <sonarqube.sonar.ws.version>25.9.0.112764</sonarqube.sonar.ws.version>
     <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/coverage/java/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     <sonar.sca.exclusions>its/**</sonar.sca.exclusions>
