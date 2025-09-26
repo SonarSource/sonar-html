@@ -18,6 +18,7 @@ package org.sonar.plugins.html.checks.coding;
 
 import java.util.List;
 import java.util.regex.Pattern;
+
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -75,7 +76,7 @@ public class InternationalizationCheck extends AbstractPageCheck {
       String value = element.getAttribute(attribute.getAttributeName());
       if (value != null) {
         value = value.trim();
-        if (value.length() > 0 && isValidText(value)) {
+        if (!value.isEmpty() && isValidText(value)) {
           createViolation(element, "Define this label in the resource bundle.");
           return true;
         }
@@ -85,7 +86,11 @@ public class InternationalizationCheck extends AbstractPageCheck {
   }
 
   private boolean isValidText(String value) {
-    return !isUnifiedExpression(value) && hasNoPunctuationOrSpace(value) && !isIgnoredByRegex(value);
+    // Guard clause to be sure that the ignoredContentRegex rule parameter is not bypassed by anything else
+    if (isIgnoredByRegex(value)) {
+      return false;
+    }
+    return !isUnifiedExpression(value) && hasNoPunctuationOrSpace(value);
   }
 
   private static boolean hasNoPunctuationOrSpace(String value) {
