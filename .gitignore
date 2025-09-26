@@ -20,7 +20,7 @@ target/
 .vscode/
 
 # ---- Mac OS X
-.DS_Store?
+.DS_Store
 Icon?
 # Thumbnails
 ._*
