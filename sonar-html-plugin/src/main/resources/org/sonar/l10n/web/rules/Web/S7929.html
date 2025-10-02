@@ -1,0 +1,52 @@
+<p>This rule raises an issue when <code>&lt;audio&gt;</code> or <code>&lt;video&gt;</code> elements have the <code>autoplay</code> attribute.</p>
+<h2>Why is this an issue?</h2>
+<p>Media content that plays automatically can create significant barriers for users with disabilities and negatively impact the user experience.</p>
+<p>When audio or video starts playing without user interaction, it can:</p>
+<ul>
+  <li> Interfere with screen readers, making it difficult for visually impaired users to navigate the page </li>
+  <li> Startle users with hearing aids or cochlear implants </li>
+  <li> Cause problems for users with attention disorders who may be distracted by unexpected audio </li>
+  <li> Create confusion for users with cognitive disabilities </li>
+  <li> Consume mobile data unexpectedly </li>
+  <li> Violate user expectations about page behavior </li>
+</ul>
+<p>Autoplay also conflicts with the principle that users should control their browsing experience. Many browsers now block autoplay by default, but
+relying on browser behavior rather than following accessibility guidelines is not a reliable approach.</p>
+<h3>What is the potential impact?</h3>
+<p>Users with disabilities may be unable to use the website effectively. Screen reader users may lose their place in the content, and users with
+cognitive or attention disorders may become disoriented. This creates legal compliance risks under accessibility regulations like the Americans with
+Disabilities Act (ADA) and similar laws worldwide.</p>
+<h2>How to fix it</h2>
+<p>Remove the <code>autoplay</code> attribute and provide visible controls for users to start playback manually. Include the <code>controls</code>
+attribute to ensure users can control playback.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;video autoplay src="welcome.mp4"&gt;&lt;/video&gt; &lt;!-- Noncompliant --&gt;
+&lt;audio autoplay controls&gt;
+  &lt;source src="background.mp3" type="audio/mpeg"&gt; &lt;!-- Noncompliant --&gt;
+&lt;/audio&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;video controls src="welcome.mp4"&gt;&lt;/video&gt;
+&lt;audio controls&gt;
+  &lt;source src="background.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li> WCAG 2.2 - Audio Control - <a href="https://www.w3.org/TR/WCAG22/#audio-control">Web Content Accessibility Guidelines on controlling audio
+  content</a> </li>
+  <li> MDN - autoplay attribute - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#autoplay">Technical documentation for the
+  autoplay attribute</a> </li>
+  <li> WebAIM - Multimedia Accessibility - <a href="https://webaim.org/techniques/multimedia/">Guidelines for making multimedia content accessible</a>
+  </li>
+</ul>
+<h3>Standards</h3>
+<ul>
+  <li> WCAG 2.2 - 1.4.2 Audio Control - <a href="https://www.w3.org/TR/WCAG22/#audio-control">Success criterion requiring user control over audio that
+  plays automatically</a> </li>
+</ul>
+

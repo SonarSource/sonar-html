@@ -1,0 +1,28 @@
+{
+  "title": "Audio and video elements should not play automatically",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5 min"
+  },
+  "tags": [
+    "accessibility",
+    "wcag",
+    "user-experience"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-7929",
+  "sqKey": "S7929",
+  "scope": "Main",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "HIGH"
+    },
+    "attribute": "RESPECTFUL"
+  },
+  "compatibleLanguages": [
+    "html"
+  ]
+}
