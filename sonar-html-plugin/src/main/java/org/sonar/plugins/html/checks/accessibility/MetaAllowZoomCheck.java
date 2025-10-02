@@ -28,13 +28,11 @@ import java.util.stream.Collectors;
 public class MetaAllowZoomCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
-    // Only check <meta> tags
     if (!"meta".equalsIgnoreCase(element.getNodeName())) {
       return;
     }
 
-    String nameAttr = element.getAttribute("name");
-    if (!"viewport".equalsIgnoreCase(nameAttr)) {
+    if (!"viewport".equalsIgnoreCase(element.getAttribute("name"))) {
       return;
     }
 
@@ -45,6 +43,7 @@ public class MetaAllowZoomCheck extends AbstractPageCheck {
 
     var contentProps = parseContentAttribute(content);
 
+    // Check for user-scalable=no
     if (contentProps.containsKey("user-scalable")) {
       String value = contentProps.get("user-scalable");
       if ("no".equals(value) || "0".equals(value)) {
@@ -53,7 +52,7 @@ public class MetaAllowZoomCheck extends AbstractPageCheck {
       }
     }
 
-    // Check for maximum-scale
+    // Check for maximum-scale < 2
     if (contentProps.containsKey("maximum-scale")) {
       String value = contentProps.get("maximum-scale");
       try {
