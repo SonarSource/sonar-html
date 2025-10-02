@@ -27,6 +27,7 @@ import org.sonar.plugins.html.checks.accessibility.AriaUnsupportedElementsCheck;
 import org.sonar.plugins.html.checks.accessibility.AutoPlayAudioVideoCheck;
 import org.sonar.plugins.html.checks.accessibility.ElementWithRoleShouldHaveRequiredPropertiesCheck;
 import org.sonar.plugins.html.checks.accessibility.FocusableInteractiveElementsCheck;
+import org.sonar.plugins.html.checks.accessibility.MetaAllowZoomCheck;
 import org.sonar.plugins.html.checks.accessibility.NoAriaHiddenOnFocusableCheck;
 import org.sonar.plugins.html.checks.accessibility.PreferTagOverRoleCheck;
 import org.sonar.plugins.html.checks.accessibility.RoleSupportsAriaPropertyCheck;
@@ -166,6 +167,7 @@ public final class CheckClasses {
     LinkWithTargetBlankCheck.class,
     LongJavaScriptCheck.class,
     MaxLineLengthCheck.class,
+    MetaAllowZoomCheck.class,
     MetaRefreshCheck.class,
     MouseEventWithoutKeyboardEquivalentCheck.class,
     MultiplePageDirectivesCheck.class,

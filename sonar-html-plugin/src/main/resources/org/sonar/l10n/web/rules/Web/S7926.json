@@ -1,0 +1,28 @@
+{
+  "title": "Meta viewport tags should allow users to zoom",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5 min"
+  },
+  "tags": [
+    "accessibility",
+    "wcag",
+    "html"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-7926",
+  "sqKey": "S7926",
+  "scope": "Main",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "RESPECTFUL"
+  },
+  "compatibleLanguages": [
+    "html"
+  ]
+}
