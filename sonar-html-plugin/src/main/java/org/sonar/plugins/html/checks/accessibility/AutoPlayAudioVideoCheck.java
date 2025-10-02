@@ -43,12 +43,12 @@ public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
 
     // Rule applicability
     if (autoplay && !muted) {
-       createViolation(element,
+      createViolation(element,
               String.format(
                       "<%s> element plays automatically with audio and is not muted.",
                       nodeName
               )
-       );
+      );
     }
   }
 }
