@@ -1,0 +1,17 @@
+<html lang="en">
+<body>
+
+    <audio autoplay="true" muted="true"></audio>
+    <video autoplay="true" muted="true"></video>
+    <video autoplay="false" muted="false"></video>
+    <audio muted="false"></audio>
+    <audio muted="true"></audio>
+    <video></video>
+
+    <video autoplay="true" muted="false"></video> <!-- Noncompliant -->
+    <audio autoplay="true" muted="false"></audio> <!-- Noncompliant -->
+    <video autoplay="true" muted="false" loop></video> <!-- Noncompliant -->
+    <audio autoplay="true" muted="false"></audio> <!-- Noncompliant -->
+
+</body>
+</html>
