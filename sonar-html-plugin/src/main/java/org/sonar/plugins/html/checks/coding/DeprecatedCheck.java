@@ -19,10 +19,8 @@ package org.sonar.plugins.html.checks.coding;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
-import org.sonar.plugins.html.node.Attribute;
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 @Rule(key = "S1874")
