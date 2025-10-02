@@ -1,26 +1,18 @@
-<h2>Deprecated or obsolete HTML tags and attributes should not be used</h2>
-<p>HTML5 has removed a number of tags and attributes that were present in earlier versions of HTML. These elements and attributes are considered
-obsolete and should be avoided because:</p>
+<h2>Deprecated or obsolete HTML tags should not be used</h2>
+<p>HTML5 has removed a number of tags that were present in earlier versions of HTML. These elements are considered obsolete and should be avoided
+because:</p>
 <ul>
   <li> They are not supported in modern browsers. </li>
   <li> They can cause inconsistent rendering across different user agents. </li>
   <li> They reduce maintainability and accessibility. </li>
-  <li> Their functionality should be implemented using CSS or JavaScript instead. </li>
 </ul>
-<p>This rule raises an issue when any deprecated or obsolete HTML tag or attribute is used.</p>
+<p>This rule raises an issue when any deprecated or obsolete HTML tag is used.</p>
 <h2>Noncompliant Code Example</h2>
 <pre>
 &lt;!-- Deprecated tags --&gt;
 &lt;center&gt;Centered text&lt;/center&gt; &lt;!-- Noncompliant --&gt;
 &lt;font color="red"&gt;Red text&lt;/font&gt; &lt;!-- Noncompliant --&gt;
 &lt;marquee&gt;Scrolling text&lt;/marquee&gt; &lt;!-- Noncompliant --&gt;
-
-&lt;!-- Deprecated attributes --&gt;
-&lt;table border="1"&gt; &lt;!-- Noncompliant --&gt;
-  &lt;tr align="center"&gt; &lt;!-- Noncompliant --&gt;
-    &lt;td bgcolor="yellow"&gt;Cell&lt;/td&gt; &lt;!-- Noncompliant --&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
 </pre>
 <h2>Compliant Code Example</h2>
 <pre>
@@ -30,12 +22,6 @@ obsolete and should be avoided because:</p>
 &lt;div style="overflow: hidden; white-space: nowrap; animation: scroll 10s linear infinite;"&gt;
   Scrolling text
 &lt;/div&gt;
-
-&lt;table style="border: 1px solid black;"&gt;
-  &lt;tr style="text-align: center;"&gt;
-    &lt;td style="background-color: yellow;"&gt;Cell&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
 </pre>
 <h2>See</h2>
 <ul>
