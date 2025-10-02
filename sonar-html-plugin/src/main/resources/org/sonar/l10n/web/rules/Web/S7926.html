@@ -1,0 +1,44 @@
+<p>This is an issue when the HTML meta viewport tag prevents users from zooming by setting <code>user-scalable=no</code> or limiting
+<code>maximum-scale</code> to 2.0 or less.</p>
+<h2>Why is this an issue?</h2>
+<p>The viewport meta tag controls how web pages are displayed on mobile devices. When it prevents zooming, it creates accessibility barriers for users
+who need to enlarge text to read content.</p>
+<p>Many users rely on zoom functionality to make text readable:</p>
+<ul>
+  <li> People with visual impairments who need larger text </li>
+  <li> Users with reading difficulties like dyslexia </li>
+  <li> Anyone using a device in bright sunlight or poor lighting conditions </li>
+</ul>
+<p>The Web Content Accessibility Guidelines (WCAG) 2.2 require that users can resize text up to 200% without assistive technology. When the viewport
+meta tag blocks zooming with <code>user-scalable=no</code> or restricts it with <code>maximum-scale=1</code>, it violates this requirement.</p>
+<p>This creates a poor user experience and excludes users who depend on zoom functionality to access your content effectively.</p>
+<h3>What is the potential impact?</h3>
+<p>Users with visual impairments or reading difficulties may be unable to access your content. This violates accessibility standards and can lead to
+legal compliance issues in jurisdictions that require web accessibility.</p>
+<h2>How to fix it</h2>
+<p>Remove the user-scalable=no attribute to allow users to zoom in and out as needed.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"&gt; &lt;!-- Noncompliant --&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li> MDN: Viewport meta tag - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag">Complete guide to the viewport meta tag
+  and its attributes</a> </li>
+  <li> Deque University: Meta viewport accessibility - <a href="https://dequeuniversity.com/rules/axe/4.10/meta-viewport">Accessibility guidelines for
+  viewport meta tags</a> </li>
+</ul>
+<h3>Standards</h3>
+<ul>
+  <li> WCAG 2.2: Success Criterion 1.4.4 Resize text - <a href="https://www.w3.org/TR/WCAG22/#resize-text">Text must be resizable up to 200% without
+  assistive technology</a> </li>
+  <li> ACT Rules: Meta viewport allows for zoom - <a href="https://act-rules.github.io/rules/b4f0c3">Accessibility conformance testing rule for
+  viewport zoom restrictions</a> </li>
+</ul>
+
