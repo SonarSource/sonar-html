@@ -21,6 +21,7 @@ import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,6 @@ public class MetaAllowZoomCheck extends AbstractPageCheck {
         double scale = Double.parseDouble(value);
         if (scale < 2.0) {
           createViolation(element, "Meta viewport limits zoom with maximum-scale < 2.");
-          return;
         }
       } catch (NumberFormatException e) {
         // Ignore invalid numbers
@@ -77,7 +77,7 @@ public class MetaAllowZoomCheck extends AbstractPageCheck {
             .filter(s -> !s.isEmpty())
             .map(s -> s.split("=", 2))
             .collect(Collectors.toMap(
-                    arr -> arr[0].trim().toLowerCase(),
+                    arr -> arr[0].trim().toLowerCase(Locale.ENGLISH),
                     arr -> arr.length > 1 ? arr[1].trim() : ""
             ));
   }
