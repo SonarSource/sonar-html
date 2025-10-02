@@ -45,6 +45,7 @@ import org.sonar.plugins.html.checks.attributes.IllegalAttributeCheck;
 import org.sonar.plugins.html.checks.attributes.NoAccessKeyCheck;
 import org.sonar.plugins.html.checks.attributes.RequiredAttributeCheck;
 import org.sonar.plugins.html.checks.coding.ComplexityCheck;
+import org.sonar.plugins.html.checks.coding.DeprecatedCheck;
 import org.sonar.plugins.html.checks.coding.DoubleQuotesCheck;
 import org.sonar.plugins.html.checks.coding.FileLengthCheck;
 import org.sonar.plugins.html.checks.coding.InternationalizationCheck;
@@ -128,6 +129,7 @@ public final class CheckClasses {
     ChildElementRequiredCheck.class,
     ComplexityCheck.class,
     DeprecatedAttributesInHtml5Check.class,
+    DeprecatedCheck.class,
     DisabledAutoescapeCheck.class,
     DoctypePresenceCheck.class,
     DoubleQuotesCheck.class,
