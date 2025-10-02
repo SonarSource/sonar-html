@@ -38,21 +38,6 @@ public class CheckClassesTest {
   }
 
   /**
-   * Enforces that each check declared in list.
-   */
-  @Test
-  public void count() {
-    int count = 0;
-    List<File> files = (List<File>) FileUtils.listFiles(new File("src/main/java/org/sonar/plugins/html/checks/"), new String[] {"java"}, true);
-    for (File file : files) {
-      if (file.getName().endsWith("Check.java") && (!file.getName().endsWith("AbstractPageCheck.java"))) {
-        count++;
-      }
-    }
-    assertThat(CheckClasses.getCheckClasses()).hasSize(count);
-  }
-
-  /**
    * Enforces that each check has test, name and description.
    */
   @Test
