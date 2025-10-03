@@ -45,6 +45,19 @@
     </body>
 </html>
 
+<html> <!-- Non-Compliant -->
+    <body>
+    <ul id="navigation">
+        {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h1>My Webpage</h1> <!-- Non-Compliant -->
+    {{ a_variable }}
+    </body>
+</html>
+
 <html th:lang="${#locale.language}" >
     <body>
         <article lang="dutch"> <!-- Non-Compliant -->
@@ -60,8 +73,8 @@
         <div lang="invalid-lang">
             <p>Some text here.</p> <!-- Non-Compliant -->
         </div>
-        <section lang="bad-lang" aria-label="Section title">
-            <p>Content inside section.</p> <!-- Non-Compliant -->
+        <section aria-label="Section title">
+            <p>Content inside section.</p>
         </section>
         <span title="Tooltip text">Hover me</span>
         <form lang="wrong">

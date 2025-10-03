@@ -46,13 +46,13 @@ class LangAttributeCheckTest {
 	    .next().atLocation(41, 8, 41, 35).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 	    .next().atLocation(41, 35, 41, 43).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 	    .next().atLine(43).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-			.next().atLine(50).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-			.next().atLine(53).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-			.next().atLine(57).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-			.next().atLine(61).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(48).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
+			.next().atLine(56).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(63).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-			.next().atLine(64).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-			.next().atLine(68).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(66).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(70).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(74).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(81).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 	    .noMore();
   }
 }

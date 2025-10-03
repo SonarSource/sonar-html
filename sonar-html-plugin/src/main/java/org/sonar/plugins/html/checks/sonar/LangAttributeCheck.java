@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
@@ -76,7 +77,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
 	@Override
 	public void characters(TextNode textNode) {
 		boolean isValidCurrentLang = langStack.getLast();
-		if (!isValidCurrentLang && !textNode.isBlank()) {
+		if (!isValidCurrentLang && !textNode.isBlank() && !Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
 			createViolation(textNode,DEFAULT_MESSAGE);
 		}
 	}
