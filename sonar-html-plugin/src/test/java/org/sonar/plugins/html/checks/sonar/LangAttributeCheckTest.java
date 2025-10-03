@@ -23,18 +23,36 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class LangAttributeCheckTest {
+class LangAttributeCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheck.html"), new LangAttributeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLocation(1, 0, 1, 6)
-      .next().atLocation(3, 0, 3, 39)
-      .withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+      .next().atLocation(3, 0, 3, 39).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
+	    .next().atLine(23).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
+	    .next().atLine(25).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLine(28).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLine(32).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLine(34).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLine(36).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLine(38).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLine(39).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLocation(41, 8, 41, 35).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLocation(41, 35, 41, 43).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .next().atLine(43).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(50).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(53).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(57).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(61).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(63).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(64).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(68).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .noMore();
   }
 }
