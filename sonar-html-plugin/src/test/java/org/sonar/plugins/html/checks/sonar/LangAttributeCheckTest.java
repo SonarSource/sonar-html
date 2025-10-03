@@ -53,6 +53,7 @@ class LangAttributeCheckTest {
 			.next().atLine(70).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(74).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(81).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(83).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 	    .noMore();
   }
 }

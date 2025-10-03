@@ -40,7 +40,8 @@ public class LangAttributeCheck extends AbstractPageCheck {
 	@Override
 	public void startDocument(List<Node> nodes) {
 		langStack.clear();
-		langStack.push(false); // No lang at root initially
+		// No lang at root initially
+		langStack.push(false);
 	}
 
 	private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
@@ -82,8 +83,8 @@ public class LangAttributeCheck extends AbstractPageCheck {
 		}
 	}
 
-	private boolean hasTextInAttributesToValidate(TagNode node) {
-		String nodeName = node.getNodeName().toLowerCase();
+	private static boolean hasTextInAttributesToValidate(TagNode node) {
+		String nodeName = node.getNodeName().toLowerCase(Locale.ENGLISH);
 
 		// alt attribute
 		if (("img".equals(nodeName) || "area".equals(nodeName) ||
@@ -113,13 +114,13 @@ public class LangAttributeCheck extends AbstractPageCheck {
 		return false;
 	}
 
-	private boolean hasNonEmptyAttr(TagNode node, String attrName) {
+	private static boolean hasNonEmptyAttr(TagNode node, String attrName) {
 		String value = node.getAttribute(attrName);
 		return value != null && !value.trim().isEmpty();
 	}
 
-	private boolean isTextLikeInput(String type) {
-		String t = type.toLowerCase();
+	private static boolean isTextLikeInput(String type) {
+		String t = type.toLowerCase(Locale.ENGLISH);
 		return "text".equals(t) || "search".equals(t) || "email".equals(t) ||
 				"tel".equals(t) || "url".equals(t) || "password".equals(t);
 	}
