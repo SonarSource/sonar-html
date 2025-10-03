@@ -114,7 +114,7 @@ public class HtmlSensorTest {
     assertThat(tester.highlightingTypeAt(componentKey, 29, 17)).containsOnly(TypeOfText.STRING);
     assertThat(tester.highlightingTypeAt(componentKey, 29, 0)).containsOnly(TypeOfText.KEYWORD);
 
-    assertThat(tester.allIssues()).hasSize(106);
+    assertThat(tester.allIssues()).hasSize(115);
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
@@ -219,7 +219,7 @@ public class HtmlSensorTest {
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(6);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
 
-    assertThat(tester.allIssues()).hasSize(4);
+    assertThat(tester.allIssues()).hasSize(5);
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 

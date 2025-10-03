@@ -20,3 +20,67 @@
 
 <html th:attr="xml:lang="en"" > </html> <!-- Compliant -->
 
+<html> <!-- Non-Compliant -->
+    <body>
+        <article lang="dutch">
+            Zij liepen een vreemde Tiki bar binnen, aan de rand van een dorpje aan het strand.
+        </article>
+        <article lang="  ">
+            They wandered into a strange Tiki bar on the edge of the small beach town.
+        </article>
+        <div lang="invalid">
+            <img src="img.jpg" alt="Lovely image" />
+        </div>
+        <p>This paragraph has no lang in ancestors.</p>
+        <div lang="invalid-lang">
+            <p>Some text here.</p>
+        </div>
+        <section lang="bad-lang" aria-label="Section title">
+          <p>Content inside section.</p>
+        </section>
+        <span title="Tooltip text">Hover me</span>
+        <form lang="wrong">
+            <input value="John Doe" />
+        </form>
+    </body>
+</html>
+
+<html lang="en">
+    <body>
+    <ul id="navigation" lang="invalid">
+        {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h1 lang="invalid">My Webpage</h1> <!-- Non-Compliant -->
+    {{ a_variable }}
+    </body>
+</html>
+
+<html th:lang="${#locale.language}" >
+    <body>
+        <article lang="dutch"> <!-- Non-Compliant -->
+            Zij liepen een vreemde Tiki bar binnen, aan de rand van een dorpje aan het strand.
+        </article>
+        <article lang="  "> <!-- Non-Compliant -->
+            They wandered into a strange Tiki bar on the edge of the small beach town.
+        </article>
+        <div lang="invalid">
+            <img src="img.jpg" alt="Lovely image" /> <!-- Non-Compliant -->
+        </div>
+        <p>This paragraph has lang in ancestors.</p>
+        <div lang="invalid-lang">
+            <p>Some text here.</p> <!-- Non-Compliant -->
+        </div>
+        <section aria-label="Section title">
+            <p>Content inside section.</p>
+        </section>
+        <span lang="invalid" title="Tooltip text">Hover me</span><!-- Non-Compliant --><!-- Non-Compliant -->
+        <form lang="wrong">
+            <input value="John Doe" /> <!-- Non-Compliant -->
+        </form>
+        <area lang="invalid" shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
+        <img src="img.jpg" alt="" />
+    </body>
+</html>
