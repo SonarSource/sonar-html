@@ -24,6 +24,7 @@ import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
+import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -34,14 +35,15 @@ import java.util.stream.Collectors;
 
 @Rule(key = "S5254")
 public class LangAttributeCheck extends AbstractPageCheck {
+	public record TagNodeFlag(@Nullable TagNode tagNode, boolean hasValidLang) {}
 
-	private final Deque<Boolean> langStack = new ArrayDeque<>();
+	private final Deque<TagNodeFlag> langStack = new ArrayDeque<>();
 
 	@Override
 	public void startDocument(List<Node> nodes) {
 		langStack.clear();
 		// No lang at root initially
-		langStack.push(false);
+		langStack.push(new TagNodeFlag(null, false));
 	}
 
 	private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
@@ -53,7 +55,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
       createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
     }
 
-	  boolean isValidCurrentLang = langStack.getLast();
+	  boolean isValidCurrentLang = langStack.getLast().hasValidLang();
 		boolean hasLangAttribute = hasLangAttribute(node);
 	  if (hasLangAttribute) {
 		  String nodeLang = getLangAttributeValue(node);
@@ -64,7 +66,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
 				isValidCurrentLang = isValidLangAttributeValue(nodeLang);
 		  }
 	  }
-		langStack.addLast(isValidCurrentLang);
+		langStack.addLast(new TagNodeFlag(node, isValidCurrentLang));
 		if (!isValidCurrentLang && hasTextInAttributesToValidate(node)) {
 			createViolation(node,DEFAULT_MESSAGE);
 		}
@@ -72,13 +74,19 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	@Override
 	public void endElement(TagNode node) {
-		langStack.removeLast();
+		var lastNode = langStack.getLast().tagNode();
+		if (lastNode != null && lastNode.getNodeName().equals(node.getNodeName())) {
+			langStack.removeLast();
+		}
 	}
 
 	@Override
 	public void characters(TextNode textNode) {
-		boolean isValidCurrentLang = langStack.getLast();
-		if (!isValidCurrentLang && !textNode.isBlank() && !Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
+		if (textNode.getCode().isBlank() || Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
+			return;
+		}
+		boolean isValidCurrentLang = langStack.getLast().hasValidLang();
+		if (!isValidCurrentLang) {
 			createViolation(textNode,DEFAULT_MESSAGE);
 		}
 	}
