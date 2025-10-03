@@ -38,12 +38,18 @@ public class LangAttributeCheck extends AbstractPageCheck {
 	public record TagNodeFlag(@Nullable TagNode tagNode, boolean hasValidLang) {}
 
 	private final Deque<TagNodeFlag> langStack = new ArrayDeque<>();
+	private boolean finishEarly;
 
 	@Override
 	public void startDocument(List<Node> nodes) {
+		reset();
+	}
+
+	private void reset() {
 		langStack.clear();
 		// No lang at root initially
 		langStack.push(new TagNodeFlag(null, false));
+		finishEarly = false;
 	}
 
 	private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
@@ -51,8 +57,16 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
+		if (isHtmlTag(node)) {
+			reset();
+		}
+		if (finishEarly) {
+			return;
+		}
     if (isHtmlTag(node) && !hasLangAttribute(node)) {
       createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+			finishEarly = true;
+			return;
     }
 
 	  boolean isValidCurrentLang = langStack.getLast().hasValidLang();
@@ -74,6 +88,9 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	@Override
 	public void endElement(TagNode node) {
+		if (finishEarly) {
+			return;
+		}
 		var lastNode = langStack.getLast().tagNode();
 		if (lastNode != null && lastNode.getNodeName().equals(node.getNodeName())) {
 			langStack.removeLast();
@@ -82,6 +99,9 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	@Override
 	public void characters(TextNode textNode) {
+		if (finishEarly) {
+			return;
+		}
 		if (textNode.getCode().isBlank() || Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
 			return;
 		}

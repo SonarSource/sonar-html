@@ -16,9 +16,6 @@
  */
 package org.sonar.plugins.html.rules;
 
-import java.io.File;
-import java.util.List;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
