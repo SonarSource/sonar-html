@@ -51,6 +51,11 @@
       <artifactId>sonar-analyzer-recognizers</artifactId>
       <version>${analyzerCommons.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.10.2</version>
+    </dependency>
 
     <!-- JSF Expression parser -->
     <dependency>
@@ -169,8 +174,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <minsize>500000</minsize>
-                  <maxsize>1000000</maxsize>
+                  <minsize>1000000</minsize>
+                  <maxsize>2000000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.build.finalName}.jar</file>
                   </files>
