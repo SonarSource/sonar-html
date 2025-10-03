@@ -29,13 +29,13 @@ public final class CheckClasses {
   }
 
   public static List<Class<?>> getCheckClasses() {
-	Reflections reflections = new Reflections("org.sonar.plugins.html");
+	  Reflections reflections = new Reflections("org.sonar.plugins.html");
 
-	return reflections
-			  .getSubTypesOf(AbstractPageCheck.class)
-			  .stream()
-			  .filter(clazz -> clazz.getAnnotation(Rule.class) != null)
-			  .map(clazz -> (Class<?>) clazz)
-			  .collect(Collectors.toList());
+	  return reflections
+			.getSubTypesOf(AbstractPageCheck.class)
+			.stream()
+			.filter(clazz -> clazz.getAnnotation(Rule.class) != null)
+			.map(clazz -> (Class<?>) clazz)
+			.collect(Collectors.toList());
   }
 }
