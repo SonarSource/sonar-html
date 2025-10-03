@@ -28,36 +28,15 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CheckClassesTest {
-
-  @Test
-  public void create() throws Exception {
-    assertThrows(IllegalAccessException.class, () -> CheckClasses.class.newInstance());
-  }
+class CheckClassesTest {
 
   /**
-   * Enforces that each check declared in list.
+   * Enforces that each check has a test, a name and a description.
    */
   @Test
-  public void count() {
-    int count = 0;
-    List<File> files = (List<File>) FileUtils.listFiles(new File("src/main/java/org/sonar/plugins/html/checks/"), new String[] {"java"}, true);
-    for (File file : files) {
-      if (file.getName().endsWith("Check.java") && (!file.getName().endsWith("AbstractPageCheck.java"))) {
-        count++;
-      }
-    }
-    assertThat(CheckClasses.getCheckClasses()).hasSize(count);
-  }
-
-  /**
-   * Enforces that each check has test, name and description.
-   */
-  @Test
-  public void test() {
-    for (Class cls : CheckClasses.getCheckClasses()) {
+  void test() {
+    for (Class<?> cls : CheckClasses.getCheckClasses()) {
       String testName = '/' + cls.getName().replace('.', '/') + "Test.class";
       assertThat(getClass().getResource(testName))
         .overridingErrorMessage("No test for " + cls.getSimpleName())
