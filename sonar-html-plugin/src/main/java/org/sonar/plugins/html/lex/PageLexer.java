@@ -28,6 +28,7 @@ import java.util.Set;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 import org.sonar.sslr.channel.Channel;
 import org.sonar.sslr.channel.ChannelDispatcher;
 import org.sonar.sslr.channel.CodeReader;
@@ -137,33 +138,36 @@ public class PageLexer {
   private static void createNodeHierarchy(List<Node> nodeList) {
     Deque<TagNode> openElementStack = new ArrayDeque<>();
     for (Node node : nodeList) {
-      if (node.getNodeType() != NodeType.TAG) {
-        continue;
-      }
-      TagNode element = (TagNode) node;
-
-      // start element
-      if (!element.isEndElement()) {
-        TagNode parent = openElementStack.peek();
-        while (parent != null
-          && (shouldCloseParent(nodeName(element), nodeName(parent)) || isVoidElement(parent))) {
-          openElementStack.pop();
-          parent = openElementStack.peek();
+      if (node instanceof TextNode text) {
+        // Set a link to the parent if any is available
+        if (!openElementStack.isEmpty()) {
+          text.setParent(openElementStack.peek());
         }
-        element.setParent(parent);
-        openElementStack.push(element);
-      }
+      } else if (node instanceof TagNode element) {
 
-      // end element
-      if (isEndElement(element) && !openElementStack.isEmpty()) {
-        TagNode openElement = openElementStack.peek();
-        if (openElement.equalsElementName(element.getNodeName())) {
-          openElementStack.pop();
-        } else {
-          // non-well formed, close HTML elements if there is matching open element
-          if (openElementStack.stream().anyMatch(tag -> tag.equalsElementName(element.getNodeName()))) {
-            while (!openElement.equalsElementName(element.getNodeName()) && isHtmlElement(openElement)) {
-              openElement = openElementStack.pop();
+        // start element
+        if (!element.isEndElement()) {
+          TagNode parent = openElementStack.peek();
+          while (parent != null
+                  && (shouldCloseParent(nodeName(element), nodeName(parent)) || isVoidElement(parent))) {
+            openElementStack.pop();
+            parent = openElementStack.peek();
+          }
+          element.setParent(parent);
+          openElementStack.push(element);
+        }
+
+        // end element
+        if (isEndElement(element) && !openElementStack.isEmpty()) {
+          TagNode openElement = openElementStack.peek();
+          if (openElement.equalsElementName(element.getNodeName())) {
+            openElementStack.pop();
+          } else {
+            // non-well formed, close HTML elements if there is matching open element
+            if (openElementStack.stream().anyMatch(tag -> tag.equalsElementName(element.getNodeName()))) {
+              while (!openElement.equalsElementName(element.getNodeName()) && isHtmlElement(openElement)) {
+                openElement = openElementStack.pop();
+              }
             }
           }
         }
