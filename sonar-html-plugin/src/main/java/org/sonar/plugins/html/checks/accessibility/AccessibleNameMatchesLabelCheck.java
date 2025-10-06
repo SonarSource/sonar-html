@@ -23,6 +23,7 @@ import org.sonar.plugins.html.node.TextNode;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Rule(key="S7927")
@@ -33,7 +34,7 @@ public class AccessibleNameMatchesLabelCheck extends AbstractPageCheck {
   ));
 
   public void checkTagElement(TagNode node, String visibleLabel) {
-    String tagName = node.getNodeName().toLowerCase();
+    String tagName = node.getNodeName().toLowerCase(Locale.ENGLISH);
 
     // Check if the element is interactive
     if (INTERACTIVE_TAGS.contains(tagName) || hasRoleButton(node)) {
@@ -61,12 +62,12 @@ public class AccessibleNameMatchesLabelCheck extends AbstractPageCheck {
     }
   }
 
-  private boolean hasRoleButton(TagNode node) {
+  private static boolean hasRoleButton(TagNode node) {
     String role = node.getAttribute("role");
     return role != null && role.equalsIgnoreCase("button");
   }
 
-  private String extractAccessibleName(TagNode node) {
+  private static String extractAccessibleName(TagNode node) {
     // aria-label
     String ariaLabel = node.getAttribute("aria-label");
     if (ariaLabel != null && !ariaLabel.trim().isEmpty()) {
@@ -77,7 +78,7 @@ public class AccessibleNameMatchesLabelCheck extends AbstractPageCheck {
     return null;
   }
 
-  private String normalize(String text) {
-    return text.toLowerCase().replaceAll("\\s+", " ").trim();
+  private static String normalize(String text) {
+    return text.toLowerCase(Locale.ENGLISH).replaceAll("\\s+", " ").trim();
   }
 }

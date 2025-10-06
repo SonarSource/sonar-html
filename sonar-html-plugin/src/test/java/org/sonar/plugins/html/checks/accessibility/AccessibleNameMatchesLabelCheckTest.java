@@ -30,7 +30,7 @@ class AccessibleNameMatchesLabelCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void html() throws Exception {
+  void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/AccessibleNameMatchesLabelCheck.html"),
       new AccessibleNameMatchesLabelCheck());
