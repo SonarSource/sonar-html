@@ -138,13 +138,14 @@ public class PageLexer {
   private static void createNodeHierarchy(List<Node> nodeList) {
     Deque<TagNode> openElementStack = new ArrayDeque<>();
     for (Node node : nodeList) {
-      if (node instanceof TextNode text) {
+      if (node.getNodeType() == NodeType.TEXT) {
         // Set a link to the parent if any is available
+        var text = (TextNode) node;
         if (!openElementStack.isEmpty()) {
           text.setParent(openElementStack.peek());
         }
-      } else if (node instanceof TagNode element) {
-
+      } else if (node.getNodeType() == NodeType.TAG) {
+        var element = (TagNode) node;
         // start element
         if (!element.isEndElement()) {
           TagNode parent = openElementStack.peek();
