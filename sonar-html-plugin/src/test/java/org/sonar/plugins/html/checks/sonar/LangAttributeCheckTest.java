@@ -23,18 +23,28 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class LangAttributeCheckTest {
+class LangAttributeCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheck.html"), new LangAttributeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLocation(1, 0, 1, 6)
-      .next().atLocation(3, 0, 3, 39)
-      .withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+      .next().atLocation(3, 0, 3, 39).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
+	    .next().atLine(23).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
+			.next().atLine(56).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(63).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(66).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(70).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(74).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLocation(79, 8, 79, 50).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLocation(79, 50, 79, 58).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(81).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(83).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+	    .noMore();
   }
 }

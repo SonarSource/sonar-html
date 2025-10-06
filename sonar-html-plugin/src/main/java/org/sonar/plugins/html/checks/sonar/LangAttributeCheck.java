@@ -17,22 +17,164 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
+
+import javax.annotation.Nullable;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Rule(key = "S5254")
 public class LangAttributeCheck extends AbstractPageCheck {
+	public record TagNodeFlag(@Nullable TagNode tagNode, boolean hasValidLang) {}
+
+	private final Deque<TagNodeFlag> langStack = new ArrayDeque<>();
+	private boolean finishEarly;
+
+	@Override
+	public void startDocument(List<Node> nodes) {
+		reset();
+	}
+
+	private void reset() {
+		langStack.clear();
+		// No lang at root initially
+		langStack.push(new TagNodeFlag(null, false));
+		finishEarly = false;
+	}
+
+	private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
+	public static final String DEFAULT_MESSAGE = "Text is missing a valid lang attribute in its ancestor elements";
 
   @Override
   public void startElement(TagNode node) {
+		if (isHtmlTag(node)) {
+			reset();
+		}
+		if (finishEarly) {
+			return;
+		}
     if (isHtmlTag(node) && !hasLangAttribute(node)) {
       createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+			finishEarly = true;
+			return;
     }
+
+	  boolean isValidCurrentLang = langStack.getLast().hasValidLang();
+		boolean hasLangAttribute = hasLangAttribute(node);
+	  if (hasLangAttribute) {
+		  String nodeLang = getLangAttributeValue(node);
+			if (nodeLang == null) {
+				// this must be one of the dynamic/programmatic lang attributes that we cannot validate and assume to be valid.
+				isValidCurrentLang = true;
+			} else {
+				isValidCurrentLang = isValidLangAttributeValue(nodeLang);
+		  }
+	  }
+		langStack.addLast(new TagNodeFlag(node, isValidCurrentLang));
+		if (!isValidCurrentLang && hasTextInAttributesToValidate(node)) {
+			createViolation(node,DEFAULT_MESSAGE);
+		}
   }
+
+	@Override
+	public void endElement(TagNode node) {
+		if (finishEarly) {
+			return;
+		}
+		var lastNode = langStack.getLast().tagNode();
+		if (lastNode != null && lastNode.getNodeName().equals(node.getNodeName())) {
+			langStack.removeLast();
+		}
+	}
+
+	@Override
+	public void characters(TextNode textNode) {
+		if (finishEarly) {
+			return;
+		}
+		if (textNode.getCode().isBlank() || Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
+			return;
+		}
+		boolean isValidCurrentLang = langStack.getLast().hasValidLang();
+		if (!isValidCurrentLang) {
+			createViolation(textNode,DEFAULT_MESSAGE);
+		}
+	}
+
+	private static boolean hasTextInAttributesToValidate(TagNode node) {
+		String nodeName = node.getNodeName().toLowerCase(Locale.ENGLISH);
+
+		// alt attribute
+		if (("img".equals(nodeName) || "area".equals(nodeName) ||
+				("input".equals(nodeName) && "image".equalsIgnoreCase(node.getAttribute("type"))))
+				&& hasNonEmptyAttr(node, "alt")) {
+			return true;
+		}
+
+		// aria-label
+		if (hasNonEmptyAttr(node, "aria-label")) {
+			return true;
+		}
+
+		// title attribute
+		if (hasNonEmptyAttr(node, "title")) {
+			return true;
+		}
+
+		// input with value (text-like types)
+		if ("input".equals(nodeName)) {
+			String type = node.getAttribute("type");
+			if (type == null || type.isEmpty() || isTextLikeInput(type)) {
+				return hasNonEmptyAttr(node, "value");
+			}
+		}
+
+		return false;
+	}
+
+	private static boolean hasNonEmptyAttr(TagNode node, String attrName) {
+		String value = node.getAttribute(attrName);
+		return value != null && !value.trim().isEmpty();
+	}
+
+	private static boolean isTextLikeInput(String type) {
+		String t = type.toLowerCase(Locale.ENGLISH);
+		return "text".equals(t) || "search".equals(t) || "email".equals(t) ||
+				"tel".equals(t) || "url".equals(t) || "password".equals(t);
+	}
 
   private static boolean isHtmlTag(TagNode node) {
     return "HTML".equalsIgnoreCase(node.getNodeName());
+  }
+
+	private static boolean isValidLangAttributeValue(String langAttributeValue) {
+		var parts = langAttributeValue.split("-");
+		if (parts[0].length() != 2) {
+			return false;
+		}
+		return ISO_LANGUAGES_SET.contains(parts[0].toLowerCase(Locale.ENGLISH));
+	}
+
+  private static String getLangAttributeValue(TagNode node) {
+		var lang = node.getPropertyValue("lang");
+    if (lang != null) {
+			return lang.trim();
+    }
+		lang = node.getPropertyValue("xml:lang");
+		if (lang != null) {
+			return lang.trim();
+    }
+    return null;
   }
 
   private static boolean hasLangAttribute(TagNode node) {
