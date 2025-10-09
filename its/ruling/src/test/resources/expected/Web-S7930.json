@@ -1,0 +1,132 @@
+{
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DomainsBarSilverpeasV5.jsp": [
+331,
+337
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
+580
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+295,
+344,
+345,
+1043,
+1046,
+1049,
+1051,
+1055,
+1085,
+1113
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/editAttachedFiles.jsp": [
+425,
+426
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp": [
+323
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp": [
+72,
+143
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
+200
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp": [
+84,
+89,
+101,
+106
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/thesaurus.jsp": [
+331
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/media-default-playback-rate.html": [
+80,
+81,
+82,
+85,
+86
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/onbeforeunload-close_with_javascript.html": [
+28
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html": [
+51,
+54,
+63,
+66,
+75,
+78,
+93,
+96,
+106,
+109,
+119,
+122,
+138,
+142,
+161,
+164,
+173,
+176,
+191,
+194,
+211,
+213
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/textfield-onblur.html": [
+34
+],
+"project:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html": [
+229
+],
+"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
+305
+],
+"project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
+308,
+337
+],
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb": [
+66
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/index.html.erb": [
+41,
+98,
+99
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/index.html.erb": [
+17
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_widget.html.erb": [
+38
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/manage.html.erb": [
+111
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_breadcrumb.html.erb": [
+44,
+45,
+55
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/manage.html.erb": [
+118
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/compare.html.erb": [
+79,
+109
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/history.html.erb": [
+75
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_duplications_source_snippet.html.erb": [
+24
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule.html.erb": [
+119
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_type_LICENSE.html.erb": [
+8
+]
+}
