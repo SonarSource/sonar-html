@@ -1,59 +1,61 @@
 <h2>Why is this an issue?</h2>
-<p>The <code>&lt;html&gt;</code>&nbsp;element should provide the <code>lang</code> and/or <code>xml:lang</code> attribute in order to identify the
-default language of a document.</p>
-<p>It enables assistive technologies, such as screen readers,&nbsp;to provide a comfortable reading experience by adapting the pronunciation and
-accent to the language. It also helps braille translation software, telling it to switch the control codes for accented characters for instance.</p>
-<p>Other benefits of marking the language include assisting user agents in providing dictionary definitions or helping users benefit from translation
-tools.</p>
-<p>Both the <code>lang</code> and the <code>xml:lang</code> attributes can take only one value.</p>
-<p>&nbsp;</p>
-<h3>Noncompliant code example</h3>
+<p>This rule raises an issue when an HTML element has a <code>lang</code> and/or <code>xml:lang</code> attribute, contains text content within its
+subtree, and the value of the attribute does not begin with a valid two‑letter ISO 639‑1 language code.</p>
+<p>The <code>lang</code> attribute is used by assistive technologies, translation tools, and search engines to correctly interpret and process text
+content. If the value starts with an invalid language code — for example, a misspelled code or one not defined in ISO 639‑1 — these tools may
+mispronounce text, fail to translate it correctly, or misclassify the content’s language.</p>
+<p>By ensuring that <code>lang</code> and <code>xml:lang</code> attributes start with a valid two‑letter language code, you improve accessibility,
+usability, and interoperability.</p>
+<h3>Noncompliant code examples</h3>
 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt; &lt;!-- Noncompliant --&gt;
-&nbsp;&nbsp;&nbsp; &lt;head&gt;
- &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;title&gt;A page written in english&lt;/title&gt;
- &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;meta content="text/html; charset=utf-8" /&gt;
-&nbsp;&nbsp;&nbsp; &lt;/head&gt; &nbsp;
-
-
-&nbsp;&nbsp;&nbsp; &lt;body&gt; &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; &lt;/body&gt;
+&lt;html lang="engl"&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+    &lt;meta charset="utf-8" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Welcome to our website&lt;/p&gt; &lt;!-- Noncompliant: "engl" does not start with a valid 2-letter code --&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
-<h3>Compliant solution</h3>
 <pre>
-&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
-&nbsp;&nbsp;&nbsp; &lt;head&gt;
- &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;title&gt;A page written in english&lt;/title&gt;
- &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;meta content="text/html; charset=utf-8" /&gt;
-&nbsp;&nbsp;&nbsp; &lt;/head&gt; &nbsp;
-
-
-&nbsp;&nbsp;&nbsp; &lt;body&gt; &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; &lt;/body&gt;
+  &lt;div lang="xx"&gt;
+    Bienvenido a nuestro sitio web &lt;!-- Noncompliant: "xx" is not a valid ISO 639-1 code --&gt;
+  &lt;/div&gt;
+&lt;/html&gt;
+</pre>
+<h3>Compliant solutions</h3>
+<pre>
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+    &lt;meta charset="utf-8" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Welcome to our website&lt;/p&gt; &lt;!-- Valid: "en" is a valid ISO 639-1 code --&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </pre>
 <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en" xml:lang="en"&gt;
-&nbsp;&nbsp;&nbsp; &lt;head&gt;
- &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;title&gt;A page written in english&lt;/title&gt;
- &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;meta content="text/html; charset=utf-8" /&gt;
-&nbsp;&nbsp;&nbsp; &lt;/head&gt; &nbsp;
-
-
-&nbsp;&nbsp;&nbsp; &lt;body&gt; &nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp; &lt;/body&gt;
+&lt;html lang="en"&gt;
+  &lt;div lang="es"&gt;
+    Bienvenido a nuestro sitio web &lt;!-- Valid: "es" is a valid ISO 639-1 code --&gt;
+  &lt;/div&gt;
 &lt;/html&gt;
 </pre>
 <h2>Resources</h2>
 <ul>
-  <li> <a href="https://www.w3.org/TR/WCAG20-TECHS/html.html#H57">WCAG2, H57</a> - Using language attributes on the html element </li>
-  <li> <a href="https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0#qr-meaning-doc-lang-id">WCAG2, 3.1.1</a> - Language of Page </li>
+  <li> HTML Standard – The <code>lang</code> attribute – <a
+  href="https://html.spec.whatwg.org/multipage/dom.html#attr-lang">https://html.spec.whatwg.org/multipage/dom.html#attr-lang</a> </li>
+  <li> MDN – The <code>lang</code> global attribute – <a
+  href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang">https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang</a> </li>
+  <li> ISO 639‑1 – Codes for the representation of names of languages – <a
+  href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes</a> </li>
+  <li> WCAG 2.1 – Success Criterion 3.1.1: Language of Page – <a
+  href="https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html">https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html</a> </li>
+  <li> WCAG 2.1 – Success Criterion 3.1.2: Language of Parts – <a
+  href="https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html">https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html</a>
+  </li>
 </ul>
 
