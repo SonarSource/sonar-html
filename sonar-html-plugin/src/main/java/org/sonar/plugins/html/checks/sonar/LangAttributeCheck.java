@@ -39,6 +39,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	private final Deque<TagNodeFlag> langStack = new ArrayDeque<>();
 	private boolean finishEarly;
+  private boolean ruleActivated;
 
 	@Override
 	public void startDocument(List<Node> nodes) {
@@ -50,7 +51,12 @@ public class LangAttributeCheck extends AbstractPageCheck {
 		// No lang at root initially
 		langStack.push(new TagNodeFlag(null, false));
 		finishEarly = false;
+    ruleActivated = false;
 	}
+
+  private boolean shouldPerformCheck() {
+    return !finishEarly && ruleActivated;
+  }
 
 	private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
 	public static final String DEFAULT_MESSAGE = "Text is missing a valid lang attribute in its ancestor elements";
@@ -60,13 +66,16 @@ public class LangAttributeCheck extends AbstractPageCheck {
 		if (isHtmlTag(node)) {
 			reset();
 		}
-		if (finishEarly) {
-			return;
-		}
-    if (isHtmlTag(node) && !hasLangAttribute(node)) {
-      createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
-			finishEarly = true;
-			return;
+    if (isHtmlTag(node)) {
+      if (!hasLangAttribute(node)) {
+        createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
+        finishEarly = true;
+      } else {
+        ruleActivated = true;
+      }
+    }
+    if (!shouldPerformCheck()) {
+      return;
     }
 
 	  boolean isValidCurrentLang = langStack.getLast().hasValidLang();
@@ -88,7 +97,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	@Override
 	public void endElement(TagNode node) {
-		if (finishEarly) {
+		if (!shouldPerformCheck()) {
 			return;
 		}
 		var lastNode = langStack.getLast().tagNode();
@@ -99,7 +108,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	@Override
 	public void characters(TextNode textNode) {
-		if (finishEarly) {
+		if (!shouldPerformCheck()) {
 			return;
 		}
 		if (textNode.getCode().isBlank() || Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
