@@ -1,0 +1,49 @@
+<p>This is an issue when an interactive element has visible text that is not contained within its accessible name, creating inconsistency between what
+users see and what assistive technologies announce.</p>
+<h2>Why is this an issue?</h2>
+<p>When the visible text of an interactive element differs from its accessible name, it creates confusion and barriers for users with
+disabilities.</p>
+<p>Users of assistive technologies like screen readers rely on the accessible name to understand what an element does. The accessible name is computed
+from various sources including <code>aria-label</code>, <code>aria-labelledby</code>, or associated <code>label</code> elements.</p>
+<p>If the visible text says "Submit Order" but the accessible name is "Send", screen reader users will hear "Send" while sighted users see "Submit
+Order". This mismatch is particularly problematic for users of voice control software, who might say "click Submit Order" but the software won’t
+recognize the command because it only knows the element as "Send".</p>
+<p>This inconsistency violates the principle that all users should have equivalent access to information and functionality, regardless of how they
+interact with the interface.</p>
+<h3>What is the potential impact?</h3>
+<p>Users with disabilities may be unable to interact with elements effectively, leading to:</p>
+<ul>
+  <li> Voice control users cannot activate elements because the visible text doesn’t match the accessible name </li>
+  <li> Screen reader users become confused when the announced name differs from the visible text </li>
+  <li> Reduced usability and accessibility compliance, potentially excluding users from completing important tasks </li>
+  <li> Legal and regulatory compliance issues under accessibility laws like ADA and Section 508 </li>
+</ul>
+<h2>How to fix it</h2>
+<p>Ensure the visible text is contained within the accessible name by updating the aria-label to include the visible text.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;button aria-label="Send"&gt;Submit Order&lt;/button&gt; &lt;!-- Noncompliant --&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;button aria-label="Submit Order"&gt;Submit Order&lt;/button&gt;
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li> WCAG 2.2 Success Criterion 2.5.3 Label in Name - <a href="https://www.w3.org/TR/WCAG22/#label-in-name">Official WCAG guideline requiring
+  visible label text to be part of the accessible name</a> </li>
+  <li> MDN: Accessible Name - <a href="https://developer.mozilla.org/en-US/docs/Glossary/Accessible_name">Explanation of how accessible names are
+  computed and used by assistive technologies</a> </li>
+  <li> WebAIM: Accessible Form Labeling - <a href="https://webaim.org/techniques/forms/controls">Best practices for labeling form controls
+  accessibly</a> </li>
+</ul>
+<h3>Standards</h3>
+<ul>
+  <li> WCAG 2.2-2.5.3 - <a href="https://www.w3.org/TR/WCAG22/#label-in-name">Label in Name success criterion requiring visible text to be part of
+  accessible name</a> </li>
+  <li> Section 508-11.2.5.3.1 - <a href="https://www.access-board.gov/ict/">US federal accessibility standard incorporating WCAG label in name
+  requirements</a> </li>
+</ul>
+

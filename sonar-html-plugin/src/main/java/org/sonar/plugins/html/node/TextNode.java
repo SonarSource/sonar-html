@@ -23,11 +23,19 @@ package org.sonar.plugins.html.node;
  */
 public class TextNode extends Node {
 
+  private TagNode parent;
+
   public TextNode() {
     super(NodeType.TEXT);
   }
 
   public boolean isBlank() {
     return getCode().isBlank();
+  }
+  public TagNode getParent() {
+    return parent;
+  }
+  public void setParent(TagNode parent) {
+    this.parent = parent;
   }
 }

@@ -1,0 +1,29 @@
+<html lang="en">
+<body>
+
+<!-- Visible label matches accessible name exactly -->
+<button aria-label="Submit Form">Submit Form</button>
+
+<!-- Accessible name contains visible label -->
+<button aria-label="Submit Form Now">Submit Form</button>
+
+<!-- Single word label (should be skipped) -->
+<button>OK</button>
+
+<!-- Single word label with aria-label (should be skipped) -->
+<button aria-label="Close Window">X</button>
+
+<!-- Link with matching text -->
+<a href="#" aria-label="Learn more about accessibility">Learn more</a>
+
+<!-- Visible label not part of the accessible name -->
+<button aria-label="Send Data">Submit Form</button>
+
+<!-- Visible label not part of the accessible name (case-insensitive check) -->
+<button aria-label="Proceed">Continue to Checkout</button>
+
+<!-- Visible label has multiple words but not in accessible name -->
+<a href="#" aria-label="More Information">Read Details</a>
+
+</body>
+</html>

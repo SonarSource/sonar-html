@@ -1,0 +1,29 @@
+{
+  "title": "Visible label text should be part of the accessible name",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5 min"
+  },
+  "tags": [
+    "accessibility",
+    "wcag",
+    "a11y",
+    "usability"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-7927",
+  "sqKey": "S7927",
+  "scope": "Main",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "HIGH"
+    },
+    "attribute": "CLEAR"
+  },
+  "compatibleLanguages": [
+    "html"
+  ]
+}
