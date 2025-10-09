@@ -66,8 +66,6 @@ public class LangAttributeCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if (isHtmlTag(node)) {
       reset();
-    }
-    if (isHtmlTag(node)) {
       if (!hasLangAttribute(node)) {
         createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
         finishEarly = true;
@@ -167,7 +165,10 @@ public class LangAttributeCheck extends AbstractPageCheck {
     return "HTML".equalsIgnoreCase(node.getNodeName());
   }
 
-  private static boolean isValidLangAttributeValue(String langAttributeValue) {
+  private boolean isValidLangAttributeValue(String langAttributeValue) {
+    if (Helpers.isDynamicValue(langAttributeValue, getHtmlSourceCode())) {
+      return true;
+    }
     var parts = langAttributeValue.split("-");
     if (parts[0].length() != 2) {
       return false;
@@ -187,11 +188,20 @@ public class LangAttributeCheck extends AbstractPageCheck {
     return null;
   }
 
-  private static boolean hasLangAttribute(TagNode node) {
+  private boolean hasLangAttribute(TagNode node) {
     return node.hasProperty("lang")
             || node.hasProperty("xml:lang")
             || hasWordPressLangAttribute(node)
-            || hasThymeleafLangAttribute(node);
+            || hasThymeleafLangAttribute(node)
+            || hasDynamicLangAttribute(node);
+  }
+
+  private boolean hasDynamicLangAttribute(TagNode node) {
+    var lang = getLangAttributeValue(node);
+    if (lang == null) {
+      return false;
+    }
+    return Helpers.isDynamicValue(lang, getHtmlSourceCode());
   }
 
   /**
