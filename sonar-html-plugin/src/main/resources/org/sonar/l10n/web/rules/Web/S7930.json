@@ -1,0 +1,29 @@
+{
+  "title": "HTML elements should have unique \"id\" attribute values",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5 min"
+  },
+  "tags": [
+    "html",
+    "accessibility",
+    "web"
+  ],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-7930",
+  "sqKey": "S7930",
+  "scope": "Main",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "HIGH",
+      "MAINTAINABILITY": "HIGH"
+    },
+    "attribute": "LOGICAL"
+  },
+  "compatibleLanguages": [
+    "html"
+  ]
+}

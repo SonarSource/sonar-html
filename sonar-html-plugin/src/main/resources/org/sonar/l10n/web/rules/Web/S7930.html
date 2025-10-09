@@ -1,0 +1,49 @@
+<p>This rule raises an issue when multiple HTML elements in the same document have identical <code>id</code> attribute values.</p>
+<h2>Why is this an issue?</h2>
+<p>The HTML specification requires that <code>id</code> attribute values be unique within a document. When multiple elements share the same
+<code>id</code>, several problems can occur:</p>
+<ul>
+  <li> JavaScript methods like <code>document.getElementById()</code> will only return the first matching element, causing other elements to be
+  unreachable </li>
+  <li> CSS selectors targeting the <code>id</code> may not style all intended elements consistently </li>
+  <li> Screen readers and other assistive technologies may become confused when navigating between elements </li>
+  <li> Form labels using the <code>for</code> attribute may not associate correctly with their intended form controls </li>
+</ul>
+<p>These issues can lead to broken functionality, poor user experience, and accessibility barriers for users with disabilities.</p>
+<h3>What is the potential impact?</h3>
+<p>Duplicate <code>id</code> attributes can break JavaScript functionality, cause inconsistent styling, and create accessibility barriers. Users may
+be unable to interact with certain page elements, and assistive technologies may not work correctly.</p>
+<h2>How to fix it</h2>
+<p>Ensure each element has a unique <code>id</code> value. You can remove unnecessary <code>id</code> attributes or rename them to be unique.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;div id="content"&gt;Main content&lt;/div&gt;
+&lt;div id="content"&gt;Secondary content&lt;/div&gt; &lt;!-- Noncompliant: duplicate id --&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;div id="main-content"&gt;Main content&lt;/div&gt;
+&lt;div id="secondary-content"&gt;Secondary content&lt;/div&gt;
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li> HTML Standard - The id attribute - <a href="https://html.spec.whatwg.org/multipage/dom.html#the-id-attribute">Official HTML specification for
+  the id attribute and uniqueness requirements</a> </li>
+  <li> MDN - Global attributes: id - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">Comprehensive guide to using the
+  id attribute correctly</a> </li>
+</ul>
+<h3>Standards</h3>
+<ul>
+  <li> HTML Standard - DOM - The id attribute - <a href="https://html.spec.whatwg.org/multipage/dom.html#the-id-attribute">HTML specification
+  requiring id attribute values to be unique</a> </li>
+</ul>
+<h3>Related rules</h3>
+<ul>
+  <li> axe-core duplicate-id - <a href="https://dequeuniversity.com/rules/axe/4.10/duplicate-id">Axe accessibility rule for detecting duplicate id
+  attributes</a> </li>
+  <li> ACT Rules - Duplicate id - <a href="https://act-rules.github.io/rules/3ea0c8">Accessibility Conformance Testing rule for unique id
+  attributes</a> </li>
+</ul>
+
