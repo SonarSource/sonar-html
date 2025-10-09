@@ -50,6 +50,7 @@
     "S6853",
     "S7926",
     "S7929",
+    "S7930",
     "TableHeaderHasIdOrScopeCheck",
     "UnsupportedTagsInHtml5Check"
   ]

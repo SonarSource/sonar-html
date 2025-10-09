@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<!-- ========================= -->
+<!-- Compliant Examples        -->
+<!-- ========================= -->
+
+<!-- Unique IDs -->
+<div id="header">Header content</div>
+<main id="mainContent">Main content</main>
+<footer id="footer">Footer content</footer>
+
+<!-- Case-sensitive uniqueness -->
+<section id="foo">Section with id "foo"</section>
+<section id="Foo">Section with id "Foo" (different from "foo")</section>
+
+<!-- Empty id attribute (ignored by rule) -->
+<p id="">Paragraph with empty id</p>
+<p id="">Second paragraph with empty id</p>
+
+<!-- No id attribute -->
+<span>Span without id</span>
+
+<!-- ========================= -->
+<!-- Non-Compliant Examples    -->
+<!-- ========================= -->
+
+<!-- Duplicate IDs -->
+<div id="duplicate">First occurrence of "duplicate"</div>
+<div id="duplicate">Second occurrence of "duplicate" (non-compliant)</div>
+
+<!-- Another duplicate -->
+<article id="article1">First article</article>
+<article id="article1">Second article with same id (non-compliant)</article>
+
+<!-- Another duplicate -->
+<article id="Article1">First article</article>
+<article id="Article1">Second article with same id (non-compliant)</article>
+
+</body>
+</html>
