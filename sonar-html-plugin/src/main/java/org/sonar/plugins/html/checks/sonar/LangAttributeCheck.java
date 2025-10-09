@@ -54,8 +54,8 @@ public class LangAttributeCheck extends AbstractPageCheck {
     ruleActivated = false;
 	}
 
-  private boolean shouldPerformCheck() {
-    return !finishEarly && ruleActivated;
+  private boolean shouldEarlyExit() {
+    return finishEarly || !ruleActivated;
   }
 
 	private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
@@ -74,7 +74,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
         ruleActivated = true;
       }
     }
-    if (!shouldPerformCheck()) {
+    if (shouldEarlyExit()) {
       return;
     }
 
@@ -97,7 +97,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	@Override
 	public void endElement(TagNode node) {
-		if (!shouldPerformCheck()) {
+		if (shouldEarlyExit()) {
 			return;
 		}
 		var lastNode = langStack.getLast().tagNode();
@@ -108,7 +108,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
 	@Override
 	public void characters(TextNode textNode) {
-		if (!shouldPerformCheck()) {
+		if (shouldEarlyExit()) {
 			return;
 		}
 		if (textNode.getCode().isBlank() || Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
