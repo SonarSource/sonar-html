@@ -53,13 +53,13 @@ class PageCountLinesTest {
   @Test
   void testCountLines() {
     List<Node> nodeList = lexer.parse(readFile("src/main/webapp/user-properties.jsp"));
-    assertThat(nodeList.size()).isGreaterThan(100);
+    assertThat(nodeList).hasSizeGreaterThan(100);
 
     HtmlSourceCode htmlSourceCode = createHtmlSourceCode("test/user-properties.jsp");
     scanner.scan(nodeList, htmlSourceCode);
 
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.NCLOC)).isEqualTo(224);
-    assertThat(htmlSourceCode.getDetailedLinesOfCode().size()).isEqualTo(224);
+    assertThat(htmlSourceCode.getDetailedLinesOfCode()).hasSize(224);
     assertThat(htmlSourceCode.getMeasure(CoreMetrics.COMMENT_LINES)).isEqualTo(14);
   }
 

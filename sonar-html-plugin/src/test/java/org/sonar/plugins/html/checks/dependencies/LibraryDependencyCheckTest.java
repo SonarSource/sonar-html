@@ -62,7 +62,7 @@ class LibraryDependencyCheckTest {
   }
 
   @Test
-  void illegal_import() throws FileNotFoundException {
+  void illegal_import() {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
@@ -73,7 +73,7 @@ class LibraryDependencyCheckTest {
   }
 
   @Test
-  void legal_fully_qualified_identifier_and_import() throws FileNotFoundException {
+  void legal_fully_qualified_identifier_and_import() {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
@@ -83,7 +83,7 @@ class LibraryDependencyCheckTest {
   }
 
   @Test
-  void html_page() throws FileNotFoundException {
+  void html_page() {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 

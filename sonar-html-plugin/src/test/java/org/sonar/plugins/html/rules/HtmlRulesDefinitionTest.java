@@ -73,7 +73,6 @@ class HtmlRulesDefinitionTest {
     }
 
     List<RulesDefinition.Rule> activated = repository.rules().stream().filter(RulesDefinition.Rule::activatedByDefault).collect(Collectors.toList());
-    assertThat(activated).isNotEmpty();
-    assertThat(activated.size()).isLessThan(CheckClasses.getCheckClasses().size());
+    assertThat(activated).isNotEmpty().hasSizeLessThan(CheckClasses.getCheckClasses().size());
   }
 }

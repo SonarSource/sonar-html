@@ -43,7 +43,7 @@ class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
 
-    assertThat(nodeList.size()).isGreaterThan(50);
+    assertThat(nodeList).hasSizeGreaterThan(50);
 
     // check tagnodes
     for (Node node : nodeList) {
@@ -57,10 +57,7 @@ class PageLexerTest {
 
     // check hierarchy
     for (Node node : nodeList) {
-      if (node instanceof TagNode) {
-        TagNode tagNode = (TagNode) node;
-
-        if (!tagNode.isEndElement()) {
+      if (node instanceof TagNode tagNode && !tagNode.isEndElement()) {
           if (tagNode.equalsElementName("define")) {
             assertThat(tagNode.getChildren())
               .as("Tag should have children: " + tagNode.getCode())
@@ -69,7 +66,7 @@ class PageLexerTest {
             assertThat(tagNode.getChildren()).isEmpty();
           }
         }
-      }
+
     }
   }
 
@@ -80,9 +77,7 @@ class PageLexerTest {
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
 
-    assertThat(nodeList.size()).isGreaterThan(50);
-
-    // TODO - better parsing of erb.
+    assertThat(nodeList).hasSizeGreaterThan(50);
   }
 
   private void showHierarchy(List<Node> nodeList) {
@@ -92,27 +87,22 @@ class PageLexerTest {
       if (node.getClass() == TagNode.class && ((TagNode) node).getParent() == null) {
         TagNode root = (TagNode) node;
         printTag(sb, root, 0);
-        // System.out.print(sb.toString());
       }
     }
   }
 
   private void printTag(StringBuilder sb, TagNode node, int indent) {
     sb.append('\n');
-    for (int i = 0; i < indent; i++) {
-      sb.append(" ");
-    }
+    sb.append(" ".repeat(Math.max(0, indent)));
     sb.append('<');
     sb.append(node.getNodeName());
-    if (node.getChildren().size() > 0) {
+    if (!node.getChildren().isEmpty()) {
       sb.append('>');
       for (TagNode child : node.getChildren()) {
         printTag(sb, child, indent + 1);
       }
       sb.append('\n');
-      for (int i = 0; i < indent; i++) {
-        sb.append(" ");
-      }
+      sb.append(" ".repeat(Math.max(0, indent)));
       sb.append("</");
       sb.append(node.getNodeName());
       sb.append('>');
@@ -508,7 +498,7 @@ class PageLexerTest {
     // Tag names cannot start with a whitespace, a digit or any other invalid character: https://www.w3.org/TR/REC-xml/#sec-starttags.
     assertOnlyText("<  html>");
     assertOnlyText("<5html>");
-    assertOnlyText("<\u2190html>");
+    assertOnlyText("<←html>");
   }
 
   @Test

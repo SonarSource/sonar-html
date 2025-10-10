@@ -64,7 +64,7 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
   }
 
   public boolean isUnifiedExpression(@Nullable String value) {
-    return value != null && value.length() > 0 && (value.contains("#{") || value.contains("${"));
+    return value != null && !value.isEmpty() && (value.contains("#{") || value.contains("${"));
   }
 
   public String[] trimSplitCommaSeparatedList(String value) {
