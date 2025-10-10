@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class HtmlConstantsTest {
+class HtmlConstantsTest {
 
   @Test
-  public void create() throws Exception {
-    assertThrows(IllegalAccessException.class, () -> HtmlConstants.class.newInstance());
+  void create() {
+    assertThrows(IllegalAccessException.class, () -> HtmlConstants.class.getDeclaredConstructor().newInstance());
   }
 
 }

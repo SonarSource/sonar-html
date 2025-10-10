@@ -28,7 +28,7 @@ class NoStaticElementInteractionsCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void valid() throws Exception {
+  void valid() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/NoStaticElementInteractionsCheck/valid.html"),
       new NoStaticElementInteractionsCheck());
@@ -38,7 +38,7 @@ class NoStaticElementInteractionsCheckTest {
   }
 
   @Test
-  void invalid() throws Exception {
+  void invalid() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/NoStaticElementInteractionsCheck/invalid.html"),
       new NoStaticElementInteractionsCheck());

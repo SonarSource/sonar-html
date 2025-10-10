@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class AvoidCommentedOutCodeCheckTest {
+class AvoidCommentedOutCodeCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidCommentedOutCodeCheck.html"), new AvoidCommentedOutCodeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

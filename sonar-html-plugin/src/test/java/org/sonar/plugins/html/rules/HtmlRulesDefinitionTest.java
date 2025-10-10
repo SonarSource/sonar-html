@@ -30,10 +30,10 @@ import org.sonar.api.utils.Version;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HtmlRulesDefinitionTest {
+class HtmlRulesDefinitionTest {
 
   @Test
-  public void test() {
+  void test() {
     SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(8, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY);
     HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition(sonarRuntime);
     RulesDefinition.Context context = new RulesDefinition.Context();
@@ -73,7 +73,6 @@ public class HtmlRulesDefinitionTest {
     }
 
     List<RulesDefinition.Rule> activated = repository.rules().stream().filter(RulesDefinition.Rule::activatedByDefault).collect(Collectors.toList());
-    assertThat(activated).isNotEmpty();
-    assertThat(activated.size()).isLessThan(CheckClasses.getCheckClasses().size());
+    assertThat(activated).isNotEmpty().hasSizeLessThan(CheckClasses.getCheckClasses().size());
   }
 }

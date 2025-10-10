@@ -24,13 +24,13 @@ import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 
-public class WhiteSpaceAroundCheckTest {
+class WhiteSpaceAroundCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test() throws Exception {
+  void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/whiteSpaceAroundCheck.html"), new WhiteSpaceAroundCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

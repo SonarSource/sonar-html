@@ -24,13 +24,13 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import java.io.File;
 
-public class TableWithoutHeaderCheckTest {
+class TableWithoutHeaderCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableWithoutHeaderCheck.html"), new TableWithoutHeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

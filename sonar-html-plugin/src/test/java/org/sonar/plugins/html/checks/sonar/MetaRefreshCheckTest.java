@@ -24,13 +24,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class MetaRefreshCheckTest {
+class MetaRefreshCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/MetaRefreshCheck.html"), new MetaRefreshCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

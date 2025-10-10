@@ -23,20 +23,20 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class IndistinguishableSimilarElementsCheckTest {
+class IndistinguishableSimilarElementsCheckTest {
   
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void singleNavAside() throws Exception {
+  void singleNavAside() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck/SingleNavAside.html"), new IndistinguishableSimilarElementsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void multipleNavAside() throws Exception {
+  void multipleNavAside() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck/MultipleNavAside.html"), new IndistinguishableSimilarElementsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

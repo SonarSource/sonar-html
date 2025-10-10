@@ -22,17 +22,17 @@ import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInQual
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
 import org.sonar.plugins.html.api.HtmlConstants;
 
-public class SonarWayProfileTest {
+class SonarWayProfileTest {
 
   @Test
-  public void test() {
+  void test() {
     SonarWayProfile definition = new SonarWayProfile();
     Context context = new Context();
     definition.define(context);
     BuiltInQualityProfile profile = context.profile("web", "Sonar way");
     Assertions.assertThat(profile.name()).isEqualTo("Sonar way");
     Assertions.assertThat(profile.language()).isEqualTo(HtmlConstants.LANGUAGE_KEY);
-    Assertions.assertThat(profile.rules().size()).isGreaterThan(10);
+    Assertions.assertThat(profile.rules()).hasSizeGreaterThan(10);
   }
 
 }

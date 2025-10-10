@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IllegalNamespaceCheckTest {
+class IllegalNamespaceCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new IllegalNamespaceCheck().namespaces).isEmpty();
   }
 
   @Test
-  public void custom() {
+  void custom() {
     IllegalNamespaceCheck check = new IllegalNamespaceCheck();
     check.namespaces = "foo,baz";
 

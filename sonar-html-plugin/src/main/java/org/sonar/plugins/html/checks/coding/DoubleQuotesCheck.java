@@ -28,7 +28,7 @@ public class DoubleQuotesCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     for (Attribute a : element.getAttributes()) {
-      if (a.getValue() != null && a.getValue().trim().length() > 0 && isSingleQuoteAttribute(a)) {
+      if (a.getValue() != null && !a.getValue().trim().isEmpty() && isSingleQuoteAttribute(a)) {
         createViolation(element.getStartLinePosition(), "Use double quotes instead of single ones.");
         // no more than one violation per element
         break;

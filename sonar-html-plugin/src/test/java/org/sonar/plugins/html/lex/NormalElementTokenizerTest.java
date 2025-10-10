@@ -24,10 +24,10 @@ import static org.sonar.plugins.html.lex.NormalElementTokenizer.isValidSingleCha
 import static org.sonar.plugins.html.lex.NormalElementTokenizer.isValidSurrogatePairNameStartChar;
 import static org.sonar.plugins.html.lex.NormalElementTokenizer.isValidTagNameStartChar;
 
-public class NormalElementTokenizerTest {
+class NormalElementTokenizerTest {
 
   @Test
-  public void is_valid_tag_name_start_char() {
+  void is_valid_tag_name_start_char() {
     String invalidSingleCharCode = "\u0011";
     String validSingleCharCode = "\u0070";
     String invalidSurrogatePair = "\uDBBF\uDF00";
@@ -39,7 +39,7 @@ public class NormalElementTokenizerTest {
   }
 
   @Test
-  public void is_valid_single_char_code_name_start_char() {
+  void is_valid_single_char_code_name_start_char() {
     // Valid ranges for first character name for a tag (encoded on a single char). See https://www.w3.org/TR/REC-xml/#NT-NameStartChar.
     assertThat(isValidRangeForFirstCharacter('\u003A', '\u003A')).isTrue(); // ':' char
     assertThat(isValidRangeForFirstCharacter('\u0041', '\u005A')).isTrue(); // 'A' to 'Z'
@@ -59,7 +59,7 @@ public class NormalElementTokenizerTest {
   }
 
   @Test
-  public void is_invalid_single_char_code_name_start_char() {
+  void is_invalid_single_char_code_name_start_char() {
     // Invalid character codepoints (encoded on a single char): all ranges in between the above valid ranges.
     assertThat(isInvalidRangeForFirstCharacter('\u0000', '\u0039')).isTrue();
     assertThat(isInvalidRangeForFirstCharacter('\u003B', '\u0040')).isTrue();
@@ -80,7 +80,7 @@ public class NormalElementTokenizerTest {
   }
 
   @Test
-  public void is_valid_surrogate_pair_name_start_char() {
+  void is_valid_surrogate_pair_name_start_char() {
     for (int codePoint = 0x10000; codePoint <= 0xEFFFF; codePoint++) {
       char[] chars = Character.toChars(codePoint);
       assertThat(chars).hasSize(2);

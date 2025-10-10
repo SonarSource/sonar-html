@@ -29,7 +29,7 @@ class HeadingHasAccessibleContentCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void html() throws Exception {
+  void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.html"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -55,7 +55,7 @@ class HeadingHasAccessibleContentCheckTest {
   }
 
   @Test
-  void jsp() throws Exception {
+  void jsp() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.jsp"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -63,7 +63,7 @@ class HeadingHasAccessibleContentCheckTest {
   }
 
   @Test
-  void php() throws Exception {
+  void php() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.php"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -71,7 +71,7 @@ class HeadingHasAccessibleContentCheckTest {
   }
 
   @Test
-  void vue() throws Exception {
+  void vue() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeadingHasAccessibleContentCheck/file.vue"), new HeadingHasAccessibleContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

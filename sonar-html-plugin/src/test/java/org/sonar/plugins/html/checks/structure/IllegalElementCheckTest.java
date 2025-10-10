@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IllegalElementCheckTest {
+class IllegalElementCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new IllegalElementCheck().elements).isEmpty();
   }
 
   @Test
-  public void custom() {
+  void custom() {
     IllegalElementCheck check = new IllegalElementCheck();
     check.elements = "title,body";
 

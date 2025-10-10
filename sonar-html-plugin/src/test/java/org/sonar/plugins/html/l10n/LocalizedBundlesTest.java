@@ -20,10 +20,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.sonar.test.i18n.I18nMatchers.assertBundlesUpToDate;
 
-public class LocalizedBundlesTest {
+class LocalizedBundlesTest {
 
   @Test
-  public void test() throws Exception {
+  void test() {
     assertBundlesUpToDate();
   }
 

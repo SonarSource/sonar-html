@@ -26,20 +26,20 @@ import java.io.File;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ChildElementRequiredCheckTest {
+class ChildElementRequiredCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     ChildElementRequiredCheck check = new ChildElementRequiredCheck();
     assertThat(check.child).isEmpty();
     assertThat(check.parent).isEmpty();
   }
 
   @Test
-  public void custom() {
+  void custom() {
     ChildElementRequiredCheck check = new ChildElementRequiredCheck();
     check.child = "bar";
     check.parent = "foo";

@@ -23,27 +23,27 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class ElementWithGivenIdPresentCheckTest {
+class ElementWithGivenIdPresentCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test() throws Exception {
+  void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Ok.html"), new ElementWithGivenIdPresentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void test_angular() throws Exception {
+  void test_angular() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ElementWithGivenIdPresentCheck/Angular_Ok.html"), new ElementWithGivenIdPresentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void custom_ko() throws Exception {
+  void custom_ko() {
     ElementWithGivenIdPresentCheck check = new ElementWithGivenIdPresentCheck();
     check.id = "gotit";
 
@@ -54,7 +54,7 @@ public class ElementWithGivenIdPresentCheckTest {
   }
 
   @Test
-  public void custom_ok() throws Exception {
+  void custom_ok() {
     ElementWithGivenIdPresentCheck check = new ElementWithGivenIdPresentCheck();
     check.id = "gotit";
 

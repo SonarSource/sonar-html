@@ -29,7 +29,7 @@ class TabIndexNoPositiveCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void html() throws Exception {
+  void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/TabIndexNoPositiveCheck.html"),
       new TabIndexNoPositiveCheck());

@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class TodoCommentCheckTest {
+class TodoCommentCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TodoCommentCheck.html"), new TodoCommentCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Complete the task associated to this \"TODO\" comment.")

@@ -18,120 +18,47 @@ package org.sonar.plugins.html.lex;
 
 import java.io.StringReader;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.sonar.plugins.html.node.Node;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class VueLexerTest {
+class VueLexerTest {
 
-  @Test
-  public void testMissingTemplate() {
-    String fragment = "";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).isEmpty();
+  static Stream<Arguments> provideFileAndLines() {
+    return Stream.of(
+            Arguments.of("", 0),
+            Arguments.of("<template/>", 0),
+            Arguments.of("<!-- <template><foo/><bar/></template> -->", 0),
+            Arguments.of("<template></template>", 0),
+            Arguments.of("<template>" +
+                    "<!-- some HTML code here -->" +
+                    "<p>Hello, World!</p>"         +
+                    "<div>"                        +
+                    "Hello, again!"              +
+                    "<ul>"                       +
+                    "<li>foo</li>"             +
+                    "<li>bar</li>"             +
+                    "</ul>"                      +
+                    "</div>"                       +
+                    "</template>", 15),
+            Arguments.of("<template><foo/><bar/><baz/></template><template><qux/></template>", 3),
+            Arguments.of("<template><template><template><template></template></template></template></template>", 6),
+            Arguments.of("<template><foo/><bar/>", 2),
+            Arguments.of("<foo/><bar/></template>", 0)
+    );
   }
 
-  @Test
-  public void testEmptyTemplate() {
-    String fragment = "<template/>";
-
+  @ParameterizedTest
+  @MethodSource("provideFileAndLines")
+  void testMissingTemplate(String fragment, int expectedIssueCount) {
     StringReader reader = new StringReader(fragment);
     VueLexer lexer = new VueLexer();
     List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).isEmpty();
-  }
-
-  @Test
-  public void commentedTemplate() {
-    String fragment = "<!-- <template><foo/><bar/></template> -->";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).isEmpty();
-  }
-
-  @Test
-  public void testVoidTemplate() {
-    String fragment = "<template></template>";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).isEmpty();
-  }
-
-  @Test
-  public void testFilledTemplate() {
-    String fragment =
-      "<template>" +
-        "<!-- some HTML code here -->" +
-        "<p>Hello, World!</p>"         +
-        "<div>"                        +
-          "Hello, again!"              +
-          "<ul>"                       +
-            "<li>foo</li>"             +
-            "<li>bar</li>"             +
-          "</ul>"                      +
-        "</div>"                       +
-      "</template>";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).hasSize(15);
-  }
-
-  @Test
-  public void testMultipleTemplates() {
-    String fragment = "<template><foo/><bar/><baz/></template><template><qux/></template>";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).hasSize(3);
-  }
-
-  @Test
-  public void testNestedTemplates() {
-    String fragment = "<template><template><template><template></template></template></template></template>";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).hasSize(6);
-  }
-
-  @Test
-  public void testMalformedTemplate1() {
-    String fragment = "<template><foo/><bar/>";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).hasSize(2);
-  }
-
-  @Test
-  public void testMalformedTemplate2() {
-    String fragment = "<foo/><bar/></template>";
-
-    StringReader reader = new StringReader(fragment);
-    VueLexer lexer = new VueLexer();
-    List<Node> nodeList = lexer.parse(reader);
-
-    assertThat(nodeList).isEmpty();
+    assertThat(nodeList).hasSize(expectedIssueCount);
   }
 }

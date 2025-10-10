@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FileLengthCheckTest {
+class FileLengthCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new FileLengthCheck().maxLength).isEqualTo(1000);
   }
 
   @Test
-  public void custom() {
+  void custom() {
     FileLengthCheck check = new FileLengthCheck();
     check.maxLength = 2;
 
@@ -47,7 +47,7 @@ public class FileLengthCheckTest {
   }
 
   @Test
-  public void custom_ok() {
+  void custom_ok() {
     FileLengthCheck check = new FileLengthCheck();
     check.maxLength = 3;
 

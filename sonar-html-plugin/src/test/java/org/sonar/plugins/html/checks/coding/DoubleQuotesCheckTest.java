@@ -24,13 +24,13 @@ import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 
-public class DoubleQuotesCheckTest {
+class DoubleQuotesCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test() throws Exception {
+  void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/doubleQuotesCheck.html"), new DoubleQuotesCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

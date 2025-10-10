@@ -17,68 +17,42 @@
 package org.sonar.plugins.html.checks.comments;
 
 import java.io.File;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class AvoidHtmlCommentCheckTest {
+class AvoidHtmlCommentCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-  @Test
-  public void should_detect_on_jsp_documents() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp"), new AvoidHtmlCommentCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(2).withMessage("Make sure that the HTML comment does not contain sensitive information.")
-        .next().atLine(4);
+  static Stream<Arguments> provideFileAndLines() {
+    return Stream.of(
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp", new int[]{2, 4}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.php", new int[]{6}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.html.erb", new int[]{6}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.html", new int[]{}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/documenthtml5.html", new int[]{}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml", new int[]{}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xhtml", new int[]{})
+    );
   }
 
-  @Test
-  public void should_detect_on_php_documents() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.php"), new AvoidHtmlCommentCheck());
+  @ParameterizedTest
+  @MethodSource("provideFileAndLines")
+  void should_detect(String file, int[] lines) {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File(file), new AvoidHtmlCommentCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(6).withMessage("Make sure that the HTML comment does not contain sensitive information.");
+    var checker = checkMessagesVerifier.verify(sourceCode.getIssues());
+    for (var line : lines) {
+      checker.next().atLine(line).withMessage("Make sure that the HTML comment does not contain sensitive information.");
+    }
+    checker.noMore();
   }
-
-  @Test
-  public void should_detect_on_erb_documents() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.html.erb"), new AvoidHtmlCommentCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(6).withMessage("Make sure that the HTML comment does not contain sensitive information.");
-  }
-
-  @Test
-  public void should_not_detect_on_html_documents() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.html"), new AvoidHtmlCommentCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
-  }
-
-  @Test
-  public void should_not_detect_on_html5_documents() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/documenthtml5.html"), new AvoidHtmlCommentCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
-  }
-
-  @Test
-  public void should_not_detect_on_xml_documents() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml"), new AvoidHtmlCommentCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
-  }
-
-  @Test
-  public void should_not_detect_on_xhtml_documents() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xhtml"), new AvoidHtmlCommentCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
-  }
-
 }

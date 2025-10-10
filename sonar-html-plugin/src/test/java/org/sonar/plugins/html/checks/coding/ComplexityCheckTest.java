@@ -25,19 +25,19 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ComplexityCheckTest {
+class ComplexityCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     ComplexityCheck check = new ComplexityCheck();
     assertThat(check.max).isEqualTo(10);
   }
 
   @Test
-  public void custom() {
+  void custom() {
     ComplexityCheck check = new ComplexityCheck();
     check.max = 15;
 

@@ -34,14 +34,14 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class HeaderCheckTest {
+class HeaderCheckTest {
 
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void correct_header() {
+  void correct_header() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
@@ -51,7 +51,7 @@ public class HeaderCheckTest {
   }
 
   @Test
-  public void missing_header() {
+  void missing_header() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
@@ -62,7 +62,7 @@ public class HeaderCheckTest {
   }
 
   @Test
-  public void misspelled_header() {
+  void misspelled_header() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
@@ -73,7 +73,7 @@ public class HeaderCheckTest {
   }
 
   @Test
-  public void regex1() {
+  void regex1() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- copyright \\d{4}\\n  mycompany -->";
     check.isRegularExpression = true;
@@ -84,7 +84,7 @@ public class HeaderCheckTest {
   }
 
   @Test
-  public void regex2() {
+  void regex2() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- copyright \\d{4}\\n  mycompany -->";
     check.isRegularExpression = true;
@@ -96,7 +96,7 @@ public class HeaderCheckTest {
   }
 
   @Test
-  public void should_fail_with_bad_regular_expression() {
+  void should_fail_with_bad_regular_expression() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "*";
     check.isRegularExpression = true;
@@ -107,7 +107,7 @@ public class HeaderCheckTest {
   }
 
   @Test
-  public void should_fail_if_unable_to_read_file_without_regex() throws Exception {
+  void should_fail_if_unable_to_read_file_without_regex() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- Copyright foo -->";
 
@@ -116,7 +116,7 @@ public class HeaderCheckTest {
   }
 
   @Test
-  public void should_fail_if_unable_to_read_file_with_regex() throws Exception {
+  void should_fail_if_unable_to_read_file_with_regex() {
     HeaderCheck check = new HeaderCheck();
     check.headerFormat = "<!-- copyright \\\\d{4}\\\\n  mycompany -->";
     check.isRegularExpression = true;

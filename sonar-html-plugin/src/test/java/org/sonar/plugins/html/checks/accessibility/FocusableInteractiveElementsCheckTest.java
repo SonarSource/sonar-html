@@ -29,7 +29,7 @@ class FocusableInteractiveElementsCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void test() throws Exception {
+  void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/FocusableInteractiveElementsCheck.html"),
       new FocusableInteractiveElementsCheck());

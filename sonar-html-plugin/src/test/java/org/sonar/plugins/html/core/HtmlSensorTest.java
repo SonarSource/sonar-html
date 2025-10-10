@@ -59,7 +59,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class HtmlSensorTest {
+class HtmlSensorTest {
 
   private static final Path TEST_DIR = Paths.get("src/test/resources/src/main/webapp");
 
@@ -70,7 +70,7 @@ public class HtmlSensorTest {
   public LogTesterJUnit5 logTester = new LogTesterJUnit5();
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     final SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
     HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition(sonarRuntime);
     RulesDefinition.Context context = new RulesDefinition.Context();
@@ -95,7 +95,7 @@ public class HtmlSensorTest {
    * the number of issues.
    */
   @Test
-  public void testSensor() throws Exception {
+  void testSensor() throws IOException {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
     tester.fileSystem().add(inputFile);
 
@@ -119,7 +119,7 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void cancellation() throws Exception {
+  void cancellation() throws IOException {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
     tester.fileSystem().add(inputFile);
     tester.setCancelled(true);
@@ -128,7 +128,7 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void sonarlint() throws Exception {
+  void sonarlint() throws IOException {
     tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
     tester.fileSystem().add(inputFile);
@@ -140,7 +140,7 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void unreadable_file() {
+  void unreadable_file() {
     tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
       .setModuleBaseDir(TEST_DIR)
@@ -157,7 +157,7 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void testDescriptor() {
+  void testDescriptor() {
     DefaultSensorDescriptor descriptor = new DefaultSensorDescriptor();
     sensor.describe(descriptor);
     assertThat(descriptor.name()).isEqualTo("HTML");
@@ -165,7 +165,7 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void test_descriptor_sonarlint() {
+  void test_descriptor_sonarlint() {
     DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor();
     SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarLint(Version.create(6, 5));
     new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList()))).describe(sensorDescriptor);
@@ -174,9 +174,10 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void test_descriptor_sonarqube_9_3() {
+  void test_descriptor_sonarqube_9_3() {
     final boolean[] called = {false};
     DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor() {
+      @Override
       public SensorDescriptor processesFilesIndependently() {
         called[0] = true;
         return this;
@@ -191,7 +192,7 @@ public class HtmlSensorTest {
 
 
   @Test
-  public void php_file_should_not_have_metrics() {
+  void php_file_should_not_have_metrics() {
     tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "foo.php")
       .setModuleBaseDir(TEST_DIR).setContents("<html>\n" +
@@ -209,7 +210,7 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void vue_file_should_be_analyzed() throws Exception {
+  void vue_file_should_be_analyzed() throws IOException {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.vue");
     tester.fileSystem().add(inputFile);
 
@@ -224,7 +225,7 @@ public class HtmlSensorTest {
   }
 
   @Test
-  public void twig_file_should_be_analyzed() throws Exception {
+  void twig_file_should_be_analyzed() throws IOException {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.twig");
     tester.fileSystem().add(inputFile);
 

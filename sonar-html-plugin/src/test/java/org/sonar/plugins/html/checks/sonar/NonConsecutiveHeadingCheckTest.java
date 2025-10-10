@@ -18,52 +18,42 @@ package org.sonar.plugins.html.checks.sonar;
 
 
 import java.io.File;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class NonConsecutiveHeadingCheckTest {
+class NonConsecutiveHeadingCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-  @Test
-  public void no_heading_tags() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/NoHeadingTags.html"), new NonConsecutiveHeadingCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
+  static Stream<Arguments> provideFileAndLinesAndMessages() {
+    return Stream.of(
+            Arguments.of("src/test/resources/checks/NonConsecutiveHeadingCheck/NoHeadingTags.html", new int[]{}, new String[]{}),
+            Arguments.of("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH1Tags.html", new int[]{}, new String[]{}),
+            Arguments.of("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH2Tags.html", new int[]{1}, new String[]{"Do not skip level H1."}),
+            Arguments.of("src/test/resources/checks/NonConsecutiveHeadingCheck/H2WithH1.html", new int[]{}, new String[]{}),
+            Arguments.of("src/test/resources/checks/NonConsecutiveHeadingCheck/H5WithH4.html", new int[]{1}, new String[]{"Do not skip level H3."}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml", new int[]{}, new String[]{}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xhtml", new int[]{}, new String[]{})
+    );
   }
 
-  @Test
-  public void only_h1_tags() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH1Tags.html"), new NonConsecutiveHeadingCheck());
+  @ParameterizedTest
+  @MethodSource("provideFileAndLinesAndMessages")
+  void test(String file, int[] lines, String[] messages) {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File(file), new NonConsecutiveHeadingCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getIssues());
+    var checker = checkMessagesVerifier.verify(sourceCode.getIssues());
+    for (var idx = 0; idx < lines.length; idx++) {
+      checker.next().atLine(lines[idx]).withMessage(messages[idx]);
+    }
+    checker.noMore();
   }
-
-  @Test
-  public void only_h2_tags() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH2Tags.html"), new NonConsecutiveHeadingCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Do not skip level H1.");
-  }
-
-  @Test
-  public void h2_with_h1() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H2WithH1.html"), new NonConsecutiveHeadingCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
-  }
-
-  @Test
-  public void h5_with_h4() throws Exception {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H5WithH4.html"), new NonConsecutiveHeadingCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(1).withMessage("Do not skip level H3.");
-  }
-
 }

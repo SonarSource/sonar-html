@@ -25,13 +25,13 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UnclosedTagCheckTest {
+class UnclosedTagCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     assertThat(check.ignoreTags).isEqualTo(
       "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM");
@@ -43,7 +43,7 @@ public class UnclosedTagCheckTest {
   }
 
   @Test
-  public void custom() {
+  void custom() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     check.ignoreTags = "html,foo";
 
@@ -56,7 +56,7 @@ public class UnclosedTagCheckTest {
   }
 
   @Test
-  public void empty_file() {
+  void empty_file() {
     UnclosedTagCheck check = new UnclosedTagCheck();
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/empty-file.html"), check);
@@ -67,7 +67,7 @@ public class UnclosedTagCheckTest {
   }
 
   @Test
-  public void cshtml_are_ignored_by_the_rule() {
+  void cshtml_are_ignored_by_the_rule() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"), check);
 

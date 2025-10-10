@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InternationalizationCheckTest {
+class InternationalizationCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new InternationalizationCheck().attributes).isEqualTo("outputLabel.value, outputText.value");
   }
 
   @Test
-  public void custom() {
+  void custom() {
     InternationalizationCheck check = new InternationalizationCheck();
     check.attributes = "outputLabel.value";
 
@@ -51,7 +51,7 @@ public class InternationalizationCheckTest {
   }
 
   @Test
-  public void should_not_raise_issue_with_bom() {
+  void should_not_raise_issue_with_bom() {
     InternationalizationCheck check = new InternationalizationCheck();
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/InternationalizationCheck_UTF8.html"), check);
@@ -63,7 +63,7 @@ public class InternationalizationCheckTest {
 
 
   @Test
-  public void custom2() {
+  void custom2() {
     InternationalizationCheck check = new InternationalizationCheck();
     check.attributes = "";
 
@@ -76,7 +76,7 @@ public class InternationalizationCheckTest {
   }
 
   @Test
-  public void regexIgnore1() {
+  void regexIgnore1() {
     InternationalizationCheck check = new InternationalizationCheck();
     check.attributes = "outputLabel.value";
     check.ignoredContentRegex = ".*cDe.*";
@@ -86,7 +86,7 @@ public class InternationalizationCheckTest {
       .next().atLine(2).withMessage("Define this label in the resource bundle.");
   }
   @Test
-  public void regexIgnore2() {
+  void regexIgnore2() {
     InternationalizationCheck check = new InternationalizationCheck();
     check.attributes = "";
     check.ignoredContentRegex = ".*cDe.*";

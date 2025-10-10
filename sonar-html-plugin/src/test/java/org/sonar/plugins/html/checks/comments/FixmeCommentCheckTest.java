@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class FixmeCommentCheckTest {
+class FixmeCommentCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/FixmeCommentCheck.html"), new FixmeCommentCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(3).withMessage("Take the required action to fix the issue indicated by this \"FIXME\" comment.")

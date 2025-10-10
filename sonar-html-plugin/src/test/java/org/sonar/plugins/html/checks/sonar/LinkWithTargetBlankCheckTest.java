@@ -23,12 +23,12 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class LinkWithTargetBlankCheckTest {
+class LinkWithTargetBlankCheckTest {
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinkWithTargetBlank.html"), new LinkWithTargetBlankCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLocation(1, 0, 1, 67).withMessage("Make sure using target=\"_blank\" and rel=\"opener\" is safe here.")

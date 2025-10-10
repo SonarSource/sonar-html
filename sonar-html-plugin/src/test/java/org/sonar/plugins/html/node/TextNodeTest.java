@@ -20,10 +20,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TextNodeTest {
+class TextNodeTest {
 
   @Test
-  public void emptyTextNode() {
+  void emptyTextNode() {
     TextNode textNode = new TextNode();
     assertThat(textNode.isBlank()).isTrue();
     assertThat(textNode.getCode()).isEmpty();
