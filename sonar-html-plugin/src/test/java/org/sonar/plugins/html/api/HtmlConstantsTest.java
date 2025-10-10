@@ -24,7 +24,7 @@ class HtmlConstantsTest {
 
   @Test
   void create() {
-    assertThrows(IllegalAccessException.class, () -> HtmlConstants.class.newInstance());
+    assertThrows(IllegalAccessException.class, () -> HtmlConstants.class.getDeclaredConstructor().newInstance());
   }
 
 }

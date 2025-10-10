@@ -177,6 +177,7 @@ class HtmlSensorTest {
   void test_descriptor_sonarqube_9_3() {
     final boolean[] called = {false};
     DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor() {
+      @Override
       public SensorDescriptor processesFilesIndependently() {
         called[0] = true;
         return this;

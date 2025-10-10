@@ -96,24 +96,23 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
     }
   }
 
-  protected static String popTo(CodeReader codeReader, EndMatcher endMatcher, StringBuilder stringBuilder) {
+  protected static void popTo(CodeReader codeReader, EndMatcher endMatcher, StringBuilder stringBuilder) {
     boolean shouldContinue = codeReader.peek() != -1;
     while (shouldContinue) {
       stringBuilder.append((char) codeReader.pop());
       shouldContinue = !endMatcher.match(codeReader.peek()) && codeReader.peek() != -1;
     }
 
-    return stringBuilder.toString();
   }
 
   abstract Node createNode();
 
-  protected final void setEndPosition(CodeReader code, Node node) {
+  protected static void setEndPosition(CodeReader code, Node node) {
     node.setEndLinePosition(code.getLinePosition());
     node.setEndColumnPosition(code.getColumnPosition());
   }
 
-  protected final void setStartPosition(CodeReader code, Node node) {
+  protected static void setStartPosition(CodeReader code, Node node) {
     node.setStartLinePosition(code.getLinePosition());
     node.setStartColumnPosition(code.getColumnPosition());
   }

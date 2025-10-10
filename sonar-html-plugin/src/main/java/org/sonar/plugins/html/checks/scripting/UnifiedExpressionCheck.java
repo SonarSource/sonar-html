@@ -128,7 +128,7 @@ public class UnifiedExpressionCheck extends AbstractPageCheck {
       // Ignore thymeleaf expressions
       if (!name.startsWith("th:") && value != null) {
         value = value.trim();
-        if (value.length() > 0 && isUnifiedExpression(value)) {
+        if (!value.isEmpty() && isUnifiedExpression(value)) {
           validateExpression(element, attribute);
         }
       }
