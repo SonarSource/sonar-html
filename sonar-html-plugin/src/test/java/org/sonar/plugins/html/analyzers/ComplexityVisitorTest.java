@@ -33,10 +33,10 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ComplexityVisitorTest {
+class ComplexityVisitorTest {
 
   @Test
-  public void testComplexity() throws IOException {
+  void testComplexity() throws IOException {
     PageLexer lexer = new PageLexer();
     HtmlAstScanner scanner = new HtmlAstScanner(List.of(new ComplexityVisitor()));
     List<Node> nodeList = lexer.parse(new StringReader(Files.readString(Path.of("src/test/resources/analyzers/complexity.jsp"))));

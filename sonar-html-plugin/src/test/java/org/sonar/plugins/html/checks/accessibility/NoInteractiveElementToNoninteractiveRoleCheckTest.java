@@ -28,7 +28,7 @@ class NoInteractiveElementToNoninteractiveRoleCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void valid() throws Exception {
+  void valid() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/NoInteractiveElementToNoninteractiveRoleCheck/valid.html"),
       new NoInteractiveElementToNoninteractiveRoleCheck());
@@ -38,7 +38,7 @@ class NoInteractiveElementToNoninteractiveRoleCheckTest {
   }
 
   @Test
-  void invalid() throws Exception {
+  void invalid() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/NoInteractiveElementToNoninteractiveRoleCheck/invalid.html"),
       new NoInteractiveElementToNoninteractiveRoleCheck());

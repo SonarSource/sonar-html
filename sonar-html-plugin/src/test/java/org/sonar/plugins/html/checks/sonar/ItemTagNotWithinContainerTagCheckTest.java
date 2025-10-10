@@ -24,13 +24,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class ItemTagNotWithinContainerTagCheckTest {
+class ItemTagNotWithinContainerTagCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheck.html"), new ItemTagNotWithinContainerTagCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IllegalAttributeCheckTest {
+class IllegalAttributeCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new IllegalAttributeCheck().attributes).isEmpty();
   }
 
   @Test
-  public void custom() {
+  void custom() {
     IllegalAttributeCheck check = new IllegalAttributeCheck();
     check.attributes = "foo.a,b";
 

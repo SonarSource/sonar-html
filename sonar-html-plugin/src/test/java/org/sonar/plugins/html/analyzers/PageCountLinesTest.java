@@ -38,20 +38,20 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PageCountLinesTest {
+class PageCountLinesTest {
 
   private PageLexer lexer;
   private HtmlAstScanner scanner;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     lexer = new PageLexer();
     scanner = new HtmlAstScanner(Collections.emptyList());
     scanner.addVisitor(new PageCountLines());
   }
 
   @Test
-  public void testCountLines() {
+  void testCountLines() {
     List<Node> nodeList = lexer.parse(readFile("src/main/webapp/user-properties.jsp"));
     assertThat(nodeList.size()).isGreaterThan(100);
 
@@ -64,7 +64,7 @@ public class PageCountLinesTest {
   }
 
   @Test
-  public void testCountLinesHtmlFile() {
+  void testCountLinesHtmlFile() {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.html"));
 
     HtmlSourceCode htmlSourceCode = createHtmlSourceCode("test/document.html");
@@ -76,7 +76,7 @@ public class PageCountLinesTest {
   }
 
   @Test
-  public void testCountLinesJspFile() {
+  void testCountLinesJspFile() {
     List<Node> nodeList = lexer.parse(readFile("checks/AvoidHtmlCommentCheck/document.jsp"));
 
     HtmlSourceCode htmlSourceCode = new HtmlSourceCode(new TestInputFileBuilder("key", "testdocument.jsp").setModuleBaseDir(new File(".").toPath()).build());

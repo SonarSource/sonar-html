@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class AvoidHtmlCommentCheckTest {
+class AvoidHtmlCommentCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void should_detect_on_jsp_documents() {
+  void should_detect_on_jsp_documents() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -38,7 +38,7 @@ public class AvoidHtmlCommentCheckTest {
   }
 
   @Test
-  public void should_detect_on_php_documents() {
+  void should_detect_on_php_documents() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.php"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -46,7 +46,7 @@ public class AvoidHtmlCommentCheckTest {
   }
 
   @Test
-  public void should_detect_on_erb_documents() {
+  void should_detect_on_erb_documents() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.html.erb"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -54,28 +54,28 @@ public class AvoidHtmlCommentCheckTest {
   }
 
   @Test
-  public void should_not_detect_on_html_documents() {
+  void should_not_detect_on_html_documents() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.html"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void should_not_detect_on_html5_documents() {
+  void should_not_detect_on_html5_documents() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/documenthtml5.html"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void should_not_detect_on_xml_documents() {
+  void should_not_detect_on_xml_documents() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void should_not_detect_on_xhtml_documents() {
+  void should_not_detect_on_xhtml_documents() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidHtmlCommentCheck/document.xhtml"), new AvoidHtmlCommentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());

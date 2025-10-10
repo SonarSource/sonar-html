@@ -28,7 +28,7 @@ class NoAriaHiddenOnFocusableCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void valid() throws Exception {
+  void valid() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/NoAriaHiddenOnFocusableCheck/valid.html"),
       new NoAriaHiddenOnFocusableCheck());
@@ -38,7 +38,7 @@ class NoAriaHiddenOnFocusableCheckTest {
   }
 
   @Test
-  void invalid() throws Exception {
+  void invalid() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/NoAriaHiddenOnFocusableCheck/invalid.html"),
       new NoAriaHiddenOnFocusableCheck());

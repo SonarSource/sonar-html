@@ -23,34 +23,34 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class NestedJavaScriptCheckTest {
+class NestedJavaScriptCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void no_violations_should_be_reported_for_correct_script_tags() {
+  void no_violations_should_be_reported_for_correct_script_tags() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/CorrectScriptTags.html"), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
   @Test
-  public void no_violations_should_be_reported_for_correct_script_tags_in_vue_templates() {
+  void no_violations_should_be_reported_for_correct_script_tags_in_vue_templates() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/CorrectScriptTags.vue"), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
   @Test
-  public void dangling_script_end_tag_should_result_in_a_violation() {
+  void dangling_script_end_tag_should_result_in_a_violation() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/DanglingScriptEndTag.html"), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).next().atLine(4).noMore();
   }
   
   @Test
-  public void nested_script_node_should_result_in_a_violation() {
+  void nested_script_node_should_result_in_a_violation() {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/NestedScriptNodes.html"), check);
     checkMessagesVerifier.verify(sourceCode.getIssues())

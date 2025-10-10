@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class IllegalTagLibsCheckTest {
+class IllegalTagLibsCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test() {
+  void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/illegalTagLibsCheck.jsp"), new IllegalTagLibsCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

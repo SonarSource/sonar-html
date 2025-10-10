@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UnifiedExpressionCheckTest {
+class UnifiedExpressionCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new UnifiedExpressionCheck().functions).isEmpty();
   }
 
   @Test
-  public void custom() {
+  void custom() {
     UnifiedExpressionCheck check = new UnifiedExpressionCheck();
     check.functions = "myMethod2,myMethod3";
 
@@ -49,7 +49,7 @@ public class UnifiedExpressionCheckTest {
   }
 
   @Test
-  public void should_not_detect_unknown_functions_with_empty_list() {
+  void should_not_detect_unknown_functions_with_empty_list() {
     UnifiedExpressionCheck check = new UnifiedExpressionCheck();
     check.functions = "";
 

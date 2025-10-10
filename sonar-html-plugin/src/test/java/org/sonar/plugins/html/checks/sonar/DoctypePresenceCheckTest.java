@@ -24,34 +24,34 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class DoctypePresenceCheckTest {
+class DoctypePresenceCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void doctype_before_html() throws Exception {
+  void doctype_before_html() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/DoctypeBeforeHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void full_doctype_before_html() throws Exception {
+  void full_doctype_before_html() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/FullDoctypeBeforeHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void no_doctype_before_foo() throws Exception {
+  void no_doctype_before_foo() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/NoDoctypeBeforeFoo.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void no_doctype_before_html() throws Exception {
+  void no_doctype_before_html() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/NoDoctypeBeforeHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -59,7 +59,7 @@ public class DoctypePresenceCheckTest {
   }
 
   @Test
-  public void multiple_html_tags() throws Exception {
+  void multiple_html_tags() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/MultipleHtmlTags.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -67,7 +67,7 @@ public class DoctypePresenceCheckTest {
   }
 
   @Test
-  public void doctype_after_html() throws Exception {
+  void doctype_after_html() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DoctypePresenceCheck/DoctypeAfterHtml.html"), new DoctypePresenceCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

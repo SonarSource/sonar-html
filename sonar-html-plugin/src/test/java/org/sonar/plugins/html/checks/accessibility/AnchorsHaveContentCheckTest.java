@@ -29,7 +29,7 @@ class AnchorsHaveContentCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void html() throws Exception {
+  void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/AnchorsHaveContentCheck.html"),
       new AnchorsHaveContentCheck());
@@ -44,7 +44,7 @@ class AnchorsHaveContentCheckTest {
   }
 
   @Test
-  void php() throws Exception {
+  void php() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/AnchorsHaveContentCheck.php"),
       new AnchorsHaveContentCheck());

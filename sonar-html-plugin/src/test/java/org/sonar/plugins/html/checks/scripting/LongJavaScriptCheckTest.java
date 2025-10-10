@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LongJavaScriptCheckTest {
+class LongJavaScriptCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new LongJavaScriptCheck().maxLines).isEqualTo(5);
   }
 
   @Test
-  public void custom() {
+  void custom() {
     LongJavaScriptCheck check = new LongJavaScriptCheck();
     check.maxLines = 4;
 

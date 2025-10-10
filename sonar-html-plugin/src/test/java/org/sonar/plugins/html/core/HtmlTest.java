@@ -22,10 +22,10 @@ import org.sonar.plugins.html.api.HtmlConstants;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HtmlTest {
+class HtmlTest {
 
   @Test
-  public void testDefaultFileSuffixes() {
+  void testDefaultFileSuffixes() {
     MapSettings settings = new MapSettings();
     settings.setProperty(HtmlConstants.FILE_EXTENSIONS_PROP_KEY, HtmlConstants.FILE_EXTENSIONS_DEF_VALUE);
     Html html = new Html(settings.asConfig());
@@ -33,7 +33,7 @@ public class HtmlTest {
   }
 
   @Test
-  public void testCustomFileSuffixes() {
+  void testCustomFileSuffixes() {
     MapSettings settings = new MapSettings();
     settings.setProperty(HtmlConstants.FILE_EXTENSIONS_PROP_KEY, "foo, bar ,   toto");
     Html html = new Html(settings.asConfig());

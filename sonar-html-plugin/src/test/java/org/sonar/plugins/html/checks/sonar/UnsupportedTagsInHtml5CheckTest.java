@@ -25,13 +25,13 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import java.io.File;
 
-public class UnsupportedTagsInHtml5CheckTest {
+class UnsupportedTagsInHtml5CheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test() throws Exception {
+  void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnsupportedTagsInHtml5Check.html"), new UnsupportedTagsInHtml5Check());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

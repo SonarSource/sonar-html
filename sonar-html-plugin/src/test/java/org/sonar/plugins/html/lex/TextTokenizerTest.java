@@ -24,10 +24,10 @@ import org.sonar.sslr.channel.CodeReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TextTokenizerTest {
+class TextTokenizerTest {
 
   @Test
-  public void emptyCodeReader() {
+  void emptyCodeReader() {
     List<Node> nodeList = new ArrayList<>();
     CodeReader emptyReader = new CodeReader("");
 

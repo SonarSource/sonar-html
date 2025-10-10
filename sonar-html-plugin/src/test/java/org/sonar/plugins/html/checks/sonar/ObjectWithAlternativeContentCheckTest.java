@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class ObjectWithAlternativeContentCheckTest {
+class ObjectWithAlternativeContentCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ObjectWithAlternativeContentCheck.html"), new ObjectWithAlternativeContentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

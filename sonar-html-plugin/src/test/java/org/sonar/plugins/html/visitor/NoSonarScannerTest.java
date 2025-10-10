@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.html.visitor;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -38,11 +39,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 
-public class NoSonarScannerTest {
+class NoSonarScannerTest {
   private static final String CONTENT = "<table>\n<!-- //NOSONAR --><td>\n</table>";
 
   @Test
-  public void scanNoSonar() throws Exception {
+  void scanNoSonar() throws IOException {
     List<Node> nodeList;
     try (Reader reader = new StringReader(CONTENT)) {
       nodeList = new PageLexer().parse(reader);

@@ -20,10 +20,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TagNodeTest {
+class TagNodeTest {
 
   @Test
-  public void property() {
+  void property() {
     TagNode node = createNode();
     assertThat(node.getAttributes()).hasSize(4);
 
@@ -56,7 +56,7 @@ public class TagNodeTest {
   }
 
   @Test
-  public void emptyTagNode() {
+  void emptyTagNode() {
     TagNode tagNode = new TagNode();
     assertThat(tagNode.getNodeName()).isNotNull();
     assertThat(tagNode.getLocalName()).isNotNull();

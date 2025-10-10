@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class AbsoluteURICheckTest {
+class AbsoluteURICheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/absoluteURICheck.html"), new AbsoluteURICheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -41,7 +41,7 @@ public class AbsoluteURICheckTest {
   }
 
   @Test
-  public void custom() {
+  void custom() {
     AbsoluteURICheck check = new AbsoluteURICheck();
     check.attributes = "img.src";
 

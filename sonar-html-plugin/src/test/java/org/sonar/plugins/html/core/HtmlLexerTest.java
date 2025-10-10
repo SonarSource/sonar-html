@@ -27,7 +27,7 @@ import static com.sonar.sslr.test.lexer.LexerMatchers.hasToken;
 import static com.sonar.sslr.test.lexer.LexerMatchers.hasTokens;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class HtmlLexerTest {
+class HtmlLexerTest {
   private static Lexer lexer;
 
   @BeforeAll
@@ -36,7 +36,7 @@ public class HtmlLexerTest {
   }
 
   @Test
-  public void tags() throws Exception {
+  void tags() {
     assertThat("<a>", lexer.lex("<a>"), hasToken("<a>", HtmlTokenType.TAG));
     assertThat("</a>", lexer.lex("</a>"), hasToken("</a>", HtmlTokenType.TAG));
     assertThat("<a href=\"uri\">", lexer.lex("<a href=\"uri\">"), hasToken("<a", HtmlTokenType.TAG));
@@ -44,26 +44,26 @@ public class HtmlLexerTest {
   }
 
   @Test
-  public void multiline_comment() {
+  void multiline_comment() {
     assertThat(lexer.lex("<!-- My Comment \n a -->"), hasComment("<!-- My Comment \n a -->"));
     assertThat(lexer.lex("<%-- My Comment \n a %>"), hasComment("<%-- My Comment \n a %>"));
     assertThat(lexer.lex("/* My Comment \n a */"), hasComment("/* My Comment \n a */"));
   }
 
   @Test
-  public void inline_comment() {
+  void inline_comment() {
     assertThat(lexer.lex("// My Comment \n new line"), hasComment("// My Comment "));
     assertThat(lexer.lex("//"), hasComment("//"));
   }
 
   @Test
-  public void attribute() {
+  void attribute() {
     assertThat("<a href=\"uri\">", lexer.lex("<a href=\"uri\">"), hasToken("=\"uri\"", HtmlTokenType.ATTRIBUTE));
     assertThat("<a src=uri/a />", lexer.lex("<a src=uri/a />"), hasToken("=uri/a", HtmlTokenType.ATTRIBUTE));
   }
 
   @Test
-  public void bom() {
+  void bom() {
     assertThat(lexer.lex(Character.toString((char) BomCharacterChannel.BOM_CHAR)), hasTokens("EOF"));
   }
 

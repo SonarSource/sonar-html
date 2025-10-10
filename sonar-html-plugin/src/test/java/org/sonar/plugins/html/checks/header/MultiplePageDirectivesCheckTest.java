@@ -25,13 +25,13 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MultiplePageDirectivesCheckTest {
+class MultiplePageDirectivesCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test1() throws Exception {
+  void test1() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck1.html"), new MultiplePageDirectivesCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -39,7 +39,7 @@ public class MultiplePageDirectivesCheckTest {
   }
 
   @Test
-  public void test2() throws Exception {
+  void test2() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck2.html"), new MultiplePageDirectivesCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -47,7 +47,7 @@ public class MultiplePageDirectivesCheckTest {
   }
 
   @Test
-  public void test3() throws Exception {
+  void test3() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/multiplePageDirectivesCheck3.html"), new MultiplePageDirectivesCheck());
 
     assertThat(sourceCode.getIssues()).isEmpty();

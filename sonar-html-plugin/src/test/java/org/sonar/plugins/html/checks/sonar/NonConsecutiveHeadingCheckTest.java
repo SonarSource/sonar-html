@@ -24,27 +24,27 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class NonConsecutiveHeadingCheckTest {
+class NonConsecutiveHeadingCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void no_heading_tags() throws Exception {
+  void no_heading_tags() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/NoHeadingTags.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void only_h1_tags() throws Exception {
+  void only_h1_tags() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH1Tags.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void only_h2_tags() throws Exception {
+  void only_h2_tags() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/OnlyH2Tags.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -52,14 +52,14 @@ public class NonConsecutiveHeadingCheckTest {
   }
 
   @Test
-  public void h2_with_h1() throws Exception {
+  void h2_with_h1() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H2WithH1.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
-  public void h5_with_h4() throws Exception {
+  void h5_with_h4() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NonConsecutiveHeadingCheck/H5WithH4.html"), new NonConsecutiveHeadingCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

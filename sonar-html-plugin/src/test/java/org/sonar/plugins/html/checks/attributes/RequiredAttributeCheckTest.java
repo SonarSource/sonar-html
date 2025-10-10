@@ -25,18 +25,18 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RequiredAttributeCheckTest {
+class RequiredAttributeCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     assertThat(new RequiredAttributeCheck().attributes).isEmpty();
   }
 
   @Test
-  public void custom() {
+  void custom() {
     RequiredAttributeCheck check = new RequiredAttributeCheck();
     check.attributes = "img.alt,script.type";
 
@@ -48,7 +48,7 @@ public class RequiredAttributeCheckTest {
   }
 
   @Test
-  public void checkRepetition() {
+  void checkRepetition() {
     RequiredAttributeCheck check = new RequiredAttributeCheck();
     check.attributes = "img.alt,script.type";
 

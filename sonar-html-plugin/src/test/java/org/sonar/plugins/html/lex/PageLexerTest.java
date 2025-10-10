@@ -34,10 +34,10 @@ import org.sonar.sslr.channel.CodeReader;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class PageLexerTest {
+class PageLexerTest {
 
   @Test
-  public void testLexer() throws FileNotFoundException {
+  void testLexer() throws FileNotFoundException {
 
     String fileName = "src/test/resources/src/main/webapp/create-salesorder.xhtml";
     PageLexer lexer = new PageLexer();
@@ -74,7 +74,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testRuby() throws FileNotFoundException {
+  void testRuby() throws FileNotFoundException {
 
     String fileName = "src/test/resources/src/main/webapp/select_user.html.erb";
     PageLexer lexer = new PageLexer();
@@ -122,7 +122,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testDirectiveNode() {
+  void testDirectiveNode() {
     String directive = "<!docTyPE html "
       + "PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
     DoctypeTokenizer tokenizer = new DoctypeTokenizer("<!DOCTYPE", ">");
@@ -136,7 +136,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testNestedTagInAttribute() {
+  void testNestedTagInAttribute() {
     String fragment = "<td id=\"typeCellHeader\"<c:if test='${param.typeNormalOrError == \"error\"}'>"
       + "style=\"display:none;\"</c:if>>Type" + "</td>";
 
@@ -158,7 +158,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testNestedScriptlet() {
+  void testNestedScriptlet() {
     String fragment = "<option value=\"<%= key -%>\" <%= 'selected' if alert.operator==key -%>>";
 
     StringReader reader = new StringReader(fragment);
@@ -179,7 +179,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testNestedTagInValue() {
+  void testNestedTagInValue() {
     String fragment = "<td label=\"Hello <c:if test='${param == true}'>World</c:if>\">Type</td>";
 
     StringReader reader = new StringReader(fragment);
@@ -196,7 +196,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void should_recover_on_invalid_attribute() {
+  void should_recover_on_invalid_attribute() {
     PageLexer lexer = new PageLexer();
     List<Node> nodes = lexer.parse(new StringReader("<foo = bar=42>"));
     assertThat(nodes).hasSize(1);
@@ -204,7 +204,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void nestedQuotes() {
+  void nestedQuotes() {
     String fragment = "<tr class=\"<c:if test='${count%2==0}'>even</c:if>"
       + "<c:if test='${count%2!=0}'>odd</c:if><c:if test='${ActionType==\"baseline\"}'> baseline</c:if>\">";
 
@@ -218,7 +218,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void escapeCharacters() {
+  void escapeCharacters() {
     String fragment = "<c:when test=\"${citaflagurge eq \\\"S\\\"}\">";
 
     StringReader reader = new StringReader(fragment);
@@ -231,7 +231,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void javaScriptWithNestedTags() throws FileNotFoundException {
+  void javaScriptWithNestedTags() throws FileNotFoundException {
     String fileName = "src/test/resources/lexer/javascript-nestedtags.jsp";
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
@@ -246,7 +246,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void javaScriptWithComments() throws FileNotFoundException {
+  void javaScriptWithComments() throws FileNotFoundException {
     String fileName = "src/test/resources/lexer/script-with-comments.jsp";
     PageLexer lexer = new PageLexer();
     List<Node> nodeList = lexer.parse(new FileReader(fileName));
@@ -254,7 +254,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testComment() {
+  void testComment() {
     String fragment = "<!-- text --><p>aaa</p>";
 
     StringReader reader = new StringReader(fragment);
@@ -266,7 +266,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testNestedComment() {
+  void testNestedComment() {
     String fragment = "<!-- text <!--><p>This is not part of the comment</p>";
 
     StringReader reader = new StringReader(fragment);
@@ -281,7 +281,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testAttributeWithoutQuotes() {
+  void testAttributeWithoutQuotes() {
     final StringReader reader = new StringReader("<img src=http://foo/sfds?sjg a=1\tb=2\r\nc=3 />");
     final PageLexer lexer = new PageLexer();
     final List<Node> nodeList = lexer.parse(reader);
@@ -309,7 +309,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void attribute_value_starting_with_quote() {
+  void attribute_value_starting_with_quote() {
     StringReader reader = new StringReader("<img src=\"'a'\"/>");
     List<Node> nodeList = new PageLexer().parse(reader);
     assertThat(nodeList).hasSize(1);
@@ -321,14 +321,14 @@ public class PageLexerTest {
   }
 
   @Test
-  public void text_containing_opening_angle_bracket() {
+  void text_containing_opening_angle_bracket() {
     assertOnlyText("x = '<");
     assertOnlyText("x = '<';");
     assertOnlyText("x = '< ';");
   }
 
   @Test
-  public void testUnmatchedClosingElement() {
+  void testUnmatchedClosingElement() {
     assertNodes("<html><table><tr></table><p>",
       node("html",
         node("table", node("tr")),
@@ -343,7 +343,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testUnmatchedNonHtmlElements() {
+  void testUnmatchedNonHtmlElements() {
     assertNodes("<html><ul><c:if></ul></c:if><li></ul><p>",
       node("html",
         node("ul", node("c:if"), node("li")),
@@ -352,7 +352,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testHead() {
+  void testHead() {
     assertNodes("<html><head><title>Foo </title><body></body></html>",
       node("html",
         node("head", node("title")),
@@ -361,14 +361,14 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testLi() {
+  void testLi() {
     assertNodes("<html><ul><li>1 <li>2 <li>3</ul>",
       node("html",
         node("ul", node("li"), node("li"), node("li"))));
   }
 
   @Test
-  public void testDtDd() {
+  void testDtDd() {
     assertNodes("<html><dl>" +
         "<dt>What is my favorite drink? " +
         "<dd>Tea " +
@@ -384,14 +384,14 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testP() {
+  void testP() {
     assertNodes("<html><p>P1<table></table><p>P2<p>P3<h1>heading</h1><p>P4",
       node("html",
         node("p"), node("table"), node("p"), node("p"), node("h1"), node("p")));
   }
 
   @Test
-  public void testRubyElements() {
+  void testRubyElements() {
     assertNodes("<html><ruby> 漢 <rb>字 <rp> (  <rt>かん  <rt>じ  <rp>) <rtc> <rtc> <rb> </ruby>",
       node("html",
         node("ruby",
@@ -399,7 +399,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testOptgroup() {
+  void testOptgroup() {
     assertNodes("<html>" +
         "<optgroup>" +
         " <option>1" +
@@ -415,7 +415,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testColgroup() {
+  void testColgroup() {
     assertNodes("<table><colgroup><col><col><col><template></template><thead>",
       node("table",
         node("colgroup",
@@ -425,7 +425,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testCaption() {
+  void testCaption() {
     assertNodes("<table><caption>Caption <a>link</a><thead>",
       node("table",
         node("caption", node("a")),
@@ -434,7 +434,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void testThead() {
+  void testThead() {
     assertNodes("<table><thead><tr><tbody>",
       node("table",
         node("thead", node("tr")),
@@ -489,22 +489,22 @@ public class PageLexerTest {
   }
 
   @Test
-  public void entity() {
+  void entity() {
     assertSingleTag("<!ENTITY delta \"&#948;\">");
   }
 
   @Test
-  public void cdata() {
+  void cdata() {
     assertSingleTag("<![CDATA[hello]]>");
   }
 
   @Test
-  public void tag_with_whitespace_after_name() {
+  void tag_with_whitespace_after_name() {
     assertSingleTag("<html  >");
   }
 
   @Test
-  public void tag_with_invalid_character_before_name_is_considered_as_text() {
+  void tag_with_invalid_character_before_name_is_considered_as_text() {
     // Tag names cannot start with a whitespace, a digit or any other invalid character: https://www.w3.org/TR/REC-xml/#sec-starttags.
     assertOnlyText("<  html>");
     assertOnlyText("<5html>");
@@ -512,7 +512,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void start_tag_character_is_considered_as_text_when_followed_by_whitespace() {
+  void start_tag_character_is_considered_as_text_when_followed_by_whitespace() {
     PageLexer lexer = new PageLexer();
     List<Node> nodes = lexer.parse(new StringReader("<a> < a </a>"));
     assertThat(nodes).hasSize(4);
@@ -521,7 +521,7 @@ public class PageLexerTest {
   }
 
   @Test
-  public void start_tag_character_is_considered_as_text_when_last_character_of_code() {
+  void start_tag_character_is_considered_as_text_when_last_character_of_code() {
     PageLexer lexer = new PageLexer();
     List<Node> nodes = lexer.parse(new StringReader("<a> <"));
     assertThat(nodes).hasSize(3);

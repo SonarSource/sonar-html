@@ -26,20 +26,20 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LibraryDependencyCheckTest {
+class LibraryDependencyCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void default_parameters() {
+  void default_parameters() {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     assertThat(check.libraries).isEmpty();
     assertThat(check.message).isEqualTo("Remove the usage of this library which is not allowed.");
   }
 
   @Test
-  public void illegal_fully_qualified_identifier() {
+  void illegal_fully_qualified_identifier() {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
@@ -50,7 +50,7 @@ public class LibraryDependencyCheckTest {
   }
 
   @Test
-  public void illegal_fully_qualified_identifier_with_custom_message() {
+  void illegal_fully_qualified_identifier_with_custom_message() {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
     check.message = "Foo.";
@@ -62,7 +62,7 @@ public class LibraryDependencyCheckTest {
   }
 
   @Test
-  public void illegal_import() throws FileNotFoundException {
+  void illegal_import() throws FileNotFoundException {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
@@ -73,7 +73,7 @@ public class LibraryDependencyCheckTest {
   }
 
   @Test
-  public void legal_fully_qualified_identifier_and_import() throws FileNotFoundException {
+  void legal_fully_qualified_identifier_and_import() throws FileNotFoundException {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 
@@ -83,7 +83,7 @@ public class LibraryDependencyCheckTest {
   }
 
   @Test
-  public void html_page() throws FileNotFoundException {
+  void html_page() throws FileNotFoundException {
     LibraryDependencyCheck check = new LibraryDependencyCheck();
     check.libraries = "java.sql";
 

@@ -26,10 +26,10 @@ import org.sonar.api.utils.Version;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class HtmlPluginTest {
+class HtmlPluginTest {
 
   @Test
-  public void webPluginTester() {
+  void webPluginTester() {
     Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
 
     new HtmlPlugin().define(context);

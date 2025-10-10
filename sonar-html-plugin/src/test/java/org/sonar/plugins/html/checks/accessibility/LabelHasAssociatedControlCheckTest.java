@@ -28,7 +28,7 @@ class LabelHasAssociatedControlCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void nesting() throws Exception {
+  void nesting() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/LabelHasAssociatedControlCheck/nesting.html"),
       new LabelHasAssociatedControlCheck());
@@ -44,7 +44,7 @@ class LabelHasAssociatedControlCheckTest {
   }
 
   @Test
-  void forAttribute() throws Exception {
+  void forAttribute() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/LabelHasAssociatedControlCheck/for.html"),
       new LabelHasAssociatedControlCheck());
@@ -61,7 +61,7 @@ class LabelHasAssociatedControlCheckTest {
   }
 
   @Test
-  void php() throws Exception {
+  void php() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/LabelHasAssociatedControlCheck/bundle.php"),
       new LabelHasAssociatedControlCheck());
@@ -72,7 +72,7 @@ class LabelHasAssociatedControlCheckTest {
   }
 
   @Test
-  void jsp() throws Exception {
+  void jsp() {
     HtmlSourceCode sourceCode = TestHelper.scan(
             new File("src/test/resources/checks/LabelHasAssociatedControlCheck/bundle.jsp"),
             new LabelHasAssociatedControlCheck());
@@ -83,7 +83,7 @@ class LabelHasAssociatedControlCheckTest {
   }
 
   @Test
-  void phtml() throws Exception {
+  void phtml() {
     HtmlSourceCode sourceCode = TestHelper.scan(
             new File("src/test/resources/checks/LabelHasAssociatedControlCheck/file.phtml"),
             new LabelHasAssociatedControlCheck());

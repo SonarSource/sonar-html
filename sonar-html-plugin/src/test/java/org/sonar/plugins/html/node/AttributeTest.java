@@ -20,29 +20,29 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AttributeTest {
+class AttributeTest {
 
   @Test
-  public void one_arg_constructor() {
+  void one_arg_constructor() {
     assertThat(new Attribute("foo").getName()).isEqualTo("foo");
     assertThat(new Attribute("foo").getValue()).isEmpty();
   }
 
   @Test
-  public void two_args_constructor() {
+  void two_args_constructor() {
     assertThat(new Attribute("foo", "bar").getName()).isEqualTo("foo");
     assertThat(new Attribute("foo", "bar").getValue()).isEqualTo("bar");
   }
 
   @Test
-  public void name() {
+  void name() {
     Attribute attribute = new Attribute("");
     attribute.setName("test");
     assertThat(attribute.getName()).isEqualTo("test");
   }
 
   @Test
-  public void quote_char() {
+  void quote_char() {
     Attribute attribute = new Attribute("");
 
     attribute.setQuoteChar('a');
@@ -59,14 +59,14 @@ public class AttributeTest {
   }
 
   @Test
-  public void value() {
+  void value() {
     Attribute attribute = new Attribute("");
     attribute.setValue("test");
     assertThat(attribute.getValue()).isEqualTo("test");
   }
 
   @Test
-  public void line() {
+  void line() {
     Attribute attribute = new Attribute("");
     attribute.setLine(42);
     assertThat(attribute.getLine()).isEqualTo(42);

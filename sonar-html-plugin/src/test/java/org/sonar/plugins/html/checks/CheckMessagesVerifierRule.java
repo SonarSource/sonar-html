@@ -29,7 +29,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  * public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
  *
  * &#064;org.junit.jupiter.api.Test;
- * public void test() {
+ * void test() {
  *   checkMessagesVerifier.verify(messages)
  *     .next().atLine(1)
  *     .next().atLine(2);
@@ -53,7 +53,7 @@ public class CheckMessagesVerifierRule implements AfterEachCallback {
   }
 
   @Override
-  public void afterEach(ExtensionContext extensionContext) throws Exception {
+  public void afterEach(ExtensionContext extensionContext) {
     verify();
   }
 }

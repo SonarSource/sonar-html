@@ -25,13 +25,13 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import java.io.File;
 
-public class TableHeaderHasIdOrScopeCheckTest {
+class TableHeaderHasIdOrScopeCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() throws Exception {
+  void detected() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableHeaderHasIdOrScopeCheck.html"), new TableHeaderHasIdOrScopeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())

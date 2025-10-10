@@ -25,20 +25,20 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParentElementRequiredCheckTest {
+class ParentElementRequiredCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void detected() {
+  void detected() {
     ParentElementRequiredCheck check = new ParentElementRequiredCheck();
     assertThat(check.child).isEmpty();
     assertThat(check.parent).isEmpty();
   }
 
   @Test
-  public void custom() {
+  void custom() {
     ParentElementRequiredCheck check = new ParentElementRequiredCheck();
     check.child = "bar";
     check.parent = "foo";

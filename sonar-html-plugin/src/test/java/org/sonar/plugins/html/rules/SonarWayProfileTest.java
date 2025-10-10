@@ -22,10 +22,10 @@ import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInQual
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
 import org.sonar.plugins.html.api.HtmlConstants;
 
-public class SonarWayProfileTest {
+class SonarWayProfileTest {
 
   @Test
-  public void test() {
+  void test() {
     SonarWayProfile definition = new SonarWayProfile();
     Context context = new Context();
     definition.define(context);

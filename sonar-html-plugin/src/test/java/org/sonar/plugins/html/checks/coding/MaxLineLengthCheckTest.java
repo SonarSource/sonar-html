@@ -23,13 +23,13 @@ import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
-public class MaxLineLengthCheckTest {
+class MaxLineLengthCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  public void test() {
+  void test() {
     HtmlSourceCode file = TestHelper.scan(new File("src/test/resources/checks/MaxLineLengthCheck.html"), new MaxLineLengthCheck());
     checkMessagesVerifier.verify(file.getIssues())
         .next().atLine(2).withMessage("Split this 121 characters long line (which is greater than 120 authorized).")
@@ -39,7 +39,7 @@ public class MaxLineLengthCheckTest {
   }
 
   @Test
-  public void custom() {
+  void custom() {
     MaxLineLengthCheck check = new MaxLineLengthCheck();
     check.maxLength = 40;
 

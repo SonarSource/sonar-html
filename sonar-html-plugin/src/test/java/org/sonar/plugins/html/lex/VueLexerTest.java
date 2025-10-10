@@ -23,10 +23,10 @@ import org.sonar.plugins.html.node.Node;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class VueLexerTest {
+class VueLexerTest {
 
   @Test
-  public void testMissingTemplate() {
+  void testMissingTemplate() {
     String fragment = "";
 
     StringReader reader = new StringReader(fragment);
@@ -37,7 +37,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void testEmptyTemplate() {
+  void testEmptyTemplate() {
     String fragment = "<template/>";
 
     StringReader reader = new StringReader(fragment);
@@ -48,7 +48,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void commentedTemplate() {
+  void commentedTemplate() {
     String fragment = "<!-- <template><foo/><bar/></template> -->";
 
     StringReader reader = new StringReader(fragment);
@@ -59,7 +59,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void testVoidTemplate() {
+  void testVoidTemplate() {
     String fragment = "<template></template>";
 
     StringReader reader = new StringReader(fragment);
@@ -70,7 +70,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void testFilledTemplate() {
+  void testFilledTemplate() {
     String fragment =
       "<template>" +
         "<!-- some HTML code here -->" +
@@ -92,7 +92,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void testMultipleTemplates() {
+  void testMultipleTemplates() {
     String fragment = "<template><foo/><bar/><baz/></template><template><qux/></template>";
 
     StringReader reader = new StringReader(fragment);
@@ -103,7 +103,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void testNestedTemplates() {
+  void testNestedTemplates() {
     String fragment = "<template><template><template><template></template></template></template></template>";
 
     StringReader reader = new StringReader(fragment);
@@ -114,7 +114,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void testMalformedTemplate1() {
+  void testMalformedTemplate1() {
     String fragment = "<template><foo/><bar/>";
 
     StringReader reader = new StringReader(fragment);
@@ -125,7 +125,7 @@ public class VueLexerTest {
   }
 
   @Test
-  public void testMalformedTemplate2() {
+  void testMalformedTemplate2() {
     String fragment = "<foo/><bar/></template>";
 
     StringReader reader = new StringReader(fragment);
