@@ -17,7 +17,6 @@
 package org.sonar.plugins.html.checks.dependencies;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
