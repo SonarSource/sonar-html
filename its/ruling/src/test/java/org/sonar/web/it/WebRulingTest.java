@@ -30,7 +30,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.apache.commons.lang.StringUtils;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -138,7 +137,7 @@ public class WebRulingTest {
       .findFirst()
       .orElse(null);
 
-    if (!StringUtils.isEmpty(profileKey)) {
+    if (profileKey != null && !profileKey.isEmpty()) {
       newAdminWsClient(orchestrator)
         .qualityprofiles()
         .activateRule(
