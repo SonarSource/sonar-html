@@ -50,6 +50,7 @@ class NoAriaHiddenOnFocusableCheckTest {
       .next().atLine(4)
       .next().atLine(5)
       .next().atLine(6)
+      .next().atLine(7)
       .noMore();
 
   }

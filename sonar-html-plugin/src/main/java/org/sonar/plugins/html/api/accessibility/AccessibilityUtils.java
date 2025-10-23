@@ -30,9 +30,9 @@ public class AccessibilityUtils {
     return (
       (
         "input".equalsIgnoreCase(element.getNodeName()) &&
-        "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
+          "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
       ) ||
-      "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
+        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
     );
   }
 
@@ -48,9 +48,14 @@ public class AccessibilityUtils {
 
   public static boolean isFocusableElement(TagNode element) {
     String tabindex = element.getAttribute("tabindex");
-    if (isInteractiveElement(element)) {
-      return tabindex == null || Double.parseDouble(tabindex) >= 0;
+    try {
+      if (isInteractiveElement(element)) {
+        return tabindex == null || Double.parseDouble(tabindex) >= 0;
+      }
+      return tabindex != null && Double.parseDouble(tabindex) >= 0;
+    } catch (NumberFormatException e) {
+      // if it's declaratively set (i.e., angular or php), we assume it can be positive
+      return true;
     }
-    return tabindex != null && Double.parseDouble(tabindex) >= 0;
   }
 }
