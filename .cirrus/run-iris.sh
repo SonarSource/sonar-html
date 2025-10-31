@@ -7,7 +7,6 @@ set -euo pipefail
 function run_iris () {
   java \
     -Diris.source.projectKey="org.sonarsource.html:html" \
-    -Diris.source.organization="sonarsource" \
     -Diris.source.url="https://next.sonarqube.com/sonarqube" \
     -Diris.source.token="$SONAR_SOURCE_IRIS_TOKEN" \
     -Diris.destination.projectKey="SonarSource_sonar-html" \
