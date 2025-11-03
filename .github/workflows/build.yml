@@ -1,0 +1,111 @@
+name: Build
+on:
+  push:
+    branches: [master, branch-*, dogfood-*]
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  build:
+    runs-on: github-ubuntu-latest-s
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+      - uses: SonarSource/ci-github-actions/build-maven@v1
+        with:
+          deploy-pull-request: true
+          artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
+          maven-args: "-Dsonar.projectKey=org.sonarsource.html:html -Dsonar.organization=sonarsource -Pcoverage-report"
+          sonar-platform: next
+      - name: Upload plugin JAR
+        if: always() && ! cancelled()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sonar-html-plugin
+          path: sonar-html-plugin/target/sonar-html-plugin-*.jar
+
+  build-windows:
+    needs: [build]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+      - name: Run Maven tests
+        run: mvn test
+
+  qa:
+    if: github.actor != 'dependabot[bot]'
+    needs: [build]
+    runs-on: github-ubuntu-latest-s
+    strategy:
+      matrix:
+        sq-version: [LATEST_RELEASE, DEV]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: sonar-html-plugin
+          path: sonar-html-plugin/target
+      - name: Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
+      - name: Run QA tests
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
+        run: |
+          cd its/plugin
+          mvn verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+
+  ruling:
+    if: github.actor != 'dependabot[bot]'
+    needs: [build]
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          submodules: true
+      - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: sonar-html-plugin
+          path: sonar-html-plugin/target
+      - name: Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
+      - name: Run ruling tests
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
+        run: |
+          cd its/ruling
+          mvn verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V

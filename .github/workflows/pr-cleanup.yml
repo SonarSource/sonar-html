@@ -1,0 +1,14 @@
+name: Cleanup PR Resources
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  actions: write
+  id-token: write
+
+jobs:
+  cleanup:
+    runs-on: github-ubuntu-latest-s
+    steps:
+      - uses: SonarSource/ci-github-actions/pr_cleanup@v1
