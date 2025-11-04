@@ -66,11 +66,10 @@ jobs:
         with:
           name: sonar-html-plugin
           path: sonar-html-plugin/target
-      - uses: SonarSource/ci-github-actions/build-maven@57cf6c40dbb40d7266a976bb2f334dd41b957bee
+      - uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           artifactory-reader-role: private-reader
-          maven-args: "-Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false"
-          deploy: false
+          maven-args: "verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false"
           sonar-platform: none
           working-directory: its/plugin
 
@@ -92,10 +91,9 @@ jobs:
         with:
           name: sonar-html-plugin
           path: sonar-html-plugin/target
-      - uses: SonarSource/ci-github-actions/build-maven@57cf6c40dbb40d7266a976bb2f334dd41b957bee
+      - uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           artifactory-reader-role: private-reader
-          maven-args: "-Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false"
-          deploy: false
+          maven-args: "verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false"
           sonar-platform: none
           working-directory: its/ruling
