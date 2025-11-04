@@ -59,9 +59,6 @@ jobs:
             project-key: SonarSource_sonar-html
           - platform: sqc-us
             project-key: SonarSource_sonar-html
-    permissions:
-      id-token: write
-      contents: read
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
@@ -70,7 +67,6 @@ jobs:
       - uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           artifactory-reader-role: private-reader
-          artifactory-deployer-role: qa-deployer
           maven-args: "-Dsonar.projectKey=${{ matrix.project-key }} -Dsonar.organization=sonarsource -Pcoverage-report -Dmaven.install.skip=true -Dmaven.deploy.skip=true"
           sonar-platform: ${{ matrix.platform }}
 
@@ -177,4 +173,3 @@ jobs:
       - uses: SonarSource/ci-github-actions/promote@v1
         with:
           promote-pull-request: true
-          artifactory-promoter-role: promoter
