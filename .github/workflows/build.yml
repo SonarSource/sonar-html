@@ -70,6 +70,7 @@ jobs:
       - uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
           maven-args: "-Dsonar.projectKey=${{ matrix.project-key }} -Dsonar.organization=sonarsource -Pcoverage-report -Dmaven.install.skip=true -Dmaven.deploy.skip=true"
           sonar-platform: ${{ matrix.platform }}
 
