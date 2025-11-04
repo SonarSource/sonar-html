@@ -121,8 +121,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
         run: |
-          cd its/plugin
-          mvn verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn -f its/plugin/pom.xml verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
     if: github.actor != 'dependabot[bot]'
@@ -160,7 +159,7 @@ jobs:
 
   promote:
     if: github.actor != 'dependabot[bot]'
-    needs: [analyze, build-windows, qa, ruling]
+    needs: [analyze, build-windows, qa, ruling, iris]
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
