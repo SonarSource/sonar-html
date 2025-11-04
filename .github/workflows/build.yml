@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: github-ubuntu-latest-s
+    runs-on: github-ubuntu-latest-m
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
@@ -66,12 +66,22 @@ jobs:
         with:
           name: sonar-html-plugin
           path: sonar-html-plugin/target
-      - uses: SonarSource/ci-github-actions/build-maven@v1
+      - name: Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
         with:
-          artifactory-reader-role: private-reader
-          maven-args: "verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false"
-          sonar-platform: none
-          working-directory: its/plugin
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
+            development/artifactory/token/sonarsource-sonar-html-private-reader access_token | ARTIFACTORY_PRIVATE_PASSWORD;
+      - name: Run QA tests
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
+          ARTIFACTORY_PRIVATE_USERNAME: vault-sonarsource-sonar-html-private-reader
+          ARTIFACTORY_PRIVATE_PASSWORD: ${{ fromJSON(steps.secrets.outputs.vault)['ARTIFACTORY_PRIVATE_PASSWORD'] }}
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['ARTIFACTORY_PRIVATE_PASSWORD'] }}
+        run: |
+          cd its/plugin
+          mvn verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
     if: github.actor != 'dependabot[bot]'
@@ -91,9 +101,18 @@ jobs:
         with:
           name: sonar-html-plugin
           path: sonar-html-plugin/target
-      - uses: SonarSource/ci-github-actions/build-maven@v1
+      - name: Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
         with:
-          artifactory-reader-role: private-reader
-          maven-args: "verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false"
-          sonar-platform: none
-          working-directory: its/ruling
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
+            development/artifactory/token/sonarsource-sonar-html-private-reader access_token | ARTIFACTORY_PRIVATE_PASSWORD;
+      - name: Run ruling tests
+        env:
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
+          ARTIFACTORY_PRIVATE_USERNAME: vault-sonarsource-sonar-html-private-reader
+          ARTIFACTORY_PRIVATE_PASSWORD: ${{ fromJSON(steps.secrets.outputs.vault)['ARTIFACTORY_PRIVATE_PASSWORD'] }}
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['ARTIFACTORY_PRIVATE_PASSWORD'] }}
+        run: |
+          mvn -f its/ruling/pom.xml verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
