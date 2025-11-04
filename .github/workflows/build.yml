@@ -28,12 +28,6 @@ jobs:
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
           sonar-platform: none
-      - name: Upload plugin JAR
-        if: always() && ! cancelled()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: sonar-html-plugin
-          path: sonar-html-plugin/target/sonar-html-plugin-*.jar
 
   build-windows:
     needs: [build]
@@ -107,10 +101,6 @@ jobs:
       - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
         with:
           version: 2025.7.12
-      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
-        with:
-          name: sonar-html-plugin
-          path: sonar-html-plugin/target
       - name: Vault
         id: secrets
         uses: SonarSource/vault-action-wrapper@v3
@@ -121,7 +111,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
         run: |
-          mvn -f its/plugin/pom.xml verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn -f its/plugin/pom.xml verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V -Pqa
 
   ruling:
     if: github.actor != 'dependabot[bot]'
@@ -137,10 +127,6 @@ jobs:
       - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
         with:
           version: 2025.7.12
-      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
-        with:
-          name: sonar-html-plugin
-          path: sonar-html-plugin/target
       - name: Vault
         id: secrets
         uses: SonarSource/vault-action-wrapper@v3
@@ -155,7 +141,7 @@ jobs:
           ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
           ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
-          mvn -f its/ruling/pom.xml verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn -f its/ruling/pom.xml verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V -Pqa
 
   promote:
     if: github.actor != 'dependabot[bot]'
