@@ -66,18 +66,13 @@ jobs:
         with:
           name: sonar-html-plugin
           path: sonar-html-plugin/target
-      - name: Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
+      - uses: SonarSource/ci-github-actions/build-maven@57cf6c40dbb40d7266a976bb2f334dd41b957bee
         with:
-          secrets: |
-            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
-      - name: Run QA tests
-        env:
-          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
-        run: |
-          cd its/plugin
-          mvn verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          artifactory-reader-role: private-reader
+          maven-args: "-Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false"
+          deploy: false
+          sonar-platform: none
+          working-directory: its/plugin
 
   ruling:
     if: github.actor != 'dependabot[bot]'
@@ -97,15 +92,10 @@ jobs:
         with:
           name: sonar-html-plugin
           path: sonar-html-plugin/target
-      - name: Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
+      - uses: SonarSource/ci-github-actions/build-maven@57cf6c40dbb40d7266a976bb2f334dd41b957bee
         with:
-          secrets: |
-            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
-      - name: Run ruling tests
-        env:
-          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
-        run: |
-          cd its/ruling
-          mvn verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          artifactory-reader-role: private-reader
+          maven-args: "-Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false"
+          deploy: false
+          sonar-platform: none
+          working-directory: its/ruling
