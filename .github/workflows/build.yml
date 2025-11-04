@@ -28,7 +28,7 @@ jobs:
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
           maven-args: "-Dsonar.projectKey=org.sonarsource.html:html -Dsonar.organization=sonarsource -Pcoverage-report"
-          sonar-platform: next
+          sonar-platform: none
       - name: Upload plugin JAR
         if: always() && ! cancelled()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
