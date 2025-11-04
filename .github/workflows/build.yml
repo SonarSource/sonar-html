@@ -27,16 +27,7 @@ jobs:
           deploy-pull-request: true
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
-          maven-args: "-Dsonar.projectKey=org.sonarsource.html:html -Dsonar.organization=sonarsource -Pcoverage-report"
-          run-shadow-scans: true
-      - uses: SonarSource/unified-dogfooding-actions/run-iris@v1
-        with:
-          primary_project_key: "org.sonarsource.html:html"
-          primary_platform: "Next"
-          shadow1_project_key: "SonarSource_sonar-html"
-          shadow1_platform: "SQC-EU"
-          shadow2_project_key: "SonarSource_sonar-html"
-          shadow2_platform: "SQC-US"
+          sonar-platform: none
       - name: Upload plugin JAR
         if: always() && ! cancelled()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -54,6 +45,54 @@ jobs:
           version: 2025.7.12
       - name: Run Maven tests
         run: mvn test
+
+  analyze:
+    if: github.actor != 'dependabot[bot]'
+    needs: [build]
+    runs-on: github-ubuntu-latest-s
+    strategy:
+      matrix:
+        include:
+          - platform: next
+            project-key: org.sonarsource.html:html
+          - platform: sqc-eu
+            project-key: SonarSource_sonar-html
+          - platform: sqc-us
+            project-key: SonarSource_sonar-html
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+      - uses: SonarSource/ci-github-actions/build-maven@v1
+        with:
+          artifactory-reader-role: private-reader
+          maven-args: "-Dsonar.projectKey=${{ matrix.project-key }} -Dsonar.organization=sonarsource -Pcoverage-report -Dmaven.install.skip=true -Dmaven.deploy.skip=true"
+          sonar-platform: ${{ matrix.platform }}
+
+  iris:
+    if: github.actor != 'dependabot[bot]'
+    needs: [analyze]
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+        with:
+          version: 2025.7.12
+      - uses: SonarSource/unified-dogfooding-actions/run-iris@v1
+        with:
+          primary_project_key: "org.sonarsource.html:html"
+          primary_platform: "Next"
+          shadow1_project_key: "SonarSource_sonar-html"
+          shadow1_platform: "SQC-EU"
+          shadow2_project_key: "SonarSource_sonar-html"
+          shadow2_platform: "SQC-US"
 
   qa:
     if: github.actor != 'dependabot[bot]'
@@ -123,7 +162,7 @@ jobs:
 
   promote:
     if: github.actor != 'dependabot[bot]'
-    needs: [build, build-windows, qa, ruling]
+    needs: [analyze, build-windows, qa, ruling]
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
