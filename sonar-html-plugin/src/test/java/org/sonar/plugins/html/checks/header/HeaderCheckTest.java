@@ -75,7 +75,7 @@ class HeaderCheckTest {
   @Test
   void regex1() {
     HeaderCheck check = new HeaderCheck();
-    check.headerFormat = "<!-- copyright \\d{4}\\n  mycompany -->";
+    check.headerFormat = "<!-- copyright \\d{4}\\r?\\n  mycompany -->";
     check.isRegularExpression = true;
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/Regex1.html"), check);
@@ -86,7 +86,7 @@ class HeaderCheckTest {
   @Test
   void regex2() {
     HeaderCheck check = new HeaderCheck();
-    check.headerFormat = "<!-- copyright \\d{4}\\n  mycompany -->";
+    check.headerFormat = "<!-- copyright \\d{4}\\r?\\n  mycompany -->";
     check.isRegularExpression = true;
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/HeaderCheck/Regex2.html"), check);
