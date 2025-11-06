@@ -58,7 +58,20 @@ jobs:
       - uses: SonarSource/ci-github-actions/config-maven@v1
         with:
           artifactory-reader-role: private-reader
+      - name: Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
+            development/kv/data/repox url | ARTIFACTORY_URL;
+            development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
       - name: Run QA tests
+        env:
+          SONARSOURCE_QA: true
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
+          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
           mvn -f its/plugin/pom.xml verify -Pqa -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
@@ -79,7 +92,20 @@ jobs:
       - uses: SonarSource/ci-github-actions/config-maven@v1
         with:
           artifactory-reader-role: private-reader
+      - name: Vault
+        id: secrets
+        uses: SonarSource/vault-action-wrapper@v3
+        with:
+          secrets: |
+            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
+            development/kv/data/repox url | ARTIFACTORY_URL;
+            development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
       - name: Run ruling tests
+        env:
+          SONARSOURCE_QA: true
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
+          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
           mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
