@@ -28,12 +28,6 @@ jobs:
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
           sonar-platform: next
-      - name: Upload plugin JAR
-        if: always() && ! cancelled()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: sonar-html-plugin
-          path: sonar-html-plugin/target/sonar-html-plugin-*.jar
 
   build-windows:
     needs: [build]
@@ -61,25 +55,12 @@ jobs:
       - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
         with:
           version: 2025.7.12
-      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      - uses: SonarSource/ci-github-actions/config-maven@v1
         with:
-          name: sonar-html-plugin
-          path: sonar-html-plugin/target
-      - name: Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
-        with:
-          secrets: |
-            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
-            development/kv/data/repox url | ARTIFACTORY_URL;
-            development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
+          artifactory-reader-role: private-reader
       - name: Run QA tests
-        env:
-          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
-          mvn -f its/plugin/pom.xml verify -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn -f its/plugin/pom.xml verify -Pqa -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
     if: github.actor != 'dependabot[bot]'
@@ -95,28 +76,14 @@ jobs:
       - uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
         with:
           version: 2025.7.12
-      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      - uses: SonarSource/ci-github-actions/config-maven@v1
         with:
-          name: sonar-html-plugin
-          path: sonar-html-plugin/target
-      - name: Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
-        with:
-          secrets: |
-            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
-            development/kv/data/repox url | ARTIFACTORY_URL;
-            development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
+          artifactory-reader-role: private-reader
       - name: Run ruling tests
-        env:
-          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
-          mvn -f its/ruling/pom.xml verify -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   promote:
-    if: github.actor != 'dependabot[bot]'
     needs: [build, build-windows, qa, ruling]
     runs-on: github-ubuntu-latest-s
     permissions:
