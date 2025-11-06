@@ -1,7 +1,7 @@
 Code Quality and Security for HTML
 ====================
 
-[![Build Status](https://api.travis-ci.org/SonarSource/sonar-html.svg)](https://travis-ci.org/SonarSource/sonar-html)
+[![Build](https://github.com/SonarSource/sonar-html/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/SonarSource/sonar-html/actions/workflows/build.yml)
 
 Useful links
 ------------
