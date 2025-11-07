@@ -43,7 +43,7 @@ jobs:
   qa:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
-    runs-on: github-ubuntu-latest-s
+    runs-on: github-ubuntu-latest-m
     strategy:
       matrix:
         sq-version: [LATEST_RELEASE, DEV]
@@ -78,7 +78,7 @@ jobs:
   ruling:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
-    runs-on: github-ubuntu-latest-s
+    runs-on: github-ubuntu-latest-m
     permissions:
       id-token: write
       contents: read
