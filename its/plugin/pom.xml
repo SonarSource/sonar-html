@@ -37,7 +37,7 @@
     <dependency>
       <groupId>org.sonarsource.sonarlint.core</groupId>
       <artifactId>sonarlint-core</artifactId>
-      <version>10.36.0.83732</version>
+      <version>10.37.0.83877</version>
       <scope>test</scope>
     </dependency>
     <dependency>
