@@ -72,7 +72,7 @@
     <sonarqube.sonar.ws.version>25.11.0.114957</sonarqube.sonar.ws.version>
     <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/coverage/java/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     <sonar.sca.exclusions>its/**</sonar.sca.exclusions>
-    <orchestrator.version>6.0.0.3852</orchestrator.version>
+    <orchestrator.version>6.0.1.3892</orchestrator.version>
     <junit.version>4.13.2</junit.version>
     <assertj.version>3.27.6</assertj.version>
     <mockito.version>5.20.0</mockito.version>
