@@ -34,6 +34,8 @@ import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
+import javax.annotation.Nullable;
+
 @Rule(key = "S5260")
 public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
@@ -42,7 +44,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
   private static final Pattern DYNAMIC_HEADERS = Pattern.compile("[{}$()\\[\\]]");
   private static final String HEADERS = "HEADERS";
 
-  private Deque<TableBuilder> stack = new LinkedList<>();
+  private final Deque<TableBuilder> stack = new LinkedList<>();
 
   @FunctionalInterface
   private interface TriFunction<A, B, C> {
@@ -77,7 +79,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
     private static class Header extends Cell {
       
-      private String id;
+      private final String id;
 
       Header(TagNode node) {
         super(node);
@@ -99,8 +101,8 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
     int numberOfCells() {
       int max = 0;
-      for (int i = 0; i < rows.size(); ++i) {
-        max = Integer.max(max, rows.get(i).size());
+      for (List<Cell> row : rows) {
+        max = Integer.max(max, row.size());
       }
       return max;
     }
@@ -164,12 +166,12 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
 
   private static class TableBuilder {
 
-    private ArrayList<RowBuilder> rows = new ArrayList<>();
+    private final ArrayList<RowBuilder> rows = new ArrayList<>();
     private RowBuilder currentRow = null;
 
     private static class RowBuilder {
 
-      private List<Table.Cell> cells = new ArrayList<>();
+      private final List<Table.Cell> cells = new ArrayList<>();
 
       int indexOfVacantCell() {
         for (int i = 0; i < cells.size(); ++i) {
@@ -241,22 +243,29 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
       return new Table(rows.stream().map(RowBuilder::build).toList());
     }
 
-    private static int getRowSpan(TagNode node) {
-      String rowspan = node.getPropertyValue("ROWSPAN");
+    private static int sanitizeSpan(@Nullable String span, int limit) {
       try {
-        return Integer.parseInt(rowspan);
-      } catch (NumberFormatException ex) {
+        assert span != null;
+        var number = Integer.parseInt(span);
+        if (number < 0) {
+          return 1;
+        } else if (number > limit) {
+          number = limit;
+        }
+        return number;
+      } catch (NumberFormatException | AssertionError  ex) {
         return 1;
       }
     }
+
+    private static int getRowSpan(TagNode node) {
+      String rowspan = node.getPropertyValue("ROWSPAN");
+      return sanitizeSpan(rowspan, 65534);
+    }
   
     private static int getColSpan(TagNode node) {
-      String rowspan = node.getPropertyValue("COLSPAN");
-      try {
-        return Integer.parseInt(rowspan);
-      } catch (NumberFormatException ex) {
-        return 1;
-      }
+      String colspan = node.getPropertyValue("COLSPAN");
+      return sanitizeSpan(colspan, 1000);
     }
   }
 
@@ -303,7 +312,7 @@ public class TableHeaderReferenceCheck extends AbstractPageCheck {
             createViolation(node,
               format("id \"%s\" in \"headers\" does not reference any <th> header.", header));
           }
-          raisedFor.merge(node, Arrays.asList(header), (acc, val) -> { acc.addAll(val); return acc; });
+          raisedFor.merge(node, List.of(header), (acc, val) -> { acc.addAll(val); return acc; });
           break;
         }
       }
