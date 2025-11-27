@@ -25,12 +25,14 @@ import org.sonar.plugins.html.api.accessibility.Element;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+
 @Rule(key = "S6819")
 public class PreferTagOverRoleCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     var roleAttr = element.getPropertyValue("role");
-    if (roleAttr == null) {
+    if (roleAttr == null || !hasKnownHTMLTag(element)) {
       return;
     }
 

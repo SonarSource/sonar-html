@@ -34,8 +34,6 @@ class PreferTagOverRoleCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/PreferTagOverRoleCheck.html"),
       new PreferTagOverRoleCheck());
-    var issues = sourceCode.getIssues();
-    assertThat(issues).hasSize(8);
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
       .next().atLine(2).withMessage("Use <button> or <input> instead of the button role to ensure accessibility across all devices.")
@@ -43,8 +41,7 @@ class PreferTagOverRoleCheckTest {
       .next().atLine(4).withMessage("Use <a> or <area> instead of the link role to ensure accessibility across all devices.")
       .next().atLine(5).withMessage("Use <tbody> or <tfoot> or <thead> instead of the rowgroup role to ensure accessibility across all devices.")
       .next().atLine(6).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
-      .next().atLine(7).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
-      .next().atLine(8).withMessage("Use <header> instead of the banner role to ensure accessibility across all devices.")
+      .next().atLine(7).withMessage("Use <header> instead of the banner role to ensure accessibility across all devices.")
       .consume();
   }
 }
