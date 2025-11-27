@@ -108,6 +108,9 @@ jobs:
           ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
           mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+      - name: Show ruling differences
+        if: failure()
+        run: ./tools/ruling-debug-script.sh
 
   promote:
     needs: [build, build-windows, qa, ruling]
