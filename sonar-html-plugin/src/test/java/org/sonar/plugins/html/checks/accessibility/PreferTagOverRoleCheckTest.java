@@ -16,8 +16,6 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
