@@ -18,8 +18,11 @@ jobs:
   build:
     runs-on: github-ubuntu-latest-m
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      - uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
+      - &checkout
+        name: Checkout source code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - &mise
+        uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
         with:
           version: 2025.7.12
       - uses: SonarSource/ci-github-actions/build-maven@v1
@@ -28,17 +31,22 @@ jobs:
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
           sonar-platform: next
+          maven-args: '-T1C'
 
   build-windows:
     needs: [build]
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      - uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
+      - *checkout
+      - *mise
+      - name: Build Maven (no deploy)
+        uses: SonarSource/ci-github-actions/build-maven@master
         with:
-          version: 2025.7.12
-      - name: Run Maven tests
-        run: mvn test
+          deploy: false
+          artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
+          sonar-platform: none
+          maven-args: '-T1C'
 
   qa:
     if: github.actor != 'dependabot[bot]'
@@ -51,14 +59,14 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      - uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
-        with:
-          version: 2025.7.12
-      - uses: SonarSource/ci-github-actions/config-maven@v1
+      - *checkout
+      - *mise
+      - &config_maven
+        uses: SonarSource/ci-github-actions/config-maven@v1
         with:
           artifactory-reader-role: private-reader
-      - name: Vault
+      - &secrets
+        name: Vault
         id: secrets
         uses: SonarSource/vault-action-wrapper@v3
         with:
@@ -67,7 +75,7 @@ jobs:
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
       - name: Run QA tests
-        env:
+        env: &qa_env
           SONARSOURCE_QA: true
           GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
           ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
@@ -86,26 +94,11 @@ jobs:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           submodules: true
-      - uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
-        with:
-          version: 2025.7.12
-      - uses: SonarSource/ci-github-actions/config-maven@v1
-        with:
-          artifactory-reader-role: private-reader
-      - name: Vault
-        id: secrets
-        uses: SonarSource/vault-action-wrapper@v3
-        with:
-          secrets: |
-            development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
-            development/kv/data/repox url | ARTIFACTORY_URL;
-            development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
+      - *mise
+      - *config_maven
+      - *secrets
       - name: Run ruling tests
-        env:
-          SONARSOURCE_QA: true
-          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
+        env: *qa_env
         run: |
           mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Show ruling differences
@@ -119,7 +112,7 @@ jobs:
       id-token: write
       contents: write
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - *checkout
       - uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3.5.1
         with:
           version: 2025.7.12
