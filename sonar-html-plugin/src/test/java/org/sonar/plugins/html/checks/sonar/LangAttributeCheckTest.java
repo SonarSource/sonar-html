@@ -47,4 +47,12 @@ class LangAttributeCheckTest {
 			.next().atLine(83).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 	    .noMore();
   }
+
+  @Test
+  void jspElExpressionShouldBeConsideredDynamic() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheckJspEl.html"), new LangAttributeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .noMore();
+  }
 }
