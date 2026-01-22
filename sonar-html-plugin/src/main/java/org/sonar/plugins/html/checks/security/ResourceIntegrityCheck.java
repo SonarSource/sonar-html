@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.security;
 
 import java.util.Set;
+import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -30,9 +31,8 @@ public class ResourceIntegrityCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (node.equalsElementName("script") && hasExternalSource(node, "src")) {
-      createViolation(node, MESSAGE);
-    } else if (node.equalsElementName("link") && hasIntegrityRelevantRel(node) && hasExternalSource(node, "href")) {
+    if ((node.equalsElementName("script") && hasExternalSource(node, "src")) ||
+      (node.equalsElementName("link") && hasIntegrityRelevantRel(node) && hasExternalSource(node, "href"))) {
       createViolation(node, MESSAGE);
     }
   }
@@ -44,7 +44,7 @@ public class ResourceIntegrityCheck extends AbstractPageCheck {
 
   private static boolean hasIntegrityRelevantRel(TagNode node) {
     Attribute rel = node.getProperty("rel");
-    return rel != null && LINK_REL_VALUES.contains(rel.getValue().toLowerCase());
+    return rel != null && LINK_REL_VALUES.contains(rel.getValue().toLowerCase(Locale.ROOT));
   }
 
   private static boolean isExternal(String srcValue) {
