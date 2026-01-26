@@ -13,3 +13,37 @@
 
 <img alt="foo" src="https://cdnexample.com/myImage.js" /> <!-- compliant , not a script-->
 <img src="https://cdnexample.com/myImage.png" /> <!-- compliant , not a script-->
+
+<!-- link elements with rel="stylesheet" -->
+<link rel="stylesheet" href="https://cdn.example.com/style.css"> <!-- Sensitive -->
+<link rel="stylesheet" href="//cdn.example.com/style.css"> <!-- Sensitive -->
+<link rel="stylesheet" href="http://cdn.example.com/style.css"> <!-- Sensitive -->
+<link rel="STYLESHEET" href="https://cdn.example.com/style.css"> <!-- Sensitive, case insensitive -->
+
+<!-- link elements with rel="preload" -->
+<link rel="preload" href="https://cdn.example.com/font.woff2" as="font"> <!-- Sensitive -->
+<link rel="preload" href="//cdn.example.com/script.js" as="script"> <!-- Sensitive -->
+<link rel="PRELOAD" href="https://cdn.example.com/style.css" as="style"> <!-- Sensitive, case insensitive -->
+
+<!-- link elements with rel="modulepreload" -->
+<link rel="modulepreload" href="https://cdn.example.com/module.js"> <!-- Sensitive -->
+<link rel="modulepreload" href="//cdn.example.com/module.js"> <!-- Sensitive -->
+<link rel="MODULEPRELOAD" href="https://cdn.example.com/module.js"> <!-- Sensitive, case insensitive -->
+
+<!-- compliant, integrity correctly set -->
+<link rel="stylesheet" href="https://cdn.example.com/style.css" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+<link rel="preload" href="https://cdn.example.com/font.woff2" as="font" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+<link rel="modulepreload" href="https://cdn.example.com/module.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+
+<!-- compliant, local resources -->
+<link rel="stylesheet" href="styles/main.css">
+<link rel="preload" href="/fonts/font.woff2" as="font">
+<link rel="modulepreload" href="./modules/app.js">
+
+<!-- compliant, no href -->
+<link rel="stylesheet">
+
+<!-- compliant, other rel values -->
+<link rel="icon" href="https://cdn.example.com/favicon.ico">
+<link rel="canonical" href="https://cdn.example.com/page">
+<link rel="alternate" href="https://cdn.example.com/feed.xml">
