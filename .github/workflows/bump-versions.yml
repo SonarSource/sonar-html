@@ -26,9 +26,16 @@ jobs:
           VERSION: ${{ inputs.version }}
         run: |
           snapshot_version="${VERSION}-SNAPSHOT"
-          # Update version in all pom.xml files (root and parent references in submodules)
-          find . -name "pom.xml" -exec sed -i "s/<version>.*-SNAPSHOT<\/version>/<version>${snapshot_version}<\/version>/" {} \;
-      - uses: peter-evans/create-pull-request@v8
+          # Update root pom.xml version
+          sed -i "s/<version>.*-SNAPSHOT<\/version>/<version>${snapshot_version}<\/version>/" pom.xml
+          # Update parent version references in submodules
+          for pom in sonar-html-plugin/pom.xml coverage-report/pom.xml its/pom.xml its/plugin/pom.xml its/ruling/pom.xml; do
+            if [ -f "$pom" ]; then
+              # Only update the parent version reference (first occurrence)
+              sed -i "0,/<version>.*-SNAPSHOT<\/version>/s/<version>.*-SNAPSHOT<\/version>/<version>${snapshot_version}<\/version>/" "$pom"
+            fi
+          done
+      - uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
         with:
           author: ${{ github.actor }} <${{ github.actor }}>
           commit-message: Prepare next development iteration
