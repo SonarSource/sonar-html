@@ -1,0 +1,17 @@
+<!-- Compliant: Razor HTML helpers that render form controls -->
+<label>@Html.RadioButtonFor(model => model.Option, true) Option 1</label>
+<label>@Html.CheckBoxFor(model => model.Enabled) Enable feature</label>
+<label>@Html.TextBoxFor(model => model.Name) Name</label>
+<label>@Html.TextAreaFor(model => model.Description) Description</label>
+<label>@Html.DropDownListFor(model => model.Country, countries) Country</label>
+<label>@Html.ListBoxFor(model => model.Items, items) Items</label>
+<label>@Html.PasswordFor(model => model.Password) Password</label>
+<label>@Html.HiddenFor(model => model.Id) Hidden</label>
+<label>@Html.EditorFor(model => model.Date) Date</label>
+<label>@Html.TextBox("name") Name</label>
+<label>@Html.RadioButton("option", true) Option</label>
+
+<!-- Noncompliant: No control element -->
+<label>Just text</label>
+<label>@Html.DisplayFor(model => model.Name) Name</label>
+<label>@Html.LabelFor(model => model.Name)</label>
