@@ -90,4 +90,16 @@ class LabelHasAssociatedControlCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
             .noMore();
   }
+
+  @Test
+  void razor() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/razor.cshtml"),
+            new LabelHasAssociatedControlCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+            .next().atLine(15).withMessage("A form label must be associated with a control.")
+            .next().atLine(16)
+            .next().atLine(17)
+            .noMore();
+  }
 }
