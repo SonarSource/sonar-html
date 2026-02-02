@@ -118,27 +118,14 @@ jobs:
         run: |
           MARKER="<!-- ruling-report -->"
 
-          # Check if last commit was an auto-update (verification run after auto-sync)
-          LAST_COMMIT_MSG=$(git log -1 --format=%B)
-          IS_VERIFICATION_RUN=false
-          if echo "$LAST_COMMIT_MSG" | grep -q "🤖 Generated with GitHub Actions"; then
-            IS_VERIFICATION_RUN=true
-          fi
-
-          # Generate ruling report
-          ./tools/ruling-report.sh > ruling-report.md || true
-
-          # Check if there are ruling differences
-          if [ -s ruling-report.md ]; then
-            HAS_DIFFERENCES=true
-          else
-            HAS_DIFFERENCES=false
-          fi
-
-          # Auto-update ruling files when the ruling test failed and there are differences
+          # Auto-update ruling files when the ruling test failed
           RULING_UPDATED=false
-          if [ "$RULING_FAILED" = "true" ] && [ "$HAS_DIFFERENCES" = "true" ] && [ "$IS_VERIFICATION_RUN" = "false" ]; then
-            if [ -d "its/ruling/target/actual" ]; then
+          if [ "$RULING_FAILED" = "true" ]; then
+            # Check if last commit was already an auto-update (prevent infinite loop)
+            LAST_COMMIT_MSG=$(git log -1 --format=%B)
+            if echo "$LAST_COMMIT_MSG" | grep -q "🤖 Generated with GitHub Actions"; then
+              echo "Last commit was an auto-update, skipping to prevent infinite loop"
+            elif [ -d "its/ruling/target/actual" ]; then
               # Sync ruling results
               cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/
 
@@ -157,44 +144,33 @@ jobs:
             fi
           fi
 
+          # Generate ruling report (compares current branch vs base branch)
+          git fetch origin master:refs/remotes/origin/master 2>/dev/null || true
+          ./tools/ruling-report.sh > ruling-report.md || true
+
+          # Check if there are ruling differences
+          if [ -s ruling-report.md ]; then
+            HAS_DIFFERENCES=true
+          else
+            HAS_DIFFERENCES=false
+          fi
+
           # Build comment based on state
           if [ "$HAS_DIFFERENCES" = "true" ]; then
-            # There are ruling differences - show the report
             {
               echo "$MARKER"
               cat ruling-report.md
               echo ""
               echo "---"
               if [ "$RULING_UPDATED" = "true" ]; then
-                echo "✅ **Ruling has been updated.** A verification build will run automatically."
+                echo "✅ **Ruling has been auto-updated.** A verification build will run automatically."
               elif [ "$RULING_FAILED" = "true" ]; then
                 echo "⚠️ **Ruling tests failed.** Please review the differences above."
+              else
+                echo "✅ **Ruling tests passed.**"
               fi
             } > comment.md
-          elif [ "$IS_VERIFICATION_RUN" = "true" ] && [ "$RULING_FAILED" = "false" ]; then
-            # This is a verification run after auto-sync and ruling passed
-            # Get the existing comment to preserve the ruling report
-            EXISTING_COMMENT=$(gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
-              --jq ".[] | select(.body | startswith(\"$MARKER\")) | .body" | head -1 || true)
-
-            if [ -n "$EXISTING_COMMENT" ] && echo "$EXISTING_COMMENT" | grep -q "Ruling Report"; then
-              # Update the existing comment to show verification passed
-              # Keep the report but update the status
-              {
-                echo "$EXISTING_COMMENT" | sed 's/✅ \*\*Ruling has been updated\.\*\*.*/✅ **Ruling verified.** The auto-updated ruling files are correct./' | \
-                  sed 's/⚠️ \*\*Ruling tests failed\.\*\*.*/✅ **Ruling verified.** The auto-updated ruling files are correct./'
-              } > comment.md
-            else
-              # No existing report, just show success
-              {
-                echo "$MARKER"
-                echo "## Ruling Report"
-                echo ""
-                echo "✅ **No changes to ruling expected issues in this PR**"
-              } > comment.md
-            fi
           else
-            # No differences and not a verification run
             {
               echo "$MARKER"
               echo "## Ruling Report"

@@ -1,39 +1,39 @@
 #!/bin/bash
 #
 # Generates a markdown report of ruling differences for PR comments.
-# Compares expected vs actual ruling results and outputs formatted markdown
-# with code snippets showing the actual source code around issues.
+# Compares ruling files between base branch and current state,
+# showing code snippets from the actual source files.
 #
 
 set -e
 
 EXPECTED_DIR="its/ruling/src/test/resources/expected"
-ACTUAL_DIR="its/ruling/target/actual"
 SOURCES_BASE="its/sources"
 SOURCES_REPO="https://github.com/SonarCommunity/web-test-sources"
 MAX_SNIPPETS=10
 
+# Base branch to compare against (default to master)
+BASE_BRANCH="${BASE_BRANCH:-origin/master}"
+
 # Get the commit SHA of the sources submodule for stable URLs
 SOURCES_SHA=$(cd "$SOURCES_BASE" 2>/dev/null && git rev-parse HEAD 2>/dev/null || echo "master")
 
-# Check if actual directory exists
-if [ ! -d "$ACTUAL_DIR" ]; then
+# Check if expected directory exists
+if [ ! -d "$EXPECTED_DIR" ]; then
   exit 0
 fi
 
-# Get list of differing files
-DIFF_OUTPUT=$(diff -rq "$EXPECTED_DIR" "$ACTUAL_DIR" 2>/dev/null || true)
+# Get list of changed ruling files compared to base branch
+CHANGED_FILES=$(git diff --name-only "$BASE_BRANCH" -- "$EXPECTED_DIR" 2>/dev/null || true)
 
-if [ -z "$DIFF_OUTPUT" ]; then
+if [ -z "$CHANGED_FILES" ]; then
   exit 0
 fi
 
 # Function to extract line numbers from JSON for a specific file
-# Usage: get_lines_for_file <json_file> <file_key>
 get_lines_for_file() {
   local json_file="$1"
   local file_key="$2"
-  # Use jq to extract the array of line numbers for the file key
   jq -r --arg key "$file_key" '.[$key] // [] | .[]' "$json_file" 2>/dev/null | sort -n
 }
 
@@ -44,7 +44,6 @@ get_file_keys() {
 }
 
 # Function to show code snippet around a line
-# Usage: show_snippet <source_file> <line_number>
 show_snippet() {
   local source_file="$1"
   local line_num="$2"
@@ -59,7 +58,6 @@ show_snippet() {
   [ "$start" -lt 1 ] && start=1
   local end=$((line_num + context))
 
-  # Read lines and format with line numbers
   local current_line=$start
   while IFS= read -r line || [ -n "$line" ]; do
     if [ "$current_line" -eq "$line_num" ]; then
@@ -72,16 +70,13 @@ show_snippet() {
 }
 
 # Function to resolve source file path from project key
-# Format: "project:ProjectName/path/to/file.ext"
 resolve_source_path() {
   local file_key="$1"
-  # Remove "project:" prefix and construct path
   local relative_path="${file_key#project:}"
   echo "$SOURCES_BASE/$relative_path"
 }
 
 # Function to generate GitHub URL for a file at a specific line
-# Usage: get_github_url <file_key> <line_number>
 get_github_url() {
   local file_key="$1"
   local line_num="$2"
@@ -89,23 +84,43 @@ get_github_url() {
   echo "${SOURCES_REPO}/blob/${SOURCES_SHA}/${relative_path}#L${line_num}"
 }
 
+# Function to get file content from base branch
+get_base_content() {
+  local file_path="$1"
+  git show "${BASE_BRANCH}:${file_path}" 2>/dev/null || echo "{}"
+}
+
 # Start report
 echo "## Ruling Report"
 echo ""
-echo "The following ruling differences were detected:"
+echo "The following ruling changes are in this PR:"
 echo ""
 
-# Process files that differ
-echo "$DIFF_OUTPUT" | grep "differ" | while read -r line; do
-  expected_file=$(echo "$line" | awk '{print $2}')
-  actual_file=$(echo "$line" | awk '{print $4}')
-  rule_name=$(basename "$expected_file" .json)
+# Process each changed file
+for file_path in $CHANGED_FILES; do
+  rule_name=$(basename "$file_path" .json)
+
+  # Get current content
+  if [ -f "$file_path" ]; then
+    current_content=$(cat "$file_path")
+  else
+    current_content="{}"
+  fi
+
+  # Get base content
+  base_content=$(get_base_content "$file_path")
+
+  # Create temp files for comparison
+  base_tmp=$(mktemp)
+  current_tmp=$(mktemp)
+  echo "$base_content" > "$base_tmp"
+  echo "$current_content" > "$current_tmp"
 
   echo "### Rule: \`$rule_name\`"
   echo ""
 
-  # Get all unique file keys from both files
-  all_keys=$(cat <(get_file_keys "$expected_file") <(get_file_keys "$actual_file") 2>/dev/null | sort -u)
+  # Get all unique file keys from both versions
+  all_keys=$(cat <(jq -r 'keys[]' "$base_tmp" 2>/dev/null) <(jq -r 'keys[]' "$current_tmp" 2>/dev/null) | sort -u)
 
   removed_count=0
   added_count=0
@@ -113,14 +128,14 @@ echo "$DIFF_OUTPUT" | grep "differ" | while read -r line; do
   added_snippets=""
 
   for file_key in $all_keys; do
-    expected_lines=$(get_lines_for_file "$expected_file" "$file_key")
-    actual_lines=$(get_lines_for_file "$actual_file" "$file_key")
+    base_lines=$(get_lines_for_file "$base_tmp" "$file_key")
+    current_lines=$(get_lines_for_file "$current_tmp" "$file_key")
 
-    # Find removed lines (in expected but not in actual)
-    removed=$(comm -23 <(echo "$expected_lines" | grep -v '^$' | sort -n) <(echo "$actual_lines" | grep -v '^$' | sort -n) 2>/dev/null || true)
+    # Find removed lines (in base but not in current)
+    removed=$(comm -23 <(echo "$base_lines" | grep -v '^$' | sort -n) <(echo "$current_lines" | grep -v '^$' | sort -n) 2>/dev/null || true)
 
-    # Find added lines (in actual but not in expected)
-    added=$(comm -13 <(echo "$expected_lines" | grep -v '^$' | sort -n) <(echo "$actual_lines" | grep -v '^$' | sort -n) 2>/dev/null || true)
+    # Find added lines (in current but not in base)
+    added=$(comm -13 <(echo "$base_lines" | grep -v '^$' | sort -n) <(echo "$current_lines" | grep -v '^$' | sort -n) 2>/dev/null || true)
 
     source_path=$(resolve_source_path "$file_key")
     display_path="${file_key#project:}"
@@ -147,6 +162,9 @@ echo "$DIFF_OUTPUT" | grep "differ" | while read -r line; do
       fi
     done
   done
+
+  # Clean up temp files
+  rm -f "$base_tmp" "$current_tmp"
 
   # Output removed issues section
   if [ "$removed_count" -gt 0 ]; then
@@ -175,60 +193,10 @@ echo "$DIFF_OUTPUT" | grep "differ" | while read -r line; do
     echo "</details>"
     echo ""
   fi
-done
 
-# Process files only in expected (rule completely removed)
-echo "$DIFF_OUTPUT" | grep "Only in $EXPECTED_DIR" | while read -r line; do
-  file=$(echo "$line" | awk -F': ' '{print $2}')
-  rule_name="${file%.json}"
-
-  echo "### Rule: \`$rule_name\`"
-  echo ""
-  echo "⚠️ This rule's expected file was removed entirely."
-  echo ""
-done
-
-# Process files only in actual (new rule)
-echo "$DIFF_OUTPUT" | grep "Only in $ACTUAL_DIR" | while read -r line; do
-  file=$(echo "$line" | awk -F': ' '{print $2}')
-  rule_name="${file%.json}"
-  full_path="$ACTUAL_DIR/$file"
-
-  echo "### Rule: \`$rule_name\`"
-  echo ""
-
-  if [ -f "$full_path" ]; then
-    # Count total issues
-    total_issues=0
-    snippet_count=0
-    snippets=""
-
-    for file_key in $(get_file_keys "$full_path"); do
-      source_path=$(resolve_source_path "$file_key")
-      display_path="${file_key#project:}"
-
-      for line_num in $(get_lines_for_file "$full_path" "$file_key"); do
-        total_issues=$((total_issues + 1))
-        if [ "$snippet_count" -lt "$MAX_SNIPPETS" ]; then
-          snippet_count=$((snippet_count + 1))
-          github_url=$(get_github_url "$file_key" "$line_num")
-          snippets+="[**${display_path}:${line_num}**](${github_url})"$'\n'
-          snippets+="\`\`\`html"$'\n'
-          snippets+="$(show_snippet "$source_path" "$line_num")"$'\n'
-          snippets+="\`\`\`"$'\n\n'
-        fi
-      done
-    done
-
-    echo "<details>"
-    echo "<summary>🆕 New rule with $total_issues issues</summary>"
-    echo ""
-    echo "$snippets"
-    if [ "$total_issues" -gt "$MAX_SNIPPETS" ]; then
-      echo "_...and $((total_issues - MAX_SNIPPETS)) more (see ruling JSON files for full list)_"
-      echo ""
-    fi
-    echo "</details>"
+  # If no line changes detected but file changed, note it
+  if [ "$removed_count" -eq 0 ] && [ "$added_count" -eq 0 ]; then
+    echo "_File changed but no line-level differences detected (possibly formatting only)_"
     echo ""
   fi
 done
