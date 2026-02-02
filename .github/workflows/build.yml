@@ -89,12 +89,14 @@ jobs:
     runs-on: github-ubuntu-latest-m
     permissions:
       id-token: write
-      contents: read
+      contents: write
       pull-requests: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           submodules: true
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - *mise
       - *config_maven
       - *secrets
@@ -106,36 +108,65 @@ jobs:
       - name: Show ruling differences
         if: failure()
         run: ./tools/ruling-debug-script.sh
-      - name: Comment on PR with ruling report
+      - name: Update ruling and comment on PR
         if: always() && github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.head_ref }}
           RULING_FAILED: ${{ steps.ruling.outcome == 'failure' }}
         run: |
           # Generate ruling report
           ./tools/ruling-report.sh > ruling-report.md || true
 
+          # Check if there are ruling differences
+          if [ -s ruling-report.md ]; then
+            HAS_DIFFERENCES=true
+          else
+            HAS_DIFFERENCES=false
+          fi
+
+          # Auto-update ruling files when the ruling test failed and there are differences
+          RULING_UPDATED=false
+          if [ "$RULING_FAILED" = "true" ] && [ "$HAS_DIFFERENCES" = "true" ]; then
+            # Check if last commit was already an auto-update (prevent infinite loop)
+            LAST_COMMIT_MSG=$(git log -1 --format=%B)
+            if echo "$LAST_COMMIT_MSG" | grep -q "🤖 Generated with GitHub Actions"; then
+              echo "Last commit was an auto-update, skipping to prevent infinite loop"
+            elif [ -d "its/ruling/target/actual" ]; then
+              # Sync ruling results
+              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/
+
+              git config user.name "github-actions[bot]"
+              git config user.email "github-actions[bot]@users.noreply.github.com"
+
+              git add its/ruling/src/test/resources/expected/
+
+              if ! git diff --staged --quiet; then
+                git commit -m "Update ruling results
+
+          🤖 Generated with GitHub Actions"
+                git push origin "$HEAD_REF"
+                RULING_UPDATED=true
+              fi
+            fi
+          fi
+
           # Build comment with marker for identification
           MARKER="<!-- ruling-report -->"
-          if [ -s ruling-report.md ]; then
+          if [ "$HAS_DIFFERENCES" = "true" ]; then
             # Build comment with ruling changes
             {
               echo "$MARKER"
               cat ruling-report.md
-              if [ "$RULING_FAILED" = "true" ]; then
-                echo ""
-                echo "---"
+              echo ""
+              echo "---"
+              if [ "$RULING_UPDATED" = "true" ]; then
+                echo "✅ **Ruling has been updated.** Re-run CI to verify:"
+                echo "- Close and reopen this PR, or"
+                echo "- Run: \`git pull && git commit --allow-empty -m 'Trigger CI' && git push\`"
+              elif [ "$RULING_FAILED" = "true" ]; then
                 echo "⚠️ **Ruling tests failed.** Please review the differences above."
-                echo ""
-                echo "If these changes are expected, update the ruling files:"
-                echo "\`\`\`bash"
-                echo "# Run ruling tests locally to generate actual results"
-                echo "mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE"
-                echo ""
-                echo "# Copy actual to expected"
-                echo "cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/"
-                echo "\`\`\`"
               fi
             } > comment.md
           else
