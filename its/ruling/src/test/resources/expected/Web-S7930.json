@@ -96,8 +96,5 @@
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule.html.erb": [
 119
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_type_LICENSE.html.erb": [
-8
 ]
 }
