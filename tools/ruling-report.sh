@@ -47,7 +47,7 @@ get_file_keys() {
 show_snippet() {
   local source_file="$1"
   local line_num="$2"
-  local context=2
+  local context=5
 
   if [ ! -f "$source_file" ]; then
     echo "    (file not found)"

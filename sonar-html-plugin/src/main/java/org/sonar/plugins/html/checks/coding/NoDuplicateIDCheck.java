@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
@@ -31,9 +32,11 @@ import org.sonar.plugins.html.node.TextNode;
 /**
  * Rule to detect duplicate HTML id attributes.
  *
- * To reduce false positives, this rule is lenient with IDs inside conditional blocks
- * (e.g., @if/@else, v-if/v-else, c:if, {% if %}). IDs inside conditionals are only
- * checked against IDs found outside any conditional block, not against each other.
+ * To reduce false positives, this rule:
+ * 1. Is lenient with IDs inside conditional blocks (e.g., @if/@else, v-if/v-else, c:if, {% if %}).
+ *    IDs inside conditionals are only checked against IDs found outside any conditional block.
+ * 2. Ignores IDs that contain dynamic/template expressions (e.g., @variable, {{expression}}, ${var})
+ *    since these will be unique at runtime.
  */
 @Rule(key = "S7930")
 public class NoDuplicateIDCheck extends AbstractPageCheck {
@@ -138,6 +141,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     // Check for ID attribute
     var idValue = node.getAttribute("id");
     if (idValue != null && !idValue.isEmpty()) {
+      // Skip dynamic IDs - they will be unique at runtime
+      if (Helpers.isDynamicValue(idValue, getHtmlSourceCode())) {
+        return;
+      }
+
       boolean inConditional = isInConditional(node);
 
       if (inConditional) {
