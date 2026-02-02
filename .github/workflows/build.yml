@@ -114,6 +114,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
           RULING_FAILED: ${{ steps.ruling.outcome == 'failure' }}
         run: |
           MARKER="<!-- ruling-report -->"
@@ -144,9 +145,9 @@ jobs:
             fi
           fi
 
-          # Generate ruling report (compares current branch vs base branch)
-          git fetch origin master:refs/remotes/origin/master 2>/dev/null || true
-          ./tools/ruling-report.sh > ruling-report.md || true
+          # Generate ruling report (compares current branch vs PR base branch)
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+          BASE_BRANCH="origin/$BASE_REF" ./tools/ruling-report.sh > ruling-report.md || true
 
           # Check if there are ruling differences
           if [ -s ruling-report.md ]; then
