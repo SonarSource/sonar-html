@@ -212,8 +212,7 @@ public class HtmlConstants {
   // computed from https://github.com/A11yance/aria-query/blob/main/src/etc/roles/ariaAbstractRoles.js
   protected static final Set<AriaRole> ABSTRACT_ROLES = EnumSet.of(
     AriaRole.COMMAND, AriaRole.COMPOSITE, AriaRole.INPUT, AriaRole.LANDMARK, AriaRole.RANGE, AriaRole.ROLETYPE,
-    AriaRole.SECTION, AriaRole.SECTIONHEAD, AriaRole.SELECT, AriaRole.STRUCTURE, AriaRole.TOOLBAR, AriaRole.WIDGET,
-    AriaRole.WINDOW);
+    AriaRole.SECTION, AriaRole.SECTIONHEAD, AriaRole.SELECT, AriaRole.STRUCTURE, AriaRole.WIDGET, AriaRole.WINDOW);
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/domMap.js
   public static final Set<String> RESERVED_NODE_SET = Set.of(
