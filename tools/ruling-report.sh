@@ -10,7 +10,11 @@ set -e
 EXPECTED_DIR="its/ruling/src/test/resources/expected"
 ACTUAL_DIR="its/ruling/target/actual"
 SOURCES_BASE="its/sources"
+SOURCES_REPO="https://github.com/SonarCommunity/web-test-sources"
 MAX_SNIPPETS=10
+
+# Get the commit SHA of the sources submodule for stable URLs
+SOURCES_SHA=$(cd "$SOURCES_BASE" 2>/dev/null && git rev-parse HEAD 2>/dev/null || echo "master")
 
 # Check if actual directory exists
 if [ ! -d "$ACTUAL_DIR" ]; then
@@ -76,6 +80,15 @@ resolve_source_path() {
   echo "$SOURCES_BASE/$relative_path"
 }
 
+# Function to generate GitHub URL for a file at a specific line
+# Usage: get_github_url <file_key> <line_number>
+get_github_url() {
+  local file_key="$1"
+  local line_num="$2"
+  local relative_path="${file_key#project:}"
+  echo "${SOURCES_REPO}/blob/${SOURCES_SHA}/${relative_path}#L${line_num}"
+}
+
 # Start report
 echo "## Ruling Report"
 echo ""
@@ -115,7 +128,8 @@ echo "$DIFF_OUTPUT" | grep "differ" | while read -r line; do
     for line_num in $removed; do
       removed_count=$((removed_count + 1))
       if [ "$removed_count" -le "$MAX_SNIPPETS" ]; then
-        removed_snippets+="**${display_path}:${line_num}**"$'\n'
+        github_url=$(get_github_url "$file_key" "$line_num")
+        removed_snippets+="[**${display_path}:${line_num}**](${github_url})"$'\n'
         removed_snippets+="\`\`\`html"$'\n'
         removed_snippets+="$(show_snippet "$source_path" "$line_num")"$'\n'
         removed_snippets+="\`\`\`"$'\n\n'
@@ -125,7 +139,8 @@ echo "$DIFF_OUTPUT" | grep "differ" | while read -r line; do
     for line_num in $added; do
       added_count=$((added_count + 1))
       if [ "$added_count" -le "$MAX_SNIPPETS" ]; then
-        added_snippets+="**${display_path}:${line_num}**"$'\n'
+        github_url=$(get_github_url "$file_key" "$line_num")
+        added_snippets+="[**${display_path}:${line_num}**](${github_url})"$'\n'
         added_snippets+="\`\`\`html"$'\n'
         added_snippets+="$(show_snippet "$source_path" "$line_num")"$'\n'
         added_snippets+="\`\`\`"$'\n\n'
@@ -196,7 +211,8 @@ echo "$DIFF_OUTPUT" | grep "Only in $ACTUAL_DIR" | while read -r line; do
         total_issues=$((total_issues + 1))
         if [ "$snippet_count" -lt "$MAX_SNIPPETS" ]; then
           snippet_count=$((snippet_count + 1))
-          snippets+="**${display_path}:${line_num}**"$'\n'
+          github_url=$(get_github_url "$file_key" "$line_num")
+          snippets+="[**${display_path}:${line_num}**](${github_url})"$'\n'
           snippets+="\`\`\`html"$'\n'
           snippets+="$(show_snippet "$source_path" "$line_num")"$'\n'
           snippets+="\`\`\`"$'\n\n'
