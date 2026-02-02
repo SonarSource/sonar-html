@@ -55,4 +55,12 @@ class LangAttributeCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .noMore();
   }
+
+  @Test
+  void erbExpressionShouldBeConsideredDynamic() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheckErb.html.erb"), new LangAttributeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .noMore();
+  }
 }
