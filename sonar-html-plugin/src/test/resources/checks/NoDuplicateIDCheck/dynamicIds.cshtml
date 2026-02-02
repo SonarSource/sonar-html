@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Compliant: Dynamic IDs using Razor expressions - each will be unique at runtime -->
+@foreach (var feature in Model.Features)
+{
+    <input id="@feature.Value" type="checkbox" name="features" />
+}
+
+<!-- Compliant: Dynamic IDs using Html.UniqueId helper -->
+<input id="@Html.UniqueId("field_1")" type="text" />
+<input id="@Html.UniqueId("field_2")" type="text" />
+
+<!-- Non-compliant: Static duplicate IDs -->
+<div id="static-id">First</div>
+<div id="static-id">Second</div>
+
+</body>
+</html>

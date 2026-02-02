@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Compliant: IDs in Angular @switch/@case/@default blocks are mutually exclusive -->
+@switch (applicationAction()) {
+  @case ('new') {
+    <h1 id="page-title" class="cao-heading-1">Add New Issue</h1>
+  }
+  @case ('edit') {
+    <h1 id="page-title" class="cao-heading-1">Edit Issue</h1>
+  }
+  @default {
+    <h1 id="page-title" class="cao-heading-1">Application Form</h1>
+  }
+}
+
+<!-- Compliant: IDs in Angular @if/@else blocks -->
+@if (gridOptions) {
+    <ag-grid-angular id="dataTable" [gridOptions]="gridOptions"></ag-grid-angular>
+} @else {
+    <div id="dataTable">Loading...</div>
+}
+
+<!-- Compliant: IDs with *ngIf having inverted conditions -->
+<ag-grid-angular
+    id="externalDataTable"
+    *ngIf="gridOptions"
+    [gridOptions]="gridOptions">
+</ag-grid-angular>
+<div *ngIf="!gridOptions" id="externalDataTable">Loading...</div>
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<span id="badge">Badge 1</span>
+<span id="badge">Badge 2</span>
+
+</body>
+</html>

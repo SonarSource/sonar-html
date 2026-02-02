@@ -89,21 +89,112 @@ jobs:
     runs-on: github-ubuntu-latest-m
     permissions:
       id-token: write
-      contents: read
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           submodules: true
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - *mise
       - *config_maven
       - *secrets
       - name: Run ruling tests
+        id: ruling
         env: *qa_env
         run: |
           mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Show ruling differences
         if: failure()
         run: ./tools/ruling-debug-script.sh
+      - name: Update ruling and comment on PR
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+          RULING_FAILED: ${{ steps.ruling.outcome == 'failure' }}
+        run: |
+          MARKER="<!-- ruling-report -->"
+
+          # Auto-update ruling files when the ruling test failed
+          RULING_UPDATED=false
+          if [ "$RULING_FAILED" = "true" ]; then
+            # Check if last commit was already an auto-update (prevent infinite loop)
+            LAST_COMMIT_MSG=$(git log -1 --format=%B)
+            if echo "$LAST_COMMIT_MSG" | grep -q "🤖 Generated with GitHub Actions"; then
+              echo "Last commit was an auto-update, skipping to prevent infinite loop"
+            elif [ -d "its/ruling/target/actual" ]; then
+              # Sync ruling results
+              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/
+
+              git config user.name "github-actions[bot]"
+              git config user.email "github-actions[bot]@users.noreply.github.com"
+
+              git add its/ruling/src/test/resources/expected/
+
+              if ! git diff --staged --quiet; then
+                git commit -m "Update ruling results
+
+          🤖 Generated with GitHub Actions"
+                git push origin "$HEAD_REF"
+                RULING_UPDATED=true
+              fi
+            fi
+          fi
+
+          # Generate ruling report (compares current branch vs PR base branch)
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+          BASE_BRANCH="origin/$BASE_REF" ./tools/ruling-report.sh > ruling-report.md || true
+
+          # Check if there are ruling differences
+          if [ -s ruling-report.md ]; then
+            HAS_DIFFERENCES=true
+          else
+            HAS_DIFFERENCES=false
+          fi
+
+          # Build comment based on state
+          if [ "$HAS_DIFFERENCES" = "true" ]; then
+            {
+              echo "$MARKER"
+              cat ruling-report.md
+              echo ""
+              echo "---"
+              if [ "$RULING_UPDATED" = "true" ]; then
+                echo "✅ **Ruling has been auto-updated.** A verification build will run automatically."
+              elif [ "$RULING_FAILED" = "true" ]; then
+                echo "⚠️ **Ruling tests failed.** Please review the differences above."
+              else
+                echo "✅ **Ruling tests passed.**"
+              fi
+            } > comment.md
+          else
+            {
+              echo "$MARKER"
+              echo "## Ruling Report"
+              echo ""
+              if [ "$RULING_FAILED" = "true" ]; then
+                echo "⚠️ **Ruling tests failed** but no file differences were detected."
+                echo "Check the build logs for details."
+              else
+                echo "✅ **No changes to ruling expected issues in this PR**"
+              fi
+            } > comment.md
+          fi
+
+          # Find existing ruling comment and update it, or create new one
+          EXISTING_COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
+            --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1 || true)
+
+          if [ -n "$EXISTING_COMMENT_ID" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/$EXISTING_COMMENT_ID" \
+              -X PATCH -F body=@comment.md
+          else
+            gh pr comment "$PR_NUMBER" --body-file comment.md
+          fi
 
   promote:
     needs: [build, build-windows, qa, ruling]

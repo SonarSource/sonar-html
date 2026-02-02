@@ -1,26 +1,6 @@
 {
-"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DomainsBarSilverpeasV5.jsp": [
-331,
-337
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
 580
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
-295,
-344,
-345,
-1043,
-1046,
-1049,
-1051,
-1055,
-1085,
-1113
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/editAttachedFiles.jsp": [
-425,
-426
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp": [
 323
@@ -31,12 +11,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
 200
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp": [
-84,
-89,
-101,
-106
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/thesaurus.jsp": [
 331
@@ -80,9 +54,6 @@
 ],
 "project:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html": [
 229
-],
-"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
-305
 ],
 "project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
 308,

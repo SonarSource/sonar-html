@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Compliant: Dynamic IDs using Angular/Vue template expressions -->
+<div id="{{item.id}}">Item 1</div>
+<div id="{{item.id}}">Item 2</div>
+
+<!-- Compliant: Dynamic IDs using JSP EL expressions -->
+<input id="${user.id}" type="text" />
+<input id="${user.id}" type="text" />
+
+<!-- Compliant: Dynamic IDs using Twig expressions -->
+<span id="{{loop.index}}">Index 1</span>
+<span id="{{loop.index}}">Index 2</span>
+
+<!-- Non-compliant: Static duplicate IDs -->
+<div id="footer">First</div>
+<div id="footer">Second</div>
+
+</body>
+</html>

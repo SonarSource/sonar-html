@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Compliant: IDs in Razor @if/@else blocks are mutually exclusive -->
+@if (!Model.Enabled)
+{
+    <div id="ot-sdk-btn" class="ot-sdk-show-settings">
+        [ The service is disabled ]
+    </div>
+}
+else
+{
+    <button id="ot-sdk-btn" class="ot-sdk-show-settings" type="button">Cookie Settings</button>
+}
+
+<!-- Compliant: Another Razor @if/@else example -->
+@if (Model.CreditLineType == "CreditLines")
+{
+    <input id="successUrl" type="hidden" value="@Url.Action("Index", "CreditLine")" />
+}
+else
+{
+    <input id="successUrl" type="hidden" value="@Url.Action("RevolvingCreditLine", "CreditLine")" />
+}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="wrapper">Content 1</div>
+<div id="wrapper">Content 2</div>
+
+</body>
+</html>

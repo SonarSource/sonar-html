@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Compliant: IDs in Twig if/else blocks are mutually exclusive -->
+{% if condition %}
+    <div id="content">Content A</div>
+{% else %}
+    <div id="content">Content B</div>
+{% endif %}
+
+<!-- Compliant: IDs in Twig if/elif/else blocks -->
+{% if type == 'A' %}
+    <span id="status">Status A</span>
+{% elif type == 'B' %}
+    <span id="status">Status B</span>
+{% else %}
+    <span id="status">Status Default</span>
+{% endif %}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<input id="username" />
+<input id="username" />
+
+</body>
+</html>
