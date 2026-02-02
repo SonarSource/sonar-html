@@ -1,0 +1,16 @@
+<!-- Compliant: Angular binding syntax for 'for' attribute with text label -->
+<label [for]="inputId">Label text</label>
+<label [for]="inputId" aria-label="Dynamic label"></label>
+
+<!-- Compliant: Vue binding syntax for 'for' attribute with text label -->
+<label :for="inputId">Label text</label>
+<label :for="`adres-${address.adresId}`">Label text</label>
+<label v-bind:for="inputId">Label text</label>
+
+<!-- Noncompliant: Has binding for 'for' but no accessible label text -->
+<label [for]="inputId"><ng-content></ng-content></label>
+<label [for]="checkboxId"><ng-container *ngTemplateOutlet="tpl"></ng-container></label>
+
+<!-- Noncompliant: No for attribute and no nested control -->
+<label>Just text</label>
+<label [class]="someClass">Just text</label>
