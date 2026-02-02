@@ -35,7 +35,8 @@ class NoNonInteractiveElementsWithHandlersCheckTest {
       new NoNonInteractiveElementsWithHandlersCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(219).withMessage("Non-interactive elements should not be assigned mouse or keyboard event listeners.")
+      .next().atLine(168).withMessage("Non-interactive elements should not be assigned mouse or keyboard event listeners.")
+      .next().atLine(219)
       .next().atLine(220)
       .next().atLine(221)
       .next().atLine(222)
