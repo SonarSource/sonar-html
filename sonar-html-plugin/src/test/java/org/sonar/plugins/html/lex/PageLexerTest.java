@@ -311,6 +311,56 @@ class PageLexerTest {
   }
 
   @Test
+  void razorNestedSameQuotesInParentheses() {
+    // Razor with same quote type nested in method call: id="@Html.UniqueId("field")"
+    StringReader reader = new StringReader("<input id=\"@Html.UniqueId(\"field\")\" type=\"text\" />");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertThat(nodeList).hasSize(1);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(2);
+    Attribute idAttr = node.getAttributes().get(0);
+    assertThat(idAttr.getName()).isEqualTo("id");
+    assertThat(idAttr.getValue()).isEqualTo("@Html.UniqueId(\"field\")");
+    Attribute typeAttr = node.getAttributes().get(1);
+    assertThat(typeAttr.getName()).isEqualTo("type");
+    assertThat(typeAttr.getValue()).isEqualTo("text");
+  }
+
+  @Test
+  void razorNestedSameQuotesInSquareBrackets() {
+    // Razor with same quote type nested in indexer: value="@Model.Items["key"]"
+    StringReader reader = new StringReader("<input value=\"@Model.Items[\"key\"]\" class=\"test\" />");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertThat(nodeList).hasSize(1);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(2);
+    Attribute valueAttr = node.getAttributes().get(0);
+    assertThat(valueAttr.getName()).isEqualTo("value");
+    assertThat(valueAttr.getValue()).isEqualTo("@Model.Items[\"key\"]");
+    Attribute classAttr = node.getAttributes().get(1);
+    assertThat(classAttr.getName()).isEqualTo("class");
+    assertThat(classAttr.getValue()).isEqualTo("test");
+  }
+
+  @Test
+  void nestedSameQuotesWithoutBracketsIsInvalidHtml() {
+    // Without brackets, nested same-quotes are invalid HTML and parsed as separate attributes
+    // Input: <input id="var = "bla"" type="text" />
+    // This is NOT valid HTML - the second " closes the id attribute
+    StringReader reader = new StringReader("<input id=\"var = \"bla\"\" type=\"text\" />");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertThat(nodeList).hasSize(1);
+    TagNode node = (TagNode) nodeList.get(0);
+    // Parser correctly treats this as invalid HTML - the quote closes the id, "bla" becomes an attribute
+    assertThat(node.getAttributes()).hasSize(3);
+    assertThat(node.getAttributes().get(0).getName()).isEqualTo("id");
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("var = ");
+    assertThat(node.getAttributes().get(1).getName()).isEqualTo("bla\"\"");
+    assertThat(node.getAttributes().get(2).getName()).isEqualTo("type");
+    assertThat(node.getAttributes().get(2).getValue()).isEqualTo("text");
+  }
+
+  @Test
   void text_containing_opening_angle_bracket() {
     assertOnlyText("x = '<");
     assertOnlyText("x = '<';");

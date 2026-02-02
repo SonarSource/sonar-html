@@ -221,30 +221,62 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
   }
 
+  /**
+   * Matches the end of a quoted attribute value, handling nested quotes.
+   *
+   * Supports two types of nested quote patterns:
+   * 1. Different quote types: {@code class="<c:if test='${x}'>..."}
+   * 2. Same quotes inside brackets (Razor): {@code id="@Html.UniqueId("field")"} or {@code value="@dict["key"]"}
+   *
+   * Uses a stack to track quote nesting and bracket depth for method calls and indexers.
+   */
   private static final class QuoteMatcher implements EndMatcher {
     private static final char SINGLE_QUOTE = '\'';
     private static final char DOUBLE_QUOTE = '"';
     private int previousChar;
+    private final char outerQuote;
+    private int bracketDepth = 0;
 
-    private final Deque<Character> startChars = new ArrayDeque<>();
+    private final Deque<Character> quoteStack = new ArrayDeque<>();
 
     QuoteMatcher(char startChar) {
-      this.startChars.addFirst(startChar);
+      this.outerQuote = startChar;
+      this.quoteStack.addFirst(startChar);
     }
 
     @Override
     public boolean match(int character) {
-      boolean result = false;
-      if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
-        if (startChars.peekFirst() == (char) character) {
-          startChars.removeFirst();
-        } else {
-          startChars.addFirst((char) character);
+      // Track bracket depth for method calls (...) and indexers [...]
+      if (previousChar != '\\') {
+        if (character == '(' || character == '[') {
+          bracketDepth++;
+        } else if ((character == ')' || character == ']') && bracketDepth > 0) {
+          bracketDepth--;
         }
-        result = startChars.isEmpty();
+      }
+
+      if ((character == SINGLE_QUOTE || character == DOUBLE_QUOTE) && previousChar != '\\') {
+        Character topQuote = quoteStack.peekFirst();
+
+        // Check for same-quote-inside-brackets FIRST (Razor pattern)
+        // e.g., id="@Html.Method("field")" or value="@dict["key"]"
+        if (bracketDepth > 0 && character == outerQuote && quoteStack.size() == 1) {
+          quoteStack.addFirst((char) character);
+        } else if (topQuote != null && topQuote == (char) character) {
+          // Same quote as top of stack - this is a closing quote
+          quoteStack.removeFirst();
+        } else {
+          // Different quote type - opens a new nested level
+          quoteStack.addFirst((char) character);
+        }
+
+        if (quoteStack.isEmpty()) {
+          previousChar = character;
+          return true;
+        }
       }
       previousChar = character;
-      return result;
+      return false;
     }
   }
 
