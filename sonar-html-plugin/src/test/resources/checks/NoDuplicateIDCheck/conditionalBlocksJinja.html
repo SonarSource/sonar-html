@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Compliant: IDs in Jinja if/else blocks are mutually exclusive -->
+{%- if has_license_access -%}
+    <a href="/license" id="navbar-account-license">License History</a>
+{%- else -%}
+    <div disabled="disabled" id="navbar-account-license">License History</div>
+{%- endif -%}
+
+<!-- Compliant: Another Jinja if/else example -->
+{%- if current_user.practices|length > 1 -%}
+    <a id="navbar-account-manage">Select Practice</a>
+{%- else -%}
+    <span id="navbar-account-manage">No Practice Selection</span>
+{%- endif -%}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="header">Header 1</div>
+<div id="header">Header 2</div>
+
+</body>
+</html>
