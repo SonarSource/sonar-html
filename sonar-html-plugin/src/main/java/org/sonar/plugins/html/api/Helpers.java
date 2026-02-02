@@ -34,7 +34,7 @@ public class Helpers {
 
   public static boolean isDynamicValue(String value, HtmlSourceCode code) {
     return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%") || value.startsWith("<?=") ||
-            value.startsWith("${") ||
+            value.startsWith("${") || value.startsWith("<%") ||
             (isCshtmlFile(code) && Pattern.compile("(?<!@)@(?!@)").matcher(value).find());
   }
 
