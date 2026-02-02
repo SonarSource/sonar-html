@@ -102,4 +102,21 @@ class LabelHasAssociatedControlCheckTest {
             .next().atLine(17)
             .noMore();
   }
+
+  @Test
+  void angularAndVueBindingSyntax() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/binding.html"),
+            new LabelHasAssociatedControlCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+            // Lines 2-3: Angular [for] binding with text/aria-label - compliant
+            // Lines 6-8: Vue :for and v-bind:for binding with text - compliant
+            // Lines 11-12: Angular [for] binding but no accessible label text - noncompliant
+            .next().atLine(11).withMessage("A form label must be associated with a control.")
+            .next().atLine(12)
+            // Lines 15-16: No for attribute, no nested control - noncompliant
+            .next().atLine(15)
+            .next().atLine(16)
+            .noMore();
+  }
 }
