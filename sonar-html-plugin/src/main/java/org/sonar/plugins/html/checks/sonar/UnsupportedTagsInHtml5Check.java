@@ -52,6 +52,14 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
       "TT",
       "XMP");
 
+  private boolean isVueFile;
+
+  @Override
+  public void startDocument(java.util.List<org.sonar.plugins.html.node.Node> nodes) {
+    String filename = getHtmlSourceCode().inputFile().filename();
+    isVueFile = filename.endsWith(".vue");
+  }
+
   @Override
   public void startElement(TagNode node) {
     if (isUnsupportedTag(node)) {
@@ -59,9 +67,29 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
     }
   }
 
-  private static boolean isUnsupportedTag(TagNode node) {
+  private boolean isUnsupportedTag(TagNode node) {
     String nodeName = node.getNodeName();
+
+    // In Vue files, PascalCase tags are components, not HTML elements
+    // e.g., <BLink> is a Vue Bootstrap component, not the deprecated <blink> tag
+    if (isVueFile && isPascalCase(nodeName)) {
+      return false;
+    }
+
     return UNSUPPORTED_TAGS.contains(nodeName.toUpperCase(Locale.ENGLISH));
+  }
+
+  /**
+   * Checks if a tag name uses PascalCase (has uppercase letter after the first character).
+   * In Vue templates, PascalCase indicates a component reference.
+   */
+  private static boolean isPascalCase(String name) {
+    for (int i = 1; i < name.length(); i++) {
+      if (Character.isUpperCase(name.charAt(i))) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
