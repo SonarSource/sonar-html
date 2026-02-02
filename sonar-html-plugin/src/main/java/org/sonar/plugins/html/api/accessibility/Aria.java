@@ -1385,7 +1385,7 @@ public class Aria {
           AriaProperty.RELEVANT,
           AriaProperty.ROLEDESCRIPTION
         )
-        .setElements(Element.IMG)
+        .setElements(Element.IMG, Element.SVG)
     );
     ROLES.put(AriaRole.INSERTION,
       new RoleDefinition(AriaRole.INSERTION)
