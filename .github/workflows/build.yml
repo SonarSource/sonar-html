@@ -90,6 +90,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -98,12 +99,70 @@ jobs:
       - *config_maven
       - *secrets
       - name: Run ruling tests
+        id: ruling
         env: *qa_env
         run: |
           mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Show ruling differences
         if: failure()
         run: ./tools/ruling-debug-script.sh
+      - name: Comment on PR with ruling report
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RULING_FAILED: ${{ steps.ruling.outcome == 'failure' }}
+        run: |
+          # Generate ruling report
+          ./tools/ruling-report.sh > ruling-report.md || true
+
+          # Build comment with marker for identification
+          MARKER="<!-- ruling-report -->"
+          if [ -s ruling-report.md ]; then
+            # Build comment with ruling changes
+            {
+              echo "$MARKER"
+              cat ruling-report.md
+              if [ "$RULING_FAILED" = "true" ]; then
+                echo ""
+                echo "---"
+                echo "⚠️ **Ruling tests failed.** Please review the differences above."
+                echo ""
+                echo "If these changes are expected, update the ruling files:"
+                echo "\`\`\`bash"
+                echo "# Run ruling tests locally to generate actual results"
+                echo "mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE"
+                echo ""
+                echo "# Copy actual to expected"
+                echo "cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/"
+                echo "\`\`\`"
+              fi
+            } > comment.md
+          else
+            # Build comment for no changes
+            {
+              echo "$MARKER"
+              echo "## Ruling Report"
+              echo ""
+              if [ "$RULING_FAILED" = "true" ]; then
+                echo "⚠️ **Ruling tests failed** but no file differences were detected."
+                echo "Check the build logs for details."
+              else
+                echo "✅ **No changes to ruling expected issues in this PR**"
+              fi
+            } > comment.md
+          fi
+
+          # Find existing ruling comment and update it, or create new one
+          EXISTING_COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
+            --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1 || true)
+
+          if [ -n "$EXISTING_COMMENT_ID" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/$EXISTING_COMMENT_ID" \
+              -X PATCH -F body=@comment.md
+          else
+            gh pr comment "$PR_NUMBER" --body-file comment.md
+          fi
 
   promote:
     needs: [build, build-windows, qa, ruling]
