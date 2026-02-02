@@ -47,21 +47,23 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   /**
    * Pattern to detect start of conditional blocks in text (Angular, Razor, Twig/Jinja, PHP).
+   * Matches: @if(), @switch(), @case, @default, {% if %}, {% for %}, <?php if/foreach/for
    */
   private static final Pattern CONDITIONAL_START_PATTERN = Pattern.compile(
-    "@(if|switch)\\s*\\(|" +                        // Angular/Razor @if/@switch
-    "@(case|default)\\s*[({]|" +                    // Angular @case/@default
-    "\\{%[-\\s]*(if|for)\\b|" +                     // Twig/Jinja {% if %}, {% for %}
-    "<\\?(?:php)?\\s*(if|foreach|for)\\b",          // PHP <?php if/foreach/for
+    "@(if|switch)\\s*\\(|" +
+    "@(case|default)\\s*[({]|" +
+    "\\{%[-\\s]*(if|for)\\b|" +
+    "<\\?(?:php)?\\s*(if|foreach|for)\\b",
     Pattern.CASE_INSENSITIVE
   );
 
   /**
    * Pattern to detect end of conditional blocks in text.
+   * Matches: {% endif %}, {% endfor %}, <?php endif/endforeach/endfor
    */
   private static final Pattern CONDITIONAL_END_PATTERN = Pattern.compile(
-    "\\{%[-\\s]*(endif|endfor)\\b|" +               // Twig/Jinja {% endif %}, {% endfor %}
-    "<\\?(?:php)?\\s*(endif|endforeach|endfor)\\b", // PHP endif/endforeach/endfor
+    "\\{%[-\\s]*(endif|endfor)\\b|" +
+    "<\\?(?:php)?\\s*(endif|endforeach|endfor)\\b",
     Pattern.CASE_INSENSITIVE
   );
 
@@ -164,10 +166,8 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     String nodeName = node.getNodeName().toLowerCase(Locale.ROOT);
 
     // Track JSP JSTL conditional tag depth
-    if (JSTL_CONDITIONAL_TAGS.contains(nodeName)) {
-      if (tagConditionalDepth > 0) {
-        tagConditionalDepth--;
-      }
+    if (JSTL_CONDITIONAL_TAGS.contains(nodeName) && tagConditionalDepth > 0) {
+      tagConditionalDepth--;
     }
   }
 
