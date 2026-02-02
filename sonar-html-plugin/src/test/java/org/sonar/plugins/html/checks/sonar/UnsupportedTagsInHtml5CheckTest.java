@@ -51,4 +51,18 @@ class UnsupportedTagsInHtml5CheckTest {
         .next().atLine(15).withMessage("Remove this deprecated \"sTrIkE\" element.");
   }
 
+  @Test
+  void vueComponentsShouldNotBeFlaggedAsDeprecatedTags() {
+    // BLink is a Vue Bootstrap component (https://bootstrap-vue.org/docs/components/link)
+    // It uses PascalCase naming and should NOT be confused with the deprecated <blink> HTML tag
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/UnsupportedTagsInHtml5Check/VueComponents.vue"),
+        new UnsupportedTagsInHtml5Check());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        // Only the actual lowercase <blink> tag should be flagged
+        .next().atLine(7).withMessage("Remove this deprecated \"blink\" element.")
+        .noMore();
+  }
+
 }
