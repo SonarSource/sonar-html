@@ -34,7 +34,7 @@ class UnclosedTagCheckTest {
   void detected() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     assertThat(check.ignoreTags).isEqualTo(
-      "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM");
+      "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM,WBR");
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
@@ -52,6 +52,7 @@ class UnclosedTagCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(4).withMessage("The tag \"li\" has no corresponding closing tag.")
       .next().atLine(7).withMessage("The tag \"br\" has no corresponding closing tag.")
+      .next().atLine(8).withMessage("The tag \"wbr\" has no corresponding closing tag.")
       .next().atLine(15).withMessage("The tag \"li\" has no corresponding closing tag.");
   }
 
