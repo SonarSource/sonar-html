@@ -118,4 +118,30 @@ class NoDuplicateIDCheckTest {
         .next().atLine(21).withMessage("Duplicate id \"header\" found. First occurrence was on line 20.")
         .noMore();
   }
+
+  @Test
+  void dynamicIdsInRazor() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/dynamicIds.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // Dynamic IDs containing Razor expressions (@variable) should NOT be flagged
+    // Only static duplicate IDs should be flagged
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(17).withMessage("Duplicate id \"static-id\" found. First occurrence was on line 16.")
+        .noMore();
+  }
+
+  @Test
+  void dynamicIdsWithTemplateExpressions() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/dynamicIds.html"),
+        new NoDuplicateIDCheck());
+
+    // Dynamic IDs containing template expressions ({{...}}, ${...}) should NOT be flagged
+    // Only static duplicate IDs should be flagged
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
 }
