@@ -94,6 +94,7 @@ public enum Element {
   TABLE("table"),
   DFN("dfn"),
   DT("dt"),
+  SVG("svg"),
   TEXTAREA("textarea"),
   TIME("time");
 
