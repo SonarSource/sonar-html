@@ -30,8 +30,8 @@ import static org.sonar.plugins.html.api.Helpers.isCshtmlFile;
 @Rule(key = "UnclosedTagCheck")
 public class UnclosedTagCheck extends AbstractPageCheck {
 
-  private static final String DEFAULT_IGNORE_TAGS = "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP" +
-    ",IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM,WBR";
+  private static final String DEFAULT_IGNORE_TAGS = "HTML,HEAD,BODY,P,DT,DD,LI,OPTION,OPTGROUP,THEAD,TH,TBODY,TR,TD,TFOOT,COLGROUP,RT,RP" +
+    ",IMG,INPUT,BR,HR,FRAME,AREA,BASE,BASEFONT,COL,ISINDEX,LINK,META,PARAM,WBR,EMBED,SOURCE,TRACK";
 
   @RuleProperty(
     key = "ignoreTags",
