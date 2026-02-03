@@ -741,27 +741,11 @@
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/autocorrection/undo-autocorrection.html": [
 15
 ],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/bugzilla-14899.html": [
-30
-],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/compositing/resources/flash-frame.html": [
-3
-],
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/contenteditable-link.html": [
 6
 ],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/disabled-option-elements.html": [
-11,
-21
-],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/divx-plugin-fails-to-draw.html": [
-10
-],
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image-to-desktop.html": [
 5
-],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/flash-unload-tab.html": [
-23
 ],
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/hash-ref.html": [
 12
@@ -779,17 +763,8 @@
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plain-text-paste.html": [
 26
 ],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plugins/timeout-dialog-displayed-over-navigation.html": [
-21
-],
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/print-onload-with-image.html": [
 8
-],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/nested-plug-ins-inner-frame.html": [
-1
-],
-"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/nested-plug-ins-outer-frame.html": [
-1
 ],
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/video-tab.html": [
 1
@@ -817,9 +792,6 @@
 ],
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/write-after-open.html": [
 38
-],
-"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/top_frame.html": [
-22
 ],
 "project:external_webkit-jb-mr1/Source/WebKit/gtk/resources/error.html": [
 47
@@ -854,8 +826,7 @@
 3
 ],
 "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/testcases/testcase-U_Linux_x86_64_en-US_AppleWebKit-534.7_Chrome-7.0.513.0-4800-5_80,65,15.html": [
-9,
-10
+9
 ],
 "project:phpMyAdmin-4.0.4-english/db_datadict.php": [
 238
@@ -887,11 +858,5 @@
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule_note.html.erb": [
 32
-],
-"project:voten/resources/assets/js/components/GifPlayer.vue": [
-27
-],
-"project:voten/resources/assets/js/components/submission/GifSubmission.vue": [
-24
 ]
 }
