@@ -70,9 +70,12 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   private static boolean hasForAttribute(TagNode label) {
     return label.hasProperty("for") ||
            label.hasProperty("htmlFor") ||
-           label.hasProperty("[for]") ||        // Angular binding
-           label.hasProperty(":for") ||         // Vue shorthand binding
-           label.hasProperty("v-bind:for");     // Vue full binding syntax
+           // Angular binding
+           label.hasProperty("[for]") ||
+           // Vue shorthand binding
+           label.hasProperty(":for") ||
+           // Vue full binding syntax
+           label.hasProperty("v-bind:for");
   }
 
   private static boolean hasAccessibleLabel(TagNode node) {
