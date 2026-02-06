@@ -36,7 +36,6 @@ class PageWithoutTitleCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(1).withMessage("Add a <title> tag to this page.")
         .next().atLine(5)
-        .next().atLine(15)
         .next().atLine(21)
         .next().atLine(25)
         .next().atLine(31)

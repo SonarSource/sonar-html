@@ -47,7 +47,7 @@ public class PageWithoutTitleCheck extends AbstractPageCheck {
       currentHeadTagLine = node.getStartLinePosition();
       isReported = false;
       foundTitleTag = false;
-    } else if (currentHeadTagLine != 0 && isTitleTag(node)) {
+    } else if ((currentHeadTagLine != 0 || currentHtmlTagLine != 0) && isTitleTag(node)) {
       foundTitleTag = true;
     }
   }
