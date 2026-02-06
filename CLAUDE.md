@@ -79,5 +79,5 @@ Test files go in `src/test/resources/checks/{CheckName}/`.
 
 ## Supported File Extensions
 
-HTML: `.html`, `.xhtml`, `.cshtml`, `.vbhtml`, `.aspx`, `.ascx`, `.rhtml`, `.erb`, `.shtm`, `.shtml`, `.cmp`, `.twig`
+HTML: `.html`, `.htm`, `.xhtml`, `.cshtml`, `.vbhtml`, `.aspx`, `.ascx`, `.rhtml`, `.erb`, `.shtm`, `.shtml`, `.cmp`, `.twig`
 JSP: `.jsp`, `.jspf`, `.jspx`

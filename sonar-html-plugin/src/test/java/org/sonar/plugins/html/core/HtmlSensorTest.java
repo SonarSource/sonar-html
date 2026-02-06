@@ -225,6 +225,20 @@ class HtmlSensorTest {
   }
 
   @Test
+  void htm_file_should_be_analyzed() throws IOException {
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.htm");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    String componentKey = inputFile.key();
+    assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(9);
+    assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
+
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @Test
   void twig_file_should_be_analyzed() throws IOException {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.twig");
     tester.fileSystem().add(inputFile);
