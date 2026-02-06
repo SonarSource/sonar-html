@@ -30,7 +30,7 @@ import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "S6853")
 public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
-  private static final String MESSAGE = "A form label must be associated with a control.";
+  private static final String MESSAGE = "A form label must be associated with a control and have accessible text.";
   private static final Set<String> CONTROL_TAGS = Set.of("INPUT", "METER", "OUTPUT", "PROGRESS", "SELECT", "TEXTAREA");
 
   // Pattern to detect Razor HTML helpers that render form control elements.

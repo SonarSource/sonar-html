@@ -34,7 +34,7 @@ class LabelHasAssociatedControlCheckTest {
       new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("A form label must be associated with a control.")
+      .next().atLine(1).withMessage("A form label must be associated with a control and have accessible text.")
       .next().atLine(2)
       .next().atLine(3)
       .next().atLine(9)
@@ -50,7 +50,7 @@ class LabelHasAssociatedControlCheckTest {
       new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(2).withMessage("A form label must be associated with a control.")
+      .next().atLine(2).withMessage("A form label must be associated with a control and have accessible text.")
       .next().atLine(3)
       .next().atLine(6)
       .next().atLine(8)
@@ -67,7 +67,7 @@ class LabelHasAssociatedControlCheckTest {
       new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("A form label must be associated with a control.")
+      .next().atLine(1).withMessage("A form label must be associated with a control and have accessible text.")
       .noMore();
   }
 
@@ -78,7 +78,7 @@ class LabelHasAssociatedControlCheckTest {
             new LabelHasAssociatedControlCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLine(1).withMessage("A form label must be associated with a control.")
+            .next().atLine(1).withMessage("A form label must be associated with a control and have accessible text.")
             .noMore();
   }
 
@@ -97,7 +97,7 @@ class LabelHasAssociatedControlCheckTest {
             new File("src/test/resources/checks/LabelHasAssociatedControlCheck/razor.cshtml"),
             new LabelHasAssociatedControlCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLine(15).withMessage("A form label must be associated with a control.")
+            .next().atLine(15).withMessage("A form label must be associated with a control and have accessible text.")
             .next().atLine(16)
             .next().atLine(17)
             .noMore();
@@ -112,7 +112,7 @@ class LabelHasAssociatedControlCheckTest {
             // Lines 2-3: Angular [for] binding with text/aria-label - compliant
             // Lines 6-8: Vue :for and v-bind:for binding with text - compliant
             // Lines 11-12: Angular [for] binding but no accessible label text - noncompliant
-            .next().atLine(11).withMessage("A form label must be associated with a control.")
+            .next().atLine(11).withMessage("A form label must be associated with a control and have accessible text.")
             .next().atLine(12)
             // Lines 15-16: No for attribute, no nested control - noncompliant
             .next().atLine(15)
