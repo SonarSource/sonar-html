@@ -24,7 +24,6 @@ import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.api.accessibility.Aria.RoleDefinition;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6807")
@@ -37,7 +36,6 @@ public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPa
       return;
     }
 
-    var attributeNames = element.getAttributes().stream().map(Attribute::getName).toList();
     var roles = Arrays.stream(roleName.split("\\s+"))
       .map(String::trim)
       .map(AriaRole::of)
@@ -51,7 +49,7 @@ public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPa
       for (var requiredProperty : requiredProperties) {
         var requiredPropertyName = requiredProperty.toString();
 
-        if (!attributeNames.contains(requiredPropertyName)) {
+        if (!element.hasProperty(requiredPropertyName)) {
           createViolation(element, String.format("The attribute \"%s\" is required by the role \"%s\".", requiredPropertyName, role.getName()));
         }
       }
