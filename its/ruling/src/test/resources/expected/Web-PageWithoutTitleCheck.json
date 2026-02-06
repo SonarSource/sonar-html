@@ -975,9 +975,6 @@
 "project:external_webkit-jb-mr1/LayoutTests/fast/encoding/script-in-head.html": [
 21
 ],
-"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/tag-name-digit.html": [
-1
-],
 "project:external_webkit-jb-mr1/LayoutTests/fast/encoding/yahoo-mail.html": [
 10
 ],
@@ -1709,9 +1706,6 @@
 ],
 "project:external_webkit-jb-mr1/LayoutTests/storage/indexeddb/transaction-read-only.html": [
 2
-],
-"project:external_webkit-jb-mr1/LayoutTests/storage/indexeddb/tutorial.html": [
-1
 ],
 "project:external_webkit-jb-mr1/LayoutTests/storage/multiple-databases-garbage-collection.html": [
 1
