@@ -104,6 +104,16 @@ class ValidAutocompleteCheckTest {
   }
 
   @Test
+  void customComponents() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/DomElementsShouldUseAutocompleteAttributeCorrectlyCheck/custom-components.vue"),
+      new ValidAutocompleteCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .noMore();
+  }
+
+  @Test
   void withWebauthn() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DomElementsShouldUseAutocompleteAttributeCorrectlyCheck/with-webauthn.html"), new ValidAutocompleteCheck());
 

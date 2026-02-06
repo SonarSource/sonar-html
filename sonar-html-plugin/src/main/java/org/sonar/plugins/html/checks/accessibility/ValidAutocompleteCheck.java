@@ -323,10 +323,18 @@ public class ValidAutocompleteCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
+    if (isCustomComponent(node)) {
+      return;
+    }
+
     var isValid = validators.stream().anyMatch(validator -> validator.isValid(node));
 
     if (!isValid) {
       createViolation(node, "DOM elements should use the \"autocomplete\" attribute correctly.");
     }
+  }
+
+  private static boolean isCustomComponent(TagNode node) {
+    return node.getNodeName().contains("-");
   }
 }
