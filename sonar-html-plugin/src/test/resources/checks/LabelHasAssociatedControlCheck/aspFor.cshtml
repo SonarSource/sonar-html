@@ -1,0 +1,7 @@
+<!-- Compliant: asp-for on label acts as a "for" binding, with accessible text -->
+<label asp-for="ModelProperty">Property</label>
+<div><label asp-for="ModelProperty">Property</label><input asp-for="ModelProperty" /></div>
+
+<!-- Noncompliant: asp-for provides the "for" binding, but still needs accessible label text -->
+<label asp-for="ModelProperty"><input asp-for="ModelProperty" /></label>
+<label asp-for="ModelProperty"></label>

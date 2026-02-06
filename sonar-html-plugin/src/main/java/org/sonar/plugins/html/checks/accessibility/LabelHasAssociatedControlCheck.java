@@ -75,7 +75,9 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
            // Vue shorthand binding
            label.hasProperty(":for") ||
            // Vue full binding syntax
-           label.hasProperty("v-bind:for");
+           label.hasProperty("v-bind:for") ||
+           // ASP.NET Core Tag Helper
+           label.hasProperty("asp-for");
   }
 
   private static boolean hasAccessibleLabel(TagNode node) {
