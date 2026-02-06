@@ -38,6 +38,8 @@ class DeprecatedAttributesInHtml5CheckTest {
             .next().atLine(3).withMessage("Remove this deprecated \"COORDS\" attribute.")
             .next().atLine(3).withMessage("Remove this deprecated \"NAME\" attribute.")
             .next().atLine(3).withMessage("Remove this deprecated \"SHAPE\" attribute.")
+            .next().atLine(5).withMessage("Remove this deprecated \"leftmargin\" attribute.")
+            .next().atLine(5).withMessage("Remove this deprecated \"topmargin\" attribute.")
             .next().atLine(6).withMessage("Remove this deprecated \"bordercolor\" attribute.")
             .next().atLine(15).withMessage("Remove this deprecated \"code\" attribute.")
             .next().atLine(18).withMessage("Remove this deprecated \"border\" attribute.")
