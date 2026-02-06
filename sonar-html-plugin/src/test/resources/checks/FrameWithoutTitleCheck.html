@@ -7,4 +7,9 @@
 <iframe src="" [title]=""></iframe>
 <frame [title]="foo"></frame>
 
+<!-- Compliant: hidden frames don't need titles -->
+<iframe src="" hidden></iframe>
+<iframe src="" aria-hidden="true"></iframe>
+<frame hidden></frame>
+
 <foo />
