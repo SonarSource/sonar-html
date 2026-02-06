@@ -22,7 +22,6 @@ import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isFocusableElement;
-import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 @Rule(key = "S6825")
 public class NoAriaHiddenOnFocusableCheck extends AbstractPageCheck {
@@ -36,6 +35,7 @@ public class NoAriaHiddenOnFocusableCheck extends AbstractPageCheck {
     }
     if (
         isFocusableElement(node) &&
+        !isHiddenInput(node) &&
         hasAriaHidden(node)
     ) {
       createViolation(node, MESSAGE);
@@ -44,6 +44,11 @@ public class NoAriaHiddenOnFocusableCheck extends AbstractPageCheck {
 
   private static boolean hasAriaHidden(TagNode node) {
     return "true".equalsIgnoreCase(node.getPropertyValue("aria-hidden"));
+  }
+
+  private static boolean isHiddenInput(TagNode node) {
+    return "input".equalsIgnoreCase(node.getNodeName()) &&
+      "hidden".equalsIgnoreCase(node.getPropertyValue("type"));
   }
 
 }
