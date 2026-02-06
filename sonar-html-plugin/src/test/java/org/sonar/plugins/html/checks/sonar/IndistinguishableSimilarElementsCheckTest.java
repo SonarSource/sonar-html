@@ -36,6 +36,18 @@ class IndistinguishableSimilarElementsCheckTest {
   }
 
   @Test
+  void vueConditional() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck/VueConditional.vue"),
+      new IndistinguishableSimilarElementsCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(12).withMessage("Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element.")
+        .next().atLine(13)
+        .noMore();
+  }
+
+  @Test
   void multipleNavAside() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IndistinguishableSimilarElementsCheck/MultipleNavAside.html"), new IndistinguishableSimilarElementsCheck());
 

@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.sonar.check.Rule;
@@ -33,6 +34,8 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
   private static final List<String> LANDMARK_ROLES = List.of(
     "BANNER", "COMPLEMENTARY", "CONTENTINFO", "FORM", "MAIN", "NAVIGATION", "SEARCH", "APPLICATION"
   );
+
+  private static final Set<String> VUE_CONDITIONAL_ATTRS = Set.of("v-if", "v-else-if", "v-else", "v-for");
 
   private List<TagNode> navs = new LinkedList<>();
   private List<TagNode> asides = new LinkedList<>();
@@ -59,6 +62,9 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
+    if (isInVueConditional(node)) {
+      return;
+    }
     if (isNav(node)) {
       navs.add(node);
     } else if (isAside(node)) {
@@ -101,5 +107,9 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
 
   private static boolean hasAriaLabel(TagNode node) {
     return node.hasProperty("ARIA-LABEL") || node.hasProperty("ARIA-LABELLEDBY");
+  }
+
+  private static boolean isInVueConditional(TagNode node) {
+    return VUE_CONDITIONAL_ATTRS.stream().anyMatch(node::hasAttribute);
   }
 }
