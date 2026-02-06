@@ -18,3 +18,8 @@
 <div role="button"></div>
 <div></div>
 <div role="foo"></div>
+<!-- Angular and Vue binding syntax -->
+<input type="checkbox" role="switch" [attr.aria-checked]="isChecked" />
+<input type="checkbox" role="switch" [aria-checked]="isChecked" />
+<input type="checkbox" role="switch" :aria-checked="isChecked" />
+<input type="checkbox" role="switch" v-bind:aria-checked="isChecked" />
