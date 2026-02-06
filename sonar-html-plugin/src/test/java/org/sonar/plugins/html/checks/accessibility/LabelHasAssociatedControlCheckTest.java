@@ -104,6 +104,17 @@ class LabelHasAssociatedControlCheckTest {
   }
 
   @Test
+  void aspFor() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/aspFor.cshtml"),
+            new LabelHasAssociatedControlCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+            .next().atLine(6).withMessage("A form label must be associated with a control.")
+            .next().atLine(7)
+            .noMore();
+  }
+
+  @Test
   void angularAndVueBindingSyntax() {
     HtmlSourceCode sourceCode = TestHelper.scan(
             new File("src/test/resources/checks/LabelHasAssociatedControlCheck/binding.html"),
