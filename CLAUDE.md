@@ -81,3 +81,10 @@ Test files go in `src/test/resources/checks/{CheckName}/`.
 
 HTML: `.html`, `.htm`, `.xhtml`, `.cshtml`, `.vbhtml`, `.aspx`, `.ascx`, `.rhtml`, `.erb`, `.shtm`, `.shtml`, `.cmp`, `.twig`
 JSP: `.jsp`, `.jspf`, `.jspx`
+
+## Pull Requests
+
+When creating PRs, add `quality-web-squad` as a reviewer (requires org prefix):
+```bash
+gh pr edit <PR_NUMBER> --add-reviewer SonarSource/quality-web-squad
+```
