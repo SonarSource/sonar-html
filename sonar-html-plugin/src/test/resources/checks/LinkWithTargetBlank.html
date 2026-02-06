@@ -19,6 +19,11 @@
 <a target="_parent"></a> <!-- Compliant -->
 <a target="_blank"></a> <!-- Compliant -->
 <a target="_blank" href=""></a> <!-- Compliant -->
-<a ></a> <!-- Compliant -->    
+<a ></a> <!-- Compliant -->
+
+<!-- Compliant: fragment and tilde URLs are relative -->
+<a href="#${var}" target="_blank" rel="opener"> <!-- Compliant -->
+<a href="~/${var}" target="_blank" rel="opener"> <!-- Compliant -->
+<a href="~${var}" target="_blank" rel="opener"> <!-- Compliant -->
 
 <foo/>
