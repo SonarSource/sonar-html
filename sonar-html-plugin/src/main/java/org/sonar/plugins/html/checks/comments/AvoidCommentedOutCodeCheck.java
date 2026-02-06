@@ -47,18 +47,18 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
     if (node.isHtml()) {
       String comment = node.getCode();
 
-      if (!isIgnored(comment) && CODE_RECOGNIZER.isLineOfCode(comment)) {
+      if (!isIgnored(node, comment) && CODE_RECOGNIZER.isLineOfCode(comment)) {
         createViolation(node.getStartLinePosition(), "Remove this commented out code.");
       }
     }
   }
 
-  private static boolean isIgnored(String comment) {
+  private static boolean isIgnored(CommentNode node, String comment) {
     return COPYRIGHT_CASE_INSENSITIVE.matcher(comment).find()
       // Conditional comments
       || comment.startsWith("<!--[if")
       // Server Side Includes
-      || comment.startsWith("<!--#")
+      || node.isServerSideInclude()
       // Annotated comments
       || IGNORED_COMMENT_ANNOTATIONS.stream().anyMatch(comment::contains);
   }
