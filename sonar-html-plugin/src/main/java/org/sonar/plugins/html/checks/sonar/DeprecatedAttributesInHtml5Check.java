@@ -51,7 +51,7 @@ public class DeprecatedAttributesInHtml5Check extends AbstractPageCheck {
     put("area", "nohref");
     put(
       "body",
-      "alink", background, bgcolor, "link", "marginbottom", "marginheight", "marginleft", "marginright", "margintop", "marginwidth", "text", "vlink");
+      "alink", background, bgcolor, "bottommargin", "leftmargin", "link", "marginheight", "marginwidth", "rightmargin", "text", "topmargin", "vlink");
     put("br", "clear");
     put("button", datafld, dataformatas, datasrc);
     put("caption", align);
