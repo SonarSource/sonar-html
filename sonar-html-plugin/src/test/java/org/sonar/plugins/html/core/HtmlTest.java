@@ -29,7 +29,7 @@ class HtmlTest {
     MapSettings settings = new MapSettings();
     settings.setProperty(HtmlConstants.FILE_EXTENSIONS_PROP_KEY, HtmlConstants.FILE_EXTENSIONS_DEF_VALUE);
     Html html = new Html(settings.asConfig());
-    assertThat(html.getFileSuffixes()).containsOnly(".html", ".xhtml", ".cshtml", ".vbhtml", ".aspx", ".ascx", ".rhtml", ".erb", ".shtm", ".shtml", ".cmp", ".twig");
+    assertThat(html.getFileSuffixes()).containsOnly(".html", ".xhtml", ".cshtml", ".vbhtml", ".aspx", ".ascx", ".rhtml", ".erb", ".shtm", ".shtml", ".cmp", ".twig", ".htm");
   }
 
   @Test
