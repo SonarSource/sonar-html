@@ -37,4 +37,8 @@ public class CommentNode extends Node {
     this.html = html;
   }
 
+  public boolean isServerSideInclude() {
+    return html && getCode().startsWith("<!--#");
+  }
+
 }
