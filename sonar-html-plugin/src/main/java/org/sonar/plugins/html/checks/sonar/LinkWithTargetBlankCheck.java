@@ -77,6 +77,6 @@ public class LinkWithTargetBlankCheck extends AbstractPageCheck {
   }
 
   private static boolean isRelativelUrl(String href) {
-    return href.startsWith("/") || href.startsWith(".");
+    return href.startsWith("/") || href.startsWith(".") || href.startsWith("#") || href.startsWith("~");
   }
 }
