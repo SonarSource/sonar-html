@@ -31,6 +31,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Rule(key = "S5254")
@@ -161,12 +162,18 @@ public class LangAttributeCheck extends AbstractPageCheck {
             "tel".equals(t) || "url".equals(t) || "password".equals(t);
   }
 
+  private static final Pattern LANG_CODE_PATTERN = Pattern.compile("[a-zA-Z0-9-]+");
+
   private static boolean isHtmlTag(TagNode node) {
     return "HTML".equalsIgnoreCase(node.getNodeName());
   }
 
   private boolean isValidLangAttributeValue(String langAttributeValue) {
     if (Helpers.isDynamicValue(langAttributeValue, getHtmlSourceCode())) {
+      return true;
+    }
+    // Values containing non-language characters are template placeholders (e.g. %lang%, #{locale})
+    if (!langAttributeValue.isEmpty() && !LANG_CODE_PATTERN.matcher(langAttributeValue).matches()) {
       return true;
     }
     var parts = langAttributeValue.split("-");

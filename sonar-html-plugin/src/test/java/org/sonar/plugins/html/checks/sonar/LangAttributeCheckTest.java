@@ -19,6 +19,8 @@ package org.sonar.plugins.html.checks.sonar;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -48,17 +50,14 @@ class LangAttributeCheckTest {
 	    .noMore();
   }
 
-  @Test
-  void jspElExpressionShouldBeConsideredDynamic() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheckJspEl.html"), new LangAttributeCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .noMore();
-  }
-
-  @Test
-  void erbExpressionShouldBeConsideredDynamic() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheckErb.html.erb"), new LangAttributeCheck());
+  @ParameterizedTest
+  @ValueSource(strings = {
+    "src/test/resources/checks/LangAttributeCheckJspEl.html",
+    "src/test/resources/checks/LangAttributeCheckErb.html.erb",
+    "src/test/resources/checks/LangAttributeCheckSvelteKit.html"
+  })
+  void dynamicLangValuesShouldNotRaiseIssues(String file) {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File(file), new LangAttributeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .noMore();
