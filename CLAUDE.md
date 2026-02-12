@@ -82,6 +82,16 @@ Test files go in `src/test/resources/checks/{CheckName}/`.
 HTML: `.html`, `.htm`, `.xhtml`, `.cshtml`, `.vbhtml`, `.aspx`, `.ascx`, `.rhtml`, `.erb`, `.shtm`, `.shtml`, `.cmp`, `.twig`
 JSP: `.jsp`, `.jspf`, `.jspx`
 
+## Syncing RSPEC Definitions
+
+Rule metadata and descriptions are managed in the [RSPEC repository](https://github.com/SonarSource/rspec). To sync updates:
+
+1. Download the rule-api JAR from [sonar-rule-api](https://github.com/SonarSource/sonar-rule-api?tab=readme-ov-file#usage)
+2. From the repository root, run:
+```bash
+java -jar ../rule-api-2.18.0.5734.jar update
+```
+
 ## Pull Requests
 
 When creating PRs, add `quality-web-squad` as a reviewer (requires org prefix):
