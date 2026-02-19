@@ -1,0 +1,20 @@
+{#
+  Drupal Twig template - standard pattern with Twig expressions in tag attributes.
+  No false positives should be raised.
+#}
+<article{{ attributes }}>
+  <div{{ content_attributes }}>
+    <h2>{{ label }}</h2>
+    {% if display_submitted %}
+      <footer>
+        {{ author_picture }}
+        <div{{ author_attributes }}>
+          {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        </div>
+      </footer>
+    {% endif %}
+    <div{{ content_attributes }}>
+      {{ content }}
+    </div>
+  </div>
+</article>

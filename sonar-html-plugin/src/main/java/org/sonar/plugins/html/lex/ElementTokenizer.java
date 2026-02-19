@@ -76,7 +76,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         case '<':
           nestedTag(element, codeReader, mode);
           continue;
-        case '>', '/', '%', '@':
+        case '>', '/', '%', '@', '{', '}':
           codeReader.pop();
           continue;
         default:
@@ -210,7 +210,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
     @Override
     public boolean match(int character) {
-      if (character == '>' || character == '/') {
+      if (character == '>' || character == '/' || character == '{') {
         return true;
       }
       return Character.isWhitespace(character);

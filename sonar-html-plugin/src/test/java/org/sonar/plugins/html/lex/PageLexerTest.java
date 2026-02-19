@@ -569,6 +569,19 @@ class PageLexerTest {
     assertThat(nodes).extracting(Node::getCode).containsExactly("<a>", " ", "<");
   }
 
+  @Test
+  void twig_expression_in_tag_does_not_pollute_node_name() {
+    StringReader reader = new StringReader("<article{{ attributes }}>content</article>");
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertThat(nodeList).hasSize(3);
+    TagNode openTag = (TagNode) nodeList.get(0);
+    assertThat(openTag.getNodeName()).isEqualTo("article");
+    TagNode closeTag = (TagNode) nodeList.get(2);
+    assertThat(closeTag.getNodeName()).isEqualTo("article");
+  }
+
   private void assertSingleTag(String code) {
     StringReader reader = new StringReader(code);
     List<Node> nodeList = new PageLexer().parse(reader);

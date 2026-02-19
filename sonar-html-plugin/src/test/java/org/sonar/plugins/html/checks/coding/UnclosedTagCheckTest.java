@@ -69,6 +69,14 @@ class UnclosedTagCheckTest {
   }
 
   @Test
+  void twig_template_no_false_positives() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/twig-file.twig"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
   void cshtml_are_ignored_by_the_rule() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"), check);
