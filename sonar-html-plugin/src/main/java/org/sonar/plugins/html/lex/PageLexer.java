@@ -53,8 +53,8 @@ public class PageLexer {
     new CommentTokenizer("<%--", "--%>", false),
     /* HTML Directive */
     new DoctypeTokenizer("<!DOCTYPE", ">"),
-    /* XML Directives */
-    new DirectiveTokenizer("<?", "?>"),
+    /* XML/PHP Directives */
+    new DirectiveTokenizer("<?", "?>", true),
     /* JSP Directives */
     new DirectiveTokenizer("<%@", "%>"),
     /* JSP Expressions */
