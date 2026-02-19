@@ -33,7 +33,7 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
   private final class EndTokenMatcher implements EndMatcher {
 
     private final CodeReader codeReader;
-    private boolean quoting;
+    private char quoteChar;
     private int nesting;
 
     private EndTokenMatcher(CodeReader codeReader) {
@@ -42,10 +42,14 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
 
     @Override
     public boolean match(int endFlag) {
-      if (endFlag == '"') {
-        quoting = !quoting;
+      if (endFlag == '"' || endFlag == '\'') {
+        if (quoteChar == 0) {
+          quoteChar = (char) endFlag;
+        } else if (quoteChar == endFlag) {
+          quoteChar = 0;
+        }
       }
-      if (!quoting) {
+      if (quoteChar == 0) {
         boolean started = equalsIgnoreCase(codeReader.peek(startChars.length), startChars);
         if (started) {
           nesting++;

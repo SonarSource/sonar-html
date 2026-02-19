@@ -569,6 +569,16 @@ class PageLexerTest {
     assertThat(nodes).extracting(Node::getCode).containsExactly("<a>", " ", "<");
   }
 
+  @Test
+  void php_directive_does_not_close_on_end_token_inside_single_quoted_string() {
+    // PHP regex containing ?> inside a single-quoted string should not close the <?php directive
+    String php = "<?php $p = '@(<a[^>]+?>)@i'; ?><p>hello</p>";
+    List<Node> nodeList = new PageLexer().parse(new StringReader(php));
+
+    assertThat(nodeList.get(0)).isInstanceOf(DirectiveNode.class);
+    assertThat(nodeList.get(0).getCode()).isEqualTo("<?php $p = '@(<a[^>]+?>)@i'; ?>");
+  }
+
   private void assertSingleTag(String code) {
     StringReader reader = new StringReader(code);
     List<Node> nodeList = new PageLexer().parse(reader);
