@@ -567,9 +567,6 @@
 "project:external_webkit-jb-mr1/Tools/RebaselineQueueServer/templates/builder-picker.html": [
 22
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
-36
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_special.html.erb": [
 1
 ]

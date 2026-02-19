@@ -57,19 +57,6 @@
 126,
 134
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
-664,
-668,
-673,
-681,
-710,
-730,
-742,
-768,
-788,
-798,
-816
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/synchroIcal.jsp": [
 116,
 125,
@@ -298,12 +285,6 @@
 100,
 117
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
-274,
-278,
-283,
-284
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
 249
 ],
@@ -318,53 +299,21 @@
 141,
 187
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
-177,
-181,
-191
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
-536,
-548,
-563,
-593
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
-613,
-634,
-654,
-694,
-740,
-776,
-777,
-782,
-783,
-790
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearchXML.jsp": [
 148,
 179,
 202
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/moveValue.jsp": [
-120,
-167
+120
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 128,
 133,
 138
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
-121,
-130,
-135
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
 287
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionEdit.jsp": [
-298
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positions.jsp": [
 236
@@ -373,9 +322,6 @@
 234
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
-271,
-411,
-557,
 618,
 644,
 652,
@@ -385,21 +331,11 @@
 691,
 714
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
-399,
-550,
-710
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchDomainSelection.jsp": [
 65
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
 228
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
-460,
-616,
-778
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationAdd.jsp": [
 111,
@@ -499,12 +435,6 @@
 190,
 194,
 201
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp": [
-149,
-165,
-185,
-194
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp": [
 107,
@@ -2699,14 +2629,6 @@
 "project:phpMyAdmin-4.0.4-english/libraries/display_create_database.lib.php": [
 28
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/display_create_table.lib.php": [
-52,
-56
-],
-"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
-228,
-234
-],
 "project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
 282,
 285,
@@ -2716,6 +2638,26 @@
 "project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
 197,
 416
+],
+"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
+410,
+421,
+510,
+526,
+532,
+537,
+548,
+552,
+557,
+569,
+585,
+632,
+679,
+692,
+708,
+756,
+809,
+825
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_pdf.php": [
 143
@@ -2734,9 +2676,6 @@
 ],
 "project:phpMyAdmin-4.0.4-english/view_operations.php": [
 91
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
-59
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb": [
 42

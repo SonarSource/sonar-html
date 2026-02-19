@@ -87,8 +87,7 @@
 145,
 146,
 149,
-152,
-268
+152
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/calendar.jsp": [
 156
@@ -116,10 +115,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/importSettings.jsp": [
 100
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
-629,
-647
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/synchroIcal.jsp": [
 102,
@@ -339,9 +334,6 @@
 80,
 108
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
-261
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
 176,
 246
@@ -363,26 +355,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/directValuesAxis.jsp": [
 87
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
-164
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
-531,
-535,
-545,
-619,
-635,
-656,
-672
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
-608,
-612,
-631,
-691,
-766,
-828
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearchXML.jsp": [
 143,
 175
@@ -394,9 +366,6 @@
 99
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
-112
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
 112
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
@@ -418,18 +387,7 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/reload.jsp": [
 85
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/resultSearchToSelect.jsp": [
-176,
-179,
-182
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
-214,
-219,
-299,
-302,
-447,
-450,
 610,
 613,
 632,
@@ -441,16 +399,6 @@
 705,
 708
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
-331,
-336,
-427,
-430,
-565,
-588,
-591,
-727
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchDomainSelection.jsp": [
 56,
 61
@@ -458,16 +406,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
 180,
 193
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
-390,
-395,
-488,
-491,
-631,
-654,
-657,
-796
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/tree.jsp": [
 116
@@ -477,9 +415,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationEdit.jsp": [
 103
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/value.jsp": [
-152
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/viewValueManager.jsp": [
 93
@@ -601,9 +536,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/ticketManager.jsp": [
 157
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp": [
-145
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp": [
 103
 ],
@@ -640,9 +572,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp": [
 108
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/statistic/jsp/detailByUser.jsp": [
-53
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldMultivalues.jsp": [
 273
@@ -933,16 +862,9 @@
 "project:external_webkit-jb-mr1/Tools/TestResultServer/templates/uploadform.html": [
 11
 ],
-"project:phpMyAdmin-4.0.4-english/db_datadict.php": [
-165
-],
 "project:phpMyAdmin-4.0.4-english/db_printview.php": [
 96,
 179
-],
-"project:phpMyAdmin-4.0.4-english/db_tracking.php": [
-75,
-195
 ],
 "project:phpMyAdmin-4.0.4-english/doc/html/config.html": [
 84,
@@ -1215,7 +1137,21 @@
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 183,
-236
+236,
+387,
+398,
+454,
+465,
+489,
+500,
+611,
+622,
+659,
+670,
+735,
+746,
+789,
+800
 ],
 "project:phpMyAdmin-4.0.4-english/server_plugins.php": [
 126,
@@ -1263,9 +1199,6 @@
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/description.html.erb": [
 6
 ],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
-68
-],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_metric.html.erb": [
 48
 ],
@@ -1293,9 +1226,6 @@
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/size.html.erb": [
 13
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/time_machine.html.erb": [
-81
 ],
 "project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/file_design.html.erb": [
 7

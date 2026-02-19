@@ -416,15 +416,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/addPdc_test.jsp": [
 41
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/askOnceResultsForm.jsp": [
-61
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/askOnceSearchForm.jsp": [
-45
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
-98
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/closeWrapper.jsp": [
 40
 ],
@@ -440,15 +431,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/directValuesAxis.jsp": [
 42
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/directValuesTree.jsp": [
-39
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
-69
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
-179
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
 291
 ],
@@ -463,12 +445,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 66
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
-70
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/pdc.jsp": [
-53
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
 135
@@ -497,9 +473,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/reloadPdc.jsp": [
 32
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/resultSearchToSelect.jsp": [
-95
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
 91
 ],
@@ -521,20 +494,11 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationAdd.jsp": [
 75
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationChoose.jsp": [
-47
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationEdit.jsp": [
 75
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/value.jsp": [
-55
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/viewValueManager.jsp": [
 49
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/webTab.jsp": [
-51
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/subscription.jsp": [
 67
@@ -561,9 +525,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/paramNotif2.jsp": [
 32
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
-86
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/addColumnList.jsp": [
 45

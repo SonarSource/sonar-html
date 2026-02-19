@@ -1,7 +1,4 @@
 {
-"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
-580
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp": [
 323
 ],
@@ -58,6 +55,10 @@
 "project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
 308,
 337
+],
+"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
+676,
+806
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb": [
 66

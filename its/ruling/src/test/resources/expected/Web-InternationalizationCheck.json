@@ -102,14 +102,6 @@
 86,
 87
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
-581,
-588
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
-671,
-678
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
 624
 ],
@@ -56411,12 +56403,18 @@
 419,
 420
 ],
+"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
+412,
+415,
+423,
+426,
+507,
+554,
+673,
+803
+],
 "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
 137
-],
-"project:phpMyAdmin-4.0.4-english/setup/index.php": [
-48,
-48
 ],
 "project:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
 183,

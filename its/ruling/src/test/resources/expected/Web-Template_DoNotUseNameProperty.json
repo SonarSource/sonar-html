@@ -228,11 +228,6 @@
 439,
 442
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/busyTime.jsp": [
-288,
-289,
-290
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/calendar.jsp": [
 188,
 189,
@@ -276,25 +271,7 @@
 134
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
-72,
-585,
-586,
-587,
-588,
-589,
-590,
-664,
-668,
-673,
-681,
-710,
-730,
-742,
-768,
-788,
-798,
-816,
-950
+72
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/synchroIcal.jsp": [
 100,
@@ -484,8 +461,7 @@
 74,
 75,
 176,
-177,
-255
+177
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/edit.jsp": [
 68,
@@ -796,14 +772,6 @@
 100,
 117
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
-262,
-266,
-274,
-278,
-283,
-284
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
 249,
 259
@@ -821,58 +789,8 @@
 141,
 187
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
-154,
-177,
-181,
-191,
-216,
-218
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
-210,
-211,
-486,
-536,
-536,
-548,
-563,
-593,
-704,
-736,
-737,
-738,
-739,
-740,
-741,
-742,
-743,
-744,
-745
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
-294,
-588,
-590,
-591,
-592,
-593,
-594,
-595,
-596,
-597,
-598,
-613,
-634,
-654,
-694,
-740,
-765,
-776,
-777,
-782,
-783,
-790
+294
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearchXML.jsp": [
 83,
@@ -889,8 +807,7 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/moveValue.jsp": [
 97,
 98,
-120,
-167
+120
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 101,
@@ -901,30 +818,13 @@
 179,
 180
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
-101,
-121,
-130,
-135,
-174,
-175
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/pdc.jsp": [
-101,
-102,
-188
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
 224,
 287,
-410,
-450,
-451,
-453
+410
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionEdit.jsp": [
 225,
-298,
 379,
 417,
 418,
@@ -944,29 +844,7 @@
 234,
 249
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/resultSearchToSelect.jsp": [
-164,
-165,
-166,
-167,
-168,
-169,
-170,
-171,
-172,
-173,
-174
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
-207,
-209,
-210,
-211,
-212,
-219,
-271,
-411,
-557,
 618,
 644,
 652,
@@ -975,17 +853,6 @@
 675,
 691,
 714
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
-324,
-326,
-327,
-328,
-329,
-336,
-399,
-550,
-710
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchDomainSelection.jsp": [
 60,
@@ -999,18 +866,6 @@
 193,
 228,
 300
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
-382,
-384,
-385,
-386,
-387,
-395,
-399,
-460,
-616,
-778
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/tree.jsp": [
 156,
@@ -1036,9 +891,6 @@
 157,
 174
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationChoose.jsp": [
-103
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationEdit.jsp": [
 101,
 102,
@@ -1048,9 +900,6 @@
 141,
 142,
 158
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/value.jsp": [
-188
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/subscription.jsp": [
 69,
@@ -1064,15 +913,11 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionComponent.jsp": [
 84,
-85,
-151,
-152
+85
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionTheme.jsp": [
 85,
-86,
-152,
-153
+86
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/editNotification.jsp": [
 134,
@@ -1093,9 +938,6 @@
 116
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
-191,
-192,
-193,
 303
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/adminPortlet.jsp": [
@@ -1299,17 +1141,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/connections.jsp": [
 152
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp": [
-144,
-149,
-165,
-185,
-186,
-194,
-195,
-201,
-305
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp": [
 99,
@@ -1635,14 +1466,7 @@
 199
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/viewConnections.jsp": [
-67,
-107,
-108,
-109,
-110,
-111,
-113,
-114
+67
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/actions.jsp": [
 120
@@ -5185,20 +5009,6 @@
 27,
 28
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/display_create_table.lib.php": [
-52,
-56
-],
-"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
-36,
-163,
-170,
-228,
-234,
-287,
-297,
-305
-],
 "project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
 282,
 285,
@@ -5243,7 +5053,31 @@
 231,
 232,
 233,
-234
+234,
+410,
+421,
+434,
+436,
+471,
+473,
+510,
+537,
+557,
+569,
+591,
+593,
+639,
+641,
+679,
+692,
+715,
+717,
+756,
+769,
+771,
+809,
+832,
+834
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_pdf.php": [
 98,

@@ -206,18 +206,7 @@
 158,
 161,
 164,
-165,
-186,
-189,
-190,
-194,
-202,
-204,
-208,
-210,
-224,
-227,
-228
+165
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobSearchPeas/jsp/jobSearchResult.jsp": [
 179
@@ -321,26 +310,15 @@
 169,
 210
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
-274,
-317
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
 246
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp": [
 183
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
-177
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 128,
 160
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
-121,
-157
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
 413,
@@ -355,9 +333,6 @@
 395
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
-266,
-407,
-553,
 615,
 640,
 648,
@@ -367,22 +342,8 @@
 687,
 710
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
-381,
-542,
-565,
-701,
-727
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
 215
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
-443,
-603,
-631,
-768,
-796
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/viewValueManager.jsp": [
 98,
@@ -407,10 +368,6 @@
 113,
 123,
 154
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletList.jsp": [
-105,
-105
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletTitle.jsp": [
 62,
@@ -450,9 +407,6 @@
 195,
 202,
 206
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp": [
-224
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewConnection.jsp": [
 279,
@@ -1130,9 +1084,6 @@
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/web/tests_viewer.html.erb": [
 94
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
-87
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb": [
 45

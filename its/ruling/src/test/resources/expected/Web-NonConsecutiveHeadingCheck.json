@@ -176,9 +176,6 @@
 "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.3.2/htdocs/index.html": [
 7
 ],
-"project:phpMyAdmin-4.0.4-english/db_tracking.php": [
-73
-],
 "project:phpMyAdmin-4.0.4-english/doc/html/copyright.html": [
 35
 ],
@@ -196,9 +193,6 @@
 ],
 "project:phpMyAdmin-4.0.4-english/doc/html/user.html": [
 35
-],
-"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
-186
 ],
 "project:phpMyAdmin-4.0.4-english/prefs_manage.php": [
 232
@@ -223,9 +217,6 @@
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/coverage.html.erb": [
 43
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
-57
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_metric.html.erb": [
 37
@@ -253,9 +244,6 @@
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/size.html.erb": [
 19
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/time_machine.html.erb": [
-76
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/timeline.html.erb": [
 148

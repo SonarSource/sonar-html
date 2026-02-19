@@ -19,9 +19,12 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/appInMaintenance.jsp": [
 62
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
-444,
-454
+"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/busyTime.jsp": [
+144,
+145,
+146,
+149,
+152
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/messageOk.jsp": [
 60
@@ -40,6 +43,11 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
 258
 ],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/directory/jsp/directory.jsp": [
+172,
+174,
+183
+],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp": [
 296,
 297
@@ -54,12 +62,25 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSynchroPing.jsp": [
 42
 ],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/topBarManager.jsp": [
+86,
+94,
+97
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobOrganizationPeas/jsp/jopUserView.jsp": [
+103,
+114,
+118
+],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
 120,
 126
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp": [
 43
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
+145
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
 249
@@ -73,23 +94,21 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/moveValue.jsp": [
 97,
-99
+99,
+120
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 111,
 118
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
-111
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
+224,
+235
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/resultSearchToSelect.jsp": [
-176
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
-207
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
-324
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionEdit.jsp": [
+224,
+225,
+226
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchDomainSelection.jsp": [
 56
@@ -97,11 +116,16 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
 174
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
-382
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionComponent.jsp": [
+84
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/value.jsp": [
-151
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionTheme.jsp": [
+85
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletList.jsp": [
+68,
+71,
+73
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/header.jsp": [
 82
@@ -112,6 +136,9 @@
 84,
 98,
 101
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/elementView.jsp": [
+62
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp": [
 86,
@@ -137,6 +164,10 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/tools/index.jsp": [
 52,
 58
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/viewConnections.jsp": [
+67,
+69
 ],
 "project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLElement01.html": [
 77
@@ -828,23 +859,19 @@
 "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/testcases/testcase-U_Linux_x86_64_en-US_AppleWebKit-534.7_Chrome-7.0.513.0-4800-5_80,65,15.html": [
 9
 ],
-"project:phpMyAdmin-4.0.4-english/db_datadict.php": [
-238
-],
 "project:phpMyAdmin-4.0.4-english/libraries/sql_query_form.lib.php": [
 87
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
-165,
-166,
-170,
-182,
-183,
-236,
 277
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_pdf.php": [
 98
+],
+"project:phpMyAdmin-4.0.4-english/prefs_manage.php": [
+229,
+246,
+302
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb": [
 9,

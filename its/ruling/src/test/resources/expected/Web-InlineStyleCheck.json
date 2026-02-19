@@ -161,9 +161,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/demo/popup/index.jsp": [
 85
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/directory/jsp/directory.jsp": [
-254
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/explorer/jsp/explorer.jsp": [
 197
 ],
@@ -192,29 +189,11 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp": [
 256
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
-274,
-278
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
 179
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
-177
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
-748,
-749
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
-769,
-769
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 128
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
-121
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
 137,
@@ -1254,9 +1233,6 @@
 "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/testcases/testcase-U_Linux_x86_64_en-US_AppleWebKit-534.7_Chrome-7.0.513.0-TEST-23583190347-3_15,12.html": [
 11
 ],
-"project:phpMyAdmin-4.0.4-english/db_tracking.php": [
-198
-],
 "project:phpMyAdmin-4.0.4-english/doc/html/config.html": [
 37,
 4859,
@@ -1433,16 +1409,18 @@
 118,
 130
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
-36,
-37,
-39
-],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 170,
 171,
 183,
-236
+236,
+387,
+454,
+489,
+611,
+659,
+735,
+789
 ],
 "project:phpMyAdmin-4.0.4-english/prefs_manage.php": [
 290,
@@ -1477,9 +1455,6 @@
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/description.html.erb": [
 45
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
-98
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_metric.html.erb": [
 42,
@@ -1523,11 +1498,6 @@
 136,
 150,
 156
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/time_machine.html.erb": [
-75,
-80,
-90
 ],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/timeline.html.erb": [
 148

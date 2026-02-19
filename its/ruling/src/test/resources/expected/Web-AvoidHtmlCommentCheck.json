@@ -42,10 +42,6 @@
 53,
 55
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
-592,
-671
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/writeMessage.jsp": [
 85,
 88
@@ -103,12 +99,7 @@
 147,
 158,
 169,
-186,
-207,
-227,
-238,
-250,
-261
+186
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
 105
@@ -170,12 +161,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/directValuesAxis.jsp": [
 48
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
-589,
-716,
-736,
-825
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positions.jsp": [
 81,
 138,
@@ -185,46 +170,21 @@
 119,
 178
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/resultSearchToSelect.jsp": [
-176,
-179
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
-90,
-208,
-218,
-298,
-442
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
-325,
-335,
-426,
-583
+90
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
 175,
 183
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
-217,
-383,
-394,
-487,
-649
+217
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/tree.jsp": [
 73
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/webTab.jsp": [
-150,
-151
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/paramNotif.jsp": [
 84
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
-189
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
 134
@@ -545,6 +505,9 @@
 ],
 "project:phpMyAdmin-4.0.4-english/libraries/error.inc.php": [
 25
+],
+"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
+874
 ],
 "project:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
 111

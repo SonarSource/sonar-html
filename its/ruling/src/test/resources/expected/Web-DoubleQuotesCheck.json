@@ -192,32 +192,19 @@
 171,
 175,
 188,
-192,
-209,
-215,
-229,
-233,
-240,
-244,
-252,
-256,
-263,
-267,
-286
+192
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/goBack.jsp": [
 34
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
+145
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/closeWrapper.jsp": [
 42
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
 179
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
-68,
-73,
-78
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
 106,

@@ -100,29 +100,11 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/usedICenter.jsp": [
 67
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
-626
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
-278,
-280,
 622,
 624
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
-406,
-408
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
-467,
-469
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/value.jsp": [
-155,
-155
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
-190,
 296
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/lastPublications/portlet.jsp": [
@@ -2802,6 +2784,14 @@
 ],
 "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/testcases/testcase-U_Linux_x86_64_en-US_AppleWebKit-534.6_Chrome-7.0.503.1-TEST-120813-8_72,56,24,8,0.html": [
 3
+],
+"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
+507,
+529,
+534,
+547,
+551,
+554
 ],
 "project:phpMyAdmin-4.0.4-english/prefs_forms.php": [
 85
