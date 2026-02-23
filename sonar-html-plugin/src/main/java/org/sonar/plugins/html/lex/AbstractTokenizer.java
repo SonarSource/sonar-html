@@ -61,6 +61,103 @@ abstract class AbstractTokenizer<T extends List<Node>> extends Channel<T> {
     }
   }
 
+  /**
+   * End matcher aware of code string literals and comments. Skips end tokens inside:
+   * <ul>
+   *   <li>Single-quoted strings ({@code '...'})</li>
+   *   <li>Double-quoted strings ({@code "..."})</li>
+   *   <li>Single-line comments ({@code //...})</li>
+   *   <li>Multi-line comments ({@code /* ... * /})</li>
+   * </ul>
+   * Used for PHP ({@code <?php ?>}) and JSP ({@code <% %>}) blocks where embedded code
+   * may contain end token sequences inside strings or comments.
+   */
+  final class CodeAwareEndMatcher implements EndMatcher {
+
+    private static final int NORMAL = 0;
+    private static final int LINE_COMMENT = 1;
+    private static final int BLOCK_COMMENT = 2;
+    private static final int SINGLE_QUOTE = 3;
+    private static final int DOUBLE_QUOTE = 4;
+
+    private final CodeReader codeReader;
+    private int state = NORMAL;
+    private int previousChar;
+    private boolean escaped;
+    private int nesting;
+
+    CodeAwareEndMatcher(CodeReader codeReader) {
+      this.codeReader = codeReader;
+    }
+
+    @Override
+    public boolean match(int endFlag) {
+      boolean result = false;
+
+      switch (state) {
+        case LINE_COMMENT:
+          if (endFlag == '\n') {
+            state = NORMAL;
+          }
+          // In PHP/JSP, block delimiters (?> / %>) still close the block inside comments
+          result = matchEndToken();
+          break;
+        case BLOCK_COMMENT:
+          if (previousChar == '*' && endFlag == '/') {
+            state = NORMAL;
+          }
+          result = matchEndToken();
+          break;
+        case SINGLE_QUOTE:
+          if (endFlag == '\'' && !escaped) {
+            state = NORMAL;
+          }
+          break;
+        case DOUBLE_QUOTE:
+          if (endFlag == '"' && !escaped) {
+            state = NORMAL;
+          }
+          break;
+        default:
+          result = matchNormal(endFlag);
+          break;
+      }
+
+      escaped = !escaped && endFlag == '\\';
+      previousChar = endFlag;
+      return result;
+    }
+
+    private boolean matchNormal(int endFlag) {
+      if (previousChar == '/' && endFlag == '/') {
+        state = LINE_COMMENT;
+      } else if (previousChar == '/' && endFlag == '*') {
+        state = BLOCK_COMMENT;
+      } else if (endFlag == '\'') {
+        state = SINGLE_QUOTE;
+      } else if (endFlag == '"') {
+        state = DOUBLE_QUOTE;
+      } else {
+        return matchEndToken();
+      }
+      return false;
+    }
+
+    private boolean matchEndToken() {
+      boolean started = equalsIgnoreCase(codeReader.peek(startChars.length), startChars);
+      if (started) {
+        nesting++;
+      } else {
+        boolean ended = Arrays.equals(codeReader.peek(endChars.length), endChars);
+        if (ended) {
+          nesting--;
+          return nesting < 0;
+        }
+      }
+      return false;
+    }
+  }
+
   private final char[] endChars;
 
   private final char[] startChars;

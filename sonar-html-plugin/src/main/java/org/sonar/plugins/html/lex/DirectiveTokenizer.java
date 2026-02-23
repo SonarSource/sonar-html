@@ -18,6 +18,8 @@ package org.sonar.plugins.html.lex;
 
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.sslr.channel.CodeReader;
+import org.sonar.sslr.channel.EndMatcher;
 
 /**
  * Tokenizer for directives.
@@ -26,13 +28,27 @@ import org.sonar.plugins.html.node.Node;
  */
 class DirectiveTokenizer extends ElementTokenizer {
 
+  private final boolean codeAware;
+
   public DirectiveTokenizer(String startToken, String endToken) {
+    this(startToken, endToken, false);
+  }
+
+  public DirectiveTokenizer(String startToken, String endToken, boolean codeAware) {
     super(startToken, endToken);
+    this.codeAware = codeAware;
   }
 
   @Override
   Node createNode() {
-
     return new DirectiveNode();
+  }
+
+  @Override
+  protected EndMatcher getEndMatcher(CodeReader codeReader) {
+    if (codeAware) {
+      return new CodeAwareEndMatcher(codeReader);
+    }
+    return super.getEndMatcher(codeReader);
   }
 }

@@ -582,6 +582,36 @@ class PageLexerTest {
     assertThat(closeTag.getNodeName()).isEqualTo("article");
   }
 
+  @Test
+  void php_directive_does_not_close_on_end_token_inside_single_quoted_string() {
+    String php = "<?php $p = '@(<a[^>]+?>)@i'; ?><p>hello</p>";
+    List<Node> nodeList = new PageLexer().parse(new StringReader(php));
+
+    assertThat(nodeList.get(0)).isInstanceOf(DirectiveNode.class);
+    assertThat(nodeList.get(0).getCode()).isEqualTo("<?php $p = '@(<a[^>]+?>)@i'; ?>");
+  }
+
+  @Test
+  void php_directive_handles_comments_with_apostrophes() {
+    // Single quotes in PHP comments (e.g. "can't") should not break directive parsing
+    String php = "<?php\n// l'utilisateur\n$x = 1;\n?><p>hello</p>";
+    List<Node> nodeList = new PageLexer().parse(new StringReader(php));
+
+    assertThat(nodeList.get(0)).isInstanceOf(DirectiveNode.class);
+    assertThat(nodeList.get(0).getCode()).isEqualTo("<?php\n// l'utilisateur\n$x = 1;\n?>");
+    assertThat(nodeList.get(1)).isInstanceOf(TagNode.class);
+    assertThat(((TagNode) nodeList.get(1)).getNodeName()).isEqualTo("p");
+  }
+
+  @Test
+  void php_directive_handles_block_comments_with_apostrophes() {
+    String php = "<?php\n/* it's a test */\n$x = 1;\n?><p>hello</p>";
+    List<Node> nodeList = new PageLexer().parse(new StringReader(php));
+
+    assertThat(nodeList.get(0)).isInstanceOf(DirectiveNode.class);
+    assertThat(nodeList.get(0).getCode()).isEqualTo("<?php\n/* it's a test */\n$x = 1;\n?>");
+  }
+
   private void assertSingleTag(String code) {
     StringReader reader = new StringReader(code);
     List<Node> nodeList = new PageLexer().parse(reader);
