@@ -70,6 +70,12 @@
 <div (click)="doSomething();" (keydown.undefinedkeyname)="doSomething();"></div>    <!-- Non-Compliant - too long key name -->
 <div (click)="doSomething();" (keydown.1.2.3.4.5.6)="doSomething();"></div>         <!-- Non-Compliant - unrealistic key combination -->
 
+<!-- Angular 2+ keyup event with key name -->
+<div (click)="doSomething();" (keyup.enter)="doSomething();"></div>                 <!-- Compliant -->
+<div (click)="doSomething();" (keyup.shift.control.z)="doSomething();"></div>       <!-- Compliant -->
+<div (click)="doSomething();" (keyup.undefinedkeyname)="doSomething();"></div>      <!-- Non-Compliant - too long key name -->
+<div (click)="doSomething();" (keyup.1.2.3.4.5.6)="doSomething();"></div>           <!-- Non-Compliant - unrealistic key combination -->
+
 <lightning-button onclick={doSomething}></lightning-button>                         <!-- Compliant -->
 <lightning-button-icon onclick={doSomething}></lightning-button-icon>               <!-- Compliant -->
 <lightning-button-menu onclick={doSomething}></lightning-button-menu>               <!-- Compliant -->
@@ -81,3 +87,21 @@
 <details>
     <summary onclick="console.log(this.target)">Summary</summary> <!-- Compliant -->
 </details>
+
+<!-- Vue.js event bindings -->
+<!-- @keydown/@keyup shorthand: the @ is stripped by the parser, leaving bare "keydown"/"keyup" as attribute name -->
+<div onClick="doSomething();" @keydown="doSomething();"></div>           <!-- Compliant - Vue @keydown -->
+<div onClick="doSomething();" @keyup="doSomething();"></div>             <!-- Compliant - Vue @keyup -->
+<div onClick="doSomething();" @keydown.enter="doSomething();"></div>     <!-- Compliant - Vue @keydown.enter -->
+<div onClick="doSomething();" @keydown.esc="doSomething();"></div>       <!-- Compliant - Vue @keydown.esc -->
+<div onClick="doSomething();" @keydown.shift.control.z="doSomething();"></div> <!-- Compliant - Vue key combination -->
+<div onClick="doSomething();" @keyup.enter="doSomething();"></div>       <!-- Compliant - Vue @keyup.enter -->
+<div onClick="doSomething();" @keyup.esc="doSomething();"></div>         <!-- Compliant - Vue @keyup.esc -->
+<!-- v-on: long form -->
+<div onClick="doSomething();" v-on:keydown="doSomething();"></div>       <!-- Compliant - Vue v-on:keydown -->
+<div onClick="doSomething();" v-on:keyup="doSomething();"></div>         <!-- Compliant - Vue v-on:keyup -->
+<div onClick="doSomething();" v-on:keydown.enter="doSomething();"></div> <!-- Compliant - Vue v-on:keydown.enter -->
+<div onClick="doSomething();" v-on:keyup.enter="doSomething();"></div>   <!-- Compliant - Vue v-on:keyup.enter -->
+<!-- Non-compliant Vue key modifier cases -->
+<div onClick="doSomething();" @keydown.toolongkeyname="doSomething();"></div> <!-- Non-Compliant - too long key name -->
+<div onClick="doSomething();" @keydown.1.2.3.4.5.6="doSomething();"></div>   <!-- Non-Compliant - unrealistic key combination -->
