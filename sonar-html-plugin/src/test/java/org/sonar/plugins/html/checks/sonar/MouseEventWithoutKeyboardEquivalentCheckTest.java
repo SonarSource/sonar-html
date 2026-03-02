@@ -53,6 +53,9 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         .next().atLine(70)
         .next().atLine(71)
         .next().atLine(79).withMessage("Add a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.")
+        // Vue.js - invalid key name combinations
+        .next().atLine(100)
+        .next().atLine(101)
     ;
   }
 }

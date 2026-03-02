@@ -30,7 +30,20 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   // Angular 2+ allows key names for the onKeydown pseudo-event to prevent checking the key name manually
   // This pseudo-event also allows key combinations
   // Key names are limited to 10 charters and the combination of keys is realistic limited to 5
-  private static final Pattern KEY_DOWN_WITH_KEY_NAME = Pattern.compile("\\(keydown(\\.\\w{1,10}){1,5}\\)");
+  // Vue also supports key modifiers on @keydown (e.g. @keydown.enter, v-on:keydown.enter)
+  // Note: Vue's @keydown shorthand has the @ stripped by the parser, leaving bare "keydown.enter" as the attribute name
+  private static final Pattern KEY_DOWN_WITH_KEY_NAME = Pattern.compile(
+    "\\(keydown(\\.\\w{1,10}){1,5}\\)" +           // Angular: (keydown.enter)
+    "|keydown(\\.\\w{1,10}){1,5}" +                // Vue shorthand (@ stripped): keydown.enter
+    "|v-on:keydown(\\.\\w{1,10}){1,5}",            // Vue long form: v-on:keydown.enter
+    Pattern.CASE_INSENSITIVE);
+
+  // Vue supports key modifiers on @keyup (e.g. @keyup.enter, v-on:keyup.enter)
+  // Note: Vue's @keyup shorthand has the @ stripped by the parser, leaving bare "keyup.enter" as the attribute name
+  private static final Pattern KEY_UP_WITH_KEY_NAME = Pattern.compile(
+    "keyup(\\.\\w{1,10}){1,5}" +                   // Vue shorthand (@ stripped): keyup.enter
+    "|v-on:keyup(\\.\\w{1,10}){1,5}",              // Vue long form: v-on:keyup.enter
+    Pattern.CASE_INSENSITIVE);
 
   @Override
   public void startElement(TagNode node) {
@@ -94,11 +107,13 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean hasOnKeyDown(TagNode node) {
-    return hasEventHandlerAttribute(node, "KEYDOWN") || hasAngularKeyDownWithKeyName(node);
+    // Vue's @keydown shorthand has @ stripped by the parser, leaving bare "keydown" attribute name
+    return hasEventHandlerAttribute(node, "KEYDOWN") || hasAttribute(node, "KEYDOWN") || hasKeyDownWithKeyName(node);
   }
 
   private static boolean hasOnKeyUp(TagNode node) {
-    return hasEventHandlerAttribute(node, "KEYUP");
+    // Vue's @keyup shorthand has @ stripped by the parser, leaving bare "keyup" attribute name
+    return hasEventHandlerAttribute(node, "KEYUP") || hasAttribute(node, "KEYUP") || hasKeyUpWithKeyName(node);
   }
 
   private static boolean hasOnMouseover(TagNode node) {
@@ -123,10 +138,12 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   private static boolean hasEventHandlerAttribute(TagNode node, String eventName) {
     return hasAttribute(node, "ON" + eventName)
-      // angular event binding attributes
+      // Angular event binding attributes
       || hasAttribute(node, "(" + eventName + ")")
       || hasAttribute(node, "ON-" + eventName)
-      || hasAttribute(node, "NG-" + eventName);
+      || hasAttribute(node, "NG-" + eventName)
+      // Vue long form: v-on:eventname (shorthand @eventname has @ stripped by the parser)
+      || hasAttribute(node, "V-ON:" + eventName);
   }
 
   private static boolean hasAttribute(TagNode node, String attributeName) {
@@ -160,7 +177,11 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       || "LIGHTNING-BUTTON-MENU".equalsIgnoreCase(node.getNodeName());
   }
 
-  private static boolean hasAngularKeyDownWithKeyName(TagNode node) {
-    return node.getAttributes().stream().anyMatch(a -> KEY_DOWN_WITH_KEY_NAME.matcher(a.getName()).find());
+  private static boolean hasKeyDownWithKeyName(TagNode node) {
+    return node.getAttributes().stream().anyMatch(a -> KEY_DOWN_WITH_KEY_NAME.matcher(a.getName()).matches());
+  }
+
+  private static boolean hasKeyUpWithKeyName(TagNode node) {
+    return node.getAttributes().stream().anyMatch(a -> KEY_UP_WITH_KEY_NAME.matcher(a.getName()).matches());
   }
 }
