@@ -52,10 +52,13 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         .next().atLine(68)
         .next().atLine(70)
         .next().atLine(71)
-        .next().atLine(79).withMessage("Add a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.")
+        // Angular (keyup.X) - invalid key name combinations
+        .next().atLine(76)
+        .next().atLine(77)
+        .next().atLine(85).withMessage("Add a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.")
         // Vue.js - invalid key name combinations
-        .next().atLine(100)
-        .next().atLine(101)
+        .next().atLine(106)
+        .next().atLine(107)
     ;
   }
 }

@@ -38,10 +38,12 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     "|v-on:keydown(\\.\\w{1,10}){1,5}",            // Vue long form: v-on:keydown.enter
     Pattern.CASE_INSENSITIVE);
 
-  // Vue supports key modifiers on @keyup (e.g. @keyup.enter, v-on:keyup.enter)
+  // Angular 2+ allows key names for the onKeyup pseudo-event, similar to keydown
+  // Vue also supports key modifiers on @keyup (e.g. @keyup.enter, v-on:keyup.enter)
   // Note: Vue's @keyup shorthand has the @ stripped by the parser, leaving bare "keyup.enter" as the attribute name
   private static final Pattern KEY_UP_WITH_KEY_NAME = Pattern.compile(
-    "keyup(\\.\\w{1,10}){1,5}" +                   // Vue shorthand (@ stripped): keyup.enter
+    "\\(keyup(\\.\\w{1,10}){1,5}\\)" +             // Angular: (keyup.enter)
+    "|keyup(\\.\\w{1,10}){1,5}" +                  // Vue shorthand (@ stripped): keyup.enter
     "|v-on:keyup(\\.\\w{1,10}){1,5}",              // Vue long form: v-on:keyup.enter
     Pattern.CASE_INSENSITIVE);
 
