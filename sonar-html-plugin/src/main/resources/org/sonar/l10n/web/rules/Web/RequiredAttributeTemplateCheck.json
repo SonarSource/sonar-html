@@ -1,0 +1,14 @@
+{
+  "title": "Track lack of required attributes",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "10min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "sqKey": "RequiredAttributeTemplateCheck",
+  "scope": "Main",
+  "quickfix": "unknown"
+}
