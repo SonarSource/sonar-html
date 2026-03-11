@@ -24,7 +24,7 @@ import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
-@Rule(key = "RequiredAttributeTemplateCheck")
+@Rule(key = "S8488")
 public class RequiredAttributeTemplateCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ATTRIBUTES = "";

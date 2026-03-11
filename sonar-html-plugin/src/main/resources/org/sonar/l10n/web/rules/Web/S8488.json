@@ -8,7 +8,8 @@
   },
   "tags": [],
   "defaultSeverity": "Major",
-  "sqKey": "RequiredAttributeTemplateCheck",
+  "ruleSpecification": "RSPEC-8488",
+  "sqKey": "S8488",
   "scope": "Main",
   "quickfix": "unknown"
 }
