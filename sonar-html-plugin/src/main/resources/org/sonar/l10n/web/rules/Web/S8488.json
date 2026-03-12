@@ -4,12 +4,18 @@
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
-    "constantCost": "10min"
+    "constantCost": "5min"
   },
   "tags": [],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-8488",
   "sqKey": "S8488",
-  "scope": "Main",
-  "quickfix": "unknown"
+  "scope": "All",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "CONVENTIONAL"
+  }
 }

@@ -1,11 +1,14 @@
 <h2>Why is this an issue?</h2>
-<p>This rule checks that the specified attributes are present in HTML tags.</p>
+<p>This is a template rule. It checks that the user-configured required attributes are present in the specified HTML elements. Create a custom rule
+from this template to define which attributes must be present.</p>
+<p>See rule {rule:Web:S1927} for a non-template version with a configurable attribute list.</p>
 <h3>Noncompliant code example</h3>
-<p>Given a required attribute list of: <code>img.alt,img.height,img.width</code>:</p>
-<pre>
-&lt;img src="/images/queen.png"&gt; &lt;!-- Noncompliant; missing all required attributes --&gt;
+<p>For a required attribute list of: <code>img.alt</code>:</p>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;img src="/images/queen.png"&gt; &lt;!-- Noncompliant; missing required "alt" attribute --&gt;
 </pre>
 <h3>Compliant solution</h3>
-<pre>
-&lt;img src="/images/queen.png" width="60" height="85" alt="Elizabeth II"&gt;
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;img src="/images/queen.png" alt="Elizabeth II"&gt;
 </pre>
+
