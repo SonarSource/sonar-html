@@ -18,6 +18,6 @@ package org.sonar.plugins.html.checks.attributes;
 
 import org.sonar.check.Rule;
 
-@Rule(key = "RequiredAttributeCheck")
-public class RequiredAttributeCheck extends AbstractRequiredAttributeCheck {
+@Rule(key = "S8488")
+public class RequiredAttributeTemplateCheck extends AbstractRequiredAttributeCheck {
 }

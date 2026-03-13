@@ -32,6 +32,7 @@ public final class HtmlRulesDefinition implements RulesDefinition {
 
   private static final Set<String> TEMPLATE_RULE_KEYS = Collections.unmodifiableSet(Stream.of(
     "IllegalAttributeCheck",
+    "S8488",
     "LibraryDependencyCheck",
     "ChildElementIllegalCheck",
     "ChildElementRequiredCheck",

@@ -65,6 +65,8 @@ public class WebRulingTest {
       new ProfileGenerator.RulesConfiguration(), Collections.emptySet());
     orchestrator.getServer().restoreProfile(FileLocation.of(profile));
     instantiateTemplateRule("IllegalAttributeCheck", "Template_DoNotUseNameProperty", "attributes=\"name\"");
+    instantiateTemplateRule("S8488", "Template_RequiredScriptType", "attributes=\"script.type\"");
+    instantiateTemplateRule("S8488", "Template_RequiredInputType", "attributes=\"input.type\"");
   }
 
   @Test

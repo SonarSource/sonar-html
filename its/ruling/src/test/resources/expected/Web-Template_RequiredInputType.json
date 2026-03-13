@@ -1,0 +1,103 @@
+{
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DomainsBarSilverpeasV5.jsp": [
+285
+],
+"project:custom/S6843.html": [
+1
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/autofill-popup-location.html": [
+18
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/chromium/suggestions-popup-font-change.html": [
+18
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-caret.html": [
+2
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drop-text-acquires-style.html": [
+8
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/find-count-matches-after-text-control.html": [
+14
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/focusringcolor-change-on-theme-change.html": [
+1
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/input-empty-on-focus.html": [
+2
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/input-type-file-autocomplete-frame-2.html": [
+4
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/modal-dialog-blur.html": [
+31
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/modal-dialog.html": [
+21,
+22
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/onblur-remove.html": [
+27
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/onfocus-alert-blinking-caret.html": [
+7
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plain-text-paste.html": [
+33,
+37,
+41,
+45,
+49,
+53
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/show-modal-dialog-test.html": [
+11,
+14
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/submit-form-with-target-twice.html": [
+10
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/text-field-autoscroll.html": [
+20
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/releasepatch.html": [
+2,
+2
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/submittoews.html": [
+2
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/updatestatus.html": [
+2,
+5,
+9,
+13
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/updatesvnrevision.html": [
+2,
+5
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/updateworkitems.html": [
+2,
+5
+],
+"project:external_webkit-jb-mr1/Tools/TestWebKitAPI/Tests/WebKit2/simple-form.html": [
+9
+],
+"project:external_webkit-jb-mr1/Tools/TestWebKitAPI/Tests/WebKit2/spacebar-scrolling.html": [
+25
+],
+"project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.3.2/htdocs/index.html": [
+17,
+17,
+25,
+25
+],
+"project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/src/index.html": [
+78,
+79,
+88,
+88,
+95
+]
+}
