@@ -37,18 +37,18 @@
     <dependency>
       <groupId>org.sonarsource.sonarlint.core</groupId>
       <artifactId>sonarlint-core</artifactId>
-      <version>10.47.0.84936</version>
+      <version>11.0.0.85168</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.sonarsource.sonarlint.core</groupId>
       <artifactId>sonarlint-core-test-utils</artifactId>
-      <version>10.47.0.84936</version>
+      <version>11.0.0.85168</version>
     </dependency>
     <dependency>
       <groupId>org.sonarsource.sonarlint.core</groupId>
       <artifactId>sonarlint-rpc-protocol</artifactId>
-      <version>10.47.0.84936</version>
+      <version>11.0.0.85168</version>
       <scope>test</scope>
     </dependency>
     <dependency>
