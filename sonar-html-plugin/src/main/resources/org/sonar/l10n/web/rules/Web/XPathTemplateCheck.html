@@ -18,4 +18,10 @@
 <pre>
 //img[not(@alt)]
 </pre>
-
+<h2>Limitations</h2>
+<ul>
+  <li><strong>XPath 1.0 only</strong> — Functions like <code>matches()</code> from XPath 2.0 are not available.</li>
+  <li><strong>Namespace-unaware</strong> — The HTML DOM is parsed without namespace awareness. Namespace-prefixed XPath expressions (e.g., <code>//xhtml:div</code>) are not supported.</li>
+  <li><strong>Use descendant axis</strong> — The internal DOM wraps elements in a synthetic root node. Use descendant expressions like <code>//img</code> instead of absolute paths like <code>/html/body/img</code>.</li>
+  <li><strong>Element matches only</strong> — Only XPath expressions matching elements create line-level issues. Expressions matching attributes or text nodes (e.g., <code>//img/@alt</code>) will not produce issues.</li>
+</ul>
