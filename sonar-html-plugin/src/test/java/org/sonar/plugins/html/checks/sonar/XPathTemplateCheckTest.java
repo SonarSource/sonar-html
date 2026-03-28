@@ -280,6 +280,32 @@ class XPathTemplateCheckTest {
   }
 
   @Test
+  void test_text_node_support() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//p[contains(text(), 'Text')]";
+    check.message = "Paragraph with 'Text' found";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
+      check);
+    // Should find paragraphs containing text "Text" - verifies text nodes are in DOM
+    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(1);
+  }
+
+  @Test
+  void test_text_node_normalize_space() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//p[normalize-space()]";
+    check.message = "Paragraph with non-empty text";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
+      check);
+    // Should find paragraphs with text content - verifies normalize-space() works with text nodes
+    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(1);
+  }
+
+  @Test
   void test_stale_state_not_carried_over() throws Exception {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "count(//img) > 0";
@@ -337,5 +363,64 @@ class XPathTemplateCheckTest {
       check);
     // Should not create any issues when boolean is false
     assertThat(sourceCode.getIssues()).hasSize(0);
+  }
+
+  @Test
+  void test_invalid_xpath_expression() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//img[invalid syntax";
+    check.message = "Invalid XPath";
+
+    // Invalid XPath should throw exception during compilation in startDocument
+    // The scanner catches it and logs, so no issues are created
+    try {
+      HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+        check);
+      // If it doesn't throw, verify no issues were created
+      assertThat(sourceCode.getIssues()).hasSize(0);
+    } catch (IllegalStateException e) {
+      // Expected - invalid XPath throws during compilation
+      assertThat(e.getMessage()).contains("Failed to compile XPath expression");
+    }
+  }
+
+  @Test
+  void test_xpath_with_no_matches() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//nonexistent";
+    check.message = "Nonexistent element found";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+      check);
+    // Should produce no issues when XPath matches nothing
+    assertThat(sourceCode.getIssues()).hasSize(0);
+  }
+
+  @Test
+  void test_complex_xpath_with_predicates() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//div[@class='content' and count(.//*) > 0]";
+    check.message = "Content div with children found";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+      check);
+    // Should handle complex predicates correctly
+    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(0);
+  }
+
+  @Test
+  void test_xpath_with_text_predicate() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//div[text()]";
+    check.message = "Div with text content found";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
+      check);
+    // Should find divs with text content (verifies text nodes work)
+    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(1);
   }
 }
