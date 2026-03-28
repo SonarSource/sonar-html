@@ -51,7 +51,7 @@ public class XPathTemplateCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(XPathTemplateCheck.class);
   private static final String DEFAULT_XPATH_EXPRESSION = "";
-  private static final String DEFAULT_MESSAGE = "Element matches XPath expression";
+  private static final String DEFAULT_MESSAGE = "The XPath expression matches this piece of code";
 
   @RuleProperty(
     key = "expression",
@@ -114,6 +114,8 @@ public class XPathTemplateCheck extends AbstractPageCheck {
         TagNode htmlNode = nodeMapping.get(w3cNode);
         if (htmlNode != null) {
           createViolation(htmlNode.getStartLinePosition(), getMessage());
+        } else {
+          LOG.debug("Could not find matching HTML node for W3C node: {}", w3cNode.getNodeName());
         }
       }
     } catch (XPathExpressionException nodeSetException) {
