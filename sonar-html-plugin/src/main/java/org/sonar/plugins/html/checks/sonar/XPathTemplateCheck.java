@@ -33,6 +33,7 @@ import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 import org.w3c.dom.Document;
@@ -44,8 +45,8 @@ import org.w3c.dom.NodeList;
  * This rule allows users to define custom XPath expressions to find HTML elements
  * and report issues when matches are found.
  * 
- * This implementation follows the same principles as the XML plugin's 
- * {@link org.sonar.plugins.xml.checks.XPathCheck}, but adapted for HTML documents.
+ * This implementation follows the same principles as the XML plugin's
+ * XPathCheck (RSPEC-140), but adapted for HTML documents.
  * 
  * Uses standard javax.xml.xpath API for proper XPath evaluation by converting
  * the HTML plugin's DOM structure to W3C DOM.
@@ -171,9 +172,7 @@ public class XPathTemplateCheck extends AbstractPageCheck {
     // The nodes list contains ALL nodes in document order (TagNode, TextNode, etc.)
     for (Node node : nodes) {
       if (node instanceof TagNode tagNode) {
-        // Only process root-level nodes (those without parents)
-        // Children will be processed recursively in convertToW3cNode
-        if (tagNode.getParent() == null) {
+        if (isRootStartElement(tagNode)) {
           convertToW3cNode(doc, root, tagNode, tagToElementMap);
         }
       } else if (node instanceof TextNode textNode) {
@@ -182,6 +181,16 @@ public class XPathTemplateCheck extends AbstractPageCheck {
     }
     
     return doc;
+  }
+
+  /**
+   * Checks if a TagNode is a root-level start element that should be converted to W3C DOM.
+   * Excludes end elements (e.g. &lt;/div&gt;) and directives (e.g. &lt;!DOCTYPE&gt;).
+   */
+  private static boolean isRootStartElement(TagNode tagNode) {
+    return tagNode.getParent() == null
+      && !tagNode.isEndElement()
+      && tagNode.getNodeType() != NodeType.DIRECTIVE;
   }
 
   private void convertToW3cNode(Document doc, org.w3c.dom.Node parent, TagNode htmlNode, Map<TagNode, Element> tagToElementMap) {
