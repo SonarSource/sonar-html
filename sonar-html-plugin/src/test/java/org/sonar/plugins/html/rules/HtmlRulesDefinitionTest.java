@@ -66,7 +66,8 @@ class HtmlRulesDefinitionTest {
         "ChildElementIllegalCheck",
         "ChildElementRequiredCheck",
         "ParentElementIllegalCheck",
-        "ParentElementRequiredCheck");
+        "ParentElementRequiredCheck",
+        "XPathTemplateCheck");
 
     for (RulesDefinition.Rule rule : repository.rules()) {
       for (RulesDefinition.Param param : rule.params()) {
