@@ -278,4 +278,25 @@ class XPathTemplateCheckTest {
     // Should find more than 15 formatting elements (file-level issue)
     assertThat(sourceCode.getIssues()).hasSize(1);
   }
+
+  @Test
+  void test_stale_state_not_carried_over() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "count(//img) > 0";
+    check.message = "File has images";
+    check.filePattern = "**/*Specifics.html";
+
+    // Scan first file that matches pattern and has images
+    HtmlSourceCode sourceCode1 = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
+      check);
+    assertThat(sourceCode1.getIssues()).hasSize(1);
+
+    // Scan second file that doesn't match pattern - should have NO issues (not stale state)
+    check.filePattern = "**/NonExistent*.html";
+    HtmlSourceCode sourceCode2 = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+      check);
+    assertThat(sourceCode2.getIssues()).hasSize(0);
+  }
 }
