@@ -107,7 +107,6 @@ class XPathTemplateCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(7).withMessage("Script or image element found")
       .next().atLine(11).withMessage("Script or image element found")
-      .next().atLine(13).withMessage("Script or image element found")
       .noMore();
   }
 
@@ -120,8 +119,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // Should match both <img> and <img/> syntax
-    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(2);
+    // img line 11 + img line 12
+    assertThat(sourceCode.getIssues()).hasSize(2);
   }
 
   @Test
@@ -133,8 +132,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // Should match br and hr elements regardless of self-closing syntax
-    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(4);
+    // br lines 13, 14 + hr lines 15, 16
+    assertThat(sourceCode.getIssues()).hasSize(4);
   }
 
   @Test
@@ -146,8 +145,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // Should match html, head, and body tags
-    assertThat(sourceCode.getIssues()).isNotEmpty();
+    // html line 2, head line 3, body line 9
+    assertThat(sourceCode.getIssues()).hasSize(3);
   }
 
   @Test
@@ -171,8 +170,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // XPath finds 12 elements total - this confirms text formatting elements are recognized correctly
-    assertThat(sourceCode.getIssues()).hasSize(12);
+    // b(2) + strong(1) + i(2) + em(1) = 6 start elements
+    assertThat(sourceCode.getIssues()).hasSize(6);
   }
 
   @Test
@@ -184,8 +183,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // XPath finds 6 elements total - confirms underline and inserted text elements are recognized correctly
-    assertThat(sourceCode.getIssues()).hasSize(6);
+    // u(2) + ins(1) = 3 start elements
+    assertThat(sourceCode.getIssues()).hasSize(3);
   }
 
   @Test
@@ -197,8 +196,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // XPath finds 4 elements total - confirms deleted and strikethrough elements are recognized correctly
-    assertThat(sourceCode.getIssues()).hasSize(4);
+    // del(1) + s(1) = 2 start elements
+    assertThat(sourceCode.getIssues()).hasSize(2);
   }
 
   @Test
@@ -210,8 +209,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // XPath finds 4 elements total - confirms code and preformatted elements are recognized correctly
-    assertThat(sourceCode.getIssues()).hasSize(4);
+    // code(1) + pre(1) = 2 start elements
+    assertThat(sourceCode.getIssues()).hasSize(2);
   }
 
   @Test
@@ -223,8 +222,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // XPath finds 4 elements total - confirms subscript and superscript elements are recognized correctly
-    assertThat(sourceCode.getIssues()).hasSize(4);
+    // sub(1) + sup(1) = 2 start elements
+    assertThat(sourceCode.getIssues()).hasSize(2);
   }
 
   @Test
@@ -288,8 +287,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // Should find paragraphs containing text "Text" - verifies text nodes are in DOM
-    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(1);
+    // 9 paragraphs (lines 26-34) start with "Text with"
+    assertThat(sourceCode.getIssues()).hasSize(9);
   }
 
   @Test
@@ -301,8 +300,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // Should find paragraphs with text content - verifies normalize-space() works with text nodes
-    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(1);
+    // All 11 paragraphs (lines 26-35, 40) have non-empty text
+    assertThat(sourceCode.getIssues()).hasSize(11);
   }
 
   @Test
@@ -335,8 +334,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
       check);
-    // Should create line issues for each matched node
-    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(2);
+    // img line 7 + div line 8
+    assertThat(sourceCode.getIssues()).hasSize(2);
   }
 
   @Test
@@ -407,8 +406,8 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
       check);
-    // Should handle complex predicates correctly
-    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(0);
+    // div.content (line 8) has child elements
+    assertThat(sourceCode.getIssues()).hasSize(1);
   }
 
   @Test
@@ -420,7 +419,7 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/HtmlSpecifics.html"),
       check);
-    // Should find divs with text content (verifies text nodes work)
-    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(1);
+    // 1 div with non-blank direct text content
+    assertThat(sourceCode.getIssues()).hasSize(1);
   }
 }
