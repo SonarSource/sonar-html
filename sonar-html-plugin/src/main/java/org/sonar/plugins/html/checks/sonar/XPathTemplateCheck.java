@@ -34,6 +34,7 @@ import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -163,25 +164,27 @@ public class XPathTemplateCheck extends AbstractPageCheck {
     Element root = doc.createElement("root");
     doc.appendChild(root);
     
-    // Convert HTML nodes to W3C DOM
-    // The nodes list contains ALL nodes in document order
-    // For HTML fragments (no <html> tag), all top-level elements have no parent
-    // For complete documents, only <html> has no parent
+    // Build mapping of TagNode to W3C Element for text node attachment
+    Map<TagNode, Element> tagToElementMap = new HashMap<>();
+    
+    // Convert HTML nodes to W3C DOM in a single pass
+    // The nodes list contains ALL nodes in document order (TagNode, TextNode, etc.)
     for (Node node : nodes) {
-      if (node instanceof TagNode) {
-        TagNode tagNode = (TagNode) node;
+      if (node instanceof TagNode tagNode) {
         // Only process root-level nodes (those without parents)
         // Children will be processed recursively in convertToW3cNode
         if (tagNode.getParent() == null) {
-          convertToW3cNode(doc, root, tagNode);
+          convertToW3cNode(doc, root, tagNode, tagToElementMap);
         }
+      } else if (node instanceof TextNode textNode) {
+        convertTextNode(doc, textNode, tagToElementMap);
       }
     }
     
     return doc;
   }
 
-  private void convertToW3cNode(Document doc, org.w3c.dom.Node parent, TagNode htmlNode) {
+  private void convertToW3cNode(Document doc, org.w3c.dom.Node parent, TagNode htmlNode, Map<TagNode, Element> tagToElementMap) {
     Element element = doc.createElement(htmlNode.getNodeName());
     
     // Add attributes
@@ -192,11 +195,31 @@ public class XPathTemplateCheck extends AbstractPageCheck {
     // Store mapping for line number lookup
     nodeMapping.put(element, htmlNode);
     
+    // Store mapping for text node attachment
+    tagToElementMap.put(htmlNode, element);
+    
     parent.appendChild(element);
     
     // Process children
     for (TagNode child : htmlNode.getChildren()) {
-      convertToW3cNode(doc, element, child);
+      convertToW3cNode(doc, element, child, tagToElementMap);
+    }
+  }
+
+  private void convertTextNode(Document doc, TextNode textNode, Map<TagNode, Element> tagToElementMap) {
+    // Skip blank text nodes (whitespace-only)
+    if (textNode.isBlank()) {
+      return;
+    }
+    
+    // Find parent element
+    TagNode parent = textNode.getParent();
+    if (parent != null) {
+      Element parentElement = tagToElementMap.get(parent);
+      if (parentElement != null) {
+        org.w3c.dom.Text w3cText = doc.createTextNode(textNode.getCode());
+        parentElement.appendChild(w3cText);
+      }
     }
   }
 }
