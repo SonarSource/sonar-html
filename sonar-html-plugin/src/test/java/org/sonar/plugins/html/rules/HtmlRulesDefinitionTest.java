@@ -57,7 +57,7 @@ class HtmlRulesDefinitionTest {
       .map(RulesDefinition.Rule::key)
       .collect(Collectors.toSet());
     assertThat(templateRules)
-      .hasSize(7)
+      .hasSize(8)
       .containsExactlyInAnyOrder(
         "IllegalAttributeCheck",
         "S8488",
@@ -65,7 +65,8 @@ class HtmlRulesDefinitionTest {
         "ChildElementIllegalCheck",
         "ChildElementRequiredCheck",
         "ParentElementIllegalCheck",
-        "ParentElementRequiredCheck");
+        "ParentElementRequiredCheck",
+        "XPathTemplateCheck");
 
     for (RulesDefinition.Rule rule : repository.rules()) {
       for (RulesDefinition.Param param : rule.params()) {
