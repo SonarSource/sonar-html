@@ -299,4 +299,43 @@ class XPathTemplateCheckTest {
       check);
     assertThat(sourceCode2.getIssues()).hasSize(0);
   }
+
+  @Test
+  void test_nodeset_evaluation_with_multiple_matches() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//img | //div";
+    check.message = "Image or div found";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+      check);
+    // Should create line issues for each matched node
+    assertThat(sourceCode.getIssues()).hasSizeGreaterThanOrEqualTo(2);
+  }
+
+  @Test
+  void test_boolean_evaluation_true() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "count(//img) > 0";
+    check.message = "File contains images";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+      check);
+    // Should create file-level issue when boolean expression is true
+    assertThat(sourceCode.getIssues()).hasSize(1);
+  }
+
+  @Test
+  void test_boolean_evaluation_false() throws Exception {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "count(//img) > 100";
+    check.message = "File has more than 100 images";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+      check);
+    // Should not create any issues when boolean is false
+    assertThat(sourceCode.getIssues()).hasSize(0);
+  }
 }
