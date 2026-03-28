@@ -80,7 +80,10 @@ public class XPathTemplateCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
+    // Reset state to prevent stale values from previous files
     this.nodeMapping = new HashMap<>();
+    this.compiledExpression = null;
+    this.w3cDocument = null;
     
     if (!isFileIncluded() || expression == null || expression.trim().isEmpty()) {
       return;
