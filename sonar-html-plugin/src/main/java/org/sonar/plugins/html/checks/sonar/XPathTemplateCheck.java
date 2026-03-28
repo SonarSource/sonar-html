@@ -43,6 +43,9 @@ import org.w3c.dom.NodeList;
  * This rule allows users to define custom XPath expressions to find HTML elements
  * and report issues when matches are found.
  * 
+ * This implementation follows the same principles as the XML plugin's 
+ * {@link org.sonar.plugins.xml.checks.XPathCheck}, but adapted for HTML documents.
+ * 
  * Uses standard javax.xml.xpath API for proper XPath evaluation by converting
  * the HTML plugin's DOM structure to W3C DOM.
  */

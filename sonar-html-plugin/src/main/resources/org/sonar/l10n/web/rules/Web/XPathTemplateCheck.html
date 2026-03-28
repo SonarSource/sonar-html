@@ -1,5 +1,13 @@
 <h2>Why is this an issue?</h2>
-<p>This rule allows the definition of custom rules using XPath expressions.</p>
+<p>This rule allows the definition of custom rules using XPath expressions. It follows the same principles as the <a href="https://github.com/SonarSource/sonar-xml/blob/master/sonar-xml-plugin/src/main/java/org/sonar/plugins/xml/checks/XPathCheck.java">XML XPath rule (RSPEC-140)</a>, but adapted for HTML documents.</p>
+<p>This HTML rule is fully compatible with the XML XPath rule concepts and behavior:</p>
+<ul>
+  <li>Uses the same <code>javax.xml.xpath</code> API for evaluation</li>
+  <li>Creates line issues for node matches</li>
+  <li>Creates file issues for boolean expressions</li>
+  <li>Supports file pattern filtering</li>
+  <li>Follows the same remediation approach</li>
+</ul>
 <p>Issues are created depending on the return value of the XPath expression. If the XPath expression returns:</p>
 <ul>
   <li>a single or list of HTML nodes, then a line issue with the given message is created for each node</li>
