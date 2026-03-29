@@ -25,19 +25,19 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class IllegalElementCheckTest {
+class IllegalElementTemplateCheckTest {
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
   void detected() {
-    assertThat(new IllegalElementCheck().elements).isEmpty();
+    assertThat(new IllegalElementTemplateCheck().elements).isEmpty();
   }
 
   @Test
   void custom() {
-    IllegalElementCheck check = new IllegalElementCheck();
+    IllegalElementTemplateCheck check = new IllegalElementTemplateCheck();
     check.elements = "title,body";
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementCheck.html"), check);
@@ -48,7 +48,7 @@ class IllegalElementCheckTest {
 
   @Test
   void namespaceSpecificMatch() {
-    IllegalElementCheck check = new IllegalElementCheck();
+    IllegalElementTemplateCheck check = new IllegalElementTemplateCheck();
     check.elements = "f:inputText";
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementTemplateCheck.html"), check);
@@ -59,7 +59,7 @@ class IllegalElementCheckTest {
 
   @Test
   void namespaceWildcardMatch() {
-    IllegalElementCheck check = new IllegalElementCheck();
+    IllegalElementTemplateCheck check = new IllegalElementTemplateCheck();
     check.elements = "inputText";
 
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementTemplateCheck.html"), check);
