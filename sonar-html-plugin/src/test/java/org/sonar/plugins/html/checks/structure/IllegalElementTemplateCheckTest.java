@@ -54,7 +54,7 @@ class IllegalElementTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementTemplateCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(6).withMessage("Remove this \"f:inputText\" element.");
+        .next().atLocation(6, 2, 6, 38).withMessage("Remove this \"f:inputText\" element.");
   }
 
   @Test
@@ -65,9 +65,9 @@ class IllegalElementTemplateCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementTemplateCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(6).withMessage("Remove this \"inputText\" element.")
-        .next().atLine(7).withMessage("Remove this \"inputText\" element.")
-        .next().atLine(8).withMessage("Remove this \"inputText\" element.");
+        .next().atLocation(6, 2, 6, 38).withMessage("Remove this \"inputText\" element.")
+        .next().atLocation(7, 2, 7, 39).withMessage("Remove this \"inputText\" element.")
+        .next().atLocation(8, 2, 8, 39).withMessage("Remove this \"inputText\" element.");
   }
 
 }
