@@ -16,58 +16,11 @@
  */
 package org.sonar.plugins.html.checks.structure;
 
-import java.io.File;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
-import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
-import org.sonar.plugins.html.checks.TestHelper;
-import org.sonar.plugins.html.visitor.HtmlSourceCode;
+class IllegalElementCheckTest extends AbstractIllegalElementCheckTest {
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-class IllegalElementCheckTest {
-
-  @RegisterExtension
-  public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
-
-  @Test
-  void detected() {
-    assertThat(new IllegalElementCheck().elements).isEmpty();
-  }
-
-  @Test
-  void custom() {
-    IllegalElementCheck check = new IllegalElementCheck();
-    check.elements = "title,body";
-
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementCheck.html"), check);
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLocation(3, 2, 3, 9).withMessage("Remove this \"title\" element.");
-  }
-
-  @Test
-  void namespaceSpecificMatch() {
-    IllegalElementCheck check = new IllegalElementCheck();
-    check.elements = "f:inputText";
-
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementTemplateCheck.html"), check);
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLocation(6, 2, 6, 38).withMessage("Remove this \"f:inputText\" element.");
-  }
-
-  @Test
-  void namespaceWildcardMatch() {
-    IllegalElementCheck check = new IllegalElementCheck();
-    check.elements = "inputText";
-
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/IllegalElementTemplateCheck.html"), check);
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLocation(6, 2, 6, 38).withMessage("Remove this \"inputText\" element.")
-        .next().atLocation(7, 2, 7, 39).withMessage("Remove this \"inputText\" element.")
-        .next().atLocation(8, 2, 8, 39).withMessage("Remove this \"inputText\" element.");
+  @Override
+  protected AbstractIllegalElementCheck createCheck() {
+    return new IllegalElementCheck();
   }
 
 }
