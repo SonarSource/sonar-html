@@ -17,38 +17,7 @@
 package org.sonar.plugins.html.checks.structure;
 
 import org.sonar.check.Rule;
-import org.sonar.check.RuleProperty;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.Node;
-import org.sonar.plugins.html.node.TagNode;
-
-import java.util.List;
 
 @Rule(key = "IllegalElementCheck")
-public class IllegalElementCheck extends AbstractPageCheck {
-
-  private static final String DEFAULT_ELEMENTS = "";
-
-  @RuleProperty(
-    key = "elements",
-    description = "Comma-separated list of names of forbidden elements",
-    defaultValue = DEFAULT_ELEMENTS)
-  public String elements = DEFAULT_ELEMENTS;
-
-  private String[] elementsArray;
-
-  @Override
-  public void startDocument(List<Node> nodes) {
-    elementsArray = trimSplitCommaSeparatedList(elements);
-  }
-
-  @Override
-  public void startElement(TagNode element) {
-    for (String elementName : elementsArray) {
-      if (elementName.equalsIgnoreCase(element.getLocalName()) || elementName.equalsIgnoreCase(element.getNodeName())) {
-        createViolation(element, "Remove this \"" + elementName + "\" element.");
-      }
-    }
-  }
-
+public class IllegalElementCheck extends AbstractIllegalElementCheck {
 }

@@ -1,5 +1,7 @@
 <h2>Why is this an issue?</h2>
-<p>This rule checks that the specified HTML elements are not present.</p>
+<p>This is a template rule. It checks that the user-configured disallowed elements are not present in the HTML. Create a custom rule
+from this template to define which elements are forbidden.</p>
+<p>See rule {rule:Web:IllegalElementCheck} for a non-template version with a configurable element list.</p>
 <h2>Namespace Support</h2>
 <p>The rule supports both namespaced and non-namespaced element matching:</p>
 <ul>
@@ -7,11 +9,11 @@
   <li>Specifying <code>inputText</code> (without namespace prefix) will match elements with that local name regardless of namespace prefix</li>
 </ul>
 <h3>Noncompliant code example</h3>
-<p>For a disallowed list of "font,center":</p>
+<p>For a disallowed list of: <code>font,center</code>:</p>
 <pre data-diff-id="1" data-diff-type="noncompliant">
 &lt;center&gt;&lt;font color="red"&gt;Hello World!&lt;/font&gt;&lt;/center&gt; &lt;!-- Noncompliant --&gt;
 </pre>
-<p>For a disallowed list of "f:inputText":</p>
+<p>For a disallowed list of: <code>f:inputText</code>:</p>
 <pre data-diff-id="2" data-diff-type="noncompliant">
 &lt;f:inputText value="#{bean.name}" /&gt; &lt;!-- Noncompliant --&gt;
 &lt;p:inputText value="#{bean.name}" /&gt; &lt;!-- Compliant; different namespace --&gt;
@@ -20,3 +22,5 @@
 <pre data-diff-id="1" data-diff-type="compliant">
 &lt;div class="centerRed"&gt;Hello World!&lt;/div&gt;
 </pre>
+
+
