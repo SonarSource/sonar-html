@@ -61,4 +61,30 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         .next().atLine(107)
     ;
   }
+
+  @Test
+  void custom_elements_without_whitelist_are_reported() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.whitelisted-elements.html"),
+      new MouseEventWithoutKeyboardEquivalentCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2)
+      .next().atLine(3)
+      .next().atLine(4)
+      .noMore();
+  }
+
+  @Test
+  void custom_elements_in_whitelist_are_ignored() {
+    var check = new MouseEventWithoutKeyboardEquivalentCheck();
+    check.whitelistedElements = " clr-button,ION-BUTTON ,";
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.whitelisted-elements.html"),
+      check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(4)
+      .noMore();
+  }
 }
