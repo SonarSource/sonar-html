@@ -17,15 +17,23 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "MouseEventWithoutKeyboardEquivalentCheck")
 public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck {
+
+  private static final String DEFAULT_WHITELISTED_ELEMENTS = "lightning-button,lightning-button-icon,lightning-button-menu";
 
   // Angular 2+ allows key names for the onKeydown pseudo-event to prevent checking the key name manually
   // This pseudo-event also allows key combinations
@@ -46,6 +54,19 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     "|keyup(\\.\\w{1,10}){1,5}" +
     "|v-on:keyup(\\.\\w{1,10}){1,5}",
     Pattern.CASE_INSENSITIVE);
+
+  @RuleProperty(
+    key = "whitelistedElements",
+    description = "Comma-separated list of custom elements to ignore when they expose an onClick attribute without keyboard event handlers.",
+    defaultValue = DEFAULT_WHITELISTED_ELEMENTS)
+  public String whitelistedElements = DEFAULT_WHITELISTED_ELEMENTS;
+
+  private Set<String> whitelistedElementsSet = Set.of();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    whitelistedElementsSet = parseWhitelistedElements(whitelistedElements);
+  }
 
   @Override
   public void startElement(TagNode node) {
@@ -96,8 +117,8 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     return "textbox".equalsIgnoreCase(role);
   }
 
-  private static boolean isException(TagNode node) {
-    return isClickableLightningButton(node) || ((isInput(node) || isButton(node) || isHyperlink(node) || isSummary(node)) && hasOnClick(node) && !hasButtonRole(node));
+  private boolean isException(TagNode node) {
+    return isClickableButtonLikeElement(node) || ((isInput(node) || isButton(node) || isHyperlink(node) || isSummary(node)) && hasOnClick(node) && !hasButtonRole(node));
   }
 
   private static boolean hasOnClick(TagNode node) {
@@ -173,10 +194,13 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     return "SUMMARY".equalsIgnoreCase(node.getNodeName());
   }
 
-  private static boolean isClickableLightningButton(TagNode node) {
-    return "LIGHTNING-BUTTON".equalsIgnoreCase(node.getNodeName())
-      || "LIGHTNING-BUTTON-ICON".equalsIgnoreCase(node.getNodeName())
-      || "LIGHTNING-BUTTON-MENU".equalsIgnoreCase(node.getNodeName());
+  private boolean isClickableButtonLikeElement(TagNode node) {
+    var nodeName = node.getNodeName();
+    if (nodeName == null) {
+      return false;
+    }
+    var normalizedNodeName = nodeName.toUpperCase(Locale.ROOT);
+    return whitelistedElementsSet.contains(normalizedNodeName);
   }
 
   private static boolean hasKeyDownWithKeyName(TagNode node) {
@@ -185,5 +209,16 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   private static boolean hasKeyUpWithKeyName(TagNode node) {
     return node.getAttributes().stream().anyMatch(a -> KEY_UP_WITH_KEY_NAME.matcher(a.getName()).matches());
+  }
+
+  private static Set<String> parseWhitelistedElements(String whitelistedElements) {
+    if (whitelistedElements == null || whitelistedElements.isBlank()) {
+      return Set.of();
+    }
+    return Arrays.stream(whitelistedElements.split(","))
+      .map(String::trim)
+      .filter(element -> !element.isEmpty())
+      .map(element -> element.toUpperCase(Locale.ROOT))
+      .collect(Collectors.toSet());
   }
 }
