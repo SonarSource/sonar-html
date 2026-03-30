@@ -33,11 +33,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "MouseEventWithoutKeyboardEquivalentCheck")
 public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck {
 
-  private static final String DEFAULT_WHITELISTED_ELEMENTS = "";
-  private static final Set<String> DEFAULT_CLICKABLE_CUSTOM_ELEMENTS = Set.of(
-    "LIGHTNING-BUTTON",
-    "LIGHTNING-BUTTON-ICON",
-    "LIGHTNING-BUTTON-MENU");
+  private static final String DEFAULT_WHITELISTED_ELEMENTS = "lightning-button,lightning-button-icon,lightning-button-menu";
 
   // Angular 2+ allows key names for the onKeydown pseudo-event to prevent checking the key name manually
   // This pseudo-event also allows key combinations
@@ -204,8 +200,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       return false;
     }
     var normalizedNodeName = nodeName.toUpperCase(Locale.ROOT);
-    return DEFAULT_CLICKABLE_CUSTOM_ELEMENTS.contains(normalizedNodeName)
-      || whitelistedElementsSet.contains(normalizedNodeName);
+    return whitelistedElementsSet.contains(normalizedNodeName);
   }
 
   private static boolean hasKeyDownWithKeyName(TagNode node) {

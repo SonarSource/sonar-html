@@ -76,7 +76,7 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
   }
 
   @Test
-  void custom_elements_in_whitelist_are_ignored() {
+  void custom_elements_in_whitelist_are_ignored_and_defaults_can_be_overridden() {
     var check = new MouseEventWithoutKeyboardEquivalentCheck();
     check.whitelistedElements = " clr-button,ION-BUTTON ,";
     HtmlSourceCode sourceCode = TestHelper.scan(
@@ -84,6 +84,7 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
       check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1)
       .next().atLine(4)
       .noMore();
   }
