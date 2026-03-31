@@ -1,12 +1,22 @@
 <h2>Why is this an issue?</h2>
 <p>This rule checks that the specified HTML elements are not present.</p>
+<h2>Namespace Support</h2>
+<p>The rule supports both namespaced and non-namespaced element matching:</p>
+<ul>
+  <li>Specifying <code>f:inputText</code> will match only elements with that exact namespace prefix and local name</li>
+  <li>Specifying <code>inputText</code> (without namespace prefix) will match elements with that local name regardless of namespace prefix</li>
+</ul>
 <h3>Noncompliant code example</h3>
 <p>For a disallowed list of "font,center":</p>
-<pre>
+<pre data-diff-id="1" data-diff-type="noncompliant">
 &lt;center&gt;&lt;font color="red"&gt;Hello World!&lt;/font&gt;&lt;/center&gt; &lt;!-- Noncompliant --&gt;
 </pre>
+<p>For a disallowed list of "f:inputText":</p>
+<pre data-diff-id="2" data-diff-type="noncompliant">
+&lt;f:inputText value="#{bean.name}" /&gt; &lt;!-- Noncompliant --&gt;
+&lt;p:inputText value="#{bean.name}" /&gt; &lt;!-- Compliant; different namespace --&gt;
+</pre>
 <h3>Compliant solution</h3>
-<pre>
+<pre data-diff-id="1" data-diff-type="compliant">
 &lt;div class="centerRed"&gt;Hello World!&lt;/div&gt;
 </pre>
-

@@ -16,11 +16,8 @@
  */
 package org.sonar.plugins.html.checks.structure;
 
-class IllegalElementCheckTest extends AbstractIllegalElementCheckTest {
+import org.sonar.check.Rule;
 
-  @Override
-  protected AbstractIllegalElementCheck createCheck() {
-    return new IllegalElementCheck();
-  }
-
+@Rule(key = "S8551")
+public class IllegalElementTemplateCheck extends AbstractIllegalElementCheck {
 }

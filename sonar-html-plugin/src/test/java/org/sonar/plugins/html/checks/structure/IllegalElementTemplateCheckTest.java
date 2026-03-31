@@ -16,11 +16,11 @@
  */
 package org.sonar.plugins.html.checks.structure;
 
-class IllegalElementCheckTest extends AbstractIllegalElementCheckTest {
+class IllegalElementTemplateCheckTest extends AbstractIllegalElementCheckTest {
 
   @Override
   protected AbstractIllegalElementCheck createCheck() {
-    return new IllegalElementCheck();
+    return new IllegalElementTemplateCheck();
   }
 
 }
