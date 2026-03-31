@@ -57,10 +57,11 @@ class HtmlRulesDefinitionTest {
       .map(RulesDefinition.Rule::key)
       .collect(Collectors.toSet());
     assertThat(templateRules)
-      .hasSize(8)
+      .hasSize(9)
       .containsExactlyInAnyOrder(
         "IllegalAttributeCheck",
         "S8551",
+        "S140",
         "S8488",
         "LibraryDependencyCheck",
         "ChildElementIllegalCheck",

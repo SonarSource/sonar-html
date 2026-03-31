@@ -1,0 +1,21 @@
+{
+  "title": "Track breaches of an XPath rule",
+  "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "CONVENTIONAL"
+  },
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-140",
+  "sqKey": "S140",
+  "scope": "Main",
+  "quickfix": "unknown"
+}
