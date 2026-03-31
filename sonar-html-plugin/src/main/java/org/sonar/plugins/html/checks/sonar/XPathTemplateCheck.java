@@ -51,7 +51,7 @@ import org.w3c.dom.NodeList;
  * Uses standard javax.xml.xpath API for proper XPath evaluation by converting
  * the HTML plugin's DOM structure to W3C DOM.
  */
-@Rule(key = "XPathTemplateCheck")
+@Rule(key = "S140")
 public class XPathTemplateCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(XPathTemplateCheck.class);
@@ -150,7 +150,7 @@ public class XPathTemplateCheck extends AbstractPageCheck {
     if (filePattern == null) {
       return true;
     }
-    String filePath = getHtmlSourceCode().inputFile().uri().getPath();
+    String filePath = getHtmlSourceCode().inputFile().absolutePath();
     return org.sonar.api.utils.WildcardPattern.create(filePattern).match(filePath);
   }
 

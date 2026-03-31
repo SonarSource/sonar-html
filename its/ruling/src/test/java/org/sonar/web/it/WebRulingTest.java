@@ -68,6 +68,7 @@ public class WebRulingTest {
     instantiateTemplateRule("S8488", "Template_RequiredScriptType", "attributes=\"script.type\"");
     instantiateTemplateRule("S8488", "Template_RequiredInputType", "attributes=\"input.type\"");
     instantiateTemplateRule("S8551", "Template_ForbiddenBlinkTag", "elements=\"blink\"");
+    instantiateTemplateRule("S140", "Template_XPathBlinkTag", "expression=\"//blink\"");
   }
 
   @Test

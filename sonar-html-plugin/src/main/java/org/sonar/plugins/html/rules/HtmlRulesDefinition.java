@@ -33,13 +33,13 @@ public final class HtmlRulesDefinition implements RulesDefinition {
   private static final Set<String> TEMPLATE_RULE_KEYS = Collections.unmodifiableSet(Stream.of(
     "IllegalAttributeCheck",
     "S8551",
+    "S140",
     "S8488",
     "LibraryDependencyCheck",
     "ChildElementIllegalCheck",
     "ChildElementRequiredCheck",
     "ParentElementIllegalCheck",
-    "ParentElementRequiredCheck",
-    "XPathTemplateCheck").collect(Collectors.toSet()));
+    "ParentElementRequiredCheck").collect(Collectors.toSet()));
 
   public static final String RESOURCE_BASE_PATH = "org/sonar/l10n/web/rules/Web";
 
