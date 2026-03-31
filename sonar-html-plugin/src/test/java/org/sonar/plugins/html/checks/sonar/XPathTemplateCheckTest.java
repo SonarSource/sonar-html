@@ -19,6 +19,8 @@ package org.sonar.plugins.html.checks.sonar;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -351,41 +353,20 @@ class XPathTemplateCheckTest {
     assertThat(sourceCode.getIssues()).hasSize(1);
   }
 
-  @Test
-  void test_boolean_evaluation_false() {
+  @ParameterizedTest
+  @CsvSource(value = {
+    "'count(//img) > 100'|File has more than 100 images",
+    "'//img[invalid syntax'|Invalid XPath",
+    "'//nonexistent'|Nonexistent element found"
+  }, delimiter = '|')
+  void test_expressions_with_no_issues(String expression, String message) {
     XPathTemplateCheck check = new XPathTemplateCheck();
-    check.expression = "count(//img) > 100";
-    check.message = "File has more than 100 images";
+    check.expression = expression;
+    check.message = message;
 
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
       check);
-    // Should not create any issues when boolean is false
-    assertThat(sourceCode.getIssues()).isEmpty();
-  }
-
-  @Test
-  void test_invalid_xpath_expression() {
-    XPathTemplateCheck check = new XPathTemplateCheck();
-    check.expression = "//img[invalid syntax";
-    check.message = "Invalid XPath";
-
-    HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
-      check);
-    assertThat(sourceCode.getIssues()).isEmpty();
-  }
-
-  @Test
-  void test_xpath_with_no_matches() {
-    XPathTemplateCheck check = new XPathTemplateCheck();
-    check.expression = "//nonexistent";
-    check.message = "Nonexistent element found";
-
-    HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
-      check);
-    // Should produce no issues when XPath matches nothing
     assertThat(sourceCode.getIssues()).isEmpty();
   }
 
