@@ -16,12 +16,15 @@
  */
 package org.sonar.plugins.html.checks.structure;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
-
-import java.util.List;
 
 public abstract class AbstractIllegalElementCheck extends AbstractPageCheck {
 
@@ -33,18 +36,72 @@ public abstract class AbstractIllegalElementCheck extends AbstractPageCheck {
     defaultValue = DEFAULT_ELEMENTS)
   public String elements = DEFAULT_ELEMENTS;
 
-  private String[] elementsArray;
+  private final Map<String, List<ConfiguredElement>> elementsByNormalizedName = new HashMap<>();
+
+  private static final class ConfiguredElement {
+    private final int order;
+    private final String value;
+
+    private ConfiguredElement(int order, String value) {
+      this.order = order;
+      this.value = value;
+    }
+  }
 
   @Override
   public void startDocument(List<Node> nodes) {
-    elementsArray = trimSplitCommaSeparatedList(elements);
+    elementsByNormalizedName.clear();
+
+    int order = 0;
+    for (String elementName : trimSplitCommaSeparatedList(elements)) {
+      elementsByNormalizedName
+        .computeIfAbsent(normalizeName(elementName), key -> new ArrayList<>())
+        .add(new ConfiguredElement(order, elementName));
+      order++;
+    }
   }
 
   @Override
   public void startElement(TagNode element) {
-    for (String elementName : elementsArray) {
-      if (elementName.equalsIgnoreCase(element.getLocalName()) || elementName.equalsIgnoreCase(element.getNodeName())) {
-        createViolation(element, "Remove this \"" + elementName + "\" element.");
+    List<ConfiguredElement> localNameMatches = elementsByNormalizedName.get(normalizeName(element.getLocalName()));
+    List<ConfiguredElement> nodeNameMatches = elementsByNormalizedName.get(normalizeName(element.getNodeName()));
+
+    if (localNameMatches == null && nodeNameMatches == null) {
+      return;
+    }
+    if (localNameMatches == nodeNameMatches) {
+      createViolations(element, localNameMatches);
+    } else if (localNameMatches == null) {
+      createViolations(element, nodeNameMatches);
+    } else if (nodeNameMatches == null) {
+      createViolations(element, localNameMatches);
+    } else {
+      createViolations(element, localNameMatches, nodeNameMatches);
+    }
+  }
+
+  private static String normalizeName(String elementName) {
+    return elementName == null ? null : elementName.toLowerCase(Locale.ROOT);
+  }
+
+  private void createViolations(TagNode element, List<ConfiguredElement> matches) {
+    for (ConfiguredElement configuredElement : matches) {
+      createViolation(element, "Remove this \"" + configuredElement.value + "\" element.");
+    }
+  }
+
+  private void createViolations(TagNode element, List<ConfiguredElement> firstMatches, List<ConfiguredElement> secondMatches) {
+    int firstIndex = 0;
+    int secondIndex = 0;
+
+    while (firstIndex < firstMatches.size() || secondIndex < secondMatches.size()) {
+      if (secondIndex >= secondMatches.size() ||
+        (firstIndex < firstMatches.size() && firstMatches.get(firstIndex).order < secondMatches.get(secondIndex).order)) {
+        createViolation(element, "Remove this \"" + firstMatches.get(firstIndex).value + "\" element.");
+        firstIndex++;
+      } else {
+        createViolation(element, "Remove this \"" + secondMatches.get(secondIndex).value + "\" element.");
+        secondIndex++;
       }
     }
   }
