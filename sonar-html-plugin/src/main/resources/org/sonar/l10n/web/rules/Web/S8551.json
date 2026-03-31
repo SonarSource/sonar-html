@@ -8,7 +8,8 @@
   },
   "tags": [],
   "defaultSeverity": "Major",
-  "sqKey": "IllegalElementTemplateCheck",
+  "ruleSpecification": "RSPEC-8551",
+  "sqKey": "S8551",
   "scope": "Main",
   "quickfix": "unknown",
   "code": {

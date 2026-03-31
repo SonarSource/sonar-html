@@ -60,7 +60,7 @@ class HtmlRulesDefinitionTest {
       .hasSize(8)
       .containsExactlyInAnyOrder(
         "IllegalAttributeCheck",
-        "IllegalElementTemplateCheck",
+        "S8551",
         "S8488",
         "LibraryDependencyCheck",
         "ChildElementIllegalCheck",

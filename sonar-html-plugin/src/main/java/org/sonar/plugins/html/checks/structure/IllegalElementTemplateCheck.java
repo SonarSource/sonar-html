@@ -18,6 +18,6 @@ package org.sonar.plugins.html.checks.structure;
 
 import org.sonar.check.Rule;
 
-@Rule(key = "IllegalElementTemplateCheck")
+@Rule(key = "S8551")
 public class IllegalElementTemplateCheck extends AbstractIllegalElementCheck {
 }
