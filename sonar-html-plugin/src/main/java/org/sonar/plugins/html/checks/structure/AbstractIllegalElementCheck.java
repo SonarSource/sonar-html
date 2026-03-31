@@ -84,9 +84,13 @@ public abstract class AbstractIllegalElementCheck extends AbstractPageCheck {
     return elementName == null ? null : elementName.toLowerCase(Locale.ROOT);
   }
 
+  private static String violationMessage(String elementName) {
+    return "Remove this \"" + elementName + "\" element.";
+  }
+
   private void createViolations(TagNode element, List<ConfiguredElement> matches) {
     for (ConfiguredElement configuredElement : matches) {
-      createViolation(element, "Remove this \"" + configuredElement.value + "\" element.");
+      createViolation(element, violationMessage(configuredElement.value));
     }
   }
 
@@ -97,10 +101,10 @@ public abstract class AbstractIllegalElementCheck extends AbstractPageCheck {
     while (firstIndex < firstMatches.size() || secondIndex < secondMatches.size()) {
       if (secondIndex >= secondMatches.size() ||
         (firstIndex < firstMatches.size() && firstMatches.get(firstIndex).order < secondMatches.get(secondIndex).order)) {
-        createViolation(element, "Remove this \"" + firstMatches.get(firstIndex).value + "\" element.");
+        createViolation(element, violationMessage(firstMatches.get(firstIndex).value));
         firstIndex++;
       } else {
-        createViolation(element, "Remove this \"" + secondMatches.get(secondIndex).value + "\" element.");
+        createViolation(element, violationMessage(secondMatches.get(secondIndex).value));
         secondIndex++;
       }
     }
