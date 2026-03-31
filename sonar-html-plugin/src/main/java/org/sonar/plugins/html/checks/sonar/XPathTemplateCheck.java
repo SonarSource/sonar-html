@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -99,8 +100,8 @@ public class XPathTemplateCheck extends AbstractPageCheck {
       // Build W3C DOM from HTML plugin's node structure
       w3cDocument = buildW3cDocument(nodes);
     } catch (XPathExpressionException e) {
-      throw new IllegalStateException("Failed to compile XPath expression: " + expression, e);
-    } catch (Exception e) {
+      LOG.error("Failed to compile XPath expression [{}]: {}", expression, e.getMessage());
+    } catch (ParserConfigurationException e) {
       LOG.debug("Failed to build DOM for XPath evaluation: {}", e.getMessage());
       compiledExpression = null;
       w3cDocument = null;
@@ -150,11 +151,11 @@ public class XPathTemplateCheck extends AbstractPageCheck {
     if (filePattern == null) {
       return true;
     }
-    String filePath = getHtmlSourceCode().inputFile().absolutePath();
+    String filePath = getHtmlSourceCode().inputFile().uri().getPath();
     return org.sonar.api.utils.WildcardPattern.create(filePattern).match(filePath);
   }
 
-  private Document buildW3cDocument(List<Node> nodes) throws Exception {
+  private Document buildW3cDocument(List<Node> nodes) throws ParserConfigurationException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setNamespaceAware(false);
     
@@ -215,7 +216,7 @@ public class XPathTemplateCheck extends AbstractPageCheck {
     }
   }
 
-  private void convertTextNode(Document doc, TextNode textNode, Map<TagNode, Element> tagToElementMap) {
+  private static void convertTextNode(Document doc, TextNode textNode, Map<TagNode, Element> tagToElementMap) {
     // Skip blank text nodes (whitespace-only)
     if (textNode.isBlank()) {
       return;

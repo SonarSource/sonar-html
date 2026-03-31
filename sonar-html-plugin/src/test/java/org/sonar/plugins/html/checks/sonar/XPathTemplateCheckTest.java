@@ -31,7 +31,7 @@ class XPathTemplateCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
-  void test_xpath_simple_element() throws Exception {
+  void test_xpath_simple_element() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//img";
     check.message = "Image element found";
@@ -45,7 +45,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_xpath_no_matches() throws Exception {
+  void test_xpath_no_matches() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "blink";
     check.message = "Blink tag found: {0}";
@@ -57,7 +57,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_empty_xpath_expression() throws Exception {
+  void test_empty_xpath_expression() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "";
 
@@ -68,7 +68,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_xpath_with_attribute() throws Exception {
+  void test_xpath_with_attribute() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//img[@alt]";
     check.message = "Image with alt attribute found";
@@ -82,7 +82,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_xpath_with_attribute_value() throws Exception {
+  void test_xpath_with_attribute_value() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//div[@class='content']";
     check.message = "Div with class 'content' found";
@@ -96,7 +96,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_xpath_multiple_matches() throws Exception {
+  void test_xpath_multiple_matches() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//script | //img";
     check.message = "Script or image element found";
@@ -111,7 +111,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_self_closing_tags() throws Exception {
+  void test_self_closing_tags() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//img";
     check.message = "Image element found";
@@ -124,7 +124,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_void_elements() throws Exception {
+  void test_void_elements() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//br | //hr";
     check.message = "Void element found";
@@ -137,7 +137,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_document_structure_elements() throws Exception {
+  void test_document_structure_elements() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//html | //head | //body";
     check.message = "Document structure element found";
@@ -150,7 +150,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_meta_and_link_tags() throws Exception {
+  void test_meta_and_link_tags() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//meta[@charset]";
     check.message = "Meta with charset found";
@@ -162,7 +162,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_text_formatting_elements() throws Exception {
+  void test_text_formatting_elements() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//b | //strong | //i | //em";
     check.message = "Text formatting element found";
@@ -175,7 +175,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_underline_and_inserted_text() throws Exception {
+  void test_underline_and_inserted_text() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//u | //ins";
     check.message = "Underline or inserted text found";
@@ -188,7 +188,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_deprecated_text_formatting() throws Exception {
+  void test_deprecated_text_formatting() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//del | //s";
     check.message = "Deleted or strikethrough text found";
@@ -201,7 +201,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_code_and_preformatted_elements() throws Exception {
+  void test_code_and_preformatted_elements() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//code | //pre";
     check.message = "Code or preformatted element found";
@@ -214,7 +214,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_superscript_and_subscript() throws Exception {
+  void test_superscript_and_subscript() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//sub | //sup";
     check.message = "Subscript or superscript found";
@@ -227,7 +227,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_nested_text_formatting() throws Exception {
+  void test_nested_text_formatting() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//b//i";
     check.message = "Italic text inside bold found";
@@ -240,7 +240,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_text_with_specific_attributes() throws Exception {
+  void test_text_with_specific_attributes() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//span[@style]";
     check.message = "Styled span found";
@@ -253,7 +253,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_links_within_text() throws Exception {
+  void test_links_within_text() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//a[@href]";
     check.message = "Link found";
@@ -266,7 +266,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_all_formatting_elements_count() throws Exception {
+  void test_all_formatting_elements_count() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "count(//b | //strong | //i | //em | //u | //ins | //small | //mark | //del | //s | //code | //pre | //sub | //sup | //span | //a) > 15";
     check.message = "Many formatting elements found";
@@ -279,7 +279,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_text_node_support() throws Exception {
+  void test_text_node_support() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//p[contains(text(), 'Text')]";
     check.message = "Paragraph with 'Text' found";
@@ -292,7 +292,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_text_node_normalize_space() throws Exception {
+  void test_text_node_normalize_space() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//p[normalize-space()]";
     check.message = "Paragraph with non-empty text";
@@ -305,7 +305,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_stale_state_not_carried_over() throws Exception {
+  void test_stale_state_not_carried_over() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "count(//img) > 0";
     check.message = "File has images";
@@ -322,11 +322,11 @@ class XPathTemplateCheckTest {
     HtmlSourceCode sourceCode2 = TestHelper.scan(
       new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
       check);
-    assertThat(sourceCode2.getIssues()).hasSize(0);
+    assertThat(sourceCode2.getIssues()).isEmpty();
   }
 
   @Test
-  void test_nodeset_evaluation_with_multiple_matches() throws Exception {
+  void test_nodeset_evaluation_with_multiple_matches() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//img | //div";
     check.message = "Image or div found";
@@ -339,7 +339,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_boolean_evaluation_true() throws Exception {
+  void test_boolean_evaluation_true() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "count(//img) > 0";
     check.message = "File contains images";
@@ -352,7 +352,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_boolean_evaluation_false() throws Exception {
+  void test_boolean_evaluation_false() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "count(//img) > 100";
     check.message = "File has more than 100 images";
@@ -361,31 +361,23 @@ class XPathTemplateCheckTest {
       new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
       check);
     // Should not create any issues when boolean is false
-    assertThat(sourceCode.getIssues()).hasSize(0);
+    assertThat(sourceCode.getIssues()).isEmpty();
   }
 
   @Test
-  void test_invalid_xpath_expression() throws Exception {
+  void test_invalid_xpath_expression() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//img[invalid syntax";
     check.message = "Invalid XPath";
 
-    // Invalid XPath should throw exception during compilation in startDocument
-    // The scanner catches it and logs, so no issues are created
-    try {
-      HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
-        check);
-      // If it doesn't throw, verify no issues were created
-      assertThat(sourceCode.getIssues()).hasSize(0);
-    } catch (IllegalStateException e) {
-      // Expected - invalid XPath throws during compilation
-      assertThat(e.getMessage()).contains("Failed to compile XPath expression");
-    }
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
+      check);
+    assertThat(sourceCode.getIssues()).isEmpty();
   }
 
   @Test
-  void test_xpath_with_no_matches() throws Exception {
+  void test_xpath_with_no_matches() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//nonexistent";
     check.message = "Nonexistent element found";
@@ -394,11 +386,11 @@ class XPathTemplateCheckTest {
       new File("src/test/resources/checks/XPathTemplateCheck/TestXPath.html"),
       check);
     // Should produce no issues when XPath matches nothing
-    assertThat(sourceCode.getIssues()).hasSize(0);
+    assertThat(sourceCode.getIssues()).isEmpty();
   }
 
   @Test
-  void test_complex_xpath_with_predicates() throws Exception {
+  void test_complex_xpath_with_predicates() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//div[@class='content' and count(.//*) > 0]";
     check.message = "Content div with children found";
@@ -411,7 +403,7 @@ class XPathTemplateCheckTest {
   }
 
   @Test
-  void test_xpath_with_text_predicate() throws Exception {
+  void test_xpath_with_text_predicate() {
     XPathTemplateCheck check = new XPathTemplateCheck();
     check.expression = "//div[text()]";
     check.message = "Div with text content found";
