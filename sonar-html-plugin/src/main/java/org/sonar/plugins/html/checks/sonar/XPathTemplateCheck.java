@@ -37,6 +37,7 @@ import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -101,7 +102,7 @@ public class XPathTemplateCheck extends AbstractPageCheck {
       w3cDocument = buildW3cDocument(nodes);
     } catch (XPathExpressionException e) {
       LOG.error("Failed to compile XPath expression [{}]: {}", expression, e.getMessage());
-    } catch (ParserConfigurationException e) {
+    } catch (ParserConfigurationException | DOMException e) {
       LOG.debug("Failed to build DOM for XPath evaluation: {}", e.getMessage());
       compiledExpression = null;
       w3cDocument = null;

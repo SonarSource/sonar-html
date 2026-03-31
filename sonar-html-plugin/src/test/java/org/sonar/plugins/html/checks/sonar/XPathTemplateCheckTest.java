@@ -17,15 +17,18 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.io.File;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
+import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 class XPathTemplateCheckTest {
 
@@ -394,5 +397,18 @@ class XPathTemplateCheckTest {
       check);
     // 1 div with non-blank direct text content
     assertThat(sourceCode.getIssues()).hasSize(1);
+  }
+
+  @Test
+  void test_invalid_dom_element_name_is_ignored_gracefully() {
+    XPathTemplateCheck check = new XPathTemplateCheck();
+    check.expression = "//blink";
+
+    TagNode invalidTag = new TagNode();
+    invalidTag.setNodeName("div[");
+    invalidTag.setCode("<div[>");
+
+    assertThatCode(() -> check.startDocument(List.of(invalidTag))).doesNotThrowAnyException();
+    assertThatCode(check::endDocument).doesNotThrowAnyException();
   }
 }
