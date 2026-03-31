@@ -67,6 +67,7 @@ public class WebRulingTest {
     instantiateTemplateRule("IllegalAttributeCheck", "Template_DoNotUseNameProperty", "attributes=\"name\"");
     instantiateTemplateRule("S8488", "Template_RequiredScriptType", "attributes=\"script.type\"");
     instantiateTemplateRule("S8488", "Template_RequiredInputType", "attributes=\"input.type\"");
+    instantiateTemplateRule("S8551", "Template_ForbiddenBlinkTag", "elements=\"blink\"");
   }
 
   @Test
