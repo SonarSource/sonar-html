@@ -12,15 +12,13 @@
   ],
   "packageRules": [
     {
-      "description": "Don't group maven updates",
-      "matchManagers": ["maven"],
+      "description": "Don't group updates by default",
+      "matchPackageNames": ["*"],
       "groupName": null
     },
     {
       "matchManagers": ["github-actions"],
-      "pinDigests": false,
-      "groupName": "all github actions",
-      "groupSlug": "all-github-actions"
+      "pinDigests": false
     },
     {
       "matchManagers": ["github-actions"],
