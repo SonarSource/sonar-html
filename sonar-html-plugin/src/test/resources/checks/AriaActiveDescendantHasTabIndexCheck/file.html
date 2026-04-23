@@ -19,3 +19,9 @@
     <div id="descendantId"></div>
 </div>
 <input aria-activedescendant="foo" tabIndex=""/>
+<!-- Framework bindings should be recognized as valid tabindex -->
+<div aria-activedescendant="foo" [attr.tabindex]="0"></div>
+<div aria-activedescendant="foo" [tabindex]="0"></div>
+<div aria-activedescendant="foo" :tabindex="0"></div>
+<div aria-activedescendant="foo" v-bind:tabindex="0"></div>
+<div aria-activedescendant="foo" attr.tabindex="0"></div>

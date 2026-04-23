@@ -9,3 +9,14 @@
 <a href="#section" onClick="javascript"/>
 <a href=""/>
 <a/>
+<!-- role="button" without keyboard handler: Noncompliant with specific message -->
+<a role="button" href="#" onClick="foo"/> <!-- Noncompliant -->
+<a role="button" href="javascript:void(0)" onClick="foo"/> <!-- Noncompliant -->
+<a role="button" onClick="foo"/> <!-- Noncompliant -->
+<!-- role="button" WITH keyboard handler: Compliant -->
+<a role="button" href="#" onClick="foo" onkeydown="handleKey(event)"/>
+<a role="button" onClick="foo" onkeyup="handleKey(event)"/>
+<a role="button" href="javascript:void(0)" onClick="foo" onkeypress="handleKey(event)"/>
+<!-- role="button" with valid href: always compliant (valid navigation link with button styling) -->
+<a role="button" href="page.html" onClick="doAction()"/>
+<a role="BUTTON" href="/path" onClick="doAction()"/>

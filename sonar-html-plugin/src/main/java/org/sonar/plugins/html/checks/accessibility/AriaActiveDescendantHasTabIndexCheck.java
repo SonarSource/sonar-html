@@ -28,7 +28,7 @@ public class AriaActiveDescendantHasTabIndexCheck extends AbstractPageCheck {
     var ariaActiveDescendant = node.getAttribute("aria-activedescendant");
 
     if (ariaActiveDescendant != null) {
-      var tabIndex = node.getAttribute("tabindex");
+      var tabIndex = node.getPropertyValue("tabindex");
 
       if ((tabIndex == null || tabIndex.isBlank()) && !HtmlConstants.isInteractiveElement(node)) {
         createViolation(node, "An element that manages focus with `aria-activedescendant` must have a tabindex.");

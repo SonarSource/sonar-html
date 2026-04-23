@@ -47,7 +47,7 @@ public class AccessibilityUtils {
   }
 
   public static boolean isFocusableElement(TagNode element) {
-    String tabindex = element.getAttribute("tabindex");
+    String tabindex = element.getPropertyValue("tabindex");
     try {
       if (isInteractiveElement(element)) {
         return tabindex == null || Double.parseDouble(tabindex) >= 0;
