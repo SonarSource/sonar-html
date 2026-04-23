@@ -43,12 +43,13 @@ public class AnchorsShouldNotBeUsedAsButtonsCheck extends AbstractPageCheck {
   private static boolean hasEventHandler(TagNode node, String eventName) {
     // Standard HTML: onkeydown, onkeyup, onkeypress
     // Angular: (keydown), on-keydown, ng-keydown
-    // Vue: v-on:keydown (shorthand @keydown has @ stripped by the parser)
+    // Vue: v-on:keydown (shorthand @keydown has @ stripped by parser, leaving bare "keydown")
     return node.getAttribute("on" + eventName) != null
       || node.getAttribute("(" + eventName + ")") != null
       || node.getAttribute("on-" + eventName) != null
       || node.getAttribute("ng-" + eventName) != null
-      || node.getAttribute("v-on:" + eventName) != null;
+      || node.getAttribute("v-on:" + eventName) != null
+      || node.getAttribute(eventName) != null;
   }
 
   @Override
