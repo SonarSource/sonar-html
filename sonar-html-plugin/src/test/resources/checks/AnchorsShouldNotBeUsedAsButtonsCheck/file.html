@@ -20,3 +20,7 @@
 <!-- role="button" with valid href: always compliant (valid navigation link with button styling) -->
 <a role="button" href="page.html" onClick="doAction()"/>
 <a role="BUTTON" href="/path" onClick="doAction()"/>
+<!-- role="button" with framework keyboard bindings: Compliant -->
+<a role="button" href="#" onClick="foo" (keydown)="handleKey($event)"/>
+<a role="button" href="#" onClick="foo" v-on:keydown="handleKey"/>
+<a role="button" onClick="foo" on-keydown="handleKey(event)"/>

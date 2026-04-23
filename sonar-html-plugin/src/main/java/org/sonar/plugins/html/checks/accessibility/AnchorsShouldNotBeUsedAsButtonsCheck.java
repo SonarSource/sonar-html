@@ -31,14 +31,24 @@ public class AnchorsShouldNotBeUsedAsButtonsCheck extends AbstractPageCheck {
   }
 
   private static boolean hasButtonRole(TagNode node) {
-    String role = node.getAttribute("role");
-    return role != null && "button".equalsIgnoreCase(role.trim());
+    return "button".equalsIgnoreCase(node.getPropertyValue("role"));
   }
 
   private static boolean hasKeyboardHandler(TagNode node) {
-    return node.getAttribute("onkeydown") != null ||
-      node.getAttribute("onkeyup") != null ||
-      node.getAttribute("onkeypress") != null;
+    return hasEventHandler(node, "keydown") ||
+      hasEventHandler(node, "keyup") ||
+      hasEventHandler(node, "keypress");
+  }
+
+  private static boolean hasEventHandler(TagNode node, String eventName) {
+    // Standard HTML: onkeydown, onkeyup, onkeypress
+    // Angular: (keydown), on-keydown, ng-keydown
+    // Vue: v-on:keydown (shorthand @keydown has @ stripped by the parser)
+    return node.getAttribute("on" + eventName) != null
+      || node.getAttribute("(" + eventName + ")") != null
+      || node.getAttribute("on-" + eventName) != null
+      || node.getAttribute("ng-" + eventName) != null
+      || node.getAttribute("v-on:" + eventName) != null;
   }
 
   @Override
