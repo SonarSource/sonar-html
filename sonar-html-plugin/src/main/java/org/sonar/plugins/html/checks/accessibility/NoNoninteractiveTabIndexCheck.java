@@ -35,7 +35,7 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
       return;
     }
 
-    var tabIndex = node.getAttribute("tabindex");
+    var tabIndex = node.getPropertyValue("tabindex");
     if (tabIndex == null) {
       return;
     }
