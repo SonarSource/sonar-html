@@ -38,6 +38,9 @@ class AnchorsShouldNotBeUsedAsButtonsCheckTest {
       .next().atLine(1).withMessage("Anchor tags should not be used as buttons.")
       .next().atLine(2)
       .next().atLine(3)
-      .next().atLine(4);
+      .next().atLine(4)
+      .next().atLine(13).withMessage("Anchor tags with role=\"button\" must also handle keyboard events for accessibility.")
+      .next().atLine(14)
+      .next().atLine(15);
   }
 }

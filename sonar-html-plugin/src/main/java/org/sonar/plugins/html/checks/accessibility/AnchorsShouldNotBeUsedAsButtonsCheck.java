@@ -30,19 +30,50 @@ public class AnchorsShouldNotBeUsedAsButtonsCheck extends AbstractPageCheck {
     return Pattern.matches(pattern, value);
   }
 
+  private static boolean hasButtonRole(TagNode node) {
+    return "button".equalsIgnoreCase(node.getPropertyValue("role"));
+  }
+
+  private static boolean hasKeyboardHandler(TagNode node) {
+    return hasEventHandler(node, "keydown") ||
+      hasEventHandler(node, "keyup") ||
+      hasEventHandler(node, "keypress");
+  }
+
+  private static boolean hasEventHandler(TagNode node, String eventName) {
+    // Standard HTML: onkeydown, onkeyup, onkeypress
+    // Angular: (keydown), on-keydown, ng-keydown
+    // Vue: v-on:keydown (shorthand @keydown has @ stripped by parser, leaving bare "keydown")
+    return node.getAttribute("on" + eventName) != null
+      || node.getAttribute("(" + eventName + ")") != null
+      || node.getAttribute("on-" + eventName) != null
+      || node.getAttribute("ng-" + eventName) != null
+      || node.getAttribute("v-on:" + eventName) != null
+      || node.getAttribute(eventName) != null;
+  }
+
   @Override
   public void startElement(TagNode node) {
-    if ("a".equalsIgnoreCase(node.getNodeName())) {
-      String onClickAttribute = node.getAttribute("onclick");
+    if (!"a".equalsIgnoreCase(node.getNodeName())) {
+      return;
+    }
+    String onClickAttribute = node.getAttribute("onclick");
+    if (onClickAttribute == null) {
+      return;
+    }
+    String hrefAttribute = node.getAttribute("href");
+    boolean hasInvalidHref = hrefAttribute == null || hrefAttribute.isBlank() || "#".equals(hrefAttribute) || isAJavascriptHandler(hrefAttribute);
 
-      if (onClickAttribute == null) {
-        return;
-      }
-      String hrefAttribute = node.getAttribute("href");
+    if (!hasInvalidHref) {
+      return;
+    }
 
-      if (hrefAttribute == null || hrefAttribute.isBlank() || "#".equals(hrefAttribute) || isAJavascriptHandler(hrefAttribute)) {
-        createViolation(node, "Anchor tags should not be used as buttons.");
+    if (hasButtonRole(node)) {
+      if (!hasKeyboardHandler(node)) {
+        createViolation(node, "Anchor tags with role=\"button\" must also handle keyboard events for accessibility.");
       }
+    } else {
+      createViolation(node, "Anchor tags should not be used as buttons.");
     }
   }
 }
