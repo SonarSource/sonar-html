@@ -1,6 +1,6 @@
 {
-  "title": "Using remote artifacts without integrity checks is security-sensitive",
-  "type": "SECURITY_HOTSPOT",
+  "title": "Remote artifacts should not be used without integrity checks",
+  "type": "VULNERABILITY",
   "code": {
     "impacts": {
       "SECURITY": "LOW"
@@ -8,12 +8,14 @@
     "attribute": "COMPLETE"
   },
   "status": "ready",
+  "quickfix": "unknown",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "5min"
   },
   "tags": [
-    "cwe"
+    "cwe",
+    "former-hotspot"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-5725",

@@ -1,39 +1,45 @@
-<p>A newly opened window having access back to the originating window could allow basic phishing attacks (the <code>window.opener</code> object is not
-<code>null</code> and thus <code>window.opener.location</code> can be set to a malicious website by the opened page).</p>
-<p>For instance, an attacker can put a link (say: "http://example.com/mylink") on a popular website that changes, when opened, the original page to
-"http://example.com/fake_login". On "http://example.com/fake_login" there is a fake login page which could trick real users to enter their
-credentials.</p>
-<h2>Ask Yourself Whether</h2>
-<ul>
-  <li>The application opens untrusted external URL.</li>
-</ul>
-<p>There is a risk if you answered yes to this question.</p>
-<h2>Sensitive Code Example</h2>
-<pre>
-&lt;a href="http://example.com/" rel="opener" target="_blank"&gt; &lt;!-- Sensitive --&gt;
-
-&lt;a href="{{variable}}" rel="opener" target="_blank"&gt; &lt;!-- Sensitive --&gt;
+<p>When a web page opens a link in a new window, the opened page may access the originating page through the <code>window.opener</code> property.</p>
+<h2>Why is this an issue?</h2>
+<p>When a page opens a new window or tab using <code>window.open()</code> or <code>&lt;a target="_blank"&gt;</code>, the opened page can access the
+originating page through the <code>window.opener</code> object. If the originating page links to untrusted external content, the opened page can
+exploit this access to redirect the originating tab to a different URL, a technique known as reverse tabnabbing. This rule raises an issue when a
+window or tab is opened without disabling opener access using the <code>noopener</code> option or attribute.</p>
+<h3>What is the potential impact?</h3>
+<h4>Phishing</h4>
+<p>An attacker can host a malicious page that, when opened from a trusted site, uses <code>window.opener</code> to redirect the originating tab to a
+fake login page. Users who switch back to the original tab may not notice they have been redirected and may enter their credentials on the phishing
+site.</p>
+<h2>How to fix it</h2>
+<h3>Code examples</h3>
+<p>The following code is vulnerable because the opened page can access the originating window through <code>window.opener</code>.</p>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;a href="https://example.com/" rel="opener" target="_blank"&gt; &lt;!-- Noncompliant --&gt;
 </pre>
-<h2>Compliant Solution</h2>
+<h4>Compliant solution</h4>
 <p>In Chrome 88+, Firefox 79+ or Safari 12.1+ <code>target=_blank</code> on anchors implies <code>rel=noopener</code> which makes the protection
 enabled by default.</p>
-<pre>
-&lt;a href="https://example.com/" target="_blank" &gt;
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;a href="https://example.com/" target="_blank"&gt;
 </pre>
 <h2>Exceptions</h2>
 <p>No Issue will be raised when <code>href</code> contains a hardcoded relative url as there it has less chances of being vulnerable. An url is
 considered hardcoded and relative if it doesn’t start with <code>http://</code> or <code>https://</code>, and if it does not contain any of the
 characters {}$()[]</p>
 <pre>
-&lt;a href="internal.html" rel="opener" target="_blank" &gt;
+&lt;a href="internal.html" rel="opener" target="_blank"&gt;
 </pre>
-<h2>See</h2>
+<h2>Resources</h2>
+<h3>Articles &amp; blog posts</h3>
 <ul>
-  <li>OWASP - <a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">Top 10 2021 Category A5 - Security Misconfiguration</a></li>
-  <li><a href="https://owasp.org/www-community/attacks/Reverse_Tabnabbing">Reverse Tabnabbing</a></li>
+  <li>OWASP - <a href="https://owasp.org/www-community/attacks/Reverse_Tabnabbing">Reverse Tabnabbing</a></li>
+  <li><a href="https://mathiasbynens.github.io/rel-noopener/">mathiasbynens.github.io</a> - About rel=noopener</li>
+</ul>
+<h3>Standards</h3>
+<ul>
   <li>CWE - <a href="https://cwe.mitre.org/data/definitions/1022">CWE-1022 - Use of Web Link to Untrusted Target with window.opener Access</a></li>
+  <li>OWASP - <a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">Top 10 2021 Category A5 - Security Misconfiguration</a></li>
   <li>OWASP - <a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration">Top 10 2017 Category A6 - Security
   Misconfiguration</a></li>
-  <li><a href="https://mathiasbynens.github.io/rel-noopener/">https://mathiasbynens.github.io/rel-noopener/</a></li>
 </ul>
 
