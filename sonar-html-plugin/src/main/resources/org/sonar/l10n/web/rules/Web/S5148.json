@@ -1,6 +1,6 @@
 {
-  "title": "Authorizing an opened window to access back to the originating window is security-sensitive",
-  "type": "SECURITY_HOTSPOT",
+  "title": "Opened windows should not have access to the originating page",
+  "type": "VULNERABILITY",
   "code": {
     "impacts": {
       "SECURITY": "LOW"
@@ -12,9 +12,11 @@
     "func": "Constant\/Issue",
     "constantCost": "1min"
   },
+  "quickfix": "unknown",
   "tags": [
     "cwe",
-    "phishing"
+    "phishing",
+    "former-hotspot"
   ],
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-5148",
