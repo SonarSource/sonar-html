@@ -48,7 +48,7 @@ class HtmlRulesDefinitionTest {
     assertThat(alertUseRule).isNotNull();
     assertThat(alertUseRule.name()).isEqualTo("Track uses of disallowed attributes");
 
-    RulesDefinition.Rule hotspotsRule = repository.rule("S5725");
+    RulesDefinition.Rule hotspotsRule = repository.rule("S5247");
     assertThat(hotspotsRule).isNotNull();
     assertThat(hotspotsRule.type()).isEqualTo(RuleType.SECURITY_HOTSPOT);
 
