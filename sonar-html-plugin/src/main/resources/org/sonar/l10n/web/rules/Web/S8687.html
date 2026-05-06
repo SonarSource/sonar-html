@@ -1,6 +1,7 @@
 <h2>Why is this an issue?</h2>
-<p>This is a template rule. It checks that the language present in the <code>lang</code> HTML attribute belongs to the user-configured list of ISO
-639-1 valid languages. Create a custom rule from this template to define which languages must the attribute accept.</p>
+<p>This is a template rule. It checks that the language present in any <code>lang</code> HTML attribute belongs to the user-configured list of ISO
+639-1 valid languages. This applies to any HTML element carrying the <code>lang</code> attribute, not only the <code>&lt;html&gt;</code> element.
+Create a custom rule from this template to define which languages the attribute must accept.</p>
 <p>See rule {rule:Web:S5254} for a non-template version.</p>
 <h2>How to fix it</h2>
 <p>Update the <code>lang</code> value to a valid language specified in the template.</p>
@@ -14,7 +15,7 @@
     &lt;meta charset="utf-8" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p&gt;Willkommen auf unserer Website&lt;/p&gt;
+    &lt;p lang="it"&gt;Willkommen auf unserer Website&lt;/p&gt; &lt;!-- Noncompliant: "it" is not in the configured valid languages list --&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
@@ -26,7 +27,7 @@
     &lt;meta charset="utf-8" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p&gt;Welcome to our website&lt;/p&gt;
+    &lt;p lang="fr"&gt;Bienvenue sur notre site&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>

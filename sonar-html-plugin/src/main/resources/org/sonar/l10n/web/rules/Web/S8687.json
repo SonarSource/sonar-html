@@ -1,5 +1,5 @@
 {
-  "title": "Set a configured list of valid languages for the \"\u003chtml\u003e\" language attribute",
+  "title": "Set a configured list of valid languages for the HTML \"lang\" attribute",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
