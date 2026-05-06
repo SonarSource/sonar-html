@@ -1,0 +1,24 @@
+{
+  "title": "Set a configured list of valid languages for the \"\u003chtml\u003e\" language attribute",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility",
+    "wcag2-a"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-8687",
+  "sqKey": "S8687",
+  "scope": "All",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "CONVENTIONAL"
+  }
+}

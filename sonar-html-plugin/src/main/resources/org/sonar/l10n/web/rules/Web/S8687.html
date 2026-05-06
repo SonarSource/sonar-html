@@ -1,0 +1,33 @@
+<h2>Why is this an issue?</h2>
+<p>This is a template rule. It checks that the language present in the <code>lang</code> HTML attribute belongs to the user-configured list of ISO
+639-1 valid languages. Create a custom rule from this template to define which languages must the attribute accept.</p>
+<p>See rule {rule:Web:S5254} for a non-template version.</p>
+<h2>How to fix it</h2>
+<p>Update the <code>lang</code> value to a valid language specified in the template.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<p>For a given list of valid languages, for instance <code>fr,es,en,ca</code>:</p>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;html lang="de"&gt; &lt;!-- Noncompliant: "de" is not in the configured valid languages list --&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+    &lt;meta charset="utf-8" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Willkommen auf unserer Website&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+    &lt;meta charset="utf-8" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Welcome to our website&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
