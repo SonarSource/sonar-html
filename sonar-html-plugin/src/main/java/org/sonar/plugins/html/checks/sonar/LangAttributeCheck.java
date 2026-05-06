@@ -168,7 +168,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
     return "HTML".equalsIgnoreCase(node.getNodeName());
   }
 
-  private boolean isValidLangAttributeValue(String langAttributeValue) {
+  protected boolean isValidLangAttributeValue(String langAttributeValue) {
     if (Helpers.isDynamicValue(langAttributeValue, getHtmlSourceCode())) {
       return true;
     }
