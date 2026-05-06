@@ -62,6 +62,21 @@ class AllowedLangAttributeCheckTest {
       .noMore();
   }
 
+  @Test
+  void emptyEffectiveAllowlistDoesNotFlagValidLangs() {
+    AllowedLangAttributeCheck check = new AllowedLangAttributeCheck();
+    check.languages = "notacode";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AllowedLangAttributeCheck/test.html"),
+      check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
+      .next().atLine(15).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+      .noMore();
+  }
+
   @ParameterizedTest
   @ValueSource(strings = {
     "src/test/resources/checks/LangAttributeCheckJspEl.html",

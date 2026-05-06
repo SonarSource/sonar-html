@@ -39,6 +39,9 @@ public class AllowedLangAttributeCheck extends LangAttributeCheck {
     if (!super.isValidLangAttributeValue(langAttributeValue)) {
       return false;
     }
+    if (allowedLanguages().isEmpty()) {
+      return true;
+    }
     if (Helpers.isDynamicValue(langAttributeValue, getHtmlSourceCode())) {
       return true;
     }
