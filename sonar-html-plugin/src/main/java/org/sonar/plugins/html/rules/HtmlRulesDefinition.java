@@ -35,6 +35,7 @@ public final class HtmlRulesDefinition implements RulesDefinition {
     "S8551",
     "S140",
     "S8488",
+    "S8687",
     "LibraryDependencyCheck",
     "ChildElementIllegalCheck",
     "ChildElementRequiredCheck",
