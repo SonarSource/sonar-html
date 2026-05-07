@@ -162,7 +162,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
             "tel".equals(t) || "url".equals(t) || "password".equals(t);
   }
 
-  private static final Pattern LANG_CODE_PATTERN = Pattern.compile("[a-zA-Z0-9-]+");
+  static final Pattern LANG_CODE_PATTERN = Pattern.compile("[a-zA-Z0-9-]+");
 
   private static boolean isHtmlTag(TagNode node) {
     return "HTML".equalsIgnoreCase(node.getNodeName());

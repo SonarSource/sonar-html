@@ -19,7 +19,6 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
@@ -31,8 +30,6 @@ import org.sonar.plugins.html.node.TagNode;
 public class AllowedLangAttributeCheck extends AbstractPageCheck {
 
   static final String ALLOWED_LANG_MESSAGE = "Update the \"lang\" attribute to one of the configured languages.";
-
-  private static final Pattern LANG_CODE_PATTERN = Pattern.compile("[a-zA-Z0-9-]+");
 
   @RuleProperty(
     key = "languages",
@@ -54,7 +51,7 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
     if (Helpers.isDynamicValue(langValue, getHtmlSourceCode())) {
       return;
     }
-    if (!LANG_CODE_PATTERN.matcher(langValue).matches()) {
+    if (!LangAttributeCheck.LANG_CODE_PATTERN.matcher(langValue).matches()) {
       return;
     }
     String primaryLang = langValue.split("-")[0].toLowerCase(Locale.ENGLISH);
