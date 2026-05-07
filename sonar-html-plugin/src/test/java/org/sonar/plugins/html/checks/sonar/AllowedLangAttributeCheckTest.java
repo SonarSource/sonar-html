@@ -41,10 +41,10 @@ class AllowedLangAttributeCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
-      .next().atLine(3).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-      .next().atLine(11).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-      .next().atLine(13).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
-      .next().atLine(15).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+      .next().atLine(3).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
+      .next().atLine(11).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
+      .next().atLine(13).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
+      .next().atLine(15).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
       .noMore();
   }
 
@@ -58,7 +58,7 @@ class AllowedLangAttributeCheckTest {
       check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(3).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+      .next().atLine(3).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
       .noMore();
   }
 

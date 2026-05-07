@@ -63,6 +63,10 @@ public class LangAttributeCheck extends AbstractPageCheck {
   private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
   public static final String DEFAULT_MESSAGE = "Text is missing a valid lang attribute in its ancestor elements";
 
+  protected String getViolationMessage() {
+    return DEFAULT_MESSAGE;
+  }
+
   @Override
   public void startElement(TagNode node) {
     if (isHtmlTag(node)) {
@@ -91,7 +95,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
     }
     langStack.addLast(new TagNodeFlag(node, isValidCurrentLang));
     if (!isValidCurrentLang && hasTextInAttributesToValidate(node)) {
-      createViolation(node, DEFAULT_MESSAGE);
+      createViolation(node, getViolationMessage());
     }
   }
 
@@ -116,7 +120,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
     }
     boolean isValidCurrentLang = langStack.getLast().hasValidLang();
     if (!isValidCurrentLang) {
-      createViolation(textNode, DEFAULT_MESSAGE);
+      createViolation(textNode, getViolationMessage());
     }
   }
 

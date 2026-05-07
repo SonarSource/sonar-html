@@ -34,6 +34,13 @@ public class AllowedLangAttributeCheck extends LangAttributeCheck {
 
   private Set<String> allowedLanguagesCache = null;
 
+  static final String ALLOWED_LANG_MESSAGE = "Text is missing a lang attribute from the configured languages in its ancestor elements";
+
+  @Override
+  protected String getViolationMessage() {
+    return allowedLanguages().isEmpty() ? DEFAULT_MESSAGE : ALLOWED_LANG_MESSAGE;
+  }
+
   @Override
   protected boolean isValidLangAttributeValue(String langAttributeValue) {
     if (!super.isValidLangAttributeValue(langAttributeValue)) {
