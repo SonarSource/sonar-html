@@ -37,7 +37,8 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
 
   @RuleProperty(
     key = "languages",
-    description = "Comma-separated list of allowed language codes (e.g. \"en,fr,es,ca\"). Values are matched case-insensitively against the primary language subtag of the \"lang\" attribute (the part before any hyphen).")
+    description = "Comma-separated list of allowed language codes (e.g. \"en,fr,es,ca\"). "
+      + "Values are matched case-insensitively against the primary language subtag of the \"lang\" attribute (the part before any hyphen).")
   public String languages = "";
 
   private Set<String> allowedLanguagesCache = null;
