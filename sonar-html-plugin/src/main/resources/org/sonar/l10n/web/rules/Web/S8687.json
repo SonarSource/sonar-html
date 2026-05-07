@@ -1,14 +1,13 @@
 {
-  "title": "Set a configured list of valid languages for the HTML \"lang\" attribute",
-  "type": "BUG",
+  "title": "Set a configured list of languages for the HTML \"lang\" attribute",
+  "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
     "constantCost": "5min"
   },
   "tags": [
-    "accessibility",
-    "wcag2-a"
+    "accessibility"
   ],
   "defaultSeverity": "Major",
   "ruleSpecification": "RSPEC-8687",
@@ -17,8 +16,8 @@
   "quickfix": "unknown",
   "code": {
     "impacts": {
-      "RELIABILITY": "MEDIUM"
+      "MAINTAINABILITY": "MEDIUM"
     },
-    "attribute": "COMPLETE"
+    "attribute": "CONVENTIONAL"
   }
 }

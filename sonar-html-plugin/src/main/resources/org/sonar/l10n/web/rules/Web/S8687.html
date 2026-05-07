@@ -8,13 +8,13 @@ rule from this template to define which languages the attribute must accept.</p>
 <h4>Noncompliant code example</h4>
 <p>For a given configured list of languages, for instance <code>fr,es,en,ca</code>:</p>
 <pre data-diff-id="1" data-diff-type="noncompliant">
-&lt;html lang="de"&gt; &lt;!-- Noncompliant: "de" is not in the configured valid languages list --&gt;
+&lt;html lang="de"&gt; &lt;!-- Noncompliant: "de" is not in the configured languages list --&gt;
   &lt;head&gt;
     &lt;title&gt;Example&lt;/title&gt;
     &lt;meta charset="utf-8" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p lang="it"&gt;Benvenuto sul nostro sito&lt;/p&gt; &lt;!-- Noncompliant: "it" is not in the configured valid languages list --&gt;
+    &lt;p lang="it"&gt;Benvenuto sul nostro sito&lt;/p&gt; &lt;!-- Noncompliant: "it" is not in the configured languages list --&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
