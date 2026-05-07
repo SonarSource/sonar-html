@@ -40,6 +40,7 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
+import org.sonar.api.notifications.AnalysisWarnings;
 import org.sonar.api.utils.Version;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -66,12 +67,15 @@ public final class HtmlSensor implements Sensor {
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
+  private final AnalysisWarnings analysisWarnings;
 
-  public HtmlSensor(SonarRuntime sonarRuntime, NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory, CheckFactory checkFactory) {
+  public HtmlSensor(SonarRuntime sonarRuntime, NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory,
+    CheckFactory checkFactory, AnalysisWarnings analysisWarnings) {
     this.sonarRuntime = sonarRuntime;
     this.noSonarFilter = noSonarFilter;
     this.checks = checkFactory.create(HtmlRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks((Iterable) CheckClasses.getCheckClasses());
     this.fileLinesContextFactory = fileLinesContextFactory;
+    this.analysisWarnings = analysisWarnings;
   }
 
   @Override
@@ -192,10 +196,16 @@ public final class HtmlSensor implements Sensor {
     HtmlAstScanner scanner = new HtmlAstScanner(visitors);
 
     for (Object check : checks.all()) {
-      ((AbstractPageCheck) check).setRuleKey(checks.ruleKey(check));
-      scanner.addVisitor((AbstractPageCheck) check);
+      AbstractPageCheck pageCheck = (AbstractPageCheck) check;
+      addAnalysisWarnings(pageCheck);
+      pageCheck.setRuleKey(checks.ruleKey(check));
+      scanner.addVisitor(pageCheck);
     }
     return scanner;
+  }
+
+  private void addAnalysisWarnings(AbstractPageCheck check) {
+    check.collectAnalysisWarnings().forEach(analysisWarnings::addUnique);
   }
 
 }

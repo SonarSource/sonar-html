@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,6 +35,8 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
   private static final Logger LOG = LoggerFactory.getLogger(AllowedLangAttributeCheck.class);
 
   static final String ALLOWED_LANG_MESSAGE = "Update the \"lang\" attribute to one of the configured languages.";
+  public static final String EMPTY_ALLOWED_LANGUAGES_WARNING =
+    "Rule S8687 is enabled but no languages are configured; the rule will have no effect.";
 
   @RuleProperty(
     key = "languages",
@@ -45,7 +48,7 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (allowedLanguages().isEmpty()) {
+    if (getAllowedLanguages().isEmpty()) {
       return;
     }
     String langValue = node.getAttribute("lang");
@@ -60,21 +63,29 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
       return;
     }
     String primaryLang = langValue.split("-")[0].toLowerCase(Locale.ENGLISH);
-    if (!allowedLanguages().contains(primaryLang)) {
+    if (!getAllowedLanguages().contains(primaryLang)) {
       createViolation(node, ALLOWED_LANG_MESSAGE);
     }
   }
 
-  private Set<String> allowedLanguages() {
+  private Set<String> getAllowedLanguages() {
     if (allowedLanguagesCache == null) {
       allowedLanguagesCache = Arrays.stream(languages.split(","))
         .map(s -> s.trim().toLowerCase(Locale.ENGLISH))
         .filter(s -> !s.isEmpty())
         .collect(Collectors.toSet());
       if (allowedLanguagesCache.isEmpty()) {
-        LOG.warn("Rule S8687 is enabled but no languages are configured — the rule will have no effect.");
+        LOG.warn(EMPTY_ALLOWED_LANGUAGES_WARNING);
       }
     }
     return allowedLanguagesCache;
+  }
+
+  @Override
+  public List<String> collectAnalysisWarnings() {
+    if (getAllowedLanguages().isEmpty()) {
+      return List.of(EMPTY_ALLOWED_LANGUAGES_WARNING);
+    }
+    return List.of();
   }
 }

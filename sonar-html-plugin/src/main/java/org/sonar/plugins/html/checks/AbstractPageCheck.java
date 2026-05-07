@@ -122,6 +122,10 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     this.ruleKey = ruleKey;
   }
 
+  public List<String> collectAnalysisWarnings() {
+    return List.of();
+  }
+
   protected List<Attribute> getMatchingAttributes(TagNode element, QualifiedAttribute[] attributes) {
     List<Attribute> matchingAttributes = new ArrayList<>();
 
