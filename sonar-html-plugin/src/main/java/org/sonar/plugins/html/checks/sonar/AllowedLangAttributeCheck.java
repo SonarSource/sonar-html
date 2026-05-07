@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.api.Helpers;
@@ -28,6 +30,8 @@ import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S8687")
 public class AllowedLangAttributeCheck extends AbstractPageCheck {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AllowedLangAttributeCheck.class);
 
   static final String ALLOWED_LANG_MESSAGE = "Update the \"lang\" attribute to one of the configured languages.";
 
@@ -66,6 +70,9 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
         .map(s -> s.trim().toLowerCase(Locale.ENGLISH))
         .filter(s -> !s.isEmpty())
         .collect(Collectors.toSet());
+      if (allowedLanguagesCache.isEmpty()) {
+        LOG.warn("Rule S8687 is enabled but no languages are configured — the rule will have no effect.");
+      }
     }
     return allowedLanguagesCache;
   }
