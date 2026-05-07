@@ -249,7 +249,7 @@ class HtmlSensorTest {
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(15);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
 
-    assertThat(tester.allIssues()).hasSize(4);
+    assertThat(tester.allIssues()).hasSize(3);
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
