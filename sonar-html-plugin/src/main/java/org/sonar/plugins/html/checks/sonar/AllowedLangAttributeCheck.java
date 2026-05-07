@@ -19,13 +19,20 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.api.Helpers;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S8687")
-public class AllowedLangAttributeCheck extends LangAttributeCheck {
+public class AllowedLangAttributeCheck extends AbstractPageCheck {
+
+  static final String ALLOWED_LANG_MESSAGE = "Update the \"lang\" attribute to one of the configured languages.";
+
+  private static final Pattern LANG_CODE_PATTERN = Pattern.compile("[a-zA-Z0-9-]+");
 
   @RuleProperty(
     key = "languages",
@@ -34,30 +41,26 @@ public class AllowedLangAttributeCheck extends LangAttributeCheck {
 
   private Set<String> allowedLanguagesCache = null;
 
-  static final String ALLOWED_LANG_MESSAGE = "Text is missing a lang attribute from the configured languages in its ancestor elements";
-
   @Override
-  protected String getViolationMessage() {
-    return allowedLanguages().isEmpty() ? DEFAULT_MESSAGE : ALLOWED_LANG_MESSAGE;
-  }
-
-  @Override
-  protected boolean isValidLangAttributeValue(String langAttributeValue) {
-    if (!super.isValidLangAttributeValue(langAttributeValue)) {
-      return false;
-    }
+  public void startElement(TagNode node) {
     if (allowedLanguages().isEmpty()) {
-      return true;
+      return;
     }
-    if (Helpers.isDynamicValue(langAttributeValue, getHtmlSourceCode())) {
-      return true;
+    String langValue = node.getAttribute("lang");
+    if (langValue == null || langValue.isBlank()) {
+      return;
     }
-    var parts = langAttributeValue.split("-");
-    if (parts[0].length() != 2) {
-      // template placeholder (e.g. %lang%, #{locale}) — parent already validated
-      return true;
+    langValue = langValue.trim();
+    if (Helpers.isDynamicValue(langValue, getHtmlSourceCode())) {
+      return;
     }
-    return allowedLanguages().contains(parts[0].toLowerCase(Locale.ENGLISH));
+    if (!LANG_CODE_PATTERN.matcher(langValue).matches()) {
+      return;
+    }
+    String primaryLang = langValue.split("-")[0].toLowerCase(Locale.ENGLISH);
+    if (!allowedLanguages().contains(primaryLang)) {
+      createViolation(node, ALLOWED_LANG_MESSAGE);
+    }
   }
 
   private Set<String> allowedLanguages() {
