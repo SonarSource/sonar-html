@@ -62,10 +62,9 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
 
   private Set<String> allowedLanguages() {
     if (allowedLanguagesCache == null) {
-      Set<String> isoLanguages = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
       allowedLanguagesCache = Arrays.stream(languages.split(","))
         .map(s -> s.trim().toLowerCase(Locale.ENGLISH))
-        .filter(isoLanguages::contains)
+        .filter(s -> !s.isEmpty())
         .collect(Collectors.toSet());
     }
     return allowedLanguagesCache;

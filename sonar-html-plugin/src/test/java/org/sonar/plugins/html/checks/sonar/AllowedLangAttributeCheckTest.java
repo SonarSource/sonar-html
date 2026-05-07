@@ -33,7 +33,7 @@ class AllowedLangAttributeCheckTest {
   @Test
   void detected() {
     AllowedLangAttributeCheck check = new AllowedLangAttributeCheck();
-    check.languages = "en,fr";
+    check.languages = "en,fr,noISOlang";
 
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/AllowedLangAttributeCheck/test.html"),
@@ -43,28 +43,13 @@ class AllowedLangAttributeCheckTest {
       .next().atLine(3).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
       .next().atLine(11).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
       .next().atLine(13).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
-      .next().atLine(15).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
       .noMore();
   }
 
   @Test
-  void invalidConfiguredLanguagesAreIgnored() {
+  void emptyAllowlistDoesNotFlagAnything() {
     AllowedLangAttributeCheck check = new AllowedLangAttributeCheck();
-    check.languages = "en,notacode";
-
-    HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/AllowedLangAttributeCheck/invalid-configured-lang.html"),
-      check);
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(3).withMessage(AllowedLangAttributeCheck.ALLOWED_LANG_MESSAGE)
-      .noMore();
-  }
-
-  @Test
-  void emptyEffectiveAllowlistDoesNotFlagValidLangs() {
-    AllowedLangAttributeCheck check = new AllowedLangAttributeCheck();
-    check.languages = "notacode";
+    check.languages = "";
 
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/AllowedLangAttributeCheck/test.html"),
