@@ -27,6 +27,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.mockito.Mockito;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
@@ -57,6 +58,8 @@ import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class HtmlSensorTest {
 
@@ -84,7 +87,8 @@ class HtmlSensorTest {
     ActiveRules activeRules = new DefaultActiveRules(ar);
 
     CheckFactory checkFactory = new CheckFactory(activeRules);
-    FileLinesContextFactory fileLinesContextFactory = inputFile -> new NoOpFileLinesContext();
+    FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
+    when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
     analysisWarnings = new RecordingAnalysisWarnings();
     sensor = new HtmlSensor(sonarRuntime, new DefaultNoSonarFilter(), fileLinesContextFactory, checkFactory,
       analysisWarnings);
@@ -274,24 +278,6 @@ class HtmlSensorTest {
       .initMetadata(new String(Files.readAllBytes(dir.resolve(fileName)), StandardCharsets.UTF_8))
       .setCharset(StandardCharsets.UTF_8)
       .build();
-  }
-
-  private static class NoOpFileLinesContext implements FileLinesContext {
-
-    @Override
-    public void setIntValue(String metricKey, int line, int value) {
-      // Nothing to record in these tests.
-    }
-
-    @Override
-    public void setStringValue(String metricKey, int line, String value) {
-      // Nothing to record in these tests.
-    }
-
-    @Override
-    public void save() {
-      // Nothing to save in these tests.
-    }
   }
 
   private static class RecordingAnalysisWarnings implements AnalysisWarnings {
