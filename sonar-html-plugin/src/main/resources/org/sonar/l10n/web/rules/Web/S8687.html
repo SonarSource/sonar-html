@@ -1,20 +1,21 @@
 <h2>Why is this an issue?</h2>
-<p>This is a template rule. It checks that the language present in any <code>lang</code> HTML attribute belongs to the user-configured list of
-languages. This applies to any HTML element carrying the <code>lang</code> attribute, not only the <code>&lt;html&gt;</code> element. Create a custom
-rule from this template to define which languages the attribute must accept.</p>
+<p>This is a template rule. It checks that the language code present in any <code>lang</code> HTML attribute belongs to the user-configured list of
+ISO language codes. This applies to any HTML element carrying the <code>lang</code> attribute, not only the <code>&lt;html&gt;</code> element. Create
+a custom rule from this template to define which ISO language codes the attribute must accept.</p>
+<p>See rule {rule:Web:S5254} for a non-template version.</p>
 <h2>How to fix it</h2>
-<p>Update the <code>lang</code> value to one of the languages configured in the template.</p>
+<p>Update the <code>lang</code> value to one of the ISO language codes configured in the template.</p>
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
-<p>For a given configured list of languages, for instance <code>fr,es,en,ca</code>:</p>
+<p>For a given configured list of ISO language codes, for instance <code>fr,es,en,ca</code>:</p>
 <pre data-diff-id="1" data-diff-type="noncompliant">
-&lt;html lang="de"&gt; &lt;!-- Noncompliant: "de" is not in the configured languages list --&gt;
+&lt;html lang="de"&gt; &lt;!-- Noncompliant: "de" is not in the configured language codes list --&gt;
   &lt;head&gt;
     &lt;title&gt;Example&lt;/title&gt;
     &lt;meta charset="utf-8" /&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;p lang="it"&gt;Benvenuto sul nostro sito&lt;/p&gt; &lt;!-- Noncompliant: "it" is not in the configured languages list --&gt;
+    &lt;p lang="it"&gt;Benvenuto sul nostro sito&lt;/p&gt; &lt;!-- Noncompliant: "it" is not in the configured language codes list --&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </pre>
