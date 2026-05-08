@@ -34,7 +34,7 @@ public class AllowedLangAttributeCheck extends AbstractPageCheck {
 
   private static final Logger LOG = LoggerFactory.getLogger(AllowedLangAttributeCheck.class);
 
-  static final String ALLOWED_LANG_MESSAGE = "Update the \"lang\" attribute to one of the configured languages.";
+  static final String ALLOWED_LANG_MESSAGE = "Update the \"lang\" attribute to one of the configured language codes.";
   public static final String EMPTY_ALLOWED_LANGUAGES_WARNING =
     "Rule S8687 is enabled but no languages are configured; the rule will have no effect.";
 
