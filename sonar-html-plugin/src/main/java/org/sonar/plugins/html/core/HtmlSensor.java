@@ -21,6 +21,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Stream;
 import org.sonar.api.SonarProduct;
 import org.sonar.api.SonarRuntime;
@@ -198,7 +199,7 @@ public final class HtmlSensor implements Sensor {
     for (Object check : checks.all()) {
       AbstractPageCheck pageCheck = (AbstractPageCheck) check;
       addAnalysisWarnings(pageCheck);
-      pageCheck.setRuleKey(checks.ruleKey(check));
+      pageCheck.setRuleKey(Objects.requireNonNull(checks.ruleKey(check)));
       scanner.addVisitor(pageCheck);
     }
     return scanner;
