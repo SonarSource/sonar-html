@@ -1,5 +1,5 @@
 {
-  "title": "Set a configured list of languages for the HTML \"lang\" attribute",
+  "title": "Enforce the HTML \"lang\" attribute against a configured list of ISO 639-1 language codes",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
