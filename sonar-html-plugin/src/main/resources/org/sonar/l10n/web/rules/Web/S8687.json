@@ -1,0 +1,23 @@
+{
+  "title": "Enforce the HTML \"lang\" attribute against a configured list of ISO 639-1 language codes",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-8687",
+  "sqKey": "S8687",
+  "scope": "All",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "MEDIUM"
+    },
+    "attribute": "CONVENTIONAL"
+  }
+}

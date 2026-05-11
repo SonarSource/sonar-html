@@ -47,11 +47,13 @@ import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
+import org.sonar.api.notifications.AnalysisWarnings;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.testfixtures.log.LogTesterJUnit5;
 import org.sonar.api.utils.Version;
 import org.sonar.plugins.html.api.HtmlConstants;
+import org.sonar.plugins.html.checks.sonar.AllowedLangAttributeCheck;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,6 +67,7 @@ class HtmlSensorTest {
 
   private HtmlSensor sensor;
   private SensorContextTester tester;
+  private RecordingAnalysisWarnings analysisWarnings;
 
   @RegisterExtension
   public LogTesterJUnit5 logTester = new LogTesterJUnit5();
@@ -86,7 +89,9 @@ class HtmlSensorTest {
     CheckFactory checkFactory = new CheckFactory(activeRules);
     FileLinesContextFactory fileLinesContextFactory = mock(FileLinesContextFactory.class);
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
-    sensor = new HtmlSensor(sonarRuntime, new DefaultNoSonarFilter(), fileLinesContextFactory, checkFactory);
+    analysisWarnings = new RecordingAnalysisWarnings();
+    sensor = new HtmlSensor(sonarRuntime, new DefaultNoSonarFilter(), fileLinesContextFactory, checkFactory,
+      analysisWarnings);
     tester = SensorContextTester.create(TEST_DIR).setRuntime(sonarRuntime);
   }
 
@@ -125,6 +130,16 @@ class HtmlSensorTest {
     tester.setCancelled(true);
     sensor.execute(tester);
     assertThat(tester.allIssues()).isEmpty();
+  }
+
+  @Test
+  void adds_analysis_warning_when_allowed_languages_are_empty() throws IOException {
+    DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(analysisWarnings.warnings()).contains(AllowedLangAttributeCheck.EMPTY_ALLOWED_LANGUAGES_WARNING);
   }
 
   @Test
@@ -168,7 +183,8 @@ class HtmlSensorTest {
   void test_descriptor_sonarlint() {
     DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor();
     SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarLint(Version.create(6, 5));
-    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList()))).describe(sensorDescriptor);
+    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList())),
+      new RecordingAnalysisWarnings()).describe(sensorDescriptor);
     assertThat(sensorDescriptor.name()).isEqualTo("HTML");
     assertThat(sensorDescriptor.languages()).isEmpty();
   }
@@ -184,7 +200,8 @@ class HtmlSensorTest {
       }
     };
     SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
-    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList()))).describe(sensorDescriptor);
+    new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList())),
+      new RecordingAnalysisWarnings()).describe(sensorDescriptor);
     assertThat(sensorDescriptor.name()).isEqualTo("HTML");
     assertThat(sensorDescriptor.languages()).isEmpty();
     assertTrue(called[0]);
@@ -261,5 +278,18 @@ class HtmlSensorTest {
       .initMetadata(new String(Files.readAllBytes(dir.resolve(fileName)), StandardCharsets.UTF_8))
       .setCharset(StandardCharsets.UTF_8)
       .build();
+  }
+
+  private static class RecordingAnalysisWarnings implements AnalysisWarnings {
+    private final List<String> warnings = new ArrayList<>();
+
+    @Override
+    public void addUnique(String text) {
+      warnings.add(text);
+    }
+
+    private List<String> warnings() {
+      return warnings;
+    }
   }
 }
