@@ -156,8 +156,8 @@ class HtmlSensorTest {
   }
 
   @Test
-  void sonar_resolve_is_saved_on_supported_runtime() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 6), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+  void sonar_resolve_is_saved_at_minimum_supported_runtime() {
+    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 5), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
     DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
       "<div>",
       "<!-- sonar-resolve [fp] Web:S5256 \"reason\" -->",

@@ -79,6 +79,29 @@ class SonarResolveScannerTest {
   }
 
   @Test
+  void scan_case_insensitive_accept_status_with_multiple_rule_keys() throws IOException {
+    String content = String.join("\n",
+      "<table>",
+      "<!--",
+      "SoNaR-ReSoLvE [AcCePt] Web:S5256, Web:S1827 \"accepted for both rules\"",
+      "-->",
+      "</table>");
+
+    SensorContextTester tester = newSensorContext();
+    InputFile inputFile = createInputFile("accept-multiple-rules.html", content);
+    scan(tester, inputFile, content);
+
+    assertThat(issueResolutions(tester, inputFile)).singleElement().satisfies(issueResolution -> {
+      assertThat(issueResolution.status()).isEqualTo(IssueResolution.Status.DEFAULT);
+      assertThat(issueResolution.ruleKeys()).containsExactlyInAnyOrder(
+        RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, "S5256"),
+        RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, "S1827"));
+      assertThat(issueResolution.comment()).isEqualTo("accepted for both rules");
+      assertThat(issueResolution.textRange().start().line()).isEqualTo(3);
+    });
+  }
+
+  @Test
   void scan_multiline_jsp_directive() throws IOException {
     String content = String.join("\n",
       "<%--",
