@@ -23,8 +23,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.batch.fs.InputFile;
@@ -41,6 +45,7 @@ import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class SonarResolveScannerTest {
 
@@ -94,38 +99,16 @@ class SonarResolveScannerTest {
     });
   }
 
-  @Test
-  void invalid_directive_logs_warning_and_skips_resolution() throws IOException {
-    String content = String.join("\n",
-      "<table>",
-      "<!-- sonar-resolve Web:S5256 \"reason -->",
-      "</table>");
-
-    SensorContextTester tester = newSensorContext();
-    InputFile inputFile = createInputFile("invalid.html", content);
-    scan(tester, inputFile, content);
-
-    assertThat(issueResolutions(tester, inputFile)).isEmpty();
-    assertThat(logTester.logs()).anySatisfy(log -> assertThat(log)
-      .contains("Invalid sonar-resolve directive: unterminated justification")
-      .contains("line 2"));
+  @ParameterizedTest
+  @MethodSource("singleLineInvalidDirectiveCases")
+  void invalid_single_line_directives_log_warning(String directive, String expectedErrorMessage) throws IOException {
+    assertInvalidDirectiveLogsWarning(expectedErrorMessage, directive);
   }
 
-  @Test
-  void immediately_invalid_directive_logs_warning_and_skips_resolution() throws IOException {
-    String content = String.join("\n",
-      "<table>",
-      "<!-- sonar-resolve [accepted] Web:S5256 \"reason\" -->",
-      "</table>");
-
-    SensorContextTester tester = newSensorContext();
-    InputFile inputFile = createInputFile("invalid-status.html", content);
-    scan(tester, inputFile, content);
-
-    assertThat(issueResolutions(tester, inputFile)).isEmpty();
-    assertThat(logTester.logs()).anySatisfy(log -> assertThat(log)
-      .contains("Invalid sonar-resolve directive: invalid status '[accepted]'")
-      .contains("line 2"));
+  @ParameterizedTest
+  @MethodSource("multiLineInvalidDirectiveCases")
+  void invalid_multi_line_directives_log_warning(String[] directiveLines, String expectedErrorMessage) throws IOException {
+    assertInvalidDirectiveLogsWarning(expectedErrorMessage, directiveLines);
   }
 
   @Test
@@ -158,23 +141,6 @@ class SonarResolveScannerTest {
     assertThat(logTester.logs()).noneMatch(log -> log.contains("Invalid sonar-resolve directive"));
   }
 
-  @Test
-  void malformed_directive_start_still_logs_warning() throws IOException {
-    String content = String.join("\n",
-      "<table>",
-      "<!-- sonar-resolve[fp] Web:S5256 \"reason\" -->",
-      "</table>");
-
-    SensorContextTester tester = newSensorContext();
-    InputFile inputFile = createInputFile("missing-space.html", content);
-    scan(tester, inputFile, content);
-
-    assertThat(issueResolutions(tester, inputFile)).isEmpty();
-    assertThat(logTester.logs()).anySatisfy(log -> assertThat(log)
-      .contains("Invalid sonar-resolve directive: expected whitespace after 'sonar-resolve'")
-      .contains("line 2"));
-  }
-
   private static void scan(SensorContextTester tester, InputFile inputFile, String content) throws IOException {
     List<Node> nodeList;
     try (Reader reader = new StringReader(content)) {
@@ -189,6 +155,51 @@ class SonarResolveScannerTest {
   private static SensorContextTester newSensorContext() {
     return SensorContextTester.create(Paths.get("."))
       .setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 6), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+  }
+
+  private void assertInvalidDirectiveLogsWarning(String expectedErrorMessage, String... directiveLines) throws IOException {
+    SensorContextTester tester = newSensorContext();
+    String content = htmlCommentContent(directiveLines);
+    InputFile inputFile = createInputFile("invalid.html", content);
+    scan(tester, inputFile, content);
+
+    assertThat(issueResolutions(tester, inputFile)).isEmpty();
+    assertThat(logTester.logs()).singleElement().satisfies(log -> assertThat(log)
+      .contains(expectedErrorMessage)
+      .contains("line 2"));
+  }
+
+  private static String htmlCommentContent(String... directiveLines) {
+    StringBuilder content = new StringBuilder("<table>\n<!-- ").append(directiveLines[0]);
+    for (int i = 1; i < directiveLines.length; i++) {
+      content.append('\n').append(directiveLines[i]);
+    }
+    return content.append(" -->\n</table>").toString();
+  }
+
+  private static Stream<Arguments> singleLineInvalidDirectiveCases() {
+    return Stream.of(
+      arguments("sonar-resolve[fp] Web:S5256 \"reason\"", "Invalid sonar-resolve directive: expected whitespace after 'sonar-resolve'"),
+      arguments("sonar-resolve \"reason\"", "Invalid sonar-resolve directive: missing rule key"),
+      arguments("sonar-resolve WebS5256 \"reason\"", "Invalid sonar-resolve directive: invalid rule key 'WebS5256'"),
+      arguments("sonar-resolve [accepted] Web:S5256 \"reason\"", "Invalid sonar-resolve directive: invalid status '[accepted]'"),
+      arguments("sonar-resolve [fp Web:S5256 \"reason\"", "Invalid sonar-resolve directive: unterminated status"),
+      arguments("sonar-resolve Web:S5256, Web:S5256 \"reason\"", "Invalid sonar-resolve directive: duplicate rule key 'Web:S5256'"),
+      arguments("sonar-resolve Web:S5256, \"reason\"", "Invalid sonar-resolve directive: invalid rule key list"),
+      arguments("sonar-resolve Web:S5256", "Invalid sonar-resolve directive: missing justification"),
+      arguments("sonar-resolve Web:S5256 <reason>", "Invalid sonar-resolve directive: missing justification"),
+      arguments("sonar-resolve Web:S5256 \"reason", "Invalid sonar-resolve directive: unterminated justification"),
+      arguments("sonar-resolve Web:S5256 [reason", "Invalid sonar-resolve directive: unterminated justification"));
+  }
+
+  private static Stream<Arguments> multiLineInvalidDirectiveCases() {
+    return Stream.of(
+      arguments(new String[] {"sonar-resolve", "\"reason\""}, "Invalid sonar-resolve directive: missing rule key"),
+      arguments(new String[] {"sonar-resolve [f", "p] Web:S5256 \"reason\""}, "Invalid sonar-resolve directive: invalid status '[f\np]'"),
+      arguments(new String[] {"sonar-resolve [fp", "Web:S5256 \"reason\""}, "Invalid sonar-resolve directive: unterminated status"),
+      arguments(new String[] {"sonar-resolve Web:S5256,", "\"reason\""}, "Invalid sonar-resolve directive: invalid rule key list"),
+      arguments(new String[] {"sonar-resolve Web:S5256 \"reason", "still reason"}, "Invalid sonar-resolve directive: unterminated justification"),
+      arguments(new String[] {"sonar-resolve Web:S5256 [reason", "still reason"}, "Invalid sonar-resolve directive: unterminated justification"));
   }
 
   private static InputFile createInputFile(String fileName, String content) {
