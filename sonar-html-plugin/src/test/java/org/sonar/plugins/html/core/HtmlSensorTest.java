@@ -42,6 +42,7 @@ import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.batch.sensor.internal.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
+import org.sonar.api.batch.sensor.issue.IssueResolution;
 import org.sonar.api.batch.sensor.issue.internal.DefaultNoSonarFilter;
 import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.measures.CoreMetrics;
@@ -152,6 +153,53 @@ class HtmlSensorTest {
     assertThat(tester.allIssues()).isNotEmpty();
     assertThat(tester.cpdTokens(componentKey)).isNull();
     assertThat(tester.highlightingTypeAt(componentKey, 1, 0)).isEmpty();
+  }
+
+  @Test
+  void sonar_resolve_is_saved_on_supported_runtime() {
+    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 6), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+    DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
+      "<div>",
+      "<!-- sonar-resolve [fp] Web:S5256 \"reason\" -->",
+      "</div>"));
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(issueResolutions(inputFile)).singleElement().satisfies(issueResolution -> {
+      assertThat(issueResolution.status()).isEqualTo(IssueResolution.Status.FALSE_POSITIVE);
+      assertThat(issueResolution.ruleKeys()).containsExactly(RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, "S5256"));
+      assertThat(issueResolution.comment()).isEqualTo("reason");
+      assertThat(issueResolution.textRange().start().line()).isEqualTo(2);
+    });
+  }
+
+  @Test
+  void sonar_resolve_is_ignored_before_supported_runtime() {
+    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 4), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+    DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
+      "<div>",
+      "<!-- sonar-resolve Web:S5256 \"reason\" -->",
+      "</div>"));
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(issueResolutions(inputFile)).isEmpty();
+  }
+
+  @Test
+  void sonar_resolve_is_ignored_in_sonarlint() {
+    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(13, 6)));
+    DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
+      "<div>",
+      "<!-- sonar-resolve Web:S5256 \"reason\" -->",
+      "</div>"));
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(issueResolutions(inputFile)).isEmpty();
   }
 
   @Test
@@ -280,6 +328,20 @@ class HtmlSensorTest {
       .initMetadata(new String(Files.readAllBytes(dir.resolve(fileName)), StandardCharsets.UTF_8))
       .setCharset(StandardCharsets.UTF_8)
       .build();
+  }
+
+  private DefaultInputFile createInputFile(String fileName, String contents) {
+    return new TestInputFileBuilder("key", fileName)
+      .setModuleBaseDir(TEST_DIR)
+      .setContents(contents)
+      .setLanguage(HtmlConstants.LANGUAGE_KEY)
+      .setType(InputFile.Type.MAIN)
+      .setCharset(StandardCharsets.UTF_8)
+      .build();
+  }
+
+  private List<IssueResolution> issueResolutions(DefaultInputFile inputFile) {
+    return tester.getIssueResolutions().getOrDefault(inputFile.key(), Collections.emptyList());
   }
 
   private static class RecordingAnalysisWarnings implements AnalysisWarnings {
