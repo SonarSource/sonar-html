@@ -99,6 +99,32 @@ class SonarResolveScannerTest {
     });
   }
 
+  @Test
+  void scan_directives_with_multiple_justification_delimiters() throws IOException {
+    String content = String.join("\n",
+      "<table>",
+      "<!--",
+      "sonar-resolve Web:S110 `backtick`",
+      "sonar-resolve Web:S111 'single quote'",
+      "sonar-resolve Web:S112 (parentheses)",
+      "sonar-resolve Web:S113 [square bracket]",
+      "sonar-resolve Web:S114 {brace}",
+      "-->",
+      "</table>");
+
+    SensorContextTester tester = newSensorContext();
+    InputFile inputFile = createInputFile("delimiters.html", content);
+    scan(tester, inputFile, content);
+
+    List<IssueResolution> issueResolutions = issueResolutions(tester, inputFile);
+    assertThat(issueResolutions).hasSize(5);
+    assertResolution(issueResolutions.get(0), "S110", "backtick", 3);
+    assertResolution(issueResolutions.get(1), "S111", "single quote", 4);
+    assertResolution(issueResolutions.get(2), "S112", "parentheses", 5);
+    assertResolution(issueResolutions.get(3), "S113", "square bracket", 6);
+    assertResolution(issueResolutions.get(4), "S114", "brace", 7);
+  }
+
   @ParameterizedTest
   @MethodSource("singleLineInvalidDirectiveCases")
   void invalid_single_line_directives_log_warning(String directive, String expectedErrorMessage) throws IOException {
@@ -155,6 +181,13 @@ class SonarResolveScannerTest {
   private static SensorContextTester newSensorContext() {
     return SensorContextTester.create(Paths.get("."))
       .setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 6), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+  }
+
+  private static void assertResolution(IssueResolution issueResolution, String ruleKey, String comment, int line) {
+    assertThat(issueResolution.status()).isEqualTo(IssueResolution.Status.DEFAULT);
+    assertThat(issueResolution.ruleKeys()).containsExactly(RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, ruleKey));
+    assertThat(issueResolution.comment()).isEqualTo(comment);
+    assertThat(issueResolution.textRange().start().line()).isEqualTo(line);
   }
 
   private void assertInvalidDirectiveLogsWarning(String expectedErrorMessage, String... directiveLines) throws IOException {
