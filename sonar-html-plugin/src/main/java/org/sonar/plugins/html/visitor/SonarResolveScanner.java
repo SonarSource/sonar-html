@@ -16,16 +16,16 @@
  */
 package org.sonar.plugins.html.visitor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 import org.sonarsource.analyzer.commons.SonarResolve;
 import org.sonar.plugins.html.node.CommentNode;
 
 public class SonarResolveScanner extends DefaultNodeVisitor {
 
-  private static final Logger LOG = Loggers.get(SonarResolveScanner.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SonarResolveScanner.class);
 
   private final SensorContext context;
 
@@ -36,20 +36,23 @@ public class SonarResolveScanner extends DefaultNodeVisitor {
   @Override
   public void comment(CommentNode node) {
     String[] commentLines = stripCommentDelimiters(node).split("\\R", -1);
-    for (int i = 0; i < commentLines.length; i++) {
-      int directiveLine = node.getStartLinePosition() + i;
-      String line = commentLines[i];
+    int index = 0;
+    while (index < commentLines.length) {
+      int directiveLine = node.getStartLinePosition() + index;
+      String line = commentLines[index];
       if (!startsWithDirectiveKeyword(line)) {
+        index++;
         continue;
       }
 
       SonarResolve.StreamingParser parser = new SonarResolve.StreamingParser(directiveLine);
       SonarResolve.StreamingParser.State state = parser.consumeLine(directiveLine, line);
+      int lastConsumedIndex = index;
 
-      while (state == SonarResolve.StreamingParser.State.INCOMPLETE && i + 1 < commentLines.length) {
-        i++;
-        int lineNumber = node.getStartLinePosition() + i;
-        state = parser.consumeLine(lineNumber, commentLines[i]);
+      while (state == SonarResolve.StreamingParser.State.INCOMPLETE && lastConsumedIndex + 1 < commentLines.length) {
+        lastConsumedIndex++;
+        int lineNumber = node.getStartLinePosition() + lastConsumedIndex;
+        state = parser.consumeLine(lineNumber, commentLines[lastConsumedIndex]);
       }
 
       if (state == SonarResolve.StreamingParser.State.COMPLETE) {
@@ -59,6 +62,8 @@ public class SonarResolveScanner extends DefaultNodeVisitor {
       } else if (parser.finish() == SonarResolve.StreamingParser.State.INVALID) {
         logInvalidDirective(directiveLine, parser.errorMessage());
       }
+
+      index = lastConsumedIndex + 1;
     }
   }
 
