@@ -31,7 +31,7 @@ class HtmlLexerTest {
   private static Lexer lexer;
 
   @BeforeAll
-  public static void init() {
+  static void init() {
     lexer = HtmlLexer.create(StandardCharsets.UTF_8);
   }
 

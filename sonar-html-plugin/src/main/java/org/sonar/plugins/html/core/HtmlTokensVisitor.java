@@ -27,14 +27,14 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
 import org.sonar.api.batch.sensor.highlighting.NewHighlighting;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 
 public class HtmlTokensVisitor extends DefaultNodeVisitor {
 
-  private static final Logger LOG = Loggers.get(HtmlTokensVisitor.class);
+  private static final Logger LOG = LoggerFactory.getLogger(HtmlTokensVisitor.class);
 
   private final SensorContext context;
 
