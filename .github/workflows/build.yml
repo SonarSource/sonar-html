@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: github-ubuntu-latest-m
+    runs-on: warp-custom-ubuntu-24-04
     steps:
       - &checkout
         name: Checkout source code
@@ -51,7 +51,7 @@ jobs:
   qa:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
-    runs-on: github-ubuntu-latest-m
+    runs-on: warp-custom-ubuntu-24-04
     strategy:
       matrix:
         sq-version: [LATEST_RELEASE, DEV]
@@ -86,7 +86,7 @@ jobs:
   ruling:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
-    runs-on: github-ubuntu-latest-m
+    runs-on: warp-custom-ubuntu-24-04
     permissions:
       id-token: write
       contents: write
@@ -198,7 +198,7 @@ jobs:
 
   promote:
     needs: [build, build-windows, qa, ruling]
-    runs-on: github-ubuntu-latest-s
+    runs-on: warp-custom-ubuntu-24-04
     permissions:
       id-token: write
       contents: write
@@ -213,7 +213,7 @@ jobs:
           promote-pull-request: true
 
   releasability:
-    runs-on: github-ubuntu-latest-s
+    runs-on: warp-custom-ubuntu-24-04
     name: Releasability
     needs:
       - promote
