@@ -9,6 +9,6 @@ permissions:
 
 jobs:
   cleanup:
-    runs-on: github-ubuntu-latest-s
+    runs-on: warp-custom-ubuntu-24-04
     steps:
       - uses: SonarSource/ci-github-actions/pr_cleanup@v1
