@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   analyze:
-    runs-on: github-ubuntu-latest-s
+    runs-on: warp-custom-ubuntu-24-04
     strategy:
       matrix:
         include:
@@ -41,7 +41,7 @@ jobs:
 
   iris:
     needs: [analyze]
-    runs-on: github-ubuntu-latest-s
+    runs-on: warp-custom-ubuntu-24-04
     permissions:
       id-token: write
       contents: read
