@@ -60,7 +60,7 @@ jobs:
       pm-email: "gabriel.vivas@sonarsource.com"
       slack-channel: "ask-squad-web"
       release-automation-secret-name: "sonar-html-release-automation"
-      runner-environment: "github-ubuntu-latest-s"
+      runner-environment: "warp-custom-ubuntu-24-04"
       verbose: true
       use-jira-sandbox: false
       is-draft-release: false
