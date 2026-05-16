@@ -212,9 +212,11 @@ class HtmlSensorTest {
   void php_file_should_not_have_metrics() {
     tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "foo.php")
-      .setModuleBaseDir(TEST_DIR).setContents("<html>\n" +
-        "<?php  ?>\n" +
-        "<html>\n")
+      .setModuleBaseDir(TEST_DIR).setContents("""
+        <html>
+        <?php  ?>
+        <html>
+        """)
       .setLanguage("php")
       .setType(InputFile.Type.MAIN)
       .setCharset(StandardCharsets.UTF_8)

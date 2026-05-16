@@ -76,7 +76,7 @@ class HtmlRulesDefinitionTest {
       }
     }
 
-    List<RulesDefinition.Rule> activated = repository.rules().stream().filter(RulesDefinition.Rule::activatedByDefault).collect(Collectors.toList());
+    List<RulesDefinition.Rule> activated = repository.rules().stream().filter(RulesDefinition.Rule::activatedByDefault).toList();
     assertThat(activated).isNotEmpty().hasSizeLessThan(CheckClasses.getCheckClasses().size());
   }
 }
