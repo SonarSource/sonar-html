@@ -121,8 +121,9 @@ class HeaderCheckTest {
     check.headerFormat = "<!-- copyright \\\\d{4}\\\\n  mycompany -->";
     check.isRegularExpression = true;
 
+      File file = new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html");
       assertThrows(IllegalStateException.class,
-        () -> scanWithWrongInputFile(new File("src/test/resources/checks/HeaderCheck/CorrectHeader.html"), check));
+        () -> scanWithWrongInputFile(file, check));
   }
 
   public static void scanWithWrongInputFile(File file, DefaultNodeVisitor visitor) {
