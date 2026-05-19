@@ -1,0 +1,11 @@
+<!-- Invalid cases -->
+<img src="logo.png" srcset="logo.png, logo-retina.png 2x, logo-ultra.png 3x" alt="My Logo"> <!-- Missing descriptor on logo.png -->
+<img src="logo.png" srcset="logo.png,logo-retina.png,logo-ultra.png" alt="My Logo"> <!-- Missing descriptors on all sources-->
+<img src="logo.png" srcset="logo.png x1, logo-retina.png 2x, logo-ultra.png3x" alt="My Logo"> <!-- Missing whitespace between URL and descriptor for logo-ultra.png-->
+<picture>
+  <source srcset="logo-retina 2x, logo-ultra">
+</picture>
+<picture>
+  <source srcset="logo-retina 200w, logo-ultra" sizes="100vw">
+  <source srcset="logo2-retina, logo2-ultra 400w" sizes="100vw">
+</picture>

@@ -1,0 +1,14 @@
+<!-- Valid cases -->
+<img srcset="logo.png" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x, logo-ultra.png 3x" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x, logo-ultra.png           3x" alt="My Logo">
+<picture>
+  <source srcset="logo-retina 200w, logo-ultra 400w" sizes="100vw">
+</picture>
+<img src="logo.png" srcset="{{'some_dynamic_value.png 3x'}}" alt="My Logo">
+<img src="logo.png" srcset="${urls}" alt="My Logo"> <!-- JSP EL / JS template literal -->
+<img src="logo.png" srcset="{{ urls }}" alt="My Logo"> <!-- Vue / Mustache / Handlebars -->
+<img src="logo.png" srcset="{% if hd %}{{ urls }}{% endif %}" alt="My Logo"> <!-- Twig / Jinja -->
+<img src="logo.png" :srcset="dynamicUrls" alt="My Logo"> <!-- Vue shorthand -->
+<img src="logo.png" v-bind:srcset="dynamicUrls" alt="My Logo"> <!-- Vue full -->
+<img src="logo.png" [srcset]="dynamicUrls" alt="My Logo"> <!-- Angular property binding -->
