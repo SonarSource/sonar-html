@@ -12,7 +12,7 @@
   "defaultSeverity": "Minor",
   "ruleSpecification": "RSPEC-8699",
   "sqKey": "S8699",
-  "scope": "All",
+  "scope": "Main",
   "defaultQualityProfiles": [],
   "quickfix": "unknown",
   "code": {
