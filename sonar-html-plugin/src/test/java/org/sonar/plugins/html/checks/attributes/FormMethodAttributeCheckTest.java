@@ -56,6 +56,16 @@ class FormMethodAttributeCheckTest {
   }
 
   @Test
+  void thymeleafValues() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/FormMethodAttributeCheck/thymeleaf.html"),
+      new FormMethodAttributeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .noMore();
+  }
+
+  @Test
   void dynamicValues() {
     HtmlSourceCode cshtmlSourceCode = TestHelper.scan(
       new File("src/test/resources/checks/FormMethodAttributeCheck/dynamic.cshtml"),

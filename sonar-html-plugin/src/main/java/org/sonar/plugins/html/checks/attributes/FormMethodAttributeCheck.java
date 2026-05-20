@@ -39,7 +39,9 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
 
     Attribute methodAttribute = node.getProperty(METHOD_ATTRIBUTE);
     if (methodAttribute == null) {
-      createViolation(node, MESSAGE);
+      if (!hasThymeleafMethod(node)) {
+        createViolation(node, MESSAGE);
+      }
       return;
     }
 
@@ -57,5 +59,11 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
     return !METHOD_ATTRIBUTE.equalsIgnoreCase(methodAttribute.getName())
       || isUnifiedExpression(methodAttribute.getValue())
       || Helpers.isDynamicValue(methodAttribute.getValue(), getHtmlSourceCode());
+  }
+
+  private static boolean hasThymeleafMethod(TagNode node) {
+    String thAttrValue = node.getAttribute("th:attr");
+    return node.hasProperty("th:method")
+      || (thAttrValue != null && thAttrValue.contains("method="));
   }
 }
