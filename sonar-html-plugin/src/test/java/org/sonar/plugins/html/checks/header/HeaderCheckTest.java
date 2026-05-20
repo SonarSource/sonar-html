@@ -101,7 +101,7 @@ class HeaderCheckTest {
     check.headerFormat = "*";
     check.isRegularExpression = true;
 
-    var e = assertThrows(IllegalArgumentException.class, () -> check.init());
+    var e = assertThrows(IllegalArgumentException.class, check::init);
     assertEquals("[" + HeaderCheck.class.getSimpleName() + "] Unable to compile the regular expression: *", e.getMessage());
 
   }
