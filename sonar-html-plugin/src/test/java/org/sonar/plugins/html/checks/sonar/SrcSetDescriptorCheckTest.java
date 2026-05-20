@@ -47,6 +47,12 @@ class SrcSetDescriptorCheckTest {
       .next().atLine(14).withMessage("Element \"img\" has no valid and explicit descriptor.")
       .next().atLine(15).withMessage("Element \"img\" has no valid and explicit descriptor.")
       .next().atLine(19).withMessage("Element \"source\" has no valid and explicit descriptor.")
+      .next().atLine(23).withMessage("Element \"img\" has no valid and explicit descriptor.")
+      .next().atLine(24).withMessage("Element \"img\" has no valid and explicit descriptor.")
+      .next().atLine(25).withMessage("Element \"img\" has no valid and explicit descriptor.")
+      .next().atLine(26).withMessage("Element \"img\" has no valid and explicit descriptor.")
+      .next().atLine(27).withMessage("Element \"img\" has no valid and explicit descriptor.")
+      .next().atLine(28).withMessage("Element \"img\" has no valid and explicit descriptor.")
       .noMore();
   }
 

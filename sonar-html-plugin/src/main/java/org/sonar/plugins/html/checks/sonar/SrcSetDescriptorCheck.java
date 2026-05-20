@@ -28,10 +28,10 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S8697")
 public class SrcSetDescriptorCheck extends AbstractPageCheck {
   // Pattern that describes what a valid descriptor is:
-  // - Width descriptor: a positive integer followed by 'w' (e.g. 400w)
-  // - Pixel density descriptor: a positive HTML floating-point number followed by 'x' (e.g. 2x, 1.5x, .5x)
+  // - Width descriptor: a positive integer (>= 1) followed by 'w' (e.g. 400w)
+  // - Pixel density descriptor: a positive HTML floating-point number (> 0) followed by 'x' (e.g. 2x, 1.5x, .5x)
   private static final Pattern VALID_DESCRIPTOR = Pattern.compile(
-      "\\s++(\\d++w|(?:\\d++(?:\\.\\d*+)?|\\.\\d++)x)$"
+      "\\s++([1-9]\\d*+w|(?=[0-9.]*[1-9])(?:\\d++(?:\\.\\d*+)?|\\.\\d++)x)$"
   );
 
   @Override

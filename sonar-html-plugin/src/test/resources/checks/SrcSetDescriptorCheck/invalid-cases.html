@@ -18,3 +18,11 @@
 <picture>
   <source srcset="logo.png">
 </picture>
+
+<!-- Non-positive descriptors: width must be >= 1, density must be > 0 -->
+<img srcset="logo.png 0w, logo-retina.png 200w" alt="My Logo"> <!-- 0w is invalid -->
+<img srcset="logo.png 0x, logo-retina.png 2x" alt="My Logo"> <!-- 0x is invalid -->
+<img srcset="logo.png 0.0x, logo-retina.png 2x" alt="My Logo"> <!-- 0.0x is invalid -->
+<img srcset="logo.png .0x, logo-retina.png 2x" alt="My Logo"> <!-- .0x is invalid -->
+<img srcset="logo.png 00w, logo-retina.png 200w" alt="My Logo"> <!-- 00w has leading zero -->
+<img srcset="logo.png 00.000x, logo-retina.png 2x" alt="My Logo"> <!-- 00.000x is invalid -->
