@@ -31,9 +31,9 @@ public class SrcSetDescriptorCheck extends AbstractPageCheck {
   // - Width descriptor: a positive integer followed by 'w' (e.g. 400w)
   // - Pixel density descriptor: a positive HTML floating-point number followed by 'x' (e.g. 2x, 1.5x, .5x)
   private static final Pattern VALID_DESCRIPTOR = Pattern.compile(
-      "\\s+(\\d+w|(?:\\d+\\.?\\d*|\\.\\d+)x)$"
+      "\\s++(\\d++w|(?:\\d++(?:\\.\\d*+)?|\\.\\d++)x)$"
   );
-  
+
   @Override
   public void startElement(TagNode node) {
     if (!isTargetedNode(node)) {
@@ -42,7 +42,7 @@ public class SrcSetDescriptorCheck extends AbstractPageCheck {
 
     String srcSetValue = node.getAttribute("srcset");
 
-    if (Helpers.isDynamicValue(srcSetValue, getHtmlSourceCode())) {
+    if (srcSetValue == null || Helpers.isDynamicValue(srcSetValue, getHtmlSourceCode())) {
       return;
     }
 
