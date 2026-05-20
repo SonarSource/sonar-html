@@ -123,6 +123,40 @@ class SonarResolveScannerTest {
   }
 
   @Test
+  void scan_multiline_html_directive_preserves_justification_indentation() throws IOException {
+    String content = String.join("\n",
+      "<table>",
+      "<!--",
+      "sonar-resolve Web:S5256 \"first",
+      "    second",
+      "  third\"",
+      "-->",
+      "</table>");
+
+    SensorContextTester tester = newSensorContext();
+    InputFile inputFile = createInputFile("multiline-indented.html", content);
+    scan(tester, inputFile, content);
+
+    assertResolution(issueResolutions(tester, inputFile).get(0), "S5256", "first\n    second\n  third", 3);
+  }
+
+  @Test
+  void scan_multiline_jsp_directive_preserves_justification_indentation() throws IOException {
+    String content = String.join("\n",
+      "<%--",
+      "sonar-resolve Web:S5256 \"first",
+      "    second",
+      "  third\"",
+      "--%>");
+
+    SensorContextTester tester = newSensorContext();
+    InputFile inputFile = createInputFile("multiline-indented.jsp", content);
+    scan(tester, inputFile, content);
+
+    assertResolution(issueResolutions(tester, inputFile).get(0), "S5256", "first\n    second\n  third", 2);
+  }
+
+  @Test
   void scan_directives_with_multiple_justification_delimiters() throws IOException {
     String content = String.join("\n",
       "<table>",
