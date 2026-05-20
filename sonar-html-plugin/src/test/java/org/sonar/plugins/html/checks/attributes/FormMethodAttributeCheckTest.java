@@ -41,6 +41,7 @@ class FormMethodAttributeCheckTest {
       .next().atLine(5).withMessage(MESSAGE)
       .next().atLine(8).withMessage(MESSAGE)
       .next().atLine(11).withMessage(MESSAGE)
+      .next().atLine(14).withMessage(MESSAGE)
       .noMore();
   }
 
