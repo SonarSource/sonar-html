@@ -1,0 +1,24 @@
+{
+  "title": "\"srcset\" entries should have a width or pixel density descriptor",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "html",
+    "web"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-8697",
+  "sqKey": "S8697",
+  "scope": "All",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW"
+    },
+    "attribute": "CONVENTIONAL"
+  }
+}

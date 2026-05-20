@@ -1,0 +1,58 @@
+<h2>Why is this an issue?</h2>
+<p>The <code>srcset</code> attribute on <code>&lt;img&gt;</code> and <code>&lt;source&gt;</code> elements provides a list of image candidates so the
+browser can pick the most appropriate one based on display density or layout. Each candidate is expressed as a URL optionally followed by a
+descriptor. Only two descriptor forms are valid:</p>
+<ul>
+  <li>a width descriptor: a positive integer followed by <code>w</code> (e.g. <code>400w</code>, <code>800w</code>)</li>
+  <li>a pixel density descriptor: a positive number followed by <code>x</code> (e.g. <code>1x</code>, <code>2x</code>, <code>1.5x</code>)</li>
+</ul>
+<p>When a descriptor is omitted or invalid, the entry falls back to <code>1x</code>. While allowed by the spec, it is good practice to define a valid
+and explicit descriptor on every entry to make the developer’s intent visible and avoid silent fallbacks.</p>
+<p>This rule does not flag single-URL <code>srcset</code> values: on <code>&lt;source&gt;</code> they are idiomatic for art direction and format
+negotiation, where the <code>media</code> or <code>type</code> attribute is the discriminator.</p>
+<h2>How to fix it</h2>
+<p>Add a valid descriptor to every entry of the <code>srcset</code> attribute. Use a pixel density descriptor (<code>1x</code>, <code>2x</code>,
+<code>1.5x</code>, …​) when the image renders at the same CSS size across all viewports, or a width descriptor (<code>400w</code>, <code>800w</code>,
+…​) together with a <code>sizes</code> attribute when the image renders at different CSS sizes depending on layout.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;img src="logo.png"
+     srcset="logo-retina.png, logo-ultra.png 3x"
+     alt="Logo"&gt; &lt;!-- Noncompliant: "logo-retina.png" has no descriptor --&gt;
+
+&lt;img src="photo-medium.jpg"
+     srcset="photo-small.jpg 400w, photo-medium.jpg 800w, photo-large.jpg"
+     sizes="(max-width: 600px) 100vw, 50vw"
+     alt="Photo"&gt; &lt;!-- Noncompliant: "photo-large.jpg" has no descriptor --&gt;
+
+&lt;picture&gt;
+  &lt;source srcset="logo.png, logo-1.5x.png 1.5x"&gt;  &lt;!-- Noncompliant: "logo.png" has no descriptor --&gt;
+  &lt;img src="logo.png" alt="Logo"&gt;
+&lt;/picture&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;img src="logo.png"
+     srcset="logo-retina.png 2x, logo-ultra.png 3x"
+     alt="Logo"&gt;
+
+&lt;img src="photo-medium.jpg"
+     srcset="photo-small.jpg 400w, photo-medium.jpg 800w, photo-large.jpg 1200w"
+     sizes="(max-width: 600px) 100vw, 50vw"
+     alt="Photo"&gt;
+
+&lt;picture&gt;
+  &lt;source srcset="logo.png 1x, logo-1.5x.png 1.5x"&gt;
+  &lt;img src="logo.png" alt="Logo"&gt;
+&lt;/picture&gt;
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#srcset">The <code>&lt;img&gt;</code> srcset
+  attribute</a></li>
+  <li>HTML Standard - <a href="https://html.spec.whatwg.org/multipage/images.html#srcset-attributes">Images - srcset attribute</a></li>
+  <li>web.dev - <a href="https://web.dev/articles/serve-responsive-images">Serve responsive images</a></li>
+</ul>
+

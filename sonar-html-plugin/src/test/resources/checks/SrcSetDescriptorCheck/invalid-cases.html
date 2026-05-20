@@ -9,3 +9,12 @@
   <source srcset="logo-retina 200w, logo-ultra" sizes="100vw">
   <source srcset="logo2-retina, logo2-ultra 400w" sizes="100vw">
 </picture>
+
+<!-- Single-URL on <img>: no carve-out applies -->
+<img srcset="logo.png" alt="My Logo"> <!-- Useless srcset, equivalent to src= -->
+<img srcset="logo.png 80%" alt="My Logo"> <!-- Invalid descriptor "80%" -->
+
+<!-- Single-URL on <source> without media or type: no carve-out applies -->
+<picture>
+  <source srcset="logo.png">
+</picture>

@@ -1,10 +1,25 @@
 <!-- Valid cases -->
-<img srcset="logo.png" alt="My Logo">
 <img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x, logo-ultra.png 3x" alt="My Logo">
 <img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x, logo-ultra.png           3x" alt="My Logo">
+<img src="logo.png" srcset="logo-half.png .5x, logo.png 1x, logo-retina.png 2x" alt="My Logo">
 <picture>
   <source srcset="logo-retina 200w, logo-ultra 400w" sizes="100vw">
 </picture>
+
+<!-- Idiomatic single-URL <source>: media query is the discriminator -->
+<picture>
+  <source media="(min-width: 800px)" srcset="hero-wide.jpg">
+  <source media="(min-width: 400px)" srcset="hero-square.jpg">
+  <img src="hero-portrait.jpg" alt="Hero">
+</picture>
+
+<!-- Idiomatic single-URL <source>: type is the discriminator -->
+<picture>
+  <source type="image/avif" srcset="logo.avif">
+  <source type="image/webp" srcset="logo.webp">
+  <img src="logo.png" alt="Logo">
+</picture>
+
 <img src="logo.png" srcset="{{'some_dynamic_value.png 3x'}}" alt="My Logo">
 <img src="logo.png" srcset="${urls}" alt="My Logo"> <!-- JSP EL / JS template literal -->
 <img src="logo.png" srcset="{{ urls }}" alt="My Logo"> <!-- Vue / Mustache / Handlebars -->
@@ -12,3 +27,8 @@
 <img src="logo.png" :srcset="dynamicUrls" alt="My Logo"> <!-- Vue shorthand -->
 <img src="logo.png" v-bind:srcset="dynamicUrls" alt="My Logo"> <!-- Vue full -->
 <img src="logo.png" [srcset]="dynamicUrls" alt="My Logo"> <!-- Angular property binding -->
+<img src="logo.png" srcset="logo.png 1x, ${retina}" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x, {{ retina }}" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x,, logo-retina.png 2x" alt="My Logo">
+<img src="logo.png" srcset=",logo.png 1x, logo-retina.png 2x" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x," alt="My Logo">
