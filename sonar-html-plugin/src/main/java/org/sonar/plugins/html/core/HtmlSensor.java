@@ -59,10 +59,12 @@ import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 import org.sonar.plugins.html.visitor.HtmlAstScanner;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 import org.sonar.plugins.html.visitor.NoSonarScanner;
+import org.sonar.plugins.html.visitor.SonarResolveScanner;
 
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
   private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "vue"};
+  private static final Version ISSUE_RESOLUTION_API_MIN_VERSION = Version.create(13, 5);
 
   private final SonarRuntime sonarRuntime;
   private final NoSonarFilter noSonarFilter;
@@ -194,6 +196,9 @@ public final class HtmlSensor implements Sensor {
     visitors.add(new PageCountLines());
     visitors.add(new ComplexityVisitor());
     visitors.add(new NoSonarScanner(noSonarFilter));
+    if (supportsIssueResolution(context)) {
+      visitors.add(new SonarResolveScanner(context));
+    }
     HtmlAstScanner scanner = new HtmlAstScanner(visitors);
 
     for (Object check : checks.all()) {
@@ -207,6 +212,11 @@ public final class HtmlSensor implements Sensor {
 
   private void addAnalysisWarnings(AbstractPageCheck check) {
     check.collectAnalysisWarnings().forEach(analysisWarnings::addUnique);
+  }
+
+  private static boolean supportsIssueResolution(SensorContext context) {
+    return context.runtime().getProduct() != SonarProduct.SONARLINT
+      && context.runtime().getApiVersion().isGreaterThanOrEqual(ISSUE_RESOLUTION_API_MIN_VERSION);
   }
 
 }
