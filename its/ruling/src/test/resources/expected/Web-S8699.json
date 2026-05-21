@@ -1,0 +1,185 @@
+{
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp": [
+227
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/cipherkey.jsp": [
+130
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/Idle.jsp": [
+186
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/IdleSilverpeasV5.jsp": [
+173
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/genericPanelPeas.jsp": [
+202
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/newICenter.jsp": [
+99
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp": [
+76
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
+191
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
+116
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/selectionCart.jsp": [
+226
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/invitationDialog.jsp": [
+86
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp": [
+219
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/notificationDialog.jsp": [
+91
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp": [
+158
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connection.jsp": [
+46
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLFormElement10.html": [
+8
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLFormElement10.xhtml": [
+10
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLFormElement/adopt-assertion.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLFormElement/associated-elements-after-index-assertion-fail2.html": [
+15
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLFormElement/htmlformelement-indexed-getter.html": [
+10
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/form/test1.html": [
+38
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/percent-escaping.html": [
+9
+],
+"project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/results-TEMPLATE.html": [
+46
+],
+"project:external_webkit-jb-mr1/Source/JavaScriptCore/tests/mozilla/importList.html": [
+53
+],
+"project:external_webkit-jb-mr1/Source/JavaScriptCore/tests/mozilla/menuhead.html": [
+135
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/autofill-popup-location.html": [
+18
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/bugzilla-3855.html": [
+21
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/chromium/no-autofill-on-readonly.html": [
+15,
+21,
+27
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/clear-input-file.html": [
+20
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/disabled-option-elements.html": [
+3
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/form-control-madness.html": [
+5
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/input-type-datetime-default-value.html": [
+7
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/input-type-file-autocomplete-frame-2.html": [
+4
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/liveconnect-applet-array-parameters.html": [
+10
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/log-keypress-events.html": [
+4
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/modal-dialog.html": [
+20
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/no-listbox-rendering.html": [
+10
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/onblur-remove.html": [
+26
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/onunload-form-submit-crash.html": [
+5
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/remove-input-file-onchange.html": [
+33
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select-option-in-onload.html": [
+21
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/show-modal-dialog-test.html": [
+9
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/submit-form-with-target-twice.html": [
+10
+],
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/simple_page.html": [
+23
+],
+"project:external_webkit-jb-mr1/Source/WebKit/gtk/resources/error.html": [
+53
+],
+"project:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html": [
+162
+],
+"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb": [
+75
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dependencies/index.html.erb": [
+28
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_assign_form.html.erb": [
+2
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_comment_form.html.erb": [
+1
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_create_form.html.erb": [
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_edit_comment_form.html.erb": [
+1
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_severity_form.html.erb": [
+1
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule.html.erb": [
+2
+],
+"project:voten/resources/assets/js/components/CommentForm.vue": [
+38
+],
+"project:voten/resources/assets/js/components/Messages.vue": [
+226
+],
+"project:voten/resources/assets/js/components/passport/Clients.vue": [
+100,
+168
+],
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+83
+],
+"project:voten/resources/views/backend/channels.blade.php": [
+16
+],
+"project:voten/resources/views/backend/users.blade.php": [
+16
+]
+}
