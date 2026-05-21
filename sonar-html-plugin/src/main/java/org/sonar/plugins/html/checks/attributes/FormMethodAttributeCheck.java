@@ -18,6 +18,7 @@ package org.sonar.plugins.html.checks.attributes;
 
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -29,6 +30,7 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
 
   private static final String METHOD_ATTRIBUTE = "method";
   private static final Set<String> VALID_METHODS = Set.of("get", "post", "dialog");
+  private static final Pattern TH_ATTR_METHOD_PATTERN = Pattern.compile("(^|,)\\s*method\\s*=", Pattern.CASE_INSENSITIVE);
   private static final String MESSAGE = "Use an explicit valid \"method\" attribute on this \"<form>\" tag (\"get\", \"post\", or \"dialog\").";
 
   @Override
@@ -64,6 +66,6 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
   private static boolean hasThymeleafMethod(TagNode node) {
     String thAttrValue = node.getAttribute("th:attr");
     return node.hasProperty("th:method")
-      || (thAttrValue != null && thAttrValue.contains("method="));
+      || (thAttrValue != null && TH_ATTR_METHOD_PATTERN.matcher(thAttrValue).find());
   }
 }
