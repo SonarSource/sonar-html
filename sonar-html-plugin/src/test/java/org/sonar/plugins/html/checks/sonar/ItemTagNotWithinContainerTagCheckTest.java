@@ -43,7 +43,7 @@ class ItemTagNotWithinContainerTagCheckTest {
   @Test
   void ignores_items_defined_in_angular_templates() {
     HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheckAngular.html"),
+      new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheckAngular.test"),
       new ItemTagNotWithinContainerTagCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
