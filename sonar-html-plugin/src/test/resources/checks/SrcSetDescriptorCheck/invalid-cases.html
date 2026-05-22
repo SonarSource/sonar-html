@@ -26,3 +26,11 @@
 <img srcset="logo.png .0x, logo-retina.png 2x" alt="My Logo"> <!-- .0x is invalid -->
 <img srcset="logo.png 00w, logo-retina.png 200w" alt="My Logo"> <!-- 00w has leading zero -->
 <img srcset="logo.png 00.000x, logo-retina.png 2x" alt="My Logo"> <!-- 00.000x is invalid -->
+
+<!-- Multiple descriptors per candidate: at most one descriptor is allowed -->
+<img srcset="logo.png 1x 2x, logo-retina.png 2x" alt="My Logo"> <!-- '1x 2x' is two density descriptors -->
+<img srcset="logo.png 400w 2x, logo-retina.png 800w" alt="My Logo"> <!-- '400w 2x' mixes width and density -->
+<img srcset="logo.png 400w 800w, logo-retina.png 1200w" alt="My Logo"> <!-- two width descriptors -->
+
+<!-- URLs containing commas (e.g. data URIs) must still be required to declare a descriptor on every candidate -->
+<img srcset="data:image/svg+xml,%3Csvg%3E, logo-2x.png 2x" alt="My Logo"> <!-- first candidate has no descriptor -->
