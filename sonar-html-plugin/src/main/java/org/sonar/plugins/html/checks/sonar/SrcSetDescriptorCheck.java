@@ -48,7 +48,9 @@ public class SrcSetDescriptorCheck extends AbstractPageCheck {
     }
 
     List<Candidate> candidates = SrcSetParser.parse(srcSetValue);
-    if (candidates.size() < 2 && isIdiomaticSingleSource(node)) {
+    if (candidates.size() == 1
+        && candidates.get(0).descriptors.isEmpty()
+        && isIdiomaticSingleSource(node)) {
       return;
     }
 

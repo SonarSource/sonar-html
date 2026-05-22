@@ -28,6 +28,13 @@
   <img src="logo.png" alt="Logo">
 </picture>
 
+<!-- Single-URL <source> with media/type: an explicit valid descriptor is still compliant -->
+<picture>
+  <source media="(min-width: 800px)" srcset="hero.jpg 2x">
+  <source type="image/webp" srcset="logo.webp 400w" sizes="100vw">
+  <img src="logo.png" alt="Logo">
+</picture>
+
 <img src="logo.png" srcset="{{'some_dynamic_value.png 3x'}}" alt="My Logo">
 <img src="logo.png" srcset="${urls}" alt="My Logo"> <!-- JSP EL / JS template literal -->
 <img src="logo.png" srcset="{{ urls }}" alt="My Logo"> <!-- Vue / Mustache / Handlebars -->
