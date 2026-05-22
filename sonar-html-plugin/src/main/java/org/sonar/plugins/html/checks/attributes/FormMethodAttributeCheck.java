@@ -86,7 +86,7 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
   }
 
   private static boolean isValidMethod(String value) {
-    return value != null && VALID_METHODS.contains(value.trim().toLowerCase(Locale.ROOT));
+    return VALID_METHODS.contains(value.trim().toLowerCase(Locale.ROOT));
   }
 
   private static boolean isThymeleafExpression(String value) {
