@@ -30,17 +30,15 @@ import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S8697")
 public class SrcSetDescriptorCheck extends AbstractPageCheck {
-  // Per the HTML srcset spec:
-  //   - a width descriptor is a "valid non-negative integer" (one or more digits) with value > 0,
-  //     followed by 'w'. Leading zeros are allowed, e.g. "01w" is the same as "1w".
-  //   - a density descriptor is a "valid floating-point number" with value > 0, followed by 'x'.
-  //     The grammar accepts an optional [eE][+-]?digits exponent and requires at least one digit
-  //     after a '.' when one is written (so "1." is invalid, "1.0" and ".5" are valid).
-  // The mantissa alternatives are split so we can require at least one non-zero digit; otherwise
-  // the value is zero regardless of the exponent.
-  private static final Pattern VALID_DESCRIPTOR = Pattern.compile(
-      "0*[1-9]\\d*w"
-      + "|(?:\\d*[1-9]\\d*(?:\\.\\d+)?|0+\\.\\d*[1-9]\\d*|\\.\\d*[1-9]\\d*)(?:[eE][+-]?\\d+)?x"
+  // Syntactic shape of an HTML srcset descriptor:
+  //   - width:   digits + 'w'  (leading zeros allowed; only the value must be > 0)
+  //   - density: floating-point number + 'x', i.e. (digits[.digits] or .digits) with optional
+  //              [eE][+-]?digits exponent. The HTML grammar requires at least one digit after
+  //              a '.' when one is written ("1." is invalid, "1.0" and ".5" are valid).
+  // The value > 0 constraint is checked separately by hasNonZeroMantissa; folding it in here
+  // pushed the regex past the complexity budget and introduced backtracking.
+  private static final Pattern VALID_DESCRIPTOR_SYNTAX = Pattern.compile(
+      "\\d++w|(?:\\d++(?:\\.\\d++)?+|\\.\\d++)(?:[eE][+-]?+\\d++)?+x"
   );
 
   @Override
@@ -82,8 +80,28 @@ public class SrcSetDescriptorCheck extends AbstractPageCheck {
   }
 
   private static boolean isValidCandidate(Candidate candidate) {
-    return candidate.descriptors.size() == 1
-        && VALID_DESCRIPTOR.matcher(candidate.descriptors.get(0)).matches();
+    if (candidate.descriptors.size() != 1) {
+      return false;
+    }
+    String descriptor = candidate.descriptors.get(0);
+    return VALID_DESCRIPTOR_SYNTAX.matcher(descriptor).matches()
+        && hasNonZeroMantissa(descriptor);
+  }
+
+  // Walks the mantissa (everything before 'e'/'E', stopping at the trailing 'w'/'x') and returns
+  // true as soon as a [1-9] digit is found. A descriptor whose mantissa is all zeros has value 0
+  // regardless of the exponent, and is therefore invalid.
+  private static boolean hasNonZeroMantissa(String descriptor) {
+    for (int i = 0; i < descriptor.length(); i++) {
+      char c = descriptor.charAt(i);
+      if (c == 'e' || c == 'E') {
+        return false;
+      }
+      if (c >= '1' && c <= '9') {
+        return true;
+      }
+    }
+    return false;
   }
 
   private static boolean isTargetedNode(TagNode node) {
