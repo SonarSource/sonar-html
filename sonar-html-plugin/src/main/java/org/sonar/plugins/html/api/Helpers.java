@@ -41,4 +41,39 @@ public class Helpers {
   public static boolean isCshtmlFile(HtmlSourceCode code) {
     return code.inputFile().filename().endsWith(".cshtml");
   }
+
+  /**
+   * Returns true if the given node has an ancestor that suggests this content
+   * lives inside an opaque templating scope, where the surrounding markup is
+   * supplied by a framework rather than appearing inline in the source file.
+   *
+   * Recognised scopes:
+   * - HTML {@code <template>} element (HTML5 dynamic composition)
+   * - Angular {@code <ng-template>}
+   * - Any namespaced element (name contains {@code ':'}): {@code asp:Repeater},
+   *   {@code c:forEach} (JSTL), {@code th:each} (Thymeleaf), {@code jsp:include}, etc.
+   *
+   * @param node the tag node whose ancestors are inspected
+   * @return true if any ancestor matches a template-like scope, false otherwise
+   */
+  public static boolean hasTemplateAncestor(TagNode node) {
+    TagNode parent = node.getParent();
+    while (parent != null) {
+      if (isTemplateLikeTag(parent)) {
+        return true;
+      }
+      parent = parent.getParent();
+    }
+    return false;
+  }
+
+  private static boolean isTemplateLikeTag(TagNode node) {
+    String name = node.getNodeName();
+    if (name == null || name.isEmpty()) {
+      return false;
+    }
+    return "template".equalsIgnoreCase(name)
+      || "ng-template".equalsIgnoreCase(name)
+      || name.indexOf(':') >= 0;
+  }
 }

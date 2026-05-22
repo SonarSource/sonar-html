@@ -1,0 +1,40 @@
+<template>
+  <li>foo</li>            <!-- Compliant - inside HTML <template> -->
+  <dt>bar</dt>            <!-- Compliant - inside HTML <template> -->
+</template>
+
+<ng-template #itemTpl>
+  <li>{{ item.name }}</li><!-- Compliant - inside Angular <ng-template> -->
+</ng-template>
+
+<asp:Repeater ID="TestRepeater" runat="server">
+  <HeaderTemplate>
+    <ul>
+  </HeaderTemplate>
+  <FooterTemplate>
+    </ul>
+  </FooterTemplate>
+  <ItemTemplate>
+    <li>Test</li>         <!-- Compliant - inside <asp:Repeater> -->
+  </ItemTemplate>
+</asp:Repeater>
+
+<c:forEach var="x" items="${xs}">
+  <li>${x}</li>           <!-- Compliant - inside JSTL <c:forEach> -->
+</c:forEach>
+
+<th:block th:each="item : ${items}">
+  <li th:text="${item}">x</li>  <!-- Compliant - inside Thymeleaf <th:block> -->
+</th:block>
+
+<jsp:include page="frag.jsp">
+  <dt>Term</dt>           <!-- Compliant - inside <jsp:include> -->
+</jsp:include>
+
+<template>
+  <div>
+    <span>
+      <li>deeply nested</li>  <!-- Compliant - <template> is a transitive ancestor -->
+    </span>
+  </div>
+</template>

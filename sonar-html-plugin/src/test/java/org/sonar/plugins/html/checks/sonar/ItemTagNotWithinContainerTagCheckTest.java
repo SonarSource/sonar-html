@@ -40,4 +40,13 @@ class ItemTagNotWithinContainerTagCheckTest {
         .next().atLine(18);
   }
 
+  @Test
+  void templateAncestorsAreCompliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheck/template-aware.html"),
+        new ItemTagNotWithinContainerTagCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
 }

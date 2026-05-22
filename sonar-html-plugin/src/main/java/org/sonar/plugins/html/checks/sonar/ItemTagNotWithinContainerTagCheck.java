@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -25,6 +26,9 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
+    if (Helpers.hasTemplateAncestor(node)) {
+      return;
+    }
     if (isLi(node) && !hasLiOrUlOrOlAncestor(node)) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
     } else if (isDt(node) && !hasDtOrDlAncestor(node)) {
