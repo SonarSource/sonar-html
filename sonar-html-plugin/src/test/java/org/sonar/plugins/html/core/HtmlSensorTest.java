@@ -92,7 +92,7 @@ class HtmlSensorTest {
     when(fileLinesContextFactory.createFor(Mockito.any(InputFile.class))).thenReturn(mock(FileLinesContext.class));
     analysisWarnings = new RecordingAnalysisWarnings();
     sensor = new HtmlSensor(sonarRuntime, new DefaultNoSonarFilter(), fileLinesContextFactory, checkFactory,
-      analysisWarnings);
+      new AnalysisWarningsWrapper(analysisWarnings));
     tester = SensorContextTester.create(TEST_DIR).setRuntime(sonarRuntime);
   }
 
@@ -232,7 +232,7 @@ class HtmlSensorTest {
     DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor();
     SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarLint(Version.create(6, 5));
     new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList())),
-      new RecordingAnalysisWarnings()).describe(sensorDescriptor);
+      new AnalysisWarningsWrapper()).describe(sensorDescriptor);
     assertThat(sensorDescriptor.name()).isEqualTo("HTML");
     assertThat(sensorDescriptor.languages()).isEmpty();
   }
@@ -249,7 +249,7 @@ class HtmlSensorTest {
     };
     SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
     new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList())),
-      new RecordingAnalysisWarnings()).describe(sensorDescriptor);
+      new AnalysisWarningsWrapper()).describe(sensorDescriptor);
     assertThat(sensorDescriptor.name()).isEqualTo("HTML");
     assertThat(sensorDescriptor.languages()).isEmpty();
     assertTrue(called[0]);

@@ -20,6 +20,7 @@ import java.util.List;
 import org.sonar.api.Plugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.plugins.html.api.HtmlConstants;
+import org.sonar.plugins.html.core.AnalysisWarningsWrapper;
 import org.sonar.plugins.html.core.Html;
 import org.sonar.plugins.html.core.HtmlSensor;
 import org.sonar.plugins.html.core.Jsp;
@@ -51,6 +52,7 @@ public final class HtmlPlugin implements Plugin {
       JspQualityProfile.class,
 
       // web sensor
+      AnalysisWarningsWrapper.class,
       HtmlSensor.class
     );
 
