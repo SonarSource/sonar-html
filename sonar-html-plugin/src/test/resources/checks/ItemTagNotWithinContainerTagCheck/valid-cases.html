@@ -1,3 +1,50 @@
+<ul>
+  <foo>
+    <li>    <!-- Compliant - limitation because of bad unclosed tags handling -->
+  </foo>
+</ul>
+
+<ul>
+  <li>foo
+  <li>bar
+</ul>
+
+<menu>
+  <li>foo
+  <li>bar
+</menu>
+
+<ol>
+  <li>foo
+  <li>bar
+</ol>
+
+<dl>
+  <dt></dt>
+</dl>
+
+<ul>
+  <ul>
+    <li>foo
+    <li>bar
+  </ul>
+  <li>baz
+  <ol>
+    <li>qux
+  </ol>
+  <li>end
+</ul>
+
+<ul>
+  <li><p>foo
+  <li><p>bar
+</ul>
+
+<dl>
+  <dt><p>foo
+  <dt><p>bar
+</dl>
+
 <template>
   <li>foo</li>            <!-- Compliant - inside HTML <template> -->
   <dt>bar</dt>            <!-- Compliant - inside HTML <template> -->

@@ -25,30 +25,6 @@ specification.</p>
   &lt;dt&gt;Strawberry&lt;/dt&gt;
 &lt;/dl&gt;
 </pre>
-<h2>Exceptions</h2>
-<p>The check does not report on <code>&lt;li&gt;</code> or <code>&lt;dt&gt;</code> tags that appear inside an opaque templating scope, where
-the surrounding container is supplied by a framework rather than by the source file. The following ancestors are recognised as templating
-scopes and suppress the issue:</p>
-<ul>
-  <li>The HTML <code>&lt;template&gt;</code> element used for dynamic composition.</li>
-  <li>The Angular <code>&lt;ng-template&gt;</code> element.</li>
-  <li>Any namespaced element (a tag whose name contains <code>:</code>), such as <code>&lt;asp:Repeater&gt;</code> /
-  <code>&lt;asp:ItemTemplate&gt;</code> (ASP.NET), <code>&lt;c:forEach&gt;</code> (JSTL), <code>&lt;th:each&gt;</code> (Thymeleaf), or
-  <code>&lt;jsp:include&gt;</code>.</li>
-</ul>
-<pre>
-&lt;template&gt;
-  &lt;li&gt;Apple&lt;/li&gt;          &lt;!-- Compliant: inside a &lt;template&gt; --&gt;
-&lt;/template&gt;
-
-&lt;asp:Repeater runat="server"&gt;
-  &lt;HeaderTemplate&gt;&lt;ul&gt;&lt;/HeaderTemplate&gt;
-  &lt;ItemTemplate&gt;
-    &lt;li&gt;Item&lt;/li&gt;         &lt;!-- Compliant: inside &lt;asp:Repeater&gt; --&gt;
-  &lt;/ItemTemplate&gt;
-  &lt;FooterTemplate&gt;&lt;/ul&gt;&lt;/FooterTemplate&gt;
-&lt;/asp:Repeater&gt;
-</pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>
