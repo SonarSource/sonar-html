@@ -61,16 +61,4 @@ class ImgWithoutAltCheckTest {
       .next().atLine(11)
       .next().atLine(12);
   }
-
-  @Test
-  void detectsObjectAlternativeText() {
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckObject.html"), new ImgWithoutAltCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(8).withMessage(MESSAGE)
-      .next().atLine(10)
-      .next().atLine(13)
-      .next().atLine(14)
-      .next().atLine(15);
-  }
 }

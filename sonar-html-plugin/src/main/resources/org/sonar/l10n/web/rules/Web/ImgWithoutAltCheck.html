@@ -1,8 +1,7 @@
 <h2>Why is this an issue?</h2>
 <p>Alternative text helps users understand non-text content when it cannot be seen.</p>
-<p>Depending on the element, this alternative can be provided with <code>alt</code>, <code>aria-label</code>, <code>aria-labelledby</code>,
-<code>title</code> or fallback content.</p>
-<p>It is used whenever the actual image or embedded content cannot be rendered.</p>
+<p>Depending on the element, this alternative can be provided with <code>alt</code>, <code>aria-label</code> or <code>aria-labelledby</code>.</p>
+<p>It is used whenever the actual image cannot be rendered.</p>
 <p>Common reasons for that include:</p>
 <ul>
   <li>The image can no longer be found</li>
@@ -21,9 +20,8 @@ Exceptions below.</p>
   attribute.</li>
   <li>An <code>&lt;area&gt;</code> element within an image map has no non-empty <code>alt</code>, <code>aria-label</code> or
   <code>aria-labelledby</code> attribute.</li>
-  <li>An <code>&lt;object&gt;</code> element has no non-empty inner text, accessible descendant content, <code>title</code>, <code>aria-label</code>
-  or <code>aria-labelledby</code> attribute.</li>
 </ul>
+<p>Alternative content for <code>&lt;object&gt;</code> elements is covered by rule {rule:Web:S5264}.</p>
 <h3>Exceptions</h3>
 <p><code>&lt;img&gt;</code> elements with an empty string&nbsp;<code>alt=""</code> attribute won’t raise any issue. However, this way should be used
 in two cases only:</p>
@@ -63,9 +61,6 @@ duplicate the link’s text in their <code>alt</code> attribute, as it would mak
   &lt;area shape="rect" coords="0,0,21,21"
     href="lounge.html" aria-labelledby=""/&gt; &lt;!-- empty accessible name on &lt;area&gt; --&gt;
 &lt;/map&gt;
-
-&lt;object&gt;&lt;/object&gt; &lt;!-- missing alternative text --&gt;
-&lt;object title=" "&gt;&lt;/object&gt; &lt;!-- empty alternative text --&gt;
 </pre>
 <h4>Compliant solution</h4>
 <pre data-diff-id="1" data-diff-type="compliant">
@@ -82,11 +77,6 @@ duplicate the link’s text in their <code>alt</code> attribute, as it would mak
   &lt;area shape="rect" coords="0,0,21,21"
     href="lounge.html" aria-label="Lounge"/&gt;
 &lt;/map&gt;
-
-&lt;object title="Sales chart"&gt;&lt;/object&gt;
-&lt;object&gt;
-  Quarterly sales for 2026
-&lt;/object&gt;
 </pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>
@@ -101,7 +91,6 @@ duplicate the link’s text in their <code>alt</code> attribute, as it would mak
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Techniques/html/H37">H37: Using alt attributes on img elements</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Techniques/html/H67">H67: Using null alt text and no title attribute on img elements for images
   that assistive technology should ignore</a></li>
-  <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Techniques/html/H53">H53: Using the body of the object element</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Techniques/html/H2">H2: Combining adjacent image and text links for the same resource</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/tutorials/images/decision-tree/">W3C WAI Web Accessibility Tutorials</a></li>
 </ul>

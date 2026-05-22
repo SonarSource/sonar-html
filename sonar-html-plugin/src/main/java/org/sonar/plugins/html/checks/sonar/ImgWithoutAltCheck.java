@@ -16,87 +16,19 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.DirectiveNode;
-import org.sonar.plugins.html.node.ExpressionNode;
-import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
-import org.sonar.plugins.html.node.TextNode;
-
-import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 @Rule(key = "ImgWithoutAltCheck")
 public class ImgWithoutAltCheck extends AbstractPageCheck {
   private static final String MESSAGE = "Provide alternative text for this element.";
 
-  private final Deque<TagNode> objects = new ArrayDeque<>();
-  private final Set<TagNode> objectsWithAlternativeText = new HashSet<>();
-
-  @Override
-  public void startDocument(List<Node> nodes) {
-    objects.clear();
-    objectsWithAlternativeText.clear();
-  }
-
   @Override
   public void startElement(TagNode node) {
-    if (!objects.isEmpty() && !isHiddenFromScreenReader(node)) {
-      objectsWithAlternativeText.add(objects.peek());
-    }
-
     if (requiresAlternativeText(node)) {
       createViolation(node, MESSAGE);
-    }
-
-    if (isObjectTag(node)) {
-      objects.push(node);
-      if (hasObjectAlternativeText(node)) {
-        objectsWithAlternativeText.add(node);
-      }
-    }
-  }
-
-  @Override
-  public void endElement(TagNode node) {
-    if (isObjectTag(node) && !objects.isEmpty()) {
-      TagNode object = objects.pop();
-      if (!objectsWithAlternativeText.remove(object)) {
-        createViolation(object, MESSAGE);
-      }
-    }
-  }
-
-  @Override
-  public void endDocument() {
-    objects.clear();
-    objectsWithAlternativeText.clear();
-  }
-
-  @Override
-  public void characters(TextNode textNode) {
-    if (!objects.isEmpty() && textNode.getParent() == objects.peek() && !textNode.isBlank()) {
-      objectsWithAlternativeText.add(objects.peek());
-    }
-  }
-
-  @Override
-  public void directive(DirectiveNode node) {
-    if (!objects.isEmpty() && node.getParent() == objects.peek()) {
-      objectsWithAlternativeText.add(objects.peek());
-    }
-  }
-
-  @Override
-  public void expression(ExpressionNode node) {
-    if (!objects.isEmpty()) {
-      objectsWithAlternativeText.add(objects.peek());
     }
   }
 
@@ -113,10 +45,6 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   private static boolean isImgTag(TagNode node) {
     return "IMG".equalsIgnoreCase(node.getNodeName());
-  }
-
-  private static boolean isObjectTag(TagNode node) {
-    return "OBJECT".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isImageInput(TagNode node) {
@@ -149,16 +77,6 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   }
 
   /**
-   * Returns whether an object tag exposes alternative text without inspecting its descendants.
-   *
-   * @param node the object element to inspect
-   * @return {@code true} when the object already provides alternative text
-   */
-  private static boolean hasObjectAlternativeText(TagNode node) {
-    return hasNonEmptyAttribute(node, "title") || hasAccessibleName(node) || hasGeneratedText(node);
-  }
-
-  /**
    * Returns whether the element has a non-empty accessible name.
    *
    * @param node the element to inspect
@@ -184,16 +102,6 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     String thymeleafValue = node.getAttribute("th:" + attributeName.toLowerCase(Locale.ROOT));
     return (thymeleafValue != null && !thymeleafValue.trim().isEmpty()) ||
       hasThymeleafAttributeAssignment(node, attributeName);
-  }
-
-  /**
-   * Returns whether the element renders text through a template-specific attribute.
-   *
-   * @param node the element to inspect
-   * @return {@code true} when a text-generating attribute is present
-   */
-  private static boolean hasGeneratedText(TagNode node) {
-    return node.hasAttribute("th:text") || node.hasAttribute("th:utext") || node.hasAttribute("v-text") || node.hasAttribute("v-html");
   }
 
   /**
