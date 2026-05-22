@@ -22,6 +22,13 @@ import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
+import org.sonar.plugins.html.core.AnalysisWarningsWrapper;
+import org.sonar.plugins.html.core.Html;
+import org.sonar.plugins.html.core.HtmlSensor;
+import org.sonar.plugins.html.core.Jsp;
+import org.sonar.plugins.html.rules.HtmlRulesDefinition;
+import org.sonar.plugins.html.rules.JspQualityProfile;
+import org.sonar.plugins.html.rules.SonarWayProfile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,6 +40,15 @@ class HtmlPluginTest {
     Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
 
     new HtmlPlugin().define(context);
-    assertThat(context.getExtensions()).hasSize(8);
+    assertThat(context.getExtensions())
+      .contains(
+        Html.class,
+        Jsp.class,
+        HtmlRulesDefinition.class,
+        SonarWayProfile.class,
+        JspQualityProfile.class,
+        AnalysisWarningsWrapper.class,
+        HtmlSensor.class)
+      .hasSize(9);
   }
 }

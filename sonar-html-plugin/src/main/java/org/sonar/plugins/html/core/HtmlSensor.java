@@ -41,7 +41,6 @@ import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
-import org.sonar.api.notifications.AnalysisWarnings;
 import org.sonar.api.utils.Version;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -70,15 +69,15 @@ public final class HtmlSensor implements Sensor {
   private final NoSonarFilter noSonarFilter;
   private final Checks<Object> checks;
   private final FileLinesContextFactory fileLinesContextFactory;
-  private final AnalysisWarnings analysisWarnings;
+  private final AnalysisWarningsWrapper analysisWarnings;
 
   public HtmlSensor(SonarRuntime sonarRuntime, NoSonarFilter noSonarFilter, FileLinesContextFactory fileLinesContextFactory,
-    CheckFactory checkFactory, AnalysisWarnings analysisWarnings) {
+    CheckFactory checkFactory, AnalysisWarningsWrapper analysisWarnings) {
     this.sonarRuntime = sonarRuntime;
     this.noSonarFilter = noSonarFilter;
     this.checks = checkFactory.create(HtmlRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks(CheckClasses.getCheckClasses());
     this.fileLinesContextFactory = fileLinesContextFactory;
-    this.analysisWarnings = analysisWarnings;
+    this.analysisWarnings = analysisWarnings == null ? new AnalysisWarningsWrapper() : analysisWarnings;
   }
 
   @Override
