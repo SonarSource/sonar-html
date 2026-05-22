@@ -18,6 +18,7 @@ package org.sonar.plugins.html.checks.attributes;
 
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
@@ -30,7 +31,8 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
 
   private static final String METHOD_ATTRIBUTE = "method";
   private static final Set<String> VALID_METHODS = Set.of("get", "post", "dialog");
-  private static final Pattern TH_ATTR_METHOD_PATTERN = Pattern.compile("(^|,)\\s*method\\s*=", Pattern.CASE_INSENSITIVE);
+  private static final Pattern TH_ATTR_METHOD_PATTERN =
+    Pattern.compile("(?:^|,)\\s*method\\s*=([^,]*)", Pattern.CASE_INSENSITIVE);
   private static final String MESSAGE = "Use an explicit valid \"method\" attribute on this \"<form>\" tag (\"get\", \"post\", or \"dialog\").";
 
   @Override
@@ -41,9 +43,7 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
 
     Attribute methodAttribute = node.getProperty(METHOD_ATTRIBUTE);
     if (methodAttribute == null) {
-      if (!hasThymeleafMethod(node)) {
-        createViolation(node, MESSAGE);
-      }
+      checkThymeleafMethod(node);
       return;
     }
 
@@ -51,8 +51,7 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
       return;
     }
 
-    String methodValue = methodAttribute.getValue();
-    if (methodValue == null || !VALID_METHODS.contains(methodValue.trim().toLowerCase(Locale.ROOT))) {
+    if (!isValidMethod(methodAttribute.getValue())) {
       createViolation(node, MESSAGE);
     }
   }
@@ -63,9 +62,36 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
       || Helpers.isDynamicValue(methodAttribute.getValue(), getHtmlSourceCode());
   }
 
-  private static boolean hasThymeleafMethod(TagNode node) {
+  private void checkThymeleafMethod(TagNode node) {
+    if (node.hasProperty("th:method")) {
+      return;
+    }
     String thAttrValue = node.getAttribute("th:attr");
-    return node.hasProperty("th:method")
-      || (thAttrValue != null && TH_ATTR_METHOD_PATTERN.matcher(thAttrValue).find());
+    String thAttrMethodValue = thAttrValue == null ? null : extractThAttrMethodValue(thAttrValue);
+    if (thAttrMethodValue == null) {
+      createViolation(node, MESSAGE);
+      return;
+    }
+    if (isThymeleafExpression(thAttrMethodValue)) {
+      return;
+    }
+    if (!isValidMethod(thAttrMethodValue)) {
+      createViolation(node, MESSAGE);
+    }
+  }
+
+  private static String extractThAttrMethodValue(String thAttrValue) {
+    Matcher matcher = TH_ATTR_METHOD_PATTERN.matcher(thAttrValue);
+    return matcher.find() ? matcher.group(1).trim() : null;
+  }
+
+  private static boolean isValidMethod(String value) {
+    return value != null && VALID_METHODS.contains(value.trim().toLowerCase(Locale.ROOT));
+  }
+
+  private static boolean isThymeleafExpression(String value) {
+    return value.startsWith("${") || value.startsWith("*{")
+      || value.startsWith("#{") || value.startsWith("@{")
+      || value.startsWith("~{");
   }
 }
