@@ -68,46 +68,42 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
       return;
     }
     String thAttrValue = node.getAttribute("th:attr");
-    String thAttrMethodValue = thAttrValue == null ? null : extractThAttrMethodValue(thAttrValue);
-    if (thAttrMethodValue == null) {
+    if (thAttrValue == null) {
       createViolation(node, MESSAGE);
       return;
     }
-    if (isThymeleafExpression(thAttrMethodValue)) {
-      return;
-    }
-    if (!isValidMethod(thAttrMethodValue)) {
-      createViolation(node, MESSAGE);
-    }
-  }
-
-  private static String extractThAttrMethodValue(String thAttrValue) {
     Matcher matcher = TH_ATTR_METHOD_PATTERN.matcher(thAttrValue);
     if (!matcher.find()) {
-      return null;
+      createViolation(node, MESSAGE);
+      return;
     }
-    return unwrapSingleQuotes(matcher.group(1).trim());
+    String staticValue = staticThymeleafValue(matcher.group(1).trim());
+    if (staticValue == null) {
+      return;
+    }
+    if (!isValidMethod(staticValue)) {
+      createViolation(node, MESSAGE);
+    }
   }
 
-  private static String unwrapSingleQuotes(String value) {
+  private static String staticThymeleafValue(String value) {
+    if (value.startsWith("${") || value.startsWith("*{")
+      || value.startsWith("#{") || value.startsWith("@{")
+      || value.startsWith("~{")) {
+      return null;
+    }
     int len = value.length();
-    if (len >= 2 && value.charAt(0) == '\'' && value.charAt(len - 1) == '\'') {
+    if (len >= 2 && value.charAt(0) == '\'' && value.charAt(len - 1) == '\''
+      && value.indexOf('\'', 1) == len - 1) {
       return value.substring(1, len - 1);
     }
-    return value;
+    if (value.isEmpty() || PLAIN_TOKEN_PATTERN.matcher(value).matches()) {
+      return value;
+    }
+    return null;
   }
 
   private static boolean isValidMethod(String value) {
     return VALID_METHODS.contains(value.trim().toLowerCase(Locale.ROOT));
-  }
-
-  private static boolean isThymeleafExpression(String value) {
-    if (value.isEmpty()) {
-      return false;
-    }
-    return value.startsWith("${") || value.startsWith("*{")
-      || value.startsWith("#{") || value.startsWith("@{")
-      || value.startsWith("~{")
-      || !PLAIN_TOKEN_PATTERN.matcher(value).matches();
   }
 }
