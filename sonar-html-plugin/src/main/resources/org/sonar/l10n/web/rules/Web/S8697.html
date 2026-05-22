@@ -10,8 +10,8 @@ descriptor. Only two descriptor forms are valid:</p>
 and explicit descriptor on every entry to make the developer’s intent visible and avoid silent fallbacks.</p>
 <p>This rule does not flag a single-URL <code>srcset</code> on a <code>&lt;source&gt;</code> element when <code>media</code> or <code>type</code> is
 set <strong>and no descriptor is written</strong>: those are art direction and format negotiation patterns, where the parent attribute already
-discriminates and the implicit <code>1x</code> fallback is unambiguous. When the author does write an explicit descriptor on such an element, it
-must still be valid &mdash; otherwise the browser silently drops the candidate and the <code>&lt;source&gt;</code> contributes no image.</p>
+discriminates and the implicit <code>1x</code> fallback is unambiguous. When the author does write an explicit descriptor on such an element, it must
+still be valid — otherwise the browser silently drops the candidate and the <code>&lt;source&gt;</code> contributes no image.</p>
 <h2>How to fix it</h2>
 <p>Add a valid descriptor to every entry of the <code>srcset</code> attribute. Use a pixel density descriptor (<code>1x</code>, <code>2x</code>,
 <code>1.5x</code>, …​) when the image renders at the same CSS size across all viewports, or a width descriptor (<code>400w</code>, <code>800w</code>,
