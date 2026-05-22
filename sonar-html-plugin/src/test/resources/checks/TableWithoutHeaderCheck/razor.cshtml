@@ -1,0 +1,62 @@
+<!-- Compliant: layout table whose body is rendered from a child view -->
+<table>
+  @RenderBody()
+</table>
+
+<!-- Compliant: layout table whose headers come from a named section -->
+<table>
+  <thead>
+    @RenderSection("headers", required: false)
+  </thead>
+  <tbody>
+    <tr><td>row</td></tr>
+  </tbody>
+</table>
+
+<!-- Compliant: layout table that delegates to a separate page -->
+<table>
+  @RenderPage("~/Views/Shared/_TableRows.cshtml")
+</table>
+
+<!-- Compliant: layout table that includes a partial view -->
+<table>
+  @Html.Partial("_TableContents")
+</table>
+
+<table>
+  @Html.RenderPartial("_TableContents")
+</table>
+
+<table>
+  @await Html.PartialAsync("_TableContents")
+</table>
+
+<table>
+  @await Html.RenderPartialAsync("_TableContents")
+</table>
+
+<!-- Compliant: rendering nested deeper inside the table -->
+<table>
+  <tbody>
+    <tr>
+      <td>@Html.Partial("_Row")</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Non-Compliant: no headers, no fragment rendering -->
+<table>
+  <tr>
+    <td>value</td>
+  </tr>
+</table>
+
+<!-- Compliant: regular table with headers, Razor expression unrelated to fragment rendering -->
+<table>
+  <tr>
+    <th>@Model.Title</th>
+  </tr>
+  <tr>
+    <td>@Model.Value</td>
+  </tr>
+</table>

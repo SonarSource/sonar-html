@@ -43,4 +43,35 @@ class TableWithoutHeaderCheckTest {
         .next().atLine(78);
 
   }
+
+  @Test
+  void razor_layout_fragment_rendering_is_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(48).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void razor_vbhtml_layout_fragment_rendering_is_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor.vbhtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(7).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void razor_like_text_in_plain_html_still_raises() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-tokens-in-plain-html.html"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .next().atLine(6).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
 }

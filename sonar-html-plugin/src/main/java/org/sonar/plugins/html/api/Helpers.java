@@ -23,6 +23,10 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class Helpers {
+
+  private static final Pattern RAZOR_FRAGMENT_RENDERING = Pattern.compile(
+    "@(?:RenderBody|RenderSection|RenderPage|(?:await\\s+)?Html\\.(?:Render)?Partial(?:Async)?)\\b");
+
   private Helpers() {
   }
 
@@ -85,5 +89,45 @@ public class Helpers {
   private static boolean startsWithIgnoreCase(String value, String prefix) {
     return value.length() >= prefix.length()
       && value.regionMatches(true, 0, prefix, 0, prefix.length());
+  }
+  
+  /**
+   * Returns true when the source file uses Razor syntax, regardless of the
+   * back-end language. Razor ships with two extensions: {@code .cshtml}
+   * (C#) and {@code .vbhtml} (VB.NET). Both share the same {@code @}-based
+   * template syntax and can therefore exhibit the same false positives in
+   * rules that only look at HTML structure.
+   *
+   * @param code the source under analysis
+   * @return true if the file is a Razor view, false otherwise
+   */
+  public static boolean isRazorFile(HtmlSourceCode code) {
+    String filename = code.inputFile().filename();
+    return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
+  }
+
+  /**
+   * Returns true when the given text contains a Razor expression that
+   * injects markup produced elsewhere — a layout body, a named section,
+   * or a partial view. These are the Razor counterparts to Thymeleaf's
+   * {@code th:insert}/{@code th:include}/{@code th:replace}: the structure
+   * around them cannot be judged in isolation, because the missing parts
+   * live in a different file.
+   *
+   * Recognised forms:
+   * <ul>
+   *   <li>{@code @RenderBody()}</li>
+   *   <li>{@code @RenderSection("name")} / {@code @RenderSection("name", required: false)}</li>
+   *   <li>{@code @RenderPage("path")}</li>
+   *   <li>{@code @Html.Partial(...)} / {@code @Html.RenderPartial(...)}</li>
+   *   <li>{@code @Html.PartialAsync(...)} / {@code @Html.RenderPartialAsync(...)}</li>
+   *   <li>{@code @await Html.PartialAsync(...)} / {@code @await Html.RenderPartialAsync(...)}</li>
+   * </ul>
+   *
+   * @param text the text fragment to inspect
+   * @return true if {@code text} renders a Razor fragment, false otherwise
+   */
+  public static boolean containsRazorFragmentRendering(String text) {
+    return text != null && RAZOR_FRAGMENT_RENDERING.matcher(text).find();
   }
 }

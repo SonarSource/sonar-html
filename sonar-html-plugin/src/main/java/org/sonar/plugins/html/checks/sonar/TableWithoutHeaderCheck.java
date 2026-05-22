@@ -16,22 +16,60 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static final Set<String> THYMELEAF_FRAGMENT_INSERTION_KEYWORDS = Set.of("th:insert", "th:include", "th:replace");
 
+  private final Set<TagNode> tablesWithRazorFragmentRendering = new HashSet<>();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    tablesWithRazorFragmentRendering.clear();
+    if (!Helpers.isRazorFile(getHtmlSourceCode())) {
+      return;
+    }
+    for (Node node : nodes) {
+      if (node.getNodeType() == NodeType.TEXT && Helpers.containsRazorFragmentRendering(node.getCode())) {
+        markEnclosingTables((TextNode) node);
+      }
+    }
+  }
+
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node) && !hasThymeleafFragmentInsertion(node)) {
+    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node)
+      && !hasThymeleafFragmentInsertion(node) && !tablesWithRazorFragmentRendering.contains(node)) {
       createViolation(node, "Add \"<th>\" headers to this \"<table>\".");
+    }
+  }
+
+  /**
+   * Records every {@code <table>} ancestor of the given text node, so that
+   * the violation can later be suppressed for tables whose interior is
+   * provided by a Razor layout, section, or partial view.
+   *
+   * @param textNode a text node that already matched a Razor fragment-rendering pattern
+   */
+  private void markEnclosingTables(TextNode textNode) {
+    TagNode parent = textNode.getParent();
+    while (parent != null) {
+      if (isTable(parent)) {
+        tablesWithRazorFragmentRendering.add(parent);
+      }
+      parent = parent.getParent();
     }
   }
 
