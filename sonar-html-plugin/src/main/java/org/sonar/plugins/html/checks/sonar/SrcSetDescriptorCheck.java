@@ -52,21 +52,24 @@ public class SrcSetDescriptorCheck extends AbstractPageCheck {
       return;
     }
 
-    if (hasInvalidCandidate(candidates)) {
-      createViolation(node, "Element \"" + node.getNodeName() + "\" has no valid and explicit descriptor.");
+    Candidate invalid = findInvalidCandidate(candidates);
+    if (invalid != null) {
+      createViolation(node,
+          "Element \"" + node.getNodeName()
+          + "\" has no valid and explicit descriptor for srcset candidate \"" + invalid.url + "\".");
     }
   }
 
-  private boolean hasInvalidCandidate(List<Candidate> candidates) {
+  private Candidate findInvalidCandidate(List<Candidate> candidates) {
     for (Candidate candidate : candidates) {
       if (Helpers.isDynamicValue(candidate.url, getHtmlSourceCode())) {
         continue;
       }
       if (!isValidCandidate(candidate)) {
-        return true;
+        return candidate;
       }
     }
-    return false;
+    return null;
   }
 
   private static boolean isValidCandidate(Candidate candidate) {

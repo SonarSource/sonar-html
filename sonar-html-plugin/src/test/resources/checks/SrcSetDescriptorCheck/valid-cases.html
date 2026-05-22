@@ -6,6 +6,14 @@
   <source srcset="logo-retina 200w, logo-ultra 400w" sizes="100vw">
 </picture>
 
+<!-- Single-entry srcset with an explicit valid descriptor -->
+<img srcset="logo.png 1x" alt="My Logo">
+<img srcset="logo.png 400w" sizes="100vw" alt="My Logo">
+<picture>
+  <source srcset="logo.png 1x" sizes="100vw">
+  <source srcset="logo.png 400w" sizes="100vw">
+</picture>
+
 <!-- Idiomatic single-URL <source>: media query is the discriminator -->
 <picture>
   <source media="(min-width: 800px)" srcset="hero-wide.jpg">
