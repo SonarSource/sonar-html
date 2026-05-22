@@ -5,13 +5,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionsInComponent.jsp": [
 216
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
-40,
-43
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/profil/jsp/ProfilPrive.jsp": [
-62
-],
 "project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDirectoryElement01.html": [
 9,
 10,
@@ -51,14 +44,5 @@
 5,
 9,
 10
-],
-"project:voten/resources/assets/js/components/ChannelSearchItem.vue": [
-2
-],
-"project:voten/resources/assets/js/components/Notification.vue": [
-2
-],
-"project:voten/resources/assets/js/components/UserSearchItem.vue": [
-2
 ]
 }
