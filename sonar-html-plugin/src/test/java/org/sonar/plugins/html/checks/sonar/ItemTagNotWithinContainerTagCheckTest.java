@@ -39,7 +39,9 @@ class ItemTagNotWithinContainerTagCheckTest {
         .next().atLocation(1, 0, 1, 4).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
         .next().atLocation(4, 0, 4, 4).withMessage("Surround this <DT> item tag by a <dl> container one.")
         .next().atLine(8).withMessage("Surround this <lI> item tag by a <ul> or <ol> container one.")
-        .next().atLine(12);
+        .next().atLine(12).withMessage("Surround this <dt> item tag by a <dl> container one.")
+        .next().atLine(16).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
+        .next().atLine(20).withMessage("Surround this <dt> item tag by a <dl> container one.");
   }
 
   @Test
@@ -49,6 +51,16 @@ class ItemTagNotWithinContainerTagCheckTest {
         new ItemTagNotWithinContainerTagCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
+  void razorPartials() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheck/razor-section.cshtml"),
+        new ItemTagNotWithinContainerTagCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(11).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.");
   }
 
 }

@@ -26,7 +26,7 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (Helpers.hasTemplateAncestor(node)) {
+    if (Helpers.hasTemplateAncestor(node) || isRazorPartialRoot(node)) {
       return;
     }
     if (isLi(node) && !hasLiOrUlOrOlAncestor(node)) {
@@ -36,30 +36,31 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     }
   }
 
-  private static boolean hasLiOrUlOrOlAncestor(TagNode node) {
-    TagNode parent = node.getParent();
-
-    while (parent != null) {
-      if (isLi(parent) || isLiAllowedParent(parent)) {
-        return true;
-      }
-      parent = parent.getParent();
+  /**
+   * Returns true when the node sits at the document root of a Razor file
+   * ({@code .cshtml} / {@code .vbhtml}). Razor sectioning (e.g.
+   * {@code @section foo { <li>…</li> }}) is parsed as text rather than tags,
+   * so the item ends up at the document root even though its container
+   * lives in a layout file. We can't see cross-file, so root-level items
+   * in Razor files are treated as partials and suppressed.
+   *
+   * @param node the tag node whose location is inspected
+   * @return true when {@code node} has no tag ancestors and the file is Razor
+   */
+  private boolean isRazorPartialRoot(TagNode node) {
+    if (node.getParent() != null) {
+      return false;
     }
+    String filename = getHtmlSourceCode().inputFile().filename();
+    return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
+  }
 
-    return false;
+  private static boolean hasLiOrUlOrOlAncestor(TagNode node) {
+    return Helpers.hasAncestorMatching(node, p -> isLi(p) || isLiAllowedParent(p));
   }
 
   private static boolean hasDtOrDlAncestor(TagNode node) {
-    TagNode parent = node.getParent();
-
-    while (parent != null) {
-      if (isDt(parent) || isDl(parent)) {
-        return true;
-      }
-      parent = parent.getParent();
-    }
-
-    return false;
+    return Helpers.hasAncestorMatching(node, p -> isDt(p) || isDl(p));
   }
 
   private static boolean isLi(TagNode node) {

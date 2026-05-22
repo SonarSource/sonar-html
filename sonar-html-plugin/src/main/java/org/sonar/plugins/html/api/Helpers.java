@@ -19,6 +19,7 @@ package org.sonar.plugins.html.api;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class Helpers {
@@ -43,28 +44,44 @@ public class Helpers {
   }
 
   /**
-   * Returns true if the given node has an ancestor that suggests this content
-   * lives inside an opaque templating scope, where the surrounding markup is
-   * supplied by a framework rather than appearing inline in the source file.
-   *
-   * Recognised scopes:
-   * - HTML {@code <template>} element (HTML5 dynamic composition)
-   * - Angular {@code <ng-template>}
-   * - Any namespaced element (name contains {@code ':'}): {@code asp:Repeater},
-   *   {@code c:forEach} (JSTL), {@code th:each} (Thymeleaf), {@code jsp:include}, etc.
+   * Walks the ancestor chain of {@code node} and returns true as soon as any
+   * ancestor matches {@code predicate}.
    *
    * @param node the tag node whose ancestors are inspected
-   * @return true if any ancestor matches a template-like scope, false otherwise
+   * @param predicate the test applied to each ancestor
+   * @return true if any ancestor satisfies the predicate, false otherwise
    */
-  public static boolean hasTemplateAncestor(TagNode node) {
+  public static boolean hasAncestorMatching(TagNode node, Predicate<TagNode> predicate) {
     TagNode parent = node.getParent();
     while (parent != null) {
-      if (isTemplateLikeTag(parent)) {
+      if (predicate.test(parent)) {
         return true;
       }
       parent = parent.getParent();
     }
     return false;
+  }
+
+  /**
+   * Returns true if the given node has an ancestor that supplies the
+   * surrounding container itself (rather than being part of the inline
+   * source). Only narrow, container-providing scopes are recognised:
+   *
+   * - HTML {@code <template>} element (HTML5 dynamic composition)
+   * - Angular {@code <ng-template>}
+   * - ASP.NET WebForms server controls ({@code asp:Repeater},
+   *   {@code asp:DataList}, etc.) — their HeaderTemplate/FooterTemplate
+   *   pair provably wraps the ItemTemplate content.
+   *
+   * Pure control-flow or no-op wrapper tags ({@code c:if}, {@code th:block},
+   * {@code jsp:include}, …) are NOT treated as template scopes — they don't
+   * supply a container of their own.
+   *
+   * @param node the tag node whose ancestors are inspected
+   * @return true if any ancestor matches a template-like scope, false otherwise
+   */
+  public static boolean hasTemplateAncestor(TagNode node) {
+    return hasAncestorMatching(node, Helpers::isTemplateLikeTag);
   }
 
   private static boolean isTemplateLikeTag(TagNode node) {
@@ -74,6 +91,11 @@ public class Helpers {
     }
     return "template".equalsIgnoreCase(name)
       || "ng-template".equalsIgnoreCase(name)
-      || name.indexOf(':') >= 0;
+      || startsWithIgnoreCase(name, "asp:");
+  }
+
+  private static boolean startsWithIgnoreCase(String value, String prefix) {
+    return value.length() >= prefix.length()
+      && value.regionMatches(true, 0, prefix, 0, prefix.length());
   }
 }
