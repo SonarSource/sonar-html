@@ -33,6 +33,7 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
   private static final Set<String> VALID_METHODS = Set.of("get", "post", "dialog");
   private static final Pattern TH_ATTR_METHOD_PATTERN =
     Pattern.compile("(?:^|,)\\s*method\\s*=([^,]*)", Pattern.CASE_INSENSITIVE);
+  private static final Pattern PLAIN_TOKEN_PATTERN = Pattern.compile("[A-Za-z]+");
   private static final String MESSAGE = "Use an explicit valid \"method\" attribute on this \"<form>\" tag (\"get\", \"post\", or \"dialog\").";
 
   @Override
@@ -82,7 +83,18 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
 
   private static String extractThAttrMethodValue(String thAttrValue) {
     Matcher matcher = TH_ATTR_METHOD_PATTERN.matcher(thAttrValue);
-    return matcher.find() ? matcher.group(1).trim() : null;
+    if (!matcher.find()) {
+      return null;
+    }
+    return unwrapSingleQuotes(matcher.group(1).trim());
+  }
+
+  private static String unwrapSingleQuotes(String value) {
+    int len = value.length();
+    if (len >= 2 && value.charAt(0) == '\'' && value.charAt(len - 1) == '\'') {
+      return value.substring(1, len - 1);
+    }
+    return value;
   }
 
   private static boolean isValidMethod(String value) {
@@ -90,8 +102,12 @@ public class FormMethodAttributeCheck extends AbstractPageCheck {
   }
 
   private static boolean isThymeleafExpression(String value) {
+    if (value.isEmpty()) {
+      return false;
+    }
     return value.startsWith("${") || value.startsWith("*{")
       || value.startsWith("#{") || value.startsWith("@{")
-      || value.startsWith("~{");
+      || value.startsWith("~{")
+      || !PLAIN_TOKEN_PATTERN.matcher(value).matches();
   }
 }
