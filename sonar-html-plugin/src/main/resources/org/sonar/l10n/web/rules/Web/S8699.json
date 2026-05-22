@@ -1,0 +1,25 @@
+{
+  "title": "\"<form>\" tags should have an explicit valid \"method\" attribute",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "convention"
+  ],
+  "defaultSeverity": "Minor",
+  "ruleSpecification": "RSPEC-8699",
+  "sqKey": "S8699",
+  "scope": "Main",
+  "defaultQualityProfiles": [],
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW",
+      "RELIABILITY": "LOW"
+    },
+    "attribute": "CONVENTIONAL"
+  }
+}

@@ -1,0 +1,13 @@
+<form th:method="${submitMethod}"></form>
+<form th:method="put"></form>
+<form th:method="delete"></form>
+<form th:attr="method=post"></form>
+<form th:attr="method=GET"></form>
+<form th:attr="action=@{/search},method=${submitMethod}"></form>
+<form th:attr="method=*{submitMethod}"></form>
+<form th:attr="method=#{form.method}"></form>
+<form th:attr="method='post'"></form>
+<form th:attr="method='GET'"></form>
+<form th:attr="method=(condition) ? 'post' : 'get'"></form>
+<form th:attr="method='po' + 'st'"></form>
+<form th:attr="action=@{/x},method='dialog'"></form>
