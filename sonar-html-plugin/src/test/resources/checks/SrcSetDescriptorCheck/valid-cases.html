@@ -1,0 +1,60 @@
+<!-- Valid cases -->
+<img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x, logo-ultra.png 3x" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x, logo-ultra.png           3x" alt="My Logo">
+<img src="logo.png" srcset="logo-half.png .5x, logo.png 1x, logo-retina.png 2x" alt="My Logo">
+<picture>
+  <source srcset="logo-retina 200w, logo-ultra 400w" sizes="100vw">
+</picture>
+
+<!-- Single-entry srcset with an explicit valid descriptor -->
+<img srcset="logo.png 1x" alt="My Logo">
+<img srcset="logo.png 400w" sizes="100vw" alt="My Logo">
+<picture>
+  <source srcset="logo.png 1x" sizes="100vw">
+  <source srcset="logo.png 400w" sizes="100vw">
+</picture>
+
+<!-- Idiomatic single-URL <source>: media query is the discriminator -->
+<picture>
+  <source media="(min-width: 800px)" srcset="hero-wide.jpg">
+  <source media="(min-width: 400px)" srcset="hero-square.jpg">
+  <img src="hero-portrait.jpg" alt="Hero">
+</picture>
+
+<!-- Idiomatic single-URL <source>: type is the discriminator -->
+<picture>
+  <source type="image/avif" srcset="logo.avif">
+  <source type="image/webp" srcset="logo.webp">
+  <img src="logo.png" alt="Logo">
+</picture>
+
+<!-- Single-URL <source> with media/type: an explicit valid descriptor is still compliant -->
+<picture>
+  <source media="(min-width: 800px)" srcset="hero.jpg 2x">
+  <source type="image/webp" srcset="logo.webp 400w" sizes="100vw">
+  <img src="logo.png" alt="Logo">
+</picture>
+
+<img src="logo.png" srcset="{{'some_dynamic_value.png 3x'}}" alt="My Logo">
+<img src="logo.png" srcset="${urls}" alt="My Logo"> <!-- JSP EL / JS template literal -->
+<img src="logo.png" srcset="{{ urls }}" alt="My Logo"> <!-- Vue / Mustache / Handlebars -->
+<img src="logo.png" srcset="{% if hd %}{{ urls }}{% endif %}" alt="My Logo"> <!-- Twig / Jinja -->
+<img src="logo.png" :srcset="dynamicUrls" alt="My Logo"> <!-- Vue shorthand -->
+<img src="logo.png" v-bind:srcset="dynamicUrls" alt="My Logo"> <!-- Vue full -->
+<img src="logo.png" [srcset]="dynamicUrls" alt="My Logo"> <!-- Angular property binding -->
+<img src="logo.png" srcset="logo.png 1x, ${retina}" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x, {{ retina }}" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x,, logo-retina.png 2x" alt="My Logo">
+<img src="logo.png" srcset=",logo.png 1x, logo-retina.png 2x" alt="My Logo">
+<img src="logo.png" srcset="logo.png 1x, logo-retina.png 2x," alt="My Logo">
+<img src="logo.png" srcset="logo.png 1.0x, logo-retina.png 10x" alt="My Logo">
+<img src="logo.png" srcset="logo.png 10w, logo-retina.png 200w" sizes="100vw">
+
+<!-- URLs may contain commas (e.g. data URIs) and must not be split on those commas -->
+<img src="logo.png" srcset="data:image/svg+xml,%3Csvg%3E 1x, logo-2x.png 2x" alt="My Logo">
+<img src="logo.png" srcset="data:image/svg+xml,%3Csvg%3E 400w, logo-2x.png 800w" sizes="100vw">
+
+<!-- HTML spec edge cases: leading zeros are allowed on widths, exponent notation on densities -->
+<img src="logo.png" srcset="logo.png 01w, logo-retina.png 200w" sizes="100vw"> <!-- 01w == 1w -->
+<img src="logo.png" srcset="logo.png 1e1x, logo-retina.png 2x" alt="My Logo"> <!-- 1e1x == 10x -->
+<img src="logo.png" srcset="logo.png 0.5e-2x, logo-retina.png 2x" alt="My Logo"> <!-- 0.5e-2 == 0.005x -->

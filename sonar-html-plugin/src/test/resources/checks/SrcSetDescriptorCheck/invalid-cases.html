@@ -1,0 +1,47 @@
+<!-- Invalid cases -->
+<img src="logo.png" srcset="logo.png, logo-retina.png 2x, logo-ultra.png 3x" alt="My Logo"> <!-- Missing descriptor on logo.png -->
+<img src="logo.png" srcset="logo.png,logo-retina.png,logo-ultra.png" alt="My Logo"> <!-- Missing descriptors on all sources-->
+<img src="logo.png" srcset="logo.png x1, logo-retina.png 2x, logo-ultra.png3x" alt="My Logo"> <!-- Missing whitespace between URL and descriptor for logo-ultra.png-->
+<picture>
+  <source srcset="logo-retina 2x, logo-ultra">
+</picture>
+<picture>
+  <source srcset="logo-retina 200w, logo-ultra" sizes="100vw">
+  <source srcset="logo2-retina, logo2-ultra 400w" sizes="100vw">
+</picture>
+
+<!-- Single-URL on <img>: no carve-out applies -->
+<img srcset="logo.png" alt="My Logo"> <!-- Useless srcset, equivalent to src= -->
+<img srcset="logo.png 80%" alt="My Logo"> <!-- Invalid descriptor "80%" -->
+
+<!-- Single-URL on <source> without media or type: no carve-out applies -->
+<picture>
+  <source srcset="logo.png">
+</picture>
+
+<!-- Non-positive descriptors: width must be >= 1, density must be > 0 -->
+<img srcset="logo.png 0w, logo-retina.png 200w" alt="My Logo"> <!-- 0w is invalid -->
+<img srcset="logo.png 0x, logo-retina.png 2x" alt="My Logo"> <!-- 0x is invalid -->
+<img srcset="logo.png 0.0x, logo-retina.png 2x" alt="My Logo"> <!-- 0.0x is invalid -->
+<img srcset="logo.png .0x, logo-retina.png 2x" alt="My Logo"> <!-- .0x is invalid -->
+<img srcset="logo.png 00w, logo-retina.png 200w" alt="My Logo"> <!-- 00w == 0 -->
+<img srcset="logo.png 00.000x, logo-retina.png 2x" alt="My Logo"> <!-- 00.000x == 0 -->
+
+<!-- Malformed density: per the HTML floating-point grammar, a '.' requires fractional digits -->
+<img srcset="logo.png 1.x, logo-retina.png 2x" alt="My Logo"> <!-- "1." is not a valid floating-point number -->
+<img srcset="logo.png 1.e0x, logo-retina.png 2x" alt="My Logo"> <!-- "1." still invalid before an exponent -->
+
+<!-- Multiple descriptors per candidate: at most one descriptor is allowed -->
+<img srcset="logo.png 1x 2x, logo-retina.png 2x" alt="My Logo"> <!-- '1x 2x' is two density descriptors -->
+<img srcset="logo.png 400w 2x, logo-retina.png 800w" alt="My Logo"> <!-- '400w 2x' mixes width and density -->
+<img srcset="logo.png 400w 800w, logo-retina.png 1200w" alt="My Logo"> <!-- two width descriptors -->
+
+<!-- URLs containing commas (e.g. data URIs) must still be required to declare a descriptor on every candidate -->
+<img srcset="data:image/svg+xml,%3Csvg%3E, logo-2x.png 2x" alt="My Logo"> <!-- first candidate has no descriptor -->
+
+<!-- Single-URL <source> with media/type: the carve-out only covers the no-descriptor case. -->
+<!-- An explicit descriptor must still be valid, otherwise the browser silently drops the candidate. -->
+<picture>
+  <source media="(min-width: 800px)" srcset="hero.jpg 80%"> <!-- "80%" is not a valid descriptor -->
+  <source type="image/webp" srcset="hero.jpg 1x 2x"> <!-- two density descriptors -->
+</picture>
