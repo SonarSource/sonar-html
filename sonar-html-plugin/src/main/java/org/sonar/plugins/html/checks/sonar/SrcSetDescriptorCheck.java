@@ -30,15 +30,18 @@ import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S8697")
 public class SrcSetDescriptorCheck extends AbstractPageCheck {
-  // Syntactic shape of an HTML srcset descriptor:
-  //   - width:   digits + 'w'  (leading zeros allowed; only the value must be > 0)
-  //   - density: floating-point number + 'x', i.e. (digits[.digits] or .digits) with optional
-  //              [eE][+-]?digits exponent. The HTML grammar requires at least one digit after
-  //              a '.' when one is written ("1." is invalid, "1.0" and ".5" are valid).
-  // The value > 0 constraint is checked separately by hasNonZeroMantissa; folding it in here
-  // pushed the regex past the complexity budget and introduced backtracking.
-  private static final Pattern VALID_DESCRIPTOR_SYNTAX = Pattern.compile(
-      "\\d++w|(?:\\d++(?:\\.\\d++)?+|\\.\\d++)(?:[eE][+-]?+\\d++)?+x"
+  // Syntactic shape of an HTML srcset descriptor. Width and density are kept as two separate
+  // patterns so each stays under the regex-complexity budget (java:S5843); possessive
+  // quantifiers eliminate backtracking (java:S5852). The value > 0 constraint is checked
+  // separately by hasNonZeroMantissa.
+  //   - Width:   digits + 'w'. Leading zeros are allowed; only the value must be > 0.
+  //   - Density: HTML "valid floating-point number" + 'x'. The mantissa is either
+  //              "[digits]?.digits" (covers ".5" and "1.5") or "digits" (covers "1"),
+  //              optionally followed by an [eE][+-]?digits exponent. A trailing '.' without
+  //              fractional digits is not valid ("1." is rejected, "1.0" and ".5" are valid).
+  private static final Pattern VALID_WIDTH = Pattern.compile("\\d++w");
+  private static final Pattern VALID_DENSITY = Pattern.compile(
+      "(?:\\d*+\\.\\d++|\\d++)(?:[eE][+-]?+\\d++)?+x"
   );
 
   @Override
@@ -84,8 +87,9 @@ public class SrcSetDescriptorCheck extends AbstractPageCheck {
       return false;
     }
     String descriptor = candidate.descriptors.get(0);
-    return VALID_DESCRIPTOR_SYNTAX.matcher(descriptor).matches()
-        && hasNonZeroMantissa(descriptor);
+    boolean syntaxOk = VALID_WIDTH.matcher(descriptor).matches()
+        || VALID_DENSITY.matcher(descriptor).matches();
+    return syntaxOk && hasNonZeroMantissa(descriptor);
   }
 
   // Walks the mantissa (everything before 'e'/'E', stopping at the trailing 'w'/'x') and returns
