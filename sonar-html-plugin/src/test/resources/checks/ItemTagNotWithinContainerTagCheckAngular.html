@@ -1,0 +1,22 @@
+<ul>
+  <ng-container [ngTemplateOutlet]="selectedFile"></ng-container>
+</ul>
+
+<ng-template #selectedFile>
+  <ng-container *ngIf="showSelectedFile">
+    <li>Selected file</li>
+  </ng-container>
+</ng-template>
+
+<dl>
+  <ng-container [ngTemplateOutlet]="selectedDescription"></ng-container>
+</dl>
+
+<ng-template #selectedDescription>
+  <ng-container *ngIf="showSelectedDescription">
+    <dt>Selected term</dt>
+  </ng-container>
+</ng-template>
+
+<li>Detached item</li>
+<dt>Detached term</dt>

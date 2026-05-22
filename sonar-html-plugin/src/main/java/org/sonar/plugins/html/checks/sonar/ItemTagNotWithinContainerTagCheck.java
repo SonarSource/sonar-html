@@ -25,6 +25,10 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
+    if ((isLi(node) || isDt(node)) && isWithinAngularTemplate(node)) {
+      return;
+    }
+
     if (isLi(node) && !hasLiOrUlOrOlAncestor(node)) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
     } else if (isDt(node) && !hasDtOrDlAncestor(node)) {
@@ -50,6 +54,22 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
     while (parent != null) {
       if (isDt(parent) || isDl(parent)) {
+        return true;
+      }
+      parent = parent.getParent();
+    }
+
+    return false;
+  }
+
+  /**
+   * Returns whether the node belongs to an Angular template definition.
+   */
+  private static boolean isWithinAngularTemplate(TagNode node) {
+    TagNode parent = node.getParent();
+
+    while (parent != null) {
+      if (isAngularTemplate(parent)) {
         return true;
       }
       parent = parent.getParent();
@@ -84,6 +104,13 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   private static boolean isDl(TagNode node) {
     return "DL".equalsIgnoreCase(node.getNodeName());
+  }
+
+  /**
+   * Returns whether the node is an Angular template definition.
+   */
+  private static boolean isAngularTemplate(TagNode node) {
+    return node.equalsElementName("ng-template");
   }
 
 }

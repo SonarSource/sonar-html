@@ -40,4 +40,15 @@ class ItemTagNotWithinContainerTagCheckTest {
         .next().atLine(18);
   }
 
+  @Test
+  void ignores_items_defined_in_angular_templates() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/ItemTagNotWithinContainerTagCheckAngular.html"),
+      new ItemTagNotWithinContainerTagCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(21).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
+      .next().atLine(22).withMessage("Surround this <dt> item tag by a <dl> container one.");
+  }
+
 }
