@@ -30,10 +30,17 @@ import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S8697")
 public class SrcSetDescriptorCheck extends AbstractPageCheck {
-  // Width descriptor (positive integer + 'w') or pixel density descriptor
-  // (positive HTML floating-point number + 'x').
+  // Per the HTML srcset spec:
+  //   - a width descriptor is a "valid non-negative integer" (one or more digits) with value > 0,
+  //     followed by 'w'. Leading zeros are allowed, e.g. "01w" is the same as "1w".
+  //   - a density descriptor is a "valid floating-point number" with value > 0, followed by 'x'.
+  //     The grammar accepts an optional [eE][+-]?digits exponent and requires at least one digit
+  //     after a '.' when one is written (so "1." is invalid, "1.0" and ".5" are valid).
+  // The mantissa alternatives are split so we can require at least one non-zero digit; otherwise
+  // the value is zero regardless of the exponent.
   private static final Pattern VALID_DESCRIPTOR = Pattern.compile(
-      "[1-9]\\d*+w|(?=[0-9.]*[1-9])(?:\\d++(?:\\.\\d*+)?|\\.\\d++)x"
+      "0*[1-9]\\d*w"
+      + "|(?:\\d*[1-9]\\d*(?:\\.\\d+)?|0+\\.\\d*[1-9]\\d*|\\.\\d*[1-9]\\d*)(?:[eE][+-]?\\d+)?x"
   );
 
   @Override

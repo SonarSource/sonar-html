@@ -53,3 +53,8 @@
 <!-- URLs may contain commas (e.g. data URIs) and must not be split on those commas -->
 <img src="logo.png" srcset="data:image/svg+xml,%3Csvg%3E 1x, logo-2x.png 2x" alt="My Logo">
 <img src="logo.png" srcset="data:image/svg+xml,%3Csvg%3E 400w, logo-2x.png 800w" sizes="100vw">
+
+<!-- HTML spec edge cases: leading zeros are allowed on widths, exponent notation on densities -->
+<img src="logo.png" srcset="logo.png 01w, logo-retina.png 200w" sizes="100vw"> <!-- 01w == 1w -->
+<img src="logo.png" srcset="logo.png 1e1x, logo-retina.png 2x" alt="My Logo"> <!-- 1e1x == 10x -->
+<img src="logo.png" srcset="logo.png 0.5e-2x, logo-retina.png 2x" alt="My Logo"> <!-- 0.5e-2 == 0.005x -->

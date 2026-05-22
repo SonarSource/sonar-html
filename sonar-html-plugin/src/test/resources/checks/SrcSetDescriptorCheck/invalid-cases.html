@@ -24,8 +24,12 @@
 <img srcset="logo.png 0x, logo-retina.png 2x" alt="My Logo"> <!-- 0x is invalid -->
 <img srcset="logo.png 0.0x, logo-retina.png 2x" alt="My Logo"> <!-- 0.0x is invalid -->
 <img srcset="logo.png .0x, logo-retina.png 2x" alt="My Logo"> <!-- .0x is invalid -->
-<img srcset="logo.png 00w, logo-retina.png 200w" alt="My Logo"> <!-- 00w has leading zero -->
-<img srcset="logo.png 00.000x, logo-retina.png 2x" alt="My Logo"> <!-- 00.000x is invalid -->
+<img srcset="logo.png 00w, logo-retina.png 200w" alt="My Logo"> <!-- 00w == 0 -->
+<img srcset="logo.png 00.000x, logo-retina.png 2x" alt="My Logo"> <!-- 00.000x == 0 -->
+
+<!-- Malformed density: per the HTML floating-point grammar, a '.' requires fractional digits -->
+<img srcset="logo.png 1.x, logo-retina.png 2x" alt="My Logo"> <!-- "1." is not a valid floating-point number -->
+<img srcset="logo.png 1.e0x, logo-retina.png 2x" alt="My Logo"> <!-- "1." still invalid before an exponent -->
 
 <!-- Multiple descriptors per candidate: at most one descriptor is allowed -->
 <img srcset="logo.png 1x 2x, logo-retina.png 2x" alt="My Logo"> <!-- '1x 2x' is two density descriptors -->

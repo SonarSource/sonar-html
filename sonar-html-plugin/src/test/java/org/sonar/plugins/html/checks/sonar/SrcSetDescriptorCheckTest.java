@@ -55,10 +55,12 @@ class SrcSetDescriptorCheckTest {
       .next().atLine(28).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"logo.png\".")
       .next().atLine(31).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"logo.png\".")
       .next().atLine(32).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"logo.png\".")
-      .next().atLine(33).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"logo.png\".")
-      .next().atLine(36).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"data:image/svg+xml,%3Csvg%3E\".")
-      .next().atLine(41).withMessage("Element \"source\" has no valid and explicit descriptor for srcset candidate \"hero.jpg\".")
-      .next().atLine(42).withMessage("Element \"source\" has no valid and explicit descriptor for srcset candidate \"hero.jpg\".")
+      .next().atLine(35).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"logo.png\".")
+      .next().atLine(36).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"logo.png\".")
+      .next().atLine(37).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"logo.png\".")
+      .next().atLine(40).withMessage("Element \"img\" has no valid and explicit descriptor for srcset candidate \"data:image/svg+xml,%3Csvg%3E\".")
+      .next().atLine(45).withMessage("Element \"source\" has no valid and explicit descriptor for srcset candidate \"hero.jpg\".")
+      .next().atLine(46).withMessage("Element \"source\" has no valid and explicit descriptor for srcset candidate \"hero.jpg\".")
       .noMore();
   }
 
