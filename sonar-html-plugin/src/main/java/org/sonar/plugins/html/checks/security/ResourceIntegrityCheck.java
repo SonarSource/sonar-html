@@ -26,7 +26,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5725")
 public class ResourceIntegrityCheck extends AbstractPageCheck {
 
-  private static final String MESSAGE = "Make sure not using resource integrity feature is safe here.";
+  private static final String MESSAGE = "Make sure using artifacts without integrity checks is safe here.";
   private static final Set<String> LINK_REL_VALUES = Set.of("stylesheet", "preload", "modulepreload");
 
   @Override
