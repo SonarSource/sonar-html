@@ -77,7 +77,7 @@ public final class HtmlSensor implements Sensor {
     this.noSonarFilter = noSonarFilter;
     this.checks = checkFactory.create(HtmlRulesDefinition.REPOSITORY_KEY).addAnnotatedChecks(CheckClasses.getCheckClasses());
     this.fileLinesContextFactory = fileLinesContextFactory;
-    this.analysisWarnings = analysisWarnings == null ? new AnalysisWarningsWrapper() : analysisWarnings;
+    this.analysisWarnings = analysisWarnings;
   }
 
   @Override
