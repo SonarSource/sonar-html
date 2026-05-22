@@ -128,6 +128,6 @@ public class Helpers {
    * @return true if {@code text} renders a Razor fragment, false otherwise
    */
   public static boolean containsRazorFragmentRendering(String text) {
-    return text != null && RAZOR_FRAGMENT_RENDERING.matcher(text).find();
+    return RAZOR_FRAGMENT_RENDERING.matcher(text).find();
   }
 }
