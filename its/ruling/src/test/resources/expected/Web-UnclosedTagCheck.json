@@ -1,13 +1,22 @@
 {
 "project:Silverpeas-Core-master/it-test-core/src/test/resources/com/silverpeas/converter/wysiwyg2.html": [
 27,
+27,
+74,
 74,
 78,
+78,
+88,
 88,
 94,
+94,
+99,
 99,
 108,
+108,
 112,
+112,
+115,
 115
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
@@ -40,6 +49,8 @@
 42
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
+118,
+119,
 120,
 126
 ],
@@ -88,6 +99,7 @@
 82
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp": [
+70,
 78,
 81,
 84,
