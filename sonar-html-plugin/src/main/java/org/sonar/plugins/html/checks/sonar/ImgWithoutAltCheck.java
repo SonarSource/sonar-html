@@ -97,8 +97,8 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
    */
   private static boolean hasNonEmptyAttribute(TagNode node, String attributeName) {
     String value = node.getPropertyValue(attributeName);
-    if (value != null) {
-      return !value.trim().isEmpty();
+    if (value != null && !value.trim().isEmpty()) {
+      return true;
     }
 
     String thymeleafValue = node.getAttribute("th:" + attributeName.toLowerCase(Locale.ROOT));

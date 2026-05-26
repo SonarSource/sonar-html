@@ -12,3 +12,10 @@
 <area th:attr="aria-labelledby=' '">
 <img th:attr="src=@{/logo.png}, title=#{logo}, alt=#{logo}" />
 <input type="image" th:attr="src=@{/logo.png}, title=#{logo}, alt = ' '" />
+<input type="image" alt="" th:alt="#{logo}" />
+<input type="image" alt="" th:attr="alt=#{logo}" />
+<input type="image" aria-label="" th:attr="aria-label=#{label}" />
+<area aria-labelledby="" th:attr="aria-labelledby=#{label}">
+<img aria-label="" th:attr="aria-label=#{label}" />
+<input type="image" alt="" th:alt="" />
+<input type="image" aria-label="" th:attr="aria-label=''">
