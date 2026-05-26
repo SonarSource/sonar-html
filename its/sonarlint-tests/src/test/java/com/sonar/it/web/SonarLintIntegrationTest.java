@@ -19,22 +19,22 @@ package com.sonar.it.web;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-import com.sonar.orchestrator.locator.FileLocation;
-import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
+import org.junit.jupiter.api.io.TempDir;
 import org.sonarsource.sonarlint.core.rpc.protocol.backend.file.DidOpenFileParams;
 import org.sonarsource.sonarlint.core.rpc.protocol.backend.file.DidUpdateFileSystemParams;
 import org.sonarsource.sonarlint.core.rpc.protocol.client.issue.RaisedIssueDto;
 import org.sonarsource.sonarlint.core.rpc.protocol.common.ClientFileDto;
-import org.junit.jupiter.api.io.TempDir;
-
 import org.sonarsource.sonarlint.core.test.utils.SonarLintBackendFixture;
 import org.sonarsource.sonarlint.core.test.utils.SonarLintTestRpcServer;
 import org.sonarsource.sonarlint.core.test.utils.junit5.SonarLintTest;
@@ -44,6 +44,7 @@ import org.sonarsource.sonarlint.core.test.utils.plugins.Plugin;
 class SonarLintIntegrationTest {
 
   private static final String CONFIG_SCOPE_ID = "CONFIG_SCOPE_ID";
+  private static final Pattern PLUGIN_FILENAME = Pattern.compile("sonar-html-plugin-[0-9.]*(?:-SNAPSHOT)?\\.jar");
   private SonarLintBackendFixture.FakeSonarLintRpcClient client;
   private SonarLintTestRpcServer backend;
 
@@ -61,13 +62,13 @@ class SonarLintIntegrationTest {
       assertThat(results.get(2).getRuleKey()).isEqualTo("Web:PageWithoutTitleCheck");
     });
 
-    triggerAnalysisByFileChanged(fileDTO, "<!DOCTYPE html><html lang=\"en\"><head><title>Title</title></head>\n<body>\n<a href=\"foo.png\">a</a>\n</body>\n</html>\n");
+    triggerAnalysisByFileChanged(
+      fileDTO,
+      "<!DOCTYPE html><html lang=\"en\"><head><title>Title</title></head>\n<body>\n<a href=\"foo.png\">a</a>\n</body>\n</html>\n"
+    );
 
-    assertResults(results -> {
-      assertThat(results).isEmpty();
-    });
+    assertResults(results -> assertThat(results).isEmpty());
   }
-
 
   private static ClientFileDto createFile(Path folderPath, String fileName, String content) {
     var filePath = folderPath.resolve(fileName);
@@ -120,13 +121,28 @@ class SonarLintIntegrationTest {
       .withStandaloneEmbeddedPluginAndEnabledLanguage(
         new Plugin(
           Set.of(org.sonarsource.sonarlint.core.rpc.protocol.common.Language.HTML),
-          FileLocation.byWildcardMavenFilename(new File("../../sonar-html-plugin/target"), "sonar-html-plugin-*.jar").getFile().toPath(),
+          pluginArtifact(),
           "",
           ""
         )
       )
       .withUnboundConfigScope(CONFIG_SCOPE_ID)
       .start(client);
+  }
+
+  private static Path pluginArtifact() {
+    try {
+      var target = Path.of("../../sonar-html-plugin/target").toRealPath();
+      try (var stream = Files.walk(target, 1)) {
+        return stream
+          .filter(Files::isRegularFile)
+          .filter(path -> PLUGIN_FILENAME.matcher(path.getFileName().toString()).matches())
+          .max(Comparator.comparing(path -> path.toFile().lastModified()))
+          .orElseThrow(() -> new IllegalStateException("Cannot find plugin artifact in " + target));
+      }
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
   }
 
   private void assertResults(Consumer<List<RaisedIssueDto>> assertionLambda) {
@@ -138,4 +154,3 @@ class SonarLintIntegrationTest {
       });
   }
 }
-

@@ -15,6 +15,7 @@
 
   <modules>
     <module>plugin</module>
+    <module>sonarlint-tests</module>
     <module>ruling</module>
   </modules>
 
