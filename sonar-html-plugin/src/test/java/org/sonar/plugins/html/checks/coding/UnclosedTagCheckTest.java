@@ -51,6 +51,7 @@ class UnclosedTagCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(3).withMessage("The tag \"li\" has no corresponding closing tag.")
       .next().atLine(4).withMessage("The tag \"li\" has no corresponding closing tag.")
       .next().atLine(7).withMessage("The tag \"br\" has no corresponding closing tag.")
       .next().atLine(8).withMessage("The tag \"wbr\" has no corresponding closing tag.")
@@ -95,6 +96,47 @@ class UnclosedTagCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("The tag \"bar\" has no corresponding closing tag.")
       .noMore();
+  }
+
+  @Test
+  void nested_unclosed_tags_are_all_reported() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/nested-unclosed-tags.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("The tag \"bar\" has no corresponding closing tag.")
+      .next().atLine(3).withMessage("The tag \"baz\" has no corresponding closing tag.")
+      .noMore();
+  }
+
+  @Test
+  void unopened_php_closing_tag_with_default_ignore_tags_does_not_report_previous_open_tag() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/unopened-closing-tag-default-ignored.php"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  void stray_close_followed_by_proper_close_reports_inner_tag_once() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/stray-close-then-proper-close.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("The tag \"span\" has no corresponding closing tag.")
+      .noMore();
+  }
+
+  @Test
+  void repeated_unopened_closing_tags_report_nothing() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/repeated-stray-closers.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
   @Test

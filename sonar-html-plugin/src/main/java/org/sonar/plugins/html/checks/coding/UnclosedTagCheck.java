@@ -81,7 +81,9 @@ public class UnclosedTagCheck extends AbstractPageCheck {
       }
 
       if (matchingNodeIndex >= 0) {
-        createViolation(previousNode, "The tag \"" + previousNode.getNodeName() + "\" has no corresponding closing tag.");
+        for (TagNode unclosed : nodes.subList(0, matchingNodeIndex)) {
+          createViolation(unclosed, "The tag \"" + unclosed.getNodeName() + "\" has no corresponding closing tag.");
+        }
         nodes.subList(0, matchingNodeIndex + 1).clear();
       }
     }
