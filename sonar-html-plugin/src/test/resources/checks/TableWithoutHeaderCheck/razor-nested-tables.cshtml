@@ -1,0 +1,10 @@
+<!-- Non-Compliant outer table: fragment is rendered inside the inner table only -->
+<table>
+  <tr>
+    <td>
+      <table>
+        @RenderBody()
+      </table>
+    </td>
+  </tr>
+</table>

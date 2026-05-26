@@ -51,7 +51,7 @@ class TableWithoutHeaderCheckTest {
       new TableWithoutHeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(48).withMessage("Add \"<th>\" headers to this \"<table>\".");
+      .next().atLine(39).withMessage("Add \"<th>\" headers to this \"<table>\".");
   }
 
   @Test
@@ -73,5 +73,91 @@ class TableWithoutHeaderCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".")
       .next().atLine(6).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void razor_partial_in_td_still_raises() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-partial-in-td.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void razor_nested_tables_only_suppresses_the_nearest() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-nested-tables.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void razor_code_block_fragment_rendering_is_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-code-block.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
+  void razor_partial_tag_helper_is_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-partial-tag-helper.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
+  void razor_partial_tag_helper_in_td_still_raises() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-partial-tag-helper-in-td.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void razor_explicit_expression_fragment_rendering_is_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-explicit-expression.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
+  void razor_view_component_fragment_rendering_is_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-view-component.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
+  void razor_server_side_comment_does_not_suppress() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-commented-render.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void razor_escaped_at_does_not_suppress() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-escaped-at.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
   }
 }

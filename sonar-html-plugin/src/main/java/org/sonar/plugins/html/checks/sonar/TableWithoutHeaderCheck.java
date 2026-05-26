@@ -43,7 +43,12 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     }
     for (Node node : nodes) {
       if (node.getNodeType() == NodeType.TEXT && Helpers.containsRazorFragmentRendering(node.getCode())) {
-        markEnclosingTables((TextNode) node);
+        markNearestTable(((TextNode) node).getParent());
+      } else if (node.getNodeType() == NodeType.TAG) {
+        TagNode tag = (TagNode) node;
+        if (!tag.isEndElement() && Helpers.isRazorFragmentTagHelper(tag)) {
+          markNearestTable(tag.getParent());
+        }
       }
     }
   }
@@ -57,18 +62,33 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   }
 
   /**
-   * Marks every {@code <table>} ancestor of the given text node as containing a Razor fragment-rendering expression.
+   * Marks the nearest enclosing {@code <table>} as containing a Razor fragment-rendering placeholder,
+   * but only when the placeholder sits at a structural table position
+   * ({@code <table>}, {@code <thead>}, {@code <tbody>}, or {@code <tr>}). Placeholders inside
+   * {@code <td>}/{@code <th>}/caption/etc. render cell content, not headers, and must not suppress
+   * the enclosing table's violation.
    *
-   * @param textNode a text node that already matched a Razor fragment-rendering pattern
+   * @param parent the immediate parent of the placeholder (TextNode or tag-helper)
    */
-  private void markEnclosingTables(TextNode textNode) {
-    TagNode parent = textNode.getParent();
-    while (parent != null) {
-      if (isTable(parent)) {
-        tablesWithRazorFragmentRendering.add(parent);
-      }
-      parent = parent.getParent();
+  private void markNearestTable(TagNode parent) {
+    if (parent == null || !isStructuralTableContext(parent)) {
+      return;
     }
+    TagNode table = parent;
+    while (table != null && !isTable(table)) {
+      table = table.getParent();
+    }
+    if (table != null) {
+      tablesWithRazorFragmentRendering.add(table);
+    }
+  }
+
+  private static boolean isStructuralTableContext(TagNode node) {
+    String name = node.getNodeName();
+    return "TABLE".equalsIgnoreCase(name)
+      || "THEAD".equalsIgnoreCase(name)
+      || "TBODY".equalsIgnoreCase(name)
+      || "TR".equalsIgnoreCase(name);
   }
 
   private static boolean isTable(TagNode node) {

@@ -24,7 +24,7 @@
 </table>
 
 <table>
-  @Html.RenderPartial("_TableContents")
+  @{ Html.RenderPartial("_TableContents"); }
 </table>
 
 <table>
@@ -32,16 +32,7 @@
 </table>
 
 <table>
-  @await Html.RenderPartialAsync("_TableContents")
-</table>
-
-<!-- Compliant: rendering nested deeper inside the table -->
-<table>
-  <tbody>
-    <tr>
-      <td>@Html.Partial("_Row")</td>
-    </tr>
-  </tbody>
+  @{ await Html.RenderPartialAsync("_TableContents"); }
 </table>
 
 <!-- Non-Compliant: no headers, no fragment rendering -->
