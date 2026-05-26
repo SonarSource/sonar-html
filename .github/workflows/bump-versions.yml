@@ -29,7 +29,7 @@ jobs:
           # Update root pom.xml version
           sed -i "s/<version>.*-SNAPSHOT<\/version>/<version>${snapshot_version}<\/version>/" pom.xml
           # Update parent version references in submodules
-          for pom in sonar-html-plugin/pom.xml coverage-report/pom.xml its/pom.xml its/plugin/pom.xml its/ruling/pom.xml; do
+          for pom in sonar-html-plugin/pom.xml coverage-report/pom.xml its/pom.xml its/plugin/pom.xml its/sonarlint-tests/pom.xml its/ruling/pom.xml; do
             if [ -f "$pom" ]; then
               # Only update the parent version reference (first occurrence)
               sed -i "0,/<version>.*-SNAPSHOT<\/version>/s/<version>.*-SNAPSHOT<\/version>/<version>${snapshot_version}<\/version>/" "$pom"

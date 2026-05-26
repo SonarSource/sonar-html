@@ -44,7 +44,6 @@ import static java.util.Collections.singletonList;
   FileSuffixesTest.class,
   StandardMeasuresTest.class,
   VariousTest.class,
-  SonarLintIntegrationTest.class,
   PhpFilesTest.class
 })
 public class HtmlTestSuite {
