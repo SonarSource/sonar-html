@@ -77,6 +77,27 @@ class UnclosedTagCheckTest {
   }
 
   @Test
+  void unopened_php_closing_tag_does_not_report_previous_open_tag() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+    check.ignoreTags = "html";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/unopened-closing-tag.php"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  void mismatched_closing_tag_still_reports_actual_unclosed_tag() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/mismatched-closing-tag.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("The tag \"bar\" has no corresponding closing tag.")
+      .noMore();
+  }
+
+  @Test
   void cshtml_are_ignored_by_the_rule() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"), check);

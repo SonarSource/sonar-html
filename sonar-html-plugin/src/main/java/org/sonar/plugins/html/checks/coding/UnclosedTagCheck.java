@@ -66,17 +66,23 @@ public class UnclosedTagCheck extends AbstractPageCheck {
       return;
     }
     if (isNotIgnoreTag(element) && !nodes.isEmpty()) {
-      TagNode previousNode = nodes.remove(0);
-      if (!previousNode.getNodeName().equals(element.getNodeName())) {
-        createViolation(previousNode, "The tag \"" + previousNode.getNodeName() + "\" has no corresponding closing tag.");
-        List<TagNode> rollup = new ArrayList<>();
-        for (TagNode node : nodes) {
-          rollup.add(node);
-          if (node.getNodeName().equals(element.getNodeName())) {
-            nodes.removeAll(rollup);
-            break;
-          }
+      TagNode previousNode = nodes.get(0);
+      if (previousNode.getNodeName().equals(element.getNodeName())) {
+        nodes.remove(0);
+        return;
+      }
+
+      int matchingNodeIndex = -1;
+      for (int i = 1; i < nodes.size(); i++) {
+        if (nodes.get(i).getNodeName().equals(element.getNodeName())) {
+          matchingNodeIndex = i;
+          break;
         }
+      }
+
+      if (matchingNodeIndex >= 0) {
+        createViolation(previousNode, "The tag \"" + previousNode.getNodeName() + "\" has no corresponding closing tag.");
+        nodes.subList(0, matchingNodeIndex + 1).clear();
       }
     }
   }
