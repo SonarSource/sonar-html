@@ -41,39 +41,55 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     if (!isRazorFile()) {
       return;
     }
-    int depth = 0;
-    int sectionStartLine = -1;
+    ScanState state = new ScanState();
     for (Node node : nodes) {
-      if (!(node instanceof TextNode)) {
-        continue;
-      }
-      String code = ((TextNode) node).getCode();
-      int baseLine = node.getStartLinePosition();
-      int pos = 0;
-      while (pos < code.length()) {
-        if (depth == 0) {
-          Matcher m = RAZOR_SECTION_OPEN.matcher(code);
-          if (!m.find(pos)) {
-            break;
-          }
-          sectionStartLine = baseLine + countNewlines(code, 0, m.start());
-          depth = 1;
-          pos = m.end();
-        } else {
-          char c = code.charAt(pos);
-          if (c == '{') {
-            depth++;
-          } else if (c == '}') {
-            depth--;
-            if (depth == 0) {
-              razorSectionRanges.add(new int[] { sectionStartLine, baseLine + countNewlines(code, 0, pos) });
-              sectionStartLine = -1;
-            }
-          }
-          pos++;
-        }
+      if (node instanceof TextNode textNode) {
+        scanForSections(textNode, state);
       }
     }
+  }
+
+  private void scanForSections(TextNode textNode, ScanState state) {
+    String code = textNode.getCode();
+    int baseLine = textNode.getStartLinePosition();
+    int pos = 0;
+    while (pos < code.length()) {
+      pos = (state.depth == 0)
+        ? enterSectionIfFound(code, pos, baseLine, state)
+        : advanceBraceDepth(code, pos, baseLine, state);
+      if (pos < 0) {
+        return;
+      }
+    }
+  }
+
+  private static int enterSectionIfFound(String code, int pos, int baseLine, ScanState state) {
+    Matcher m = RAZOR_SECTION_OPEN.matcher(code);
+    if (!m.find(pos)) {
+      return -1;
+    }
+    state.sectionStartLine = baseLine + countNewlines(code, 0, m.start());
+    state.depth = 1;
+    return m.end();
+  }
+
+  private int advanceBraceDepth(String code, int pos, int baseLine, ScanState state) {
+    char c = code.charAt(pos);
+    if (c == '{') {
+      state.depth++;
+    } else if (c == '}') {
+      state.depth--;
+      if (state.depth == 0) {
+        razorSectionRanges.add(new int[] { state.sectionStartLine, baseLine + countNewlines(code, 0, pos) });
+        state.sectionStartLine = -1;
+      }
+    }
+    return pos + 1;
+  }
+
+  private static final class ScanState {
+    int depth;
+    int sectionStartLine = -1;
   }
 
   @Override
