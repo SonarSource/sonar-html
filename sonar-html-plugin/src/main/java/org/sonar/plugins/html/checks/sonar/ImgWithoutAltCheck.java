@@ -170,8 +170,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
       }
 
       switch (currentCharacter) {
-        case '\'':
-        case '\"':
+        case '\'', '\"':
           quotedBy = currentCharacter;
           currentAssignment.append(currentCharacter);
           break;
