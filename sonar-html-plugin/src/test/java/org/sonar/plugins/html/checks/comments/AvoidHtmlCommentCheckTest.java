@@ -34,9 +34,10 @@ class AvoidHtmlCommentCheckTest {
 
   static Stream<Arguments> provideFileAndLines() {
     return Stream.of(
-            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp", new int[]{2, 4}),
-            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.php", new int[]{6}),
-            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.html.erb", new int[]{6}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.jsp", new int[]{}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document-interpolation.jsp", new int[]{4, 5, 6, 7, 8, 9, 13}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.php", new int[]{7, 8}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.html.erb", new int[]{7}),
             Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.html", new int[]{}),
             Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/documenthtml5.html", new int[]{}),
             Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml", new int[]{}),

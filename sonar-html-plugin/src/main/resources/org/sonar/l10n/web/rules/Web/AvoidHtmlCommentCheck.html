@@ -1,36 +1,34 @@
-<p>Using HTML-style comments in a page that will be generated or interpolated server-side before being served to the user increases the risk of
-exposing data that should be kept private. For instance, a developer comment or line of debugging information that’s left in a page could easily (and
-has) inadvertently expose:</p>
+<p>HTML comments in a server-side page that embed dynamic, server-side values (<code>${…​}</code>, <code>&lt;%= …​ %&gt;</code>, <code>&lt;% …​
+%&gt;</code>, <code>{{ …​ }}</code>, <code>{% …​ %}</code>, <code>&lt;?= …​ ?&gt;</code>, <code>&lt;?php …​ ?&gt;</code>) increase the risk of
+exposing data that should be kept private. The interpolated value is unknown at analysis time and could leak:</p>
 <ul>
   <li>Version numbers and host names</li>
   <li>Full, server-side path names</li>
   <li>Sensitive user data</li>
 </ul>
-<p>Every other language has its own native comment format, thus there is no justification for using HTML-style comments in anything other than a pure
-HTML or XML file.</p>
+<p>Static HTML comments are not flagged by this rule, since they cannot carry server-side data into the rendered page. Comments that interpolate
+server-side values are flagged because the analyzer cannot tell whether the interpolated variable is sensitive.</p>
 <h2>Ask Yourself Whether</h2>
 <ul>
-  <li>The comment contains sensitive information.</li>
-  <li>The comment can be removed.</li>
+  <li>The interpolated value could ever contain sensitive information.</li>
+  <li>The comment can be removed or moved to a server-side-only comment syntax.</li>
 </ul>
 <h2>Recommended Secure Coding Practices</h2>
-<p>It is recommended to remove the comment or change its style so that it is not output to the client.</p>
+<p>Remove the comment or rewrite it using a server-side-only comment syntax (for example <code>&lt;%-- …​ --%&gt;</code> in JSP/ERB) so that the
+comment - and any interpolated value - never reaches the client.</p>
 <h2>Sensitive Code Example</h2>
 <pre>
   &lt;%
       out.write("&lt;!-- ${username} --&gt;");  // Sensitive
   %&gt;
       &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Sensitive
-      &lt;!-- #{userPhone} --&gt;  // Sensitive
       &lt;!-- ${userAddress} --&gt; // Sensitive
-
-      &lt;!-- Replace 'world' with name --&gt; // Sensitive
-      &lt;h2&gt;Hello world!&lt;/h2&gt;
+      &lt;!-- {{ userPhone }} --&gt; // Sensitive
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-      &lt;%-- Replace 'world' with name --%&gt;  // Compliant
-      &lt;h2&gt;Hello world!&lt;/h2&gt;
+      &lt;%-- ${userAddress} --%&gt;  // Compliant: server-side-only comment, not emitted to the client
+      &lt;!-- Static reminder, no server-side interpolation --&gt; // Compliant
 </pre>
 <h2>See</h2>
 <ul>

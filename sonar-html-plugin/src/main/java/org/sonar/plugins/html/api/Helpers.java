@@ -40,6 +40,10 @@ public class Helpers {
     "\\b(?:Html\\.RenderPartial(?:Async)?" +
       "|Html\\.RenderAction)" +
       "\\s*\\(");
+      
+  private static final Pattern RAZOR_EXPRESSION = Pattern.compile("(?<!@)@(?!@)");
+  
+  private static final String[] DYNAMIC_MARKERS = {"<?php", "{{", "{%", "<?=", "${", "<%"};
 
   private Helpers() {
   }
@@ -52,9 +56,27 @@ public class Helpers {
   }
 
   public static boolean isDynamicValue(String value, HtmlSourceCode code) {
-    return value.startsWith("<?php") || value.startsWith("{{") || value.startsWith("{%") || value.startsWith("<?=") ||
-            value.startsWith("${") || value.startsWith("<%") ||
-            (isCshtmlFile(code) && Pattern.compile("(?<!@)@(?!@)").matcher(value).find());
+    for (String marker : DYNAMIC_MARKERS) {
+      if (value.startsWith(marker)) {
+        return true;
+      }
+    }
+    return isCshtmlFile(code) && RAZOR_EXPRESSION.matcher(value).find();
+  }
+
+  /**
+   * Returns true when the value contains a server-side interpolation marker anywhere within it.
+   * @param value the string to inspect
+   * @param code the source code context, used to enable Razor detection on .cshtml files
+   * @return true if any supported interpolation marker is present
+   */
+  public static boolean containsDynamicValue(String value, HtmlSourceCode code) {
+    for (String marker : DYNAMIC_MARKERS) {
+      if (value.contains(marker)) {
+        return true;
+      }
+    }
+    return isCshtmlFile(code) && RAZOR_EXPRESSION.matcher(value).find();
   }
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {
