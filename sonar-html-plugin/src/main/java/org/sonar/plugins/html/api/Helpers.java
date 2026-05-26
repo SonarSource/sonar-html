@@ -92,11 +92,7 @@ public class Helpers {
   }
   
   /**
-   * Returns true when the source file uses Razor syntax, regardless of the
-   * back-end language. Razor ships with two extensions: {@code .cshtml}
-   * (C#) and {@code .vbhtml} (VB.NET). Both share the same {@code @}-based
-   * template syntax and can therefore exhibit the same false positives in
-   * rules that only look at HTML structure.
+   * Returns true when the source file uses Razor syntax (.cshtml or .vbhtml).
    *
    * @param code the source under analysis
    * @return true if the file is a Razor view, false otherwise
@@ -107,22 +103,7 @@ public class Helpers {
   }
 
   /**
-   * Returns true when the given text contains a Razor expression that
-   * injects markup produced elsewhere — a layout body, a named section,
-   * or a partial view. These are the Razor counterparts to Thymeleaf's
-   * {@code th:insert}/{@code th:include}/{@code th:replace}: the structure
-   * around them cannot be judged in isolation, because the missing parts
-   * live in a different file.
-   *
-   * Recognised forms:
-   * <ul>
-   *   <li>{@code @RenderBody()}</li>
-   *   <li>{@code @RenderSection("name")} / {@code @RenderSection("name", required: false)}</li>
-   *   <li>{@code @RenderPage("path")}</li>
-   *   <li>{@code @Html.Partial(...)} / {@code @Html.RenderPartial(...)}</li>
-   *   <li>{@code @Html.PartialAsync(...)} / {@code @Html.RenderPartialAsync(...)}</li>
-   *   <li>{@code @await Html.PartialAsync(...)} / {@code @await Html.RenderPartialAsync(...)}</li>
-   * </ul>
+   * Returns true when the given text contains a Razor expression that renders a body, section, page, or partial.
    *
    * @param text the text fragment to inspect
    * @return true if {@code text} renders a Razor fragment, false otherwise

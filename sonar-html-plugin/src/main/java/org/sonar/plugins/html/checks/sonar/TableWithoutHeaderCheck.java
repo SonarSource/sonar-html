@@ -57,9 +57,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   }
 
   /**
-   * Records every {@code <table>} ancestor of the given text node, so that
-   * the violation can later be suppressed for tables whose interior is
-   * provided by a Razor layout, section, or partial view.
+   * Marks every {@code <table>} ancestor of the given text node as containing a Razor fragment-rendering expression.
    *
    * @param textNode a text node that already matched a Razor fragment-rendering pattern
    */
