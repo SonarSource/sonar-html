@@ -44,12 +44,11 @@ public class Helpers {
   }
 
   /**
-   * Walks the ancestor chain of {@code node} and returns true as soon as any
-   * ancestor matches {@code predicate}.
+   * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
    * @param node the tag node whose ancestors are inspected
    * @param predicate the test applied to each ancestor
-   * @return true if any ancestor satisfies the predicate, false otherwise
+   * @return true if any ancestor satisfies the predicate
    */
   public static boolean hasAncestorMatching(TagNode node, Predicate<TagNode> predicate) {
     TagNode parent = node.getParent();
@@ -63,22 +62,11 @@ public class Helpers {
   }
 
   /**
-   * Returns true if the given node has an ancestor that supplies the
-   * surrounding container itself (rather than being part of the inline
-   * source). Only narrow, container-providing scopes are recognised:
-   *
-   * - HTML {@code <template>} element (HTML5 dynamic composition)
-   * - Angular {@code <ng-template>}
-   * - ASP.NET WebForms server controls ({@code asp:Repeater},
-   *   {@code asp:DataList}, etc.) — their HeaderTemplate/FooterTemplate
-   *   pair provably wraps the ItemTemplate content.
-   *
-   * Pure control-flow or no-op wrapper tags ({@code c:if}, {@code th:block},
-   * {@code jsp:include}, …) are NOT treated as template scopes — they don't
-   * supply a container of their own.
+   * Returns true if {@code node} has a template-like ancestor: HTML {@code <template>},
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
    *
    * @param node the tag node whose ancestors are inspected
-   * @return true if any ancestor matches a template-like scope, false otherwise
+   * @return true if any ancestor matches a template-like scope
    */
   public static boolean hasTemplateAncestor(TagNode node) {
     return hasAncestorMatching(node, Helpers::isTemplateLikeTag);

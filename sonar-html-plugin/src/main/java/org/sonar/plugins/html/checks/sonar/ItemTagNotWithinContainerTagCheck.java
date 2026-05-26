@@ -37,15 +37,11 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
   }
 
   /**
-   * Returns true when the node sits at the document root of a Razor file
-   * ({@code .cshtml} / {@code .vbhtml}). Razor sectioning (e.g.
-   * {@code @section foo { <li>…</li> }}) is parsed as text rather than tags,
-   * so the item ends up at the document root even though its container
-   * lives in a layout file. We can't see cross-file, so root-level items
-   * in Razor files are treated as partials and suppressed.
+   * Returns true when {@code node} has no tag ancestors and the file is Razor
+   * ({@code .cshtml} / {@code .vbhtml}).
    *
    * @param node the tag node whose location is inspected
-   * @return true when {@code node} has no tag ancestors and the file is Razor
+   * @return true when {@code node} sits at the root of a Razor file
    */
   private boolean isRazorPartialRoot(TagNode node) {
     if (node.getParent() != null) {
