@@ -61,4 +61,17 @@ class ImgWithoutAltCheckTest {
       .next().atLine(11)
       .next().atLine(12);
   }
+
+  @Test
+  void rejectsEmptyThymeleafAlternativeText() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckThymeleaf.html"), new ImgWithoutAltCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(5).withMessage(MESSAGE)
+      .next().atLine(6)
+      .next().atLine(8)
+      .next().atLine(10)
+      .next().atLine(12)
+      .next().atLine(14);
+  }
 }
