@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -68,9 +69,10 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
    * {@code <td>}/{@code <th>}/caption/etc. render cell content, not headers, and must not suppress
    * the enclosing table's violation.
    *
-   * @param parent the immediate parent of the placeholder (TextNode or tag-helper)
+   * @param parent the immediate parent of the placeholder (TextNode or tag-helper), or null when the
+   *               placeholder is at document root (PageLexer leaves the parent unset for top-level nodes)
    */
-  private void markNearestTable(TagNode parent) {
+  private void markNearestTable(@Nullable TagNode parent) {
     if (parent == null || !isStructuralTableContext(parent)) {
       return;
     }

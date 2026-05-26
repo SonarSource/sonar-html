@@ -18,6 +18,8 @@ package org.sonar.plugins.html.checks.sonar;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -95,19 +97,17 @@ class TableWithoutHeaderCheckTest {
       .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
   }
 
-  @Test
-  void razor_code_block_fragment_rendering_is_compliant() {
+  @ParameterizedTest
+  @ValueSource(strings = {
+    "razor-code-block.cshtml",
+    "razor-partial-tag-helper.cshtml",
+    "razor-explicit-expression.cshtml",
+    "razor-view-component.cshtml",
+    "razor-tfoot-fragment.cshtml",
+  })
+  void razor_fragment_rendering_at_structural_position_is_compliant(String fixture) {
     HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-code-block.cshtml"),
-      new TableWithoutHeaderCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
-  }
-
-  @Test
-  void razor_partial_tag_helper_is_compliant() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-partial-tag-helper.cshtml"),
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/" + fixture),
       new TableWithoutHeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues());
@@ -121,24 +121,6 @@ class TableWithoutHeaderCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
-  }
-
-  @Test
-  void razor_explicit_expression_fragment_rendering_is_compliant() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-explicit-expression.cshtml"),
-      new TableWithoutHeaderCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
-  }
-
-  @Test
-  void razor_view_component_fragment_rendering_is_compliant() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-view-component.cshtml"),
-      new TableWithoutHeaderCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
@@ -159,15 +141,6 @@ class TableWithoutHeaderCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
-  }
-
-  @Test
-  void razor_tfoot_fragment_rendering_is_compliant() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-tfoot-fragment.cshtml"),
-      new TableWithoutHeaderCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues());
   }
 
   @Test
