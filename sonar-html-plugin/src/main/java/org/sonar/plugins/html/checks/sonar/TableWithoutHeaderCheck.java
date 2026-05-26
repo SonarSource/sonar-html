@@ -64,7 +64,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   /**
    * Marks the nearest enclosing {@code <table>} as containing a Razor fragment-rendering placeholder,
    * but only when the placeholder sits at a structural table position
-   * ({@code <table>}, {@code <thead>}, {@code <tbody>}, or {@code <tr>}). Placeholders inside
+   * ({@code <table>}, {@code <thead>}, {@code <tbody>}, {@code <tfoot>}, or {@code <tr>}). Placeholders inside
    * {@code <td>}/{@code <th>}/caption/etc. render cell content, not headers, and must not suppress
    * the enclosing table's violation.
    *
@@ -88,6 +88,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     return "TABLE".equalsIgnoreCase(name)
       || "THEAD".equalsIgnoreCase(name)
       || "TBODY".equalsIgnoreCase(name)
+      || "TFOOT".equalsIgnoreCase(name)
       || "TR".equalsIgnoreCase(name);
   }
 

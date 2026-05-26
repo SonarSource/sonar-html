@@ -160,4 +160,23 @@ class TableWithoutHeaderCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
   }
+
+  @Test
+  void razor_tfoot_fragment_rendering_is_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-tfoot-fragment.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues());
+  }
+
+  @Test
+  void razor_bare_vc_prefix_does_not_suppress() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-bare-vc-prefix.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
 }

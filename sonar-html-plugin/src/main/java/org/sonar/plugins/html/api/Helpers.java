@@ -142,6 +142,7 @@ public class Helpers {
   public static boolean isRazorFragmentTagHelper(TagNode node) {
     String name = node.getNodeName();
     return name != null
-      && ("partial".equalsIgnoreCase(name) || name.regionMatches(true, 0, "vc:", 0, 3));
+      && ("partial".equalsIgnoreCase(name)
+        || (name.length() > 3 && name.regionMatches(true, 0, "vc:", 0, 3)));
   }
 }
