@@ -19,6 +19,8 @@ package org.sonar.plugins.html.checks.coding;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -70,14 +72,6 @@ class UnclosedTagCheckTest {
   }
 
   @Test
-  void twig_template_no_false_positives() {
-    UnclosedTagCheck check = new UnclosedTagCheck();
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/twig-file.twig"), check);
-
-    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
-  }
-
-  @Test
   void unopened_php_closing_tag_does_not_report_previous_open_tag() {
     UnclosedTagCheck check = new UnclosedTagCheck();
     check.ignoreTags = "html";
@@ -111,15 +105,6 @@ class UnclosedTagCheckTest {
   }
 
   @Test
-  void unopened_php_closing_tag_with_default_ignore_tags_does_not_report_previous_open_tag() {
-    UnclosedTagCheck check = new UnclosedTagCheck();
-
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/unopened-closing-tag-default-ignored.php"), check);
-
-    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
-  }
-
-  @Test
   void stray_close_followed_by_proper_close_reports_inner_tag_once() {
     UnclosedTagCheck check = new UnclosedTagCheck();
 
@@ -130,20 +115,16 @@ class UnclosedTagCheckTest {
       .noMore();
   }
 
-  @Test
-  void repeated_unopened_closing_tags_report_nothing() {
+  @ParameterizedTest
+  @ValueSource(strings = {
+    "src/test/resources/checks/UnclosedTagCheck/twig-file.twig",
+    "src/test/resources/checks/UnclosedTagCheck/unopened-closing-tag-default-ignored.php",
+    "src/test/resources/checks/UnclosedTagCheck/repeated-stray-closers.html",
+    "src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"
+  })
+  void files_with_no_unclosed_tag_issues(String file) {
     UnclosedTagCheck check = new UnclosedTagCheck();
-
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/repeated-stray-closers.html"), check);
-
-    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
-  }
-
-  @Test
-  void cshtml_are_ignored_by_the_rule() {
-    UnclosedTagCheck check = new UnclosedTagCheck();
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"), check);
-
+    HtmlSourceCode sourceCode = TestHelper.scan(new File(file), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
