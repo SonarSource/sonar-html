@@ -50,6 +50,11 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
   }
 
   private void scanForSections(TextNode textNode, ScanState state) {
+    // TextNodes inside an HTML element are body content. Any { or } there is
+    // literal text (e.g. `<p>}</p>`) and must not affect Razor section depth.
+    if (textNode.getParent() != null) {
+      return;
+    }
     String code = textNode.getCode();
     int baseLine = textNode.getStartLinePosition();
     int pos = 0;

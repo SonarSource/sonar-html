@@ -7,6 +7,11 @@
   <dt>Term</dt>                   <!-- Compliant - inside @section -->
 }
 
+@section withLiteralBraces {
+  <p>literal close: }</p>         <!-- Compliant - the } here is HTML body text, not Razor -->
+  <li>still inside @section</li>  <!-- Compliant - section is not closed by the literal } -->
+}
+
 <li>bare item at root</li>        <!-- Non-Compliant - bare root-level <li> in .cshtml -->
 
 <dt>bare definition term</dt>     <!-- Non-Compliant - bare root-level <dt> in .cshtml -->
