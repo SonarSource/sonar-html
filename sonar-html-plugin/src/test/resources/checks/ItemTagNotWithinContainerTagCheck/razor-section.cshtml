@@ -1,12 +1,20 @@
 @section tabs {
-  <li>Tab heading</li>
-  <li>Another tab</li>
+  <li>Tab heading</li>            <!-- Compliant - inside @section -->
+  <li>Another tab</li>            <!-- Compliant - inside @section -->
 }
 
 @section terms {
-  <dt>Term</dt>
+  <dt>Term</dt>                   <!-- Compliant - inside @section -->
+}
+
+<li>bare item at root</li>        <!-- Non-Compliant - bare root-level <li> in .cshtml -->
+
+<dt>bare definition term</dt>     <!-- Non-Compliant - bare root-level <dt> in .cshtml -->
+
+@if (Model.IsAdmin) {
+  <li>Admin link</li>             <!-- Non-Compliant - @if at root is not a guaranteed component scope -->
 }
 
 <div>
-  <li>still flagged inside div, not a Razor section partial</li>
+  <li>still flagged inside div</li>  <!-- Non-Compliant - <div> is not a list container -->
 </div>

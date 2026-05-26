@@ -16,17 +16,69 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "ItemTagNotWithinContainerTagCheck")
 public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
+  private static final Pattern RAZOR_SECTION_OPEN = Pattern.compile("@section\\s+\\w+\\s*\\{");
+
+  private final List<int[]> razorSectionRanges = new ArrayList<>();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    razorSectionRanges.clear();
+    if (!isRazorFile()) {
+      return;
+    }
+    int depth = 0;
+    int sectionStartLine = -1;
+    for (Node node : nodes) {
+      if (!(node instanceof TextNode)) {
+        continue;
+      }
+      String code = ((TextNode) node).getCode();
+      int baseLine = node.getStartLinePosition();
+      int pos = 0;
+      while (pos < code.length()) {
+        if (depth == 0) {
+          Matcher m = RAZOR_SECTION_OPEN.matcher(code);
+          if (!m.find(pos)) {
+            break;
+          }
+          sectionStartLine = baseLine + countNewlines(code, 0, m.start());
+          depth = 1;
+          pos = m.end();
+        } else {
+          char c = code.charAt(pos);
+          if (c == '{') {
+            depth++;
+          } else if (c == '}') {
+            depth--;
+            if (depth == 0) {
+              razorSectionRanges.add(new int[] { sectionStartLine, baseLine + countNewlines(code, 0, pos) });
+              sectionStartLine = -1;
+            }
+          }
+          pos++;
+        }
+      }
+    }
+  }
+
   @Override
   public void startElement(TagNode node) {
-    if (Helpers.hasTemplateAncestor(node) || isRazorPartialRoot(node)) {
+    if (Helpers.hasTemplateAncestor(node) || isInsideRazorSection(node)) {
       return;
     }
     if (isLi(node) && !hasLiOrUlOrOlAncestor(node)) {
@@ -37,18 +89,35 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
   }
 
   /**
-   * Returns true when {@code node} has no tag ancestors and the file is Razor
-   * ({@code .cshtml} / {@code .vbhtml}).
+   * Returns true if {@code node} sits inside a Razor {@code @section ... { ... }} block.
    *
    * @param node the tag node whose location is inspected
-   * @return true when {@code node} sits at the root of a Razor file
+   * @return true if any pre-computed section range contains the node's start line
    */
-  private boolean isRazorPartialRoot(TagNode node) {
-    if (node.getParent() != null) {
-      return false;
+  private boolean isInsideRazorSection(TagNode node) {
+    int line = node.getStartLinePosition();
+    for (int[] range : razorSectionRanges) {
+      if (line >= range[0] && line <= range[1]) {
+        return true;
+      }
     }
+    return false;
+  }
+
+  private boolean isRazorFile() {
     String filename = getHtmlSourceCode().inputFile().filename();
     return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
+  }
+
+  private static int countNewlines(String s, int from, int to) {
+    int n = 0;
+    int limit = Math.min(to, s.length());
+    for (int i = from; i < limit; i++) {
+      if (s.charAt(i) == '\n') {
+        n++;
+      }
+    }
+    return n;
   }
 
   private static boolean hasLiOrUlOrOlAncestor(TagNode node) {
