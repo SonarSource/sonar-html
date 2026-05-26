@@ -37,9 +37,8 @@ public class Helpers {
   private static final Pattern RAZOR_CODE_BLOCK_INDICATOR = Pattern.compile("(?<!@)@\\{");
 
   private static final Pattern RAZOR_FRAGMENT_STATEMENT = Pattern.compile(
-    "\\b(?:Html\\.(?:Render)?Partial(?:Async)?" +
-      "|Html\\.RenderAction" +
-      "|Component\\.Invoke(?:Async)?)" +
+    "\\b(?:Html\\.RenderPartial(?:Async)?" +
+      "|Html\\.RenderAction)" +
       "\\s*\\(");
 
   private Helpers() {

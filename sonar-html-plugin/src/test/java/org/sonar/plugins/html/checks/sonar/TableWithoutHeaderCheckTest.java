@@ -152,4 +152,16 @@ class TableWithoutHeaderCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
   }
+
+  @Test
+  void razor_code_block_assigning_partial_result_does_not_suppress() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/razor-code-block-assigned-result.cshtml"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .next().atLine(8).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .next().atLine(14).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
 }
