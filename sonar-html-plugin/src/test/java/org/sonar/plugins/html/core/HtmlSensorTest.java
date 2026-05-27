@@ -306,6 +306,52 @@ class HtmlSensorTest {
   }
 
   @Test
+  void dockerfile_erb_should_be_skipped() {
+    DefaultInputFile inputFile = createInputFile("Dockerfile.erb", "FROM ubuntu:<%= version %>\nRUN apt-get update\n");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    String componentKey = inputFile.key();
+    assertThat(tester.measures(componentKey)).isEmpty();
+    assertThat(tester.allIssues()).isEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @Test
+  void yml_erb_should_be_skipped() {
+    DefaultInputFile inputFile = createInputFile("config.yml.erb", "server:\n  host: <%= host %>\n");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(tester.measures(inputFile.key())).isEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @Test
+  void html_erb_should_be_analyzed() {
+    DefaultInputFile inputFile = createInputFile("page.html.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(tester.measures(inputFile.key())).isNotEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @Test
+  void plain_erb_should_be_analyzed() {
+    DefaultInputFile inputFile = createInputFile("index.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(tester.measures(inputFile.key())).isNotEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @Test
   void twig_file_should_be_analyzed() throws IOException {
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.twig");
     tester.fileSystem().add(inputFile);

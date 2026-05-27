@@ -119,6 +119,11 @@ public final class HtmlSensor implements Sensor {
         return;
       }
 
+      if (ErbFileFilter.isNonHtmlErb(inputFile.filename())) {
+        LOG.debug("Skipping non-HTML ERB file: {}", inputFile);
+        continue;
+      }
+
       HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
 
       try (Reader reader = new InputStreamReader(inputFile.inputStream(), inputFile.charset())) {
