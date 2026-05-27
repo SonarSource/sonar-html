@@ -1,0 +1,14 @@
+<!-- Compliant: view-component tag-helper -->
+<table>
+  <vc:my-rows />
+</table>
+
+<!-- Compliant: Component.InvokeAsync via explicit expression -->
+<table>
+  @(await Component.InvokeAsync("Rows"))
+</table>
+
+<!-- Compliant: Html.RenderAction inside a Razor code block -->
+<table>
+  @{ Html.RenderAction("Rows"); }
+</table>

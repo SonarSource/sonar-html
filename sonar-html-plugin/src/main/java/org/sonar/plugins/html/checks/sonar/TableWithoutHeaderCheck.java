@@ -16,23 +16,82 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static final Set<String> THYMELEAF_FRAGMENT_INSERTION_KEYWORDS = Set.of("th:insert", "th:include", "th:replace");
 
+  private final Set<TagNode> tablesWithRazorFragmentRendering = new HashSet<>();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    tablesWithRazorFragmentRendering.clear();
+    if (!Helpers.isRazorFile(getHtmlSourceCode())) {
+      return;
+    }
+    for (Node node : nodes) {
+      if (node.getNodeType() == NodeType.TEXT && Helpers.containsRazorFragmentRendering(node.getCode())) {
+        markNearestTable(((TextNode) node).getParent());
+      } else if (node.getNodeType() == NodeType.TAG) {
+        TagNode tag = (TagNode) node;
+        if (!tag.isEndElement() && Helpers.isRazorFragmentTagHelper(tag)) {
+          markNearestTable(tag.getParent());
+        }
+      }
+    }
+  }
+
   @Override
   public void startElement(TagNode node) {
-    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node) && !hasThymeleafFragmentInsertion(node)) {
+    if (isTable(node) && !isLayout(node) && !isHidden(node) && !hasHeader(node)
+      && !hasThymeleafFragmentInsertion(node) && !tablesWithRazorFragmentRendering.contains(node)) {
       createViolation(node, "Add \"<th>\" headers to this \"<table>\".");
     }
+  }
+
+  /**
+   * Marks the nearest enclosing {@code <table>} as containing a Razor fragment-rendering placeholder,
+   * but only when the placeholder sits at a structural table position
+   * ({@code <table>}, {@code <thead>}, {@code <tbody>}, {@code <tfoot>}, or {@code <tr>}). Placeholders inside
+   * {@code <td>}/{@code <th>}/caption/etc. render cell content, not headers, and must not suppress
+   * the enclosing table's violation.
+   *
+   * @param parent the immediate parent of the placeholder (TextNode or tag-helper), or null when the
+   *               placeholder is at document root (PageLexer leaves the parent unset for top-level nodes)
+   */
+  private void markNearestTable(@Nullable TagNode parent) {
+    if (parent == null || !isStructuralTableContext(parent)) {
+      return;
+    }
+    TagNode table = parent;
+    while (table != null && !isTable(table)) {
+      table = table.getParent();
+    }
+    if (table != null) {
+      tablesWithRazorFragmentRendering.add(table);
+    }
+  }
+
+  private static boolean isStructuralTableContext(TagNode node) {
+    String name = node.getNodeName();
+    return "TABLE".equalsIgnoreCase(name)
+      || "THEAD".equalsIgnoreCase(name)
+      || "TBODY".equalsIgnoreCase(name)
+      || "TFOOT".equalsIgnoreCase(name)
+      || "TR".equalsIgnoreCase(name);
   }
 
   private static boolean isTable(TagNode node) {

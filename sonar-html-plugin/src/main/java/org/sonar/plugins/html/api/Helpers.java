@@ -23,6 +23,24 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class Helpers {
+
+  private static final Pattern RAZOR_COMMENT = Pattern.compile("@\\*[\\s\\S]*?\\*@");
+
+  private static final Pattern RAZOR_FRAGMENT_EXPRESSION = Pattern.compile(
+    "(?<!@)@\\(?\\s*(?:await\\s+)?" +
+      "(?:Html\\.(?:Render)?Partial(?:Async)?" +
+      "|Html\\.RenderAction" +
+      "|Component\\.Invoke(?:Async)?" +
+      "|RenderBody|RenderSection|RenderPage)" +
+      "\\b");
+
+  private static final Pattern RAZOR_CODE_BLOCK_INDICATOR = Pattern.compile("(?<!@)@\\{");
+
+  private static final Pattern RAZOR_FRAGMENT_STATEMENT = Pattern.compile(
+    "\\b(?:Html\\.RenderPartial(?:Async)?" +
+      "|Html\\.RenderAction)" +
+      "\\s*\\(");
+
   private Helpers() {
   }
 
@@ -85,5 +103,45 @@ public class Helpers {
   private static boolean startsWithIgnoreCase(String value, String prefix) {
     return value.length() >= prefix.length()
       && value.regionMatches(true, 0, prefix, 0, prefix.length());
+  }
+  
+  /**
+   * Returns true when the source file uses Razor syntax (.cshtml or .vbhtml).
+   *
+   * @param code the source under analysis
+   * @return true if the file is a Razor view, false otherwise
+   */
+  public static boolean isRazorFile(HtmlSourceCode code) {
+    String filename = code.inputFile().filename();
+    return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
+  }
+
+  /**
+   * Returns true when the given text contains a Razor expression that renders a body, section, page, or partial.
+   *
+   * @param text the text fragment to inspect
+   * @return true if {@code text} renders a Razor fragment, false otherwise
+   */
+  public static boolean containsRazorFragmentRendering(String text) {
+    String stripped = RAZOR_COMMENT.matcher(text).replaceAll("");
+    if (RAZOR_FRAGMENT_EXPRESSION.matcher(stripped).find()) {
+      return true;
+    }
+    return RAZOR_CODE_BLOCK_INDICATOR.matcher(stripped).find()
+      && RAZOR_FRAGMENT_STATEMENT.matcher(stripped).find();
+  }
+
+  /**
+   * Returns true when the given tag is a Razor fragment-rendering tag-helper:
+   * {@code <partial .../>} or {@code <vc:my-component .../>}.
+   *
+   * @param node the tag to inspect
+   * @return true if {@code node} renders a Razor fragment via tag-helper, false otherwise
+   */
+  public static boolean isRazorFragmentTagHelper(TagNode node) {
+    String name = node.getNodeName();
+    return name != null
+      && ("partial".equalsIgnoreCase(name)
+        || (name.length() > 3 && name.regionMatches(true, 0, "vc:", 0, 3)));
   }
 }

@@ -1,0 +1,13 @@
+<!-- Compliant: fragment rendered inside <tfoot> is a valid structural table position -->
+<table>
+  <tfoot>
+    @RenderSection("Totals", required: false)
+  </tfoot>
+</table>
+
+<!-- Compliant: partial tag-helper inside <tfoot> -->
+<table>
+  <tfoot>
+    <partial name="_Totals" />
+  </tfoot>
+</table>

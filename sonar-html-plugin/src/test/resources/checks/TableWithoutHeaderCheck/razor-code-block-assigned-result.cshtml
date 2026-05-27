@@ -1,0 +1,18 @@
+<!-- Non-compliant: helpers that return content do not render when their result is assigned -->
+<table>
+  @{
+    var rows = Html.Partial("_Rows");
+  }
+</table>
+
+<table>
+  @{
+    var rows = await Html.PartialAsync("_Rows");
+  }
+</table>
+
+<table>
+  @{
+    var rows = await Component.InvokeAsync("RowsComponent");
+  }
+</table>

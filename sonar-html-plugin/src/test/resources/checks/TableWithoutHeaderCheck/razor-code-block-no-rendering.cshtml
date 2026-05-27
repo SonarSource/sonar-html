@@ -1,0 +1,17 @@
+<!-- Non-compliant: @{ ... } block with no fragment-rendering helper must not suppress -->
+<table>
+  @{
+    ViewBag.Title = "Users";
+  }
+</table>
+
+<table>
+  @{
+    var count = 5;
+    var label = "row";
+  }
+</table>
+
+<table>
+  @{ Layout = "_Layout"; }
+</table>

@@ -1,0 +1,14 @@
+<!-- Compliant: fragment rendering inside @{ ... } Razor code blocks -->
+<table>
+  @{ Html.RenderPartial("_Rows"); }
+</table>
+
+<table>
+  @{
+    Html.RenderPartial("_Rows");
+  }
+</table>
+
+<table>
+  @{ await Html.RenderPartialAsync("_Rows"); }
+</table>

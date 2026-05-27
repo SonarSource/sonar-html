@@ -1,0 +1,12 @@
+<!-- Compliant: explicit-expression Razor forms -->
+<table>
+  @(Html.Partial("_Rows"))
+</table>
+
+<table>
+  @(await Html.PartialAsync("_Rows"))
+</table>
+
+<table>
+  @(RenderBody())
+</table>
