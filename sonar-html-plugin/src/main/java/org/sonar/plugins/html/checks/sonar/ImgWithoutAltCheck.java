@@ -16,10 +16,9 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -106,8 +105,8 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
       return !thymeleafValue.trim().isEmpty();
     }
 
-    String thymeleafAssignedValue = getThymeleafAttributeAssignmentValue(node, attributeName);
-    return thymeleafAssignedValue != null && !isEmptyThymeleafValue(thymeleafAssignedValue);
+    String thymeleafAssignedValue = Thymeleaf.getAttrAssignmentValue(node, attributeName);
+    return thymeleafAssignedValue != null && !Thymeleaf.isEmptyAssignmentValue(thymeleafAssignedValue);
   }
 
   /**
@@ -116,136 +115,6 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
    * - using the th:attr attribute for specifying different attributes. Example "th:attr="src=@{logo.png},title=#{logo},alt=#{logo}""
    */
   private static boolean hasThymeleafAltAttribute(TagNode node) {
-    return node.hasProperty("th:alt") || node.hasProperty("th:alt-title") || hasThymeleafAttributeAssignment(node, "alt");
-  }
-
-  /**
-   * Returns whether a Thymeleaf th:attr assignment sets the given attribute.
-   *
-   * @param node the element to inspect
-   * @param attributeName the attribute name to look for
-   * @return {@code true} when th:attr assigns the given attribute
-   */
-  private static boolean hasThymeleafAttributeAssignment(TagNode node, String attributeName) {
-    return getThymeleafAttributeAssignmentValue(node, attributeName) != null;
-  }
-
-  private static String getThymeleafAttributeAssignmentValue(TagNode node, String attributeName) {
-    String thAttrValue = node.getAttribute("th:attr");
-    if (thAttrValue == null) {
-      return null;
-    }
-
-    for (String assignment : splitThymeleafAssignments(thAttrValue)) {
-      int separatorIndex = assignment.indexOf('=');
-      if (separatorIndex < 0) {
-        continue;
-      }
-
-      String assignedAttribute = assignment.substring(0, separatorIndex).trim();
-      if (attributeName.equalsIgnoreCase(assignedAttribute)) {
-        return assignment.substring(separatorIndex + 1).trim();
-      }
-    }
-
-    return null;
-  }
-
-  private static List<String> splitThymeleafAssignments(String thAttrValue) {
-    List<String> assignments = new ArrayList<>();
-    StringBuilder currentAssignment = new StringBuilder();
-    char quotedBy = 0;
-    int nestedBraces = 0;
-    int nestedParentheses = 0;
-    int nestedBrackets = 0;
-
-    for (int index = 0; index < thAttrValue.length(); index++) {
-      char currentCharacter = thAttrValue.charAt(index);
-      if (quotedBy != 0) {
-        currentAssignment.append(currentCharacter);
-        if (currentCharacter == quotedBy && !isEscaped(thAttrValue, index)) {
-          quotedBy = 0;
-        }
-        continue;
-      }
-
-      switch (currentCharacter) {
-        case '\'', '\"':
-          quotedBy = currentCharacter;
-          currentAssignment.append(currentCharacter);
-          break;
-        case '{':
-          nestedBraces++;
-          currentAssignment.append(currentCharacter);
-          break;
-        case '}':
-          nestedBraces = Math.max(0, nestedBraces - 1);
-          currentAssignment.append(currentCharacter);
-          break;
-        case '(':
-          nestedParentheses++;
-          currentAssignment.append(currentCharacter);
-          break;
-        case ')':
-          nestedParentheses = Math.max(0, nestedParentheses - 1);
-          currentAssignment.append(currentCharacter);
-          break;
-        case '[':
-          nestedBrackets++;
-          currentAssignment.append(currentCharacter);
-          break;
-        case ']':
-          nestedBrackets = Math.max(0, nestedBrackets - 1);
-          currentAssignment.append(currentCharacter);
-          break;
-        case ',':
-          if (nestedBraces == 0 && nestedParentheses == 0 && nestedBrackets == 0) {
-            addAssignment(assignments, currentAssignment);
-            currentAssignment.setLength(0);
-          } else {
-            currentAssignment.append(currentCharacter);
-          }
-          break;
-        default:
-          currentAssignment.append(currentCharacter);
-          break;
-      }
-    }
-
-    addAssignment(assignments, currentAssignment);
-    return assignments;
-  }
-
-  private static boolean isEmptyThymeleafValue(String value) {
-    if (value.isEmpty()) {
-      return true;
-    }
-
-    if (isQuotedLiteral(value)) {
-      return value.substring(1, value.length() - 1).trim().isEmpty();
-    }
-
-    return false;
-  }
-
-  private static boolean isQuotedLiteral(String value) {
-    return value.length() >= 2 &&
-      ((value.charAt(0) == '\'' && value.charAt(value.length() - 1) == '\'') ||
-        (value.charAt(0) == '\"' && value.charAt(value.length() - 1) == '\"'));
-  }
-
-  private static boolean isEscaped(String value, int quoteIndex) {
-    int backslashCount = 0;
-    for (int index = quoteIndex - 1; index >= 0 && value.charAt(index) == '\\'; index--) {
-      backslashCount++;
-    }
-    return backslashCount % 2 != 0;
-  }
-
-  private static void addAssignment(List<String> assignments, StringBuilder currentAssignment) {
-    String assignment = currentAssignment.toString().trim();
-    if (!assignment.isEmpty()) {
-      assignments.add(assignment);
-    }
+    return node.hasProperty("th:alt") || node.hasProperty("th:alt-title") || Thymeleaf.hasAttrAssignment(node, "alt");
   }
 }
