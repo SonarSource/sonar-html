@@ -16,19 +16,37 @@ interpolated value is unknown at analysis time and could leak:</p>
 %&gt;</code> in ERB, <code>@* …​ *@</code> in Razor) so that the comment - and any interpolated value - never reaches the client.</p>
 <h2>Sensitive Code Example</h2>
 <pre>
-  &lt;%
-      out.write("&lt;!-- ${username} --&gt;");  // Sensitive
-  %&gt;
-      &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Sensitive
-      &lt;!-- ${userAddress} --&gt; // Sensitive
-      &lt;!-- #{userPhone} --&gt; // Sensitive
-      &lt;!-- {{ userEmail }} --&gt; // Sensitive
-      &lt;!-- @Model.Secret --&gt; // Sensitive (Razor)
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;User profile&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome ${user.name}&lt;/h1&gt;
+
+  &lt;!-- DEBUG: rendered for ${user.email} (id=${user.id}) --&gt; &lt;!-- Sensitive --&gt;
+  &lt;!-- Auth token in session: &lt;%= session.getAttribute("authToken") %&gt; --&gt; &lt;!-- Sensitive --&gt;
+
+  &lt;p&gt;Your session expires soon.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-      &lt;%-- ${userAddress} --%&gt;  // Compliant: server-side-only comment, not emitted to the client
-      &lt;!-- Static reminder, no server-side interpolation --&gt; // Compliant
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;User profile&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome ${user.name}&lt;/h1&gt;
+
+  &lt;%-- DEBUG: rendered for ${user.email} (id=${user.id}) --%&gt; &lt;%-- Compliant: server-side-only comment, never reaches the browser --%&gt;
+  &lt;!-- Reminder: keep this section static --&gt; &lt;!-- Compliant: no interpolation --&gt;
+
+  &lt;p&gt;Your session expires soon.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
 <h2>See</h2>
 <ul>
