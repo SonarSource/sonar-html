@@ -25,6 +25,7 @@ import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 class ImgWithoutAltCheckTest {
+  private static final String MESSAGE = "Provide alternative text for this element.";
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
@@ -34,7 +35,7 @@ class ImgWithoutAltCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheck.html"), new ImgWithoutAltCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLocation(1, 0, 1, 7).withMessage("Add an \"alt\" attribute to this image.")
+        .next().atLocation(1, 0, 1, 7).withMessage(MESSAGE)
         .next().atLine(5)
         .next().atLine(6)
         .next().atLine(7)
@@ -48,4 +49,36 @@ class ImgWithoutAltCheckTest {
         .next().atLine(30);
   }
 
+  @Test
+  void supportsAriaAlternativeText() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckAria.html"), new ImgWithoutAltCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(3).withMessage(MESSAGE)
+      .next().atLine(4)
+      .next().atLine(7)
+      .next().atLine(8)
+      .next().atLine(11)
+      .next().atLine(12);
+  }
+
+  @Test
+  void rejectsEmptyThymeleafAlternativeText() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckThymeleaf.html"), new ImgWithoutAltCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(5).withMessage(MESSAGE)
+      .next().atLine(6)
+      .next().atLine(8)
+      .next().atLine(10)
+      .next().atLine(12)
+      .next().atLine(14)
+      .next().atLine(20)
+      .next().atLine(21)
+      .next().atLine(22)
+      .next().atLine(23)
+      .next().atLine(24)
+      .next().atLine(25)
+      .next().atLine(27);
+  }
 }

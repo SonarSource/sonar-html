@@ -1,0 +1,27 @@
+<img th:attr="alt=#{logo}" />
+<img th:attr="alt=''" />
+<img th:attr="alt=' '" />
+<img th:attr="aria-label=#{logo}" />
+<img th:attr="aria-label=''" />
+<img th:attr="aria-labelledby=' '" />
+<input type="image" th:attr="alt=#{logo}" />
+<input type="image" th:attr="alt=''" />
+<input type="image" th:attr="aria-label=#{logo}" />
+<input type="image" th:attr="aria-label=''" />
+<area th:attr="aria-labelledby=#{label}">
+<area th:attr="aria-labelledby=' '">
+<img th:attr="src=@{/logo.png}, title=#{logo}, alt=#{logo}" />
+<input type="image" th:attr="src=@{/logo.png}, title=#{logo}, alt = ' '" />
+<input type="image" alt="" th:alt="#{logo}" />
+<input type="image" alt="" th:attr="alt=#{logo}" />
+<input type="image" aria-label="" th:attr="aria-label=#{label}" />
+<area aria-labelledby="" th:attr="aria-labelledby=#{label}">
+<img aria-label="" th:attr="aria-label=#{label}" />
+<input type="image" alt="" th:alt="" />
+<input type="image" aria-label="" th:attr="aria-label=''">
+<input type="image" th:alt="''" />
+<input type="image" th:alt="' '" />
+<input type="image" th:aria-label="''" />
+<area th:aria-labelledby="' '">
+<input type="image" aria-label="" th:aria-label="#{label}" />
+<input type="image" aria-label="" th:aria-label="''" />

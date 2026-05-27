@@ -16,19 +16,32 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.Locale;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "ImgWithoutAltCheck")
 public class ImgWithoutAltCheck extends AbstractPageCheck {
+  private static final String MESSAGE = "Provide alternative text for this element.";
 
   @Override
   public void startElement(TagNode node) {
-    if ((isImgTag(node) && !hasAltAttribute(node) && !hasThymeleafAltAttribute(node)) ||
-       ((isImageInput(node) || isAreaTag(node)) && hasInvalidAltAttribute(node))) {
-      createViolation(node, "Add an \"alt\" attribute to this image.");
+    if (requiresAlternativeText(node)) {
+      createViolation(node, MESSAGE);
     }
+  }
+
+  /**
+   * Returns whether the current element should raise S1077 immediately.
+   *
+   * @param node the element being visited
+   * @return {@code true} when the element is missing its required alternative text
+   */
+  private static boolean requiresAlternativeText(TagNode node) {
+    return (isImgTag(node) && !hasImgAlternativeText(node)) ||
+      ((isImageInput(node) || isAreaTag(node)) && !hasRequiredAlternativeText(node));
   }
 
   private static boolean isImgTag(TagNode node) {
@@ -44,12 +57,56 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     return "AREA".equalsIgnoreCase(node.getNodeName());
   }
 
-  private static boolean hasAltAttribute(TagNode node) {
-    return node.hasProperty("ALT");
+  /**
+   * Returns whether an image element exposes alternative text.
+   *
+   * @param node the image element to inspect
+   * @return {@code true} when the image has an alt-like alternative text
+   */
+  private static boolean hasImgAlternativeText(TagNode node) {
+    return node.hasProperty("alt") || hasAccessibleName(node) || hasThymeleafAltAttribute(node);
   }
 
-  private static boolean hasInvalidAltAttribute(TagNode node) {
-    return !hasAltAttribute(node) || node.getPropertyValue("ALT").trim().isEmpty();
+  /**
+   * Returns whether an area or image button exposes a non-empty alternative text.
+   *
+   * @param node the area or input element to inspect
+   * @return {@code true} when a non-empty alt-like alternative text is present
+   */
+  private static boolean hasRequiredAlternativeText(TagNode node) {
+    return hasNonEmptyAttribute(node, "alt") || hasAccessibleName(node);
+  }
+
+  /**
+   * Returns whether the element has a non-empty accessible name.
+   *
+   * @param node the element to inspect
+   * @return {@code true} when aria-label or aria-labelledby is set
+   */
+  private static boolean hasAccessibleName(TagNode node) {
+    return hasNonEmptyAttribute(node, "aria-label") || hasNonEmptyAttribute(node, "aria-labelledby");
+  }
+
+  /**
+   * Returns whether an attribute is present with a non-empty value, including Thymeleaf variants.
+   *
+   * @param node the element to inspect
+   * @param attributeName the attribute name to resolve
+   * @return {@code true} when the attribute exists with a non-empty value
+   */
+  private static boolean hasNonEmptyAttribute(TagNode node, String attributeName) {
+    String value = node.getPropertyValue(attributeName);
+    if (value != null && !value.trim().isEmpty()) {
+      return true;
+    }
+
+    String thymeleafValue = node.getAttribute("th:" + attributeName.toLowerCase(Locale.ROOT));
+    if (thymeleafValue != null) {
+      return !Thymeleaf.isEmptyAssignmentValue(thymeleafValue.trim());
+    }
+
+    String thymeleafAssignedValue = Thymeleaf.getAttrAssignmentValue(node, attributeName);
+    return thymeleafAssignedValue != null && !Thymeleaf.isEmptyAssignmentValue(thymeleafAssignedValue);
   }
 
   /**
@@ -58,8 +115,6 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
    * - using the th:attr attribute for specifying different attributes. Example "th:attr="src=@{logo.png},title=#{logo},alt=#{logo}""
    */
   private static boolean hasThymeleafAltAttribute(TagNode node) {
-    String thAttrValue = node.getAttribute("th:attr");
-    return node.hasProperty("th:alt") || node.hasProperty("th:alt-title") ||
-      (thAttrValue != null && thAttrValue.contains("alt="));
+    return node.hasProperty("th:alt") || node.hasProperty("th:alt-title") || Thymeleaf.hasAttrAssignment(node, "alt");
   }
 }

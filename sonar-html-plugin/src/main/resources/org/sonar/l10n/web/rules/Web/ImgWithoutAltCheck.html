@@ -1,5 +1,6 @@
 <h2>Why is this an issue?</h2>
-<p>The <code>alt</code> attribute provides a textual alternative to an image.</p>
+<p>Alternative text helps users understand non-text content when it cannot be seen.</p>
+<p>Depending on the element, this alternative can be provided with <code>alt</code>, <code>aria-label</code> or <code>aria-labelledby</code>.</p>
 <p>It is used whenever the actual image cannot be rendered.</p>
 <p>Common reasons for that include:</p>
 <ul>
@@ -7,16 +8,20 @@
   <li>Visually impaired users using a screen reader software</li>
   <li>Image loading is disabled, to reduce data consumption on mobile phones</li>
 </ul>
-<p>It is also very important not to set an <code>alt</code> attribute to a non-informative value. For example, <code>&lt;img ... alt="logo"&gt;</code>
-is useless as it doesn’t give any information to the user. In this case, as for any other decorative image, it is better to use a CSS background image
+<p>It is also very important not to set an alternative text to a non-informative value. For example, <code>&lt;img ... alt="logo"&gt;</code> is
+useless as it doesn’t give any information to the user. In this case, as for any other decorative image, it is better to use a CSS background image
 instead of an <code>&lt;img&gt;</code> tag. If using CSS <code>background-image</code> is not possible, an empty <code>alt=""</code> is tolerated. See
 Exceptions below.</p>
 <p>This rule raises an issue when:</p>
 <ul>
-  <li>An <code>&lt;input type="image"&gt;</code> or <code>&lt;area&gt;</code> element has no <code>alt</code> attribute or it holds an empty string
-  value.</li>
-  <li>An <code>&lt;img&gt;</code> element has no <code>alt</code> attribute.</li>
+  <li>An <code>&lt;img&gt;</code> element has no <code>alt</code> attribute and no non-empty <code>aria-label</code> or <code>aria-labelledby</code>
+  attribute.</li>
+  <li>An <code>&lt;input type="image"&gt;</code> element has no non-empty <code>alt</code>, <code>aria-label</code> or <code>aria-labelledby</code>
+  attribute.</li>
+  <li>An <code>&lt;area&gt;</code> element within an image map has no non-empty <code>alt</code>, <code>aria-label</code> or
+  <code>aria-labelledby</code> attribute.</li>
 </ul>
+<p>Alternative content for <code>&lt;object&gt;</code> elements is covered by rule {rule:Web:S5264}.</p>
 <h3>Exceptions</h3>
 <p><code>&lt;img&gt;</code> elements with an empty string&nbsp;<code>alt=""</code> attribute won’t raise any issue. However, this way should be used
 in two cases only:</p>
@@ -38,27 +43,32 @@ duplicate the link’s text in their <code>alt</code> attribute, as it would mak
 </pre>
 <p>In all other cases you should use CSS background images.</p>
 <h2>How to fix it</h2>
-<p>Add an alternative text to the HTML element.</p>
+<p>Provide alternative text using the attribute or content expected by the element. Prefer <code>alt</code> for <code>&lt;img&gt;</code> elements.</p>
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
 <pre data-diff-id="1" data-diff-type="noncompliant">
 &lt;img src="foo.png" /&gt; &lt;!-- missing `alt` attribute --&gt;
-&lt;input type="image" src="bar.png" /&gt; &lt;!-- missing `alt` attribute --&gt;
-&lt;input type="image" src="bar.png" alt="" /&gt; &lt;!-- empty `alt` attribute on &lt;input&gt; --&gt;
+&lt;img src="foo.png" aria-label="" /&gt; &lt;!-- empty accessible name --&gt;
+
+&lt;input type="image" src="bar.png" /&gt; &lt;!-- missing alternative text --&gt;
+&lt;input type="image" src="bar.png" alt="" /&gt; &lt;!-- empty alternative text on &lt;input&gt; --&gt;
 
 &lt;img src="house.gif" usemap="#map1"
     alt="rooms of the house." /&gt;
 &lt;map id="map1" name="map1"&gt;
   &lt;area shape="rect" coords="0,0,42,42"
-    href="bedroom.html"/&gt; &lt;!-- missing `alt` attribute --&gt;
+    href="bedroom.html"/&gt; &lt;!-- missing alternative text --&gt;
   &lt;area shape="rect" coords="0,0,21,21"
-    href="lounge.html" alt=""/&gt; &lt;!-- empty `alt` attribute on &lt;area&gt; --&gt;
+    href="lounge.html" aria-labelledby=""/&gt; &lt;!-- empty accessible name on &lt;area&gt; --&gt;
 &lt;/map&gt;
 </pre>
 <h4>Compliant solution</h4>
 <pre data-diff-id="1" data-diff-type="compliant">
 &lt;img src="foo.png" alt="Some textual description of foo.png" /&gt;
-&lt;input type="image" src="bar.png" alt="Textual description of bar.png" /&gt;
+&lt;img src="logo.png" aria-label="Company logo" /&gt;
+
+&lt;span id="submit-label"&gt;Submit form&lt;/span&gt;
+&lt;input type="image" src="bar.png" aria-labelledby="submit-label" /&gt;
 
 &lt;img src="house.gif" usemap="#map1"
     alt="rooms of the house." /&gt;
@@ -66,7 +76,7 @@ duplicate the link’s text in their <code>alt</code> attribute, as it would mak
   &lt;area shape="rect" coords="0,0,42,42"
     href="bedroom.html" alt="Bedroom" /&gt;
   &lt;area shape="rect" coords="0,0,21,21"
-    href="lounge.html" alt="Lounge"/&gt;
+    href="lounge.html" aria-label="Lounge"/&gt;
 &lt;/map&gt;
 </pre>
 <h2>Resources</h2>
