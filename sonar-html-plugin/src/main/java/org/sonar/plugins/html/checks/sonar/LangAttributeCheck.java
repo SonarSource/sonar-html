@@ -42,10 +42,21 @@ public class LangAttributeCheck extends AbstractPageCheck {
   private final Deque<TagNodeFlag> langStack = new ArrayDeque<>();
   private boolean finishEarly;
   private boolean ruleActivated;
+  @Nullable
+  private TagNode pendingHtmlMissingLang;
 
   @Override
   public void startDocument(List<Node> nodes) {
     reset();
+  }
+
+  @Override
+  public void endDocument() {
+    if (pendingHtmlMissingLang != null) {
+      // Document ends with the deferred decision still pending (no </html>, no <body>).
+      createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
+      pendingHtmlMissingLang = null;
+    }
   }
 
   private void reset() {
@@ -54,6 +65,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
     langStack.push(new TagNodeFlag(null, false));
     finishEarly = false;
     ruleActivated = false;
+    pendingHtmlMissingLang = null;
   }
 
   private boolean shouldEarlyExit() {
@@ -62,16 +74,26 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
   private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
   public static final String DEFAULT_MESSAGE = "Text is missing a valid lang attribute in its ancestor elements";
+  public static final String HTML_OR_BODY_MISSING_LANG_MESSAGE = "Add \"lang\" and/or \"xml:lang\" attributes to the \"<html>\" or \"<body>\" element";
 
   @Override
   public void startElement(TagNode node) {
     if (isHtmlTag(node)) {
       reset();
-      if (!hasLangAttribute(node)) {
-        createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
-        finishEarly = true;
-      } else {
+      if (hasLangAttribute(node)) {
         ruleActivated = true;
+      } else {
+        // Defer: <body lang="..."> is also accepted as the page-level scope.
+        pendingHtmlMissingLang = node;
+      }
+    } else if (isBodyTag(node) && pendingHtmlMissingLang != null) {
+      if (hasLangAttribute(node)) {
+        ruleActivated = true;
+        pendingHtmlMissingLang = null;
+      } else {
+        createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
+        pendingHtmlMissingLang = null;
+        finishEarly = true;
       }
     }
     if (shouldEarlyExit()) {
@@ -97,6 +119,12 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
   @Override
   public void endElement(TagNode node) {
+    if (isHtmlTag(node) && pendingHtmlMissingLang != null) {
+      // </html> reached without any <body> resolving the deferred check.
+      createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
+      pendingHtmlMissingLang = null;
+      finishEarly = true;
+    }
     if (shouldEarlyExit()) {
       return;
     }
@@ -166,6 +194,10 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
   private static boolean isHtmlTag(TagNode node) {
     return "HTML".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isBodyTag(TagNode node) {
+    return "BODY".equalsIgnoreCase(node.getNodeName());
   }
 
   private boolean isValidLangAttributeValue(String langAttributeValue) {

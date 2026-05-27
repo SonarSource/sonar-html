@@ -84,3 +84,33 @@
         <img src="img.jpg" alt="" />
     </body>
 </html>
+
+<!-- Page-level lang declared on <body> instead of <html>: accepted (SONARHTML-221). -->
+<html>
+    <head>
+        <title>OK</title>
+    </head>
+    <body lang="en">
+        <p>Welcome to our website</p>
+        <article lang="dutch"> <!-- Non-Compliant: descendants are still validated against <body lang> -->
+            Zij liepen een vreemde Tiki bar binnen.
+        </article>
+    </body>
+</html>
+
+<!-- Dynamic lang on body counts as a valid declaration too. -->
+<html>
+    <body th:lang="${#locale.language}">
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- Neither <html> nor <body> carries lang: still non-compliant, violation on <html>. -->
+<html> <!-- Non-Compliant -->
+    <head>
+        <title>Missing</title>
+    </head>
+    <body>
+        <p>Hello</p>
+    </body>
+</html>

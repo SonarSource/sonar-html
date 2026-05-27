@@ -35,9 +35,9 @@ class LangAttributeCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LangAttributeCheck.html"), new LangAttributeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLocation(1, 0, 1, 6)
-      .next().atLocation(3, 0, 3, 39).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
-	    .next().atLine(23).withMessage("Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element")
+      .next().atLocation(1, 0, 1, 6).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+      .next().atLocation(3, 0, 3, 39).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+	    .next().atLine(23).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
 			.next().atLine(56).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(63).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(66).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
@@ -47,6 +47,8 @@ class LangAttributeCheckTest {
 			.next().atLocation(79, 50, 79, 58).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(81).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(83).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(95).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
+			.next().atLine(109).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
 	    .noMore();
   }
 
