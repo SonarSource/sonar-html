@@ -40,6 +40,7 @@ class HelpersTest {
   void contains_dynamic_value_detects_each_marker() {
     HtmlSourceCode code = sourceCode("file.html");
     assertThat(Helpers.containsDynamicValue("Welcome ${name}", code)).isTrue();
+    assertThat(Helpers.containsDynamicValue("Welcome #{user.name}", code)).isTrue();
     assertThat(Helpers.containsDynamicValue("intro {{ greeting }} outro", code)).isTrue();
     assertThat(Helpers.containsDynamicValue("intro {% if x %} outro", code)).isTrue();
     assertThat(Helpers.containsDynamicValue("hello <?= $user ?> bye", code)).isTrue();
@@ -57,15 +58,42 @@ class HelpersTest {
   }
 
   @Test
-  void contains_dynamic_value_detects_razor_only_for_cshtml() {
+  void contains_dynamic_value_detects_razor_for_cshtml_and_vbhtml() {
     String razor = "Hello @user.Name";
     assertThat(Helpers.containsDynamicValue(razor, sourceCode("file.cshtml"))).isTrue();
+    assertThat(Helpers.containsDynamicValue(razor, sourceCode("file.vbhtml"))).isTrue();
     assertThat(Helpers.containsDynamicValue(razor, sourceCode("file.html"))).isFalse();
   }
 
   @Test
   void contains_dynamic_value_ignores_escaped_razor_at() {
-    HtmlSourceCode code = sourceCode("file.cshtml");
-    assertThat(Helpers.containsDynamicValue("user@@example.com", code)).isFalse();
+    assertThat(Helpers.containsDynamicValue("user@@example.com", sourceCode("file.cshtml"))).isFalse();
+    assertThat(Helpers.containsDynamicValue("user@@example.com", sourceCode("file.vbhtml"))).isFalse();
+  }
+
+  @Test
+  void is_server_side_file_recognizes_template_suffixes() {
+    assertThat(Helpers.isServerSideFile(sourceCode("page.jsp"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.jspf"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.jspx"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.php"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.phtml"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.cshtml"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.vbhtml"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.aspx"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.ascx"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.erb"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.html.erb"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.rhtml"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.twig"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.shtml"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.xhtml"))).isTrue();
+  }
+
+  @Test
+  void is_server_side_file_returns_false_for_static_html() {
+    assertThat(Helpers.isServerSideFile(sourceCode("page.html"))).isFalse();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.htm"))).isFalse();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.xml"))).isFalse();
   }
 }

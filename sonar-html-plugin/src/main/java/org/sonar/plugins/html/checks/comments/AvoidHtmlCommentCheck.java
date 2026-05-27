@@ -42,7 +42,10 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
 
   @Override
   public void startDocument(List<Node> nodes) {
-    isServerSidePage = false;
+    isServerSidePage = Helpers.isServerSideFile(getHtmlSourceCode());
+    if (isServerSidePage) {
+      return;
+    }
     Iterator<Node> iterator = nodes.iterator();
     while (!isServerSidePage && iterator.hasNext()) {
       String code = iterator.next().getCode();

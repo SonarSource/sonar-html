@@ -20,6 +20,7 @@ import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 import java.util.function.Predicate;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Helpers {
@@ -43,7 +44,20 @@ public class Helpers {
       
   private static final Pattern RAZOR_EXPRESSION = Pattern.compile("(?<!@)@(?!@)");
   
-  private static final String[] DYNAMIC_MARKERS = {"<?php", "{{", "{%", "<?=", "${", "<%"};
+  private static final String[] DYNAMIC_MARKERS = {"<?php", "{{", "{%", "<?=", "${", "#{", "<%"};
+
+
+  private static final Set<String> SERVER_SIDE_SUFFIXES = Set.of(
+    ".jsp", ".jspf", ".jspx",
+    ".php", ".phtml",
+    ".cshtml", ".vbhtml",
+    ".aspx", ".ascx",
+    ".erb", ".rhtml",
+    ".twig",
+    ".shtm", ".shtml",
+    ".cmp",
+    ".xhtml"
+  );
 
   private Helpers() {
   }
@@ -61,13 +75,13 @@ public class Helpers {
         return true;
       }
     }
-    return isCshtmlFile(code) && RAZOR_EXPRESSION.matcher(value).find();
+    return isRazorFile(code) && RAZOR_EXPRESSION.matcher(value).find();
   }
 
   /**
    * Returns true when the value contains a server-side interpolation marker anywhere within it.
    * @param value the string to inspect
-   * @param code the source code context, used to enable Razor detection on .cshtml files
+   * @param code the source code context, used to enable Razor detection on .cshtml/.vbhtml files
    * @return true if any supported interpolation marker is present
    */
   public static boolean containsDynamicValue(String value, HtmlSourceCode code) {
@@ -76,7 +90,7 @@ public class Helpers {
         return true;
       }
     }
-    return isCshtmlFile(code) && RAZOR_EXPRESSION.matcher(value).find();
+    return isRazorFile(code) && RAZOR_EXPRESSION.matcher(value).find();
   }
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {
@@ -165,5 +179,15 @@ public class Helpers {
     return name != null
       && ("partial".equalsIgnoreCase(name)
         || (name.length() > 3 && name.regionMatches(true, 0, "vc:", 0, 3)));
+  }
+  
+  public static boolean isServerSideFile(HtmlSourceCode code) {
+    String filename = code.inputFile().filename();
+    for (String suffix : SERVER_SIDE_SUFFIXES) {
+      if (filename.endsWith(suffix)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
