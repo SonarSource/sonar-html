@@ -16,7 +16,11 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -69,32 +73,10 @@ class ThymeleafTest {
     assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "src")).isEqualTo("@{/logo.png}");
   }
 
-  @Test
-  void getAttrAssignmentValue_ignoresCommasInsideExpressions() {
-    String thAttr = "alt=#{messages.greeting(user.name, 'guest')}, title=#{t}";
-    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "alt"))
-      .isEqualTo("#{messages.greeting(user.name, 'guest')}");
-    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "title")).isEqualTo("#{t}");
-  }
-
-  @Test
-  void getAttrAssignmentValue_ignoresCommasInsideQuotedLiterals() {
-    String thAttr = "alt='Hello, world', title=#{t}";
-    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "alt")).isEqualTo("'Hello, world'");
-    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "title")).isEqualTo("#{t}");
-  }
-
-  @Test
-  void getAttrAssignmentValue_ignoresCommasInsideBrackets() {
-    String thAttr = "alt=${items[0, 1]}, title=#{t}";
-    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "alt")).isEqualTo("${items[0, 1]}");
-    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "title")).isEqualTo("#{t}");
-  }
-
-  @Test
-  void getAttrAssignmentValue_handlesEscapedQuotesInsideLiterals() {
-    String thAttr = "alt='it\\'s, fine', title=#{t}";
-    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "alt")).isEqualTo("'it\\'s, fine'");
+  @ParameterizedTest
+  @MethodSource("thAttrValuesWithEmbeddedCommas")
+  void getAttrAssignmentValue_ignoresCommasAndEscapedQuotes(String thAttr, String expectedAltValue) {
+    assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "alt")).isEqualTo(expectedAltValue);
     assertThat(Thymeleaf.getAttrAssignmentValue(tagWithThAttr(thAttr), "title")).isEqualTo("#{t}");
   }
 
@@ -128,6 +110,16 @@ class ThymeleafTest {
     TagNode node = new TagNode();
     node.getAttributes().add(new Attribute("th:attr", thAttrValue));
     return node;
+  }
+
+  private static Stream<Arguments> thAttrValuesWithEmbeddedCommas() {
+    return Stream.of(
+      Arguments.of(
+        "alt=#{messages.greeting(user.name, 'guest')}, title=#{t}",
+        "#{messages.greeting(user.name, 'guest')}"),
+      Arguments.of("alt='Hello, world', title=#{t}", "'Hello, world'"),
+      Arguments.of("alt=${items[0, 1]}, title=#{t}", "${items[0, 1]}"),
+      Arguments.of("alt='it\\'s, fine', title=#{t}", "'it\\'s, fine'"));
   }
 
   private static TagNode tagWithoutThAttr() {
