@@ -1,23 +1,23 @@
 {
 "project:Silverpeas-Core-master/it-test-core/src/test/resources/com/silverpeas/converter/wysiwyg2.html": [
 27,
+27,
+74,
 74,
 78,
+78,
+88,
 88,
 94,
+94,
+99,
 99,
 108,
+108,
 112,
+112,
+115,
 115
-],
-"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html": [
-15
-],
-"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html": [
-15
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/appInMaintenance.jsp": [
-62
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
 444,
@@ -25,11 +25,6 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/messageOk.jsp": [
 60
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
-201,
-284,
-285
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/Idle.jsp": [
 72
@@ -41,8 +36,7 @@
 258
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp": [
-296,
-297
+296
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/pingExport.jsp": [
 35
@@ -55,6 +49,8 @@
 42
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
+118,
+119,
 120,
 126
 ],
@@ -70,10 +66,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp": [
 119,
 187
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/moveValue.jsp": [
-97,
-99
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
 111,
@@ -107,6 +99,7 @@
 82
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp": [
+70,
 78,
 81,
 84,
@@ -114,28 +107,21 @@
 101
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp": [
-86,
 98
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewConnection.jsp": [
-113,
 130
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewCrossPDCAccess.jsp": [
-89,
 101
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/writeMessage.jsp": [
 85
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp": [
-87,
-99,
-152,
-153
+99
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/tools/index.jsp": [
-52,
 58
 ],
 "project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLElement01.html": [
@@ -613,9 +599,6 @@
 "project:external_webkit-jb-mr1/LayoutTests/fast/encoding/decoder-allow-null-chars.html": [
 12
 ],
-"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/escaped-bracket.html": [
-3
-],
 "project:external_webkit-jb-mr1/LayoutTests/fast/encoding/quotes-in-title.html": [
 3,
 4
@@ -640,52 +623,6 @@
 ],
 "project:external_webkit-jb-mr1/LayoutTests/storage/open-database-over-quota.html": [
 19
-],
-"project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html": [
-191,
-197,
-198,
-1252,
-83760,
-83770,
-83775,
-83780,
-83794,
-83801,
-83805,
-83810,
-83815,
-83841,
-83845,
-83850,
-83859,
-83864,
-83868,
-83872,
-83876,
-83897,
-83924,
-83963,
-84004,
-84018,
-84040,
-84064,
-84220,
-84240,
-84254,
-84259,
-84278,
-84283,
-84292,
-84304,
-84308,
-84312,
-84321,
-84325,
-84359,
-84363,
-84368,
-84372
 ],
 "project:external_webkit-jb-mr1/PerformanceTests/XSSFilter/large-post-many-events.html": [
 38
@@ -793,17 +730,8 @@
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/write-after-open.html": [
 38
 ],
-"project:external_webkit-jb-mr1/Source/WebKit/gtk/resources/error.html": [
-47
-],
 "project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/dashboard.html": [
 16
-],
-"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/releasepatch.html": [
-1
-],
-"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/submittoews.html": [
-1
 ],
 "project:external_webkit-jb-mr1/Tools/RebaselineQueueServer/templates/builder-queue-edit.html": [
 8
@@ -846,17 +774,7 @@
 "project:phpMyAdmin-4.0.4-english/pmd_pdf.php": [
 98
 ],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb": [
-9,
-13
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/encryption_configuration/index.html.erb": [
-7
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/nonav.html.erb": [
 3
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule_note.html.erb": [
-32
 ]
 }

@@ -19,6 +19,8 @@ package org.sonar.plugins.html.checks.coding;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -51,6 +53,7 @@ class UnclosedTagCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.html"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(3).withMessage("The tag \"li\" has no corresponding closing tag.")
       .next().atLine(4).withMessage("The tag \"li\" has no corresponding closing tag.")
       .next().atLine(7).withMessage("The tag \"br\" has no corresponding closing tag.")
       .next().atLine(8).withMessage("The tag \"wbr\" has no corresponding closing tag.")
@@ -69,18 +72,59 @@ class UnclosedTagCheckTest {
   }
 
   @Test
-  void twig_template_no_false_positives() {
+  void unopened_php_closing_tag_does_not_report_previous_open_tag() {
     UnclosedTagCheck check = new UnclosedTagCheck();
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/twig-file.twig"), check);
+    check.ignoreTags = "html";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/unopened-closing-tag.php"), check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
   @Test
-  void cshtml_are_ignored_by_the_rule() {
+  void mismatched_closing_tag_still_reports_actual_unclosed_tag() {
     UnclosedTagCheck check = new UnclosedTagCheck();
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"), check);
 
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/mismatched-closing-tag.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("The tag \"bar\" has no corresponding closing tag.")
+      .noMore();
+  }
+
+  @Test
+  void nested_unclosed_tags_are_all_reported() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/nested-unclosed-tags.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("The tag \"bar\" has no corresponding closing tag.")
+      .next().atLine(3).withMessage("The tag \"baz\" has no corresponding closing tag.")
+      .noMore();
+  }
+
+  @Test
+  void stray_close_followed_by_proper_close_reports_inner_tag_once() {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/UnclosedTagCheck/stray-close-then-proper-close.html"), check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("The tag \"span\" has no corresponding closing tag.")
+      .noMore();
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {
+    "src/test/resources/checks/UnclosedTagCheck/twig-file.twig",
+    "src/test/resources/checks/UnclosedTagCheck/unopened-closing-tag-default-ignored.php",
+    "src/test/resources/checks/UnclosedTagCheck/repeated-stray-closers.html",
+    "src/test/resources/checks/UnclosedTagCheck/UnclosedTagCheck.cshtml"
+  })
+  void files_with_no_unclosed_tag_issues(String file) {
+    UnclosedTagCheck check = new UnclosedTagCheck();
+    HtmlSourceCode sourceCode = TestHelper.scan(new File(file), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
