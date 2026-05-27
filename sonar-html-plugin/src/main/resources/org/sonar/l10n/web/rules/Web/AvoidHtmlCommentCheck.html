@@ -1,14 +1,11 @@
-<p>HTML comments in a server-side page that embed dynamic, server-side values (<code>${…​}</code>, <code>#{…​}</code>, <code>&lt;%= …​ %&gt;</code>,
-<code>&lt;% …​ %&gt;</code>, <code>{{ …​ }}</code>, <code>{% …​ %}</code>, <code>&lt;?= …​ ?&gt;</code>, <code>&lt;?php …​ ?&gt;</code>, Razor
-<code>@…​</code>) increase the risk of exposing data that should be kept private. The interpolated value is unknown at analysis time and could
-leak:</p>
+<p>HTML comments in a server-side page that embed dynamic, server-side values increase the risk of exposing data that should be kept private. The
+interpolated value is unknown at analysis time and could leak:</p>
 <ul>
   <li>Version numbers and host names</li>
   <li>Full, server-side path names</li>
   <li>Sensitive user data</li>
 </ul>
-<p>Static HTML comments are not flagged by this rule, since they cannot carry server-side data into the rendered page. Comments that interpolate
-server-side values are flagged because the analyzer cannot tell whether the interpolated variable is sensitive.</p>
+<p>Only HTML comments that interpolate server-side values are considered sensitive and therefore flagged, but not static HTML comments.</p>
 <h2>Ask Yourself Whether</h2>
 <ul>
   <li>The interpolated value could ever contain sensitive information.</li>
