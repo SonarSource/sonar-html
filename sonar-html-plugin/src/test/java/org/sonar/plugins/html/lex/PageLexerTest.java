@@ -700,6 +700,52 @@ class PageLexerTest {
       "<p>", "after", "</p>");
   }
 
+  // ---------------------------------------------------------------------------
+  // PHP embedded HTML extraction (pipeline integration)
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void php_string_literal_produces_embedded_tag_node() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"<div role='toolbar'>\"; ?>"));
+    boolean hasDiv = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .anyMatch(t -> "div".equalsIgnoreCase(t.getNodeName()));
+    assertThat(hasDiv).isTrue();
+  }
+
+  @Test
+  void php_embedded_tag_has_file_absolute_line_position() {
+    // Directive on line 2; embedded <div> must also report line 2
+    List<Node> nodes = new PageLexer().parse(new StringReader("<p>\n<?php echo \"<div>\"; ?>"));
+    TagNode div = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "div".equalsIgnoreCase(t.getNodeName()))
+      .findFirst().orElse(null);
+    assertThat(div).isNotNull();
+    assertThat(div.getStartLinePosition()).isEqualTo(2);
+  }
+
+  @Test
+  void php_embedded_open_and_close_tags_are_both_present() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"<div></div>\"; ?>"));
+    long divCount = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "div".equalsIgnoreCase(t.getNodeName()))
+      .count();
+    assertThat(divCount).isEqualTo(2);
+  }
+
+  @Test
+  void php_non_html_string_does_not_produce_extra_nodes() {
+    List<Node> baseNodes = new PageLexer().parse(new StringReader("<?php $x = 1; ?>"));
+    List<Node> withString = new PageLexer().parse(new StringReader("<?php $s = 'no html here'; ?>"));
+    assertThat(withString.stream().filter(n -> n.getNodeType() == NodeType.TAG).count())
+      .isEqualTo(baseNodes.stream().filter(n -> n.getNodeType() == NodeType.TAG).count());
+  }
+
   private void assertSingleTag(String code) {
     StringReader reader = new StringReader(code);
     List<Node> nodeList = new PageLexer().parse(reader);

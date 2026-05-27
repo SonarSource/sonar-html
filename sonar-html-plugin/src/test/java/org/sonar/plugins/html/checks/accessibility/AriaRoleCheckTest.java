@@ -30,6 +30,17 @@ class AriaRoleCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
+  void htmlEmbeddedInPhpStringLiteral() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/AriaRoleCheck.php"),
+        new AriaRoleCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(2).withMessage(
+            "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"foobar\" is not a valid role.")
+        .noMore();
+  }
+
+  @Test
   void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/AriaRoleCheck.html"),
@@ -48,4 +59,5 @@ class AriaRoleCheckTest {
         .next().atLine(9)
         .noMore();
   }
+
 }

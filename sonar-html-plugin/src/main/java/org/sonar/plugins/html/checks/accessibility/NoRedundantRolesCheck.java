@@ -30,11 +30,12 @@ import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6822")
-public class NoRedundantRolesCheck extends AbstractPageCheck {
+public class NoRedundantRolesCheck extends AbstractPageCheck implements EmbeddedHtmlCheck {
 
   private static final String DEFAULT_ALLOWED_REDUNDANT_ROLES = "nav=navigation";
   @RuleProperty(
@@ -54,7 +55,7 @@ public class NoRedundantRolesCheck extends AbstractPageCheck {
   public void startElement(TagNode element) {
     var implicitRole = getImplicitRole(element);
     var explicitRoleRaw = element.getAttribute("role");
-    if (explicitRoleRaw == null || Helpers.isDynamicValue(explicitRoleRaw, getHtmlSourceCode())) {
+    if (explicitRoleRaw == null || Helpers.containsDynamicValue(explicitRoleRaw, getHtmlSourceCode())) {
       return;
     }
     var explicitRole = AriaRole.of(explicitRoleRaw.toLowerCase(Locale.ROOT));

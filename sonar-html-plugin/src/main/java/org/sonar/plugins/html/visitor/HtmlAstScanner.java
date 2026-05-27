@@ -18,6 +18,7 @@ package org.sonar.plugins.html.visitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.node.CommentNode;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
@@ -69,6 +70,11 @@ public class HtmlAstScanner {
     // notify the visitors for start and end of element
     for (Node node : nodeList) {
       for (DefaultNodeVisitor visitor : visitors) {
+        if (node.isEmbedded() && !(visitor instanceof EmbeddedHtmlCheck)) {
+          // Skip visitor callbacks for embedded nodes on non-opted-in checks.
+          // The node is still visible to all checks via startDocument(nodeList) and getChildren().
+          continue;
+        }
         scanElement(visitor, node);
       }
     }

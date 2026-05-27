@@ -24,15 +24,16 @@ import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.api.accessibility.Aria.RoleDefinition;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6807")
-public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPageCheck {
+public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPageCheck implements EmbeddedHtmlCheck {
   @Override
   public void startElement(TagNode element) {
     var roleName = element.getAttribute("role");
 
-    if (roleName == null || Helpers.isDynamicValue(roleName, getHtmlSourceCode())) {
+    if (roleName == null || Helpers.containsDynamicValue(roleName, getHtmlSourceCode())) {
       return;
     }
 

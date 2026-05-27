@@ -175,9 +175,6 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     element.setNodeName(sbNodeName.toString());
   }
 
-  /**
-   * Unescape the quotes from the attribute value.
-   */
   private static String unescapeQuotes(String value, char ch) {
     return value.replaceAll("\\\\" + ch, Character.toString(ch));
   }

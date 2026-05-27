@@ -29,6 +29,16 @@ class TabIndexNoPositiveCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
+  void htmlEmbeddedInPhpStringLiteral() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TabIndexNoPositiveCheck.php"),
+      new TabIndexNoPositiveCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Avoid using positive values for the \"tabIndex\" attribute.")
+      .noMore();
+  }
+
+  @Test
   void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/TabIndexNoPositiveCheck.html"),

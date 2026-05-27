@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.lex;
 
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +73,7 @@ public class PageLexer {
    * Void elements can't have any content
    * See https://html.spec.whatwg.org/multipage/syntax.html#void-elements
    */
-  private static final Set<String> VOID_ELEMENTS = new HashSet<>(Arrays.asList("area", "base", "br", "col", "embed",
+  static final Set<String> VOID_ELEMENTS = new HashSet<>(Arrays.asList("area", "base", "br", "col", "embed",
     "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"));
 
   private static final Set<String> METADATA_CONTENT = new HashSet<>(Arrays.asList("base", "link", "meta", "noscript",
@@ -116,6 +117,7 @@ public class PageLexer {
 
   /**
    * Parse the input into a list of tokens, with parent/child relations between the tokens.
+   * HTML found inside PHP string literals is also extracted and included in the returned list.
    */
   public List<Node> parse(Reader reader) {
 
@@ -129,8 +131,22 @@ public class PageLexer {
     ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder().addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()])).build();
     channelDispatcher.consume(codeReader, nodeList);
 
-    createNodeHierarchy(nodeList);
+    List<Node> expanded = PhpEmbeddedHtmlExtractor.expand(nodeList);
+    createNodeHierarchy(expanded);
 
+    return expanded;
+  }
+
+  /**
+   * Parse a source string into a list of tokens without building parent/child relations.
+   */
+  List<Node> parseWithoutHierarchy(String source) {
+    CodeReader codeReader = new CodeReader(new StringReader(source));
+    List<Node> nodeList = new ArrayList<>();
+    ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder()
+      .addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()]))
+      .build();
+    channelDispatcher.consume(codeReader, nodeList);
     return nodeList;
   }
 

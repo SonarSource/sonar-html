@@ -50,6 +50,16 @@ class AriaProptypesCheckTest {
   }
 
   @Test
+  void htmlEmbeddedInPhpStringLiteral() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AriaProptypesCheck.php"),
+      new AriaProptypesCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("The value of the attribute \"aria-hidden\" must be a boolean.")
+      .noMore();
+  }
+
+  @Test
   void cshtml() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/AriaProptypesCheck.cshtml"),

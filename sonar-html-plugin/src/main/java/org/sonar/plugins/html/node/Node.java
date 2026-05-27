@@ -29,6 +29,9 @@ public abstract class Node {
   private final NodeType nodeType;
   private int startColumnPosition;
   private int startLinePosition;
+  // Set on nodes produced by PhpEmbeddedHtmlExtractor; the scanner routes
+  // them only to visitors that opt in via EmbeddedHtmlCheck.
+  private boolean embedded;
 
   protected Node(NodeType nodeType) {
     this.nodeType = nodeType;
@@ -76,6 +79,14 @@ public abstract class Node {
 
   public void setStartLinePosition(int startLinePosition) {
     this.startLinePosition = startLinePosition;
+  }
+
+  public boolean isEmbedded() {
+    return embedded;
+  }
+
+  public void setEmbedded(boolean embedded) {
+    this.embedded = embedded;
   }
 
   @Override

@@ -25,12 +25,13 @@ import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaProperty;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyValues;
 import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyType;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6793")
-public class AriaProptypesCheck extends AbstractPageCheck {
+public class AriaProptypesCheck extends AbstractPageCheck implements EmbeddedHtmlCheck {
 
   @Override
   public void startElement(TagNode element) {
@@ -45,7 +46,7 @@ public class AriaProptypesCheck extends AbstractPageCheck {
       }
 
       var value = attribute.getValue();
-      if (Helpers.isDynamicValue(value, getHtmlSourceCode())) {
+      if (Helpers.containsDynamicValue(value, getHtmlSourceCode())) {
         continue;
       }
 
