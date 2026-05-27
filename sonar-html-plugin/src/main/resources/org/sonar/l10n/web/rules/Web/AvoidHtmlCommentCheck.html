@@ -1,6 +1,7 @@
-<p>HTML comments in a server-side page that embed dynamic, server-side values (<code>${…​}</code>, <code>&lt;%= …​ %&gt;</code>, <code>&lt;% …​
-%&gt;</code>, <code>{{ …​ }}</code>, <code>{% …​ %}</code>, <code>&lt;?= …​ ?&gt;</code>, <code>&lt;?php …​ ?&gt;</code>) increase the risk of
-exposing data that should be kept private. The interpolated value is unknown at analysis time and could leak:</p>
+<p>HTML comments in a server-side page that embed dynamic, server-side values (<code>${…​}</code>, <code>#{…​}</code>, <code>&lt;%= …​ %&gt;</code>,
+<code>&lt;% …​ %&gt;</code>, <code>{{ …​ }}</code>, <code>{% …​ %}</code>, <code>&lt;?= …​ ?&gt;</code>, <code>&lt;?php …​ ?&gt;</code>, Razor
+<code>@…​</code>) increase the risk of exposing data that should be kept private. The interpolated value is unknown at analysis time and could
+leak:</p>
 <ul>
   <li>Version numbers and host names</li>
   <li>Full, server-side path names</li>
@@ -14,8 +15,8 @@ server-side values are flagged because the analyzer cannot tell whether the inte
   <li>The comment can be removed or moved to a server-side-only comment syntax.</li>
 </ul>
 <h2>Recommended Secure Coding Practices</h2>
-<p>Remove the comment or rewrite it using a server-side-only comment syntax (for example <code>&lt;%-- …​ --%&gt;</code> in JSP/ERB) so that the
-comment - and any interpolated value - never reaches the client.</p>
+<p>Remove the comment or rewrite it using a server-side-only comment syntax (for example <code>&lt;%-- …​ --%&gt;</code> in JSP, <code>&lt;%# …​
+%&gt;</code> in ERB, <code>@* …​ *@</code> in Razor) so that the comment - and any interpolated value - never reaches the client.</p>
 <h2>Sensitive Code Example</h2>
 <pre>
   &lt;%
@@ -23,7 +24,9 @@ comment - and any interpolated value - never reaches the client.</p>
   %&gt;
       &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Sensitive
       &lt;!-- ${userAddress} --&gt; // Sensitive
-      &lt;!-- {{ userPhone }} --&gt; // Sensitive
+      &lt;!-- #{userPhone} --&gt; // Sensitive
+      &lt;!-- {{ userEmail }} --&gt; // Sensitive
+      &lt;!-- @Model.Secret --&gt; // Sensitive (Razor)
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
