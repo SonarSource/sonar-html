@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.comments;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.CommentNode;
 import org.sonar.plugins.html.node.Node;
@@ -33,14 +34,18 @@ public class AvoidHtmlCommentCheck extends AbstractPageCheck {
   public void comment(CommentNode node) {
     String comment = node.getCode();
 
-    if (isServerSidePage && node.isHtml() && !comment.startsWith("<!--[if")) {
+    if (isServerSidePage && node.isHtml() && !comment.startsWith("<!--[if")
+      && Helpers.containsDynamicValue(comment, getHtmlSourceCode())) {
       createViolation(node.getStartLinePosition(), "Make sure that the HTML comment does not contain sensitive information.");
     }
   }
 
   @Override
   public void startDocument(List<Node> nodes) {
-    isServerSidePage = false;
+    isServerSidePage = Helpers.isServerSideFile(getHtmlSourceCode());
+    if (isServerSidePage) {
+      return;
+    }
     Iterator<Node> iterator = nodes.iterator();
     while (!isServerSidePage && iterator.hasNext()) {
       String code = iterator.next().getCode();

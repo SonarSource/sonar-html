@@ -3,7 +3,9 @@
   <title>PHP Test</title>
  </head>
  <body>
- <!-- comment not allowed -->
- <?php echo '<p>Hello World</p>'; ?> 
+ <!-- Plain comment, no interpolation -->
+ <!-- Debug echo: <?= $userId ?> -->
+ <!-- Inline: <?php echo $secret; ?> -->
+ <?php echo '<p>Hello World</p>'; ?>
  </body>
 </html>

@@ -1,36 +1,52 @@
-<p>Using HTML-style comments in a page that will be generated or interpolated server-side before being served to the user increases the risk of
-exposing data that should be kept private. For instance, a developer comment or line of debugging information that’s left in a page could easily (and
-has) inadvertently expose:</p>
+<p>HTML comments in a server-side page that embed dynamic, server-side values increase the risk of exposing data that should be kept private. The
+interpolated value is unknown at analysis time and could leak:</p>
 <ul>
   <li>Version numbers and host names</li>
   <li>Full, server-side path names</li>
   <li>Sensitive user data</li>
 </ul>
-<p>Every other language has its own native comment format, thus there is no justification for using HTML-style comments in anything other than a pure
-HTML or XML file.</p>
+<p>Only HTML comments that interpolate server-side values are considered sensitive and therefore flagged, but not static HTML comments.</p>
 <h2>Ask Yourself Whether</h2>
 <ul>
-  <li>The comment contains sensitive information.</li>
-  <li>The comment can be removed.</li>
+  <li>The interpolated value could ever contain sensitive information.</li>
+  <li>The comment can be removed or moved to a server-side-only comment syntax.</li>
 </ul>
 <h2>Recommended Secure Coding Practices</h2>
-<p>It is recommended to remove the comment or change its style so that it is not output to the client.</p>
+<p>Remove the comment or rewrite it using a server-side-only comment syntax (for example <code>&lt;%-- …​ --%&gt;</code> in JSP, <code>&lt;%# …​
+%&gt;</code> in ERB, <code>@* …​ *@</code> in Razor) so that the comment - and any interpolated value - never reaches the client.</p>
 <h2>Sensitive Code Example</h2>
 <pre>
-  &lt;%
-      out.write("&lt;!-- ${username} --&gt;");  // Sensitive
-  %&gt;
-      &lt;!-- &lt;% out.write(userId) %&gt; --&gt;  // Sensitive
-      &lt;!-- #{userPhone} --&gt;  // Sensitive
-      &lt;!-- ${userAddress} --&gt; // Sensitive
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;User profile&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome ${user.name}&lt;/h1&gt;
 
-      &lt;!-- Replace 'world' with name --&gt; // Sensitive
-      &lt;h2&gt;Hello world!&lt;/h2&gt;
+  &lt;!-- DEBUG: rendered for ${user.email} (id=${user.id}) --&gt; &lt;!-- Sensitive --&gt;
+  &lt;!-- Auth token in session: &lt;%= session.getAttribute("authToken") %&gt; --&gt; &lt;!-- Sensitive --&gt;
+
+  &lt;p&gt;Your session expires soon.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-      &lt;%-- Replace 'world' with name --%&gt;  // Compliant
-      &lt;h2&gt;Hello world!&lt;/h2&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;User profile&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome ${user.name}&lt;/h1&gt;
+
+  &lt;%-- DEBUG: rendered for ${user.email} (id=${user.id}) --%&gt; &lt;%-- Compliant: server-side-only comment, never reaches the browser --%&gt;
+  &lt;!-- Reminder: keep this section static --&gt; &lt;!-- Compliant: no interpolation --&gt;
+
+  &lt;p&gt;Your session expires soon.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
 <h2>See</h2>
 <ul>
