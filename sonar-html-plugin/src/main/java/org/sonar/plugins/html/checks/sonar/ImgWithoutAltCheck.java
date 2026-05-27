@@ -102,7 +102,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
     String thymeleafValue = node.getAttribute("th:" + attributeName.toLowerCase(Locale.ROOT));
     if (thymeleafValue != null) {
-      return !isEmptyThymeleafValue(thymeleafValue.trim());
+      return !Thymeleaf.isEmptyAssignmentValue(thymeleafValue.trim());
     }
 
     String thymeleafAssignedValue = Thymeleaf.getAttrAssignmentValue(node, attributeName);
