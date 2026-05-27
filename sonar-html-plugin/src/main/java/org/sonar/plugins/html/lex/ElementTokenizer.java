@@ -139,7 +139,9 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
       StringBuilder sbValue = new StringBuilder();
       int ch = codeReader.peek();
 
-      if (isQuote((char) ch)) {
+      if (ch == '\\' && isEscapedQuoteOpener(codeReader)) {
+        handleEscapedQuotedAttributeValue(codeReader, attribute, sbValue);
+      } else if (isQuote((char) ch)) {
         codeReader.pop();
         if (codeReader.peek() != ch) {
           QuoteMatcher quoteMatcher = new QuoteMatcher((char) ch);
@@ -154,6 +156,41 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
         attribute.setValue(sbValue.toString().trim());
       }
     }
+  }
+
+  /**
+   * Tells whether the upcoming two characters are a backslash followed by a quote.
+   * @param codeReader the reader, positioned at the candidate backslash
+   * @return true if peek(2) is {@code \"} or {@code \'}
+   */
+  private static boolean isEscapedQuoteOpener(CodeReader codeReader) {
+    char[] next = codeReader.peek(2);
+    return next.length == 2 && next[0] == '\\' && isQuote(next[1]);
+  }
+
+  /**
+   * Reads an attribute value whose delimiters are backslash-escaped quotes — the shape produced
+   * when HTML is embedded in a host language string literal (e.g. PHP {@code "<a href=\"x\">"}).
+   * Stops at the first non-escaped backslash-quote pair and stores the unescaped value.
+   * @param codeReader the reader, positioned at the opening backslash
+   * @param attribute the attribute receiving the parsed value and quote char
+   * @param sbValue scratch buffer used to accumulate the raw content
+   */
+  private static void handleEscapedQuotedAttributeValue(CodeReader codeReader, Attribute attribute, StringBuilder sbValue) {
+    codeReader.pop();
+    char quote = (char) codeReader.pop();
+    if (!isEscapedQuoteOpener(codeReader)) {
+      EscapedQuoteMatcher matcher = new EscapedQuoteMatcher(quote);
+      matcher.match(codeReader.peek());
+      popTo(codeReader, matcher, sbValue);
+      if (sbValue.length() > 0 && sbValue.charAt(sbValue.length() - 1) == '\\') {
+        sbValue.deleteCharAt(sbValue.length() - 1);
+      }
+      attribute.setValue(unescapePhpString(sbValue.toString()));
+    }
+    codeReader.pop();
+    codeReader.pop();
+    attribute.setQuoteChar(quote);
   }
 
   private static void handleBeforeAttributeName(CodeReader codeReader, TagNode element) {
@@ -176,6 +213,33 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
    */
   private static String unescapeQuotes(String value, char ch) {
     return value.replaceAll("\\\\" + ch, Character.toString(ch));
+  }
+
+  /**
+   * Decodes a string read from inside a host-language double-quoted literal (PHP-style).
+   * @param value raw content read between the escaped opening and closing quotes
+   * @return the value with {@code \\}, {@code \"}, {@code \'}, {@code \n}, {@code \r}, {@code \t} resolved
+   */
+  private static String unescapePhpString(String value) {
+    StringBuilder out = new StringBuilder(value.length());
+    for (int i = 0; i < value.length(); i++) {
+      char c = value.charAt(i);
+      if (c == '\\' && i + 1 < value.length()) {
+        char next = value.charAt(i + 1);
+        switch (next) {
+          case '\\': out.append('\\'); i++; break;
+          case '"':  out.append('"'); i++; break;
+          case '\'': out.append('\''); i++; break;
+          case 'n':  out.append('\n'); i++; break;
+          case 'r':  out.append('\r'); i++; break;
+          case 't':  out.append('\t'); i++; break;
+          default:   out.append(c); break;
+        }
+      } else {
+        out.append(c);
+      }
+    }
+    return out.toString();
   }
 
   private static boolean isQuote(char c) {
@@ -219,6 +283,34 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
   private enum ParseMode {
     BEFORE_ATTRIBUTE_NAME, BEFORE_ATTRIBUTE_VALUE, BEFORE_NODE_NAME
+  }
+
+  /**
+   * Matches the end of an escaped-quoted attribute value where the delimiter is a backslash-quote
+   * pair, treating any backslash-prefixed character within the value as a single escape unit.
+   */
+  private static final class EscapedQuoteMatcher implements EndMatcher {
+    private final char quote;
+    private boolean activeBackslash = false;
+
+    EscapedQuoteMatcher(char quote) {
+      this.quote = quote;
+    }
+
+    @Override
+    public boolean match(int character) {
+      if (activeBackslash) {
+        if (character == quote) {
+          return true;
+        }
+        activeBackslash = false;
+        return false;
+      }
+      if (character == '\\') {
+        activeBackslash = true;
+      }
+      return false;
+    }
   }
 
   /**

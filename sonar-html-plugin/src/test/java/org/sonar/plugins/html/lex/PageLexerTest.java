@@ -361,6 +361,80 @@ class PageLexerTest {
   }
 
   @Test
+  void escapedDoubleQuotedAttributeValues() {
+    // SONARHTML-246: HTML embedded in a PHP double-quoted string literal.
+    // Source bytes: <li id=\"fn:$note_id\" role=\"doc-endnote\">
+    StringReader reader = new StringReader("<li id=\\\"fn:$note_id\\\" role=\\\"doc-endnote\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertThat(nodeList).hasSize(1);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getNodeName()).isEqualTo("li");
+    assertThat(node.getAttributes()).hasSize(2);
+    Attribute idAttr = node.getAttributes().get(0);
+    assertThat(idAttr.getName()).isEqualTo("id");
+    assertThat(idAttr.getValue()).isEqualTo("fn:$note_id");
+    Attribute roleAttr = node.getAttributes().get(1);
+    assertThat(roleAttr.getName()).isEqualTo("role");
+    assertThat(roleAttr.getValue()).isEqualTo("doc-endnote");
+  }
+
+  @Test
+  void escapedSingleQuotedAttributeValues() {
+    // Single-quote variant: <input type=\'text\' name=\'foo\' />
+    StringReader reader = new StringReader("<input type=\\'text\\' name=\\'foo\\' />");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    assertThat(nodeList).hasSize(1);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(2);
+    assertThat(node.getAttributes().get(0).getName()).isEqualTo("type");
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("text");
+    assertThat(node.getAttributes().get(1).getName()).isEqualTo("name");
+    assertThat(node.getAttributes().get(1).getValue()).isEqualTo("foo");
+  }
+
+  @Test
+  void escapedQuotedAttributeWithBackslashEscape() {
+    // Content contains an escaped backslash \\: should decode to a single backslash.
+    // Source bytes: <a href=\"a\\b\">
+    StringReader reader = new StringReader("<a href=\\\"a\\\\b\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(1);
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("a\\b");
+  }
+
+  @Test
+  void escapedQuotedAttributeWithEmbeddedNewline() {
+    // \n inside the value decodes to an actual newline character.
+    StringReader reader = new StringReader("<p title=\\\"a\\nb\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("a\nb");
+  }
+
+  @Test
+  void emptyEscapedQuotedAttribute() {
+    // Empty value: <span id=\"\">
+    StringReader reader = new StringReader("<span id=\\\"\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(1);
+    assertThat(node.getAttributes().get(0).getName()).isEqualTo("id");
+    assertThat(node.getAttributes().get(0).getValue()).isEmpty();
+  }
+
+  @Test
+  void backslashFollowedByNonQuoteStaysUnquoted() {
+    // <a href=\foo> — '\' not followed by a quote should still hit the unquoted branch.
+    StringReader reader = new StringReader("<a href=\\foo>");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(1);
+    assertThat(node.getAttributes().get(0).getName()).isEqualTo("href");
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("\\foo");
+  }
+
+  @Test
   void text_containing_opening_angle_bracket() {
     assertOnlyText("x = '<");
     assertOnlyText("x = '<';");
