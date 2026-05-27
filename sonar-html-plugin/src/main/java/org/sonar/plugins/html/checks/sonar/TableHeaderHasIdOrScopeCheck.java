@@ -109,10 +109,10 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     List<TagNode> firstCol = new ArrayList<>();
 
     /**
-     * Simple tables are considered as such when the headers are either all in the first row, or all in the first column. The two conditions must not apply together.
+     * Simple tables only use headers from the first row, the first column, or both.
      **/
     boolean isSimpleTable() {
-      return headers.equals(firstRow) || headers.equals(firstCol);
+      return headers.stream().allMatch(header -> firstRow.contains(header) || firstCol.contains(header));
     }
   }
 }

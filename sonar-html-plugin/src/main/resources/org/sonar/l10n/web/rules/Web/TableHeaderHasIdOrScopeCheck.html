@@ -87,8 +87,8 @@ href="https://www.w3.org/WAI/tutorials/tables/tips/">W3C WAI&nbsp;Web Accessibil
 </pre>
 <h3>Exceptions</h3>
 <p>This rule is not applied in case of simple tables.</p>
-<p>Tables are considered as such when the headers are either all in the first row, or all in the first column. The two conditions must not apply
-together.</p>
+<p>Tables are considered as such when all headers are in the first row, in the first column, or in both. The first row or first column can also
+contain data cells.</p>
 <p>Simple table example:</p>
 <pre>
 &lt;table border="1"&gt;
@@ -111,6 +111,24 @@ together.</p>
     &lt;tr&gt;
         &lt;th&gt;Surname&lt;/th&gt;
         &lt;td&gt;Doe&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+&lt;table border="1"&gt;
+    &lt;caption&gt;Simple Table 3&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;th&gt;Negative&lt;/th&gt;
+        &lt;th&gt;Positive&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Mood&lt;/th&gt;
+        &lt;td&gt;Sad&lt;/td&gt;
+        &lt;td&gt;Happy&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Grade&lt;/th&gt;
+        &lt;td&gt;Failing&lt;/td&gt;
+        &lt;td&gt;Passing&lt;/td&gt;
     &lt;/tr&gt;
 &lt;/table&gt;
 </pre>
