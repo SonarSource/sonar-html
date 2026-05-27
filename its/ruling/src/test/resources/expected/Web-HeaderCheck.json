@@ -14744,9 +14744,6 @@
 "project:sonar-master/sonar-core/src/test/resources/org/sonar/core/i18n/frenchPack/org/sonar/l10n/checkstyle_fr/ArchitectureRule.html": [
 0
 ],
-"project:sonar-master/sonar-plugin-api/src/test/resources/org/sonar/api/web/AbstractRubyTemplateTest/template.erb": [
-0
-],
 "project:sonar-master/sonar-server/src/main/webapp/401.html": [
 0
 ],
@@ -15107,9 +15104,6 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/metrics/index.html.erb": [
 0
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/plugins/rails_page.erb": [
-0
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb": [
 0
 ],
@@ -15398,16 +15392,10 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_coverage.html.erb": [
 0
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
-0
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_issue_form.html.erb": [
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_issues.html.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_line_numbers.erb": [
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_new_section.html.erb": [
@@ -15479,30 +15467,6 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/widget/index.html.erb": [
 0
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_trace.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/diagnostics.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/layout.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/missing_template.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/routing_error.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/template_error.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/unknown_action.erb": [
-0
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/404.html": [
 0
 ],
@@ -15516,12 +15480,6 @@
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/controller/templates/view.html.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/mailer/templates/fixture.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/mailer/templates/view.erb": [
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/scaffold/templates/layout.html.erb": [

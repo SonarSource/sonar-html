@@ -1617,9 +1617,6 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_type_PROPERTY_SET_DEFINITION.html.erb": [
 3
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
-5
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/system/index.html.erb": [
 10,
 25,

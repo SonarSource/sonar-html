@@ -392,9 +392,6 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/new.html.erb": [
 6
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
-16
-],
 "project:voten/resources/assets/js/components/AdminPanelDashboard.vue": [
 62
 ],

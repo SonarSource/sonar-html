@@ -4825,9 +4825,6 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_properties.html.erb": [
 85
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
-7
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/treemap/_treemap_container.html.erb": [
 31
 ],
