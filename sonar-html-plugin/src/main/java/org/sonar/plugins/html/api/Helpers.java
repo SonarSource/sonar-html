@@ -19,6 +19,7 @@ package org.sonar.plugins.html.api;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class Helpers {
@@ -40,5 +41,49 @@ public class Helpers {
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {
     return code.inputFile().filename().endsWith(".cshtml");
+  }
+
+  /**
+   * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
+   *
+   * @param node the tag node whose ancestors are inspected
+   * @param predicate the test applied to each ancestor
+   * @return true if any ancestor satisfies the predicate
+   */
+  public static boolean hasAncestorMatching(TagNode node, Predicate<TagNode> predicate) {
+    TagNode parent = node.getParent();
+    while (parent != null) {
+      if (predicate.test(parent)) {
+        return true;
+      }
+      parent = parent.getParent();
+    }
+    return false;
+  }
+
+  /**
+   * Returns true if {@code node} has a template-like ancestor: HTML {@code <template>},
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   *
+   * @param node the tag node whose ancestors are inspected
+   * @return true if any ancestor matches a template-like scope
+   */
+  public static boolean hasTemplateAncestor(TagNode node) {
+    return hasAncestorMatching(node, Helpers::isTemplateLikeTag);
+  }
+
+  private static boolean isTemplateLikeTag(TagNode node) {
+    String name = node.getNodeName();
+    if (name == null || name.isEmpty()) {
+      return false;
+    }
+    return "template".equalsIgnoreCase(name)
+      || "ng-template".equalsIgnoreCase(name)
+      || startsWithIgnoreCase(name, "asp:");
+  }
+
+  private static boolean startsWithIgnoreCase(String value, String prefix) {
+    return value.length() >= prefix.length()
+      && value.regionMatches(true, 0, prefix, 0, prefix.length());
   }
 }

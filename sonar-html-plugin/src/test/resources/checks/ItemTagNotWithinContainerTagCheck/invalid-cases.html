@@ -1,0 +1,21 @@
+<li>        <!-- Non-Compliant -->
+</li>
+
+<DT>        <!-- Non-Compliant -->
+</dt>
+
+<foo>
+  <lI>foo   <!-- Non-Compliant -->
+</foo>
+
+<foo>
+  <dt></dt><!-- Non-Compliant -->
+</foo>
+
+<c:if test="${show}">
+  <li>x</li><!-- Non-Compliant - <c:if> is control flow, not a container -->
+</c:if>
+
+<th:block th:if="${show}">
+  <dt>y</dt><!-- Non-Compliant - <th:block> is a no-op wrapper, not a container -->
+</th:block>
