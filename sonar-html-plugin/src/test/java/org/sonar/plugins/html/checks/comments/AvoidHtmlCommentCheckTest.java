@@ -41,7 +41,13 @@ class AvoidHtmlCommentCheckTest {
             Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.html", new int[]{}),
             Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/documenthtml5.html", new int[]{}),
             Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xml", new int[]{}),
-            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xhtml", new int[]{})
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/document.xhtml", new int[]{}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/comment-only.jsp", new int[]{3, 4}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/comment-only.xhtml", new int[]{5}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/comment-only.php", new int[]{4}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/comment-only.twig", new int[]{3, 4}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/comment-only.cshtml", new int[]{3}),
+            Arguments.of("src/test/resources/checks/AvoidHtmlCommentCheck/comment-only.vbhtml", new int[]{3})
     );
   }
 
