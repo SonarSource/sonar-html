@@ -341,8 +341,19 @@ class HtmlSensorTest {
   }
 
   @Test
-  void plain_erb_should_be_analyzed() {
+  void erb_without_intermediate_extension_should_be_skipped() {
     DefaultInputFile inputFile = createInputFile("index.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(tester.measures(inputFile.key())).isEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @Test
+  void erb_with_recognized_non_html_intermediate_extension_should_be_analyzed() {
+    DefaultInputFile inputFile = createInputFile("script.php.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
     tester.fileSystem().add(inputFile);
 
     sensor.execute(tester);

@@ -16,62 +16,84 @@
  */
 package org.sonar.plugins.html.core;
 
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ErbFileFilterTest {
 
+  private static final Set<String> RECOGNIZED = Set.of(
+    "html", "htm", "xhtml", "cshtml", "vbhtml", "aspx", "ascx", "rhtml",
+    "erb", "shtm", "shtml", "cmp", "twig",
+    "jsp", "jspf", "jspx",
+    "php", "php3", "php4", "php5", "phtml", "inc", "vue"
+  );
+
   @Test
-  void skips_non_html_basenames() {
-    assertThat(ErbFileFilter.isNonHtmlErb("Dockerfile.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("Makefile.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("Rakefile.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("Gemfile.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("Vagrantfile.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("Procfile.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("Jenkinsfile.erb")).isTrue();
+  void skips_erb_without_intermediate_extension() {
+    assertThat(ErbFileFilter.shouldSkip("Dockerfile.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("Makefile.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("Rakefile.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("template.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("_partial.erb", RECOGNIZED)).isTrue();
   }
 
   @Test
-  void basename_match_is_case_insensitive() {
-    assertThat(ErbFileFilter.isNonHtmlErb("dockerfile.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("DOCKERFILE.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("Dockerfile.ERB")).isTrue();
+  void skips_erb_with_unrecognized_intermediate_extension() {
+    assertThat(ErbFileFilter.shouldSkip("config.yml.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("settings.yaml.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("notify.text.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("app.js.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("payload.json.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("nginx.conf.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("data.xml.erb", RECOGNIZED)).isTrue();
   }
 
   @Test
-  void skips_non_html_middle_extensions() {
-    assertThat(ErbFileFilter.isNonHtmlErb("config.yml.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("settings.yaml.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("notify.text.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("app.js.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("payload.json.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("nginx.conf.erb")).isTrue();
-    assertThat(ErbFileFilter.isNonHtmlErb("data.xml.erb")).isTrue();
+  void keeps_erb_with_recognized_html_intermediate_extension() {
+    assertThat(ErbFileFilter.shouldSkip("index.html.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("_partial.html.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("page.htm.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("layout.xhtml.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("view.cshtml.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("page.aspx.erb", RECOGNIZED)).isFalse();
   }
 
   @Test
-  void keeps_html_like_middle_extensions() {
-    assertThat(ErbFileFilter.isNonHtmlErb("index.html.erb")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("page.htm.erb")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("layout.xhtml.erb")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("_partial.HTML.erb")).isFalse();
+  void keeps_erb_with_recognized_jsp_intermediate_extension() {
+    assertThat(ErbFileFilter.shouldSkip("view.jsp.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("fragment.jspf.erb", RECOGNIZED)).isFalse();
   }
 
   @Test
-  void keeps_plain_erb_files_without_intermediate_extension() {
-    assertThat(ErbFileFilter.isNonHtmlErb("index.erb")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("_user.erb")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("template.erb")).isFalse();
+  void keeps_erb_with_recognized_other_intermediate_extension() {
+    assertThat(ErbFileFilter.shouldSkip("script.php.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("script.phtml.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("component.vue.erb", RECOGNIZED)).isFalse();
+  }
+
+  @Test
+  void match_is_case_insensitive() {
+    assertThat(ErbFileFilter.shouldSkip("Dockerfile.ERB", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.shouldSkip("index.HTML.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("INDEX.HTML.ERB", RECOGNIZED)).isFalse();
   }
 
   @Test
   void ignores_non_erb_files() {
-    assertThat(ErbFileFilter.isNonHtmlErb("index.html")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("Dockerfile")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("config.yml")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("app.js")).isFalse();
-    assertThat(ErbFileFilter.isNonHtmlErb("")).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("index.html", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("Dockerfile", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("config.yml", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("app.js", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("", RECOGNIZED)).isFalse();
+  }
+
+  @Test
+  void respects_caller_provided_extension_set() {
+    // a caller can add custom extensions (e.g. user-configured suffixes)
+    Set<String> custom = Set.of("html", "custom");
+    assertThat(ErbFileFilter.shouldSkip("foo.custom.erb", custom)).isFalse();
+    assertThat(ErbFileFilter.shouldSkip("foo.vue.erb", custom)).isTrue();
   }
 }

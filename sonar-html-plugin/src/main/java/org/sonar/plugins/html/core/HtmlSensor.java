@@ -19,14 +19,18 @@ package org.sonar.plugins.html.core;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 import org.sonar.api.SonarProduct;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FilePredicates;
+import org.sonar.api.config.Configuration;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.CheckFactory;
@@ -114,13 +118,15 @@ public final class HtmlSensor implements Sensor {
           )
     ));
 
+    Set<String> recognizedExtensions = collectRecognizedExtensions(sensorContext.config());
+
     for (InputFile inputFile : inputFiles) {
       if (sensorContext.isCancelled()) {
         return;
       }
 
-      if (ErbFileFilter.isNonHtmlErb(inputFile.filename())) {
-        LOG.debug("Skipping non-HTML ERB file: {}", inputFile);
+      if (ErbFileFilter.shouldSkip(inputFile.filename(), recognizedExtensions)) {
+        LOG.debug("Skipping ERB file without recognized double extension: {}", inputFile);
         continue;
       }
 
@@ -216,6 +222,35 @@ public final class HtmlSensor implements Sensor {
 
   private void addAnalysisWarnings(AbstractPageCheck check) {
     check.collectAnalysisWarnings().forEach(analysisWarnings::addUnique);
+  }
+
+  /**
+   * Collects every file extension sonar-html recognizes — HTML language suffixes,
+   * JSP language suffixes, and the hard-coded OTHER_FILE_SUFFIXES — normalized to
+   * lowercase without a leading dot.
+   *
+   * @param config the sensor configuration carrying user-overridable suffix lists
+   * @return the union of all recognized extensions
+   */
+  private static Set<String> collectRecognizedExtensions(Configuration config) {
+    Set<String> exts = new HashSet<>();
+    addExtensions(exts, HtmlConstants.FILE_EXTENSIONS_DEF_VALUE.split(","));
+    addExtensions(exts, HtmlConstants.JSP_FILE_EXTENSIONS_DEF_VALUE.split(","));
+    addExtensions(exts, config.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY));
+    addExtensions(exts, config.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY));
+    addExtensions(exts, OTHER_FILE_SUFFIXES);
+    return exts;
+  }
+
+  private static void addExtensions(Set<String> sink, String[] extensions) {
+    for (String ext : extensions) {
+      String trimmed = ext.trim();
+      if (trimmed.isEmpty()) {
+        continue;
+      }
+      String noDot = trimmed.startsWith(".") ? trimmed.substring(1) : trimmed;
+      sink.add(noDot.toLowerCase(Locale.ROOT));
+    }
   }
 
   private static boolean supportsIssueResolution(SensorContext context) {
