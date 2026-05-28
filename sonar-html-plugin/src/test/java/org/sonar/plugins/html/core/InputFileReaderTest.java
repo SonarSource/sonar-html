@@ -17,7 +17,6 @@
 package org.sonar.plugins.html.core;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;

@@ -40,7 +40,7 @@ class HtmlFileExtensionsTest {
   void always_includes_other_file_suffixes() {
     Set<String> ext = HtmlFileExtensions.recognized(new MapSettings().asConfig());
 
-    assertThat(ext).contains(HtmlConstants.OTHER_FILE_SUFFIXES);
+    assertThat(ext).containsAll(HtmlConstants.OTHER_FILE_SUFFIXES);
   }
 
   @Test

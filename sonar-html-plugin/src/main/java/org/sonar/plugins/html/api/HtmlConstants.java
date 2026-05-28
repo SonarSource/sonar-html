@@ -46,7 +46,7 @@ public class HtmlConstants {
    * {@link #JSP_FILE_EXTENSIONS_PROP_KEY} — server-side templating languages whose final
    * output is HTML.
    */
-  public static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "vue"};
+  public static final List<String> OTHER_FILE_SUFFIXES = List.of("php", "php3", "php4", "php5", "phtml", "inc", "vue");
   public static final List<String> KNOWN_HTML_TAGS = List.of(
     "a",
     "acronym", // deprecated

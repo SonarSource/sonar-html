@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Stream;
 import org.sonar.api.SonarProduct;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -109,7 +108,7 @@ public final class HtmlSensor implements Sensor {
         predicates.hasType(InputFile.Type.MAIN),
         predicates.or(
           predicates.hasLanguages(HtmlConstants.LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_KEY),
-          predicates.or(Stream.of(HtmlConstants.OTHER_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
+          predicates.or(HtmlConstants.OTHER_FILE_SUFFIXES.stream().map(predicates::hasExtension).toArray(FilePredicate[]::new))
           ),
         ErbFileFilter.filePredicate(predicates, sensorContext.config())
     ));

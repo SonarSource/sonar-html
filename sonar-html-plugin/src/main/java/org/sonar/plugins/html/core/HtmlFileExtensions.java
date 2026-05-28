@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.html.core;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -40,13 +41,13 @@ public final class HtmlFileExtensions {
    */
   public static Set<String> recognized(Configuration config) {
     Set<String> exts = new HashSet<>();
-    addExtensions(exts, config.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY));
-    addExtensions(exts, config.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY));
+    addExtensions(exts, Arrays.asList(config.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY)));
+    addExtensions(exts, Arrays.asList(config.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY)));
     addExtensions(exts, HtmlConstants.OTHER_FILE_SUFFIXES);
     return exts;
   }
 
-  private static void addExtensions(Set<String> sink, String[] extensions) {
+  private static void addExtensions(Set<String> sink, Iterable<String> extensions) {
     for (String ext : extensions) {
       String trimmed = ext.trim();
       if (trimmed.isEmpty()) {

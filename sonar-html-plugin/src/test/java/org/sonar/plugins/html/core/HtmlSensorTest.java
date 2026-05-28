@@ -324,31 +324,17 @@ class HtmlSensorTest {
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
-  @Test
-  void html_erb_should_be_analyzed() {
-    DefaultInputFile inputFile = createInputFile("page.html.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
-    tester.fileSystem().add(inputFile);
-
-    sensor.execute(tester);
-
-    assertThat(tester.measures(inputFile.key())).isNotEmpty();
-    assertThat(tester.allAnalysisErrors()).isEmpty();
-  }
-
-  @Test
-  void bare_erb_with_html_content_should_be_analyzed() {
-    DefaultInputFile inputFile = createInputFile("index.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
-    tester.fileSystem().add(inputFile);
-
-    sensor.execute(tester);
-
-    assertThat(tester.measures(inputFile.key())).isNotEmpty();
-    assertThat(tester.allAnalysisErrors()).isEmpty();
-  }
-
-  @Test
-  void erb_with_recognized_php_intermediate_extension_should_be_analyzed() {
-    DefaultInputFile inputFile = createInputFile("script.php.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
+  @ParameterizedTest(name = "{0} is analyzed because content looks like HTML")
+  @CsvSource({
+    // Recognized HTML double extension.
+    "page.html.erb",
+    // Bare .erb resolved by the content sniff.
+    "index.erb",
+    // Recognized non-HTML intermediate extension (still routed through the HTML analyzer).
+    "script.php.erb"
+  })
+  void erb_with_html_content_should_be_analyzed(String filename) {
+    DefaultInputFile inputFile = createInputFile(filename, "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
     tester.fileSystem().add(inputFile);
 
     sensor.execute(tester);

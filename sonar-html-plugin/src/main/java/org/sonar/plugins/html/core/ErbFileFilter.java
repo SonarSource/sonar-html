@@ -124,7 +124,8 @@ public final class ErbFileFilter {
     Matcher m = WEAK_HTML_TAG.matcher(cleaned);
     int count = 0;
     while (m.find()) {
-      if (++count >= WEAK_HTML_MIN_MATCHES) {
+      count++;
+      if (count >= WEAK_HTML_MIN_MATCHES) {
         return true;
       }
     }
