@@ -71,8 +71,8 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     if (isInputRequiredLabel(node) || isSelect(node) || isTextarea(node)) {
       registerControl(node);
     } else if (isLabel(node)) {
-      String target = getRawLabelTarget(node);
-      if (target != null && !isDynamic(target)) {
+      String target = resolveStaticLabelTarget(node);
+      if (target != null) {
         labelTargets.add(target);
       }
     }
@@ -85,7 +85,8 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
     Set<String> ariaReferences = resolveAriaLabelledByReferences(node);
     if (ariaReferences == null) {
-      // aria-labelledby is present but its value is a dynamic expression we cannot statically resolve — trust it.
+      // aria-labelledby value cannot be statically resolved (binding form, JS expression, server-side marker) —
+      // trust the author rather than guess.
       return;
     }
     if (!ariaReferences.isEmpty()) {
@@ -94,16 +95,16 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     }
     // aria-labelledby absent or empty — fall back to the id/label-for association check.
 
-    String rawId = getRawControlId(node);
-    if (rawId == null) {
+    String controlTarget = resolveStaticControlId(node);
+    if (controlTarget != null) {
+      controlsWithTargets.put(node, controlTarget);
+      return;
+    }
+    if (!hasAnyControlIdHint(node)) {
       createViolation(node, ADD_ID_MESSAGE);
-      return;
     }
-    if (isDynamic(rawId)) {
-      // Dynamic id (server-side template expression) — trust the author rather than emit a misleading mismatch.
-      return;
-    }
-    controlsWithTargets.put(node, rawId);
+    // else: the control has an id-bearing attribute we cannot statically resolve (e.g. [id]="x", id="${userId}") —
+    // its runtime value is opaque to us, so we trust it.
   }
 
   @Override
@@ -140,11 +141,27 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   // Per HTML5, an <input> without an explicit "type" defaults to "text" and therefore requires a label.
   // Missing or non-string "type" is treated as labelable — only inputs with an explicit excluded type are skipped.
+  // Unlike id/for, `type` values are essentially an enum (text/hidden/submit/...), so we read binding-form values
+  // (e.g. [type]="hidden") at face value and strip any inner JS quotes ([type]="'hidden'") to a literal.
   private static boolean hasExcludedType(TagNode node) {
-    String type = getTrimmedPropertyValue(node, "type");
+    String type = looseTypeValue(node);
 
     return type != null &&
       EXCLUDED_TYPES.contains(type.toUpperCase(Locale.ENGLISH));
+  }
+
+  @CheckForNull
+  private static String looseTypeValue(TagNode node) {
+    String value = node.getPropertyValue("type");
+    if (value == null) {
+      return null;
+    }
+    String trimmed = value.trim();
+    if (trimmed.length() >= 2
+      && ((trimmed.startsWith("'") && trimmed.endsWith("'")) || (trimmed.startsWith("\"") && trimmed.endsWith("\"")))) {
+      trimmed = trimmed.substring(1, trimmed.length() - 1).trim();
+    }
+    return trimmed.isEmpty() ? null : trimmed;
   }
 
   private static boolean isLabel(TagNode node) {
@@ -172,14 +189,12 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   /**
    * Returns the ids referenced by {@code aria-labelledby}, distinguishing three outcomes:
    * <ul>
-   *   <li>{@code null} — value is a dynamic expression we cannot resolve statically (binding-form identifier,
-   *       JS expression, server-side template marker); the caller should trust the author and skip validation.</li>
+   *   <li>{@code null} — the value cannot be resolved statically (Angular/Vue binding form, or a server-side
+   *       template marker in the plain attribute); the caller should trust the author.</li>
    *   <li>empty set — the attribute is absent or empty; the caller should fall back to the {@code id}/{@code for}
    *       association check.</li>
    *   <li>non-empty set — statically resolved ids to validate against the document's known ids.</li>
    * </ul>
-   * For binding-form names ({@code [aria-labelledby]}, {@code :aria-labelledby}, {@code v-bind:aria-labelledby}) the
-   * value is a JS expression — we only treat it as static when it is a quoted string literal (e.g. {@code "'foo'"}).
    */
   @CheckForNull
   private Set<String> resolveAriaLabelledByReferences(TagNode node) {
@@ -187,22 +202,14 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     if (property == null) {
       return Set.of();
     }
-    String rawValue = property.getValue();
-    String trimmed = rawValue == null ? "" : rawValue.trim();
-    if (trimmed.isEmpty()) {
+    if (isBindingForm(property, "aria-labelledby")) {
+      return null;
+    }
+    String trimmed = trimmedOrNull(property.getValue());
+    if (trimmed == null) {
       return Set.of();
     }
-    boolean bindingForm = !"aria-labelledby".equalsIgnoreCase(property.getName());
-    if (bindingForm) {
-      if (!isQuotedStringLiteral(trimmed)) {
-        return null;
-      }
-      trimmed = trimmed.substring(1, trimmed.length() - 1).trim();
-      if (trimmed.isEmpty()) {
-        return Set.of();
-      }
-    }
-    if (Helpers.containsDynamicValue(trimmed, getHtmlSourceCode())) {
+    if (isDynamic(trimmed)) {
       return null;
     }
     return Arrays.stream(trimmed.split("\\s+"))
@@ -210,67 +217,85 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
       .collect(Collectors.toCollection(LinkedHashSet::new));
   }
 
-  private static boolean isQuotedStringLiteral(String value) {
-    return value.length() >= 2
-      && ((value.startsWith("'") && value.endsWith("'")) || (value.startsWith("\"") && value.endsWith("\"")));
+  /**
+   * Returns the statically-known id this control announces (via plain {@code id} or Razor {@code asp-for}),
+   * or {@code null} when the value is opaque to static analysis — Angular/Vue binding form, a server-side
+   * template expression, or simply absent. Callers should check {@link #hasAnyControlIdHint(TagNode)} to
+   * distinguish "opaque value present" from "no id-bearing attribute at all".
+   */
+  @CheckForNull
+  private String resolveStaticControlId(TagNode node) {
+    Attribute idProperty = node.getProperty("id");
+    if (idProperty != null) {
+      return resolveStaticAttribute(idProperty, "id");
+    }
+    return staticAttributeValue(node, "asp-for");
   }
 
   /**
-   * Returns the raw id value this control announces — via {@code id} (incl. Angular/Vue binding forms, handled by
-   * {@link TagNode#getProperty(String)}) or via the Razor {@code asp-for} tag-helper, which generates an
-   * {@code id} matching the bound model property. Returns {@code null} when no id-bearing attribute is set.
-   * Callers must apply {@link #isDynamic(String)} to decide whether to trust the value.
+   * Returns the statically-known id this label points at (via plain {@code for}, JSX {@code htmlFor}, or
+   * Razor {@code asp-for}), or {@code null} when the value is opaque (binding form, server-side expression,
+   * or absent). Labels with opaque {@code for} values do not contribute to the set of known label targets.
    */
   @CheckForNull
-  private static String getRawControlId(TagNode node) {
-    String value = getTrimmedPropertyValue(node, "id");
-    if (value == null) {
-      value = getTrimmedAttributeValue(node, "asp-for");
+  private String resolveStaticLabelTarget(TagNode node) {
+    Attribute forProperty = node.getProperty("for");
+    if (forProperty != null) {
+      return resolveStaticAttribute(forProperty, "for");
     }
-    return value;
+    String htmlFor = staticAttributeValue(node, "htmlFor");
+    if (htmlFor != null) {
+      return htmlFor;
+    }
+    return staticAttributeValue(node, "asp-for");
   }
 
-  /**
-   * Returns the raw id this label points at — via {@code for} (incl. Angular/Vue binding forms), the JSX
-   * {@code htmlFor} alias, or the Razor {@code asp-for} tag-helper (which generates a {@code for} matching the
-   * bound model property). Returns {@code null} when no for-bearing attribute is set. Callers must apply
-   * {@link #isDynamic(String)} to decide whether to trust the value.
-   */
   @CheckForNull
-  private static String getRawLabelTarget(TagNode node) {
-    String value = getTrimmedPropertyValue(node, "for");
-    if (value == null) {
-      value = getTrimmedAttributeValue(node, "htmlFor");
+  private String resolveStaticAttribute(Attribute attribute, String canonicalName) {
+    if (isBindingForm(attribute, canonicalName)) {
+      return null;
     }
-    if (value == null) {
-      value = getTrimmedAttributeValue(node, "asp-for");
+    return staticOrNull(attribute.getValue());
+  }
+
+  @CheckForNull
+  private String staticAttributeValue(TagNode node, String attributeName) {
+    return staticOrNull(node.getAttribute(attributeName));
+  }
+
+  @CheckForNull
+  private String staticOrNull(@CheckForNull String rawValue) {
+    String trimmed = trimmedOrNull(rawValue);
+    if (trimmed == null || isDynamic(trimmed)) {
+      return null;
     }
-    return value;
+    return trimmed;
   }
 
   private boolean isDynamic(String value) {
     return Helpers.containsDynamicValue(value, getHtmlSourceCode());
   }
 
+  private static boolean isBindingForm(Attribute attribute, String canonicalName) {
+    return !canonicalName.equalsIgnoreCase(attribute.getName());
+  }
+
+  private static boolean hasAnyControlIdHint(TagNode node) {
+    return node.hasProperty("id") || node.hasAttribute("asp-for");
+  }
+
   @CheckForNull
   private static String getNodeId(TagNode node) {
-    return getTrimmedPropertyValue(node, "id");
-  }
-
-  /**
-   * Reads a property via {@link TagNode#getProperty(String)} (so Angular/Vue binding forms are matched) and
-   * normalizes the value: trims whitespace and, when the value is wrapped in matching single or double quotes,
-   * strips them. The quote-stripping handles binding-form JS string literals like {@code [type]="'text'"} —
-   * outer HTML quotes are removed by the tokenizer, but inner JS quotes survive in the stored value.
-   */
-  @CheckForNull
-  private static String getTrimmedPropertyValue(TagNode node, String propertyName) {
-    return trimmedOrNull(node.getPropertyValue(propertyName));
+    return staticPropertyValue(node, "id");
   }
 
   @CheckForNull
-  private static String getTrimmedAttributeValue(TagNode node, String attributeName) {
-    return trimmedOrNull(node.getAttribute(attributeName));
+  private static String staticPropertyValue(TagNode node, String propertyName) {
+    Attribute property = node.getProperty(propertyName);
+    if (property == null || isBindingForm(property, propertyName)) {
+      return null;
+    }
+    return trimmedOrNull(property.getValue());
   }
 
   @CheckForNull
@@ -280,14 +305,6 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     }
 
     String trimmedValue = value.trim();
-    if (trimmedValue.isEmpty()) {
-      return null;
-    }
-
-    if (isQuotedStringLiteral(trimmedValue)) {
-      trimmedValue = trimmedValue.substring(1, trimmedValue.length() - 1).trim();
-    }
-
     return trimmedValue.isEmpty() ? null : trimmedValue;
   }
 
