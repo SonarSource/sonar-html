@@ -40,6 +40,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   private static final Set<String> EXCLUDED_TYPES = Set.of("SUBMIT", "BUTTON", "IMAGE", "HIDDEN");
   private static final String ADD_ID_MESSAGE = "Add an \"id\" attribute to this input field and associate it with a label.";
   private static final String ASSOCIATE_LABEL_MESSAGE = "Associate a valid label to this input field.";
+  private static final String ASP_FOR = "asp-for";
 
   // LinkedHashMap/LinkedHashSet so endDocument emits issues in document order — matches tests and ruling reports.
   private final Set<String> labelTargets = new LinkedHashSet<>();
@@ -229,7 +230,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     if (idProperty != null) {
       return resolveStaticAttribute(idProperty, "id");
     }
-    return staticAttributeValue(node, "asp-for");
+    return staticAttributeValue(node, ASP_FOR);
   }
 
   /**
@@ -247,7 +248,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     if (htmlFor != null) {
       return htmlFor;
     }
-    return staticAttributeValue(node, "asp-for");
+    return staticAttributeValue(node, ASP_FOR);
   }
 
   @CheckForNull
@@ -281,7 +282,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   }
 
   private static boolean hasAnyControlIdHint(TagNode node) {
-    return node.hasProperty("id") || node.hasAttribute("asp-for");
+    return node.hasProperty("id") || node.hasAttribute(ASP_FOR);
   }
 
   @CheckForNull
