@@ -86,8 +86,7 @@
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
 1082,
-1083,
-1097
+1083
 ],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/communicationUser/jsp/discussion.jsp": [
 150
@@ -2830,36 +2829,19 @@
 "project:phpMyAdmin-4.0.4-english/view_operations.php": [
 91
 ],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
-59
-],
-"project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb": [
-42
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb": [
-57
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/_new.html.erb": [
 13,
 20,
 29
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/_edit.html.erb": [
-8,
-13
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/_new.html.erb": [
 6,
 19,
 25
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/autocomplete/_text_field.html.erb": [
-1
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/bulk_deletion/index.html.erb": [
 23,
-48,
-64
+48
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/cloud/index.html.erb": [
 25
@@ -2959,20 +2941,9 @@
 2,
 7
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/_key_modules.html.erb": [
-7
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/history.html.erb": [
-82,
-110,
-128
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/key.html.erb": [
 32,
 37
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/profile.html.erb": [
-22
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/edit_groups.html.erb": [
 17,
@@ -3011,12 +2982,6 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/projects.html.erb": [
 76
 ],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_active_rule_note.html.erb": [
-45
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule_note.html.erb": [
-42
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/edit.html.erb": [
 31,
 37,
@@ -3030,16 +2995,6 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/server_id_configuration/index.html.erb": [
 33,
 48
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_type_LICENSE.html.erb": [
-2,
-8
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_type_METRIC.html.erb": [
-4
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/updatecenter/available.html.erb": [
-103
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/new.html.erb": [
 8,
