@@ -1,16 +1,14 @@
 <h2>Why is this an issue?</h2>
 <p>This rule raises an issue when:</p>
 <ul>
-  <li>the <code>&lt;html&gt;</code> element of a document carries no <code>lang</code> or <code>xml:lang</code> attribute and no <code>lang</code> or
-  <code>xml:lang</code> is declared on the <code>&lt;body&gt;</code> element either, or</li>
-  <li>an HTML element has a <code>lang</code> and/or <code>xml:lang</code> attribute, contains text content within its subtree, and the value of the
-  attribute does not begin with a valid two‑letter ISO 639‑1 language code.</li>
+  <li>neither the <code>&lt;html&gt;</code> nor the <code>&lt;body&gt;</code> element of the document declares a <code>lang</code> (or
+  <code>xml:lang</code>) attribute, or</li>
+  <li>an element with text content carries a <code>lang</code> (or <code>xml:lang</code>) attribute whose value does not start with a valid two-letter
+  ISO 639-1 language code.</li>
 </ul>
 <p>The <code>lang</code> attribute is used by assistive technologies, translation tools, and search engines to correctly interpret and process text
-content. A document with no page‑level language cannot be spoken correctly by screen readers, and an invalid language code may cause text to be
+content. A document with no page-level language cannot be spoken correctly by screen readers, and an invalid language code may cause text to be
 mispronounced, translated incorrectly, or misclassified.</p>
-<p>Declaring the page language on <code>&lt;html&gt;</code> is the conventional location; declaring it on <code>&lt;body&gt;</code> is also accepted
-because that is the element that carries the visible content read by assistive technologies.</p>
 <h3>Noncompliant code examples</h3>
 <pre>
 &lt;html&gt; &lt;!-- Noncompliant: no lang on &lt;html&gt; and none on &lt;body&gt; either --&gt;
