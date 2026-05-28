@@ -53,9 +53,12 @@ class InputWithoutLabelCheckTest {
       new InputWithoutLabelCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(5).withMessage("Associate a valid label to this input field.")
-      .next().atLine(16).withMessage("Associate a valid label to this input field.")
-      .next().atLine(24).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missingLabel\".")
+      .next().atLine(7).withMessage("Associate a valid label to this input field.")
+      .next().atLine(18).withMessage("Associate a valid label to this input field.")
+      .next().atLine(26).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missingLabel\".")
+      .next().atLine(38).withMessage("Associate a valid label to this input field.")
+      .next().atLine(45).withMessage("Associate a valid label to this input field.")
+      .next().atLine(51).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missingBoundLabel\".")
       .noMore();
   }
 

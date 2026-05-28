@@ -1,6 +1,8 @@
 <label [for]="angularId">Angular</label>
 <input [id]="angularId" [type]="text" /> <!-- Compliant -->
 
+<!-- Mismatched binding expressions are reported: the rule cannot evaluate framework-side variable
+     equality and therefore requires the two value expressions to be string-equal. -->
 <label [for]="expectedId">Mismatch</label>
 <input [id]="actualId" [type]="text" /> <!-- Non-Compliant -->
 
@@ -27,3 +29,27 @@
   missingLabel" /> <!-- Non-Compliant -->
 
 <input [type]="text" [aria-labelledby]="dynamicLabelIds" /> <!-- Compliant -->
+
+<!-- ASP.NET Core asp-for tag-helper generates matching id/for at render time. -->
+<label asp-for="ProductName">Product name</label>
+<input asp-for="ProductName" /> <!-- Compliant -->
+
+<label asp-for="ExpectedProperty">Mismatch</label>
+<input asp-for="ActualProperty" /> <!-- Non-Compliant -->
+
+<!-- JSX htmlFor alias on labels. -->
+<label htmlFor="reactId">React</label>
+<input id="reactId" type="text" /> <!-- Compliant -->
+
+<label htmlFor="otherId">React mismatch</label>
+<input id="reactMismatchId" type="text" /> <!-- Non-Compliant -->
+
+<!-- Binding-form aria-labelledby with a JS string literal must be validated, not blindly trusted. -->
+<div id="presentBoundLabel"></div>
+<input type="text" [aria-labelledby]="'presentBoundLabel'" /> <!-- Compliant -->
+
+<input type="text" [aria-labelledby]="'missingBoundLabel'" /> <!-- Non-Compliant -->
+
+<!-- Dynamic server-side expressions in id/for cannot be statically compared; trust the author. -->
+<label for="${userId}">JSP/Twig dynamic</label>
+<input id="${userId}" type="text" /> <!-- Compliant -->
