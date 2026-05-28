@@ -16,40 +16,107 @@
  */
 package org.sonar.plugins.html.core;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 // ERB is Ruby's general-purpose template engine and is used for many non-HTML
-// outputs (Dockerfile, YAML, plain text, ...). We only want to analyze .erb
-// files whose intermediate extension matches a format sonar-html already
-// recognizes (e.g. `foo.html.erb`, `foo.php.erb`, `foo.vue.erb`). A bare
-// `foo.erb` carries no signal about its content type and is skipped.
+// outputs (Dockerfile, YAML, plain text, ...). We accept an .erb file only when
+// we have evidence it produces HTML: either a recognized double extension
+// (foo.html.erb, foo.vue.erb, ...) or a content sniff of the first 2 KB that
+// finds HTML markers once ERB code blocks have been stripped.
 public final class ErbFileFilter {
 
+  private static final Logger LOG = Loggers.get(ErbFileFilter.class);
+
   private static final String ERB_SUFFIX = ".erb";
+  private static final int READ_CHARACTERS_LIMIT = 2048;
+  private static final int WEAK_HTML_MIN_MATCHES = 2;
+
+  private static final Pattern ERB_BLOCK = Pattern.compile("<%[\\s\\S]*?%>");
+
+  private static final Pattern STRONG_HTML_TAG = Pattern.compile(
+    "<!DOCTYPE\\s+html\\b|<(?:html|head|body)\\b",
+    Pattern.CASE_INSENSITIVE);
+
+  private static final Pattern WEAK_HTML_TAG = Pattern.compile(
+    "<(?:div|span|p|a|ul|ol|li|table|tr|td|th|form|input|textarea|select|button|" +
+      "script|style|section|article|header|footer|nav|main)\\b",
+    Pattern.CASE_INSENSITIVE);
 
   private ErbFileFilter() {
   }
 
   /**
-   * Tells whether an ERB template should be skipped because it lacks a recognized
-   * intermediate extension before {@code .erb}.
+   * Tells whether {@code inputFile} should be analyzed by sonar-html.
+   * Non-.erb files are always accepted. For .erb files, we keep them when the
+   * filename carries a recognized double extension; otherwise we sniff the first
+   * {@value #READ_CHARACTERS_LIMIT} characters of content for HTML markers.
    *
-   * @param filename the filename to inspect, including its extension
+   * @param inputFile the file to inspect
    * @param recognizedExtensions extensions sonar-html knows about, lowercase and without leading dot
-   * @return true if the file is a .erb file without a recognized double extension
+   * @return true if the file should be passed through to the HTML lexer
    */
-  public static boolean shouldSkip(String filename, Set<String> recognizedExtensions) {
-    String lower = filename.toLowerCase(Locale.ROOT);
-    if (!lower.endsWith(ERB_SUFFIX)) {
-      return false;
-    }
-    String beforeErb = lower.substring(0, lower.length() - ERB_SUFFIX.length());
-    int dotIdx = beforeErb.lastIndexOf('.');
-    if (dotIdx < 0) {
+  public static boolean shouldAnalyze(InputFile inputFile, Set<String> recognizedExtensions) {
+    String filename = inputFile.filename().toLowerCase(Locale.ROOT);
+    if (!filename.endsWith(ERB_SUFFIX)) {
       return true;
     }
-    String middleExt = beforeErb.substring(dotIdx + 1);
-    return !recognizedExtensions.contains(middleExt);
+    if (hasRecognizedDoubleExtension(filename, recognizedExtensions)) {
+      return true;
+    }
+    return looksLikeHtml(readHead(inputFile));
+  }
+
+  static boolean hasRecognizedDoubleExtension(String lowerFilename, Set<String> recognizedExtensions) {
+    String beforeErb = lowerFilename.substring(0, lowerFilename.length() - ERB_SUFFIX.length());
+    int dotIdx = beforeErb.lastIndexOf('.');
+    if (dotIdx < 0) {
+      return false;
+    }
+    return recognizedExtensions.contains(beforeErb.substring(dotIdx + 1));
+  }
+
+  static boolean looksLikeHtml(String content) {
+    if (content.isEmpty()) {
+      return false;
+    }
+    String cleaned = ERB_BLOCK.matcher(content).replaceAll(" ");
+    if (STRONG_HTML_TAG.matcher(cleaned).find()) {
+      return true;
+    }
+    Matcher m = WEAK_HTML_TAG.matcher(cleaned);
+    int count = 0;
+    while (m.find()) {
+      if (++count >= WEAK_HTML_MIN_MATCHES) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static String readHead(InputFile inputFile) {
+    char[] buf = new char[READ_CHARACTERS_LIMIT];
+    try (Reader reader = new InputStreamReader(inputFile.inputStream(), inputFile.charset())) {
+      int total = 0;
+      while (total < buf.length) {
+        int read = reader.read(buf, total, buf.length - total);
+        if (read < 0) {
+          break;
+        }
+        total += read;
+      }
+      return total > 0 ? new String(buf, 0, total) : "";
+    } catch (IOException e) {
+      LOG.debug("Could not read ERB head for {}: {}", inputFile, e.getMessage());
+      return "";
+    }
   }
 }

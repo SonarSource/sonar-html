@@ -30,70 +30,100 @@ class ErbFileFilterTest {
     "php", "php3", "php4", "php5", "phtml", "inc", "vue"
   );
 
+  // hasRecognizedDoubleExtension — purely filename-based, no I/O.
+
   @Test
-  void skips_erb_without_intermediate_extension() {
-    assertThat(ErbFileFilter.shouldSkip("Dockerfile.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("Makefile.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("Rakefile.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("template.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("_partial.erb", RECOGNIZED)).isTrue();
+  void bare_erb_has_no_recognized_double_extension() {
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("dockerfile.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("makefile.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("rakefile.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("template.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("_partial.erb", RECOGNIZED)).isFalse();
   }
 
   @Test
-  void skips_erb_with_unrecognized_intermediate_extension() {
-    assertThat(ErbFileFilter.shouldSkip("config.yml.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("settings.yaml.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("notify.text.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("app.js.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("payload.json.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("nginx.conf.erb", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("data.xml.erb", RECOGNIZED)).isTrue();
+  void unrecognized_intermediate_extension_is_not_recognized() {
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("config.yml.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("settings.yaml.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("notify.text.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("app.js.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("payload.json.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("nginx.conf.erb", RECOGNIZED)).isFalse();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("data.xml.erb", RECOGNIZED)).isFalse();
   }
 
   @Test
-  void keeps_erb_with_recognized_html_intermediate_extension() {
-    assertThat(ErbFileFilter.shouldSkip("index.html.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("_partial.html.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("page.htm.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("layout.xhtml.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("view.cshtml.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("page.aspx.erb", RECOGNIZED)).isFalse();
+  void recognized_html_intermediate_extension_is_recognized() {
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("index.html.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("_partial.html.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("page.htm.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("layout.xhtml.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("view.cshtml.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("page.aspx.erb", RECOGNIZED)).isTrue();
   }
 
   @Test
-  void keeps_erb_with_recognized_jsp_intermediate_extension() {
-    assertThat(ErbFileFilter.shouldSkip("view.jsp.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("fragment.jspf.erb", RECOGNIZED)).isFalse();
+  void recognized_jsp_intermediate_extension_is_recognized() {
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("view.jsp.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("fragment.jspf.erb", RECOGNIZED)).isTrue();
   }
 
   @Test
-  void keeps_erb_with_recognized_other_intermediate_extension() {
-    assertThat(ErbFileFilter.shouldSkip("script.php.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("script.phtml.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("component.vue.erb", RECOGNIZED)).isFalse();
+  void recognized_other_intermediate_extension_is_recognized() {
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("script.php.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("script.phtml.erb", RECOGNIZED)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("component.vue.erb", RECOGNIZED)).isTrue();
   }
 
   @Test
-  void match_is_case_insensitive() {
-    assertThat(ErbFileFilter.shouldSkip("Dockerfile.ERB", RECOGNIZED)).isTrue();
-    assertThat(ErbFileFilter.shouldSkip("index.HTML.erb", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("INDEX.HTML.ERB", RECOGNIZED)).isFalse();
-  }
-
-  @Test
-  void ignores_non_erb_files() {
-    assertThat(ErbFileFilter.shouldSkip("index.html", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("Dockerfile", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("config.yml", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("app.js", RECOGNIZED)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("", RECOGNIZED)).isFalse();
-  }
-
-  @Test
-  void respects_caller_provided_extension_set() {
-    // a caller can add custom extensions (e.g. user-configured suffixes)
+  void caller_provided_extension_set_is_respected() {
     Set<String> custom = Set.of("html", "custom");
-    assertThat(ErbFileFilter.shouldSkip("foo.custom.erb", custom)).isFalse();
-    assertThat(ErbFileFilter.shouldSkip("foo.vue.erb", custom)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("foo.custom.erb", custom)).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("foo.vue.erb", custom)).isFalse();
+  }
+
+  // looksLikeHtml — content sniff after stripping ERB code blocks.
+
+  @Test
+  void strong_html_markers_are_detected() {
+    assertThat(ErbFileFilter.looksLikeHtml("<!DOCTYPE html><body>hi</body>")).isTrue();
+    assertThat(ErbFileFilter.looksLikeHtml("<html><head><title>t</title></head></html>")).isTrue();
+    assertThat(ErbFileFilter.looksLikeHtml("<head><meta charset=\"utf-8\"></head>")).isTrue();
+    assertThat(ErbFileFilter.looksLikeHtml("<body>just a body</body>")).isTrue();
+  }
+
+  @Test
+  void two_weak_html_tags_are_enough() {
+    assertThat(ErbFileFilter.looksLikeHtml("<div class=\"x\">one</div><span>two</span>")).isTrue();
+    assertThat(ErbFileFilter.looksLikeHtml("<p>line</p>\n<a href=\"/\">link</a>")).isTrue();
+  }
+
+  @Test
+  void single_weak_html_tag_is_not_enough() {
+    assertThat(ErbFileFilter.looksLikeHtml("Some text with a single <p> tag.")).isFalse();
+  }
+
+  @Test
+  void html_markers_inside_erb_blocks_do_not_count() {
+    // ERB code that references HTML tag names should NOT make the file look like HTML.
+    assertThat(ErbFileFilter.looksLikeHtml("<% render '<html>' %>")).isFalse();
+    assertThat(ErbFileFilter.looksLikeHtml("<% if cond %><% else %>plain text<% end %>")).isFalse();
+    // Multiline ERB block guarding strong markers should also be stripped.
+    assertThat(ErbFileFilter.looksLikeHtml("<%\nputs '<html>'\nputs '<body>'\n%>plain")).isFalse();
+  }
+
+  @Test
+  void non_html_content_is_rejected() {
+    assertThat(ErbFileFilter.looksLikeHtml("FROM ubuntu:<%= version %>\nRUN apt-get update")).isFalse();
+    assertThat(ErbFileFilter.looksLikeHtml("server:\n  host: <%= host %>\n  port: 80")).isFalse();
+    assertThat(ErbFileFilter.looksLikeHtml("Hello <%= name %>, you have <%= count %> messages.")).isFalse();
+    assertThat(ErbFileFilter.looksLikeHtml("")).isFalse();
+  }
+
+  @Test
+  void matching_is_case_insensitive() {
+    assertThat(ErbFileFilter.looksLikeHtml("<HTML><BODY></BODY></HTML>")).isTrue();
+    assertThat(ErbFileFilter.looksLikeHtml("<!doctype HTML>\n<div>a</div>")).isTrue();
+    assertThat(ErbFileFilter.hasRecognizedDoubleExtension("INDEX.HTML.ERB".toLowerCase(java.util.Locale.ROOT), RECOGNIZED)).isTrue();
   }
 }

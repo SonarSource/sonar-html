@@ -341,8 +341,19 @@ class HtmlSensorTest {
   }
 
   @Test
-  void erb_without_intermediate_extension_should_be_skipped() {
+  void bare_erb_with_html_content_should_be_analyzed() {
     DefaultInputFile inputFile = createInputFile("index.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(tester.measures(inputFile.key())).isNotEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @Test
+  void bare_erb_with_non_html_content_should_be_skipped() {
+    DefaultInputFile inputFile = createInputFile("notify.erb", "Hello <%= name %>,\nyou have <%= count %> messages.\n");
     tester.fileSystem().add(inputFile);
 
     sensor.execute(tester);

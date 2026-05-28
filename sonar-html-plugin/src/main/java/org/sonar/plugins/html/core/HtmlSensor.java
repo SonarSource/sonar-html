@@ -30,7 +30,6 @@ import org.sonar.api.SonarProduct;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.FilePredicate;
 import org.sonar.api.batch.fs.FilePredicates;
-import org.sonar.api.config.Configuration;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.rule.CheckFactory;
@@ -40,6 +39,7 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
+import org.sonar.api.config.Configuration;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
@@ -109,25 +109,20 @@ public final class HtmlSensor implements Sensor {
     final HtmlAstScanner scanner = setupScanner(sensorContext);
 
     FilePredicates predicates = fileSystem.predicates();
+    Set<String> recognizedExtensions = collectRecognizedExtensions(sensorContext.config());
     Iterable<InputFile> inputFiles = fileSystem.inputFiles(
       predicates.and(
         predicates.hasType(InputFile.Type.MAIN),
         predicates.or(
           predicates.hasLanguages(HtmlConstants.LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_KEY),
           predicates.or(Stream.of(OTHER_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
-          )
+          ),
+        erbContentPredicate(recognizedExtensions)
     ));
-
-    Set<String> recognizedExtensions = collectRecognizedExtensions(sensorContext.config());
 
     for (InputFile inputFile : inputFiles) {
       if (sensorContext.isCancelled()) {
         return;
-      }
-
-      if (ErbFileFilter.shouldSkip(inputFile.filename(), recognizedExtensions)) {
-        LOG.debug("Skipping ERB file without recognized double extension: {}", inputFile);
-        continue;
       }
 
       HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
@@ -222,6 +217,16 @@ public final class HtmlSensor implements Sensor {
 
   private void addAnalysisWarnings(AbstractPageCheck check) {
     check.collectAnalysisWarnings().forEach(analysisWarnings::addUnique);
+  }
+
+  private static FilePredicate erbContentPredicate(Set<String> recognizedExtensions) {
+    return inputFile -> {
+      boolean keep = ErbFileFilter.shouldAnalyze(inputFile, recognizedExtensions);
+      if (!keep) {
+        LOG.debug("Skipping ERB file without recognized double extension or HTML content sniff: {}", inputFile);
+      }
+      return keep;
+    };
   }
 
   /**
