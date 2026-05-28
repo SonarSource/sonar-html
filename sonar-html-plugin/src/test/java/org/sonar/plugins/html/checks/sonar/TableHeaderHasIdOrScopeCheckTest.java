@@ -35,27 +35,22 @@ class TableHeaderHasIdOrScopeCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/TableHeaderHasIdOrScopeCheck.html"), new TableHeaderHasIdOrScopeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLocation(41, 8, 41, 12).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")
-      .next().atLine(42).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")
-      .next().atLine(70)
-      .next().atLine(76)
-      .next().atLine(177)
-      .next().atLine(178)
+      .next().atLocation(42, 8, 42, 12).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")
+      .next().atLine(76).withMessage("Add either an 'id' or a 'scope' attribute to this <th> tag.")
       .next().atLine(186)
       .next().atLine(320)
       .next().atLine(327)
       .next().atLine(334)
-      .next().atLine(494)
       .next().atLine(495)
-      .next().atLine(506)
       .next().atLine(507)
-      .next().atLine(519)
       .next().atLine(520)
-      .next().atLine(570)
       .next().atLine(574)
       .next().atLine(617)
       .next().atLine(621)
       .next().atLine(623)
+      .next().atLine(693)
+      .next().atLine(719)
+      .next().atLine(740)
     ;
   }
 

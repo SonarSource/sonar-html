@@ -657,3 +657,86 @@
     </tr>
     </tbody>
 </table>
+
+<!-- Simple table: TFOOT before TBODY/THEAD in source order should not change the first logical row -->
+<table border="1">
+    <caption>TFOOT before TBODY/THEAD: first row is the THEAD row</caption>
+    <tfoot>
+    <tr>
+        <th>Total</th>
+        <td>3</td>
+        <td>4</td>
+    </tr>
+    </tfoot>
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Q1</th>
+        <th>Q2</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Apples</th>
+        <td>1</td>
+        <td>2</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Not simple table: TFOOT before TBODY with a stray inner TH -->
+<table border="1">
+    <caption>TFOOT before TBODY with stray inner TH</caption>
+    <tfoot>
+    <tr>
+        <td>Total</td>
+        <th>Sum</th>                                <!-- Non-Compliant -->
+    </tr>
+    </tfoot>
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Apples</th>
+        <td>42</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Not simple table: ROWSPAN on the first-row corner cell makes the inner header look like it sits in column 0 -->
+<table border="1">
+    <caption>Rowspan-aware first column</caption>
+    <tr>
+        <th rowspan="2">Group</th>
+        <th>Q1</th>
+        <th>Q2</th>
+    </tr>
+    <tr>
+        <th>Inner</th>                              <!-- Non-Compliant -->
+        <td>10</td>
+    </tr>
+</table>
+
+<!-- Not simple table: bidirectional first row/column headers with one stray inner TH -->
+<table border="1">
+    <caption>Bidirectional headers with stray inner TH</caption>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td>x</td>
+        <td>y</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>z</td>
+        <th>stray</th>                              <!-- Non-Compliant -->
+    </tr>
+</table>

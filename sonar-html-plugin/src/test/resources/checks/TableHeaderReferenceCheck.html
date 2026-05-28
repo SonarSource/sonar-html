@@ -329,6 +329,25 @@
   </tr>
 </table>
 
+<!-- Bidirectional headers (column AND row): valid references stay clean, invalid ones are flagged -->
+<table>
+    <tr>
+        <td></td>
+        <th id="negative">Negative</th>
+        <th id="positive">Positive</th>
+    </tr>
+    <tr>
+        <th id="mood">Mood</th>
+        <td headers="mood negative">Sad</td>
+        <td headers="mood positive">Happy</td>
+    </tr>
+    <tr>
+        <th id="grade">Grade</th>
+        <td headers="grade negative">Failing</td>
+        <td headers="grade missing">Passing</td>     <!-- Non-Compliant -->
+    </tr>
+</table>
+
 <tr></tr>
 
 <td></td>
