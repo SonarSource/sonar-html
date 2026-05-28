@@ -1,0 +1,29 @@
+<label [for]="angularId">Angular</label>
+<input [id]="angularId" [type]="text" /> <!-- Compliant -->
+
+<label [for]="expectedId">Mismatch</label>
+<input [id]="actualId" [type]="text" /> <!-- Non-Compliant -->
+
+<label [for]="attrId">Attribute binding</label>
+<input [attr.id]="attrId" [type]="text" /> <!-- Compliant -->
+
+<label :for="vueId">Vue shorthand</label>
+<input :id="vueId" :type="text" /> <!-- Compliant -->
+
+<label v-bind:for="vueBindId">Vue full</label>
+<input v-bind:id="vueBindId" v-bind:type="text" /> <!-- Compliant -->
+
+<input [type]="text" id="plainId" /> <!-- Non-Compliant -->
+<input [type]="hidden" id="hiddenId" /> <!-- Compliant -->
+
+<div id="firstLabel"></div>
+<div id="secondLabel"></div>
+<input type="text" aria-labelledby=" firstLabel   secondLabel " /> <!-- Compliant -->
+
+<div id="thirdLabel"></div>
+<input
+  type="text"
+  aria-labelledby="thirdLabel
+  missingLabel" /> <!-- Non-Compliant -->
+
+<input [type]="text" [aria-labelledby]="dynamicLabelIds" /> <!-- Compliant -->

@@ -19,8 +19,8 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
@@ -36,20 +37,22 @@ import org.sonar.plugins.html.node.TagNode;
 public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   private static final Set<String> EXCLUDED_TYPES = Set.of("SUBMIT", "BUTTON", "IMAGE", "HIDDEN");
+  private static final String ADD_ID_MESSAGE = "Add an \"id\" attribute to this input field and associate it with a label.";
+  private static final String ASSOCIATE_LABEL_MESSAGE = "Associate a valid label to this input field.";
 
-  private final Set<String> labelFor = new HashSet<>();
-  private final Map<String, TagNode> inputIdToNode = new HashMap<>();
+  private final Set<String> labelTargets = new LinkedHashSet<>();
+  private final Map<TagNode, Set<String>> controlsWithTargets = new LinkedHashMap<>();
   private Deque<TagNode> elementStack;
   private Set<String> ids;
   private Map<TagNode, Set<String>> expectedIds;
 
   @Override
   public void startDocument(List<Node> nodes) {
-    labelFor.clear();
-    inputIdToNode.clear();
+    labelTargets.clear();
+    controlsWithTargets.clear();
     elementStack = new ArrayDeque<>();
-    ids = new HashSet<>();
-    expectedIds = new HashMap<>();
+    ids = new LinkedHashSet<>();
+    expectedIds = new LinkedHashMap<>();
   }
 
   @Override
@@ -57,27 +60,45 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     if (isLabel(node) || insideLabelNode()) {
       elementStack.push(node);
     }
-    if (getNodeId(node) != null) {
-      ids.add(getNodeId(node));
-    }
-    if (isInputRequiredLabel(node) || isSelect(node) || isTextarea(node)) {
-      if (node.getPropertyValue("aria-label") != null || insideLabelNode()) {
-        return;
-      }
-      if (node.getPropertyValue("aria-labelledby") != null) {
-        expectedIds.put(node, Arrays.stream(node.getPropertyValue("aria-labelledby").split(" ")).collect(Collectors.toSet()));
-        return;
-      }
-      String id = getNodeId(node);
 
-      if (id == null) {
-        createViolation(node, "Add an \"id\" attribute to this input field and associate it with a label.");
-      } else {
-        inputIdToNode.put(id, node);
-      }
-    } else if (isLabel(node) && node.getAttribute("for") != null) {
-      labelFor.add(node.getAttribute("for"));
+    String nodeId = getNodeId(node);
+    if (nodeId != null) {
+      ids.add(nodeId);
     }
+
+    if (isInputRequiredLabel(node) || isSelect(node) || isTextarea(node)) {
+      registerControl(node);
+    } else if (isLabel(node)) {
+      labelTargets.addAll(getLabelTargets(node));
+    }
+  }
+
+  private void registerControl(TagNode node) {
+    if (node.hasProperty("aria-label") || insideLabelNode()) {
+      return;
+    }
+
+    String ariaLabelledBy = getTrimmedPropertyValue(node, "aria-labelledby");
+    if (ariaLabelledBy != null) {
+      if (hasDynamicAriaLabelledBy(node, ariaLabelledBy)) {
+        return;
+      }
+
+      Set<String> referencedIds = Arrays.stream(ariaLabelledBy.split("\\s+"))
+        .filter(id -> !id.isEmpty())
+        .collect(Collectors.toCollection(LinkedHashSet::new));
+      if (!referencedIds.isEmpty()) {
+        expectedIds.put(node, referencedIds);
+        return;
+      }
+    }
+
+    Set<String> controlTargets = getControlTargets(node);
+    if (controlTargets.isEmpty()) {
+      createViolation(node, ADD_ID_MESSAGE);
+      return;
+    }
+    controlsWithTargets.put(node, controlTargets);
   }
 
   @Override
@@ -113,9 +134,9 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   }
 
   private static boolean hasExcludedType(TagNode node) {
-    String type = node.getAttribute("type");
+    String type = getTrimmedPropertyValue(node, "type");
 
-    return type == null ||
+    return type != null &&
       EXCLUDED_TYPES.contains(type.toUpperCase(Locale.ENGLISH));
   }
 
@@ -125,22 +146,69 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
-    for (Map.Entry<String, TagNode> entry : inputIdToNode.entrySet()) {
-      if (!labelFor.contains(entry.getKey())) {
-        createViolation(entry.getValue(), "Associate a valid label to this input field.");
+    controlsWithTargets.forEach((node, targets) -> {
+      if (targets.stream().noneMatch(labelTargets::contains)) {
+        createViolation(node, ASSOCIATE_LABEL_MESSAGE);
       }
-    }
+    });
     expectedIds.forEach((node, expected) -> {
       if (!ids.containsAll(expected)) {
-        String missingIds = expected.stream().filter(id -> !ids.contains(id)).map(s -> "\"" + s + "\"").collect(Collectors.joining(","));
+        String missingIds = expected.stream()
+          .filter(id -> !ids.contains(id))
+          .map(id -> "\"" + id + "\"")
+          .collect(Collectors.joining(","));
         createViolation(node, "Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: " + missingIds + ".");
       }
     });
   }
 
+  private boolean hasDynamicAriaLabelledBy(TagNode node, String ariaLabelledBy) {
+    var property = node.getProperty("aria-labelledby");
+    return property != null &&
+      (!"aria-labelledby".equalsIgnoreCase(property.getName()) || Helpers.containsDynamicValue(ariaLabelledBy, getHtmlSourceCode()));
+  }
+
+  private static Set<String> getControlTargets(TagNode node) {
+    Set<String> targets = new LinkedHashSet<>();
+    addTarget(targets, getNodeId(node));
+    return targets;
+  }
+
+  private static Set<String> getLabelTargets(TagNode node) {
+    Set<String> targets = new LinkedHashSet<>();
+    addTarget(targets, getTrimmedPropertyValue(node, "for"));
+    return targets;
+  }
+
+  private static void addTarget(Set<String> targets, @CheckForNull String target) {
+    if (target != null) {
+      targets.add(target);
+    }
+  }
+
   @CheckForNull
   private static String getNodeId(TagNode node) {
-    return node.getPropertyValue("ID");
+    return getTrimmedPropertyValue(node, "id");
+  }
+
+  @CheckForNull
+  private static String getTrimmedPropertyValue(TagNode node, String propertyName) {
+    String value = node.getPropertyValue(propertyName);
+    if (value == null) {
+      return null;
+    }
+
+    String trimmedValue = value.trim();
+    if (trimmedValue.isEmpty()) {
+      return null;
+    }
+
+    if (trimmedValue.length() >= 2 &&
+      ((trimmedValue.startsWith("'") && trimmedValue.endsWith("'")) || (trimmedValue.startsWith("\"") && trimmedValue.endsWith("\"")))) {
+      trimmedValue = trimmedValue.substring(1, trimmedValue.length() - 1).trim();
+    }
+
+    return trimmedValue.isEmpty() ? null : trimmedValue;
   }
 
 }
