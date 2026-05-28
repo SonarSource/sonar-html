@@ -52,11 +52,8 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
   @Override
   public void endDocument() {
-    if (pendingHtmlMissingLang != null) {
-      // Document ends with the deferred decision still pending (no </html>, no <body>).
-      createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
-      pendingHtmlMissingLang = null;
-    }
+    // Document ends with the deferred decision still pending (no </html>, no <body>).
+    flushPendingHtmlMissingLang();
   }
 
   private void reset() {
@@ -68,8 +65,29 @@ public class LangAttributeCheck extends AbstractPageCheck {
     pendingHtmlMissingLang = null;
   }
 
+  /**
+   * While {@code pendingHtmlMissingLang != null} the rule is not yet activated, so head-region
+   * nodes (typically {@code <head>}/{@code <title>}/{@code <meta>} and their text) are skipped.
+   * If a later {@code <body lang>} activates the rule, those head nodes are NOT retroactively
+   * re-validated. Acceptable: a valid page-level lang is declared somewhere, and the rule's
+   * scope is missing page-level lang plus invalid descendant lang values — not retroactive
+   * validation of head children.
+   */
   private boolean shouldEarlyExit() {
     return finishEarly || !ruleActivated;
+  }
+
+  private void flushPendingHtmlMissingLang() {
+    if (pendingHtmlMissingLang != null) {
+      createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
+      pendingHtmlMissingLang = null;
+      finishEarly = true;
+    }
+  }
+
+  private void replaceRootLangStackFrame(boolean hasValidLang) {
+    langStack.removeFirst();
+    langStack.addFirst(new TagNodeFlag(null, hasValidLang));
   }
 
   private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
@@ -79,6 +97,9 @@ public class LangAttributeCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     if (isHtmlTag(node)) {
+      // A new <html> start before the previous one was resolved (back-to-back or nested):
+      // surface the deferred violation rather than dropping it, then start a fresh decision.
+      flushPendingHtmlMissingLang();
       reset();
       if (hasLangAttribute(node)) {
         ruleActivated = true;
@@ -87,13 +108,16 @@ public class LangAttributeCheck extends AbstractPageCheck {
         pendingHtmlMissingLang = node;
       }
     } else if (isBodyTag(node) && pendingHtmlMissingLang != null) {
-      if (hasLangAttribute(node)) {
+      if (hasValidLangAttribute(node)) {
         ruleActivated = true;
         pendingHtmlMissingLang = null;
+        // Mark the root scope as having a valid ancestor lang so text emitted after
+        // </body> but before </html> isn't flagged as a descendant violation.
+        replaceRootLangStackFrame(true);
       } else {
-        createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
-        pendingHtmlMissingLang = null;
-        finishEarly = true;
+        // <body> reached with an empty/whitespace/invalid lang (or none at all):
+        // the deferred check fails.
+        flushPendingHtmlMissingLang();
       }
     }
     if (shouldEarlyExit()) {
@@ -119,11 +143,9 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
   @Override
   public void endElement(TagNode node) {
-    if (isHtmlTag(node) && pendingHtmlMissingLang != null) {
+    if (isHtmlTag(node)) {
       // </html> reached without any <body> resolving the deferred check.
-      createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
-      pendingHtmlMissingLang = null;
-      finishEarly = true;
+      flushPendingHtmlMissingLang();
     }
     if (shouldEarlyExit()) {
       return;
@@ -233,6 +255,18 @@ public class LangAttributeCheck extends AbstractPageCheck {
             || hasWordPressLangAttribute(node)
             || hasThymeleafLangAttribute(node)
             || hasDynamicLangAttribute(node);
+  }
+
+  private boolean hasValidLangAttribute(TagNode node) {
+    if (!hasLangAttribute(node)) {
+      return false;
+    }
+    String value = getLangAttributeValue(node);
+    if (value == null) {
+      // Dynamic/programmatic lang (Thymeleaf, WordPress, dynamic expressions) — assume valid.
+      return true;
+    }
+    return isValidLangAttributeValue(value);
   }
 
   private boolean hasDynamicLangAttribute(TagNode node) {

@@ -1,5 +1,5 @@
 {
-  "title": "\"\u003chtml\u003e\" element should have a language attribute",
+  "title": "\"\u003chtml\u003e\" or \"\u003cbody\u003e\" element should have a language attribute",
   "type": "BUG",
   "code": {
     "impacts": {

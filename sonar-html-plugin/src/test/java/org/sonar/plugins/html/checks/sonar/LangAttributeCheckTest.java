@@ -49,6 +49,11 @@ class LangAttributeCheckTest {
 			.next().atLine(83).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(95).withMessage(LangAttributeCheck.DEFAULT_MESSAGE)
 			.next().atLine(109).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+			.next().atLine(142).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+			.next().atLine(149).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+			.next().atLine(156).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+			.next().atLine(163).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+			.next().atLine(171).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
 	    .noMore();
   }
 

@@ -114,3 +114,60 @@
         <p>Hello</p>
     </body>
 </html>
+
+<!-- Verbatim ticket scenario (SONARHTML-221): <title lang> + <body lang>, no <html lang>. -->
+<html>
+    <head>
+        <title lang="en">Welcome</title>
+    </head>
+    <body lang="en">
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- <body xml:lang="..."> also satisfies the page-level check. -->
+<html>
+    <body xml:lang="en">
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- Text between </body> and </html> must not raise a descendant violation (L1 regression). -->
+<html>
+    <body lang="en">ok</body>
+    Trailing text
+</html>
+
+<!-- <body lang=""> doesn't satisfy the page-level check. -->
+<html> <!-- Non-Compliant -->
+    <body lang="">
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- <body lang="  "> doesn't satisfy the page-level check. -->
+<html> <!-- Non-Compliant -->
+    <body lang="  ">
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- <body lang="invalid"> doesn't satisfy the page-level check. -->
+<html> <!-- Non-Compliant -->
+    <body lang="invalid">
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- Back-to-back <html> — the outer's deferred violation must still surface (L3 regression). -->
+<html> <!-- Non-Compliant -->
+<html lang="en">
+    <body>
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- Unclosed <html> at end-of-document — violation still raised via endDocument (L5 regression). -->
+<html> <!-- Non-Compliant -->
+    <body>
+        <p>Hello</p>
