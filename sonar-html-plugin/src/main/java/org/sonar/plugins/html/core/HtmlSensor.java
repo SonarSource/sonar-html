@@ -117,7 +117,9 @@ public final class HtmlSensor implements Sensor {
           predicates.hasLanguages(HtmlConstants.LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_KEY),
           predicates.or(Stream.of(OTHER_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
           ),
-        erbContentPredicate(recognizedExtensions)
+        predicates.or(
+          predicates.not(predicates.hasExtension("erb")),
+          erbContentPredicate(recognizedExtensions))
     ));
 
     for (InputFile inputFile : inputFiles) {
@@ -232,15 +234,15 @@ public final class HtmlSensor implements Sensor {
   /**
    * Collects every file extension sonar-html recognizes — HTML language suffixes,
    * JSP language suffixes, and the hard-coded OTHER_FILE_SUFFIXES — normalized to
-   * lowercase without a leading dot.
+   * lowercase without a leading dot. Defaults flow in via the property definitions
+   * registered in {@code HtmlPlugin.pluginProperties()}, so {@code getStringArray}
+   * returns them when no user override is set.
    *
    * @param config the sensor configuration carrying user-overridable suffix lists
    * @return the union of all recognized extensions
    */
   private static Set<String> collectRecognizedExtensions(Configuration config) {
     Set<String> exts = new HashSet<>();
-    addExtensions(exts, HtmlConstants.FILE_EXTENSIONS_DEF_VALUE.split(","));
-    addExtensions(exts, HtmlConstants.JSP_FILE_EXTENSIONS_DEF_VALUE.split(","));
     addExtensions(exts, config.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY));
     addExtensions(exts, config.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY));
     addExtensions(exts, OTHER_FILE_SUFFIXES);

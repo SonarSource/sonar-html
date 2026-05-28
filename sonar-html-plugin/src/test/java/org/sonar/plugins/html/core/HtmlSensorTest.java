@@ -27,6 +27,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mockito;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
@@ -305,27 +307,20 @@ class HtmlSensorTest {
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
-  @Test
-  void dockerfile_erb_should_be_skipped() {
-    DefaultInputFile inputFile = createInputFile("Dockerfile.erb", "FROM ubuntu:<%= version %>\nRUN apt-get update\n");
-    tester.fileSystem().add(inputFile);
-
-    sensor.execute(tester);
-
-    String componentKey = inputFile.key();
-    assertThat(tester.measures(componentKey)).isEmpty();
-    assertThat(tester.allIssues()).isEmpty();
-    assertThat(tester.allAnalysisErrors()).isEmpty();
-  }
-
-  @Test
-  void yml_erb_should_be_skipped() {
-    DefaultInputFile inputFile = createInputFile("config.yml.erb", "server:\n  host: <%= host %>\n");
+  @ParameterizedTest(name = "{0} is skipped because content does not look like HTML")
+  @CsvSource({
+    "Dockerfile.erb,                       'FROM ubuntu:<%= version %>\nRUN apt-get update\n'",
+    "config.yml.erb,                       'server:\n  host: <%= host %>\n'",
+    "notify.erb,                           'Hello <%= name %>,\nyou have <%= count %> messages.\n'"
+  })
+  void erb_without_html_content_should_be_skipped(String filename, String content) {
+    DefaultInputFile inputFile = createInputFile(filename, content);
     tester.fileSystem().add(inputFile);
 
     sensor.execute(tester);
 
     assertThat(tester.measures(inputFile.key())).isEmpty();
+    assertThat(tester.allIssues()).isEmpty();
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
@@ -352,18 +347,7 @@ class HtmlSensorTest {
   }
 
   @Test
-  void bare_erb_with_non_html_content_should_be_skipped() {
-    DefaultInputFile inputFile = createInputFile("notify.erb", "Hello <%= name %>,\nyou have <%= count %> messages.\n");
-    tester.fileSystem().add(inputFile);
-
-    sensor.execute(tester);
-
-    assertThat(tester.measures(inputFile.key())).isEmpty();
-    assertThat(tester.allAnalysisErrors()).isEmpty();
-  }
-
-  @Test
-  void erb_with_recognized_non_html_intermediate_extension_should_be_analyzed() {
+  void erb_with_recognized_php_intermediate_extension_should_be_analyzed() {
     DefaultInputFile inputFile = createInputFile("script.php.erb", "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
     tester.fileSystem().add(inputFile);
 

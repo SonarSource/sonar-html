@@ -23,9 +23,11 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
+import org.sonar.plugins.html.api.HtmlConstants;
 
 // ERB is Ruby's general-purpose template engine and is used for many non-HTML
 // outputs (Dockerfile, YAML, plain text, ...). We accept an .erb file only when
@@ -34,7 +36,7 @@ import org.sonar.api.utils.log.Loggers;
 // finds HTML markers once ERB code blocks have been stripped.
 public final class ErbFileFilter {
 
-  private static final Logger LOG = Loggers.get(ErbFileFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ErbFileFilter.class);
 
   private static final String ERB_SUFFIX = ".erb";
   private static final int READ_CHARACTERS_LIMIT = 2048;
@@ -42,13 +44,18 @@ public final class ErbFileFilter {
 
   private static final Pattern ERB_BLOCK = Pattern.compile("<%[\\s\\S]*?%>");
 
+  // A single occurrence of any of these is enough — they are page-root markers
+  // and only show up in genuine HTML content.
   private static final Pattern STRONG_HTML_TAG = Pattern.compile(
     "<!DOCTYPE\\s+html\\b|<(?:html|head|body)\\b",
     Pattern.CASE_INSENSITIVE);
 
+  // Built from HtmlConstants.KNOWN_HTML_TAGS so the sniff vocabulary stays in
+  // lockstep with the analyzer's tag list. Requires WEAK_HTML_MIN_MATCHES hits
+  // to keep the false-positive rate low on plain text that happens to mention
+  // a single tag name.
   private static final Pattern WEAK_HTML_TAG = Pattern.compile(
-    "<(?:div|span|p|a|ul|ol|li|table|tr|td|th|form|input|textarea|select|button|" +
-      "script|style|section|article|header|footer|nav|main)\\b",
+    "<(?:" + HtmlConstants.KNOWN_HTML_TAGS.stream().collect(Collectors.joining("|")) + ")\\b",
     Pattern.CASE_INSENSITIVE);
 
   private ErbFileFilter() {
@@ -59,10 +66,8 @@ public final class ErbFileFilter {
    * Non-.erb files are always accepted. For .erb files, we keep them when the
    * filename carries a recognized double extension; otherwise we sniff the first
    * {@value #READ_CHARACTERS_LIMIT} characters of content for HTML markers.
-   *
-   * @param inputFile the file to inspect
-   * @param recognizedExtensions extensions sonar-html knows about, lowercase and without leading dot
-   * @return true if the file should be passed through to the HTML lexer
+   * When the content cannot be read, the file is kept so the sensor's normal
+   * analysis-error path reports the failure instead of silently dropping it.
    */
   public static boolean shouldAnalyze(InputFile inputFile, Set<String> recognizedExtensions) {
     String filename = inputFile.filename().toLowerCase(Locale.ROOT);
@@ -72,7 +77,12 @@ public final class ErbFileFilter {
     if (hasRecognizedDoubleExtension(filename, recognizedExtensions)) {
       return true;
     }
-    return looksLikeHtml(readHead(inputFile));
+    String head = readHead(inputFile);
+    if (head == null) {
+      // Let it through; the sensor will catch the IOException and create an analysis error.
+      return true;
+    }
+    return looksLikeHtml(head);
   }
 
   static boolean hasRecognizedDoubleExtension(String lowerFilename, Set<String> recognizedExtensions) {
@@ -113,10 +123,10 @@ public final class ErbFileFilter {
         }
         total += read;
       }
-      return total > 0 ? new String(buf, 0, total) : "";
+      return new String(buf, 0, total);
     } catch (IOException e) {
       LOG.debug("Could not read ERB head for {}: {}", inputFile, e.getMessage());
-      return "";
+      return null;
     }
   }
 }

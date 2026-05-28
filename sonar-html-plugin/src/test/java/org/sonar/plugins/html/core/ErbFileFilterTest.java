@@ -96,6 +96,12 @@ class ErbFileFilterTest {
   void two_weak_html_tags_are_enough() {
     assertThat(ErbFileFilter.looksLikeHtml("<div class=\"x\">one</div><span>two</span>")).isTrue();
     assertThat(ErbFileFilter.looksLikeHtml("<p>line</p>\n<a href=\"/\">link</a>")).isTrue();
+    // Vocabulary comes from HtmlConstants.KNOWN_HTML_TAGS, so heading + paragraph counts.
+    assertThat(ErbFileFilter.looksLikeHtml("<h1>X</h1><p>Y</p>")).isTrue();
+    // Rails action_controller diagnostics.erb pattern: <h1> + <pre>.
+    assertThat(ErbFileFilter.looksLikeHtml("<h1>Error</h1>\n<pre>stacktrace</pre>")).isTrue();
+    // <img> + <meta> in a header partial.
+    assertThat(ErbFileFilter.looksLikeHtml("<meta charset=\"utf-8\">\n<img src=\"a.png\">")).isTrue();
   }
 
   @Test
