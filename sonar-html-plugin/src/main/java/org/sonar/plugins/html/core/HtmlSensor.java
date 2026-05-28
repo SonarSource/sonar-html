@@ -19,12 +19,9 @@ package org.sonar.plugins.html.core;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Stream;
 import org.sonar.api.SonarProduct;
 import org.sonar.api.SonarRuntime;
@@ -39,7 +36,6 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
-import org.sonar.api.config.Configuration;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
@@ -66,7 +62,6 @@ import org.sonar.plugins.html.visitor.SonarResolveScanner;
 
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
-  private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "vue"};
   private static final Version ISSUE_RESOLUTION_API_MIN_VERSION = Version.create(13, 5);
 
   private final SonarRuntime sonarRuntime;
@@ -109,17 +104,14 @@ public final class HtmlSensor implements Sensor {
     final HtmlAstScanner scanner = setupScanner(sensorContext);
 
     FilePredicates predicates = fileSystem.predicates();
-    Set<String> recognizedExtensions = collectRecognizedExtensions(sensorContext.config());
     Iterable<InputFile> inputFiles = fileSystem.inputFiles(
       predicates.and(
         predicates.hasType(InputFile.Type.MAIN),
         predicates.or(
           predicates.hasLanguages(HtmlConstants.LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_KEY),
-          predicates.or(Stream.of(OTHER_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
+          predicates.or(Stream.of(HtmlConstants.OTHER_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
           ),
-        predicates.or(
-          predicates.not(predicates.hasExtension("erb")),
-          erbContentPredicate(recognizedExtensions))
+        ErbFileFilter.filePredicate(predicates, sensorContext.config())
     ));
 
     for (InputFile inputFile : inputFiles) {
@@ -219,45 +211,6 @@ public final class HtmlSensor implements Sensor {
 
   private void addAnalysisWarnings(AbstractPageCheck check) {
     check.collectAnalysisWarnings().forEach(analysisWarnings::addUnique);
-  }
-
-  private static FilePredicate erbContentPredicate(Set<String> recognizedExtensions) {
-    return inputFile -> {
-      boolean keep = ErbFileFilter.shouldAnalyze(inputFile, recognizedExtensions);
-      if (!keep) {
-        LOG.debug("Skipping ERB file without recognized double extension or HTML content sniff: {}", inputFile);
-      }
-      return keep;
-    };
-  }
-
-  /**
-   * Collects every file extension sonar-html recognizes — HTML language suffixes,
-   * JSP language suffixes, and the hard-coded OTHER_FILE_SUFFIXES — normalized to
-   * lowercase without a leading dot. Defaults flow in via the property definitions
-   * registered in {@code HtmlPlugin.pluginProperties()}, so {@code getStringArray}
-   * returns them when no user override is set.
-   *
-   * @param config the sensor configuration carrying user-overridable suffix lists
-   * @return the union of all recognized extensions
-   */
-  private static Set<String> collectRecognizedExtensions(Configuration config) {
-    Set<String> exts = new HashSet<>();
-    addExtensions(exts, config.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY));
-    addExtensions(exts, config.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY));
-    addExtensions(exts, OTHER_FILE_SUFFIXES);
-    return exts;
-  }
-
-  private static void addExtensions(Set<String> sink, String[] extensions) {
-    for (String ext : extensions) {
-      String trimmed = ext.trim();
-      if (trimmed.isEmpty()) {
-        continue;
-      }
-      String noDot = trimmed.startsWith(".") ? trimmed.substring(1) : trimmed;
-      sink.add(noDot.toLowerCase(Locale.ROOT));
-    }
   }
 
   private static boolean supportsIssueResolution(SensorContext context) {

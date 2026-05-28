@@ -19,6 +19,7 @@ package org.sonar.plugins.html.core;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -26,7 +27,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonar.api.batch.fs.FilePredicate;
+import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.config.Configuration;
 import org.sonar.plugins.html.api.HtmlConstants;
 
 // ERB is Ruby's general-purpose template engine and is used for many non-HTML
@@ -39,6 +43,7 @@ public final class ErbFileFilter {
   private static final Logger LOG = LoggerFactory.getLogger(ErbFileFilter.class);
 
   private static final String ERB_SUFFIX = ".erb";
+  private static final String ERB_EXTENSION = "erb";
   private static final int READ_CHARACTERS_LIMIT = 2048;
   private static final int WEAK_HTML_MIN_MATCHES = 2;
 
@@ -59,6 +64,24 @@ public final class ErbFileFilter {
     Pattern.CASE_INSENSITIVE);
 
   private ErbFileFilter() {
+  }
+
+  /**
+   * Builds a {@link FilePredicate} that drops bare {@code .erb} files lacking HTML evidence,
+   * while letting every non-{@code .erb} file pass through unchanged at the predicate-composition
+   * layer (no per-file lambda invocation).
+   */
+  public static FilePredicate filePredicate(FilePredicates predicates, Configuration config) {
+    Set<String> recognized = recognizedExtensions(config);
+    return predicates.or(
+      predicates.not(predicates.hasExtension(ERB_EXTENSION)),
+      inputFile -> {
+        boolean keep = shouldAnalyze(inputFile, recognized);
+        if (!keep) {
+          LOG.debug("Skipping ERB file without recognized double extension or HTML content sniff: {}", inputFile);
+        }
+        return keep;
+      });
   }
 
   /**
@@ -110,6 +133,31 @@ public final class ErbFileFilter {
       }
     }
     return false;
+  }
+
+  /**
+   * Union of HTML language suffixes, JSP language suffixes and {@link HtmlConstants#OTHER_FILE_SUFFIXES},
+   * normalized to lowercase without a leading dot. Defaults flow in via the property definitions
+   * registered in {@code HtmlPlugin.pluginProperties()}, so {@code getStringArray} returns them when
+   * no user override is set.
+   */
+  static Set<String> recognizedExtensions(Configuration config) {
+    Set<String> exts = new HashSet<>();
+    addExtensions(exts, config.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY));
+    addExtensions(exts, config.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY));
+    addExtensions(exts, HtmlConstants.OTHER_FILE_SUFFIXES);
+    return exts;
+  }
+
+  private static void addExtensions(Set<String> sink, String[] extensions) {
+    for (String ext : extensions) {
+      String trimmed = ext.trim();
+      if (trimmed.isEmpty()) {
+        continue;
+      }
+      String noDot = trimmed.startsWith(".") ? trimmed.substring(1) : trimmed;
+      sink.add(noDot.toLowerCase(Locale.ROOT));
+    }
   }
 
   private static String readHead(InputFile inputFile) {

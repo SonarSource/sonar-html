@@ -40,6 +40,13 @@ public class HtmlConstants {
   public static final String FILE_EXTENSIONS_DEF_VALUE = ".html,.xhtml,.cshtml,.vbhtml,.aspx,.ascx,.rhtml,.erb,.shtm,.shtml,.cmp,.twig,.htm";
   public static final String JSP_FILE_EXTENSIONS_PROP_KEY = "sonar.jsp.file.suffixes";
   public static final String JSP_FILE_EXTENSIONS_DEF_VALUE = ".jsp,.jspf,.jspx";
+
+  /**
+   * Extensions sonar-html treats as HTML on top of {@link #FILE_EXTENSIONS_PROP_KEY} and
+   * {@link #JSP_FILE_EXTENSIONS_PROP_KEY} — server-side templating languages whose final
+   * output is HTML.
+   */
+  public static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "vue"};
   public static final List<String> KNOWN_HTML_TAGS = List.of(
     "a",
     "acronym", // deprecated
