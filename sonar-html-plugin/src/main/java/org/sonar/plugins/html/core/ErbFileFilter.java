@@ -16,10 +16,6 @@
  */
 package org.sonar.plugins.html.core;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -44,7 +40,7 @@ public final class ErbFileFilter {
 
   private static final String ERB_SUFFIX = ".erb";
   private static final String ERB_EXTENSION = "erb";
-  private static final int READ_CHARACTERS_LIMIT = 2048;
+  private static final int SNIFF_CHARACTERS = 2048;
   private static final int WEAK_HTML_MIN_MATCHES = 2;
 
   private static final Pattern ERB_BLOCK = Pattern.compile("<%[\\s\\S]*?%>");
@@ -72,7 +68,7 @@ public final class ErbFileFilter {
    * layer (no per-file lambda invocation).
    */
   public static FilePredicate filePredicate(FilePredicates predicates, Configuration config) {
-    Set<String> recognized = recognizedExtensions(config);
+    Set<String> recognized = HtmlFileExtensions.recognized(config);
     return predicates.or(
       predicates.not(predicates.hasExtension(ERB_EXTENSION)),
       inputFile -> {
@@ -88,7 +84,7 @@ public final class ErbFileFilter {
    * Tells whether {@code inputFile} should be analyzed by sonar-html.
    * Non-.erb files are always accepted. For .erb files, we keep them when the
    * filename carries a recognized double extension; otherwise we sniff the first
-   * {@value #READ_CHARACTERS_LIMIT} characters of content for HTML markers.
+   * {@value #SNIFF_CHARACTERS} characters of content for HTML markers.
    * When the content cannot be read, the file is kept so the sensor's normal
    * analysis-error path reports the failure instead of silently dropping it.
    */
@@ -100,7 +96,7 @@ public final class ErbFileFilter {
     if (hasRecognizedDoubleExtension(filename, recognizedExtensions)) {
       return true;
     }
-    String head = readHead(inputFile);
+    String head = InputFileReader.readPartial(inputFile, 0, SNIFF_CHARACTERS);
     if (head == null) {
       // Let it through; the sensor will catch the IOException and create an analysis error.
       return true;
@@ -133,48 +129,5 @@ public final class ErbFileFilter {
       }
     }
     return false;
-  }
-
-  /**
-   * Union of HTML language suffixes, JSP language suffixes and {@link HtmlConstants#OTHER_FILE_SUFFIXES},
-   * normalized to lowercase without a leading dot. Defaults flow in via the property definitions
-   * registered in {@code HtmlPlugin.pluginProperties()}, so {@code getStringArray} returns them when
-   * no user override is set.
-   */
-  static Set<String> recognizedExtensions(Configuration config) {
-    Set<String> exts = new HashSet<>();
-    addExtensions(exts, config.getStringArray(HtmlConstants.FILE_EXTENSIONS_PROP_KEY));
-    addExtensions(exts, config.getStringArray(HtmlConstants.JSP_FILE_EXTENSIONS_PROP_KEY));
-    addExtensions(exts, HtmlConstants.OTHER_FILE_SUFFIXES);
-    return exts;
-  }
-
-  private static void addExtensions(Set<String> sink, String[] extensions) {
-    for (String ext : extensions) {
-      String trimmed = ext.trim();
-      if (trimmed.isEmpty()) {
-        continue;
-      }
-      String noDot = trimmed.startsWith(".") ? trimmed.substring(1) : trimmed;
-      sink.add(noDot.toLowerCase(Locale.ROOT));
-    }
-  }
-
-  private static String readHead(InputFile inputFile) {
-    char[] buf = new char[READ_CHARACTERS_LIMIT];
-    try (Reader reader = new InputStreamReader(inputFile.inputStream(), inputFile.charset())) {
-      int total = 0;
-      while (total < buf.length) {
-        int read = reader.read(buf, total, buf.length - total);
-        if (read < 0) {
-          break;
-        }
-        total += read;
-      }
-      return new String(buf, 0, total);
-    } catch (IOException e) {
-      LOG.debug("Could not read ERB head for {}: {}", inputFile, e.getMessage());
-      return null;
-    }
   }
 }
