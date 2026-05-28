@@ -72,12 +72,23 @@ public final class InputFileReader {
     }
   }
 
+  /**
+   * Advances {@code reader} by exactly {@code n} characters, looping over {@link Reader#skip}
+   * because a single call is only guaranteed to skip <em>up to</em> {@code n}.
+   *
+   * <p>Returns early when {@code skip} returns {@code 0} (or less), which signals that the
+   * reader is exhausted before reaching the target offset; in that case the next read on
+   * the same reader will return {@code -1}.
+   *
+   * @param reader the reader to advance
+   * @param n number of characters to skip
+   * @throws IOException if the underlying reader fails
+   */
   private static void skipFully(Reader reader, int n) throws IOException {
     long remaining = n;
     while (remaining > 0) {
       long skipped = reader.skip(remaining);
       if (skipped <= 0) {
-        // Reader exhausted before we reached `start` — leave remaining; next read returns -1.
         return;
       }
       remaining -= skipped;
