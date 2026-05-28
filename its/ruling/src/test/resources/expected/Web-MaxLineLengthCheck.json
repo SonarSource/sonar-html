@@ -28144,6 +28144,11 @@
 5,
 12
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
+8,
+103,
+114
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_scm.html.erb": [
 2
 ],
@@ -28244,6 +28249,17 @@
 8,
 17,
 21
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
+3,
+19
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_trace.erb": [
+16,
+18
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/template_error.erb": [
+3
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/index.html": [
 245,

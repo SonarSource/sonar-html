@@ -1777,6 +1777,9 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_type_LICENSE.html.erb": [
 11
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
+5
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/test/_testable.html.erb": [
 15
 ],

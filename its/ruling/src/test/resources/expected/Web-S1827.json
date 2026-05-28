@@ -22504,6 +22504,13 @@
 1,
 1
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
+5,
+5
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_line_numbers.erb": [
+1
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/system/_row.html.erb": [
 2,
 2,

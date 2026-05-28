@@ -11333,6 +11333,9 @@
 "project:sonar-master/sonar-server/src/main/webapp/500.html": [
 4
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/layout.erb": [
+2
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/404.html": [
 6
 ],

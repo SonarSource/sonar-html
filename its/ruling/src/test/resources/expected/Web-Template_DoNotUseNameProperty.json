@@ -5690,6 +5690,9 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_type_METRIC.html.erb": [
 4
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_line_numbers.erb": [
+1
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/new.html.erb": [
 8,
 14,

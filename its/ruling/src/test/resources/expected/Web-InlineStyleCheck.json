@@ -1951,6 +1951,9 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/setup/migration_running.html.erb": [
 7
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
+122
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/system/index.html.erb": [
 2
 ],
@@ -1997,6 +2000,14 @@
 1,
 2,
 37
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
+16,
+20,
+23
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_trace.erb": [
+22
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/index.html": [
 246

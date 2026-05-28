@@ -12353,8 +12353,14 @@
 12,
 12
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_display.erb": [
+122
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_issues.html.erb": [
 11
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_line_numbers.erb": [
+1
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/shared/_source_scm.html.erb": [
 2,
@@ -12493,6 +12499,31 @@
 21,
 29,
 33
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
+5,
+17,
+24
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_trace.erb": [
+23
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/routing_error.erb": [
+2,
+7,
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/template_error.erb": [
+2,
+3,
+3,
+3,
+7,
+7,
+8,
+11,
+12,
+14
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/scaffold/templates/layout.html.erb": [
 7,
