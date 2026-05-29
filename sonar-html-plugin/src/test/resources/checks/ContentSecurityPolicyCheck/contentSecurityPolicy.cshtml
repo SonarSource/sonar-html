@@ -1,0 +1,8 @@
+<!-- Compliant: full Razor expression — Helpers.isDynamicValue skips it -->
+<meta http-equiv="Content-Security-Policy" content="@Model.Csp">
+
+<!-- Compliant: escaped @ at the start is still detected as dynamic in .cshtml -->
+<meta http-equiv="Content-Security-Policy" content="@(safeCsp)">
+
+<!-- Noncompliant: fully static CSP inside a .cshtml file is still scanned -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
