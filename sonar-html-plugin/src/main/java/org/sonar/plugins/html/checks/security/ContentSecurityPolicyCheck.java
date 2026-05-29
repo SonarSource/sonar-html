@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.html.checks.security;
 
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -102,43 +103,43 @@ public class ContentSecurityPolicyCheck extends AbstractPageCheck {
   }
 
   private void reportUnsafeTokens(TagNode node, String content) {
-    boolean wildcardReported = false;
-    boolean unsafeInlineReported = false;
-    boolean unsafeHashesReported = false;
-    boolean unsafeEvalReported = false;
+    Set<String> reported = new HashSet<>();
     for (String directive : content.split(";")) {
-      String trimmed = directive.trim();
-      if (trimmed.isEmpty()) {
-        continue;
-      }
-      String[] tokens = trimmed.split("\\s+");
-      String directiveName = tokens[0].toLowerCase(Locale.ROOT);
-      if (META_IGNORED_DIRECTIVES.contains(directiveName) || !SOURCE_LIST_DIRECTIVES.contains(directiveName)) {
-        continue;
-      }
-      for (int i = 1; i < tokens.length; i++) {
-        String token = tokens[i];
-        if (!wildcardReported && containsWildcard(token)) {
-          createViolation(node, String.format(MESSAGE, "wildcards"));
-          wildcardReported = true;
-        }
-        String keyword = stripSingleQuotes(token);
-        if (!unsafeInlineReported && "unsafe-inline".equalsIgnoreCase(keyword)) {
-          createViolation(node, String.format(MESSAGE, "'unsafe-inline'"));
-          unsafeInlineReported = true;
-        } else if (!unsafeHashesReported && "unsafe-hashes".equalsIgnoreCase(keyword)) {
-          createViolation(node, String.format(MESSAGE, "'unsafe-hashes'"));
-          unsafeHashesReported = true;
-        } else if (!unsafeEvalReported && "unsafe-eval".equalsIgnoreCase(keyword)) {
-          createViolation(node, String.format(MESSAGE, "'unsafe-eval'"));
-          unsafeEvalReported = true;
-        }
+      inspectDirective(node, directive.trim(), reported);
+    }
+  }
+
+  private void inspectDirective(TagNode node, String directive, Set<String> reported) {
+    if (directive.isEmpty()) {
+      return;
+    }
+    String[] tokens = directive.split("\\s+");
+    if (!isScannableDirective(tokens[0])) {
+      return;
+    }
+    for (int i = 1; i < tokens.length; i++) {
+      String label = classifyToken(tokens[i]);
+      if (label != null && reported.add(label)) {
+        createViolation(node, String.format(MESSAGE, label));
       }
     }
   }
 
-  private static boolean containsWildcard(String token) {
-    return token.indexOf('*') >= 0;
+  private static boolean isScannableDirective(String name) {
+    String lower = name.toLowerCase(Locale.ROOT);
+    return !META_IGNORED_DIRECTIVES.contains(lower) && SOURCE_LIST_DIRECTIVES.contains(lower);
+  }
+
+  private static String classifyToken(String token) {
+    if (token.indexOf('*') >= 0) {
+      return "wildcards";
+    }
+    return switch (stripSingleQuotes(token).toLowerCase(Locale.ROOT)) {
+      case "unsafe-inline" -> "'unsafe-inline'";
+      case "unsafe-hashes" -> "'unsafe-hashes'";
+      case "unsafe-eval" -> "'unsafe-eval'";
+      default -> null;
+    };
   }
 
   private static String stripSingleQuotes(String token) {
