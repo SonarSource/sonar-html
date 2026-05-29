@@ -93,9 +93,6 @@ public class ContentSecurityPolicyCheck extends AbstractPageCheck {
       || "Content-Security-Policy-Report-Only".equalsIgnoreCase(httpEquiv);
   }
 
-  // Cannot reuse Helpers.containsDynamicValue: its Razor heuristic treats any '@' as dynamic, which
-  // over-skips static CSPs containing literal '@' in mailto: / npm scope / version tokens. We share the
-  // non-Razor marker list via containsServerSideMarker and supply a CSP-specific Razor detector.
   private boolean isDynamicCspValue(String value) {
     HtmlSourceCode code = getHtmlSourceCode();
     return Helpers.containsServerSideMarker(value)
