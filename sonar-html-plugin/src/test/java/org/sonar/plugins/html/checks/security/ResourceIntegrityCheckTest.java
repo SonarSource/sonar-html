@@ -25,7 +25,9 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 class ResourceIntegrityCheckTest {
 
-  private static final String MESSAGE = "Make sure using artifacts without integrity checks is safe here.";
+  private static final String MSG_MISSING_BOTH = "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.";
+  private static final String MSG_MISSING_INTEGRITY = "Add an integrity attribute to this element to enforce integrity checks.";
+  private static final String MSG_MISSING_CROSSORIGIN = "Add a crossorigin=\"anonymous\" attribute to this element to enforce integrity checks.";
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
@@ -35,20 +37,29 @@ class ResourceIntegrityCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/resourceIntegrityCheck.html"), new ResourceIntegrityCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLocation(1, 0, 1, 47).withMessage(MESSAGE)
-      .next().atLocation(2, 0, 2, 41).withMessage(MESSAGE)
-      .next().atLocation(3, 0, 3, 46).withMessage(MESSAGE)
-      .next().atLocation(4, 0, 4, 61).withMessage(MESSAGE)
-      .next().atLocation(18, 0, 18, 64).withMessage(MESSAGE)
-      .next().atLocation(19, 0, 19, 58).withMessage(MESSAGE)
-      .next().atLocation(20, 0, 20, 63).withMessage(MESSAGE)
-      .next().atLocation(21, 0, 21, 64).withMessage(MESSAGE)
-      .next().atLocation(24, 0, 24, 72).withMessage(MESSAGE)
-      .next().atLocation(25, 0, 25, 67).withMessage(MESSAGE)
-      .next().atLocation(26, 0, 26, 72).withMessage(MESSAGE)
-      .next().atLocation(29, 0, 29, 67).withMessage(MESSAGE)
-      .next().atLocation(30, 0, 30, 61).withMessage(MESSAGE)
-      .next().atLocation(31, 0, 31, 67).withMessage(MESSAGE);
+      // versioned URL, both missing
+      .next().atLine(2).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(3).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(4).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(5).withMessage(MSG_MISSING_BOTH)
+      // package@version alias, both missing
+      .next().atLine(8).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(9).withMessage(MSG_MISSING_BOTH)
+      // versioned URL, only integrity missing
+      .next().atLine(12).withMessage(MSG_MISSING_INTEGRITY)
+      // versioned URL, only crossorigin missing
+      .next().atLine(15).withMessage(MSG_MISSING_CROSSORIGIN)
+      // link rel=stylesheet, versioned URL, both missing
+      .next().atLine(46).withMessage(MSG_MISSING_BOTH)
+      // link rel=stylesheet, versioned URL, only integrity missing
+      .next().atLine(48).withMessage(MSG_MISSING_INTEGRITY)
+      // link rel=stylesheet, versioned URL, only crossorigin missing
+      .next().atLine(50).withMessage(MSG_MISSING_CROSSORIGIN)
+      // link rel=preload, versioned URL, both missing
+      .next().atLine(56).withMessage(MSG_MISSING_BOTH)
+      // link rel=modulepreload, versioned URL, both missing
+      .next().atLine(58).withMessage(MSG_MISSING_BOTH)
+      .noMore();
   }
 
 }
