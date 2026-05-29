@@ -16,7 +16,6 @@
  */
 package org.sonar.plugins.html.checks.security;
 
-import javax.annotation.CheckForNull;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
