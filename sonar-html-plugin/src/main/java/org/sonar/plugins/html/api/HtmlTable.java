@@ -106,6 +106,24 @@ public class HtmlTable {
   }
 
   /**
+   * Maximum value accepted for an individual {@code rowspan} or {@code colspan}
+   * attribute. The HTML spec caps {@code colspan} at 1000; this also caps
+   * {@code rowspan} at 1000 to match (the spec allows up to 65534 there, but
+   * tables with thousands of rows in a single span are pathological).
+   */
+  static final int MAX_SPAN = 1000;
+
+  /**
+   * Maximum number of grid positions a single table may occupy. Untrusted HTML
+   * can otherwise allocate gigabytes with one {@code <th rowspan colspan>}, so
+   * once this budget is exceeded the rest of the table is skipped — any cells
+   * not yet placed are absent from the grid and therefore neither in the
+   * first row nor first column, which means callers raise issues on them (the
+   * conservative fallback already used for orphan rows).
+   */
+  static final int MAX_GRID_CELLS = 1_000_000;
+
+  /**
    * Expands the source rows into a 2D grid that accounts for {@code rowspan}
    * and {@code colspan}. Spanned cells appear at every grid position they
    * occupy, so callers can ask "what cell is at column 0 of row N" and get
@@ -113,6 +131,7 @@ public class HtmlTable {
    */
   static List<List<TagNode>> buildGrid(List<List<TagNode>> sourceRows) {
     List<List<TagNode>> grid = new ArrayList<>();
+    long placedCells = 0;
     for (int r = 0; r < sourceRows.size(); r++) {
       while (grid.size() <= r) {
         grid.add(new ArrayList<>());
@@ -125,7 +144,12 @@ public class HtmlTable {
         }
         int rowspan = parseSpan(cell.getPropertyValue("ROWSPAN"));
         int colspan = parseSpan(cell.getPropertyValue("COLSPAN"));
+        long thisCellArea = (long) rowspan * colspan;
+        if (placedCells + thisCellArea > MAX_GRID_CELLS) {
+          return grid;
+        }
         placeCell(grid, cell, r, col, rowspan, colspan);
+        placedCells += thisCellArea;
         col += colspan;
       }
     }
@@ -158,7 +182,7 @@ public class HtmlTable {
       if (n < 1) {
         return 1;
       }
-      return Math.min(n, 65534);
+      return Math.min(n, MAX_SPAN);
     } catch (NumberFormatException e) {
       return 1;
     }

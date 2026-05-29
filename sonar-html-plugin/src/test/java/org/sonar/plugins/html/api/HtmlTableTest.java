@@ -203,6 +203,39 @@ class HtmlTableTest {
   }
 
   @Test
+  void span_value_above_max_is_capped() {
+    HtmlTable table = new HtmlTable();
+    TagNode hugeRowspan = tag("th", "rowspan", String.valueOf(HtmlTable.MAX_SPAN + 5));
+    table.addRow(List.of(hugeRowspan));
+    // Add MAX_SPAN extra rows; hugeRowspan should occupy exactly MAX_SPAN rows,
+    // not MAX_SPAN + 5, so the cell at row MAX_SPAN's column 0 is the new tag.
+    TagNode firstRowOutsideSpan = tag("th");
+    for (int i = 1; i < HtmlTable.MAX_SPAN; i++) {
+      table.addRow(List.of());
+    }
+    table.addRow(List.of(firstRowOutsideSpan));
+
+    assertThat(table.firstColumn()).containsExactly(hugeRowspan, firstRowOutsideSpan);
+  }
+
+  @Test
+  void grid_construction_stops_once_total_cell_budget_is_exceeded() {
+    HtmlTable table = new HtmlTable();
+    // First cell fills nearly the entire budget by itself.
+    TagNode big = tag("th", "rowspan", String.valueOf(HtmlTable.MAX_SPAN), "colspan", String.valueOf(HtmlTable.MAX_SPAN));
+    // Second cell would push placedCells over MAX_GRID_CELLS and must be skipped.
+    TagNode skipped = tag("th", "rowspan", "2", "colspan", "2");
+    table.addRow(List.of(big));
+    table.addRow(List.of(skipped));
+
+    // big is placed; skipped never makes it into the grid, so it is not in
+    // firstColumn (or anywhere). It will remain in allHeaders() so the rule
+    // ends up flagging it — the safe conservative fallback for adversarial input.
+    assertThat(table.firstColumn()).containsExactly(big);
+    assertThat(table.allHeaders()).containsExactly(big, skipped);
+  }
+
+  @Test
   void section_state_is_isolated_between_instances() {
     HtmlTable a = new HtmlTable();
     HtmlTable b = new HtmlTable();
@@ -218,15 +251,15 @@ class HtmlTableTest {
     assertThat(b.orderedRows()).containsExactly(List.of(bCell));
   }
 
-  private static TagNode tag(String name) {
+  private static TagNode tag(String name, String... attrNameValuePairs) {
+    if (attrNameValuePairs.length % 2 != 0) {
+      throw new IllegalArgumentException("attrNameValuePairs must come in name/value pairs");
+    }
     TagNode node = new TagNode();
     node.setNodeName(name);
-    return node;
-  }
-
-  private static TagNode tag(String name, String attrName, String attrValue) {
-    TagNode node = tag(name);
-    node.getAttributes().add(new Attribute(attrName, attrValue));
+    for (int i = 0; i < attrNameValuePairs.length; i += 2) {
+      node.getAttributes().add(new Attribute(attrNameValuePairs[i], attrNameValuePairs[i + 1]));
+    }
     return node;
   }
 }
