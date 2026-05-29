@@ -16,8 +16,9 @@
  */
 package org.sonar.plugins.html.checks.security;
 
-import java.util.Set;
 import java.util.Locale;
+import java.util.Set;
+import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -26,20 +27,42 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5725")
 public class ResourceIntegrityCheck extends AbstractPageCheck {
 
-  private static final String MESSAGE = "Make sure using artifacts without integrity checks is safe here.";
+  private static final String MSG_MISSING_BOTH = "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.";
+  private static final String MSG_MISSING_INTEGRITY = "Add an integrity attribute to this element to enforce integrity checks.";
+  private static final String MSG_MISSING_CROSSORIGIN = "Add a crossorigin=\"anonymous\" attribute to this element to enforce integrity checks.";
+
   private static final Set<String> LINK_REL_VALUES = Set.of("stylesheet", "preload", "modulepreload");
+
+  // Each pattern is kept separate to stay within the regex complexity limit (S5843)
+  // Trailing lookahead accepts a path separator, query/fragment boundary, or end-of-URL
+  private static final Pattern SEMVER_PATTERN = Pattern.compile("/v?\\d+\\.\\d+(?:\\.\\d+)?(?=[/?#]|$)");
+  private static final Pattern PKG_AT_VERSION_PATTERN = Pattern.compile("/[^/@]*@[\\d.]+(?=[/?#]|$)");
 
   @Override
   public void startElement(TagNode node) {
-    if ((node.equalsElementName("script") && hasExternalSource(node, "src")) ||
-      (node.equalsElementName("link") && hasIntegrityRelevantRel(node) && hasExternalSource(node, "href"))) {
-      createViolation(node, MESSAGE);
+    if (node.equalsElementName("script")) {
+      checkElement(node, "src");
+    } else if (node.equalsElementName("link") && hasIntegrityRelevantRel(node)) {
+      checkElement(node, "href");
     }
   }
 
-  private static boolean hasExternalSource(TagNode node, String sourceAttribute) {
+  private void checkElement(TagNode node, String sourceAttribute) {
     Attribute source = node.getProperty(sourceAttribute);
-    return source != null && isExternal(source.getValue()) && !node.hasProperty("integrity");
+    if (source == null || !isExternal(source.getValue()) || !hasVersionInUrl(source.getValue())) {
+      return;
+    }
+
+    boolean hasIntegrity = node.hasProperty("integrity");
+    boolean hasCrossorigin = hasCrossoriginAnonymous(node);
+
+    if (!hasIntegrity && !hasCrossorigin) {
+      createViolation(node, MSG_MISSING_BOTH);
+    } else if (!hasIntegrity) {
+      createViolation(node, MSG_MISSING_INTEGRITY);
+    } else if (!hasCrossorigin) {
+      createViolation(node, MSG_MISSING_CROSSORIGIN);
+    }
   }
 
   private static boolean hasIntegrityRelevantRel(TagNode node) {
@@ -47,8 +70,17 @@ public class ResourceIntegrityCheck extends AbstractPageCheck {
     return rel != null && LINK_REL_VALUES.contains(rel.getValue().toLowerCase(Locale.ROOT));
   }
 
-  private static boolean isExternal(String srcValue) {
-    return srcValue.startsWith("http") || srcValue.startsWith("//");
+  private static boolean isExternal(String url) {
+    return url.startsWith("http") || url.startsWith("//");
+  }
+
+  private static boolean hasVersionInUrl(String url) {
+    return SEMVER_PATTERN.matcher(url).find() || PKG_AT_VERSION_PATTERN.matcher(url).find();
+  }
+
+  private static boolean hasCrossoriginAnonymous(TagNode node) {
+    Attribute crossorigin = node.getProperty("crossorigin");
+    return crossorigin != null && "anonymous".equalsIgnoreCase(crossorigin.getValue());
   }
 
 }

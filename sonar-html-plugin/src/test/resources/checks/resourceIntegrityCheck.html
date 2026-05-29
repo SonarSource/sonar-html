@@ -1,49 +1,70 @@
-<script src="https://cdnexample.com/script.js"></script> <!-- Sensitive -->
-<script src="//cdnexample.com/script.js"></script> <!-- Sensitive -->
-<script src="http://cdnexample.com/script.js"></script> <!-- Sensitive -->
-<script type="module" src="https://cdnexample.com/script.js"></script> <!-- Sensitive -->
+<!-- Noncompliant:  versioned URL, both integrity and crossorigin missing -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<!-- compliant, integrity correctly set -->
-<script src="https://cdnexample.com/script.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+<!-- Noncompliant:  versioned URL using package@version alias, both missing -->
+<script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Noncompliant:  version is the final path segment (no trailing slash) -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1"></script>
+<script src="https://unpkg.com/react@18.2.0"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0">
+
+<!-- Noncompliant:  versioned URL, only integrity missing (has crossorigin) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
+
+<!-- Noncompliant:  versioned URL, only crossorigin missing (has integrity) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"></script>
+
+<!-- Compliant: both integrity and crossorigin present -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  crossorigin="anonymous"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
 </script>
 
-<script src="text/javascript.js"></script> <!-- compliant , not external-->
+<!-- Compliant: local resource -->
+<script src="text/javascript.js"></script>
 
-<script></script> <!-- compliant , no source-->
+<!-- Compliant: no source -->
+<script></script>
 
-<img alt="foo" src="https://cdnexample.com/myImage.js" /> <!-- compliant , not a script-->
-<img src="https://cdnexample.com/myImage.png" /> <!-- compliant , not a script-->
+<!-- Compliant: not a script -->
+<img alt="foo" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" />
 
-<!-- link elements with rel="stylesheet" -->
-<link rel="stylesheet" href="https://cdn.example.com/style.css"> <!-- Sensitive -->
-<link rel="stylesheet" href="//cdn.example.com/style.css"> <!-- Sensitive -->
-<link rel="stylesheet" href="http://cdn.example.com/style.css"> <!-- Sensitive -->
-<link rel="STYLESHEET" href="https://cdn.example.com/style.css"> <!-- Sensitive, case insensitive -->
+<!-- Compliant: no version in URL (mutable URLs - SRI not applicable) -->
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-XXX"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://cdn.example.com/latest/script.js"></script>
+<script src="https://cdn.example.com/script.js"></script>
+<script src="//connect.facebook.net/en_US/all.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 
-<!-- link elements with rel="preload" -->
-<link rel="preload" href="https://cdn.example.com/font.woff2" as="font"> <!-- Sensitive -->
-<link rel="preload" href="//cdn.example.com/script.js" as="script"> <!-- Sensitive -->
-<link rel="PRELOAD" href="https://cdn.example.com/style.css" as="style"> <!-- Sensitive, case insensitive -->
+<!-- Compliant: link rel=stylesheet, versioned URL, both attributes present -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.css"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+  crossorigin="anonymous">
 
-<!-- link elements with rel="modulepreload" -->
-<link rel="modulepreload" href="https://cdn.example.com/module.js"> <!-- Sensitive -->
-<link rel="modulepreload" href="//cdn.example.com/module.js"> <!-- Sensitive -->
-<link rel="MODULEPRELOAD" href="https://cdn.example.com/module.js"> <!-- Sensitive, case insensitive -->
+<!-- Noncompliant:  link rel=stylesheet, versioned URL, both missing -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.css">
+<!-- Noncompliant:  link rel=stylesheet, versioned URL, only integrity missing -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.css" crossorigin="anonymous">
+<!-- Noncompliant:  link rel=stylesheet, versioned URL, only crossorigin missing -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.css" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
 
-<!-- compliant, integrity correctly set -->
-<link rel="stylesheet" href="https://cdn.example.com/style.css" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
-<link rel="preload" href="https://cdn.example.com/font.woff2" as="font" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
-<link rel="modulepreload" href="https://cdn.example.com/module.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+<!-- Compliant: link rel=stylesheet, no version in URL -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:400">
 
-<!-- compliant, local resources -->
+<!-- Noncompliant:  link rel=preload, versioned URL, both missing -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" as="script">
+<!-- Noncompliant:  link rel=modulepreload, versioned URL, both missing -->
+<link rel="modulepreload" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+
+<!-- Compliant: other rel values, versioned URL -->
+<link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/favicon.ico">
+
+<!-- Compliant: local resources -->
 <link rel="stylesheet" href="styles/main.css">
 <link rel="preload" href="/fonts/font.woff2" as="font">
-<link rel="modulepreload" href="./modules/app.js">
-
-<!-- compliant, no href -->
-<link rel="stylesheet">
-
-<!-- compliant, other rel values -->
-<link rel="icon" href="https://cdn.example.com/favicon.ico">
-<link rel="canonical" href="https://cdn.example.com/page">
-<link rel="alternate" href="https://cdn.example.com/feed.xml">
