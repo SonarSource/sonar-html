@@ -19,6 +19,8 @@ package org.sonar.plugins.html.checks.scripting;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -28,17 +30,15 @@ class NestedJavaScriptCheckTest {
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-  @Test
-  void no_violations_should_be_reported_for_correct_script_tags() {
+  @ParameterizedTest
+  @ValueSource(strings = {
+    "CorrectScriptTags.html",
+    "CorrectScriptTags.vue",
+    "SingleQuotedAttributeWithLessThan.vue",
+  })
+  void no_violations_on_well_formed_script_tags(String fixture) {
     NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/CorrectScriptTags.html"), check);
-    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
-  }
-
-  @Test
-  void no_violations_should_be_reported_for_correct_script_tags_in_vue_templates() {
-    NestedJavaScriptCheck check = new NestedJavaScriptCheck();
-    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/CorrectScriptTags.vue"), check);
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/NestedJavaScriptCheck/" + fixture), check);
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 

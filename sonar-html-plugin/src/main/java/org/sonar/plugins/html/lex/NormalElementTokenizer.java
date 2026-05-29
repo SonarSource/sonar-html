@@ -19,6 +19,7 @@ package org.sonar.plugins.html.lex;
 import java.util.List;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.sslr.channel.CodeReader;
+import org.sonar.sslr.channel.EndMatcher;
 
 public class NormalElementTokenizer extends ElementTokenizer {
 
@@ -36,6 +37,11 @@ public class NormalElementTokenizer extends ElementTokenizer {
       i++;
     }
     return isValidTagNameStartChar(codeReader, i) && super.consume(codeReader, nodeList);
+  }
+
+  @Override
+  protected EndMatcher getEndMatcher(CodeReader codeReader) {
+    return new HtmlElementEndMatcher(codeReader);
   }
 
   /**
