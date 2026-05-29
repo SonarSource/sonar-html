@@ -139,7 +139,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
       StringBuilder sbValue = new StringBuilder();
       int ch = codeReader.peek();
 
-      if (ch == '\\' && isEscapedQuoteOpener(codeReader)) {
+      if (isEscapedQuoteOpener(codeReader)) {
         handleEscapedQuotedAttributeValue(codeReader, attribute, sbValue);
       } else if (isQuote((char) ch)) {
         codeReader.pop();
@@ -170,7 +170,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
 
   /**
    * Reads an attribute value whose delimiters are backslash-escaped quotes — the shape produced
-   * when HTML is embedded in a host language string literal (e.g. PHP {@code "<a href=\"x\">"}).
+   * when HTML is embedded in a host-language string literal (e.g. PHP {@code "<a href=\"x\">"}).
    * Stops at the first non-escaped backslash-quote pair and stores the unescaped value.
    * @param codeReader the reader, positioned at the opening backslash
    * @param attribute the attribute receiving the parsed value and quote char
@@ -179,18 +179,21 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   private static void handleEscapedQuotedAttributeValue(CodeReader codeReader, Attribute attribute, StringBuilder sbValue) {
     codeReader.pop();
     char quote = (char) codeReader.pop();
-    if (!isEscapedQuoteOpener(codeReader)) {
-      EscapedQuoteMatcher matcher = new EscapedQuoteMatcher(quote);
-      matcher.match(codeReader.peek());
-      popTo(codeReader, matcher, sbValue);
-      if (sbValue.length() > 0 && sbValue.charAt(sbValue.length() - 1) == '\\') {
-        sbValue.deleteCharAt(sbValue.length() - 1);
-      }
-      attribute.setValue(unescapePhpString(sbValue.toString()));
-    }
-    codeReader.pop();
-    codeReader.pop();
     attribute.setQuoteChar(quote);
+    if (isEscapedQuoteOpener(codeReader)) {
+      attribute.setValue("");
+      codeReader.pop();
+      codeReader.pop();
+      return;
+    }
+    EscapedQuoteMatcher matcher = new EscapedQuoteMatcher(quote);
+    matcher.match(codeReader.peek());
+    popTo(codeReader, matcher, sbValue);
+    if (sbValue.length() > 0 && sbValue.charAt(sbValue.length() - 1) == '\\') {
+      sbValue.deleteCharAt(sbValue.length() - 1);
+    }
+    attribute.setValue(unescapeBackslashEscapedString(sbValue.toString()));
+    codeReader.pop();
   }
 
   private static void handleBeforeAttributeName(CodeReader codeReader, TagNode element) {
@@ -216,11 +219,13 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   }
 
   /**
-   * Decodes a string read from inside a host-language double-quoted literal (PHP-style).
+   * Decodes the common backslash escape sequences inside a host-language double-quoted literal
+   * (PHP, JS, Java, C#, ...). Unknown escape sequences are kept verbatim, matching PHP behavior
+   * where {@code \z} stays as {@code \z}.
    * @param value raw content read between the escaped opening and closing quotes
-   * @return the value with {@code \\}, {@code \"}, {@code \'}, {@code \n}, {@code \r}, {@code \t} resolved
+   * @return the decoded value
    */
-  private static String unescapePhpString(String value) {
+  private static String unescapeBackslashEscapedString(String value) {
     StringBuilder out = new StringBuilder(value.length());
     for (int i = 0; i < value.length(); i++) {
       char c = value.charAt(i);
@@ -233,6 +238,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
           case 'n':  out.append('\n'); i++; break;
           case 'r':  out.append('\r'); i++; break;
           case 't':  out.append('\t'); i++; break;
+          case '$':  out.append('$'); i++; break;
           default:   out.append(c); break;
         }
       } else {
@@ -288,10 +294,13 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   /**
    * Matches the end of an escaped-quoted attribute value where the delimiter is a backslash-quote
    * pair, treating any backslash-prefixed character within the value as a single escape unit.
+   * Mirrors {@link QuoteMatcher}'s bracket-depth tracking so that a same-quote escape pair inside
+   * brackets (e.g. {@code \"alert(\"x\")\"}) is treated as nested rather than closing the value.
    */
   private static final class EscapedQuoteMatcher implements EndMatcher {
     private final char quote;
     private boolean activeBackslash = false;
+    private int bracketDepth = 0;
 
     EscapedQuoteMatcher(char quote) {
       this.quote = quote;
@@ -300,14 +309,17 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     @Override
     public boolean match(int character) {
       if (activeBackslash) {
-        if (character == quote) {
-          return true;
-        }
         activeBackslash = false;
-        return false;
+        return character == quote && bracketDepth == 0;
       }
       if (character == '\\') {
         activeBackslash = true;
+        return false;
+      }
+      if (character == '(' || character == '[') {
+        bracketDepth++;
+      } else if ((character == ')' || character == ']') && bracketDepth > 0) {
+        bracketDepth--;
       }
       return false;
     }

@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.lex;
 
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +26,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
+import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
@@ -116,20 +120,71 @@ public class PageLexer {
    * Parse the input into a list of tokens, with parent/child relations between the tokens.
    */
   public List<Node> parse(Reader reader) {
+    List<Node> nodeList = tokenize(reader);
+    extractHtmlFromPhpDirectives(nodeList);
+    createNodeHierarchy(nodeList);
+    return nodeList;
+  }
 
-    // CodeReader reads the file stream
+  private static List<Node> tokenize(Reader reader) {
     CodeReader codeReader = new CodeReader(reader);
-
-    // ArrayList collects the nodes
     List<Node> nodeList = new ArrayList<>();
-
-    // ChannelDispatcher manages the tokenizers
     ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder().addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()])).build();
     channelDispatcher.consume(codeReader, nodeList);
-
-    createNodeHierarchy(nodeList);
-
     return nodeList;
+  }
+
+  /**
+   * Matches a candidate HTML markup opener inside a string literal — {@code <} followed by an
+   * ASCII letter or {@code /}, which suggests a tag rather than a less-than comparison.
+   */
+  private static final Pattern EMBEDDED_HTML_PATTERN = Pattern.compile("<\\s*[/a-zA-Z]");
+
+  /**
+   * Surfaces HTML markup that was captured as an attribute value of a PHP {@code <?php ... ?>}
+   * directive. Inside ElementTokenizer, the body of a PHP string literal like
+   * {@code "<li role=\"doc-endnote\">"} is stored on the directive as an attribute value. Rules
+   * visit {@link TagNode}s via {@code startElement}, so they would otherwise never see the
+   * embedded markup. This pass re-lexes those values and appends the resulting nodes after the
+   * directive, anchored at the directive's start line, so accessibility/markup rules fire on
+   * them.
+   */
+  private static void extractHtmlFromPhpDirectives(List<Node> nodeList) {
+    for (int i = 0; i < nodeList.size(); i++) {
+      Node node = nodeList.get(i);
+      if (!(node instanceof DirectiveNode directive) || !isPhpDirective(directive)) {
+        continue;
+      }
+      List<Node> embedded = embeddedHtmlFrom(directive);
+      if (embedded.isEmpty()) {
+        continue;
+      }
+      nodeList.addAll(i + 1, embedded);
+      i += embedded.size();
+    }
+  }
+
+  private static boolean isPhpDirective(DirectiveNode directive) {
+    String name = directive.getNodeName();
+    return name != null && name.toLowerCase(Locale.ROOT).startsWith("?php");
+  }
+
+  private static List<Node> embeddedHtmlFrom(DirectiveNode directive) {
+    List<Node> embedded = new ArrayList<>();
+    int line = directive.getStartLinePosition();
+    for (Attribute attr : directive.getAttributes()) {
+      String value = attr.getValue();
+      if (value == null || value.isEmpty() || !EMBEDDED_HTML_PATTERN.matcher(value).find()) {
+        continue;
+      }
+      List<Node> tokens = tokenize(new StringReader(value));
+      for (Node token : tokens) {
+        token.setStartLinePosition(line);
+        token.setEndLinePosition(line);
+        embedded.add(token);
+      }
+    }
+    return embedded;
   }
 
   /**

@@ -435,6 +435,63 @@ class PageLexerTest {
   }
 
   @Test
+  void escapedQuotedAttributeFollowedByAnotherAttributeWithoutWhitespace() {
+    // The closing escaped-quote pair is immediately followed by the next attribute name;
+    // the lexer must not consume a character past the closing quote.
+    StringReader reader = new StringReader("<a id=\\\"x\\\"foo=\\\"y\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(2);
+    assertThat(node.getAttributes().get(0).getName()).isEqualTo("id");
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("x");
+    assertThat(node.getAttributes().get(1).getName()).isEqualTo("foo");
+    assertThat(node.getAttributes().get(1).getValue()).isEqualTo("y");
+  }
+
+  @Test
+  void escapedQuotedAttributeInSelfClosingVoidElement() {
+    // The '/' of the self-closing marker is flush against the closing escaped quote.
+    StringReader reader = new StringReader("<img src=\\\"x\\\"/>");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getNodeName()).isEqualTo("img");
+    assertThat(node.getAttributes()).hasSize(1);
+    assertThat(node.getAttributes().get(0).getName()).isEqualTo("src");
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("x");
+  }
+
+  @Test
+  void escapedQuotedAttributeWithNestedEscapedQuotesInsideBrackets() {
+    // \"alert(\"x\")\" — the inner \" pair is inside (...) so it shouldn't close the outer.
+    StringReader reader = new StringReader("<a onclick=\\\"alert(\\\"x\\\")\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(1);
+    assertThat(node.getAttributes().get(0).getName()).isEqualTo("onclick");
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("alert(\"x\")");
+  }
+
+  @Test
+  void escapedQuotedAttributeUnescapesDollarSign() {
+    // PHP \$ → $ to suppress variable interpolation in the source string.
+    StringReader reader = new StringReader("<a data-id=\\\"\\$foo\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(1);
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("$foo");
+  }
+
+  @Test
+  void escapedQuotedAttributeKeepsUnknownEscapeSequences() {
+    // \z is not a recognized escape — both bytes are kept verbatim, matching PHP behavior.
+    StringReader reader = new StringReader("<a data-x=\\\"a\\zb\\\">");
+    List<Node> nodeList = new PageLexer().parse(reader);
+    TagNode node = (TagNode) nodeList.get(0);
+    assertThat(node.getAttributes()).hasSize(1);
+    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("a\\zb");
+  }
+
+  @Test
   void text_containing_opening_angle_bracket() {
     assertOnlyText("x = '<");
     assertOnlyText("x = '<';");
