@@ -1,22 +1,22 @@
-<!-- Sensitive: versioned URL, both integrity and crossorigin missing -->
+<!-- Noncompliant:  versioned URL, both integrity and crossorigin missing -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<!-- Sensitive: versioned URL using package@version alias, both missing -->
+<!-- Noncompliant:  versioned URL using package@version alias, both missing -->
 <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Sensitive: version is the final path segment (no trailing slash) -->
+<!-- Noncompliant:  version is the final path segment (no trailing slash) -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1"></script>
 <script src="https://unpkg.com/react@18.2.0"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0">
 
-<!-- Sensitive: versioned URL, only integrity missing (has crossorigin) -->
+<!-- Noncompliant:  versioned URL, only integrity missing (has crossorigin) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"></script>
 
-<!-- Sensitive: versioned URL, only crossorigin missing (has integrity) -->
+<!-- Noncompliant:  versioned URL, only crossorigin missing (has integrity) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"></script>
 
 <!-- Compliant: both integrity and crossorigin present -->
@@ -47,19 +47,19 @@
   integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
   crossorigin="anonymous">
 
-<!-- Sensitive: link rel=stylesheet, versioned URL, both missing -->
+<!-- Noncompliant:  link rel=stylesheet, versioned URL, both missing -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.css">
-<!-- Sensitive: link rel=stylesheet, versioned URL, only integrity missing -->
+<!-- Noncompliant:  link rel=stylesheet, versioned URL, only integrity missing -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.css" crossorigin="anonymous">
-<!-- Sensitive: link rel=stylesheet, versioned URL, only crossorigin missing -->
+<!-- Noncompliant:  link rel=stylesheet, versioned URL, only crossorigin missing -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.0/css/bulma.css" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
 
 <!-- Compliant: link rel=stylesheet, no version in URL -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:400">
 
-<!-- Sensitive: link rel=preload, versioned URL, both missing -->
+<!-- Noncompliant:  link rel=preload, versioned URL, both missing -->
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" as="script">
-<!-- Sensitive: link rel=modulepreload, versioned URL, both missing -->
+<!-- Noncompliant:  link rel=modulepreload, versioned URL, both missing -->
 <link rel="modulepreload" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
 
 <!-- Compliant: other rel values, versioned URL -->
