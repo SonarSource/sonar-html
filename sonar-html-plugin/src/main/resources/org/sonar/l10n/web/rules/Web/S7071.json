@@ -1,0 +1,27 @@
+{
+  "title": "Sandboxing should be enabled",
+  "type": "VULNERABILITY",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [],
+  "defaultSeverity": "Critical",
+  "ruleSpecification": "RSPEC-7071",
+  "sqKey": "S7071",
+  "scope": "All",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "SECURITY": "HIGH"
+    },
+    "attribute": "COMPLETE"
+  },
+  "securityStandards": {
+    "CWE": [
+      269,
+      693
+    ]
+  }
+}

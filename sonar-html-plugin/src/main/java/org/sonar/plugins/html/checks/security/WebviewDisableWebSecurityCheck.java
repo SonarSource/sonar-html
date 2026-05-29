@@ -1,0 +1,45 @@
+/*
+ * SonarQube HTML
+ * Copyright (C) SonarSource Sàrl
+ * mailto:info AT sonarsource DOT com
+ *
+ * You can redistribute and/or modify this program under the terms of
+ * the Sonar Source-Available License Version 1, as published by SonarSource Sàrl.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the Sonar Source-Available License for more details.
+ *
+ * You should have received a copy of the Sonar Source-Available License
+ * along with this program; if not, see https://sonarsource.com/license/ssal/
+ */
+package org.sonar.plugins.html.checks.security;
+
+import javax.annotation.CheckForNull;
+import org.sonar.check.Rule;
+import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.TagNode;
+
+@Rule(key = "S7074")
+public class WebviewDisableWebSecurityCheck extends AbstractWebviewCheck {
+
+  private static final String MESSAGE = "Change this code to enable web security.";
+
+  /**
+   * Raises an issue when a webview disables Electron web security.
+   *
+   * @param node the tag being visited
+   */
+  @Override
+  public void startElement(TagNode node) {
+    if (!isWebview(node)) {
+      return;
+    }
+
+    Attribute disableWebSecurity = node.getProperty("disablewebsecurity");
+    if (disableWebSecurity != null) {
+      createViolationOnAttribute(node, disableWebSecurity, MESSAGE);
+    }
+  }
+}
