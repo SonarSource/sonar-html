@@ -1,8 +1,14 @@
-<!-- Compliant: full Razor expression — Helpers.isDynamicValue skips it -->
+<!-- Compliant: full Razor expression — the whole CSP value is dynamic -->
 <meta http-equiv="Content-Security-Policy" content="@Model.Csp">
 
-<!-- Compliant: escaped @ at the start is still detected as dynamic in .cshtml -->
+<!-- Compliant: Razor parenthesised expression -->
 <meta http-equiv="Content-Security-Policy" content="@(safeCsp)">
 
 <!-- Noncompliant: fully static CSP inside a .cshtml file is still scanned -->
 <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+
+<!-- Noncompliant: literal '@' inside an email address must not be mistaken for a Razor expression -->
+<meta http-equiv="Content-Security-Policy" content="report-uri mailto:security@example.com; script-src 'self' 'unsafe-inline';">
+
+<!-- Noncompliant: literal '@' inside a version specifier must not be mistaken for a Razor expression -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.example.com/lib@1.2.3/file.js 'unsafe-eval';">

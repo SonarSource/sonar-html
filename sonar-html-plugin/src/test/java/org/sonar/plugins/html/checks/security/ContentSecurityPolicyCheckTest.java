@@ -40,17 +40,18 @@ class ContentSecurityPolicyCheckTest {
       new ContentSecurityPolicyCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(23).withMessage(WILDCARD)
-      .next().atLine(26).withMessage(UNSAFE_INLINE)
-      .next().atLine(29).withMessage(UNSAFE_HASHES)
-      .next().atLine(32).withMessage(UNSAFE_EVAL)
+      .next().atLine(32).withMessage(WILDCARD)
       .next().atLine(35).withMessage(UNSAFE_INLINE)
-      .next().atLine(35).withMessage(WILDCARD)
-      .next().atLine(38).withMessage(UNSAFE_EVAL)
       .next().atLine(38).withMessage(UNSAFE_HASHES)
-      .next().atLine(38).withMessage(UNSAFE_INLINE)
-      .next().atLine(38).withMessage(WILDCARD)
-      .next().atLine(41).withMessage(UNSAFE_INLINE)
+      .next().atLine(41).withMessage(UNSAFE_EVAL)
+      .next().atLine(44).withMessage(UNSAFE_INLINE)
+      .next().atLine(44).withMessage(WILDCARD)
+      .next().atLine(47).withMessage(UNSAFE_EVAL)
+      .next().atLine(47).withMessage(UNSAFE_HASHES)
+      .next().atLine(47).withMessage(UNSAFE_INLINE)
+      .next().atLine(47).withMessage(WILDCARD)
+      .next().atLine(50).withMessage(UNSAFE_INLINE)
+      .next().atLine(53).withMessage(UNSAFE_INLINE)
       .noMore();
   }
 
@@ -62,6 +63,8 @@ class ContentSecurityPolicyCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(8).withMessage(UNSAFE_INLINE)
+      .next().atLine(11).withMessage(UNSAFE_INLINE)
+      .next().atLine(14).withMessage(UNSAFE_EVAL)
       .noMore();
   }
 
