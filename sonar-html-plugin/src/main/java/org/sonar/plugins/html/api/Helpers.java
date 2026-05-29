@@ -85,12 +85,24 @@ public class Helpers {
    * @return true if any supported interpolation marker is present
    */
   public static boolean containsDynamicValue(String value, HtmlSourceCode code) {
+    return containsServerSideMarker(value)
+      || (isRazorFile(code) && RAZOR_EXPRESSION.matcher(value).find());
+  }
+
+  /**
+   * Returns true when the value contains a non-Razor server-side interpolation marker
+   * (JSP/PHP/Mustache/EL). Use this when you need to combine the standard marker check with
+   * a custom Razor detector tailored to your context.
+   * @param value the string to inspect
+   * @return true if any supported non-Razor marker is present
+   */
+  public static boolean containsServerSideMarker(String value) {
     for (String marker : DYNAMIC_MARKERS) {
       if (value.contains(marker)) {
         return true;
       }
     }
-    return isRazorFile(code) && RAZOR_EXPRESSION.matcher(value).find();
+    return false;
   }
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {

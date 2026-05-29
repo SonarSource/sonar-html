@@ -30,11 +30,10 @@ public class ContentSecurityPolicyCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Make sure allowing %s in this Content Security Policy directive is safe here.";
 
-  private static final String[] DYNAMIC_MARKERS = {"<?php", "{{", "{%", "<?=", "${", "#{", "<%"};
-
   // A Razor expression starts at an unescaped '@' that begins an identifier, a parenthesised expression,
   // a code block, or a comment. The lookbehind excludes '@' preceded by an identifier char so that emails
-  // (security@example.com) and version specifiers (pkg@1.0.0) are not mistaken for expressions.
+  // (security@example.com) and version specifiers (pkg@1.0.0) are not mistaken for expressions. Kept local
+  // because Helpers.RAZOR_EXPRESSION is intentionally broader for short-token attributes (lang, role, id).
   private static final Pattern RAZOR_EXPRESSION_IN_CONTENT = Pattern.compile("(?<![\\w@])@(?!@)[A-Za-z_({*]");
 
   // Directives the user-agent ignores when CSP is delivered via <meta>; see W3C CSP3 §"the meta element".
@@ -93,16 +92,13 @@ public class ContentSecurityPolicyCheck extends AbstractPageCheck {
       || "Content-Security-Policy-Report-Only".equalsIgnoreCase(httpEquiv);
   }
 
-  // Cannot reuse Helpers.isDynamicValue: its Razor heuristic treats any '@' as dynamic, which over-skips
-  // static CSPs containing literal '@' in mailto: / npm scope / version tokens.
+  // Cannot reuse Helpers.containsDynamicValue: its Razor heuristic treats any '@' as dynamic, which
+  // over-skips static CSPs containing literal '@' in mailto: / npm scope / version tokens. We share the
+  // non-Razor marker list via containsServerSideMarker and supply a CSP-specific Razor detector.
   private boolean isDynamicCspValue(String value) {
-    for (String marker : DYNAMIC_MARKERS) {
-      if (value.contains(marker)) {
-        return true;
-      }
-    }
     HtmlSourceCode code = getHtmlSourceCode();
-    return Helpers.isRazorFile(code) && RAZOR_EXPRESSION_IN_CONTENT.matcher(value).find();
+    return Helpers.containsServerSideMarker(value)
+      || (Helpers.isRazorFile(code) && RAZOR_EXPRESSION_IN_CONTENT.matcher(value).find());
   }
 
   private void reportUnsafeTokens(TagNode node, String content) {
