@@ -35,6 +35,7 @@ class InputWithoutLabelCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLocation(6, 0, 6, 31).withMessage("Associate a valid label to this input field.")
       .next().atLine(19)
+      .next().atLine(21).withMessage("Associate a valid label to this input field.")
       .next().atLocation(23, 0, 23, 19).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
       .next().atLine(25).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
       .next().atLine(26).withMessage("Add an \"id\" attribute to this input field and associate it with a label.")
@@ -43,6 +44,20 @@ class InputWithoutLabelCheckTest {
       .next().atLine(43)
       .next().atLine(56)
       .next().atLocation(59, 0, 59, 72).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missing\",\"missing2\".");
+  }
+
+  @Test
+  void bindingAndAriaLabelledByHandling() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/InputWithoutLabelCheck/binding.html"),
+      new InputWithoutLabelCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(19).withMessage("Associate a valid label to this input field.")
+      .next().atLine(27).withMessage("Use valid ids in \"aria-labelledby\" attribute. Following ids were not found: \"missingLabel\".")
+      .next().atLine(42).withMessage("Associate a valid label to this input field.")
+      .next().atLine(49).withMessage("Associate a valid label to this input field.")
+      .noMore();
   }
 
 }

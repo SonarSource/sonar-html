@@ -6,6 +6,7 @@
     "FlashUsesBothObjectAndEmbedCheck",
     "FrameWithoutTitleCheck",
     "ImgWithoutAltCheck",
+    "InputWithoutLabelCheck",
     "ItemTagNotWithinContainerTagCheck",
     "MetaRefreshCheck",
     "MouseEventWithoutKeyboardEquivalentCheck",

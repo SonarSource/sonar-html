@@ -18,6 +18,7 @@ package org.sonar.plugins.html.rules;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.BuiltInQualityProfile;
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition.Context;
 import org.sonar.plugins.html.api.HtmlConstants;
@@ -33,6 +34,7 @@ class SonarWayProfileTest {
     Assertions.assertThat(profile.name()).isEqualTo("Sonar way");
     Assertions.assertThat(profile.language()).isEqualTo(HtmlConstants.LANGUAGE_KEY);
     Assertions.assertThat(profile.rules()).hasSizeGreaterThan(10);
+    Assertions.assertThat(profile.rule(RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, "InputWithoutLabelCheck"))).isNotNull();
   }
 
 }
