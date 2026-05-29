@@ -33,8 +33,10 @@ public class ResourceIntegrityCheck extends AbstractPageCheck {
 
   private static final Set<String> LINK_REL_VALUES = Set.of("stylesheet", "preload", "modulepreload");
 
-  // Matches a semver path segment (/3.7.1/, /v5.3.0/) or a package@version alias (/jquery@3.7.1/)
-  private static final Pattern VERSION_PATTERN = Pattern.compile("/((v?\\d+\\.\\d+(\\.\\d+)?)|([^/@]*@[\\d.]+))/");
+  // Each pattern is kept separate to stay within the regex complexity limit (S5843)
+  // Trailing lookahead accepts a path separator, query/fragment boundary, or end-of-URL
+  private static final Pattern SEMVER_PATTERN = Pattern.compile("/v?\\d+\\.\\d+(?:\\.\\d+)?(?=[/?#]|$)");
+  private static final Pattern PKG_AT_VERSION_PATTERN = Pattern.compile("/[^/@]*@[\\d.]+(?=[/?#]|$)");
 
   @Override
   public void startElement(TagNode node) {
@@ -73,7 +75,7 @@ public class ResourceIntegrityCheck extends AbstractPageCheck {
   }
 
   private static boolean hasVersionInUrl(String url) {
-    return VERSION_PATTERN.matcher(url).find();
+    return SEMVER_PATTERN.matcher(url).find() || PKG_AT_VERSION_PATTERN.matcher(url).find();
   }
 
   private static boolean hasCrossoriginAnonymous(TagNode node) {

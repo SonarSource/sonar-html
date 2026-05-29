@@ -45,20 +45,24 @@ class ResourceIntegrityCheckTest {
       // package@version alias, both missing
       .next().atLine(8).withMessage(MSG_MISSING_BOTH)
       .next().atLine(9).withMessage(MSG_MISSING_BOTH)
+      // version as final path segment (no trailing slash)
+      .next().atLine(12).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(13).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(14).withMessage(MSG_MISSING_BOTH)
       // versioned URL, only integrity missing
-      .next().atLine(12).withMessage(MSG_MISSING_INTEGRITY)
+      .next().atLine(17).withMessage(MSG_MISSING_INTEGRITY)
       // versioned URL, only crossorigin missing
-      .next().atLine(15).withMessage(MSG_MISSING_CROSSORIGIN)
+      .next().atLine(20).withMessage(MSG_MISSING_CROSSORIGIN)
       // link rel=stylesheet, versioned URL, both missing
-      .next().atLine(46).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(51).withMessage(MSG_MISSING_BOTH)
       // link rel=stylesheet, versioned URL, only integrity missing
-      .next().atLine(48).withMessage(MSG_MISSING_INTEGRITY)
+      .next().atLine(53).withMessage(MSG_MISSING_INTEGRITY)
       // link rel=stylesheet, versioned URL, only crossorigin missing
-      .next().atLine(50).withMessage(MSG_MISSING_CROSSORIGIN)
+      .next().atLine(55).withMessage(MSG_MISSING_CROSSORIGIN)
       // link rel=preload, versioned URL, both missing
-      .next().atLine(56).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(61).withMessage(MSG_MISSING_BOTH)
       // link rel=modulepreload, versioned URL, both missing
-      .next().atLine(58).withMessage(MSG_MISSING_BOTH)
+      .next().atLine(63).withMessage(MSG_MISSING_BOTH)
       .noMore();
   }
 
