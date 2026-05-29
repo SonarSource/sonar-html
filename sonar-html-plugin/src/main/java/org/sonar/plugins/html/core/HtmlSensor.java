@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Stream;
 import org.sonar.api.SonarProduct;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.FilePredicate;
@@ -62,7 +61,6 @@ import org.sonar.plugins.html.visitor.SonarResolveScanner;
 
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
-  private static final String[] OTHER_FILE_SUFFIXES = {"php", "php3", "php4", "php5", "phtml", "inc", "vue"};
   private static final Version ISSUE_RESOLUTION_API_MIN_VERSION = Version.create(13, 5);
 
   private final SonarRuntime sonarRuntime;
@@ -110,8 +108,9 @@ public final class HtmlSensor implements Sensor {
         predicates.hasType(InputFile.Type.MAIN),
         predicates.or(
           predicates.hasLanguages(HtmlConstants.LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_KEY),
-          predicates.or(Stream.of(OTHER_FILE_SUFFIXES).map(predicates::hasExtension).toArray(FilePredicate[]::new))
-          )
+          predicates.or(HtmlConstants.OTHER_FILE_SUFFIXES.stream().map(predicates::hasExtension).toArray(FilePredicate[]::new))
+          ),
+        ErbFileFilter.filePredicate(predicates, sensorContext.config())
     ));
 
     for (InputFile inputFile : inputFiles) {

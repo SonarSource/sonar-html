@@ -56429,9 +56429,6 @@
 "project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/page/public/test.html": [
 9
 ],
-"project:sonar-master/sonar-plugin-api/src/test/resources/org/sonar/api/web/AbstractRubyTemplateTest/template.erb": [
-1
-],
 "project:sonar-master/sonar-server/src/main/webapp/500.html": [
 6,
 37

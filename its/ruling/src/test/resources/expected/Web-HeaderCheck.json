@@ -14744,9 +14744,6 @@
 "project:sonar-master/sonar-core/src/test/resources/org/sonar/core/i18n/frenchPack/org/sonar/l10n/checkstyle_fr/ArchitectureRule.html": [
 0
 ],
-"project:sonar-master/sonar-plugin-api/src/test/resources/org/sonar/api/web/AbstractRubyTemplateTest/template.erb": [
-0
-],
 "project:sonar-master/sonar-server/src/main/webapp/401.html": [
 0
 ],
@@ -15105,9 +15102,6 @@
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/metrics/index.html.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/plugins/rails_page.erb": [
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb": [
@@ -15516,12 +15510,6 @@
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/controller/templates/view.html.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/mailer/templates/fixture.erb": [
-0
-],
-"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/mailer/templates/view.erb": [
 0
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/lib/rails_generator/generators/components/scaffold/templates/layout.html.erb": [

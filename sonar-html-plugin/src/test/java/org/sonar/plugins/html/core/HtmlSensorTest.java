@@ -27,6 +27,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mockito;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
@@ -302,6 +304,42 @@ class HtmlSensorTest {
     assertThat(tester.measure(componentKey, CoreMetrics.NCLOC).value()).isEqualTo(9);
     assertThat(tester.measure(componentKey, CoreMetrics.COMMENT_LINES).value()).isEqualTo(1);
 
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @ParameterizedTest(name = "{0} is skipped because content does not look like HTML")
+  @CsvSource({
+    "Dockerfile.erb,                       'FROM ubuntu:<%= version %>\nRUN apt-get update\n'",
+    "config.yml.erb,                       'server:\n  host: <%= host %>\n'",
+    "notify.erb,                           'Hello <%= name %>,\nyou have <%= count %> messages.\n'"
+  })
+  void erb_without_html_content_should_be_skipped(String filename, String content) {
+    DefaultInputFile inputFile = createInputFile(filename, content);
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(tester.measures(inputFile.key())).isEmpty();
+    assertThat(tester.allIssues()).isEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+  }
+
+  @ParameterizedTest(name = "{0} is analyzed because content looks like HTML")
+  @CsvSource({
+    // Recognized HTML double extension.
+    "page.html.erb",
+    // Bare .erb resolved by the content sniff.
+    "index.erb",
+    // Recognized non-HTML intermediate extension (still routed through the HTML analyzer).
+    "script.php.erb"
+  })
+  void erb_with_html_content_should_be_analyzed(String filename) {
+    DefaultInputFile inputFile = createInputFile(filename, "<html>\n<body>\n<%= greeting %>\n</body>\n</html>\n");
+    tester.fileSystem().add(inputFile);
+
+    sensor.execute(tester);
+
+    assertThat(tester.measures(inputFile.key())).isNotEmpty();
     assertThat(tester.allAnalysisErrors()).isEmpty();
   }
 
