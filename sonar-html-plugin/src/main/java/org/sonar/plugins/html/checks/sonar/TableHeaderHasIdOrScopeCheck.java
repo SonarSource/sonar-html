@@ -20,8 +20,11 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.HtmlTable;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -30,49 +33,38 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Add either an 'id' or a 'scope' attribute to this <th> tag.";
 
-  private final Deque<TableElement> tables = new ArrayDeque<>();
+  private final Deque<HtmlTable> tables = new ArrayDeque<>();
 
   @Override
   public void startElement(TagNode node) {
     if (isTableTag(node)) {
-      tables.push(new TableElement());
-    }
-
-    if (isTrTag(node)) {
-      visitTrNode(node);
-    }
-  }
-
-  private void visitTrNode(TagNode node) {
-    List<TagNode> row = node.getChildren();
-    if (!tables.isEmpty() && !row.isEmpty()) {
-
-      TableElement currentTable = tables.peek();
-      for (TagNode element : row) {
-        if (isThTag(element)) {
-          currentTable.headers.add(element);
-        }
+      tables.push(new HtmlTable());
+    } else if (!tables.isEmpty()) {
+      HtmlTable currentTable = tables.peek();
+      if (isTheadTag(node)) {
+        currentTable.enterSection(HtmlTable.Section.HEAD);
+      } else if (isTbodyTag(node)) {
+        currentTable.enterSection(HtmlTable.Section.BODY);
+      } else if (isTfootTag(node)) {
+        currentTable.enterSection(HtmlTable.Section.FOOT);
+      } else if (isTrTag(node)) {
+        currentTable.addRow(filterCells(node));
       }
-      currentTable.firstCol.add(row.get(0));
-
-      if (currentTable.firstRow.isEmpty()) {
-        currentTable.firstRow = row;
-      }
-
-    } else {
-      // Sometimes rows are defined in separate files, and at this point we don't see them as part of a current table.
-      // In this case we treat them as belonging to "not simple tables".
-      raiseIssueOnTableHeadersWithoutScopeOrId(row);
+    } else if (isTrTag(node)) {
+      // Rows defined outside any <table> (e.g. in JSP fragments) cannot be classified,
+      // so they are treated as belonging to "not simple tables".
+      raiseIssueOnTableHeadersWithoutScopeOrId(node.getChildren());
     }
   }
 
   @Override
   public void endElement(TagNode node) {
+    if (!tables.isEmpty() && (isTheadTag(node) || isTbodyTag(node) || isTfootTag(node))) {
+      tables.peek().exitSection();
+    }
     if (isTableTag(node) && !tables.isEmpty()) {
-      TableElement currentTable = tables.pop();
-      if (!currentTable.isSimpleTable()) {
-        raiseIssueOnTableHeadersWithoutScopeOrId(currentTable.headers);
-      }
+      HtmlTable current = tables.pop();
+      raiseIssueOnTableHeadersWithoutScopeOrId(headersNeedingIdOrScope(current));
     }
   }
 
@@ -81,8 +73,31 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     tables.clear();
   }
 
-  private static boolean isThTag(TagNode node) {
-    return "th".equalsIgnoreCase(node.getNodeName());
+  /**
+   * Returns the {@code <th>} elements that are neither in the first row nor in
+   * the first column of the rendered grid. When this set is empty, every header
+   * is exempt and the table is "simple".
+   */
+  private static Set<TagNode> headersNeedingIdOrScope(HtmlTable table) {
+    Set<TagNode> firstRow = table.firstRow();
+    Set<TagNode> firstColumn = table.firstColumn();
+    Set<TagNode> nonExempt = new LinkedHashSet<>();
+    for (TagNode header : table.allHeaders()) {
+      if (!firstRow.contains(header) && !firstColumn.contains(header)) {
+        nonExempt.add(header);
+      }
+    }
+    return nonExempt;
+  }
+
+  private static List<TagNode> filterCells(TagNode trNode) {
+    List<TagNode> cells = new ArrayList<>();
+    for (TagNode child : trNode.getChildren()) {
+      if (HtmlTable.isTh(child) || HtmlTable.isTd(child)) {
+        cells.add(child);
+      }
+    }
+    return cells;
   }
 
   private static boolean isTrTag(TagNode node) {
@@ -93,26 +108,25 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
     return "table".equalsIgnoreCase(node.getNodeName());
   }
 
-  private void raiseIssueOnTableHeadersWithoutScopeOrId(Collection<TagNode> row) {
-    row.stream()
+  private static boolean isTheadTag(TagNode node) {
+    return "thead".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isTbodyTag(TagNode node) {
+    return "tbody".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isTfootTag(TagNode node) {
+    return "tfoot".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private void raiseIssueOnTableHeadersWithoutScopeOrId(Collection<TagNode> cells) {
+    cells.stream()
       .filter(TableHeaderHasIdOrScopeCheck::isHeaderTableWithoutScopeOrId)
       .forEach(th -> createViolation(th, MESSAGE));
   }
 
   private static boolean isHeaderTableWithoutScopeOrId(TagNode child) {
-    return isThTag(child) && !child.hasProperty("id") && !child.hasProperty("scope");
-  }
-
-  private static class TableElement {
-    List<TagNode> headers = new ArrayList<>();
-    List<TagNode> firstRow = new ArrayList<>();
-    List<TagNode> firstCol = new ArrayList<>();
-
-    /**
-     * Simple tables are considered as such when the headers are either all in the first row, or all in the first column. The two conditions must not apply together.
-     **/
-    boolean isSimpleTable() {
-      return headers.equals(firstRow) || headers.equals(firstCol);
-    }
+    return HtmlTable.isTh(child) && !child.hasProperty("id") && !child.hasProperty("scope");
   }
 }

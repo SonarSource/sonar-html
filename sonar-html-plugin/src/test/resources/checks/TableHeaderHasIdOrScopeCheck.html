@@ -94,21 +94,21 @@
     </tr>
 </table>
 
-<!-- Not simple table: all TH elements are all in the first row and in the first column, so they need "id" or "scope" attribute -->
+<!-- Simple table: all TH elements are in the first row and in the first column, so they don't need "id" or "scope" attribute -->
 <table border="1">
     <caption>Headers all in first column AND first row</caption>
     <tr>
-        <th>Time</th>                                <!-- Non-Compliant -->
-        <th>Monday</th>                                <!-- Non-Compliant -->
-        <th>Tuesday</th>                                <!-- Non-Compliant -->
+        <th>Time</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
     </tr>
     <tr>
-        <th>10.00 AM</th>                                <!-- Non-Compliant -->
+        <th>10.00 AM</th>
         <td>YES</td>
         <td>NO</td>
     </tr>
     <tr>
-        <th>11.00 AM</th>                                <!-- Non-Compliant -->
+        <th>11.00 AM</th>
         <td>NO</td>
         <td>YES</td>
     </tr>
@@ -132,21 +132,21 @@
     </tr>
 </table>
 
-<!-- Not simple table: all TH elements are all in the first row and in the first column, except the first cell, so they need "id" or "scope" attribute -->
+<!-- Simple table: all TH elements are in the first row and in the first column, even when the top-left cell is not a header -->
 <table border="1">
     <caption>Headers all in first column AND first row, except the first cell</caption>
     <tr>
         <td></td>
-        <th>Monday</th>                                <!-- Non-Compliant -->
-        <th>Tuesday</th>                                <!-- Non-Compliant -->
+        <th>Monday</th>
+        <th>Tuesday</th>
     </tr>
     <tr>
-        <th>10.00 AM</th>                                <!-- Non-Compliant -->
+        <th>10.00 AM</th>
         <td>YES</td>
         <td>NO</td>
     </tr>
     <tr>
-        <th>11.00 AM</th>                                <!-- Non-Compliant -->
+        <th>11.00 AM</th>
         <td>NO</td>
         <td>YES</td>
     </tr>
@@ -202,16 +202,16 @@
     </tr>
 </table>
 
-<!-- Not simple table: first column is entirely composed by THs elements, but there is at least one more TH element in the table -->
+<!-- Simple table: TH elements can appear in both the first row and the first column -->
 <table border="1">
     <caption>Headers in first column, AND in another cell of the table</caption>
     <tr>
-        <th>Name</th>                                <!-- Non-Compliant -->
-        <th>Marco</th>                                <!-- Non-Compliant -->
+        <th>Name</th>
+        <th>Marco</th>
         <td>John</td>
     </tr>
     <tr>
-        <th>Surname</th>                                <!-- Non-Compliant -->
+        <th>Surname</th>
         <td>Rossi</td>
         <td>Doe</td>
     </tr>
@@ -230,13 +230,13 @@
     </tr>
 </table>
 
-<!-- Not simple table: THs elements are only in the first row, which is composed also by at least one not-TH element -->
+<!-- Simple table: TH elements can share the first row with data cells -->
 <table border="1">
     <caption>Mixed headers and data cell in first row</caption>
     <tr>
         <td>Empty</td>
-        <th>Name</th>                                <!-- Non-Compliant -->
-        <tH>Surname</th>                                <!-- Non-Compliant -->
+        <th>Name</th>
+        <tH>Surname</th>
     </tr>
     <tr>
         <td>Empty</td>
@@ -268,11 +268,11 @@
     </tr>
 </table>
 
-<!-- Not simple table: THs elements are only in the first column, which is composed also by at least one not-TH element -->
+<!-- Simple table: TH elements can share the first column with data cells -->
 <table border="1">
     <caption>Mixed headers and data cell in first column</caption>
     <tr>
-        <th>Name</th>                                <!-- Non-Compliant -->
+        <th>Name</th>
         <td>Marco</td>
         <td>John</td>
     </tr>
@@ -282,7 +282,7 @@
         <td>Empty</td>
     </tr>
     <tr>
-        <th>Surname</th>                                <!-- Non-Compliant -->
+        <th>Surname</th>
         <td>Rossi</td>
         <td>Doe</td>
     </tr>
@@ -377,20 +377,20 @@
                 <tr> <td>Data</td> <td>Data</td> </tr>
             </table>
             <table border="1px">
-                <tr> <th>Header1</th> <td>Data</td> </tr> <!-- Non-Compliant -->
+                <tr> <th>Header1</th> <td>Data</td> </tr>
                 <tr> <td>Header2</td> <td>Data</td> </tr>
             </table>
         </td>
         <td>Data</td>
         <td>
             <table border="1px">
-                <tr> <td>Empty</td><th>Header1 </th> <th> Header2</th> </tr> <!-- Non-Compliant -->
+                <tr> <td>Empty</td><th>Header1 </th> <th> Header2</th> </tr>
                 <tr> <td>Empty</td><td>Content</td> <td>Content</td> </tr>
             </table>
             <table border="1px">
                 <tr> <td>Empty</td><td>Data</td>
-                <tr> <th>Header1</th><td>Data</td>  <!-- Non-Compliant -->
-                <tr> <th>Header2</th><td>Data</td>  <!-- Non-Compliant -->
+                <tr> <th>Header1</th><td>Data</td>
+                <tr> <th>Header2</th><td>Data</td>
             </table>
         </td>
     </tr>
@@ -405,20 +405,20 @@
                         <tr> <td>Data</td> <td>Data</td> </tr>
                     </table>
                     <table border="1px">
-                        <tr> <th>Header1</th> <td>Data</td> </tr>  <!-- Non-Compliant -->
+                        <tr> <th>Header1</th> <td>Data</td> </tr>
                         <tr> <td>Header2</td> <td>Data</td> </tr>
                     </table>
                 </td>
                 <td>Data</td>
                 <td>
                     <table border="1px">
-                        <tr> <td>Empty</td><th>Header1 </th> <th> Header2</th> </tr> <!-- Non-Compliant -->
+                        <tr> <td>Empty</td><th>Header1 </th> <th> Header2</th> </tr>
                         <tr> <td>Empty</td><td>Content</td> <td>Content</td> </tr>
                     </table>
                     <table border="1px">
                         <tr> <td>Empty</td><td>Data</td>
-                        <tr> <th>Header1</th><td>Data</td>  <!-- Non-Compliant -->
-                        <tr> <th>Header2</th><td>Data</td>  <!-- Non-Compliant -->
+                        <tr> <th>Header1</th><td>Data</td>
+                        <tr> <th>Header2</th><td>Data</td>
                     </table>
                 </td>
             </tr>
@@ -602,7 +602,7 @@
     <tr>
         <td></td>
         <th rowspan="2" [id]="h">Homework</th>
-        <th>Exams</th>                             <!-- Non-Compliant -->
+        <th>Exams</th>
         <th [scope]="col"colspan="3">Projects</th>
     </tr>
 </table>
@@ -632,4 +632,111 @@
     <caption>One Column Table</caption>
     <tr><th>Header</th></tr>
     <tr><td>data</td></tr>
+</table>
+
+<!-- Simple table: row and column headers stay exempt across THEAD and TBODY -->
+<table border="1">
+    <caption>THEAD and TBODY with row and column headers</caption>
+    <thead>
+    <tr>
+        <th>Characteristic</th>
+        <th>Negative</th>
+        <th>Positive</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Mood</th>
+        <td>Sad</td>
+        <td>Happy</td>
+    </tr>
+    <tr>
+        <th>Grade</th>
+        <td>Failing</td>
+        <td>Passing</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Simple table: TFOOT before TBODY/THEAD in source order should not change the first logical row -->
+<table border="1">
+    <caption>TFOOT before TBODY/THEAD: first row is the THEAD row</caption>
+    <tfoot>
+    <tr>
+        <th>Total</th>
+        <td>3</td>
+        <td>4</td>
+    </tr>
+    </tfoot>
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Q1</th>
+        <th>Q2</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Apples</th>
+        <td>1</td>
+        <td>2</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Not simple table: TFOOT before TBODY with a stray inner TH -->
+<table border="1">
+    <caption>TFOOT before TBODY with stray inner TH</caption>
+    <tfoot>
+    <tr>
+        <td>Total</td>
+        <th>Sum</th>                                <!-- Non-Compliant -->
+    </tr>
+    </tfoot>
+    <thead>
+    <tr>
+        <th>Item</th>
+        <th>Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Apples</th>
+        <td>42</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Not simple table: ROWSPAN on the first-row corner cell makes the inner header look like it sits in column 0 -->
+<table border="1">
+    <caption>Rowspan-aware first column</caption>
+    <tr>
+        <th rowspan="2">Group</th>
+        <th>Q1</th>
+        <th>Q2</th>
+    </tr>
+    <tr>
+        <th>Inner</th>                              <!-- Non-Compliant -->
+        <td>10</td>
+    </tr>
+</table>
+
+<!-- Not simple table: bidirectional first row/column headers with one stray inner TH -->
+<table border="1">
+    <caption>Bidirectional headers with stray inner TH</caption>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td>x</td>
+        <td>y</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>z</td>
+        <th>stray</th>                              <!-- Non-Compliant -->
+    </tr>
 </table>
