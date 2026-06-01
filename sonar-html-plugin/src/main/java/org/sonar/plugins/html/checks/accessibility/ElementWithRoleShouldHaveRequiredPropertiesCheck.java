@@ -32,7 +32,7 @@ public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPa
   public void startElement(TagNode element) {
     var roleName = element.getAttribute("role");
 
-    if (roleName == null || Helpers.isDynamicValue(roleName, getHtmlSourceCode())) {
+    if (roleName == null || Helpers.containsDynamicValue(roleName, getHtmlSourceCode())) {
       return;
     }
 

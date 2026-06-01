@@ -47,7 +47,7 @@ public class FocusableInteractiveElementsCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     var role = element.getAttribute("role");
-    if (role == null || Helpers.isDynamicValue(role, getHtmlSourceCode())) {
+    if (role == null || Helpers.containsDynamicValue(role, getHtmlSourceCode())) {
       return;
     }
 
