@@ -167,6 +167,20 @@
     </body>
 </html>
 
+<!-- th:attr containing data-lang (or similar) must not satisfy the page-level check (P2). -->
+<html> <!-- Non-Compliant -->
+    <body th:attr="data-lang='en'">
+        <p>Hello</p>
+    </body>
+</html>
+
+<!-- th:attr with a real lang= pair anywhere in the comma-separated list satisfies the page-level check. -->
+<html>
+    <body th:attr="data-lang='x',lang=${locale.lang}">
+        <p>Hello</p>
+    </body>
+</html>
+
 <!-- Unclosed <html> at end-of-document — violation still raised via endDocument (L5 regression). -->
 <html> <!-- Non-Compliant -->
     <body>

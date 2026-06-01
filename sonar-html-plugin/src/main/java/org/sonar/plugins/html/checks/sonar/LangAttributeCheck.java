@@ -286,6 +286,11 @@ public class LangAttributeCheck extends AbstractPageCheck {
             .anyMatch(attributeName -> attributeName.contains("?php") && attributeName.contains("language_attributes"));
   }
 
+  // Inside th:attr="..." (a comma-separated list of key=value pairs), only `lang=` and `xml:lang=`
+  // at a key boundary (start of string or after a comma) actually set the HTML lang. The previous
+  // `contains("lang=")` heuristic matched `data-lang=`, `aria-lang=`, etc.
+  private static final Pattern THYMELEAF_LANG_ATTR_PATTERN = Pattern.compile("(?:^|,)\\s*(?:xml:)?lang\\s*=");
+
   /**
    * In Thymeleaf there are multiple ways of specifying the lang attribute:
    * - using the th:lang, th:xmllang, th:lang-xmllang attributes (lang-xmllang would set both xmllang and lang attributes)
@@ -296,8 +301,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
     return node.hasProperty("th:lang")
             || node.hasProperty("th:xmllang")
             || node.hasProperty("th:lang-xmllang")
-            || (thAttrValue != null && thAttrValue.contains("lang=")
-    );
+            || (thAttrValue != null && THYMELEAF_LANG_ATTR_PATTERN.matcher(thAttrValue).find());
   }
 
 }

@@ -54,6 +54,7 @@ class LangAttributeCheckTest {
 			.next().atLine(156).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
 			.next().atLine(163).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
 			.next().atLine(171).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
+			.next().atLine(185).withMessage(LangAttributeCheck.HTML_OR_BODY_MISSING_LANG_MESSAGE)
 	    .noMore();
   }
 
