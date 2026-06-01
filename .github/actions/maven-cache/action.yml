@@ -1,0 +1,34 @@
+name: Setup Maven Cache
+description: Sets up Maven cache with restore-only behavior on non-default branches
+
+runs:
+  using: composite
+  steps:
+    - name: Compute Maven cache keys
+      id: keys
+      shell: bash
+      run: |
+        HASH=$(find . -name 'pom.xml' -type f | sort | xargs sha256sum | sha256sum | cut -d' ' -f1)
+        MONTH=$(date +'%Y-%m')
+        echo "maven-hash=$HASH" >> $GITHUB_OUTPUT
+        echo "cache-month=$MONTH" >> $GITHUB_OUTPUT
+
+    - name: Restore Maven cache (branches)
+      if: github.ref_name != github.event.repository.default_branch
+      uses: actions/cache/restore@v5
+      with:
+        path: ~/.m2/repository
+        key: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
+        restore-keys: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
+
+    - name: Cache Maven dependencies (default branch)
+      if: github.ref_name == github.event.repository.default_branch
+      uses: actions/cache@v5
+      with:
+        path: ~/.m2/repository
+        key: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
+        restore-keys: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
+
+    - name: Remove restored sonar-html artifacts
+      shell: bash
+      run: rm -rf ~/.m2/repository/org/sonarsource/html

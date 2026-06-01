@@ -5,6 +5,8 @@ on:
   pull_request:
   merge_group:
   workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'  # Nightly at 2 AM UTC — drives SQ:DEV QA, shadow analyses, and IRIS
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -25,6 +27,8 @@ jobs:
         uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
         with:
           version: 2025.7.12
+      - &maven_cache
+        uses: ./.github/actions/maven-cache
       - uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           deploy-pull-request: true
@@ -39,6 +43,7 @@ jobs:
     steps:
       - *checkout
       - *mise
+      - *maven_cache
       - name: Build Maven (no deploy)
         uses: SonarSource/ci-github-actions/build-maven@master
         with:
@@ -49,12 +54,9 @@ jobs:
           maven-args: '-T1C'
 
   qa:
-    if: github.actor != 'dependabot[bot]'
+    if: github.actor != 'dependabot[bot]' && github.event_name != 'schedule'
     needs: [build]
     runs-on: github-ubuntu-latest-m
-    strategy:
-      matrix:
-        sq-version: [LATEST_RELEASE, DEV]
     permissions:
       id-token: write
       contents: read
@@ -74,6 +76,8 @@ jobs:
             development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
+      - *maven_cache
+      - uses: ./.github/actions/orchestrator-cache
       - name: Run QA tests
         env: &qa_env
           SONARSOURCE_QA: true
@@ -81,10 +85,29 @@ jobs:
           ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
           ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
-          mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=${{ matrix.sq-version }} -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+
+  qa-dev:
+    if: github.event_name == 'schedule'
+    needs: [build]
+    runs-on: github-ubuntu-latest-m
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - *checkout
+      - *mise
+      - *config_maven
+      - *secrets
+      - *maven_cache
+      # No orchestrator cache: SQ:DEV moves daily, the cache key would never hit.
+      - name: Run QA tests against SQ:DEV
+        env: *qa_env
+        run: |
+          mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
-    if: github.actor != 'dependabot[bot]'
+    if: github.actor != 'dependabot[bot]' && github.event_name != 'schedule'
     needs: [build]
     runs-on: github-ubuntu-latest-m
     permissions:
@@ -100,6 +123,8 @@ jobs:
       - *mise
       - *config_maven
       - *secrets
+      - *maven_cache
+      - uses: ./.github/actions/orchestrator-cache
       - name: Run ruling tests
         id: ruling
         env: *qa_env
@@ -196,7 +221,52 @@ jobs:
             gh pr comment "$PR_NUMBER" --body-file comment.md
           fi
 
+  analyze-shadows:
+    if: github.event_name == 'schedule'
+    needs: [build]
+    runs-on: github-ubuntu-latest-s
+    strategy:
+      matrix:
+        include:
+          - platform: sqc-eu
+            project-key: SonarSource_sonar-html
+          - platform: sqc-us
+            project-key: SonarSource_sonar-html
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - *checkout
+      - *mise
+      - *maven_cache
+      - uses: SonarSource/ci-github-actions/build-maven@v1
+        with:
+          artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
+          maven-args: "-Dsonar.projectKey=${{ matrix.project-key }} -Dsonar.organization=sonarsource -Pcoverage-report -Dmaven.install.skip=true -Dmaven.deploy.skip=true"
+          sonar-platform: ${{ matrix.platform }}
+
+  iris:
+    if: github.event_name == 'schedule'
+    needs: [build, analyze-shadows]
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - *checkout
+      - *mise
+      - uses: SonarSource/unified-dogfooding-actions/run-iris@v1
+        with:
+          primary_project_key: org.sonarsource.html:html
+          primary_platform: Next
+          shadow1_project_key: SonarSource_sonar-html
+          shadow1_platform: SQC-EU
+          shadow2_project_key: SonarSource_sonar-html
+          shadow2_platform: SQC-US
+
   promote:
+    if: github.event_name != 'schedule'
     needs: [build, build-windows, qa, ruling]
     runs-on: github-ubuntu-latest-s
     permissions:
