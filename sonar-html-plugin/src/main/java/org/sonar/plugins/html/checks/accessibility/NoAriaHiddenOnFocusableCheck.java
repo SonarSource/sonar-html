@@ -17,14 +17,14 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isFocusableElement;
 
 @Rule(key = "S6825")
-public class NoAriaHiddenOnFocusableCheck extends ContextFreeElementCheck {
+public class NoAriaHiddenOnFocusableCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "aria-hidden=\"true\" must not be set on focusable elements.";
 

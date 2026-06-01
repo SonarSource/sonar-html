@@ -21,11 +21,11 @@ import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6821")
-public class AriaRoleCheck extends ContextFreeElementCheck {
+public class AriaRoleCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode element) {
     var role = element.getAttribute("role");

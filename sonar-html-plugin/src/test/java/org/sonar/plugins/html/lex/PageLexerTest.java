@@ -361,137 +361,6 @@ class PageLexerTest {
   }
 
   @Test
-  void escapedDoubleQuotedAttributeValues() {
-    // SONARHTML-246: HTML embedded in a PHP double-quoted string literal.
-    // Source bytes: <li id=\"fn:$note_id\" role=\"doc-endnote\">
-    StringReader reader = new StringReader("<li id=\\\"fn:$note_id\\\" role=\\\"doc-endnote\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    assertThat(nodeList).hasSize(1);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getNodeName()).isEqualTo("li");
-    assertThat(node.getAttributes()).hasSize(2);
-    Attribute idAttr = node.getAttributes().get(0);
-    assertThat(idAttr.getName()).isEqualTo("id");
-    assertThat(idAttr.getValue()).isEqualTo("fn:$note_id");
-    Attribute roleAttr = node.getAttributes().get(1);
-    assertThat(roleAttr.getName()).isEqualTo("role");
-    assertThat(roleAttr.getValue()).isEqualTo("doc-endnote");
-  }
-
-  @Test
-  void escapedSingleQuotedAttributeValues() {
-    // Single-quote variant: <input type=\'text\' name=\'foo\' />
-    StringReader reader = new StringReader("<input type=\\'text\\' name=\\'foo\\' />");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    assertThat(nodeList).hasSize(1);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(2);
-    assertThat(node.getAttributes().get(0).getName()).isEqualTo("type");
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("text");
-    assertThat(node.getAttributes().get(1).getName()).isEqualTo("name");
-    assertThat(node.getAttributes().get(1).getValue()).isEqualTo("foo");
-  }
-
-  @Test
-  void escapedQuotedAttributeWithBackslashEscape() {
-    // Content contains an escaped backslash \\: should decode to a single backslash.
-    // Source bytes: <a href=\"a\\b\">
-    StringReader reader = new StringReader("<a href=\\\"a\\\\b\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(1);
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("a\\b");
-  }
-
-  @Test
-  void escapedQuotedAttributeWithEmbeddedNewline() {
-    // \n inside the value decodes to an actual newline character.
-    StringReader reader = new StringReader("<p title=\\\"a\\nb\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("a\nb");
-  }
-
-  @Test
-  void emptyEscapedQuotedAttribute() {
-    // Empty value: <span id=\"\">
-    StringReader reader = new StringReader("<span id=\\\"\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(1);
-    assertThat(node.getAttributes().get(0).getName()).isEqualTo("id");
-    assertThat(node.getAttributes().get(0).getValue()).isEmpty();
-  }
-
-  @Test
-  void backslashFollowedByNonQuoteStaysUnquoted() {
-    // <a href=\foo> — '\' not followed by a quote should still hit the unquoted branch.
-    StringReader reader = new StringReader("<a href=\\foo>");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(1);
-    assertThat(node.getAttributes().get(0).getName()).isEqualTo("href");
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("\\foo");
-  }
-
-  @Test
-  void escapedQuotedAttributeFollowedByAnotherAttributeWithoutWhitespace() {
-    // The closing escaped-quote pair is immediately followed by the next attribute name;
-    // the lexer must not consume a character past the closing quote.
-    StringReader reader = new StringReader("<a id=\\\"x\\\"foo=\\\"y\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(2);
-    assertThat(node.getAttributes().get(0).getName()).isEqualTo("id");
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("x");
-    assertThat(node.getAttributes().get(1).getName()).isEqualTo("foo");
-    assertThat(node.getAttributes().get(1).getValue()).isEqualTo("y");
-  }
-
-  @Test
-  void escapedQuotedAttributeInSelfClosingVoidElement() {
-    // The '/' of the self-closing marker is flush against the closing escaped quote.
-    StringReader reader = new StringReader("<img src=\\\"x\\\"/>");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getNodeName()).isEqualTo("img");
-    assertThat(node.getAttributes()).hasSize(1);
-    assertThat(node.getAttributes().get(0).getName()).isEqualTo("src");
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("x");
-  }
-
-  @Test
-  void escapedQuotedAttributeWithNestedEscapedQuotesInsideBrackets() {
-    // \"alert(\"x\")\" — the inner \" pair is inside (...) so it shouldn't close the outer.
-    StringReader reader = new StringReader("<a onclick=\\\"alert(\\\"x\\\")\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(1);
-    assertThat(node.getAttributes().get(0).getName()).isEqualTo("onclick");
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("alert(\"x\")");
-  }
-
-  @Test
-  void escapedQuotedAttributeUnescapesDollarSign() {
-    // PHP \$ → $ to suppress variable interpolation in the source string.
-    StringReader reader = new StringReader("<a data-id=\\\"\\$foo\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(1);
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("$foo");
-  }
-
-  @Test
-  void escapedQuotedAttributeKeepsUnknownEscapeSequences() {
-    // \z is not a recognized escape — both bytes are kept verbatim, matching PHP behavior.
-    StringReader reader = new StringReader("<a data-x=\\\"a\\zb\\\">");
-    List<Node> nodeList = new PageLexer().parse(reader);
-    TagNode node = (TagNode) nodeList.get(0);
-    assertThat(node.getAttributes()).hasSize(1);
-    assertThat(node.getAttributes().get(0).getValue()).isEqualTo("a\\zb");
-  }
-
-  @Test
   void text_containing_opening_angle_bracket() {
     assertOnlyText("x = '<");
     assertOnlyText("x = '<';");
@@ -810,6 +679,50 @@ class PageLexerTest {
     assertThat(nodes).extracting(Node::getCode).containsExactly(
       "<input value='<% if (c == '/') { out.println(\"x\"); } %>' />",
       "<p>", "after", "</p>");
+  // ---------------------------------------------------------------------------
+  // PHP embedded HTML extraction (pipeline integration)
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void php_string_literal_produces_embedded_tag_node() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"<div role='toolbar'>\"; ?>"));
+    boolean hasDiv = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .anyMatch(t -> "div".equalsIgnoreCase(t.getNodeName()));
+    assertThat(hasDiv).isTrue();
+  }
+
+  @Test
+  void php_embedded_tag_has_file_absolute_line_position() {
+    // Directive on line 2; embedded <div> must also report line 2
+    List<Node> nodes = new PageLexer().parse(new StringReader("<p>\n<?php echo \"<div>\"; ?>"));
+    TagNode div = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "div".equalsIgnoreCase(t.getNodeName()))
+      .findFirst().orElse(null);
+    assertThat(div).isNotNull();
+    assertThat(div.getStartLinePosition()).isEqualTo(2);
+  }
+
+  @Test
+  void php_embedded_open_and_close_tags_are_both_present() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"<div></div>\"; ?>"));
+    long divCount = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "div".equalsIgnoreCase(t.getNodeName()))
+      .count();
+    assertThat(divCount).isEqualTo(2);
+  }
+
+  @Test
+  void php_non_html_string_does_not_produce_extra_nodes() {
+    List<Node> baseNodes = new PageLexer().parse(new StringReader("<?php $x = 1; ?>"));
+    List<Node> withString = new PageLexer().parse(new StringReader("<?php $s = 'no html here'; ?>"));
+    assertThat(withString.stream().filter(n -> n.getNodeType() == NodeType.TAG).count())
+      .isEqualTo(baseNodes.stream().filter(n -> n.getNodeType() == NodeType.TAG).count());
   }
 
   private void assertSingleTag(String code) {

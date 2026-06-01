@@ -18,7 +18,7 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.ControlGroup;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 @Rule(key = "S6840")
-public class ValidAutocompleteCheck extends ContextFreeElementCheck {
+public class ValidAutocompleteCheck extends AbstractPageCheck {
   /**
    * A very naive and straightforward implementation of a validator capable of testing a candidate against a series
    * of predicates until either one is matched or none is. Should totally be replaced by a validation library would

@@ -18,11 +18,11 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.HtmlConstants;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6823")
-public class AriaActiveDescendantHasTabIndexCheck extends ContextFreeElementCheck {
+public class AriaActiveDescendantHasTabIndexCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     var ariaActiveDescendant = node.getAttribute("aria-activedescendant");

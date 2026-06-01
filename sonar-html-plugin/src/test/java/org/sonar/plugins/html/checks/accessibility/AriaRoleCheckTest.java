@@ -35,7 +35,7 @@ class AriaRoleCheckTest {
         new File("src/test/resources/checks/AriaRoleCheck.php"),
         new AriaRoleCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().withMessage(
+        .next().atLine(2).withMessage(
             "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"foobar\" is not a valid role.")
         .noMore();
   }

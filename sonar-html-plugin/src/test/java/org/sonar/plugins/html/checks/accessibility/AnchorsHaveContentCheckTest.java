@@ -54,4 +54,16 @@ class AnchorsHaveContentCheckTest {
         .next().atLine(2)
         .noMore();
   }
+
+  @Test
+  void phpEmbeddedInStringLiteral() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AnchorsHaveContentCheck_strings.php"),
+      new AnchorsHaveContentCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Anchors must have content and the content must be accessible by a screen reader.")
+      .next().atLine(4)
+      .noMore();
+  }
 }

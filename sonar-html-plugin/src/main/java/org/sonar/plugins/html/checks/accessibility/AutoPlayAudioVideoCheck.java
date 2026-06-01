@@ -17,13 +17,13 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import java.util.Locale;
 
 @Rule(key="S7929")
-public class AutoPlayAudioVideoCheck extends ContextFreeElementCheck {
+public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {

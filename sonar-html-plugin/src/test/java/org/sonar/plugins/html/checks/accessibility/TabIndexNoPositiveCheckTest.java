@@ -34,7 +34,7 @@ class TabIndexNoPositiveCheckTest {
       new File("src/test/resources/checks/TabIndexNoPositiveCheck.php"),
       new TabIndexNoPositiveCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().withMessage("Avoid using positive values for the \"tabIndex\" attribute.")
+      .next().atLine(2).withMessage("Avoid using positive values for the \"tabIndex\" attribute.")
       .noMore();
   }
 

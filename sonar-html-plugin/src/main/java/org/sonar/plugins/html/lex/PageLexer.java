@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.lex;
 
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,6 +115,7 @@ public class PageLexer {
 
   /**
    * Parse the input into a list of tokens, with parent/child relations between the tokens.
+   * HTML found inside PHP string literals is also extracted and included in the returned list.
    */
   public List<Node> parse(Reader reader) {
 
@@ -127,8 +129,24 @@ public class PageLexer {
     ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder().addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()])).build();
     channelDispatcher.consume(codeReader, nodeList);
 
-    createNodeHierarchy(nodeList);
+    List<Node> expanded = new PhpEmbeddedHtmlExtractor().expand(nodeList);
+    createNodeHierarchy(expanded);
 
+    return expanded;
+  }
+
+  /**
+   * Parse a source string into a list of tokens without building parent/child relations.
+   * Used by {@link PhpEmbeddedHtmlExtractor} so the outer parse() call can hierarchize
+   * the merged list in a single pass.
+   */
+  List<Node> parseWithoutHierarchy(String source) {
+    CodeReader codeReader = new CodeReader(new StringReader(source));
+    List<Node> nodeList = new ArrayList<>();
+    ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder()
+      .addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()]))
+      .build();
+    channelDispatcher.consume(codeReader, nodeList);
     return nodeList;
   }
 

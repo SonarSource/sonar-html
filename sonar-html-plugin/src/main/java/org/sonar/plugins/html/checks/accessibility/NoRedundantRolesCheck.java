@@ -29,12 +29,12 @@ import org.sonar.check.Rule;
 import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6822")
-public class NoRedundantRolesCheck extends ContextFreeElementCheck {
+public class NoRedundantRolesCheck extends AbstractPageCheck {
 
   private static final String DEFAULT_ALLOWED_REDUNDANT_ROLES = "nav=navigation";
   @RuleProperty(

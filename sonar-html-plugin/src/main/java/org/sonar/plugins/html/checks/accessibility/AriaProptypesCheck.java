@@ -24,13 +24,13 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaProperty;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyValues;
 import org.sonar.plugins.html.api.accessibility.Aria.AriaPropertyType;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6793")
-public class AriaProptypesCheck extends ContextFreeElementCheck {
+public class AriaProptypesCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode element) {

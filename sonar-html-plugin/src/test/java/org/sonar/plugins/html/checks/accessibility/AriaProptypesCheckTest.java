@@ -55,7 +55,7 @@ class AriaProptypesCheckTest {
       new File("src/test/resources/checks/AriaProptypesCheck.php"),
       new AriaProptypesCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().withMessage("The value of the attribute \"aria-hidden\" must be a boolean.")
+      .next().atLine(2).withMessage("The value of the attribute \"aria-hidden\" must be a boolean.")
       .noMore();
   }
 

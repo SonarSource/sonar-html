@@ -28,11 +28,11 @@ import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHidd
 import java.util.HashSet;
 import java.util.Set;
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.ContextFreeElementCheck;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6848")
-public class NoStaticElementInteractionsCheck extends ContextFreeElementCheck {
+public class NoStaticElementInteractionsCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Avoid non-native interactive elements. If using native HTML is not possible," +
     " add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.";
