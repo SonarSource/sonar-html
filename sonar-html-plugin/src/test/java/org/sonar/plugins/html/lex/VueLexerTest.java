@@ -49,7 +49,10 @@ class VueLexerTest {
             Arguments.of("<template><foo/><bar/><baz/></template><template><qux/></template>", 3),
             Arguments.of("<template><template><template><template></template></template></template></template>", 6),
             Arguments.of("<template><foo/><bar/>", 2),
-            Arguments.of("<foo/><bar/></template>", 0)
+            Arguments.of("<foo/><bar/></template>", 0),
+            Arguments.of("<template><Comp :disabled='x<1' /></template><script>let f = () => 0</script>", 1),
+            Arguments.of("<template><Comp :on='a>b' /></template>", 1),
+            Arguments.of("<template><Comp :x='\"y<z\"' /></template>", 1)
     );
   }
 

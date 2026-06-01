@@ -612,6 +612,75 @@ class PageLexerTest {
     assertThat(nodeList.get(0).getCode()).isEqualTo("<?php\n/* it's a test */\n$x = 1;\n?>");
   }
 
+  @Test
+  void tag_with_lt_inside_single_quoted_attribute_does_not_extend_boundary() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<input :disabled='x<1' /><p>hello</p>"));
+    assertThat(nodes).extracting(Node::getCode).containsExactly("<input :disabled='x<1' />", "<p>", "hello", "</p>");
+    assertThat(((TagNode) nodes.get(0)).hasEnd()).isTrue();
+  }
+
+  @Test
+  void jsp_scriptlet_with_stray_apostrophe_does_not_swallow_end_token() {
+    String jsp = "<%\n/* Add l'evenement */\nString s = \"x\";\n%><p>hello</p>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(jsp));
+    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.EXPRESSION, NodeType.TAG, NodeType.TEXT, NodeType.TAG);
+    assertThat(nodes.get(0).getCode()).endsWith("%>");
+    assertThat(((TagNode) nodes.get(1)).getNodeName()).isEqualTo("p");
+  }
+
+  @Test
+  void el_string_literal_inside_single_quoted_attribute_does_not_close_outer_scope() {
+    String src = "<a rel='<c:url value=\"x\"><c:param value=\"${'Attachment'}\"/></c:url>' href=\"#\">\n<p>after</p>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(src));
+    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.TAG, NodeType.TEXT, NodeType.TAG, NodeType.TEXT, NodeType.TAG);
+    assertThat(((TagNode) nodes.get(0)).getNodeName()).isEqualTo("a");
+    assertThat(((TagNode) nodes.get(2)).getNodeName()).isEqualTo("p");
+  }
+
+  @Test
+  void jsp_scriptlet_with_java_char_literal_does_not_swallow_html() {
+    String jsp = "<% if (c == '/') { out.println(\"x\"); } %><p>after</p>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(jsp));
+    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.EXPRESSION, NodeType.TAG, NodeType.TEXT, NodeType.TAG);
+    assertThat(nodes.get(0).getCode()).endsWith("%>");
+    assertThat(((TagNode) nodes.get(1)).getNodeName()).isEqualTo("p");
+  }
+
+  @Test
+  void tag_with_two_single_quoted_attributes_both_close_correctly() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<input a='x' b='y<z'><p>x</p>"));
+    assertThat(nodes).extracting(Node::getCode).containsExactly("<input a='x' b='y<z'>", "<p>", "x", "</p>");
+    TagNode input = (TagNode) nodes.get(0);
+    assertThat(input.getNodeName()).isEqualTo("input");
+    assertThat(input.getAttributes()).extracting(a -> a.getName() + "=" + a.getValue())
+      .containsExactly("a=x", "b=y<z");
+  }
+
+  @Test
+  void unterminated_single_quoted_attribute_at_eof_does_not_loop() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<input attr='no-end"));
+    assertThat(nodes).hasSize(1);
+    assertThat(((TagNode) nodes.get(0)).getNodeName()).isEqualTo("input");
+  }
+
+  @Test
+  void jsp_directive_with_apostrophe_inside_double_quoted_value_unchanged() {
+    String jsp = "<%@ taglib uri=\"x'y\" %><p>x</p>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(jsp));
+    assertThat(nodes).extracting(Node::getNodeType).containsExactly(NodeType.DIRECTIVE, NodeType.TAG, NodeType.TEXT, NodeType.TAG);
+    assertThat(nodes.get(0).getCode()).endsWith("%>");
+    assertThat(((TagNode) nodes.get(1)).getNodeName()).isEqualTo("p");
+  }
+
+  @Test
+  void jsp_scriptlet_inside_single_quoted_attribute_is_opaque() {
+    String src = "<input value='<% if (c == '/') { out.println(\"x\"); } %>' /><p>after</p>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(src));
+    assertThat(nodes).extracting(Node::getCode).containsExactly(
+      "<input value='<% if (c == '/') { out.println(\"x\"); } %>' />",
+      "<p>", "after", "</p>");
+  }
+
   private void assertSingleTag(String code) {
     StringReader reader = new StringReader(code);
     List<Node> nodeList = new PageLexer().parse(reader);
