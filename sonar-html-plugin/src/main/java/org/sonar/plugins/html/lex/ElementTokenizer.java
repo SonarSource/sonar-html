@@ -164,7 +164,7 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
     Attribute attribute = new Attribute(sbQName.toString().trim());
     attribute.setLine(relativeLine + element.getStartLinePosition() - 1);
     attribute.setStartColumn(relativeLine == 1
-      ? element.getStartColumnPosition() + relativeColumn
+      ? (element.getStartColumnPosition() + relativeColumn)
       : relativeColumn);
     element.getAttributes().add(attribute);
   }
