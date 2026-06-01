@@ -1,6 +1,6 @@
 {
   "title": "The \"role\" attribute should be used instead of \"aria-role\"",
-  "type": "CODE_SMELL",
+  "type": "BUG",
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
