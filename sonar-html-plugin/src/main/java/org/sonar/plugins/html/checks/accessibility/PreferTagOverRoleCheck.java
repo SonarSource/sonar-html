@@ -16,19 +16,41 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.api.accessibility.Element;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
-
-import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 @Rule(key = "S6819")
 public class PreferTagOverRoleCheck extends AbstractPageCheck {
+
+  private static final String DEFAULT_WHITELISTED_ROLES = "";
+
+  @RuleProperty(
+    key = "whitelistedRoles",
+    description = "Comma-separated list of ARIA roles to ignore when they could be replaced with equivalent HTML tags.",
+    defaultValue = DEFAULT_WHITELISTED_ROLES)
+  public String whitelistedRoles = DEFAULT_WHITELISTED_ROLES;
+
+  private Set<AriaRole> whitelistedRolesSet = Set.of();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    whitelistedRolesSet = parseWhitelistedRoles(whitelistedRoles);
+  }
+
   @Override
   public void startElement(TagNode element) {
     var roleAttr = element.getPropertyValue("role");
@@ -42,6 +64,8 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
     Aria.RoleDefinition roleDef = Aria.getRole(ariaRole);
     Element elementObj = Element.of(element.getNodeName().toLowerCase(Locale.ROOT));
     if (
+      ariaRole == null ||
+      whitelistedRolesSet.contains(ariaRole) ||
       roleDef == null ||
       roleDef.getElements().isEmpty() ||
       (elementObj != null && roleDef.getElements().contains(elementObj))
@@ -54,4 +78,19 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
       ariaRole));
   }
 
+  /**
+   * Parses the configured ARIA role whitelist.
+   * @param whitelistedRoles comma-separated list of ARIA roles to ignore
+   * @return normalized ARIA roles configured to be ignored
+   */
+  private Set<AriaRole> parseWhitelistedRoles(String whitelistedRoles) {
+    if (whitelistedRoles == null || whitelistedRoles.isBlank()) {
+      return Set.of();
+    }
+    return Arrays.stream(trimSplitCommaSeparatedList(whitelistedRoles))
+      .map(role -> role.toLowerCase(Locale.ROOT))
+      .map(AriaRole::of)
+      .filter(Objects::nonNull)
+      .collect(Collectors.toSet());
+  }
 }

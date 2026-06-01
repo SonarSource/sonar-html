@@ -40,6 +40,26 @@ class PreferTagOverRoleCheckTest {
       .next().atLine(5).withMessage("Use <tbody> or <tfoot> or <thead> instead of the rowgroup role to ensure accessibility across all devices.")
       .next().atLine(6).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
       .next().atLine(7).withMessage("Use <header> instead of the banner role to ensure accessibility across all devices.")
+      .next().atLine(8).withMessage("Use <output> instead of the status role to ensure accessibility across all devices.")
+      .next().atLine(9).withMessage("Use <output> instead of the status role to ensure accessibility across all devices.")
+      .consume();
+  }
+
+  @Test
+  void whitelistedRoles() {
+    var check = new PreferTagOverRoleCheck();
+    check.whitelistedRoles = " LINK , status ";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheck.html"),
+      check);
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
+      .next().atLine(2).withMessage("Use <button> or <input> instead of the button role to ensure accessibility across all devices.")
+      .next().atLine(3).withMessage("Use <h1> or <h2> or <h3> or <h4> or <h5> or <h6> instead of the heading role to ensure accessibility across all devices.")
+      .next().atLine(5).withMessage("Use <tbody> or <tfoot> or <thead> instead of the rowgroup role to ensure accessibility across all devices.")
+      .next().atLine(6).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
+      .next().atLine(7).withMessage("Use <header> instead of the banner role to ensure accessibility across all devices.")
       .consume();
   }
 }
