@@ -37,13 +37,15 @@ final class PhpEmbeddedHtmlExtractor {
     "\\{\\$[^}]+\\}|<\\?=.*?\\?>|\\$\\{?[a-zA-Z_]\\w*\\}?");
   private static final Pattern EMBEDDED_HTML = Pattern.compile("<\\s*[/a-zA-Z]");
   private static final String DYNAMIC = "${dynamic}";
+  // initial slack for embedded nodes per directive
+  private static final int EXTRA_CAPACITY = 8;
 
   /**
    * Returns a new list with embedded HTML nodes spliced in after each PHP directive
    * that contains HTML in string literals. The directive node itself is preserved.
    */
   List<Node> expand(List<Node> nodes) {
-    List<Node> result = new ArrayList<>(nodes.size() + 8);
+    List<Node> result = new ArrayList<>(nodes.size() + EXTRA_CAPACITY);
     for (Node node : nodes) {
       result.add(node);
       if (node instanceof DirectiveNode directive && isPhpDirective(directive)) {
@@ -73,241 +75,107 @@ final class PhpEmbeddedHtmlExtractor {
    * Scans the directive's raw code and extracts every string literal with its
    * file-coordinate origin (line/column of the first content character).
    *
-   * <p>Handles:
-   * <ul>
-   *   <li>Double-quoted strings with standard PHP escape sequences</li>
-   *   <li>Single-quoted strings (only {@code \\} and {@code \'} are escapes)</li>
-   *   <li>Heredoc {@code <<<LABEL ... LABEL;} with interpolation</li>
-   *   <li>Nowdoc {@code <<<'LABEL' ... LABEL;} without interpolation</li>
-   *   <li>Line comments {@code //} and {@code #} (skipped)</li>
-   *   <li>Block comments {@code /* ... * /} (skipped)</li>
-   * </ul>
+   * <p>Handles double-quoted strings, single-quoted strings, heredoc, nowdoc,
+   * line comments ({@code //}, {@code #}), and block comments ({@code /* }).
    */
   static List<StringLiteral> extractLiterals(DirectiveNode node) {
     List<StringLiteral> result = new ArrayList<>();
     String code = node.getCode();
+    Cursor c = new Cursor(0, node.getStartLinePosition(), node.getStartColumnPosition());
     int len = code.length();
-
-    int curLine = node.getStartLinePosition();
-    int curCol = node.getStartColumnPosition();
-
-    int i = 0;
-    while (i < len) {
-      char c = code.charAt(i);
-
-      if (c == '\n') {
-        curLine++;
-        curCol = 0;
-        i++;
-        continue;
+    while (c.pos < len) {
+      char ch = code.charAt(c.pos);
+      if (ch == '\n') {
+        c.line++; c.col = 0; c.pos++;
+      } else if (ch == '#' || (ch == '/' && c.pos + 1 < len && code.charAt(c.pos + 1) == '/')) {
+        skipLineComment(code, c);
+      } else if (ch == '/' && c.pos + 1 < len && code.charAt(c.pos + 1) == '*') {
+        skipBlockComment(code, c);
+      } else if (ch == '<' && c.pos + 2 < len && code.charAt(c.pos + 1) == '<' && code.charAt(c.pos + 2) == '<') {
+        result.add(readHeredocOrNowdoc(code, c));
+      } else if (ch == '"') {
+        result.add(readDoubleQuotedString(code, c));
+      } else if (ch == '\'') {
+        result.add(readSingleQuotedString(code, c));
+      } else {
+        c.col++; c.pos++;
       }
-
-      // Line comment: // or #
-      if (c == '#' || (c == '/' && i + 1 < len && code.charAt(i + 1) == '/')) {
-        while (i < len && code.charAt(i) != '\n') {
-          curCol++;
-          i++;
-        }
-        continue;
-      }
-
-      // Block comment: /* ... */
-      if (c == '/' && i + 1 < len && code.charAt(i + 1) == '*') {
-        curCol += 2;
-        i += 2;
-        while (i + 1 < len && !(code.charAt(i) == '*' && code.charAt(i + 1) == '/')) {
-          if (code.charAt(i) == '\n') {
-            curLine++;
-            curCol = 0;
-          } else {
-            curCol++;
-          }
-          i++;
-        }
-        if (i + 1 < len) {
-          curCol += 2;
-          i += 2; // consume */
-        }
-        continue;
-      }
-
-      // Heredoc or Nowdoc: <<<
-      if (c == '<' && i + 2 < len && code.charAt(i + 1) == '<' && code.charAt(i + 2) == '<') {
-        curCol += 3;
-        i += 3;
-        // Skip optional spaces
-        while (i < len && code.charAt(i) == ' ') {
-          curCol++;
-          i++;
-        }
-        // Nowdoc has a single-quoted label
-        boolean nowdoc = i < len && code.charAt(i) == '\'';
-        if (nowdoc) {
-          curCol++;
-          i++;
-        }
-        // Read the label identifier
-        StringBuilder label = new StringBuilder();
-        while (i < len && code.charAt(i) != '\'' && code.charAt(i) != '"'
-          && code.charAt(i) != '\n' && !Character.isWhitespace(code.charAt(i))) {
-          label.append(code.charAt(i));
-          curCol++;
-          i++;
-        }
-        if (nowdoc && i < len && code.charAt(i) == '\'') {
-          curCol++;
-          i++; // closing quote of nowdoc label
-        }
-        // Skip to end of the opening line
-        while (i < len && code.charAt(i) != '\n') {
-          curCol++;
-          i++;
-        }
-        if (i < len) {
-          curLine++;
-          curCol = 0;
-          i++; // consume the newline
-        }
-        // Now at the start of the heredoc/nowdoc body
-        int bodyLine = curLine;
-        int bodyCol = curCol;
-        String labelStr = label.toString();
-        StringBuilder body = new StringBuilder();
-
-        while (i < len) {
-          // Detect closing label at start of a line (possibly indented for PHP 7.3+)
-          int lineStart = i;
-          int indentLen = 0;
-          while (i < len && (code.charAt(i) == ' ' || code.charAt(i) == '\t')) {
-            i++;
-            indentLen++;
-          }
-          if (code.regionMatches(i, labelStr, 0, labelStr.length())) {
-            int afterLabel = i + labelStr.length();
-            // Closing label must be followed by ; or end-of-line/file
-            if (afterLabel >= len
-              || code.charAt(afterLabel) == ';'
-              || code.charAt(afterLabel) == '\n'
-              || code.charAt(afterLabel) == '\r') {
-              // Strip the indentation from body lines (PHP 7.3+)
-              if (indentLen > 0 && body.length() > 0) {
-                body = stripHeredocIndent(body, indentLen);
-              }
-              // Advance past the closing label line
-              while (i < len && code.charAt(i) != '\n') {
-                curCol++;
-                i++;
-              }
-              if (i < len) {
-                curLine++;
-                curCol = 0;
-                i++;
-              }
-              break;
-            }
-          }
-          // Not a closing label — restore position and read the line
-          i = lineStart;
-          while (i < len && code.charAt(i) != '\n') {
-            body.append(code.charAt(i));
-            curCol++;
-            i++;
-          }
-          if (i < len) {
-            body.append('\n');
-            curLine++;
-            curCol = 0;
-            i++;
-          }
-        }
-        result.add(new StringLiteral(body.toString(), bodyLine, bodyCol));
-        continue;
-      }
-
-      // Double-quoted string
-      if (c == '"') {
-        curCol++;
-        i++;
-        int contentLine = curLine;
-        int contentCol = curCol;
-        StringBuilder sb = new StringBuilder();
-        while (i < len) {
-          char cc = code.charAt(i);
-          if (cc == '\\' && i + 1 < len) {
-            char next = code.charAt(i + 1);
-            switch (next) {
-              case '"':  sb.append('"');  curCol += 2; i += 2; break;
-              case '\\': sb.append('\\'); curCol += 2; i += 2; break;
-              case 'n':  sb.append('\n'); curCol += 2; i += 2; break;
-              case 'r':  sb.append('\r'); curCol += 2; i += 2; break;
-              case 't':  sb.append('\t'); curCol += 2; i += 2; break;
-              case '$':  sb.append('$');  curCol += 2; i += 2; break;
-              default:   sb.append(cc);   curCol++;   i++;     break;
-            }
-          } else if (cc == '"') {
-            curCol++;
-            i++;
-            break;
-          } else {
-            sb.append(cc);
-            if (cc == '\n') {
-              curLine++;
-              curCol = 0;
-            } else {
-              curCol++;
-            }
-            i++;
-          }
-        }
-        result.add(new StringLiteral(sb.toString(), contentLine, contentCol));
-        continue;
-      }
-
-      // Single-quoted string
-      if (c == '\'') {
-        curCol++;
-        i++;
-        int contentLine = curLine;
-        int contentCol = curCol;
-        StringBuilder sb = new StringBuilder();
-        while (i < len) {
-          char cc = code.charAt(i);
-          if (cc == '\\' && i + 1 < len) {
-            char next = code.charAt(i + 1);
-            if (next == '\\' || next == '\'') {
-              sb.append(next);
-              curCol += 2;
-              i += 2;
-            } else {
-              sb.append(cc);
-              curCol++;
-              i++;
-            }
-          } else if (cc == '\'') {
-            curCol++;
-            i++;
-            break;
-          } else {
-            sb.append(cc);
-            if (cc == '\n') {
-              curLine++;
-              curCol = 0;
-            } else {
-              curCol++;
-            }
-            i++;
-          }
-        }
-        result.add(new StringLiteral(sb.toString(), contentLine, contentCol));
-        continue;
-      }
-
-      // Default: advance
-      curCol++;
-      i++;
     }
-
     return result;
+  }
+
+  private static void skipLineComment(String code, Cursor c) {
+    while (c.pos < code.length() && code.charAt(c.pos) != '\n') {
+      c.col++;
+      c.pos++;
+    }
+  }
+
+  private static void skipBlockComment(String code, Cursor c) {
+    c.col += 2;
+    c.pos += 2;
+    int len = code.length();
+    while (c.pos + 1 < len && !(code.charAt(c.pos) == '*' && code.charAt(c.pos + 1) == '/')) {
+      if (code.charAt(c.pos) == '\n') {
+        c.line++; c.col = 0;
+      } else {
+        c.col++;
+      }
+      c.pos++;
+    }
+    if (c.pos + 1 < len) {
+      c.col += 2;
+      c.pos += 2;
+    }
+  }
+
+  private static StringLiteral readHeredocOrNowdoc(String code, Cursor c) {
+    c.col += 3; c.pos += 3; // skip <<<
+    while (c.pos < code.length() && code.charAt(c.pos) == ' ') { c.col++; c.pos++; }
+    boolean nowdoc = c.pos < code.length() && code.charAt(c.pos) == '\'';
+    if (nowdoc) { c.col++; c.pos++; }
+    String label = readHeredocLabel(code, c);
+    if (nowdoc && c.pos < code.length() && code.charAt(c.pos) == '\'') { c.col++; c.pos++; }
+    while (c.pos < code.length() && code.charAt(c.pos) != '\n') { c.col++; c.pos++; }
+    if (c.pos < code.length()) { c.line++; c.col = 0; c.pos++; }
+    return readHeredocBody(code, c, label);
+  }
+
+  private static String readHeredocLabel(String code, Cursor c) {
+    StringBuilder label = new StringBuilder();
+    while (c.pos < code.length() && code.charAt(c.pos) != '\'' && code.charAt(c.pos) != '"'
+      && code.charAt(c.pos) != '\n' && !Character.isWhitespace(code.charAt(c.pos))) {
+      label.append(code.charAt(c.pos));
+      c.col++; c.pos++;
+    }
+    return label.toString();
+  }
+
+  private static StringLiteral readHeredocBody(String code, Cursor c, String label) {
+    int bodyLine = c.line, bodyCol = c.col;
+    StringBuilder body = new StringBuilder();
+    int len = code.length();
+    while (c.pos < len) {
+      int lineStart = c.pos, indentLen = 0;
+      while (c.pos < len && (code.charAt(c.pos) == ' ' || code.charAt(c.pos) == '\t')) {
+        c.pos++; indentLen++;
+      }
+      if (code.regionMatches(c.pos, label, 0, label.length()) && isHeredocEnd(code, c.pos + label.length(), len)) {
+        if (indentLen > 0 && body.length() > 0) { body = stripHeredocIndent(body, indentLen); }
+        while (c.pos < len && code.charAt(c.pos) != '\n') { c.col++; c.pos++; }
+        if (c.pos < len) { c.line++; c.col = 0; c.pos++; }
+        break;
+      }
+      c.pos = lineStart;
+      while (c.pos < len && code.charAt(c.pos) != '\n') { body.append(code.charAt(c.pos)); c.col++; c.pos++; }
+      if (c.pos < len) { body.append('\n'); c.line++; c.col = 0; c.pos++; }
+    }
+    return new StringLiteral(body.toString(), bodyLine, bodyCol);
+  }
+
+  private static boolean isHeredocEnd(String code, int afterLabel, int len) {
+    return afterLabel >= len || code.charAt(afterLabel) == ';'
+      || code.charAt(afterLabel) == '\n' || code.charAt(afterLabel) == '\r';
   }
 
   private static StringBuilder stripHeredocIndent(StringBuilder body, int indentLen) {
@@ -315,16 +183,69 @@ final class PhpEmbeddedHtmlExtractor {
     StringBuilder stripped = new StringBuilder(body.length());
     for (int li = 0; li < lines.length; li++) {
       String line = lines[li];
-      if (line.length() >= indentLen) {
-        stripped.append(line, indentLen, line.length());
-      } else {
-        stripped.append(line);
-      }
-      if (li < lines.length - 1) {
-        stripped.append('\n');
-      }
+      stripped.append(line.length() >= indentLen ? line.substring(indentLen) : line);
+      if (li < lines.length - 1) { stripped.append('\n'); }
     }
     return stripped;
+  }
+
+  private static StringLiteral readDoubleQuotedString(String code, Cursor c) {
+    c.col++; c.pos++; // skip opening "
+    int contentLine = c.line, contentCol = c.col;
+    StringBuilder sb = new StringBuilder();
+    int len = code.length();
+    while (c.pos < len) {
+      char cc = code.charAt(c.pos);
+      if (cc == '\\' && c.pos + 1 < len) {
+        appendDoubleEscape(code.charAt(c.pos + 1), cc, sb, c);
+      } else if (cc == '"') {
+        c.col++; c.pos++;
+        break;
+      } else {
+        sb.append(cc);
+        if (cc == '\n') { c.line++; c.col = 0; } else { c.col++; }
+        c.pos++;
+      }
+    }
+    return new StringLiteral(sb.toString(), contentLine, contentCol);
+  }
+
+  private static void appendDoubleEscape(char next, char backslash, StringBuilder sb, Cursor c) {
+    switch (next) {
+      case '"':  sb.append('"');  c.col += 2; c.pos += 2; break;
+      case '\\': sb.append('\\'); c.col += 2; c.pos += 2; break;
+      case 'n':  sb.append('\n'); c.col += 2; c.pos += 2; break;
+      case 'r':  sb.append('\r'); c.col += 2; c.pos += 2; break;
+      case 't':  sb.append('\t'); c.col += 2; c.pos += 2; break;
+      case '$':  sb.append('$');  c.col += 2; c.pos += 2; break;
+      default:   sb.append(backslash); c.col++; c.pos++; break;
+    }
+  }
+
+  private static StringLiteral readSingleQuotedString(String code, Cursor c) {
+    c.col++; c.pos++; // skip opening '
+    int contentLine = c.line, contentCol = c.col;
+    StringBuilder sb = new StringBuilder();
+    int len = code.length();
+    while (c.pos < len) {
+      char cc = code.charAt(c.pos);
+      if (cc == '\\' && c.pos + 1 < len) {
+        char next = code.charAt(c.pos + 1);
+        if (next == '\\' || next == '\'') {
+          sb.append(next); c.col += 2; c.pos += 2;
+        } else {
+          sb.append(cc); c.col++; c.pos++;
+        }
+      } else if (cc == '\'') {
+        c.col++; c.pos++;
+        break;
+      } else {
+        sb.append(cc);
+        if (cc == '\n') { c.line++; c.col = 0; } else { c.col++; }
+        c.pos++;
+      }
+    }
+    return new StringLiteral(sb.toString(), contentLine, contentCol);
   }
 
   static String sanitizeInterpolations(String value) {
@@ -347,24 +268,27 @@ final class PhpEmbeddedHtmlExtractor {
     for (Node node : embedded) {
       int localStart = node.getStartLinePosition();
       int localEnd = node.getEndLinePosition();
-
       node.setStartLinePosition(baseLine + localStart - 1);
       node.setEndLinePosition(baseLine + localEnd - 1);
-
-      if (localStart == 1) {
-        node.setStartColumnPosition(baseCol + node.getStartColumnPosition());
-      }
-      if (localEnd == 1) {
-        node.setEndColumnPosition(baseCol + node.getEndColumnPosition());
-      }
-
+      if (localStart == 1) { node.setStartColumnPosition(baseCol + node.getStartColumnPosition()); }
+      if (localEnd == 1) { node.setEndColumnPosition(baseCol + node.getEndColumnPosition()); }
       if (node instanceof TagNode tag) {
         for (Attribute attr : tag.getAttributes()) {
-          if (attr.getLine() > 0) {
-            attr.setLine(baseLine + attr.getLine() - 1);
-          }
+          if (attr.getLine() > 0) { attr.setLine(baseLine + attr.getLine() - 1); }
         }
       }
+    }
+  }
+
+  private static final class Cursor {
+    int pos;
+    int line;
+    int col;
+
+    Cursor(int pos, int line, int col) {
+      this.pos = pos;
+      this.line = line;
+      this.col = col;
     }
   }
 
