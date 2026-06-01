@@ -17,7 +17,7 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.plugins.html.api.accessibility.AriaProperty;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.isReservedNode;
@@ -27,7 +27,7 @@ import java.util.Locale;
 import org.sonar.check.Rule;
 
 @Rule(key = "S6824")
-public class AriaUnsupportedElementsCheck extends AbstractPageCheck {
+public class AriaUnsupportedElementsCheck extends ContextFreeElementCheck {
   @Override
   public void startElement(TagNode element) {
     // Following logic from:

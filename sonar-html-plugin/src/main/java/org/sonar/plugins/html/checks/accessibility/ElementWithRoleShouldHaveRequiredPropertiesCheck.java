@@ -23,11 +23,11 @@ import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.api.accessibility.Aria.RoleDefinition;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6807")
-public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends AbstractPageCheck {
+public class ElementWithRoleShouldHaveRequiredPropertiesCheck extends ContextFreeElementCheck {
   @Override
   public void startElement(TagNode element) {
     var roleName = element.getAttribute("role");

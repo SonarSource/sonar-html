@@ -17,7 +17,7 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import java.util.Arrays;
@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Rule(key="S7926")
-public class MetaAllowZoomCheck extends AbstractPageCheck {
+public class MetaAllowZoomCheck extends ContextFreeElementCheck {
   @Override
   public void startElement(TagNode element) {
     if (!"meta".equalsIgnoreCase(element.getNodeName())) {

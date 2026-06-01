@@ -17,7 +17,7 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
@@ -26,7 +26,7 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasPresentationRole;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 
 @Rule(key = "S6843")
-public class NoInteractiveElementToNoninteractiveRoleCheck extends AbstractPageCheck {
+public class NoInteractiveElementToNoninteractiveRoleCheck extends ContextFreeElementCheck {
 
   private static final String MESSAGE = "Interactive elements should not be assigned non-interactive roles.";
 

@@ -17,13 +17,13 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 import java.util.regex.Pattern;
 
 @Rule(key = "S6844")
-public class AnchorsShouldNotBeUsedAsButtonsCheck extends AbstractPageCheck {
+public class AnchorsShouldNotBeUsedAsButtonsCheck extends ContextFreeElementCheck {
   static boolean isAJavascriptHandler(String value) {
     String pattern = "^\\W*?javascript:.*";
 

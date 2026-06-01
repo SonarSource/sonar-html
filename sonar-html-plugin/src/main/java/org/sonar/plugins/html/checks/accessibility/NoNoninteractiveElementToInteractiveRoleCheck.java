@@ -21,11 +21,11 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6842")
-public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageCheck {
+public class NoNoninteractiveElementToInteractiveRoleCheck extends ContextFreeElementCheck {
 
   private static final String MESSAGE = "Non-interactive elements should not be assigned interactive roles.";
 

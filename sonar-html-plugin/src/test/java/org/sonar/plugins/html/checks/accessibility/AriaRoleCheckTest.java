@@ -30,6 +30,17 @@ class AriaRoleCheckTest {
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
   @Test
+  void htmlEmbeddedInPhpStringLiteral() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/AriaRoleCheck.php"),
+        new AriaRoleCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().withMessage(
+            "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"foobar\" is not a valid role.")
+        .noMore();
+  }
+
+  @Test
   void html() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/AriaRoleCheck.html"),
@@ -49,15 +60,4 @@ class AriaRoleCheckTest {
         .noMore();
   }
 
-  @Test
-  void htmlEmbeddedInPhpStringLiteral() {
-    // SONARHTML-246: markup written as a PHP double-quoted string literal must reach the rule.
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/AriaRoleCheck.php"),
-        new AriaRoleCheck());
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().withMessage(
-            "Elements with ARIA roles must use a valid, non-abstract ARIA role. \"foobar\" is not a valid role.")
-        .noMore();
-  }
 }

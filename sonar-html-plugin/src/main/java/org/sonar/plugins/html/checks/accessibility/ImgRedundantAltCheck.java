@@ -17,7 +17,7 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 import java.util.List;
 import java.util.Locale;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 @Rule(key = "S6851")
-public class ImgRedundantAltCheck extends AbstractPageCheck {
+public class ImgRedundantAltCheck extends ContextFreeElementCheck {
 
   private static final String MESSAGE_TEMPLATE = "Remove redundant word%s %s from the \"alt\" attribute of your \"img\" tag.";
   private static final List<String> REDUNDANT_WORDS = List.of("image", "photo", "picture");

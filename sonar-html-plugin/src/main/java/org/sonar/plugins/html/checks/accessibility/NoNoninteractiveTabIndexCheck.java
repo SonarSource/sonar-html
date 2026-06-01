@@ -21,11 +21,11 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.ContextFreeElementCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6845")
-public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
+public class NoNoninteractiveTabIndexCheck extends ContextFreeElementCheck {
 
   private static final String MESSAGE = "\"tabIndex\" should only be declared on interactive elements.";
 
