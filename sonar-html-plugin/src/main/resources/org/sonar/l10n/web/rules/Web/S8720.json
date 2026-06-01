@@ -1,0 +1,25 @@
+{
+  "title": "The \"role\" attribute should be used instead of \"aria-role\"",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "accessibility",
+    "wcag2-a"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-8720",
+  "sqKey": "S8720",
+  "scope": "All",
+  "quickfix": "infeasible",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW",
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "LOGICAL"
+  }
+}
