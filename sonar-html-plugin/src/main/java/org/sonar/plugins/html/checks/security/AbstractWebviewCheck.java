@@ -23,7 +23,7 @@ import org.sonar.plugins.html.node.TagNode;
 
 abstract class AbstractWebviewCheck extends AbstractPageCheck {
 
-  protected final boolean isWebview(TagNode node) {
+  protected static boolean isWebview(TagNode node) {
     return node.equalsElementName("webview");
   }
 
