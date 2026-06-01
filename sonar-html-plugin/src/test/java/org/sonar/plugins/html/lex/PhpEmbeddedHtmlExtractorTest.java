@@ -80,11 +80,16 @@ class PhpEmbeddedHtmlExtractorTest {
   }
 
   @Test
-  void doubleQuotedLiteralDecodesCommonEscapes() {
+  void doubleQuotedLiteralDecodesEscapesAsNonNewlinePlaceholders() {
+    // \n / \r / \t in the source must NOT decode to real newlines/CRs in the
+    // sanitised buffer, otherwise the re-lex line counter advances past the
+    // literal's true source line and tokens land on the wrong file line.
     DirectiveNode node = phpDirective("$x = \"line1\\nline2\\ttab\";");
     List<StringLiteral> literals = PhpEmbeddedHtmlExtractor.extractLiterals(node);
     assertThat(literals).hasSize(1);
-    assertThat(literals.get(0).value()).isEqualTo("line1\nline2\ttab");
+    assertThat(literals.get(0).value()).isEqualTo("line1 line2 tab");
+    assertThat(literals.get(0).value()).doesNotContain("\n");
+    assertThat(literals.get(0).value()).doesNotContain("\t");
   }
 
   // ---------------------------------------------------------------------------
@@ -212,7 +217,7 @@ class PhpEmbeddedHtmlExtractorTest {
     List<StringLiteral> literals = PhpEmbeddedHtmlExtractor.extractLiterals(node);
     assertThat(literals).hasSize(1);
     assertThat(literals.get(0).value()).contains("<div role=\"toolbar\">");
-    // Body starts on line 4 (directive line 3 + 1 for the <<<EOT line)
+    // Body starts on line 5 (directive line 3 + 1 for the "<?php\n" preamble + 1 for the "<<<EOT\n" header)
     assertThat(literals.get(0).lineOffset()).isEqualTo(5);
   }
 
@@ -325,5 +330,154 @@ class PhpEmbeddedHtmlExtractorTest {
       .count();
     // Only the <root/> tag, no phantom extraction from the XML declaration
     assertThat(tagCount).isEqualTo(1);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Dynamic gap between concatenated literals
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void expandInsertsDynamicGapBetweenConcatenatedLiterals() {
+    // `echo "<a href='x'>" . $label . "</a>";` — the runtime text from the
+    // intervening PHP expression must be represented as a non-blank text node
+    // between the open and close tags so content-sensitive checks don't see
+    // an empty anchor.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"<a href='x'>\" . $label . \"</a>\"; ?>"));
+    boolean hasDynamicGap = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TEXT)
+      .anyMatch(n -> n.getCode().contains("${dynamic}"));
+    assertThat(hasDynamicGap).isTrue();
+  }
+
+  @Test
+  void expandDoesNotInsertGapForLoneLiteral() {
+    List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"<div></div>\"; ?>"));
+    boolean hasDynamicGap = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TEXT)
+      .anyMatch(n -> n.getCode().contains("${dynamic}"));
+    assertThat(hasDynamicGap).isFalse();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Line stability across escape sequences (H4)
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void escapeNewlineDoesNotAdvanceTagSourceLine() {
+    // The \n escape must NOT shift the embedded <div> off the literal's line.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"\\n<div></div>\"; ?>"));
+    TagNode div = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "div".equalsIgnoreCase(t.getNodeName()))
+      .filter(t -> !t.isEndElement())
+      .findFirst().orElse(null);
+    assertThat(div).isNotNull();
+    assertThat(div.getStartLinePosition()).isEqualTo(1);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Single-quoted literals are not sanitized (M2)
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void singleQuotedLiteralIsNotSanitized() {
+    DirectiveNode node = phpDirective("echo '<div id=\"$myId\"></div>';");
+    List<StringLiteral> literals = PhpEmbeddedHtmlExtractor.extractLiterals(node);
+    assertThat(literals).hasSize(1);
+    assertThat(literals.get(0).interpolated()).isFalse();
+    assertThat(literals.get(0).value()).contains("$myId");
+  }
+
+  @Test
+  void singleQuotedDollarSignSurvivesPipeline() {
+    // The $myId in a single-quoted literal must NOT be rewritten to ${dynamic}
+    // because PHP single-quoted strings do not interpolate variables.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo '<div id=\"$myId\"></div>'; ?>"));
+    TagNode div = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "div".equalsIgnoreCase(t.getNodeName()))
+      .filter(t -> !t.isEndElement())
+      .findFirst().orElse(null);
+    assertThat(div).isNotNull();
+    assertThat(div.getAttribute("id")).isEqualTo("$myId");
+  }
+
+  // ---------------------------------------------------------------------------
+  // Column rebasing through source-column map (M3)
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void columnsAfterEscapeAccountForExtraSourceChar() {
+    // `<?php echo "\"<div>"; ?>` — the leading \" escape spans 2 source chars
+    // but decodes to 1 in the sanitised buffer. The `<` of `<div>` lives at
+    // source col 14 (right after the 2-char `\"` whose `\` is at col 12); a
+    // naive {@code baseCol + localCol} would put it at col 13.
+    List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"\\\"<div>\"; ?>"));
+    TagNode div = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "div".equalsIgnoreCase(t.getNodeName()))
+      .filter(t -> !t.isEndElement())
+      .findFirst().orElse(null);
+    assertThat(div).isNotNull();
+    assertThat(div.getStartColumnPosition()).isEqualTo(14);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Orphan open tag is balanced (M4)
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void openOnlyLiteralGetsBalancedByForeignEndTag() {
+    // `echo "<span>"` would otherwise splice an orphan <span> open into the
+    // flat list and turn every following real-file tag into its child.
+    String source = "<?php echo \"<span>\"; ?>\n<p>real-file</p>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(source));
+    TagNode p = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "p".equalsIgnoreCase(t.getNodeName()))
+      .filter(t -> !t.isEndElement())
+      .findFirst().orElse(null);
+    assertThat(p).isNotNull();
+    assertThat(p.getParent()).isNull();
+  }
+
+  @Test
+  void closeOnlyLiteralDoesNotAddSyntheticOpen() {
+    String source = "<?php echo \"</span>\"; ?>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(source));
+    long spanOpenCount = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "span".equalsIgnoreCase(t.getNodeName()))
+      .filter(t -> !t.isEndElement())
+      .count();
+    assertThat(spanOpenCount).isZero();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Heredoc EOF without terminator is rejected (L5)
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void heredocWithoutTerminatorYieldsNoLiteral() {
+    // The terminator label is misspelled; the body must not be returned because
+    // the parser is now scanning to EOF and would otherwise swallow whatever
+    // follows as embedded HTML.
+    String code = "<?php\n$x = <<<EOT\n<div></div>\nEOX;\n?>";
+    DirectiveNode node = new DirectiveNode();
+    node.setNodeName("?php");
+    node.setCode(code);
+    node.setStartLinePosition(1);
+    node.setStartColumnPosition(0);
+
+    List<StringLiteral> literals = PhpEmbeddedHtmlExtractor.extractLiterals(node);
+    assertThat(literals).isEmpty();
   }
 }

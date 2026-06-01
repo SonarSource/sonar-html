@@ -16,14 +16,20 @@
  */
 package org.sonar.plugins.html.lex;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 
 /**
  * Extracts HTML nodes from PHP string literals embedded inside PHP directives
@@ -34,9 +40,9 @@ import org.sonar.plugins.html.node.TagNode;
 final class PhpEmbeddedHtmlExtractor {
 
   private static final Pattern INTERPOLATION = Pattern.compile(
-    "\\{\\$[^}]+\\}|<\\?=.*?\\?>|\\$\\{?[a-zA-Z_]\\w*\\}?");
+    "\\{\\$[^}]+\\}|\\$\\{?[a-zA-Z_]\\w*\\}?");
   private static final Pattern EMBEDDED_HTML = Pattern.compile("<\\s*[/a-zA-Z]");
-  private static final String DYNAMIC = "${dynamic}";
+  private static final String DYNAMIC_PLACEHOLDER = "${dynamic}";
   // initial slack for embedded nodes per directive
   private static final int EXTRA_CAPACITY = 8;
 
@@ -49,17 +55,34 @@ final class PhpEmbeddedHtmlExtractor {
     for (Node node : nodes) {
       result.add(node);
       if (node instanceof DirectiveNode directive && isPhpDirective(directive)) {
-        for (StringLiteral literal : extractLiterals(directive)) {
-          String sanitized = sanitizeInterpolations(literal.value());
-          if (EMBEDDED_HTML.matcher(sanitized).find()) {
-            List<Node> embedded = reLex(sanitized);
-            rebasePositions(embedded, literal.lineOffset(), literal.columnOffset());
-            result.addAll(embedded);
-          }
-        }
+        spliceEmbedded(directive, result);
       }
     }
     return result;
+  }
+
+  private static void spliceEmbedded(DirectiveNode directive, List<Node> result) {
+    boolean previousSpliced = false;
+    for (StringLiteral literal : extractLiterals(directive)) {
+      String sanitized = literal.interpolated()
+        ? sanitizeInterpolations(literal.value())
+        : literal.value();
+      if (!EMBEDDED_HTML.matcher(sanitized).find()) {
+        continue;
+      }
+      if (previousSpliced) {
+        // Gap between two HTML-bearing literals from the same directive stands
+        // for any non-literal PHP expression that produced runtime content;
+        // record a synthetic dynamic-marker text node so that content-sensitive
+        // checks (e.g. AnchorsHaveContentCheck) see non-blank content.
+        result.add(dynamicGapText(directive));
+      }
+      List<Node> embedded = reLex(sanitized);
+      rebasePositions(embedded, literal);
+      balanceUnclosedTags(embedded);
+      result.addAll(embedded);
+      previousSpliced = true;
+    }
   }
 
   static boolean isPhpDirective(DirectiveNode node) {
@@ -92,7 +115,10 @@ final class PhpEmbeddedHtmlExtractor {
       } else if (ch == '/' && c.pos + 1 < len && code.charAt(c.pos + 1) == '*') {
         skipBlockComment(code, c);
       } else if (ch == '<' && c.pos + 2 < len && code.charAt(c.pos + 1) == '<' && code.charAt(c.pos + 2) == '<') {
-        result.add(readHeredocOrNowdoc(code, c));
+        StringLiteral literal = readHeredocOrNowdoc(code, c);
+        if (literal != null) {
+          result.add(literal);
+        }
       } else if (ch == '"') {
         result.add(readDoubleQuotedString(code, c));
       } else if (ch == '\'') {
@@ -135,10 +161,13 @@ final class PhpEmbeddedHtmlExtractor {
     boolean nowdoc = c.pos < code.length() && code.charAt(c.pos) == '\'';
     if (nowdoc) { c.col++; c.pos++; }
     String label = readHeredocLabel(code, c);
+    if (label.isEmpty()) {
+      return null;
+    }
     if (nowdoc && c.pos < code.length() && code.charAt(c.pos) == '\'') { c.col++; c.pos++; }
     while (c.pos < code.length() && code.charAt(c.pos) != '\n') { c.col++; c.pos++; }
     if (c.pos < code.length()) { c.line++; c.col = 0; c.pos++; }
-    return readHeredocBody(code, c, label);
+    return readHeredocBody(code, c, label, !nowdoc);
   }
 
   private static String readHeredocLabel(String code, Cursor c) {
@@ -151,10 +180,16 @@ final class PhpEmbeddedHtmlExtractor {
     return label.toString();
   }
 
-  private static StringLiteral readHeredocBody(String code, Cursor c, String label) {
+  /**
+   * Returns {@code null} when EOF is reached before the closing label is seen
+   * (malformed heredoc / typo in terminator); the caller drops the literal so
+   * downstream re-lexing does not swallow the rest of the directive as HTML.
+   */
+  private static StringLiteral readHeredocBody(String code, Cursor c, String label, boolean interpolated) {
     int bodyLine = c.line, bodyCol = c.col;
     StringBuilder body = new StringBuilder();
     int len = code.length();
+    boolean terminatorFound = false;
     while (c.pos < len) {
       int lineStart = c.pos, indentLen = 0;
       while (c.pos < len && (code.charAt(c.pos) == ' ' || code.charAt(c.pos) == '\t')) {
@@ -164,13 +199,17 @@ final class PhpEmbeddedHtmlExtractor {
         if (indentLen > 0 && body.length() > 0) { body = stripHeredocIndent(body, indentLen); }
         while (c.pos < len && code.charAt(c.pos) != '\n') { c.col++; c.pos++; }
         if (c.pos < len) { c.line++; c.col = 0; c.pos++; }
+        terminatorFound = true;
         break;
       }
       c.pos = lineStart;
       while (c.pos < len && code.charAt(c.pos) != '\n') { body.append(code.charAt(c.pos)); c.col++; c.pos++; }
       if (c.pos < len) { body.append('\n'); c.line++; c.col = 0; c.pos++; }
     }
-    return new StringLiteral(body.toString(), bodyLine, bodyCol);
+    if (!terminatorFound) {
+      return null;
+    }
+    return new StringLiteral(body.toString(), bodyLine, bodyCol, interpolated, null);
   }
 
   private static boolean isHeredocEnd(String code, int afterLabel, int len) {
@@ -192,64 +231,74 @@ final class PhpEmbeddedHtmlExtractor {
   private static StringLiteral readDoubleQuotedString(String code, Cursor c) {
     c.col++; c.pos++; // skip opening "
     int contentLine = c.line, contentCol = c.col;
-    StringBuilder sb = new StringBuilder();
+    LiteralBuilder builder = new LiteralBuilder();
     int len = code.length();
     while (c.pos < len) {
       char cc = code.charAt(c.pos);
       if (cc == '\\' && c.pos + 1 < len) {
-        appendDoubleEscape(code.charAt(c.pos + 1), cc, sb, c);
+        appendDoubleEscape(code.charAt(c.pos + 1), cc, builder, c);
       } else if (cc == '"') {
         c.col++; c.pos++;
         break;
       } else {
-        sb.append(cc);
+        builder.append(cc, c.col);
         if (cc == '\n') { c.line++; c.col = 0; } else { c.col++; }
         c.pos++;
       }
     }
-    return new StringLiteral(sb.toString(), contentLine, contentCol);
+    return new StringLiteral(builder.text(), contentLine, contentCol, true, builder.sourceColumns());
   }
 
-  private static void appendDoubleEscape(char next, char backslash, StringBuilder sb, Cursor c) {
+  /**
+   * Decodes a PHP double-quoted escape sequence. {@code \n}, {@code \r} and
+   * {@code \t} are emitted as a single space rather than the corresponding
+   * control character so that the re-lex line counter is not advanced past the
+   * literal's true source line.
+   */
+  private static void appendDoubleEscape(char next, char backslash, LiteralBuilder builder, Cursor c) {
+    int srcCol = c.col;
     switch (next) {
-      case '"':  sb.append('"');  c.col += 2; c.pos += 2; break;
-      case '\\': sb.append('\\'); c.col += 2; c.pos += 2; break;
-      case 'n':  sb.append('\n'); c.col += 2; c.pos += 2; break;
-      case 'r':  sb.append('\r'); c.col += 2; c.pos += 2; break;
-      case 't':  sb.append('\t'); c.col += 2; c.pos += 2; break;
-      case '$':  sb.append('$');  c.col += 2; c.pos += 2; break;
-      default:   sb.append(backslash); c.col++; c.pos++; break;
+      case '"':  builder.append('"',  srcCol); c.col += 2; c.pos += 2; break;
+      case '\\': builder.append('\\', srcCol); c.col += 2; c.pos += 2; break;
+      case 'n':  builder.append(' ',  srcCol); c.col += 2; c.pos += 2; break;
+      case 'r':  builder.append(' ',  srcCol); c.col += 2; c.pos += 2; break;
+      case 't':  builder.append(' ',  srcCol); c.col += 2; c.pos += 2; break;
+      case '$':  builder.append('$',  srcCol); c.col += 2; c.pos += 2; break;
+      default:   builder.append(backslash, srcCol); c.col++; c.pos++; break;
     }
   }
 
   private static StringLiteral readSingleQuotedString(String code, Cursor c) {
     c.col++; c.pos++; // skip opening '
     int contentLine = c.line, contentCol = c.col;
-    StringBuilder sb = new StringBuilder();
+    LiteralBuilder builder = new LiteralBuilder();
     int len = code.length();
     while (c.pos < len) {
       char cc = code.charAt(c.pos);
       if (cc == '\\' && c.pos + 1 < len) {
         char next = code.charAt(c.pos + 1);
         if (next == '\\' || next == '\'') {
-          sb.append(next); c.col += 2; c.pos += 2;
+          builder.append(next, c.col); c.col += 2; c.pos += 2;
         } else {
-          sb.append(cc); c.col++; c.pos++;
+          builder.append(cc, c.col); c.col++; c.pos++;
         }
       } else if (cc == '\'') {
         c.col++; c.pos++;
         break;
       } else {
-        sb.append(cc);
+        builder.append(cc, c.col);
         if (cc == '\n') { c.line++; c.col = 0; } else { c.col++; }
         c.pos++;
       }
     }
-    return new StringLiteral(sb.toString(), contentLine, contentCol);
+    // Single-quoted strings do not interpolate variables in PHP, so the
+    // sanitisation pass that rewrites $var / {$expr} into a dynamic marker is
+    // skipped to avoid silently hiding real attribute values.
+    return new StringLiteral(builder.text(), contentLine, contentCol, false, builder.sourceColumns());
   }
 
   static String sanitizeInterpolations(String value) {
-    return INTERPOLATION.matcher(value).replaceAll("\\${dynamic}");
+    return INTERPOLATION.matcher(value).replaceAll(Matcher.quoteReplacement(DYNAMIC_PLACEHOLDER));
   }
 
   static List<Node> reLex(String sanitized) {
@@ -258,26 +307,90 @@ final class PhpEmbeddedHtmlExtractor {
 
   /**
    * Rebases re-lexed node positions from local (1-based line within sanitized string)
-   * to file-absolute coordinates.
-   *
-   * @param embedded   nodes produced by re-lexing the sanitized literal
-   * @param baseLine   1-based file line of the literal's first content character
-   * @param baseCol    0-based file column of the literal's first content character
+   * to file-absolute coordinates using the literal's per-character source-column map
+   * when available, otherwise falling back to a flat offset.
    */
-  static void rebasePositions(List<Node> embedded, int baseLine, int baseCol) {
+  static void rebasePositions(List<Node> embedded, StringLiteral literal) {
+    int baseLine = literal.lineOffset();
+    int baseCol = literal.columnOffset();
+    int[][] map = literal.sourceColumns();
     for (Node node : embedded) {
       int localStart = node.getStartLinePosition();
       int localEnd = node.getEndLinePosition();
       node.setStartLinePosition(baseLine + localStart - 1);
       node.setEndLinePosition(baseLine + localEnd - 1);
-      if (localStart == 1) { node.setStartColumnPosition(baseCol + node.getStartColumnPosition()); }
-      if (localEnd == 1) { node.setEndColumnPosition(baseCol + node.getEndColumnPosition()); }
+      node.setStartColumnPosition(sourceCol(map, localStart, node.getStartColumnPosition(), baseCol));
+      node.setEndColumnPosition(sourceCol(map, localEnd, node.getEndColumnPosition(), baseCol));
       if (node instanceof TagNode tag) {
         for (Attribute attr : tag.getAttributes()) {
           if (attr.getLine() > 0) { attr.setLine(baseLine + attr.getLine() - 1); }
         }
       }
     }
+  }
+
+  private static int sourceCol(int[][] map, int localLine, int localCol, int baseCol) {
+    if (map != null && localLine - 1 >= 0 && localLine - 1 < map.length) {
+      int[] lineCols = map[localLine - 1];
+      if (localCol >= 0 && localCol < lineCols.length) {
+        return lineCols[localCol];
+      }
+      if (lineCols.length > 0) {
+        return lineCols[lineCols.length - 1] + 1;
+      }
+    }
+    return localLine == 1 ? baseCol + localCol : localCol;
+  }
+
+  /**
+   * Appends a synthetic {@code </tag>} close for every tag that the re-lexed
+   * fragment leaves open, so that an open-only literal (e.g. {@code echo
+   * "<span>";}) does not turn every subsequent real-file tag into a child of
+   * the synthetic node when {@code createNodeHierarchy} runs.
+   */
+  private static void balanceUnclosedTags(List<Node> embedded) {
+    Deque<TagNode> openStack = new ArrayDeque<>();
+    for (Node node : embedded) {
+      if (node.getNodeType() != NodeType.TAG) {
+        continue;
+      }
+      TagNode tag = (TagNode) node;
+      if (tag.hasEnd()) {
+        continue;
+      }
+      if (tag.isEndElement()) {
+        if (!openStack.isEmpty() && openStack.peek().equalsElementName(tag.getNodeName())) {
+          openStack.pop();
+        }
+      } else {
+        openStack.push(tag);
+      }
+    }
+    while (!openStack.isEmpty()) {
+      TagNode open = openStack.pop();
+      embedded.add(syntheticEndTag(open));
+    }
+  }
+
+  private static TagNode syntheticEndTag(TagNode open) {
+    TagNode end = new TagNode();
+    end.setNodeName(open.getNodeName());
+    end.setCode("</" + open.getNodeName() + ">");
+    end.setStartLinePosition(open.getEndLinePosition());
+    end.setStartColumnPosition(open.getEndColumnPosition());
+    end.setEndLinePosition(open.getEndLinePosition());
+    end.setEndColumnPosition(open.getEndColumnPosition());
+    return end;
+  }
+
+  private static TextNode dynamicGapText(DirectiveNode directive) {
+    TextNode text = new TextNode();
+    text.setCode(DYNAMIC_PLACEHOLDER);
+    text.setStartLinePosition(directive.getStartLinePosition());
+    text.setStartColumnPosition(directive.getStartColumnPosition());
+    text.setEndLinePosition(directive.getEndLinePosition());
+    text.setEndColumnPosition(directive.getEndColumnPosition());
+    return text;
   }
 
   private static final class Cursor {
@@ -292,6 +405,42 @@ final class PhpEmbeddedHtmlExtractor {
     }
   }
 
-  record StringLiteral(String value, int lineOffset, int columnOffset) {
+  /**
+   * Accumulates the decoded literal value while recording, for each appended
+   * character, the source column it originated from. The resulting {@code
+   * int[][]} maps local {@code (line, col)} pairs (line 1-based, col 0-based)
+   * back to source columns so escape sequences ({@code \"} → {@code "}) don't
+   * shift downstream token coordinates.
+   */
+  private static final class LiteralBuilder {
+    private final StringBuilder sb = new StringBuilder();
+    private final List<int[]> columnsPerLine = new ArrayList<>();
+    private int[] currentLine = new int[32];
+    private int currentLen;
+
+    void append(char c, int srcCol) {
+      if (currentLen >= currentLine.length) {
+        currentLine = Arrays.copyOf(currentLine, currentLine.length * 2);
+      }
+      currentLine[currentLen++] = srcCol;
+      sb.append(c);
+      if (c == '\n') {
+        columnsPerLine.add(Arrays.copyOf(currentLine, currentLen));
+        currentLen = 0;
+      }
+    }
+
+    String text() {
+      return sb.toString();
+    }
+
+    int[][] sourceColumns() {
+      List<int[]> all = new ArrayList<>(columnsPerLine);
+      all.add(Arrays.copyOf(currentLine, currentLen));
+      return all.toArray(new int[0][]);
+    }
+  }
+
+  record StringLiteral(String value, int lineOffset, int columnOffset, boolean interpolated, int[][] sourceColumns) {
   }
 }
