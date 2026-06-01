@@ -14,7 +14,7 @@
   "ruleSpecification": "RSPEC-8720",
   "sqKey": "S8720",
   "scope": "All",
-  "quickfix": "infeasible",
+  "quickfix": "targeted",
   "code": {
     "impacts": {
       "MAINTAINABILITY": "LOW",
