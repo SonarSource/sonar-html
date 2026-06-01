@@ -137,8 +137,6 @@ public class PageLexer {
 
   /**
    * Parse a source string into a list of tokens without building parent/child relations.
-   * Used by {@link PhpEmbeddedHtmlExtractor} so the outer parse() call can hierarchize
-   * the merged list in a single pass.
    */
   List<Node> parseWithoutHierarchy(String source) {
     CodeReader codeReader = new CodeReader(new StringReader(source));
