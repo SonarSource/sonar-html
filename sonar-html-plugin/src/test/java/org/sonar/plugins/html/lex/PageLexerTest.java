@@ -271,6 +271,22 @@ class PageLexerTest {
   }
 
   @Test
+  void twig_comment_containing_markup_is_lexed_as_a_comment() {
+    String fragment = "{# <div id=\"username\"></div> #}<p>aaa</p>";
+
+    StringReader reader = new StringReader(fragment);
+    PageLexer lexer = new PageLexer();
+    List<Node> nodeList = lexer.parse(reader);
+
+    assertThat(nodeList).hasSize(4);
+    assertThat(nodeList.get(0)).isInstanceOf(CommentNode.class);
+    assertThat(((CommentNode) nodeList.get(0)).isHtml()).isFalse();
+    assertThat(nodeList.get(1)).isInstanceOf(TagNode.class);
+    assertThat(nodeList.get(2)).isInstanceOf(TextNode.class);
+    assertThat(nodeList.get(3)).isInstanceOf(TagNode.class);
+  }
+
+  @Test
   void testAttributeWithoutQuotes() {
     final StringReader reader = new StringReader("<img src=http://foo/sfds?sjg a=1\tb=2\r\nc=3 />");
     final PageLexer lexer = new PageLexer();

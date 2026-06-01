@@ -92,6 +92,9 @@ public class SonarResolveScanner extends DefaultNodeVisitor {
     if (node.isHtml()) {
       return code.substring("<!--".length(), code.length() - "-->".length());
     }
+    if (code.startsWith("{#")) {
+      return code.substring("{#".length(), code.length() - "#}".length());
+    }
     return code.substring("<%--".length(), code.length() - "--%>".length());
   }
 }

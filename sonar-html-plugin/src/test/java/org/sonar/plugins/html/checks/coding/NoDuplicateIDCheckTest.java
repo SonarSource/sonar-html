@@ -107,6 +107,17 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void twigCommentsDoNotCreateDuplicateIds() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/twigComments.twig"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(3).withMessage("Duplicate id \"username\" found. First occurrence was on line 2.")
+        .noMore();
+  }
+
+  @Test
   void jinjaConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksJinja.html"),

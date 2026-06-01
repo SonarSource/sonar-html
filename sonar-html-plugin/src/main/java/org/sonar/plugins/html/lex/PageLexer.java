@@ -51,6 +51,8 @@ public class PageLexer {
     new CommentTokenizer("<!--", "-->", true),
     /* JSP Comments */
     new CommentTokenizer("<%--", "--%>", false),
+    /* Twig Comments */
+    new CommentTokenizer("{#", "#}", false),
     /* HTML Directive */
     new DoctypeTokenizer("<!DOCTYPE", ">"),
     /* XML/PHP Directives */

@@ -47,6 +47,7 @@ class HtmlLexerTest {
   void multiline_comment() {
     assertThat(lexer.lex("<!-- My Comment \n a -->"), hasComment("<!-- My Comment \n a -->"));
     assertThat(lexer.lex("<%-- My Comment \n a %>"), hasComment("<%-- My Comment \n a %>"));
+    assertThat(lexer.lex("{# My Comment \n a #}"), hasComment("{# My Comment \n a #}"));
     assertThat(lexer.lex("/* My Comment \n a */"), hasComment("/* My Comment \n a */"));
   }
 

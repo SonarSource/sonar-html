@@ -51,6 +51,8 @@ final class HtmlLexer {
       .withChannel(commentRegexp("<%--[\\w\\W]*?%>"))
       // HTML comment
       .withChannel(commentRegexp("<!--[\\w\\W]*?-->"))
+      // Twig comment
+      .withChannel(commentRegexp("\\{#[\\w\\W]*?#\\}"))
       // C comment
       .withChannel(commentRegexp("/\\*[\\w\\W]*?\\*/"))
       // CPP comment
