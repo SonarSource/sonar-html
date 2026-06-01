@@ -7,3 +7,9 @@
 <webview src="page.html"></webview>
 <div disablewebsecurity></div>
 <webview [disablewebsecurity]="enabled"></webview>
+<webview :disablewebsecurity="enabled"></webview>
+<webview v-bind:disablewebsecurity="flag"></webview>
+<webview [attr.disablewebsecurity]="flag"></webview>
+<webview disablewebsecurity="${flag}"></webview>
+<webview disablewebsecurity src=" disablewebsecurity "></webview>
+<webview src=" disablewebsecurity "></webview>

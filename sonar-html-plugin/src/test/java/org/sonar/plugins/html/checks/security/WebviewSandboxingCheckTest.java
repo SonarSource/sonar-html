@@ -30,9 +30,6 @@ class WebviewSandboxingCheckTest {
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-  /**
-   * Verifies that insecure webview sandboxing configurations are reported precisely.
-   */
   @Test
   void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/webviewSandboxingCheck.html"), new WebviewSandboxingCheck());
@@ -44,6 +41,13 @@ class WebviewSandboxingCheckTest {
       .next().atLocation(5, 9, 5, 23).withMessage(MESSAGE)
       .next().atLocation(6, 9, 6, 23).withMessage(MESSAGE)
       .next().atLocation(8, 9, 8, 24).withMessage(MESSAGE)
-      .next().atLocation(8, 32, 8, 46).withMessage(MESSAGE);
+      .next().atLocation(8, 32, 8, 46).withMessage(MESSAGE)
+      .next().atLocation(9, 9, 9, 23).withMessage(MESSAGE)
+      .next().atLocation(10, 9, 10, 23).withMessage(MESSAGE)
+      .next().atLocation(11, 9, 11, 23).withMessage(MESSAGE)
+      .next().atLocation(12, 9, 12, 23).withMessage(MESSAGE)
+      .next().atLocation(13, 9, 13, 23).withMessage(MESSAGE)
+      .next().atLocation(21, 2, 21, 16).withMessage(MESSAGE)
+      .next().atLocation(23, 9, 23, 24).withMessage(MESSAGE);
   }
 }

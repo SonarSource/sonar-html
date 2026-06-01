@@ -30,9 +30,6 @@ class WebviewDisableWebSecurityCheckTest {
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();
 
-  /**
-   * Verifies that disablewebsecurity is reported precisely on Electron webviews.
-   */
   @Test
   void test() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/webviewDisableWebSecurityCheck.html"), new WebviewDisableWebSecurityCheck());
@@ -41,6 +38,7 @@ class WebviewDisableWebSecurityCheckTest {
       .next().atLocation(1, 9, 1, 27).withMessage(MESSAGE)
       .next().atLocation(2, 9, 2, 27).withMessage(MESSAGE)
       .next().atLocation(5, 2, 5, 20).withMessage(MESSAGE)
-      .next().atLocation(9, 9, 9, 29).withMessage(MESSAGE);
+      .next().atLocation(13, 9, 13, 27).withMessage(MESSAGE)
+      .next().atLocation(14, 9, 14, 27).withMessage(MESSAGE);
   }
 }

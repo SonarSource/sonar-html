@@ -36,9 +36,9 @@ public class WebviewDisableWebSecurityCheck extends AbstractWebviewCheck {
       return;
     }
 
-    Attribute disableWebSecurity = node.getProperty("disablewebsecurity");
+    Attribute disableWebSecurity = getLiteralAttribute(node, "disablewebsecurity");
     if (disableWebSecurity != null) {
-      createViolationOnAttribute(node, disableWebSecurity, MESSAGE);
+      createViolationOnAttribute(disableWebSecurity, MESSAGE);
     }
   }
 }

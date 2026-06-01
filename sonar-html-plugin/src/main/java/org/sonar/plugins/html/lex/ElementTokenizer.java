@@ -157,11 +157,15 @@ class ElementTokenizer extends AbstractTokenizer<List<Node>> {
   }
 
   private static void handleBeforeAttributeName(CodeReader codeReader, TagNode element) {
-    Attribute attribute;
+    int relativeLine = codeReader.getLinePosition();
+    int relativeColumn = codeReader.getColumnPosition();
     StringBuilder sbQName = new StringBuilder();
     popTo(codeReader, endQNameMatcher, sbQName);
-    attribute = new Attribute(sbQName.toString().trim());
-    attribute.setLine(codeReader.getLinePosition() + element.getStartLinePosition() - 1);
+    Attribute attribute = new Attribute(sbQName.toString().trim());
+    attribute.setLine(relativeLine + element.getStartLinePosition() - 1);
+    attribute.setStartColumn(relativeLine == 1
+      ? element.getStartColumnPosition() + relativeColumn
+      : relativeColumn);
     element.getAttributes().add(attribute);
   }
 
