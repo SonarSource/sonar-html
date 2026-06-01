@@ -138,22 +138,22 @@
     Trailing text
 </html>
 
-<!-- <body lang=""> doesn't satisfy the page-level check. -->
-<html> <!-- Non-Compliant -->
+<!-- <body lang=""> declares a lang (rescues page-level), but the invalid value triggers descendant violations. -->
+<html>
     <body lang="">
         <p>Hello</p>
     </body>
 </html>
 
-<!-- <body lang="  "> doesn't satisfy the page-level check. -->
-<html> <!-- Non-Compliant -->
+<!-- Same shape with whitespace-only lang. -->
+<html>
     <body lang="  ">
         <p>Hello</p>
     </body>
 </html>
 
-<!-- <body lang="invalid"> doesn't satisfy the page-level check. -->
-<html> <!-- Non-Compliant -->
+<!-- Same shape with a non-ISO lang value. -->
+<html>
     <body lang="invalid">
         <p>Hello</p>
     </body>
