@@ -93,6 +93,11 @@ final class PhpEmbeddedHtmlExtractor {
     }
     // Close any tag left open across the directive's literals.
     balanceUnclosedTags(directiveEmbedded);
+    // Stamp every spliced node so the scanner can route them only to checks
+    // that opt in via EmbeddedHtmlCheck.
+    for (Node node : directiveEmbedded) {
+      node.setEmbedded(true);
+    }
     // Splice the embedded HTML right after the directive node.
     result.addAll(directiveEmbedded);
   }

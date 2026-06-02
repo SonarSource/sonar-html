@@ -18,6 +18,7 @@ package org.sonar.plugins.html.visitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.node.CommentNode;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
@@ -69,6 +70,11 @@ public class HtmlAstScanner {
     // notify the visitors for start and end of element
     for (Node node : nodeList) {
       for (DefaultNodeVisitor visitor : visitors) {
+        if (node.isEmbedded() && !(visitor instanceof EmbeddedHtmlCheck)) {
+          // Nodes spliced in from PHP string literals only reach visitors that
+          // explicitly opt in to the embedded HTML lifecycle.
+          continue;
+        }
         scanElement(visitor, node);
       }
     }
