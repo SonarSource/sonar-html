@@ -49,6 +49,10 @@ final class PhpEmbeddedHtmlExtractor {
   /**
    * Returns a new list with embedded HTML nodes spliced in after each PHP directive
    * that contains HTML in string literals. The directive node itself is preserved.
+   *
+   * @param nodes flat list produced by the channel-dispatcher tokenizers
+   * @return a new list with the same nodes plus any embedded HTML spliced in
+   *         right after each PHP directive that contained it
    */
   List<Node> expand(List<Node> nodes) {
     List<Node> result = new ArrayList<>(nodes.size() + EXTRA_CAPACITY);
@@ -100,6 +104,11 @@ final class PhpEmbeddedHtmlExtractor {
    *
    * <p>Handles double-quoted strings, single-quoted strings, heredoc, nowdoc,
    * line comments ({@code //}, {@code #}), and block comments ({@code /* }).
+   *
+   * @param node the PHP directive whose raw code is scanned
+   * @return the string literals found in {@code node.getCode()}, in source order,
+   *         each carrying its decoded value and the source coordinates of its
+   *         first content character
    */
   static List<StringLiteral> extractLiterals(DirectiveNode node) {
     List<StringLiteral> result = new ArrayList<>();
@@ -184,6 +193,15 @@ final class PhpEmbeddedHtmlExtractor {
    * Returns {@code null} when EOF is reached before the closing label is seen
    * (malformed heredoc / typo in terminator); the caller drops the literal so
    * downstream re-lexing does not swallow the rest of the directive as HTML.
+   *
+   * @param code         the directive's raw code
+   * @param c            cursor positioned at the first body character (just past
+   *                     the {@code <<<LABEL\n} header)
+   * @param label        the closing label that terminates the body
+   * @param interpolated {@code true} for heredoc (variable interpolation
+   *                     applies), {@code false} for nowdoc (literal body)
+   * @return the heredoc/nowdoc body literal, or {@code null} if EOF is reached
+   *         before the closing label is seen
    */
   private static StringLiteral readHeredocBody(String code, Cursor c, String label, boolean interpolated) {
     int bodyLine = c.line, bodyCol = c.col;
@@ -254,6 +272,14 @@ final class PhpEmbeddedHtmlExtractor {
    * {@code \t} are emitted as a single space rather than the corresponding
    * control character so that the re-lex line counter is not advanced past the
    * literal's true source line.
+   *
+   * @param next      the character following the leading backslash
+   * @param backslash the leading backslash itself, written verbatim for unknown
+   *                  escape sequences
+   * @param builder   accumulator for the decoded literal value and its per-char
+   *                  source-column map
+   * @param c         cursor positioned at the backslash; advanced past the
+   *                  escape sequence (one or two source chars) on return
    */
   private static void appendDoubleEscape(char next, char backslash, LiteralBuilder builder, Cursor c) {
     int srcCol = c.col;
@@ -309,6 +335,11 @@ final class PhpEmbeddedHtmlExtractor {
    * Rebases re-lexed node positions from local (1-based line within sanitized string)
    * to file-absolute coordinates using the literal's per-character source-column map
    * when available, otherwise falling back to a flat offset.
+   *
+   * @param embedded nodes produced by re-lexing the sanitized literal; their
+   *                 line/column positions are mutated in place
+   * @param literal  the originating literal, providing the file-coordinate base
+   *                 and the per-character source-column map
    */
   static void rebasePositions(List<Node> embedded, StringLiteral literal) {
     int baseLine = literal.lineOffset();
@@ -347,6 +378,9 @@ final class PhpEmbeddedHtmlExtractor {
    * fragment leaves open, so that an open-only literal (e.g. {@code echo
    * "<span>";}) does not turn every subsequent real-file tag into a child of
    * the synthetic node when {@code createNodeHierarchy} runs.
+   *
+   * @param embedded nodes produced by re-lexing one literal; mutated in place
+   *                 by appending synthetic end tags for any element left open
    */
   private static void balanceUnclosedTags(List<Node> embedded) {
     Deque<TagNode> openStack = new ArrayDeque<>();
