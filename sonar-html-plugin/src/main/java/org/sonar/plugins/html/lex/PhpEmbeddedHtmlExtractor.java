@@ -68,16 +68,19 @@ final class PhpEmbeddedHtmlExtractor {
   private static void spliceEmbedded(DirectiveNode directive, List<Node> result) {
     List<Node> directiveEmbedded = new ArrayList<>();
     String code = directive.getCode();
+    // Pull every PHP string literal out of the directive.
     List<StringLiteral> literals = extractLiterals(directive);
     int prevHtmlIdx = -1;
     for (int i = 0; i < literals.size(); i++) {
       StringLiteral literal = literals.get(i);
+      // Sanitize interpolations, then skip literals that carry no HTML.
       String sanitized = literal.interpolated()
         ? sanitizeInterpolations(literal.value())
         : literal.value();
       if (!EMBEDDED_HTML.matcher(sanitized).find()) {
         continue;
       }
+      // Bridge the gap to the previous HTML literal in this directive.
       if (prevHtmlIdx >= 0) {
         StringLiteral prev = literals.get(prevHtmlIdx);
         List<StringLiteral> intermediates = literals.subList(prevHtmlIdx + 1, i);
@@ -93,13 +96,15 @@ final class PhpEmbeddedHtmlExtractor {
           directiveEmbedded.add(dynamicGapText(directive));
         }
       }
+      // Re-lex as HTML, rebase positions to file coordinates.
       List<Node> embedded = reLex(sanitized);
       rebasePositions(embedded, literal);
       directiveEmbedded.addAll(embedded);
       prevHtmlIdx = i;
     }
-    // Balance across all literals so a tag spanning a gap stays open.
+    // Close any tag left open across the directive's literals.
     balanceUnclosedTags(directiveEmbedded);
+    // Splice the embedded HTML right after the directive node.
     result.addAll(directiveEmbedded);
   }
 
