@@ -45,6 +45,8 @@ final class PhpEmbeddedHtmlExtractor {
   private static final String DYNAMIC_PLACEHOLDER = "${dynamic}";
   // initial slack for embedded nodes per directive
   private static final int EXTRA_CAPACITY = 8;
+  // shared sentinel: heredoc bodies have no per-character source-column map
+  private static final int[][] EMPTY_COLUMNS = new int[0][];
 
   /**
    * Returns a new list with embedded HTML nodes spliced in after each PHP directive
@@ -54,7 +56,7 @@ final class PhpEmbeddedHtmlExtractor {
    * @return a new list with the same nodes plus any embedded HTML spliced in
    *         right after each PHP directive that contained it
    */
-  List<Node> expand(List<Node> nodes) {
+  static List<Node> expand(List<Node> nodes) {
     List<Node> result = new ArrayList<>(nodes.size() + EXTRA_CAPACITY);
     for (Node node : nodes) {
       result.add(node);
@@ -73,28 +75,14 @@ final class PhpEmbeddedHtmlExtractor {
     int prevHtmlIdx = -1;
     for (int i = 0; i < literals.size(); i++) {
       StringLiteral literal = literals.get(i);
-      // Sanitize interpolations, then skip literals that carry no HTML.
-      String sanitized = literal.interpolated()
-        ? sanitizeInterpolations(literal.value())
-        : literal.value();
+      String sanitized = sanitizeIfInterpolated(literal);
+      // Skip literals that carry no HTML.
       if (!EMBEDDED_HTML.matcher(sanitized).find()) {
         continue;
       }
       // Bridge the gap to the previous HTML literal in this directive.
       if (prevHtmlIdx >= 0) {
-        StringLiteral prev = literals.get(prevHtmlIdx);
-        List<StringLiteral> intermediates = literals.subList(prevHtmlIdx + 1, i);
-        if (isPureConcatenation(code, prev.rawEnd(), literal.rawStart(), intermediates)) {
-          // Pure concat: surface skipped literals as real text.
-          for (StringLiteral inter : intermediates) {
-            if (!inter.value().isEmpty()) {
-              directiveEmbedded.add(literalTextNode(inter));
-            }
-          }
-        } else {
-          // Runtime expression: opaque non-blank placeholder.
-          directiveEmbedded.add(dynamicGapText(directive));
-        }
+        bridgeGap(directive, code, literals, prevHtmlIdx, i, directiveEmbedded);
       }
       // Re-lex as HTML, rebase positions to file coordinates.
       List<Node> embedded = reLex(sanitized);
@@ -106,6 +94,30 @@ final class PhpEmbeddedHtmlExtractor {
     balanceUnclosedTags(directiveEmbedded);
     // Splice the embedded HTML right after the directive node.
     result.addAll(directiveEmbedded);
+  }
+
+  private static String sanitizeIfInterpolated(StringLiteral literal) {
+    return literal.interpolated()
+      ? sanitizeInterpolations(literal.value())
+      : literal.value();
+  }
+
+  private static void bridgeGap(DirectiveNode directive, String code, List<StringLiteral> literals,
+                                int prevHtmlIdx, int currentIdx, List<Node> sink) {
+    StringLiteral prev = literals.get(prevHtmlIdx);
+    StringLiteral current = literals.get(currentIdx);
+    List<StringLiteral> intermediates = literals.subList(prevHtmlIdx + 1, currentIdx);
+    if (isPureConcatenation(code, prev.rawEnd(), current.rawStart(), intermediates)) {
+      // Pure concat: surface skipped literals as real text.
+      for (StringLiteral inter : intermediates) {
+        if (!inter.value().isEmpty()) {
+          sink.add(literalTextNode(inter));
+        }
+      }
+    } else {
+      // Runtime expression: opaque non-blank placeholder.
+      sink.add(dynamicGapText(directive));
+    }
   }
 
   /**
@@ -131,26 +143,42 @@ final class PhpEmbeddedHtmlExtractor {
       if (idx < intermediates.size() && pos == intermediates.get(idx).rawStart()) {
         pos = intermediates.get(idx).rawEnd();
         idx++;
-        continue;
+      } else {
+        int advanced = advancePastTrivialToken(code, pos, to);
+        if (advanced < 0) {
+          return false;
+        }
+        pos = advanced;
       }
-      char ch = code.charAt(pos);
-      if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || ch == '.' || ch == '(' || ch == ')') {
-        pos++;
-        continue;
-      }
-      if (ch == '#' || (ch == '/' && pos + 1 < to && code.charAt(pos + 1) == '/')) {
-        while (pos < to && code.charAt(pos) != '\n') { pos++; }
-        continue;
-      }
-      if (ch == '/' && pos + 1 < to && code.charAt(pos + 1) == '*') {
-        pos += 2;
-        while (pos + 1 < to && !(code.charAt(pos) == '*' && code.charAt(pos + 1) == '/')) { pos++; }
-        pos = Math.min(to, pos + 2);
-        continue;
-      }
-      return false;
     }
     return true;
+  }
+
+  /**
+   * Advances past one whitespace/concat/comment token starting at {@code pos}.
+   * Returns the new position, or {@code -1} when {@code code.charAt(pos)} is
+   * not a token the pure-concatenation scan allows.
+   */
+  private static int advancePastTrivialToken(String code, int pos, int to) {
+    char ch = code.charAt(pos);
+    if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || ch == '.' || ch == '(' || ch == ')') {
+      return pos + 1;
+    }
+    if (ch == '#' || (ch == '/' && pos + 1 < to && code.charAt(pos + 1) == '/')) {
+      int p = pos;
+      while (p < to && code.charAt(p) != '\n') {
+        p++;
+      }
+      return p;
+    }
+    if (ch == '/' && pos + 1 < to && code.charAt(pos + 1) == '*') {
+      int p = pos + 2;
+      while (p + 1 < to && !(code.charAt(p) == '*' && code.charAt(p + 1) == '/')) {
+        p++;
+      }
+      return Math.min(to, p + 2);
+    }
+    return -1;
   }
 
   static boolean isPhpDirective(DirectiveNode node) {
@@ -178,32 +206,47 @@ final class PhpEmbeddedHtmlExtractor {
     List<StringLiteral> result = new ArrayList<>();
     String code = node.getCode();
     Cursor c = new Cursor(0, node.getStartLinePosition(), node.getStartColumnPosition());
+    while (c.pos < code.length()) {
+      StringLiteral literal = readNextLiteral(code, c);
+      if (literal != null) {
+        result.add(literal);
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Advances {@code c} past whitespace, comments, and any non-literal token,
+   * returning the next extracted {@link StringLiteral} or {@code null} when the
+   * cursor stops at a position that does not start a literal (e.g. EOF).
+   */
+  private static StringLiteral readNextLiteral(String code, Cursor c) {
     int len = code.length();
     while (c.pos < len) {
       char ch = code.charAt(c.pos);
       if (ch == '\n') {
-        c.line++; c.col = 0; c.pos++;
+        c.line++;
+        c.col = 0;
+        c.pos++;
       } else if (ch == '#' || (ch == '/' && c.pos + 1 < len && code.charAt(c.pos + 1) == '/')) {
         skipLineComment(code, c);
       } else if (ch == '/' && c.pos + 1 < len && code.charAt(c.pos + 1) == '*') {
         skipBlockComment(code, c);
       } else if (ch == '<' && c.pos + 2 < len && code.charAt(c.pos + 1) == '<' && code.charAt(c.pos + 2) == '<') {
         int rawStart = c.pos;
-        StringLiteral literal = readHeredocOrNowdoc(code, c, rawStart);
-        if (literal != null) {
-          result.add(literal);
-        }
+        return readHeredocOrNowdoc(code, c, rawStart);
       } else if (ch == '"') {
         int rawStart = c.pos;
-        result.add(readDoubleQuotedString(code, c, rawStart));
+        return readDoubleQuotedString(code, c, rawStart);
       } else if (ch == '\'') {
         int rawStart = c.pos;
-        result.add(readSingleQuotedString(code, c, rawStart));
+        return readSingleQuotedString(code, c, rawStart);
       } else {
-        c.col++; c.pos++;
+        c.col++;
+        c.pos++;
       }
     }
-    return result;
+    return null;
   }
 
   private static void skipLineComment(String code, Cursor c) {
@@ -219,7 +262,8 @@ final class PhpEmbeddedHtmlExtractor {
     int len = code.length();
     while (c.pos + 1 < len && !(code.charAt(c.pos) == '*' && code.charAt(c.pos + 1) == '/')) {
       if (code.charAt(c.pos) == '\n') {
-        c.line++; c.col = 0;
+        c.line++;
+        c.col = 0;
       } else {
         c.col++;
       }
@@ -232,18 +276,48 @@ final class PhpEmbeddedHtmlExtractor {
   }
 
   private static StringLiteral readHeredocOrNowdoc(String code, Cursor c, int rawStart) {
-    c.col += 3; c.pos += 3; // skip <<<
-    while (c.pos < code.length() && code.charAt(c.pos) == ' ') { c.col++; c.pos++; }
+    // skip <<<
+    c.col += 3;
+    c.pos += 3;
+    skipSpaces(code, c);
     boolean nowdoc = c.pos < code.length() && code.charAt(c.pos) == '\'';
-    if (nowdoc) { c.col++; c.pos++; }
+    if (nowdoc) {
+      c.col++;
+      c.pos++;
+    }
     String label = readHeredocLabel(code, c);
     if (label.isEmpty()) {
       return null;
     }
-    if (nowdoc && c.pos < code.length() && code.charAt(c.pos) == '\'') { c.col++; c.pos++; }
-    while (c.pos < code.length() && code.charAt(c.pos) != '\n') { c.col++; c.pos++; }
-    if (c.pos < code.length()) { c.line++; c.col = 0; c.pos++; }
+    if (nowdoc && c.pos < code.length() && code.charAt(c.pos) == '\'') {
+      c.col++;
+      c.pos++;
+    }
+    skipUntilNewline(code, c);
+    consumeNewline(code, c);
     return readHeredocBody(code, c, label, !nowdoc, rawStart);
+  }
+
+  private static void skipSpaces(String code, Cursor c) {
+    while (c.pos < code.length() && code.charAt(c.pos) == ' ') {
+      c.col++;
+      c.pos++;
+    }
+  }
+
+  private static void skipUntilNewline(String code, Cursor c) {
+    while (c.pos < code.length() && code.charAt(c.pos) != '\n') {
+      c.col++;
+      c.pos++;
+    }
+  }
+
+  private static void consumeNewline(String code, Cursor c) {
+    if (c.pos < code.length()) {
+      c.line++;
+      c.col = 0;
+      c.pos++;
+    }
   }
 
   private static String readHeredocLabel(String code, Cursor c) {
@@ -251,7 +325,8 @@ final class PhpEmbeddedHtmlExtractor {
     while (c.pos < code.length() && code.charAt(c.pos) != '\'' && code.charAt(c.pos) != '"'
       && code.charAt(c.pos) != '\n' && !Character.isWhitespace(code.charAt(c.pos))) {
       label.append(code.charAt(c.pos));
-      c.col++; c.pos++;
+      c.col++;
+      c.pos++;
     }
     return label.toString();
   }
@@ -275,30 +350,58 @@ final class PhpEmbeddedHtmlExtractor {
    *         before the closing label is seen
    */
   private static StringLiteral readHeredocBody(String code, Cursor c, String label, boolean interpolated, int rawStart) {
-    int bodyLine = c.line, bodyCol = c.col;
+    int bodyLine = c.line;
+    int bodyCol = c.col;
     StringBuilder body = new StringBuilder();
     int len = code.length();
     boolean terminatorFound = false;
     while (c.pos < len) {
-      int lineStart = c.pos, indentLen = 0;
-      while (c.pos < len && (code.charAt(c.pos) == ' ' || code.charAt(c.pos) == '\t')) {
-        c.pos++; indentLen++;
-      }
-      if (code.regionMatches(c.pos, label, 0, label.length()) && isHeredocEnd(code, c.pos + label.length(), len)) {
-        if (indentLen > 0 && body.length() > 0) { body = stripHeredocIndent(body, indentLen); }
-        while (c.pos < len && code.charAt(c.pos) != '\n') { c.col++; c.pos++; }
-        if (c.pos < len) { c.line++; c.col = 0; c.pos++; }
+      int lineStart = c.pos;
+      int indentLen = measureLineIndent(code, c, len);
+      if (isHeredocTerminatorLine(code, c, label, len)) {
+        if (indentLen > 0 && !body.isEmpty()) {
+          body = stripHeredocIndent(body, indentLen);
+        }
+        skipUntilNewline(code, c);
+        consumeNewline(code, c);
         terminatorFound = true;
         break;
       }
       c.pos = lineStart;
-      while (c.pos < len && code.charAt(c.pos) != '\n') { body.append(code.charAt(c.pos)); c.col++; c.pos++; }
-      if (c.pos < len) { body.append('\n'); c.line++; c.col = 0; c.pos++; }
+      copyBodyLine(code, c, body, len);
     }
     if (!terminatorFound) {
       return null;
     }
-    return new StringLiteral(body.toString(), bodyLine, bodyCol, interpolated, null, rawStart, c.pos);
+    return new StringLiteral(body.toString(), bodyLine, bodyCol, interpolated, EMPTY_COLUMNS, rawStart, c.pos);
+  }
+
+  private static int measureLineIndent(String code, Cursor c, int len) {
+    int indentLen = 0;
+    while (c.pos < len && (code.charAt(c.pos) == ' ' || code.charAt(c.pos) == '\t')) {
+      c.pos++;
+      indentLen++;
+    }
+    return indentLen;
+  }
+
+  private static boolean isHeredocTerminatorLine(String code, Cursor c, String label, int len) {
+    return code.regionMatches(c.pos, label, 0, label.length())
+      && isHeredocEnd(code, c.pos + label.length(), len);
+  }
+
+  private static void copyBodyLine(String code, Cursor c, StringBuilder body, int len) {
+    while (c.pos < len && code.charAt(c.pos) != '\n') {
+      body.append(code.charAt(c.pos));
+      c.col++;
+      c.pos++;
+    }
+    if (c.pos < len) {
+      body.append('\n');
+      c.line++;
+      c.col = 0;
+      c.pos++;
+    }
   }
 
   private static boolean isHeredocEnd(String code, int afterLabel, int len) {
@@ -312,14 +415,19 @@ final class PhpEmbeddedHtmlExtractor {
     for (int li = 0; li < lines.length; li++) {
       String line = lines[li];
       stripped.append(line.length() >= indentLen ? line.substring(indentLen) : line);
-      if (li < lines.length - 1) { stripped.append('\n'); }
+      if (li < lines.length - 1) {
+        stripped.append('\n');
+      }
     }
     return stripped;
   }
 
   private static StringLiteral readDoubleQuotedString(String code, Cursor c, int rawStart) {
-    c.col++; c.pos++; // skip opening "
-    int contentLine = c.line, contentCol = c.col;
+    // skip opening "
+    c.col++;
+    c.pos++;
+    int contentLine = c.line;
+    int contentCol = c.col;
     LiteralBuilder builder = new LiteralBuilder();
     int len = code.length();
     while (c.pos < len) {
@@ -327,15 +435,25 @@ final class PhpEmbeddedHtmlExtractor {
       if (cc == '\\' && c.pos + 1 < len) {
         appendDoubleEscape(code.charAt(c.pos + 1), cc, builder, c);
       } else if (cc == '"') {
-        c.col++; c.pos++;
+        c.col++;
+        c.pos++;
         break;
       } else {
-        builder.append(cc, c.col);
-        if (cc == '\n') { c.line++; c.col = 0; } else { c.col++; }
-        c.pos++;
+        appendLiteralChar(builder, c, cc);
       }
     }
     return new StringLiteral(builder.text(), contentLine, contentCol, true, builder.sourceColumns(), rawStart, c.pos);
+  }
+
+  private static void appendLiteralChar(LiteralBuilder builder, Cursor c, char cc) {
+    builder.append(cc, c.col);
+    if (cc == '\n') {
+      c.line++;
+      c.col = 0;
+    } else {
+      c.col++;
+    }
+    c.pos++;
   }
 
   /**
@@ -354,44 +472,67 @@ final class PhpEmbeddedHtmlExtractor {
    */
   private static void appendDoubleEscape(char next, char backslash, LiteralBuilder builder, Cursor c) {
     int srcCol = c.col;
+    char decoded;
     switch (next) {
-      case '"':  builder.append('"',  srcCol); c.col += 2; c.pos += 2; break;
-      case '\\': builder.append('\\', srcCol); c.col += 2; c.pos += 2; break;
-      case 'n':  builder.append(' ',  srcCol); c.col += 2; c.pos += 2; break;
-      case 'r':  builder.append(' ',  srcCol); c.col += 2; c.pos += 2; break;
-      case 't':  builder.append(' ',  srcCol); c.col += 2; c.pos += 2; break;
-      case '$':  builder.append('$',  srcCol); c.col += 2; c.pos += 2; break;
-      default:   builder.append(backslash, srcCol); c.col++; c.pos++; break;
+      case '"':
+        decoded = '"';
+        break;
+      case '\\':
+        decoded = '\\';
+        break;
+      case '$':
+        decoded = '$';
+        break;
+      case 'n', 'r', 't':
+        decoded = ' ';
+        break;
+      default:
+        builder.append(backslash, srcCol);
+        c.col++;
+        c.pos++;
+        return;
     }
+    builder.append(decoded, srcCol);
+    c.col += 2;
+    c.pos += 2;
   }
 
   private static StringLiteral readSingleQuotedString(String code, Cursor c, int rawStart) {
-    c.col++; c.pos++; // skip opening '
-    int contentLine = c.line, contentCol = c.col;
+    // skip opening '
+    c.col++;
+    c.pos++;
+    int contentLine = c.line;
+    int contentCol = c.col;
     LiteralBuilder builder = new LiteralBuilder();
     int len = code.length();
     while (c.pos < len) {
       char cc = code.charAt(c.pos);
       if (cc == '\\' && c.pos + 1 < len) {
-        char next = code.charAt(c.pos + 1);
-        if (next == '\\' || next == '\'') {
-          builder.append(next, c.col); c.col += 2; c.pos += 2;
-        } else {
-          builder.append(cc, c.col); c.col++; c.pos++;
-        }
+        appendSingleEscape(code.charAt(c.pos + 1), cc, builder, c);
       } else if (cc == '\'') {
-        c.col++; c.pos++;
+        c.col++;
+        c.pos++;
         break;
       } else {
-        builder.append(cc, c.col);
-        if (cc == '\n') { c.line++; c.col = 0; } else { c.col++; }
-        c.pos++;
+        appendLiteralChar(builder, c, cc);
       }
     }
     // Single-quoted strings do not interpolate variables in PHP, so the
     // sanitisation pass that rewrites $var / {$expr} into a dynamic marker is
     // skipped to avoid silently hiding real attribute values.
     return new StringLiteral(builder.text(), contentLine, contentCol, false, builder.sourceColumns(), rawStart, c.pos);
+  }
+
+  private static void appendSingleEscape(char next, char backslash, LiteralBuilder builder, Cursor c) {
+    if (next == '\\' || next == '\'') {
+      builder.append(next, c.col);
+      c.col += 2;
+      c.pos += 2;
+    } else {
+      builder.append(backslash, c.col);
+      c.col++;
+      c.pos++;
+    }
   }
 
   static String sanitizeInterpolations(String value) {
@@ -425,14 +566,16 @@ final class PhpEmbeddedHtmlExtractor {
       node.setEndColumnPosition(sourceCol(map, localEnd, node.getEndColumnPosition(), baseCol));
       if (node instanceof TagNode tag) {
         for (Attribute attr : tag.getAttributes()) {
-          if (attr.getLine() > 0) { attr.setLine(baseLine + attr.getLine() - 1); }
+          if (attr.getLine() > 0) {
+            attr.setLine(baseLine + attr.getLine() - 1);
+          }
         }
       }
     }
   }
 
   private static int sourceCol(int[][] map, int localLine, int localCol, int baseCol) {
-    if (map != null && localLine - 1 >= 0 && localLine - 1 < map.length) {
+    if (localLine - 1 < map.length) {
       int[] lineCols = map[localLine - 1];
       if (localCol >= 0 && localCol < lineCols.length) {
         return lineCols[localCol];
@@ -441,7 +584,7 @@ final class PhpEmbeddedHtmlExtractor {
         return lineCols[lineCols.length - 1] + 1;
       }
     }
-    return localLine == 1 ? baseCol + localCol : localCol;
+    return (localLine == 1) ? (baseCol + localCol) : localCol;
   }
 
   /**
@@ -456,26 +599,25 @@ final class PhpEmbeddedHtmlExtractor {
   private static void balanceUnclosedTags(List<Node> embedded) {
     Deque<TagNode> openStack = new ArrayDeque<>();
     for (Node node : embedded) {
-      if (node.getNodeType() != NodeType.TAG) {
-        continue;
-      }
-      TagNode tag = (TagNode) node;
-      if (tag.hasEnd()) {
-        continue;
-      }
-      if (tag.isEndElement()) {
-        if (!openStack.isEmpty() && openStack.peek().equalsElementName(tag.getNodeName())) {
-          openStack.pop();
-        }
-      } else if (!isVoidElement(tag)) {
-        // Void elements (br, img, input, ...) carry no content and cannot have
-        // a matching close tag, so they must not contribute to the open stack.
-        openStack.push(tag);
+      if (node instanceof TagNode tag && !tag.hasEnd()) {
+        updateOpenStack(openStack, tag);
       }
     }
     while (!openStack.isEmpty()) {
       TagNode open = openStack.pop();
       embedded.add(syntheticEndTag(open));
+    }
+  }
+
+  private static void updateOpenStack(Deque<TagNode> openStack, TagNode tag) {
+    if (tag.isEndElement()) {
+      if (!openStack.isEmpty() && openStack.peek().equalsElementName(tag.getNodeName())) {
+        openStack.pop();
+      }
+    } else if (!isVoidElement(tag)) {
+      // Void elements (br, img, input, ...) carry no content and cannot have
+      // a matching close tag, so they must not contribute to the open stack.
+      openStack.push(tag);
     }
   }
 
@@ -520,9 +662,9 @@ final class PhpEmbeddedHtmlExtractor {
       }
     }
     text.setEndLinePosition(literal.lineOffset() + extraLines);
-    text.setEndColumnPosition(extraLines == 0
-      ? literal.columnOffset() + value.length()
-      : value.length() - lastLineStart);
+    text.setEndColumnPosition((extraLines == 0)
+      ? (literal.columnOffset() + value.length())
+      : (value.length() - lastLineStart));
     return text;
   }
 
@@ -555,7 +697,8 @@ final class PhpEmbeddedHtmlExtractor {
       if (currentLen >= currentLine.length) {
         currentLine = Arrays.copyOf(currentLine, currentLine.length * 2);
       }
-      currentLine[currentLen++] = srcCol;
+      currentLine[currentLen] = srcCol;
+      currentLen++;
       sb.append(c);
       if (c == '\n') {
         columnsPerLine.add(Arrays.copyOf(currentLine, currentLen));
@@ -576,5 +719,39 @@ final class PhpEmbeddedHtmlExtractor {
 
   record StringLiteral(String value, int lineOffset, int columnOffset, boolean interpolated, int[][] sourceColumns,
                        int rawStart, int rawEnd) {
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (!(o instanceof StringLiteral other)) {
+        return false;
+      }
+      return lineOffset == other.lineOffset
+        && columnOffset == other.columnOffset
+        && interpolated == other.interpolated
+        && rawStart == other.rawStart
+        && rawEnd == other.rawEnd
+        && java.util.Objects.equals(value, other.value)
+        && Arrays.deepEquals(sourceColumns, other.sourceColumns);
+    }
+
+    @Override
+    public int hashCode() {
+      return java.util.Objects.hash(value, lineOffset, columnOffset, interpolated, rawStart, rawEnd)
+        ^ Arrays.deepHashCode(sourceColumns);
+    }
+
+    @Override
+    public String toString() {
+      return "StringLiteral[value=" + value
+        + ", lineOffset=" + lineOffset
+        + ", columnOffset=" + columnOffset
+        + ", interpolated=" + interpolated
+        + ", sourceColumns=" + Arrays.deepToString(sourceColumns)
+        + ", rawStart=" + rawStart
+        + ", rawEnd=" + rawEnd + ']';
+    }
   }
 }

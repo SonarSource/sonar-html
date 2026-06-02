@@ -129,7 +129,7 @@ public class PageLexer {
     ChannelDispatcher<List<Node>> channelDispatcher = ChannelDispatcher.builder().addChannels((Channel[]) tokenizers.toArray(new Channel[tokenizers.size()])).build();
     channelDispatcher.consume(codeReader, nodeList);
 
-    List<Node> expanded = new PhpEmbeddedHtmlExtractor().expand(nodeList);
+    List<Node> expanded = PhpEmbeddedHtmlExtractor.expand(nodeList);
     createNodeHierarchy(expanded);
 
     return expanded;
