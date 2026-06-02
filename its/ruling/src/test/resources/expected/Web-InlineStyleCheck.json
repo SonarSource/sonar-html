@@ -1433,10 +1433,123 @@
 118,
 130
 ],
+"project:phpMyAdmin-4.0.4-english/export.php": [
+566
+],
+"project:phpMyAdmin-4.0.4-english/gis_data_editor.php": [
+128,
+133,
+137
+],
+"project:phpMyAdmin-4.0.4-english/libraries/DBQbe.class.php": [
+342,
+1295
+],
+"project:phpMyAdmin-4.0.4-english/libraries/DisplayResults.class.php": [
+5047
+],
+"project:phpMyAdmin-4.0.4-english/libraries/TableSearch.class.php": [
+820,
+1177,
+1187
+],
+"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
+3356,
+3357,
+3413
+],
+"project:phpMyAdmin-4.0.4-english/libraries/build_html_for_db.lib.php": [
+135
+],
+"project:phpMyAdmin-4.0.4-english/libraries/database_interface.lib.php": [
+137
+],
 "project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
 36,
 37,
 39
+],
+"project:phpMyAdmin-4.0.4-english/libraries/index.lib.php": [
+26
+],
+"project:phpMyAdmin-4.0.4-english/libraries/insert_edit.lib.php": [
+322
+],
+"project:phpMyAdmin-4.0.4-english/libraries/navigation/NavigationTree.class.php": [
+668
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/auth/AuthenticationConfig.class.php": [
+90
+],
+"project:phpMyAdmin-4.0.4-english/libraries/replication_gui.lib.php": [
+190
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_events.lib.php": [
+418,
+420,
+456,
+460,
+479,
+482
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_export.lib.php": [
+27
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_footer.lib.php": [
+120
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_list.lib.php": [
+57,
+71,
+82
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_routines.lib.php": [
+932,
+934,
+949,
+953,
+982,
+985,
+1360,
+1573
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_triggers.lib.php": [
+348,
+350
+],
+"project:phpMyAdmin-4.0.4-english/libraries/schema/Dia_Relation_Schema.class.php": [
+402,
+405,
+408,
+651
+],
+"project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
+556
+],
+"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
+1669,
+1835,
+1844,
+2398,
+2405,
+2414,
+2455,
+2465
+],
+"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
+1363
+],
+"project:phpMyAdmin-4.0.4-english/libraries/tbl_columns_definition_form.inc.php": [
+480
+],
+"project:phpMyAdmin-4.0.4-english/libraries/tcpdf/tcpdf.php": [
+21667,
+21668,
+21671,
+21684
+],
+"project:phpMyAdmin-4.0.4-english/libraries/user_preferences.lib.php": [
+269
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 170,
@@ -1448,6 +1561,43 @@
 290,
 297
 ],
+"project:phpMyAdmin-4.0.4-english/server_databases.php": [
+322
+],
+"project:phpMyAdmin-4.0.4-english/server_export.php": [
+22
+],
+"project:phpMyAdmin-4.0.4-english/server_replication.php": [
+301,
+319,
+326
+],
+"project:phpMyAdmin-4.0.4-english/server_status_advisor.php": [
+32,
+62
+],
+"project:phpMyAdmin-4.0.4-english/server_status_monitor.php": [
+481,
+570,
+646,
+655,
+660
+],
+"project:phpMyAdmin-4.0.4-english/server_status_queries.php": [
+152
+],
+"project:phpMyAdmin-4.0.4-english/server_status_variables.php": [
+132,
+290
+],
+"project:phpMyAdmin-4.0.4-english/server_variables.php": [
+129,
+131,
+133,
+170,
+203,
+210
+],
 "project:phpMyAdmin-4.0.4-english/setup/frames/config.inc.php": [
 37
 ],
@@ -1458,11 +1608,36 @@
 165,
 242
 ],
+"project:phpMyAdmin-4.0.4-english/sql.php": [
+1183,
+1213,
+1216
+],
+"project:phpMyAdmin-4.0.4-english/tbl_chart.php": [
+152,
+164,
+168,
+183,
+228,
+230,
+238,
+256,
+257
+],
 "project:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
 115,
 174,
 202,
 204
+],
+"project:phpMyAdmin-4.0.4-english/tbl_printview.php": [
+127,
+299,
+306,
+313,
+314,
+321,
+331
 ],
 "project:phpMyAdmin-4.0.4-english/themes/svg_gradient.php": [
 29

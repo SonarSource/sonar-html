@@ -759,20 +759,164 @@
 "project:phpMyAdmin-4.0.4-english/db_datadict.php": [
 238
 ],
+"project:phpMyAdmin-4.0.4-english/libraries/DisplayResults.class.php": [
+2114,
+2171,
+2285,
+2557,
+4028,
+4173
+],
+"project:phpMyAdmin-4.0.4-english/libraries/ServerStatusData.class.php": [
+367
+],
+"project:phpMyAdmin-4.0.4-english/libraries/TableSearch.class.php": [
+1168
+],
+"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
+690,
+694,
+1317,
+2563,
+2568,
+2599,
+2608
+],
+"project:phpMyAdmin-4.0.4-english/libraries/config/FormDisplay.tpl.php": [
+199,
+247
+],
+"project:phpMyAdmin-4.0.4-english/libraries/navigation/NavigationHeader.class.php": [
+228
+],
+"project:phpMyAdmin-4.0.4-english/libraries/navigation/NavigationTree.class.php": [
+813,
+875,
+910,
+937
+],
+"project:phpMyAdmin-4.0.4-english/libraries/opendocument.lib.php": [
+60,
+62,
+64,
+66,
+69,
+72,
+78,
+82,
+92,
+97,
+103,
+105,
+113,
+123,
+138
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugin_interface.lib.php": [
+182,
+284
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportCodegen.class.php": [
+352,
+362
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportOds.class.php": [
+144,
+146,
+148
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportOdt.class.php": [
+353,
+451
+],
+"project:phpMyAdmin-4.0.4-english/libraries/replication_gui.lib.php": [
+142,
+147
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_events.lib.php": [
+434,
+450,
+490
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_routines.lib.php": [
+772,
+815,
+1024,
+1063,
+1567
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_triggers.lib.php": [
+365,
+382,
+396
+],
+"project:phpMyAdmin-4.0.4-english/libraries/schema/Dia_Relation_Schema.class.php": [
+97,
+100,
+103,
+106,
+109,
+351,
+355,
+362,
+372,
+447,
+453,
+623,
+657,
+660
+],
+"project:phpMyAdmin-4.0.4-english/libraries/select_server.lib.php": [
+45
+],
+"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
+1663,
+1673,
+3021,
+3048
+],
 "project:phpMyAdmin-4.0.4-english/libraries/sql_query_form.lib.php": [
 87
+],
+"project:phpMyAdmin-4.0.4-english/libraries/tcpdf/tcpdf.php": [
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21607,
+21609,
+21618
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 165,
 166,
-170,
-182,
-183,
-236,
-277
+236
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_pdf.php": [
 98
+],
+"project:phpMyAdmin-4.0.4-english/server_databases.php": [
+216
+],
+"project:phpMyAdmin-4.0.4-english/server_status_monitor.php": [
+478
+],
+"project:phpMyAdmin-4.0.4-english/server_status_variables.php": [
+87,
+105,
+112,
+259,
+274
 ],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/nonav.html.erb": [
 3

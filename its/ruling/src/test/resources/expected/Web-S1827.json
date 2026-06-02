@@ -21169,6 +21169,15 @@
 "project:external_webkit-jb-mr1/Tools/TestResultServer/templates/uploadform.html": [
 9
 ],
+"project:phpMyAdmin-4.0.4-english/browse_foreigners.php": [
+193,
+199,
+306
+],
+"project:phpMyAdmin-4.0.4-english/changelog.php": [
+114,
+118
+],
 "project:phpMyAdmin-4.0.4-english/db_datadict.php": [
 165,
 166,
@@ -21924,10 +21933,55 @@
 107,
 109
 ],
+"project:phpMyAdmin-4.0.4-english/libraries/DbSearch.class.php": [
+341,
+349
+],
+"project:phpMyAdmin-4.0.4-english/libraries/config/FormDisplay.tpl.php": [
+58,
+98,
+98
+],
+"project:phpMyAdmin-4.0.4-english/libraries/insert_edit.lib.php": [
+1421,
+1421
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/auth/AuthenticationConfig.class.php": [
+90,
+90,
+90
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/auth/AuthenticationCookie.class.php": [
+153
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportHtmlword.class.php": [
+209,
+273,
+376,
+481
+],
+"project:phpMyAdmin-4.0.4-english/libraries/replication_gui.lib.php": [
+112,
+114
+],
+"project:phpMyAdmin-4.0.4-english/libraries/tbl_columns_definition_form.inc.php": [
+837,
+841,
+851,
+861
+],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 183,
+195,
 236,
 236
+],
+"project:phpMyAdmin-4.0.4-english/server_binlog.php": [
+125,
+125
+],
+"project:phpMyAdmin-4.0.4-english/server_status.php": [
+121
 ],
 "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
 132,
@@ -21935,6 +21989,23 @@
 163,
 185,
 185
+],
+"project:phpMyAdmin-4.0.4-english/tbl_printview.php": [
+290,
+290,
+297,
+340,
+346
+],
+"project:phpMyAdmin-4.0.4-english/tbl_tracking.php": [
+550,
+553,
+554,
+555,
+612,
+615,
+616,
+617
 ],
 "project:phpMyAdmin-4.0.4-english/transformation_overview.php": [
 35

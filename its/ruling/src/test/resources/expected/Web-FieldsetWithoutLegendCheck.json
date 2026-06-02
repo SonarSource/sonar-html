@@ -11,21 +11,127 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/invalidTicket.jsp": [
 45
 ],
+"project:phpMyAdmin-4.0.4-english/browse_foreigners.php": [
+171
+],
+"project:phpMyAdmin-4.0.4-english/import_status.php": [
+97
+],
+"project:phpMyAdmin-4.0.4-english/libraries/DBQbe.class.php": [
+598,
+633,
+1294,
+1334
+],
+"project:phpMyAdmin-4.0.4-english/libraries/DbSearch.class.php": [
+453
+],
+"project:phpMyAdmin-4.0.4-english/libraries/DisplayResults.class.php": [
+1580,
+1656
+],
+"project:phpMyAdmin-4.0.4-english/libraries/TableSearch.class.php": [
+1138
+],
+"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
+767
+],
+"project:phpMyAdmin-4.0.4-english/libraries/display_change_password.lib.php": [
+93
+],
 "project:phpMyAdmin-4.0.4-english/libraries/display_create_table.lib.php": [
 60
+],
+"project:phpMyAdmin-4.0.4-english/libraries/index.lib.php": [
+26
+],
+"project:phpMyAdmin-4.0.4-english/libraries/insert_edit.lib.php": [
+1420
 ],
 "project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
 289,
 306,
 322
 ],
+"project:phpMyAdmin-4.0.4-english/libraries/operations.lib.php": [
+38,
+81,
+209,
+252,
+271,
+634,
+688,
+736,
+1053,
+1336
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/auth/AuthenticationCookie.class.php": [
+243
+],
+"project:phpMyAdmin-4.0.4-english/libraries/replication_gui.lib.php": [
+76,
+394
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_events.lib.php": [
+540
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_routines.lib.php": [
+1079,
+1662
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_triggers.lib.php": [
+418
+],
 "project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
 163,
 225,
 482
 ],
+"project:phpMyAdmin-4.0.4-english/libraries/select_server.lib.php": [
+37
+],
+"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
+473,
+1471,
+1950,
+2515,
+2543,
+2817,
+3068
+],
+"project:phpMyAdmin-4.0.4-english/libraries/sql_query_form.lib.php": [
+331,
+421,
+481
+],
+"project:phpMyAdmin-4.0.4-english/libraries/tbl_columns_definition_form.inc.php": [
+897
+],
+"project:phpMyAdmin-4.0.4-english/server_binlog.php": [
+114
+],
+"project:phpMyAdmin-4.0.4-english/server_replication.php": [
+221
+],
+"project:phpMyAdmin-4.0.4-english/sql.php": [
+508,
+1348
+],
+"project:phpMyAdmin-4.0.4-english/tbl_chart.php": [
+239
+],
 "project:phpMyAdmin-4.0.4-english/tbl_indexes.php": [
 340
+],
+"project:phpMyAdmin-4.0.4-english/tbl_relation.php": [
+543,
+562
+],
+"project:phpMyAdmin-4.0.4-english/tbl_tracking.php": [
+881
+],
+"project:phpMyAdmin-4.0.4-english/view_create.php": [
+224
 ],
 "project:phpMyAdmin-4.0.4-english/view_operations.php": [
 97

@@ -1502,12 +1502,77 @@
 "project:phpMyAdmin-4.0.4-english/doc/html/intro.html": [
 107
 ],
+"project:phpMyAdmin-4.0.4-english/libraries/DBQbe.class.php": [
+734,
+1295
+],
+"project:phpMyAdmin-4.0.4-english/libraries/DbSearch.class.php": [
+264,
+383
+],
+"project:phpMyAdmin-4.0.4-english/libraries/DisplayResults.class.php": [
+604
+],
+"project:phpMyAdmin-4.0.4-english/libraries/StorageEngine.class.php": [
+220
+],
+"project:phpMyAdmin-4.0.4-english/libraries/TableSearch.class.php": [
+835,
+1047
+],
+"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
+2867
+],
+"project:phpMyAdmin-4.0.4-english/libraries/display_change_password.lib.php": [
+47
+],
+"project:phpMyAdmin-4.0.4-english/libraries/insert_edit.lib.php": [
+1421
+],
 "project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
 280,
 300
 ],
+"project:phpMyAdmin-4.0.4-english/libraries/operations.lib.php": [
+774
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/auth/AuthenticationConfig.class.php": [
+90
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportHtmlword.class.php": [
+209
+],
+"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportXml.class.php": [
+463
+],
+"project:phpMyAdmin-4.0.4-english/libraries/relation.lib.php": [
+106
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_events.lib.php": [
+418
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_routines.lib.php": [
+932,
+1567
+],
+"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_triggers.lib.php": [
+348
+],
 "project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
 134
+],
+"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
+2585
+],
+"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
+1668,
+2163
+],
+"project:phpMyAdmin-4.0.4-english/libraries/tbl_columns_definition_form.inc.php": [
+735
+],
+"project:phpMyAdmin-4.0.4-english/libraries/tcpdf/tcpdf.php": [
+21785
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 183,
@@ -1515,6 +1580,9 @@
 ],
 "project:phpMyAdmin-4.0.4-english/server_plugins.php": [
 153
+],
+"project:phpMyAdmin-4.0.4-english/server_status_monitor.php": [
+704
 ],
 "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
 155,
@@ -1524,6 +1592,17 @@
 "project:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
 118,
 177
+],
+"project:phpMyAdmin-4.0.4-english/tbl_printview.php": [
+290,
+297,
+346
+],
+"project:phpMyAdmin-4.0.4-english/tbl_structure.php": [
+244
+],
+"project:phpMyAdmin-4.0.4-english/view_create.php": [
+154
 ],
 "project:phpMyAdmin-4.0.4-english/view_operations.php": [
 88
