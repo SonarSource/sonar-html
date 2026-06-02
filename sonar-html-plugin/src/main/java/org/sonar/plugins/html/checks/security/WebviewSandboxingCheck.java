@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.security;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import org.sonar.check.Rule;
@@ -83,7 +84,7 @@ public class WebviewSandboxingCheck extends AbstractWebviewCheck {
         val = "true";
       } else {
         key = entry.substring(0, eq).trim();
-        val = entry.substring(eq + 1).trim();
+        val = entry.substring(eq + 1).trim().toLowerCase(Locale.ROOT);
       }
       if (key.isEmpty()) {
         continue;

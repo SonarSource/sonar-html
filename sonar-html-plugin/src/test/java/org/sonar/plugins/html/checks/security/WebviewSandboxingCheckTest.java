@@ -52,6 +52,8 @@ class WebviewSandboxingCheckTest {
       .next().atLocation(21, 2, 21, 16).withMessage(MESSAGE)
       .next().atLocation(23, 9, 23, 24).withMessage(MESSAGE)
       .next().atLocation(24, 9, 24, 23).withMessage(MESSAGE)
-      .next().atLocation(25, 9, 25, 23).withMessage(MESSAGE);
+      .next().atLocation(25, 9, 25, 23).withMessage(MESSAGE)
+      .next().atLocation(26, 9, 26, 23).withMessage(MESSAGE)
+      .next().atLocation(27, 9, 27, 23).withMessage(MESSAGE);
   }
 }
