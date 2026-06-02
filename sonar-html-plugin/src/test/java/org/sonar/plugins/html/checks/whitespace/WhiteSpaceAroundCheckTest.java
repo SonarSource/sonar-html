@@ -45,4 +45,13 @@ class WhiteSpaceAroundCheckTest {
       .next().atLine(13).withMessage("Add a space at column 18.");
   }
 
+  @Test
+  void twig_comments() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/whiteSpaceAroundCheck.twig"), new WhiteSpaceAroundCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("A whitespace is missing after the starting tag at column 2.")
+      .next().atLine(1).withMessage("Add a space at column 16.");
+  }
+
 }

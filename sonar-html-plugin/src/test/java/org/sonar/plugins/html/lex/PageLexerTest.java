@@ -280,7 +280,10 @@ class PageLexerTest {
 
     assertThat(nodeList).hasSize(4);
     assertThat(nodeList.get(0)).isInstanceOf(CommentNode.class);
-    assertThat(((CommentNode) nodeList.get(0)).isHtml()).isFalse();
+    CommentNode commentNode = (CommentNode) nodeList.get(0);
+    assertThat(commentNode.isHtml()).isFalse();
+    assertThat(commentNode.getStartDelimiter()).isEqualTo("{#");
+    assertThat(commentNode.getEndDelimiter()).isEqualTo("#}");
     assertThat(nodeList.get(1)).isInstanceOf(TagNode.class);
     assertThat(nodeList.get(2)).isInstanceOf(TextNode.class);
     assertThat(nodeList.get(3)).isInstanceOf(TagNode.class);

@@ -47,12 +47,16 @@ class CommentTokenizer<T extends List<Node>> extends AbstractTokenizer<T> {
   }
 
   private final Boolean html;
+  private final String startToken;
+  private final String endToken;
   private final char[] endChars;
 
   public CommentTokenizer(String startToken, String endToken, Boolean html) {
     super(startToken, endToken);
 
     this.html = html;
+    this.startToken = startToken;
+    this.endToken = endToken;
     this.endChars = endToken.toCharArray();
   }
 
@@ -66,6 +70,8 @@ class CommentTokenizer<T extends List<Node>> extends AbstractTokenizer<T> {
 
     CommentNode node = new CommentNode();
     node.setHtml(html);
+    node.setStartDelimiter(startToken);
+    node.setEndDelimiter(endToken);
     return node;
   }
 }
