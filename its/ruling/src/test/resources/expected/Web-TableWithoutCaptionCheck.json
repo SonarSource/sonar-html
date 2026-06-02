@@ -933,9 +933,6 @@
 "project:external_webkit-jb-mr1/Tools/TestResultServer/templates/uploadform.html": [
 11
 ],
-"project:phpMyAdmin-4.0.4-english/browse_foreigners.php": [
-193
-],
 "project:phpMyAdmin-4.0.4-english/db_datadict.php": [
 165
 ],
@@ -1209,146 +1206,26 @@
 "project:phpMyAdmin-4.0.4-english/doc/html/intro.html": [
 107
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/DBQbe.class.php": [
-734,
-1295
-],
-"project:phpMyAdmin-4.0.4-english/libraries/DbSearch.class.php": [
-383
-],
-"project:phpMyAdmin-4.0.4-english/libraries/DisplayResults.class.php": [
-604,
-1739
-],
-"project:phpMyAdmin-4.0.4-english/libraries/Index.class.php": [
-555
-],
-"project:phpMyAdmin-4.0.4-english/libraries/StorageEngine.class.php": [
-220
-],
-"project:phpMyAdmin-4.0.4-english/libraries/TableSearch.class.php": [
-835,
-1047,
-1188
-],
-"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
-2867
-],
-"project:phpMyAdmin-4.0.4-english/libraries/config/FormDisplay.tpl.php": [
-98
-],
-"project:phpMyAdmin-4.0.4-english/libraries/display_change_password.lib.php": [
-47
-],
-"project:phpMyAdmin-4.0.4-english/libraries/insert_edit.lib.php": [
-1421,
-1563
-],
 "project:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
 280,
 300
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/operations.lib.php": [
-774
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/auth/AuthenticationConfig.class.php": [
-90
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportHtmlword.class.php": [
-209,
-273,
-376,
-481
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportXml.class.php": [
-463
-],
-"project:phpMyAdmin-4.0.4-english/libraries/relation.lib.php": [
-106
-],
-"project:phpMyAdmin-4.0.4-english/libraries/replication_gui.lib.php": [
-120,
-191
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_events.lib.php": [
-418
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_list.lib.php": [
-46
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_routines.lib.php": [
-932,
-963,
-1381,
-1573
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_triggers.lib.php": [
-348
-],
 "project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
-134,
-296
-],
-"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
-1564,
-2209,
-2375,
-2585
-],
-"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
-753
-],
-"project:phpMyAdmin-4.0.4-english/libraries/tbl_columns_definition_form.inc.php": [
-735,
-834
-],
-"project:phpMyAdmin-4.0.4-english/libraries/tcpdf/tcpdf.php": [
-21607,
-21785
+134
 ],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 183,
 236
 ],
-"project:phpMyAdmin-4.0.4-english/server_binlog.php": [
-125
-],
-"project:phpMyAdmin-4.0.4-english/server_collations.php": [
-37,
-49
-],
-"project:phpMyAdmin-4.0.4-english/server_databases.php": [
-196
-],
-"project:phpMyAdmin-4.0.4-english/server_engines.php": [
-39
-],
 "project:phpMyAdmin-4.0.4-english/server_plugins.php": [
 126,
 153
-],
-"project:phpMyAdmin-4.0.4-english/server_status.php": [
-131,
-208,
-380
-],
-"project:phpMyAdmin-4.0.4-english/server_status_monitor.php": [
-704
-],
-"project:phpMyAdmin-4.0.4-english/server_status_queries.php": [
-98
-],
-"project:phpMyAdmin-4.0.4-english/server_status_variables.php": [
-226
 ],
 "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
 132,
 155,
 163,
 185
-],
-"project:phpMyAdmin-4.0.4-english/sql.php": [
-1184
 ],
 "project:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
 118,
@@ -1357,30 +1234,8 @@
 "project:phpMyAdmin-4.0.4-english/tbl_indexes.php": [
 261
 ],
-"project:phpMyAdmin-4.0.4-english/tbl_printview.php": [
-127,
-290,
-297,
-346
-],
-"project:phpMyAdmin-4.0.4-english/tbl_relation.php": [
-377
-],
-"project:phpMyAdmin-4.0.4-english/tbl_structure.php": [
-244
-],
-"project:phpMyAdmin-4.0.4-english/tbl_tracking.php": [
-320,
-378,
-550,
-612,
-758
-],
 "project:phpMyAdmin-4.0.4-english/transformation_overview.php": [
 35
-],
-"project:phpMyAdmin-4.0.4-english/view_create.php": [
-154
 ],
 "project:phpMyAdmin-4.0.4-english/view_operations.php": [
 88

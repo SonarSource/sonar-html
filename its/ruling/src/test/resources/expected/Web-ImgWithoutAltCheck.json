@@ -1128,67 +1128,6 @@
 98,
 99
 ],
-"project:phpMyAdmin-4.0.4-english/browse_foreigners.php": [
-307
-],
-"project:phpMyAdmin-4.0.4-english/libraries/DisplayResults.class.php": [
-1698,
-5038
-],
-"project:phpMyAdmin-4.0.4-english/libraries/Theme.class.php": [
-454
-],
-"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
-2356,
-2864
-],
-"project:phpMyAdmin-4.0.4-english/libraries/gis/pma_gis_visualization.php": [
-259
-],
-"project:phpMyAdmin-4.0.4-english/libraries/navigation/NavigationHeader.class.php": [
-74,
-77
-],
-"project:phpMyAdmin-4.0.4-english/libraries/operations.lib.php": [
-29
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/auth/AuthenticationCookie.class.php": [
-150,
-153
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/transformations/abstract/InlineTransformationsPlugin.class.php": [
-53,
-61
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/transformations/abstract/TextImageLinkTransformationsPlugin.class.php": [
-52
-],
-"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
-2399
-],
-"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
-276,
-1355
-],
-"project:phpMyAdmin-4.0.4-english/libraries/tcpdf/tcpdf.php": [
-21607,
-21669,
-21675,
-21684
-],
-"project:phpMyAdmin-4.0.4-english/pmd_general.php": [
-153,
-191
-],
-"project:phpMyAdmin-4.0.4-english/server_binlog.php": [
-163
-],
-"project:phpMyAdmin-4.0.4-english/server_databases.php": [
-318
-],
-"project:phpMyAdmin-4.0.4-english/server_status_monitor.php": [
-566
-],
 "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/web/tests_viewer.html.erb": [
 94
 ],

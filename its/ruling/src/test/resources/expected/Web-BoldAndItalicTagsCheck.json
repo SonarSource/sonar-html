@@ -2803,171 +2803,17 @@
 "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/testcases/testcase-U_Linux_x86_64_en-US_AppleWebKit-534.6_Chrome-7.0.503.1-TEST-120813-8_72,56,24,8,0.html": [
 3
 ],
-"project:phpMyAdmin-4.0.4-english/changelog.php": [
-124
-],
-"project:phpMyAdmin-4.0.4-english/db_datadict.php": [
-52,
-204
-],
-"project:phpMyAdmin-4.0.4-english/db_printview.php": [
-135
-],
-"project:phpMyAdmin-4.0.4-english/js/messages.php": [
-80
-],
-"project:phpMyAdmin-4.0.4-english/libraries/DBQbe.class.php": [
-1322
-],
-"project:phpMyAdmin-4.0.4-english/libraries/DbSearch.class.php": [
-267,
-294,
-294,
-295,
-295
-],
-"project:phpMyAdmin-4.0.4-english/libraries/DisplayResults.class.php": [
-2341,
-5047
-],
-"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
-3380,
-3420
-],
-"project:phpMyAdmin-4.0.4-english/libraries/config/FormDisplay.class.php": [
-542
-],
-"project:phpMyAdmin-4.0.4-english/libraries/database_interface.lib.php": [
-137
-],
-"project:phpMyAdmin-4.0.4-english/libraries/display_export.lib.php": [
-211,
-249
-],
-"project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
-219,
-219,
-289
-],
-"project:phpMyAdmin-4.0.4-english/libraries/insert_edit.lib.php": [
-1184
-],
-"project:phpMyAdmin-4.0.4-english/libraries/navigation/NavigationTree.class.php": [
-815,
-900
-],
-"project:phpMyAdmin-4.0.4-english/libraries/operations.lib.php": [
-661,
-995
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/export/ExportSql.class.php": [
-90,
-280,
-391,
-403
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/import/ImportCsv.class.php": [
-64
-],
-"project:phpMyAdmin-4.0.4-english/libraries/plugins/import/ImportOds.class.php": [
-75,
-88,
-94
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_events.lib.php": [
-175
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_routines.lib.php": [
-366,
-1395
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_triggers.lib.php": [
-147
-],
-"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
-323,
-494,
-784,
-2114,
-2405,
-2847,
-2857,
-2865,
-2867,
-2871
-],
-"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
-1279,
-1363
-],
-"project:phpMyAdmin-4.0.4-english/libraries/tcpdf/tcpdf.php": [
-21607,
-21607
-],
 "project:phpMyAdmin-4.0.4-english/prefs_forms.php": [
 85
 ],
 "project:phpMyAdmin-4.0.4-english/prefs_manage.php": [
 308
 ],
-"project:phpMyAdmin-4.0.4-english/schema_edit.php": [
-36,
-42,
-48,
-53
-],
-"project:phpMyAdmin-4.0.4-english/server_collations.php": [
-59
-],
-"project:phpMyAdmin-4.0.4-english/server_databases.php": [
-322
-],
 "project:phpMyAdmin-4.0.4-english/server_plugins.php": [
 159
 ],
-"project:phpMyAdmin-4.0.4-english/server_replication.php": [
-219
-],
-"project:phpMyAdmin-4.0.4-english/server_status.php": [
-93,
-94,
-94,
-98,
-99,
-103,
-104,
-471
-],
-"project:phpMyAdmin-4.0.4-english/server_status_monitor.php": [
-521,
-659,
-667
-],
 "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
 158
-],
-"project:phpMyAdmin-4.0.4-english/tbl_indexes.php": [
-214,
-215
-],
-"project:phpMyAdmin-4.0.4-english/tbl_printview.php": [
-151
-],
-"project:phpMyAdmin-4.0.4-english/tbl_structure.php": [
-343
-],
-"project:phpMyAdmin-4.0.4-english/tbl_tracking.php": [
-337,
-339,
-356,
-358,
-407
-],
-"project:phpMyAdmin-4.0.4-english/transformation_overview.php": [
-26
-],
-"project:phpMyAdmin-4.0.4-english/view_create.php": [
-117
 ],
 "project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/dependencies/dependencies_viewer.html.erb": [
 43

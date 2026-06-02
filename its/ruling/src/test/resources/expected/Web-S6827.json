@@ -517,24 +517,6 @@
 "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/linkjump-4.html": [
 109
 ],
-"project:phpMyAdmin-4.0.4-english/changelog.php": [
-114,
-118
-],
-"project:phpMyAdmin-4.0.4-english/libraries/DbSearch.class.php": [
-375,
-473,
-486
-],
-"project:phpMyAdmin-4.0.4-english/libraries/navigation/NavigationHeader.class.php": [
-45
-],
-"project:phpMyAdmin-4.0.4-english/libraries/sql_query_form.lib.php": [
-244
-],
-"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
-2160
-],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/manual_measures/index.html.erb": [
 44
 ],

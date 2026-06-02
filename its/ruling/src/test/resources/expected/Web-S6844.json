@@ -113,15 +113,6 @@
 28,
 37
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/TableSearch.class.php": [
-1175
-],
-"project:phpMyAdmin-4.0.4-english/libraries/build_html_for_db.lib.php": [
-163
-],
-"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
-342
-],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 80,
 85,
@@ -137,7 +128,6 @@
 136,
 140,
 145,
-151,
 158,
 172,
 176

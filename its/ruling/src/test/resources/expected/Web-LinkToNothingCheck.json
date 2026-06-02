@@ -134,16 +134,6 @@
 8,
 9
 ],
-"project:phpMyAdmin-4.0.4-english/browse_foreigners.php": [
-284,
-296,
-312,
-324
-],
-"project:phpMyAdmin-4.0.4-english/db_export.php": [
-38,
-43
-],
 "project:phpMyAdmin-4.0.4-english/doc/html/config.html": [
 4816
 ],
@@ -187,37 +177,6 @@
 "project:phpMyAdmin-4.0.4-english/doc/html/vendors.html": [
 93
 ],
-"project:phpMyAdmin-4.0.4-english/libraries/DbSearch.class.php": [
-436,
-439
-],
-"project:phpMyAdmin-4.0.4-english/libraries/Header.class.php": [
-389
-],
-"project:phpMyAdmin-4.0.4-english/libraries/TableSearch.class.php": [
-1175
-],
-"project:phpMyAdmin-4.0.4-english/libraries/Util.class.php": [
-1364
-],
-"project:phpMyAdmin-4.0.4-english/libraries/replication_gui.lib.php": [
-35
-],
-"project:phpMyAdmin-4.0.4-english/libraries/rte/rte_routines.lib.php": [
-788,
-820
-],
-"project:phpMyAdmin-4.0.4-english/libraries/server_privileges.lib.php": [
-777,
-780
-],
-"project:phpMyAdmin-4.0.4-english/libraries/structure.lib.php": [
-342,
-1518
-],
-"project:phpMyAdmin-4.0.4-english/libraries/tbl_columns_definition_form.inc.php": [
-413
-],
 "project:phpMyAdmin-4.0.4-english/pmd_general.php": [
 80,
 85,
@@ -233,25 +192,9 @@
 136,
 140,
 145,
-151,
 158,
 172,
 176
-],
-"project:phpMyAdmin-4.0.4-english/server_export.php": [
-23,
-28
-],
-"project:phpMyAdmin-4.0.4-english/server_replication.php": [
-170,
-174,
-296,
-300,
-318
-],
-"project:phpMyAdmin-4.0.4-english/server_variables.php": [
-129,
-133
 ],
 "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
 115

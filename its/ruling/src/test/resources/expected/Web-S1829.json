@@ -2669,16 +2669,6 @@
 "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.7.2/src/index.html": [
 103
 ],
-"project:phpMyAdmin-4.0.4-english/changelog.php": [
-59,
-61,
-63,
-75,
-83,
-87,
-106,
-110
-],
 "project:phpMyAdmin-4.0.4-english/doc/html/config.html": [
 102,
 665,
@@ -2878,9 +2868,6 @@
 ],
 "project:phpMyAdmin-4.0.4-english/doc/html/vendors.html": [
 144
-],
-"project:phpMyAdmin-4.0.4-english/index.php": [
-563
 ],
 "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php": [
 270,
