@@ -679,6 +679,8 @@ class PageLexerTest {
     assertThat(nodes).extracting(Node::getCode).containsExactly(
       "<input value='<% if (c == '/') { out.println(\"x\"); } %>' />",
       "<p>", "after", "</p>");
+  }
+
   // ---------------------------------------------------------------------------
   // PHP embedded HTML extraction (pipeline integration)
   // ---------------------------------------------------------------------------
