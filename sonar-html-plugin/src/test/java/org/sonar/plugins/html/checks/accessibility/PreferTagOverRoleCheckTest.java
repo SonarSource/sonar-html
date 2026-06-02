@@ -16,6 +16,8 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -40,6 +42,81 @@ class PreferTagOverRoleCheckTest {
       .next().atLine(5).withMessage("Use <tbody> or <tfoot> or <thead> instead of the rowgroup role to ensure accessibility across all devices.")
       .next().atLine(6).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
       .next().atLine(7).withMessage("Use <header> instead of the banner role to ensure accessibility across all devices.")
+      .next().atLine(8).withMessage("Use <output> instead of the status role to ensure accessibility across all devices.")
+      .next().atLine(9).withMessage("Use <output> instead of the status role to ensure accessibility across all devices.")
+      .next().atLine(10).withMessage("Use <a> or <area> instead of the link role to ensure accessibility across all devices.")
       .consume();
+  }
+
+  @Test
+  void allowedRoles() {
+    var check = new PreferTagOverRoleCheck();
+    check.allowedRoles = " LINK , status ";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheck.html"),
+      check);
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
+      .next().atLine(2).withMessage("Use <button> or <input> instead of the button role to ensure accessibility across all devices.")
+      .next().atLine(3).withMessage("Use <h1> or <h2> or <h3> or <h4> or <h5> or <h6> instead of the heading role to ensure accessibility across all devices.")
+      .next().atLine(5).withMessage("Use <tbody> or <tfoot> or <thead> instead of the rowgroup role to ensure accessibility across all devices.")
+      .next().atLine(6).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
+      .next().atLine(7).withMessage("Use <header> instead of the banner role to ensure accessibility across all devices.")
+      .consume();
+  }
+
+  @Test
+  void allowedRolesOnlyMatchesFirstApplicableToken() {
+    var check = new PreferTagOverRoleCheck();
+    check.allowedRoles = "status";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheckFirstApplicableToken.html"),
+      check);
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
+      .next().atLine(3).withMessage("Use <a> or <area> instead of the link role to ensure accessibility across all devices.")
+      .consume();
+  }
+
+  @Test
+  void firstApplicableRoleWithoutEquivalentHtmlTagIsIgnored() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheckFirstApplicableToken.html"),
+      new PreferTagOverRoleCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
+      .next().atLine(2).withMessage("Use <output> instead of the status role to ensure accessibility across all devices.")
+      .next().atLine(3).withMessage("Use <a> or <area> instead of the link role to ensure accessibility across all devices.")
+      .consume();
+  }
+
+  @Test
+  void unknownAllowedRolesAreReportedAsAnalysisWarning() {
+    var check = new PreferTagOverRoleCheck();
+    check.allowedRoles = "checkbocx, status, totallyMadeUp";
+
+    TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheck.html"),
+      check);
+
+    assertThat(check.collectAnalysisWarnings())
+      .singleElement()
+      .asString()
+      .contains("checkbocx", "totallyMadeUp")
+      .doesNotContain("status");
+  }
+
+  @Test
+  void blankAllowedRolesProducesNoWarning() {
+    var check = new PreferTagOverRoleCheck();
+    check.allowedRoles = "";
+
+    TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheck.html"),
+      check);
+
+    assertThat(check.collectAnalysisWarnings()).isEmpty();
   }
 }
