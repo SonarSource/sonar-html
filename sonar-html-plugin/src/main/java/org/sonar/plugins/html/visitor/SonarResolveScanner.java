@@ -89,9 +89,6 @@ public class SonarResolveScanner extends DefaultNodeVisitor {
 
   private static String stripCommentDelimiters(CommentNode node) {
     String code = node.getCode();
-    if (node.isHtml()) {
-      return code.substring("<!--".length(), code.length() - "-->".length());
-    }
-    return code.substring("<%--".length(), code.length() - "--%>".length());
+    return code.substring(node.getStartDelimiter().length(), code.length() - node.getEndDelimiter().length());
   }
 }

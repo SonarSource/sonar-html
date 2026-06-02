@@ -24,6 +24,8 @@ package org.sonar.plugins.html.node;
 public class CommentNode extends Node {
 
   private boolean html;
+  private String startDelimiter;
+  private String endDelimiter;
 
   public CommentNode() {
     super(NodeType.COMMENT);
@@ -35,6 +37,22 @@ public class CommentNode extends Node {
 
   public void setHtml(boolean html) {
     this.html = html;
+  }
+
+  public String getStartDelimiter() {
+    return startDelimiter;
+  }
+
+  public void setStartDelimiter(String startDelimiter) {
+    this.startDelimiter = startDelimiter;
+  }
+
+  public String getEndDelimiter() {
+    return endDelimiter;
+  }
+
+  public void setEndDelimiter(String endDelimiter) {
+    this.endDelimiter = endDelimiter;
   }
 
   public boolean isServerSideInclude() {

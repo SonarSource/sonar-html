@@ -65,17 +65,12 @@ public class WhiteSpaceAroundCheck extends AbstractPageCheck {
 
   @Override
   public void comment(CommentNode node) {
-
-    if (node.isHtml()) {
-      if (node.isServerSideInclude()) {
-        return;
-      }
-      checkStartWhitespace(node, node.getCode(), "<!--");
-      checkEndWhitespace(node, node.getCode(), "-->");
-    } else {
-      checkStartWhitespace(node, node.getCode(), "<%--");
-      checkEndWhitespace(node, node.getCode(), "--%>");
+    if (node.isServerSideInclude()) {
+      return;
     }
+
+    checkStartWhitespace(node, node.getCode(), node.getStartDelimiter());
+    checkEndWhitespace(node, node.getCode(), node.getEndDelimiter());
   }
 
   @Override
