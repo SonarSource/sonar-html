@@ -22,9 +22,10 @@ potential financial and reputational losses.</p>
 <h2>How to fix it</h2>
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
-<p>Setting the <code>sandbox</code> property of <code>webPreferences</code> to false or adding the <code>nodeintegration</code> attribute will result in a
-webview that will not be sandboxed. For the <code>&lt;webview&gt;</code> tag, <code>nodeintegration</code> is a boolean attribute, so its presence enables
-Node.js integration even when written as <code>nodeintegration="false"</code>.</p>
+<p>Setting the <code>sandbox</code> property of <code>webPreferences</code> to false, adding the <code>nodeintegration</code> attribute, or enabling
+<code>nodeIntegration</code> in <code>webPreferences</code> will result in a webview that will not be sandboxed. For the <code>&lt;webview&gt;</code> tag,
+<code>nodeintegration</code> is a boolean attribute, so its presence enables Node.js integration even when written as
+<code>nodeintegration="false"</code>. Electron also treats a bare <code>nodeIntegration</code> entry in <code>webpreferences</code> as enabled.</p>
 <pre data-diff-id="11" data-diff-type="noncompliant">
 &lt;webview
     src="https://example.com/index.html"
@@ -54,8 +55,9 @@ Node.js integration even when written as <code>nodeintegration="false"</code>.</
 &lt;/webview&gt;
 </pre>
 <h3>How does this work?</h3>
-<p>In the compliant examples <code>sandbox</code> is explicitly set to its secure value and the <code>nodeintegration</code> attribute is omitted. It is
-also sufficient to not set any of these properties since they will default to secure values.</p>
+<p>In the compliant examples <code>sandbox</code> is explicitly set to its secure value, the <code>nodeintegration</code> attribute is omitted, and
+<code>nodeIntegration</code> is not enabled in <code>webPreferences</code>. It is also sufficient to not set any of these properties since they will
+default to secure values.</p>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>

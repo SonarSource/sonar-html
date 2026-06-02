@@ -17,7 +17,6 @@
 package org.sonar.plugins.html.checks.security;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import org.sonar.check.Rule;
@@ -29,7 +28,7 @@ import org.sonar.plugins.html.node.TagNode;
 public class WebviewSandboxingCheck extends AbstractWebviewCheck {
 
   private static final String MESSAGE = "Change this code to enable sandboxing.";
-  private static final Set<String> NODE_INTEGRATION_ENABLED_VALUES = Set.of("", "1", "on", "true", "yes");
+  private static final Set<String> NODE_INTEGRATION_ENABLED_VALUES = Set.of("1", "true", "yes");
   private static final Set<String> SANDBOX_DISABLED_VALUES = Set.of("false", "0", "no", "off");
 
   @Override
@@ -44,10 +43,6 @@ public class WebviewSandboxingCheck extends AbstractWebviewCheck {
   private void checkNodeIntegration(TagNode node) {
     Attribute nodeIntegration = getLiteralAttribute(node, "nodeintegration");
     if (nodeIntegration == null) {
-      return;
-    }
-    String value = nodeIntegration.getValue();
-    if (Helpers.isDynamicValue(value, getHtmlSourceCode())) {
       return;
     }
     createViolationOnAttribute(nodeIntegration, MESSAGE);
@@ -68,7 +63,7 @@ public class WebviewSandboxingCheck extends AbstractWebviewCheck {
       createViolationOnAttribute(webPreferences, MESSAGE);
       return;
     }
-    String nodeIntegration = prefs.get("nodeintegration");
+    String nodeIntegration = prefs.get("nodeIntegration");
     if (nodeIntegration != null && NODE_INTEGRATION_ENABLED_VALUES.contains(nodeIntegration)) {
       createViolationOnAttribute(webPreferences, MESSAGE);
     }
@@ -78,11 +73,21 @@ public class WebviewSandboxingCheck extends AbstractWebviewCheck {
     Map<String, String> entries = new HashMap<>();
     for (String entry : value.split(",")) {
       int eq = entry.indexOf('=');
-      if (eq <= 0) {
+      if (eq == 0) {
         continue;
       }
-      String key = entry.substring(0, eq).trim().toLowerCase(Locale.ROOT);
-      String val = entry.substring(eq + 1).trim().toLowerCase(Locale.ROOT);
+      String key;
+      String val;
+      if (eq < 0) {
+        key = entry.trim();
+        val = "true";
+      } else {
+        key = entry.substring(0, eq).trim();
+        val = entry.substring(eq + 1).trim();
+      }
+      if (key.isEmpty()) {
+        continue;
+      }
       entries.putIfAbsent(key, val);
     }
     return entries;
