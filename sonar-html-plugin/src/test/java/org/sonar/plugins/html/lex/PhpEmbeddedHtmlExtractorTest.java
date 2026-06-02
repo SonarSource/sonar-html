@@ -24,6 +24,7 @@ import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -457,6 +458,23 @@ class PhpEmbeddedHtmlExtractorTest {
       .filter(n -> n.getNodeType() == NodeType.TEXT)
       .anyMatch(n -> n.getCode().contains("${dynamic}"));
     assertThat(hasDynamicGap).isTrue();
+  }
+
+  @Test
+  void expandSurfacesMultiLinePlainLiteralWithCorrectEndPosition() {
+    // Real LF byte in the middle literal — the surfaced text node must reflect
+    // that it spans onto a second source line, not collapse to the start line.
+    String source = "<?php echo \"<a>\" . \"Hello\nWorld\" . \"</a>\"; ?>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(source));
+    TextNode helloWorld = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TEXT)
+      .map(n -> (TextNode) n)
+      .filter(n -> "Hello\nWorld".equals(n.getCode()))
+      .findFirst().orElse(null);
+    assertThat(helloWorld).isNotNull();
+    assertThat(helloWorld.getStartLinePosition()).isEqualTo(1);
+    assertThat(helloWorld.getEndLinePosition()).isEqualTo(2);
+    assertThat(helloWorld.getEndColumnPosition()).isEqualTo("World".length());
   }
 
   // ---------------------------------------------------------------------------

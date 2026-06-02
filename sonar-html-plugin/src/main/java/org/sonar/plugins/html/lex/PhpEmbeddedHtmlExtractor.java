@@ -510,8 +510,19 @@ final class PhpEmbeddedHtmlExtractor {
     text.setCode(value);
     text.setStartLinePosition(literal.lineOffset());
     text.setStartColumnPosition(literal.columnOffset());
-    text.setEndLinePosition(literal.lineOffset());
-    text.setEndColumnPosition(literal.columnOffset() + value.length());
+    // Count real newlines so a multi-line literal lands on the right end line.
+    int extraLines = 0;
+    int lastLineStart = 0;
+    for (int i = 0; i < value.length(); i++) {
+      if (value.charAt(i) == '\n') {
+        extraLines++;
+        lastLineStart = i + 1;
+      }
+    }
+    text.setEndLinePosition(literal.lineOffset() + extraLines);
+    text.setEndColumnPosition(extraLines == 0
+      ? literal.columnOffset() + value.length()
+      : value.length() - lastLineStart);
     return text;
   }
 
