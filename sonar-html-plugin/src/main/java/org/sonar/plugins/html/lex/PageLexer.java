@@ -71,7 +71,7 @@ public class PageLexer {
    * Void elements can't have any content
    * See https://html.spec.whatwg.org/multipage/syntax.html#void-elements
    */
-  private static final Set<String> VOID_ELEMENTS = new HashSet<>(Arrays.asList("area", "base", "br", "col", "embed",
+  static final Set<String> VOID_ELEMENTS = new HashSet<>(Arrays.asList("area", "base", "br", "col", "embed",
     "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"));
 
   private static final Set<String> METADATA_CONTENT = new HashSet<>(Arrays.asList("base", "link", "meta", "noscript",

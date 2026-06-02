@@ -66,6 +66,7 @@ final class PhpEmbeddedHtmlExtractor {
   }
 
   private static void spliceEmbedded(DirectiveNode directive, List<Node> result) {
+    List<Node> directiveEmbedded = new ArrayList<>();
     boolean previousSpliced = false;
     for (StringLiteral literal : extractLiterals(directive)) {
       String sanitized = literal.interpolated()
@@ -79,14 +80,18 @@ final class PhpEmbeddedHtmlExtractor {
         // for any non-literal PHP expression that produced runtime content;
         // record a synthetic dynamic-marker text node so that content-sensitive
         // checks (e.g. AnchorsHaveContentCheck) see non-blank content.
-        result.add(dynamicGapText(directive));
+        directiveEmbedded.add(dynamicGapText(directive));
       }
       List<Node> embedded = reLex(sanitized);
       rebasePositions(embedded, literal);
-      balanceUnclosedTags(embedded);
-      result.addAll(embedded);
+      directiveEmbedded.addAll(embedded);
       previousSpliced = true;
     }
+    // Balance across all literals in the directive, not per literal, so a tag
+    // opened in one literal and closed in another (with a dynamic gap between)
+    // does not get a synthetic close inserted between them.
+    balanceUnclosedTags(directiveEmbedded);
+    result.addAll(directiveEmbedded);
   }
 
   static boolean isPhpDirective(DirectiveNode node) {
@@ -396,7 +401,9 @@ final class PhpEmbeddedHtmlExtractor {
         if (!openStack.isEmpty() && openStack.peek().equalsElementName(tag.getNodeName())) {
           openStack.pop();
         }
-      } else {
+      } else if (!isVoidElement(tag)) {
+        // Void elements (br, img, input, ...) carry no content and cannot have
+        // a matching close tag, so they must not contribute to the open stack.
         openStack.push(tag);
       }
     }
@@ -404,6 +411,10 @@ final class PhpEmbeddedHtmlExtractor {
       TagNode open = openStack.pop();
       embedded.add(syntheticEndTag(open));
     }
+  }
+
+  private static boolean isVoidElement(TagNode tag) {
+    return PageLexer.VOID_ELEMENTS.contains(tag.getNodeName().toLowerCase(Locale.ROOT));
   }
 
   private static TagNode syntheticEndTag(TagNode open) {

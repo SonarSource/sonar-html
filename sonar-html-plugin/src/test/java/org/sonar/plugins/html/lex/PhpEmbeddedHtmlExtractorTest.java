@@ -351,6 +351,63 @@ class PhpEmbeddedHtmlExtractorTest {
   }
 
   @Test
+  void expandDoesNotCloseOpenTagBetweenConcatenatedLiterals() {
+    // The directive-level balance must NOT fabricate a `</a>` between the
+    // opening fragment and the gap text, otherwise the real `</a>` from the
+    // second literal becomes orphan and the first `<a>` is left empty.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"<a href='x'>\" . $label . \"</a>\"; ?>"));
+
+    List<Node> tagsAndText = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG || n.getNodeType() == NodeType.TEXT)
+      .filter(n -> {
+        if (n.getNodeType() == NodeType.TEXT) {
+          return n.getCode().contains("${dynamic}");
+        }
+        TagNode t = (TagNode) n;
+        return "a".equalsIgnoreCase(t.getNodeName());
+      })
+      .toList();
+
+    assertThat(tagsAndText).hasSize(3);
+    assertThat(((TagNode) tagsAndText.get(0)).isEndElement()).isFalse();
+    assertThat(tagsAndText.get(1).getNodeType()).isEqualTo(NodeType.TEXT);
+    assertThat(((TagNode) tagsAndText.get(2)).isEndElement()).isTrue();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Void elements never get a synthetic close tag
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void voidElementInLiteralProducesNoSyntheticEndTag() {
+    // `<br>` is a void HTML element. The balance step must not push it onto
+    // the open stack and must therefore not append `</br>`.
+    List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"<br>\"; ?>"));
+    List<TagNode> brTags = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> "br".equalsIgnoreCase(t.getNodeName()))
+      .toList();
+    assertThat(brTags).hasSize(1);
+    assertThat(brTags.get(0).isEndElement()).isFalse();
+  }
+
+  @Test
+  void voidElementsListIsRecognizedByBalancer() {
+    // A literal with several void elements must produce exactly those tags
+    // and nothing else — no synthetic closes for any of them.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"<img><input><hr>\"; ?>"));
+    long syntheticCloses = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(TagNode::isEndElement)
+      .count();
+    assertThat(syntheticCloses).isZero();
+  }
+
+  @Test
   void expandDoesNotInsertGapForLoneLiteral() {
     List<Node> nodes = new PageLexer().parse(new StringReader("<?php echo \"<div></div>\"; ?>"));
     boolean hasDynamicGap = nodes.stream()
