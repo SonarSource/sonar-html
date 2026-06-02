@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
@@ -40,7 +41,8 @@ final class PhpEmbeddedHtmlExtractor {
 
   private static final Pattern INTERPOLATION = Pattern.compile(
     "\\{\\$[^}]+\\}|\\$\\{?[a-zA-Z_]\\w*\\}?");
-  private static final Pattern EMBEDDED_HTML = Pattern.compile("<\\s*[/a-zA-Z]");
+  // Accept tags (<a, </a), DOCTYPE declarations (<!DOCTYPE), and HTML comments (<!--).
+  private static final Pattern EMBEDDED_HTML = Pattern.compile("<\\s*[/!a-zA-Z]");
   private static final String DYNAMIC_PLACEHOLDER = "${dynamic}";
   // initial slack for embedded nodes per directive
   private static final int EXTRA_CAPACITY = 8;
@@ -599,7 +601,9 @@ final class PhpEmbeddedHtmlExtractor {
   private static void balanceUnclosedTags(List<Node> embedded) {
     Deque<TagNode> openStack = new ArrayDeque<>();
     for (Node node : embedded) {
-      if (node instanceof TagNode tag && !tag.hasEnd()) {
+      // DirectiveNode extends TagNode but its nodeType is DIRECTIVE; only
+      // real element tags should contribute to the open-stack balancing.
+      if (node.getNodeType() == NodeType.TAG && node instanceof TagNode tag && !tag.hasEnd()) {
         updateOpenStack(openStack, tag);
       }
     }

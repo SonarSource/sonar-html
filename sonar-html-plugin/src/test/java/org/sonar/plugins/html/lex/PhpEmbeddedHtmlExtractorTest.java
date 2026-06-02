@@ -463,6 +463,35 @@ class PhpEmbeddedHtmlExtractorTest {
   }
 
   @Test
+  void expandSurfacesDoctypeDirectiveFromPhpLiteral() {
+    // The DOCTYPE literal must reach the merged AST as a DirectiveNode so that
+    // DoctypePresenceCheck (and similar) see it before the <html> tag from the
+    // following literal. Also, balancing must not synthesise a </DOCTYPE> close
+    // — DirectiveNode extends TagNode but its nodeType is DIRECTIVE.
+    String source = "<?php\n$retval  = \"<!DOCTYPE HTML>\";\n$retval .= \"<html>\";\n?>";
+    List<Node> nodes = new PageLexer().parse(new StringReader(source));
+    boolean hasDoctype = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.DIRECTIVE)
+      .anyMatch(n -> "DOCTYPE".equalsIgnoreCase(((org.sonar.plugins.html.node.DirectiveNode) n).getNodeName()));
+    boolean hasSyntheticDoctypeClose = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .anyMatch(t -> "DOCTYPE".equalsIgnoreCase(t.getNodeName()));
+    assertThat(hasDoctype).isTrue();
+    assertThat(hasSyntheticDoctypeClose).isFalse();
+  }
+
+  @Test
+  void expandSurfacesHtmlCommentFromPhpLiteral() {
+    // An HTML comment hidden in a PHP literal must reach the merged AST so
+    // comment-sensitive checks have a chance to see it.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"<!-- hello -->\"; ?>"));
+    boolean hasComment = nodes.stream().anyMatch(n -> n.getNodeType() == NodeType.COMMENT);
+    assertThat(hasComment).isTrue();
+  }
+
+  @Test
   void expandSurfacesMultiLinePlainLiteralWithCorrectEndPosition() {
     // Real LF byte in the middle literal — the surfaced text node must reflect
     // that it spans onto a second source line, not collapse to the start line.
