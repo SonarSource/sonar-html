@@ -1,0 +1,54 @@
+<p>The <code>webSecurity</code> flag in Electron applications controls the security settings for web content.</p>
+<h2>Why is this an issue?</h2>
+<p>When this flag is disabled, it allows the application to load and execute content from any source, including potentially unsafe ones. This
+vulnerability can be exploited when a user interacts with untrusted web content, such as clicking on a malicious link or opening a compromised
+webpage. The attacker can then inject harmful scripts or code into the application, bypassing the usual security restrictions.</p>
+<h3>What is the potential impact?</h3>
+<p>When the <code>webSecurity</code> flag is disabled, it opens the door to various types of attacks that can compromise the integrity and security of
+the application and its users.</p>
+<h4>Code Execution</h4>
+<p>When the <code>webSecurity</code> flag is off, attackers can inject malicious scripts into the application and execute arbitrary code. These
+scripts can steal sensitive information such as user credentials or sessions, personal data, and financial information. This can lead to identity
+theft and financial loss for users.</p>
+<h4>Phishing Attacks</h4>
+<p>With the <code>webSecurity</code> flag disabled, attackers can create convincing phishing pages within the application. These pages can trick users
+into providing sensitive information, believing they are interacting with a legitimate part of the application.</p>
+<h2>How to fix it</h2>
+<h3>Code examples</h3>
+<p>To fix the <code>webSecurity</code> flag vulnerability in Electron applications, you should not use the <code>disablewebsecurity</code> attribute
+for <code>webview</code> tags. The security restrictions on web content loaded by your application are enabled per default.</p>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="11" data-diff-type="noncompliant">
+&lt;webview disablewebsecurity src="page.html"&gt;&lt;/webview&gt;&lt;!-- noncompliant --&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="11" data-diff-type="compliant">
+&lt;webview src="page.html"&gt;&lt;/webview&gt;
+</pre>
+<h3>How does this work?</h3>
+<p>The compliant example does not disable <code>websecurity</code>. The default setting is secure.</p>
+<h3>Going the extra mile</h3>
+<p>A Content Security Policy helps prevent the injection of malicious content. Define a CSP that restricts the sources of content that can be loaded
+by your application.</p>
+<pre>
+mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) =&gt; {
+  callback({
+    responseHeaders: {
+      ...details.responseHeaders,
+      'Content-Security-Policy': ["default-src 'self'; script-src 'self' https://example.com"]
+    }
+  });
+});
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li>Electron Documentation - <a href="https://www.electronjs.org/docs/latest/tutorial/security#6-do-not-disable-websecurity">Security - Do not
+  disable webSecurity</a></li>
+  <li>Electron Documentation - <a href="https://www.electronjs.org/docs/latest/api/browser-window#new-browserwindowoptions">BrowserWindow -
+  Options</a></li>
+  <li>Electron Documentation - <a href="https://www.electronjs.org/docs/latest/api/webview-tag#disablewebsecurity">disablewebsecurity</a></li>
+  <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">Content Security Policy
+  (CSP)</a></li>
+</ul>
+

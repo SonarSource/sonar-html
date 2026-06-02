@@ -25,6 +25,7 @@ public class Attribute {
   private char quoteChar;
   private String value;
   private int line;
+  private int startColumn = -1;
 
   public Attribute(String name) {
     this(name, "");
@@ -69,6 +70,14 @@ public class Attribute {
 
   public void setLine(int line) {
     this.line = line;
+  }
+
+  public int getStartColumn() {
+    return startColumn;
+  }
+
+  public void setStartColumn(int startColumn) {
+    this.startColumn = startColumn;
   }
 
 }

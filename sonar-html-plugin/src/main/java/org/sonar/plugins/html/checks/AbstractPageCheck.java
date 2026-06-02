@@ -118,6 +118,16 @@ public abstract class AbstractPageCheck extends DefaultNodeVisitor {
     );
   }
 
+  protected final void createViolationOnAttribute(Attribute attribute, String message) {
+    int startColumn = attribute.getStartColumn();
+    if (startColumn < 0) {
+      createViolation(attribute.getLine(), message);
+      return;
+    }
+    int line = attribute.getLine();
+    createViolation(line, startColumn, line, startColumn + attribute.getName().length(), message);
+  }
+
   public final void setRuleKey(RuleKey ruleKey) {
     this.ruleKey = ruleKey;
   }

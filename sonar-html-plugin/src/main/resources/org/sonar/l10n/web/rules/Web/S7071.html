@@ -1,0 +1,71 @@
+<h2>Why is this an issue?</h2>
+<p>Chromium uses process sandboxing to separate components that are part of its attack surface from the rest of the application. Since Electron uses
+Chromium internally, the same sandboxing principle is used here for the renderers and for preload scripts.</p>
+<p>Renderer sandboxing is a critical component of the security model of Electron. Within the renderer, it is only possible to access a limited subset
+of APIs. Any privileged actions, e.g. filesystem interactions or spawning subprocesses, have to be executed through IPC with the main process. If
+renderer sandboxing is disabled, then an attacker who gains code execution within the renderer (for example through XSS) can pivot this easily into
+file system access and RCE.</p>
+<h3>What is the potential impact?</h3>
+<p>If sandboxing is not enabled in an Electron application, the potential impact can be severe and multifaceted:</p>
+<h4>Security Breaches</h4>
+<p>Malicious code running within the application can gain unrestricted access to system resources, leading to unauthorized data access, data
+exfiltration, or even complete system compromise.</p>
+<h4>Data Integrity</h4>
+<p>Without sandboxing, there is a higher risk of data corruption or manipulation, as malicious scripts can interfere with the application’s data
+handling processes.</p>
+<h4>User Privacy</h4>
+<p>Sensitive user information, such as personal data, credentials, and other private information, can be exposed to unauthorized access, leading to
+privacy violations.</p>
+<h4>Reputation Damage</h4>
+<p>Security incidents can lead to a loss of user trust and damage the reputation of the organization responsible for the application, resulting in
+potential financial and reputational losses.</p>
+<h2>How to fix it</h2>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<p>Setting the <code>sandbox</code> property of <code>webPreferences</code> to false, adding the <code>nodeintegration</code> attribute, or enabling
+<code>nodeIntegration</code> in <code>webPreferences</code> will result in a webview that will not be sandboxed. For the <code>&lt;webview&gt;</code> tag,
+<code>nodeintegration</code> is a boolean attribute, so its presence enables Node.js integration even when written as
+<code>nodeintegration="false"</code>. Electron also treats a bare <code>nodeIntegration</code> entry in <code>webpreferences</code> as enabled.</p>
+<pre data-diff-id="11" data-diff-type="noncompliant">
+&lt;webview
+    src="https://example.com/index.html"
+    nodeintegration="true"
+    &gt;
+&lt;/webview&gt;&lt;!-- Noncompliant --&gt;
+</pre>
+<pre data-diff-id="12" data-diff-type="noncompliant">
+&lt;webview
+    src="https://example.com/index.html"
+    webpreferences="sandbox=false"
+    &gt;
+&lt;/webview&gt;&lt;!-- Noncompliant --&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="11" data-diff-type="compliant">
+&lt;webview
+    src="https://example.com/index.html"
+    &gt;
+&lt;/webview&gt;
+</pre>
+<pre data-diff-id="12" data-diff-type="compliant">
+&lt;webview
+    src="https://example.com/index.html"
+    webpreferences="sandbox=true"
+    &gt;
+&lt;/webview&gt;
+</pre>
+<h3>How does this work?</h3>
+<p>In the compliant examples <code>sandbox</code> is explicitly set to its secure value, the <code>nodeintegration</code> attribute is omitted, and
+<code>nodeIntegration</code> is not enabled in <code>webPreferences</code>. It is also sufficient to not set any of these properties since they will
+default to secure values.</p>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li>Electron Documentation - <a href="https://www.electronjs.org/docs/latest/tutorial/sandbox">Process Sandboxing</a></li>
+  <li>Electron Documentation - <a
+  href="https://www.electronjs.org/docs/latest/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content">Security - Do not enable
+  NodeJS integration for remote content</a></li>
+  <li>Electron Documentation - <a href="https://www.electronjs.org/docs/latest/tutorial/security#4-enable-process-sandboxing">Security - Enable
+  process sandboxing</a></li>
+  <li>Electron Documentation - <a href="https://www.electronjs.org/docs/latest/api/webview-tag#nodeintegration">Webview tag - nodeintegration</a></li>
+</ul>
