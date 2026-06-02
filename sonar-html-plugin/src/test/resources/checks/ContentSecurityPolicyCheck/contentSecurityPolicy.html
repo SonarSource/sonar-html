@@ -1,0 +1,59 @@
+<!-- Compliant: no CSP meta tag at all -->
+<meta charset="utf-8">
+
+<!-- Compliant: not a CSP http-equiv -->
+<meta http-equiv="refresh" content="*">
+
+<!-- Compliant: CSP without any forbidden token -->
+<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; default-src 'self'; img-src data: https:; object-src 'none'; script-src 'self' 'sha256-RFWPLDbv2BY+rCkDzsE+0fr8ylGr2R2faWMhq4lfEQc='; style-src 'self'; upgrade-insecure-requests;">
+
+<!-- Compliant: wasm-unsafe-eval is allowed (required for client-side Blazor) -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'wasm-unsafe-eval';">
+
+<!-- Compliant: token-like substring that is NOT the actual unsafe token -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'foo-unsafe-eval-bar';">
+
+<!-- Compliant: case-insensitive Content-Security-Policy + benign content -->
+<meta http-equiv="content-security-policy" content="default-src 'self';">
+
+<!-- Compliant: missing content attribute -->
+<meta http-equiv="Content-Security-Policy">
+
+<!-- Compliant: 'unsafe-inline' as a substring of a host source, not the keyword token -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.example.com/unsafe-inline.js;">
+
+<!-- Compliant: wildcards inside frame-ancestors/sandbox/report-uri/report-to are ignored when delivered via <meta> -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-ancestors *; sandbox allow-* allow-scripts; report-uri /reports/*.log; report-to default-endpoint;">
+
+<!-- Compliant: 'unsafe-*' tokens in report-to / trusted-types are endpoint/policy names, not source keywords -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; report-to unsafe-inline; trusted-types unsafe-eval policy-a;">
+
+<!-- Noncompliant: wildcard in source list -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' '*.example.com';">
+
+<!-- Noncompliant: 'unsafe-inline' -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+
+<!-- Noncompliant: 'unsafe-hashes' -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-hashes';">
+
+<!-- Noncompliant: 'unsafe-eval' (and not wasm-unsafe-eval) -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval';">
+
+<!-- Noncompliant x2: bare '*' AND 'unsafe-inline' raised separately -->
+<meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'unsafe-inline';">
+
+<!-- Noncompliant x4: all four token types present -->
+<meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'unsafe-inline' 'unsafe-hashes' 'unsafe-eval';">
+
+<!-- Noncompliant: case-insensitive token detection -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'UNSAFE-INLINE';">
+
+<!-- Compliant: Content-Security-Policy-Report-Only is ignored by the browser in meta delivery (CSP3 spec) -->
+<meta http-equiv="Content-Security-Policy-Report-Only" content="script-src 'self' 'unsafe-inline';">
+
+<!-- Compliant: dynamic JSP-style value is skipped -->
+<meta http-equiv="Content-Security-Policy" content="<%= csp %>">
+
+<!-- Compliant: dynamic Mustache/Vue-style value is skipped -->
+<meta http-equiv="Content-Security-Policy" content="{{ csp }}">
