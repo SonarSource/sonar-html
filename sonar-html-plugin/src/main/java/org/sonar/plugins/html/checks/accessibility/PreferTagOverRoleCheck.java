@@ -19,12 +19,9 @@ package org.sonar.plugins.html.checks.accessibility;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +44,9 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
   static final String UNKNOWN_ALLOWED_ROLE_WARNING =
     "Rule S6819 \"allowedRoles\" parameter contains unknown ARIA roles: %s. These entries will have no effect.";
 
+  private static final String UNKNOWN_ALLOWED_ROLE_LOG_MESSAGE =
+    "Rule S6819 \"allowedRoles\" parameter contains unknown ARIA roles: {}. These entries will have no effect.";
+
   @RuleProperty(
     key = "allowedRoles",
     description = "Comma-separated list of ARIA roles to allow on HTML elements even when an equivalent HTML tag exists. " +
@@ -55,7 +55,7 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
   public String allowedRoles = DEFAULT_ALLOWED_ROLES;
 
   private String parsedAllowedRolesSource;
-  private Set<AriaRole> allowedRolesCache = Set.of();
+  private EnumSet<AriaRole> allowedRolesCache = EnumSet.noneOf(AriaRole.class);
   private List<String> unknownAllowedRoles = List.of();
 
   @Override
@@ -123,11 +123,11 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
     }
     parsedAllowedRolesSource = current;
     if (current.isBlank()) {
-      allowedRolesCache = Set.of();
+      allowedRolesCache = EnumSet.noneOf(AriaRole.class);
       unknownAllowedRoles = List.of();
       return;
     }
-    Set<AriaRole> known = new LinkedHashSet<>();
+    EnumSet<AriaRole> known = EnumSet.noneOf(AriaRole.class);
     List<String> unknown = new ArrayList<>();
     for (String raw : trimSplitCommaSeparatedList(current)) {
       String normalized = raw.toLowerCase(Locale.ROOT);
@@ -138,10 +138,12 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
         known.add(role);
       }
     }
-    allowedRolesCache = known.isEmpty() ? Set.of() : Collections.unmodifiableSet(known);
+    allowedRolesCache = known;
     if (!unknown.isEmpty()) {
-      unknownAllowedRoles = Collections.unmodifiableList(unknown);
-      LOG.warn(String.format(UNKNOWN_ALLOWED_ROLE_WARNING, String.join(", ", unknown)));
+      unknownAllowedRoles = List.copyOf(unknown);
+      if (LOG.isWarnEnabled()) {
+        LOG.warn(UNKNOWN_ALLOWED_ROLE_LOG_MESSAGE, String.join(", ", unknown));
+      }
     } else {
       unknownAllowedRoles = List.of();
     }
