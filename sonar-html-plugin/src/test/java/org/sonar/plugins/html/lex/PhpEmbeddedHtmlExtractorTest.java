@@ -480,4 +480,133 @@ class PhpEmbeddedHtmlExtractorTest {
     List<StringLiteral> literals = PhpEmbeddedHtmlExtractor.extractLiterals(node);
     assertThat(literals).isEmpty();
   }
+
+  // ---------------------------------------------------------------------------
+  // Multi-line literals with deeply nested HTML
+  // ---------------------------------------------------------------------------
+
+  @Test
+  void doubleQuotedMultiLineLiteralReportsNestedTagsOnRightLines() {
+    // Five levels of nesting spread across distinct source lines. The opening
+    // `"` sits on line 1, the first real newline puts <div> on line 2, and so
+    // on. The implementation tracks real source newlines inside the literal so
+    // each rebased tag must land on its source line.
+    String source =
+        "<?php echo \"\n"          // line 1
+      + "<div>\n"                  // line 2
+      + "  <section>\n"            // line 3
+      + "    <article>\n"          // line 4
+      + "      <p>\n"              // line 5
+      + "        <span>text</span>\n" // line 6
+      + "      </p>\n"             // line 7
+      + "    </article>\n"         // line 8
+      + "  </section>\n"           // line 9
+      + "</div>\n"                 // line 10
+      + "\"; ?>";
+
+    List<Node> nodes = new PageLexer().parse(new StringReader(source));
+
+    assertThat(openTagLine(nodes, "div")).isEqualTo(2);
+    assertThat(openTagLine(nodes, "section")).isEqualTo(3);
+    assertThat(openTagLine(nodes, "article")).isEqualTo(4);
+    assertThat(openTagLine(nodes, "p")).isEqualTo(5);
+    assertThat(openTagLine(nodes, "span")).isEqualTo(6);
+  }
+
+  @Test
+  void doubleQuotedMultiLineLiteralPreservesParentChainAcrossNestedTags() {
+    String source =
+        "<?php echo \"\n"
+      + "<div>\n"
+      + "  <section>\n"
+      + "    <article>\n"
+      + "      <p>\n"
+      + "        <span>text</span>\n"
+      + "      </p>\n"
+      + "    </article>\n"
+      + "  </section>\n"
+      + "</div>\n"
+      + "\"; ?>";
+
+    List<Node> nodes = new PageLexer().parse(new StringReader(source));
+
+    TagNode span = openTag(nodes, "span");
+    assertThat(span).isNotNull();
+    assertThat(span.getParent()).isNotNull();
+    assertThat(span.getParent().getNodeName()).isEqualToIgnoringCase("p");
+    assertThat(span.getParent().getParent().getNodeName()).isEqualToIgnoringCase("article");
+    assertThat(span.getParent().getParent().getParent().getNodeName()).isEqualToIgnoringCase("section");
+    assertThat(span.getParent().getParent().getParent().getParent().getNodeName()).isEqualToIgnoringCase("div");
+    assertThat(span.getParent().getParent().getParent().getParent().getParent()).isNull();
+  }
+
+  @Test
+  void heredocMultiLineBodyReportsNestedTagsOnRightLines() {
+    // The directive sits at line 1, `<<<EOT\n` ends line 2, so the body opens
+    // at line 3. Five levels of nesting beneath <div> span lines 3 to 7.
+    String code =
+        "<?php\n"                      // line 1
+      + "$x = <<<EOT\n"                // line 2
+      + "<div>\n"                      // line 3
+      + "  <section>\n"                // line 4
+      + "    <article>\n"              // line 5
+      + "      <p>\n"                  // line 6
+      + "        <span>text</span>\n"  // line 7
+      + "      </p>\n"                 // line 8
+      + "    </article>\n"             // line 9
+      + "  </section>\n"               // line 10
+      + "</div>\n"                     // line 11
+      + "EOT;\n"
+      + "?>";
+
+    List<Node> nodes = new PageLexer().parse(new StringReader(code));
+
+    assertThat(openTagLine(nodes, "div")).isEqualTo(3);
+    assertThat(openTagLine(nodes, "section")).isEqualTo(4);
+    assertThat(openTagLine(nodes, "article")).isEqualTo(5);
+    assertThat(openTagLine(nodes, "p")).isEqualTo(6);
+    assertThat(openTagLine(nodes, "span")).isEqualTo(7);
+  }
+
+  @Test
+  void heredocMultiLineBodyPreservesParentChainAcrossNestedTags() {
+    String code =
+        "<?php\n"
+      + "$x = <<<EOT\n"
+      + "<div>\n"
+      + "  <section>\n"
+      + "    <article>\n"
+      + "      <p>\n"
+      + "        <span>text</span>\n"
+      + "      </p>\n"
+      + "    </article>\n"
+      + "  </section>\n"
+      + "</div>\n"
+      + "EOT;\n"
+      + "?>";
+
+    List<Node> nodes = new PageLexer().parse(new StringReader(code));
+
+    TagNode span = openTag(nodes, "span");
+    assertThat(span).isNotNull();
+    assertThat(span.getParent().getNodeName()).isEqualToIgnoringCase("p");
+    assertThat(span.getParent().getParent().getNodeName()).isEqualToIgnoringCase("article");
+    assertThat(span.getParent().getParent().getParent().getNodeName()).isEqualToIgnoringCase("section");
+    assertThat(span.getParent().getParent().getParent().getParent().getNodeName()).isEqualToIgnoringCase("div");
+  }
+
+  private static TagNode openTag(List<Node> nodes, String name) {
+    return nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TAG)
+      .map(n -> (TagNode) n)
+      .filter(t -> name.equalsIgnoreCase(t.getNodeName()))
+      .filter(t -> !t.isEndElement())
+      .findFirst().orElse(null);
+  }
+
+  private static int openTagLine(List<Node> nodes, String name) {
+    TagNode tag = openTag(nodes, name);
+    assertThat(tag).as("open <%s> tag", name).isNotNull();
+    return tag.getStartLinePosition();
+  }
 }
