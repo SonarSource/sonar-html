@@ -32,10 +32,10 @@ public class ContentSecurityPolicyCheck extends AbstractPageCheck {
   private static final String MESSAGE = "Make sure allowing %s in this Content Security Policy directive is safe here.";
 
   // A Razor expression starts at an unescaped '@' that begins an identifier, a parenthesised expression,
-  // a code block, or a comment. The lookbehind excludes '@' preceded by an identifier char so that emails
-  // (security@example.com) and version specifiers (pkg@1.0.0) are not mistaken for expressions. Kept local
-  // because Helpers.RAZOR_EXPRESSION is intentionally broader for short-token attributes (lang, role, id).
-  private static final Pattern RAZOR_EXPRESSION_IN_CONTENT = Pattern.compile("(?<![\\w@])@(?!@)[A-Za-z_({*]");
+  // a code block, or a comment. The lookbehind excludes '@' preceded by an identifier char (emails like
+  // security@example.com, version specifiers like pkg@1.0.0) and by '/' (URL path segments like
+  // cdn.example.com/@scope/pkg.js). Kept local because Helpers.RAZOR_EXPRESSION is intentionally broader.
+  private static final Pattern RAZOR_EXPRESSION_IN_CONTENT = Pattern.compile("(?<![\\w@/])@(?!@)[A-Za-z_({*]");
 
   // Directives the user-agent ignores when CSP is delivered via <meta>; see W3C CSP3 §"the meta element".
   // Tokens inside them have no security effect and must not raise issues here.
@@ -89,8 +89,7 @@ public class ContentSecurityPolicyCheck extends AbstractPageCheck {
   }
 
   private static boolean isCspHeader(String httpEquiv) {
-    return "Content-Security-Policy".equalsIgnoreCase(httpEquiv)
-      || "Content-Security-Policy-Report-Only".equalsIgnoreCase(httpEquiv);
+    return "Content-Security-Policy".equalsIgnoreCase(httpEquiv);
   }
 
   private boolean isDynamicCspValue(String value) {

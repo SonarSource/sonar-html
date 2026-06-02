@@ -12,3 +12,6 @@
 
 <!-- Noncompliant: literal '@' inside a version specifier must not be mistaken for a Razor expression -->
 <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.example.com/lib@1.2.3/file.js 'unsafe-eval';">
+
+<!-- Noncompliant: '@' inside a URL path segment (scoped package) must not be mistaken for a Razor expression -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.example.com/@scope/pkg.js 'unsafe-inline';">

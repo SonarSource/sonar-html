@@ -49,7 +49,7 @@
 <!-- Noncompliant: case-insensitive token detection -->
 <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'UNSAFE-INLINE';">
 
-<!-- Noncompliant: Content-Security-Policy-Report-Only carries the same risk (used during rollouts) -->
+<!-- Compliant: Content-Security-Policy-Report-Only is ignored by the browser in meta delivery (CSP3 spec) -->
 <meta http-equiv="Content-Security-Policy-Report-Only" content="script-src 'self' 'unsafe-inline';">
 
 <!-- Compliant: dynamic JSP-style value is skipped -->

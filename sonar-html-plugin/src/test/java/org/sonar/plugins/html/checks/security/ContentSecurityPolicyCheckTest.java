@@ -51,7 +51,6 @@ class ContentSecurityPolicyCheckTest {
       .next().atLine(47).withMessage(UNSAFE_INLINE)
       .next().atLine(47).withMessage(WILDCARD)
       .next().atLine(50).withMessage(UNSAFE_INLINE)
-      .next().atLine(53).withMessage(UNSAFE_INLINE)
       .noMore();
   }
 
@@ -65,6 +64,7 @@ class ContentSecurityPolicyCheckTest {
       .next().atLine(8).withMessage(UNSAFE_INLINE)
       .next().atLine(11).withMessage(UNSAFE_INLINE)
       .next().atLine(14).withMessage(UNSAFE_EVAL)
+      .next().atLine(17).withMessage(UNSAFE_INLINE)
       .noMore();
   }
 
