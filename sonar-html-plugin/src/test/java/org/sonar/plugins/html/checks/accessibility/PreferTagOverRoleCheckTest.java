@@ -81,6 +81,18 @@ class PreferTagOverRoleCheckTest {
   }
 
   @Test
+  void firstApplicableRoleWithoutEquivalentHtmlTagIsIgnored() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheckFirstApplicableToken.html"),
+      new PreferTagOverRoleCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Use <input> instead of the checkbox role to ensure accessibility across all devices.")
+      .next().atLine(2).withMessage("Use <output> instead of the status role to ensure accessibility across all devices.")
+      .next().atLine(3).withMessage("Use <a> or <area> instead of the link role to ensure accessibility across all devices.")
+      .consume();
+  }
+
+  @Test
   void unknownAllowedRolesAreReportedAsAnalysisWarning() {
     var check = new PreferTagOverRoleCheck();
     check.allowedRoles = "checkbocx, status, totallyMadeUp";

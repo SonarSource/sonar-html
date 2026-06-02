@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 import java.util.ArrayList;
@@ -71,8 +72,8 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
     }
 
     // The HTML "role" attribute is a fallback list: user agents pick the first
-    // non-abstract role they support. We replicate that by walking the tokens
-    // and using the first one mapped to a concrete RoleDefinition.
+    // valid, non-abstract role they support. S6819 only reports when that role
+    // has an equivalent HTML element to suggest.
     Aria.RoleDefinition roleDef = resolveFirstApplicableRole(roleAttr);
     if (roleDef == null || roleDef.getElements().isEmpty()) {
       return;
@@ -105,11 +106,11 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
   private static Aria.RoleDefinition resolveFirstApplicableRole(String roleAttr) {
     for (String token : roleAttr.trim().split("\\s+")) {
       AriaRole role = AriaRole.of(token.toLowerCase(Locale.ROOT));
-      if (role == null) {
+      if (role == null || isAbstractRole(role)) {
         continue;
       }
       Aria.RoleDefinition def = Aria.getRole(role);
-      if (def != null && !def.getElements().isEmpty()) {
+      if (def != null) {
         return def;
       }
     }
