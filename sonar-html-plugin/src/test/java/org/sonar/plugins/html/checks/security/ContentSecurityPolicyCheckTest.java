@@ -55,6 +55,16 @@ class ContentSecurityPolicyCheckTest {
   }
 
   @Test
+  void reportOnlyIsNotFlagged() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/ContentSecurityPolicyCheck/contentSecurityPolicyReportOnly.html"),
+      new ContentSecurityPolicyCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .noMore();
+  }
+
+  @Test
   void razor() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/ContentSecurityPolicyCheck/contentSecurityPolicy.cshtml"),
