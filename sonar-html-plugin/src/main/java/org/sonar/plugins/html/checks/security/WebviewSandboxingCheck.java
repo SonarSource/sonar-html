@@ -50,9 +50,7 @@ public class WebviewSandboxingCheck extends AbstractWebviewCheck {
     if (Helpers.isDynamicValue(value, getHtmlSourceCode())) {
       return;
     }
-    if (NODE_INTEGRATION_ENABLED_VALUES.contains(value.trim().toLowerCase(Locale.ROOT))) {
-      createViolationOnAttribute(nodeIntegration, MESSAGE);
-    }
+    createViolationOnAttribute(nodeIntegration, MESSAGE);
   }
 
   private void checkWebPreferences(TagNode node) {
