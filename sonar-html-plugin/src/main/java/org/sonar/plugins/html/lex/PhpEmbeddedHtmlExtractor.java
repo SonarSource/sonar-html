@@ -27,7 +27,6 @@ import java.util.regex.Pattern;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
-import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
@@ -575,8 +574,9 @@ final class PhpEmbeddedHtmlExtractor {
   }
 
   private static int sourceCol(int[][] map, int localLine, int localCol, int baseCol) {
-    if (localLine - 1 < map.length) {
-      int[] lineCols = map[localLine - 1];
+    int lineIdx = localLine - 1;
+    if (lineIdx >= 0 && lineIdx < map.length) {
+      int[] lineCols = map[lineIdx];
       if (localCol >= 0 && localCol < lineCols.length) {
         return lineCols[localCol];
       }
