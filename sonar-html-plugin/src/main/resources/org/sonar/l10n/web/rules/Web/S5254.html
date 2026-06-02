@@ -1,12 +1,25 @@
 <h2>Why is this an issue?</h2>
-<p>This rule raises an issue when an HTML element has a <code>lang</code> and/or <code>xml:lang</code> attribute, contains text content within its
-subtree, and the value of the attribute does not begin with a valid two‑letter ISO 639‑1 language code.</p>
+<p>This rule raises an issue when:</p>
+<ul>
+  <li>neither the <code>&lt;html&gt;</code> nor the <code>&lt;body&gt;</code> element of the document declares a <code>lang</code> (or
+  <code>xml:lang</code>) attribute, or</li>
+  <li>an element with text content carries a <code>lang</code> (or <code>xml:lang</code>) attribute whose value does not start with a valid two-letter
+  ISO 639-1 language code.</li>
+</ul>
 <p>The <code>lang</code> attribute is used by assistive technologies, translation tools, and search engines to correctly interpret and process text
-content. If the value starts with an invalid language code — for example, a misspelled code or one not defined in ISO 639‑1 — these tools may
-mispronounce text, fail to translate it correctly, or misclassify the content’s language.</p>
-<p>By ensuring that <code>lang</code> and <code>xml:lang</code> attributes start with a valid two‑letter language code, you improve accessibility,
-usability, and interoperability.</p>
+content. A document with no page-level language cannot be spoken correctly by screen readers, and an invalid language code may cause text to be
+mispronounced, translated incorrectly, or misclassified.</p>
 <h3>Noncompliant code examples</h3>
+<pre>
+&lt;html&gt; &lt;!-- Noncompliant: no lang on &lt;html&gt; and none on &lt;body&gt; either --&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Welcome to our website&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
 <pre>
 &lt;html lang="engl"&gt;
   &lt;head&gt;
@@ -38,6 +51,16 @@ usability, and interoperability.</p>
 &lt;/html&gt;
 </pre>
 <pre>
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body lang="en"&gt; &lt;!-- Valid: page language declared on &lt;body&gt; --&gt;
+    &lt;p&gt;Welcome to our website&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre>
 &lt;html lang="en"&gt;
   &lt;div lang="es"&gt;
     Bienvenido a nuestro sitio web &lt;!-- Valid: "es" is a valid ISO 639-1 code --&gt;
@@ -50,7 +73,7 @@ usability, and interoperability.</p>
   href="https://html.spec.whatwg.org/multipage/dom.html#attr-lang">https://html.spec.whatwg.org/multipage/dom.html#attr-lang</a></li>
   <li>MDN – The <code>lang</code> global attribute – <a
   href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang">https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang</a></li>
-  <li>ISO 639‑1 – Codes for the representation of names of languages – <a
+  <li>ISO 639‑1 – Codes for the representation of names of languages – <a
   href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Understanding/language-of-page">WCAG 2.2 - 3.1.1 Language of Page</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts">WCAG 2.2 - 3.1.2 Language of Parts</a></li>

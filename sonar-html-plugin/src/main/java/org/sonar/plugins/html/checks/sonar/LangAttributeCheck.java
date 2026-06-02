@@ -36,88 +36,114 @@ import java.util.stream.Collectors;
 
 @Rule(key = "S5254")
 public class LangAttributeCheck extends AbstractPageCheck {
-  public record TagNodeFlag(@Nullable TagNode tagNode, boolean hasValidLang) {
+  // hasInvalidLangAncestor: true iff the closest lang-bearing ancestor declares an invalid value.
+  // "No lang declared anywhere in the chain" is NOT a descendant violation — that's the page-level
+  // concern handled separately via pendingHtmlMissingLang.
+  public record TagNodeFlag(@Nullable TagNode tagNode, boolean hasInvalidLangAncestor) {
   }
 
   private final Deque<TagNodeFlag> langStack = new ArrayDeque<>();
-  private boolean finishEarly;
-  private boolean ruleActivated;
+  private boolean inHtmlScope;
+  @Nullable
+  private TagNode pendingHtmlMissingLang;
 
   @Override
   public void startDocument(List<Node> nodes) {
     reset();
   }
 
-  private void reset() {
-    langStack.clear();
-    // No lang at root initially
-    langStack.push(new TagNodeFlag(null, false));
-    finishEarly = false;
-    ruleActivated = false;
+  @Override
+  public void endDocument() {
+    // Document ends with the deferred decision still pending (no </html>, no <body>).
+    flushPendingHtmlMissingLang();
   }
 
-  private boolean shouldEarlyExit() {
-    return finishEarly || !ruleActivated;
+  private void reset() {
+    langStack.clear();
+    langStack.push(new TagNodeFlag(null, false));
+    inHtmlScope = false;
+    pendingHtmlMissingLang = null;
+  }
+
+  private void flushPendingHtmlMissingLang() {
+    if (pendingHtmlMissingLang != null) {
+      createViolation(pendingHtmlMissingLang, HTML_OR_BODY_MISSING_LANG_MESSAGE);
+      pendingHtmlMissingLang = null;
+    }
   }
 
   private static final Set<String> ISO_LANGUAGES_SET = Arrays.stream(Locale.getISOLanguages()).collect(Collectors.toSet());
   public static final String DEFAULT_MESSAGE = "Text is missing a valid lang attribute in its ancestor elements";
+  public static final String HTML_OR_BODY_MISSING_LANG_MESSAGE = "Add \"lang\" and/or \"xml:lang\" attributes to the \"<html>\" or \"<body>\" element";
 
   @Override
   public void startElement(TagNode node) {
     if (isHtmlTag(node)) {
+      // A new <html> start before the previous one was resolved (back-to-back or nested):
+      // surface the deferred violation rather than dropping it, then start a fresh decision.
+      flushPendingHtmlMissingLang();
       reset();
+      inHtmlScope = true;
       if (!hasLangAttribute(node)) {
-        createViolation(node, "Add \"lang\" and/or \"xml:lang\" attributes to this \"<html>\" element");
-        finishEarly = true;
-      } else {
-        ruleActivated = true;
+        // Defer the page-level decision: <body lang> may still rescue it.
+        pendingHtmlMissingLang = node;
       }
+    } else if (isBodyTag(node) && pendingHtmlMissingLang != null && hasLangAttribute(node)) {
+      // <body> declares lang (whether the value is valid or not) — the page-level "missing lang"
+      // check passes. An invalid value on body still triggers descendant violations below.
+      pendingHtmlMissingLang = null;
     }
-    if (shouldEarlyExit()) {
+    if (!inHtmlScope) {
       return;
     }
 
-    boolean isValidCurrentLang = langStack.getLast().hasValidLang();
-    boolean hasLangAttribute = hasLangAttribute(node);
-    if (hasLangAttribute) {
-      String nodeLang = getLangAttributeValue(node);
-      if (nodeLang == null) {
-        // this must be one of the dynamic/programmatic lang attributes that we cannot validate and assume to be valid.
-        isValidCurrentLang = true;
-      } else {
-        isValidCurrentLang = isValidLangAttributeValue(nodeLang);
-      }
-    }
-    langStack.addLast(new TagNodeFlag(node, isValidCurrentLang));
-    if (!isValidCurrentLang && hasTextInAttributesToValidate(node)) {
+    boolean hasInvalidLangAncestor = hasLangAttribute(node)
+      ? !ownLangIsValid(node)
+      : langStack.getLast().hasInvalidLangAncestor();
+    langStack.addLast(new TagNodeFlag(node, hasInvalidLangAncestor));
+    if (hasInvalidLangAncestor && hasTextInAttributesToValidate(node)) {
       createViolation(node, DEFAULT_MESSAGE);
     }
   }
 
   @Override
   public void endElement(TagNode node) {
-    if (shouldEarlyExit()) {
+    if (isHtmlTag(node)) {
+      // </html> reached without any <body> resolving the deferred check.
+      flushPendingHtmlMissingLang();
+    }
+    if (!inHtmlScope) {
       return;
     }
     var lastNode = langStack.getLast().tagNode();
     if (lastNode != null && lastNode.getNodeName().equals(node.getNodeName())) {
       langStack.removeLast();
     }
+    if (isHtmlTag(node)) {
+      inHtmlScope = false;
+    }
   }
 
   @Override
   public void characters(TextNode textNode) {
-    if (shouldEarlyExit()) {
+    if (!inHtmlScope) {
       return;
     }
     if (textNode.getCode().isBlank() || Helpers.isDynamicValue(textNode.getCode().trim(), getHtmlSourceCode())) {
       return;
     }
-    boolean isValidCurrentLang = langStack.getLast().hasValidLang();
-    if (!isValidCurrentLang) {
+    if (langStack.getLast().hasInvalidLangAncestor()) {
       createViolation(textNode, DEFAULT_MESSAGE);
     }
+  }
+
+  private boolean ownLangIsValid(TagNode node) {
+    String value = getLangAttributeValue(node);
+    if (value == null) {
+      // Dynamic/programmatic lang (Thymeleaf, WordPress, dynamic expressions) — assume valid.
+      return true;
+    }
+    return isValidLangAttributeValue(value);
   }
 
   private static boolean hasTextInAttributesToValidate(TagNode node) {
@@ -166,6 +192,10 @@ public class LangAttributeCheck extends AbstractPageCheck {
 
   private static boolean isHtmlTag(TagNode node) {
     return "HTML".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isBodyTag(TagNode node) {
+    return "BODY".equalsIgnoreCase(node.getNodeName());
   }
 
   private boolean isValidLangAttributeValue(String langAttributeValue) {
@@ -220,6 +250,11 @@ public class LangAttributeCheck extends AbstractPageCheck {
             .anyMatch(attributeName -> attributeName.contains("?php") && attributeName.contains("language_attributes"));
   }
 
+  // Inside th:attr="..." (a comma-separated list of key=value pairs), only `lang=` and `xml:lang=`
+  // at a key boundary (start of string or after a comma) actually set the HTML lang. The previous
+  // `contains("lang=")` heuristic matched `data-lang=`, `aria-lang=`, etc.
+  private static final Pattern THYMELEAF_LANG_ATTR_PATTERN = Pattern.compile("(?:^|,)\\s*(?:xml:)?lang\\s*=");
+
   /**
    * In Thymeleaf there are multiple ways of specifying the lang attribute:
    * - using the th:lang, th:xmllang, th:lang-xmllang attributes (lang-xmllang would set both xmllang and lang attributes)
@@ -230,8 +265,7 @@ public class LangAttributeCheck extends AbstractPageCheck {
     return node.hasProperty("th:lang")
             || node.hasProperty("th:xmllang")
             || node.hasProperty("th:lang-xmllang")
-            || (thAttrValue != null && thAttrValue.contains("lang=")
-    );
+            || (thAttrValue != null && THYMELEAF_LANG_ATTR_PATTERN.matcher(thAttrValue).find());
   }
 
 }
