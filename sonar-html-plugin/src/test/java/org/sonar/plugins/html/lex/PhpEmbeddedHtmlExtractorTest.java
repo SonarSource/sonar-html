@@ -166,8 +166,9 @@ class PhpEmbeddedHtmlExtractorTest {
     List<StringLiteral> literals = PhpEmbeddedHtmlExtractor.extractLiterals(node);
     assertThat(literals).hasSize(1);
     String sanitized = PhpEmbeddedHtmlExtractor.sanitizeInterpolations(literals.get(0).value());
-    assertThat(sanitized).contains("${dynamic}");
-    assertThat(sanitized).doesNotContain("$var");
+    assertThat(sanitized)
+      .contains("${dynamic}")
+      .doesNotContain("$var");
   }
 
   @Test
@@ -252,8 +253,9 @@ class PhpEmbeddedHtmlExtractorTest {
     assertThat(literals).hasSize(1);
     String body = literals.get(0).value();
     // Each body line should have the 4-char indent stripped
-    assertThat(body).contains("<div>");
-    assertThat(body).doesNotContain("    <div>");
+    assertThat(body)
+      .contains("<div>")
+      .doesNotContain("    <div>");
   }
 
   // ---------------------------------------------------------------------------
@@ -511,7 +513,8 @@ class PhpEmbeddedHtmlExtractorTest {
 
   @Test
   void singleQuotedDollarSignSurvivesPipeline() {
-    // The $myId in a single-quoted literal must NOT be rewritten to ${dynamic}
+    // A literal dollar-sign attribute value inside a single-quoted PHP string
+    // must survive the pipeline without being rewritten to a dynamic marker,
     // because PHP single-quoted strings do not interpolate variables.
     List<Node> nodes = new PageLexer().parse(new StringReader(
       "<?php echo '<div id=\"$myId\"></div>'; ?>"));
@@ -605,22 +608,20 @@ class PhpEmbeddedHtmlExtractorTest {
 
   @Test
   void doubleQuotedMultiLineLiteralReportsNestedTagsOnRightLines() {
-    // Five levels of nesting spread across distinct source lines. The opening
-    // `"` sits on line 1, the first real newline puts <div> on line 2, and so
-    // on. The implementation tracks real source newlines inside the literal so
-    // each rebased tag must land on its source line.
-    String source =
-        "<?php echo \"\n"          // line 1
-      + "<div>\n"                  // line 2
-      + "  <section>\n"            // line 3
-      + "    <article>\n"          // line 4
-      + "      <p>\n"              // line 5
-      + "        <span>text</span>\n" // line 6
-      + "      </p>\n"             // line 7
-      + "    </article>\n"         // line 8
-      + "  </section>\n"           // line 9
-      + "</div>\n"                 // line 10
-      + "\"; ?>";
+    // Five levels of nesting on lines 2 to 6: opening `"` is line 1; the
+    // real newlines inside the literal push each tag onto its own file line.
+    String source = """
+      <?php echo "
+      <div>
+        <section>
+          <article>
+            <p>
+              <span>text</span>
+            </p>
+          </article>
+        </section>
+      </div>
+      "; ?>""";
 
     List<Node> nodes = new PageLexer().parse(new StringReader(source));
 
@@ -633,18 +634,18 @@ class PhpEmbeddedHtmlExtractorTest {
 
   @Test
   void doubleQuotedMultiLineLiteralPreservesParentChainAcrossNestedTags() {
-    String source =
-        "<?php echo \"\n"
-      + "<div>\n"
-      + "  <section>\n"
-      + "    <article>\n"
-      + "      <p>\n"
-      + "        <span>text</span>\n"
-      + "      </p>\n"
-      + "    </article>\n"
-      + "  </section>\n"
-      + "</div>\n"
-      + "\"; ?>";
+    String source = """
+      <?php echo "
+      <div>
+        <section>
+          <article>
+            <p>
+              <span>text</span>
+            </p>
+          </article>
+        </section>
+      </div>
+      "; ?>""";
 
     List<Node> nodes = new PageLexer().parse(new StringReader(source));
 
@@ -660,22 +661,22 @@ class PhpEmbeddedHtmlExtractorTest {
 
   @Test
   void heredocMultiLineBodyReportsNestedTagsOnRightLines() {
-    // The directive sits at line 1, `<<<EOT\n` ends line 2, so the body opens
-    // at line 3. Five levels of nesting beneath <div> span lines 3 to 7.
-    String code =
-        "<?php\n"                      // line 1
-      + "$x = <<<EOT\n"                // line 2
-      + "<div>\n"                      // line 3
-      + "  <section>\n"                // line 4
-      + "    <article>\n"              // line 5
-      + "      <p>\n"                  // line 6
-      + "        <span>text</span>\n"  // line 7
-      + "      </p>\n"                 // line 8
-      + "    </article>\n"             // line 9
-      + "  </section>\n"               // line 10
-      + "</div>\n"                     // line 11
-      + "EOT;\n"
-      + "?>";
+    // Directive opens line 1, `<<<EOT` ends line 2, body opens at line 3.
+    // Five levels of nesting beneath <div> span lines 3 to 7.
+    String code = """
+      <?php
+      $x = <<<EOT
+      <div>
+        <section>
+          <article>
+            <p>
+              <span>text</span>
+            </p>
+          </article>
+        </section>
+      </div>
+      EOT;
+      ?>""";
 
     List<Node> nodes = new PageLexer().parse(new StringReader(code));
 
@@ -688,20 +689,20 @@ class PhpEmbeddedHtmlExtractorTest {
 
   @Test
   void heredocMultiLineBodyPreservesParentChainAcrossNestedTags() {
-    String code =
-        "<?php\n"
-      + "$x = <<<EOT\n"
-      + "<div>\n"
-      + "  <section>\n"
-      + "    <article>\n"
-      + "      <p>\n"
-      + "        <span>text</span>\n"
-      + "      </p>\n"
-      + "    </article>\n"
-      + "  </section>\n"
-      + "</div>\n"
-      + "EOT;\n"
-      + "?>";
+    String code = """
+      <?php
+      $x = <<<EOT
+      <div>
+        <section>
+          <article>
+            <p>
+              <span>text</span>
+            </p>
+          </article>
+        </section>
+      </div>
+      EOT;
+      ?>""";
 
     List<Node> nodes = new PageLexer().parse(new StringReader(code));
 
