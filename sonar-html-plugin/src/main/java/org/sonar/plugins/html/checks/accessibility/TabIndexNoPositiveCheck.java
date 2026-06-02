@@ -18,10 +18,11 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6841")
-public class TabIndexNoPositiveCheck extends AbstractPageCheck {
+public class TabIndexNoPositiveCheck extends AbstractPageCheck implements EmbeddedHtmlCheck {
 
   @Override
   public void startElement(TagNode element) {

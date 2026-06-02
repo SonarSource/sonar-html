@@ -22,10 +22,11 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6821")
-public class AriaRoleCheck extends AbstractPageCheck {
+public class AriaRoleCheck extends AbstractPageCheck implements EmbeddedHtmlCheck {
   @Override
   public void startElement(TagNode element) {
     var role = element.getAttribute("role");

@@ -31,10 +31,11 @@ import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S6852")
-public class FocusableInteractiveElementsCheck extends AbstractPageCheck {
+public class FocusableInteractiveElementsCheck extends AbstractPageCheck implements EmbeddedHtmlCheck {
 
   private static final String MESSAGE_TEMPLATE = "Elements with the \"%s\" interactive role must be focusable.";
 
