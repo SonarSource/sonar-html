@@ -67,31 +67,95 @@ final class PhpEmbeddedHtmlExtractor {
 
   private static void spliceEmbedded(DirectiveNode directive, List<Node> result) {
     List<Node> directiveEmbedded = new ArrayList<>();
-    boolean previousSpliced = false;
-    for (StringLiteral literal : extractLiterals(directive)) {
+    String code = directive.getCode();
+    List<StringLiteral> literals = extractLiterals(directive);
+    int prevHtmlIdx = -1;
+    for (int i = 0; i < literals.size(); i++) {
+      StringLiteral literal = literals.get(i);
       String sanitized = literal.interpolated()
         ? sanitizeInterpolations(literal.value())
         : literal.value();
       if (!EMBEDDED_HTML.matcher(sanitized).find()) {
         continue;
       }
-      if (previousSpliced) {
-        // Gap between two HTML-bearing literals from the same directive stands
-        // for any non-literal PHP expression that produced runtime content;
-        // record a synthetic dynamic-marker text node so that content-sensitive
-        // checks (e.g. AnchorsHaveContentCheck) see non-blank content.
-        directiveEmbedded.add(dynamicGapText(directive));
+      if (prevHtmlIdx >= 0) {
+        StringLiteral prev = literals.get(prevHtmlIdx);
+        List<StringLiteral> intermediates = literals.subList(prevHtmlIdx + 1, i);
+        if (isPureConcatenation(code, prev.rawEnd(), literal.rawStart(), intermediates)) {
+          // Pure string concatenation between two HTML-bearing literals: the
+          // runtime output is the literal text from any skipped non-HTML
+          // literals (e.g. `"<a>" . "Click" . "</a>"` yields "Click"); emit
+          // them as real text nodes so content-sensitive checks see the actual
+          // content instead of an opaque dynamic marker, and an empty join
+          // (`"<a>" . "</a>"`) stays empty.
+          for (StringLiteral inter : intermediates) {
+            if (!inter.value().isEmpty()) {
+              directiveEmbedded.add(literalTextNode(inter));
+            }
+          }
+        } else {
+          // A real PHP expression sits between the two HTML literals; its
+          // runtime value is unknown, so record a synthetic dynamic-marker
+          // text node to keep content-sensitive checks from treating the
+          // anchor (or similar element) as blank.
+          directiveEmbedded.add(dynamicGapText(directive));
+        }
       }
       List<Node> embedded = reLex(sanitized);
       rebasePositions(embedded, literal);
       directiveEmbedded.addAll(embedded);
-      previousSpliced = true;
+      prevHtmlIdx = i;
     }
     // Balance across all literals in the directive, not per literal, so a tag
     // opened in one literal and closed in another (with a dynamic gap between)
     // does not get a synthetic close inserted between them.
     balanceUnclosedTags(directiveEmbedded);
     result.addAll(directiveEmbedded);
+  }
+
+  /**
+   * Returns {@code true} when the raw directive code from {@code from} to
+   * {@code to} contains nothing that could change runtime output beyond pure
+   * string concatenation. Allowed tokens are whitespace, the PHP concatenation
+   * operator {@code .}, grouping parentheses, line and block comments, and the
+   * source spans of {@code intermediates} (literals that were extracted but
+   * carry no HTML and are therefore subtracted from the gap).
+   *
+   * @param code          the directive's raw code
+   * @param from          inclusive position to start scanning at
+   * @param to            exclusive position to stop scanning at
+   * @param intermediates literals fully contained inside {@code [from, to)};
+   *                      their source spans are skipped during the scan
+   * @return {@code true} iff no PHP expression sits between the two anchoring
+   *         HTML-bearing literals
+   */
+  private static boolean isPureConcatenation(String code, int from, int to, List<StringLiteral> intermediates) {
+    int idx = 0;
+    int pos = from;
+    while (pos < to) {
+      if (idx < intermediates.size() && pos == intermediates.get(idx).rawStart()) {
+        pos = intermediates.get(idx).rawEnd();
+        idx++;
+        continue;
+      }
+      char ch = code.charAt(pos);
+      if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || ch == '.' || ch == '(' || ch == ')') {
+        pos++;
+        continue;
+      }
+      if (ch == '#' || (ch == '/' && pos + 1 < to && code.charAt(pos + 1) == '/')) {
+        while (pos < to && code.charAt(pos) != '\n') { pos++; }
+        continue;
+      }
+      if (ch == '/' && pos + 1 < to && code.charAt(pos + 1) == '*') {
+        pos += 2;
+        while (pos + 1 < to && !(code.charAt(pos) == '*' && code.charAt(pos + 1) == '/')) { pos++; }
+        pos = Math.min(to, pos + 2);
+        continue;
+      }
+      return false;
+    }
+    return true;
   }
 
   static boolean isPhpDirective(DirectiveNode node) {
@@ -129,14 +193,17 @@ final class PhpEmbeddedHtmlExtractor {
       } else if (ch == '/' && c.pos + 1 < len && code.charAt(c.pos + 1) == '*') {
         skipBlockComment(code, c);
       } else if (ch == '<' && c.pos + 2 < len && code.charAt(c.pos + 1) == '<' && code.charAt(c.pos + 2) == '<') {
-        StringLiteral literal = readHeredocOrNowdoc(code, c);
+        int rawStart = c.pos;
+        StringLiteral literal = readHeredocOrNowdoc(code, c, rawStart);
         if (literal != null) {
           result.add(literal);
         }
       } else if (ch == '"') {
-        result.add(readDoubleQuotedString(code, c));
+        int rawStart = c.pos;
+        result.add(readDoubleQuotedString(code, c, rawStart));
       } else if (ch == '\'') {
-        result.add(readSingleQuotedString(code, c));
+        int rawStart = c.pos;
+        result.add(readSingleQuotedString(code, c, rawStart));
       } else {
         c.col++; c.pos++;
       }
@@ -169,7 +236,7 @@ final class PhpEmbeddedHtmlExtractor {
     }
   }
 
-  private static StringLiteral readHeredocOrNowdoc(String code, Cursor c) {
+  private static StringLiteral readHeredocOrNowdoc(String code, Cursor c, int rawStart) {
     c.col += 3; c.pos += 3; // skip <<<
     while (c.pos < code.length() && code.charAt(c.pos) == ' ') { c.col++; c.pos++; }
     boolean nowdoc = c.pos < code.length() && code.charAt(c.pos) == '\'';
@@ -181,7 +248,7 @@ final class PhpEmbeddedHtmlExtractor {
     if (nowdoc && c.pos < code.length() && code.charAt(c.pos) == '\'') { c.col++; c.pos++; }
     while (c.pos < code.length() && code.charAt(c.pos) != '\n') { c.col++; c.pos++; }
     if (c.pos < code.length()) { c.line++; c.col = 0; c.pos++; }
-    return readHeredocBody(code, c, label, !nowdoc);
+    return readHeredocBody(code, c, label, !nowdoc, rawStart);
   }
 
   private static String readHeredocLabel(String code, Cursor c) {
@@ -205,10 +272,14 @@ final class PhpEmbeddedHtmlExtractor {
    * @param label        the closing label that terminates the body
    * @param interpolated {@code true} for heredoc (variable interpolation
    *                     applies), {@code false} for nowdoc (literal body)
+   * @param rawStart     position of the opening {@code <<<} in the directive's
+   *                     raw code, used to anchor the gap-analysis pass that
+   *                     decides whether a dynamic placeholder is needed
+   *                     between two HTML-bearing literals
    * @return the heredoc/nowdoc body literal, or {@code null} if EOF is reached
    *         before the closing label is seen
    */
-  private static StringLiteral readHeredocBody(String code, Cursor c, String label, boolean interpolated) {
+  private static StringLiteral readHeredocBody(String code, Cursor c, String label, boolean interpolated, int rawStart) {
     int bodyLine = c.line, bodyCol = c.col;
     StringBuilder body = new StringBuilder();
     int len = code.length();
@@ -232,7 +303,7 @@ final class PhpEmbeddedHtmlExtractor {
     if (!terminatorFound) {
       return null;
     }
-    return new StringLiteral(body.toString(), bodyLine, bodyCol, interpolated, null);
+    return new StringLiteral(body.toString(), bodyLine, bodyCol, interpolated, null, rawStart, c.pos);
   }
 
   private static boolean isHeredocEnd(String code, int afterLabel, int len) {
@@ -251,7 +322,7 @@ final class PhpEmbeddedHtmlExtractor {
     return stripped;
   }
 
-  private static StringLiteral readDoubleQuotedString(String code, Cursor c) {
+  private static StringLiteral readDoubleQuotedString(String code, Cursor c, int rawStart) {
     c.col++; c.pos++; // skip opening "
     int contentLine = c.line, contentCol = c.col;
     LiteralBuilder builder = new LiteralBuilder();
@@ -269,7 +340,7 @@ final class PhpEmbeddedHtmlExtractor {
         c.pos++;
       }
     }
-    return new StringLiteral(builder.text(), contentLine, contentCol, true, builder.sourceColumns());
+    return new StringLiteral(builder.text(), contentLine, contentCol, true, builder.sourceColumns(), rawStart, c.pos);
   }
 
   /**
@@ -299,7 +370,7 @@ final class PhpEmbeddedHtmlExtractor {
     }
   }
 
-  private static StringLiteral readSingleQuotedString(String code, Cursor c) {
+  private static StringLiteral readSingleQuotedString(String code, Cursor c, int rawStart) {
     c.col++; c.pos++; // skip opening '
     int contentLine = c.line, contentCol = c.col;
     LiteralBuilder builder = new LiteralBuilder();
@@ -325,7 +396,7 @@ final class PhpEmbeddedHtmlExtractor {
     // Single-quoted strings do not interpolate variables in PHP, so the
     // sanitisation pass that rewrites $var / {$expr} into a dynamic marker is
     // skipped to avoid silently hiding real attribute values.
-    return new StringLiteral(builder.text(), contentLine, contentCol, false, builder.sourceColumns());
+    return new StringLiteral(builder.text(), contentLine, contentCol, false, builder.sourceColumns(), rawStart, c.pos);
   }
 
   static String sanitizeInterpolations(String value) {
@@ -438,6 +509,17 @@ final class PhpEmbeddedHtmlExtractor {
     return text;
   }
 
+  private static TextNode literalTextNode(StringLiteral literal) {
+    TextNode text = new TextNode();
+    String value = literal.value();
+    text.setCode(value);
+    text.setStartLinePosition(literal.lineOffset());
+    text.setStartColumnPosition(literal.columnOffset());
+    text.setEndLinePosition(literal.lineOffset());
+    text.setEndColumnPosition(literal.columnOffset() + value.length());
+    return text;
+  }
+
   private static final class Cursor {
     int pos;
     int line;
@@ -486,6 +568,7 @@ final class PhpEmbeddedHtmlExtractor {
     }
   }
 
-  record StringLiteral(String value, int lineOffset, int columnOffset, boolean interpolated, int[][] sourceColumns) {
+  record StringLiteral(String value, int lineOffset, int columnOffset, boolean interpolated, int[][] sourceColumns,
+                       int rawStart, int rawEnd) {
   }
 }

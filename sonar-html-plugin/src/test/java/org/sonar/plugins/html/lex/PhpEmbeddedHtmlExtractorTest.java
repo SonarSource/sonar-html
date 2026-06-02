@@ -416,6 +416,49 @@ class PhpEmbeddedHtmlExtractorTest {
     assertThat(hasDynamicGap).isFalse();
   }
 
+  @Test
+  void expandKeepsAnchorEmptyWhenConcatJoinsTwoTagLiteralsWithNothingBetween() {
+    // `echo "<a>" . "</a>";` — the two HTML literals are joined by a bare
+    // concatenation operator with no PHP expression between them, so the
+    // anchor must stay empty (no synthetic dynamic gap, no fabricated text).
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"<a>\" . \"</a>\"; ?>"));
+    boolean hasTextBetweenAnchors = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TEXT)
+      .anyMatch(n -> !n.getCode().isBlank());
+    assertThat(hasTextBetweenAnchors).isFalse();
+  }
+
+  @Test
+  void expandPreservesPlainLiteralBetweenConcatenatedTagLiterals() {
+    // `echo "<a>" . "Click" . "</a>";` — the middle literal carries no HTML
+    // but contributes real runtime text; it must be surfaced as a TextNode so
+    // that content-sensitive checks see the actual content rather than an
+    // opaque dynamic marker.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"<a>\" . \"Click\" . \"</a>\"; ?>"));
+    boolean hasClickText = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TEXT)
+      .anyMatch(n -> "Click".equals(n.getCode()));
+    boolean hasDynamicGap = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TEXT)
+      .anyMatch(n -> n.getCode().contains("${dynamic}"));
+    assertThat(hasClickText).isTrue();
+    assertThat(hasDynamicGap).isFalse();
+  }
+
+  @Test
+  void expandKeepsDynamicGapWhenExpressionSitsBetweenTagLiterals() {
+    // Sanity check that the existing dynamic-gap behaviour still applies when
+    // a real PHP expression (not a literal) sits between the two HTML literals.
+    List<Node> nodes = new PageLexer().parse(new StringReader(
+      "<?php echo \"<a>\" . $label . \"</a>\"; ?>"));
+    boolean hasDynamicGap = nodes.stream()
+      .filter(n -> n.getNodeType() == NodeType.TEXT)
+      .anyMatch(n -> n.getCode().contains("${dynamic}"));
+    assertThat(hasDynamicGap).isTrue();
+  }
+
   // ---------------------------------------------------------------------------
   // Line stability across escape sequences (H4)
   // ---------------------------------------------------------------------------

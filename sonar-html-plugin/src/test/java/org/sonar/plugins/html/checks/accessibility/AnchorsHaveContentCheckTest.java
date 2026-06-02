@@ -64,6 +64,7 @@ class AnchorsHaveContentCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(2).withMessage("Anchors must have content and the content must be accessible by a screen reader.")
       .next().atLine(4)
+      .next().atLine(5)
       .noMore();
   }
 }
