@@ -82,22 +82,14 @@ final class PhpEmbeddedHtmlExtractor {
         StringLiteral prev = literals.get(prevHtmlIdx);
         List<StringLiteral> intermediates = literals.subList(prevHtmlIdx + 1, i);
         if (isPureConcatenation(code, prev.rawEnd(), literal.rawStart(), intermediates)) {
-          // Pure string concatenation between two HTML-bearing literals: the
-          // runtime output is the literal text from any skipped non-HTML
-          // literals (e.g. `"<a>" . "Click" . "</a>"` yields "Click"); emit
-          // them as real text nodes so content-sensitive checks see the actual
-          // content instead of an opaque dynamic marker, and an empty join
-          // (`"<a>" . "</a>"`) stays empty.
+          // Pure concat: surface skipped literals as real text.
           for (StringLiteral inter : intermediates) {
             if (!inter.value().isEmpty()) {
               directiveEmbedded.add(literalTextNode(inter));
             }
           }
         } else {
-          // A real PHP expression sits between the two HTML literals; its
-          // runtime value is unknown, so record a synthetic dynamic-marker
-          // text node to keep content-sensitive checks from treating the
-          // anchor (or similar element) as blank.
+          // Runtime expression: opaque non-blank placeholder.
           directiveEmbedded.add(dynamicGapText(directive));
         }
       }
@@ -106,9 +98,7 @@ final class PhpEmbeddedHtmlExtractor {
       directiveEmbedded.addAll(embedded);
       prevHtmlIdx = i;
     }
-    // Balance across all literals in the directive, not per literal, so a tag
-    // opened in one literal and closed in another (with a dynamic gap between)
-    // does not get a synthetic close inserted between them.
+    // Balance across all literals so a tag spanning a gap stays open.
     balanceUnclosedTags(directiveEmbedded);
     result.addAll(directiveEmbedded);
   }
