@@ -22,6 +22,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
 import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,6 +44,29 @@ class HtmlAstScannerEmbeddedGatingTest {
 
     assertThat(optedOut.starts).containsExactly("plain");
     assertThat(optedIn.starts).containsExactly("plain", "embedded");
+  }
+
+  @Test
+  void nonOptInCheckSeesEmbeddedNodesViaStartDocumentButNotViaCallbacks() {
+    TagNode plain = newTag("plain", false);
+    TagNode embedded = newTag("embedded", true);
+
+    List<Node> capturedByStartDocument = new ArrayList<>();
+    RecordingVisitor nonOptIn = new RecordingVisitor() {
+      @Override
+      public void startDocument(List<Node> nodes) {
+        capturedByStartDocument.addAll(nodes);
+      }
+    };
+
+    HtmlAstScanner scanner = new HtmlAstScanner(Collections.emptyList());
+    scanner.addVisitor(nonOptIn);
+    scanner.scan(List.of(plain, embedded), newSourceCode());
+
+    // Full node list — including embedded — reaches every check via startDocument.
+    assertThat(capturedByStartDocument).containsExactly(plain, embedded);
+    // Visitor callbacks (startElement) are gated: only the plain node fires.
+    assertThat(nonOptIn.starts).containsExactly("plain");
   }
 
   private static TagNode newTag(String name, boolean embedded) {

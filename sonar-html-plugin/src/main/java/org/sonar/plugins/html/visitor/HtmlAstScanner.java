@@ -71,8 +71,8 @@ public class HtmlAstScanner {
     for (Node node : nodeList) {
       for (DefaultNodeVisitor visitor : visitors) {
         if (node.isEmbedded() && !(visitor instanceof EmbeddedHtmlCheck)) {
-          // Nodes spliced in from PHP string literals only reach visitors that
-          // explicitly opt in to the embedded HTML lifecycle.
+          // Skip visitor callbacks for embedded nodes on non-opted-in checks.
+          // The node is still visible to all checks via startDocument(nodeList) and getChildren().
           continue;
         }
         scanElement(visitor, node);
