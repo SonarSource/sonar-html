@@ -1,0 +1,24 @@
+<!-- Bound to non-text type: Noncompliant -->
+<input [type]="'checkbox'" autocomplete="organization"/> <!-- Noncompliant -->
+<input :type="'radio'" autocomplete="organization"/> <!-- Noncompliant -->
+<input v-bind:type="'file'" autocomplete="organization"/> <!-- Noncompliant -->
+
+<!-- Bound to text type: Compliant -->
+<input [type]="'text'" autocomplete="organization"/>
+<input [type]="'search'" autocomplete="organization"/>
+<input [type]="'hidden'" autocomplete="organization"/>
+
+<!-- Bound to invalid type: fallback to Text → Compliant -->
+<input [type]="'foobar'" autocomplete="organization"/>
+
+<!-- No type attribute: Compliant (missing-value default = Text state) -->
+<input autocomplete="organization"/>
+
+<!-- Dynamic (unresolvable) binding: Compliant (rule skipped, type unknown) -->
+<input [type]="dynamicType" autocomplete="organization"/>
+<input :type="computedType" autocomplete="organization"/>
+<input [type]="dynamicType" autocomplete="street-address"/>
+
+<!-- Bound to correct type for group: Compliant -->
+<input [type]="'password'" autocomplete="new-password"/>
+<input [type]="'number'" autocomplete="cc-exp-year"/>

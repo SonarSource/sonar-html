@@ -1,6 +1,6 @@
 <template>
   <div autocomplete="bday"></div> <!-- Noncompliant -->
-  <input autocomplete="bday"/> <!-- Noncompliant -->
+  <input autocomplete="bday"/>
   <input type="url" autocomplete="bday"/> <!-- Noncompliant -->
   <input type="date" autocomplete="bday"/>
   <input type="text" autocomplete="bday"/>
