@@ -102,10 +102,15 @@ public class ControlGroup {
       return true;
     }
 
+    if (!nodeName.equalsIgnoreCase("input")) {
+      return false;
+    }
+
     var type = node.getAttribute("type");
 
+    // input with no type attribute defaults to the Text state per the HTML spec
     if (type == null) {
-      return false;
+      return true;
     }
 
     return type.equalsIgnoreCase("hidden") || type.equalsIgnoreCase("text") || type.equalsIgnoreCase("search");

@@ -33,15 +33,28 @@ class ValidAutocompleteCheckTest {
 
   @ParameterizedTest
   @ValueSource(strings = {
+    "bday-day",
+    "bday-month",
+    "bday-year",
     "cc-exp",
     "cc-exp-month",
+    "cc-exp-year",
     "new-password",
-    "street-address",
+    "transaction-amount",
     "url",
     "username"
   })
   void html(String file) {
     HtmlSourceCode sourceCode = TestHelper.scan(new File(String.format("src/test/resources/checks/DomElementsShouldUseAutocompleteAttributeCorrectlyCheck/%s.html", file)), new ValidAutocompleteCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("DOM elements should use the \"autocomplete\" attribute correctly.")
+      .next().atLine(3);
+  }
+
+  @Test
+  void streetAddress() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/DomElementsShouldUseAutocompleteAttributeCorrectlyCheck/street-address.html"), new ValidAutocompleteCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("DOM elements should use the \"autocomplete\" attribute correctly.")
@@ -56,7 +69,6 @@ class ValidAutocompleteCheckTest {
 
     checkMessagesVerifier.verify(htmlSourceCode.getIssues())
       .next().atLine(1).withMessage("DOM elements should use the \"autocomplete\" attribute correctly.")
-      .next().atLine(2)
       .next().atLine(3);
 
     HtmlSourceCode jspSourceCode = TestHelper.scan(new File("src/test/resources/checks/DomElementsShouldUseAutocompleteAttributeCorrectlyCheck/bday/file.jsp"), check);
@@ -71,7 +83,6 @@ class ValidAutocompleteCheckTest {
 
     checkMessagesVerifier.verify(vueSourceCode.getIssues())
       .next().atLine(2).withMessage("DOM elements should use the \"autocomplete\" attribute correctly.")
-      .next().atLine(3)
       .next().atLine(4);
   }
 
@@ -89,7 +100,6 @@ class ValidAutocompleteCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
       .next().atLine(1).withMessage("DOM elements should use the \"autocomplete\" attribute correctly.")
-      .next().atLine(2)
       .next().atLine(3)
       .next().atLine(4);
   }
