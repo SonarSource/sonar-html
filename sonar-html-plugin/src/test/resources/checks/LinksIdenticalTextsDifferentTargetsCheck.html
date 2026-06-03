@@ -21,3 +21,38 @@
 <a [href]="a.html">foo</a>          <!-- Compliant -->
 
 <a [href]="c.html">baz</a>          <!-- Non-Compliant -->
+
+<!-- Compliant: links in different parent elements are disambiguated by context -->
+<article><a href="/posts/1">Read more</a></article>
+<article><a href="/posts/2">Read more</a></article>
+
+<article><a href="/a">Next</a></article>
+<article><a href="/b">Next</a></article>
+
+<div><span><a href="/x">Contact</a></span></div>
+<div><span><a href="/y">Contact</a></span></div>
+
+<!-- Non-Compliant: same text, different targets, same parent element -->
+<div>
+  <a href="/user/1/edit">Edit</a>
+  <a href="/user/2/edit">Edit</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Non-Compliant: same parent, nested text -->
+<nav>
+  <a href="/a/1">Overview</a>
+  <a href="/b/2">Overview</a>          <!-- Non-Compliant -->
+</nav>
+
+<!-- Compliant: same parent, same text, same target -->
+<div>
+  <a href="/help">Help</a>
+  <a href="/help">Help</a>
+</div>
+
+<!-- Non-Compliant: three links, third target cycles back to first — each consecutive conflict flagged -->
+<div>
+  <a href="/x/1">Proceed</a>
+  <a href="/x/2">Proceed</a>
+  <a href="/x/1">Proceed</a>
+</div>

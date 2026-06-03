@@ -1,24 +1,34 @@
 <h2>Why is this an issue?</h2>
-<p>When links with different targets are given identical link text, this can produce confusion for users of assistive technologies, some of which
-provide users the ability to view a list of all links on the page.</p>
-<p>When this list of links is presented to the user they may be left not knowing the links go to different destinations.</p>
-<p>Even if they do realize the links go to different destinations, they may be left not knowing which link to follow to go to the destination they
-desire.</p>
+<p>When two links share the same parent element, have identical visible text, but point to different destinations, screen readers and assistive
+technologies that list all links on a page will present the user with two indistinguishable entries leading to different places.</p>
+<p>This specific situation—same-text links that are siblings in the same container—is the one case where context cannot disambiguate the purpose of
+each link. Links in separate containers (different <code>&lt;article&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;div&gt;</code>, or other elements)
+are intentionally not flagged: WCAG 2.4.4 explicitly allows identical link text when the surrounding context (for example, the enclosing list item or
+table row) provides disambiguation.</p>
 <h3>Noncompliant code example</h3>
 <pre>
-&lt;a href="a.html"&gt;qux&lt;/a&gt;
-&lt;a href="b.html"&gt;qux&lt;/a&gt;          &lt;!-- Noncompliant; same text, different targets --&gt;
-
-&lt;a href="c.html"&gt;foo&lt;/a&gt;
-&lt;a href="d.html"&gt;foo&lt;/a&gt;          &lt;!-- Noncompliant; same text, different targets --&gt;
+&lt;div&gt;
+  &lt;a href="/user/1/edit"&gt;Edit&lt;/a&gt;  &lt;!-- Noncompliant; same text, different targets, same parent --&gt;
+  &lt;a href="/user/2/edit"&gt;Edit&lt;/a&gt;
+&lt;/div&gt;
 </pre>
 <h3>Compliant solution</h3>
 <pre>
-&lt;a href="a.html"&gt;qux&lt;/a&gt;
-&lt;a href="b.html"&gt;qaz&lt;/a&gt;          &lt;!-- Compliant; different text, different targets --&gt;
+&lt;!-- Different containers: context disambiguates each link --&gt;
+&lt;article&gt;&lt;h2&gt;First post&lt;/h2&gt;&lt;p&gt;…&lt;/p&gt;&lt;a href="/posts/1"&gt;Read more&lt;/a&gt;&lt;/article&gt;
+&lt;article&gt;&lt;h2&gt;Second post&lt;/h2&gt;&lt;p&gt;…&lt;/p&gt;&lt;a href="/posts/2"&gt;Read more&lt;/a&gt;&lt;/article&gt;
 
-&lt;a href="c.html"&gt;foo&lt;/a&gt;
-&lt;a href="c.html"&gt;foo&lt;/a&gt;          &lt;!-- Compliant; same text, same targets --&gt;
+&lt;!-- Same container, but with distinct text --&gt;
+&lt;div&gt;
+  &lt;a href="/user/1/edit"&gt;Edit Alice&lt;/a&gt;
+  &lt;a href="/user/2/edit"&gt;Edit Bob&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- Same container, same text, same target --&gt;
+&lt;div&gt;
+  &lt;a href="/help"&gt;Help&lt;/a&gt;
+  &lt;a href="/help"&gt;Help&lt;/a&gt;
+&lt;/div&gt;
 </pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>

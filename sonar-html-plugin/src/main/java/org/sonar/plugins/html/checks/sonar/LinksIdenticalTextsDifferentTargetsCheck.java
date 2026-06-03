@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -30,15 +31,17 @@ import org.sonar.plugins.html.node.TextNode;
 public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck {
 
   private boolean inLink;
-  private final Map<String, Link> links = new HashMap<>();
+  // Outer key: parent TagNode (null = document root). Inner key: uppercased link text.
+  private final Map<TagNode, Map<String, Link>> linksByParent = new IdentityHashMap<>();
 
   private final StringBuilder text = new StringBuilder();
   private String target = "";
   private int line;
+  private TagNode linkParent;
 
   @Override
   public void startDocument(List<Node> nodes) {
-    links.clear();
+    linksByParent.clear();
     inLink = false;
   }
 
@@ -46,16 +49,16 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   public void startElement(TagNode node) {
     if (isA(node)) {
       inLink = true;
-
       text.delete(0, text.length());
       target = getTarget(node);
       line = node.getStartLinePosition();
+      linkParent = node.getParent();
     }
   }
 
   private static String getTarget(TagNode node) {
-    String target = node.getPropertyValue("href");
-    return target == null ? "" : target;
+    String t = node.getPropertyValue("href");
+    return t == null ? "" : t;
   }
 
   @Override
@@ -72,14 +75,15 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
 
       String upperText = text.toString().toUpperCase(Locale.ENGLISH).trim();
       if (!upperText.isEmpty()) {
-        if (links.containsKey(upperText)) {
-          Link previousLink = links.get(upperText);
-
+        Map<String, Link> siblingLinks = linksByParent.computeIfAbsent(linkParent, k -> new HashMap<>());
+        if (siblingLinks.containsKey(upperText)) {
+          Link previousLink = siblingLinks.get(upperText);
           if (!target.equals(previousLink.getTarget())) {
             createViolation(line, "Use distinct texts or point to the same target for this link and the one at line " + previousLink.getLine() + ".");
+            siblingLinks.put(upperText, new Link(line, target));
           }
         } else {
-          links.put(upperText, new Link(line, target));
+          siblingLinks.put(upperText, new Link(line, target));
         }
       }
     }
