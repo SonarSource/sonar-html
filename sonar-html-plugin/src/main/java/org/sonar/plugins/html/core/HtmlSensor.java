@@ -136,7 +136,7 @@ public final class HtmlSensor implements Sensor {
     }
   }
 
-  private static void saveMetrics(SensorContext context, HtmlSourceCode sourceCode) {
+  static void saveMetrics(SensorContext context, HtmlSourceCode sourceCode) {
     InputFile inputFile = sourceCode.inputFile();
 
     for (Map.Entry<Metric<Integer>, Integer> entry : sourceCode.getMeasures().entrySet()) {
@@ -152,6 +152,9 @@ public final class HtmlSensor implements Sensor {
         .forRule(issue.ruleKey())
         .gap(issue.cost());
       NewIssueLocation location = locationForIssue(inputFile, issue, newIssue);
+      if (location == null) {
+        continue;
+      }
       newIssue.at(location);
       newIssue.save();
     }
@@ -163,14 +166,28 @@ public final class HtmlSensor implements Sensor {
       .message(issue.message());
     Integer line = issue.line();
     if (issue instanceof PreciseHtmlIssue preciseHtmlIssue) {
-      location.at(inputFile.newRange(issue.line(),
+      if (!isValidLine(inputFile, line) || !isValidLine(inputFile, preciseHtmlIssue.endLine())) {
+        LOG.warn("Skipping issue from rule {} at lines [{}, {}] of {}: line is out of range (file has {} lines)",
+          issue.ruleKey(), line, preciseHtmlIssue.endLine(), inputFile, inputFile.lines());
+        return null;
+      }
+      location.at(inputFile.newRange(line,
         preciseHtmlIssue.startColumn(),
         preciseHtmlIssue.endLine(),
         preciseHtmlIssue.endColumn()));
     } else if (line != null) {
+      if (!isValidLine(inputFile, line)) {
+        LOG.warn("Skipping issue from rule {} at line {} of {}: line is out of range (file has {} lines)",
+          issue.ruleKey(), line, inputFile, inputFile.lines());
+        return null;
+      }
       location.at(inputFile.selectLine(line));
     }
     return location;
+  }
+
+  private static boolean isValidLine(InputFile inputFile, Integer line) {
+    return line != null && line >= 1 && line <= inputFile.lines();
   }
 
   private void saveLineLevelMeasures(InputFile inputFile, HtmlSourceCode htmlSourceCode) {

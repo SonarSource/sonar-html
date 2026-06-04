@@ -59,6 +59,11 @@ import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.sonar.AllowedLangAttributeCheck;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
 
+import org.slf4j.event.Level;
+import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.checks.HtmlIssue;
+import org.sonar.plugins.html.visitor.HtmlSourceCode;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -207,7 +212,7 @@ class HtmlSensorTest {
   @Test
   void unreadable_file() {
     tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
-    DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
+    DefaultInputFile inputFile = new TestInputFileBuilder("key", "nonexistent-file.jsp")
       .setModuleBaseDir(TEST_DIR)
       .setLanguage(HtmlConstants.LANGUAGE_KEY)
       .setType(InputFile.Type.MAIN)
@@ -380,6 +385,45 @@ class HtmlSensorTest {
 
   private List<IssueResolution> issueResolutions(DefaultInputFile inputFile) {
     return tester.getIssueResolutions().getOrDefault(inputFile.key(), Collections.emptyList());
+  }
+
+  @Test
+  void out_of_range_line_issue_is_skipped_with_warning() {
+    RuleKey ruleKey = RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, "S1195");
+    DefaultInputFile inputFile = createInputFile("test.html", "<html>\n<body>\n</body>\n</html>\n");
+    HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
+    sourceCode.addIssue(new HtmlIssue(ruleKey, 2, "valid issue"));
+    sourceCode.addIssue(new HtmlIssue(ruleKey, 9999, "out-of-range issue"));
+
+    HtmlSensor.saveMetrics(tester, sourceCode);
+
+    assertThat(tester.allIssues()).hasSize(1);
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+    assertThat(logTester.logs(Level.WARN)).anyMatch(msg -> msg.contains("9999") && msg.contains("out of range"));
+  }
+
+  @Test
+  void out_of_range_precise_issue_is_skipped_with_warning() {
+    DefaultInputFile inputFile = createInputFile("test.html", "<html>\n<body>\n</body>\n</html>\n");
+    HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
+
+    RuleKey ruleKey = RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, "S1195");
+    TestCheck check = new TestCheck();
+    check.setRuleKey(ruleKey);
+    check.setSourceCode(sourceCode);
+    check.createPreciseViolation(1, 0, 9999, 6, "end line out of range");
+
+    HtmlSensor.saveMetrics(tester, sourceCode);
+
+    assertThat(tester.allIssues()).isEmpty();
+    assertThat(tester.allAnalysisErrors()).isEmpty();
+    assertThat(logTester.logs(Level.WARN)).anyMatch(msg -> msg.contains("9999") && msg.contains("out of range"));
+  }
+
+  private static class TestCheck extends AbstractPageCheck {
+    void createPreciseViolation(int startLine, int startColumn, int endLine, int endColumn, String message) {
+      createViolation(startLine, startColumn, endLine, endColumn, message);
+    }
   }
 
   private static class RecordingAnalysisWarnings implements AnalysisWarnings {
