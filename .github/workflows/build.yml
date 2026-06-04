@@ -54,7 +54,7 @@ jobs:
           maven-args: '-T1C'
 
   qa:
-    if: github.actor != 'dependabot[bot]' && github.event_name != 'schedule'
+    if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
     permissions:
@@ -107,7 +107,7 @@ jobs:
           mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
-    if: github.actor != 'dependabot[bot]' && github.event_name != 'schedule'
+    if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
     permissions:
@@ -266,7 +266,6 @@ jobs:
           shadow2_platform: SQC-US
 
   promote:
-    if: github.event_name != 'schedule'
     needs: [build, build-windows, qa, ruling]
     runs-on: github-ubuntu-latest-s
     permissions:
