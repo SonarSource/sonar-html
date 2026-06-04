@@ -1,0 +1,92 @@
+<!-- Compliant: legend is a direct child of fieldset -->
+<fieldset>
+  <legend>Group title</legend>
+  <input type="text" />
+</fieldset>
+
+<!-- Compliant: uppercase tags (case-insensitivity) -->
+<FIELDSET>
+  <LEGEND>Group title</LEGEND>
+</FIELDSET>
+
+<!-- Noncompliant: legend wrapped in div inside fieldset -->
+<fieldset>
+  <div>
+    <legend>Group title</legend> <!-- Noncompliant -->
+  </div>
+</fieldset>
+
+<!-- Noncompliant: legend wrapped in span inside fieldset -->
+<fieldset>
+  <span>
+    <legend>Group title</legend> <!-- Noncompliant -->
+  </span>
+</fieldset>
+
+<!-- Noncompliant: legend wrapped in two levels of divs -->
+<fieldset>
+  <div>
+    <div>
+      <legend>Group title</legend> <!-- Noncompliant -->
+    </div>
+  </div>
+</fieldset>
+
+<!-- Noncompliant: legend outside fieldset entirely -->
+<div>
+  <legend>Group title</legend> <!-- Noncompliant -->
+</div>
+
+<!-- Noncompliant: legend at document root with no parent -->
+<legend>Orphan legend</legend> <!-- Noncompliant -->
+
+<!-- Compliant: multiple fieldsets, each with a direct legend -->
+<fieldset>
+  <legend>Section A</legend>
+</fieldset>
+<fieldset>
+  <legend>Section B</legend>
+</fieldset>
+
+<!-- Compliant: legend as non-first direct child of fieldset -->
+<fieldset>
+  <input type="text" />
+  <legend>Group title</legend>
+</fieldset>
+
+<!-- Compliant: legend as direct child of optgroup -->
+<select>
+  <optgroup>
+    <legend>Group label</legend>
+    <option>Option 1</option>
+  </optgroup>
+</select>
+
+<!-- Compliant: legend inside a custom framework component (PascalCase, unknown HTML tag) -->
+<MyFieldset>
+  <legend>Group title</legend>
+</MyFieldset>
+
+<!-- Compliant: legend inside a custom web component (kebab-case, unknown HTML tag) -->
+<my-fieldset>
+  <legend>Group title</legend>
+</my-fieldset>
+
+<!-- Compliant: legend inside an ASP.NET WebForms server control (transparent wrapper) -->
+<asp:Panel>
+  <legend>Group title</legend>
+</asp:Panel>
+
+<!-- Compliant: ASP.NET WebForms server control nested inside another element -->
+<div>
+  <asp:Panel>
+    <legend>Group title</legend>
+  </asp:Panel>
+</div>
+
+<!-- Compliant: custom wrapper postprocessed into a valid fieldset structure -->
+<fieldset>
+  <my-wrapper>
+    <legend>Group title</legend>
+  </my-wrapper>
+</fieldset>

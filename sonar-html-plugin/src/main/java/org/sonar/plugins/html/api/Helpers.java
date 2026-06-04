@@ -138,7 +138,15 @@ public class Helpers {
     return hasAncestorMatching(node, Helpers::isTemplateLikeTag);
   }
 
-  private static boolean isTemplateLikeTag(TagNode node) {
+  /**
+   * Returns true if {@code node} is a template-like wrapper: HTML {@code <template>},
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   * These elements do not contribute to the rendered DOM and can be treated as transparent.
+   *
+   * @param node the tag node to test
+   * @return true if the node is a template-like wrapper
+   */
+  public static boolean isTemplateLikeTag(TagNode node) {
     String name = node.getNodeName();
     if (name == null || name.isEmpty()) {
       return false;
