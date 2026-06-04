@@ -1,0 +1,24 @@
+{
+  "title": "\"\u003clegend\u003e\" tags should be direct children of \"\u003cfieldset\u003e\" or \"\u003coptgroup\u003e\" elements",
+  "type": "BUG",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "5min"
+  },
+  "tags": [
+    "accessibility",
+    "wcag2-a"
+  ],
+  "defaultSeverity": "Major",
+  "ruleSpecification": "RSPEC-8732",
+  "sqKey": "S8732",
+  "scope": "All",
+  "quickfix": "unknown",
+  "code": {
+    "impacts": {
+      "RELIABILITY": "MEDIUM"
+    },
+    "attribute": "LOGICAL"
+  }
+}
