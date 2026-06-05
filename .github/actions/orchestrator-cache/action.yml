@@ -1,0 +1,38 @@
+name: Setup Orchestrator Cache
+description: Sets up orchestrator cache with restore-only behavior on non-default branches
+
+inputs:
+  key-prefix:
+    description: 'Prefix for the cache key'
+    required: false
+    default: 'orchestrator'
+
+runs:
+  using: composite
+  steps:
+    - name: Set orchestrator cache variables
+      shell: bash
+      run: |
+        CACHE_MONTH=$(date +'%Y-%m')
+        echo "ORCHESTRATOR_CACHE_MONTH=$CACHE_MONTH" >> $GITHUB_ENV
+        echo "ORCHESTRATOR_HOME=${{ github.workspace }}/orchestrator" >> $GITHUB_ENV
+
+    - name: Restore Orchestrator cache (branches)
+      if: github.ref_name != github.event.repository.default_branch
+      uses: actions/cache/restore@v5
+      with:
+        path: ${{ env.ORCHESTRATOR_HOME }}
+        key: ${{ inputs.key-prefix }}-${{ env.ORCHESTRATOR_CACHE_MONTH }}-${{ github.run_id }}
+        restore-keys: ${{ inputs.key-prefix }}-${{ env.ORCHESTRATOR_CACHE_MONTH }}-
+
+    - name: Cache Orchestrator (default branch)
+      if: github.ref_name == github.event.repository.default_branch
+      uses: actions/cache@v5
+      with:
+        path: ${{ env.ORCHESTRATOR_HOME }}
+        key: ${{ inputs.key-prefix }}-${{ env.ORCHESTRATOR_CACHE_MONTH }}-${{ github.run_id }}
+        restore-keys: ${{ inputs.key-prefix }}-${{ env.ORCHESTRATOR_CACHE_MONTH }}-
+
+    - name: Setup Orchestrator home directory
+      shell: bash
+      run: mkdir -p "$ORCHESTRATOR_HOME"
