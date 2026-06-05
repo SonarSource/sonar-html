@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.CommentNode;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.Node;
@@ -43,10 +44,14 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
     Pattern.CASE_INSENSITIVE);
   private boolean foundControl;
   private boolean foundAccessibleLabel;
+  private boolean foundLabelBodyContent;
   private TagNode label;
 
   @Override
   public void startDocument(List<Node> nodes) {
+    foundControl = false;
+    foundAccessibleLabel = false;
+    foundLabelBodyContent = false;
     label = null;
   }
 
@@ -54,13 +59,16 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if (isLabel(node)) {
       label = node;
-      if (hasForAttribute(label)) {
-        foundControl = true;
-      } else {
-        foundControl = false;
+      foundControl = hasForAttribute(label);
+      foundAccessibleLabel = false;
+      foundLabelBodyContent = false;
+    } else {
+      if (label != null) {
+        foundLabelBodyContent = true;
       }
-    } else if (isControl(node)) {
-      foundControl = true;
+      if (isControl(node)) {
+        foundControl = true;
+      }
     }
     if (hasAccessibleLabel(node)) {
       foundAccessibleLabel = true;
@@ -101,6 +109,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   public void characters(TextNode textNode) {
     if (label != null) {
       if (!textNode.isBlank()) {
+        foundLabelBodyContent = true;
         foundAccessibleLabel = true;
       }
       // Check for Razor HTML helpers that render form controls (e.g., @Html.RadioButtonFor)
@@ -111,8 +120,16 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   }
 
   @Override
+  public void comment(CommentNode node) {
+    if (label != null) {
+      foundLabelBodyContent = true;
+    }
+  }
+
+  @Override
   public void directive(DirectiveNode node) {
     if (label != null) {
+      foundLabelBodyContent = true;
       foundAccessibleLabel = true;
     }
   }
@@ -121,6 +138,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   public void expression(ExpressionNode node) {
     // for JSP
     if (label != null) {
+      foundLabelBodyContent = true;
       foundAccessibleLabel = true;
     }
   }
@@ -128,11 +146,15 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   @Override
   public void endElement(TagNode node) {
     if (isLabel(node)) {
+      if (label != null && label.hasProperty("asp-for") && !foundLabelBodyContent) {
+        foundAccessibleLabel = true;
+      }
       if ((!foundAccessibleLabel || !foundControl) && label != null) {
         createViolation(label, MESSAGE);
       }
       foundControl = false;
       foundAccessibleLabel = false;
+      foundLabelBodyContent = false;
       label = null;
     }
   }
