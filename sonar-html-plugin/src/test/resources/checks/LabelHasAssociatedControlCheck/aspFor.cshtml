@@ -1,7 +1,13 @@
-<!-- Compliant: asp-for on label acts as a "for" binding, with accessible text -->
+<!-- Compliant: asp-for on label acts as a "for" binding, with explicit accessible text -->
 <label asp-for="ModelProperty">Property</label>
 <div><label asp-for="ModelProperty">Property</label><input asp-for="ModelProperty" /></div>
 
-<!-- Noncompliant: asp-for provides the "for" binding, but still needs accessible label text -->
+<!-- Compliant: Razor generates fallback label text when the body is empty or whitespace -->
+<label asp-for="GeneratedProperty"></label>
+<label asp-for="GeneratedProperty">
+</label>
+
+<!-- Noncompliant: non-empty body suppresses the generated label text -->
 <label asp-for="ModelProperty"><input asp-for="ModelProperty" /></label>
-<label asp-for="ModelProperty"></label>
+<label asp-for="ModelProperty"><span></span></label>
+<label asp-for="ModelProperty"><!-- comment --></label>
