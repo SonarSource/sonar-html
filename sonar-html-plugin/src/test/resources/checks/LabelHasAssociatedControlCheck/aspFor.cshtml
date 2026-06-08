@@ -7,7 +7,13 @@
 <label asp-for="GeneratedProperty">
 </label>
 
+<!-- Compliant: <text> is a Razor transition pseudo-element that renders no markup itself -->
+<label asp-for="GeneratedProperty"><text></text></label>
+<label asp-for="GeneratedProperty"><text>
+</text></label>
+
 <!-- Noncompliant: non-empty body suppresses the generated label text -->
 <label asp-for="ModelProperty"><input asp-for="ModelProperty" /></label>
+<label asp-for="ModelProperty"><input /></label>
 <label asp-for="ModelProperty"><span></span></label>
 <label asp-for="ModelProperty"><!-- comment --></label>

@@ -63,7 +63,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
       foundAccessibleLabel = false;
       foundLabelBodyContent = false;
     } else {
-      if (label != null) {
+      if (label != null && !isRazorText(node)) {
         foundLabelBodyContent = true;
       }
       if (isControl(node)) {
@@ -103,6 +103,11 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
 
   private static boolean isControl(TagNode node) {
     return CONTROL_TAGS.contains(node.getNodeName().toUpperCase(Locale.ROOT));
+  }
+
+  /** Razor's {@code <text>} pseudo-element renders only its children, not itself. */
+  private static boolean isRazorText(TagNode node) {
+    return "text".equalsIgnoreCase(node.getNodeName());
   }
 
   @Override

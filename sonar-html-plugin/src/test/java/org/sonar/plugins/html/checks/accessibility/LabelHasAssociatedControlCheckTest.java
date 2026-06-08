@@ -109,9 +109,10 @@ class LabelHasAssociatedControlCheckTest {
             new File("src/test/resources/checks/LabelHasAssociatedControlCheck/aspFor.cshtml"),
             new LabelHasAssociatedControlCheck());
     checkMessagesVerifier.verify(sourceCode.getIssues())
-            .next().atLine(11).withMessage("A form label must be associated with a control and have accessible text.")
-            .next().atLine(12)
-            .next().atLine(13)
+            .next().atLine(16).withMessage("A form label must be associated with a control and have accessible text.")
+            .next().atLine(17)
+            .next().atLine(18)
+            .next().atLine(19)
             .noMore();
   }
 
