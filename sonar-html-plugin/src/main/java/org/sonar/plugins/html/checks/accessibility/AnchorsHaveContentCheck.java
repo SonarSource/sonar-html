@@ -80,7 +80,7 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
     if (anchors.isEmpty()) {
       return;
     }
-    updateCurrentAnchorContent(isDynamicDirective(node));
+    updateCurrentAnchorContent(isServerSideDirective(node));
   }
 
   @Override
@@ -102,13 +102,8 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
     return "a".equalsIgnoreCase(element.getNodeName());
   }
 
-  private boolean isDynamicDirective(DirectiveNode node) {
-    return node.getCode().startsWith("<?") && hasDynamicContent(node.getCode());
-  }
-
-  private boolean hasDynamicContent(String code) {
-    return Helpers.containsDynamicValue(code, getHtmlSourceCode())
-      || Helpers.containsRazorFragmentRendering(code);
+  private static boolean isServerSideDirective(DirectiveNode node) {
+    return Helpers.containsServerSideMarker(node.getCode());
   }
 
   private static boolean hasContent(TagNode element) {
