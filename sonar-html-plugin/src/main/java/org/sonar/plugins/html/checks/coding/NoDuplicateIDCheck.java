@@ -18,12 +18,10 @@ package org.sonar.plugins.html.checks.coding;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
+import org.sonar.plugins.html.api.TemplateConditionalScopeTracker;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
@@ -42,357 +40,71 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S7930")
 public class NoDuplicateIDCheck extends AbstractPageCheck {
 
-  /**
-   * JSP JSTL conditional tags.
-   */
-  private static final Set<String> JSTL_CONDITIONAL_TAGS = Set.of(
-    "c:if", "c:when", "c:otherwise", "c:choose"
-  );
-
-  /**
-   * Pattern to detect start of conditional blocks in text (Angular, Razor, Twig/Jinja, PHP).
-   * Matches: @if(), @switch(), @case, @default, {% if %}, {% for %}, <?php if/foreach/for
-   */
-  private static final Pattern CONDITIONAL_START_PATTERN = Pattern.compile(
-    "@(if|switch)\\s*\\(|" +
-    "@(case|default)\\s*[({]|" +
-    "\\{%[-\\s]*(if|for)\\b|" +
-    "<\\?(?:php)?\\s*(if|foreach|for)\\b",
-    Pattern.CASE_INSENSITIVE
-  );
-
-  /**
-   * Pattern to detect end of conditional blocks in text.
-   * Matches: {% endif %}, {% endfor %}, <?php endif/endforeach/endfor
-   */
-  private static final Pattern CONDITIONAL_END_PATTERN = Pattern.compile(
-    "\\{%[-\\s]*(endif|endfor)\\b|" +
-    "<\\?(?:php)?\\s*(endif|endforeach|endfor)\\b",
-    Pattern.CASE_INSENSITIVE
-  );
-
-  /**
-   * Continuations such as "} else {" keep the element inside the same conditional block.
-   */
-  private static final Pattern CONDITIONAL_CONTINUATION_PATTERN = Pattern.compile(
-    "^}\\s*@?(else\\b|elseif\\b|else\\s+if\\b)",
-    Pattern.CASE_INSENSITIVE | Pattern.DOTALL
-  );
-
-  /**
-   * Vue.js conditional directives.
-   */
-  private static final Set<String> VUE_CONDITIONAL_ATTRS = Set.of(
-    "v-if", "v-else-if", "v-else", "v-for"
-  );
-
-  /**
-   * Angular structural directives for conditionals.
-   */
-  private static final Set<String> ANGULAR_CONDITIONAL_ATTRS = Set.of(
-    "*ngIf", "*ngFor", "*ngSwitchCase", "*ngSwitchDefault"
-  );
-
   // IDs seen outside any conditional - these are the "authoritative" IDs
   private final Map<String, Integer> unconditionalIds = new HashMap<>();
-
-  // Depth counter for nested conditionals (text-based: Razor, Twig, PHP, Angular new syntax)
-  private int textConditionalDepth = 0;
-
-  // Depth counter for tag-based conditionals (JSP JSTL)
-  private int tagConditionalDepth = 0;
+  private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
 
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
-    textConditionalDepth = 0;
-    tagConditionalDepth = 0;
+    conditionalScope.reset();
   }
 
   @Override
   public void characters(TextNode textNode) {
-    updateTextConditionalDepth(textNode.getCode(), textNode.getCode());
+    conditionalScope.visitText(textNode);
   }
 
   @Override
   public void directive(DirectiveNode directiveNode) {
-    String code = directiveNode.getCode();
-    updateTextConditionalDepth(code, unwrapDirective(code));
-  }
-
-  private void updateTextConditionalDepth(String conditionalText, String braceText) {
-    int conditionalStarts = 0;
-    var startMatcher = CONDITIONAL_START_PATTERN.matcher(conditionalText);
-    while (startMatcher.find()) {
-      textConditionalDepth++;
-      conditionalStarts++;
-    }
-
-    var endMatcher = CONDITIONAL_END_PATTERN.matcher(conditionalText);
-    while (endMatcher.find()) {
-      if (textConditionalDepth > 0) {
-        textConditionalDepth--;
-      }
-    }
-
-    if (textConditionalDepth > 0 && braceText.contains("}")) {
-      String trimmed = braceText.trim();
-      boolean isContinuation = CONDITIONAL_CONTINUATION_PATTERN.matcher(trimmed).find();
-      if (conditionalStarts > 0 && !conditionalText.contains("{%")) {
-        int structuralClosingBraces = countStructuralClosingBraces(trimmed);
-        if (isContinuation && structuralClosingBraces > 0) {
-          structuralClosingBraces--;
-        }
-        if (structuralClosingBraces > 0) {
-          textConditionalDepth = Math.max(0, textConditionalDepth - structuralClosingBraces);
-        }
-      } else {
-        int leadingStructuralClosingBraces = countLeadingStructuralClosingBraces(trimmed);
-        if (isContinuation && leadingStructuralClosingBraces > 0) {
-          leadingStructuralClosingBraces--;
-        }
-        if (leadingStructuralClosingBraces > 0) {
-          textConditionalDepth = Math.max(0, textConditionalDepth - leadingStructuralClosingBraces);
-        }
-      }
-    }
-  }
-
-  private static int countStructuralClosingBraces(String text) {
-    int count = 0;
-    boolean inSingleQuote = false;
-    boolean inDoubleQuote = false;
-    boolean inLineComment = false;
-    boolean inBlockComment = false;
-    boolean escaped = false;
-
-    for (int i = 0; i < text.length(); i++) {
-      char current = text.charAt(i);
-      char next = i + 1 < text.length() ? text.charAt(i + 1) : '\0';
-
-      if (inLineComment) {
-        if (current == '\n' || current == '\r') {
-          inLineComment = false;
-        }
-        continue;
-      }
-
-      if (inBlockComment) {
-        if (current == '*' && next == '/') {
-          inBlockComment = false;
-          i++;
-        }
-        continue;
-      }
-
-      if (inSingleQuote) {
-        if (escaped) {
-          escaped = false;
-        } else if (current == '\\') {
-          escaped = true;
-        } else if (current == '\'') {
-          inSingleQuote = false;
-        }
-        continue;
-      }
-
-      if (inDoubleQuote) {
-        if (escaped) {
-          escaped = false;
-        } else if (current == '\\') {
-          escaped = true;
-        } else if (current == '"') {
-          inDoubleQuote = false;
-        }
-        continue;
-      }
-
-      if (current == '/' && next == '*') {
-        inBlockComment = true;
-        i++;
-        continue;
-      }
-
-      if (current == '/' && next == '/') {
-        inLineComment = true;
-        i++;
-        continue;
-      }
-
-      if (current == '#') {
-        inLineComment = true;
-        continue;
-      }
-
-      if (current == '\'') {
-        inSingleQuote = true;
-        continue;
-      }
-
-      if (current == '"') {
-        inDoubleQuote = true;
-        continue;
-      }
-
-      if (current == '}' && next == '}') {
-        i++;
-        continue;
-      }
-
-      if (current == '}') {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  private static int countLeadingStructuralClosingBraces(String text) {
-    int count = 0;
-
-    for (int i = 0; i < text.length();) {
-      char current = text.charAt(i);
-      char next = i + 1 < text.length() ? text.charAt(i + 1) : '\0';
-
-      if (Character.isWhitespace(current)) {
-        i++;
-        continue;
-      }
-
-      if (current == '/' && next == '*') {
-        i += 2;
-        while (i + 1 < text.length() && !(text.charAt(i) == '*' && text.charAt(i + 1) == '/')) {
-          i++;
-        }
-        if (i + 1 >= text.length()) {
-          return count;
-        }
-        i += 2;
-        continue;
-      }
-
-      if (current == '/' && next == '/') {
-        i += 2;
-        while (i < text.length() && text.charAt(i) != '\n' && text.charAt(i) != '\r') {
-          i++;
-        }
-        continue;
-      }
-
-      if (current == '#') {
-        i++;
-        while (i < text.length() && text.charAt(i) != '\n' && text.charAt(i) != '\r') {
-          i++;
-        }
-        continue;
-      }
-
-      if (current == '}' && next == '}') {
-        return count;
-      }
-
-      if (current == '}') {
-        count++;
-        i++;
-        continue;
-      }
-
-      return count;
-    }
-
-    return count;
-  }
-
-  private static String unwrapDirective(String code) {
-    String trimmed = code.trim();
-    if (!trimmed.startsWith("<?") || !trimmed.endsWith("?>")) {
-      return trimmed;
-    }
-
-    trimmed = trimmed.substring(2, trimmed.length() - 2).trim();
-    if (trimmed.toLowerCase(Locale.ROOT).startsWith("php")) {
-      trimmed = trimmed.substring(3).trim();
-    }
-    return trimmed;
+    conditionalScope.visitDirective(directiveNode);
   }
 
   @Override
   public void startElement(TagNode node) {
-    String nodeName = node.getNodeName().toLowerCase(Locale.ROOT);
-
-    // Track JSP JSTL conditional tag depth
-    if (JSTL_CONDITIONAL_TAGS.contains(nodeName)) {
-      tagConditionalDepth++;
-    }
-
-    // Check for ID attribute
-    var idValue = node.getAttribute("id");
-    if (idValue != null && !idValue.isEmpty()) {
-      // Skip dynamic IDs - they will be unique at runtime
-      if (Helpers.isDynamicValue(idValue, getHtmlSourceCode())) {
-        return;
-      }
-
-      boolean inConditional = isInConditional(node);
-
-      if (inConditional) {
-        // Inside a conditional: only check against unconditional IDs
-        if (unconditionalIds.containsKey(idValue)) {
-          createViolation(node,
-            String.format("Duplicate id \"%s\" found. First occurrence was on line %d.",
-              idValue, unconditionalIds.get(idValue)));
-        }
-        // Don't store - IDs in conditionals don't create new "authoritative" entries
-      } else {
-        // Outside conditionals: normal duplicate check and storage
-        if (unconditionalIds.containsKey(idValue)) {
-          createViolation(node,
-            String.format("Duplicate id \"%s\" found. First occurrence was on line %d.",
-              idValue, unconditionalIds.get(idValue)));
-        } else {
-          unconditionalIds.put(idValue, node.getStartLinePosition());
-        }
-      }
-    }
+    conditionalScope.startElement(node);
+    handleIdAttribute(node);
   }
 
   @Override
   public void endElement(TagNode node) {
-    String nodeName = node.getNodeName().toLowerCase(Locale.ROOT);
+    conditionalScope.endElement(node);
+  }
 
-    // Track JSP JSTL conditional tag depth
-    if (JSTL_CONDITIONAL_TAGS.contains(nodeName) && tagConditionalDepth > 0) {
-      tagConditionalDepth--;
+  private void handleIdAttribute(TagNode node) {
+    String idValue = node.getAttribute("id");
+    if (shouldIgnoreId(idValue)) {
+      return;
+    }
+    if (conditionalScope.isInConditional(node)) {
+      reportDuplicateAgainstUnconditionalId(node, idValue);
+    } else {
+      registerUnconditionalId(node, idValue);
     }
   }
 
-  /**
-   * Determines if an element is inside a conditional block.
-   */
-  private boolean isInConditional(TagNode node) {
-    // Check text-based conditional depth (Angular, Razor, Twig, PHP)
-    if (textConditionalDepth > 0) {
-      return true;
-    }
+  private boolean shouldIgnoreId(String idValue) {
+    return idValue == null
+      || idValue.isEmpty()
+      || Helpers.isDynamicValue(idValue, getHtmlSourceCode());
+  }
 
-    // Check tag-based conditional depth (JSP JSTL)
-    if (tagConditionalDepth > 0) {
-      return true;
+  private void reportDuplicateAgainstUnconditionalId(TagNode node, String idValue) {
+    Integer firstOccurrenceLine = unconditionalIds.get(idValue);
+    if (firstOccurrenceLine != null) {
+      createViolation(node, duplicateIdMessage(idValue, firstOccurrenceLine));
     }
+  }
 
-    // Check for Vue conditional attributes on the element itself
-    for (String attr : VUE_CONDITIONAL_ATTRS) {
-      if (node.hasAttribute(attr)) {
-        return true;
-      }
+  private void registerUnconditionalId(TagNode node, String idValue) {
+    Integer firstOccurrenceLine = unconditionalIds.putIfAbsent(idValue, node.getStartLinePosition());
+    if (firstOccurrenceLine != null) {
+      createViolation(node, duplicateIdMessage(idValue, firstOccurrenceLine));
     }
+  }
 
-    // Check for Angular structural directives on the element itself
-    for (String attr : ANGULAR_CONDITIONAL_ATTRS) {
-      if (node.hasAttribute(attr)) {
-        return true;
-      }
-    }
-
-    return false;
+  private static String duplicateIdMessage(String idValue, int firstOccurrenceLine) {
+    return String.format("Duplicate id \"%s\" found. First occurrence was on line %d.",
+      idValue, firstOccurrenceLine);
   }
 }
