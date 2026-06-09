@@ -18,8 +18,8 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Locale;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
@@ -69,25 +69,23 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode node) {
-    if (!anchors.isEmpty()) {
-      var anchor = anchors.peek();
-      anchor.hasContent = anchor.hasContent || !node.isBlank();
-    }
+    updateCurrentAnchorContent(!node.isBlank() || hasDynamicContent(node.getCode()));
   }
 
   @Override
   public void directive(DirectiveNode node) {
-    if (!anchors.isEmpty()) {
-      var anchor = anchors.peek();
-      anchor.hasContent = anchor.hasContent || isPhpDirective(node);
-    }
+    updateCurrentAnchorContent(isDynamicDirective(node));
   }
 
   @Override
   public void expression(ExpressionNode node) {
+    updateCurrentAnchorContent(hasDynamicContent(node.getCode()));
+  }
+
+  private void updateCurrentAnchorContent(boolean hasContent) {
     if (!anchors.isEmpty()) {
       var anchor = anchors.peek();
-      anchor.hasContent = true;
+      anchor.hasContent = anchor.hasContent || hasContent;
     }
   }
 
@@ -95,13 +93,13 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
     return "a".equalsIgnoreCase(element.getNodeName());
   }
 
-  private static boolean isPhpDirective(DirectiveNode node) {
-    var nodeName = node.getNodeName();
-    if (nodeName == null) {
-      return false;
-    }
-    nodeName = nodeName.toLowerCase(Locale.ROOT);
-    return nodeName.startsWith("?php") || "?=".equals(nodeName);
+  private boolean isDynamicDirective(DirectiveNode node) {
+    return node.getCode().startsWith("<?") && hasDynamicContent(node.getCode());
+  }
+
+  private boolean hasDynamicContent(String code) {
+    return Helpers.containsDynamicValue(code, getHtmlSourceCode())
+      || Helpers.containsRazorFragmentRendering(code);
   }
 
   private static boolean hasContent(TagNode element) {
@@ -112,6 +110,6 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
       }
     }
     return element.hasProperty("title") || element.hasProperty("aria-label") || element.hasAttribute("th:text")
-       || element.hasAttribute("th:utext");
+       || element.hasAttribute("th:utext") || element.hasAttribute("v-text") || element.hasAttribute("v-html");
   }
 }
