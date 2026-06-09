@@ -60,10 +60,11 @@ class NoDuplicateIDCheckTest {
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.phtml"),
         new NoDuplicateIDCheck());
 
-    // IDs in mutually exclusive PHP if/else branches should NOT be flagged
+    // IDs in mutually exclusive PHP if/else branches should NOT be flagged,
+    // and self-contained PHP directives must not leak conditional depth
     // Only the actual duplicate outside conditionals should be flagged
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(21).withMessage("Duplicate id \"footer\" found. First occurrence was on line 20.")
+        .next().atLine(24).withMessage("Duplicate id \"footer\" found. First occurrence was on line 23.")
         .noMore();
   }
 

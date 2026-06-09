@@ -69,17 +69,26 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode node) {
-    updateCurrentAnchorContent(!node.isBlank() || hasDynamicContent(node.getCode()));
+    if (anchors.isEmpty()) {
+      return;
+    }
+    updateCurrentAnchorContent(!node.isBlank());
   }
 
   @Override
   public void directive(DirectiveNode node) {
+    if (anchors.isEmpty()) {
+      return;
+    }
     updateCurrentAnchorContent(isDynamicDirective(node));
   }
 
   @Override
   public void expression(ExpressionNode node) {
-    updateCurrentAnchorContent(hasDynamicContent(node.getCode()));
+    if (anchors.isEmpty()) {
+      return;
+    }
+    updateCurrentAnchorContent(true);
   }
 
   private void updateCurrentAnchorContent(boolean hasContent) {

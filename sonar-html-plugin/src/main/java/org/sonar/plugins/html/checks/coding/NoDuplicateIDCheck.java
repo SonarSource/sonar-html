@@ -75,7 +75,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
    * Continuations such as "} else {" keep the element inside the same conditional block.
    */
   private static final Pattern CONDITIONAL_CONTINUATION_PATTERN = Pattern.compile(
-    "^}\\s*(else\\b|elseif\\b|else\\s+if\\b)",
+    "^}\\s*@?(else\\b|elseif\\b|else\\s+if\\b)",
     Pattern.CASE_INSENSITIVE | Pattern.DOTALL
   );
 
@@ -121,9 +121,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private void updateTextConditionalDepth(String conditionalText, String braceText) {
+    int conditionalStarts = 0;
     var startMatcher = CONDITIONAL_START_PATTERN.matcher(conditionalText);
     while (startMatcher.find()) {
       textConditionalDepth++;
+      conditionalStarts++;
     }
 
     var endMatcher = CONDITIONAL_END_PATTERN.matcher(conditionalText);
@@ -135,11 +137,40 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
     if (textConditionalDepth > 0 && braceText.contains("}")) {
       String trimmed = braceText.trim();
-      if (trimmed.startsWith("}") && !trimmed.startsWith("}}")
-        && !CONDITIONAL_CONTINUATION_PATTERN.matcher(trimmed).find()) {
-        textConditionalDepth--;
+      if (shouldTrackStructuralBraces(trimmed, conditionalText, conditionalStarts)) {
+        int closingBraces = countStandaloneClosingBraces(trimmed);
+        if (CONDITIONAL_CONTINUATION_PATTERN.matcher(trimmed).find() && closingBraces > 0) {
+          closingBraces--;
+        }
+        if (closingBraces > 0) {
+          textConditionalDepth = Math.max(0, textConditionalDepth - closingBraces);
+        }
       }
     }
+  }
+
+  private static boolean shouldTrackStructuralBraces(String trimmed, String conditionalText, int conditionalStarts) {
+    return startsWithStandaloneClosingBrace(trimmed)
+      || (conditionalStarts > 0 && !conditionalText.contains("{%"));
+  }
+
+  private static boolean startsWithStandaloneClosingBrace(String text) {
+    return text.startsWith("}") && !text.startsWith("}}");
+  }
+
+  private static int countStandaloneClosingBraces(String text) {
+    int count = 0;
+    for (int i = 0; i < text.length(); i++) {
+      if (text.charAt(i) == '}' && !isDoubleBrace(text, i)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  private static boolean isDoubleBrace(String text, int index) {
+    return (index > 0 && text.charAt(index - 1) == '}')
+      || (index + 1 < text.length() && text.charAt(index + 1) == '}');
   }
 
   private static String unwrapDirective(String code) {

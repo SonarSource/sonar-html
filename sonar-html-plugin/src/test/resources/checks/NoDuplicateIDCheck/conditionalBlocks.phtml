@@ -16,6 +16,9 @@
     <div id="summary">Second</div>
 <?php endif; ?>
 
+<!-- Compliant: self-contained PHP conditionals must not leak conditional depth -->
+<?php if (random_int(0, 1)) { $noop = true; } ?>
+
 <!-- Non-compliant: Duplicate IDs outside conditionals -->
 <div id="footer">Footer 1</div>
 <div id="footer">Footer 2</div>
