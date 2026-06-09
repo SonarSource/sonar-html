@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.coding;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.TemplateConditionalScopeTracker;
@@ -83,7 +84,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     }
   }
 
-  private boolean shouldIgnoreId(String idValue) {
+  private boolean shouldIgnoreId(@Nullable String idValue) {
     return idValue == null
       || idValue.isEmpty()
       || Helpers.isDynamicValue(idValue, getHtmlSourceCode());

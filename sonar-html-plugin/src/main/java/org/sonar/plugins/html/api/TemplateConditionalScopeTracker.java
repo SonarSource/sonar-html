@@ -42,19 +42,13 @@ public final class TemplateConditionalScopeTracker {
     "*ngIf", "*ngFor", "*ngSwitchCase", "*ngSwitchDefault"
   );
 
-  private static final Pattern CONDITIONAL_START_PATTERN = Pattern.compile(
-    "@(if|switch)\\s*\\(|" +
-    "@(case|default)\\s*[({]|" +
-    "\\{%[-\\s]*(if|for)\\b|" +
-    "<\\?(?:php)?\\s*(if|foreach|for)\\b",
-    Pattern.CASE_INSENSITIVE
-  );
+  private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
+  private static final Pattern RAZOR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern TWIG_CONDITIONAL_START_PATTERN = Pattern.compile("\\{%[-\\s]*(if|for)\\b", Pattern.CASE_INSENSITIVE);
+  private static final Pattern PHP_CONDITIONAL_START_PATTERN = Pattern.compile("<\\?(?:php)?\\s*(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
 
-  private static final Pattern CONDITIONAL_END_PATTERN = Pattern.compile(
-    "\\{%[-\\s]*(endif|endfor)\\b|" +
-    "<\\?(?:php)?\\s*(endif|endforeach|endfor)\\b",
-    Pattern.CASE_INSENSITIVE
-  );
+  private static final Pattern TWIG_CONDITIONAL_END_PATTERN = Pattern.compile("\\{%[-\\s]*(endif|endfor)\\b", Pattern.CASE_INSENSITIVE);
+  private static final Pattern PHP_CONDITIONAL_END_PATTERN = Pattern.compile("<\\?(?:php)?\\s*(endif|endforeach|endfor)\\b", Pattern.CASE_INSENSITIVE);
 
   private int textConditionalDepth;
   private int tagConditionalDepth;
@@ -100,13 +94,13 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private int incrementTextConditionalDepthForStarts(String conditionalText) {
-    int starts = countMatches(CONDITIONAL_START_PATTERN, conditionalText);
+    int starts = countConditionalStarts(conditionalText);
     textConditionalDepth += starts;
     return starts;
   }
 
   private void decrementTextConditionalDepthForExplicitEnds(String conditionalText) {
-    applyTextConditionalClosings(countMatches(CONDITIONAL_END_PATTERN, conditionalText));
+    applyTextConditionalClosings(countConditionalEnds(conditionalText));
   }
 
   private void applyStructuralClosingBraces(String conditionalText, String braceText, int conditionalStarts) {
@@ -124,7 +118,10 @@ public final class TemplateConditionalScopeTracker {
       ? StructuralClosingBraceCounter.count(trimmed)
       : LeadingClosingBraceCounter.count(trimmed);
 
-    return continuation && structuralClosings > 0 ? structuralClosings - 1 : structuralClosings;
+    if (continuation && structuralClosings > 0) {
+      return structuralClosings - 1;
+    }
+    return structuralClosings;
   }
 
   private boolean hasOpenTextConditional() {
@@ -167,6 +164,18 @@ public final class TemplateConditionalScopeTracker {
       matches++;
     }
     return matches;
+  }
+
+  private static int countConditionalStarts(String conditionalText) {
+    return countMatches(RAZOR_BLOCK_START_PATTERN, conditionalText)
+      + countMatches(RAZOR_BRANCH_START_PATTERN, conditionalText)
+      + countMatches(TWIG_CONDITIONAL_START_PATTERN, conditionalText)
+      + countMatches(PHP_CONDITIONAL_START_PATTERN, conditionalText);
+  }
+
+  private static int countConditionalEnds(String conditionalText) {
+    return countMatches(TWIG_CONDITIONAL_END_PATTERN, conditionalText)
+      + countMatches(PHP_CONDITIONAL_END_PATTERN, conditionalText);
   }
 
   private static String unwrapDirective(String code) {
@@ -272,7 +281,10 @@ public final class TemplateConditionalScopeTracker {
     while (current + 1 < text.length() && !startsWith(text, current, "*/")) {
       current++;
     }
-    return current + 1 < text.length() ? current + 2 : text.length();
+    if (current + 1 < text.length()) {
+      return current + 2;
+    }
+    return text.length();
   }
 
   private static boolean startsWith(String text, int index, String token) {
