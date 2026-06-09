@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
@@ -71,6 +72,14 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   );
 
   /**
+   * Continuations such as "} else {" keep the element inside the same conditional block.
+   */
+  private static final Pattern CONDITIONAL_CONTINUATION_PATTERN = Pattern.compile(
+    "^}\\s*(else\\b|elseif\\b|else\\s+if\\b)",
+    Pattern.CASE_INSENSITIVE | Pattern.DOTALL
+  );
+
+  /**
    * Vue.js conditional directives.
    */
   private static final Set<String> VUE_CONDITIONAL_ATTRS = Set.of(
@@ -102,31 +111,48 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode textNode) {
-    String text = textNode.getCode();
+    updateTextConditionalDepth(textNode.getCode(), textNode.getCode());
+  }
 
-    // Count conditional starts
-    var startMatcher = CONDITIONAL_START_PATTERN.matcher(text);
+  @Override
+  public void directive(DirectiveNode directiveNode) {
+    String code = directiveNode.getCode();
+    updateTextConditionalDepth(code, unwrapDirective(code));
+  }
+
+  private void updateTextConditionalDepth(String conditionalText, String braceText) {
+    var startMatcher = CONDITIONAL_START_PATTERN.matcher(conditionalText);
     while (startMatcher.find()) {
       textConditionalDepth++;
     }
 
-    // Count conditional ends
-    var endMatcher = CONDITIONAL_END_PATTERN.matcher(text);
+    var endMatcher = CONDITIONAL_END_PATTERN.matcher(conditionalText);
     while (endMatcher.find()) {
       if (textConditionalDepth > 0) {
         textConditionalDepth--;
       }
     }
 
-    // Handle closing braces for Angular/Razor blocks
-    // Count standalone closing braces that likely end conditional blocks
-    if (textConditionalDepth > 0 && text.contains("}")) {
-      // Simple heuristic: closing brace at start of text node often ends a block
-      String trimmed = text.trim();
-      if (trimmed.startsWith("}") && !trimmed.startsWith("}}")) {
+    if (textConditionalDepth > 0 && braceText.contains("}")) {
+      String trimmed = braceText.trim();
+      if (trimmed.startsWith("}") && !trimmed.startsWith("}}")
+        && !CONDITIONAL_CONTINUATION_PATTERN.matcher(trimmed).find()) {
         textConditionalDepth--;
       }
     }
+  }
+
+  private static String unwrapDirective(String code) {
+    String trimmed = code.trim();
+    if (!trimmed.startsWith("<?") || !trimmed.endsWith("?>")) {
+      return trimmed;
+    }
+
+    trimmed = trimmed.substring(2, trimmed.length() - 2).trim();
+    if (trimmed.toLowerCase(Locale.ROOT).startsWith("php")) {
+      trimmed = trimmed.substring(3).trim();
+    }
+    return trimmed;
   }
 
   @Override

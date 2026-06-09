@@ -55,6 +55,19 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void phpConditionalBlocks() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.phtml"),
+        new NoDuplicateIDCheck());
+
+    // IDs in mutually exclusive PHP if/else branches should NOT be flagged
+    // Only the actual duplicate outside conditionals should be flagged
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(21).withMessage("Duplicate id \"footer\" found. First occurrence was on line 20.")
+        .noMore();
+  }
+
+  @Test
   void vueConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.vue"),

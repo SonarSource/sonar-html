@@ -18,6 +18,7 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
@@ -78,8 +79,8 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
   public void directive(DirectiveNode node) {
     if (!anchors.isEmpty()) {
       var anchor = anchors.peek();
-      anchor.hasContent = anchor.hasContent || "?php".equals(node.getNodeName());
-     }
+      anchor.hasContent = anchor.hasContent || isPhpDirective(node);
+    }
   }
 
   @Override
@@ -92,6 +93,15 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
 
   private static boolean isAnchor(TagNode element) {
     return "a".equalsIgnoreCase(element.getNodeName());
+  }
+
+  private static boolean isPhpDirective(DirectiveNode node) {
+    var nodeName = node.getNodeName();
+    if (nodeName == null) {
+      return false;
+    }
+    nodeName = nodeName.toLowerCase(Locale.ROOT);
+    return nodeName.startsWith("?php") || "?=".equals(nodeName);
   }
 
   private static boolean hasContent(TagNode element) {
