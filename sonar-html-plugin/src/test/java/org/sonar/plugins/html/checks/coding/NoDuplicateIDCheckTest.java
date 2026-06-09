@@ -61,10 +61,10 @@ class NoDuplicateIDCheckTest {
         new NoDuplicateIDCheck());
 
     // IDs in mutually exclusive PHP if/else branches should NOT be flagged,
-    // and self-contained PHP directives must not leak conditional depth
+    // and PHP directives/comments with literal braces must not leak conditional depth
     // Only the actual duplicate outside conditionals should be flagged
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(24).withMessage("Duplicate id \"footer\" found. First occurrence was on line 23.")
+        .next().atLine(31).withMessage("Duplicate id \"footer\" found. First occurrence was on line 30.")
         .noMore();
   }
 

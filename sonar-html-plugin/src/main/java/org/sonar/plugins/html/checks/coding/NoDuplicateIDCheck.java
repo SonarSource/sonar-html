@@ -137,40 +137,169 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
     if (textConditionalDepth > 0 && braceText.contains("}")) {
       String trimmed = braceText.trim();
-      if (shouldTrackStructuralBraces(trimmed, conditionalText, conditionalStarts)) {
-        int closingBraces = countStandaloneClosingBraces(trimmed);
-        if (CONDITIONAL_CONTINUATION_PATTERN.matcher(trimmed).find() && closingBraces > 0) {
-          closingBraces--;
+      boolean isContinuation = CONDITIONAL_CONTINUATION_PATTERN.matcher(trimmed).find();
+      if (conditionalStarts > 0 && !conditionalText.contains("{%")) {
+        int structuralClosingBraces = countStructuralClosingBraces(trimmed);
+        if (isContinuation && structuralClosingBraces > 0) {
+          structuralClosingBraces--;
         }
-        if (closingBraces > 0) {
-          textConditionalDepth = Math.max(0, textConditionalDepth - closingBraces);
+        if (structuralClosingBraces > 0) {
+          textConditionalDepth = Math.max(0, textConditionalDepth - structuralClosingBraces);
+        }
+      } else {
+        int leadingStructuralClosingBraces = countLeadingStructuralClosingBraces(trimmed);
+        if (isContinuation && leadingStructuralClosingBraces > 0) {
+          leadingStructuralClosingBraces--;
+        }
+        if (leadingStructuralClosingBraces > 0) {
+          textConditionalDepth = Math.max(0, textConditionalDepth - leadingStructuralClosingBraces);
         }
       }
     }
   }
 
-  private static boolean shouldTrackStructuralBraces(String trimmed, String conditionalText, int conditionalStarts) {
-    return startsWithStandaloneClosingBrace(trimmed)
-      || (conditionalStarts > 0 && !conditionalText.contains("{%"));
-  }
-
-  private static boolean startsWithStandaloneClosingBrace(String text) {
-    return text.startsWith("}") && !text.startsWith("}}");
-  }
-
-  private static int countStandaloneClosingBraces(String text) {
+  private static int countStructuralClosingBraces(String text) {
     int count = 0;
+    boolean inSingleQuote = false;
+    boolean inDoubleQuote = false;
+    boolean inLineComment = false;
+    boolean inBlockComment = false;
+    boolean escaped = false;
+
     for (int i = 0; i < text.length(); i++) {
-      if (text.charAt(i) == '}' && !isDoubleBrace(text, i)) {
+      char current = text.charAt(i);
+      char next = i + 1 < text.length() ? text.charAt(i + 1) : '\0';
+
+      if (inLineComment) {
+        if (current == '\n' || current == '\r') {
+          inLineComment = false;
+        }
+        continue;
+      }
+
+      if (inBlockComment) {
+        if (current == '*' && next == '/') {
+          inBlockComment = false;
+          i++;
+        }
+        continue;
+      }
+
+      if (inSingleQuote) {
+        if (escaped) {
+          escaped = false;
+        } else if (current == '\\') {
+          escaped = true;
+        } else if (current == '\'') {
+          inSingleQuote = false;
+        }
+        continue;
+      }
+
+      if (inDoubleQuote) {
+        if (escaped) {
+          escaped = false;
+        } else if (current == '\\') {
+          escaped = true;
+        } else if (current == '"') {
+          inDoubleQuote = false;
+        }
+        continue;
+      }
+
+      if (current == '/' && next == '*') {
+        inBlockComment = true;
+        i++;
+        continue;
+      }
+
+      if (current == '/' && next == '/') {
+        inLineComment = true;
+        i++;
+        continue;
+      }
+
+      if (current == '#') {
+        inLineComment = true;
+        continue;
+      }
+
+      if (current == '\'') {
+        inSingleQuote = true;
+        continue;
+      }
+
+      if (current == '"') {
+        inDoubleQuote = true;
+        continue;
+      }
+
+      if (current == '}' && next == '}') {
+        i++;
+        continue;
+      }
+
+      if (current == '}') {
         count++;
       }
     }
     return count;
   }
 
-  private static boolean isDoubleBrace(String text, int index) {
-    return (index > 0 && text.charAt(index - 1) == '}')
-      || (index + 1 < text.length() && text.charAt(index + 1) == '}');
+  private static int countLeadingStructuralClosingBraces(String text) {
+    int count = 0;
+
+    for (int i = 0; i < text.length();) {
+      char current = text.charAt(i);
+      char next = i + 1 < text.length() ? text.charAt(i + 1) : '\0';
+
+      if (Character.isWhitespace(current)) {
+        i++;
+        continue;
+      }
+
+      if (current == '/' && next == '*') {
+        i += 2;
+        while (i + 1 < text.length() && !(text.charAt(i) == '*' && text.charAt(i + 1) == '/')) {
+          i++;
+        }
+        if (i + 1 >= text.length()) {
+          return count;
+        }
+        i += 2;
+        continue;
+      }
+
+      if (current == '/' && next == '/') {
+        i += 2;
+        while (i < text.length() && text.charAt(i) != '\n' && text.charAt(i) != '\r') {
+          i++;
+        }
+        continue;
+      }
+
+      if (current == '#') {
+        i++;
+        while (i < text.length() && text.charAt(i) != '\n' && text.charAt(i) != '\r') {
+          i++;
+        }
+        continue;
+      }
+
+      if (current == '}' && next == '}') {
+        return count;
+      }
+
+      if (current == '}') {
+        count++;
+        i++;
+        continue;
+      }
+
+      return count;
+    }
+
+    return count;
   }
 
   private static String unwrapDirective(String code) {
