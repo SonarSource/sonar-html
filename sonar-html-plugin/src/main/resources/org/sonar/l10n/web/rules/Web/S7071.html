@@ -22,10 +22,8 @@ potential financial and reputational losses.</p>
 <h2>How to fix it</h2>
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
-<p>Setting the <code>sandbox</code> property of <code>webPreferences</code> to false, adding the <code>nodeintegration</code> attribute, or enabling
-<code>nodeIntegration</code> in <code>webPreferences</code> will result in a webview that will not be sandboxed. For the <code>&lt;webview&gt;</code> tag,
-<code>nodeintegration</code> is a boolean attribute, so its presence enables Node.js integration even when written as
-<code>nodeintegration="false"</code>. Electron also treats a bare <code>nodeIntegration</code> entry in <code>webpreferences</code> as enabled.</p>
+<p>Setting the <code>sandbox</code> property of <code>webPreferences</code> to false or setting <code>nodeIntegration</code> to true will result in a
+webview that will not be sandboxed.</p>
 <pre data-diff-id="11" data-diff-type="noncompliant">
 &lt;webview
     src="https://example.com/index.html"
@@ -44,6 +42,7 @@ potential financial and reputational losses.</p>
 <pre data-diff-id="11" data-diff-type="compliant">
 &lt;webview
     src="https://example.com/index.html"
+    nodeintegration="false"
     &gt;
 &lt;/webview&gt;
 </pre>
@@ -55,9 +54,8 @@ potential financial and reputational losses.</p>
 &lt;/webview&gt;
 </pre>
 <h3>How does this work?</h3>
-<p>In the compliant examples <code>sandbox</code> is explicitly set to its secure value, the <code>nodeintegration</code> attribute is omitted, and
-<code>nodeIntegration</code> is not enabled in <code>webPreferences</code>. It is also sufficient to not set any of these properties since they will
-default to secure values.</p>
+<p>In the compliant examples <code>sandbox</code> or <code>nodeIntegration</code> are explicitly set to their secure value. It is also sufficient to
+not set any of these properties since they will default to secure values.</p>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>
@@ -69,3 +67,4 @@ default to secure values.</p>
   process sandboxing</a></li>
   <li>Electron Documentation - <a href="https://www.electronjs.org/docs/latest/api/webview-tag#nodeintegration">Webview tag - nodeintegration</a></li>
 </ul>
+

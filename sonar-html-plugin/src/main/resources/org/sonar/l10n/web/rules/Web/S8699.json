@@ -1,5 +1,5 @@
 {
-  "title": "\"<form>\" tags should have an explicit valid \"method\" attribute",
+  "title": "\"\u003cform\u003e\" tags should have an explicit valid \"method\" attribute",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
@@ -13,7 +13,6 @@
   "ruleSpecification": "RSPEC-8699",
   "sqKey": "S8699",
   "scope": "Main",
-  "defaultQualityProfiles": [],
   "quickfix": "unknown",
   "code": {
     "impacts": {

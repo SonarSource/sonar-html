@@ -50,7 +50,7 @@ class HtmlRulesDefinitionTest {
 
     RulesDefinition.Rule hotspotsRule = repository.rule("S5247");
     assertThat(hotspotsRule).isNotNull();
-    assertThat(hotspotsRule.type()).isEqualTo(RuleType.SECURITY_HOTSPOT);
+    assertThat(hotspotsRule.type()).isEqualTo(RuleType.VULNERABILITY);
 
     Set<String> templateRules = repository.rules().stream()
       .filter(RulesDefinition.Rule::template)
