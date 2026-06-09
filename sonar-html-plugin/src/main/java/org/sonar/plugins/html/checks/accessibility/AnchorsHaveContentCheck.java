@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.accessibility;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
@@ -68,30 +69,41 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
 
   @Override
   public void characters(TextNode node) {
-    if (!anchors.isEmpty()) {
-      var anchor = anchors.peek();
-      anchor.hasContent = anchor.hasContent || !node.isBlank();
+    if (anchors.isEmpty()) {
+      return;
     }
+    updateCurrentAnchorContent(!node.isBlank());
   }
 
   @Override
   public void directive(DirectiveNode node) {
-    if (!anchors.isEmpty()) {
-      var anchor = anchors.peek();
-      anchor.hasContent = anchor.hasContent || "?php".equals(node.getNodeName());
-     }
+    if (anchors.isEmpty()) {
+      return;
+    }
+    updateCurrentAnchorContent(isServerSideDirective(node));
   }
 
   @Override
   public void expression(ExpressionNode node) {
+    if (anchors.isEmpty()) {
+      return;
+    }
+    updateCurrentAnchorContent(true);
+  }
+
+  private void updateCurrentAnchorContent(boolean hasContent) {
     if (!anchors.isEmpty()) {
       var anchor = anchors.peek();
-      anchor.hasContent = true;
+      anchor.hasContent = anchor.hasContent || hasContent;
     }
   }
 
   private static boolean isAnchor(TagNode element) {
     return "a".equalsIgnoreCase(element.getNodeName());
+  }
+
+  private static boolean isServerSideDirective(DirectiveNode node) {
+    return Helpers.containsServerSideMarker(node.getCode());
   }
 
   private static boolean hasContent(TagNode element) {
@@ -102,6 +114,6 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
       }
     }
     return element.hasProperty("title") || element.hasProperty("aria-label") || element.hasAttribute("th:text")
-       || element.hasAttribute("th:utext");
+       || element.hasAttribute("th:utext") || element.hasAttribute("v-text") || element.hasAttribute("v-html");
   }
 }

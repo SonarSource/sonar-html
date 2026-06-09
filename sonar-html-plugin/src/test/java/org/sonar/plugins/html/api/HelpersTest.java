@@ -50,6 +50,14 @@ class HelpersTest {
   }
 
   @Test
+  void contains_server_side_marker_matches_supported_processing_instructions_only() {
+    assertThat(Helpers.containsServerSideMarker("<?php echo $u; ?>")).isTrue();
+    assertThat(Helpers.containsServerSideMarker("<?= $user ?>")).isTrue();
+    assertThat(Helpers.containsServerSideMarker("<?xml version=\"1.0\"?>")).isFalse();
+    assertThat(Helpers.containsServerSideMarker("<?foo \"bar\" ?>")).isFalse();
+  }
+
+  @Test
   void contains_dynamic_value_returns_false_when_no_marker_present() {
     HtmlSourceCode code = sourceCode("file.html");
     assertThat(Helpers.containsDynamicValue("just a static string", code)).isFalse();

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Compliant: IDs in mutually exclusive PHP if/else branches -->
+<?php if (random_int(0, 1)) { ?>
+    <input type="text" id="test-id" name="customer_id" readonly />
+<?php } else { ?>
+    <input type="text" id="test-id" name="customer_id" readonly />
+<?php } ?>
+
+<!-- Compliant: IDs in alternative PHP syntax branches -->
+<?php if (random_int(0, 1)): ?>
+    <div id="summary">First</div>
+<?php else: ?>
+    <div id="summary">Second</div>
+<?php endif; ?>
+
+<!-- Compliant: self-contained PHP conditionals with literal braces in strings must not leak conditional depth -->
+<?php if (random_int(0, 1)) { echo "}"; } ?>
+
+<!-- Compliant: closing PHP fragments must not treat comment braces as structural -->
+<?php if (random_int(0, 1)) { ?>
+    <div id="message">Shown</div>
+<?php } /* } */ else { ?>
+    <div id="message">Fallback</div>
+<?php } ?>
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="footer">Footer 1</div>
+<div id="footer">Footer 2</div>
+
+</body>
+</html>
