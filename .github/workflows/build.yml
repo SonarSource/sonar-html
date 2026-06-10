@@ -19,17 +19,20 @@ permissions:
 jobs:
   build:
     runs-on: github-ubuntu-latest-m
+    outputs:
+      build_number: ${{ steps.build_maven.outputs.BUILD_NUMBER }}
     steps:
       - &checkout
         name: Checkout source code
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - &mise
-        uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4.1.0
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
         with:
           version: 2025.7.12
       - &maven_cache
         uses: ./.github/actions/maven-cache
-      - uses: SonarSource/ci-github-actions/build-maven@v1
+      - id: build_maven
+        uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           deploy-pull-request: true
           artifactory-reader-role: private-reader
@@ -40,6 +43,8 @@ jobs:
   build-windows:
     needs: [build]
     runs-on: windows-latest
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     steps:
       - *checkout
       - *mise
@@ -57,6 +62,8 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     permissions:
       id-token: write
       contents: read
@@ -91,6 +98,8 @@ jobs:
     if: github.event_name == 'schedule'
     needs: [build]
     runs-on: github-ubuntu-latest-m
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     permissions:
       id-token: write
       contents: read
@@ -110,6 +119,8 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     permissions:
       id-token: write
       contents: write
@@ -225,6 +236,8 @@ jobs:
     if: github.event_name == 'schedule'
     needs: [build]
     runs-on: github-ubuntu-latest-s
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     strategy:
       matrix:
         include:
