@@ -40,20 +40,8 @@ public class VueLexer extends PageLexer {
     List<Node> templateNodes = new LinkedList<>();
     Deque<Object> templateLevels = new LinkedList<>();
     for (Node node : nodes) {
-      if (node.getNodeType() == NodeType.TAG) {
-        TagNode tagNode = (TagNode) node;
-        if (tagNode.equalsElementName(TEMPLATE)) {
-          if (tagNode.isEndElement()) {
-            if (!templateLevels.isEmpty()) {
-              templateLevels.pop();
-              if (templateLevels.isEmpty()) {
-                break;
-              }
-            }
-          } else if (!tagNode.hasEnd()) {
-            templateLevels.push(TEMPLATE_LEVEL);
-          }
-        }
+      if (node.getNodeType() == NodeType.TAG && processTemplateTag((TagNode) node, templateLevels)) {
+        break;
       }
       if (!templateLevels.isEmpty()) {
         if (firstTemplateTag) {
@@ -64,5 +52,22 @@ public class VueLexer extends PageLexer {
       }
     }
     return templateNodes;
+  }
+
+  private static boolean processTemplateTag(TagNode tagNode, Deque<Object> templateLevels) {
+    if (!tagNode.equalsElementName(TEMPLATE)) {
+      return false;
+    }
+    if (tagNode.isEndElement()) {
+      if (!templateLevels.isEmpty()) {
+        templateLevels.pop();
+        if (templateLevels.isEmpty()) {
+          return true;
+        }
+      }
+    } else if (!tagNode.hasEnd()) {
+      templateLevels.push(TEMPLATE_LEVEL);
+    }
+    return false;
   }
 }
