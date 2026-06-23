@@ -26,9 +26,9 @@ jobs:
         name: Checkout source code
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - &mise
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+        uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # v4.2.0
         with:
-          version: 2025.7.12
+          version: 2025.11.2
       - &maven_cache
         uses: ./.github/actions/maven-cache
       - id: build_maven
@@ -42,7 +42,7 @@ jobs:
 
   build-windows:
     needs: [build]
-    runs-on: windows-latest
+    runs-on: github-windows-latest-m
     env:
       BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     steps:
@@ -286,9 +286,9 @@ jobs:
       contents: write
     steps:
       - *checkout
-      - uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4.1.0
+      - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # v4.2.0
         with:
-          version: 2025.7.12
+          version: 2025.11.2
           cache_save: false
       - uses: SonarSource/ci-github-actions/promote@v1
         with:
