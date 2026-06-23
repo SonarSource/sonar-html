@@ -42,7 +42,7 @@ jobs:
 
   build-windows:
     needs: [build]
-    runs-on: windows-latest
+    runs-on: github-windows-latest-m
     env:
       BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     steps:
