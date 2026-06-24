@@ -16,7 +16,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Locale;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -99,14 +98,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     if (value != null && !value.trim().isEmpty()) {
       return true;
     }
-
-    String thymeleafValue = node.getAttribute("th:" + attributeName.toLowerCase(Locale.ROOT));
-    if (thymeleafValue != null) {
-      return !Thymeleaf.isEmptyAssignmentValue(thymeleafValue.trim());
-    }
-
-    String thymeleafAssignedValue = Thymeleaf.getAttrAssignmentValue(node, attributeName);
-    return thymeleafAssignedValue != null && !Thymeleaf.isEmptyAssignmentValue(thymeleafAssignedValue);
+    return Thymeleaf.hasNonEmptyThymeleafAttribute(node, attributeName);
   }
 
   /**

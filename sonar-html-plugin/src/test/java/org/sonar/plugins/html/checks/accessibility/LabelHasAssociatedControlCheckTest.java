@@ -40,6 +40,7 @@ class LabelHasAssociatedControlCheckTest {
       .next().atLine(9)
       .next().atLine(11)
       .next().atLine(16)
+      .next().atLine(30)
       .noMore();
   }
 
@@ -57,6 +58,8 @@ class LabelHasAssociatedControlCheckTest {
       .next().atLine(10)
       .next().atLine(12)
       .next().atLine(14)
+      .next().atLine(15)
+      .next().atLine(16)
       .noMore();
   }
 
@@ -111,7 +114,24 @@ class LabelHasAssociatedControlCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
             .next().atLine(11).withMessage("A form label must be associated with a control and have accessible text.")
             .next().atLine(12)
-            .next().atLine(13)
+            .noMore();
+  }
+
+  @Test
+  void templateGeneratedLabels() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+            new File("src/test/resources/checks/LabelHasAssociatedControlCheck/templateGenerated.html"),
+            new LabelHasAssociatedControlCheck());
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+            .next().atLine(18).withMessage("A form label must be associated with a control and have accessible text.")
+            .next().atLine(21)
+            .next().atLine(22)
+            .next().atLine(25)
+            .next().atLine(26)
+            .next().atLine(29)
+            .next().atLine(30)
+            .next().atLine(33)
+            .next().atLine(34)
             .noMore();
   }
 

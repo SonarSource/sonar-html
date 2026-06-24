@@ -16,14 +16,36 @@
  */
 package org.sonar.plugins.html.api.accessibility;
 
+import java.util.Set;
+import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 
 public class AccessibilityUtils {
 
+  /**
+   * Attributes that template engines use to inject text content into an element at render time:
+   * Thymeleaf {@code th:text}/{@code th:utext} and Vue {@code v-text}/{@code v-html}. Centralized
+   * here so accessibility checks that ask "does this element get its text from a template?" all
+   * see the same definition.
+   */
+  public static final Set<String> TEMPLATE_TEXT_ATTRIBUTES = Set.of("th:text", "th:utext", "v-text", "v-html");
+
   private AccessibilityUtils() {
     // utility class
+  }
+
+  /**
+   * Returns whether {@code element} carries any template-text attribute with a usable value.
+   */
+  public static boolean hasNonEmptyTemplateTextAttribute(TagNode element) {
+    for (String attributeName : TEMPLATE_TEXT_ATTRIBUTES) {
+      if (!Thymeleaf.isEmptyValue(element.getAttribute(attributeName))) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static boolean isHiddenFromScreenReader(TagNode element) {
