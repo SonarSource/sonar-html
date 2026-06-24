@@ -14,3 +14,8 @@
 <!-- Noncompliant: No for attribute and no nested control -->
 <label>Just text</label>
 <label [class]="someClass">Just text</label>
+
+<!-- Compliant: Angular content-binding properties write label text at runtime -->
+<label [for]="inputId" [innerText]="labelText"></label>
+<label [for]="inputId" [innerHTML]="labelMarkup"></label>
+<label [for]="inputId" [textContent]="labelText"></label>

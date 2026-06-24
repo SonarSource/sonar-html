@@ -15,3 +15,11 @@
 <label>Just text</label>
 <label>@Html.DisplayFor(model => model.Name) Name</label>
 <label>@Html.LabelFor(model => model.Name)</label>
+
+<!-- Compliant: Razor fragment-rendering child tag-helpers are opaque -->
+<label><partial name="MyPartial" /></label>
+<label><vc:my-component /></label>
+
+<!-- Compliant: Razor fragment-rendering expressions are opaque -->
+<label>@await Html.PartialAsync("X")</label>
+<label>@{ await Html.RenderPartialAsync("Y"); }</label>

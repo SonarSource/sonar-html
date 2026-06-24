@@ -21,8 +21,11 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
+import org.sonar.plugins.html.api.Thymeleaf;
+import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
-import org.sonar.plugins.html.node.CommentNode;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.Node;
@@ -59,9 +62,14 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   public void startElement(TagNode node) {
     if (isLabel(node)) {
       label = node;
-      foundControl = hasForAttribute(label);
-      foundAccessibleLabel = false;
+      foundControl = hasControlAssociationHint(label);
+      foundAccessibleLabel = hasAccessibleTextHint(label);
       foundLabelBodyContent = false;
+      // A fragment-rendered label is opaque to static analysis — accept both axes.
+      if (Thymeleaf.hasFragmentInsertion(label)) {
+        foundControl = true;
+        foundAccessibleLabel = true;
+      }
     } else {
       if (label != null) {
         foundLabelBodyContent = true;
@@ -69,32 +77,53 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
       if (isControl(node)) {
         foundControl = true;
       }
-    }
-    if (hasAccessibleLabel(node)) {
-      foundAccessibleLabel = true;
+      if (label != null && hasAccessibleTextHint(node)) {
+        foundAccessibleLabel = true;
+      }
+      // Razor view-component or <partial> child can supply both text and control.
+      if (label != null && Helpers.isRazorFile(getHtmlSourceCode()) && Helpers.isRazorFragmentTagHelper(node)) {
+        foundControl = true;
+        foundAccessibleLabel = true;
+      }
     }
   }
 
-  private static boolean hasForAttribute(TagNode label) {
-    return label.hasProperty("for") ||
-           label.hasProperty("htmlFor") ||
-           // Angular binding
-           label.hasProperty("[for]") ||
-           // Vue shorthand binding
-           label.hasProperty(":for") ||
-           // Vue full binding syntax
-           label.hasProperty("v-bind:for") ||
-           // ASP.NET Core Tag Helper
-           label.hasProperty("asp-for");
+  private static boolean hasControlAssociationHint(TagNode label) {
+    return hasPropertyHint(label, "for")
+      || hasPropertyHint(label, "htmlFor")
+      || hasAttributeHint(label, "asp-for")
+      || Thymeleaf.hasNonEmptyThymeleafAttribute(label, "for");
   }
 
-  private static boolean hasAccessibleLabel(TagNode node) {
-    return
-      node.hasProperty("alt") ||
-      node.hasProperty("aria-labelledby") ||
-      node.hasProperty("aria-label") ||
+  private static boolean hasAccessibleTextHint(TagNode node) {
+    return hasPropertyHint(node, "alt")
+      || hasPropertyHint(node, "aria-labelledby")
+      || hasPropertyHint(node, "aria-label")
+      // Angular [innerText]/[innerHTML]/[textContent] write text content at runtime.
+      || hasPropertyHint(node, "innerText")
+      || hasPropertyHint(node, "innerHTML")
+      || hasPropertyHint(node, "textContent")
+      // Thymeleaf th:aria-label / th:attr="aria-label=..." (and aria-labelledby/alt variants).
+      || Thymeleaf.hasNonEmptyThymeleafAttribute(node, "aria-label")
+      || Thymeleaf.hasNonEmptyThymeleafAttribute(node, "aria-labelledby")
+      || Thymeleaf.hasNonEmptyThymeleafAttribute(node, "alt")
+      || AccessibilityUtils.hasNonEmptyTemplateTextAttribute(node)
       // see https://sonarsource.github.io/rspec/#/rspec/S1926
-      "FMT:MESSAGE".equalsIgnoreCase(node.getNodeName());
+      || "FMT:MESSAGE".equalsIgnoreCase(node.getNodeName());
+  }
+
+  // Property lookup that accepts Angular/Vue binding forms even with empty value — the binding name itself is the hint.
+  private static boolean hasPropertyHint(TagNode node, String propertyName) {
+    Attribute property = node.getProperty(propertyName);
+    return property != null && (isBindingForm(property, propertyName) || !Thymeleaf.isEmptyValue(property.getValue()));
+  }
+
+  private static boolean hasAttributeHint(TagNode node, String attributeName) {
+    return !Thymeleaf.isEmptyValue(node.getAttribute(attributeName));
+  }
+
+  private static boolean isBindingForm(Attribute attribute, String canonicalName) {
+    return !canonicalName.equalsIgnoreCase(attribute.getName());
   }
 
   private static boolean isLabel(TagNode node) {
@@ -116,13 +145,11 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
       if (RAZOR_CONTROL_PATTERN.matcher(textNode.getCode()).find()) {
         foundControl = true;
       }
-    }
-  }
-
-  @Override
-  public void comment(CommentNode node) {
-    if (label != null) {
-      foundLabelBodyContent = true;
+      // Razor fragment rendering (@Html.PartialAsync, @RenderBody, ...) is opaque.
+      if (Helpers.isRazorFile(getHtmlSourceCode()) && Helpers.containsRazorFragmentRendering(textNode.getCode())) {
+        foundControl = true;
+        foundAccessibleLabel = true;
+      }
     }
   }
 
@@ -146,7 +173,7 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   @Override
   public void endElement(TagNode node) {
     if (isLabel(node)) {
-      if (label != null && label.hasProperty("asp-for") && !foundLabelBodyContent) {
+      if (label != null && hasAttributeHint(label, "asp-for") && !foundLabelBodyContent) {
         foundAccessibleLabel = true;
       }
       if ((!foundAccessibleLabel || !foundControl) && label != null) {
