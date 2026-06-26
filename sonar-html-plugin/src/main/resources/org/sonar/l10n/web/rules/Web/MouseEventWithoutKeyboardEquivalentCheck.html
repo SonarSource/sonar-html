@@ -9,6 +9,9 @@
 </ul>
 <p>In the case of <code>onClick</code>, the equivalent keyboard handler should activate on the "Enter" and "Space" keys, since these are the keys
 assistive technologies use to activate buttons.</p>
+<p><code>onKeyPress</code> is also recognised as a keyboard equivalent for backward compatibility, but the event is <a
+href="https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event">deprecated</a> and should not be used in new code; prefer
+<code>onKeyDown</code>.</p>
 <h3>Noncompliant code example</h3>
 <pre>
 &lt;div onClick="doSomething();" ...&gt;                   &lt;!-- Noncompliant - 'onKeyDown' or 'onKeyUp' missing --&gt;
@@ -71,6 +74,7 @@ whitelistedElements = lightning-button,lightning-button-icon,clr-button,ion-butt
   functions</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Techniques/client-side-script/SCR29">SCR29: Adding keyboard-accessible actions to static HTML
   elements</a></li>
+  <li>MDN - <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event"><code>keypress</code> event (deprecated)</a></li>
   <li>MDN - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a"><code>&lt;a&gt;</code> element</a></li>
   <li>MDN - <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role">ARIA: <code>button</code>
   role</a></li>

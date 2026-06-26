@@ -48,7 +48,6 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         .next().atLine(54)
         .next().atLine(58).withMessage("Add a 'onKeyDown|onKeyUp' attribute to this <div> tag.")
         .next().atLine(59)
-        .next().atLine(60)
         .next().atLine(65)
         .next().atLine(68)
         .next().atLine(70)

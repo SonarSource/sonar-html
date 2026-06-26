@@ -57,7 +57,7 @@
 
 <div role="button"></div>                                       <!-- Non-Compliant -->
 <div onClick="doSomething();"></div>                            <!-- Non-Compliant -->
-<div onClick="doSomething();" onKeyPress="doSomething();"></div> <!-- Non-Compliant - onKeyPress is deprecated, no longer accepted -->
+<div onClick="doSomething();" onKeyPress="doSomething();" ...>  <!-- Compliant - onKeyPress still accepted for backward compatibility, although deprecated -->
 <div onClick="doSomething();" onKeyDown="doSomething();" ...>   <!-- Compliant -->
 <div onClick="doSomething();" onKeyUp="doSomething();" ...>     <!-- Compliant -->
 

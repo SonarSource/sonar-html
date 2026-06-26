@@ -99,7 +99,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
         return;
       }
 
-      if ((hasOnClick(node) || hasButtonRole(node)) && !(hasOnKeyDown(node) || hasOnKeyUp(node))) {
+      if ((hasOnClick(node) || hasButtonRole(node)) && !(hasOnKeyPress(node) || hasOnKeyDown(node) || hasOnKeyUp(node))) {
         attribute = "onKeyDown|onKeyUp";
       } else if (hasOnMouseover(node) && !hasOnFocus(node)) {
         attribute = "onFocus";
@@ -123,6 +123,10 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   private static boolean hasOnClick(TagNode node) {
     return hasEventHandlerAttribute(node, "CLICK");
+  }
+
+  private static boolean hasOnKeyPress(TagNode node) {
+    return hasEventHandlerAttribute(node, "KEYPRESS");
   }
 
   private static boolean hasOnKeyDown(TagNode node) {
