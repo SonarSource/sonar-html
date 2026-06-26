@@ -46,8 +46,9 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         .next().atLine(51)
         .next().atLine(53)
         .next().atLine(54)
-        .next().atLine(58).withMessage("Add a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.")
+        .next().atLine(58).withMessage("Add a 'onKeyDown|onKeyUp' attribute to this <div> tag.")
         .next().atLine(59)
+        .next().atLine(60)
         .next().atLine(65)
         .next().atLine(68)
         .next().atLine(70)
@@ -55,7 +56,7 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         // Angular (keyup.X) - invalid key name combinations
         .next().atLine(76)
         .next().atLine(77)
-        .next().atLine(85).withMessage("Add a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.")
+        .next().atLine(85).withMessage("Add a 'onKeyDown|onKeyUp' attribute to this <div> tag.")
         // Vue.js - invalid key name combinations
         .next().atLine(106)
         .next().atLine(107)

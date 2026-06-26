@@ -57,7 +57,7 @@
 
 <div role="button"></div>                                       <!-- Non-Compliant -->
 <div onClick="doSomething();"></div>                            <!-- Non-Compliant -->
-<div onClick="doSomething();" onKeyPress="doSomething();" ...>  <!-- Compliant -->
+<div onClick="doSomething();" onKeyPress="doSomething();"></div> <!-- Non-Compliant - onKeyPress is deprecated, no longer accepted -->
 <div onClick="doSomething();" onKeyDown="doSomething();" ...>   <!-- Compliant -->
 <div onClick="doSomething();" onKeyUp="doSomething();" ...>     <!-- Compliant -->
 
@@ -82,7 +82,7 @@
 
 <summary onclick="foo"></summary> <!-- Compliant -->
 
-<div onclick="console.log(this)">Div with a button role</div> <!-- Non-Compliant - Add a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag. -->
+<div onclick="console.log(this)">Div with a button role</div> <!-- Non-Compliant - Add a 'onKeyDown|onKeyUp' attribute to this <div> tag. -->
 <input onclick="console.log(this)"/> <!-- Compliant -->
 <details>
     <summary onclick="console.log(this.target)">Summary</summary> <!-- Compliant -->
