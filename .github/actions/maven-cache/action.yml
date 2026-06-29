@@ -15,7 +15,7 @@ runs:
 
     - name: Restore Maven cache (branches)
       if: github.ref_name != github.event.repository.default_branch
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@v6
       with:
         path: ~/.m2/repository
         key: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
@@ -23,7 +23,7 @@ runs:
 
     - name: Cache Maven dependencies (default branch)
       if: github.ref_name == github.event.repository.default_branch
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.m2/repository
         key: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
