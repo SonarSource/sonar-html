@@ -1,10 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>SonarSource/core-languages-tooling-public:renovate-config"],
-  "configMigration": true,
-  "addLabels": ["dependencies"],
-  "minimumReleaseAgeBehaviour": "timestamp-required",
-  "enabledManagers": ["github-actions", "maven"],
+  "extends": [
+    "local>SonarSource/core-languages-tooling-public:languages-tooling"
+  ],
+  "enabledManagers": [
+    "github-actions",
+    "maven"
+  ],
   "dockerfile": {
     "enabled": true
   },
@@ -14,23 +16,26 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "pinDigests": false
     },
     {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["pin", "rollback"],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "pin",
+        "rollback"
+      ],
       "enabled": false
     },
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchCurrentVersion": "!/^0/"
-    },
-    {
-      "matchPackageNames": ["org.sonarsource.html:html-its"],
+      "matchPackageNames": [
+        "org.sonarsource.html:html-its"
+      ],
       "enabled": false
     }
-  ],
-  "autoApprove": true,
-  "prCreation": "immediate"
+  ]
 }
