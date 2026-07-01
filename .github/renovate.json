@@ -1,7 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>SonarSource/renovate-config:languages-team"],
+  "extends": ["local>SonarSource/core-languages-tooling-public:renovate-config"],
   "configMigration": true,
+  "addLabels": ["dependencies"],
+  "minimumReleaseAgeBehaviour": "timestamp-required",
   "enabledManagers": ["github-actions", "maven"],
   "dockerfile": {
     "enabled": true
@@ -11,11 +13,6 @@
     "its/plugin/projects/**"
   ],
   "packageRules": [
-    {
-      "description": "Don't group updates by default",
-      "matchPackageNames": ["*"],
-      "groupName": null
-    },
     {
       "matchManagers": ["github-actions"],
       "pinDigests": false
@@ -35,6 +32,5 @@
     }
   ],
   "autoApprove": true,
-  "prCreation": "immediate",
-  "rebaseWhen": "never"
+  "prCreation": "immediate"
 }
