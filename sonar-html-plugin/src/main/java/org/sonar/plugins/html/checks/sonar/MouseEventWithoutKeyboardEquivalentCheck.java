@@ -100,7 +100,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       }
 
       if ((hasOnClick(node) || hasButtonRole(node)) && !(hasOnKeyPress(node) || hasOnKeyDown(node) || hasOnKeyUp(node))) {
-        attribute = "onKeyPress|onKeyDown|onKeyUp";
+        attribute = "onKeyDown|onKeyUp";
       } else if (hasOnMouseover(node) && !hasOnFocus(node)) {
         attribute = "onFocus";
       } else if (hasOnMouseout(node) && !hasOnBlur(node)) {
