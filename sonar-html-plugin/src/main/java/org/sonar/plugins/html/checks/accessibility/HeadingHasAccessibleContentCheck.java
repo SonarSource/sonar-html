@@ -19,6 +19,8 @@ package org.sonar.plugins.html.checks.accessibility;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.BufferStack;
+import org.sonar.plugins.html.api.Thymeleaf;
+import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.ExpressionNode;
@@ -36,11 +38,6 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
   private final List<String> invalidAttributes = List.of(
     "aria-hidden"
-  );
-
-  private final List<String> vueJsContentLikeAttributes = List.of(
-    "v-html",
-    "v-text"
   );
 
   private final BufferStack bufferStack = new BufferStack();
@@ -65,11 +62,11 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
       }
     }
 
-    // vueJS attributes that maps to content are considered as content
-    vueJsContentLikeAttributes.forEach(attributeName -> {
+    // template-text attributes (Thymeleaf th:text/th:utext, Vue v-text/v-html) are content
+    AccessibilityUtils.TEMPLATE_TEXT_ATTRIBUTES.forEach(attributeName -> {
       String nodeAttribute = node.getAttribute(attributeName);
 
-      if (nodeAttribute != null && !nodeAttribute.isBlank() && bufferStack.getLevel() > 0) {
+      if (!Thymeleaf.isEmptyValue(nodeAttribute) && bufferStack.getLevel() > 0) {
         bufferStack.write(nodeAttribute);
       }
     });

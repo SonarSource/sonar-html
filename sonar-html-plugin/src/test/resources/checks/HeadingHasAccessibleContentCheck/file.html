@@ -90,3 +90,9 @@
 </h1>
 
 <h7></h7> <!-- Compliant: out of scope -->
+
+<h1 th:text="#{title}"></h1>  <!-- Compliant: Thymeleaf renders text at runtime -->
+<h1 th:utext="#{title}"></h1> <!-- Compliant: Thymeleaf renders unescaped text at runtime -->
+
+<h1 th:text="''"></h1>       <!-- Noncompliant: empty Thymeleaf text renders no heading content -->
+<h1 th:utext="'  '"></h1>   <!-- Noncompliant: blank Thymeleaf text renders no heading content -->

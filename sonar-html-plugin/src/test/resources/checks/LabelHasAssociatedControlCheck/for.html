@@ -12,3 +12,5 @@
 <div><label>foo</label><input id="js_id_2" /></div>
 <label htmlFor="js_id">foo</label>
 <label htmlFor="js_id"></label> <!-- Noncompliant -->
+<label for="" alt="foo" /> <!-- Noncompliant: an empty "for" no longer counts as a control association -->
+<label for="   " alt="foo" /> <!-- Noncompliant: whitespace-only is also empty -->

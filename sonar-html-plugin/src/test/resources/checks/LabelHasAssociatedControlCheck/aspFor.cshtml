@@ -10,4 +10,6 @@
 <!-- Noncompliant: non-empty body suppresses the generated label text -->
 <label asp-for="ModelProperty"><input asp-for="ModelProperty" /></label>
 <label asp-for="ModelProperty"><span></span></label>
+
+<!-- Compliant: an HTML comment is not body content; Razor still generates the label text -->
 <label asp-for="ModelProperty"><!-- comment --></label>

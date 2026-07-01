@@ -26,6 +26,7 @@ import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
 
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.hasNonEmptyTemplateTextAttribute;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 
 @Rule(key = "S6827")
@@ -113,7 +114,7 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
         return true;
       }
     }
-    return element.hasProperty("title") || element.hasProperty("aria-label") || element.hasAttribute("th:text")
-       || element.hasAttribute("th:utext") || element.hasAttribute("v-text") || element.hasAttribute("v-html");
+    return element.hasProperty("title") || element.hasProperty("aria-label")
+      || hasNonEmptyTemplateTextAttribute(element);
   }
 }

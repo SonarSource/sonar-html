@@ -1,0 +1,39 @@
+<!-- Compliant: Thymeleaf can generate both the label target and the text -->
+<label th:for="${#ids.prev('title')}" th:text="#{publication.title}"></label>
+
+<!-- Compliant: Thymeleaf th:attr can generate the target and descendants can generate the text -->
+<label th:attr="class='field-label', for=${dynamicId}"><span th:text="#{publication.subtitle}"></span></label>
+
+<!-- Compliant: Thymeleaf th:attr can generate both the target and the accessible-text attribute -->
+<label th:attr="aria-label=#{publication.title}, for=${dynamicId}"></label>
+<label th:attr="aria-labelledby=#{publication.titleId}, for=${dynamicId}"></label>
+<label th:aria-label="#{publication.title}" th:for="${dynamicId}"></label>
+
+<!-- Compliant: Vue text directives generate accessible label text -->
+<label :for="inputId" v-text="labelText"></label>
+<label :for="inputId" v-html="labelMarkup"></label>
+<label v-bind:for="inputId" v-text="labelText"></label>
+
+<!-- Noncompliant: template association without any accessible text -->
+<label th:for="${#ids.prev('title')}"></label>
+
+<!-- Noncompliant: generated text without any control association -->
+<label th:text="#{publication.title}"></label>
+<label v-text="labelText"></label>
+
+<!-- Noncompliant: empty generated text still fails -->
+<label th:for="${#ids.prev('title')}" th:text="''"></label>
+<label th:attr="for=${dynamicId}" th:utext="'  '"></label>
+
+<!-- Noncompliant: th:attr text/utext assignments generate attributes, not element body text -->
+<label th:attr="for=${dynamicId}, text=#{publication.title}"></label>
+<label th:attr="for=${dynamicId}, utext=#{publication.title}"></label>
+
+<!-- Noncompliant: Razor tag-helper children are only opaque in Razor files -->
+<label><partial name="LabelAndControl" /></label>
+<label><vc:label-and-control /></label>
+
+<!-- Compliant: Thymeleaf fragment-insertion attributes make the label content opaque -->
+<label th:insert="~{fragments :: titleLabel}"></label>
+<label th:replace="~{fragments :: titleLabel}"></label>
+<label th:include="~{fragments :: titleLabel}"></label>

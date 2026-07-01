@@ -106,6 +106,55 @@ class ThymeleafTest {
     assertThat(Thymeleaf.isEmptyAssignmentValue("foo")).isFalse();
   }
 
+  @Test
+  void isEmptyValue_nullOrBlank() {
+    assertThat(Thymeleaf.isEmptyValue(null)).isTrue();
+    assertThat(Thymeleaf.isEmptyValue("")).isTrue();
+    assertThat(Thymeleaf.isEmptyValue("   ")).isTrue();
+  }
+
+  @Test
+  void isEmptyValue_emptyQuotedLiteralWithPadding() {
+    assertThat(Thymeleaf.isEmptyValue(" '' ")).isTrue();
+    assertThat(Thymeleaf.isEmptyValue("\"  \"")).isTrue();
+  }
+
+  @Test
+  void isEmptyValue_nonEmptyValues() {
+    assertThat(Thymeleaf.isEmptyValue("foo")).isFalse();
+    assertThat(Thymeleaf.isEmptyValue("'foo'")).isFalse();
+    assertThat(Thymeleaf.isEmptyValue("#{logo}")).isFalse();
+  }
+
+  @Test
+  void hasNonEmptyThymeleafAttribute_returnsFalse_whenNeitherFormIsPresent() {
+    assertThat(Thymeleaf.hasNonEmptyThymeleafAttribute(tagWithoutThAttr(), "alt")).isFalse();
+  }
+
+  @Test
+  void hasNonEmptyThymeleafAttribute_returnsTrue_whenLiteralIsSet() {
+    TagNode node = new TagNode();
+    node.getAttributes().add(new Attribute("th:alt", "#{logo}"));
+    assertThat(Thymeleaf.hasNonEmptyThymeleafAttribute(node, "alt")).isTrue();
+  }
+
+  @Test
+  void hasNonEmptyThymeleafAttribute_returnsFalse_whenLiteralIsEmpty() {
+    TagNode node = new TagNode();
+    node.getAttributes().add(new Attribute("th:alt", "''"));
+    assertThat(Thymeleaf.hasNonEmptyThymeleafAttribute(node, "alt")).isFalse();
+  }
+
+  @Test
+  void hasNonEmptyThymeleafAttribute_returnsTrue_whenAssignedViaThAttr() {
+    assertThat(Thymeleaf.hasNonEmptyThymeleafAttribute(tagWithThAttr("alt=#{logo}"), "alt")).isTrue();
+  }
+
+  @Test
+  void hasNonEmptyThymeleafAttribute_returnsFalse_whenAssignmentIsEmpty() {
+    assertThat(Thymeleaf.hasNonEmptyThymeleafAttribute(tagWithThAttr("alt=''"), "alt")).isFalse();
+  }
+
   private static TagNode tagWithThAttr(String thAttrValue) {
     TagNode node = new TagNode();
     node.getAttributes().add(new Attribute("th:attr", thAttrValue));

@@ -18,6 +18,10 @@ package org.sonar.plugins.html.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import javax.annotation.Nullable;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 /**
@@ -32,7 +36,27 @@ import org.sonar.plugins.html.node.TagNode;
  */
 public final class Thymeleaf {
 
+  /**
+   * Attributes that ask Thymeleaf to render an external fragment in place of (or inside) the
+   * current element. Statically, the resulting markup is opaque — the rendered fragment can
+   * supply text, controls, or both — so checks should treat these as "do not flag".
+   */
+  public static final Set<String> FRAGMENT_INSERTION_ATTRIBUTES = Set.of("th:insert", "th:include", "th:replace");
+
   private Thymeleaf() {
+  }
+
+  /**
+   * Returns whether the node carries any Thymeleaf fragment-insertion attribute
+   * ({@code th:insert}, {@code th:include}, {@code th:replace}).
+   */
+  public static boolean hasFragmentInsertion(TagNode node) {
+    for (Attribute attribute : node.getAttributes()) {
+      if (FRAGMENT_INSERTION_ATTRIBUTES.contains(attribute.getName().toLowerCase(Locale.ROOT))) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -82,6 +106,33 @@ public final class Thymeleaf {
       return value.substring(1, value.length() - 1).trim().isEmpty();
     }
     return false;
+  }
+
+  /**
+   * Returns whether the raw attribute value is absent, blank, or a quoted literal that resolves
+   * to whitespace. Combines a null/blank check with {@link #isEmptyAssignmentValue(String)} so
+   * callers do not have to trim and null-check separately.
+   */
+  public static boolean isEmptyValue(@Nullable String value) {
+    if (value == null) {
+      return true;
+    }
+    String trimmed = value.trim();
+    return trimmed.isEmpty() || isEmptyAssignmentValue(trimmed);
+  }
+
+  /**
+   * Returns whether the node sets {@code attributeName} via either the literal {@code th:NAME}
+   * attribute or a {@code th:attr=NAME=...} assignment, with a non-empty value. This is the
+   * Thymeleaf-only counterpart used to enrich attribute-presence checks; combine it with a
+   * plain property lookup at the call site when both forms should be accepted.
+   */
+  public static boolean hasNonEmptyThymeleafAttribute(TagNode node, String attributeName) {
+    String literalValue = node.getAttribute("th:" + attributeName.toLowerCase(Locale.ROOT));
+    if (!isEmptyValue(literalValue)) {
+      return true;
+    }
+    return !isEmptyValue(getAttrAssignmentValue(node, attributeName));
   }
 
   private static List<String> splitAssignments(String thAttrValue) {

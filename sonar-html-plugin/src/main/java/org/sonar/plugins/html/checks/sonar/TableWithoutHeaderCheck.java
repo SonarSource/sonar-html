@@ -22,6 +22,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
+import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
@@ -31,8 +32,6 @@ import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
-
-  private static final Set<String> THYMELEAF_FRAGMENT_INSERTION_KEYWORDS = Set.of("th:insert", "th:include", "th:replace");
 
   private final Set<TagNode> tablesWithRazorFragmentRendering = new HashSet<>();
 
@@ -127,7 +126,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean hasThymeleafFragmentInsertionFromTableChildren(List<TagNode> nodes) {
     for (TagNode node : nodes) {
-      if (node.getAttributes().stream().map(Attribute::getName).anyMatch(THYMELEAF_FRAGMENT_INSERTION_KEYWORDS::contains)
+      if (node.getAttributes().stream().map(Attribute::getName).anyMatch(Thymeleaf.FRAGMENT_INSERTION_ATTRIBUTES::contains)
         || hasThymeleafFragmentInsertionFromTableChildren(node.getChildren())) {
         return true;
       }

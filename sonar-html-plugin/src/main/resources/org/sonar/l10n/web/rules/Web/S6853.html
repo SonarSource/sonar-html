@@ -21,7 +21,21 @@
   <li><code>&lt;textarea&gt;</code></li>
 </ul>
 <h3>Exceptions</h3>
-<p>Custom components may contain control elements, therefore label elements containing custom elements do not raise issues.</p>
+<p>This rule accepts some server-side and template constructs when they generate the association, the label text, or the control at runtime.</p>
+<ul>
+  <li><code>&lt;label asp-for="..."&gt;</code> counts as an explicit association. If its body is empty or whitespace-only, ASP.NET Core generates the
+  label text.</li>
+  <li>Angular, Vue, and Thymeleaf bindings that generate the association or the accessible text are accepted, for example <code>[for]</code>,
+  <code>:for</code>, <code>v-bind:for</code>, <code>[innerText]</code>, <code>[innerHTML]</code>, <code>[textContent]</code>, <code>v-text</code>,
+  <code>v-html</code>, <code>th:for</code>, <code>th:text</code>, <code>th:utext</code>, and <code>th:attr</code> assignments to <code>for</code>,
+  <code>aria-label</code>, or <code>aria-labelledby</code>.</li>
+  <li>Razor helpers and fragment renderers that are opaque to static analysis are accepted, including <code>@Html.TextBoxFor(...)</code> and related
+  form helpers, <code>&lt;partial&gt;</code>, <code>&lt;vc:...&gt;</code>, <code>@await Html.PartialAsync(...)</code>, <code>@{ await
+  Html.RenderPartialAsync(...); }</code>, and Thymeleaf fragment insertion with <code>th:insert</code>, <code>th:include</code>, or
+  <code>th:replace</code>.</li>
+  <li>Server-side expressions that generate label text are accepted, for example JSP expressions or directives, PHP expressions, and
+  <code>&lt;fmt:message&gt;</code>.</li>
+</ul>
 <h2>How to fix it</h2>
 <p>Make sure the <code>&lt;label&gt;</code> has text that describes the control.</p>
 <p>An implicit association wraps the control element inside the <code>&lt;label&gt;</code>. An explicit association keeps the label and control
@@ -40,18 +54,14 @@ control element, add one.</p>
 </pre>
 <h4>Compliant solution</h4>
 <pre data-diff-id="1" data-diff-type="compliant">
-&lt;!-- Label with text --&gt;
+&lt;!-- Explicit association --&gt;
 &lt;label for="favorite-sport"&gt;Favorite sport&lt;/label&gt;
 &lt;input id="favorite-sport" type="text" /&gt;
 
-&lt;!-- Explicit association --&gt;
-&lt;label for="favorite-food"&gt;Favorite food&lt;/label&gt;
-&lt;input id="favorite-food" type="text" /&gt;
-
 &lt;!-- Implicit association --&gt;
 &lt;label&gt;
-    Favorite place
-    &lt;input id="favorite-place" type="text" /&gt;
+    Favorite food
+    &lt;input id="favorite-food" type="text" /&gt;
 &lt;/label&gt;
 </pre>
 <h2>Resources</h2>
