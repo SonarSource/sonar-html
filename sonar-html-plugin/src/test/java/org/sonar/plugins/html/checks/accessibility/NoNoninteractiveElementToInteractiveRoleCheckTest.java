@@ -33,7 +33,7 @@ class NoNoninteractiveElementToInteractiveRoleCheckTest {
       new File("src/test/resources/checks/NoNoninteractiveElementToInteractiveRoleCheck/valid.html"),
       new NoNoninteractiveElementToInteractiveRoleCheck());
 
-  checkMessagesVerifier.verify(sourceCode.getIssues())
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .noMore();
   }
 
@@ -81,46 +81,56 @@ class NoNoninteractiveElementToInteractiveRoleCheckTest {
       .next().atLine(35)
       .next().atLine(36)
       .next().atLine(37)
-      .next().atLine(38)
-      .next().atLine(39)
-      .next().atLine(40)
-      .next().atLine(41)
-      .next().atLine(42)
-      .next().atLine(43)
-      .next().atLine(44)
-      .next().atLine(45)
-      .next().atLine(46)
-      .next().atLine(47)
-      .next().atLine(48)
-      .next().atLine(49)
-      .next().atLine(50)
-      .next().atLine(55)
-      .next().atLine(56)
-      .next().atLine(57)
-      .next().atLine(58)
-      .next().atLine(59)
-      .next().atLine(60)
-      .next().atLine(61)
-      .next().atLine(62)
-      .next().atLine(63)
-      .next().atLine(64)
-      .next().atLine(65)
-      .next().atLine(66)
-      .next().atLine(67)
-      .next().atLine(68)
-      .next().atLine(69)
-      .next().atLine(70)
-      .next().atLine(71)
-      .next().atLine(72)
-      .next().atLine(73)
-      .next().atLine(74)
-      .next().atLine(75)
-      .next().atLine(76)
-      .next().atLine(78)
-      .next().atLine(79)
-      .next().atLine(80)
-      .next().atLine(81)
       .noMore();
+  }
 
+  @Test
+  void contextLi() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoNoninteractiveElementToInteractiveRoleCheck/contextLi.html"),
+      new NoNoninteractiveElementToInteractiveRoleCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2)
+      .next().atLine(5)
+      .next().atLine(11)
+      .noMore();
+  }
+
+  @Test
+  void contextImg() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoNoninteractiveElementToInteractiveRoleCheck/contextImg.html"),
+      new NoNoninteractiveElementToInteractiveRoleCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(4)
+      .next().atLine(5)
+      .next().atLine(6)
+      .noMore();
+  }
+
+  @Test
+  void contextFigure() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoNoninteractiveElementToInteractiveRoleCheck/contextFigure.html"),
+      new NoNoninteractiveElementToInteractiveRoleCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(4)
+      .next().atLine(7)
+      .noMore();
+  }
+
+  @Test
+  void contextLabel() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoNoninteractiveElementToInteractiveRoleCheck/contextLabel.html"),
+      new NoNoninteractiveElementToInteractiveRoleCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2)
+      .next().atLine(3)
+      .noMore();
   }
 }

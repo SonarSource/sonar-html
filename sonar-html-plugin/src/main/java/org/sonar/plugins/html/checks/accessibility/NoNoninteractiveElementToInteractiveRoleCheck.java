@@ -20,12 +20,11 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
 
-import java.util.EnumSet;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import org.sonar.check.Rule;
-import org.sonar.plugins.html.api.accessibility.AriaRole;
-import org.sonar.plugins.html.api.accessibility.Element;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -33,38 +32,34 @@ import org.sonar.plugins.html.node.TagNode;
 public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Non-interactive elements should not be assigned interactive roles.";
-  private static final Set<Element> ELEMENTS_WITH_ANY_INTERACTIVE_ROLE = EnumSet.of(
-    Element.TABLE,
-    Element.TBODY,
-    Element.TFOOT,
-    Element.THEAD
-  );
-  private static final Set<Element> LIST_CONTAINER_ELEMENTS = EnumSet.of(
-    Element.MENU,
-    Element.OL,
-    Element.UL
-  );
-  private static final Set<AriaRole> ALLOWED_INTERACTIVE_ROLES_FOR_LIST_CONTAINERS = EnumSet.of(
-    AriaRole.LISTBOX,
-    AriaRole.MENU,
-    AriaRole.MENUBAR,
-    AriaRole.RADIOGROUP,
-    AriaRole.TABLIST,
-    AriaRole.TREE
-  );
-  private static final Set<String> LIST_CONTAINER_ROLES_WITHOUT_LIST_SEMANTICS = Set.of(
-    "directory",
-    "group",
-    "listbox",
-    "menu",
-    "menubar",
-    "none",
-    "presentation",
-    "radiogroup",
-    "tablist",
-    "toolbar",
-    "tree"
-  );
+
+  // Elements that ARIA in HTML permits to take any role.
+  private static final Set<String> ANY_ROLE_ELEMENTS = Set.of(
+    "abbr", "address", "blockquote", "code", "del", "dfn", "em", "ins", "mark", "output",
+    "p", "pre", "ruby", "strong", "sub", "sup", "table", "tbody", "tfoot", "thead", "time");
+
+  // Interactive roles ARIA in HTML permits per element (lowercased role names).
+  private static final Set<String> LIST_CONTAINER_ROLES = Set.of(
+    "listbox", "menu", "menubar", "radiogroup", "tablist", "tree");
+  private static final Map<String, Set<String>> ALLOWED_INTERACTIVE_ROLES = Map.of(
+    "fieldset", Set.of("radiogroup"),
+    "menu", LIST_CONTAINER_ROLES,
+    "nav", Set.of("menu", "menubar", "tablist"),
+    "ol", LIST_CONTAINER_ROLES,
+    "ul", LIST_CONTAINER_ROLES);
+
+  // Interactive roles allowed on an <img> that exposes an accessible name.
+  private static final Set<String> IMG_INTERACTIVE_ROLES = Set.of(
+    "button", "checkbox", "link", "menuitem", "menuitemcheckbox", "menuitemradio", "option",
+    "progressbar", "radio", "scrollbar", "slider", "switch", "tab", "treeitem");
+
+  // Interactive roles allowed on heading elements (h1-h6).
+  private static final Set<String> HEADING_INTERACTIVE_ROLES = Set.of("tab");
+
+  private static final Set<String> LABELABLE_CONTROLS = Set.of(
+    "button", "input", "meter", "output", "progress", "select", "textarea");
+
+  private static final Set<String> LIST_CONTAINER_ELEMENTS = Set.of("ul", "ol", "menu");
 
   @Override
   public void startElement(TagNode node) {
@@ -72,63 +67,86 @@ public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageC
       hasKnownHTMLTag(node) &&
       isNonInteractiveElement(node) &&
       hasInteractiveRole(node) &&
-      !isAllowedByAriaInHtmlSpec(node)
+      !isRoleAllowedBySpec(node)
     ) {
       createViolation(node, MESSAGE);
     }
   }
 
-  /**
-   * Checks whether the element/role pair is allowed by the ARIA in HTML conformance table.
-   * @param node the element being analyzed
-   * @return true when the role is allowed for that element by the ARIA in HTML specification
-   */
-  private static boolean isAllowedByAriaInHtmlSpec(TagNode node) {
-    var element = Element.of(node.getNodeName().toLowerCase(Locale.ROOT));
-    var role = interactiveRole(node);
-    if (element == null || role == null) {
-      return false;
-    }
+  private static boolean isRoleAllowedBySpec(TagNode node) {
+    var tag = node.getNodeName().toLowerCase(Locale.ROOT);
+    var role = node.getAttribute("role").toLowerCase(Locale.ROOT);
 
-    if (ELEMENTS_WITH_ANY_INTERACTIVE_ROLE.contains(element)) {
+    if (ANY_ROLE_ELEMENTS.contains(tag)) {
       return true;
     }
-
-    return switch (element) {
-      case FIELDSET -> role == AriaRole.RADIOGROUP;
-      case MENU, OL, UL -> ALLOWED_INTERACTIVE_ROLES_FOR_LIST_CONTAINERS.contains(role);
-      case LI -> isListItemRoleAllowed(node);
-      default -> false;
-    };
+    // Elements whose allowed roles depend on their context.
+    switch (tag) {
+      case "li":
+        return !parentExposesListRole(node);
+      case "img":
+        return hasAccessibleName(node) && IMG_INTERACTIVE_ROLES.contains(role);
+      case "figure":
+        return !hasFigcaptionChild(node);
+      case "label":
+        return !isAssociatedLabel(node);
+      default:
+        break;
+    }
+    // Elements with an enumerated allowlist of interactive roles.
+    if (Helpers.isHeadingTag(node)) {
+      return HEADING_INTERACTIVE_ROLES.contains(role);
+    }
+    return ALLOWED_INTERACTIVE_ROLES.getOrDefault(tag, Set.of()).contains(role);
   }
 
-  private static boolean isListItemRoleAllowed(TagNode node) {
+  // A list item is restricted to listitem only when its parent list still exposes the list role.
+  private static boolean parentExposesListRole(TagNode node) {
     var parent = node.getParent();
-    if (parent == null) {
+    if (parent == null || !LIST_CONTAINER_ELEMENTS.contains(parent.getNodeName().toLowerCase(Locale.ROOT))) {
       return false;
     }
-
-    var parentElement = Element.of(parent.getNodeName().toLowerCase(Locale.ROOT));
-    var parentRoleAttribute = roleAttribute(parent);
-    return parentElement != null
-      && LIST_CONTAINER_ELEMENTS.contains(parentElement)
-      && parentRoleAttribute != null
-      && LIST_CONTAINER_ROLES_WITHOUT_LIST_SEMANTICS.contains(parentRoleAttribute);
+    var parentRole = parent.getAttribute("role");
+    return parentRole == null || parentRole.equalsIgnoreCase("list");
   }
 
-  private static AriaRole interactiveRole(TagNode node) {
-    var role = role(node);
-    return role != null && AriaRole.LIST != role ? role : null;
+  // An img exposes an accessible name via non-empty alt, aria-label or aria-labelledby.
+  private static boolean hasAccessibleName(TagNode node) {
+    return hasNonEmptyAttribute(node, "alt")
+      || hasNonEmptyAttribute(node, "aria-label")
+      || hasNonEmptyAttribute(node, "aria-labelledby");
   }
 
-  private static AriaRole role(TagNode node) {
-    var roleAttribute = roleAttribute(node);
-    return roleAttribute == null ? null : AriaRole.of(roleAttribute);
+  private static boolean hasNonEmptyAttribute(TagNode node, String name) {
+    var value = node.getAttribute(name);
+    return value != null && !value.isEmpty();
   }
 
-  private static String roleAttribute(TagNode node) {
-    var roleAttribute = node.getAttribute("role");
-    return roleAttribute == null ? null : roleAttribute.toLowerCase(Locale.ROOT);
+  // A figure caption must be the first or last child of the figure per the HTML content model.
+  private static boolean hasFigcaptionChild(TagNode node) {
+    var children = node.getChildren();
+    if (children.isEmpty()) {
+      return false;
+    }
+    return isFigcaption(children.get(0)) || isFigcaption(children.get(children.size() - 1));
+  }
+
+  private static boolean isFigcaption(TagNode node) {
+    return "figcaption".equalsIgnoreCase(node.getNodeName());
+  }
+
+  // A label is associated when it references a control via for/htmlFor or wraps a labelable control.
+  private static boolean isAssociatedLabel(TagNode node) {
+    return node.hasProperty("for") || node.hasProperty("htmlFor") || containsLabelableControl(node);
+  }
+
+  private static boolean containsLabelableControl(TagNode node) {
+    for (var child : node.getChildren()) {
+      if (LABELABLE_CONTROLS.contains(child.getNodeName().toLowerCase(Locale.ROOT)) || containsLabelableControl(child)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
