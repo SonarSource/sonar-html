@@ -1,19 +1,17 @@
 <h2>Why is this an issue?</h2>
-<p>Non-interactive DOM elements are those that do not have built-in interactivity or do not require user interaction. Examples include
-<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>, and
-<code>&lt;ul&gt;</code>, among others. These elements are typically used to structure content and layout but do not have any inherent interactive
-behavior.</p>
-<p>Interactive ARIA roles, on the other hand, are used to make elements interactive and accessible. These roles include <code>button</code>,
-<code>link</code>, <code>checkbox</code>, <code>menuitem</code>, <code>tab</code>, and others. They are used to communicate the type of interaction
-that users can expect from an element.</p>
-<p>Non-interactive DOM elements should not use interactive ARIA roles because it can confuse assistive technologies and their users. For example, if a
-<code>&lt;div&gt;</code> (a non-interactive element) is given an interactive role like "button", assistive technologies like screen readers will
-announce it as a button. However, since <code>&lt;div&gt;</code> doesn’t have the inherent behavior of a button, it can confuse users who expect it to
-behave like a button when interacted with.</p>
-<p>This can lead to a poor user experience and can make the website less accessible for users relying on assistive technologies. Therefore, it’s
-important to ensure that non-interactive DOM elements are not given interactive ARIA roles.</p>
+<p>Non-interactive DOM elements should usually not be given interactive ARIA roles. Doing so changes how assistive technologies announce the element
+without giving it the native behavior users expect.</p>
+<p>For example, <code>&lt;div role="button"&gt;</code> is announced as a button, but it does not automatically get the keyboard support, focus
+behavior, or activation semantics of a real <code>&lt;button&gt;</code>. This mismatch can confuse users and make the page less accessible.</p>
+<p>Some composite-widget patterns are valid exceptions. The ARIA in HTML specification explicitly allows certain non-interactive elements to take
+interactive roles, such as <code>&lt;fieldset role="radiogroup"&gt;</code>, <code>&lt;ul role="menu"&gt;</code>, <code>&lt;ol
+role="tablist"&gt;</code>, <code>&lt;li role="menuitem"&gt;</code>, and <code>&lt;table role="grid"&gt;</code>.</p>
+<p>Outside of those spec-defined exceptions, prefer native interactive elements instead of assigning interactive roles to non-interactive markup.</p>
 <h2>How to fix it</h2>
-<p>Ensure that non-interactive DOM elements do not use interactive ARIA roles.</p>
+<p>Use a native interactive element whenever possible. For example, replace <code>&lt;li role="button"&gt;</code> with a real
+<code>&lt;button&gt;</code> when the content is meant to behave like a button.</p>
+<p>Keep an interactive ARIA role on a non-interactive element only when the ARIA in HTML specification explicitly allows that composite-widget
+pairing, such as <code>&lt;fieldset role="radiogroup"&gt;</code> or <code>&lt;ul role="tablist"&gt;</code>.</p>
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
 <pre data-diff-id="1" data-diff-type="noncompliant">
@@ -21,11 +19,13 @@ important to ensure that non-interactive DOM elements are not given interactive 
 </pre>
 <h4>Compliant solution</h4>
 <pre data-diff-id="1" data-diff-type="compliant">
-&lt;li role="listitem"&gt;Foo&lt;/li&gt;
+&lt;button type="button"&gt;Foo&lt;/button&gt;
 </pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>
+  <li>W3C - <a href="https://w3c.github.io/html-aria/">ARIA in HTML</a></li>
+  <li>W3C - <a href="https://www.w3.org/TR/using-aria/#rule1">Using ARIA - The first rule of ARIA</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 2.2 - 4.1.2 Name, Role, Value</a></li>
   <li>W3C - <a href="https://www.w3.org/TR/wai-aria-1.2/#usage_intro">WAI-ARIA Roles</a></li>
   <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">WAI-ARIA Roles</a></li>
