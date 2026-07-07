@@ -6,16 +6,15 @@ behavior, or activation semantics of a real <code>&lt;button&gt;</code>. This mi
 <p>In most cases, prefer native interactive elements instead of assigning interactive roles to non-interactive markup.</p>
 <h3>Exceptions</h3>
 <p>According to the <a href="https://w3c.github.io/html-aria/#docconformance">ARIA in HTML conformance table</a>, some HTML elements may use specific
-ARIA roles without violating the HTML specification. The conformance table is the normative source for the full list.</p>
-<p>Examples include:</p>
+ARIA roles without violating the HTML specification. Here are some examples:</p>
 <ul>
   <li><code>&lt;fieldset role="radiogroup"&gt;</code></li>
   <li><code>&lt;ul role="menu"&gt;&lt;li role="menuitem"&gt;Open&lt;/li&gt;&lt;/ul&gt;</code></li>
   <li><code>&lt;ol role="tablist"&gt;&lt;li role="tab"&gt;Home&lt;/li&gt;&lt;/ol&gt;</code></li>
   <li><code>&lt;table role="grid"&gt;</code></li>
 </ul>
-<p>For some elements, such as <code>&lt;table&gt;</code>, the conformance table allows a broader set of roles than the examples above. Refer to the
-conformance table for the complete, normative list.</p>
+<p>For some elements, such as <code>&lt;table&gt;</code>, the specification allows a broader set of roles than the examples above. See the <a
+href="https://w3c.github.io/html-aria/#docconformance">ARIA in HTML conformance table</a> for the full list.</p>
 <h2>How to fix it</h2>
 <p>Use a native interactive element whenever possible. For example, replace <code>&lt;li role="button"&gt;</code> with a real
 <code>&lt;button&gt;</code> when the content is meant to behave like a button.</p>
