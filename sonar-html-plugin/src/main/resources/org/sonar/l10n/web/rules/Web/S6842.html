@@ -3,10 +3,20 @@
 without giving it the native behavior users expect.</p>
 <p>For example, <code>&lt;div role="button"&gt;</code> is announced as a button, but it does not automatically get the keyboard support, focus
 behavior, or activation semantics of a real <code>&lt;button&gt;</code>. This mismatch can confuse users and make the page less accessible.</p>
-<p>Some composite-widget patterns are valid exceptions. The ARIA in HTML specification explicitly allows certain non-interactive elements to take
-interactive roles, such as <code>&lt;fieldset role="radiogroup"&gt;</code>, <code>&lt;ul role="menu"&gt;</code>, <code>&lt;ol
-role="tablist"&gt;</code>, <code>&lt;li role="menuitem"&gt;</code>, and <code>&lt;table role="grid"&gt;</code>.</p>
-<p>Outside of those spec-defined exceptions, prefer native interactive elements instead of assigning interactive roles to non-interactive markup.</p>
+<p>In most cases, prefer native interactive elements instead of assigning interactive roles to non-interactive markup.</p>
+<h3>Exceptions</h3>
+<p>The ARIA in HTML specification allows some non-interactive elements to take interactive roles when they are used to implement composite
+widgets.</p>
+<p>Examples include:</p>
+<ul>
+  <li><code>&lt;fieldset role="radiogroup"&gt;</code></li>
+  <li><code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code> with roles such as <code>listbox</code>, <code>menu</code>, <code>menubar</code>,
+  <code>radiogroup</code>, <code>tablist</code>, or <code>tree</code></li>
+  <li><code>&lt;li&gt;</code> with roles such as <code>menuitem</code>, <code>menuitemcheckbox</code>, <code>menuitemradio</code>,
+  <code>option</code>, <code>row</code>, <code>tab</code>, or <code>treeitem</code></li>
+  <li><code>&lt;table role="grid"&gt;</code></li>
+</ul>
+<p>These exceptions are valid only when the markup implements the corresponding ARIA composite-widget pattern.</p>
 <h2>How to fix it</h2>
 <p>Use a native interactive element whenever possible. For example, replace <code>&lt;li role="button"&gt;</code> with a real
 <code>&lt;button&gt;</code> when the content is meant to behave like a button.</p>
