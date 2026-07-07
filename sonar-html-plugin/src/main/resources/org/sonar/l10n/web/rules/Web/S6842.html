@@ -5,18 +5,17 @@ without giving it the native behavior users expect.</p>
 behavior, or activation semantics of a real <code>&lt;button&gt;</code>. This mismatch can confuse users and make the page less accessible.</p>
 <p>In most cases, prefer native interactive elements instead of assigning interactive roles to non-interactive markup.</p>
 <h3>Exceptions</h3>
-<p>The ARIA in HTML specification allows some non-interactive elements to take interactive roles when they are used to implement composite
-widgets.</p>
+<p>According to the <a href="https://w3c.github.io/html-aria/#docconformance">ARIA in HTML conformance table</a>, some HTML elements may use specific
+ARIA roles without violating the HTML specification. The conformance table is the normative source for the full list.</p>
 <p>Examples include:</p>
 <ul>
   <li><code>&lt;fieldset role="radiogroup"&gt;</code></li>
-  <li><code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code> with roles such as <code>listbox</code>, <code>menu</code>, <code>menubar</code>,
-  <code>radiogroup</code>, <code>tablist</code>, or <code>tree</code></li>
-  <li><code>&lt;li&gt;</code> with roles such as <code>menuitem</code>, <code>menuitemcheckbox</code>, <code>menuitemradio</code>,
-  <code>option</code>, <code>row</code>, <code>tab</code>, or <code>treeitem</code></li>
+  <li><code>&lt;ul role="menu"&gt;&lt;li role="menuitem"&gt;Open&lt;/li&gt;&lt;/ul&gt;</code></li>
+  <li><code>&lt;ol role="tablist"&gt;&lt;li role="tab"&gt;Home&lt;/li&gt;&lt;/ol&gt;</code></li>
   <li><code>&lt;table role="grid"&gt;</code></li>
 </ul>
-<p>These exceptions are valid only when the markup implements the corresponding ARIA composite-widget pattern.</p>
+<p>For some elements, such as <code>&lt;table&gt;</code>, the conformance table allows a broader set of roles than the examples above. Refer to the
+conformance table for the complete, normative list.</p>
 <h2>How to fix it</h2>
 <p>Use a native interactive element whenever possible. For example, replace <code>&lt;li role="button"&gt;</code> with a real
 <code>&lt;button&gt;</code> when the content is meant to behave like a button.</p>
@@ -35,6 +34,7 @@ pairing, such as <code>&lt;fieldset role="radiogroup"&gt;</code> or <code>&lt;ul
 <h3>Documentation</h3>
 <ul>
   <li>W3C - <a href="https://w3c.github.io/html-aria/">ARIA in HTML</a></li>
+  <li>W3C - <a href="https://w3c.github.io/html-aria/#docconformance">ARIA in HTML conformance table</a></li>
   <li>W3C - <a href="https://www.w3.org/TR/using-aria/#rule1">Using ARIA - The first rule of ARIA</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 2.2 - 4.1.2 Name, Role, Value</a></li>
   <li>W3C - <a href="https://www.w3.org/TR/wai-aria-1.2/#usage_intro">WAI-ARIA Roles</a></li>

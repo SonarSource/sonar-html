@@ -22,7 +22,6 @@ import static org.sonar.plugins.html.api.HtmlConstants.isNonInteractiveElement;
 
 import java.util.EnumSet;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.accessibility.AriaRole;
@@ -34,33 +33,37 @@ import org.sonar.plugins.html.node.TagNode;
 public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Non-interactive elements should not be assigned interactive roles.";
-  private static final Map<Element, Set<AriaRole>> ALLOWED_COMPOSITE_WIDGET_OVERRIDES = Map.of(
-    Element.FIELDSET, EnumSet.of(AriaRole.RADIOGROUP),
-    Element.LI, EnumSet.of(
-      AriaRole.MENUITEM,
-      AriaRole.MENUITEMCHECKBOX,
-      AriaRole.MENUITEMRADIO,
-      AriaRole.OPTION,
-      AriaRole.ROW,
-      AriaRole.TAB,
-      AriaRole.TREEITEM),
-    Element.OL, EnumSet.of(
-      AriaRole.LISTBOX,
-      AriaRole.MENU,
-      AriaRole.MENUBAR,
-      AriaRole.RADIOGROUP,
-      AriaRole.TABLIST,
-      AriaRole.TREE,
-      AriaRole.TREEGRID),
-    Element.TABLE, EnumSet.of(AriaRole.GRID),
-    Element.UL, EnumSet.of(
-      AriaRole.LISTBOX,
-      AriaRole.MENU,
-      AriaRole.MENUBAR,
-      AriaRole.RADIOGROUP,
-      AriaRole.TABLIST,
-      AriaRole.TREE,
-      AriaRole.TREEGRID)
+  private static final Set<Element> ELEMENTS_WITH_ANY_INTERACTIVE_ROLE = EnumSet.of(
+    Element.TABLE,
+    Element.TBODY,
+    Element.TFOOT,
+    Element.THEAD
+  );
+  private static final Set<Element> LIST_CONTAINER_ELEMENTS = EnumSet.of(
+    Element.MENU,
+    Element.OL,
+    Element.UL
+  );
+  private static final Set<AriaRole> ALLOWED_INTERACTIVE_ROLES_FOR_LIST_CONTAINERS = EnumSet.of(
+    AriaRole.LISTBOX,
+    AriaRole.MENU,
+    AriaRole.MENUBAR,
+    AriaRole.RADIOGROUP,
+    AriaRole.TABLIST,
+    AriaRole.TREE
+  );
+  private static final Set<String> LIST_CONTAINER_ROLES_WITHOUT_LIST_SEMANTICS = Set.of(
+    "directory",
+    "group",
+    "listbox",
+    "menu",
+    "menubar",
+    "none",
+    "presentation",
+    "radiogroup",
+    "tablist",
+    "toolbar",
+    "tree"
   );
 
   @Override
@@ -69,25 +72,63 @@ public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageC
       hasKnownHTMLTag(node) &&
       isNonInteractiveElement(node) &&
       hasInteractiveRole(node) &&
-      !isAllowedCompositeWidgetOverride(node)
+      !isAllowedByAriaInHtmlSpec(node)
     ) {
       createViolation(node, MESSAGE);
     }
   }
 
   /**
-   * Checks whether the element/role pair is a supported composite-widget override.
+   * Checks whether the element/role pair is allowed by the ARIA in HTML conformance table.
    * @param node the element being analyzed
-   * @return true when the role is allowed for that element by the composite-widget allowlist
+   * @return true when the role is allowed for that element by the ARIA in HTML specification
    */
-  private static boolean isAllowedCompositeWidgetOverride(TagNode node) {
+  private static boolean isAllowedByAriaInHtmlSpec(TagNode node) {
     var element = Element.of(node.getNodeName().toLowerCase(Locale.ROOT));
-    var roleAttribute = node.getAttribute("role");
-    if (element == null || roleAttribute == null) {
+    var role = interactiveRole(node);
+    if (element == null || role == null) {
       return false;
     }
-    var role = AriaRole.of(roleAttribute.toLowerCase(Locale.ROOT));
-    return role != null && ALLOWED_COMPOSITE_WIDGET_OVERRIDES.getOrDefault(element, Set.of()).contains(role);
+
+    if (ELEMENTS_WITH_ANY_INTERACTIVE_ROLE.contains(element)) {
+      return true;
+    }
+
+    return switch (element) {
+      case FIELDSET -> role == AriaRole.RADIOGROUP;
+      case MENU, OL, UL -> ALLOWED_INTERACTIVE_ROLES_FOR_LIST_CONTAINERS.contains(role);
+      case LI -> isListItemRoleAllowed(node);
+      default -> false;
+    };
+  }
+
+  private static boolean isListItemRoleAllowed(TagNode node) {
+    var parent = node.getParent();
+    if (parent == null) {
+      return false;
+    }
+
+    var parentElement = Element.of(parent.getNodeName().toLowerCase(Locale.ROOT));
+    var parentRoleAttribute = roleAttribute(parent);
+    return parentElement != null
+      && LIST_CONTAINER_ELEMENTS.contains(parentElement)
+      && parentRoleAttribute != null
+      && LIST_CONTAINER_ROLES_WITHOUT_LIST_SEMANTICS.contains(parentRoleAttribute);
+  }
+
+  private static AriaRole interactiveRole(TagNode node) {
+    var role = role(node);
+    return role != null && AriaRole.LIST != role ? role : null;
+  }
+
+  private static AriaRole role(TagNode node) {
+    var roleAttribute = roleAttribute(node);
+    return roleAttribute == null ? null : AriaRole.of(roleAttribute);
+  }
+
+  private static String roleAttribute(TagNode node) {
+    var roleAttribute = node.getAttribute("role");
+    return roleAttribute == null ? null : roleAttribute.toLowerCase(Locale.ROOT);
   }
 
 }
