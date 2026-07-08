@@ -46,6 +46,7 @@ public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageC
     "menu", LIST_CONTAINER_ROLES,
     "nav", Set.of("menu", "menubar", "tablist"),
     "ol", LIST_CONTAINER_ROLES,
+    "progress", Set.of("progressbar"),
     "ul", LIST_CONTAINER_ROLES);
 
   // Interactive roles allowed on an <img> that exposes an accessible name.
@@ -100,14 +101,17 @@ public class NoNoninteractiveElementToInteractiveRoleCheck extends AbstractPageC
     return ALLOWED_INTERACTIVE_ROLES.getOrDefault(tag, Set.of()).contains(role);
   }
 
-  // A list item is restricted to listitem only when its parent list still exposes the list role.
+  // A list item is restricted to listitem only when its parent still exposes the list role.
   private static boolean parentExposesListRole(TagNode node) {
     var parent = node.getParent();
-    if (parent == null || !LIST_CONTAINER_ELEMENTS.contains(parent.getNodeName().toLowerCase(Locale.ROOT))) {
+    if (parent == null) {
       return false;
     }
     var parentRole = parent.getAttribute("role");
-    return parentRole == null || parentRole.equalsIgnoreCase("list");
+    if (parentRole != null && !parentRole.isEmpty()) {
+      return parentRole.equalsIgnoreCase("list");
+    }
+    return LIST_CONTAINER_ELEMENTS.contains(parent.getNodeName().toLowerCase(Locale.ROOT));
   }
 
   // An img exposes an accessible name via non-empty alt, aria-label or aria-labelledby.
