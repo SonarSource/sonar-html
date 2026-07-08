@@ -3,13 +3,6 @@
   "extends": [
     "local>SonarSource/core-languages-tooling-public:renovate-config"
   ],
-  "enabledManagers": [
-    "github-actions",
-    "maven"
-  ],
-  "dockerfile": {
-    "enabled": true
-  },
   "ignorePaths": [
     "its/sources/**",
     "its/plugin/projects/**"
