@@ -9,22 +9,6 @@
   ],
   "packageRules": [
     {
-      "matchManagers": [
-        "github-actions"
-      ],
-      "pinDigests": false
-    },
-    {
-      "matchManagers": [
-        "github-actions"
-      ],
-      "matchUpdateTypes": [
-        "pin",
-        "rollback"
-      ],
-      "enabled": false
-    },
-    {
       "matchPackageNames": [
         "org.sonarsource.html:html-its"
       ],
