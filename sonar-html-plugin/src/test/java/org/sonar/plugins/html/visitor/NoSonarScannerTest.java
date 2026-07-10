@@ -26,11 +26,11 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
-import org.sonar.api.batch.sensor.issue.internal.DefaultNoSonarFilter;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
 import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.node.Node;
+import org.sonar.scanner.plugin.api.impl.sensor.issue.DefaultNoSonarFilter;
 
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
