@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.sonar.api.batch.fs.internal.TestInputFileBuilder;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.lex.PageLexer;
