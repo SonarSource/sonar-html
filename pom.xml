@@ -11,7 +11,7 @@
 
   <groupId>org.sonarsource.html</groupId>
   <artifactId>html</artifactId>
-  <version>3.29-SNAPSHOT</version>
+  <version>3.30-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>SonarQube HTML Plugin</name>
