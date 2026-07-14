@@ -1,13 +1,12 @@
 <h2>Why is this an issue?</h2>
-<p>ARIA (Accessible Rich Internet Applications) roles are used to make web content and web applications more accessible to people with disabilities.
-However, you should not use an ARIA role on a generic element (like <code>span</code> or <code>div</code>) if there is a semantic HTML tag with
-similar functionality, just use that tag instead.</p>
-<p>For example, instead of using a div element with a button role (<code>&lt;div role="button"&gt;Click me&lt;/div&gt;</code>), you should just use a
-button element (<code>&lt;button&gt;Click me&lt;/button&gt;</code>).</p>
-<p>Semantic HTML tags are generally preferred over ARIA roles for accessibility due to their built-in functionality, universal support by browsers and
-assistive technologies, simplicity, and maintainability. They come with inherent behaviors and keyboard interactions, reducing the need for additional
-JavaScript. Semantic HTML also enhances SEO by helping search engines better understand the content and structure of web pages. While ARIA roles are
-useful, they should be considered a last resort when no suitable HTML element can provide the required behavior or semantics.</p>
+<p>ARIA (Accessible Rich Internet Applications) roles can make custom user interface patterns more accessible, but they should not be used to recreate
+semantics that HTML already provides. When a native HTML element already matches the intended semantics and behavior, prefer that element over adding
+a role to a generic container.</p>
+<p>For example, instead of using a div element with a button role (<code>&lt;div role="button"&gt;Click me&lt;/div&gt;</code>), use a button element
+(<code>&lt;button&gt;Click me&lt;/button&gt;</code>).</p>
+<p>Using the native element preserves built-in semantics, browser behavior, keyboard interaction, and assistive technology support with less code to
+maintain. ARIA is still appropriate when no suitable HTML element exists for the pattern you need, or when the available HTML elements do not fit the
+component’s structure or behavior.</p>
 <pre data-diff-id="1" data-diff-type="noncompliant">
 &lt;div role="button" onClick="myFunction()"&gt;Click me&lt;/div&gt; &lt;!-- Noncompliant --&gt;
 </pre>
