@@ -65,7 +65,7 @@
     <gitRepositoryName>sonar-html</gitRepositoryName>
 
     <jakarta.el.version>4.0.2</jakarta.el.version>
-    <sslr.version>1.25.1.3886</sslr.version>
+    <sslr.version>1.26.0.4194</sslr.version>
     <analyzerCommons.version>2.27.0.5007</analyzerCommons.version>
     <sonar.plugin.api.version>13.8.0.4399</sonar.plugin.api.version>
     <sonarqube.api.impl.version>26.7.0.124771</sonarqube.api.impl.version>
