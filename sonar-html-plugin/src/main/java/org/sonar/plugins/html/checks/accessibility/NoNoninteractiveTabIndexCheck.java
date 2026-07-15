@@ -16,7 +16,7 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import static org.sonar.plugins.html.api.HtmlConstants.hasInteractiveRole;
+import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ROLES;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
 
@@ -31,7 +31,7 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (!hasKnownHTMLTag(node) || isInteractiveElement(node) || hasInteractiveRole(node)) {
+    if (!hasKnownHTMLTag(node) || isInteractiveElement(node) || hasAllowedRole(node)) {
       return;
     }
 
@@ -48,5 +48,22 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
     } catch (NumberFormatException e) {
       // ignore
     }
+  }
+
+  /**
+   * Returns whether the element declares a role that allows a non-negative tabindex.
+   *
+   * @param node the element whose role declaration is inspected
+   * @return true when the element declares an interactive role or the tabpanel role
+   */
+  private static boolean hasAllowedRole(TagNode node) {
+    var role = node.getPropertyValue("role");
+    if (role == null) {
+      return false;
+    }
+
+    var normalizedRole = role.replace("\"", "").replace("'", "").trim();
+    return "tabpanel".equalsIgnoreCase(normalizedRole)
+      || INTERACTIVE_ROLES.stream().anyMatch(normalizedRole::equalsIgnoreCase);
   }
 }
