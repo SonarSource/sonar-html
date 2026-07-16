@@ -99,160 +99,226 @@ public final class TemplateConditionalScopeTracker {
    * @param directive whether the fragment comes from a directive node
    */
   private void scanFragment(String text, boolean directive) {
-    boolean inLineComment = false;
-    boolean inBlockComment = false;
-    boolean escaped = false;
-    char quoteDelimiter = '\0';
-
-    for (int index = 0; index < text.length(); ) {
-      if (inLineComment) {
-        if (isLineBreak(text.charAt(index))) {
-          inLineComment = false;
-        }
-        index++;
+    FragmentScanState state = new FragmentScanState();
+    while (state.index < text.length()) {
+      if (consumeProtectedCharacter(text, state)
+        || consumeCommentOrStringStart(text, directive, state)
+        || consumeConditionalToken(text, directive, state)
+        || consumeStructuralToken(text, state)) {
         continue;
       }
-      if (inBlockComment) {
-        if (startsWith(text, index, "*/")) {
-          inBlockComment = false;
-          index += 2;
-        } else {
-          index++;
-        }
-        continue;
-      }
-      if (quoteDelimiter != '\0') {
-        char current = text.charAt(index);
-        if (escaped) {
-          escaped = false;
-        } else if (current == '\\') {
-          escaped = true;
-        } else if (current == quoteDelimiter) {
-          quoteDelimiter = '\0';
-        }
-        index++;
-        continue;
-      }
-
-      if (!directive && startsWith(text, index, "@*")) {
-        index = skipDelimitedBlock(text, index + 2, "*@");
-        continue;
-      }
-      if (startsWith(text, index, "/*")) {
-        inBlockComment = true;
-        index += 2;
-        continue;
-      }
-      if (startsWith(text, index, "//")) {
-        inLineComment = true;
-        index += 2;
-        continue;
-      }
-      if (text.charAt(index) == '#') {
-        inLineComment = true;
-        index++;
-        continue;
-      }
-      if (text.charAt(index) == '\'' || text.charAt(index) == '"') {
-        quoteDelimiter = text.charAt(index);
-        escaped = false;
-        index++;
-        continue;
-      }
-
-      if (directive) {
-        boolean startsAtWordBoundary = index == 0
-          || (!Character.isLetterOrDigit(text.charAt(index - 1)) && text.charAt(index - 1) != '_');
-
-        int conditionalEndLength = startsAtWordBoundary
-          ? matchedPrefixLength(PHP_DIRECTIVE_CONDITIONAL_END_PATTERN, text, index)
-          : 0;
-        if (conditionalEndLength > 0) {
-          applyTextConditionalClosings(1);
-          index += conditionalEndLength;
-          continue;
-        }
-
-        int conditionalStartLength = startsAtWordBoundary
-          ? matchedPrefixLength(PHP_DIRECTIVE_CONDITIONAL_START_PATTERN, text, index)
-          : 0;
-        if (conditionalStartLength > 0) {
-          textConditionalDepth++;
-          if (isBraceDelimitedPhpConditional(text, index + conditionalStartLength)) {
-            openBraceBasedConditional();
-          }
-          index += conditionalStartLength;
-          continue;
-        }
-      } else {
-        int twigConditionalEndLength = matchedPrefixLength(TWIG_CONDITIONAL_END_PATTERN, text, index);
-        if (twigConditionalEndLength > 0) {
-          applyTextConditionalClosings(1);
-          index = skipDelimitedBlock(text, index + twigConditionalEndLength, "%}");
-          continue;
-        }
-
-        int twigConditionalStartLength = matchedPrefixLength(TWIG_CONDITIONAL_START_PATTERN, text, index);
-        if (twigConditionalStartLength > 0) {
-          textConditionalDepth++;
-          index = skipDelimitedBlock(text, index + twigConditionalStartLength, "%}");
-          continue;
-        }
-
-        int conditionalStartLength = matchedPrefixLength(RAZOR_BLOCK_START_PATTERN, text, index);
-        if (conditionalStartLength == 0) {
-          conditionalStartLength = matchedPrefixLength(RAZOR_BRANCH_START_PATTERN, text, index);
-        }
-        if (conditionalStartLength > 0) {
-          textConditionalDepth++;
-          openBraceBasedConditional();
-          index += conditionalStartLength;
-          continue;
-        }
-
-        int skippedTemplateBlock = skipTemplateBlock(text, index);
-        if (skippedTemplateBlock > index) {
-          index = skippedTemplateBlock;
-          continue;
-        }
-      }
-
-      if (startsWith(text, index, "}}") || startsWith(text, index, "%}") || startsWith(text, index, "#}")) {
-        index += 2;
-        continue;
-      }
-      if (text.charAt(index) == '{') {
-        if (pendingConditionalBranchOpenings > 0) {
-          pendingConditionalBranchOpenings--;
-        } else if (braceBasedTextConditionalDepth > 0) {
-          nestedTextBlockDepth++;
-        }
-        index++;
-        continue;
-      }
-      if (text.charAt(index) == '}') {
-        if (nestedTextBlockDepth > 0) {
-          nestedTextBlockDepth--;
-        } else if (braceBasedTextConditionalDepth > 0) {
-          if (isConditionalContinuation(text, index)) {
-            pendingConditionalBranchOpenings++;
-          } else {
-            braceBasedTextConditionalDepth--;
-            applyTextConditionalClosings(1);
-            if (braceBasedTextConditionalDepth == 0) {
-              clearBraceTracking();
-            }
-          }
-        }
-        index++;
-        continue;
-      }
-      index++;
+      state.index++;
     }
 
     if (textConditionalDepth == 0) {
       clearBraceTracking();
     }
+  }
+
+  /**
+   * Consumes the next character when the scan is already inside a comment or quoted string.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   * @return {@code true} when the current position was consumed
+   */
+  private static boolean consumeProtectedCharacter(String text, FragmentScanState state) {
+    if (state.inLineComment) {
+      if (isLineBreak(text.charAt(state.index))) {
+        state.inLineComment = false;
+      }
+      state.index++;
+      return true;
+    }
+    if (state.inBlockComment) {
+      if (startsWith(text, state.index, "*/")) {
+        state.inBlockComment = false;
+        state.index += 2;
+      } else {
+        state.index++;
+      }
+      return true;
+    }
+    if (state.quoteDelimiter != '\0') {
+      char current = text.charAt(state.index);
+      if (state.escaped) {
+        state.escaped = false;
+      } else if (current == '\\') {
+        state.escaped = true;
+      } else if (current == state.quoteDelimiter) {
+        state.quoteDelimiter = '\0';
+      }
+      state.index++;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Starts scanning a comment or quoted string at the current position when one begins here.
+   *
+   * @param text the fragment being scanned
+   * @param directive whether the fragment comes from a directive node
+   * @param state the mutable scan state
+   * @return {@code true} when a comment or string opener was consumed
+   */
+  private static boolean consumeCommentOrStringStart(String text, boolean directive, FragmentScanState state) {
+    if (!directive && startsWith(text, state.index, "@*")) {
+      state.index = skipDelimitedBlock(text, state.index + 2, "*@");
+      return true;
+    }
+    if (startsWith(text, state.index, "/*")) {
+      state.inBlockComment = true;
+      state.index += 2;
+      return true;
+    }
+    if (startsWith(text, state.index, "//")) {
+      state.inLineComment = true;
+      state.index += 2;
+      return true;
+    }
+    if (text.charAt(state.index) == '#') {
+      state.inLineComment = true;
+      state.index++;
+      return true;
+    }
+    if (text.charAt(state.index) == '\'' || text.charAt(state.index) == '"') {
+      state.quoteDelimiter = text.charAt(state.index);
+      state.escaped = false;
+      state.index++;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Consumes a conditional start or end token at the current position when one begins here.
+   *
+   * @param text the fragment being scanned
+   * @param directive whether the fragment comes from a directive node
+   * @param state the mutable scan state
+   * @return {@code true} when a conditional token was consumed
+   */
+  private boolean consumeConditionalToken(String text, boolean directive, FragmentScanState state) {
+    return directive
+      ? consumePhpDirectiveConditional(text, state)
+      : consumeTemplateConditional(text, state);
+  }
+
+  /**
+   * Consumes a PHP directive conditional token at the current position when one begins here.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   * @return {@code true} when a PHP directive conditional token was consumed
+   */
+  private boolean consumePhpDirectiveConditional(String text, FragmentScanState state) {
+    boolean startsAtWordBoundary = state.index == 0
+      || (!Character.isLetterOrDigit(text.charAt(state.index - 1)) && text.charAt(state.index - 1) != '_');
+
+    int conditionalEndLength = startsAtWordBoundary
+      ? matchedPrefixLength(PHP_DIRECTIVE_CONDITIONAL_END_PATTERN, text, state.index)
+      : 0;
+    if (conditionalEndLength > 0) {
+      applyTextConditionalClosings(1);
+      state.index += conditionalEndLength;
+      return true;
+    }
+
+    int conditionalStartLength = startsAtWordBoundary
+      ? matchedPrefixLength(PHP_DIRECTIVE_CONDITIONAL_START_PATTERN, text, state.index)
+      : 0;
+    if (conditionalStartLength > 0) {
+      textConditionalDepth++;
+      if (isBraceDelimitedPhpConditional(text, state.index + conditionalStartLength)) {
+        openBraceBasedConditional();
+      }
+      state.index += conditionalStartLength;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Consumes a Twig, Razor, or template-delimited token at the current position when one begins here.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   * @return {@code true} when a template conditional token was consumed
+   */
+  private boolean consumeTemplateConditional(String text, FragmentScanState state) {
+    int twigConditionalEndLength = matchedPrefixLength(TWIG_CONDITIONAL_END_PATTERN, text, state.index);
+    if (twigConditionalEndLength > 0) {
+      applyTextConditionalClosings(1);
+      state.index = skipDelimitedBlock(text, state.index + twigConditionalEndLength, "%}");
+      return true;
+    }
+
+    int twigConditionalStartLength = matchedPrefixLength(TWIG_CONDITIONAL_START_PATTERN, text, state.index);
+    if (twigConditionalStartLength > 0) {
+      textConditionalDepth++;
+      state.index = skipDelimitedBlock(text, state.index + twigConditionalStartLength, "%}");
+      return true;
+    }
+
+    int conditionalStartLength = matchedPrefixLength(RAZOR_BLOCK_START_PATTERN, text, state.index);
+    if (conditionalStartLength == 0) {
+      conditionalStartLength = matchedPrefixLength(RAZOR_BRANCH_START_PATTERN, text, state.index);
+    }
+    if (conditionalStartLength > 0) {
+      textConditionalDepth++;
+      openBraceBasedConditional();
+      state.index += conditionalStartLength;
+      return true;
+    }
+
+    int skippedTemplateBlock = skipTemplateBlock(text, state.index);
+    if (skippedTemplateBlock > state.index) {
+      state.index = skippedTemplateBlock;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Consumes structural delimiters and brace bookkeeping at the current position when needed.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   * @return {@code true} when a structural token was consumed
+   */
+  private boolean consumeStructuralToken(String text, FragmentScanState state) {
+    if (startsWith(text, state.index, "}}") || startsWith(text, state.index, "%}") || startsWith(text, state.index, "#}")) {
+      state.index += 2;
+      return true;
+    }
+    if (text.charAt(state.index) == '{') {
+      if (pendingConditionalBranchOpenings > 0) {
+        pendingConditionalBranchOpenings--;
+      } else if (braceBasedTextConditionalDepth > 0) {
+        nestedTextBlockDepth++;
+      }
+      state.index++;
+      return true;
+    }
+    if (text.charAt(state.index) == '}') {
+      if (nestedTextBlockDepth > 0) {
+        nestedTextBlockDepth--;
+      } else if (braceBasedTextConditionalDepth > 0) {
+        if (isConditionalContinuation(text, state.index)) {
+          pendingConditionalBranchOpenings++;
+        } else {
+          braceBasedTextConditionalDepth--;
+          applyTextConditionalClosings(1);
+          if (braceBasedTextConditionalDepth == 0) {
+            clearBraceTracking();
+          }
+        }
+      }
+      state.index++;
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -533,6 +599,15 @@ public final class TemplateConditionalScopeTracker {
   private static boolean startsWith(String text, int index, String token) {
     return index + token.length() <= text.length()
       && text.regionMatches(index, token, 0, token.length());
+  }
+
+  private static final class FragmentScanState {
+
+    private int index;
+    private boolean inLineComment;
+    private boolean inBlockComment;
+    private boolean escaped;
+    private char quoteDelimiter = '\0';
   }
 
   private static boolean isLineBreak(char character) {
