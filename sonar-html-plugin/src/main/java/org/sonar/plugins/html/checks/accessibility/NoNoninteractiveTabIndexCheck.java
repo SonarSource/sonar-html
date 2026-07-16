@@ -88,7 +88,7 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
   }
 
   private static boolean isStaticStringLiteral(String value) {
-    if (value == null || value.length() < 2) {
+    if (value.length() < 2) {
       return false;
     }
 
