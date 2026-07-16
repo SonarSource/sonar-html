@@ -298,7 +298,10 @@ public final class TemplateConditionalScopeTracker {
     }
     return switch (text.charAt(state.index)) {
       case '{' -> consumeOpeningBrace(state);
-      case '}' -> consumeClosingBrace(text, state);
+      case '}' -> {
+        consumeClosingBrace(text, state);
+        yield true;
+      }
       default -> false;
     };
   }
@@ -340,18 +343,16 @@ public final class TemplateConditionalScopeTracker {
    *
    * @param text the fragment being scanned
    * @param state the mutable scan state
-   * @return always {@code true}
    */
-  private boolean consumeClosingBrace(String text, FragmentScanState state) {
+  private void consumeClosingBrace(String text, FragmentScanState state) {
     if (nestedTextBlockDepth > 0) {
       nestedTextBlockDepth--;
     } else if (continueBraceBasedConditional(text, state)) {
-      return true;
+      return;
     } else {
       closeBraceBasedConditional();
     }
     state.index++;
-    return true;
   }
 
   /**
