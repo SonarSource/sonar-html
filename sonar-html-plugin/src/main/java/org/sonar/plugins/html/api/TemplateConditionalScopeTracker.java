@@ -288,37 +288,84 @@ public final class TemplateConditionalScopeTracker {
    * @return {@code true} when a structural token was consumed
    */
   private boolean consumeStructuralToken(String text, FragmentScanState state) {
+    if (consumeTemplateBlockClosingDelimiter(text, state)) {
+      return true;
+    }
+    return switch (text.charAt(state.index)) {
+      case '{' -> consumeOpeningBrace(state);
+      case '}' -> consumeClosingBrace(text, state);
+      default -> false;
+    };
+  }
+
+  /**
+   * Consumes a template closing delimiter such as {@code }} or {@code %}}.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   * @return {@code true} when a closing delimiter was consumed
+   */
+  private static boolean consumeTemplateBlockClosingDelimiter(String text, FragmentScanState state) {
     if (startsWith(text, state.index, "}}") || startsWith(text, state.index, "%}") || startsWith(text, state.index, "#}")) {
       state.index += 2;
       return true;
     }
-    if (text.charAt(state.index) == '{') {
-      if (pendingConditionalBranchOpenings > 0) {
-        pendingConditionalBranchOpenings--;
-      } else if (braceBasedTextConditionalDepth > 0) {
-        nestedTextBlockDepth++;
-      }
-      state.index++;
-      return true;
-    }
-    if (text.charAt(state.index) == '}') {
-      if (nestedTextBlockDepth > 0) {
-        nestedTextBlockDepth--;
-      } else if (braceBasedTextConditionalDepth > 0) {
-        if (isConditionalContinuation(text, state.index)) {
-          pendingConditionalBranchOpenings++;
-        } else {
-          braceBasedTextConditionalDepth--;
-          applyTextConditionalClosings(1);
-          if (braceBasedTextConditionalDepth == 0) {
-            clearBraceTracking();
-          }
-        }
-      }
-      state.index++;
-      return true;
-    }
     return false;
+  }
+
+  /**
+   * Consumes an opening brace and updates the conditional nesting state.
+   *
+   * @param state the mutable scan state
+   * @return always {@code true}
+   */
+  private boolean consumeOpeningBrace(FragmentScanState state) {
+    if (pendingConditionalBranchOpenings > 0) {
+      pendingConditionalBranchOpenings--;
+    } else if (braceBasedTextConditionalDepth > 0) {
+      nestedTextBlockDepth++;
+    }
+    state.index++;
+    return true;
+  }
+
+  /**
+   * Consumes a closing brace and updates the conditional nesting state.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   * @return always {@code true}
+   */
+  private boolean consumeClosingBrace(String text, FragmentScanState state) {
+    if (nestedTextBlockDepth > 0) {
+      nestedTextBlockDepth--;
+    } else {
+      closeBraceBasedConditional(text, state.index);
+    }
+    state.index++;
+    return true;
+  }
+
+  /**
+   * Closes a brace-delimited conditional when the current brace ends its active branch.
+   *
+   * @param text the fragment being scanned
+   * @param closingBraceIndex the index of the closing brace being processed
+   */
+  private void closeBraceBasedConditional(String text, int closingBraceIndex) {
+    if (braceBasedTextConditionalDepth == 0) {
+      return;
+    }
+    if (isConditionalContinuation(text, closingBraceIndex)) {
+      pendingConditionalBranchOpenings++;
+      return;
+    }
+
+    braceBasedTextConditionalDepth--;
+    applyTextConditionalClosings(1);
+    if (braceBasedTextConditionalDepth == 0) {
+      clearBraceTracking();
+    }
   }
 
   /**
@@ -422,7 +469,7 @@ public final class TemplateConditionalScopeTracker {
   private static int matchedPrefixLength(Pattern pattern, String text, int index) {
     Matcher matcher = pattern.matcher(text);
     matcher.region(index, text.length());
-    return matcher.lookingAt() ? matcher.end() - index : 0;
+    return matcher.lookingAt() ? (matcher.end() - index) : 0;
   }
 
   /**
@@ -433,69 +480,20 @@ public final class TemplateConditionalScopeTracker {
    * @return {@code true} when the first structural token after the header is an opening brace
    */
   private static boolean isBraceDelimitedPhpConditional(String text, int index) {
-    boolean inLineComment = false;
-    boolean inBlockComment = false;
-    boolean escaped = false;
-    char quoteDelimiter = '\0';
-
-    for (int current = index; current < text.length(); ) {
-      if (inLineComment) {
-        if (isLineBreak(text.charAt(current))) {
-          inLineComment = false;
-        }
-        current++;
-        continue;
-      }
-      if (inBlockComment) {
-        if (startsWith(text, current, "*/")) {
-          inBlockComment = false;
-          current += 2;
-        } else {
-          current++;
-        }
-        continue;
-      }
-      if (quoteDelimiter != '\0') {
-        char character = text.charAt(current);
-        if (escaped) {
-          escaped = false;
-        } else if (character == '\\') {
-          escaped = true;
-        } else if (character == quoteDelimiter) {
-          quoteDelimiter = '\0';
-        }
-        current++;
+    FragmentScanState state = new FragmentScanState(index);
+    while (state.index < text.length()) {
+      if (consumeProtectedCharacter(text, state) || consumeCommentOrStringStart(text, true, state)) {
         continue;
       }
 
-      if (startsWith(text, current, "/*")) {
-        inBlockComment = true;
-        current += 2;
-        continue;
-      }
-      if (startsWith(text, current, "//")) {
-        inLineComment = true;
-        current += 2;
-        continue;
-      }
-      if (text.charAt(current) == '#') {
-        inLineComment = true;
-        current++;
-        continue;
-      }
-      if (text.charAt(current) == '\'' || text.charAt(current) == '"') {
-        quoteDelimiter = text.charAt(current);
-        escaped = false;
-        current++;
-        continue;
-      }
-      if (text.charAt(current) == '{') {
+      char current = text.charAt(state.index);
+      if (current == '{') {
         return true;
       }
-      if (text.charAt(current) == ':' || text.charAt(current) == ';') {
+      if (current == ':' || current == ';') {
         return false;
       }
-      current++;
+      state.index++;
     }
     return false;
   }
@@ -608,6 +606,13 @@ public final class TemplateConditionalScopeTracker {
     private boolean inBlockComment;
     private boolean escaped;
     private char quoteDelimiter = '\0';
+
+    private FragmentScanState() {
+    }
+
+    private FragmentScanState(int index) {
+      this.index = index;
+    }
   }
 
   private static boolean isLineBreak(char character) {
