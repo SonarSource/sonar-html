@@ -69,6 +69,17 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void phpConditionalBlocksWithElseIf() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksElseIf.phtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(14).withMessage("Duplicate id \"footer\" found. First occurrence was on line 13.")
+        .noMore();
+  }
+
+  @Test
   void vueConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.vue"),
@@ -118,6 +129,17 @@ class NoDuplicateIDCheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(18).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 17.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithBracesInCondition() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksConditionBraces.cshtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(16).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 15.")
         .noMore();
   }
 

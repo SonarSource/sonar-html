@@ -52,6 +52,8 @@ public final class TemplateConditionalScopeTracker {
   private int textConditionalDepth;
   private int braceBasedTextConditionalDepth;
   private int pendingConditionalBranchOpenings;
+  private boolean awaitingConditionalHeaderParenthesis;
+  private int pendingConditionalHeaderParenthesisDepth;
   private int nestedTextBlockDepth;
   private int tagConditionalDepth;
 
@@ -59,6 +61,8 @@ public final class TemplateConditionalScopeTracker {
     textConditionalDepth = 0;
     braceBasedTextConditionalDepth = 0;
     pendingConditionalBranchOpenings = 0;
+    awaitingConditionalHeaderParenthesis = false;
+    pendingConditionalHeaderParenthesisDepth = 0;
     nestedTextBlockDepth = 0;
     tagConditionalDepth = 0;
   }
@@ -103,6 +107,7 @@ public final class TemplateConditionalScopeTracker {
     while (state.index < text.length()) {
       if (consumeProtectedCharacter(text, state)
         || consumeCommentOrStringStart(text, directive, state)
+        || consumeConditionalHeaderCharacter(text, state)
         || consumeConditionalToken(text, directive, state)
         || consumeStructuralToken(text, state)) {
         continue;
@@ -231,7 +236,7 @@ public final class TemplateConditionalScopeTracker {
     if (conditionalStartLength > 0) {
       textConditionalDepth++;
       if (isBraceDelimitedPhpConditional(text, state.index + conditionalStartLength)) {
-        openBraceBasedConditional();
+        openBraceBasedConditionalBeforeHeaderParenthesis();
       }
       state.index += conditionalStartLength;
       return true;
@@ -267,7 +272,7 @@ public final class TemplateConditionalScopeTracker {
     }
     if (conditionalStartLength > 0) {
       textConditionalDepth++;
-      openBraceBasedConditional();
+      openTemplateBraceBasedConditional(text.charAt(state.index + conditionalStartLength - 1));
       state.index += conditionalStartLength;
       return true;
     }
@@ -322,6 +327,7 @@ public final class TemplateConditionalScopeTracker {
   private boolean consumeOpeningBrace(FragmentScanState state) {
     if (pendingConditionalBranchOpenings > 0) {
       pendingConditionalBranchOpenings--;
+      clearConditionalHeaderTracking();
     } else if (braceBasedTextConditionalDepth > 0) {
       nestedTextBlockDepth++;
     }
@@ -339,25 +345,38 @@ public final class TemplateConditionalScopeTracker {
   private boolean consumeClosingBrace(String text, FragmentScanState state) {
     if (nestedTextBlockDepth > 0) {
       nestedTextBlockDepth--;
+    } else if (continueBraceBasedConditional(text, state)) {
+      return true;
     } else {
-      closeBraceBasedConditional(text, state.index);
+      closeBraceBasedConditional();
     }
     state.index++;
     return true;
   }
 
   /**
-   * Closes a brace-delimited conditional when the current brace ends its active branch.
+   * Continues a brace-delimited conditional chain after a closing brace, for example on
+   * {@code } else if (...) { } or {@code } @else { }.
    *
    * @param text the fragment being scanned
-   * @param closingBraceIndex the index of the closing brace being processed
+   * @param state the mutable scan state
+   * @return {@code true} when the closing brace starts a continuation branch
    */
-  private void closeBraceBasedConditional(String text, int closingBraceIndex) {
-    if (braceBasedTextConditionalDepth == 0) {
-      return;
+  private boolean continueBraceBasedConditional(String text, FragmentScanState state) {
+    int continuationIndex = conditionalContinuationEndIndex(text, state.index);
+    if (continuationIndex < 0) {
+      return false;
     }
-    if (isConditionalContinuation(text, closingBraceIndex)) {
-      pendingConditionalBranchOpenings++;
+    pendingConditionalBranchOpenings++;
+    state.index = continuationIndex;
+    return true;
+  }
+
+  /**
+   * Closes a brace-delimited conditional when the current brace ends its active branch.
+   */
+  private void closeBraceBasedConditional() {
+    if (braceBasedTextConditionalDepth == 0) {
       return;
     }
 
@@ -374,6 +393,44 @@ public final class TemplateConditionalScopeTracker {
   private void openBraceBasedConditional() {
     braceBasedTextConditionalDepth++;
     pendingConditionalBranchOpenings++;
+    clearConditionalHeaderTracking();
+  }
+
+  /**
+   * Marks a brace-delimited conditional as open when its condition starts after the keyword, as in PHP.
+   */
+  private void openBraceBasedConditionalBeforeHeaderParenthesis() {
+    openBraceBasedConditional();
+    awaitingConditionalHeaderParenthesis = true;
+  }
+
+  /**
+   * Marks a brace-delimited conditional as open when the opening parenthesis was already consumed.
+   */
+  private void openBraceBasedConditionalInsideHeaderParenthesis() {
+    openBraceBasedConditional();
+    pendingConditionalHeaderParenthesisDepth = 1;
+  }
+
+  /**
+   * Marks a brace-delimited conditional as open when the branch opening brace was already consumed.
+   */
+  private void openConsumedBraceBasedConditional() {
+    braceBasedTextConditionalDepth++;
+    clearConditionalHeaderTracking();
+  }
+
+  /**
+   * Opens a brace-based template conditional according to the delimiter that ended the matched token.
+   *
+   * @param endingDelimiter the matched {@code (} or {@code {}
+   */
+  private void openTemplateBraceBasedConditional(char endingDelimiter) {
+    if (endingDelimiter == '{') {
+      openConsumedBraceBasedConditional();
+    } else {
+      openBraceBasedConditionalInsideHeaderParenthesis();
+    }
   }
 
   private void applyTextConditionalClosings(int closingCount) {
@@ -391,7 +448,16 @@ public final class TemplateConditionalScopeTracker {
   private void clearBraceTracking() {
     braceBasedTextConditionalDepth = 0;
     pendingConditionalBranchOpenings = 0;
+    clearConditionalHeaderTracking();
     nestedTextBlockDepth = 0;
+  }
+
+  /**
+   * Clears the transient state used while scanning a conditional header before its branch opening brace.
+   */
+  private void clearConditionalHeaderTracking() {
+    awaitingConditionalHeaderParenthesis = false;
+    pendingConditionalHeaderParenthesisDepth = 0;
   }
 
   private static boolean isJstlConditionalTag(TagNode node) {
@@ -426,21 +492,37 @@ public final class TemplateConditionalScopeTracker {
   }
 
   /**
-   * Checks whether a closing brace at the provided index is followed by an else-like continuation.
+   * Returns the index immediately after an else-like continuation keyword that follows a closing brace.
    *
    * @param text the scanned fragment
    * @param closingBraceIndex the index of the closing brace to inspect
-   * @return {@code true} when the brace continues the current conditional chain
+   * @return the index after the continuation keyword, or {@code -1} when the brace ends the chain
    */
-  private static boolean isConditionalContinuation(String text, int closingBraceIndex) {
+  private int conditionalContinuationEndIndex(String text, int closingBraceIndex) {
+    if (braceBasedTextConditionalDepth == 0) {
+      return -1;
+    }
+
     int index = skipLeadingTrivia(text, closingBraceIndex + 1);
     if (index < text.length() && text.charAt(index) == '@') {
       index++;
     }
 
-    return startsWithKeyword(text, index, "elseif")
-      || startsWithElseIf(text, index)
-      || startsWithKeyword(text, index, "else");
+    if (startsWithKeyword(text, index, "elseif")) {
+      awaitingConditionalHeaderParenthesis = true;
+      pendingConditionalHeaderParenthesisDepth = 0;
+      return index + "elseif".length();
+    }
+    if (startsWithElseIf(text, index)) {
+      awaitingConditionalHeaderParenthesis = true;
+      pendingConditionalHeaderParenthesisDepth = 0;
+      return skipWhitespace(text, index + 4) + "if".length();
+    }
+    if (startsWithKeyword(text, index, "else")) {
+      clearConditionalHeaderTracking();
+      return index + "else".length();
+    }
+    return -1;
   }
 
   private static boolean startsWithElseIf(String text, int index) {
@@ -473,6 +555,37 @@ public final class TemplateConditionalScopeTracker {
   }
 
   /**
+   * Consumes characters that belong to a still-open conditional header before its branch opening brace.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   * @return {@code true} when the current position was consumed as part of the header
+   */
+  private boolean consumeConditionalHeaderCharacter(String text, FragmentScanState state) {
+    if (!awaitingConditionalHeaderParenthesis && pendingConditionalHeaderParenthesisDepth == 0) {
+      return false;
+    }
+
+    if (awaitingConditionalHeaderParenthesis) {
+      if (text.charAt(state.index) == '(') {
+        awaitingConditionalHeaderParenthesis = false;
+        pendingConditionalHeaderParenthesisDepth = 1;
+      }
+      state.index++;
+      return true;
+    }
+
+    char current = text.charAt(state.index);
+    if (current == '(') {
+      pendingConditionalHeaderParenthesisDepth++;
+    } else if (current == ')') {
+      pendingConditionalHeaderParenthesisDepth--;
+    }
+    state.index++;
+    return true;
+  }
+
+  /**
    * Determines whether a PHP conditional uses structural braces rather than alternative syntax.
    *
    * @param text the unwrapped PHP directive body
@@ -481,16 +594,20 @@ public final class TemplateConditionalScopeTracker {
    */
   private static boolean isBraceDelimitedPhpConditional(String text, int index) {
     FragmentScanState state = new FragmentScanState(index);
+    int parenthesisDepth = 0;
     while (state.index < text.length()) {
       if (consumeProtectedCharacter(text, state) || consumeCommentOrStringStart(text, true, state)) {
         continue;
       }
 
       char current = text.charAt(state.index);
-      if (current == '{') {
+      if (current == '(') {
+        parenthesisDepth++;
+      } else if (current == ')' && parenthesisDepth > 0) {
+        parenthesisDepth--;
+      } else if (parenthesisDepth == 0 && current == '{') {
         return true;
-      }
-      if (current == ':' || current == ';') {
+      } else if (parenthesisDepth == 0 && (current == ':' || current == ';')) {
         return false;
       }
       state.index++;
