@@ -35,7 +35,7 @@ class NoNoninteractiveTabIndexCheckTest {
       new NoNoninteractiveTabIndexCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(21).withMessage("\"tabIndex\" should only be declared on interactive elements.")
+      .next().atLine(21).withMessage("\"tabindex\" should only be declared on interactive elements.")
       .next().atLine(22)
       .next().atLine(23)
       .next().atLine(26)

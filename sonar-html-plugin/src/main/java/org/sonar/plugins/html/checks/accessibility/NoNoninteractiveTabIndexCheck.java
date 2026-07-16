@@ -27,7 +27,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S6845")
 public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
 
-  private static final String MESSAGE = "\"tabIndex\" should only be declared on interactive elements.";
+  private static final String MESSAGE = "\"tabindex\" should only be declared on interactive elements.";
 
   @Override
   public void startElement(TagNode node) {
