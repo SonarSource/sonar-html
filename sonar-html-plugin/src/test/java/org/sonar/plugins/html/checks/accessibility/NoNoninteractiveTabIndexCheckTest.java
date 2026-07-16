@@ -35,12 +35,14 @@ class NoNoninteractiveTabIndexCheckTest {
       new NoNoninteractiveTabIndexCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(18).withMessage("\"tabIndex\" should only be declared on interactive elements.")
-      .next().atLine(19)
-      .next().atLine(20)
+      .next().atLine(21).withMessage("\"tabindex\" should only be declared on interactive elements.")
+      .next().atLine(22)
       .next().atLine(23)
-      .next().atLine(24)
-      .next().atLine(25)
+      .next().atLine(26)
+      .next().atLine(27)
+      .next().atLine(28)
+      .next().atLine(29)
+      .next().atLine(30)
       .noMore();
   }
 }
