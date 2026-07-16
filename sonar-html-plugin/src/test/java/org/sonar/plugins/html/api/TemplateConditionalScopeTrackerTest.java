@@ -62,6 +62,31 @@ class TemplateConditionalScopeTrackerTest {
     assertThat(isConditionalAtLine(nodes, "div", 6)).isFalse();
   }
 
+  /**
+   * Keeps Razor if/else branches conditional when nested C# blocks close before the else branch.
+   */
+  @Test
+  void tracks_razor_conditionals_across_nested_csharp_blocks() {
+    List<Node> nodes = parse("""
+      @if (Model.HasData && Model.HasValidRows)
+      {
+        using (Html.BeginForm("ConfirmImportAllValidTrainingRecords", "TrainingImport", null, FormMethod.Post, new { onsubmit = "renderOverlay(this.action); return false;" }))
+        {
+          <button id="submit-valid-training-records" type="submit">Import</button>
+        }
+      }
+      else
+      {
+        <button id="submit-valid-training-records" type="submit" disabled="disabled">Import</button>
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "button", 5)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "button", 10)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 12)).isFalse();
+  }
+
   @Test
   void tracks_jstl_conditional_tags() {
     List<Node> nodes = parse("""

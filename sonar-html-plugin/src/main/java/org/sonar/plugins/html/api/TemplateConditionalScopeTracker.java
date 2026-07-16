@@ -44,27 +44,31 @@ public final class TemplateConditionalScopeTracker {
 
   private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern RAZOR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
+  private static final Pattern PHP_DIRECTIVE_CONDITIONAL_START_PATTERN = Pattern.compile("(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
   private static final Pattern TWIG_CONDITIONAL_START_PATTERN = Pattern.compile("\\{%[-\\s]*(if|for)\\b", Pattern.CASE_INSENSITIVE);
-  private static final Pattern PHP_CONDITIONAL_START_PATTERN = Pattern.compile("<\\?(?:php)?\\s*(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
-
   private static final Pattern TWIG_CONDITIONAL_END_PATTERN = Pattern.compile("\\{%[-\\s]*(endif|endfor)\\b", Pattern.CASE_INSENSITIVE);
-  private static final Pattern PHP_CONDITIONAL_END_PATTERN = Pattern.compile("<\\?(?:php)?\\s*(endif|endforeach|endfor)\\b", Pattern.CASE_INSENSITIVE);
+  private static final Pattern PHP_DIRECTIVE_CONDITIONAL_END_PATTERN = Pattern.compile("(endif|endforeach|endfor)\\b", Pattern.CASE_INSENSITIVE);
 
   private int textConditionalDepth;
+  private int braceBasedTextConditionalDepth;
+  private int pendingConditionalBranchOpenings;
+  private int nestedTextBlockDepth;
   private int tagConditionalDepth;
 
   public void reset() {
     textConditionalDepth = 0;
+    braceBasedTextConditionalDepth = 0;
+    pendingConditionalBranchOpenings = 0;
+    nestedTextBlockDepth = 0;
     tagConditionalDepth = 0;
   }
 
   public void visitText(TextNode textNode) {
-    updateTextConditionalDepth(textNode.getCode(), textNode.getCode());
+    scanFragment(textNode.getCode(), false);
   }
 
   public void visitDirective(DirectiveNode directiveNode) {
-    String code = directiveNode.getCode();
-    updateTextConditionalDepth(code, unwrapDirective(code));
+    scanFragment(unwrapDirective(directiveNode.getCode()), true);
   }
 
   public void startElement(TagNode node) {
@@ -87,55 +91,194 @@ public final class TemplateConditionalScopeTracker {
     return textConditionalDepth > 0 || tagConditionalDepth > 0;
   }
 
-  private void updateTextConditionalDepth(String conditionalText, String braceText) {
-    int conditionalStarts = incrementTextConditionalDepthForStarts(conditionalText);
-    decrementTextConditionalDepthForExplicitEnds(conditionalText);
-    applyStructuralClosingBraces(conditionalText, braceText, conditionalStarts);
-  }
+  /**
+   * Scans a text or directive fragment and keeps the open conditional scopes in sync
+   * with structural braces, explicit template endings, and branch continuations.
+   *
+   * @param text the fragment to scan
+   * @param directive whether the fragment comes from a directive node
+   */
+  private void scanFragment(String text, boolean directive) {
+    boolean inLineComment = false;
+    boolean inBlockComment = false;
+    boolean escaped = false;
+    char quoteDelimiter = '\0';
 
-  private int incrementTextConditionalDepthForStarts(String conditionalText) {
-    int starts = countConditionalStarts(conditionalText);
-    textConditionalDepth += starts;
-    return starts;
-  }
+    for (int index = 0; index < text.length(); ) {
+      if (inLineComment) {
+        if (isLineBreak(text.charAt(index))) {
+          inLineComment = false;
+        }
+        index++;
+        continue;
+      }
+      if (inBlockComment) {
+        if (startsWith(text, index, "*/")) {
+          inBlockComment = false;
+          index += 2;
+        } else {
+          index++;
+        }
+        continue;
+      }
+      if (quoteDelimiter != '\0') {
+        char current = text.charAt(index);
+        if (escaped) {
+          escaped = false;
+        } else if (current == '\\') {
+          escaped = true;
+        } else if (current == quoteDelimiter) {
+          quoteDelimiter = '\0';
+        }
+        index++;
+        continue;
+      }
 
-  private void decrementTextConditionalDepthForExplicitEnds(String conditionalText) {
-    applyTextConditionalClosings(countConditionalEnds(conditionalText));
-  }
+      if (!directive && startsWith(text, index, "@*")) {
+        index = skipDelimitedBlock(text, index + 2, "*@");
+        continue;
+      }
+      if (startsWith(text, index, "/*")) {
+        inBlockComment = true;
+        index += 2;
+        continue;
+      }
+      if (startsWith(text, index, "//")) {
+        inLineComment = true;
+        index += 2;
+        continue;
+      }
+      if (text.charAt(index) == '#') {
+        inLineComment = true;
+        index++;
+        continue;
+      }
+      if (text.charAt(index) == '\'' || text.charAt(index) == '"') {
+        quoteDelimiter = text.charAt(index);
+        escaped = false;
+        index++;
+        continue;
+      }
 
-  private void applyStructuralClosingBraces(String conditionalText, String braceText, int conditionalStarts) {
-    applyTextConditionalClosings(countStructuralClosings(conditionalText, braceText, conditionalStarts));
-  }
+      if (directive) {
+        boolean startsAtWordBoundary = index == 0
+          || (!Character.isLetterOrDigit(text.charAt(index - 1)) && text.charAt(index - 1) != '_');
 
-  private int countStructuralClosings(String conditionalText, String braceText, int conditionalStarts) {
-    if (!hasOpenTextConditional() || !braceText.contains("}")) {
-      return 0;
+        int conditionalEndLength = startsAtWordBoundary
+          ? matchedPrefixLength(PHP_DIRECTIVE_CONDITIONAL_END_PATTERN, text, index)
+          : 0;
+        if (conditionalEndLength > 0) {
+          applyTextConditionalClosings(1);
+          index += conditionalEndLength;
+          continue;
+        }
+
+        int conditionalStartLength = startsAtWordBoundary
+          ? matchedPrefixLength(PHP_DIRECTIVE_CONDITIONAL_START_PATTERN, text, index)
+          : 0;
+        if (conditionalStartLength > 0) {
+          textConditionalDepth++;
+          if (isBraceDelimitedPhpConditional(text, index + conditionalStartLength)) {
+            openBraceBasedConditional();
+          }
+          index += conditionalStartLength;
+          continue;
+        }
+      } else {
+        int twigConditionalEndLength = matchedPrefixLength(TWIG_CONDITIONAL_END_PATTERN, text, index);
+        if (twigConditionalEndLength > 0) {
+          applyTextConditionalClosings(1);
+          index = skipDelimitedBlock(text, index + twigConditionalEndLength, "%}");
+          continue;
+        }
+
+        int twigConditionalStartLength = matchedPrefixLength(TWIG_CONDITIONAL_START_PATTERN, text, index);
+        if (twigConditionalStartLength > 0) {
+          textConditionalDepth++;
+          index = skipDelimitedBlock(text, index + twigConditionalStartLength, "%}");
+          continue;
+        }
+
+        int conditionalStartLength = matchedPrefixLength(RAZOR_BLOCK_START_PATTERN, text, index);
+        if (conditionalStartLength == 0) {
+          conditionalStartLength = matchedPrefixLength(RAZOR_BRANCH_START_PATTERN, text, index);
+        }
+        if (conditionalStartLength > 0) {
+          textConditionalDepth++;
+          openBraceBasedConditional();
+          index += conditionalStartLength;
+          continue;
+        }
+
+        int skippedTemplateBlock = skipTemplateBlock(text, index);
+        if (skippedTemplateBlock > index) {
+          index = skippedTemplateBlock;
+          continue;
+        }
+      }
+
+      if (startsWith(text, index, "}}") || startsWith(text, index, "%}") || startsWith(text, index, "#}")) {
+        index += 2;
+        continue;
+      }
+      if (text.charAt(index) == '{') {
+        if (pendingConditionalBranchOpenings > 0) {
+          pendingConditionalBranchOpenings--;
+        } else if (braceBasedTextConditionalDepth > 0) {
+          nestedTextBlockDepth++;
+        }
+        index++;
+        continue;
+      }
+      if (text.charAt(index) == '}') {
+        if (nestedTextBlockDepth > 0) {
+          nestedTextBlockDepth--;
+        } else if (braceBasedTextConditionalDepth > 0) {
+          if (isConditionalContinuation(text, index)) {
+            pendingConditionalBranchOpenings++;
+          } else {
+            braceBasedTextConditionalDepth--;
+            applyTextConditionalClosings(1);
+            if (braceBasedTextConditionalDepth == 0) {
+              clearBraceTracking();
+            }
+          }
+        }
+        index++;
+        continue;
+      }
+      index++;
     }
 
-    String trimmed = braceText.trim();
-    boolean continuation = isConditionalContinuation(trimmed);
-    int structuralClosings = opensAndClosesInSameFragment(conditionalText, conditionalStarts)
-      ? StructuralClosingBraceCounter.count(trimmed)
-      : LeadingClosingBraceCounter.count(trimmed);
-
-    if (continuation && structuralClosings > 0) {
-      return structuralClosings - 1;
+    if (textConditionalDepth == 0) {
+      clearBraceTracking();
     }
-    return structuralClosings;
   }
 
-  private boolean hasOpenTextConditional() {
-    return textConditionalDepth > 0;
-  }
-
-  private static boolean opensAndClosesInSameFragment(String conditionalText, int conditionalStarts) {
-    return conditionalStarts > 0 && !conditionalText.contains("{%");
+  /**
+   * Marks a brace-delimited conditional as open and waits for its branch opening brace.
+   */
+  private void openBraceBasedConditional() {
+    braceBasedTextConditionalDepth++;
+    pendingConditionalBranchOpenings++;
   }
 
   private void applyTextConditionalClosings(int closingCount) {
     if (closingCount > 0) {
       textConditionalDepth = Math.max(0, textConditionalDepth - closingCount);
+      if (textConditionalDepth == 0) {
+        clearBraceTracking();
+      }
     }
+  }
+
+  /**
+   * Clears the brace-related state once no brace-delimited conditional remains open.
+   */
+  private void clearBraceTracking() {
+    braceBasedTextConditionalDepth = 0;
+    pendingConditionalBranchOpenings = 0;
+    nestedTextBlockDepth = 0;
   }
 
   private static boolean isJstlConditionalTag(TagNode node) {
@@ -157,27 +300,6 @@ public final class TemplateConditionalScopeTracker {
     return false;
   }
 
-  private static int countMatches(Pattern pattern, String text) {
-    Matcher matcher = pattern.matcher(text);
-    int matches = 0;
-    while (matcher.find()) {
-      matches++;
-    }
-    return matches;
-  }
-
-  private static int countConditionalStarts(String conditionalText) {
-    return countMatches(RAZOR_BLOCK_START_PATTERN, conditionalText)
-      + countMatches(RAZOR_BRANCH_START_PATTERN, conditionalText)
-      + countMatches(TWIG_CONDITIONAL_START_PATTERN, conditionalText)
-      + countMatches(PHP_CONDITIONAL_START_PATTERN, conditionalText);
-  }
-
-  private static int countConditionalEnds(String conditionalText) {
-    return countMatches(TWIG_CONDITIONAL_END_PATTERN, conditionalText)
-      + countMatches(PHP_CONDITIONAL_END_PATTERN, conditionalText);
-  }
-
   private static String unwrapDirective(String code) {
     String trimmed = code.trim();
     if (!trimmed.startsWith("<?") || !trimmed.endsWith("?>")) {
@@ -190,13 +312,15 @@ public final class TemplateConditionalScopeTracker {
       : unwrapped;
   }
 
-  private static boolean isConditionalContinuation(String text) {
-    int index = skipLeadingTrivia(text, 0);
-    if (!startsWithSingleClosingBrace(text, index)) {
-      return false;
-    }
-
-    index = skipLeadingTrivia(text, index + 1);
+  /**
+   * Checks whether a closing brace at the provided index is followed by an else-like continuation.
+   *
+   * @param text the scanned fragment
+   * @param closingBraceIndex the index of the closing brace to inspect
+   * @return {@code true} when the brace continues the current conditional chain
+   */
+  private static boolean isConditionalContinuation(String text, int closingBraceIndex) {
+    int index = skipLeadingTrivia(text, closingBraceIndex + 1);
     if (index < text.length() && text.charAt(index) == '@') {
       index++;
     }
@@ -221,15 +345,98 @@ public final class TemplateConditionalScopeTracker {
       && isWordBoundary(text, index + keyword.length());
   }
 
+  /**
+   * Returns the length of a pattern matched exactly at the provided index.
+   *
+   * @param pattern the pattern to test
+   * @param text the scanned fragment
+   * @param index the current scan index
+   * @return the matched length, or {@code 0} when no match starts at {@code index}
+   */
+  private static int matchedPrefixLength(Pattern pattern, String text, int index) {
+    Matcher matcher = pattern.matcher(text);
+    matcher.region(index, text.length());
+    return matcher.lookingAt() ? matcher.end() - index : 0;
+  }
+
+  /**
+   * Determines whether a PHP conditional uses structural braces rather than alternative syntax.
+   *
+   * @param text the unwrapped PHP directive body
+   * @param index the index immediately after the conditional keyword
+   * @return {@code true} when the first structural token after the header is an opening brace
+   */
+  private static boolean isBraceDelimitedPhpConditional(String text, int index) {
+    boolean inLineComment = false;
+    boolean inBlockComment = false;
+    boolean escaped = false;
+    char quoteDelimiter = '\0';
+
+    for (int current = index; current < text.length(); ) {
+      if (inLineComment) {
+        if (isLineBreak(text.charAt(current))) {
+          inLineComment = false;
+        }
+        current++;
+        continue;
+      }
+      if (inBlockComment) {
+        if (startsWith(text, current, "*/")) {
+          inBlockComment = false;
+          current += 2;
+        } else {
+          current++;
+        }
+        continue;
+      }
+      if (quoteDelimiter != '\0') {
+        char character = text.charAt(current);
+        if (escaped) {
+          escaped = false;
+        } else if (character == '\\') {
+          escaped = true;
+        } else if (character == quoteDelimiter) {
+          quoteDelimiter = '\0';
+        }
+        current++;
+        continue;
+      }
+
+      if (startsWith(text, current, "/*")) {
+        inBlockComment = true;
+        current += 2;
+        continue;
+      }
+      if (startsWith(text, current, "//")) {
+        inLineComment = true;
+        current += 2;
+        continue;
+      }
+      if (text.charAt(current) == '#') {
+        inLineComment = true;
+        current++;
+        continue;
+      }
+      if (text.charAt(current) == '\'' || text.charAt(current) == '"') {
+        quoteDelimiter = text.charAt(current);
+        escaped = false;
+        current++;
+        continue;
+      }
+      if (text.charAt(current) == '{') {
+        return true;
+      }
+      if (text.charAt(current) == ':' || text.charAt(current) == ';') {
+        return false;
+      }
+      current++;
+    }
+    return false;
+  }
+
   private static boolean isWordBoundary(String text, int index) {
     return index >= text.length()
       || (!Character.isLetterOrDigit(text.charAt(index)) && text.charAt(index) != '_');
-  }
-
-  private static boolean startsWithSingleClosingBrace(String text, int index) {
-    return index < text.length()
-      && text.charAt(index) == '}'
-      && !(index + 1 < text.length() && text.charAt(index + 1) == '}');
   }
 
   private static int skipLeadingTrivia(String text, int index) {
@@ -287,233 +494,45 @@ public final class TemplateConditionalScopeTracker {
     return text.length();
   }
 
+  /**
+   * Skips a template block such as {@code {{ ... }}}, {@code {% ... %}}, or {@code {# ... #}}.
+   *
+   * @param text the scanned fragment
+   * @param index the current scan index
+   * @return the index after the skipped block, or the original index when no block starts there
+   */
+  private static int skipTemplateBlock(String text, int index) {
+    if (startsWith(text, index, "{{")) {
+      return skipDelimitedBlock(text, index + 2, "}}");
+    }
+    if (startsWith(text, index, "{%")) {
+      return skipDelimitedBlock(text, index + 2, "%}");
+    }
+    if (startsWith(text, index, "{#")) {
+      return skipDelimitedBlock(text, index + 2, "#}");
+    }
+    return index;
+  }
+
+  /**
+   * Skips characters until the matching closing delimiter is found.
+   *
+   * @param text the scanned fragment
+   * @param startIndex the index immediately after the opening delimiter
+   * @param closingDelimiter the delimiter that ends the skipped block
+   * @return the index immediately after the closing delimiter, or {@code text.length()} when it is missing
+   */
+  private static int skipDelimitedBlock(String text, int startIndex, String closingDelimiter) {
+    int closingIndex = text.indexOf(closingDelimiter, startIndex);
+    if (closingIndex < 0) {
+      return text.length();
+    }
+    return closingIndex + closingDelimiter.length();
+  }
+
   private static boolean startsWith(String text, int index, String token) {
     return index + token.length() <= text.length()
       && text.regionMatches(index, token, 0, token.length());
-  }
-
-  private static final class LeadingClosingBraceCounter {
-
-    private final String text;
-    private int index;
-
-    private LeadingClosingBraceCounter(String text) {
-      this.text = text;
-    }
-
-    private static int count(String text) {
-      return new LeadingClosingBraceCounter(text).count();
-    }
-
-    private int count() {
-      int closingBraces = 0;
-      while (hasMoreCharacters()) {
-        skipWhitespaceAndComments();
-        if (!hasMoreCharacters() || startsWithDoubleClosingBrace() || currentChar() != '}') {
-          return closingBraces;
-        }
-        closingBraces++;
-        index++;
-      }
-      return closingBraces;
-    }
-
-    private void skipWhitespaceAndComments() {
-      boolean advanced = true;
-      while (advanced && hasMoreCharacters()) {
-        advanced = skipWhitespace() || skipLineComment() || skipBlockComment();
-      }
-    }
-
-    private boolean skipWhitespace() {
-      int start = index;
-      while (hasMoreCharacters() && Character.isWhitespace(currentChar())) {
-        index++;
-      }
-      return index > start;
-    }
-
-    private boolean skipLineComment() {
-      if (!startsLineComment()) {
-        return false;
-      }
-      index += currentChar() == '#' ? 1 : 2;
-      while (hasMoreCharacters() && !isLineBreak(currentChar())) {
-        index++;
-      }
-      return true;
-    }
-
-    private boolean skipBlockComment() {
-      if (!startsBlockComment()) {
-        return false;
-      }
-      index += 2;
-      while (hasMoreCharacters() && !startsWith("*/")) {
-        index++;
-      }
-      if (startsWith("*/")) {
-        index += 2;
-      }
-      return true;
-    }
-
-    private boolean startsLineComment() {
-      return currentChar() == '#' || startsWith("//");
-    }
-
-    private boolean startsBlockComment() {
-      return startsWith("/*");
-    }
-
-    private boolean startsWithDoubleClosingBrace() {
-      return startsWith("}}");
-    }
-
-    private boolean startsWith(String token) {
-      return text.regionMatches(index, token, 0, token.length());
-    }
-
-    private boolean hasMoreCharacters() {
-      return index < text.length();
-    }
-
-    private char currentChar() {
-      return text.charAt(index);
-    }
-  }
-
-  private static final class StructuralClosingBraceCounter {
-
-    private final String text;
-    private int index;
-    private boolean inLineComment;
-    private boolean inBlockComment;
-    private boolean escaped;
-    private char quoteDelimiter;
-
-    private StructuralClosingBraceCounter(String text) {
-      this.text = text;
-    }
-
-    private static int count(String text) {
-      return new StructuralClosingBraceCounter(text).count();
-    }
-
-    private int count() {
-      int closingBraces = 0;
-      while (hasMoreCharacters()) {
-        closingBraces += scanCurrentCharacter();
-      }
-      return closingBraces;
-    }
-
-    private int scanCurrentCharacter() {
-      if (inLineComment) {
-        advanceLineComment();
-        return 0;
-      }
-      if (inBlockComment) {
-        advanceBlockComment();
-        return 0;
-      }
-      if (isInsideQuotedString()) {
-        advanceQuotedString();
-        return 0;
-      }
-      if (startsBlockComment()) {
-        inBlockComment = true;
-        index += 2;
-        return 0;
-      }
-      if (startsLineComment()) {
-        enterLineComment();
-        return 0;
-      }
-      if (startsQuotedString()) {
-        quoteDelimiter = currentChar();
-        escaped = false;
-        index++;
-        return 0;
-      }
-      if (startsWithDoubleClosingBrace()) {
-        index += 2;
-        return 0;
-      }
-      return consumeClosingBrace();
-    }
-
-    private void advanceLineComment() {
-      if (isLineBreak(currentChar())) {
-        inLineComment = false;
-      }
-      index++;
-    }
-
-    private void advanceBlockComment() {
-      if (startsWith("*/")) {
-        inBlockComment = false;
-        index += 2;
-      } else {
-        index++;
-      }
-    }
-
-    private void advanceQuotedString() {
-      char current = currentChar();
-      if (escaped) {
-        escaped = false;
-      } else if (current == '\\') {
-        escaped = true;
-      } else if (current == quoteDelimiter) {
-        quoteDelimiter = '\0';
-      }
-      index++;
-    }
-
-    private void enterLineComment() {
-      inLineComment = true;
-      index += currentChar() == '#' ? 1 : 2;
-    }
-
-    private boolean isInsideQuotedString() {
-      return quoteDelimiter != '\0';
-    }
-
-    private boolean startsBlockComment() {
-      return startsWith("/*");
-    }
-
-    private boolean startsLineComment() {
-      return currentChar() == '#' || startsWith("//");
-    }
-
-    private boolean startsQuotedString() {
-      char current = currentChar();
-      return current == '\'' || current == '"';
-    }
-
-    private boolean startsWithDoubleClosingBrace() {
-      return startsWith("}}");
-    }
-
-    private int consumeClosingBrace() {
-      int closingBraces = currentChar() == '}' ? 1 : 0;
-      index++;
-      return closingBraces;
-    }
-
-    private boolean startsWith(String token) {
-      return text.regionMatches(index, token, 0, token.length());
-    }
-
-    private boolean hasMoreCharacters() {
-      return index < text.length();
-    }
-
-    private char currentChar() {
-      return text.charAt(index);
-    }
   }
 
   private static boolean isLineBreak(char character) {

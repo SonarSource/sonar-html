@@ -107,6 +107,20 @@ class NoDuplicateIDCheckTest {
         .noMore();
   }
 
+  /**
+   * Ignores duplicate ids across Razor if/else branches when one branch contains nested C# blocks.
+   */
+  @Test
+  void razorConditionalBlocksWithNestedCSharpBlocks() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksNested.cshtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(18).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 17.")
+        .noMore();
+  }
+
   @Test
   void twigConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
