@@ -57,13 +57,43 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
    * @return true when the element declares an interactive role or the tabpanel role
    */
   private static boolean hasAllowedRole(TagNode node) {
-    var role = node.getPropertyValue("role");
+    var role = resolveStaticRole(node);
     if (role == null) {
       return false;
     }
 
-    var normalizedRole = role.replace("\"", "").replace("'", "").trim();
-    return "tabpanel".equalsIgnoreCase(normalizedRole)
-      || INTERACTIVE_ROLES.stream().anyMatch(normalizedRole::equalsIgnoreCase);
+    return "tabpanel".equalsIgnoreCase(role)
+      || INTERACTIVE_ROLES.stream().anyMatch(role::equalsIgnoreCase);
+  }
+
+  private static String resolveStaticRole(TagNode node) {
+    var roleAttribute = node.getProperty("role");
+    if (roleAttribute == null) {
+      return null;
+    }
+
+    var roleValue = roleAttribute.getValue();
+    if (roleAttribute.getName().equalsIgnoreCase("role")) {
+      var normalizedRole = roleValue.trim();
+      return normalizedRole.isEmpty() ? null : normalizedRole;
+    }
+
+    // Bound role values are only trusted when they are explicit string literals.
+    if (!isStaticStringLiteral(roleValue)) {
+      return null;
+    }
+
+    var normalizedRole = roleValue.substring(1, roleValue.length() - 1).trim();
+    return normalizedRole.isEmpty() ? null : normalizedRole;
+  }
+
+  private static boolean isStaticStringLiteral(String value) {
+    if (value == null || value.length() < 2) {
+      return false;
+    }
+
+    char first = value.charAt(0);
+    char last = value.charAt(value.length() - 1);
+    return (first == '\'' && last == '\'') || (first == '"' && last == '"');
   }
 }
