@@ -1,6 +1,6 @@
 <p>Navigation using the Tab key should be restricted to elements on the page that users can interact with.</p>
 <h2>Why is this an issue?</h2>
-<p>The misuse of the <code>tabIndex</code> attribute can lead to several issues:</p>
+<p>The misuse of the <code>tabindex</code> attribute can lead to several issues:</p>
 <ul>
   <li>Navigation Confusion: It can confuse users who rely on keyboard navigation, as they might expect to tab through interactive elements like links
   and buttons, not static content.</li>
@@ -23,11 +23,19 @@ behavior that role expects.</p>
 <pre data-diff-id="1" data-diff-type="compliant">
 &lt;button type="button"&gt;Save&lt;/button&gt;
 </pre>
-<h4>Alternative compliant solution</h4>
+<h4>Compliant solution</h4>
 <pre>
 &lt;div role="button" tabindex="0" onclick="save()"
      onkeydown="if (event.key === 'Enter' || event.key === ' ') save();"&gt;
   Save
+&lt;/div&gt;
+</pre>
+<h3>Exception</h3>
+<p>This rule accepts <code>tabindex="0"</code> on elements with <code>role="tabpanel"</code>. This matches the WAI-ARIA Tabs pattern, which allows the
+tabpanel itself to receive focus when its first meaningful content is not focusable.</p>
+<pre>
+&lt;div role="tabpanel" tabindex="0"&gt;
+  &lt;!-- tab content --&gt;
 &lt;/div&gt;
 </pre>
 <h2>Resources</h2>
@@ -36,6 +44,7 @@ behavior that role expects.</p>
   <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex">tabindex</a></li>
   <li>The a11y project - <a href="https://www.a11yproject.com/posts/how-to-use-the-tabindex-attribute/">Use the tabindex attribute</a></li>
   <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role">ARIA: button role</a></li>
+  <li>WAI-ARIA Authoring Practices Guide - <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">Tabs pattern</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Understanding/keyboard">WCAG 2.2 - 2.1.1 Keyboard</a></li>
 </ul>
 
