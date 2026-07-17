@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@{
+    string headerType = null;
+    if (Model.Type == "home-search")
+    {
+        headerType = "home";
+    }
+}
+@if (Model.Type == "search" ||
+    Model.Type == "home-search")
+{
+    <bgl-visual-header id="home_vhead"></bgl-visual-header>
+}
+else if (Model.Type == "inspiration")
+{
+    <bgl-visual-header id="home_vhead"></bgl-visual-header>
+}
+else if (Model.Type == "home")
+{
+    <bgl-visual-header id="home_vhead"></bgl-visual-header>
+}
+
+<div id="footer">One</div>
+<div id="footer">Two</div>
+
+</body>
+</html>

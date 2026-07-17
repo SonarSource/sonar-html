@@ -241,6 +241,19 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithCodeBlockPreamble() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksRazorPreamble.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A top-level @{ ... } code block containing a C# if must not consume the conditional depth of the
+    // following @if/else if chain; ids across those branches stay mutually exclusive
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(27).withMessage("Duplicate id \"footer\" found. First occurrence was on line 26.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocksWithScriptTemplateLiteral() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptTemplateLiteral.cshtml"),
