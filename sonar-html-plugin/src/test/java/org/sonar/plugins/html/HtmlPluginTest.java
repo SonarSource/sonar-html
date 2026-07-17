@@ -16,11 +16,11 @@
  */
 package org.sonar.plugins.html;
 
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestSonarRuntime;
 import org.junit.jupiter.api.Test;
 import org.sonar.api.Plugin;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
-import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
 import org.sonar.plugins.html.core.AnalysisWarningsWrapper;
 import org.sonar.plugins.html.core.Html;
@@ -32,12 +32,11 @@ import org.sonar.plugins.html.rules.SonarWayProfile;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 class HtmlPluginTest {
 
   @Test
   void webPluginTester() {
-    Plugin.Context context = new Plugin.Context(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
+    Plugin.Context context = new Plugin.Context(TestSonarRuntime.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
 
     new HtmlPlugin().define(context);
     assertThat(context.getExtensions())
