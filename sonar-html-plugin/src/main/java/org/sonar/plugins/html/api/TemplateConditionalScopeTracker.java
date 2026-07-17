@@ -130,9 +130,9 @@ public final class TemplateConditionalScopeTracker {
       boolean fullCode = directive || isScanningConditionalHeader();
       boolean hashComments = fullCode;
       boolean slashComments = fullCode || scriptDepth > 0;
-      boolean strings = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
+      boolean stringsAndBlockComments = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
       if (consumeProtectedCharacter(text, state)
-        || consumeCommentOrStringStart(text, directive, hashComments, slashComments, strings, state)
+        || consumeCommentOrStringStart(text, directive, hashComments, slashComments, stringsAndBlockComments, state)
         || consumeConditionalHeaderCharacter(text, state)
         || consumeConditionalToken(text, directive, state)
         || consumeStructuralToken(text, state)) {
@@ -192,18 +192,18 @@ public final class TemplateConditionalScopeTracker {
    * @param directive whether the fragment comes from a directive node
    * @param hashComments whether {@code #} starts a line comment here (full code only)
    * @param slashComments whether {@code //} starts a line comment here (full code and script bodies)
-   * @param strings whether quoted strings and block comments are active here (code, script, style and nested code blocks)
+   * @param stringsAndBlockComments whether quoted strings and block comments are active here (code, script, style and nested code blocks)
    * @param state the mutable scan state
    * @return {@code true} when a comment or string opener was consumed
    */
-  private static boolean consumeCommentOrStringStart(String text, boolean directive, boolean hashComments, boolean slashComments, boolean strings, FragmentScanState state) {
+  private static boolean consumeCommentOrStringStart(String text, boolean directive, boolean hashComments, boolean slashComments, boolean stringsAndBlockComments, FragmentScanState state) {
     char current = text.charAt(state.index);
     // Razor comment: only in template markup, may wrap structural braces
     if (!directive && startsWith(text, state.index, "@*")) {
       state.index = skipDelimitedBlock(text, state.index + 2, "*@");
       return true;
     }
-    if (strings && startsWith(text, state.index, "/*")) {
+    if (stringsAndBlockComments && startsWith(text, state.index, "/*")) {
       state.inBlockComment = true;
       state.index += 2;
       return true;
@@ -218,7 +218,7 @@ public final class TemplateConditionalScopeTracker {
       state.index++;
       return true;
     }
-    if (strings && (current == '\'' || current == '"' || current == '`')) {
+    if (stringsAndBlockComments && (current == '\'' || current == '"' || current == '`')) {
       state.quoteDelimiter = current;
       state.escaped = false;
       state.index++;
