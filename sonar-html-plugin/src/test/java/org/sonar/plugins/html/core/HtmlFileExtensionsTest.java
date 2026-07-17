@@ -18,8 +18,8 @@ package org.sonar.plugins.html.core;
 
 import java.util.Set;
 import org.junit.jupiter.api.Test;
-import org.sonar.api.config.internal.MapSettings;
 import org.sonar.plugins.html.api.HtmlConstants;
+import org.sonar.scanner.plugin.api.impl.config.MapSettings;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

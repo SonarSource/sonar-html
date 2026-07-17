@@ -16,6 +16,9 @@
  */
 package org.sonar.plugins.html.visitor;
 
+import com.sonarsource.scanner.engine.sensor.test.fixtures.SensorContextTester;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestSonarRuntime;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -32,10 +35,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.batch.fs.InputFile;
-import com.sonarsource.scanner.engine.sensor.test.fixtures.SensorContextTester;
-import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
 import org.sonar.api.batch.sensor.issue.IssueResolution;
-import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.testfixtures.log.LogTesterJUnit5;
 import org.sonar.api.utils.Version;
@@ -257,7 +257,7 @@ class SonarResolveScannerTest {
 
   private static SensorContextTester newSensorContext() {
     return SensorContextTester.create(Paths.get("."))
-      .setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 6), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+      .setRuntime(TestSonarRuntime.forSonarQube(Version.create(13, 6), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
   }
 
   private static void assertResolution(IssueResolution issueResolution, String ruleKey, String comment, int line) {

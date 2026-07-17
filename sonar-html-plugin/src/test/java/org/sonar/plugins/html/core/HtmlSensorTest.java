@@ -16,6 +16,9 @@
  */
 package org.sonar.plugins.html.core;
 
+import com.sonarsource.scanner.engine.sensor.test.fixtures.SensorContextTester;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
+import com.sonarsource.scanner.engine.sensor.test.fixtures.TestSonarRuntime;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -34,19 +37,11 @@ import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.fs.InputFile;
-import com.sonarsource.scanner.engine.sensor.test.fixtures.SensorContextTester;
-import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.rule.CheckFactory;
-import org.sonar.scanner.plugin.api.impl.fs.DefaultInputFile;
-import org.sonar.scanner.plugin.api.impl.rule.DefaultActiveRules;
-import org.sonar.scanner.plugin.api.impl.rule.NewActiveRule;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
-import org.sonar.scanner.plugin.api.impl.sensor.DefaultSensorDescriptor;
 import org.sonar.api.batch.sensor.issue.IssueResolution;
-import org.sonar.scanner.plugin.api.impl.sensor.issue.DefaultNoSonarFilter;
-import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
@@ -58,6 +53,11 @@ import org.sonar.api.utils.Version;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.sonar.AllowedLangAttributeCheck;
 import org.sonar.plugins.html.rules.HtmlRulesDefinition;
+import org.sonar.scanner.plugin.api.impl.fs.DefaultInputFile;
+import org.sonar.scanner.plugin.api.impl.rule.DefaultActiveRules;
+import org.sonar.scanner.plugin.api.impl.rule.NewActiveRule;
+import org.sonar.scanner.plugin.api.impl.sensor.DefaultSensorDescriptor;
+import org.sonar.scanner.plugin.api.impl.sensor.issue.DefaultNoSonarFilter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -77,7 +77,7 @@ class HtmlSensorTest {
 
   @BeforeEach
   void setUp() {
-    final SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
+    final SonarRuntime sonarRuntime = TestSonarRuntime.forSonarQube(Version.create(8, 9), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
     HtmlRulesDefinition rulesDefinition = new HtmlRulesDefinition(sonarRuntime);
     RulesDefinition.Context context = new RulesDefinition.Context();
     rulesDefinition.define(context);
@@ -147,7 +147,7 @@ class HtmlSensorTest {
 
   @Test
   void sonarlint() throws IOException {
-    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
+    tester.setRuntime(TestSonarRuntime.forSonarLint(Version.create(6, 7)));
     DefaultInputFile inputFile = createInputFile(TEST_DIR, "user-properties.jsp");
     tester.fileSystem().add(inputFile);
     sensor.execute(tester);
@@ -159,7 +159,7 @@ class HtmlSensorTest {
 
   @Test
   void sonar_resolve_is_saved_at_minimum_supported_runtime() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 5), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+    tester.setRuntime(TestSonarRuntime.forSonarQube(Version.create(13, 5), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
     DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
       "<div>",
       "<!-- sonar-resolve [fp] Web:S5256 \"reason\" -->",
@@ -178,7 +178,7 @@ class HtmlSensorTest {
 
   @Test
   void sonar_resolve_is_ignored_before_supported_runtime() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(13, 4), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
+    tester.setRuntime(TestSonarRuntime.forSonarQube(Version.create(13, 4), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY));
     DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
       "<div>",
       "<!-- sonar-resolve Web:S5256 \"reason\" -->",
@@ -192,7 +192,7 @@ class HtmlSensorTest {
 
   @Test
   void sonar_resolve_is_ignored_in_sonarlint() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(13, 6)));
+    tester.setRuntime(TestSonarRuntime.forSonarLint(Version.create(13, 6)));
     DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
       "<div>",
       "<!-- sonar-resolve Web:S5256 \"reason\" -->",
@@ -206,7 +206,7 @@ class HtmlSensorTest {
 
   @Test
   void unreadable_file() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarLint(Version.create(6, 7)));
+    tester.setRuntime(TestSonarRuntime.forSonarLint(Version.create(6, 7)));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "user-properties.jsp")
       .setModuleBaseDir(TEST_DIR)
       .setLanguage(HtmlConstants.LANGUAGE_KEY)
@@ -232,7 +232,7 @@ class HtmlSensorTest {
   @Test
   void test_descriptor_sonarlint() {
     DefaultSensorDescriptor sensorDescriptor = new DefaultSensorDescriptor();
-    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarLint(Version.create(6, 5));
+    SonarRuntime sonarRuntime = TestSonarRuntime.forSonarLint(Version.create(6, 5));
     new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList())),
       new AnalysisWarningsWrapper()).describe(sensorDescriptor);
     assertThat(sensorDescriptor.name()).isEqualTo("HTML");
@@ -249,7 +249,7 @@ class HtmlSensorTest {
         return this;
       }
     };
-    SonarRuntime sonarRuntime = SonarRuntimeImpl.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
+    SonarRuntime sonarRuntime = TestSonarRuntime.forSonarQube(Version.create(9, 3), SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
     new HtmlSensor(sonarRuntime, null, null, new CheckFactory(new DefaultActiveRules(Collections.emptyList())),
       new AnalysisWarningsWrapper()).describe(sensorDescriptor);
     assertThat(sensorDescriptor.name()).isEqualTo("HTML");
@@ -260,7 +260,7 @@ class HtmlSensorTest {
 
   @Test
   void php_file_should_not_have_metrics() {
-    tester.setRuntime(SonarRuntimeImpl.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
+    tester.setRuntime(TestSonarRuntime.forSonarQube(Version.create(7, 9), SonarQubeSide.SERVER, SonarEdition.COMMUNITY));
     DefaultInputFile inputFile = new TestInputFileBuilder("key", "foo.php")
       .setModuleBaseDir(TEST_DIR).setContents("""
         <html>
