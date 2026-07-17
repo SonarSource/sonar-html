@@ -192,6 +192,19 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithElseIf() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksRazorElseIf.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // IDs across @if/else if/else branches are mutually exclusive, even when the else if condition
+    // contains braces; only the outside duplicate is flagged
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(20).withMessage("Duplicate id \"footer\" found. First occurrence was on line 19.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocksWithMalformedElseIf() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksMalformedElseIf.cshtml"),

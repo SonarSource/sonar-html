@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@if (type == 0)
+{
+    <div id="status">First</div>
+}
+else if (items.Any(i => new { Id = i }.Id == 1))
+{
+    <div id="status">Second</div>
+}
+else
+{
+    <div id="status">Third</div>
+}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="footer">Footer 1</div>
+<div id="footer">Footer 2</div>
+
+</body>
+</html>
