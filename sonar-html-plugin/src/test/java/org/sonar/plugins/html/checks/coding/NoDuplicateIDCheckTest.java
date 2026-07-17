@@ -253,6 +253,30 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithScriptLineComment() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptLineComment.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a // line comment in a script body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithStyleUrl() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksStyleUrl.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // // is not a comment in CSS: the slashes in a url() must not be treated as a line comment
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocksWithStyleString() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksStyleString.cshtml"),
