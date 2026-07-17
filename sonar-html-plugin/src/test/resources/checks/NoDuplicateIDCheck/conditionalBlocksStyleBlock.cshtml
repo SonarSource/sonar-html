@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@if (showBanner)
+{
+    <style>
+        #banner {
+            color: red;
+        }
+    </style>
+    <div id="banner">First</div>
+}
+else
+{
+    <div id="banner">Second</div>
+}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="wrapper">Content 1</div>
+<div id="wrapper">Content 2</div>
+
+</body>
+</html>

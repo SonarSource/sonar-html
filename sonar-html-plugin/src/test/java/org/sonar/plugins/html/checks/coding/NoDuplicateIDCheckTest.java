@@ -69,6 +69,17 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void phpConditionalBlocksWithElseIf() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksElseIf.phtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(14).withMessage("Duplicate id \"footer\" found. First occurrence was on line 13.")
+        .noMore();
+  }
+
+  @Test
   void vueConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.vue"),
@@ -78,6 +89,30 @@ class NoDuplicateIDCheckTest {
     // Only the actual duplicate outside conditionals should be flagged
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(29).withMessage("Duplicate id \"static-elem\" found. First occurrence was on line 28.")
+        .noMore();
+  }
+
+  @Test
+  void razorSwitchBlocks() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksRazorSwitch.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // Razor @switch uses plain case:/default: labels; ids across cases are mutually exclusive
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(20).withMessage("Duplicate id \"footer\" found. First occurrence was on line 19.")
+        .noMore();
+  }
+
+  @Test
+  void angularSwitchWithBraceInCaseLabel() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularCaseBrace.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside an Angular @case label must not close the @switch early
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
         .noMore();
   }
 
@@ -104,6 +139,176 @@ class NoDuplicateIDCheckTest {
     // Only the actual duplicate outside conditionals should be flagged
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(29).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 28.")
+        .noMore();
+  }
+
+  /**
+   * Ignores duplicate ids across Razor if/else branches when one branch contains nested C# blocks.
+   */
+  @Test
+  void razorConditionalBlocksWithNestedCSharpBlocks() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksNested.cshtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(18).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 17.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithNestedCSharpString() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksNestedCSharpString.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a C# string in a nested code block must not close the branch early
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(18).withMessage("Duplicate id \"footer\" found. First occurrence was on line 17.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithBracesInCondition() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksConditionBraces.cshtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(16).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 15.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithStyleSelector() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksStyleBlock.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A CSS id selector inside a branch must not be read as a code comment; its braces stay balanced
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(21).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 20.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithApostropheInText() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksTextApostrophe.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // An apostrophe in branch text must not open a string that swallows the closing brace
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(15).withMessage("Duplicate id \"dup\" found. First occurrence was on line 14.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithRazorCommentBeforeElse() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksRazorComment.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A Razor comment between the closing brace and else must not break the branch chain
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithHtmlCommentBeforeElse() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksHtmlComment.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // An HTML comment splits the text node; the else opening the next fragment must still continue the chain
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(18).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 17.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithElseIf() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksRazorElseIf.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // IDs across @if/else if/else branches are mutually exclusive, even when the else if condition
+    // contains braces; only the outside duplicate is flagged
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(20).withMessage("Duplicate id \"footer\" found. First occurrence was on line 19.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithScriptTemplateLiteral() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptTemplateLiteral.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a backtick template literal in a script body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithScriptString() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptString.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a quoted string in a script body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithScriptLineComment() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptLineComment.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a // line comment in a script body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithStyleUrl() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksStyleUrl.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // // is not a comment in CSS: the slashes in a url() must not be treated as a line comment
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithStyleString() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksStyleString.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a quoted string in a style body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithMalformedElseIf() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksMalformedElseIf.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A malformed else if without parentheses must not swallow the rest of the file
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(15).withMessage("Duplicate id \"dup\" found. First occurrence was on line 14.")
         .noMore();
   }
 

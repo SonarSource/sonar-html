@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@if (Model.Items.Any(item => new { Value = item }.Value != null))
+{
+    <div id="choice">First</div>
+}
+else
+{
+    <div id="choice">Second</div>
+}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="wrapper">Content 1</div>
+<div id="wrapper">Content 2</div>
+
+</body>
+</html>

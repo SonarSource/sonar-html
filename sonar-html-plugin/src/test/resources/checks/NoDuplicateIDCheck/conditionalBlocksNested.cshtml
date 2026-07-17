@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@if (Model.HasData && Model.HasValidRows)
+{
+  using (Html.BeginForm("ConfirmImportAllValidTrainingRecords", "TrainingImport", null, FormMethod.Post, new { onsubmit = "renderOverlay(this.action); return false;" }))
+  {
+    <button id="submit-valid-training-records" type="submit">Import</button>
+  }
+}
+else
+{
+  <button id="submit-valid-training-records" type="submit" disabled="disabled">Import</button>
+}
+
+<div id="wrapper">Content 1</div>
+<div id="wrapper">Content 2</div>
+
+</body>
+</html>

@@ -47,6 +47,22 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void tracks_php_else_if_branches_without_leaking_past_the_chain() {
+    List<Node> nodes = parse("""
+      <?php if (random_int(0, 2) == 0) { ?>
+        <div id="choice">First</div>
+      <?php } else if (random_int(0, 1)) { ?>
+        <div id="choice">Second</div>
+      <?php } ?>
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 2)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isFalse();
+  }
+
+  @Test
   void tracks_angular_brace_based_conditionals() {
     List<Node> nodes = parse("""
       @if (gridOptions) {
@@ -60,6 +76,50 @@ class TemplateConditionalScopeTrackerTest {
     assertThat(isConditionalAtLine(nodes, "div", 2)).isTrue();
     assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
     assertThat(isConditionalAtLine(nodes, "div", 6)).isFalse();
+  }
+
+  /**
+   * Keeps Razor if/else branches conditional when nested C# blocks close before the else branch.
+   */
+  @Test
+  void tracks_razor_conditionals_across_nested_csharp_blocks() {
+    List<Node> nodes = parse("""
+      @if (Model.HasData && Model.HasValidRows)
+      {
+        using (Html.BeginForm("ConfirmImportAllValidTrainingRecords", "TrainingImport", null, FormMethod.Post, new { onsubmit = "renderOverlay(this.action); return false;" }))
+        {
+          <button id="submit-valid-training-records" type="submit">Import</button>
+        }
+      }
+      else
+      {
+        <button id="submit-valid-training-records" type="submit" disabled="disabled">Import</button>
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "button", 5)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "button", 10)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 12)).isFalse();
+  }
+
+  @Test
+  void tracks_razor_conditionals_when_condition_contains_braces() {
+    List<Node> nodes = parse("""
+      @if (Model.Items.Any(item => new { Value = item }.Value != null))
+      {
+        <div id="choice">First</div>
+      }
+      else
+      {
+        <div id="choice">Second</div>
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 3)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 7)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
   }
 
   @Test
