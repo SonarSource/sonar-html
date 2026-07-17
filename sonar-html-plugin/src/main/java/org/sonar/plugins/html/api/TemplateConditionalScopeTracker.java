@@ -283,6 +283,13 @@ public final class TemplateConditionalScopeTracker {
    * @return {@code true} when a template conditional token was consumed
    */
   private boolean consumeTemplateConditional(String text, FragmentScanState state) {
+    char current = text.charAt(state.index);
+    // Every token handled here starts with '{' (Twig/template blocks) or '@' (Razor/Angular);
+    // skip the regex work (and its Matcher allocations) for every other character.
+    if (current != '{' && current != '@') {
+      return false;
+    }
+
     int twigConditionalEndLength = matchedPrefixLength(TWIG_CONDITIONAL_END_PATTERN, text, state.index);
     if (twigConditionalEndLength > 0) {
       applyTextConditionalClosings(1);
