@@ -157,6 +157,18 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithNestedCSharpString() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksNestedCSharpString.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a C# string in a nested code block must not close the branch early
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(18).withMessage("Duplicate id \"footer\" found. First occurrence was on line 17.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocksWithBracesInCondition() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksConditionBraces.cshtml"),

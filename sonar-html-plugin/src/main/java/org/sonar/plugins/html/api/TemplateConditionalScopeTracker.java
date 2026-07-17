@@ -130,7 +130,7 @@ public final class TemplateConditionalScopeTracker {
       boolean fullCode = directive || isScanningConditionalHeader();
       boolean hashComments = fullCode;
       boolean slashComments = fullCode || scriptDepth > 0;
-      boolean strings = fullCode || scriptDepth > 0 || styleDepth > 0;
+      boolean strings = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
       if (consumeProtectedCharacter(text, state)
         || consumeCommentOrStringStart(text, directive, hashComments, slashComments, strings, state)
         || consumeConditionalHeaderCharacter(text, state)
@@ -192,7 +192,7 @@ public final class TemplateConditionalScopeTracker {
    * @param directive whether the fragment comes from a directive node
    * @param hashComments whether {@code #} starts a line comment here (full code only)
    * @param slashComments whether {@code //} starts a line comment here (full code and script bodies)
-   * @param strings whether quoted strings and block comments are active here (code, script and style)
+   * @param strings whether quoted strings and block comments are active here (code, script, style and nested code blocks)
    * @param state the mutable scan state
    * @return {@code true} when a comment or string opener was consumed
    */
