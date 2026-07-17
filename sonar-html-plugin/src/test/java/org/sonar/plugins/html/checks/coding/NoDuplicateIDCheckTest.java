@@ -144,6 +144,30 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithStyleSelector() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksStyleBlock.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A CSS id selector inside a branch must not be read as a code comment; its braces stay balanced
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(21).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 20.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithApostropheInText() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksTextApostrophe.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // An apostrophe in branch text must not open a string that swallows the closing brace
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(15).withMessage("Duplicate id \"dup\" found. First occurrence was on line 14.")
+        .noMore();
+  }
+
+  @Test
   void twigConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksTwig.html"),

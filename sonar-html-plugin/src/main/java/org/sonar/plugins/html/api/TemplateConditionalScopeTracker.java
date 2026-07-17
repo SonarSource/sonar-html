@@ -106,7 +106,7 @@ public final class TemplateConditionalScopeTracker {
     FragmentScanState state = new FragmentScanState();
     while (state.index < text.length()) {
       if (consumeProtectedCharacter(text, state)
-        || consumeCommentOrStringStart(text, directive, state)
+        || consumeCommentOrStringStart(text, directive, isScanningConditionalHeader(), state)
         || consumeConditionalHeaderCharacter(text, state)
         || consumeConditionalToken(text, directive, state)
         || consumeStructuralToken(text, state)) {
@@ -164,13 +164,18 @@ public final class TemplateConditionalScopeTracker {
    *
    * @param text the fragment being scanned
    * @param directive whether the fragment comes from a directive node
+   * @param insideConditionalHeader whether the scan is inside a conditional header's parentheses
    * @param state the mutable scan state
    * @return {@code true} when a comment or string opener was consumed
    */
-  private static boolean consumeCommentOrStringStart(String text, boolean directive, FragmentScanState state) {
+  private static boolean consumeCommentOrStringStart(String text, boolean directive, boolean insideConditionalHeader, FragmentScanState state) {
     if (!directive && startsWith(text, state.index, "@*")) {
       state.index = skipDelimitedBlock(text, state.index + 2, "*@");
       return true;
+    }
+    // Only code (directives, conditional headers) has comments and strings; plain markup text does not
+    if (!directive && !insideConditionalHeader) {
+      return false;
     }
     if (startsWith(text, state.index, "/*")) {
       state.inBlockComment = true;
@@ -461,6 +466,10 @@ public final class TemplateConditionalScopeTracker {
     pendingConditionalHeaderParenthesisDepth = 0;
   }
 
+  private boolean isScanningConditionalHeader() {
+    return awaitingConditionalHeaderParenthesis || pendingConditionalHeaderParenthesisDepth > 0;
+  }
+
   private static boolean isJstlConditionalTag(TagNode node) {
     String nodeName = node.getNodeName();
     return nodeName != null && JSTL_CONDITIONAL_TAGS.contains(nodeName.toLowerCase(Locale.ROOT));
@@ -563,7 +572,7 @@ public final class TemplateConditionalScopeTracker {
    * @return {@code true} when the current position was consumed as part of the header
    */
   private boolean consumeConditionalHeaderCharacter(String text, FragmentScanState state) {
-    if (!awaitingConditionalHeaderParenthesis && pendingConditionalHeaderParenthesisDepth == 0) {
+    if (!isScanningConditionalHeader()) {
       return false;
     }
 
@@ -597,7 +606,7 @@ public final class TemplateConditionalScopeTracker {
     FragmentScanState state = new FragmentScanState(index);
     int parenthesisDepth = 0;
     while (state.index < text.length()) {
-      if (consumeProtectedCharacter(text, state) || consumeCommentOrStringStart(text, true, state)) {
+      if (consumeProtectedCharacter(text, state) || consumeCommentOrStringStart(text, true, false, state)) {
         continue;
       }
 
