@@ -196,7 +196,8 @@ public final class TemplateConditionalScopeTracker {
    * @param state the mutable scan state
    * @return {@code true} when a comment or string opener was consumed
    */
-  private static boolean consumeCommentOrStringStart(String text, boolean directive, boolean hashComments, boolean slashComments, boolean stringsAndBlockComments, FragmentScanState state) {
+  private static boolean consumeCommentOrStringStart(String text, boolean directive, boolean hashComments,
+    boolean slashComments, boolean stringsAndBlockComments, FragmentScanState state) {
     char current = text.charAt(state.index);
     // Razor comment: only in template markup, may wrap structural braces
     if (!directive && startsWith(text, state.index, "@*")) {
