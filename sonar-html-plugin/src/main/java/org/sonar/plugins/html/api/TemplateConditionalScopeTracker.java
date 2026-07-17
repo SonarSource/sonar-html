@@ -631,12 +631,20 @@ public final class TemplateConditionalScopeTracker {
     }
 
     if (awaitingConditionalHeaderParenthesis) {
-      if (text.charAt(state.index) == '(') {
+      char awaited = text.charAt(state.index);
+      if (awaited == '(') {
         awaitingConditionalHeaderParenthesis = false;
         pendingConditionalHeaderParenthesisDepth = 1;
+        state.index++;
+        return true;
       }
-      state.index++;
-      return true;
+      if (Character.isWhitespace(awaited)) {
+        state.index++;
+        return true;
+      }
+      // Expected '(' never arrived: abandon the malformed header and let this char be scanned
+      clearConditionalHeaderTracking();
+      return false;
     }
 
     char current = text.charAt(state.index);

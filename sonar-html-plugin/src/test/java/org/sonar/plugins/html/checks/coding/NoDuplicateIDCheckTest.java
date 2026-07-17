@@ -192,6 +192,18 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithMalformedElseIf() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksMalformedElseIf.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A malformed else if without parentheses must not swallow the rest of the file
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(15).withMessage("Duplicate id \"dup\" found. First occurrence was on line 14.")
+        .noMore();
+  }
+
+  @Test
   void twigConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksTwig.html"),
