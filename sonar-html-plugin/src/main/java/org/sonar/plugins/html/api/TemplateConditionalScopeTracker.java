@@ -57,6 +57,7 @@ public final class TemplateConditionalScopeTracker {
   private int nestedTextBlockDepth;
   private int tagConditionalDepth;
   private boolean pendingBranchContinuation;
+  private int scriptOrStyleDepth;
 
   public void reset() {
     textConditionalDepth = 0;
@@ -67,6 +68,7 @@ public final class TemplateConditionalScopeTracker {
     nestedTextBlockDepth = 0;
     tagConditionalDepth = 0;
     pendingBranchContinuation = false;
+    scriptOrStyleDepth = 0;
   }
 
   public void visitText(TextNode textNode) {
@@ -83,11 +85,17 @@ public final class TemplateConditionalScopeTracker {
     if (isJstlConditionalTag(node)) {
       tagConditionalDepth++;
     }
+    if (isScriptOrStyle(node)) {
+      scriptOrStyleDepth++;
+    }
   }
 
   public void endElement(TagNode node) {
     if (isJstlConditionalTag(node) && tagConditionalDepth > 0) {
       tagConditionalDepth--;
+    }
+    if (isScriptOrStyle(node) && scriptOrStyleDepth > 0) {
+      scriptOrStyleDepth--;
     }
   }
 
@@ -112,8 +120,10 @@ public final class TemplateConditionalScopeTracker {
       resolvePendingBranchContinuation(text, state);
     }
     while (state.index < text.length()) {
+      boolean fullCode = directive || isScanningConditionalHeader();
+      boolean strings = fullCode || scriptOrStyleDepth > 0;
       if (consumeProtectedCharacter(text, state)
-        || consumeCommentOrStringStart(text, directive, isScanningConditionalHeader(), state)
+        || consumeCommentOrStringStart(text, directive, fullCode, strings, state)
         || consumeConditionalHeaderCharacter(text, state)
         || consumeConditionalToken(text, directive, state)
         || consumeStructuralToken(text, state)) {
@@ -171,36 +181,35 @@ public final class TemplateConditionalScopeTracker {
    *
    * @param text the fragment being scanned
    * @param directive whether the fragment comes from a directive node
-   * @param insideConditionalHeader whether the scan is inside a conditional header's parentheses
+   * @param lineComments whether {@code #} and {@code //} start line comments here (full code only)
+   * @param strings whether quoted strings and block comments are active here (code and script/style)
    * @param state the mutable scan state
    * @return {@code true} when a comment or string opener was consumed
    */
-  private static boolean consumeCommentOrStringStart(String text, boolean directive, boolean insideConditionalHeader, FragmentScanState state) {
+  private static boolean consumeCommentOrStringStart(String text, boolean directive, boolean lineComments, boolean strings, FragmentScanState state) {
+    char current = text.charAt(state.index);
+    // Razor comment: only in template markup, may wrap structural braces
     if (!directive && startsWith(text, state.index, "@*")) {
       state.index = skipDelimitedBlock(text, state.index + 2, "*@");
       return true;
     }
-    // Only code (directives, conditional headers) has comments and strings; plain markup text does not
-    if (!directive && !insideConditionalHeader) {
-      return false;
-    }
-    if (startsWith(text, state.index, "/*")) {
+    if (strings && startsWith(text, state.index, "/*")) {
       state.inBlockComment = true;
       state.index += 2;
       return true;
     }
-    if (startsWith(text, state.index, "//")) {
+    if (lineComments && startsWith(text, state.index, "//")) {
       state.inLineComment = true;
       state.index += 2;
       return true;
     }
-    if (text.charAt(state.index) == '#') {
+    if (lineComments && current == '#') {
       state.inLineComment = true;
       state.index++;
       return true;
     }
-    if (text.charAt(state.index) == '\'' || text.charAt(state.index) == '"') {
-      state.quoteDelimiter = text.charAt(state.index);
+    if (strings && (current == '\'' || current == '"' || current == '`')) {
+      state.quoteDelimiter = current;
       state.escaped = false;
       state.index++;
       return true;
@@ -529,6 +538,12 @@ public final class TemplateConditionalScopeTracker {
     return nodeName != null && JSTL_CONDITIONAL_TAGS.contains(nodeName.toLowerCase(Locale.ROOT));
   }
 
+  private static boolean isScriptOrStyle(TagNode node) {
+    String nodeName = node.getNodeName();
+    return nodeName != null
+      && ("script".equalsIgnoreCase(nodeName) || "style".equalsIgnoreCase(nodeName));
+  }
+
   private static boolean hasConditionalAttribute(TagNode node) {
     return hasAnyAttribute(node, VUE_CONDITIONAL_ATTRS)
       || hasAnyAttribute(node, ANGULAR_CONDITIONAL_ATTRS);
@@ -668,7 +683,7 @@ public final class TemplateConditionalScopeTracker {
     FragmentScanState state = new FragmentScanState(index);
     int parenthesisDepth = 0;
     while (state.index < text.length()) {
-      if (consumeProtectedCharacter(text, state) || consumeCommentOrStringStart(text, true, false, state)) {
+      if (consumeProtectedCharacter(text, state) || consumeCommentOrStringStart(text, true, true, true, state)) {
         continue;
       }
 

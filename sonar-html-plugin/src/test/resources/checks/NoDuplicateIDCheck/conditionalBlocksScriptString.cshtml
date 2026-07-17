@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@if (show)
+{
+    <script>
+        var closing = "}";
+    </script>
+    <div id="widget">A</div>
+}
+else
+{
+    <div id="widget">B</div>
+}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="footer">One</div>
+<div id="footer">Two</div>
+
+</body>
+</html>

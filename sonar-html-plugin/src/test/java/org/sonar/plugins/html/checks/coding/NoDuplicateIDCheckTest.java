@@ -205,6 +205,42 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithScriptTemplateLiteral() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptTemplateLiteral.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a backtick template literal in a script body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithScriptString() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptString.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a quoted string in a script body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithStyleString() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksStyleString.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside a quoted string in a style body must not close the conditional
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocksWithMalformedElseIf() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksMalformedElseIf.cshtml"),
