@@ -93,6 +93,30 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorSwitchBlocks() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksRazorSwitch.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // Razor @switch uses plain case:/default: labels; ids across cases are mutually exclusive
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(20).withMessage("Duplicate id \"footer\" found. First occurrence was on line 19.")
+        .noMore();
+  }
+
+  @Test
+  void angularSwitchWithBraceInCaseLabel() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularCaseBrace.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A brace inside an Angular @case label must not close the @switch early
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
   void angularConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngular.html"),

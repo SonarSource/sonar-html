@@ -43,7 +43,8 @@ public final class TemplateConditionalScopeTracker {
   );
 
   private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
-  private static final Pattern RAZOR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
+  // Angular block control flow branches: @case (value) { and @default { inside an @switch
+  private static final Pattern ANGULAR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
   private static final Pattern PHP_DIRECTIVE_CONDITIONAL_START_PATTERN = Pattern.compile("(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
   private static final Pattern TWIG_CONDITIONAL_START_PATTERN = Pattern.compile("\\{%[-\\s]*(if|for)\\b", Pattern.CASE_INSENSITIVE);
   private static final Pattern TWIG_CONDITIONAL_END_PATTERN = Pattern.compile("\\{%[-\\s]*(endif|endfor)\\b", Pattern.CASE_INSENSITIVE);
@@ -289,7 +290,7 @@ public final class TemplateConditionalScopeTracker {
 
     int conditionalStartLength = matchedPrefixLength(RAZOR_BLOCK_START_PATTERN, text, state.index);
     if (conditionalStartLength == 0) {
-      conditionalStartLength = matchedPrefixLength(RAZOR_BRANCH_START_PATTERN, text, state.index);
+      conditionalStartLength = matchedPrefixLength(ANGULAR_BRANCH_START_PATTERN, text, state.index);
     }
     if (conditionalStartLength > 0) {
       textConditionalDepth++;

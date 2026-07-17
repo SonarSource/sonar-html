@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@switch (token)
+{
+    @case ('}')
+    {
+        <div id="badge">A</div>
+    }
+    @default
+    {
+        <div id="badge">B</div>
+    }
+}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="footer">One</div>
+<div id="footer">Two</div>
+
+</body>
+</html>

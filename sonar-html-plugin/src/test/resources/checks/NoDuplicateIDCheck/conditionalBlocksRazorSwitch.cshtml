@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@switch (value)
+{
+    case 1:
+        <p id="msg">The value is 1!</p>
+        break;
+    case 1337:
+        <p id="msg">Your number is 1337!</p>
+        break;
+    default:
+        <p id="msg">Your number wasn't 1 or 1337.</p>
+        break;
+}
+
+<!-- Non-compliant: Duplicate IDs outside conditionals -->
+<div id="footer">One</div>
+<div id="footer">Two</div>
+
+</body>
+</html>
