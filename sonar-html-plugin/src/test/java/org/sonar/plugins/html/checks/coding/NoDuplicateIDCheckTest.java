@@ -168,6 +168,30 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void razorConditionalBlocksWithRazorCommentBeforeElse() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksRazorComment.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // A Razor comment between the closing brace and else must not break the branch chain
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void razorConditionalBlocksWithHtmlCommentBeforeElse() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksHtmlComment.cshtml"),
+        new NoDuplicateIDCheck());
+
+    // An HTML comment splits the text node; the else opening the next fragment must still continue the chain
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(18).withMessage("Duplicate id \"wrapper\" found. First occurrence was on line 17.")
+        .noMore();
+  }
+
+  @Test
   void twigConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksTwig.html"),

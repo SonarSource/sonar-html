@@ -56,6 +56,7 @@ public final class TemplateConditionalScopeTracker {
   private int pendingConditionalHeaderParenthesisDepth;
   private int nestedTextBlockDepth;
   private int tagConditionalDepth;
+  private boolean pendingBranchContinuation;
 
   public void reset() {
     textConditionalDepth = 0;
@@ -65,6 +66,7 @@ public final class TemplateConditionalScopeTracker {
     pendingConditionalHeaderParenthesisDepth = 0;
     nestedTextBlockDepth = 0;
     tagConditionalDepth = 0;
+    pendingBranchContinuation = false;
   }
 
   public void visitText(TextNode textNode) {
@@ -72,10 +74,12 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public void visitDirective(DirectiveNode directiveNode) {
+    flushPendingBranchContinuation();
     scanFragment(unwrapDirective(directiveNode.getCode()), true);
   }
 
   public void startElement(TagNode node) {
+    flushPendingBranchContinuation();
     if (isJstlConditionalTag(node)) {
       tagConditionalDepth++;
     }
@@ -104,6 +108,9 @@ public final class TemplateConditionalScopeTracker {
    */
   private void scanFragment(String text, boolean directive) {
     FragmentScanState state = new FragmentScanState();
+    if (!directive) {
+      resolvePendingBranchContinuation(text, state);
+    }
     while (state.index < text.length()) {
       if (consumeProtectedCharacter(text, state)
         || consumeCommentOrStringStart(text, directive, isScanningConditionalHeader(), state)
@@ -354,10 +361,57 @@ public final class TemplateConditionalScopeTracker {
       nestedTextBlockDepth--;
     } else if (continueBraceBasedConditional(text, state)) {
       return;
-    } else {
+    } else if (!deferBranchContinuation(text, state)) {
       closeBraceBasedConditional();
     }
     state.index++;
+  }
+
+  /**
+   * Defers the close decision when a branch-closing brace is followed only by trivia to the end of
+   * the fragment, so an {@code else} opening the next fragment can still continue the chain.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state, positioned on the closing brace
+   * @return {@code true} when the close was deferred to the next fragment
+   */
+  private boolean deferBranchContinuation(String text, FragmentScanState state) {
+    if (braceBasedTextConditionalDepth == 0 || skipLeadingTrivia(text, state.index + 1) < text.length()) {
+      return false;
+    }
+    pendingBranchContinuation = true;
+    return true;
+  }
+
+  /**
+   * Resolves a deferred close at the start of the next fragment: continues the chain when it begins
+   * with an {@code else} branch, otherwise applies the pending close.
+   *
+   * @param text the fragment being scanned
+   * @param state the mutable scan state
+   */
+  private void resolvePendingBranchContinuation(String text, FragmentScanState state) {
+    if (!pendingBranchContinuation) {
+      return;
+    }
+    pendingBranchContinuation = false;
+    int continuationIndex = conditionalContinuationEndIndex(text, -1);
+    if (continuationIndex >= 0) {
+      pendingConditionalBranchOpenings++;
+      state.index = continuationIndex;
+    } else {
+      closeBraceBasedConditional();
+    }
+  }
+
+  /**
+   * Applies a deferred close when the next event is not a continuing {@code else} branch.
+   */
+  private void flushPendingBranchContinuation() {
+    if (pendingBranchContinuation) {
+      pendingBranchContinuation = false;
+      closeBraceBasedConditional();
+    }
   }
 
   /**
@@ -653,6 +707,9 @@ public final class TemplateConditionalScopeTracker {
   private static int skipComment(String text, int index) {
     if (index >= text.length()) {
       return index;
+    }
+    if (startsWith(text, index, "@*")) {
+      return skipDelimitedBlock(text, index + 2, "*@");
     }
     if (text.charAt(index) == '#') {
       return skipLineComment(text, index + 1);
