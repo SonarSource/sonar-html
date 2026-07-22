@@ -41,7 +41,9 @@ class ItemTagNotWithinContainerTagCheckTest {
         .next().atLine(8).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
         .next().atLine(12).withMessage("Surround this <dt> item tag by a <dl> container one.")
         .next().atLine(17).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
-        .next().atLine(23).withMessage("Surround this <dt> item tag by a <dl> container one.");
+        .next().atLine(23).withMessage("Surround this <dt> item tag by a <dl> container one.")
+        .next().atLine(29).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
+        .next().atLine(35).withMessage("Surround this <dt> item tag by a <dl> container one.");
   }
 
   @Test

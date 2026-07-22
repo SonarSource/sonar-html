@@ -42,9 +42,9 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
       return;
     }
     TagNode parent = effectiveParent(node);
-    if (isLi(node) && (parent == null || (hasKnownHTMLTag(parent) && !(isLi(parent) || isLiAllowedParent(parent))))) {
+    if (isLi(node) && (parent == null || (hasKnownHTMLTag(parent) && !isLiAllowedParent(parent)))) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
-    } else if (isDt(node) && (parent == null || (hasKnownHTMLTag(parent) && !(isDt(parent) || isDl(parent))))) {
+    } else if (isDt(node) && (parent == null || (hasKnownHTMLTag(parent) && !isDl(parent)))) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <dl> container one.");
     }
   }
@@ -71,13 +71,18 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
    * @return true if the parent should be skipped as an omitted-end-tag artifact
    */
   private static boolean isImplicitlyClosedBy(TagNode node, TagNode parent) {
+    TagNode grandParent = parent.getParent();
     if (isLi(node)) {
-      return isLi(parent) || "P".equalsIgnoreCase(parent.getNodeName());
+      return isLi(parent) || (isP(parent) && grandParent != null && isLi(grandParent));
     }
     if (isDt(node)) {
-      return isDt(parent) || "DD".equalsIgnoreCase(parent.getNodeName()) || "P".equalsIgnoreCase(parent.getNodeName());
+      return isDefinitionItem(parent) || (isP(parent) && grandParent != null && isDefinitionItem(grandParent));
     }
     return false;
+  }
+
+  private static boolean isDefinitionItem(TagNode node) {
+    return isDt(node) || isDd(node);
   }
 
   private static boolean isLi(TagNode node) {
@@ -86,6 +91,10 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   private static boolean isDt(TagNode node) {
     return "DT".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isDd(TagNode node) {
+    return "DD".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isLiAllowedParent(TagNode node) {
@@ -106,6 +115,10 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   private static boolean isDl(TagNode node) {
     return "DL".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isP(TagNode node) {
+    return "P".equalsIgnoreCase(node.getNodeName());
   }
 
 }

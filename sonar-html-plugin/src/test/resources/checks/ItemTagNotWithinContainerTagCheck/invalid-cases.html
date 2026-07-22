@@ -23,3 +23,15 @@
     <dt>y</dt><!-- Non-Compliant - a valid ancestor does not compensate for an invalid direct parent -->
   </div>
 </dl>
+
+<ul>
+  <p>
+    <li>z</li><!-- Non-Compliant - a real <p> wrapper remains an invalid direct parent -->
+  </p>
+</ul>
+
+<dl>
+  <p>
+    <dt>w</dt><!-- Non-Compliant - a real <p> wrapper remains an invalid direct parent -->
+  </p>
+</dl>
