@@ -4,18 +4,22 @@
 <DT>        <!-- Non-Compliant -->
 </dt>
 
-<foo>
-  <lI>foo   <!-- Non-Compliant -->
-</foo>
+<div>
+  <li>foo   <!-- Non-Compliant - direct parent is a known invalid HTML tag -->
+</div>
 
-<foo>
-  <dt></dt><!-- Non-Compliant -->
-</foo>
+<section>
+  <dt></dt><!-- Non-Compliant - direct parent is a known invalid HTML tag -->
+</section>
 
-<c:if test="${show}">
-  <li>x</li><!-- Non-Compliant - <c:if> is control flow, not a container -->
-</c:if>
+<ul>
+  <div>
+    <li>x</li><!-- Non-Compliant - a valid ancestor does not compensate for an invalid direct parent -->
+  </div>
+</ul>
 
-<th:block th:if="${show}">
-  <dt>y</dt><!-- Non-Compliant - <th:block> is a no-op wrapper, not a container -->
-</th:block>
+<dl>
+  <div>
+    <dt>y</dt><!-- Non-Compliant - a valid ancestor does not compensate for an invalid direct parent -->
+  </div>
+</dl>
