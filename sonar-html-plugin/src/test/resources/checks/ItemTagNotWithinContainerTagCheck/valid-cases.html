@@ -99,3 +99,8 @@
     <dt th:text="${item}">x</dt>  <!-- Compliant - non-HTML direct parent is ignored -->
   </th:block>
 </dl>
+
+<dl>
+  <dd>foo
+  <dt>bar    <!-- Compliant - the unclosed <dd> is skipped, <dl> is the effective parent -->
+</dl>

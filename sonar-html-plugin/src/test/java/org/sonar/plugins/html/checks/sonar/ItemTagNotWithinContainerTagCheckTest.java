@@ -36,14 +36,16 @@ class ItemTagNotWithinContainerTagCheckTest {
         new ItemTagNotWithinContainerTagCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLocation(1, 0, 1, 4).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
+        .next().atLocation(1, 0, 1, 4).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
         .next().atLocation(4, 0, 4, 4).withMessage("Surround this <DT> item tag by a <dl> container one.")
-        .next().atLine(8).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
+        .next().atLine(8).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
         .next().atLine(12).withMessage("Surround this <dt> item tag by a <dl> container one.")
-        .next().atLine(17).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
+        .next().atLine(17).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
         .next().atLine(23).withMessage("Surround this <dt> item tag by a <dl> container one.")
-        .next().atLine(29).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
-        .next().atLine(35).withMessage("Surround this <dt> item tag by a <dl> container one.");
+        .next().atLine(29).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
+        .next().atLine(35).withMessage("Surround this <dt> item tag by a <dl> container one.")
+        .next().atLine(40).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
+        .next().atLine(41).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.");
   }
 
   @Test
@@ -66,10 +68,10 @@ class ItemTagNotWithinContainerTagCheckTest {
         new ItemTagNotWithinContainerTagCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(15).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
+        .next().atLine(15).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
         .next().atLine(17).withMessage("Surround this <dt> item tag by a <dl> container one.")
-        .next().atLine(20).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.")
-        .next().atLine(24).withMessage("Surround this <li> item tag by a <ul> or <ol> container one.");
+        .next().atLine(20).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
+        .next().atLine(24).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.");
   }
 
 }

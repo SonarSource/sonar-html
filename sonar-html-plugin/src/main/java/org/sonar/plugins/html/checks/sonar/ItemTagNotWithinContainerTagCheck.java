@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.sonar;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 import java.util.List;
+import java.util.function.Predicate;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.RazorSectionScopeTracker;
@@ -42,11 +43,15 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
       return;
     }
     TagNode parent = effectiveParent(node);
-    if (isLi(node) && (parent == null || (hasKnownHTMLTag(parent) && !isLiAllowedParent(parent)))) {
-      createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
-    } else if (isDt(node) && (parent == null || (hasKnownHTMLTag(parent) && !isDl(parent)))) {
+    if (isLi(node) && shouldReport(parent, ItemTagNotWithinContainerTagCheck::isLiAllowedParent)) {
+      createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul>, <ol> or <menu> container one.");
+    } else if (isDt(node) && shouldReport(parent, ItemTagNotWithinContainerTagCheck::isDl)) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <dl> container one.");
     }
+  }
+
+  private static boolean shouldReport(TagNode parent, Predicate<TagNode> isAllowedParent) {
+    return parent == null || (hasKnownHTMLTag(parent) && !isAllowedParent.test(parent));
   }
 
   /**
