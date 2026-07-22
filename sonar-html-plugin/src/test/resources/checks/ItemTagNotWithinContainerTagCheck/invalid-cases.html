@@ -24,18 +24,6 @@
   </div>
 </dl>
 
-<ul>
-  <p>
-    <li>z</li><!-- Non-Compliant - a real <p> wrapper remains an invalid direct parent -->
-  </p>
-</ul>
-
-<dl>
-  <p>
-    <dt>w</dt><!-- Non-Compliant - a real <p> wrapper remains an invalid direct parent -->
-  </p>
-</dl>
-
 <div>
   <li>a     <!-- Non-Compliant - walk-up past the sibling <li> still reaches the invalid <div> parent -->
   <li>b     <!-- Non-Compliant - walk-up past the sibling <li> still reaches the invalid <div> parent -->

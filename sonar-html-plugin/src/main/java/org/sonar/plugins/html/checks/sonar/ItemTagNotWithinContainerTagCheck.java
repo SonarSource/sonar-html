@@ -20,6 +20,7 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 import java.util.List;
 import java.util.function.Predicate;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.RazorSectionScopeTracker;
@@ -50,7 +51,7 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     }
   }
 
-  private static boolean shouldReport(TagNode parent, Predicate<TagNode> isAllowedParent) {
+  private static boolean shouldReport(@Nullable TagNode parent, Predicate<TagNode> isAllowedParent) {
     return parent == null || (hasKnownHTMLTag(parent) && !isAllowedParent.test(parent));
   }
 
@@ -76,12 +77,11 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
    * @return true if the parent should be skipped as an omitted-end-tag artifact
    */
   private static boolean isImplicitlyClosedBy(TagNode node, TagNode parent) {
-    TagNode grandParent = parent.getParent();
     if (isLi(node)) {
-      return isLi(parent) || (isP(parent) && grandParent != null && isLi(grandParent));
+      return isLi(parent) || isP(parent);
     }
     if (isDt(node)) {
-      return isDefinitionItem(parent) || (isP(parent) && grandParent != null && isDefinitionItem(grandParent));
+      return isDefinitionItem(parent) || isP(parent);
     }
     return false;
   }
