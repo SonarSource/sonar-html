@@ -16,7 +16,11 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+
 import java.util.List;
+import java.util.function.Predicate;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.RazorSectionScopeTracker;
@@ -39,19 +43,51 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     if (Helpers.hasTemplateAncestor(node) || razorSectionScope.contains(node)) {
       return;
     }
-    if (isLi(node) && !hasLiOrUlOrOlAncestor(node)) {
-      createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul> or <ol> container one.");
-    } else if (isDt(node) && !hasDtOrDlAncestor(node)) {
+    TagNode parent = effectiveParent(node);
+    if (isLi(node) && shouldReport(parent, ItemTagNotWithinContainerTagCheck::isLiAllowedParent)) {
+      createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul>, <ol> or <menu> container one.");
+    } else if (isDt(node) && shouldReport(parent, ItemTagNotWithinContainerTagCheck::isDl)) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <dl> container one.");
     }
   }
 
-  private static boolean hasLiOrUlOrOlAncestor(TagNode node) {
-    return Helpers.hasAncestorMatching(node, p -> isLi(p) || isLiAllowedParent(p));
+  private static boolean shouldReport(@Nullable TagNode parent, Predicate<TagNode> isAllowedParent) {
+    return parent == null || (hasKnownHTMLTag(parent) && !isAllowedParent.test(parent));
   }
 
-  private static boolean hasDtOrDlAncestor(TagNode node) {
-    return Helpers.hasAncestorMatching(node, p -> isDt(p) || isDl(p));
+  /**
+   * Returns the effective direct parent after skipping parser artifacts caused by omitted end tags.
+   *
+   * @param node the item tag being checked
+   * @return the nearest parent that remains structurally relevant for the rule
+   */
+  private static TagNode effectiveParent(TagNode node) {
+    TagNode parent = node.getParent();
+    while (parent != null && isImplicitlyClosedBy(node, parent)) {
+      parent = parent.getParent();
+    }
+    return parent;
+  }
+
+  /**
+   * Returns whether opening the current item tag implicitly closes the parsed parent in HTML.
+   *
+   * @param node the item tag being checked
+   * @param parent the current parsed parent candidate
+   * @return true if the parent should be skipped as an omitted-end-tag artifact
+   */
+  private static boolean isImplicitlyClosedBy(TagNode node, TagNode parent) {
+    if (isLi(node)) {
+      return isLi(parent) || isP(parent);
+    }
+    if (isDt(node)) {
+      return isDefinitionItem(parent) || isP(parent);
+    }
+    return false;
+  }
+
+  private static boolean isDefinitionItem(TagNode node) {
+    return isDt(node) || isDd(node);
   }
 
   private static boolean isLi(TagNode node) {
@@ -60,6 +96,10 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   private static boolean isDt(TagNode node) {
     return "DT".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isDd(TagNode node) {
+    return "DD".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isLiAllowedParent(TagNode node) {
@@ -80,6 +120,10 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   private static boolean isDl(TagNode node) {
     return "DL".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isP(TagNode node) {
+    return "P".equalsIgnoreCase(node.getNodeName());
   }
 
 }

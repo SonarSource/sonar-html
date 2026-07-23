@@ -1,6 +1,6 @@
 <ul>
   <foo>
-    <li>    <!-- Compliant - limitation because of bad unclosed tags handling -->
+    <li>    <!-- Compliant - custom direct parent is ignored -->
   </foo>
 </ul>
 
@@ -75,19 +75,52 @@
 <template>
   <div>
     <span>
-      <li>deeply nested</li>  <!-- Compliant - <template> is a transitive ancestor -->
+      <li>deeply nested</li>  <!-- Compliant - <template> ancestor keeps rendered structure unknown -->
     </span>
   </div>
 </template>
 
+<c:if test="${show}">
+  <li>x</li>         <!-- Compliant - non-HTML direct parent is ignored -->
+</c:if>
+
+<th:block th:if="${show}">
+  <dt>y</dt>         <!-- Compliant - non-HTML direct parent is ignored -->
+</th:block>
+
 <ul>
   <c:forEach var="x" items="${xs}">
-    <li>${x}</li>         <!-- Compliant - <ul> is a real ancestor -->
+    <li>${x}</li>         <!-- Compliant - non-HTML direct parent is ignored -->
   </c:forEach>
 </ul>
 
 <dl>
   <th:block th:each="item : ${items}">
-    <dt th:text="${item}">x</dt>  <!-- Compliant - <dl> is a real ancestor -->
+    <dt th:text="${item}">x</dt>  <!-- Compliant - non-HTML direct parent is ignored -->
   </th:block>
 </dl>
+
+<dl>
+  <dd>foo
+  <dt>bar    <!-- Compliant - the unclosed <dd> is skipped, <dl> is the effective parent -->
+</dl>
+
+<ul>
+  <p>
+    <li>z</li>  <!-- Compliant - the <li> closes the <p>, so <ul> is the effective parent -->
+  </p>
+</ul>
+
+<dl>
+  <p>
+    <dt>w</dt>  <!-- Compliant - the <dt> closes the <p>, so <dl> is the effective parent -->
+  </p>
+</dl>
+
+<ol>
+  <li>a</li>
+  <li>b</li>
+  <p>note
+  <li>c</li>    <!-- Compliant - the <li> closes the preceding <p>; effective parent is <ol> -->
+  <li>d</li>
+</ol>

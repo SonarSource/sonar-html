@@ -5,13 +5,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionsInComponent.jsp": [
 216
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
-40,
-43
-],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/profil/jsp/ProfilPrive.jsp": [
-62
-],
 "project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDirectoryElement01.html": [
 9,
 10,
@@ -34,6 +27,17 @@
 10,
 11
 ],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_sidebar.html.erb": [
+12,
+15,
+26,
+32,
+38,
+44,
+50,
+56,
+64
+],
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_administration.html.erb": [
 1
 ],
@@ -51,5 +55,19 @@
 5,
 9,
 10
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_sidebar.html.erb": [
+86,
+89,
+97,
+106,
+110,
+114,
+119,
+126,
+134,
+142,
+149,
+176
 ]
 }
