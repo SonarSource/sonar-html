@@ -33,9 +33,13 @@ class AvoidCommentedOutCodeCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidCommentedOutCodeCheck.html"), new AvoidCommentedOutCodeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(3).withMessage("Remove this commented out code.")
-        .next().atLine(9)
-        .next().atLine(11);
+      .next().atLine(1).withMessage("Remove this commented out code.")
+      .next().atLine(3)
+      .next().atLine(5)
+      .next().atLine(7)
+      .next().atLine(12)
+      .next().atLine(14)
+      .noMore();
   }
 
 }
