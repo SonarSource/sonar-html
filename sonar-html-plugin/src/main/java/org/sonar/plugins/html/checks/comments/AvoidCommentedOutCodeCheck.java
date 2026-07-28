@@ -17,8 +17,7 @@
 package org.sonar.plugins.html.checks.comments;
 
 import java.io.StringReader;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.sonar.check.Rule;
@@ -70,7 +69,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
    * @return {@code true} when a real start/end tag structure is present
    */
   private static boolean containsMatchingTagPair(List<Node> nodes) {
-    Deque<TagNode> openElements = new ArrayDeque<>();
+    List<TagNode> openElements = new ArrayList<>();
     for (Node node : nodes) {
       if (node instanceof TagNode tag) {
         if (tag.isEndElement()) {
@@ -78,7 +77,7 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
             return true;
           }
         } else if (!tag.hasEnd()) {
-          openElements.push(tag);
+          openElements.add(tag);
         }
       }
     }
@@ -86,19 +85,13 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
   }
 
   /**
-   * Checks whether an end tag closes one of the currently open elements.
-   * @param openElements the stack of previously encountered opening tags
+   * Checks whether an end tag matches any opening tag seen earlier in the fragment.
+   * @param openElements the previously encountered opening tags
    * @param endTag the parsed end tag
    * @return {@code true} when the end tag matches an opening tag from the fragment
    */
-  private static boolean hasMatchingOpeningTag(Deque<TagNode> openElements, TagNode endTag) {
-    while (!openElements.isEmpty()) {
-      TagNode openTag = openElements.pop();
-      if (openTag.equalsElementName(endTag.getNodeName())) {
-        return true;
-      }
-    }
-    return false;
+  private static boolean hasMatchingOpeningTag(List<TagNode> openElements, TagNode endTag) {
+    return openElements.stream().anyMatch(openTag -> openTag.equalsElementName(endTag.getNodeName()));
   }
 
   /**
@@ -108,8 +101,8 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
    * @return {@code true} when the tag represents real markup instead of an inline mention
    */
   private static boolean isCommentedOutStructure(TagNode tag, String[] lines) {
-    return ((tag.isEndElement() || tag.hasEnd()) && isStandaloneTag(tag, lines))
-      || (!tag.getAttributes().isEmpty() && isStandaloneOpeningTag(tag, lines));
+    boolean structuralTag = tag.isEndElement() || tag.hasEnd() || !tag.getAttributes().isEmpty();
+    return structuralTag && isStandaloneTag(tag, lines);
   }
 
   /**
@@ -122,16 +115,6 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
     String leadingText = lines[tag.getStartLinePosition() - 1].substring(0, tag.getStartColumnPosition());
     String trailingText = lines[tag.getEndLinePosition() - 1].substring(tag.getEndColumnPosition());
     return leadingText.isBlank() && trailingText.isBlank();
-  }
-
-  /**
-   * Checks whether an opening tag occupies its own line block inside the comment.
-   * @param tag the parsed opening tag
-   * @param lines the stripped comment body split into lines
-   * @return {@code true} when the opening tag is standalone instead of embedded in prose
-   */
-  private static boolean isStandaloneOpeningTag(TagNode tag, String[] lines) {
-    return isStandaloneTag(tag, lines);
   }
 
   private static boolean isIgnored(CommentNode node, String comment) {

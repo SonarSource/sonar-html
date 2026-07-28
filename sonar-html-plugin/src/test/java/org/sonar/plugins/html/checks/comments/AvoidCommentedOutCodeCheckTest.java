@@ -60,4 +60,16 @@ class AvoidCommentedOutCodeCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
+  @Test
+  void matching_pair_is_detected_despite_an_unmatched_inner_end_tag() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckMismatchedTags.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Remove this commented out code.")
+      .next().atLine(3)
+      .noMore();
+  }
+
 }
