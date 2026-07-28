@@ -25,9 +25,6 @@
 "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
 92
 ],
-"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/displayTicketInfo.jsp": [
-57
-],
 "project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfileTabIdentity.jsp": [
 41
 ],
@@ -80,7 +77,6 @@
 11080,
 12588,
 12603,
-13263,
 13428,
 15589,
 17421,
@@ -180,7 +176,6 @@
 67597,
 67744,
 67754,
-67764,
 67769,
 67774,
 67780,
@@ -189,7 +184,6 @@
 67798,
 67809,
 67815,
-67821,
 67825,
 67827,
 67832,
@@ -248,9 +242,6 @@
 71935,
 71936,
 71966,
-72711,
-72759,
-72905,
 73510,
 73563,
 73599,
