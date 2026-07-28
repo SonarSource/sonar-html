@@ -42,4 +42,13 @@ class AvoidCommentedOutCodeCheckTest {
       .noMore();
   }
 
+  @Test
+  void inline_tag_mentions_in_prose_are_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckInlineMentions.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
 }
