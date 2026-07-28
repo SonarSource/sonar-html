@@ -51,4 +51,13 @@ class AvoidCommentedOutCodeCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
+  @Test
+  void abrupt_html_comments_do_not_crash() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckAbruptComments.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
 }

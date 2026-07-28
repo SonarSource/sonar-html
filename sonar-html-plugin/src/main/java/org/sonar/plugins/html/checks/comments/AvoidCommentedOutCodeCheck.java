@@ -151,7 +151,12 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
    */
   private static String stripCommentDelimiters(CommentNode node) {
     String code = node.getCode();
-    return code.substring(node.getStartDelimiter().length(), code.length() - node.getEndDelimiter().length());
+    int bodyStart = node.getStartDelimiter().length();
+    int bodyEnd = code.length() - node.getEndDelimiter().length();
+    if (bodyEnd < bodyStart) {
+      return "";
+    }
+    return code.substring(bodyStart, bodyEnd);
   }
 
 }
