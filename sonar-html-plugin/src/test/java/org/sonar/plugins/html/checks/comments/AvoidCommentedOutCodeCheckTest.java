@@ -72,4 +72,16 @@ class AvoidCommentedOutCodeCheckTest {
       .noMore();
   }
 
+  @Test
+  void standalone_jsp_scriptlets_are_detected() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckScriptlets.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Remove this commented out code.")
+      .next().atLine(7)
+      .noMore();
+  }
+
 }

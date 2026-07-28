@@ -24,6 +24,7 @@ import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.node.CommentNode;
+import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -38,18 +39,19 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
     if (node.isHtml()) {
       String comment = node.getCode();
 
-      if (!isIgnored(node, comment) && containsCommentedOutHtml(stripCommentDelimiters(node))) {
+      if (!isIgnored(node, comment) && containsCommentedOutStructure(stripCommentDelimiters(node))) {
         createViolation(node.getStartLinePosition(), "Remove this commented out code.");
       }
     }
   }
 
   /**
-   * Detects whether a stripped HTML comment body contains real markup structure.
+   * Detects whether a stripped HTML comment body contains real markup structure
+   * or a standalone JSP scriptlet.
    * @param commentBody the comment body without its delimiters
-   * @return {@code true} when the body contains commented-out HTML rather than prose
+   * @return {@code true} when the body contains commented-out structure rather than prose
    */
-  private static boolean containsCommentedOutHtml(String commentBody) {
+  private static boolean containsCommentedOutStructure(String commentBody) {
     String trimmedCommentBody = commentBody.strip();
     if (trimmedCommentBody.isEmpty()) {
       return false;
@@ -60,7 +62,11 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
       || nodes.stream()
       .filter(TagNode.class::isInstance)
       .map(TagNode.class::cast)
-      .anyMatch(tag -> isCommentedOutStructure(tag, lines));
+      .anyMatch(tag -> isCommentedOutStructure(tag, lines))
+      || nodes.stream()
+      .filter(ExpressionNode.class::isInstance)
+      .map(ExpressionNode.class::cast)
+      .anyMatch(expression -> isStandaloneNode(expression, lines));
   }
 
   /**
@@ -102,18 +108,18 @@ public class AvoidCommentedOutCodeCheck extends AbstractPageCheck {
    */
   private static boolean isCommentedOutStructure(TagNode tag, String[] lines) {
     boolean structuralTag = tag.isEndElement() || tag.hasEnd() || !tag.getAttributes().isEmpty();
-    return structuralTag && isStandaloneTag(tag, lines);
+    return structuralTag && isStandaloneNode(tag, lines);
   }
 
   /**
-   * Checks whether a tag occupies its own line block inside the comment.
-   * @param tag the parsed tag
+   * Checks whether a parsed node occupies its own line block inside the comment.
+   * @param node the parsed node
    * @param lines the stripped comment body split into lines
-   * @return {@code true} when the tag is standalone instead of embedded in prose
+   * @return {@code true} when the node is standalone instead of embedded in prose
    */
-  private static boolean isStandaloneTag(TagNode tag, String[] lines) {
-    String leadingText = lines[tag.getStartLinePosition() - 1].substring(0, tag.getStartColumnPosition());
-    String trailingText = lines[tag.getEndLinePosition() - 1].substring(tag.getEndColumnPosition());
+  private static boolean isStandaloneNode(Node node, String[] lines) {
+    String leadingText = lines[node.getStartLinePosition() - 1].substring(0, node.getStartColumnPosition());
+    String trailingText = lines[node.getEndLinePosition() - 1].substring(node.getEndColumnPosition());
     return leadingText.isBlank() && trailingText.isBlank();
   }
 
