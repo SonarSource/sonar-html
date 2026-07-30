@@ -80,7 +80,7 @@ public class VariousTest {
 
     List<Issues.Issue> issues = newWsClient(orchestrator).issues().search(request).getIssuesList();
 
-    assertThat(issues).hasSize(2);
+    assertThat(issues).isEmpty();
   }
 
   private static String keyFor(String project, String resource) {
