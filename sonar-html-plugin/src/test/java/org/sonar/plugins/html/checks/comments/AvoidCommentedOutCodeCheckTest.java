@@ -33,9 +33,55 @@ class AvoidCommentedOutCodeCheckTest {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/AvoidCommentedOutCodeCheck.html"), new AvoidCommentedOutCodeCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(3).withMessage("Remove this commented out code.")
-        .next().atLine(9)
-        .next().atLine(11);
+      .next().atLine(1).withMessage("Remove this commented out code.")
+      .next().atLine(3)
+      .next().atLine(5)
+      .next().atLine(7)
+      .next().atLine(12)
+      .next().atLine(14)
+      .noMore();
+  }
+
+  @Test
+  void inline_tag_mentions_in_prose_are_compliant() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckInlineMentions.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  void abrupt_html_comments_do_not_crash() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckAbruptComments.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  void matching_pair_is_detected_despite_an_unmatched_inner_end_tag() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckMismatchedTags.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Remove this commented out code.")
+      .next().atLine(3)
+      .noMore();
+  }
+
+  @Test
+  void standalone_jsp_scriptlets_are_detected() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/AvoidCommentedOutCodeCheckScriptlets.html"),
+      new AvoidCommentedOutCodeCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Remove this commented out code.")
+      .next().atLine(7)
+      .noMore();
   }
 
 }
