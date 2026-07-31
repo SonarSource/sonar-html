@@ -21,7 +21,7 @@
     <surefire.argLine>-server</surefire.argLine>
     <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
     <gitRepositoryName>sonar-html</gitRepositoryName>
-    <sonarlint.version>11.7.0.86025</sonarlint.version>
+    <sonarlint.version>11.8.0.86067</sonarlint.version>
   </properties>
 
   <!--
