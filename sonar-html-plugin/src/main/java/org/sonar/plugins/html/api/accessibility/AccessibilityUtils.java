@@ -18,6 +18,7 @@ package org.sonar.plugins.html.api.accessibility;
 
 import java.util.Set;
 import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -70,23 +71,69 @@ public class AccessibilityUtils {
   }
 
   /**
-   * Unwraps a JavaScript string literal used as a framework binding value
-   * (Angular {@code [x]="'foo'"}, Vue {@code :x="'foo'"}), returning the inner
-   * text. Returns {@code null} when {@code value} is not a single- or
-   * double-quoted string literal — i.e. it's a dynamic expression that cannot
-   * be statically resolved.
+   * Unwraps a binding expression that is a single static string literal, e.g.
+   * {@code "'image of a sunrise'"} to {@code "image of a sunrise"}, and returns {@code null} for
+   * anything whose value is not resolvable at analysis time: identifiers and property accesses
+   * ({@code data.imageAlt}), concatenations ({@code 'a' + imageVar + 'b'}), method calls,
+   * ternaries, and interpolated template literals ({@code `photo of ${name}`}).
+   *
+   * <p>Whitespace around the expression is ignored, and a quote escaped with a backslash does not
+   * terminate the literal. The unwrapped text is returned as written, with escape sequences left
+   * intact. Parentheses are deliberately not unwrapped, so {@code ('a sunrise')} stays unresolved:
+   * nobody parenthesizes a bare literal in a template, and not resolving it only ever costs a
+   * missed issue, never a false positive.
+   *
+   * <p>HTML entities are not decoded, so an entity-encoded literal such as
+   * {@code &#39;sunrise&#39;} is not recognized as one.
    */
   @CheckForNull
-  public static String unwrapStaticStringLiteral(@CheckForNull String value) {
-    if (value == null || value.length() < 2) {
+  public static String unwrapStaticStringLiteral(@Nullable String value) {
+    if (value == null) {
       return null;
     }
-    char first = value.charAt(0);
-    char last = value.charAt(value.length() - 1);
-    if ((first == '\'' && last == '\'') || (first == '"' && last == '"')) {
-      return value.substring(1, value.length() - 1);
+
+    String expression = value.trim();
+    if (expression.length() < 2) {
+      return null;
     }
+
+    char quote = expression.charAt(0);
+    if (!isQuote(quote)) {
+      return null;
+    }
+
+    int index = 1;
+    while (index < expression.length()) {
+      char currentCharacter = expression.charAt(index);
+      if (currentCharacter == '\\') {
+        // Skip the escaped character. A trailing backslash runs past the end and leaves the
+        // literal unterminated, which the exit below reports as unresolved.
+        index += 2;
+      } else if (quote == '`' && isInterpolationStart(expression, index)) {
+        // A template literal such as `photo of ${name}` embeds a value, so it is not static.
+        return null;
+      } else if (currentCharacter == quote) {
+        // A genuine literal closes at the very last character. Anything following the closing
+        // quote is an operator, a member access, or a second literal, none of which resolve
+        // statically (e.g. "'a' + imageVar", "'a'.trim()", "'a''b'").
+        return index == expression.length() - 1 ? expression.substring(1, index) : null;
+      } else {
+        index++;
+      }
+    }
+
+    // The opening quote is never closed.
     return null;
+  }
+
+  private static boolean isInterpolationStart(String expression, int index) {
+    return expression.charAt(index) == '$'
+      && index + 1 < expression.length()
+      && expression.charAt(index + 1) == '{';
+  }
+
+  private static boolean isQuote(char character) {
+    return character == '\'' || character == '"' || character == '`';
   }
 
   public static boolean isFocusableElement(TagNode element) {

@@ -60,6 +60,12 @@ class ImgRedundantAltCheckTest {
       .next().atLine(5)
       .next().atLine(6)
       .next().atLine(7)
+      .next().atLine(28).withMessage(
+        "Remove redundant word \"photo\" from the \"alt\" attribute of your \"img\" tag.")
+      .next().atLine(29).withMessage(
+        "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.")
+      .next().atLine(30).withMessage(
+        "Remove redundant word \"photo\" from the \"alt\" attribute of your \"img\" tag.")
       .noMore();
   }
 }

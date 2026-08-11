@@ -19,3 +19,22 @@
 
 <!-- Bound alt on a hidden image: still Compliant -->
 <img :alt="'photo of a cat'" aria-hidden="true" />
+
+<!-- Concatenation merely starting and ending with a matching quote is not a literal: Compliant -->
+<img [alt]="'a' + imageVar + 'b'" />
+<img :alt="'image' + suffix + 'text'" />
+
+<!-- Padding and escaped quotes do not prevent resolution: Noncompliant -->
+<img [alt]="  'photo of a cat'  " /> <!-- Noncompliant -->
+<img [alt]="'it\'s an image of a cat'" /> <!-- Noncompliant -->
+<img :alt="`photo of a dog`" /> <!-- Noncompliant -->
+
+<!-- Expressions that merely contain a literal stay unresolved: Compliant -->
+<img :alt="`photo of ${animal}`" />
+<img [alt]="'a photo'.toUpperCase()" />
+<img [alt]="translate('a picture')" />
+<img [alt]="showAlt ? 'an image' : 'a photo'" />
+<img [alt]="'an image" />
+
+<!-- Parentheses are not unwrapped, so a parenthesized literal stays unresolved: Compliant -->
+<img [alt]="('picture of a dog')" />
