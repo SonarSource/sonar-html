@@ -72,19 +72,11 @@ public class AccessibilityUtils {
 
   /**
    * Unwraps a binding expression that is a single static string literal, e.g.
-   * {@code "'image of a sunrise'"} to {@code "image of a sunrise"}, and returns {@code null} for
-   * anything whose value is not resolvable at analysis time: identifiers and property accesses
-   * ({@code data.imageAlt}), concatenations ({@code 'a' + imageVar + 'b'}), method calls,
-   * ternaries, and interpolated template literals ({@code `photo of ${name}`}).
-   *
-   * <p>Whitespace around the expression is ignored, and a quote escaped with a backslash does not
-   * terminate the literal. The unwrapped text is returned as written, with escape sequences left
-   * intact. Parentheses are deliberately not unwrapped, so {@code ('a sunrise')} stays unresolved:
-   * nobody parenthesizes a bare literal in a template, and not resolving it only ever costs a
-   * missed issue, never a false positive.
-   *
-   * <p>HTML entities are not decoded, so an entity-encoded literal such as
-   * {@code &#39;sunrise&#39;} is not recognized as one.
+   * {@code "'image of a sunrise'"} to {@code "image of a sunrise"}, keeping escape sequences as
+   * written. Returns {@code null} when the value is not statically resolvable: identifiers,
+   * concatenations, calls, ternaries and interpolated template literals. Parenthesized literals
+   * ({@code ('a sunrise')}) are deliberately left unresolved — templates do not write them, and
+   * missing one costs a false negative, never a false positive.
    */
   @CheckForNull
   public static String unwrapStaticStringLiteral(@Nullable String value) {
@@ -106,16 +98,13 @@ public class AccessibilityUtils {
     while (index < expression.length()) {
       char currentCharacter = expression.charAt(index);
       if (currentCharacter == '\\') {
-        // Skip the escaped character. A trailing backslash runs past the end and leaves the
-        // literal unterminated, which the exit below reports as unresolved.
+        // Skip the escaped character; running past the end leaves the literal unterminated.
         index += 2;
       } else if (quote == '`' && isInterpolationStart(expression, index)) {
-        // A template literal such as `photo of ${name}` embeds a value, so it is not static.
         return null;
       } else if (currentCharacter == quote) {
-        // A genuine literal closes at the very last character. Anything following the closing
-        // quote is an operator, a member access, or a second literal, none of which resolve
-        // statically (e.g. "'a' + imageVar", "'a'.trim()", "'a''b'").
+        // Anything after the closing quote — an operator, a member access, a second literal —
+        // means the expression is more than this one literal.
         return index == expression.length() - 1 ? expression.substring(1, index) : null;
       } else {
         index++;
