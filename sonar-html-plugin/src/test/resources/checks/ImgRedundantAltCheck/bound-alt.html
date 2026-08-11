@@ -1,0 +1,21 @@
+<!-- Bound to a statically resolvable string literal containing a redundant word: Noncompliant -->
+<img [alt]="'image of a sunrise'" /> <!-- Noncompliant -->
+<img [attr.alt]="'photo of a cat'" /> <!-- Noncompliant -->
+<img attr.alt="'picture of a dog'" /> <!-- Noncompliant -->
+<img :alt="'image of a cat'" /> <!-- Noncompliant -->
+<img v-bind:alt="'photo of a dog'" /> <!-- Noncompliant -->
+<img :[alt]="'picture of a turtle'" /> <!-- Noncompliant -->
+
+<!-- Bound to a string literal without redundant words: Compliant -->
+<img [alt]="'a sunrise'" />
+<img :alt="'a cat'" />
+
+<!-- Unresolved identifiers/expressions containing redundant substrings: Compliant -->
+<img [src]="data.imageSrc" [alt]="data.imageAlt" />
+<img [src]="imageSrc()" [alt]="blok().image?.alt ?? ''" />
+<img :src="flavour.image" :alt="flavour.image_alt || flavour.name" />
+<img :src="imageProps.row.imageUrl" :alt="imageProps.row.name" />
+<img :src="imageSrc" :alt="IMAGE_ALT" />
+
+<!-- Bound alt on a hidden image: still Compliant -->
+<img :alt="'photo of a cat'" aria-hidden="true" />

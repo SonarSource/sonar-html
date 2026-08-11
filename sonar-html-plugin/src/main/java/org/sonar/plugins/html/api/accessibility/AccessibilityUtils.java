@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.api.accessibility;
 
 import java.util.Set;
+import javax.annotation.CheckForNull;
 import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -66,6 +67,26 @@ public class AccessibilityUtils {
 
     var ariaDisabledAttr = element.getAttribute("aria-disabled");
     return "true".equalsIgnoreCase(ariaDisabledAttr);
+  }
+
+  /**
+   * Unwraps a JavaScript string literal used as a framework binding value
+   * (Angular {@code [x]="'foo'"}, Vue {@code :x="'foo'"}), returning the inner
+   * text. Returns {@code null} when {@code value} is not a single- or
+   * double-quoted string literal — i.e. it's a dynamic expression that cannot
+   * be statically resolved.
+   */
+  @CheckForNull
+  public static String unwrapStaticStringLiteral(@CheckForNull String value) {
+    if (value == null || value.length() < 2) {
+      return null;
+    }
+    char first = value.charAt(0);
+    char last = value.charAt(value.length() - 1);
+    if ((first == '\'' && last == '\'') || (first == '"' && last == '"')) {
+      return value.substring(1, value.length() - 1);
+    }
+    return null;
   }
 
   public static boolean isFocusableElement(TagNode element) {

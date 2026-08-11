@@ -43,4 +43,23 @@ class ImgRedundantAltCheckTest {
       .next().atLine(4)
       .noMore();
   }
+
+  @Test
+  void boundAlt() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/ImgRedundantAltCheck/bound-alt.html"),
+      new ImgRedundantAltCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage(
+        "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.")
+      .next().atLine(3).withMessage(
+        "Remove redundant word \"photo\" from the \"alt\" attribute of your \"img\" tag.")
+      .next().atLine(4).withMessage(
+        "Remove redundant word \"picture\" from the \"alt\" attribute of your \"img\" tag.")
+      .next().atLine(5)
+      .next().atLine(6)
+      .next().atLine(7)
+      .noMore();
+  }
 }
