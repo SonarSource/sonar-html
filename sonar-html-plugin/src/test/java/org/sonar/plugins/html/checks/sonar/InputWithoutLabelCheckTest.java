@@ -60,4 +60,22 @@ class InputWithoutLabelCheckTest {
       .noMore();
   }
 
+  /**
+   * Recognizes labels supplied by Angular Material form fields.
+   */
+  @Test
+  void recognizesLabeledAngularMaterialControls() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/InputWithoutLabelCheck/angular-material.html"),
+      new InputWithoutLabelCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(12).withMessage("Associate a valid label to this input field.")
+      .next().atLine(17).withMessage("Associate a valid label to this input field.")
+      .next().atLine(20).withMessage("Associate a valid label to this input field.")
+      .next().atLine(24).withMessage("Associate a valid label to this input field.")
+      .next().atLine(34).withMessage("Associate a valid label to this input field.")
+      .noMore();
+  }
+
 }

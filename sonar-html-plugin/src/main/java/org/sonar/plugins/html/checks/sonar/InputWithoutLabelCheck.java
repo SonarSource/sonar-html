@@ -82,7 +82,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   }
 
   private void registerControl(TagNode node) {
-    if (node.hasProperty("aria-label") || insideLabelNode()) {
+    if (isLabeledAngularMaterialControl(node) || node.hasProperty("aria-label") || insideLabelNode()) {
       return;
     }
 
@@ -136,6 +136,37 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   private static boolean isInputRequiredLabel(TagNode node) {
     return isType(node, "INPUT") &&
       !hasExcludedType(node);
+  }
+
+  /**
+   * Determines whether an Angular Material form field supplies this control's label.
+   * @param node the control to inspect
+   * @return true when the control has the matInput directive and its closest form field contains a mat-label
+   */
+  private static boolean isLabeledAngularMaterialControl(TagNode node) {
+    if (!hasMatInputDirective(node)) {
+      return false;
+    }
+
+    TagNode parent = node.getParent();
+    while (parent != null) {
+      if (parent.equalsElementName("mat-form-field")) {
+        return parent.getChildren().stream().anyMatch(child -> child.equalsElementName("mat-label"));
+      }
+      parent = parent.getParent();
+    }
+    return false;
+  }
+
+  /**
+   * Determines whether a control declares Angular Material's matInput directive.
+   * @param node the control to inspect
+   * @return true when the directive is declared directly or through Angular property binding
+   */
+  private static boolean hasMatInputDirective(TagNode node) {
+    return node.getAttributes().stream()
+      .map(Attribute::getName)
+      .anyMatch(name -> "matInput".equalsIgnoreCase(name) || "[matInput]".equalsIgnoreCase(name));
   }
 
   private static boolean isType(TagNode node, String type) {
