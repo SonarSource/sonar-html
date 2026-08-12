@@ -1,12 +1,13 @@
 <h2>Why is this an issue?</h2>
 <p>Offering the same experience with the mouse and the keyboard allows users to pick their preferred device.</p>
 <p>Additionally, users of assistive technology will be able to browse the site even if they cannot use the mouse.</p>
-<p>This rule raises an issue when:</p>
+<p>This rule raises an issue when a native HTML element:</p>
 <ul>
-  <li>an HTML element with an <code>onClick</code> attribute doesn’t also have an <code>onKeyDown</code> or <code>onKeyUp</code> attribute.</li>
-  <li>an HTML element with an <code>onMouseover</code> attribute doesn’t also have an <code>onFocus</code> attribute.</li>
-  <li>an HTML element with an <code>onMouseout</code> attribute doesn’t also have an <code>onBlur</code> attribute.</li>
+  <li>has an <code>onClick</code> attribute but no <code>onKeyDown</code> or <code>onKeyUp</code> attribute.</li>
+  <li>has an <code>onMouseover</code> attribute but no <code>onFocus</code> attribute.</li>
+  <li>has an <code>onMouseout</code> attribute but no <code>onBlur</code> attribute.</li>
 </ul>
+<p>Components and custom elements are not checked because the analyzer cannot determine how they render or handle keyboard events.</p>
 <p>In the case of <code>onClick</code>, the equivalent keyboard handler should activate on the "Enter" and "Space" keys, since these are the keys
 assistive technologies use to activate buttons.</p>
 <p><code>onKeyPress</code> is also recognised as a keyboard equivalent for backward compatibility, but the event is <a
@@ -24,8 +25,9 @@ technology, and is activated by both Enter and Space without extra code:</p>
 <pre>
 &lt;button onClick="doSomething();"&gt;Do something&lt;/button&gt;      &lt;!-- Compliant --&gt;
 </pre>
-<p>If a custom element must remain non-interactive (e.g. a <code>&lt;div&gt;</code>), the equivalent keyboard handler must check the key so it only
-triggers on Enter or Space, and the element must expose <code>role="button"</code> and <code>tabindex="0"</code> so it is announced and reachable:</p>
+<p>If a native non-interactive element, such as a <code>&lt;div&gt;</code>, handles clicks, the equivalent keyboard handler must check the key so it
+only triggers on Enter or Space, and the element must expose <code>role="button"</code> and <code>tabindex="0"</code> so it is announced and
+reachable:</p>
 <pre>
 &lt;div role="button" tabindex="0" onClick="doSomething();"
      onKeyDown="if (event.key === 'Enter' || event.key === ' ') doSomething();"&gt;   &lt;!-- Compliant --&gt;
@@ -56,14 +58,6 @@ by Enter — an <code>&lt;a onClick&gt;</code> without <code>href</code> behaves
 page, prefer <code>&lt;button&gt;</code> over a bare <code>&lt;a&gt;</code>.</p>
 <p>An issue will still be raised for any element that carries <code>role="button"</code> (including <code>&lt;button role="button"&gt;</code>),
 because the explicit role overrides the implicit behaviour and the element is treated as a custom widget.</p>
-<h3>Custom button-like web components</h3>
-<p>Design systems often ship custom elements that behave like a <code>&lt;button&gt;</code> (e.g. <code>lightning-button</code>,
-<code>ion-button</code>, <code>clr-button</code>). Listing them in the <code>whitelistedElements</code> parameter suppresses the issue for those tag
-names:</p>
-<pre>
-whitelistedElements = lightning-button,lightning-button-icon,clr-button,ion-button
-</pre>
-<p>The default value covers the Salesforce Lightning <code>lightning-button*</code> family.</p>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>

@@ -1,0 +1,6 @@
+<div (click)="save()">Save</div> <!-- Non-Compliant -->
+<span onClick="openDialog()">Open</span> <!-- Non-Compliant -->
+<img onClick="selectCar(car)"> <!-- Non-Compliant -->
+<div (click)="save()" (keydown.enter)="save()">Save</div>
+<span onClick="openDialog()" @keyup="openDialog()">Open</span>
+<img onClick="selectCar(car)" v-on:keydown.enter="selectCar(car)">
