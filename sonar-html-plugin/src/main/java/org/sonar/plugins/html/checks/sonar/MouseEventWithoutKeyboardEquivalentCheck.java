@@ -58,7 +58,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   @RuleProperty(
     key = "whitelistedElements",
-    description = "Comma-separated list of custom elements to ignore when they expose an onClick attribute without keyboard event handlers.",
+    description = "Comma-separated list of native HTML elements to ignore for all mouse-event keyboard-equivalence checks.",
     defaultValue = DEFAULT_WHITELISTED_ELEMENTS)
   public String whitelistedElements = DEFAULT_WHITELISTED_ELEMENTS;
 
