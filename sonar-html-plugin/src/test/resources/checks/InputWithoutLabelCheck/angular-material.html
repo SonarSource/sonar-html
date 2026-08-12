@@ -1,0 +1,35 @@
+<mat-form-field>
+  <mat-label>ICAO</mat-label>
+  <input matInput [formControl]="airlineIcao" />
+</mat-form-field>
+
+<mat-form-field>
+  <textarea matInput></textarea>
+  <mat-label>Description</mat-label>
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput id="withoutLabel" />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Airport</mat-label>
+  <input id="withoutMatInput" />
+</mat-form-field>
+
+<input matInput id="outsideFormField" />
+
+<custom-field>
+  <mat-label>Unrelated</mat-label>
+  <input matInput id="insideCustomComponent" />
+</custom-field>
+
+<mat-form-field>
+  <mat-label>Bound directive</mat-label>
+  <input [matInput]="true" />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Not a directive</mat-label>
+  <input [attr.matInput]="true" id="attributeOnly" />
+</mat-form-field>
