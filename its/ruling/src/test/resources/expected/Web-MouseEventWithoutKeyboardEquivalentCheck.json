@@ -564,11 +564,126 @@
 "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_options.html.erb": [
 26
 ],
+"project:voten/resources/assets/js/components/AdminPanelSuggestedChannels.vue": [
+85
+],
+"project:voten/resources/assets/js/components/Announcement.vue": [
+11
+],
+"project:voten/resources/assets/js/components/BannedUser.vue": [
+13,
+18
+],
+"project:voten/resources/assets/js/components/BlockedDomain.vue": [
+12,
+18
+],
+"project:voten/resources/assets/js/components/BookmarkedChannel.vue": [
+25,
+33
+],
+"project:voten/resources/assets/js/components/BookmarkedUser.vue": [
+21,
+27
+],
+"project:voten/resources/assets/js/components/ChannelHeader.vue": [
+70,
+104
+],
+"project:voten/resources/assets/js/components/Comment.vue": [
+74,
+110,
+119
+],
+"project:voten/resources/assets/js/components/CommentForm.vue": [
+15,
+85
+],
+"project:voten/resources/assets/js/components/EmojiPicker.vue": [
+18,
+25,
+40
+],
 "project:voten/resources/assets/js/components/GifPlayer.vue": [
 22
 ],
+"project:voten/resources/assets/js/components/Home.vue": [
+24
+],
+"project:voten/resources/assets/js/components/Message.vue": [
+15
+],
+"project:voten/resources/assets/js/components/Messages.vue": [
+54,
+87,
+99,
+128,
+148,
+260
+],
+"project:voten/resources/assets/js/components/Moderator.vue": [
+17
+],
+"project:voten/resources/assets/js/components/NewSubmission.vue": [
+193,
+202,
+211
+],
+"project:voten/resources/assets/js/components/Notification.vue": [
+2
+],
+"project:voten/resources/assets/js/components/PhotoViewer.vue": [
+37
+],
+"project:voten/resources/assets/js/components/QuickChannelPicker.vue": [
+20
+],
+"project:voten/resources/assets/js/components/QuickEmojiPicker.vue": [
+18
+],
+"project:voten/resources/assets/js/components/QuickMentioner.vue": [
+20
+],
+"project:voten/resources/assets/js/components/ReportedComment.vue": [
+46,
+55,
+64
+],
+"project:voten/resources/assets/js/components/ReportedSubmission.vue": [
+43,
+49,
+55
+],
+"project:voten/resources/assets/js/components/Rule.vue": [
+10,
+14
+],
+"project:voten/resources/assets/js/components/Submission.vue": [
+161,
+173
+],
+"project:voten/resources/assets/js/components/UserHeader.vue": [
+127
+],
+"project:voten/resources/assets/js/components/auth/RightSidebar.vue": [
+9,
+41,
+50,
+52,
+106,
+108,
+130
+],
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+101
+],
 "project:voten/resources/assets/js/components/submission/GifSubmission.vue": [
 19
+],
+"project:voten/resources/assets/js/components/submission/ImgSubmission.vue": [
+13,
+25,
+37
 ],
 "project:voten/resources/views/passport/index.blade.php": [
 26,
