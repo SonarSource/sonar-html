@@ -82,6 +82,22 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
       .next().atLine(1)
       .next().atLine(2)
       .next().atLine(3)
+      .next().atLine(7).withMessage("Add a 'onKeyDown|onKeyUp' attribute to this <div> tag.")
+      .next().atLine(9).withMessage("Add a 'onFocus' attribute to this <div> tag.")
+      .next().atLine(11).withMessage("Add a 'onBlur' attribute to this <div> tag.")
+      .noMore();
+  }
+
+  @Test
+  void whitelisted_native_elements_are_ignored() {
+    MouseEventWithoutKeyboardEquivalentCheck check = new MouseEventWithoutKeyboardEquivalentCheck();
+    check.whitelistedElements = "div";
+
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.whitelisted-elements.html"),
+      check);
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
       .noMore();
   }
 }

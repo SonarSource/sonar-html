@@ -4,3 +4,9 @@
 <div (click)="save()" (keydown.enter)="save()">Save</div>
 <span onClick="openDialog()" @keyup="openDialog()">Open</span>
 <img onClick="selectCar(car)" v-on:keydown.enter="selectCar(car)">
+<div @click="save()">Save</div> <!-- Non-Compliant - Vue @click, no keyboard equivalent -->
+<div @click="save()" @keyup="save()">Save</div>
+<div @mouseover="showHint()">Hint</div> <!-- Non-Compliant - Vue @mouseover, no @focus -->
+<div @mouseover="showHint()" @focus="showHint()">Hint</div>
+<div @mouseout="hideHint()">Hint</div> <!-- Non-Compliant - Vue @mouseout, no @blur -->
+<div @mouseout="hideHint()" @blur="hideHint()">Hint</div>

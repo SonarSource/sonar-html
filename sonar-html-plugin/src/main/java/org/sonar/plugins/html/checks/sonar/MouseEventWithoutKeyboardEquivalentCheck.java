@@ -17,16 +17,24 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
+import org.sonar.check.RuleProperty;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.api.accessibility.Aria;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "MouseEventWithoutKeyboardEquivalentCheck")
 public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck {
+
+  private static final String DEFAULT_WHITELISTED_ELEMENTS = "";
 
   // Angular 2+ allows key names for the onKeydown pseudo-event to prevent checking the key name manually
   // This pseudo-event also allows key combinations
@@ -47,6 +55,19 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     "|keyup(\\.\\w{1,10}){1,5}" +
     "|v-on:keyup(\\.\\w{1,10}){1,5}",
     Pattern.CASE_INSENSITIVE);
+
+  @RuleProperty(
+    key = "whitelistedElements",
+    description = "Comma-separated list of custom elements to ignore when they expose an onClick attribute without keyboard event handlers.",
+    defaultValue = DEFAULT_WHITELISTED_ELEMENTS)
+  public String whitelistedElements = DEFAULT_WHITELISTED_ELEMENTS;
+
+  private Set<String> whitelistedElementsSet = Set.of();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    whitelistedElementsSet = parseWhitelistedElements(whitelistedElements);
+  }
 
   @Override
   public void startElement(TagNode node) {
@@ -97,8 +118,8 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     return "textbox".equalsIgnoreCase(role);
   }
 
-  private static boolean isException(TagNode node) {
-    return (isInput(node) || isButton(node) || isHyperlink(node) || isSummary(node)) && hasOnClick(node) && !hasButtonRole(node);
+  private boolean isException(TagNode node) {
+    return isClickableButtonLikeElement(node) || ((isInput(node) || isButton(node) || isHyperlink(node) || isSummary(node)) && hasOnClick(node) && !hasButtonRole(node));
   }
 
   private static boolean hasOnClick(TagNode node) {
@@ -110,13 +131,11 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean hasOnKeyDown(TagNode node) {
-    // Vue's @keydown shorthand has @ stripped by the parser, leaving bare "keydown" attribute name
-    return hasEventHandlerAttribute(node, "KEYDOWN") || hasAttribute(node, "KEYDOWN") || hasKeyDownWithKeyName(node);
+    return hasEventHandlerAttribute(node, "KEYDOWN") || hasKeyDownWithKeyName(node);
   }
 
   private static boolean hasOnKeyUp(TagNode node) {
-    // Vue's @keyup shorthand has @ stripped by the parser, leaving bare "keyup" attribute name
-    return hasEventHandlerAttribute(node, "KEYUP") || hasAttribute(node, "KEYUP") || hasKeyUpWithKeyName(node);
+    return hasEventHandlerAttribute(node, "KEYUP") || hasKeyUpWithKeyName(node);
   }
 
   private static boolean hasOnMouseover(TagNode node) {
@@ -128,11 +147,8 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean hasOnMouseout(TagNode node) {
-    return hasAttribute(node, "ONMOUSEOUT")
-      || hasAttribute(node, "(MOUSEOUT)")
-      || hasAttribute(node, "ON-MOUSEOUT")
-      // Angular 1 only has a 'NG-MOUSELEAVE' attribute, no 'NG-MOUSEOUT'
-      || hasAttribute(node, "NG-MOUSELEAVE");
+    // Angular 1 only has a 'NG-MOUSELEAVE' attribute, no 'NG-MOUSEOUT'
+    return hasEventHandlerAttribute(node, "MOUSEOUT") || hasAttribute(node, "NG-MOUSELEAVE");
   }
 
   private static boolean hasOnBlur(TagNode node) {
@@ -145,8 +161,9 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       || hasAttribute(node, "(" + eventName + ")")
       || hasAttribute(node, "ON-" + eventName)
       || hasAttribute(node, "NG-" + eventName)
-      // Vue long form: v-on:eventname (shorthand @eventname has @ stripped by the parser)
-      || hasAttribute(node, "V-ON:" + eventName);
+      // Vue long form v-on:eventname, plus the @eventname shorthand the parser strips to a bare name
+      || hasAttribute(node, "V-ON:" + eventName)
+      || hasAttribute(node, eventName);
   }
 
   private static boolean hasAttribute(TagNode node, String attributeName) {
@@ -174,12 +191,32 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     return "SUMMARY".equalsIgnoreCase(node.getNodeName());
   }
 
+  private boolean isClickableButtonLikeElement(TagNode node) {
+    var nodeName = node.getNodeName();
+    if (nodeName == null) {
+      return false;
+    }
+    var normalizedNodeName = nodeName.toUpperCase(Locale.ROOT);
+    return whitelistedElementsSet.contains(normalizedNodeName);
+  }
+
   private static boolean hasKeyDownWithKeyName(TagNode node) {
     return node.getAttributes().stream().anyMatch(a -> KEY_DOWN_WITH_KEY_NAME.matcher(a.getName()).matches());
   }
 
   private static boolean hasKeyUpWithKeyName(TagNode node) {
     return node.getAttributes().stream().anyMatch(a -> KEY_UP_WITH_KEY_NAME.matcher(a.getName()).matches());
+  }
+
+  private static Set<String> parseWhitelistedElements(String whitelistedElements) {
+    if (whitelistedElements == null || whitelistedElements.isBlank()) {
+      return Set.of();
+    }
+    return Arrays.stream(whitelistedElements.split(","))
+      .map(String::trim)
+      .filter(element -> !element.isEmpty())
+      .map(element -> element.toUpperCase(Locale.ROOT))
+      .collect(Collectors.toSet());
   }
 
 }
