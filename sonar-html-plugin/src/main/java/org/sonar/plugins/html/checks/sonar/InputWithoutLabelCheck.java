@@ -151,11 +151,21 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     TagNode parent = node.getParent();
     while (parent != null) {
       if (parent.equalsElementName("mat-form-field")) {
-        return parent.getChildren().stream().anyMatch(child -> child.equalsElementName("mat-label"));
+        return containsMatLabel(parent);
       }
       parent = parent.getParent();
     }
     return false;
+  }
+
+  /**
+   * Determines whether an element contains an Angular Material label among its descendants.
+   * @param node the element whose descendants are inspected
+   * @return true when a mat-label is found
+   */
+  private static boolean containsMatLabel(TagNode node) {
+    return node.getChildren().stream()
+      .anyMatch(child -> child.equalsElementName("mat-label") || containsMatLabel(child));
   }
 
   /**
