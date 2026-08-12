@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
+import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.Node;
@@ -204,7 +205,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     if (property == null) {
       return Set.of();
     }
-    if (isBindingForm(property, "aria-labelledby")) {
+    if (AccessibilityUtils.isBindingForm(property, "aria-labelledby")) {
       return null;
     }
     String trimmed = trimmedOrNull(property.getValue());
@@ -254,7 +255,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
 
   @CheckForNull
   private String resolveStaticAttribute(Attribute attribute, String canonicalName) {
-    if (isBindingForm(attribute, canonicalName)) {
+    if (AccessibilityUtils.isBindingForm(attribute, canonicalName)) {
       return null;
     }
     return staticOrNull(attribute.getValue());
@@ -278,10 +279,6 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
     return Helpers.containsDynamicValue(value, getHtmlSourceCode());
   }
 
-  private static boolean isBindingForm(Attribute attribute, String canonicalName) {
-    return !canonicalName.equalsIgnoreCase(attribute.getName());
-  }
-
   private static boolean hasAnyControlIdHint(TagNode node) {
     return node.hasProperty(ID) || node.hasAttribute(ASP_FOR);
   }
@@ -294,7 +291,7 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   @CheckForNull
   private static String staticPropertyValue(TagNode node, String propertyName) {
     Attribute property = node.getProperty(propertyName);
-    if (property == null || isBindingForm(property, propertyName)) {
+    if (property == null || AccessibilityUtils.isBindingForm(property, propertyName)) {
       return null;
     }
     return trimmedOrNull(property.getValue());

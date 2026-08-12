@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isBindingForm;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.unwrapStaticStringLiteral;
 
@@ -62,7 +63,7 @@ public class ImgRedundantAltCheck extends AbstractPageCheck {
   @CheckForNull
   private static String resolveAltValue(Attribute altAttribute) {
     String value = altAttribute.getValue();
-    if ("alt".equalsIgnoreCase(altAttribute.getName())) {
+    if (!isBindingForm(altAttribute, "alt")) {
       return value;
     }
     // Bound attribute (Angular [alt]/[attr.alt], Vue :alt/v-bind:alt): only a

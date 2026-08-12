@@ -115,15 +115,11 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
   // Property lookup that accepts Angular/Vue binding forms even with empty value — the binding name itself is the hint.
   private static boolean hasPropertyHint(TagNode node, String propertyName) {
     Attribute property = node.getProperty(propertyName);
-    return property != null && (isBindingForm(property, propertyName) || !Thymeleaf.isEmptyValue(property.getValue()));
+    return property != null && (AccessibilityUtils.isBindingForm(property, propertyName) || !Thymeleaf.isEmptyValue(property.getValue()));
   }
 
   private static boolean hasAttributeHint(TagNode node, String attributeName) {
     return !Thymeleaf.isEmptyValue(node.getAttribute(attributeName));
-  }
-
-  private static boolean isBindingForm(Attribute attribute, String canonicalName) {
-    return !canonicalName.equalsIgnoreCase(attribute.getName());
   }
 
   private static boolean isLabel(TagNode node) {

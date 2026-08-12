@@ -20,6 +20,7 @@ import java.util.Set;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 import org.sonar.plugins.html.api.Thymeleaf;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
@@ -123,6 +124,15 @@ public class AccessibilityUtils {
 
   private static boolean isQuote(char character) {
     return character == '\'' || character == '"' || character == '`';
+  }
+
+  /**
+   * Returns whether {@code attribute} was matched under a framework binding form
+   * (Angular {@code [x]}/{@code [attr.x]}, Vue {@code :x}/{@code v-bind:x}/{@code :[x]})
+   * rather than under its plain {@code canonicalName}.
+   */
+  public static boolean isBindingForm(Attribute attribute, String canonicalName) {
+    return !canonicalName.equalsIgnoreCase(attribute.getName());
   }
 
   public static boolean isFocusableElement(TagNode element) {
