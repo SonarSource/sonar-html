@@ -4,6 +4,9 @@
 <DT>        <!-- Non-Compliant -->
 </dt>
 
+<dd>        <!-- Non-Compliant -->
+</dd>
+
 <div>
   <li>foo   <!-- Non-Compliant - direct parent is a known invalid HTML tag -->
 </div>
@@ -34,3 +37,15 @@
 <div>
   <dt>term</dt><!-- Non-Compliant - a div outside any dl is not a valid parent -->
 </div>
+
+<dl>
+  <div>
+    <div>
+      <dt>z</dt><!-- Non-Compliant - the inner div is not a direct child of the dl -->
+    </div>
+  </div>
+</dl>
+
+<section>
+  <dd>definition</dd><!-- Non-Compliant - direct parent is a known invalid HTML tag -->
+</section>
