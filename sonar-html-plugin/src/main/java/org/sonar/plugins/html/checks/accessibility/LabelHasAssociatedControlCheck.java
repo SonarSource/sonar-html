@@ -99,14 +99,11 @@ public class LabelHasAssociatedControlCheck extends AbstractPageCheck {
     return hasPropertyHint(node, "alt")
       || hasPropertyHint(node, "aria-labelledby")
       || hasPropertyHint(node, "aria-label")
-      // Angular [innerText]/[innerHTML]/[textContent] write text content at runtime.
-      || hasPropertyHint(node, "innerText")
-      || hasPropertyHint(node, "innerHTML")
-      || hasPropertyHint(node, "textContent")
       // Thymeleaf th:aria-label / th:attr="aria-label=..." (and aria-labelledby/alt variants).
       || Thymeleaf.hasNonEmptyThymeleafAttribute(node, "aria-label")
       || Thymeleaf.hasNonEmptyThymeleafAttribute(node, "aria-labelledby")
       || Thymeleaf.hasNonEmptyThymeleafAttribute(node, "alt")
+      // Thymeleaf/Vue text attributes and Angular/Vue [innerText]/[innerHTML]/[textContent] bindings.
       || AccessibilityUtils.hasNonEmptyTemplateTextAttribute(node)
       // see https://sonarsource.github.io/rspec/#/rspec/S1926
       || "FMT:MESSAGE".equalsIgnoreCase(node.getNodeName());

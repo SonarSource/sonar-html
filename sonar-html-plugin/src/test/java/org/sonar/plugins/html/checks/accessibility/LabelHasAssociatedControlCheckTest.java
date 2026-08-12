@@ -149,6 +149,11 @@ class LabelHasAssociatedControlCheckTest {
             // Lines 15-16: No for attribute, no nested control - noncompliant
             .next().atLine(15)
             .next().atLine(16)
+            // Lines 28-29: content binding present but empty - noncompliant
+            .next().atLine(28)
+            .next().atLine(29)
+            // Line 32: literal innerHTML attribute is not a binding - noncompliant
+            .next().atLine(32)
             .noMore();
   }
 }

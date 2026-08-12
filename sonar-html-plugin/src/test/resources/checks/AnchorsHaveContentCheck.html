@@ -20,3 +20,8 @@
 <a th:href="${ price.provider.path }" th:utext="${ price.provider.name }"></a>
 <a v-text="linkLabel"></a>
 <a v-html="linkLabel"></a>
+<a [innerHTML]="linkLabel"></a>
+<a [innerText]="linkLabel"></a>
+<a :innerHTML="linkLabel"></a>
+<a [innerHTML]=""></a>                          <!-- Noncompliant -->
+<a innerHTML="not a binding"></a>               <!-- Noncompliant -->

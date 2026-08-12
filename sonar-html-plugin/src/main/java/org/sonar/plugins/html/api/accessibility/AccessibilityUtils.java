@@ -35,20 +35,48 @@ public class AccessibilityUtils {
    */
   public static final Set<String> TEMPLATE_TEXT_ATTRIBUTES = Set.of("th:text", "th:utext", "v-text", "v-html");
 
+  /**
+   * DOM properties a framework binds to write an element's text content at render time. Unlike
+   * {@link #TEMPLATE_TEXT_ATTRIBUTES} these are property names, not attribute names, so they are
+   * looked up through {@link TagNode#getProperty(String)} and every binding spelling is covered:
+   * Angular {@code [innerHTML]}/{@code [attr.innerHTML]}, Vue {@code v-bind:innerHTML}/{@code :innerHTML}.
+   */
+  public static final Set<String> TEXT_CONTENT_PROPERTIES = Set.of("innerHTML", "innerText", "textContent");
+
   private AccessibilityUtils() {
     // utility class
   }
 
   /**
-   * Returns whether {@code element} carries any template-text attribute with a usable value.
+   * Returns the expression {@code element} renders its text content from — a template-text attribute
+   * or a bound text-content property — or {@code null} when it renders none.
    */
-  public static boolean hasNonEmptyTemplateTextAttribute(TagNode element) {
+  @CheckForNull
+  public static String getTemplateTextValue(TagNode element) {
     for (String attributeName : TEMPLATE_TEXT_ATTRIBUTES) {
-      if (!Thymeleaf.isEmptyValue(element.getAttribute(attributeName))) {
-        return true;
+      String value = element.getAttribute(attributeName);
+      if (!Thymeleaf.isEmptyValue(value)) {
+        return value;
       }
     }
-    return false;
+
+    for (String propertyName : TEXT_CONTENT_PROPERTIES) {
+      Attribute property = element.getProperty(propertyName);
+      // A literal innerHTML="..." attribute renders nothing; only a framework binding writes content.
+      if (property != null && isBindingForm(property, propertyName) && !Thymeleaf.isEmptyValue(property.getValue())) {
+        return property.getValue();
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Returns whether {@code element} carries any template-text attribute or bound text-content
+   * property with a usable value.
+   */
+  public static boolean hasNonEmptyTemplateTextAttribute(TagNode element) {
+    return getTemplateTextValue(element) != null;
   }
 
   public static boolean isHiddenFromScreenReader(TagNode element) {

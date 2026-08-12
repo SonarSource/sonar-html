@@ -96,3 +96,18 @@
 
 <h1 th:text="''"></h1>       <!-- Noncompliant: empty Thymeleaf text renders no heading content -->
 <h1 th:utext="'  '"></h1>   <!-- Noncompliant: blank Thymeleaf text renders no heading content -->
+
+<h1 [innerHTML]="'verify-email.success-note1' | translate"></h1> <!-- Compliant: non-empty Angular [innerHTML] binding renders content at runtime -->
+<h1 [attr.innerHTML]="title"></h1>   <!-- Compliant: Angular attribute-binding spelling -->
+<h1 [innerText]="title"></h1>        <!-- Compliant: Angular [innerText] writes text content at runtime -->
+<h1 [textContent]="title"></h1>      <!-- Compliant: Angular [textContent] writes text content at runtime -->
+<h1 :innerHTML="title"></h1>         <!-- Compliant: Vue shorthand binding -->
+<h1 v-bind:innerHTML="title"></h1>   <!-- Compliant: Vue v-bind binding -->
+
+<h1 [innerHTML]=""></h1> <!-- Noncompliant: empty Angular [innerHTML] binding renders no content -->
+<h1 [innerHTML]="''"></h1> <!-- Noncompliant: Angular [innerHTML] binding of an empty literal renders no content -->
+<h1 innerHTML="not a binding"></h1> <!-- Noncompliant: a literal innerHTML attribute renders nothing -->
+<h1 [title]="'some title' | translate"></h1> <!-- Noncompliant: unrelated Angular binding does not provide heading content -->
+<h1>
+    <span [innerHTML]="'nested content' | translate"></span>
+</h1> <!-- Compliant: non-empty Angular [innerHTML] binding on a descendant renders content at runtime -->
