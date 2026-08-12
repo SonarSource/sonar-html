@@ -50,7 +50,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   @Override
   public void startElement(TagNode node) {
-    if (node.getLocalName().equals(node.getNodeName()) && HtmlConstants.hasKnownHTMLTag(node)) {
+    if (HtmlConstants.hasKnownHTMLTag(node)) {
       String attribute = null;
 
       if (isException(node)) {
