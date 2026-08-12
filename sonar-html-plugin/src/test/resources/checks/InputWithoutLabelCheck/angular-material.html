@@ -33,3 +33,10 @@
   <mat-label>Not a directive</mat-label>
   <input [attr.matInput]="true" id="attributeOnly" />
 </mat-form-field>
+
+<mat-form-field>
+  <ng-container *ngIf="hasLabel">
+    <mat-label>Conditional label</mat-label>
+  </ng-container>
+  <input matInput />
+</mat-form-field>
