@@ -18,12 +18,15 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import javax.annotation.CheckForNull;
 
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.unwrapStaticStringLiteral;
 
 @Rule(key = "S6851")
 public class ImgRedundantAltCheck extends AbstractPageCheck {
@@ -37,7 +40,12 @@ public class ImgRedundantAltCheck extends AbstractPageCheck {
       return;
     }
 
-    var alt = element.getPropertyValue("alt");
+    Attribute altAttribute = element.getProperty("alt");
+    if (altAttribute == null) {
+      return;
+    }
+
+    String alt = resolveAltValue(altAttribute);
     if (alt == null) {
       return;
     }
@@ -49,6 +57,18 @@ public class ImgRedundantAltCheck extends AbstractPageCheck {
       var message = String.format(MESSAGE_TEMPLATE, punctuation, quotedWords);
       createViolation(element.getStartLinePosition(), message);
     }
+  }
+
+  @CheckForNull
+  private static String resolveAltValue(Attribute altAttribute) {
+    String value = altAttribute.getValue();
+    if ("alt".equalsIgnoreCase(altAttribute.getName())) {
+      return value;
+    }
+    // Bound attribute (Angular [alt]/[attr.alt], Vue :alt/v-bind:alt): only a
+    // statically resolvable string literal can be inspected; any other
+    // expression is unresolved at analysis time and must be skipped.
+    return unwrapStaticStringLiteral(value);
   }
 
   private static boolean isImg(TagNode element) {
