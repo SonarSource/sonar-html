@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.accessibility;
 import static org.sonar.plugins.html.api.HtmlConstants.INTERACTIVE_ROLES;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 import static org.sonar.plugins.html.api.HtmlConstants.isInteractiveElement;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.unwrapStaticStringLiteral;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -79,21 +80,12 @@ public class NoNoninteractiveTabIndexCheck extends AbstractPageCheck {
     }
 
     // Bound role values are only trusted when they are explicit string literals.
-    if (!isStaticStringLiteral(roleValue)) {
+    String literal = unwrapStaticStringLiteral(roleValue);
+    if (literal == null) {
       return null;
     }
 
-    var normalizedRole = roleValue.substring(1, roleValue.length() - 1).trim();
+    var normalizedRole = literal.trim();
     return normalizedRole.isEmpty() ? null : normalizedRole;
-  }
-
-  private static boolean isStaticStringLiteral(String value) {
-    if (value.length() < 2) {
-      return false;
-    }
-
-    char first = value.charAt(0);
-    char last = value.charAt(value.length() - 1);
-    return (first == '\'' && last == '\'') || (first == '"' && last == '"');
   }
 }

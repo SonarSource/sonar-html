@@ -162,7 +162,7 @@ public class ControlGroup {
     if (typeAttr == null || typeAttr.getName().equalsIgnoreCase("type")) {
       return false;
     }
-    return !isStaticStringLiteral(typeAttr.getValue());
+    return AccessibilityUtils.unwrapStaticStringLiteral(typeAttr.getValue()) == null;
   }
 
   // Returns the resolved type value via getProperty, which covers static attributes
@@ -181,21 +181,13 @@ public class ControlGroup {
       return value;
     }
     // Bound attribute: unwrap JS string literal (e.g. "'checkbox'" → "checkbox")
-    if (isStaticStringLiteral(value)) {
-      String inner = value.substring(1, value.length() - 1).trim();
-      return inner.isEmpty() ? null : inner;
+    String literal = AccessibilityUtils.unwrapStaticStringLiteral(value);
+    if (literal == null) {
+      // Dynamic expression → unknown
+      return null;
     }
-    // Dynamic expression → unknown
-    return null;
-  }
-
-  private static boolean isStaticStringLiteral(@CheckForNull String value) {
-    if (value == null || value.length() < 2) {
-      return false;
-    }
-    char first = value.charAt(0);
-    char last = value.charAt(value.length() - 1);
-    return (first == '\'' && last == '\'') || (first == '"' && last == '"');
+    String inner = literal.trim();
+    return inner.isEmpty() ? null : inner;
   }
 
   private ControlGroup() {
