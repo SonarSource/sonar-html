@@ -154,6 +154,10 @@ class LabelHasAssociatedControlCheckTest {
             .next().atLine(29)
             // Line 32: literal innerHTML attribute is not a binding - noncompliant
             .next().atLine(32)
+            // Line 35: [attr.innerHTML] writes an attribute, not the DOM property - noncompliant
+            .next().atLine(35)
+            // Line 38: Vue dynamic argument :[innerHTML] does not reliably target innerHTML - noncompliant
+            .next().atLine(38)
             .noMore();
   }
 }

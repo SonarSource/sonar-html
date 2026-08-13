@@ -54,10 +54,12 @@ class HeadingHasAccessibleContentCheckTest {
       .next().atLine(72)
       .next().atLine(97)
       .next().atLine(98)
+      .next().atLine(106)
       .next().atLine(107)
       .next().atLine(108)
       .next().atLine(109)
       .next().atLine(110)
+      .next().atLine(111)
       .noMore();
   }
 

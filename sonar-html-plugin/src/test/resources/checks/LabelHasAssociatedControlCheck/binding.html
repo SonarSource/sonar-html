@@ -30,3 +30,9 @@
 
 <!-- Noncompliant: a literal innerHTML attribute renders nothing -->
 <label [for]="inputId" innerHTML="not a binding"></label>
+
+<!-- Noncompliant: [attr.x] writes an HTML attribute named innerHTML, not the innerHTML DOM property -->
+<label [for]="inputId" [attr.innerHTML]="labelMarkup"></label>
+
+<!-- Noncompliant: Vue dynamic argument binds the property named by the runtime value of innerHTML, not innerHTML itself -->
+<label [for]="inputId" :[innerHTML]="labelMarkup"></label>

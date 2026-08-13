@@ -25,3 +25,5 @@
 <a :innerHTML="linkLabel"></a>
 <a [innerHTML]=""></a>                          <!-- Noncompliant -->
 <a innerHTML="not a binding"></a>               <!-- Noncompliant -->
+<a [attr.innerHTML]="linkLabel"></a>            <!-- Noncompliant -->
+<a :[innerHTML]="linkLabel"></a>                <!-- Noncompliant -->
