@@ -22,8 +22,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.TagNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.getTemplateTextValue;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.unwrapStaticStringLiteral;
 
 class AccessibilityUtilsTest {
@@ -102,5 +105,76 @@ class AccessibilityUtilsTest {
   @Test
   void returnsNullForNull() {
     assertThat(unwrapStaticStringLiteral(null)).isNull();
+  }
+
+  @ParameterizedTest
+  @MethodSource("renderedTextBindings")
+  void returnsTheValueOfBindingsThatRenderText(String attributeName, String attributeValue) {
+    assertThat(getTemplateTextValue(tag(attributeName, attributeValue))).isEqualTo(attributeValue);
+  }
+
+  private static Stream<Arguments> renderedTextBindings() {
+    return Stream.of(
+      // template-text attributes
+      Arguments.of("th:text", "#{title}"),
+      Arguments.of("th:utext", "#{title}"),
+      Arguments.of("v-text", "title"),
+      Arguments.of("v-html", "markup"),
+      // Angular property bindings
+      Arguments.of("[innerHTML]", "markup"),
+      Arguments.of("[innerText]", "title"),
+      Arguments.of("[textContent]", "title"),
+      // Vue property bindings, long and shorthand
+      Arguments.of("v-bind:innerHTML", "markup"),
+      Arguments.of("v-bind:innerText", "title"),
+      Arguments.of(":innerHTML", "markup"),
+      Arguments.of(":textContent", "title"),
+      // attribute names are matched case-insensitively
+      Arguments.of("[INNERHTML]", "markup"),
+      Arguments.of(":InnerText", "title"));
+  }
+
+  @ParameterizedTest
+  @MethodSource("bindingsThatRenderNothing")
+  void returnsNullForBindingsThatRenderNothing(String attributeName, String attributeValue) {
+    assertThat(getTemplateTextValue(tag(attributeName, attributeValue))).isNull();
+  }
+
+  private static Stream<Arguments> bindingsThatRenderNothing() {
+    return Stream.of(
+      // a literal attribute is not a binding, and there is no innerHTML HTML attribute
+      Arguments.of("innerHTML", "not a binding"),
+      // [attr.x] writes an HTML attribute named x, not the DOM property
+      Arguments.of("[attr.innerHTML]", "markup"),
+      Arguments.of("attr.innerHTML", "markup"),
+      Arguments.of("[attr.innerText]", "title"),
+      Arguments.of("[attr.textContent]", "title"),
+      // Vue's dynamic argument binds the property named by the runtime value of innerHTML
+      Arguments.of(":[innerHTML]", "markup"),
+      // an unrelated binding provides no text content
+      Arguments.of("[title]", "title"),
+      // a binding with no usable value renders nothing
+      Arguments.of("[innerHTML]", ""),
+      Arguments.of("[innerHTML]", "''"),
+      Arguments.of("th:text", "'  '"));
+  }
+
+  @Test
+  void anEmptyBindingDoesNotHideANonEmptyOne() {
+    TagNode node = tag("[innerHTML]", "");
+    node.getAttributes().add(new Attribute(":innerText", "title"));
+
+    assertThat(getTemplateTextValue(node)).isEqualTo("title");
+  }
+
+  @Test
+  void returnsNullWhenNoAttributeRendersText() {
+    assertThat(getTemplateTextValue(new TagNode())).isNull();
+  }
+
+  private static TagNode tag(String attributeName, String attributeValue) {
+    TagNode node = new TagNode();
+    node.getAttributes().add(new Attribute(attributeName, attributeValue));
+    return node;
   }
 }

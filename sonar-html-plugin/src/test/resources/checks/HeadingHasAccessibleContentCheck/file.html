@@ -109,6 +109,8 @@
 <h1 [title]="'some title' | translate"></h1> <!-- Noncompliant: unrelated Angular binding does not provide heading content -->
 <h1 [attr.innerHTML]="title"></h1> <!-- Noncompliant: [attr.x] writes an HTML attribute named innerHTML, not the innerHTML DOM property, so nothing renders -->
 <h1 :[innerHTML]="title"></h1> <!-- Noncompliant: Vue dynamic argument binds the property named by the runtime value of innerHTML, not innerHTML itself -->
+<h1 [attr.innerText]="title"></h1> <!-- Noncompliant: [attr.x] writes an HTML attribute named innerText, not the innerText DOM property, so nothing renders -->
+<h1 [attr.textContent]="title"></h1> <!-- Noncompliant: [attr.x] writes an HTML attribute named textContent, not the textContent DOM property, so nothing renders -->
 <h1>
     <span [innerHTML]="'nested content' | translate"></span>
 </h1> <!-- Compliant: non-empty Angular [innerHTML] binding on a descendant renders content at runtime -->

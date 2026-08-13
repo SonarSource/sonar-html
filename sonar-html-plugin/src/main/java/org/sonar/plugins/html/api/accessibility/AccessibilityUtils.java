@@ -17,7 +17,9 @@
 package org.sonar.plugins.html.api.accessibility;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 import org.sonar.plugins.html.api.Thymeleaf;
@@ -39,10 +41,28 @@ public class AccessibilityUtils {
   /**
    * DOM properties a framework binds to write an element's text content at render time. Unlike
    * {@link #TEMPLATE_TEXT_ATTRIBUTES} these are property names, not attribute names, matched only
-   * in the binding forms that reliably write the DOM property — see
-   * {@link #getReliablyBoundValue(TagNode, String)}.
+   * in the binding forms that reliably write the DOM property — see {@link #TEXT_CONTENT_BINDINGS}.
    */
   public static final Set<String> TEXT_CONTENT_PROPERTIES = Set.of("innerHTML", "innerText", "textContent");
+
+  /**
+   * Every spelling that binds a {@link #TEXT_CONTENT_PROPERTIES} entry as a DOM property, lowercased
+   * so attributes can be matched case-insensitively in one pass. Built from
+   * {@link TagNode#domPropertyBindingNames(String)}, which deliberately excludes:
+   * <ul>
+   *   <li>Angular {@code [attr.x]}/{@code attr.x}: these write an HTML <em>attribute</em> named
+   *   {@code x}, not the DOM property. There is no standard {@code innerHTML}/{@code innerText}/
+   *   {@code textContent} HTML attribute, so the browser renders nothing.</li>
+   *   <li>Vue's dynamic argument {@code :[x]}: the bound property name comes from the runtime
+   *   value of {@code x}, not from {@code x} itself, so it may not target a text-content property
+   *   at all.</li>
+   * </ul>
+   */
+  private static final Set<String> TEXT_CONTENT_BINDINGS = TEXT_CONTENT_PROPERTIES.stream()
+    .map(TagNode::domPropertyBindingNames)
+    .flatMap(List::stream)
+    .map(name -> name.toLowerCase(Locale.ROOT))
+    .collect(Collectors.toUnmodifiableSet());
 
   private AccessibilityUtils() {
     // utility class
@@ -61,34 +81,20 @@ public class AccessibilityUtils {
       }
     }
 
-    for (String propertyName : TEXT_CONTENT_PROPERTIES) {
-      String value = getReliablyBoundValue(element, propertyName);
-      if (!Thymeleaf.isEmptyValue(value)) {
-        return value;
-      }
-    }
-
-    return null;
+    return getBoundTextContent(element);
   }
 
   /**
-   * Returns the value bound to {@code propertyName} through a spelling that reliably writes the
-   * DOM property — Angular {@code [x]}, Vue {@code v-bind:x}/{@code :x} — or {@code null}
-   * otherwise. Unlike {@link TagNode#getProperty(String)}, this deliberately excludes:
-   * <ul>
-   *   <li>Angular {@code [attr.x]}/{@code attr.x}: these write an HTML <em>attribute</em> named
-   *   {@code x}, not the DOM property. There is no standard {@code innerHTML}/{@code innerText}/
-   *   {@code textContent} HTML attribute, so the browser renders nothing.</li>
-   *   <li>Vue's dynamic argument {@code :[x]}: the bound property name comes from the runtime
-   *   value of {@code x}, not from {@code x} itself, so it may not target {@code propertyName} at all.</li>
-   * </ul>
+   * Returns the value of the first non-empty {@link #TEXT_CONTENT_BINDINGS} attribute on
+   * {@code element}, or {@code null} when it carries none. An empty binding is skipped rather than
+   * returned, so it cannot hide a non-empty one written in another spelling.
    */
   @CheckForNull
-  private static String getReliablyBoundValue(TagNode element, String propertyName) {
-    for (String bindingSpelling : List.of("[" + propertyName + "]", "v-bind:" + propertyName, ":" + propertyName)) {
-      String value = element.getAttribute(bindingSpelling);
-      if (value != null) {
-        return value;
+  private static String getBoundTextContent(TagNode element) {
+    for (Attribute attribute : element.getAttributes()) {
+      if (TEXT_CONTENT_BINDINGS.contains(attribute.getName().toLowerCase(Locale.ROOT))
+        && !Thymeleaf.isEmptyValue(attribute.getValue())) {
+        return attribute.getValue();
       }
     }
     return null;
