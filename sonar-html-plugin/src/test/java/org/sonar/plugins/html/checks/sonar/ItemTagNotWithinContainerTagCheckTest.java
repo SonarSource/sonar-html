@@ -38,12 +38,16 @@ class ItemTagNotWithinContainerTagCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLocation(1, 0, 1, 4).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
         .next().atLocation(4, 0, 4, 4).withMessage("Surround this <DT> item tag by a <dl> container one.")
-        .next().atLine(8).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
-        .next().atLine(12).withMessage("Surround this <dt> item tag by a <dl> container one.")
-        .next().atLine(17).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
-        .next().atLine(23).withMessage("Surround this <dt> item tag by a <dl> container one.")
-        .next().atLine(28).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
-        .next().atLine(29).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.");
+        .next().atLocation(7, 0, 7, 4).withMessage("Surround this <dd> item tag by a <dl> container one.")
+        .next().atLine(11).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
+        .next().atLine(15).withMessage("Surround this <dt> item tag by a <dl> container one.")
+        .next().atLine(20).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
+        .next().atLine(27).withMessage("Surround this <dt> item tag by a <dl> container one.")
+        .next().atLine(33).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
+        .next().atLine(34).withMessage("Surround this <li> item tag by a <ul>, <ol> or <menu> container one.")
+        .next().atLine(38).withMessage("Surround this <dt> item tag by a <dl> container one.")
+        .next().atLine(44).withMessage("Surround this <dt> item tag by a <dl> container one.")
+        .next().atLine(50).withMessage("Surround this <dd> item tag by a <dl> container one.");
   }
 
   @Test

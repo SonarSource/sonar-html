@@ -21,6 +21,20 @@
 
 <dl>
   <dt></dt>
+  <dd></dd>
+</dl>
+
+<dl>
+  <div>
+    <dt>term</dt>
+    <dd>definition</dd>
+  </div>
+  <div>
+    <dt>another term</dt>
+    <dt>related term</dt>
+    <dd>another definition</dd>
+    <dd>related definition</dd>
+  </div>
 </dl>
 
 <ul>
@@ -103,6 +117,11 @@
 <dl>
   <dd>foo
   <dt>bar    <!-- Compliant - the unclosed <dd> is skipped, <dl> is the effective parent -->
+</dl>
+
+<dl>
+  <dt>foo
+  <dd>bar    <!-- Compliant - the unclosed <dt> is skipped, <dl> is the effective parent -->
 </dl>
 
 <ul>

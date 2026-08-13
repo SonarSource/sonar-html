@@ -46,7 +46,7 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     TagNode parent = effectiveParent(node);
     if (isLi(node) && shouldReport(parent, ItemTagNotWithinContainerTagCheck::isLiAllowedParent)) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <ul>, <ol> or <menu> container one.");
-    } else if (isDt(node) && shouldReport(parent, ItemTagNotWithinContainerTagCheck::isDl)) {
+    } else if (isDefinitionItem(node) && shouldReport(parent, ItemTagNotWithinContainerTagCheck::isDefinitionItemAllowedParent)) {
       createViolation(node, "Surround this <" + node.getNodeName() + "> item tag by a <dl> container one.");
     }
   }
@@ -80,7 +80,7 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
     if (isLi(node)) {
       return isLi(parent) || isP(parent);
     }
-    if (isDt(node)) {
+    if (isDefinitionItem(node)) {
       return isDefinitionItem(parent) || isP(parent);
     }
     return false;
@@ -120,6 +120,26 @@ public class ItemTagNotWithinContainerTagCheck extends AbstractPageCheck {
 
   private static boolean isDl(TagNode node) {
     return "DL".equalsIgnoreCase(node.getNodeName());
+  }
+
+  /**
+   * Checks whether a node can directly contain a definition item element.
+   *
+   * @param node the direct parent of the {@code dt} or {@code dd} element
+   * @return true when the parent is a {@code dl} or a {@code div} directly inside a {@code dl}
+   */
+  private static boolean isDefinitionItemAllowedParent(TagNode node) {
+    return isDl(node) || (isDiv(node) && node.getParent() != null && isDl(node.getParent()));
+  }
+
+  /**
+   * Checks whether a node is a {@code div} element.
+   *
+   * @param node the node to inspect
+   * @return true when the node is a {@code div} element
+   */
+  private static boolean isDiv(TagNode node) {
+    return "DIV".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isP(TagNode node) {
