@@ -81,7 +81,7 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
     }
 
     AriaRole ariaRole = roleDef.getName();
-    if (ariaRole == AriaRole.PRESENTATION || allowedRolesCache.contains(ariaRole)) {
+    if (allowedRolesCache.contains(ariaRole)) {
       return;
     }
 
@@ -108,7 +108,8 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
     for (String token : roleAttr.trim().split("\\s+")) {
       String normalizedToken = token.toLowerCase(Locale.ROOT);
       if (PRESENTATION_ROLES.contains(normalizedToken)) {
-        return Aria.getRole(AriaRole.PRESENTATION);
+        // Presentational roles opt out of semantics; there is nothing to suggest.
+        return null;
       }
       AriaRole role = AriaRole.of(normalizedToken);
       if (role == null || isAbstractRole(role)) {

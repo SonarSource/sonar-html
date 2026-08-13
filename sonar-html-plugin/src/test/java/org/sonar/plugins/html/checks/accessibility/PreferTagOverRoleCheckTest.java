@@ -92,7 +92,6 @@ class PreferTagOverRoleCheckTest {
       .consume();
   }
 
-  /** Verifies that presentational role aliases do not suggest a replacement tag. */
   @Test
   void presentationAndNoneRolesAreIgnored() {
     HtmlSourceCode sourceCode = TestHelper.scan(
@@ -100,7 +99,8 @@ class PreferTagOverRoleCheckTest {
       new PreferTagOverRoleCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(5).withMessage("Use <button> or <input> instead of the button role to ensure accessibility across all devices.");
+      .next().atLine(6).withMessage("Use <button> or <input> instead of the button role to ensure accessibility across all devices.")
+      .noMore();
   }
 
   @Test
