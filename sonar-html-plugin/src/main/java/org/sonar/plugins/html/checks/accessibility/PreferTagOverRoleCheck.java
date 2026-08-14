@@ -18,6 +18,7 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import static org.sonar.plugins.html.api.HtmlConstants.isAbstractRole;
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
+import static org.sonar.plugins.html.api.HtmlConstants.PRESENTATION_ROLES;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -105,7 +106,12 @@ public class PreferTagOverRoleCheck extends AbstractPageCheck {
 
   private static Aria.RoleDefinition resolveFirstApplicableRole(String roleAttr) {
     for (String token : roleAttr.trim().split("\\s+")) {
-      AriaRole role = AriaRole.of(token.toLowerCase(Locale.ROOT));
+      String normalizedToken = token.toLowerCase(Locale.ROOT);
+      if (PRESENTATION_ROLES.contains(normalizedToken)) {
+        // Presentational roles opt out of semantics; there is nothing to suggest.
+        return null;
+      }
+      AriaRole role = AriaRole.of(normalizedToken);
       if (role == null || isAbstractRole(role)) {
         continue;
       }

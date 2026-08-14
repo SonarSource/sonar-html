@@ -93,6 +93,17 @@ class PreferTagOverRoleCheckTest {
   }
 
   @Test
+  void presentationAndNoneRolesAreIgnored() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/PreferTagOverRoleCheckPresentationalRoles.html"),
+      new PreferTagOverRoleCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(6).withMessage("Use <button> or <input> instead of the button role to ensure accessibility across all devices.")
+      .noMore();
+  }
+
+  @Test
   void unknownAllowedRolesAreReportedAsAnalysisWarning() {
     var check = new PreferTagOverRoleCheck();
     check.allowedRoles = "checkbocx, status, totallyMadeUp";
