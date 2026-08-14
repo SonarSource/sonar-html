@@ -19,7 +19,6 @@ package org.sonar.plugins.html.checks.accessibility;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.BufferStack;
-import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
@@ -62,14 +61,14 @@ public class HeadingHasAccessibleContentCheck extends AbstractPageCheck {
       }
     }
 
-    // template-text attributes (Thymeleaf th:text/th:utext, Vue v-text/v-html) are content
-    AccessibilityUtils.TEMPLATE_TEXT_ATTRIBUTES.forEach(attributeName -> {
-      String nodeAttribute = node.getAttribute(attributeName);
-
-      if (!Thymeleaf.isEmptyValue(nodeAttribute) && bufferStack.getLevel() > 0) {
-        bufferStack.write(nodeAttribute);
+    // template-text attributes (Thymeleaf th:text/th:utext, Vue v-text/v-html) and bound
+    // text-content properties (Angular/Vue [innerHTML], [innerText], [textContent]) are content
+    if (bufferStack.getLevel() > 0) {
+      String templateText = AccessibilityUtils.getTemplateTextValue(node);
+      if (templateText != null) {
+        bufferStack.write(templateText);
       }
-    });
+    }
   }
 
   @Override

@@ -46,26 +46,44 @@ public class TagNode extends Node {
   }
 
   /**
+   * The spellings that bind the DOM property named {@code propertyName} itself: Angular {@code [x]},
+   * Vue {@code v-bind:x} and {@code :x}. Callers that must not accept the wider set matched by
+   * {@link #getProperty(String)} — the attribute bindings {@code [attr.x]}/{@code attr.x}, which
+   * write an HTML attribute rather than the DOM property, and Vue's dynamic argument {@code :[x]},
+   * whose target is only known at runtime — share this definition instead of respelling it.
+   */
+  public static List<String> domPropertyBindingNames(String propertyName) {
+    return List.of("[" + propertyName + "]", "v-bind:" + propertyName, ":" + propertyName);
+  }
+
+  /**
    *  This method takes into account the property binding mechanism of angular and vue.js. See SONARHTML-92, SONARHTML-113, SONARHTML-118, SONARHTML-158
    */
   @Nullable
   public Attribute getProperty(String propertyName) {
-    String angularProperty = "[" + propertyName + "]";
+    List<String> domPropertyBindings = domPropertyBindingNames(propertyName);
     String angularAttrProperty = "[attr." + propertyName + "]";
     String shortAngularAttrProperty = "attr." + propertyName;
-    String vueProperty = "v-bind:" + propertyName;
-    String vueShorthandProperty = ":" + propertyName;
     String vueSquaredShorthandProperty = ":[" + propertyName + "]";
     for (Attribute a : attributes) {
       String attributeName = a.getName();
       if (propertyName.equalsIgnoreCase(attributeName)
-          || angularProperty.equalsIgnoreCase(attributeName) || angularAttrProperty.equalsIgnoreCase(attributeName) || shortAngularAttrProperty.equalsIgnoreCase(attributeName)
-          || vueProperty.equalsIgnoreCase(attributeName) || vueShorthandProperty.equalsIgnoreCase(attributeName)
+          || containsIgnoreCase(domPropertyBindings, attributeName)
+          || angularAttrProperty.equalsIgnoreCase(attributeName) || shortAngularAttrProperty.equalsIgnoreCase(attributeName)
           || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
         return a;
       }
     }
     return null;
+  }
+
+  private static boolean containsIgnoreCase(List<String> names, String name) {
+    for (String candidate : names) {
+      if (candidate.equalsIgnoreCase(name)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Nullable

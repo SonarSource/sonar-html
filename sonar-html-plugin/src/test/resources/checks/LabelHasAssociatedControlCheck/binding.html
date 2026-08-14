@@ -19,3 +19,20 @@
 <label [for]="inputId" [innerText]="labelText"></label>
 <label [for]="inputId" [innerHTML]="labelMarkup"></label>
 <label [for]="inputId" [textContent]="labelText"></label>
+
+<!-- Compliant: Vue spellings of the same content bindings -->
+<label :for="inputId" :innerHTML="labelMarkup"></label>
+<label :for="inputId" v-bind:innerText="labelText"></label>
+
+<!-- Noncompliant: an empty content binding writes no label text -->
+<label [for]="inputId" [innerHTML]=""></label>
+<label [for]="inputId" [innerText]="''"></label>
+
+<!-- Noncompliant: a literal innerHTML attribute renders nothing -->
+<label [for]="inputId" innerHTML="not a binding"></label>
+
+<!-- Noncompliant: [attr.x] writes an HTML attribute named innerHTML, not the innerHTML DOM property -->
+<label [for]="inputId" [attr.innerHTML]="labelMarkup"></label>
+
+<!-- Noncompliant: Vue dynamic argument binds the property named by the runtime value of innerHTML, not innerHTML itself -->
+<label [for]="inputId" :[innerHTML]="labelMarkup"></label>
