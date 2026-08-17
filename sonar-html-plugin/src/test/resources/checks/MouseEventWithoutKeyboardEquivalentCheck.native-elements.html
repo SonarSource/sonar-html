@@ -10,3 +10,6 @@
 <div @mouseover="showHint()" @focus="showHint()">Hint</div>
 <div @mouseout="hideHint()">Hint</div> <!-- Non-Compliant - Vue @mouseout, no @blur -->
 <div @mouseout="hideHint()" @blur="hideHint()">Hint</div>
+<input type="checkbox" @click="toggleScope(scope.id)">
+<input type="radio" @click="selectOption()">
+<select @click="selectOption()"></select>

@@ -59,6 +59,9 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         // Vue.js - invalid key name combinations
         .next().atLine(106)
         .next().atLine(107)
+        .next().atLine(113)
+        .next().atLine(114)
+        .next().atLine(115)
     ;
   }
 

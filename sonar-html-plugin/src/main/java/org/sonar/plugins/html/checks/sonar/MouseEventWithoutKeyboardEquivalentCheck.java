@@ -19,7 +19,9 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.sonar.check.Rule;
@@ -36,25 +38,11 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
 
   private static final String DEFAULT_WHITELISTED_ELEMENTS = "";
 
-  // Angular 2+ allows key names for the onKeydown pseudo-event to prevent checking the key name manually
-  // This pseudo-event also allows key combinations
-  // Key names are limited to 10 charters and the combination of keys is realistic limited to 5
-  // Vue also supports key modifiers on @keydown (e.g. @keydown.enter, v-on:keydown.enter)
-  // Note: Vue's @keydown shorthand has the @ stripped by the parser, leaving bare "keydown.enter" as the attribute name
-  private static final Pattern KEY_DOWN_WITH_KEY_NAME = Pattern.compile(
-    "\\(keydown(\\.\\w{1,10}){1,5}\\)" +
-    "|keydown(\\.\\w{1,10}){1,5}" +
-    "|v-on:keydown(\\.\\w{1,10}){1,5}",
-    Pattern.CASE_INSENSITIVE);
-
-  // Angular 2+ allows key names for the onKeyup pseudo-event, similar to keydown
-  // Vue also supports key modifiers on @keyup (e.g. @keyup.enter, v-on:keyup.enter)
-  // Note: Vue's @keyup shorthand has the @ stripped by the parser, leaving bare "keyup.enter" as the attribute name
-  private static final Pattern KEY_UP_WITH_KEY_NAME = Pattern.compile(
-    "\\(keyup(\\.\\w{1,10}){1,5}\\)" +
-    "|keyup(\\.\\w{1,10}){1,5}" +
-    "|v-on:keyup(\\.\\w{1,10}){1,5}",
-    Pattern.CASE_INSENSITIVE);
+  // Angular pseudo-events and Vue modifiers. Key names are limited to 10 characters and realistic
+  // combinations to five modifiers so malformed bindings are not mistaken for event handlers.
+  private static final String EVENT_MODIFIERS = "(?:\\.[\\w-]{1,10}){0,5}";
+  private static final Map<String, Pattern> EVENT_PATTERNS = new ConcurrentHashMap<>();
+  private static final Set<String> NATIVELY_ACTIVATABLE_ROLES = Set.of("textbox", "checkbox", "radio", "listbox");
 
   @RuleProperty(
     key = "whitelistedElements",
@@ -93,6 +81,11 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
           roles = new String[]{
             role.toString()
           };
+
+          // Explicit ARIA roles still require keyboard handlers; only native controls provide them.
+          if (NATIVELY_ACTIVATABLE_ROLES.contains(role.toString())) {
+            return;
+          }
         }
       }
 
@@ -131,11 +124,11 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   }
 
   private static boolean hasOnKeyDown(TagNode node) {
-    return hasEventHandlerAttribute(node, "KEYDOWN") || hasKeyDownWithKeyName(node);
+    return hasEventHandlerAttribute(node, "KEYDOWN");
   }
 
   private static boolean hasOnKeyUp(TagNode node) {
-    return hasEventHandlerAttribute(node, "KEYUP") || hasKeyUpWithKeyName(node);
+    return hasEventHandlerAttribute(node, "KEYUP");
   }
 
   private static boolean hasOnMouseover(TagNode node) {
@@ -158,12 +151,17 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   private static boolean hasEventHandlerAttribute(TagNode node, String eventName) {
     return hasAttribute(node, "ON" + eventName)
       // Angular event binding attributes
-      || hasAttribute(node, "(" + eventName + ")")
       || hasAttribute(node, "ON-" + eventName)
       || hasAttribute(node, "NG-" + eventName)
-      // Vue long form v-on:eventname, plus the @eventname shorthand the parser strips to a bare name
-      || hasAttribute(node, "V-ON:" + eventName)
-      || hasAttribute(node, eventName);
+      || hasEventBinding(node, eventName);
+  }
+
+  private static boolean hasEventBinding(TagNode node, String eventName) {
+    Pattern pattern = EVENT_PATTERNS.computeIfAbsent(eventName, name -> Pattern.compile(
+      "\\(" + name + EVENT_MODIFIERS + "\\)"
+        + "|(?:v-on:)?" + name + EVENT_MODIFIERS,
+      Pattern.CASE_INSENSITIVE));
+    return node.getAttributes().stream().anyMatch(attribute -> pattern.matcher(attribute.getName()).matches());
   }
 
   private static boolean hasAttribute(TagNode node, String attributeName) {
@@ -198,14 +196,6 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
     }
     var normalizedNodeName = nodeName.toUpperCase(Locale.ROOT);
     return whitelistedElementsSet.contains(normalizedNodeName);
-  }
-
-  private static boolean hasKeyDownWithKeyName(TagNode node) {
-    return node.getAttributes().stream().anyMatch(a -> KEY_DOWN_WITH_KEY_NAME.matcher(a.getName()).matches());
-  }
-
-  private static boolean hasKeyUpWithKeyName(TagNode node) {
-    return node.getAttributes().stream().anyMatch(a -> KEY_UP_WITH_KEY_NAME.matcher(a.getName()).matches());
   }
 
   private static Set<String> parseWhitelistedElements(String whitelistedElements) {
