@@ -43,6 +43,8 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   private static final String ASSOCIATE_LABEL_MESSAGE = "Associate a valid label to this input field.";
   private static final String ID = "id";
   private static final String ASP_FOR = "asp-for";
+  private static final Set<String> MAT_INPUT_ATTRIBUTE_NAMES = Set.of("matInput", "[matInput]");
+  private static final Set<String> MAT_NATIVE_CONTROL_ATTRIBUTE_NAMES = Set.of("matNativeControl", "[matNativeControl]");
 
   // LinkedHashMap/LinkedHashSet so endDocument emits issues in document order — matches tests and ruling reports.
   private final Set<String> labelTargets = new LinkedHashSet<>();
@@ -141,10 +143,10 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
   /**
    * Determines whether an Angular Material form field supplies this control's label.
    * @param node the control to inspect
-   * @return true when the control has the matInput directive and its closest form field contains a mat-label
+   * @return true when the control has an Angular Material directive and its closest form field contains a mat-label
    */
   private static boolean isLabeledAngularMaterialControl(TagNode node) {
-    if (!hasMatInputDirective(node)) {
+    if (!isAngularMaterialControl(node)) {
       return false;
     }
 
@@ -165,18 +167,34 @@ public class InputWithoutLabelCheck extends AbstractPageCheck {
    */
   private static boolean containsMatLabel(TagNode node) {
     return node.getChildren().stream()
-      .anyMatch(child -> child.equalsElementName("mat-label") || containsMatLabel(child));
+      .anyMatch(child -> child.equalsElementName("mat-label") ||
+        (!child.equalsElementName("mat-form-field") && containsMatLabel(child)));
   }
 
   /**
-   * Determines whether a control declares Angular Material's matInput directive.
+   * Determines whether an element declares a compatible Angular Material control directive.
    * @param node the control to inspect
-   * @return true when the directive is declared directly or through Angular property binding
+   * @return true when the control element and directive name are compatible
    */
-  private static boolean hasMatInputDirective(TagNode node) {
+  private static boolean isAngularMaterialControl(TagNode node) {
+    if (isSelect(node)) {
+      return hasAttributeNamed(node, MAT_NATIVE_CONTROL_ATTRIBUTE_NAMES);
+    }
+    return (isType(node, "INPUT") || isTextarea(node)) &&
+      (hasAttributeNamed(node, MAT_INPUT_ATTRIBUTE_NAMES) ||
+        hasAttributeNamed(node, MAT_NATIVE_CONTROL_ATTRIBUTE_NAMES));
+  }
+
+  /**
+   * Determines whether an element has an attribute with one of the supplied names.
+   * @param node the element to inspect
+   * @param attributeNames the accepted attribute names
+   * @return true when an accepted attribute is present
+   */
+  private static boolean hasAttributeNamed(TagNode node, Set<String> attributeNames) {
     return node.getAttributes().stream()
       .map(Attribute::getName)
-      .anyMatch(name -> "matInput".equalsIgnoreCase(name) || "[matInput]".equalsIgnoreCase(name));
+      .anyMatch(name -> attributeNames.stream().anyMatch(attributeName -> attributeName.equalsIgnoreCase(name)));
   }
 
   private static boolean isType(TagNode node, String type) {
