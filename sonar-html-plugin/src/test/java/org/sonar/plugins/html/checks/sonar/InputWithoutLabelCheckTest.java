@@ -75,6 +75,9 @@ class InputWithoutLabelCheckTest {
       .next().atLine(20).withMessage("Associate a valid label to this input field.")
       .next().atLine(24).withMessage("Associate a valid label to this input field.")
       .next().atLine(34).withMessage("Associate a valid label to this input field.")
+      .next().atLine(61).withMessage("Associate a valid label to this input field.")
+      .next().atLine(66).withMessage("Associate a valid label to this input field.")
+      .next().atLine(70).withMessage("Associate a valid label to this input field.")
       .noMore();
   }
 

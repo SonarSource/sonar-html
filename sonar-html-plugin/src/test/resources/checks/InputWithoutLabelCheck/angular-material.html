@@ -40,3 +40,36 @@
   </ng-container>
   <input matInput />
 </mat-form-field>
+
+<mat-form-field>
+  <mat-label>Native input</mat-label>
+  <input matNativeControl />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Bound native textarea</mat-label>
+  <textarea [matNativeControl]="true"></textarea>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Native select</mat-label>
+  <select matNativeControl></select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Invalid select directive</mat-label>
+  <select matInput id="invalidSelectDirective"></select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>Vue binding</mat-label>
+  <input :matInput="true" id="vueBoundDirective" />
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput id="outerControl" />
+  <mat-form-field>
+    <mat-label>Nested label</mat-label>
+    <input matInput />
+  </mat-form-field>
+</mat-form-field>
