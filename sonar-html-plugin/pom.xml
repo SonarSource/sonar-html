@@ -28,7 +28,7 @@
     <sonar.pluginClass>org.sonar.plugins.html.HtmlPlugin</sonar.pluginClass>
     <sonar.skipDependenciesPackaging>true</sonar.skipDependenciesPackaging>
     <sonar.sonarLintSupported>true</sonar.sonarLintSupported>
-    <scanner.engine.version>13.6.0.4299</scanner.engine.version>
+    <scanner.engine.version>13.7.0.4455</scanner.engine.version>
   </properties>
 
   <dependencies>
