@@ -1,13 +1,17 @@
 <h2>Why is this an issue?</h2>
 <p>Offering the same experience with the mouse and the keyboard allows users to pick their preferred device.</p>
 <p>Additionally, users of assistive technology will be able to browse the site even if they cannot use the mouse.</p>
-<p>This rule raises an issue when a native HTML element:</p>
+<p>This rule raises an issue when an element recognized by the analyzer as native HTML:</p>
 <ul>
   <li>has an <code>onClick</code> attribute but no <code>onKeyDown</code> or <code>onKeyUp</code> attribute.</li>
   <li>has an <code>onMouseover</code> attribute but no <code>onFocus</code> attribute.</li>
   <li>has an <code>onMouseout</code> attribute but no <code>onBlur</code> attribute.</li>
 </ul>
-<p>Components and custom elements are not checked because the analyzer cannot determine how they render or handle keyboard events.</p>
+<p>The rule recognizes plain HTML attributes (such as <code>onClick</code>), Angular event bindings (such as <code>(click)</code>,
+<code>ng-click</code>, and <code>on-click</code>), and Vue bindings (such as <code>v-on:click</code> and <code>@click</code>). These bindings can
+include event modifiers such as <code>@click.prevent</code> and <code>@keydown.enter</code>.</p>
+<p>Only elements the analyzer recognizes as native HTML are checked. Components and custom elements are skipped because the analyzer cannot determine
+how they render or handle keyboard events.</p>
 <p>In the case of <code>onClick</code>, the equivalent keyboard handler should activate on the "Enter" and "Space" keys, since these are the keys
 assistive technologies use to activate buttons.</p>
 <p><code>onKeyPress</code> is also recognised as a keyboard equivalent for backward compatibility, but the event is <a
@@ -33,6 +37,11 @@ reachable:</p>
      onKeyDown="if (event.key === 'Enter' || event.key === ' ') doSomething();"&gt;   &lt;!-- Compliant --&gt;
 &lt;/div&gt;
 </pre>
+<p>The same applies to framework event bindings:</p>
+<pre>
+&lt;div (click)="doSomething()" (keydown.enter)="doSomething()" role="button" tabindex="0"&gt;&lt;/div&gt;
+&lt;div @click="doSomething()" @keydown.enter="doSomething()" role="button" tabindex="0"&gt;&lt;/div&gt;
+</pre>
 <p>For purely visual hover effects, prefer CSS over scripted mouse handlers — the <code>:hover</code> and <code>:focus-visible</code> pseudo-classes
 give mouse and keyboard parity without any JavaScript:</p>
 <pre>
@@ -53,11 +62,17 @@ the platform:</p>
   <li><code>&lt;a&gt;</code>,</li>
   <li><code>&lt;summary&gt;</code>.</li>
 </ul>
+<p>Native controls with an implicit <code>textbox</code>, <code>checkbox</code>, <code>radio</code>, or <code>listbox</code> role are also skipped.
+This includes text inputs, <code>&lt;textarea&gt;</code>, <code>&lt;input type="checkbox"&gt;</code>, <code>&lt;input type="radio"&gt;</code>, and
+<code>&lt;select&gt;</code>.</p>
 <p>Be aware that the anchor exception is broad: only an <code>&lt;a&gt;</code> with an <code>href</code> attribute is actually focusable and activated
 by Enter — an <code>&lt;a onClick&gt;</code> without <code>href</code> behaves like inert text from the keyboard. For button-like actions inside the
 page, prefer <code>&lt;button&gt;</code> over a bare <code>&lt;a&gt;</code>.</p>
 <p>An issue will still be raised for any element that carries <code>role="button"</code> (including <code>&lt;button role="button"&gt;</code>),
 because the explicit role overrides the implicit behaviour and the element is treated as a custom widget.</p>
+<h3>Ignoring specific native elements</h3>
+<p>The <code>whitelistedElements</code> parameter takes a comma-separated list of native HTML tag names to exclude from all checks by this rule. It is
+empty by default.</p>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>
