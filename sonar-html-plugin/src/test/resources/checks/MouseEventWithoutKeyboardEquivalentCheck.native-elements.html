@@ -12,4 +12,5 @@
 <div @mouseout="hideHint()" @blur="hideHint()">Hint</div>
 <input type="checkbox" @click="toggleScope(scope.id)">
 <input type="radio" @click="selectOption()">
-<select @click="selectOption()"></select>
+<select @click="selectOption()"></select> <!-- Compliant: implicit combobox -->
+<select multiple @click="selectOption()"></select> <!-- Compliant: implicit listbox -->

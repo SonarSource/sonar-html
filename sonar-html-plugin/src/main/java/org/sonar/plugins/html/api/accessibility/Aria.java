@@ -4149,8 +4149,10 @@ public class Aria {
         return AriaRole.DOCUMENT;
       case "button":
         return AriaRole.BUTTON;
-      case "datalist", "select":
+      case "datalist":
         return AriaRole.LISTBOX;
+      case "select":
+        return isListbox(element) ? AriaRole.LISTBOX : AriaRole.COMBOBOX;
       case "details":
         return AriaRole.GROUP;
       case "dialog":
@@ -4217,6 +4219,21 @@ public class Aria {
         return AriaRole.TEXTBOX;
       default:
         return null;
+    }
+  }
+
+  private static boolean isListbox(TagNode element) {
+    if (element.getAttribute("multiple") != null) {
+      return true;
+    }
+    var size = element.getAttribute("size");
+    if (size == null) {
+      return false;
+    }
+    try {
+      return Integer.parseInt(size) > 1;
+    } catch (NumberFormatException e) {
+      return false;
     }
   }
 }

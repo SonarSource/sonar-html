@@ -42,7 +42,8 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
   // combinations to five modifiers so malformed bindings are not mistaken for event handlers.
   private static final String EVENT_MODIFIERS = "(?:\\.[\\w-]{1,10}){0,5}";
   private static final Map<String, Pattern> EVENT_PATTERNS = new ConcurrentHashMap<>();
-  private static final Set<String> NATIVELY_ACTIVATABLE_ROLES = Set.of("textbox", "checkbox", "radio", "listbox");
+  private static final Set<String> NATIVELY_ACTIVATABLE_ROLES = Set.of(
+    "textbox", "checkbox", "radio", "combobox", "listbox");
 
   @RuleProperty(
     key = "whitelistedElements",
