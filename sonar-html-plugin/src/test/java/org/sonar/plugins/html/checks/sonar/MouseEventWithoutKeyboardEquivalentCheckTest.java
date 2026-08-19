@@ -59,33 +59,48 @@ class MouseEventWithoutKeyboardEquivalentCheckTest {
         // Vue.js - invalid key name combinations
         .next().atLine(106)
         .next().atLine(107)
+        .next().atLine(113)
+        .next().atLine(114)
+        .next().atLine(115)
     ;
   }
 
   @Test
-  void custom_elements_without_whitelist_are_reported() {
+  void component_elements_are_ignored() {
     HtmlSourceCode sourceCode = TestHelper.scan(
-      new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.whitelisted-elements.html"),
+      new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.component-elements.html"),
       new MouseEventWithoutKeyboardEquivalentCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(2)
-      .next().atLine(3)
-      .next().atLine(4)
       .noMore();
   }
 
   @Test
-  void custom_elements_in_whitelist_are_ignored_and_defaults_can_be_overridden() {
-    var check = new MouseEventWithoutKeyboardEquivalentCheck();
-    check.whitelistedElements = " clr-button,ION-BUTTON ,";
+  void native_elements_without_keyboard_equivalents_are_reported() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.native-elements.html"),
+      new MouseEventWithoutKeyboardEquivalentCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1)
+      .next().atLine(2)
+      .next().atLine(3)
+      .next().atLine(7).withMessage("Add a 'onKeyDown|onKeyUp' attribute to this <div> tag.")
+      .next().atLine(9).withMessage("Add a 'onFocus' attribute to this <div> tag.")
+      .next().atLine(11).withMessage("Add a 'onBlur' attribute to this <div> tag.")
+      .noMore();
+  }
+
+  @Test
+  void whitelisted_native_elements_are_ignored() {
+    MouseEventWithoutKeyboardEquivalentCheck check = new MouseEventWithoutKeyboardEquivalentCheck();
+    check.whitelistedElements = "div";
+
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/MouseEventWithoutKeyboardEquivalentCheck.whitelisted-elements.html"),
       check);
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1)
-      .next().atLine(4)
       .noMore();
   }
 }

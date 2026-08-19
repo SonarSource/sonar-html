@@ -1,0 +1,16 @@
+<div (click)="save()">Save</div> <!-- Non-Compliant -->
+<span onClick="openDialog()">Open</span> <!-- Non-Compliant -->
+<img onClick="selectCar(car)"> <!-- Non-Compliant -->
+<div (click)="save()" (keydown.enter)="save()">Save</div>
+<span onClick="openDialog()" @keyup="openDialog()">Open</span>
+<img onClick="selectCar(car)" v-on:keydown.enter="selectCar(car)">
+<div @click="save()">Save</div> <!-- Non-Compliant - Vue @click, no keyboard equivalent -->
+<div @click="save()" @keyup="save()">Save</div>
+<div @mouseover="showHint()">Hint</div> <!-- Non-Compliant - Vue @mouseover, no @focus -->
+<div @mouseover="showHint()" @focus="showHint()">Hint</div>
+<div @mouseout="hideHint()">Hint</div> <!-- Non-Compliant - Vue @mouseout, no @blur -->
+<div @mouseout="hideHint()" @blur="hideHint()">Hint</div>
+<input type="checkbox" @click="toggleScope(scope.id)">
+<input type="radio" @click="selectOption()">
+<select @click="selectOption()"></select> <!-- Compliant: implicit combobox -->
+<select multiple @click="selectOption()"></select> <!-- Compliant: implicit listbox -->

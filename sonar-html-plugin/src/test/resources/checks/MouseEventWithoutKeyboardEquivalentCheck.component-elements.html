@@ -1,0 +1,10 @@
+<mat-radio-button (click)="checkDeselect(mode)">Default</mat-radio-button>
+<ion-button (click)="dismiss()">Close</ion-button>
+<app-button (click)="save()">Save</app-button>
+<app-button @click="save()">Save</app-button>
+<app-button (mouseover)="showHint()">Show hint</app-button>
+<app-button @mouseover="showHint()">Show hint</app-button>
+<app-button (mouseout)="hideHint()">Hide hint</app-button>
+<app-button @mouseout="hideHint()">Hide hint</app-button>
+<my-widget onclick="save()" role="button">Save</my-widget>
+<x:div (click)="save()">Save</x:div>

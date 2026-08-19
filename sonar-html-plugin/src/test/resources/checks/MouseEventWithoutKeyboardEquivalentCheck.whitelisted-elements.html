@@ -1,4 +1,3 @@
-<lightning-button onclick={doSomething}></lightning-button> <!-- Compliant by default -->
-<clr-button onclick="doSomething();"></clr-button> <!-- Non-Compliant by default -->
-<ion-button onclick="doSomething();"></ion-button> <!-- Non-Compliant by default -->
-<foo-button onclick="doSomething();"></foo-button> <!-- Non-Compliant -->
+<div onclick="save()">Save</div> <!-- Compliant - whitelisted element -->
+<div onmouseover="showHint()">Show hint</div> <!-- Compliant - whitelisted element -->
+<div onmouseout="hideHint()">Hide hint</div> <!-- Compliant - whitelisted element -->
