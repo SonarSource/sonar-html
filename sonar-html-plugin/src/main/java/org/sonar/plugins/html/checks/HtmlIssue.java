@@ -34,11 +34,15 @@ public class HtmlIssue {
     this.cost = null;
   }
 
-  public HtmlIssue(RuleKey ruleKey, @Nullable Integer line, String message, double cost) {
+  public static HtmlIssue create(RuleKey ruleKey, @Nullable Integer line, String message, double cost) {
     if (cost <= 0) {
       throw new IllegalArgumentException("Cost cannot be <= 0");
     }
 
+    return new HtmlIssue(ruleKey, line, message, cost);
+  }
+
+  private HtmlIssue(RuleKey ruleKey, @Nullable Integer line, String message, double cost) {
     this.ruleKey = ruleKey;
     this.line = line;
     this.message = message;
