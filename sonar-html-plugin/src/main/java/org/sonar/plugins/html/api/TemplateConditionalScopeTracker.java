@@ -49,7 +49,6 @@ public final class TemplateConditionalScopeTracker {
   private static final Pattern CSHARP_BLOCK_START_PATTERN = Pattern.compile("(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern CSHARP_GENERIC_ARGUMENT_PATTERN = Pattern.compile("<\\s*[\\p{L}_][\\p{L}\\p{N}_.,:?\\[\\]\\s<>]*>");
   private static final int CSHARP_RAW_STRING_MIN_QUOTE_COUNT = 3;
-  private static final int CSHARP_EMPTY_RAW_STRING_QUOTE_COUNT = 6;
   // Angular block control flow branches: @case (value) { and @default { inside an @switch
   private static final Pattern ANGULAR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
   private static final Pattern PHP_DIRECTIVE_CONDITIONAL_START_PATTERN = Pattern.compile("(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
@@ -529,11 +528,14 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private static boolean isCompleteEmptyRawString(String text, int index, int quoteCount) {
-    if (quoteCount != CSHARP_EMPTY_RAW_STRING_QUOTE_COUNT) {
+    if (quoteCount < 2 * CSHARP_RAW_STRING_MIN_QUOTE_COUNT || quoteCount % 2 != 0) {
       return false;
     }
-    int nextTokenIndex = skipWhitespace(text, index + quoteCount);
-    return nextTokenIndex < text.length() && ";,)]}+-*/%&|^!=<>?:".indexOf(text.charAt(nextTokenIndex)) >= 0;
+    int nextIndex = index + quoteCount;
+    while (nextIndex < text.length() && isHorizontalWhitespace(text.charAt(nextIndex))) {
+      nextIndex++;
+    }
+    return nextIndex >= text.length() || !isLineBreak(text.charAt(nextIndex));
   }
 
   private static boolean hasVerbatimPrefix(String text, int quoteIndex) {

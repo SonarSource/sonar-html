@@ -385,7 +385,9 @@ class TemplateConditionalScopeTrackerTest {
   @ValueSource(strings = {
     "var markup = \"\"\"a \" <div id=\"not-rendered\">Text</div>\"\"\";",
     "var message = \"\"\"He said \"hi\"\"\"\";",
-    "var value = \"\"\"\"\"\";"
+    "var value = \"\"\"\"\"\";",
+    "var longerValue = \"\"\"\"\"\"\"\";",
+    "var length = \"\"\"\"\"\".Length;"
   })
   void tracks_plain_csharp_conditionals_after_raw_strings(String declaration) {
     List<Node> nodes = parse("""
@@ -403,6 +405,28 @@ class TemplateConditionalScopeTrackerTest {
     assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
     assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
     assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+    assertThat(scan(nodes).isInNonRenderedRazorContent()).isFalse();
+  }
+
+  @Test
+  void protects_multiline_raw_string_content_starting_with_an_operator() {
+    List<Node> nodes = parse("""
+      @{
+        var value = \"\"\"\"\"\"
+        - if (ignored) {
+        \"\"\"\"\"\";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 8)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 11)).isFalse();
     assertThat(scan(nodes).isInNonRenderedRazorContent()).isFalse();
   }
 
