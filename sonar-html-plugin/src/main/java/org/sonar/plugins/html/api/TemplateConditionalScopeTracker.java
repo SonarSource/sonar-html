@@ -45,12 +45,10 @@ public final class TemplateConditionalScopeTracker {
     "*ngIf", "*ngFor", "*ngSwitchCase", "*ngSwitchDefault"
   );
 
-  private static final Set<String> VOID_ELEMENTS = Set.of(
-    "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"
-  );
-
   private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern CSHARP_BLOCK_START_PATTERN = Pattern.compile("(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CSHARP_GENERIC_ARGUMENT_PATTERN = Pattern.compile("<\\s*[\\p{L}_][\\p{L}\\p{N}_.,:?\\[\\]\\s<>]*>");
+  private static final int CSHARP_RAW_STRING_MIN_QUOTE_COUNT = 3;
   // Angular block control flow branches: @case (value) { and @default { inside an @switch
   private static final Pattern ANGULAR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
   private static final Pattern PHP_DIRECTIVE_CONDITIONAL_START_PATTERN = Pattern.compile("(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
@@ -80,7 +78,9 @@ public final class TemplateConditionalScopeTracker {
   private boolean inCSharpBlockComment;
   private boolean escapedCSharpStringCharacter;
   private boolean verbatimCSharpString;
+  private int csharpRawStringQuoteCount;
   private char csharpStringDelimiter;
+  private boolean csharpGenericTypeArgumentExpected;
   private boolean razorCodeEnabled;
 
   public void reset() {
@@ -106,20 +106,35 @@ public final class TemplateConditionalScopeTracker {
     razorCodeBlocks.clear();
     inRazorComment = false;
     inRazorExplicitText = false;
+    csharpGenericTypeArgumentExpected = false;
     resetCSharpProtectedState();
     this.razorCodeEnabled = razorCodeEnabled;
   }
 
   public void visitText(TextNode textNode) {
-    scanFragment(textNode.getCode(), false);
+    String code = textNode.getCode();
+    if (!isInNonRenderedRazorContent()) {
+      synchronizeOpenElements(textNode.getParent());
+    }
+    scanFragment(code, false);
+    csharpGenericTypeArgumentExpected = isInRazorCodeContext()
+      && !inRazorExplicitText
+      && !isInNonRenderedRazorContent()
+      && endsWithCSharpIdentifier(code);
   }
 
   public void visitDirective(DirectiveNode directiveNode) {
+    csharpGenericTypeArgumentExpected = false;
     flushPendingBranchContinuation();
     scanFragment(unwrapDirective(directiveNode.getCode()), true);
   }
 
   public void startElement(TagNode node) {
+    if (isCSharpGenericTypeArgument(node)) {
+      csharpGenericTypeArgumentExpected = false;
+      return;
+    }
+    csharpGenericTypeArgumentExpected = false;
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -140,6 +155,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public void endElement(TagNode node) {
+    csharpGenericTypeArgumentExpected = false;
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -159,14 +175,9 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private void closeElement(TagNode node) {
-    if (openElements.stream().noneMatch(openElement -> matchesClosingElement(openElement, node))) {
-      return;
-    }
-    TagNode closedElement;
-    do {
-      closedElement = openElements.peek();
+    if (!openElements.isEmpty() && matchesClosingElement(openElements.peek(), node)) {
       closeCurrentElement();
-    } while (!matchesClosingElement(closedElement, node));
+    }
     discardClosedMarkupScopes();
   }
 
@@ -356,6 +367,10 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private void consumeCSharpStringCharacter(String text, FragmentScanState state) {
+    if (csharpRawStringQuoteCount > 0) {
+      consumeCSharpRawStringCharacter(text, state);
+      return;
+    }
     char current = text.charAt(state.index);
     if (isEscapedVerbatimQuote(text, state, current)) {
       state.index += 2;
@@ -363,6 +378,17 @@ public final class TemplateConditionalScopeTracker {
     }
     updateCSharpStringState(current);
     state.index++;
+  }
+
+  private void consumeCSharpRawStringCharacter(String text, FragmentScanState state) {
+    int quoteCount = consecutiveQuoteCount(text, state.index);
+    if (quoteCount >= csharpRawStringQuoteCount) {
+      state.index += csharpRawStringQuoteCount;
+      csharpRawStringQuoteCount = 0;
+      csharpStringDelimiter = '\0';
+    } else {
+      state.index += Math.max(quoteCount, 1);
+    }
   }
 
   private boolean isEscapedVerbatimQuote(String text, FragmentScanState state, char current) {
@@ -408,8 +434,18 @@ public final class TemplateConditionalScopeTracker {
       return true;
     }
     char current = text.charAt(state.index);
+    int quoteCount = consecutiveQuoteCount(text, state.index);
+    if (quoteCount >= CSHARP_RAW_STRING_MIN_QUOTE_COUNT) {
+      csharpStringDelimiter = '"';
+      csharpRawStringQuoteCount = quoteCount;
+      escapedCSharpStringCharacter = false;
+      verbatimCSharpString = false;
+      state.index += quoteCount;
+      return true;
+    }
     if (current == '\'' || current == '"') {
       csharpStringDelimiter = current;
+      csharpRawStringQuoteCount = 0;
       escapedCSharpStringCharacter = false;
       verbatimCSharpString = current == '"' && hasVerbatimPrefix(text, state.index);
       state.index++;
@@ -447,6 +483,32 @@ public final class TemplateConditionalScopeTracker {
 
   private boolean isInRazorCodeContext() {
     return !razorCodeBlocks.isEmpty() && currentElementDepth() <= razorCodeBlocks.peek().elementDepth();
+  }
+
+  private boolean isCSharpGenericTypeArgument(TagNode node) {
+    return csharpGenericTypeArgumentExpected
+      && isInRazorCodeContext()
+      && CSHARP_GENERIC_ARGUMENT_PATTERN.matcher(node.getCode()).matches();
+  }
+
+  private static boolean endsWithCSharpIdentifier(String text) {
+    int index = text.length() - 1;
+    while (index >= 0 && isHorizontalWhitespace(text.charAt(index))) {
+      index--;
+    }
+    return index >= 0 && (Character.isLetterOrDigit(text.charAt(index)) || text.charAt(index) == '_');
+  }
+
+  private static boolean isHorizontalWhitespace(char character) {
+    return character == ' ' || character == '\t' || character == '\f';
+  }
+
+  private static int consecutiveQuoteCount(String text, int index) {
+    int quoteCount = 0;
+    while (index + quoteCount < text.length() && text.charAt(index + quoteCount) == '"') {
+      quoteCount++;
+    }
+    return quoteCount;
   }
 
   private static boolean hasVerbatimPrefix(String text, int quoteIndex) {
@@ -775,6 +837,7 @@ public final class TemplateConditionalScopeTracker {
     inCSharpBlockComment = false;
     escapedCSharpStringCharacter = false;
     verbatimCSharpString = false;
+    csharpRawStringQuoteCount = 0;
     csharpStringDelimiter = '\0';
   }
 
@@ -1114,7 +1177,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private static boolean tracksElementDepth(TagNode node) {
-    return node.hasEnd() || !VOID_ELEMENTS.contains(node.getNodeName().toLowerCase(Locale.ROOT));
+    return node.hasEnd() || !HtmlConstants.VOID_ELEMENTS.contains(node.getNodeName().toLowerCase(Locale.ROOT));
   }
 
   private static boolean isWordStart(String text, int index) {

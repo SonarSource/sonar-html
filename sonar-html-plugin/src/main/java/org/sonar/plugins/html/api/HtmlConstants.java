@@ -47,6 +47,15 @@ public class HtmlConstants {
    * output is HTML.
    */
   public static final List<String> OTHER_FILE_SUFFIXES = List.of("php", "php3", "php4", "php5", "phtml", "inc", "vue");
+
+  /**
+   * Void elements can't have any content.
+   * See https://html.spec.whatwg.org/multipage/syntax.html#void-elements
+   */
+  public static final Set<String> VOID_ELEMENTS = Set.of(
+    "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"
+  );
+
   public static final List<String> KNOWN_HTML_TAGS = List.of(
     "a",
     "acronym", // deprecated

@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.NodeType;
 import org.sonar.plugins.html.node.TagNode;
@@ -68,13 +69,6 @@ public class PageLexer {
     new NormalElementTokenizer(),
     /* Text (for everything else) */
     new TextTokenizer());
-
-  /**
-   * Void elements can't have any content
-   * See https://html.spec.whatwg.org/multipage/syntax.html#void-elements
-   */
-  static final Set<String> VOID_ELEMENTS = new HashSet<>(Arrays.asList("area", "base", "br", "col", "embed",
-    "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"));
 
   private static final Set<String> METADATA_CONTENT = new HashSet<>(Arrays.asList("base", "link", "meta", "noscript",
     "script", "style", "template", "title"));
@@ -195,7 +189,7 @@ public class PageLexer {
   }
 
   private static boolean isVoidElement(TagNode parent) {
-    return VOID_ELEMENTS.contains(nodeName(parent));
+    return HtmlConstants.VOID_ELEMENTS.contains(nodeName(parent));
   }
 
   private static boolean isHtmlElement(TagNode parent) {

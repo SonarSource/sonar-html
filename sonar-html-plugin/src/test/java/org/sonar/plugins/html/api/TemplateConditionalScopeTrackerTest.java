@@ -210,6 +210,24 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void follows_lexer_hierarchy_when_malformed_markup_contains_custom_elements() {
+    List<Node> nodes = parse("""
+      @{
+        <div>
+          <my-widget>
+        </div>
+        if (rendered) {
+          <span id="duplicate">First</span>
+          <span id="duplicate">Second</span>
+        }
+      }
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "span", 6)).isFalse();
+    assertThat(isConditionalAtLine(nodes, "span", 7)).isFalse();
+  }
+
+  @Test
   void tracks_plain_csharp_conditionals_after_unmatched_comment_tags() {
     List<Node> nodes = parse("""
       <section>
@@ -322,6 +340,44 @@ class TemplateConditionalScopeTrackerTest {
     assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
     assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
     assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void tracks_plain_csharp_conditionals_after_generic_type_arguments() {
+    List<Node> nodes = parse("""
+      @{
+        var items = new List<string>();
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void tracks_plain_csharp_conditionals_after_raw_strings() {
+    List<Node> nodes = parse(
+      "@{\n"
+        + "  var markup = \"\"\"a \" <div id=\"not-rendered\">Text</div>\"\"\";\n"
+        + "  if (Model.ShowPrimary) {\n"
+        + "    <div id=\"choice\">First</div>\n"
+        + "  } else {\n"
+        + "    <div id=\"choice\">Second</div>\n"
+        + "  }\n"
+        + "}\n"
+        + "<div id=\"footer\">Footer</div>\n");
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+    assertThat(scan(nodes).isInNonRenderedRazorContent()).isFalse();
   }
 
   @Test
