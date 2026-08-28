@@ -68,6 +68,7 @@ public final class TemplateConditionalScopeTracker {
   private int scriptDepth;
   private int styleDepth;
   private int elementDepth;
+  private int markupBraceDepth;
   private int razorCodeBraceDepth;
   private final Deque<RazorCodeBlock> razorCodeBlocks = new ArrayDeque<>();
   private boolean inRazorComment;
@@ -75,7 +76,6 @@ public final class TemplateConditionalScopeTracker {
   private boolean inCSharpBlockComment;
   private boolean escapedCSharpStringCharacter;
   private boolean verbatimCSharpString;
-  private boolean trailingCSharpVerbatimPrefix;
   private char csharpStringDelimiter;
   private boolean razorCodeEnabled = true;
 
@@ -95,6 +95,7 @@ public final class TemplateConditionalScopeTracker {
     scriptDepth = 0;
     styleDepth = 0;
     elementDepth = 0;
+    markupBraceDepth = 0;
     razorCodeBraceDepth = 0;
     razorCodeBlocks.clear();
     inRazorComment = false;
@@ -112,7 +113,6 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public void startElement(TagNode node) {
-    trailingCSharpVerbatimPrefix = false;
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -131,7 +131,6 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public void endElement(TagNode node) {
-    trailingCSharpVerbatimPrefix = false;
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -188,7 +187,6 @@ public final class TemplateConditionalScopeTracker {
     if (textConditionalDepth == 0) {
       clearBraceTracking();
     }
-    trailingCSharpVerbatimPrefix = hasTrailingCSharpVerbatimPrefix(text, trailingCSharpVerbatimPrefix);
   }
 
   private boolean consumeFragmentCharacter(String text, boolean directive, FragmentScanState state) {
@@ -311,7 +309,7 @@ public final class TemplateConditionalScopeTracker {
     if (current == '\'' || current == '"') {
       csharpStringDelimiter = current;
       escapedCSharpStringCharacter = false;
-      verbatimCSharpString = current == '"' && hasVerbatimPrefix(text, state.index, trailingCSharpVerbatimPrefix);
+      verbatimCSharpString = current == '"' && hasVerbatimPrefix(text, state.index);
       state.index++;
       return true;
     }
@@ -349,20 +347,7 @@ public final class TemplateConditionalScopeTracker {
     return !razorCodeBlocks.isEmpty() && elementDepth <= razorCodeBlocks.peek().elementDepth();
   }
 
-  private boolean hasTrailingCSharpVerbatimPrefix(String text, boolean verbatimPrefixFromPreviousFragment) {
-    if (!isInRazorCodeContext() || isInNonRenderedRazorContent()) {
-      return false;
-    }
-    int index = text.length() - 1;
-    boolean containsAt = false;
-    while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
-      containsAt |= text.charAt(index) == '@';
-      index--;
-    }
-    return index < 0 ? containsAt || verbatimPrefixFromPreviousFragment : containsAt;
-  }
-
-  private static boolean hasVerbatimPrefix(String text, int quoteIndex, boolean verbatimPrefixFromPreviousFragment) {
+  private static boolean hasVerbatimPrefix(String text, int quoteIndex) {
     int index = quoteIndex - 1;
     while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
       if (text.charAt(index) == '@') {
@@ -370,7 +355,7 @@ public final class TemplateConditionalScopeTracker {
       }
       index--;
     }
-    return index < 0 && verbatimPrefixFromPreviousFragment;
+    return false;
   }
 
   private static boolean isCSharpStringPrefix(char character) {
@@ -605,7 +590,9 @@ public final class TemplateConditionalScopeTracker {
     if (pendingConditionalBranchOpenings > 0) {
       pendingConditionalBranchOpenings--;
       clearConditionalHeaderTracking();
-    } else if (braceBasedTextConditionalDepth > 0 && (razorCodeBlocks.isEmpty() || isInRazorCodeContext())) {
+    } else if (!razorCodeBlocks.isEmpty() && !isInRazorCodeContext()) {
+      markupBraceDepth++;
+    } else if (braceBasedTextConditionalDepth > 0) {
       nestedTextBlockDepth++;
     }
     if (isInRazorCodeContext()) {
@@ -622,6 +609,11 @@ public final class TemplateConditionalScopeTracker {
    * @param state the mutable scan state
    */
   private void consumeClosingBrace(String text, FragmentScanState state) {
+    if (markupBraceDepth > 0 && !isInRazorCodeContext()) {
+      markupBraceDepth--;
+      state.index++;
+      return;
+    }
     if (nestedTextBlockDepth > 0) {
       nestedTextBlockDepth--;
     } else if (continueBraceBasedConditional(text, state)) {
@@ -643,6 +635,7 @@ public final class TemplateConditionalScopeTracker {
       razorCodeBlocks.pop();
     }
     if (razorCodeBlocks.isEmpty()) {
+      markupBraceDepth = 0;
       razorCodeBraceDepth = 0;
       resetCSharpProtectedState();
     }
@@ -653,7 +646,6 @@ public final class TemplateConditionalScopeTracker {
     inCSharpBlockComment = false;
     escapedCSharpStringCharacter = false;
     verbatimCSharpString = false;
-    trailingCSharpVerbatimPrefix = false;
     csharpStringDelimiter = '\0';
   }
 

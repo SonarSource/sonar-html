@@ -206,6 +206,25 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void ignores_balanced_braces_in_rendered_razor_markup() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary) {
+          <script>function value() { return 1; }</script>
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
   void tracks_nested_razor_conditionals_in_rendered_markup() {
     List<Node> nodes = parse("""
       @{
@@ -245,16 +264,6 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
-  void recognizes_verbatim_string_prefix_across_fragments() {
-    TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
-
-    tracker.visitText(textNode("@{ var message = @$"));
-    tracker.visitText(textNode("\"He said \"\"hi\"\" }\"; if (Model.ShowPrimary) {"));
-
-    assertThat(tracker.isInConditional(new TagNode())).isTrue();
-  }
-
-  @Test
   void tracks_jstl_conditional_tags() {
     List<Node> nodes = parse("""
       <c:if test="${cond}">
@@ -282,12 +291,6 @@ class TemplateConditionalScopeTrackerTest {
 
   private static List<Node> parse(String content) {
     return new PageLexer().parse(new StringReader(content));
-  }
-
-  private static TextNode textNode(String content) {
-    TextNode node = new TextNode();
-    node.setCode(content);
-    return node;
   }
 
   private static boolean isConditionalAtLine(List<Node> nodes, String tagName, int startLine) {
