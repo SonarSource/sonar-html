@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
@@ -142,7 +143,7 @@ public final class TemplateConditionalScopeTracker {
     closeElement(node);
   }
 
-  private void synchronizeOpenElements(TagNode parent) {
+  private void synchronizeOpenElements(@Nullable TagNode parent) {
     if (parent == null) {
       closeAllOpenElements();
     } else if (openElements.contains(parent)) {
@@ -154,7 +155,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private void closeElement(TagNode node) {
-    if (!openElements.stream().anyMatch(openElement -> matchesClosingElement(openElement, node))) {
+    if (openElements.stream().noneMatch(openElement -> matchesClosingElement(openElement, node))) {
       return;
     }
     TagNode closedElement;
@@ -196,7 +197,7 @@ public final class TemplateConditionalScopeTracker {
 
   private static boolean matchesClosingElement(TagNode openElement, TagNode closingElement) {
     return closingElement.hasEnd()
-      ? openElement == closingElement
+      ? (openElement == closingElement)
       : openElement.equalsElementName(closingElement.getNodeName());
   }
 
