@@ -339,6 +339,60 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void does_not_start_explicit_razor_text_inside_csharp_line_comments() {
+    List<Node> nodes = parse("""
+      @{
+        // Use @: for explicit Razor text.
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void does_not_start_explicit_razor_text_inside_csharp_strings() {
+    List<Node> nodes = parse("""
+      @{
+        var marker = "a@:b";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void closes_csharp_conditionals_when_branch_markup_is_left_open() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary) {
+          <div id="choice">First }
+      }
+      <div id="duplicate">First</div>
+      <div id="duplicate">Second</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 3)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 5)).isFalse();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isFalse();
+  }
+
+  @Test
   void requires_razor_code_tracking_to_be_enabled_explicitly() {
     List<Node> nodes = parse("""
       @{

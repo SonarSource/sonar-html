@@ -69,9 +69,10 @@ public final class TemplateConditionalScopeTracker {
   private int scriptDepth;
   private int styleDepth;
   private int razorCodeBraceDepth;
+  private int pendingRenderedClosingBraceDepth;
   private final Deque<TagNode> openElements = new ArrayDeque<>();
   private final Deque<Integer> markupBraceDepths = new ArrayDeque<>();
-  private final Deque<Integer> renderedConditionalBraceDepths = new ArrayDeque<>();
+  private final Deque<ConditionalBrace> conditionalBraces = new ArrayDeque<>();
   private final Deque<RazorCodeBlock> razorCodeBlocks = new ArrayDeque<>();
   private boolean inRazorComment;
   private boolean inRazorExplicitText;
@@ -98,9 +99,10 @@ public final class TemplateConditionalScopeTracker {
     scriptDepth = 0;
     styleDepth = 0;
     razorCodeBraceDepth = 0;
+    pendingRenderedClosingBraceDepth = -1;
     openElements.clear();
     markupBraceDepths.clear();
-    renderedConditionalBraceDepths.clear();
+    conditionalBraces.clear();
     razorCodeBlocks.clear();
     inRazorComment = false;
     inRazorExplicitText = false;
@@ -122,6 +124,7 @@ public final class TemplateConditionalScopeTracker {
       return;
     }
     synchronizeOpenElements(node.getParent());
+    resolvePendingRenderedClosingBrace();
     flushPendingBranchContinuation();
     if (isJstlConditionalTag(node)) {
       tagConditionalDepth++;
@@ -141,6 +144,7 @@ public final class TemplateConditionalScopeTracker {
       return;
     }
     closeElement(node);
+    discardPendingRenderedClosingBrace();
   }
 
   private void synchronizeOpenElements(@Nullable TagNode parent) {
@@ -189,9 +193,31 @@ public final class TemplateConditionalScopeTracker {
     while (!markupBraceDepths.isEmpty() && markupBraceDepths.peek() > elementDepth) {
       markupBraceDepths.pop();
     }
-    while (!renderedConditionalBraceDepths.isEmpty() && renderedConditionalBraceDepths.peek() > elementDepth) {
-      renderedConditionalBraceDepths.pop();
-      closeBraceBasedConditional();
+    while (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() > elementDepth) {
+      recoverConditionalBrace(conditionalBraces.pop());
+    }
+  }
+
+  private void resolvePendingRenderedClosingBrace() {
+    if (pendingRenderedClosingBraceDepth < 0) {
+      return;
+    }
+    if (currentElementDepth() >= pendingRenderedClosingBraceDepth && !conditionalBraces.isEmpty()) {
+      recoverConditionalBrace(conditionalBraces.pop());
+    }
+    pendingRenderedClosingBraceDepth = -1;
+  }
+
+  private void discardPendingRenderedClosingBrace() {
+    if (currentElementDepth() < pendingRenderedClosingBraceDepth) {
+      pendingRenderedClosingBraceDepth = -1;
+    }
+  }
+
+  private void recoverConditionalBrace(ConditionalBrace conditionalBrace) {
+    closeBraceBasedConditional();
+    if (conditionalBrace.razorBraceTracked()) {
+      razorCodeBraceDepth--;
     }
   }
 
@@ -251,8 +277,8 @@ public final class TemplateConditionalScopeTracker {
     boolean fullCode = directive || isScanningConditionalHeader();
     boolean slashComments = fullCode || scriptDepth > 0;
     boolean stringsAndBlockComments = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
-    return consumeRazorExplicitText(text, state)
-      || consumePersistentRazorProtectedCharacter(text, state)
+    return consumePersistentRazorProtectedCharacter(text, state)
+      || consumeRazorExplicitText(text, state)
       || consumePersistentRazorProtectedStart(text, state)
       || consumeProtectedCharacter(text, state)
       || consumeCommentOrStringStart(text, directive, fullCode, slashComments, stringsAndBlockComments, state)
@@ -271,7 +297,8 @@ public final class TemplateConditionalScopeTracker {
       state.index++;
       return true;
     }
-    if (razorCodeEnabled && isInRazorCodeContext() && startsWith(text, state.index, "@:")) {
+    if (razorCodeEnabled && !isInPersistentRazorComment() && csharpStringDelimiter == '\0'
+      && isInRazorCodeContext() && startsWith(text, state.index, "@:")) {
       inRazorExplicitText = true;
       state.index += 2;
       return true;
@@ -662,18 +689,19 @@ public final class TemplateConditionalScopeTracker {
    * @return always {@code true}
    */
   private boolean consumeOpeningBrace(FragmentScanState state) {
+    boolean inRazorCodeContext = isInRazorCodeContext();
     if (pendingConditionalBranchOpenings > 0) {
       pendingConditionalBranchOpenings--;
       clearConditionalHeaderTracking();
-      if (!razorCodeBlocks.isEmpty() && !isInRazorCodeContext()) {
-        renderedConditionalBraceDepths.push(currentElementDepth());
+      if (!razorCodeBlocks.isEmpty()) {
+        conditionalBraces.push(new ConditionalBrace(currentElementDepth(), inRazorCodeContext));
       }
-    } else if (!razorCodeBlocks.isEmpty() && !isInRazorCodeContext()) {
+    } else if (!razorCodeBlocks.isEmpty() && !inRazorCodeContext) {
       markupBraceDepths.push(currentElementDepth());
     } else if (braceBasedTextConditionalDepth > 0) {
       nestedTextBlockDepth++;
     }
-    if (isInRazorCodeContext()) {
+    if (inRazorCodeContext) {
       razorCodeBraceDepth++;
     }
     state.index++;
@@ -687,19 +715,27 @@ public final class TemplateConditionalScopeTracker {
    * @param state the mutable scan state
    */
   private void consumeClosingBrace(String text, FragmentScanState state) {
-    if (!razorCodeBlocks.isEmpty() && !isInRazorCodeContext()) {
+    boolean inRazorCodeContext = isInRazorCodeContext();
+    if (!razorCodeBlocks.isEmpty() && !inRazorCodeContext) {
       int elementDepth = currentElementDepth();
       if (!markupBraceDepths.isEmpty() && markupBraceDepths.peek() == elementDepth) {
         markupBraceDepths.pop();
         state.index++;
         return;
       }
-      if (!renderedConditionalBraceDepths.isEmpty() && renderedConditionalBraceDepths.peek() == elementDepth) {
-        renderedConditionalBraceDepths.pop();
+      if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth) {
+        conditionalBraces.pop();
+      } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth) {
+        pendingRenderedClosingBraceDepth = elementDepth;
+        state.index++;
+        return;
       } else {
         state.index++;
         return;
       }
+    } else if (!conditionalBraces.isEmpty() && nestedTextBlockDepth == 0
+      && conditionalBraces.peek().elementDepth() == currentElementDepth()) {
+      conditionalBraces.pop();
     }
     if (nestedTextBlockDepth > 0) {
       nestedTextBlockDepth--;
@@ -723,7 +759,8 @@ public final class TemplateConditionalScopeTracker {
     }
     if (razorCodeBlocks.isEmpty()) {
       markupBraceDepths.clear();
-      renderedConditionalBraceDepths.clear();
+      conditionalBraces.clear();
+      pendingRenderedClosingBraceDepth = -1;
       razorCodeBraceDepth = 0;
       inRazorExplicitText = false;
       resetCSharpProtectedState();
@@ -881,7 +918,8 @@ public final class TemplateConditionalScopeTracker {
     pendingConditionalBranchOpenings = 0;
     clearConditionalHeaderTracking();
     nestedTextBlockDepth = 0;
-    renderedConditionalBraceDepths.clear();
+    conditionalBraces.clear();
+    pendingRenderedClosingBraceDepth = -1;
   }
 
   /**
@@ -1197,6 +1235,9 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private record RazorCodeBlock(int openingBraceDepth, int elementDepth) {
+  }
+
+  private record ConditionalBrace(int elementDepth, boolean razorBraceTracked) {
   }
 
   private static boolean isLineBreak(char character) {
