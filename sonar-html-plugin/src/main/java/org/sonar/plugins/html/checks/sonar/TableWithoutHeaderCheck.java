@@ -33,6 +33,8 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
+  private static final String TABLE_TAG = "TABLE";
+
   private final Set<TagNode> tablesWithRazorFragmentRendering = new HashSet<>();
   private boolean isVueFile;
 
@@ -88,7 +90,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean isStructuralTableContext(TagNode node) {
     String name = node.getNodeName();
-    return "TABLE".equalsIgnoreCase(name)
+    return TABLE_TAG.equalsIgnoreCase(name)
       || "THEAD".equalsIgnoreCase(name)
       || "TBODY".equalsIgnoreCase(name)
       || "TFOOT".equalsIgnoreCase(name)
@@ -96,11 +98,11 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   }
 
   private boolean isTable(TagNode node) {
-    return isVueFile ? "table".equals(node.getNodeName()) : "TABLE".equalsIgnoreCase(node.getNodeName());
+    return isVueFile ? "table".equals(node.getNodeName()) : TABLE_TAG.equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isTableScope(TagNode node) {
-    return "TABLE".equalsIgnoreCase(node.getNodeName());
+    return TABLE_TAG.equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isLayout(TagNode node) {
