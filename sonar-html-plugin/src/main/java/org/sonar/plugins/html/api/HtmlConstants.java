@@ -26,6 +26,12 @@ import org.sonar.plugins.html.node.TagNode;
 
 public class HtmlConstants {
 
+  private static final String EMBED_TAG = "embed";
+  private static final String INPUT_TAG = "input";
+  private static final String PARAM_TAG = "param";
+  private static final String SOURCE_TAG = "source";
+  private static final String TRACK_TAG = "track";
+
   /** The language key. */
   public static final String LANGUAGE_KEY = "web";
   public static final String LANGUAGE_NAME = "HTML";
@@ -53,7 +59,7 @@ public class HtmlConstants {
    * See https://html.spec.whatwg.org/multipage/syntax.html#void-elements
    */
   public static final Set<String> VOID_ELEMENTS = Set.of(
-    "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"
+    "area", "base", "br", "col", EMBED_TAG, "hr", "img", INPUT_TAG, "link", "meta", PARAM_TAG, SOURCE_TAG, TRACK_TAG, "wbr"
   );
 
   public static final List<String> KNOWN_HTML_TAGS = List.of(
@@ -96,7 +102,7 @@ public class HtmlConstants {
     "dl",
     "dt",
     "em",
-    "embed",
+    EMBED_TAG,
     "fieldset",
     "figcaption",
     "figure",
@@ -120,7 +126,7 @@ public class HtmlConstants {
     "iframe",
     "image", // deprecated
     "img",
-    "input",
+    INPUT_TAG,
     "ins",
     "kbd",
     "keygen", // deprecated
@@ -147,7 +153,7 @@ public class HtmlConstants {
     "option",
     "output",
     "p",
-    "param", // deprecated
+    PARAM_TAG, // deprecated
     "picture",
     "plaintext", // deprecated
     "pre",
@@ -166,7 +172,7 @@ public class HtmlConstants {
     "select",
     "shadow", // deprecated
     "small",
-    "source",
+    SOURCE_TAG,
     "spacer", // deprecated
     "span",
     "strike", // deprecated
@@ -187,7 +193,7 @@ public class HtmlConstants {
     "time",
     "title",
     "tr",
-    "track",
+    TRACK_TAG,
     "tt", // deprecated
     "u",
     "ul",
@@ -198,7 +204,7 @@ public class HtmlConstants {
   );
 
   // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isInteractiveElement.js
-  public static final Set<String> INTERACTIVE_ELEMENTS = Set.of("a", "audio", "button", "canvas", "datalist", "embed", "input", "menuitem", "option", "select", "summary",
+  public static final Set<String> INTERACTIVE_ELEMENTS = Set.of("a", "audio", "button", "canvas", "datalist", EMBED_TAG, INPUT_TAG, "menuitem", "option", "select", "summary",
     "td", "textarea", "th", "tr", "video");
 
   // computed from https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/util/isNonInteractiveElement.js
@@ -232,7 +238,7 @@ public class HtmlConstants {
 
   // computed from https://github.com/A11yance/aria-query/blob/main/src/domMap.js
   public static final Set<String> RESERVED_NODE_SET = Set.of(
-    "base", "col", "colgroup", "head", "html", "link", "meta", "noembed", "noscript", "param", "picture", "script", "source", "style", "title", "track"
+    "base", "col", "colgroup", "head", "html", "link", "meta", "noembed", "noscript", PARAM_TAG, "picture", "script", SOURCE_TAG, "style", "title", TRACK_TAG
   );
 
   public static boolean isInteractiveElement(TagNode element) {

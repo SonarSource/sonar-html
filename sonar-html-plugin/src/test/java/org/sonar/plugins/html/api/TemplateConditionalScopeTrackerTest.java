@@ -363,16 +363,17 @@ class TemplateConditionalScopeTrackerTest {
 
   @Test
   void tracks_plain_csharp_conditionals_after_raw_strings() {
-    List<Node> nodes = parse(
-      "@{\n"
-        + "  var markup = \"\"\"a \" <div id=\"not-rendered\">Text</div>\"\"\";\n"
-        + "  if (Model.ShowPrimary) {\n"
-        + "    <div id=\"choice\">First</div>\n"
-        + "  } else {\n"
-        + "    <div id=\"choice\">Second</div>\n"
-        + "  }\n"
-        + "}\n"
-        + "<div id=\"footer\">Footer</div>\n");
+    List<Node> nodes = parse("""
+      @{
+        var markup = \"""a " <div id="not-rendered">Text</div>\""";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
 
     assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
     assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
