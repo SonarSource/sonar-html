@@ -347,6 +347,7 @@ class TemplateConditionalScopeTrackerTest {
     List<Node> nodes = parse("""
       @{
         var items = new List<string>();
+        var objects = new List<object>();
         if (Model.ShowPrimary) {
           <div id="choice">First</div>
         } else {
@@ -356,9 +357,9 @@ class TemplateConditionalScopeTrackerTest {
       <div id="footer">Footer</div>
       """);
 
-    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
-    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
-    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+    assertThat(isConditionalAtLine(nodes, "div", 5)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 7)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 10)).isFalse();
   }
 
   @Test
@@ -403,6 +404,26 @@ class TemplateConditionalScopeTrackerTest {
     List<Node> nodes = parse("""
       @{
         var message = \"\"\"He said \"hi\"\"\"\";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+    assertThat(scan(nodes).isInNonRenderedRazorContent()).isFalse();
+  }
+
+  @Test
+  void recognizes_empty_raw_strings() {
+    List<Node> nodes = parse("""
+      @{
+        var value = \"\"\"\"\"\";
         if (Model.ShowPrimary) {
           <div id="choice">First</div>
         } else {

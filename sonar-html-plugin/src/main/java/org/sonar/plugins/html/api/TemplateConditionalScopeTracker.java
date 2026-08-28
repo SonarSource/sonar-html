@@ -49,6 +49,7 @@ public final class TemplateConditionalScopeTracker {
   private static final Pattern CSHARP_BLOCK_START_PATTERN = Pattern.compile("(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern CSHARP_GENERIC_ARGUMENT_PATTERN = Pattern.compile("<\\s*[\\p{L}_][\\p{L}\\p{N}_.,:?\\[\\]\\s<>]*>");
   private static final int CSHARP_RAW_STRING_MIN_QUOTE_COUNT = 3;
+  private static final int CSHARP_EMPTY_RAW_STRING_QUOTE_COUNT = 6;
   // Angular block control flow branches: @case (value) { and @default { inside an @switch
   private static final Pattern ANGULAR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
   private static final Pattern PHP_DIRECTIVE_CONDITIONAL_START_PATTERN = Pattern.compile("(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
@@ -80,7 +81,7 @@ public final class TemplateConditionalScopeTracker {
   private boolean verbatimCSharpString;
   private int csharpRawStringQuoteCount;
   private char csharpStringDelimiter;
-  private boolean csharpGenericTypeArgumentExpected;
+  private char csharpGenericTypeOwnerInitial;
   private boolean razorCodeEnabled;
 
   public void reset() {
@@ -106,7 +107,7 @@ public final class TemplateConditionalScopeTracker {
     razorCodeBlocks.clear();
     inRazorComment = false;
     inRazorExplicitText = false;
-    csharpGenericTypeArgumentExpected = false;
+    csharpGenericTypeOwnerInitial = '\0';
     resetCSharpProtectedState();
     this.razorCodeEnabled = razorCodeEnabled;
   }
@@ -117,24 +118,25 @@ public final class TemplateConditionalScopeTracker {
       synchronizeOpenElements(textNode.getParent());
     }
     scanFragment(code, false);
-    csharpGenericTypeArgumentExpected = isInRazorCodeContext()
+    csharpGenericTypeOwnerInitial = isInRazorCodeContext()
       && !inRazorExplicitText
       && !isInNonRenderedRazorContent()
-      && endsWithCSharpIdentifier(code);
+      ? trailingCSharpIdentifierInitial(code)
+      : '\0';
   }
 
   public void visitDirective(DirectiveNode directiveNode) {
-    csharpGenericTypeArgumentExpected = false;
+    csharpGenericTypeOwnerInitial = '\0';
     flushPendingBranchContinuation();
     scanFragment(unwrapDirective(directiveNode.getCode()), true);
   }
 
   public void startElement(TagNode node) {
-    if (isCSharpGenericTypeArgument(node)) {
-      csharpGenericTypeArgumentExpected = false;
+    boolean csharpGenericTypeArgument = isCSharpGenericTypeArgument(node);
+    csharpGenericTypeOwnerInitial = '\0';
+    if (csharpGenericTypeArgument) {
       return;
     }
-    csharpGenericTypeArgumentExpected = false;
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -155,7 +157,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public void endElement(TagNode node) {
-    csharpGenericTypeArgumentExpected = false;
+    csharpGenericTypeOwnerInitial = '\0';
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -435,6 +437,10 @@ public final class TemplateConditionalScopeTracker {
     }
     char current = text.charAt(state.index);
     int quoteCount = consecutiveQuoteCount(text, state.index);
+    if (isCompleteEmptyRawString(text, state.index, quoteCount)) {
+      state.index += quoteCount;
+      return true;
+    }
     if (quoteCount >= CSHARP_RAW_STRING_MIN_QUOTE_COUNT) {
       csharpStringDelimiter = '"';
       csharpRawStringQuoteCount = quoteCount;
@@ -486,18 +492,28 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private boolean isCSharpGenericTypeArgument(TagNode node) {
-    return csharpGenericTypeArgumentExpected
+    return csharpGenericTypeOwnerInitial != '\0'
       && isInRazorCodeContext()
-      && !HtmlConstants.hasKnownHTMLTag(node)
+      && (!HtmlConstants.hasKnownHTMLTag(node) || Character.isUpperCase(csharpGenericTypeOwnerInitial))
       && CSHARP_GENERIC_ARGUMENT_PATTERN.matcher(node.getCode()).matches();
   }
 
-  private static boolean endsWithCSharpIdentifier(String text) {
+  private static char trailingCSharpIdentifierInitial(String text) {
     int index = text.length() - 1;
     while (index >= 0 && isHorizontalWhitespace(text.charAt(index))) {
       index--;
     }
-    return index >= 0 && (Character.isLetterOrDigit(text.charAt(index)) || text.charAt(index) == '_');
+    if (index < 0 || !isCSharpIdentifierPart(text.charAt(index))) {
+      return '\0';
+    }
+    while (index > 0 && isCSharpIdentifierPart(text.charAt(index - 1))) {
+      index--;
+    }
+    return text.charAt(index);
+  }
+
+  private static boolean isCSharpIdentifierPart(char character) {
+    return Character.isLetterOrDigit(character) || character == '_';
   }
 
   private static boolean isHorizontalWhitespace(char character) {
@@ -510,6 +526,14 @@ public final class TemplateConditionalScopeTracker {
       quoteCount++;
     }
     return quoteCount;
+  }
+
+  private static boolean isCompleteEmptyRawString(String text, int index, int quoteCount) {
+    if (quoteCount != CSHARP_EMPTY_RAW_STRING_QUOTE_COUNT) {
+      return false;
+    }
+    int nextTokenIndex = skipWhitespace(text, index + quoteCount);
+    return nextTokenIndex < text.length() && ";,)]}+-*/%&|^!=<>?:".indexOf(text.charAt(nextTokenIndex)) >= 0;
   }
 
   private static boolean hasVerbatimPrefix(String text, int quoteIndex) {
