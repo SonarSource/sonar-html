@@ -168,6 +168,48 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void tracks_plain_csharp_conditionals_after_omitted_end_tags() {
+    List<Node> nodes = parse("""
+      @{
+        <ul>
+          <li>First
+          <li>Second
+        </ul>
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 7)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 12)).isFalse();
+  }
+
+  @Test
+  void does_not_parse_csharp_after_orphan_closing_tags_in_markup() {
+    List<Node> nodes = parse("""
+      <section>
+        @{
+          <article>
+          </div>
+          if (rendered) {
+            <div id="duplicate">First</div>
+            <div id="duplicate">Second</div>
+          }
+          </article>
+        }
+      </section>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isFalse();
+    assertThat(isConditionalAtLine(nodes, "div", 7)).isFalse();
+  }
+
+  @Test
   void tracks_plain_csharp_conditionals_after_unmatched_comment_tags() {
     List<Node> nodes = parse("""
       <section>
@@ -225,6 +267,25 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void ignores_unmatched_closing_braces_in_rendered_razor_markup() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary) {
+          <code>}</code>
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
   void tracks_nested_razor_conditionals_in_rendered_markup() {
     List<Node> nodes = parse("""
       @{
@@ -264,6 +325,35 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void treats_explicit_razor_text_as_rendered_content() {
+    List<Node> nodes = parse("""
+      @{
+        @:if (rendered) {
+        <div id="duplicate">First</div>
+        <div id="duplicate">Second</div>
+      }
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 3)).isFalse();
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isFalse();
+  }
+
+  @Test
+  void requires_razor_code_tracking_to_be_enabled_explicitly() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        }
+      }
+      """);
+    TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+    tracker.reset();
+
+    assertThat(isConditional(nodes, findTag(nodes, "div", 3), tracker)).isFalse();
+  }
+
+  @Test
   void tracks_jstl_conditional_tags() {
     List<Node> nodes = parse("""
       <c:if test="${cond}">
@@ -299,6 +389,11 @@ class TemplateConditionalScopeTrackerTest {
 
   private static boolean isConditional(List<Node> nodes, TagNode target) {
     TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+    tracker.reset(true);
+    return isConditional(nodes, target, tracker);
+  }
+
+  private static boolean isConditional(List<Node> nodes, TagNode target, TemplateConditionalScopeTracker tracker) {
     for (Node node : nodes) {
       if (node instanceof TextNode textNode) {
         tracker.visitText(textNode);
@@ -312,6 +407,9 @@ class TemplateConditionalScopeTrackerTest {
           if (tagNode == target) {
             return tracker.isInConditional(tagNode);
           }
+          if (tagNode.hasEnd()) {
+            tracker.endElement(tagNode);
+          }
         }
       }
     }
@@ -320,6 +418,7 @@ class TemplateConditionalScopeTrackerTest {
 
   private static TemplateConditionalScopeTracker scan(List<Node> nodes) {
     TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+    tracker.reset(true);
     for (Node node : nodes) {
       if (node instanceof TextNode textNode) {
         tracker.visitText(textNode);
@@ -330,6 +429,9 @@ class TemplateConditionalScopeTrackerTest {
           tracker.endElement(tagNode);
         } else {
           tracker.startElement(tagNode);
+          if (tagNode.hasEnd()) {
+            tracker.endElement(tagNode);
+          }
         }
       }
     }
