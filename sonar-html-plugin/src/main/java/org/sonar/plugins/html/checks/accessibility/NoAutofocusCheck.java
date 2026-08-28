@@ -31,14 +31,14 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if (!node.hasProperty("autofocus")) {
       return;
     }
-    if (Helpers.hasAncestorMatching(node, NoAutofocusCheck::isExemptAncestor)) {
+    if (isDialogOrPopover(node) || Helpers.hasAncestorMatching(node, NoAutofocusCheck::isDialogOrPopover)) {
       return;
     }
     createViolation(node, MESSAGE);
   }
 
-  private static boolean isExemptAncestor(TagNode ancestor) {
-    return "dialog".equalsIgnoreCase(ancestor.getNodeName()) || ancestor.hasProperty("popover");
+  private static boolean isDialogOrPopover(TagNode node) {
+    return "dialog".equalsIgnoreCase(node.getNodeName()) || node.hasProperty("popover");
   }
 
 }
