@@ -149,6 +149,112 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void tracks_plain_csharp_conditionals_after_void_elements() {
+    List<Node> nodes = parse("""
+      @{
+        <input id="filter" type="text">
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void tracks_plain_csharp_conditionals_after_unmatched_comment_tags() {
+    List<Node> nodes = parse("""
+      <section>
+        @{
+          // <div id="not-rendered">
+          </div>
+          if (Model.ShowPrimary) {
+            <div id="choice">First</div>
+          } else {
+            <div id="choice">Second</div>
+          }
+        }
+      </section>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 8)).isTrue();
+  }
+
+  @Test
+  void ignores_unbalanced_braces_in_rendered_razor_markup() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary) {
+          <code>if (x) {</code>
+          <div id="choice">First</div>
+        }
+      }
+      Ordinary "quoted text
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 8)).isFalse();
+    assertThat(scan(nodes).isInNonRenderedRazorContent()).isFalse();
+  }
+
+  @Test
+  void tracks_nested_razor_conditionals_in_rendered_markup() {
+    List<Node> nodes = parse("""
+      @{
+        <section>
+          @if (Model.ShowPrimary) {
+            <div id="choice">First</div>
+          } else {
+            <div id="choice">Second</div>
+          }
+        </section>
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 10)).isFalse();
+  }
+
+  @Test
+  void tracks_plain_csharp_conditionals_after_interpolated_verbatim_strings() {
+    List<Node> nodes = parse("""
+      @{
+        var message = @$"He said ""hi"" }";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void recognizes_verbatim_string_prefix_across_fragments() {
+    TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+
+    tracker.visitText(textNode("@{ var message = @$"));
+    tracker.visitText(textNode("\"He said \"\"hi\"\" }\"; if (Model.ShowPrimary) {"));
+
+    assertThat(tracker.isInConditional(new TagNode())).isTrue();
+  }
+
+  @Test
   void tracks_jstl_conditional_tags() {
     List<Node> nodes = parse("""
       <c:if test="${cond}">
@@ -178,6 +284,12 @@ class TemplateConditionalScopeTrackerTest {
     return new PageLexer().parse(new StringReader(content));
   }
 
+  private static TextNode textNode(String content) {
+    TextNode node = new TextNode();
+    node.setCode(content);
+    return node;
+  }
+
   private static boolean isConditionalAtLine(List<Node> nodes, String tagName, int startLine) {
     return isConditional(nodes, findTag(nodes, tagName, startLine));
   }
@@ -201,6 +313,24 @@ class TemplateConditionalScopeTrackerTest {
       }
     }
     throw new IllegalArgumentException("Target tag was not encountered during scan");
+  }
+
+  private static TemplateConditionalScopeTracker scan(List<Node> nodes) {
+    TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+    for (Node node : nodes) {
+      if (node instanceof TextNode textNode) {
+        tracker.visitText(textNode);
+      } else if (node instanceof DirectiveNode directiveNode) {
+        tracker.visitDirective(directiveNode);
+      } else if (node instanceof TagNode tagNode) {
+        if (tagNode.isEndElement()) {
+          tracker.endElement(tagNode);
+        } else {
+          tracker.startElement(tagNode);
+        }
+      }
+    }
+    return tracker;
   }
 
   private static TagNode findTag(List<Node> nodes, String tagName, int startLine) {

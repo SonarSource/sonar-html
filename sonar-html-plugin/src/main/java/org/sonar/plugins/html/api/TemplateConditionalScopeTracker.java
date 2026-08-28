@@ -44,6 +44,10 @@ public final class TemplateConditionalScopeTracker {
     "*ngIf", "*ngFor", "*ngSwitchCase", "*ngSwitchDefault"
   );
 
+  private static final Set<String> VOID_ELEMENTS = Set.of(
+    "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"
+  );
+
   private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern CSHARP_BLOCK_START_PATTERN = Pattern.compile("(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   // Angular block control flow branches: @case (value) { and @default { inside an @switch
@@ -71,6 +75,7 @@ public final class TemplateConditionalScopeTracker {
   private boolean inCSharpBlockComment;
   private boolean escapedCSharpStringCharacter;
   private boolean verbatimCSharpString;
+  private boolean trailingCSharpVerbatimPrefix;
   private char csharpStringDelimiter;
   private boolean razorCodeEnabled = true;
 
@@ -93,11 +98,7 @@ public final class TemplateConditionalScopeTracker {
     razorCodeBraceDepth = 0;
     razorCodeBlocks.clear();
     inRazorComment = false;
-    inCSharpLineComment = false;
-    inCSharpBlockComment = false;
-    escapedCSharpStringCharacter = false;
-    verbatimCSharpString = false;
-    csharpStringDelimiter = '\0';
+    resetCSharpProtectedState();
     this.razorCodeEnabled = razorCodeEnabled;
   }
 
@@ -111,6 +112,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public void startElement(TagNode node) {
+    trailingCSharpVerbatimPrefix = false;
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -123,10 +125,13 @@ public final class TemplateConditionalScopeTracker {
     } else if (isStyleTag(node)) {
       styleDepth++;
     }
-    elementDepth++;
+    if (tracksElementDepth(node)) {
+      elementDepth++;
+    }
   }
 
   public void endElement(TagNode node) {
+    trailingCSharpVerbatimPrefix = false;
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -183,6 +188,7 @@ public final class TemplateConditionalScopeTracker {
     if (textConditionalDepth == 0) {
       clearBraceTracking();
     }
+    trailingCSharpVerbatimPrefix = hasTrailingCSharpVerbatimPrefix(text, trailingCSharpVerbatimPrefix);
   }
 
   private boolean consumeFragmentCharacter(String text, boolean directive, FragmentScanState state) {
@@ -305,7 +311,7 @@ public final class TemplateConditionalScopeTracker {
     if (current == '\'' || current == '"') {
       csharpStringDelimiter = current;
       escapedCSharpStringCharacter = false;
-      verbatimCSharpString = current == '"' && state.index > 0 && text.charAt(state.index - 1) == '@';
+      verbatimCSharpString = current == '"' && hasVerbatimPrefix(text, state.index, trailingCSharpVerbatimPrefix);
       state.index++;
       return true;
     }
@@ -340,7 +346,35 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private boolean isInRazorCodeContext() {
-    return !razorCodeBlocks.isEmpty() && elementDepth == razorCodeBlocks.peek().elementDepth();
+    return !razorCodeBlocks.isEmpty() && elementDepth <= razorCodeBlocks.peek().elementDepth();
+  }
+
+  private boolean hasTrailingCSharpVerbatimPrefix(String text, boolean verbatimPrefixFromPreviousFragment) {
+    if (!isInRazorCodeContext() || isInNonRenderedRazorContent()) {
+      return false;
+    }
+    int index = text.length() - 1;
+    boolean containsAt = false;
+    while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
+      containsAt |= text.charAt(index) == '@';
+      index--;
+    }
+    return index < 0 ? containsAt || verbatimPrefixFromPreviousFragment : containsAt;
+  }
+
+  private static boolean hasVerbatimPrefix(String text, int quoteIndex, boolean verbatimPrefixFromPreviousFragment) {
+    int index = quoteIndex - 1;
+    while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
+      if (text.charAt(index) == '@') {
+        return true;
+      }
+      index--;
+    }
+    return index < 0 && verbatimPrefixFromPreviousFragment;
+  }
+
+  private static boolean isCSharpStringPrefix(char character) {
+    return character == '@' || character == '$';
   }
 
   private boolean isInPersistentRazorComment() {
@@ -571,10 +605,10 @@ public final class TemplateConditionalScopeTracker {
     if (pendingConditionalBranchOpenings > 0) {
       pendingConditionalBranchOpenings--;
       clearConditionalHeaderTracking();
-    } else if (braceBasedTextConditionalDepth > 0) {
+    } else if (braceBasedTextConditionalDepth > 0 && (razorCodeBlocks.isEmpty() || isInRazorCodeContext())) {
       nestedTextBlockDepth++;
     }
-    if (!razorCodeBlocks.isEmpty()) {
+    if (isInRazorCodeContext()) {
       razorCodeBraceDepth++;
     }
     state.index++;
@@ -601,13 +635,26 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private void closeRazorCodeBrace() {
-    if (razorCodeBlocks.isEmpty()) {
+    if (!isInRazorCodeContext()) {
       return;
     }
-    if (razorCodeBlocks.peek().openingBraceDepth() == razorCodeBraceDepth) {
+    razorCodeBraceDepth--;
+    if (razorCodeBraceDepth < razorCodeBlocks.peek().openingBraceDepth()) {
       razorCodeBlocks.pop();
     }
-    razorCodeBraceDepth--;
+    if (razorCodeBlocks.isEmpty()) {
+      razorCodeBraceDepth = 0;
+      resetCSharpProtectedState();
+    }
+  }
+
+  private void resetCSharpProtectedState() {
+    inCSharpLineComment = false;
+    inCSharpBlockComment = false;
+    escapedCSharpStringCharacter = false;
+    verbatimCSharpString = false;
+    trailingCSharpVerbatimPrefix = false;
+    csharpStringDelimiter = '\0';
   }
 
   /**
@@ -941,6 +988,10 @@ public final class TemplateConditionalScopeTracker {
   private static boolean isWordBoundary(String text, int index) {
     return index >= text.length()
       || (!Character.isLetterOrDigit(text.charAt(index)) && text.charAt(index) != '_');
+  }
+
+  private static boolean tracksElementDepth(TagNode node) {
+    return node.hasEnd() || !VOID_ELEMENTS.contains(node.getNodeName().toLowerCase(Locale.ROOT));
   }
 
   private static boolean isWordStart(String text, int index) {
