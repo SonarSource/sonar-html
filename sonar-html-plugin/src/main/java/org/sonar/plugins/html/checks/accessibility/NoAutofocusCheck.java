@@ -24,7 +24,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S9379")
 public class NoAutofocusCheck extends AbstractPageCheck {
 
-  private static final String MESSAGE = "Remove this \"autofocus\" attribute.";
+  private static final String MESSAGE = "The autoFocus prop should not be used, as it can reduce usability and accessibility for users.";
 
   @Override
   public void startElement(TagNode node) {

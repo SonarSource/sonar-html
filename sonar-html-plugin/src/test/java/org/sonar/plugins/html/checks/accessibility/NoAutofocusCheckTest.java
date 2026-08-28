@@ -44,7 +44,7 @@ class NoAutofocusCheckTest {
       new NoAutofocusCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(1).withMessage("Remove this \"autofocus\" attribute.")
+      .next().atLine(1).withMessage("The autoFocus prop should not be used, as it can reduce usability and accessibility for users.")
       .next().atLine(2)
       .next().atLine(3)
       .next().atLine(4)
