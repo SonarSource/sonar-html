@@ -156,8 +156,9 @@
           <pluginKey>web</pluginKey>
           <jreMinVersion>${jdk.min.version}</jreMinVersion>
           <!-- this value is translated to Sonar-Version property in META-INF/MANIFEST.MF file inside jar. It is used at runtime
-          by products to detect compatibility. We keep LTS -->
-          <pluginApiMinVersion>9.9</pluginApiMinVersion>
+          by products to detect compatibility. This is a Sonar Plugin API version (not a SonarQube Server calendar
+          version) - 11.1 is the Plugin API shipped with SonarQube Server 2025.1, the first LTA that runs on Java ${jdk.min.version}. -->
+          <pluginApiMinVersion>11.1</pluginApiMinVersion>
           <requiredForLanguages>web,jsp,js,php</requiredForLanguages>
         </configuration>
       </plugin>
