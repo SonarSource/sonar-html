@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import java.util.Arrays;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -41,8 +42,13 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if ("dialog".equalsIgnoreCase(node.getNodeName()) || node.hasProperty("popover")) {
       return true;
     }
-    String role = node.getPropertyValue("role");
-    return "dialog".equalsIgnoreCase(role) || "alertdialog".equalsIgnoreCase(role);
+    String role = node.getAttribute("role");
+    if (role == null) {
+      // static role absent: a bound role (:role/[role]) cannot be resolved, do not report
+      return node.getProperty("role") != null;
+    }
+    return Arrays.stream(role.trim().split("\\s+"))
+      .anyMatch(token -> "dialog".equalsIgnoreCase(token) || "alertdialog".equalsIgnoreCase(token));
   }
 
 }
