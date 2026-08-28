@@ -19,6 +19,7 @@ package org.sonar.plugins.html.checks.sonar;
 import java.util.Locale;
 import java.util.Set;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -56,8 +57,7 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
   @Override
   public void startDocument(java.util.List<org.sonar.plugins.html.node.Node> nodes) {
-    String filename = getHtmlSourceCode().inputFile().filename();
-    isVueFile = filename.endsWith(".vue");
+    isVueFile = Helpers.isVueFile(getHtmlSourceCode());
   }
 
   @Override

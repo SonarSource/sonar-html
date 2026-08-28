@@ -47,6 +47,28 @@ class TableWithoutHeaderCheckTest {
   }
 
   @Test
+  void vue_pascal_case_table_component_is_ignored() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/vue-components.vue"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(8).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .next().atLine(13).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
+  void table_tag_remains_case_insensitive_outside_vue() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/mixed-case.html"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".");
+  }
+
+  @Test
   void razor_layout_fragment_rendering_is_compliant() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/TableWithoutHeaderCheck/razor.cshtml"),

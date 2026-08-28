@@ -33,11 +33,15 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S5256")
 public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
+  private static final String TABLE_TAG = "TABLE";
+
   private final Set<TagNode> tablesWithRazorFragmentRendering = new HashSet<>();
+  private boolean isVueFile;
 
   @Override
   public void startDocument(List<Node> nodes) {
     tablesWithRazorFragmentRendering.clear();
+    isVueFile = Helpers.isVueFile(getHtmlSourceCode());
     if (!Helpers.isRazorFile(getHtmlSourceCode())) {
       return;
     }
@@ -86,15 +90,19 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean isStructuralTableContext(TagNode node) {
     String name = node.getNodeName();
-    return "TABLE".equalsIgnoreCase(name)
+    return TABLE_TAG.equalsIgnoreCase(name)
       || "THEAD".equalsIgnoreCase(name)
       || "TBODY".equalsIgnoreCase(name)
       || "TFOOT".equalsIgnoreCase(name)
       || "TR".equalsIgnoreCase(name);
   }
 
-  private static boolean isTable(TagNode node) {
-    return "TABLE".equalsIgnoreCase(node.getNodeName());
+  private boolean isTable(TagNode node) {
+    return isVueFile ? "table".equals(node.getNodeName()) : TABLE_TAG.equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isTableScope(TagNode node) {
+    return TABLE_TAG.equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isLayout(TagNode node) {
@@ -109,7 +117,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean hasHeader(TagNode node) {
     return node.getChildren().stream().anyMatch(TableWithoutHeaderCheck::isTableHeader) ||
-      node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
+      node.getChildren().stream().filter(child -> !isTableScope(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
   }
 
   private static boolean isTableHeader(TagNode node) {

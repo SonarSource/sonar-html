@@ -109,6 +109,10 @@ public class Helpers {
     return code.inputFile().filename().endsWith(".cshtml");
   }
 
+  public static boolean isVueFile(HtmlSourceCode code) {
+    return code.inputFile().filename().endsWith(".vue");
+  }
+
   /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
