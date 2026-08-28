@@ -174,31 +174,30 @@ public final class TemplateConditionalScopeTracker {
       if (!directive && resolvePendingInThisFragment && pendingBranchContinuation && !isInPersistentRazorComment()) {
         resolvePendingBranchContinuation(text, state);
         resolvePendingInThisFragment = false;
-        if (state.index >= text.length()) {
-          break;
-        }
       }
-      boolean fullCode = directive || isScanningConditionalHeader();
-      boolean hashComments = fullCode;
-      boolean slashComments = fullCode || scriptDepth > 0;
-      boolean stringsAndBlockComments = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
-      if (consumePersistentRazorProtectedCharacter(text, state)
-        || consumePersistentRazorProtectedStart(text, state)
-        || consumeProtectedCharacter(text, state)
-        || consumeCommentOrStringStart(text, directive, hashComments, slashComments, stringsAndBlockComments, state)
-        || consumeConditionalHeaderCharacter(text, state)
-        || consumeRazorCodeBlockStart(text, state)
-        || consumeCSharpConditionalStart(text, state)
-        || consumeConditionalToken(text, directive, state)
-        || consumeStructuralToken(text, state)) {
-        continue;
+      if (state.index < text.length() && !consumeFragmentCharacter(text, directive, state)) {
+        state.index++;
       }
-      state.index++;
     }
 
     if (textConditionalDepth == 0) {
       clearBraceTracking();
     }
+  }
+
+  private boolean consumeFragmentCharacter(String text, boolean directive, FragmentScanState state) {
+    boolean fullCode = directive || isScanningConditionalHeader();
+    boolean slashComments = fullCode || scriptDepth > 0;
+    boolean stringsAndBlockComments = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
+    return consumePersistentRazorProtectedCharacter(text, state)
+      || consumePersistentRazorProtectedStart(text, state)
+      || consumeProtectedCharacter(text, state)
+      || consumeCommentOrStringStart(text, directive, fullCode, slashComments, stringsAndBlockComments, state)
+      || consumeConditionalHeaderCharacter(text, state)
+      || consumeRazorCodeBlockStart(text, state)
+      || consumeCSharpConditionalStart(text, state)
+      || consumeConditionalToken(text, directive, state)
+      || consumeStructuralToken(text, state);
   }
 
   /**
@@ -207,49 +206,73 @@ public final class TemplateConditionalScopeTracker {
    */
   private boolean consumePersistentRazorProtectedCharacter(String text, FragmentScanState state) {
     if (inRazorComment) {
-      if (startsWith(text, state.index, "*@")) {
-        inRazorComment = false;
-        state.index += 2;
-      } else {
-        state.index++;
-      }
+      consumeRazorCommentCharacter(text, state);
       return true;
     }
     if (inCSharpLineComment) {
-      if (isLineBreak(text.charAt(state.index))) {
-        inCSharpLineComment = false;
-      }
-      state.index++;
+      consumeCSharpLineCommentCharacter(text, state);
       return true;
     }
     if (inCSharpBlockComment) {
-      if (startsWith(text, state.index, "*/")) {
-        inCSharpBlockComment = false;
-        state.index += 2;
-      } else {
-        state.index++;
-      }
+      consumeCSharpBlockCommentCharacter(text, state);
       return true;
     }
     if (csharpStringDelimiter != '\0') {
-      char current = text.charAt(state.index);
-      if (verbatimCSharpString && current == csharpStringDelimiter
-        && state.index + 1 < text.length() && text.charAt(state.index + 1) == csharpStringDelimiter) {
-        state.index += 2;
-      } else {
-        if (escapedCSharpStringCharacter) {
-          escapedCSharpStringCharacter = false;
-        } else if (!verbatimCSharpString && current == '\\') {
-          escapedCSharpStringCharacter = true;
-        } else if (current == csharpStringDelimiter) {
-          csharpStringDelimiter = '\0';
-          verbatimCSharpString = false;
-        }
-        state.index++;
-      }
+      consumeCSharpStringCharacter(text, state);
       return true;
     }
     return false;
+  }
+
+  private void consumeRazorCommentCharacter(String text, FragmentScanState state) {
+    if (startsWith(text, state.index, "*@")) {
+      inRazorComment = false;
+      state.index += 2;
+    } else {
+      state.index++;
+    }
+  }
+
+  private void consumeCSharpLineCommentCharacter(String text, FragmentScanState state) {
+    if (isLineBreak(text.charAt(state.index))) {
+      inCSharpLineComment = false;
+    }
+    state.index++;
+  }
+
+  private void consumeCSharpBlockCommentCharacter(String text, FragmentScanState state) {
+    if (startsWith(text, state.index, "*/")) {
+      inCSharpBlockComment = false;
+      state.index += 2;
+    } else {
+      state.index++;
+    }
+  }
+
+  private void consumeCSharpStringCharacter(String text, FragmentScanState state) {
+    char current = text.charAt(state.index);
+    if (isEscapedVerbatimQuote(text, state, current)) {
+      state.index += 2;
+      return;
+    }
+    updateCSharpStringState(current);
+    state.index++;
+  }
+
+  private boolean isEscapedVerbatimQuote(String text, FragmentScanState state, char current) {
+    return verbatimCSharpString && current == csharpStringDelimiter
+      && state.index + 1 < text.length() && text.charAt(state.index + 1) == csharpStringDelimiter;
+  }
+
+  private void updateCSharpStringState(char current) {
+    if (escapedCSharpStringCharacter) {
+      escapedCSharpStringCharacter = false;
+    } else if (!verbatimCSharpString && current == '\\') {
+      escapedCSharpStringCharacter = true;
+    } else if (current == csharpStringDelimiter) {
+      csharpStringDelimiter = '\0';
+      verbatimCSharpString = false;
+    }
   }
 
   /**
