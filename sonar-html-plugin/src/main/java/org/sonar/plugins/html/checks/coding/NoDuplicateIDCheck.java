@@ -48,7 +48,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
-    conditionalScope.reset();
+    conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
   }
 
   @Override
@@ -73,6 +73,9 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private void handleIdAttribute(TagNode node) {
+    if (conditionalScope.isInNonRenderedRazorContent()) {
+      return;
+    }
     String idValue = node.getAttribute("id");
     if (shouldIgnoreId(idValue)) {
       return;

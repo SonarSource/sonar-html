@@ -123,6 +123,32 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void tracks_plain_csharp_conditionals_inside_razor_code_blocks() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary)
+        {
+          <div id="choice">First</div>
+        }
+        else if (Model.ShowSecondary)
+        {
+          <div id="choice">Second</div>
+        }
+        else
+        {
+          <div id="choice">Fallback</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 8)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 12)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 15)).isFalse();
+  }
+
+  @Test
   void tracks_jstl_conditional_tags() {
     List<Node> nodes = parse("""
       <c:if test="${cond}">
