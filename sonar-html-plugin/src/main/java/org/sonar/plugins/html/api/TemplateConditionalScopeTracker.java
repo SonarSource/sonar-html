@@ -716,24 +716,10 @@ public final class TemplateConditionalScopeTracker {
    */
   private void consumeClosingBrace(String text, FragmentScanState state) {
     boolean inRazorCodeContext = isInRazorCodeContext();
-    if (!razorCodeBlocks.isEmpty() && !inRazorCodeContext) {
-      int elementDepth = currentElementDepth();
-      if (!markupBraceDepths.isEmpty() && markupBraceDepths.peek() == elementDepth) {
-        markupBraceDepths.pop();
-        state.index++;
-        return;
-      }
-      if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth) {
-        conditionalBraces.pop();
-      } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth) {
-        pendingRenderedClosingBraceDepth = elementDepth;
-        state.index++;
-        return;
-      } else {
-        state.index++;
-        return;
-      }
-    } else if (!conditionalBraces.isEmpty() && nestedTextBlockDepth == 0
+    if (consumeRenderedMarkupClosingBrace(state, inRazorCodeContext)) {
+      return;
+    }
+    if (inRazorCodeContext && !conditionalBraces.isEmpty() && nestedTextBlockDepth == 0
       && conditionalBraces.peek().elementDepth() == currentElementDepth()) {
       conditionalBraces.pop();
     }
@@ -747,6 +733,23 @@ public final class TemplateConditionalScopeTracker {
     }
     closeRazorCodeBrace();
     state.index++;
+  }
+
+  private boolean consumeRenderedMarkupClosingBrace(FragmentScanState state, boolean inRazorCodeContext) {
+    if (razorCodeBlocks.isEmpty() || inRazorCodeContext) {
+      return false;
+    }
+    int elementDepth = currentElementDepth();
+    if (!markupBraceDepths.isEmpty() && markupBraceDepths.peek() == elementDepth) {
+      markupBraceDepths.pop();
+    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth) {
+      conditionalBraces.pop();
+      return false;
+    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth) {
+      pendingRenderedClosingBraceDepth = elementDepth;
+    }
+    state.index++;
+    return true;
   }
 
   private void closeRazorCodeBrace() {
