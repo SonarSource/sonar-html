@@ -8,4 +8,11 @@
   <table>
     <CustomTableHeader />
   </table>
+
+  <!-- Headers inside a nested table component do not belong to the native table. -->
+  <table>
+    <Table>
+      <tr><th>Name</th></tr>
+    </Table>
+  </table>
 </template>

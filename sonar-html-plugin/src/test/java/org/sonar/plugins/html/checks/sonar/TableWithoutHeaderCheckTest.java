@@ -53,7 +53,8 @@ class TableWithoutHeaderCheckTest {
       new TableWithoutHeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      .next().atLine(8).withMessage("Add \"<th>\" headers to this \"<table>\".");
+      .next().atLine(8).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .next().atLine(13).withMessage("Add \"<th>\" headers to this \"<table>\".");
   }
 
   @Test

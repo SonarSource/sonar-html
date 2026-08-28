@@ -80,6 +80,12 @@ class HelpersTest {
   }
 
   @Test
+  void is_vue_file_recognizes_vue_suffix() {
+    assertThat(Helpers.isVueFile(sourceCode("component.vue"))).isTrue();
+    assertThat(Helpers.isVueFile(sourceCode("component.html"))).isFalse();
+  }
+
+  @Test
   void is_server_side_file_recognizes_template_suffixes() {
     assertThat(Helpers.isServerSideFile(sourceCode("page.jsp"))).isTrue();
     assertThat(Helpers.isServerSideFile(sourceCode("page.jspf"))).isTrue();

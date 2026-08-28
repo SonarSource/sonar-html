@@ -39,7 +39,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   @Override
   public void startDocument(List<Node> nodes) {
     tablesWithRazorFragmentRendering.clear();
-    isVueFile = getHtmlSourceCode().inputFile().filename().endsWith(".vue");
+    isVueFile = Helpers.isVueFile(getHtmlSourceCode());
     if (!Helpers.isRazorFile(getHtmlSourceCode())) {
       return;
     }
@@ -99,6 +99,10 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     return isVueFile ? "table".equals(node.getNodeName()) : "TABLE".equalsIgnoreCase(node.getNodeName());
   }
 
+  private static boolean isTableScope(TagNode node) {
+    return "TABLE".equalsIgnoreCase(node.getNodeName());
+  }
+
   private static boolean isLayout(TagNode node) {
     String role = node.getAttribute("role");
     return "PRESENTATION".equalsIgnoreCase(role) || "NONE".equalsIgnoreCase(role);
@@ -109,9 +113,9 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     return "TRUE".equalsIgnoreCase(ariaHidden);
   }
 
-  private boolean hasHeader(TagNode node) {
+  private static boolean hasHeader(TagNode node) {
     return node.getChildren().stream().anyMatch(TableWithoutHeaderCheck::isTableHeader) ||
-      node.getChildren().stream().filter(child -> !isTable(child)).anyMatch(this::hasHeader);
+      node.getChildren().stream().filter(child -> !isTableScope(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
   }
 
   private static boolean isTableHeader(TagNode node) {
