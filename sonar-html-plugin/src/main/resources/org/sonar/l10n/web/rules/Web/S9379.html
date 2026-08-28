@@ -10,9 +10,9 @@ or actively harm them:</p>
   especially if it also triggers a viewport scroll.</li>
   <li>On touch devices, autofocusing a text input can open the on-screen keyboard unexpectedly and reflow the page.</li>
 </ul>
-<p>Autofocusing a <code>dialog</code> element, an element with a <code>popover</code> attribute, or any element inside either, does not raise this
-issue: moving focus into a freshly opened modal or popover is expected, and the <code>dialog</code>/<code>popover</code> element itself is a valid
-autofocus target when it should receive focus as soon as it opens.</p>
+<p>Autofocusing a <code>dialog</code> element, an element with a <code>popover</code> attribute, an element with an ARIA <code>dialog</code> or
+<code>alertdialog</code> role, or any element inside one of these, does not raise this issue: moving focus into a freshly opened modal or popover is
+expected, and the dialog/popover element itself is a valid autofocus target when it should receive focus as soon as it opens.</p>
 <h2>How to fix it</h2>
 <p>Remove the attribute that autofocuses the element, and let the browser’s default focus behavior apply. If an element genuinely needs to receive
 focus in response to a user action, for example a form opened on demand, move it into a <code>dialog</code> element or a <code>popover</code>
@@ -36,11 +36,18 @@ container instead of autofocusing it directly on page load.</p>
 <pre>
 &lt;dialog autofocus&gt;&lt;/dialog&gt;
 </pre>
+<p>Autofocusing an element with an ARIA <code>dialog</code> or <code>alertdialog</code> role, or an element inside one, is compliant too:</p>
+<pre>
+&lt;div role="dialog" aria-modal="true"&gt;
+  &lt;input autofocus /&gt;
+&lt;/div&gt;
+</pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>
   <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#autofocus">autofocus attribute</a></li>
   <li>WHATWG HTML Standard - <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus">The autofocus attribute</a></li>
+  <li>W3C - <a href="https://www.w3.org/TR/wai-aria-1.2/#dialog">WAI-ARIA 1.2 - <code>dialog</code> role</a></li>
 </ul>
 <h3>Articles &amp; blog posts</h3>
 <ul>

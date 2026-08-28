@@ -38,7 +38,11 @@ public class NoAutofocusCheck extends AbstractPageCheck {
   }
 
   private static boolean isDialogOrPopover(TagNode node) {
-    return "dialog".equalsIgnoreCase(node.getNodeName()) || node.hasProperty("popover");
+    if ("dialog".equalsIgnoreCase(node.getNodeName()) || node.hasProperty("popover")) {
+      return true;
+    }
+    String role = node.getPropertyValue("role");
+    return "dialog".equalsIgnoreCase(role) || "alertdialog".equalsIgnoreCase(role);
   }
 
 }
