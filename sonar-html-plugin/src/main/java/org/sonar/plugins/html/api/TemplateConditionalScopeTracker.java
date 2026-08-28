@@ -383,7 +383,7 @@ public final class TemplateConditionalScopeTracker {
   private void consumeCSharpRawStringCharacter(String text, FragmentScanState state) {
     int quoteCount = consecutiveQuoteCount(text, state.index);
     if (quoteCount >= csharpRawStringQuoteCount) {
-      state.index += csharpRawStringQuoteCount;
+      state.index += quoteCount;
       csharpRawStringQuoteCount = 0;
       csharpStringDelimiter = '\0';
     } else {
@@ -488,6 +488,7 @@ public final class TemplateConditionalScopeTracker {
   private boolean isCSharpGenericTypeArgument(TagNode node) {
     return csharpGenericTypeArgumentExpected
       && isInRazorCodeContext()
+      && !HtmlConstants.hasKnownHTMLTag(node)
       && CSHARP_GENERIC_ARGUMENT_PATTERN.matcher(node.getCode()).matches();
   }
 

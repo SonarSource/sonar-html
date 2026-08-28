@@ -362,10 +362,47 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void does_not_treat_known_html_elements_as_generic_type_arguments() {
+    List<Node> nodes = parse("""
+      @{
+        label<div>
+          if (rendered) {
+            <span id="duplicate">First</span>
+            <span id="duplicate">Second</span>
+          }
+        </div>
+      }
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "span", 4)).isFalse();
+    assertThat(isConditionalAtLine(nodes, "span", 5)).isFalse();
+  }
+
+  @Test
   void tracks_plain_csharp_conditionals_after_raw_strings() {
     List<Node> nodes = parse("""
       @{
         var markup = \"""a " <div id="not-rendered">Text</div>\""";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+    assertThat(scan(nodes).isInNonRenderedRazorContent()).isFalse();
+  }
+
+  @Test
+  void consumes_complete_raw_string_terminating_quote_run() {
+    List<Node> nodes = parse("""
+      @{
+        var message = \"\"\"He said \"hi\"\"\"\";
         if (Model.ShowPrimary) {
           <div id="choice">First</div>
         } else {
