@@ -1,0 +1,56 @@
+<h2>Why is this an issue?</h2>
+<p>Automatically moving keyboard focus to an element as soon as the page loads, before users have had a chance to get their bearings, can disorient
+or actively harm them:</p>
+<ul>
+  <li>Screen reader users lose the natural reading order: the screen reader jumps straight to the focused element and starts announcing from
+  there, skipping page landmarks, headings, and any content that precedes it.</li>
+  <li>Keyboard and switch-device users cannot navigate to the focused element in a controlled way and may have to navigate backwards through
+  earlier content to understand where they landed.</li>
+  <li>Users who need extra time to process a page, for example due to cognitive impairments, can lose their context when focus jumps unexpectedly,
+  especially if it also triggers a viewport scroll.</li>
+  <li>On touch devices, autofocusing a text input can open the on-screen keyboard unexpectedly and reflow the page.</li>
+</ul>
+<p>Autofocusing a <code>dialog</code> element, an element with a <code>popover</code> attribute, an element with an ARIA <code>dialog</code> or
+<code>alertdialog</code> role, or any element inside one of these, does not raise this issue: moving focus into a freshly opened modal or popover is
+expected, and the dialog/popover element itself is a valid autofocus target when it should receive focus as soon as it opens.</p>
+<h2>How to fix it</h2>
+<p>Remove the attribute that autofocuses the element, and let the browser’s default focus behavior apply. If an element genuinely needs to receive
+focus in response to a user action, for example a form opened on demand, move it into a <code>dialog</code> element or a <code>popover</code>
+container instead of autofocusing it directly on page load.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;input autofocus /&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;input /&gt;
+</pre>
+<p>Autofocusing an element inside a <code>dialog</code> or a <code>popover</code> is compliant:</p>
+<pre>
+&lt;dialog&gt;
+  &lt;input autofocus /&gt;
+&lt;/dialog&gt;
+</pre>
+<p>Autofocusing the <code>dialog</code> or <code>popover</code> element itself is also compliant:</p>
+<pre>
+&lt;dialog autofocus&gt;&lt;/dialog&gt;
+</pre>
+<p>Autofocusing an element with an ARIA <code>dialog</code> or <code>alertdialog</code> role, or an element inside one, is compliant too:</p>
+<pre>
+&lt;div role="dialog" aria-modal="true"&gt;
+  &lt;input autofocus /&gt;
+&lt;/div&gt;
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#autofocus">autofocus attribute</a></li>
+  <li>WHATWG HTML Standard - <a href="https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus">The autofocus attribute</a></li>
+  <li>W3C - <a href="https://www.w3.org/TR/wai-aria-1.2/#dialog">WAI-ARIA 1.2 - <code>dialog</code> role</a></li>
+</ul>
+<h3>Articles &amp; blog posts</h3>
+<ul>
+  <li>Bruce Lawson - <a href="https://www.brucelawson.co.uk/2009/the-accessibility-of-html-5-autofocus/">The accessibility of HTML 5
+  autofocus</a></li>
+</ul>
