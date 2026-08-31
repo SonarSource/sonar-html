@@ -326,6 +326,27 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void closes_rendered_csharp_branches_before_trailing_else_content() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary) {
+          <div id="choice">First
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      </div>
+      Ordinary "quoted text
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 3)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 5)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 10)).isFalse();
+    assertThat(scan(nodes).isInNonRenderedRazorContent()).isFalse();
+  }
+
+  @Test
   void tracks_nested_razor_conditionals_in_rendered_markup() {
     List<Node> nodes = parse("""
       @{
@@ -369,6 +390,44 @@ class TemplateConditionalScopeTrackerTest {
     List<Node> nodes = parse("""
       @{
         var marker = $"{(true ? "}" : "{")}";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void tracks_plain_csharp_conditionals_after_nested_interpolated_strings() {
+    List<Node> nodes = parse("""
+      @{
+        var marker = $"{$"{(true ? "}" : "")}"}";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void tracks_plain_csharp_conditionals_after_nested_strings_in_verbatim_interpolation_holes() {
+    List<Node> nodes = parse("""
+      @{
+        var marker = $@"{(true ? ""}"" : "")}";
         if (Model.ShowPrimary) {
           <div id="choice">First</div>
         } else {

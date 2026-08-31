@@ -59,6 +59,7 @@ public final class TemplateConditionalScopeTracker {
   private int textConditionalDepth;
   private int braceBasedTextConditionalDepth;
   private int pendingConditionalBranchOpenings;
+  private boolean pendingConditionalBranchRazorBrace;
   private boolean awaitingConditionalHeaderParenthesis;
   private int pendingConditionalHeaderParenthesisDepth;
   private int nestedTextBlockDepth;
@@ -68,6 +69,7 @@ public final class TemplateConditionalScopeTracker {
   private int styleDepth;
   private int razorCodeBraceDepth;
   private int pendingRenderedClosingBraceDepth;
+  private boolean pendingRenderedRazorCodeBlockClosing;
   private final Deque<TagNode> openElements = new ArrayDeque<>();
   private final Deque<Integer> markupBraceDepths = new ArrayDeque<>();
   private final Deque<ConditionalBrace> conditionalBraces = new ArrayDeque<>();
@@ -76,15 +78,7 @@ public final class TemplateConditionalScopeTracker {
   private boolean inRazorExplicitText;
   private boolean inCSharpLineComment;
   private boolean inCSharpBlockComment;
-  private boolean escapedCSharpStringCharacter;
-  private boolean verbatimCSharpString;
-  private boolean interpolatedCSharpString;
-  private int csharpInterpolationBraceDepth;
-  private char csharpInterpolationStringDelimiter;
-  private boolean escapedCSharpInterpolationStringCharacter;
-  private boolean verbatimCSharpInterpolationString;
-  private int csharpRawStringQuoteCount;
-  private char csharpStringDelimiter;
+  private final Deque<CSharpStringContext> csharpStringContexts = new ArrayDeque<>();
   private char csharpGenericTypeOwnerInitial;
   private boolean razorCodeEnabled;
 
@@ -96,6 +90,7 @@ public final class TemplateConditionalScopeTracker {
     textConditionalDepth = 0;
     braceBasedTextConditionalDepth = 0;
     pendingConditionalBranchOpenings = 0;
+    pendingConditionalBranchRazorBrace = false;
     awaitingConditionalHeaderParenthesis = false;
     pendingConditionalHeaderParenthesisDepth = 0;
     nestedTextBlockDepth = 0;
@@ -105,6 +100,7 @@ public final class TemplateConditionalScopeTracker {
     styleDepth = 0;
     razorCodeBraceDepth = 0;
     pendingRenderedClosingBraceDepth = -1;
+    pendingRenderedRazorCodeBlockClosing = false;
     openElements.clear();
     markupBraceDepths.clear();
     conditionalBraces.clear();
@@ -258,7 +254,7 @@ public final class TemplateConditionalScopeTracker {
    * by checks that reason about rendered elements.
    */
   public boolean isInNonRenderedRazorContent() {
-    return inRazorComment || inCSharpLineComment || inCSharpBlockComment || csharpStringDelimiter != '\0';
+    return inRazorComment || inCSharpLineComment || inCSharpBlockComment || !csharpStringContexts.isEmpty();
   }
 
   private boolean hasOpenConditionalScope() {
@@ -314,7 +310,7 @@ public final class TemplateConditionalScopeTracker {
       state.index++;
       return true;
     }
-    if (razorCodeEnabled && !isInPersistentRazorComment() && csharpStringDelimiter == '\0'
+    if (razorCodeEnabled && !isInPersistentRazorComment() && csharpStringContexts.isEmpty()
       && isInRazorCodeContext() && startsWith(text, state.index, "@:")) {
       inRazorExplicitText = true;
       state.index += 2;
@@ -340,7 +336,7 @@ public final class TemplateConditionalScopeTracker {
       consumeCSharpBlockCommentCharacter(text, state);
       return true;
     }
-    if (csharpStringDelimiter != '\0') {
+    if (!csharpStringContexts.isEmpty()) {
       consumeCSharpStringCharacter(text, state);
       return true;
     }
@@ -373,94 +369,97 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private void consumeCSharpStringCharacter(String text, FragmentScanState state) {
-    if (csharpRawStringQuoteCount > 0) {
-      consumeCSharpRawStringCharacter(text, state);
+    CSharpStringContext context = csharpStringContexts.peek();
+    if (context.rawQuoteCount > 0) {
+      consumeCSharpRawStringCharacter(text, state, context);
       return;
     }
-    if (csharpInterpolationBraceDepth > 0) {
-      consumeCSharpInterpolationCharacter(text, state);
+    if (context.interpolationBraceDepth > 0) {
+      consumeCSharpInterpolationCharacter(text, state, context);
       return;
     }
     char current = text.charAt(state.index);
-    if (interpolatedCSharpString && current == '{') {
+    if (context.interpolated && current == '{') {
       if (startsWith(text, state.index, "{{")) {
         state.index += 2;
       } else {
-        csharpInterpolationBraceDepth++;
+        context.interpolationBraceDepth++;
         state.index++;
       }
       return;
     }
-    if (isEscapedVerbatimQuote(text, state, current)) {
-      state.index += 2;
-      return;
-    }
-    updateCSharpStringState(current);
-    state.index++;
+    consumeCSharpStringContent(text, state, context, current);
   }
 
-  private void consumeCSharpInterpolationCharacter(String text, FragmentScanState state) {
+  private void consumeCSharpInterpolationCharacter(String text, FragmentScanState state, CSharpStringContext context) {
     char current = text.charAt(state.index);
-    if (csharpInterpolationStringDelimiter != '\0') {
-      consumeCSharpInterpolationStringCharacter(text, state, current);
-    } else if (current == '\'' || current == '"') {
-      csharpInterpolationStringDelimiter = current;
-      escapedCSharpInterpolationStringCharacter = false;
-      verbatimCSharpInterpolationString = current == '"' && hasVerbatimPrefix(text, state.index);
-      state.index++;
+    if (current == '\'' || current == '"') {
+      consumeCSharpStringStart(text, state, context);
     } else {
       if (current == '{') {
-        csharpInterpolationBraceDepth++;
+        context.interpolationBraceDepth++;
       } else if (current == '}') {
-        csharpInterpolationBraceDepth--;
+        context.interpolationBraceDepth--;
       }
       state.index++;
     }
   }
 
-  private void consumeCSharpInterpolationStringCharacter(String text, FragmentScanState state, char current) {
-    if (verbatimCSharpInterpolationString && current == csharpInterpolationStringDelimiter
-      && state.index + 1 < text.length() && text.charAt(state.index + 1) == csharpInterpolationStringDelimiter) {
-      state.index += 2;
+  private void consumeCSharpStringContent(String text, FragmentScanState state, CSharpStringContext context, char current) {
+    int quoteCount = current == '"' ? consecutiveQuoteCount(text, state.index) : 0;
+    if (context.verbatim && quoteCount >= 2 * context.delimiterWidth) {
+      state.index += 2 * context.delimiterWidth;
       return;
     }
-    if (escapedCSharpInterpolationStringCharacter) {
-      escapedCSharpInterpolationStringCharacter = false;
-    } else if (!verbatimCSharpInterpolationString && current == '\\') {
-      escapedCSharpInterpolationStringCharacter = true;
-    } else if (current == csharpInterpolationStringDelimiter) {
-      csharpInterpolationStringDelimiter = '\0';
-      verbatimCSharpInterpolationString = false;
+    if (context.escaped) {
+      context.escaped = false;
+    } else if (!context.verbatim && current == '\\') {
+      context.escaped = true;
+    } else if (current == context.delimiter && (current != '"' || quoteCount >= context.delimiterWidth)) {
+      csharpStringContexts.pop();
+      state.index += context.delimiterWidth;
+      return;
     }
     state.index++;
   }
 
-  private void consumeCSharpRawStringCharacter(String text, FragmentScanState state) {
+  private void consumeCSharpRawStringCharacter(String text, FragmentScanState state, CSharpStringContext context) {
     int quoteCount = consecutiveQuoteCount(text, state.index);
-    if (quoteCount >= csharpRawStringQuoteCount) {
+    if (quoteCount >= context.rawQuoteCount) {
       state.index += quoteCount;
-      csharpRawStringQuoteCount = 0;
-      csharpStringDelimiter = '\0';
+      csharpStringContexts.pop();
     } else {
       state.index += Math.max(quoteCount, 1);
     }
   }
 
-  private boolean isEscapedVerbatimQuote(String text, FragmentScanState state, char current) {
-    return verbatimCSharpString && current == csharpStringDelimiter
-      && state.index + 1 < text.length() && text.charAt(state.index + 1) == csharpStringDelimiter;
+  private boolean consumeCSharpStringStart(String text, FragmentScanState state,
+    @Nullable CSharpStringContext enclosingContext) {
+    char current = text.charAt(state.index);
+    if (current != '\'' && current != '"') {
+      return false;
+    }
+    int quoteCount = consecutiveQuoteCount(text, state.index);
+    int delimiterWidth = nestedCSharpStringDelimiterWidth(text, state.index, enclosingContext, current);
+    if (delimiterWidth == 1 && isCompleteEmptyRawString(text, state.index, quoteCount)) {
+      state.index += quoteCount;
+      return true;
+    }
+    int rawQuoteCount = delimiterWidth == 1 && quoteCount >= CSHARP_RAW_STRING_MIN_QUOTE_COUNT ? quoteCount : 0;
+    boolean verbatim = rawQuoteCount == 0 && current == '"' && hasVerbatimPrefix(text, state.index);
+    boolean interpolated = rawQuoteCount == 0 && current == '"' && hasInterpolatedPrefix(text, state.index);
+    csharpStringContexts.push(new CSharpStringContext(current, delimiterWidth, rawQuoteCount, verbatim, interpolated));
+    state.index += rawQuoteCount > 0 ? rawQuoteCount : delimiterWidth;
+    return true;
   }
 
-  private void updateCSharpStringState(char current) {
-    if (escapedCSharpStringCharacter) {
-      escapedCSharpStringCharacter = false;
-    } else if (!verbatimCSharpString && current == '\\') {
-      escapedCSharpStringCharacter = true;
-    } else if (current == csharpStringDelimiter) {
-      csharpStringDelimiter = '\0';
-      verbatimCSharpString = false;
-      interpolatedCSharpString = false;
+  private static int nestedCSharpStringDelimiterWidth(String text, int quoteIndex,
+    @Nullable CSharpStringContext enclosingContext, char delimiter) {
+    if (enclosingContext == null || !enclosingContext.verbatim || delimiter != '"'
+      || !startsWith(text, quoteIndex, "\"\"") || text.indexOf("\"\"", quoteIndex + 2) < 0) {
+      return 1;
     }
+    return 2;
   }
 
   /**
@@ -489,31 +488,7 @@ public final class TemplateConditionalScopeTracker {
       state.index += 2;
       return true;
     }
-    char current = text.charAt(state.index);
-    int quoteCount = consecutiveQuoteCount(text, state.index);
-    if (isCompleteEmptyRawString(text, state.index, quoteCount)) {
-      state.index += quoteCount;
-      return true;
-    }
-    if (quoteCount >= CSHARP_RAW_STRING_MIN_QUOTE_COUNT) {
-      csharpStringDelimiter = '"';
-      csharpRawStringQuoteCount = quoteCount;
-      escapedCSharpStringCharacter = false;
-      verbatimCSharpString = false;
-      interpolatedCSharpString = false;
-      state.index += quoteCount;
-      return true;
-    }
-    if (current == '\'' || current == '"') {
-      csharpStringDelimiter = current;
-      csharpRawStringQuoteCount = 0;
-      escapedCSharpStringCharacter = false;
-      verbatimCSharpString = current == '"' && hasVerbatimPrefix(text, state.index);
-      interpolatedCSharpString = current == '"' && hasInterpolatedPrefix(text, state.index);
-      state.index++;
-      return true;
-    }
-    return false;
+    return consumeCSharpStringStart(text, state, null);
   }
 
   private boolean consumeRazorCodeBlockStart(String text, FragmentScanState state) {
@@ -851,8 +826,13 @@ public final class TemplateConditionalScopeTracker {
       pendingConditionalBranchOpenings--;
       clearConditionalHeaderTracking();
       if (!razorCodeBlocks.isEmpty()) {
-        conditionalBraces.push(new ConditionalBrace(currentElementDepth(), inRazorCodeContext));
+        boolean razorBraceTracked = inRazorCodeContext || pendingConditionalBranchRazorBrace;
+        conditionalBraces.push(new ConditionalBrace(currentElementDepth(), razorBraceTracked));
+        if (pendingConditionalBranchRazorBrace && !inRazorCodeContext) {
+          razorCodeBraceDepth++;
+        }
       }
+      pendingConditionalBranchRazorBrace = false;
     } else if (!razorCodeBlocks.isEmpty() && !inRazorCodeContext) {
       markupBraceDepths.push(currentElementDepth());
     } else if (braceBasedTextConditionalDepth > 0) {
@@ -896,17 +876,56 @@ public final class TemplateConditionalScopeTracker {
     if (razorCodeBlocks.isEmpty() || inRazorCodeContext) {
       return false;
     }
+    if (pendingRenderedRazorCodeBlockClosing && braceBasedTextConditionalDepth == 0
+      && skipLeadingTrivia(text, state.index + 1) >= text.length()) {
+      pendingRenderedRazorCodeBlockClosing = false;
+      closeTrackedRazorCodeBrace();
+      state.index++;
+      return true;
+    }
     int elementDepth = currentElementDepth();
     if (!markupBraceDepths.isEmpty() && markupBraceDepths.peek() == elementDepth) {
       markupBraceDepths.pop();
+      state.index++;
     } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth) {
-      conditionalBraces.pop();
+      if (continueRenderedConditionalBranch(text, state)) {
+        return true;
+      }
+      closeRenderedConditionalBrace();
       return false;
-    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth
-      && skipLeadingTrivia(text, state.index + 1) >= text.length()) {
-      pendingRenderedClosingBraceDepth = elementDepth;
+    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth) {
+      if (!continueRenderedConditionalBranch(text, state)) {
+        if (skipLeadingTrivia(text, state.index + 1) >= text.length()) {
+          pendingRenderedClosingBraceDepth = elementDepth;
+        }
+        state.index++;
+      }
+    } else {
+      state.index++;
     }
-    state.index++;
+    return true;
+  }
+
+  private void closeRenderedConditionalBrace() {
+    ConditionalBrace conditionalBrace = conditionalBraces.pop();
+    if (conditionalBrace.razorBraceTracked()) {
+      razorCodeBraceDepth--;
+      pendingRenderedRazorCodeBlockClosing = true;
+    }
+  }
+
+  private boolean continueRenderedConditionalBranch(String text, FragmentScanState state) {
+    int continuationIndex = conditionalContinuationEndIndex(text, state.index);
+    if (continuationIndex < 0) {
+      return false;
+    }
+    ConditionalBrace conditionalBrace = conditionalBraces.pop();
+    if (conditionalBrace.razorBraceTracked()) {
+      razorCodeBraceDepth--;
+      pendingConditionalBranchRazorBrace = true;
+    }
+    pendingConditionalBranchOpenings++;
+    state.index = continuationIndex;
     return true;
   }
 
@@ -914,6 +933,10 @@ public final class TemplateConditionalScopeTracker {
     if (!isInRazorCodeContext()) {
       return;
     }
+    closeTrackedRazorCodeBrace();
+  }
+
+  private void closeTrackedRazorCodeBrace() {
     razorCodeBraceDepth--;
     if (razorCodeBraceDepth < razorCodeBlocks.peek().openingBraceDepth()) {
       razorCodeBlocks.pop();
@@ -922,6 +945,7 @@ public final class TemplateConditionalScopeTracker {
       markupBraceDepths.clear();
       conditionalBraces.clear();
       pendingRenderedClosingBraceDepth = -1;
+      pendingRenderedRazorCodeBlockClosing = false;
       razorCodeBraceDepth = 0;
       inRazorExplicitText = false;
       resetCSharpProtectedState();
@@ -931,15 +955,7 @@ public final class TemplateConditionalScopeTracker {
   private void resetCSharpProtectedState() {
     inCSharpLineComment = false;
     inCSharpBlockComment = false;
-    escapedCSharpStringCharacter = false;
-    verbatimCSharpString = false;
-    interpolatedCSharpString = false;
-    csharpInterpolationBraceDepth = 0;
-    csharpInterpolationStringDelimiter = '\0';
-    escapedCSharpInterpolationStringCharacter = false;
-    verbatimCSharpInterpolationString = false;
-    csharpRawStringQuoteCount = 0;
-    csharpStringDelimiter = '\0';
+    csharpStringContexts.clear();
   }
 
   /**
@@ -1083,6 +1099,7 @@ public final class TemplateConditionalScopeTracker {
   private void clearBraceTracking() {
     braceBasedTextConditionalDepth = 0;
     pendingConditionalBranchOpenings = 0;
+    pendingConditionalBranchRazorBrace = false;
     clearConditionalHeaderTracking();
     nestedTextBlockDepth = 0;
     conditionalBraces.clear();
@@ -1398,6 +1415,26 @@ public final class TemplateConditionalScopeTracker {
 
     private FragmentScanState(int index) {
       this.index = index;
+    }
+  }
+
+  private static final class CSharpStringContext {
+
+    private final char delimiter;
+    private final int delimiterWidth;
+    private final int rawQuoteCount;
+    private final boolean verbatim;
+    private final boolean interpolated;
+    private boolean escaped;
+    private int interpolationBraceDepth;
+
+    private CSharpStringContext(char delimiter, int delimiterWidth, int rawQuoteCount,
+      boolean verbatim, boolean interpolated) {
+      this.delimiter = delimiter;
+      this.delimiterWidth = delimiterWidth;
+      this.rawQuoteCount = rawQuoteCount;
+      this.verbatim = verbatim;
+      this.interpolated = interpolated;
     }
   }
 
