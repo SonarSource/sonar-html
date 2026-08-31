@@ -78,6 +78,11 @@ public final class TemplateConditionalScopeTracker {
   private boolean inCSharpBlockComment;
   private boolean escapedCSharpStringCharacter;
   private boolean verbatimCSharpString;
+  private boolean interpolatedCSharpString;
+  private int csharpInterpolationBraceDepth;
+  private char csharpInterpolationStringDelimiter;
+  private boolean escapedCSharpInterpolationStringCharacter;
+  private boolean verbatimCSharpInterpolationString;
   private int csharpRawStringQuoteCount;
   private char csharpStringDelimiter;
   private char csharpGenericTypeOwnerInitial;
@@ -372,12 +377,61 @@ public final class TemplateConditionalScopeTracker {
       consumeCSharpRawStringCharacter(text, state);
       return;
     }
+    if (csharpInterpolationBraceDepth > 0) {
+      consumeCSharpInterpolationCharacter(text, state);
+      return;
+    }
     char current = text.charAt(state.index);
+    if (interpolatedCSharpString && current == '{') {
+      if (startsWith(text, state.index, "{{")) {
+        state.index += 2;
+      } else {
+        csharpInterpolationBraceDepth++;
+        state.index++;
+      }
+      return;
+    }
     if (isEscapedVerbatimQuote(text, state, current)) {
       state.index += 2;
       return;
     }
     updateCSharpStringState(current);
+    state.index++;
+  }
+
+  private void consumeCSharpInterpolationCharacter(String text, FragmentScanState state) {
+    char current = text.charAt(state.index);
+    if (csharpInterpolationStringDelimiter != '\0') {
+      consumeCSharpInterpolationStringCharacter(text, state, current);
+    } else if (current == '\'' || current == '"') {
+      csharpInterpolationStringDelimiter = current;
+      escapedCSharpInterpolationStringCharacter = false;
+      verbatimCSharpInterpolationString = current == '"' && hasVerbatimPrefix(text, state.index);
+      state.index++;
+    } else {
+      if (current == '{') {
+        csharpInterpolationBraceDepth++;
+      } else if (current == '}') {
+        csharpInterpolationBraceDepth--;
+      }
+      state.index++;
+    }
+  }
+
+  private void consumeCSharpInterpolationStringCharacter(String text, FragmentScanState state, char current) {
+    if (verbatimCSharpInterpolationString && current == csharpInterpolationStringDelimiter
+      && state.index + 1 < text.length() && text.charAt(state.index + 1) == csharpInterpolationStringDelimiter) {
+      state.index += 2;
+      return;
+    }
+    if (escapedCSharpInterpolationStringCharacter) {
+      escapedCSharpInterpolationStringCharacter = false;
+    } else if (!verbatimCSharpInterpolationString && current == '\\') {
+      escapedCSharpInterpolationStringCharacter = true;
+    } else if (current == csharpInterpolationStringDelimiter) {
+      csharpInterpolationStringDelimiter = '\0';
+      verbatimCSharpInterpolationString = false;
+    }
     state.index++;
   }
 
@@ -405,6 +459,7 @@ public final class TemplateConditionalScopeTracker {
     } else if (current == csharpStringDelimiter) {
       csharpStringDelimiter = '\0';
       verbatimCSharpString = false;
+      interpolatedCSharpString = false;
     }
   }
 
@@ -445,6 +500,7 @@ public final class TemplateConditionalScopeTracker {
       csharpRawStringQuoteCount = quoteCount;
       escapedCSharpStringCharacter = false;
       verbatimCSharpString = false;
+      interpolatedCSharpString = false;
       state.index += quoteCount;
       return true;
     }
@@ -453,6 +509,7 @@ public final class TemplateConditionalScopeTracker {
       csharpRawStringQuoteCount = 0;
       escapedCSharpStringCharacter = false;
       verbatimCSharpString = current == '"' && hasVerbatimPrefix(text, state.index);
+      interpolatedCSharpString = current == '"' && hasInterpolatedPrefix(text, state.index);
       state.index++;
       return true;
     }
@@ -542,6 +599,17 @@ public final class TemplateConditionalScopeTracker {
     int index = quoteIndex - 1;
     while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
       if (text.charAt(index) == '@') {
+        return true;
+      }
+      index--;
+    }
+    return false;
+  }
+
+  private static boolean hasInterpolatedPrefix(String text, int quoteIndex) {
+    int index = quoteIndex - 1;
+    while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
+      if (text.charAt(index) == '$') {
         return true;
       }
       index--;
@@ -805,7 +873,7 @@ public final class TemplateConditionalScopeTracker {
    */
   private void consumeClosingBrace(String text, FragmentScanState state) {
     boolean inRazorCodeContext = isInRazorCodeContext();
-    if (consumeRenderedMarkupClosingBrace(state, inRazorCodeContext)) {
+    if (consumeRenderedMarkupClosingBrace(text, state, inRazorCodeContext)) {
       return;
     }
     if (inRazorCodeContext && !conditionalBraces.isEmpty() && nestedTextBlockDepth == 0
@@ -824,7 +892,7 @@ public final class TemplateConditionalScopeTracker {
     state.index++;
   }
 
-  private boolean consumeRenderedMarkupClosingBrace(FragmentScanState state, boolean inRazorCodeContext) {
+  private boolean consumeRenderedMarkupClosingBrace(String text, FragmentScanState state, boolean inRazorCodeContext) {
     if (razorCodeBlocks.isEmpty() || inRazorCodeContext) {
       return false;
     }
@@ -834,7 +902,8 @@ public final class TemplateConditionalScopeTracker {
     } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth) {
       conditionalBraces.pop();
       return false;
-    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth) {
+    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth
+      && skipLeadingTrivia(text, state.index + 1) >= text.length()) {
       pendingRenderedClosingBraceDepth = elementDepth;
     }
     state.index++;
@@ -864,6 +933,11 @@ public final class TemplateConditionalScopeTracker {
     inCSharpBlockComment = false;
     escapedCSharpStringCharacter = false;
     verbatimCSharpString = false;
+    interpolatedCSharpString = false;
+    csharpInterpolationBraceDepth = 0;
+    csharpInterpolationStringDelimiter = '\0';
+    escapedCSharpInterpolationStringCharacter = false;
+    verbatimCSharpInterpolationString = false;
     csharpRawStringQuoteCount = 0;
     csharpStringDelimiter = '\0';
   }

@@ -306,6 +306,26 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void ignores_literal_closing_braces_before_child_elements_in_rendered_razor_markup() {
+    List<Node> nodes = parse("""
+      @{
+        @if (Model.ShowPrimary) {
+          <div>Total is 100} percent
+            <span id="choice">First</span>
+          </div>
+        } else {
+          <span id="choice">Second</span>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "span", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "span", 7)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 10)).isFalse();
+  }
+
+  @Test
   void tracks_nested_razor_conditionals_in_rendered_markup() {
     List<Node> nodes = parse("""
       @{
@@ -330,6 +350,25 @@ class TemplateConditionalScopeTrackerTest {
     List<Node> nodes = parse("""
       @{
         var message = @$"He said ""hi"" }";
+        if (Model.ShowPrimary) {
+          <div id="choice">First</div>
+        } else {
+          <div id="choice">Second</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 4)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 6)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 9)).isFalse();
+  }
+
+  @Test
+  void tracks_plain_csharp_conditionals_after_interpolated_strings_with_nested_strings() {
+    List<Node> nodes = parse("""
+      @{
+        var marker = $"{(true ? "}" : "{")}";
         if (Model.ShowPrimary) {
           <div id="choice">First</div>
         } else {
