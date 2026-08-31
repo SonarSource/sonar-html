@@ -877,6 +877,7 @@ public final class TemplateConditionalScopeTracker {
       return false;
     }
     if (pendingRenderedRazorCodeBlockClosing && braceBasedTextConditionalDepth == 0
+      && markupBraceDepths.isEmpty() && conditionalBraces.isEmpty()
       && skipLeadingTrivia(text, state.index + 1) >= text.length()) {
       pendingRenderedRazorCodeBlockClosing = false;
       closeTrackedRazorCodeBrace();

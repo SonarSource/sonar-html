@@ -347,6 +347,31 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void does_not_use_literal_markup_braces_as_pending_razor_code_block_closings() {
+    List<Node> nodes = parse("""
+      @{
+        if (Model.ShowPrimary) {
+          <div>First
+        } else {
+          <div>Second</div>
+        }
+        </div>
+        <p>literal { brace }</p>
+        if (Model.ShowDetails) {
+          <div id="choice">Details</div>
+        } else {
+          <div id="choice">Summary</div>
+        }
+      }
+      <div id="footer">Footer</div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "div", 10)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 12)).isTrue();
+    assertThat(isConditionalAtLine(nodes, "div", 15)).isFalse();
+  }
+
+  @Test
   void tracks_nested_razor_conditionals_in_rendered_markup() {
     List<Node> nodes = parse("""
       @{
