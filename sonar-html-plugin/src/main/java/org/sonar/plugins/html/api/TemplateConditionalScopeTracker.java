@@ -876,25 +876,23 @@ public final class TemplateConditionalScopeTracker {
     if (razorCodeBlocks.isEmpty() || inRazorCodeContext) {
       return false;
     }
-    if (pendingRenderedRazorCodeBlockClosing && braceBasedTextConditionalDepth == 0
-      && markupBraceDepths.isEmpty() && conditionalBraces.isEmpty()
-      && skipLeadingTrivia(text, state.index + 1) >= text.length()) {
+    if (canClosePendingRenderedRazorCodeBlock(text, state)) {
       pendingRenderedRazorCodeBlockClosing = false;
       closeTrackedRazorCodeBrace();
       state.index++;
       return true;
     }
     int elementDepth = currentElementDepth();
-    if (!markupBraceDepths.isEmpty() && markupBraceDepths.peek() == elementDepth) {
+    if (hasMarkupBraceAtDepth(elementDepth)) {
       markupBraceDepths.pop();
       state.index++;
-    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth) {
+    } else if (hasConditionalBraceAtDepth(elementDepth)) {
       if (continueRenderedConditionalBranch(text, state)) {
         return true;
       }
       closeRenderedConditionalBrace();
       return false;
-    } else if (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth) {
+    } else if (hasConditionalBraceBelowDepth(elementDepth)) {
       if (!continueRenderedConditionalBranch(text, state)) {
         if (skipLeadingTrivia(text, state.index + 1) >= text.length()) {
           pendingRenderedClosingBraceDepth = elementDepth;
@@ -905,6 +903,24 @@ public final class TemplateConditionalScopeTracker {
       state.index++;
     }
     return true;
+  }
+
+  private boolean canClosePendingRenderedRazorCodeBlock(String text, FragmentScanState state) {
+    return pendingRenderedRazorCodeBlockClosing && braceBasedTextConditionalDepth == 0
+      && markupBraceDepths.isEmpty() && conditionalBraces.isEmpty()
+      && skipLeadingTrivia(text, state.index + 1) >= text.length();
+  }
+
+  private boolean hasMarkupBraceAtDepth(int elementDepth) {
+    return !markupBraceDepths.isEmpty() && markupBraceDepths.peek() == elementDepth;
+  }
+
+  private boolean hasConditionalBraceAtDepth(int elementDepth) {
+    return !conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth;
+  }
+
+  private boolean hasConditionalBraceBelowDepth(int elementDepth) {
+    return !conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth;
   }
 
   private void closeRenderedConditionalBrace() {
