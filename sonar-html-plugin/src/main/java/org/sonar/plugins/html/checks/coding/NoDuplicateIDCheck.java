@@ -47,12 +47,15 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", "detailsview", "listview", "formview", "datalist", "datagrid",
-    "content", "contentplaceholder");
+    "content");
   private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate", "alternatingitemtemplate",
     "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
     "emptyitemtemplate", "pagertemplate", "selecteditemtemplate", "grouptemplate",
     "groupseparatortemplate", "itemseparatortemplate", "layouttemplate");
+  private static final Set<String> WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES = Set.of(
+    "headertemplate", "footertemplate", "pagertemplate");
+  private static final String SHARED_FORM_TEMPLATE_SCOPE = "shared-form-template";
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
   private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
@@ -154,11 +157,21 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
         templateKind = localName;
       }
       if (WEBFORMS_NAMING_CONTAINERS.contains(localName) && isServerControl(ancestor)) {
-        return new WebFormsScope(ancestor, templateKind);
+        return new WebFormsScope(ancestor, templateScope(localName, templateKind));
       }
       ancestor = ancestor.getParent();
     }
     return null;
+  }
+
+  @Nullable
+  private static String templateScope(String containerName, @Nullable String templateKind) {
+    if (templateKind != null
+      && ("detailsview".equals(containerName) || "formview".equals(containerName))
+      && WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES.contains(templateKind)) {
+      return SHARED_FORM_TEMPLATE_SCOPE;
+    }
+    return templateKind;
   }
 
   private boolean isWebFormsFile() {

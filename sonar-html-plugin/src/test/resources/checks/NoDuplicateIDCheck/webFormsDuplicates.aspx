@@ -52,3 +52,39 @@
 
 <asp:Label ID="page-scope" runat="server" />
 <asp:TextBox ID="page-scope" runat="server" />
+
+<asp:ListView ID="layoutDup" runat="server">
+  <LayoutTemplate>
+    <asp:Label ID="same-layout-scope" runat="server" />
+    <asp:TextBox ID="same-layout-scope" runat="server" />
+  </LayoutTemplate>
+</asp:ListView>
+
+<asp:FormView ID="formDup" runat="server">
+  <HeaderTemplate><asp:Label ID="same-form-scope" runat="server" /></HeaderTemplate>
+  <FooterTemplate><asp:TextBox ID="same-form-scope" runat="server" /></FooterTemplate>
+</asp:FormView>
+
+<asp:DetailsView ID="detailsDup" runat="server">
+  <HeaderTemplate><asp:Label ID="same-details-scope" runat="server" /></HeaderTemplate>
+  <PagerTemplate><asp:TextBox ID="same-details-scope" runat="server" /></PagerTemplate>
+</asp:DetailsView>
+
+<asp:DataList ID="dataListDup" runat="server">
+  <ItemTemplate>
+    <asp:Label ID="same-data-list-scope" runat="server" />
+    <asp:TextBox ID="same-data-list-scope" runat="server" />
+  </ItemTemplate>
+</asp:DataList>
+
+<asp:DataGrid ID="dataGridDup" runat="server">
+  <ItemTemplate>
+    <asp:Label ID="same-data-grid-scope" runat="server" />
+    <asp:TextBox ID="same-data-grid-scope" runat="server" />
+  </ItemTemplate>
+</asp:DataGrid>
+
+<asp:Content ID="contentDup" runat="server">
+  <asp:Label ID="same-content-scope" runat="server" />
+  <asp:TextBox ID="same-content-scope" runat="server" />
+</asp:Content>

@@ -444,6 +444,12 @@ class NoDuplicateIDCheckTest {
         .next().atLine(36).withMessage("Duplicate id \"literal-id\" found. First occurrence was on line 31.")
         .next().atLine(48).withMessage("Duplicate id \"inherited-static-id\" found. First occurrence was on line 42.")
         .next().atLine(54).withMessage("Duplicate id \"page-scope\" found. First occurrence was on line 53.")
+        .next().atLine(59).withMessage("Duplicate id \"same-layout-scope\" found. First occurrence was on line 58.")
+        .next().atLine(65).withMessage("Duplicate id \"same-form-scope\" found. First occurrence was on line 64.")
+        .next().atLine(70).withMessage("Duplicate id \"same-details-scope\" found. First occurrence was on line 69.")
+        .next().atLine(76).withMessage("Duplicate id \"same-data-list-scope\" found. First occurrence was on line 75.")
+        .next().atLine(83).withMessage("Duplicate id \"same-data-grid-scope\" found. First occurrence was on line 82.")
+        .next().atLine(89).withMessage("Duplicate id \"same-content-scope\" found. First occurrence was on line 88.")
         .noMore();
   }
 

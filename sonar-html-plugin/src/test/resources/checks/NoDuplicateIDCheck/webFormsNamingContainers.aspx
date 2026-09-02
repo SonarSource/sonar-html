@@ -80,13 +80,6 @@
 <asp:Content ID="secondContent" runat="server">
   <asp:Label ID="container-id" runat="server" />
 </asp:Content>
-<asp:ContentPlaceHolder ID="firstPlaceholder" runat="server">
-  <asp:Label ID="container-id" runat="server" />
-</asp:ContentPlaceHolder>
-<asp:ContentPlaceHolder ID="secondPlaceholder" runat="server">
-  <asp:Label ID="container-id" runat="server" />
-</asp:ContentPlaceHolder>
-
 <asp:ListView runat="server">
   <ItemTemplate><asp:Label ID="identity-scope-id" runat="server" /></ItemTemplate>
 </asp:ListView>
