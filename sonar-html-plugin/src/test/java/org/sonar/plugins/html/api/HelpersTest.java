@@ -82,7 +82,16 @@ class HelpersTest {
   @Test
   void is_vue_file_recognizes_vue_suffix() {
     assertThat(Helpers.isVueFile(sourceCode("component.vue"))).isTrue();
+    assertThat(Helpers.isVueFile(sourceCode("component.VUE"))).isTrue();
     assertThat(Helpers.isVueFile(sourceCode("component.html"))).isFalse();
+  }
+
+  @Test
+  void is_web_forms_file_recognizes_web_forms_suffixes() {
+    assertThat(Helpers.isWebFormsFile(sourceCode("page.aspx"))).isTrue();
+    assertThat(Helpers.isWebFormsFile(sourceCode("control.ascx"))).isTrue();
+    assertThat(Helpers.isWebFormsFile(sourceCode("page.ASPX"))).isTrue();
+    assertThat(Helpers.isWebFormsFile(sourceCode("page.html"))).isFalse();
   }
 
   @Test
@@ -102,6 +111,7 @@ class HelpersTest {
     assertThat(Helpers.isServerSideFile(sourceCode("page.twig"))).isTrue();
     assertThat(Helpers.isServerSideFile(sourceCode("page.shtml"))).isTrue();
     assertThat(Helpers.isServerSideFile(sourceCode("page.xhtml"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.ASPX"))).isTrue();
   }
 
   @Test

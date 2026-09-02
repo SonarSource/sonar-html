@@ -147,3 +147,23 @@
     <asp:TextBox ID="same-site-map-template-scope" runat="server" />
   </NodeTemplate>
 </asp:SiteMapPath>
+
+<asp:Wizard ID="overlappingWizardStepScopes" runat="server">
+  <HeaderTemplate><asp:Label ID="wizard-shared-step-scope" runat="server" /></HeaderTemplate>
+  <WizardSteps>
+    <asp:WizardStep ID="firstOverlappingStep" runat="server">
+      <asp:TextBox ID="wizard-shared-step-scope" runat="server" />
+    </asp:WizardStep>
+    <asp:WizardStep ID="secondOverlappingStep" runat="server">
+      <asp:Button ID="wizard-shared-step-scope" runat="server" />
+    </asp:WizardStep>
+  </WizardSteps>
+</asp:Wizard>
+<asp:Wizard ID="sameWizardStepScope" runat="server">
+  <WizardSteps>
+    <asp:WizardStep ID="sameScopeStep" runat="server">
+      <asp:Label ID="same-wizard-step-scope" runat="server" />
+      <asp:TextBox ID="same-wizard-step-scope" runat="server" />
+    </asp:WizardStep>
+  </WizardSteps>
+</asp:Wizard>

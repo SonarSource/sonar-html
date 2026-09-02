@@ -16,12 +16,12 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.Locale;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
-
-import java.util.function.Predicate;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class Helpers {
 
@@ -106,11 +106,11 @@ public class Helpers {
   }
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {
-    return code.inputFile().filename().endsWith(".cshtml");
+    return normalizedFilename(code).endsWith(".cshtml");
   }
 
   public static boolean isVueFile(HtmlSourceCode code) {
-    return code.inputFile().filename().endsWith(".vue");
+    return normalizedFilename(code).endsWith(".vue");
   }
 
   /**
@@ -172,8 +172,13 @@ public class Helpers {
    * @return true if the file is a Razor view, false otherwise
    */
   public static boolean isRazorFile(HtmlSourceCode code) {
-    String filename = code.inputFile().filename();
+    String filename = normalizedFilename(code);
     return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
+  }
+
+  public static boolean isWebFormsFile(HtmlSourceCode code) {
+    String filename = normalizedFilename(code);
+    return filename.endsWith(".aspx") || filename.endsWith(".ascx");
   }
 
   /**
@@ -206,12 +211,16 @@ public class Helpers {
   }
   
   public static boolean isServerSideFile(HtmlSourceCode code) {
-    String filename = code.inputFile().filename();
+    String filename = normalizedFilename(code);
     for (String suffix : SERVER_SIDE_SUFFIXES) {
       if (filename.endsWith(suffix)) {
         return true;
       }
     }
     return false;
+  }
+
+  private static String normalizedFilename(HtmlSourceCode code) {
+    return code.inputFile().filename().toLowerCase(Locale.ROOT);
   }
 }

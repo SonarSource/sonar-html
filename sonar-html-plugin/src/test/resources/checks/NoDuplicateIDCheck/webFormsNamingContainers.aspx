@@ -178,12 +178,20 @@
 </asp:SiteMapPath>
 
 <asp:FormView ID="formPagerScope" runat="server">
+  <ItemTemplate><asp:Label ID="form-item-pager-scope-id" runat="server" /></ItemTemplate>
   <FooterTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></FooterTemplate>
-  <PagerTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></PagerTemplate>
+  <PagerTemplate>
+    <asp:Label ID="form-pager-scope-id" runat="server" />
+    <asp:Label ID="form-item-pager-scope-id" runat="server" />
+  </PagerTemplate>
 </asp:FormView>
 <asp:DetailsView ID="detailsPagerScope" runat="server">
+  <ItemTemplate><asp:Label ID="details-item-pager-scope-id" runat="server" /></ItemTemplate>
   <HeaderTemplate><asp:Label ID="details-pager-scope-id" runat="server" /></HeaderTemplate>
-  <PagerTemplate><asp:Label ID="details-pager-scope-id" runat="server" /></PagerTemplate>
+  <PagerTemplate>
+    <asp:Label ID="details-pager-scope-id" runat="server" />
+    <asp:Label ID="details-item-pager-scope-id" runat="server" />
+  </PagerTemplate>
 </asp:DetailsView>
 
 <asp:Repeater ID="generatedThroughPanel" runat="server" ClientIDMode="AutoID">
@@ -210,3 +218,24 @@
 <asp:ListView runat="server">
   <ItemTemplate><asp:Label ID="identity-scope-id" runat="server" /></ItemTemplate>
 </asp:ListView>
+
+<asp:Wizard ID="wizardStepScopes" runat="server">
+  <WizardSteps>
+    <asp:WizardStep ID="firstScopedStep" runat="server">
+      <asp:Label ID="wizard-step-scope-id" runat="server" />
+    </asp:WizardStep>
+    <asp:WizardStep ID="secondScopedStep" runat="server">
+      <asp:Label ID="wizard-step-scope-id" runat="server" />
+    </asp:WizardStep>
+  </WizardSteps>
+</asp:Wizard>
+<asp:CreateUserWizard ID="createUserWizardStepScopes" runat="server">
+  <WizardSteps>
+    <asp:CreateUserWizardStep ID="createUserScopedStep" runat="server">
+      <ContentTemplate><asp:Label ID="create-user-wizard-step-scope-id" runat="server" /></ContentTemplate>
+    </asp:CreateUserWizardStep>
+    <asp:CompleteWizardStep ID="completeScopedStep" runat="server">
+      <ContentTemplate><asp:Label ID="create-user-wizard-step-scope-id" runat="server" /></ContentTemplate>
+    </asp:CompleteWizardStep>
+  </WizardSteps>
+</asp:CreateUserWizard>

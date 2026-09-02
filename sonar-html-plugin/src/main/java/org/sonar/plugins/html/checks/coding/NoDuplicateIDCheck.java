@@ -49,12 +49,13 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   private static final String DETAILS_VIEW = "detailsview";
   private static final String FORM_VIEW = "formview";
 
-  private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of(
-    "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid",
-    "content", "loginview", "wizard", "createuserwizard", "changepassword", "login", "passwordrecovery",
-    "menu", "sitemappath");
   private static final Set<String> WEBFORMS_TEMPLATE_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid", "menu", "sitemappath");
+  private static final Set<String> WEBFORMS_WIZARD_NAMING_CONTAINERS = Set.of("wizard", "createuserwizard");
+  private static final Set<String> WEBFORMS_NAMING_CONTAINERS = union(
+    WEBFORMS_TEMPLATE_NAMING_CONTAINERS,
+    WEBFORMS_WIZARD_NAMING_CONTAINERS,
+    Set.of("content", "loginview", "changepassword", "login", "passwordrecovery"));
   private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate", "alternatingitemtemplate",
     "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
@@ -65,28 +66,31 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   private static final Set<String> WEBFORMS_EXCLUSIVE_TEMPLATE_SCOPES = Set.of(
     "anonymoustemplate", "loggedintemplate", "changepasswordtemplate", "successtemplate",
     "usernametemplate", "questiontemplate");
+  private static final Set<String> WEBFORMS_WIZARD_STEP_SCOPES = Set.of(
+    "wizardstep", "templatedwizardstep", "createuserwizardstep", "completewizardstep");
   private static final Set<String> WEBFORMS_FORM_MODE_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate");
+  // Pager rows implement INonBindingContainer and therefore have a distinct naming scope.
   private static final Set<String> WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES = Set.of(
     "headertemplate", "footertemplate");
   private static final String WEBFORMS_CONTROLS_NAMESPACE = "System.Web.UI.WebControls";
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
   private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
-  private final Map<TagNode, Integer> webFormsContainerIds = new IdentityHashMap<>();
+  private final Map<TagNode, Integer> webFormsScopeIds = new IdentityHashMap<>();
   private final Set<String> webFormsNamingContainerPrefixes = new HashSet<>();
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
-  private int nextWebFormsContainerId;
+  private int nextWebFormsScopeId;
   @Nullable
   private String pageClientIdMode;
 
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
-    webFormsContainerIds.clear();
+    webFormsScopeIds.clear();
     webFormsNamingContainerPrefixes.clear();
     webFormsNamingContainerPrefixes.add("asp");
-    nextWebFormsContainerId = 1;
+    nextWebFormsScopeId = 1;
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
     pageClientIdMode = null;
   }
@@ -99,7 +103,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   @Override
   public void directive(DirectiveNode directiveNode) {
     conditionalScope.visitDirective(directiveNode);
-    if (!isWebFormsFile()) {
+    if (!Helpers.isWebFormsFile(getHtmlSourceCode())) {
       return;
     }
     if (directiveNode.equalsElementName("Page") || directiveNode.equalsElementName("Control")) {
@@ -180,39 +184,54 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     if (scope == null) {
       return List.of(new RuntimeId(idValue, 0, null));
     }
-    int containerId = webFormsContainerIds.computeIfAbsent(scope.namingContainer(), key -> nextWebFormsContainerId++);
-    if (scope.templateKind() == null) {
+    int containerId = scopeId(scope.namingContainer());
+    if (scope.templateScopes().isEmpty()) {
       return List.of(new RuntimeId(idValue, containerId, null));
     }
-    return templateScopes(scope.containerName(), scope.templateKind()).stream()
-      .map(templateKind -> new RuntimeId(idValue, containerId, templateKind))
+    return scope.templateScopes().stream()
+      .map(templateScope -> new RuntimeId(idValue, containerId, templateScope))
       .toList();
   }
 
   @Nullable
   private WebFormsScope webFormsScope(TagNode node) {
-    if (!isWebFormsFile() || !isServerControl(node) || !hasGeneratedClientId(node)) {
+    if (!Helpers.isWebFormsFile(getHtmlSourceCode()) || !isServerControl(node)) {
       return null;
     }
 
-    String templateKind = null;
-    String exclusiveTemplateKind = null;
+    WebFormsTraversal traversal = new WebFormsTraversal(node);
     TagNode ancestor = node.getParent();
-    while (ancestor != null) {
-      String localName = ancestor.getLocalName().toLowerCase(Locale.ROOT);
-      if (templateKind == null && WEBFORMS_TEMPLATE_SCOPES.contains(localName)) {
-        templateKind = localName;
-      }
-      if (exclusiveTemplateKind == null && WEBFORMS_EXCLUSIVE_TEMPLATE_SCOPES.contains(localName)) {
-        exclusiveTemplateKind = localName;
-      }
-      if (isWebFormsNamingContainer(ancestor)) {
-        String scopedTemplateKind = WEBFORMS_TEMPLATE_NAMING_CONTAINERS.contains(localName) ? templateKind : exclusiveTemplateKind;
-        return new WebFormsScope(ancestor, localName, scopedTemplateKind);
-      }
+    while (ancestor != null && traversal.shouldContinue()) {
+      traversal.visit(ancestor);
       ancestor = ancestor.getParent();
     }
-    return null;
+
+    if (traversal.namingContainer == null || !hasGeneratedClientId(traversal.generatedClientId)) {
+      return null;
+    }
+    return new WebFormsScope(
+      traversal.namingContainer,
+      webFormsTemplateScopes(
+        traversal.namingContainer,
+        traversal.containerName,
+        traversal.templateKind,
+        traversal.exclusiveTemplateKind,
+        traversal.wizardStep));
+  }
+
+  private Set<String> webFormsTemplateScopes(
+    TagNode namingContainer,
+    String containerName,
+    @Nullable String templateKind,
+    @Nullable String exclusiveTemplateKind,
+    @Nullable TagNode wizardStep) {
+    if (WEBFORMS_TEMPLATE_NAMING_CONTAINERS.contains(containerName) && templateKind != null) {
+      return templateScopes(containerName, templateKind);
+    }
+    if (WEBFORMS_WIZARD_NAMING_CONTAINERS.contains(containerName)) {
+      return wizardTemplateScopes(namingContainer, wizardStep);
+    }
+    return exclusiveTemplateKind == null ? Set.of() : Set.of(exclusiveTemplateKind);
   }
 
   private static Set<String> templateScopes(String containerName, String templateKind) {
@@ -223,9 +242,32 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     return Set.of(templateKind);
   }
 
-  private boolean isWebFormsFile() {
-    String filename = getHtmlSourceCode().inputFile().filename().toLowerCase(Locale.ROOT);
-    return filename.endsWith(".aspx") || filename.endsWith(".ascx");
+  private Set<String> wizardTemplateScopes(TagNode namingContainer, @Nullable TagNode wizardStep) {
+    if (wizardStep != null) {
+      return Set.of(wizardStepScope(wizardStep));
+    }
+    Set<String> scopes = new HashSet<>();
+    collectWizardStepScopes(namingContainer, scopes);
+    return scopes;
+  }
+
+  private void collectWizardStepScopes(TagNode node, Set<String> scopes) {
+    for (TagNode child : node.getChildren()) {
+      String localName = child.getLocalName().toLowerCase(Locale.ROOT);
+      if (isWebFormsWizardStep(child, localName)) {
+        scopes.add(wizardStepScope(child));
+      } else if (!isWebFormsWizard(child, localName)) {
+        collectWizardStepScopes(child, scopes);
+      }
+    }
+  }
+
+  private String wizardStepScope(TagNode wizardStep) {
+    return "wizard-step-" + scopeId(wizardStep);
+  }
+
+  private int scopeId(TagNode scope) {
+    return webFormsScopeIds.computeIfAbsent(scope, key -> nextWebFormsScopeId++);
   }
 
   private static boolean isServerControl(TagNode node) {
@@ -233,41 +275,49 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private boolean isWebFormsNamingContainer(TagNode node) {
-    String nodeName = node.getNodeName();
-    if (!nodeName.contains(":") || nodeName.startsWith(":")) {
-      return false;
-    }
-    String tagPrefix = nodeName.substring(0, nodeName.indexOf(':')).toLowerCase(Locale.ROOT);
-    return webFormsNamingContainerPrefixes.contains(tagPrefix)
-      && WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
-      && isServerControl(node);
+    return WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
+      && isKnownWebFormsControl(node);
   }
 
-  private boolean hasGeneratedClientId(TagNode node) {
-    TagNode control = node;
-    while (control != null) {
-      String clientIdMode = control.getAttribute("clientidmode");
-      if (clientIdMode != null && !"inherit".equalsIgnoreCase(clientIdMode)) {
-        return "autoid".equalsIgnoreCase(clientIdMode) || "predictable".equalsIgnoreCase(clientIdMode);
-      }
-      control = nearestWebFormsNamingContainer(control.getParent());
+  private boolean isWebFormsWizardStep(TagNode node, String localName) {
+    return WEBFORMS_WIZARD_STEP_SCOPES.contains(localName) && isKnownWebFormsControl(node);
+  }
+
+  private boolean isWebFormsWizard(TagNode node, String localName) {
+    return WEBFORMS_WIZARD_NAMING_CONTAINERS.contains(localName) && isKnownWebFormsControl(node);
+  }
+
+  private boolean isKnownWebFormsControl(TagNode node) {
+    String nodeName = node.getNodeName();
+    int prefixEnd = nodeName.indexOf(':');
+    if (prefixEnd <= 0 || !isServerControl(node)) {
+      return false;
     }
-    return pageClientIdMode == null
-      || "inherit".equalsIgnoreCase(pageClientIdMode)
-      || "autoid".equalsIgnoreCase(pageClientIdMode)
-      || "predictable".equalsIgnoreCase(pageClientIdMode);
+    String tagPrefix = nodeName.substring(0, prefixEnd).toLowerCase(Locale.ROOT);
+    return webFormsNamingContainerPrefixes.contains(tagPrefix);
+  }
+
+  private boolean hasGeneratedClientId(@Nullable Boolean generatedClientId) {
+    if (generatedClientId != null) {
+      return generatedClientId;
+    }
+    Boolean pageGeneratedClientId = usesGeneratedClientId(pageClientIdMode);
+    return pageGeneratedClientId == null || pageGeneratedClientId;
   }
 
   @Nullable
-  private TagNode nearestWebFormsNamingContainer(@Nullable TagNode node) {
-    TagNode ancestor = node;
-    while (ancestor != null) {
-      if (isWebFormsNamingContainer(ancestor)) {
-        return ancestor;
-      }
-      ancestor = ancestor.getParent();
+  private static Boolean usesGeneratedClientId(@Nullable String clientIdMode) {
+    if (clientIdMode == null || "inherit".equalsIgnoreCase(clientIdMode)) {
+      return null;
     }
-    return null;
+    return "autoid".equalsIgnoreCase(clientIdMode) || "predictable".equalsIgnoreCase(clientIdMode);
+  }
+
+  private static Set<String> union(Set<String> first, Set<String> second, Set<String> third) {
+    Set<String> result = new HashSet<>(first);
+    result.addAll(second);
+    result.addAll(third);
+    return Set.copyOf(result);
   }
 
   private static String duplicateIdMessage(String idValue, int firstOccurrenceLine) {
@@ -275,13 +325,67 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       idValue, firstOccurrenceLine);
   }
 
-  /**
-   * Scope key for a duplicate-id lookup. A positive {@code containerId} is assigned per distinct
-   * {@link TagNode} through an {@link IdentityHashMap}; zero represents the page-global scope.
-   */
-  private record RuntimeId(String value, int containerId, @Nullable String templateKind) {
+  private final class WebFormsTraversal {
+    @Nullable
+    private Boolean generatedClientId;
+    @Nullable
+    private TagNode namingContainer;
+    private String containerName = "";
+    @Nullable
+    private String templateKind;
+    @Nullable
+    private String exclusiveTemplateKind;
+    @Nullable
+    private TagNode wizardStep;
+
+    private WebFormsTraversal(TagNode node) {
+      generatedClientId = usesGeneratedClientId(node.getAttribute("clientidmode"));
+    }
+
+    private boolean shouldContinue() {
+      return namingContainer == null || generatedClientId == null;
+    }
+
+    private void visit(TagNode ancestor) {
+      String localName = ancestor.getLocalName().toLowerCase(Locale.ROOT);
+      if (namingContainer == null) {
+        captureTemplateScopes(ancestor, localName);
+      }
+      if (isWebFormsNamingContainer(ancestor)) {
+        captureNamingContainer(ancestor, localName);
+      }
+    }
+
+    private void captureTemplateScopes(TagNode ancestor, String localName) {
+      if (templateKind == null && WEBFORMS_TEMPLATE_SCOPES.contains(localName)) {
+        templateKind = localName;
+      }
+      if (exclusiveTemplateKind == null && WEBFORMS_EXCLUSIVE_TEMPLATE_SCOPES.contains(localName)) {
+        exclusiveTemplateKind = localName;
+      }
+      if (wizardStep == null && isWebFormsWizardStep(ancestor, localName)) {
+        wizardStep = ancestor;
+      }
+    }
+
+    private void captureNamingContainer(TagNode ancestor, String localName) {
+      if (namingContainer == null) {
+        namingContainer = ancestor;
+        containerName = localName;
+      }
+      if (generatedClientId == null) {
+        generatedClientId = usesGeneratedClientId(ancestor.getAttribute("clientidmode"));
+      }
+    }
   }
 
-  private record WebFormsScope(TagNode namingContainer, String containerName, @Nullable String templateKind) {
+  /**
+   * Scope key for a duplicate-id lookup. Naming containers and wizard steps receive stable IDs
+   * per distinct {@link TagNode} through an {@link IdentityHashMap}; zero represents the page-global scope.
+   */
+  private record RuntimeId(String value, int containerId, @Nullable String templateScope) {
+  }
+
+  private record WebFormsScope(TagNode namingContainer, Set<String> templateScopes) {
   }
 }

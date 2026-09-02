@@ -483,6 +483,9 @@ class NoDuplicateIDCheckTest {
         .next().atLine(132).withMessage("Duplicate id \"wizard-static-id\" found. First occurrence was on line 129.")
         .next().atLine(141).withMessage("Duplicate id \"same-menu-template-scope\" found. First occurrence was on line 140.")
         .next().atLine(147).withMessage("Duplicate id \"same-site-map-template-scope\" found. First occurrence was on line 146.")
+        .next().atLine(155).withMessage("Duplicate id \"wizard-shared-step-scope\" found. First occurrence was on line 152.")
+        .next().atLine(158).withMessage("Duplicate id \"wizard-shared-step-scope\" found. First occurrence was on line 152.")
+        .next().atLine(166).withMessage("Duplicate id \"same-wizard-step-scope\" found. First occurrence was on line 165.")
         .noMore();
   }
 
