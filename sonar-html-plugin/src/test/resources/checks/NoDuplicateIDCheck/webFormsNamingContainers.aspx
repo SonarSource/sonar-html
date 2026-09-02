@@ -86,6 +86,73 @@
   <ItemTemplate><asp:Label ID="identity-scope-id" runat="server" /></ItemTemplate>
 </asp:ListView>
 
+<asp:LoginView ID="firstLoginView" runat="server">
+  <LoggedInTemplate><asp:Label ID="login-view-container-id" runat="server" /></LoggedInTemplate>
+</asp:LoginView>
+<asp:LoginView ID="secondLoginView" runat="server">
+  <LoggedInTemplate><asp:Label ID="login-view-container-id" runat="server" /></LoggedInTemplate>
+</asp:LoginView>
+<asp:LoginView ID="exclusiveLoginView" runat="server">
+  <AnonymousTemplate><asp:Label ID="login-view-template-id" runat="server" /></AnonymousTemplate>
+  <LoggedInTemplate><asp:Label ID="login-view-template-id" runat="server" /></LoggedInTemplate>
+</asp:LoginView>
+
+<asp:Wizard ID="firstWizard" runat="server">
+  <WizardSteps>
+    <asp:WizardStep ID="firstWizardStep" runat="server"><asp:Label ID="wizard-container-id" runat="server" /></asp:WizardStep>
+  </WizardSteps>
+</asp:Wizard>
+<asp:Wizard ID="secondWizard" runat="server">
+  <WizardSteps>
+    <asp:WizardStep ID="secondWizardStep" runat="server"><asp:Label ID="wizard-container-id" runat="server" /></asp:WizardStep>
+  </WizardSteps>
+</asp:Wizard>
+
+<asp:CreateUserWizard ID="firstCreateUserWizard" runat="server">
+  <WizardSteps>
+    <asp:CreateUserWizardStep ID="firstCreateUserStep" runat="server">
+      <ContentTemplate><asp:Label ID="create-user-wizard-container-id" runat="server" /></ContentTemplate>
+    </asp:CreateUserWizardStep>
+  </WizardSteps>
+</asp:CreateUserWizard>
+<asp:CreateUserWizard ID="secondCreateUserWizard" runat="server">
+  <WizardSteps>
+    <asp:CreateUserWizardStep ID="secondCreateUserStep" runat="server">
+      <ContentTemplate><asp:Label ID="create-user-wizard-container-id" runat="server" /></ContentTemplate>
+    </asp:CreateUserWizardStep>
+  </WizardSteps>
+</asp:CreateUserWizard>
+
+<asp:ChangePassword ID="firstChangePassword" runat="server">
+  <ChangePasswordTemplate><asp:Label ID="change-password-container-id" runat="server" /></ChangePasswordTemplate>
+</asp:ChangePassword>
+<asp:ChangePassword ID="secondChangePassword" runat="server">
+  <ChangePasswordTemplate><asp:Label ID="change-password-container-id" runat="server" /></ChangePasswordTemplate>
+</asp:ChangePassword>
+<asp:ChangePassword ID="exclusiveChangePassword" runat="server">
+  <ChangePasswordTemplate><asp:Label ID="change-password-template-id" runat="server" /></ChangePasswordTemplate>
+  <SuccessTemplate><asp:Label ID="change-password-template-id" runat="server" /></SuccessTemplate>
+</asp:ChangePassword>
+
+<asp:Login ID="firstLogin" runat="server">
+  <LayoutTemplate><asp:Label ID="login-container-id" runat="server" /></LayoutTemplate>
+</asp:Login>
+<asp:Login ID="secondLogin" runat="server">
+  <LayoutTemplate><asp:Label ID="login-container-id" runat="server" /></LayoutTemplate>
+</asp:Login>
+
+<asp:PasswordRecovery ID="firstPasswordRecovery" runat="server">
+  <UserNameTemplate><asp:Label ID="password-recovery-container-id" runat="server" /></UserNameTemplate>
+</asp:PasswordRecovery>
+<asp:PasswordRecovery ID="secondPasswordRecovery" runat="server">
+  <UserNameTemplate><asp:Label ID="password-recovery-container-id" runat="server" /></UserNameTemplate>
+</asp:PasswordRecovery>
+<asp:PasswordRecovery ID="exclusivePasswordRecovery" runat="server">
+  <UserNameTemplate><asp:Label ID="password-recovery-template-id" runat="server" /></UserNameTemplate>
+  <QuestionTemplate><asp:Label ID="password-recovery-template-id" runat="server" /></QuestionTemplate>
+  <SuccessTemplate><asp:Label ID="password-recovery-template-id" runat="server" /></SuccessTemplate>
+</asp:PasswordRecovery>
+
 <asp:FormView ID="formPagerScope" runat="server">
   <FooterTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></FooterTemplate>
   <PagerTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></PagerTemplate>

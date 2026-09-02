@@ -493,6 +493,8 @@ class NoDuplicateIDCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(9).withMessage("Duplicate id \"create-user-wizard-static-id\" found. First occurrence was on line 6.")
         .next().atLine(22).withMessage("Duplicate id \"change-password-static-id\" found. First occurrence was on line 19.")
+        .next().atLine(33).withMessage("Duplicate id \"login-static-id\" found. First occurrence was on line 30.")
+        .next().atLine(44).withMessage("Duplicate id \"password-recovery-static-id\" found. First occurrence was on line 41.")
         .noMore();
   }
 

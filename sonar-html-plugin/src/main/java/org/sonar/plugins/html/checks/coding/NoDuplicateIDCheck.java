@@ -51,7 +51,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid",
-    "content", "loginview", "wizard", "createuserwizard", "changepassword");
+    "content", "loginview", "wizard", "createuserwizard", "changepassword", "login", "passwordrecovery");
   private static final Set<String> WEBFORMS_TEMPLATE_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid");
   private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(
@@ -59,6 +59,9 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
     "emptyitemtemplate", "pagertemplate", "selecteditemtemplate", "grouptemplate",
     "groupseparatortemplate", "itemseparatortemplate", "layouttemplate");
+  private static final Set<String> WEBFORMS_EXCLUSIVE_TEMPLATE_SCOPES = Set.of(
+    "anonymoustemplate", "loggedintemplate", "changepasswordtemplate", "successtemplate",
+    "usernametemplate", "questiontemplate");
   private static final Set<String> WEBFORMS_FORM_MODE_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate");
   private static final Set<String> WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES = Set.of(
@@ -190,14 +193,18 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     }
 
     String templateKind = null;
+    String exclusiveTemplateKind = null;
     TagNode ancestor = node.getParent();
     while (ancestor != null) {
       String localName = ancestor.getLocalName().toLowerCase(Locale.ROOT);
       if (templateKind == null && WEBFORMS_TEMPLATE_SCOPES.contains(localName)) {
         templateKind = localName;
       }
+      if (exclusiveTemplateKind == null && WEBFORMS_EXCLUSIVE_TEMPLATE_SCOPES.contains(localName)) {
+        exclusiveTemplateKind = localName;
+      }
       if (isWebFormsNamingContainer(ancestor)) {
-        String scopedTemplateKind = WEBFORMS_TEMPLATE_NAMING_CONTAINERS.contains(localName) ? templateKind : null;
+        String scopedTemplateKind = WEBFORMS_TEMPLATE_NAMING_CONTAINERS.contains(localName) ? templateKind : exclusiveTemplateKind;
         return new WebFormsScope(ancestor, localName, scopedTemplateKind);
       }
       ancestor = ancestor.getParent();
