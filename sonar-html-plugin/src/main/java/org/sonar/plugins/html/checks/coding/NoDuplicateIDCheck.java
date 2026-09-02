@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.coding;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -44,18 +45,28 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S7930")
 public class NoDuplicateIDCheck extends AbstractPageCheck {
 
-  private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of("gridview", "repeater", "detailsview");
-  private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of("itemtemplate", "edititemtemplate", "insertitemtemplate");
+  private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of(
+    "gridview", "repeater", "detailsview", "listview", "formview", "datalist", "datagrid",
+    "content", "contentplaceholder");
+  private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(
+    "itemtemplate", "edititemtemplate", "insertitemtemplate", "alternatingitemtemplate",
+    "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
+    "emptyitemtemplate", "pagertemplate", "selecteditemtemplate", "grouptemplate",
+    "groupseparatortemplate", "itemseparatortemplate", "layouttemplate");
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
   private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
+  private final Map<TagNode, Integer> webFormsContainerIds = new IdentityHashMap<>();
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
+  private int nextWebFormsContainerId;
   @Nullable
   private String pageClientIdMode;
 
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
+    webFormsContainerIds.clear();
+    nextWebFormsContainerId = 1;
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
     pageClientIdMode = null;
   }
@@ -123,9 +134,10 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   private RuntimeId runtimeId(TagNode node, String idValue) {
     WebFormsScope scope = webFormsScope(node);
     if (scope == null) {
-      return new RuntimeId(idValue, null, null);
+      return new RuntimeId(idValue, 0, null);
     }
-    return new RuntimeId(idValue, scope.namingContainer(), scope.templateKind());
+    int containerId = webFormsContainerIds.computeIfAbsent(scope.namingContainer(), key -> nextWebFormsContainerId++);
+    return new RuntimeId(idValue, containerId, scope.templateKind());
   }
 
   @Nullable
@@ -180,7 +192,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       idValue, firstOccurrenceLine);
   }
 
-  private record RuntimeId(String value, @Nullable TagNode namingContainer, @Nullable String templateKind) {
+  /**
+   * Scope key for a duplicate-id lookup. A positive {@code containerId} is assigned per distinct
+   * {@link TagNode} through an {@link IdentityHashMap}; zero represents the page-global scope.
+   */
+  private record RuntimeId(String value, int containerId, @Nullable String templateKind) {
   }
 
   private record WebFormsScope(TagNode namingContainer, @Nullable String templateKind) {
