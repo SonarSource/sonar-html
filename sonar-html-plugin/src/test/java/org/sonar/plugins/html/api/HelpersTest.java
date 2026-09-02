@@ -111,4 +111,15 @@ class HelpersTest {
     assertThat(Helpers.isServerSideFile(sourceCode("page.xml"))).isFalse();
   }
 
+  @Test
+  void is_pascal_case_detects_uppercase_after_first_character() {
+    assertThat(Helpers.isPascalCase("CustomInput")).isTrue();
+    assertThat(Helpers.isPascalCase("BLink")).isTrue();
+    // matches any uppercase after index 0, so camelCase also returns true despite the name
+    assertThat(Helpers.isPascalCase("customInput")).isTrue();
+    assertThat(Helpers.isPascalCase("input")).isFalse();
+    assertThat(Helpers.isPascalCase("Input")).isFalse();
+    assertThat(Helpers.isPascalCase("")).isFalse();
+  }
+
 }
