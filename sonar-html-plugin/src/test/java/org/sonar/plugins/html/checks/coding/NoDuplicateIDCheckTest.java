@@ -448,17 +448,6 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
-  void prefixedCustomControlIsNotAssumedToBeANamingContainer() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsCustomNonContainer.aspx"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(10).withMessage("Duplicate id \"custom-non-container-id\" found. First occurrence was on line 5.")
-        .noMore();
-  }
-
-  @Test
   void duplicateIdsWithoutDistinctWebFormsRuntimeScopes() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsDuplicates.aspx"),

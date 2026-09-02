@@ -12,3 +12,14 @@
     <asp:Label ID="generated-id" runat="server" ClientIDMode="Predictable" />
   </ItemTemplate>
 </asp:DetailsView>
+
+<cc:Repeater ID="globallyRegisteredFirst" runat="server" ClientIDMode="AutoID">
+  <ItemTemplate>
+    <asp:Label ID="globally-registered-generated-id" runat="server" />
+  </ItemTemplate>
+</cc:Repeater>
+<cc:Repeater ID="globallyRegisteredSecond" runat="server" ClientIDMode="Predictable">
+  <ItemTemplate>
+    <asp:Label ID="globally-registered-generated-id" runat="server" />
+  </ItemTemplate>
+</cc:Repeater>

@@ -1,5 +1,3 @@
-<%@ Register TagPrefix="cc" Namespace="System.Web.UI.WebControls" Assembly="System.Web" %>
-
 <asp:GridView ID="orders" runat="server">
   <Columns>
     <asp:TemplateField>
