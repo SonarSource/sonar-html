@@ -62,12 +62,12 @@
 
 <asp:FormView ID="formDup" runat="server">
   <HeaderTemplate><asp:Label ID="same-form-scope" runat="server" /></HeaderTemplate>
-  <FooterTemplate><asp:TextBox ID="same-form-scope" runat="server" /></FooterTemplate>
+  <ItemTemplate><asp:TextBox ID="same-form-scope" runat="server" /></ItemTemplate>
 </asp:FormView>
 
 <asp:DetailsView ID="detailsDup" runat="server">
-  <HeaderTemplate><asp:Label ID="same-details-scope" runat="server" /></HeaderTemplate>
-  <FooterTemplate><asp:TextBox ID="same-details-scope" runat="server" /></FooterTemplate>
+  <FooterTemplate><asp:Label ID="same-details-scope" runat="server" /></FooterTemplate>
+  <ItemTemplate><asp:TextBox ID="same-details-scope" runat="server" /></ItemTemplate>
 </asp:DetailsView>
 
 <asp:DataList ID="dataListDup" runat="server">

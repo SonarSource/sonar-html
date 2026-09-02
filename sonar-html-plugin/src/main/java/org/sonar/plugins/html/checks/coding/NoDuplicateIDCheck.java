@@ -54,7 +54,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     "emptyitemtemplate", "pagertemplate", "selecteditemtemplate", "grouptemplate",
     "groupseparatortemplate", "itemseparatortemplate", "layouttemplate");
   private static final Set<String> WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES = Set.of(
-    "headertemplate", "footertemplate");
+    "headertemplate", "footertemplate", "itemtemplate");
   private static final String SHARED_FORM_TEMPLATE_SCOPE = "shared-form-template";
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
