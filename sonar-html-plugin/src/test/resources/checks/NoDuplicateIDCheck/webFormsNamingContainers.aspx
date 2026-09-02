@@ -153,6 +153,20 @@
   <SuccessTemplate><asp:Label ID="password-recovery-template-id" runat="server" /></SuccessTemplate>
 </asp:PasswordRecovery>
 
+<asp:Menu ID="firstMenu" runat="server">
+  <StaticItemTemplate><asp:Label ID="menu-container-id" runat="server" /></StaticItemTemplate>
+</asp:Menu>
+<asp:Menu ID="secondMenu" runat="server">
+  <StaticItemTemplate><asp:Label ID="menu-container-id" runat="server" /></StaticItemTemplate>
+</asp:Menu>
+
+<asp:SiteMapPath ID="firstSiteMapPath" runat="server">
+  <NodeTemplate><asp:Label ID="site-map-container-id" runat="server" /></NodeTemplate>
+</asp:SiteMapPath>
+<asp:SiteMapPath ID="secondSiteMapPath" runat="server">
+  <NodeTemplate><asp:Label ID="site-map-container-id" runat="server" /></NodeTemplate>
+</asp:SiteMapPath>
+
 <asp:FormView ID="formPagerScope" runat="server">
   <FooterTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></FooterTemplate>
   <PagerTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></PagerTemplate>

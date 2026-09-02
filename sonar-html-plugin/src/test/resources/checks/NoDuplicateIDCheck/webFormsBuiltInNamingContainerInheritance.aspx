@@ -45,3 +45,25 @@
     </asp:Repeater>
   </UserNameTemplate>
 </asp:PasswordRecovery>
+
+<asp:Menu ID="staticMenu" runat="server" ClientIDMode="Static">
+  <StaticItemTemplate>
+    <asp:Repeater ID="menuFirst" runat="server">
+      <ItemTemplate><asp:Label ID="menu-static-id" runat="server" /></ItemTemplate>
+    </asp:Repeater>
+    <asp:Repeater ID="menuSecond" runat="server">
+      <ItemTemplate><asp:TextBox ID="menu-static-id" runat="server" /></ItemTemplate>
+    </asp:Repeater>
+  </StaticItemTemplate>
+</asp:Menu>
+
+<asp:SiteMapPath ID="staticSiteMapPath" runat="server" ClientIDMode="Static">
+  <NodeTemplate>
+    <asp:Repeater ID="siteMapFirst" runat="server">
+      <ItemTemplate><asp:Label ID="site-map-static-id" runat="server" /></ItemTemplate>
+    </asp:Repeater>
+    <asp:Repeater ID="siteMapSecond" runat="server">
+      <ItemTemplate><asp:TextBox ID="site-map-static-id" runat="server" /></ItemTemplate>
+    </asp:Repeater>
+  </NodeTemplate>
+</asp:SiteMapPath>
