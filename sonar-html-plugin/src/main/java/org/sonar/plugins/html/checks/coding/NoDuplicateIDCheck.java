@@ -51,7 +51,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid",
-    "content", "loginview", "wizard");
+    "content", "loginview", "wizard", "createuserwizard", "changepassword");
   private static final Set<String> WEBFORMS_TEMPLATE_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid");
   private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(

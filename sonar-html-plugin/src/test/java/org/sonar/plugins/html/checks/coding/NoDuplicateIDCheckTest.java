@@ -485,6 +485,18 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void staticClientIdsInheritedFromBuiltInWebFormsNamingContainers() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsBuiltInNamingContainerInheritance.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(9).withMessage("Duplicate id \"create-user-wizard-static-id\" found. First occurrence was on line 6.")
+        .next().atLine(22).withMessage("Duplicate id \"change-password-static-id\" found. First occurrence was on line 19.")
+        .noMore();
+  }
+
+  @Test
   void staticClientIdsInheritedFromWebFormsPage() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsStaticPage.aspx"),
