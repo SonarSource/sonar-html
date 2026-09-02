@@ -48,6 +48,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   private static final String DETAILS_VIEW = "detailsview";
   private static final String FORM_VIEW = "formview";
+  private static final String CLIENT_ID_MODE_ATTRIBUTE = "clientidmode";
 
   private static final Set<String> WEBFORMS_TEMPLATE_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid", "menu", "sitemappath");
@@ -107,7 +108,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       return;
     }
     if (directiveNode.equalsElementName("Page") || directiveNode.equalsElementName("Control")) {
-      pageClientIdMode = directiveNode.getAttribute("clientidmode");
+      pageClientIdMode = directiveNode.getAttribute(CLIENT_ID_MODE_ATTRIBUTE);
     } else if (directiveNode.equalsElementName("Register")
       && WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(directiveNode.getAttribute("namespace"))) {
       String tagPrefix = directiveNode.getAttribute("tagprefix");
@@ -274,11 +275,6 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     return "server".equalsIgnoreCase(node.getAttribute("runat"));
   }
 
-  private boolean isWebFormsNamingContainer(TagNode node) {
-    return WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
-      && isKnownWebFormsControl(node);
-  }
-
   private boolean isWebFormsWizardStep(TagNode node, String localName) {
     return WEBFORMS_WIZARD_STEP_SCOPES.contains(localName) && isKnownWebFormsControl(node);
   }
@@ -339,7 +335,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     private TagNode wizardStep;
 
     private WebFormsTraversal(TagNode node) {
-      generatedClientId = usesGeneratedClientId(node.getAttribute("clientidmode"));
+      generatedClientId = usesGeneratedClientId(node.getAttribute(CLIENT_ID_MODE_ATTRIBUTE));
     }
 
     private boolean shouldContinue() {
@@ -374,8 +370,13 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
         containerName = localName;
       }
       if (generatedClientId == null) {
-        generatedClientId = usesGeneratedClientId(ancestor.getAttribute("clientidmode"));
+        generatedClientId = usesGeneratedClientId(ancestor.getAttribute(CLIENT_ID_MODE_ATTRIBUTE));
       }
+    }
+
+    private boolean isWebFormsNamingContainer(TagNode node) {
+      return WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
+        && isKnownWebFormsControl(node);
     }
   }
 
