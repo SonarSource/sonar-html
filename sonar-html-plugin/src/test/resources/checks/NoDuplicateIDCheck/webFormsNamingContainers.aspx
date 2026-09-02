@@ -166,6 +166,16 @@
 <asp:SiteMapPath ID="secondSiteMapPath" runat="server">
   <NodeTemplate><asp:Label ID="site-map-container-id" runat="server" /></NodeTemplate>
 </asp:SiteMapPath>
+<asp:Menu ID="menuTemplateScopes" runat="server">
+  <StaticItemTemplate><asp:Label ID="menu-template-id" runat="server" /></StaticItemTemplate>
+  <DynamicItemTemplate><asp:Label ID="menu-template-id" runat="server" /></DynamicItemTemplate>
+</asp:Menu>
+<asp:SiteMapPath ID="siteMapTemplateScopes" runat="server">
+  <RootNodeTemplate><asp:Label ID="site-map-template-id" runat="server" /></RootNodeTemplate>
+  <NodeTemplate><asp:Label ID="site-map-template-id" runat="server" /></NodeTemplate>
+  <CurrentNodeTemplate><asp:Label ID="site-map-template-id" runat="server" /></CurrentNodeTemplate>
+  <PathSeparatorTemplate><asp:Label ID="site-map-template-id" runat="server" /></PathSeparatorTemplate>
+</asp:SiteMapPath>
 
 <asp:FormView ID="formPagerScope" runat="server">
   <FooterTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></FooterTemplate>

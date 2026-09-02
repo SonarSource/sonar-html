@@ -481,6 +481,8 @@ class NoDuplicateIDCheckTest {
         .next().atLine(111).withMessage("Duplicate id \"unprefixed-container-id\" found. First occurrence was on line 108.")
         .next().atLine(120).withMessage("Duplicate id \"loginview-static-id\" found. First occurrence was on line 117.")
         .next().atLine(132).withMessage("Duplicate id \"wizard-static-id\" found. First occurrence was on line 129.")
+        .next().atLine(141).withMessage("Duplicate id \"same-menu-template-scope\" found. First occurrence was on line 140.")
+        .next().atLine(147).withMessage("Duplicate id \"same-site-map-template-scope\" found. First occurrence was on line 146.")
         .noMore();
   }
 

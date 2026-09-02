@@ -134,3 +134,16 @@
     </asp:WizardStep>
   </WizardSteps>
 </asp:Wizard>
+
+<asp:Menu ID="sameMenuTemplateScope" runat="server">
+  <StaticItemTemplate>
+    <asp:Label ID="same-menu-template-scope" runat="server" />
+    <asp:TextBox ID="same-menu-template-scope" runat="server" />
+  </StaticItemTemplate>
+</asp:Menu>
+<asp:SiteMapPath ID="sameSiteMapTemplateScope" runat="server">
+  <NodeTemplate>
+    <asp:Label ID="same-site-map-template-scope" runat="server" />
+    <asp:TextBox ID="same-site-map-template-scope" runat="server" />
+  </NodeTemplate>
+</asp:SiteMapPath>

@@ -54,12 +54,14 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     "content", "loginview", "wizard", "createuserwizard", "changepassword", "login", "passwordrecovery",
     "menu", "sitemappath");
   private static final Set<String> WEBFORMS_TEMPLATE_NAMING_CONTAINERS = Set.of(
-    "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid");
+    "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid", "menu", "sitemappath");
   private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate", "alternatingitemtemplate",
     "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
     "emptyitemtemplate", "pagertemplate", "selecteditemtemplate", "grouptemplate",
-    "groupseparatortemplate", "itemseparatortemplate", "layouttemplate");
+    "groupseparatortemplate", "itemseparatortemplate", "layouttemplate",
+    "staticitemtemplate", "dynamicitemtemplate", "currentnodetemplate", "nodetemplate",
+    "rootnodetemplate", "pathseparatortemplate");
   private static final Set<String> WEBFORMS_EXCLUSIVE_TEMPLATE_SCOPES = Set.of(
     "anonymoustemplate", "loggedintemplate", "changepasswordtemplate", "successtemplate",
     "usernametemplate", "questiontemplate");
