@@ -421,4 +421,51 @@ class NoDuplicateIDCheckTest {
         .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
         .noMore();
   }
+
+  @Test
+  void generatedClientIdsInWebFormsNamingContainers() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsNamingContainers.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  void duplicateIdsWithoutDistinctWebFormsRuntimeScopes() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsDuplicates.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(4).withMessage("Duplicate id \"same-template\" found. First occurrence was on line 3.")
+        .next().atLine(13).withMessage("Duplicate id \"same-item-scope\" found. First occurrence was on line 10.")
+        .next().atLine(25).withMessage("Duplicate id \"static-client-id\" found. First occurrence was on line 19.")
+        .next().atLine(36).withMessage("Duplicate id \"literal-id\" found. First occurrence was on line 31.")
+        .next().atLine(48).withMessage("Duplicate id \"inherited-static-id\" found. First occurrence was on line 42.")
+        .next().atLine(54).withMessage("Duplicate id \"page-scope\" found. First occurrence was on line 53.")
+        .noMore();
+  }
+
+  @Test
+  void staticClientIdsInheritedFromWebFormsPage() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsStaticPage.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(11).withMessage("Duplicate id \"page-static-id\" found. First occurrence was on line 4.")
+        .noMore();
+  }
+
+  @Test
+  void staticClientIdsInheritedFromWebFormsControl() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsStaticControl.ascx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(11).withMessage("Duplicate id \"control-static-id\" found. First occurrence was on line 4.")
+        .noMore();
+  }
 }

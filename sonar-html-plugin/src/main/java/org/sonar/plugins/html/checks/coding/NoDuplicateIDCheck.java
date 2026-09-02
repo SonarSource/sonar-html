@@ -18,7 +18,9 @@ package org.sonar.plugins.html.checks.coding;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
@@ -37,18 +39,25 @@ import org.sonar.plugins.html.node.TextNode;
  *    IDs inside conditionals are only checked against IDs found outside any conditional block.
  * 2. Ignores IDs that contain dynamic/template expressions (e.g., @variable, {{expression}}, ${var})
  *    since these will be unique at runtime.
+ * 3. Accounts for generated ASP.NET WebForms client IDs inside repeated naming containers.
  */
 @Rule(key = "S7930")
 public class NoDuplicateIDCheck extends AbstractPageCheck {
 
+  private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of("gridview", "repeater", "detailsview");
+  private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of("itemtemplate", "edititemtemplate", "insertitemtemplate");
+
   // IDs seen outside any conditional - these are the "authoritative" IDs
-  private final Map<String, Integer> unconditionalIds = new HashMap<>();
+  private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
+  @Nullable
+  private String pageClientIdMode;
 
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
+    pageClientIdMode = null;
   }
 
   @Override
@@ -59,6 +68,9 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   @Override
   public void directive(DirectiveNode directiveNode) {
     conditionalScope.visitDirective(directiveNode);
+    if (isWebFormsFile() && (directiveNode.equalsElementName("Page") || directiveNode.equalsElementName("Control"))) {
+      pageClientIdMode = directiveNode.getAttribute("clientidmode");
+    }
   }
 
   @Override
@@ -80,10 +92,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     if (shouldIgnoreId(idValue)) {
       return;
     }
+    RuntimeId runtimeId = runtimeId(node, idValue);
     if (conditionalScope.isInConditional(node)) {
-      reportDuplicateAgainstUnconditionalId(node, idValue);
+      reportDuplicateAgainstUnconditionalId(node, runtimeId);
     } else {
-      registerUnconditionalId(node, idValue);
+      registerUnconditionalId(node, runtimeId);
     }
   }
 
@@ -93,22 +106,83 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       || Helpers.isDynamicValue(idValue, getHtmlSourceCode());
   }
 
-  private void reportDuplicateAgainstUnconditionalId(TagNode node, String idValue) {
-    Integer firstOccurrenceLine = unconditionalIds.get(idValue);
+  private void reportDuplicateAgainstUnconditionalId(TagNode node, RuntimeId runtimeId) {
+    Integer firstOccurrenceLine = unconditionalIds.get(runtimeId);
     if (firstOccurrenceLine != null) {
-      createViolation(node, duplicateIdMessage(idValue, firstOccurrenceLine));
+      createViolation(node, duplicateIdMessage(runtimeId.value(), firstOccurrenceLine));
     }
   }
 
-  private void registerUnconditionalId(TagNode node, String idValue) {
-    Integer firstOccurrenceLine = unconditionalIds.putIfAbsent(idValue, node.getStartLinePosition());
+  private void registerUnconditionalId(TagNode node, RuntimeId runtimeId) {
+    Integer firstOccurrenceLine = unconditionalIds.putIfAbsent(runtimeId, node.getStartLinePosition());
     if (firstOccurrenceLine != null) {
-      createViolation(node, duplicateIdMessage(idValue, firstOccurrenceLine));
+      createViolation(node, duplicateIdMessage(runtimeId.value(), firstOccurrenceLine));
     }
+  }
+
+  private RuntimeId runtimeId(TagNode node, String idValue) {
+    WebFormsScope scope = webFormsScope(node);
+    if (scope == null) {
+      return new RuntimeId(idValue, null, null);
+    }
+    return new RuntimeId(idValue, scope.namingContainer(), scope.templateKind());
+  }
+
+  @Nullable
+  private WebFormsScope webFormsScope(TagNode node) {
+    if (!isWebFormsFile() || !isServerControl(node) || !hasGeneratedClientId(node)) {
+      return null;
+    }
+
+    String templateKind = null;
+    TagNode ancestor = node.getParent();
+    while (ancestor != null) {
+      String localName = ancestor.getLocalName().toLowerCase(Locale.ROOT);
+      if (templateKind == null && WEBFORMS_TEMPLATE_SCOPES.contains(localName)) {
+        templateKind = localName;
+      }
+      if (WEBFORMS_NAMING_CONTAINERS.contains(localName) && isServerControl(ancestor)) {
+        return new WebFormsScope(ancestor, templateKind);
+      }
+      ancestor = ancestor.getParent();
+    }
+    return null;
+  }
+
+  private boolean isWebFormsFile() {
+    String filename = getHtmlSourceCode().inputFile().filename().toLowerCase(Locale.ROOT);
+    return filename.endsWith(".aspx") || filename.endsWith(".ascx");
+  }
+
+  private static boolean isServerControl(TagNode node) {
+    return "server".equalsIgnoreCase(node.getAttribute("runat"));
+  }
+
+  private boolean hasGeneratedClientId(TagNode node) {
+    TagNode control = node;
+    while (control != null) {
+      if (isServerControl(control)) {
+        String clientIdMode = control.getAttribute("clientidmode");
+        if (clientIdMode != null && !"inherit".equalsIgnoreCase(clientIdMode)) {
+          return "autoid".equalsIgnoreCase(clientIdMode) || "predictable".equalsIgnoreCase(clientIdMode);
+        }
+      }
+      control = control.getParent();
+    }
+    return pageClientIdMode == null
+      || "inherit".equalsIgnoreCase(pageClientIdMode)
+      || "autoid".equalsIgnoreCase(pageClientIdMode)
+      || "predictable".equalsIgnoreCase(pageClientIdMode);
   }
 
   private static String duplicateIdMessage(String idValue, int firstOccurrenceLine) {
     return String.format("Duplicate id \"%s\" found. First occurrence was on line %d.",
       idValue, firstOccurrenceLine);
+  }
+
+  private record RuntimeId(String value, @Nullable TagNode namingContainer, @Nullable String templateKind) {
+  }
+
+  private record WebFormsScope(TagNode namingContainer, @Nullable String templateKind) {
   }
 }
