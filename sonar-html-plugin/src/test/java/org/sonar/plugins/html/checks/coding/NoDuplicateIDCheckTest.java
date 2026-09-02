@@ -432,6 +432,33 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void overlappingFormViewAndDetailsViewTemplateScopes() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsOverlappingFormScopes.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(7).withMessage("Duplicate id \"form-item-scope\" found. First occurrence was on line 3.")
+        .next().atLine(8).withMessage("Duplicate id \"form-edit-scope\" found. First occurrence was on line 4.")
+        .next().atLine(9).withMessage("Duplicate id \"form-insert-scope\" found. First occurrence was on line 5.")
+        .next().atLine(18).withMessage("Duplicate id \"details-item-scope\" found. First occurrence was on line 14.")
+        .next().atLine(19).withMessage("Duplicate id \"details-edit-scope\" found. First occurrence was on line 15.")
+        .next().atLine(20).withMessage("Duplicate id \"details-insert-scope\" found. First occurrence was on line 16.")
+        .noMore();
+  }
+
+  @Test
+  void prefixedCustomControlIsNotAssumedToBeANamingContainer() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsCustomNonContainer.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(10).withMessage("Duplicate id \"custom-non-container-id\" found. First occurrence was on line 5.")
+        .noMore();
+  }
+
+  @Test
   void duplicateIdsWithoutDistinctWebFormsRuntimeScopes() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsDuplicates.aspx"),

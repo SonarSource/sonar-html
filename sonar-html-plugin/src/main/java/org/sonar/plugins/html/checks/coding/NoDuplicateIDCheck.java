@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.coding;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -53,13 +54,16 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
     "emptyitemtemplate", "pagertemplate", "selecteditemtemplate", "grouptemplate",
     "groupseparatortemplate", "itemseparatortemplate", "layouttemplate");
+  private static final Set<String> WEBFORMS_FORM_MODE_TEMPLATE_SCOPES = Set.of(
+    "itemtemplate", "edititemtemplate", "insertitemtemplate");
   private static final Set<String> WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES = Set.of(
-    "headertemplate", "footertemplate", "itemtemplate");
-  private static final String SHARED_FORM_TEMPLATE_SCOPE = "shared-form-template";
+    "headertemplate", "footertemplate");
+  private static final String WEBFORMS_CONTROLS_NAMESPACE = "System.Web.UI.WebControls";
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
   private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
   private final Map<TagNode, Integer> webFormsContainerIds = new IdentityHashMap<>();
+  private final Set<String> webFormsNamingContainerPrefixes = new HashSet<>();
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
   private int nextWebFormsContainerId;
   @Nullable
@@ -69,6 +73,8 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
     webFormsContainerIds.clear();
+    webFormsNamingContainerPrefixes.clear();
+    webFormsNamingContainerPrefixes.add("asp");
     nextWebFormsContainerId = 1;
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
     pageClientIdMode = null;
@@ -82,8 +88,17 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   @Override
   public void directive(DirectiveNode directiveNode) {
     conditionalScope.visitDirective(directiveNode);
-    if (isWebFormsFile() && (directiveNode.equalsElementName("Page") || directiveNode.equalsElementName("Control"))) {
+    if (!isWebFormsFile()) {
+      return;
+    }
+    if (directiveNode.equalsElementName("Page") || directiveNode.equalsElementName("Control")) {
       pageClientIdMode = directiveNode.getAttribute("clientidmode");
+    } else if (directiveNode.equalsElementName("Register")
+      && WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(directiveNode.getAttribute("namespace"))) {
+      String tagPrefix = directiveNode.getAttribute("tagprefix");
+      if (tagPrefix != null && !tagPrefix.isBlank()) {
+        webFormsNamingContainerPrefixes.add(tagPrefix.toLowerCase(Locale.ROOT));
+      }
     }
   }
 
@@ -106,11 +121,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     if (shouldIgnoreId(idValue)) {
       return;
     }
-    RuntimeId runtimeId = runtimeId(node, idValue);
+    List<RuntimeId> runtimeIds = runtimeIds(node, idValue);
     if (conditionalScope.isInConditional(node)) {
-      reportDuplicateAgainstUnconditionalId(node, runtimeId);
+      reportDuplicateAgainstUnconditionalId(node, runtimeIds);
     } else {
-      registerUnconditionalId(node, runtimeId);
+      registerUnconditionalId(node, runtimeIds);
     }
   }
 
@@ -120,27 +135,47 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       || Helpers.isDynamicValue(idValue, getHtmlSourceCode());
   }
 
-  private void reportDuplicateAgainstUnconditionalId(TagNode node, RuntimeId runtimeId) {
-    Integer firstOccurrenceLine = unconditionalIds.get(runtimeId);
+  private void reportDuplicateAgainstUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
+    Integer firstOccurrenceLine = firstOccurrence(runtimeIds);
     if (firstOccurrenceLine != null) {
-      createViolation(node, duplicateIdMessage(runtimeId.value(), firstOccurrenceLine));
+      createViolation(node, duplicateIdMessage(runtimeIds.get(0).value(), firstOccurrenceLine));
     }
   }
 
-  private void registerUnconditionalId(TagNode node, RuntimeId runtimeId) {
-    Integer firstOccurrenceLine = unconditionalIds.putIfAbsent(runtimeId, node.getStartLinePosition());
+  private void registerUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
+    Integer firstOccurrenceLine = firstOccurrence(runtimeIds);
+    for (RuntimeId runtimeId : runtimeIds) {
+      unconditionalIds.putIfAbsent(runtimeId, node.getStartLinePosition());
+    }
     if (firstOccurrenceLine != null) {
-      createViolation(node, duplicateIdMessage(runtimeId.value(), firstOccurrenceLine));
+      createViolation(node, duplicateIdMessage(runtimeIds.get(0).value(), firstOccurrenceLine));
     }
   }
 
-  private RuntimeId runtimeId(TagNode node, String idValue) {
+  @Nullable
+  private Integer firstOccurrence(List<RuntimeId> runtimeIds) {
+    Integer firstOccurrenceLine = null;
+    for (RuntimeId runtimeId : runtimeIds) {
+      Integer occurrenceLine = unconditionalIds.get(runtimeId);
+      if (occurrenceLine != null && (firstOccurrenceLine == null || occurrenceLine < firstOccurrenceLine)) {
+        firstOccurrenceLine = occurrenceLine;
+      }
+    }
+    return firstOccurrenceLine;
+  }
+
+  private List<RuntimeId> runtimeIds(TagNode node, String idValue) {
     WebFormsScope scope = webFormsScope(node);
     if (scope == null) {
-      return new RuntimeId(idValue, 0, null);
+      return List.of(new RuntimeId(idValue, 0, null));
     }
     int containerId = webFormsContainerIds.computeIfAbsent(scope.namingContainer(), key -> nextWebFormsContainerId++);
-    return new RuntimeId(idValue, containerId, scope.templateKind());
+    if (scope.templateKind() == null) {
+      return List.of(new RuntimeId(idValue, containerId, null));
+    }
+    return templateScopes(scope.containerName(), scope.templateKind()).stream()
+      .map(templateKind -> new RuntimeId(idValue, containerId, templateKind))
+      .toList();
   }
 
   @Nullable
@@ -157,21 +192,19 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
         templateKind = localName;
       }
       if (isWebFormsNamingContainer(ancestor)) {
-        return new WebFormsScope(ancestor, templateScope(localName, templateKind));
+        return new WebFormsScope(ancestor, localName, templateKind);
       }
       ancestor = ancestor.getParent();
     }
     return null;
   }
 
-  @Nullable
-  private static String templateScope(String containerName, @Nullable String templateKind) {
-    if (templateKind != null
-      && ("detailsview".equals(containerName) || "formview".equals(containerName))
+  private static Set<String> templateScopes(String containerName, String templateKind) {
+    if (("detailsview".equals(containerName) || "formview".equals(containerName))
       && WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES.contains(templateKind)) {
-      return SHARED_FORM_TEMPLATE_SCOPE;
+      return WEBFORMS_FORM_MODE_TEMPLATE_SCOPES;
     }
-    return templateKind;
+    return Set.of(templateKind);
   }
 
   private boolean isWebFormsFile() {
@@ -183,9 +216,13 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     return "server".equalsIgnoreCase(node.getAttribute("runat"));
   }
 
-  private static boolean isWebFormsNamingContainer(TagNode node) {
+  private boolean isWebFormsNamingContainer(TagNode node) {
     String nodeName = node.getNodeName();
-    return nodeName.contains(":") && !nodeName.startsWith(":")
+    if (!nodeName.contains(":") || nodeName.startsWith(":")) {
+      return false;
+    }
+    String tagPrefix = nodeName.substring(0, nodeName.indexOf(':')).toLowerCase(Locale.ROOT);
+    return webFormsNamingContainerPrefixes.contains(tagPrefix)
       && WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
       && isServerControl(node);
   }
@@ -206,7 +243,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   @Nullable
-  private static TagNode nearestWebFormsNamingContainer(@Nullable TagNode node) {
+  private TagNode nearestWebFormsNamingContainer(@Nullable TagNode node) {
     TagNode ancestor = node;
     while (ancestor != null) {
       if (isWebFormsNamingContainer(ancestor)) {
@@ -229,6 +266,6 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   private record RuntimeId(String value, int containerId, @Nullable String templateKind) {
   }
 
-  private record WebFormsScope(TagNode namingContainer, @Nullable String templateKind) {
+  private record WebFormsScope(TagNode namingContainer, String containerName, @Nullable String templateKind) {
   }
 }
