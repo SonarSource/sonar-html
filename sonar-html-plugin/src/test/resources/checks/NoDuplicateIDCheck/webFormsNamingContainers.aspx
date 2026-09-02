@@ -1,3 +1,5 @@
+<%@ Register TagPrefix="cc" Namespace="System.Web.UI.WebControls" Assembly="System.Web" %>
+
 <asp:GridView ID="orders" runat="server">
   <Columns>
     <asp:TemplateField>
@@ -107,6 +109,13 @@
     </asp:Panel>
   </ItemTemplate>
 </asp:DetailsView>
+
+<cc:Repeater ID="firstRegisteredPrefix" runat="server">
+  <ItemTemplate><asp:Label ID="registered-prefix-id" runat="server" /></ItemTemplate>
+</cc:Repeater>
+<cc:Repeater ID="secondRegisteredPrefix" runat="server">
+  <ItemTemplate><asp:Label ID="registered-prefix-id" runat="server" /></ItemTemplate>
+</cc:Repeater>
 <asp:ListView runat="server">
   <ItemTemplate><asp:Label ID="identity-scope-id" runat="server" /></ItemTemplate>
 </asp:ListView>
