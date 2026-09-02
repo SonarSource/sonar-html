@@ -16,10 +16,13 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
@@ -43,6 +46,9 @@ public final class TemplateConditionalScopeTracker {
   );
 
   private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CSHARP_BLOCK_START_PATTERN = Pattern.compile("(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
+  private static final Pattern CSHARP_GENERIC_ARGUMENT_PATTERN = Pattern.compile("<\\s*[\\p{L}_][\\p{L}\\p{N}_.,:?\\[\\]\\s<>]*>");
+  private static final int CSHARP_RAW_STRING_MIN_QUOTE_COUNT = 3;
   // Angular block control flow branches: @case (value) { and @default { inside an @switch
   private static final Pattern ANGULAR_BRANCH_START_PATTERN = Pattern.compile("@(case|default)\\s*[({]", Pattern.CASE_INSENSITIVE);
   private static final Pattern PHP_DIRECTIVE_CONDITIONAL_START_PATTERN = Pattern.compile("(if|foreach|for)\\b", Pattern.CASE_INSENSITIVE);
@@ -53,6 +59,7 @@ public final class TemplateConditionalScopeTracker {
   private int textConditionalDepth;
   private int braceBasedTextConditionalDepth;
   private int pendingConditionalBranchOpenings;
+  private boolean pendingConditionalBranchRazorBrace;
   private boolean awaitingConditionalHeaderParenthesis;
   private int pendingConditionalHeaderParenthesisDepth;
   private int nestedTextBlockDepth;
@@ -60,11 +67,30 @@ public final class TemplateConditionalScopeTracker {
   private boolean pendingBranchContinuation;
   private int scriptDepth;
   private int styleDepth;
+  private int razorCodeBraceDepth;
+  private int pendingRenderedClosingBraceDepth;
+  private boolean pendingRenderedRazorCodeBlockClosing;
+  private final Deque<TagNode> openElements = new ArrayDeque<>();
+  private final Deque<Integer> markupBraceDepths = new ArrayDeque<>();
+  private final Deque<ConditionalBrace> conditionalBraces = new ArrayDeque<>();
+  private final Deque<RazorCodeBlock> razorCodeBlocks = new ArrayDeque<>();
+  private boolean inRazorComment;
+  private boolean inRazorExplicitText;
+  private boolean inCSharpLineComment;
+  private boolean inCSharpBlockComment;
+  private final Deque<CSharpStringContext> csharpStringContexts = new ArrayDeque<>();
+  private char csharpGenericTypeOwnerInitial;
+  private boolean razorCodeEnabled;
 
   public void reset() {
+    reset(false);
+  }
+
+  public void reset(boolean razorCodeEnabled) {
     textConditionalDepth = 0;
     braceBasedTextConditionalDepth = 0;
     pendingConditionalBranchOpenings = 0;
+    pendingConditionalBranchRazorBrace = false;
     awaitingConditionalHeaderParenthesis = false;
     pendingConditionalHeaderParenthesisDepth = 0;
     nestedTextBlockDepth = 0;
@@ -72,18 +98,50 @@ public final class TemplateConditionalScopeTracker {
     pendingBranchContinuation = false;
     scriptDepth = 0;
     styleDepth = 0;
+    razorCodeBraceDepth = 0;
+    pendingRenderedClosingBraceDepth = -1;
+    pendingRenderedRazorCodeBlockClosing = false;
+    openElements.clear();
+    markupBraceDepths.clear();
+    conditionalBraces.clear();
+    razorCodeBlocks.clear();
+    inRazorComment = false;
+    inRazorExplicitText = false;
+    csharpGenericTypeOwnerInitial = '\0';
+    resetCSharpProtectedState();
+    this.razorCodeEnabled = razorCodeEnabled;
   }
 
   public void visitText(TextNode textNode) {
-    scanFragment(textNode.getCode(), false);
+    String code = textNode.getCode();
+    if (!isInNonRenderedRazorContent()) {
+      synchronizeOpenElements(textNode.getParent());
+    }
+    scanFragment(code, false);
+    csharpGenericTypeOwnerInitial = isInRazorCodeContext()
+      && !inRazorExplicitText
+      && !isInNonRenderedRazorContent()
+      ? trailingCSharpIdentifierInitial(code)
+      : '\0';
   }
 
   public void visitDirective(DirectiveNode directiveNode) {
+    csharpGenericTypeOwnerInitial = '\0';
     flushPendingBranchContinuation();
     scanFragment(unwrapDirective(directiveNode.getCode()), true);
   }
 
   public void startElement(TagNode node) {
+    boolean csharpGenericTypeArgument = isCSharpGenericTypeArgument(node);
+    csharpGenericTypeOwnerInitial = '\0';
+    if (csharpGenericTypeArgument) {
+      return;
+    }
+    if (isInNonRenderedRazorContent()) {
+      return;
+    }
+    synchronizeOpenElements(node.getParent());
+    resolvePendingRenderedClosingBrace();
     flushPendingBranchContinuation();
     if (isJstlConditionalTag(node)) {
       tagConditionalDepth++;
@@ -93,9 +151,46 @@ public final class TemplateConditionalScopeTracker {
     } else if (isStyleTag(node)) {
       styleDepth++;
     }
+    if (tracksElementDepth(node)) {
+      openElements.push(node);
+    }
   }
 
   public void endElement(TagNode node) {
+    csharpGenericTypeOwnerInitial = '\0';
+    if (isInNonRenderedRazorContent()) {
+      return;
+    }
+    closeElement(node);
+    discardPendingRenderedClosingBrace();
+  }
+
+  private void synchronizeOpenElements(@Nullable TagNode parent) {
+    if (parent == null) {
+      closeAllOpenElements();
+    } else if (openElements.contains(parent)) {
+      while (openElements.peek() != parent) {
+        closeCurrentElement();
+      }
+    }
+    discardClosedMarkupScopes();
+  }
+
+  private void closeElement(TagNode node) {
+    if (!openElements.isEmpty() && matchesClosingElement(openElements.peek(), node)) {
+      closeCurrentElement();
+    }
+    discardClosedMarkupScopes();
+  }
+
+  private void closeAllOpenElements() {
+    while (!openElements.isEmpty()) {
+      closeCurrentElement();
+    }
+  }
+
+  private void closeCurrentElement() {
+    TagNode node = openElements.pop();
     if (isJstlConditionalTag(node) && tagConditionalDepth > 0) {
       tagConditionalDepth--;
     }
@@ -106,8 +201,60 @@ public final class TemplateConditionalScopeTracker {
     }
   }
 
+  private void discardClosedMarkupScopes() {
+    int elementDepth = currentElementDepth();
+    while (!markupBraceDepths.isEmpty() && markupBraceDepths.peek() > elementDepth) {
+      markupBraceDepths.pop();
+    }
+    while (!conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() > elementDepth) {
+      recoverConditionalBrace(conditionalBraces.pop());
+    }
+  }
+
+  private void resolvePendingRenderedClosingBrace() {
+    if (pendingRenderedClosingBraceDepth < 0) {
+      return;
+    }
+    if (currentElementDepth() >= pendingRenderedClosingBraceDepth && !conditionalBraces.isEmpty()) {
+      recoverConditionalBrace(conditionalBraces.pop());
+    }
+    pendingRenderedClosingBraceDepth = -1;
+  }
+
+  private void discardPendingRenderedClosingBrace() {
+    if (currentElementDepth() < pendingRenderedClosingBraceDepth) {
+      pendingRenderedClosingBraceDepth = -1;
+    }
+  }
+
+  private void recoverConditionalBrace(ConditionalBrace conditionalBrace) {
+    closeBraceBasedConditional();
+    if (conditionalBrace.razorBraceTracked()) {
+      razorCodeBraceDepth--;
+    }
+  }
+
+  private static boolean matchesClosingElement(TagNode openElement, TagNode closingElement) {
+    return closingElement.hasEnd()
+      ? (openElement == closingElement)
+      : openElement.equalsElementName(closingElement.getNodeName());
+  }
+
+  private int currentElementDepth() {
+    return openElements.size();
+  }
+
   public boolean isInConditional(TagNode node) {
     return hasOpenConditionalScope() || hasConditionalAttribute(node);
+  }
+
+  /**
+   * Returns whether the current lexer position is inside Razor or C# content that is not rendered.
+   * HTML-like tags in these regions are still emitted by the generic HTML lexer and must be ignored
+   * by checks that reason about rendered elements.
+   */
+  public boolean isInNonRenderedRazorContent() {
+    return inRazorComment || inCSharpLineComment || inCSharpBlockComment || !csharpStringContexts.isEmpty();
   }
 
   private boolean hasOpenConditionalScope() {
@@ -123,27 +270,334 @@ public final class TemplateConditionalScopeTracker {
    */
   private void scanFragment(String text, boolean directive) {
     FragmentScanState state = new FragmentScanState();
-    if (!directive) {
-      resolvePendingBranchContinuation(text, state);
-    }
+    boolean resolvePendingInThisFragment = pendingBranchContinuation;
     while (state.index < text.length()) {
-      boolean fullCode = directive || isScanningConditionalHeader();
-      boolean hashComments = fullCode;
-      boolean slashComments = fullCode || scriptDepth > 0;
-      boolean stringsAndBlockComments = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
-      if (consumeProtectedCharacter(text, state)
-        || consumeCommentOrStringStart(text, directive, hashComments, slashComments, stringsAndBlockComments, state)
-        || consumeConditionalHeaderCharacter(text, state)
-        || consumeConditionalToken(text, directive, state)
-        || consumeStructuralToken(text, state)) {
-        continue;
+      if (!directive && resolvePendingInThisFragment && pendingBranchContinuation && !isInPersistentRazorComment()) {
+        resolvePendingBranchContinuation(text, state);
+        resolvePendingInThisFragment = false;
       }
-      state.index++;
+      if (state.index < text.length() && !consumeFragmentCharacter(text, directive, state)) {
+        state.index++;
+      }
     }
 
     if (textConditionalDepth == 0) {
       clearBraceTracking();
     }
+  }
+
+  private boolean consumeFragmentCharacter(String text, boolean directive, FragmentScanState state) {
+    boolean fullCode = directive || isScanningConditionalHeader();
+    boolean slashComments = fullCode || scriptDepth > 0;
+    boolean stringsAndBlockComments = fullCode || scriptDepth > 0 || styleDepth > 0 || nestedTextBlockDepth > 0;
+    return consumePersistentRazorProtectedCharacter(text, state)
+      || consumeRazorExplicitText(text, state)
+      || consumePersistentRazorProtectedStart(text, state)
+      || consumeProtectedCharacter(text, state)
+      || consumeCommentOrStringStart(text, directive, fullCode, slashComments, stringsAndBlockComments, state)
+      || consumeConditionalHeaderCharacter(text, state)
+      || consumeRazorCodeBlockStart(text, state)
+      || consumeCSharpConditionalStart(text, state)
+      || consumeConditionalToken(text, directive, state)
+      || consumeStructuralToken(text, state);
+  }
+
+  private boolean consumeRazorExplicitText(String text, FragmentScanState state) {
+    if (inRazorExplicitText) {
+      if (isLineBreak(text.charAt(state.index))) {
+        inRazorExplicitText = false;
+      }
+      state.index++;
+      return true;
+    }
+    if (razorCodeEnabled && !isInPersistentRazorComment() && csharpStringContexts.isEmpty()
+      && isInRazorCodeContext() && startsWith(text, state.index, "@:")) {
+      inRazorExplicitText = true;
+      state.index += 2;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Continues a Razor comment, C# comment, or C# string across text fragments. The HTML lexer
+   * splits such fragments whenever their contents resemble an HTML tag.
+   */
+  private boolean consumePersistentRazorProtectedCharacter(String text, FragmentScanState state) {
+    if (inRazorComment) {
+      consumeRazorCommentCharacter(text, state);
+      return true;
+    }
+    if (inCSharpLineComment) {
+      consumeCSharpLineCommentCharacter(text, state);
+      return true;
+    }
+    if (inCSharpBlockComment) {
+      consumeCSharpBlockCommentCharacter(text, state);
+      return true;
+    }
+    if (!csharpStringContexts.isEmpty()) {
+      consumeCSharpStringCharacter(text, state);
+      return true;
+    }
+    return false;
+  }
+
+  private void consumeRazorCommentCharacter(String text, FragmentScanState state) {
+    if (startsWith(text, state.index, "*@")) {
+      inRazorComment = false;
+      state.index += 2;
+    } else {
+      state.index++;
+    }
+  }
+
+  private void consumeCSharpLineCommentCharacter(String text, FragmentScanState state) {
+    if (isLineBreak(text.charAt(state.index))) {
+      inCSharpLineComment = false;
+    }
+    state.index++;
+  }
+
+  private void consumeCSharpBlockCommentCharacter(String text, FragmentScanState state) {
+    if (startsWith(text, state.index, "*/")) {
+      inCSharpBlockComment = false;
+      state.index += 2;
+    } else {
+      state.index++;
+    }
+  }
+
+  private void consumeCSharpStringCharacter(String text, FragmentScanState state) {
+    CSharpStringContext context = csharpStringContexts.peek();
+    if (context.rawQuoteCount > 0) {
+      consumeCSharpRawStringCharacter(text, state, context);
+      return;
+    }
+    if (context.interpolationBraceDepth > 0) {
+      consumeCSharpInterpolationCharacter(text, state, context);
+      return;
+    }
+    char current = text.charAt(state.index);
+    if (context.interpolated && current == '{') {
+      if (startsWith(text, state.index, "{{")) {
+        state.index += 2;
+      } else {
+        context.interpolationBraceDepth++;
+        state.index++;
+      }
+      return;
+    }
+    consumeCSharpStringContent(text, state, context, current);
+  }
+
+  private void consumeCSharpInterpolationCharacter(String text, FragmentScanState state, CSharpStringContext context) {
+    char current = text.charAt(state.index);
+    if (current == '\'' || current == '"') {
+      consumeCSharpStringStart(text, state, context);
+    } else {
+      if (current == '{') {
+        context.interpolationBraceDepth++;
+      } else if (current == '}') {
+        context.interpolationBraceDepth--;
+      }
+      state.index++;
+    }
+  }
+
+  private void consumeCSharpStringContent(String text, FragmentScanState state, CSharpStringContext context, char current) {
+    int quoteCount = current == '"' ? consecutiveQuoteCount(text, state.index) : 0;
+    if (context.verbatim && quoteCount >= 2 * context.delimiterWidth) {
+      state.index += 2 * context.delimiterWidth;
+      return;
+    }
+    if (context.escaped) {
+      context.escaped = false;
+    } else if (!context.verbatim && current == '\\') {
+      context.escaped = true;
+    } else if (current == context.delimiter && (current != '"' || quoteCount >= context.delimiterWidth)) {
+      csharpStringContexts.pop();
+      state.index += context.delimiterWidth;
+      return;
+    }
+    state.index++;
+  }
+
+  private void consumeCSharpRawStringCharacter(String text, FragmentScanState state, CSharpStringContext context) {
+    int quoteCount = consecutiveQuoteCount(text, state.index);
+    if (quoteCount >= context.rawQuoteCount) {
+      state.index += quoteCount;
+      csharpStringContexts.pop();
+    } else {
+      state.index += Math.max(quoteCount, 1);
+    }
+  }
+
+  private boolean consumeCSharpStringStart(String text, FragmentScanState state,
+    @Nullable CSharpStringContext enclosingContext) {
+    char current = text.charAt(state.index);
+    if (current != '\'' && current != '"') {
+      return false;
+    }
+    int quoteCount = consecutiveQuoteCount(text, state.index);
+    int delimiterWidth = nestedCSharpStringDelimiterWidth(text, state.index, enclosingContext, current);
+    if (delimiterWidth == 1 && isCompleteEmptyRawString(text, state.index, quoteCount)) {
+      state.index += quoteCount;
+      return true;
+    }
+    int rawQuoteCount = delimiterWidth == 1 && quoteCount >= CSHARP_RAW_STRING_MIN_QUOTE_COUNT ? quoteCount : 0;
+    boolean verbatim = rawQuoteCount == 0 && current == '"' && hasVerbatimPrefix(text, state.index);
+    boolean interpolated = rawQuoteCount == 0 && current == '"' && hasInterpolatedPrefix(text, state.index);
+    csharpStringContexts.push(new CSharpStringContext(current, delimiterWidth, rawQuoteCount, verbatim, interpolated));
+    state.index += rawQuoteCount > 0 ? rawQuoteCount : delimiterWidth;
+    return true;
+  }
+
+  private static int nestedCSharpStringDelimiterWidth(String text, int quoteIndex,
+    @Nullable CSharpStringContext enclosingContext, char delimiter) {
+    if (enclosingContext == null || !enclosingContext.verbatim || delimiter != '"'
+      || !startsWith(text, quoteIndex, "\"\"") || text.indexOf("\"\"", quoteIndex + 2) < 0) {
+      return 1;
+    }
+    return 2;
+  }
+
+  /**
+   * Starts persistent protected Razor/C# content. C# tokens are recognized only at the markup
+   * depth where the active {@code @{ ... }} block began, not in text rendered by a child element.
+   */
+  private boolean consumePersistentRazorProtectedStart(String text, FragmentScanState state) {
+    if (!razorCodeEnabled) {
+      return false;
+    }
+    if (startsWith(text, state.index, "@*")) {
+      inRazorComment = true;
+      state.index += 2;
+      return true;
+    }
+    if (!isInRazorCodeContext()) {
+      return false;
+    }
+    if (startsWith(text, state.index, "/*")) {
+      inCSharpBlockComment = true;
+      state.index += 2;
+      return true;
+    }
+    if (startsWith(text, state.index, "//")) {
+      inCSharpLineComment = true;
+      state.index += 2;
+      return true;
+    }
+    return consumeCSharpStringStart(text, state, null);
+  }
+
+  private boolean consumeRazorCodeBlockStart(String text, FragmentScanState state) {
+    if (!razorCodeEnabled || !startsWith(text, state.index, "@{")) {
+      return false;
+    }
+    if (braceBasedTextConditionalDepth > 0) {
+      nestedTextBlockDepth++;
+    }
+    razorCodeBraceDepth++;
+    razorCodeBlocks.push(new RazorCodeBlock(razorCodeBraceDepth, currentElementDepth()));
+    state.index += 2;
+    return true;
+  }
+
+  private boolean consumeCSharpConditionalStart(String text, FragmentScanState state) {
+    if (!isInRazorCodeContext() || !isWordStart(text, state.index)) {
+      return false;
+    }
+    int conditionalStartLength = matchedPrefixLength(CSHARP_BLOCK_START_PATTERN, text, state.index);
+    if (conditionalStartLength == 0) {
+      return false;
+    }
+    textConditionalDepth++;
+    openBraceBasedConditionalInsideHeaderParenthesis();
+    state.index += conditionalStartLength;
+    return true;
+  }
+
+  private boolean isInRazorCodeContext() {
+    return !razorCodeBlocks.isEmpty() && currentElementDepth() <= razorCodeBlocks.peek().elementDepth();
+  }
+
+  private boolean isCSharpGenericTypeArgument(TagNode node) {
+    return csharpGenericTypeOwnerInitial != '\0'
+      && isInRazorCodeContext()
+      && (!HtmlConstants.hasKnownHTMLTag(node) || Character.isUpperCase(csharpGenericTypeOwnerInitial))
+      && CSHARP_GENERIC_ARGUMENT_PATTERN.matcher(node.getCode()).matches();
+  }
+
+  private static char trailingCSharpIdentifierInitial(String text) {
+    int index = text.length() - 1;
+    while (index >= 0 && isHorizontalWhitespace(text.charAt(index))) {
+      index--;
+    }
+    if (index < 0 || !isCSharpIdentifierPart(text.charAt(index))) {
+      return '\0';
+    }
+    while (index > 0 && isCSharpIdentifierPart(text.charAt(index - 1))) {
+      index--;
+    }
+    return text.charAt(index);
+  }
+
+  private static boolean isCSharpIdentifierPart(char character) {
+    return Character.isLetterOrDigit(character) || character == '_';
+  }
+
+  private static boolean isHorizontalWhitespace(char character) {
+    return character == ' ' || character == '\t' || character == '\f';
+  }
+
+  private static int consecutiveQuoteCount(String text, int index) {
+    int quoteCount = 0;
+    while (index + quoteCount < text.length() && text.charAt(index + quoteCount) == '"') {
+      quoteCount++;
+    }
+    return quoteCount;
+  }
+
+  private static boolean isCompleteEmptyRawString(String text, int index, int quoteCount) {
+    if (quoteCount < 2 * CSHARP_RAW_STRING_MIN_QUOTE_COUNT || quoteCount % 2 != 0) {
+      return false;
+    }
+    int nextIndex = index + quoteCount;
+    while (nextIndex < text.length() && isHorizontalWhitespace(text.charAt(nextIndex))) {
+      nextIndex++;
+    }
+    return nextIndex >= text.length() || !isLineBreak(text.charAt(nextIndex));
+  }
+
+  private static boolean hasVerbatimPrefix(String text, int quoteIndex) {
+    int index = quoteIndex - 1;
+    while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
+      if (text.charAt(index) == '@') {
+        return true;
+      }
+      index--;
+    }
+    return false;
+  }
+
+  private static boolean hasInterpolatedPrefix(String text, int quoteIndex) {
+    int index = quoteIndex - 1;
+    while (index >= 0 && isCSharpStringPrefix(text.charAt(index))) {
+      if (text.charAt(index) == '$') {
+        return true;
+      }
+      index--;
+    }
+    return false;
+  }
+
+  private static boolean isCSharpStringPrefix(char character) {
+    return character == '@' || character == '$';
+  }
+
+  private boolean isInPersistentRazorComment() {
+    return inRazorComment || inCSharpLineComment || inCSharpBlockComment;
   }
 
   /**
@@ -367,11 +821,25 @@ public final class TemplateConditionalScopeTracker {
    * @return always {@code true}
    */
   private boolean consumeOpeningBrace(FragmentScanState state) {
+    boolean inRazorCodeContext = isInRazorCodeContext();
     if (pendingConditionalBranchOpenings > 0) {
       pendingConditionalBranchOpenings--;
       clearConditionalHeaderTracking();
+      if (!razorCodeBlocks.isEmpty()) {
+        boolean razorBraceTracked = inRazorCodeContext || pendingConditionalBranchRazorBrace;
+        conditionalBraces.push(new ConditionalBrace(currentElementDepth(), razorBraceTracked));
+        if (pendingConditionalBranchRazorBrace && !inRazorCodeContext) {
+          razorCodeBraceDepth++;
+        }
+      }
+      pendingConditionalBranchRazorBrace = false;
+    } else if (!razorCodeBlocks.isEmpty() && !inRazorCodeContext) {
+      markupBraceDepths.push(currentElementDepth());
     } else if (braceBasedTextConditionalDepth > 0) {
       nestedTextBlockDepth++;
+    }
+    if (inRazorCodeContext) {
+      razorCodeBraceDepth++;
     }
     state.index++;
     return true;
@@ -384,14 +852,127 @@ public final class TemplateConditionalScopeTracker {
    * @param state the mutable scan state
    */
   private void consumeClosingBrace(String text, FragmentScanState state) {
+    boolean inRazorCodeContext = isInRazorCodeContext();
+    if (consumeRenderedMarkupClosingBrace(text, state, inRazorCodeContext)) {
+      return;
+    }
+    if (inRazorCodeContext && !conditionalBraces.isEmpty() && nestedTextBlockDepth == 0
+      && conditionalBraces.peek().elementDepth() == currentElementDepth()) {
+      conditionalBraces.pop();
+    }
     if (nestedTextBlockDepth > 0) {
       nestedTextBlockDepth--;
     } else if (continueBraceBasedConditional(text, state)) {
+      closeRazorCodeBrace();
       return;
     } else if (!deferBranchContinuation(text, state)) {
       closeBraceBasedConditional();
     }
+    closeRazorCodeBrace();
     state.index++;
+  }
+
+  private boolean consumeRenderedMarkupClosingBrace(String text, FragmentScanState state, boolean inRazorCodeContext) {
+    if (razorCodeBlocks.isEmpty() || inRazorCodeContext) {
+      return false;
+    }
+    if (canClosePendingRenderedRazorCodeBlock(text, state)) {
+      pendingRenderedRazorCodeBlockClosing = false;
+      closeTrackedRazorCodeBrace();
+      state.index++;
+      return true;
+    }
+    int elementDepth = currentElementDepth();
+    if (hasMarkupBraceAtDepth(elementDepth)) {
+      markupBraceDepths.pop();
+      state.index++;
+    } else if (hasConditionalBraceAtDepth(elementDepth)) {
+      if (continueRenderedConditionalBranch(text, state)) {
+        return true;
+      }
+      closeRenderedConditionalBrace();
+      return false;
+    } else if (hasConditionalBraceBelowDepth(elementDepth)) {
+      if (!continueRenderedConditionalBranch(text, state)) {
+        if (skipLeadingTrivia(text, state.index + 1) >= text.length()) {
+          pendingRenderedClosingBraceDepth = elementDepth;
+        }
+        state.index++;
+      }
+    } else {
+      state.index++;
+    }
+    return true;
+  }
+
+  private boolean canClosePendingRenderedRazorCodeBlock(String text, FragmentScanState state) {
+    return pendingRenderedRazorCodeBlockClosing && braceBasedTextConditionalDepth == 0
+      && markupBraceDepths.isEmpty() && conditionalBraces.isEmpty()
+      && skipLeadingTrivia(text, state.index + 1) >= text.length();
+  }
+
+  private boolean hasMarkupBraceAtDepth(int elementDepth) {
+    return !markupBraceDepths.isEmpty() && markupBraceDepths.peek() == elementDepth;
+  }
+
+  private boolean hasConditionalBraceAtDepth(int elementDepth) {
+    return !conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() == elementDepth;
+  }
+
+  private boolean hasConditionalBraceBelowDepth(int elementDepth) {
+    return !conditionalBraces.isEmpty() && conditionalBraces.peek().elementDepth() < elementDepth;
+  }
+
+  private void closeRenderedConditionalBrace() {
+    ConditionalBrace conditionalBrace = conditionalBraces.pop();
+    if (conditionalBrace.razorBraceTracked()) {
+      razorCodeBraceDepth--;
+      pendingRenderedRazorCodeBlockClosing = true;
+    }
+  }
+
+  private boolean continueRenderedConditionalBranch(String text, FragmentScanState state) {
+    int continuationIndex = conditionalContinuationEndIndex(text, state.index);
+    if (continuationIndex < 0) {
+      return false;
+    }
+    ConditionalBrace conditionalBrace = conditionalBraces.pop();
+    if (conditionalBrace.razorBraceTracked()) {
+      razorCodeBraceDepth--;
+      pendingConditionalBranchRazorBrace = true;
+    }
+    pendingConditionalBranchOpenings++;
+    state.index = continuationIndex;
+    return true;
+  }
+
+  private void closeRazorCodeBrace() {
+    if (!isInRazorCodeContext()) {
+      return;
+    }
+    closeTrackedRazorCodeBrace();
+  }
+
+  private void closeTrackedRazorCodeBrace() {
+    razorCodeBraceDepth--;
+    if (razorCodeBraceDepth < razorCodeBlocks.peek().openingBraceDepth()) {
+      razorCodeBlocks.pop();
+    }
+    if (razorCodeBlocks.isEmpty()) {
+      markupBraceDepths.clear();
+      conditionalBraces.clear();
+      pendingRenderedClosingBraceDepth = -1;
+      pendingRenderedRazorCodeBlockClosing = false;
+      razorCodeBraceDepth = 0;
+      inRazorExplicitText = false;
+      resetCSharpProtectedState();
+    }
+  }
+
+  private void resetCSharpProtectedState() {
+    inCSharpLineComment = false;
+    inCSharpBlockComment = false;
+    csharpStringContexts.clear();
   }
 
   /**
@@ -422,7 +1003,7 @@ public final class TemplateConditionalScopeTracker {
       return;
     }
     pendingBranchContinuation = false;
-    int continuationIndex = conditionalContinuationEndIndex(text, -1);
+    int continuationIndex = conditionalContinuationEndIndex(text, state.index - 1);
     if (continuationIndex >= 0) {
       pendingConditionalBranchOpenings++;
       state.index = continuationIndex;
@@ -535,8 +1116,11 @@ public final class TemplateConditionalScopeTracker {
   private void clearBraceTracking() {
     braceBasedTextConditionalDepth = 0;
     pendingConditionalBranchOpenings = 0;
+    pendingConditionalBranchRazorBrace = false;
     clearConditionalHeaderTracking();
     nestedTextBlockDepth = 0;
+    conditionalBraces.clear();
+    pendingRenderedClosingBraceDepth = -1;
   }
 
   /**
@@ -727,6 +1311,15 @@ public final class TemplateConditionalScopeTracker {
       || (!Character.isLetterOrDigit(text.charAt(index)) && text.charAt(index) != '_');
   }
 
+  private static boolean tracksElementDepth(TagNode node) {
+    return node.hasEnd() || !HtmlConstants.VOID_ELEMENTS.contains(node.getNodeName().toLowerCase(Locale.ROOT));
+  }
+
+  private static boolean isWordStart(String text, int index) {
+    return index == 0
+      || (!Character.isLetterOrDigit(text.charAt(index - 1)) && text.charAt(index - 1) != '_');
+  }
+
   private static int skipLeadingTrivia(String text, int index) {
     int current = index;
     boolean advanced = true;
@@ -840,6 +1433,32 @@ public final class TemplateConditionalScopeTracker {
     private FragmentScanState(int index) {
       this.index = index;
     }
+  }
+
+  private static final class CSharpStringContext {
+
+    private final char delimiter;
+    private final int delimiterWidth;
+    private final int rawQuoteCount;
+    private final boolean verbatim;
+    private final boolean interpolated;
+    private boolean escaped;
+    private int interpolationBraceDepth;
+
+    private CSharpStringContext(char delimiter, int delimiterWidth, int rawQuoteCount,
+      boolean verbatim, boolean interpolated) {
+      this.delimiter = delimiter;
+      this.delimiterWidth = delimiterWidth;
+      this.rawQuoteCount = rawQuoteCount;
+      this.verbatim = verbatim;
+      this.interpolated = interpolated;
+    }
+  }
+
+  private record RazorCodeBlock(int openingBraceDepth, int elementDepth) {
+  }
+
+  private record ConditionalBrace(int elementDepth, boolean razorBraceTracked) {
   }
 
   private static boolean isLineBreak(char character) {

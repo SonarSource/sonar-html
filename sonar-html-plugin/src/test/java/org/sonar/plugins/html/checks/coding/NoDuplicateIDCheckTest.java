@@ -254,6 +254,40 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void plainCSharpConditionalBlocksInsideRazorCode() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksPlainCSharp.cshtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(42).withMessage("Duplicate id \"footer\" found. First occurrence was on line 41.")
+        .noMore();
+  }
+
+  @Test
+  void htmlLikeTagsInsideRazorAndCSharpComments() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/commentsInsideRazorCode.cshtml"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(34).withMessage("Duplicate id \"footer\" found. First occurrence was on line 33.")
+        .noMore();
+  }
+
+  @Test
+  void razorTokensInPlainHtml() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/razorTokensInPlainHtml.html"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(4).withMessage("Duplicate id \"code-block\" found. First occurrence was on line 3.")
+        .next().atLine(8).withMessage("Duplicate id \"comment\" found. First occurrence was on line 7.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocksWithScriptTemplateLiteral() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksScriptTemplateLiteral.cshtml"),

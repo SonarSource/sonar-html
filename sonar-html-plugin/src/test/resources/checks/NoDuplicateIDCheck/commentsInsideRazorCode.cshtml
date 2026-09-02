@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@{
+    if (Model.ShowMessage)
+    {
+        var closingBrace = "}";
+        // A comment containing } must not close the branch.
+        <div id="message">Message</div>
+    }
+    /* <div id="between-branches">Not rendered }</div> */
+    else
+    {
+        <div id="message">Fallback</div>
+    }
+
+    // <div id="line-comment">Not rendered }</div>
+    /*
+       <div id="block-comment">Not rendered }</div>
+    */
+}
+
+@*
+  <div id="razor-comment">Not rendered</div>
+*@
+
+<div id="line-comment">Rendered once</div>
+<div id="block-comment">Rendered once</div>
+<div id="between-branches">Rendered once</div>
+<div id="razor-comment">Rendered once</div>
+
+<div id="footer">One</div>
+<div id="footer">Two</div>
+
+</body>
+</html>

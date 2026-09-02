@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
@@ -631,7 +632,7 @@ final class PhpEmbeddedHtmlExtractor {
   }
 
   private static boolean isVoidElement(TagNode tag) {
-    return PageLexer.VOID_ELEMENTS.contains(tag.getNodeName().toLowerCase(Locale.ROOT));
+    return HtmlConstants.VOID_ELEMENTS.contains(tag.getNodeName().toLowerCase(Locale.ROOT));
   }
 
   private static TagNode syntheticEndTag(TagNode open) {

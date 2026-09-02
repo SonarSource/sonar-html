@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+@{
+    if (Model.ShowPrimary)
+    {
+        <section id="panel">Primary</section>
+        if (Model.ShowDetails)
+        {
+            <span id="details">Full details</span>
+        }
+        else
+        {
+            <span id="details">Summary</span>
+        }
+    }
+    else if (Model.ShowSecondary)
+    {
+        <section id="panel">Secondary</section>
+    }
+    else
+    {
+        <section id="panel">Fallback</section>
+    }
+
+    switch (Model.Layout)
+    {
+        case "compact":
+            <aside id="layout">Compact</aside>
+            break;
+        case "wide":
+            <aside id="layout">Wide</aside>
+            break;
+        default:
+            <aside id="layout">Default</aside>
+            break;
+    }
+}
+
+<div id="footer">One</div>
+<div id="footer">Two</div>
+
+</body>
+</html>
