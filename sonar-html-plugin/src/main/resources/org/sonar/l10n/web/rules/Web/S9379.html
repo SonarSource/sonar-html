@@ -42,6 +42,13 @@ container instead of autofocusing it directly on page load.</p>
   &lt;input autofocus /&gt;
 &lt;/div&gt;
 </pre>
+<p>In Vue templates, an <code>autofocus</code> attribute on a PascalCase or kebab-case tag is not flagged: the analyzer cannot determine how the
+component renders, so it cannot tell whether the attribute reaches a real DOM element. Note that Vue passes undeclared attributes through to the
+component’s root element by default, so such code can still autofocus an element:</p>
+<pre>
+&lt;CustomInput autofocus /&gt;
+&lt;custom-input autofocus /&gt;
+</pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>

@@ -114,6 +114,27 @@ public class Helpers {
   }
 
   /**
+   * Checks if a tag name uses PascalCase (has an uppercase letter after the first character).
+   * In Vue templates, PascalCase indicates a component reference, not an HTML element.
+   *
+   * @param name the tag name to test
+   * @return true if the name is PascalCase
+   */
+  public static boolean isPascalCase(String name) {
+    for (int i = 1; i < name.length(); i++) {
+      if (Character.isUpperCase(name.charAt(i))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /** Checks if a tag name uses kebab-case; native HTML element names never contain a hyphen, so this always indicates a component. */
+  public static boolean isKebabCase(String name) {
+    return name.indexOf('-') >= 0;
+  }
+
+  /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
    * @param node the tag node whose ancestors are inspected

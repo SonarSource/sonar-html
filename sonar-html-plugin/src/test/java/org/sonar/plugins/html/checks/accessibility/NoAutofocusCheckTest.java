@@ -54,6 +54,21 @@ class NoAutofocusCheckTest {
       .next().atLine(10)
       .next().atLine(11)
       .next().atLine(13)
+      .next().atLine(15)
+      .next().atLine(16)
+      .noMore();
+  }
+
+  @Test
+  void vueComponentPropShouldNotBeFlagged() {
+    // CustomInput / custom-input are Vue components; autofocus there is a prop, not the DOM attribute
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoAutofocusCheck/VueComponents.vue"),
+      new NoAutofocusCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      // Only the native <input> should be flagged
+      .next().atLine(10)
       .noMore();
   }
 }

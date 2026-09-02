@@ -110,4 +110,12 @@ class HelpersTest {
     assertThat(Helpers.isServerSideFile(sourceCode("page.htm"))).isFalse();
     assertThat(Helpers.isServerSideFile(sourceCode("page.xml"))).isFalse();
   }
+
+  @Test
+  void is_kebab_case_detects_hyphenated_names_only() {
+    assertThat(Helpers.isKebabCase("custom-input")).isTrue();
+    assertThat(Helpers.isKebabCase("my-custom-element")).isTrue();
+    assertThat(Helpers.isKebabCase("input")).isFalse();
+    assertThat(Helpers.isKebabCase("CustomInput")).isFalse();
+  }
 }
