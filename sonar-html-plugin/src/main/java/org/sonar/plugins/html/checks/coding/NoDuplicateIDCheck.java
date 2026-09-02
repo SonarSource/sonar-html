@@ -54,7 +54,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     "emptyitemtemplate", "pagertemplate", "selecteditemtemplate", "grouptemplate",
     "groupseparatortemplate", "itemseparatortemplate", "layouttemplate");
   private static final Set<String> WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES = Set.of(
-    "headertemplate", "footertemplate", "pagertemplate");
+    "headertemplate", "footertemplate");
   private static final String SHARED_FORM_TEMPLATE_SCOPE = "shared-form-template";
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
@@ -186,18 +186,29 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   private boolean hasGeneratedClientId(TagNode node) {
     TagNode control = node;
     while (control != null) {
-      if (isServerControl(control)) {
-        String clientIdMode = control.getAttribute("clientidmode");
-        if (clientIdMode != null && !"inherit".equalsIgnoreCase(clientIdMode)) {
-          return "autoid".equalsIgnoreCase(clientIdMode) || "predictable".equalsIgnoreCase(clientIdMode);
-        }
+      String clientIdMode = control.getAttribute("clientidmode");
+      if (clientIdMode != null && !"inherit".equalsIgnoreCase(clientIdMode)) {
+        return "autoid".equalsIgnoreCase(clientIdMode) || "predictable".equalsIgnoreCase(clientIdMode);
       }
-      control = control.getParent();
+      control = nearestWebFormsNamingContainer(control.getParent());
     }
     return pageClientIdMode == null
       || "inherit".equalsIgnoreCase(pageClientIdMode)
       || "autoid".equalsIgnoreCase(pageClientIdMode)
       || "predictable".equalsIgnoreCase(pageClientIdMode);
+  }
+
+  @Nullable
+  private static TagNode nearestWebFormsNamingContainer(@Nullable TagNode node) {
+    TagNode ancestor = node;
+    while (ancestor != null) {
+      String localName = ancestor.getLocalName().toLowerCase(Locale.ROOT);
+      if (WEBFORMS_NAMING_CONTAINERS.contains(localName) && isServerControl(ancestor)) {
+        return ancestor;
+      }
+      ancestor = ancestor.getParent();
+    }
+    return null;
   }
 
   private static String duplicateIdMessage(String idValue, int firstOccurrenceLine) {

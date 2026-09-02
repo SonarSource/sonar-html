@@ -67,7 +67,7 @@
 
 <asp:DetailsView ID="detailsDup" runat="server">
   <HeaderTemplate><asp:Label ID="same-details-scope" runat="server" /></HeaderTemplate>
-  <PagerTemplate><asp:TextBox ID="same-details-scope" runat="server" /></PagerTemplate>
+  <FooterTemplate><asp:TextBox ID="same-details-scope" runat="server" /></FooterTemplate>
 </asp:DetailsView>
 
 <asp:DataList ID="dataListDup" runat="server">
@@ -88,3 +88,18 @@
   <asp:Label ID="same-content-scope" runat="server" />
   <asp:TextBox ID="same-content-scope" runat="server" />
 </asp:Content>
+
+<asp:Repeater ID="staticThroughPanel" runat="server" ClientIDMode="Static">
+  <ItemTemplate>
+    <asp:Panel ID="generatedPanel" runat="server" ClientIDMode="AutoID">
+      <asp:Label ID="naming-container-inheritance-id" runat="server" />
+    </asp:Panel>
+  </ItemTemplate>
+</asp:Repeater>
+<asp:DetailsView ID="otherStaticThroughPanel" runat="server" ClientIDMode="Static">
+  <ItemTemplate>
+    <asp:Panel ID="otherGeneratedPanel" runat="server" ClientIDMode="Predictable">
+      <asp:Label ID="naming-container-inheritance-id" runat="server" />
+    </asp:Panel>
+  </ItemTemplate>
+</asp:DetailsView>

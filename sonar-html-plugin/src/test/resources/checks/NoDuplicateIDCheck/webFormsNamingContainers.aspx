@@ -83,6 +83,30 @@
 <asp:ListView runat="server">
   <ItemTemplate><asp:Label ID="identity-scope-id" runat="server" /></ItemTemplate>
 </asp:ListView>
+
+<asp:FormView ID="formPagerScope" runat="server">
+  <FooterTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></FooterTemplate>
+  <PagerTemplate><asp:Label ID="form-pager-scope-id" runat="server" /></PagerTemplate>
+</asp:FormView>
+<asp:DetailsView ID="detailsPagerScope" runat="server">
+  <HeaderTemplate><asp:Label ID="details-pager-scope-id" runat="server" /></HeaderTemplate>
+  <PagerTemplate><asp:Label ID="details-pager-scope-id" runat="server" /></PagerTemplate>
+</asp:DetailsView>
+
+<asp:Repeater ID="generatedThroughPanel" runat="server" ClientIDMode="AutoID">
+  <ItemTemplate>
+    <asp:Panel ID="staticPanel" runat="server" ClientIDMode="Static">
+      <asp:Label ID="panel-inheritance-id" runat="server" />
+    </asp:Panel>
+  </ItemTemplate>
+</asp:Repeater>
+<asp:DetailsView ID="otherGeneratedThroughPanel" runat="server" ClientIDMode="Predictable">
+  <ItemTemplate>
+    <asp:Panel ID="otherStaticPanel" runat="server" ClientIDMode="Static">
+      <asp:Label ID="panel-inheritance-id" runat="server" />
+    </asp:Panel>
+  </ItemTemplate>
+</asp:DetailsView>
 <asp:ListView runat="server">
   <ItemTemplate><asp:Label ID="identity-scope-id" runat="server" /></ItemTemplate>
 </asp:ListView>

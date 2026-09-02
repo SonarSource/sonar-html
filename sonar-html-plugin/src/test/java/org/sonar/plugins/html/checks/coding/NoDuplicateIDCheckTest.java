@@ -450,6 +450,7 @@ class NoDuplicateIDCheckTest {
         .next().atLine(76).withMessage("Duplicate id \"same-data-list-scope\" found. First occurrence was on line 75.")
         .next().atLine(83).withMessage("Duplicate id \"same-data-grid-scope\" found. First occurrence was on line 82.")
         .next().atLine(89).withMessage("Duplicate id \"same-content-scope\" found. First occurrence was on line 88.")
+        .next().atLine(102).withMessage("Duplicate id \"naming-container-inheritance-id\" found. First occurrence was on line 95.")
         .noMore();
   }
 
