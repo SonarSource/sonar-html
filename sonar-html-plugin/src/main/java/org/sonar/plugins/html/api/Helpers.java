@@ -129,11 +129,6 @@ public class Helpers {
     return false;
   }
 
-  /** Checks if a tag name uses kebab-case; native HTML element names never contain a hyphen, so this always indicates a component. */
-  public static boolean isKebabCase(String name) {
-    return name.indexOf('-') >= 0;
-  }
-
   /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *

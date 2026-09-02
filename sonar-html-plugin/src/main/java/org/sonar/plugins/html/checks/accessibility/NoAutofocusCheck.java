@@ -17,25 +17,18 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.Arrays;
-import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
-import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
+
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 @Rule(key = "S9379")
 public class NoAutofocusCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.";
-
-  private boolean isVueFile;
-
-  @Override
-  public void startDocument(List<Node> nodes) {
-    isVueFile = Helpers.isVueFile(getHtmlSourceCode());
-  }
 
   @Override
   public void startElement(TagNode node) {
@@ -43,8 +36,8 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if (autofocusProperty == null) {
       return;
     }
-    // In Vue files, PascalCase/kebab-case tags are components: `autofocus` there is a prop, not the DOM attribute.
-    if (isVueFile && (Helpers.isPascalCase(node.getNodeName()) || Helpers.isKebabCase(node.getNodeName()))) {
+    // Components and custom elements are skipped: `autofocus` there is a prop, not the DOM attribute.
+    if (!hasKnownHTMLTag(node)) {
       return;
     }
     // DOM-property bindings (`:x`, `v-bind:x`, `[x]`) bound to literal false never set the property, unlike a static "false" string.
