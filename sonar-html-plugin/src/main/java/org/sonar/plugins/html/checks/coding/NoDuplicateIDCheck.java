@@ -17,6 +17,7 @@
 package org.sonar.plugins.html.checks.coding;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -57,10 +58,12 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     "itemtemplate", "edititemtemplate", "insertitemtemplate");
   private static final Set<String> WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES = Set.of(
     "headertemplate", "footertemplate");
+  private static final String WEBFORMS_CONTROLS_NAMESPACE = "System.Web.UI.WebControls";
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
   private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
   private final Map<TagNode, Integer> webFormsContainerIds = new IdentityHashMap<>();
+  private final Set<String> webFormsNamingContainerPrefixes = new HashSet<>();
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
   private int nextWebFormsContainerId;
   @Nullable
@@ -70,6 +73,8 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
     webFormsContainerIds.clear();
+    webFormsNamingContainerPrefixes.clear();
+    webFormsNamingContainerPrefixes.add("asp");
     nextWebFormsContainerId = 1;
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
     pageClientIdMode = null;
@@ -83,8 +88,17 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   @Override
   public void directive(DirectiveNode directiveNode) {
     conditionalScope.visitDirective(directiveNode);
-    if (isWebFormsFile() && (directiveNode.equalsElementName("Page") || directiveNode.equalsElementName("Control"))) {
+    if (!isWebFormsFile()) {
+      return;
+    }
+    if (directiveNode.equalsElementName("Page") || directiveNode.equalsElementName("Control")) {
       pageClientIdMode = directiveNode.getAttribute("clientidmode");
+    } else if (directiveNode.equalsElementName("Register")
+      && WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(directiveNode.getAttribute("namespace"))) {
+      String tagPrefix = directiveNode.getAttribute("tagprefix");
+      if (tagPrefix != null && !tagPrefix.isBlank()) {
+        webFormsNamingContainerPrefixes.add(tagPrefix.toLowerCase(Locale.ROOT));
+      }
     }
   }
 
@@ -202,12 +216,14 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     return "server".equalsIgnoreCase(node.getAttribute("runat"));
   }
 
-  private static boolean isWebFormsNamingContainer(TagNode node) {
+  private boolean isWebFormsNamingContainer(TagNode node) {
     String nodeName = node.getNodeName();
     if (!nodeName.contains(":") || nodeName.startsWith(":")) {
       return false;
     }
-    return WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
+    String tagPrefix = nodeName.substring(0, nodeName.indexOf(':')).toLowerCase(Locale.ROOT);
+    return webFormsNamingContainerPrefixes.contains(tagPrefix)
+      && WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
       && isServerControl(node);
   }
 
@@ -227,7 +243,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   @Nullable
-  private static TagNode nearestWebFormsNamingContainer(@Nullable TagNode node) {
+  private TagNode nearestWebFormsNamingContainer(@Nullable TagNode node) {
     TagNode ancestor = node;
     while (ancestor != null) {
       if (isWebFormsNamingContainer(ancestor)) {

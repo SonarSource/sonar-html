@@ -448,6 +448,17 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void prefixedCustomControlIsNotAssumedToBeANamingContainer() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsCustomNonContainer.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(10).withMessage("Duplicate id \"custom-non-container-id\" found. First occurrence was on line 5.")
+        .noMore();
+  }
+
+  @Test
   void duplicateIdsWithoutDistinctWebFormsRuntimeScopes() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsDuplicates.aspx"),
@@ -478,7 +489,7 @@ class NoDuplicateIDCheckTest {
         new NoDuplicateIDCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(11).withMessage("Duplicate id \"page-static-id\" found. First occurrence was on line 4.")
+        .next().atLine(13).withMessage("Duplicate id \"page-static-id\" found. First occurrence was on line 6.")
         .noMore();
   }
 

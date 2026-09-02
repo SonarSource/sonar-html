@@ -1,4 +1,6 @@
 <%@ Page Language="C#" ClientIDMode="Static" %>
+<%@ Register TagPrefix="cc" Namespace="System.Web.UI.WebControls" Assembly="System.Web" %>
+
 <asp:Repeater ID="first" runat="server">
   <ItemTemplate>
     <asp:Label ID="page-static-id" runat="server" />
