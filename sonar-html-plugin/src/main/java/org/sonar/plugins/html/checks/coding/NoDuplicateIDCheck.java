@@ -185,7 +185,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   private static boolean isWebFormsNamingContainer(TagNode node) {
     String nodeName = node.getNodeName();
-    return nodeName.indexOf(':') > 0
+    return nodeName.contains(":") && !nodeName.startsWith(":")
       && WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
       && isServerControl(node);
   }
