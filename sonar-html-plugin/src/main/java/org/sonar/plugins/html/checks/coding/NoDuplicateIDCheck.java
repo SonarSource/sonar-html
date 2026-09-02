@@ -156,7 +156,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       if (templateKind == null && WEBFORMS_TEMPLATE_SCOPES.contains(localName)) {
         templateKind = localName;
       }
-      if (WEBFORMS_NAMING_CONTAINERS.contains(localName) && isServerControl(ancestor)) {
+      if (isWebFormsNamingContainer(ancestor)) {
         return new WebFormsScope(ancestor, templateScope(localName, templateKind));
       }
       ancestor = ancestor.getParent();
@@ -183,6 +183,12 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     return "server".equalsIgnoreCase(node.getAttribute("runat"));
   }
 
+  private static boolean isWebFormsNamingContainer(TagNode node) {
+    return node.getNodeName().regionMatches(true, 0, "asp:", 0, 4)
+      && WEBFORMS_NAMING_CONTAINERS.contains(node.getLocalName().toLowerCase(Locale.ROOT))
+      && isServerControl(node);
+  }
+
   private boolean hasGeneratedClientId(TagNode node) {
     TagNode control = node;
     while (control != null) {
@@ -202,8 +208,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   private static TagNode nearestWebFormsNamingContainer(@Nullable TagNode node) {
     TagNode ancestor = node;
     while (ancestor != null) {
-      String localName = ancestor.getLocalName().toLowerCase(Locale.ROOT);
-      if (WEBFORMS_NAMING_CONTAINERS.contains(localName) && isServerControl(ancestor)) {
+      if (isWebFormsNamingContainer(ancestor)) {
         return ancestor;
       }
       ancestor = ancestor.getParent();

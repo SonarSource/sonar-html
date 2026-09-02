@@ -103,3 +103,10 @@
     </asp:Panel>
   </ItemTemplate>
 </asp:DetailsView>
+
+<repeater runat="server">
+  <asp:Label ID="unprefixed-container-id" runat="server" />
+</repeater>
+<repeater runat="server">
+  <asp:TextBox ID="unprefixed-container-id" runat="server" />
+</repeater>
