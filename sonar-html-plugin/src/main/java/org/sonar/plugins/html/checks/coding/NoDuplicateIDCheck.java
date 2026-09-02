@@ -48,7 +48,9 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", "detailsview", "listview", "formview", "datalist", "datagrid",
-    "content");
+    "content", "loginview", "wizard");
+  private static final Set<String> WEBFORMS_TEMPLATE_NAMING_CONTAINERS = Set.of(
+    "gridview", "repeater", "detailsview", "listview", "formview", "datalist", "datagrid");
   private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate", "alternatingitemtemplate",
     "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
@@ -192,7 +194,8 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
         templateKind = localName;
       }
       if (isWebFormsNamingContainer(ancestor)) {
-        return new WebFormsScope(ancestor, localName, templateKind);
+        String scopedTemplateKind = WEBFORMS_TEMPLATE_NAMING_CONTAINERS.contains(localName) ? templateKind : null;
+        return new WebFormsScope(ancestor, localName, scopedTemplateKind);
       }
       ancestor = ancestor.getParent();
     }

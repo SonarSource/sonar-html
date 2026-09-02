@@ -110,3 +110,27 @@
 <repeater runat="server">
   <asp:TextBox ID="unprefixed-container-id" runat="server" />
 </repeater>
+
+<asp:LoginView ID="staticLoginView" runat="server" ClientIDMode="Static">
+  <LoggedInTemplate>
+    <asp:Repeater ID="loginFirst" runat="server">
+      <ItemTemplate><asp:Label ID="loginview-static-id" runat="server" /></ItemTemplate>
+    </asp:Repeater>
+    <asp:Repeater ID="loginSecond" runat="server">
+      <ItemTemplate><asp:TextBox ID="loginview-static-id" runat="server" /></ItemTemplate>
+    </asp:Repeater>
+  </LoggedInTemplate>
+</asp:LoginView>
+
+<asp:Wizard ID="staticWizard" runat="server" ClientIDMode="Static">
+  <WizardSteps>
+    <asp:WizardStep ID="step" runat="server">
+      <asp:Repeater ID="wizardFirst" runat="server">
+        <ItemTemplate><asp:Label ID="wizard-static-id" runat="server" /></ItemTemplate>
+      </asp:Repeater>
+      <asp:Repeater ID="wizardSecond" runat="server">
+        <ItemTemplate><asp:TextBox ID="wizard-static-id" runat="server" /></ItemTemplate>
+      </asp:Repeater>
+    </asp:WizardStep>
+  </WizardSteps>
+</asp:Wizard>

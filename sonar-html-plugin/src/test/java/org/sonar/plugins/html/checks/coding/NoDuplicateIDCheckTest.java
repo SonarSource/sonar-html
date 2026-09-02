@@ -479,6 +479,8 @@ class NoDuplicateIDCheckTest {
         .next().atLine(89).withMessage("Duplicate id \"same-content-scope\" found. First occurrence was on line 88.")
         .next().atLine(102).withMessage("Duplicate id \"naming-container-inheritance-id\" found. First occurrence was on line 95.")
         .next().atLine(111).withMessage("Duplicate id \"unprefixed-container-id\" found. First occurrence was on line 108.")
+        .next().atLine(120).withMessage("Duplicate id \"loginview-static-id\" found. First occurrence was on line 117.")
+        .next().atLine(132).withMessage("Duplicate id \"wizard-static-id\" found. First occurrence was on line 129.")
         .noMore();
   }
 
