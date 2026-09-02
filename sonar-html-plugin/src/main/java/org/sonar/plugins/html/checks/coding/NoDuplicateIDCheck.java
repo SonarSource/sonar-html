@@ -46,11 +46,14 @@ import org.sonar.plugins.html.node.TextNode;
 @Rule(key = "S7930")
 public class NoDuplicateIDCheck extends AbstractPageCheck {
 
+  private static final String DETAILS_VIEW = "detailsview";
+  private static final String FORM_VIEW = "formview";
+
   private static final Set<String> WEBFORMS_NAMING_CONTAINERS = Set.of(
-    "gridview", "repeater", "detailsview", "listview", "formview", "datalist", "datagrid",
+    "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid",
     "content", "loginview", "wizard");
   private static final Set<String> WEBFORMS_TEMPLATE_NAMING_CONTAINERS = Set.of(
-    "gridview", "repeater", "detailsview", "listview", "formview", "datalist", "datagrid");
+    "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid");
   private static final Set<String> WEBFORMS_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate", "alternatingitemtemplate",
     "headertemplate", "footertemplate", "separatortemplate", "emptydatatemplate",
@@ -203,7 +206,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private static Set<String> templateScopes(String containerName, String templateKind) {
-    if (("detailsview".equals(containerName) || "formview".equals(containerName))
+    if ((DETAILS_VIEW.equals(containerName) || FORM_VIEW.equals(containerName))
       && WEBFORMS_SHARED_FORM_TEMPLATE_SCOPES.contains(templateKind)) {
       return WEBFORMS_FORM_MODE_TEMPLATE_SCOPES;
     }
