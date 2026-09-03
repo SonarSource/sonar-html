@@ -239,3 +239,18 @@
     </asp:CompleteWizardStep>
   </WizardSteps>
 </asp:CreateUserWizard>
+
+<asp:ListView ID="nestedTemplateScopes" runat="server">
+  <LayoutTemplate>
+    <asp:Label ID="nested-template-scope-id" runat="server" />
+    <asp:DataPager ID="pager" runat="server">
+      <Fields>
+        <asp:TemplatePagerField>
+          <PagerTemplate>
+            <asp:Label ID="nested-template-scope-id" runat="server" />
+          </PagerTemplate>
+        </asp:TemplatePagerField>
+      </Fields>
+    </asp:DataPager>
+  </LayoutTemplate>
+</asp:ListView>

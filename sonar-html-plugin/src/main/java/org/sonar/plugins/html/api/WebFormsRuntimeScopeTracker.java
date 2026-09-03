@@ -118,8 +118,8 @@ public final class WebFormsRuntimeScopeTracker {
       parentContext.scopeIdentity(),
       parentContext.containerName(),
       parentContext.generatedClientId(),
-      firstMatching(localName, TEMPLATE_SCOPES, parentContext.templateKind()),
-      firstMatching(localName, EXCLUSIVE_TEMPLATE_SCOPES, parentContext.exclusiveTemplateKind()),
+      nearestMatching(localName, TEMPLATE_SCOPES, parentContext.templateKind()),
+      nearestMatching(localName, EXCLUSIVE_TEMPLATE_SCOPES, parentContext.exclusiveTemplateKind()),
       wizardStep(node, localName, parentContext.wizardStep())));
   }
 
@@ -246,8 +246,8 @@ public final class WebFormsRuntimeScopeTracker {
   }
 
   @Nullable
-  private static String firstMatching(String localName, Set<String> candidates, @Nullable String current) {
-    return current == null && candidates.contains(localName) ? localName : current;
+  private static String nearestMatching(String localName, Set<String> candidates, @Nullable String current) {
+    return candidates.contains(localName) ? localName : current;
   }
 
   private static Set<String> union(Set<String> first, Set<String> second, Set<String> third) {
