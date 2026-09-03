@@ -528,6 +528,17 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void registeredUserControlsAreNamingContainers() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsRegisteredUserControl.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(12).withMessage("Duplicate id \"same-user-control-scope\" found. First occurrence was on line 11.")
+        .noMore();
+  }
+
+  @Test
   void staticClientIdsInheritedFromWebFormsControl() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsStaticControl.ascx"),

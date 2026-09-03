@@ -114,6 +114,24 @@ public class Helpers {
   }
 
   /**
+   * Returns whether a tag name uses Vue's PascalCase component syntax.
+   *
+   * @param name the tag name to inspect
+   * @return true when the name starts with an uppercase character and contains lowercase content
+   */
+  public static boolean isPascalCase(String name) {
+    if (name.isEmpty() || !Character.isUpperCase(name.charAt(0))) {
+      return false;
+    }
+    for (int i = 1; i < name.length(); i++) {
+      if (Character.isLowerCase(name.charAt(i))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
    * @param node the tag node whose ancestors are inspected

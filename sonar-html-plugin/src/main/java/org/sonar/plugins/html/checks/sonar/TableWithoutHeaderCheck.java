@@ -18,7 +18,6 @@ package org.sonar.plugins.html.checks.sonar;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.check.Rule;
@@ -103,18 +102,12 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
     // PascalCase names are Vue components. Native HTML tags are conventionally lowercase, while
     // all-uppercase spellings remain valid because HTML tag names are case-insensitive.
     return TABLE_TAG.equalsIgnoreCase(nodeName)
-      && (!isVueFile || isAllLowerCase(nodeName) || isAllUpperCase(nodeName));
+      && (!isVueFile || !Helpers.isPascalCase(nodeName));
   }
 
-  private static boolean isAllLowerCase(String value) {
-    return value.equals(value.toLowerCase(Locale.ROOT));
-  }
-
-  private static boolean isAllUpperCase(String value) {
-    return value.equals(value.toUpperCase(Locale.ROOT));
-  }
-
-  private static boolean isTableScope(TagNode node) {
+  private static boolean isNestedTableBoundary(TagNode node) {
+    // A Vue <Table> component is not itself checked as a native table, but its slot content must
+    // not provide a header for an outer native table, so every case variant remains a boundary.
     return TABLE_TAG.equalsIgnoreCase(node.getNodeName());
   }
 
@@ -130,7 +123,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean hasHeader(TagNode node) {
     return node.getChildren().stream().anyMatch(TableWithoutHeaderCheck::isTableHeader) ||
-      node.getChildren().stream().filter(child -> !isTableScope(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
+      node.getChildren().stream().filter(child -> !isNestedTableBoundary(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
   }
 
   private static boolean isTableHeader(TagNode node) {

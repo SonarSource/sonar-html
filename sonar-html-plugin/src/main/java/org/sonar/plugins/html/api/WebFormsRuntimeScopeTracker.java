@@ -37,6 +37,8 @@ public final class WebFormsRuntimeScopeTracker {
   private static final String CLIENT_ID_MODE_ATTRIBUTE = "clientidmode";
   private static final String WEBFORMS_CONTROLS_NAMESPACE = "System.Web.UI.WebControls";
 
+  // Curated built-in controls whose runtime naming-container behavior is known. Register directives
+  // provide the extension point for standard controls under another prefix and for .ascx user controls.
   private static final Set<String> TEMPLATE_NAMING_CONTAINERS = Set.of(
     "gridview", "repeater", DETAILS_VIEW, "listview", FORM_VIEW, "datalist", "datagrid", "menu", "sitemappath");
   private static final Set<String> WIZARD_NAMING_CONTAINERS = Set.of("wizard", "createuserwizard");
@@ -67,6 +69,7 @@ public final class WebFormsRuntimeScopeTracker {
   private final Map<TagNode, Set<String>> wizardScopes = new IdentityHashMap<>();
   private final Map<TagNode, String> wizardStepScopes = new IdentityHashMap<>();
   private final Set<String> namingContainerPrefixes = new HashSet<>();
+  private final Set<String> registeredUserControls = new HashSet<>();
   private boolean isWebFormsFile;
   private boolean pageGeneratedClientId;
   private int nextWizardStepId;
@@ -77,6 +80,8 @@ public final class WebFormsRuntimeScopeTracker {
     wizardScopes.clear();
     wizardStepScopes.clear();
     namingContainerPrefixes.clear();
+    registeredUserControls.clear();
+    // "asp" is the built-in prefix for System.Web.UI.WebControls.
     namingContainerPrefixes.add("asp");
     nextWizardStepId = 1;
     isWebFormsFile = Helpers.isWebFormsFile(sourceCode);
@@ -117,6 +122,8 @@ public final class WebFormsRuntimeScopeTracker {
       parentContext.namingContainer(),
       parentContext.scopeIdentity(),
       parentContext.containerName(),
+      // ClientIDMode is inherited from the nearest naming container, not from arbitrary
+      // intervening controls such as Panel.
       parentContext.generatedClientId(),
       nearestMatching(localName, TEMPLATE_SCOPES, parentContext.templateKind()),
       nearestMatching(localName, EXCLUSIVE_TEMPLATE_SCOPES, parentContext.exclusiveTemplateKind()),
@@ -137,13 +144,26 @@ public final class WebFormsRuntimeScopeTracker {
       if (directive.equalsElementName("Page") || directive.equalsElementName("Control")) {
         Boolean directiveMode = usesGeneratedClientId(directive.getAttribute(CLIENT_ID_MODE_ATTRIBUTE));
         pageGeneratedClientId = directiveMode == null || directiveMode;
-      } else if (directive.equalsElementName("Register")
-        && WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(directive.getAttribute("namespace"))) {
-        String tagPrefix = directive.getAttribute("tagprefix");
-        if (tagPrefix != null && !tagPrefix.isBlank()) {
-          namingContainerPrefixes.add(tagPrefix.toLowerCase(Locale.ROOT));
-        }
+      } else if (directive.equalsElementName("Register")) {
+        collectRegistration(directive);
       }
+    }
+  }
+
+  private void collectRegistration(DirectiveNode directive) {
+    String tagPrefix = directive.getAttribute("tagprefix");
+    if (tagPrefix == null || tagPrefix.isBlank()) {
+      return;
+    }
+    String normalizedPrefix = tagPrefix.toLowerCase(Locale.ROOT);
+    if (WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(directive.getAttribute("namespace"))) {
+      namingContainerPrefixes.add(normalizedPrefix);
+      return;
+    }
+    String tagName = directive.getAttribute("tagname");
+    String source = directive.getAttribute("src");
+    if (tagName != null && !tagName.isBlank() && source != null && !source.isBlank()) {
+      registeredUserControls.add(normalizedPrefix + ":" + tagName.toLowerCase(Locale.ROOT));
     }
   }
 
@@ -212,7 +232,9 @@ public final class WebFormsRuntimeScopeTracker {
   }
 
   private boolean isNamingContainer(TagNode node, String localName) {
-    return NAMING_CONTAINERS.contains(localName) && isKnownControl(node);
+    return isServerControl(node)
+      && (registeredUserControls.contains(node.getNodeName().toLowerCase(Locale.ROOT))
+        || (NAMING_CONTAINERS.contains(localName) && hasKnownPrefix(node)));
   }
 
   private boolean isWizard(TagNode node, String localName) {
@@ -220,6 +242,7 @@ public final class WebFormsRuntimeScopeTracker {
   }
 
   private boolean isWizardStep(TagNode node, String localName) {
+    // Items declared in a WizardSteps collection are server controls without needing runat="server".
     return WIZARD_STEP_SCOPES.contains(localName) && hasKnownPrefix(node);
   }
 

@@ -87,6 +87,14 @@ class HelpersTest {
   }
 
   @Test
+  void identifies_pascal_case_component_names() {
+    assertThat(Helpers.isPascalCase("Table")).isTrue();
+    assertThat(Helpers.isPascalCase("BLink")).isTrue();
+    assertThat(Helpers.isPascalCase("table")).isFalse();
+    assertThat(Helpers.isPascalCase("TABLE")).isFalse();
+  }
+
+  @Test
   void is_web_forms_file_recognizes_web_forms_suffixes() {
     assertThat(Helpers.isWebFormsFile(sourceCode("page.aspx"))).isTrue();
     assertThat(Helpers.isWebFormsFile(sourceCode("control.ascx"))).isTrue();
