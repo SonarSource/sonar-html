@@ -2,6 +2,9 @@
   <div>
     <!-- Vue Bootstrap component - should NOT be flagged -->
     <BLink :to="{ path: `/members/${data.item.memberId}` }">{{ data.item.fullName }}</BLink>
+    <Blink>PascalCase component</Blink>
+    <bLink>camelCase component</bLink>
+    <MARQUEE>Legacy all-uppercase component spelling</MARQUEE>
 
     <!-- Deprecated HTML blink tag - SHOULD be flagged -->
     <blink>Deprecated</blink>

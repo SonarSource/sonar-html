@@ -421,4 +421,141 @@ class NoDuplicateIDCheckTest {
         .next().atLine(19).withMessage("Duplicate id \"footer\" found. First occurrence was on line 18.")
         .noMore();
   }
+
+  @Test
+  void generatedClientIdsInWebFormsNamingContainers() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsNamingContainers.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  void overlappingFormViewAndDetailsViewTemplateScopes() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsOverlappingFormScopes.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(7).withMessage("Duplicate id \"form-item-scope\" found. First occurrence was on line 3.")
+        .next().atLine(8).withMessage("Duplicate id \"form-edit-scope\" found. First occurrence was on line 4.")
+        .next().atLine(9).withMessage("Duplicate id \"form-insert-scope\" found. First occurrence was on line 5.")
+        .next().atLine(18).withMessage("Duplicate id \"details-item-scope\" found. First occurrence was on line 14.")
+        .next().atLine(19).withMessage("Duplicate id \"details-edit-scope\" found. First occurrence was on line 15.")
+        .next().atLine(20).withMessage("Duplicate id \"details-insert-scope\" found. First occurrence was on line 16.")
+        .noMore();
+  }
+
+  @Test
+  void prefixedCustomControlIsNotAssumedToBeANamingContainer() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsCustomNonContainer.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(10).withMessage("Duplicate id \"custom-non-container-id\" found. First occurrence was on line 5.")
+        .noMore();
+  }
+
+  @Test
+  void duplicateIdsWithoutDistinctWebFormsRuntimeScopes() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsDuplicates.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(4).withMessage("Duplicate id \"same-template\" found. First occurrence was on line 3.")
+        .next().atLine(13).withMessage("Duplicate id \"same-item-scope\" found. First occurrence was on line 10.")
+        .next().atLine(25).withMessage("Duplicate id \"static-client-id\" found. First occurrence was on line 19.")
+        .next().atLine(36).withMessage("Duplicate id \"literal-id\" found. First occurrence was on line 31.")
+        .next().atLine(48).withMessage("Duplicate id \"inherited-static-id\" found. First occurrence was on line 42.")
+        .next().atLine(54).withMessage("Duplicate id \"page-scope\" found. First occurrence was on line 53.")
+        .next().atLine(59).withMessage("Duplicate id \"same-layout-scope\" found. First occurrence was on line 58.")
+        .next().atLine(65).withMessage("Duplicate id \"same-form-scope\" found. First occurrence was on line 64.")
+        .next().atLine(70).withMessage("Duplicate id \"same-details-scope\" found. First occurrence was on line 69.")
+        .next().atLine(76).withMessage("Duplicate id \"same-data-list-scope\" found. First occurrence was on line 75.")
+        .next().atLine(83).withMessage("Duplicate id \"same-data-grid-scope\" found. First occurrence was on line 82.")
+        .next().atLine(89).withMessage("Duplicate id \"same-content-scope\" found. First occurrence was on line 88.")
+        .next().atLine(102).withMessage("Duplicate id \"naming-container-inheritance-id\" found. First occurrence was on line 95.")
+        .next().atLine(111).withMessage("Duplicate id \"unprefixed-container-id\" found. First occurrence was on line 108.")
+        .next().atLine(120).withMessage("Duplicate id \"loginview-static-id\" found. First occurrence was on line 117.")
+        .next().atLine(132).withMessage("Duplicate id \"wizard-static-id\" found. First occurrence was on line 129.")
+        .next().atLine(141).withMessage("Duplicate id \"same-menu-template-scope\" found. First occurrence was on line 140.")
+        .next().atLine(147).withMessage("Duplicate id \"same-site-map-template-scope\" found. First occurrence was on line 146.")
+        .next().atLine(155).withMessage("Duplicate id \"wizard-shared-step-scope\" found. First occurrence was on line 152.")
+        .next().atLine(158).withMessage("Duplicate id \"wizard-shared-step-scope\" found. First occurrence was on line 152.")
+        .next().atLine(166).withMessage("Duplicate id \"same-wizard-step-scope\" found. First occurrence was on line 165.")
+        .noMore();
+  }
+
+  @Test
+  void staticClientIdsInheritedFromBuiltInWebFormsNamingContainers() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsBuiltInNamingContainerInheritance.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(9).withMessage("Duplicate id \"create-user-wizard-static-id\" found. First occurrence was on line 6.")
+        .next().atLine(22).withMessage("Duplicate id \"change-password-static-id\" found. First occurrence was on line 19.")
+        .next().atLine(33).withMessage("Duplicate id \"login-static-id\" found. First occurrence was on line 30.")
+        .next().atLine(44).withMessage("Duplicate id \"password-recovery-static-id\" found. First occurrence was on line 41.")
+        .next().atLine(55).withMessage("Duplicate id \"menu-static-id\" found. First occurrence was on line 52.")
+        .next().atLine(66).withMessage("Duplicate id \"site-map-static-id\" found. First occurrence was on line 63.")
+        .noMore();
+  }
+
+  @Test
+  void staticClientIdsInheritedFromWebFormsPage() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsStaticPage.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(13).withMessage("Duplicate id \"page-static-id\" found. First occurrence was on line 6.")
+        .noMore();
+  }
+
+  @Test
+  void additionalAspPrefixRegistrationKeepsBuiltInControlsAvailable() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsRemappedAspPrefix.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
+  void webFormsDirectivesApplyRegardlessOfDocumentOrder() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsDirectiveOrdering.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"late-page-mode-id\" found. First occurrence was on line 14.")
+        .noMore();
+  }
+
+  @Test
+  void registeredUserControlsAreNamingContainers() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsRegisteredUserControl.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(13).withMessage("Duplicate id \"same-user-control-scope\" found. First occurrence was on line 12.")
+        .next().atLine(21).withMessage("Duplicate id \"same-built-in-named-user-control-scope\" found. First occurrence was on line 18.")
+        .noMore();
+  }
+
+  @Test
+  void staticClientIdsInheritedFromWebFormsControl() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsStaticControl.ascx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(11).withMessage("Duplicate id \"control-static-id\" found. First occurrence was on line 4.")
+        .noMore();
+  }
 }

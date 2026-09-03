@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
@@ -278,9 +279,11 @@ class HtmlSensorTest {
     assertThat(tester.measures(componentKey)).isEmpty();
   }
 
-  @Test
-  void vue_file_should_be_analyzed() throws IOException {
-    DefaultInputFile inputFile = createInputFile(TEST_DIR, "foo.vue");
+  @ParameterizedTest
+  @ValueSource(strings = {"foo.vue", "foo.VUE"})
+  void vue_file_should_be_analyzed(String filename) throws IOException {
+    String contents = Files.readString(TEST_DIR.resolve("foo.vue"), StandardCharsets.UTF_8);
+    DefaultInputFile inputFile = createInputFile(filename, contents);
     tester.fileSystem().add(inputFile);
 
     sensor.execute(tester);

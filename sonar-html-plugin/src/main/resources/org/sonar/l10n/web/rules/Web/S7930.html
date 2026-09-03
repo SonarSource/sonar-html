@@ -13,6 +13,9 @@
 <h3>What is the potential impact?</h3>
 <p>Duplicate <code>id</code> attributes can break JavaScript functionality, cause inconsistent styling, and create accessibility barriers. Users may
 be unable to interact with certain page elements, and assistive technologies may not work correctly.</p>
+<p>ASP.NET WebForms server controls are an exception when their effective <code>ClientIDMode</code> is <code>AutoID</code> or
+<code>Predictable</code>. Naming containers and data-bound templates generate distinct client IDs at runtime, so equal declarative IDs in separate
+runtime scopes do not produce duplicate HTML IDs. With <code>ClientIDMode="Static"</code>, the declared ID is rendered unchanged and must remain unique.</p>
 <h2>How to fix it</h2>
 <p>Ensure each element has a unique <code>id</code> value. You can remove unnecessary <code>id</code> attributes or rename them to be unique.</p>
 <h3>Code examples</h3>
@@ -25,6 +28,15 @@ be unable to interact with certain page elements, and assistive technologies may
 <pre data-diff-id="1" data-diff-type="compliant">
 &lt;div id="main-content"&gt;Main content&lt;/div&gt;
 &lt;div id="secondary-content"&gt;Secondary content&lt;/div&gt;
+</pre>
+<p>Likewise, generated WebForms client IDs in distinct naming containers are compliant:</p>
+<pre>
+&lt;asp:Repeater ID="first" runat="server"&gt;
+  &lt;ItemTemplate&gt;&lt;asp:Label ID="status" runat="server" /&gt;&lt;/ItemTemplate&gt;
+&lt;/asp:Repeater&gt;
+&lt;asp:Repeater ID="second" runat="server"&gt;
+  &lt;ItemTemplate&gt;&lt;asp:Label ID="status" runat="server" /&gt;&lt;/ItemTemplate&gt;
+&lt;/asp:Repeater&gt;
 </pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>

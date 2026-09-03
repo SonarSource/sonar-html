@@ -61,7 +61,7 @@ class UnsupportedTagsInHtml5CheckTest {
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
         // Only the actual lowercase <blink> tag should be flagged
-        .next().atLine(7).withMessage("Remove this deprecated \"blink\" element.")
+        .next().atLine(10).withMessage("Remove this deprecated \"blink\" element.")
         .noMore();
   }
 

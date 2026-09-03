@@ -16,12 +16,12 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.Locale;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
-
-import java.util.function.Predicate;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class Helpers {
 
@@ -106,11 +106,53 @@ public class Helpers {
   }
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {
-    return code.inputFile().filename().endsWith(".cshtml");
+    return normalizedFilename(code).endsWith(".cshtml");
   }
 
   public static boolean isVueFile(HtmlSourceCode code) {
-    return code.inputFile().filename().endsWith(".vue");
+    return normalizedFilename(code).endsWith(".vue");
+  }
+
+  /**
+   * Returns whether a tag name uses Vue's PascalCase component syntax.
+   *
+   * @param name the tag name to inspect
+   * @return true when the name starts with an uppercase character and contains lowercase content
+   */
+  public static boolean isPascalCase(String name) {
+    if (name.isEmpty() || !Character.isUpperCase(name.charAt(0))) {
+      return false;
+    }
+    for (int i = 1; i < name.length(); i++) {
+      if (Character.isLowerCase(name.charAt(i))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns whether a tag name can denote a Vue component. In addition to PascalCase, Vue accepts
+   * camelCase names and existing checks have historically treated all-capitalized names as components.
+   *
+   * @param name the tag name to inspect
+   * @return true when the name uses one of the supported component-name forms
+   */
+  public static boolean isVueComponentName(String name) {
+    if (isPascalCase(name)) {
+      return true;
+    }
+    for (int i = 1; i < name.length(); i++) {
+      if (Character.isUpperCase(name.charAt(i))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /** Returns whether an element is explicitly marked as an ASP.NET server control. */
+  public static boolean isServerControl(TagNode node) {
+    return "server".equalsIgnoreCase(node.getAttribute("runat"));
   }
 
   /**
@@ -133,7 +175,8 @@ public class Helpers {
 
   /**
    * Returns true if {@code node} has a template-like ancestor: HTML {@code <template>},
-   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*} with
+   * {@code runat="server"}).
    *
    * @param node the tag node whose ancestors are inspected
    * @return true if any ancestor matches a template-like scope
@@ -144,7 +187,8 @@ public class Helpers {
 
   /**
    * Returns true if {@code node} is a template-like wrapper: HTML {@code <template>},
-   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*} with
+   * {@code runat="server"}).
    * These elements do not contribute to the rendered DOM and can be treated as transparent.
    *
    * @param node the tag node to test
@@ -157,7 +201,7 @@ public class Helpers {
     }
     return "template".equalsIgnoreCase(name)
       || "ng-template".equalsIgnoreCase(name)
-      || startsWithIgnoreCase(name, "asp:");
+      || (startsWithIgnoreCase(name, "asp:") && isServerControl(node));
   }
 
   private static boolean startsWithIgnoreCase(String value, String prefix) {
@@ -172,8 +216,13 @@ public class Helpers {
    * @return true if the file is a Razor view, false otherwise
    */
   public static boolean isRazorFile(HtmlSourceCode code) {
-    String filename = code.inputFile().filename();
+    String filename = normalizedFilename(code);
     return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
+  }
+
+  public static boolean isWebFormsFile(HtmlSourceCode code) {
+    String filename = normalizedFilename(code);
+    return filename.endsWith(".aspx") || filename.endsWith(".ascx");
   }
 
   /**
@@ -206,12 +255,16 @@ public class Helpers {
   }
   
   public static boolean isServerSideFile(HtmlSourceCode code) {
-    String filename = code.inputFile().filename();
+    String filename = normalizedFilename(code);
     for (String suffix : SERVER_SIDE_SUFFIXES) {
       if (filename.endsWith(suffix)) {
         return true;
       }
     }
     return false;
+  }
+
+  private static String normalizedFilename(HtmlSourceCode code) {
+    return code.inputFile().filename().toLowerCase(Locale.ROOT);
   }
 }
