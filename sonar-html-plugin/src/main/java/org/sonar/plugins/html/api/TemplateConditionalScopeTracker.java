@@ -74,12 +74,7 @@ public final class TemplateConditionalScopeTracker {
   private final Deque<Integer> markupBraceDepths = new ArrayDeque<>();
   private final Deque<ConditionalBrace> conditionalBraces = new ArrayDeque<>();
   private final Deque<RazorCodeBlock> razorCodeBlocks = new ArrayDeque<>();
-  private boolean inRazorComment;
-  private boolean inRazorExplicitText;
-  private boolean inCSharpLineComment;
-  private boolean inCSharpBlockComment;
-  private final Deque<CSharpStringContext> csharpStringContexts = new ArrayDeque<>();
-  private char csharpGenericTypeOwnerInitial;
+  private final RazorProtectedState razorProtectedState = new RazorProtectedState();
   private boolean razorCodeEnabled;
 
   public void reset() {
@@ -105,10 +100,7 @@ public final class TemplateConditionalScopeTracker {
     markupBraceDepths.clear();
     conditionalBraces.clear();
     razorCodeBlocks.clear();
-    inRazorComment = false;
-    inRazorExplicitText = false;
-    csharpGenericTypeOwnerInitial = '\0';
-    resetCSharpProtectedState();
+    razorProtectedState.reset();
     this.razorCodeEnabled = razorCodeEnabled;
   }
 
@@ -118,22 +110,22 @@ public final class TemplateConditionalScopeTracker {
       synchronizeOpenElements(textNode.getParent());
     }
     scanFragment(code, false);
-    csharpGenericTypeOwnerInitial = isInRazorCodeContext()
-      && !inRazorExplicitText
+    razorProtectedState.csharpGenericTypeOwnerInitial = isInRazorCodeContext()
+      && !razorProtectedState.inRazorExplicitText
       && !isInNonRenderedRazorContent()
       ? trailingCSharpIdentifierInitial(code)
       : '\0';
   }
 
   public void visitDirective(DirectiveNode directiveNode) {
-    csharpGenericTypeOwnerInitial = '\0';
+    razorProtectedState.csharpGenericTypeOwnerInitial = '\0';
     flushPendingBranchContinuation();
     scanFragment(unwrapDirective(directiveNode.getCode()), true);
   }
 
   public void startElement(TagNode node) {
     boolean csharpGenericTypeArgument = isCSharpGenericTypeArgument(node);
-    csharpGenericTypeOwnerInitial = '\0';
+    razorProtectedState.csharpGenericTypeOwnerInitial = '\0';
     if (csharpGenericTypeArgument) {
       return;
     }
@@ -157,7 +149,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public void endElement(TagNode node) {
-    csharpGenericTypeOwnerInitial = '\0';
+    razorProtectedState.csharpGenericTypeOwnerInitial = '\0';
     if (isInNonRenderedRazorContent()) {
       return;
     }
@@ -254,7 +246,7 @@ public final class TemplateConditionalScopeTracker {
    * by checks that reason about rendered elements.
    */
   public boolean isInNonRenderedRazorContent() {
-    return inRazorComment || inCSharpLineComment || inCSharpBlockComment || !csharpStringContexts.isEmpty();
+    return razorProtectedState.isInNonRenderedContent();
   }
 
   private boolean hasOpenConditionalScope() {
@@ -303,16 +295,16 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private boolean consumeRazorExplicitText(String text, FragmentScanState state) {
-    if (inRazorExplicitText) {
+    if (razorProtectedState.inRazorExplicitText) {
       if (isLineBreak(text.charAt(state.index))) {
-        inRazorExplicitText = false;
+        razorProtectedState.inRazorExplicitText = false;
       }
       state.index++;
       return true;
     }
-    if (razorCodeEnabled && !isInPersistentRazorComment() && csharpStringContexts.isEmpty()
+    if (razorCodeEnabled && !isInPersistentRazorComment() && razorProtectedState.csharpStringContexts.isEmpty()
       && isInRazorCodeContext() && startsWith(text, state.index, "@:")) {
-      inRazorExplicitText = true;
+      razorProtectedState.inRazorExplicitText = true;
       state.index += 2;
       return true;
     }
@@ -324,19 +316,19 @@ public final class TemplateConditionalScopeTracker {
    * splits such fragments whenever their contents resemble an HTML tag.
    */
   private boolean consumePersistentRazorProtectedCharacter(String text, FragmentScanState state) {
-    if (inRazorComment) {
+    if (razorProtectedState.inRazorComment) {
       consumeRazorCommentCharacter(text, state);
       return true;
     }
-    if (inCSharpLineComment) {
+    if (razorProtectedState.inCSharpLineComment) {
       consumeCSharpLineCommentCharacter(text, state);
       return true;
     }
-    if (inCSharpBlockComment) {
+    if (razorProtectedState.inCSharpBlockComment) {
       consumeCSharpBlockCommentCharacter(text, state);
       return true;
     }
-    if (!csharpStringContexts.isEmpty()) {
+    if (!razorProtectedState.csharpStringContexts.isEmpty()) {
       consumeCSharpStringCharacter(text, state);
       return true;
     }
@@ -345,7 +337,7 @@ public final class TemplateConditionalScopeTracker {
 
   private void consumeRazorCommentCharacter(String text, FragmentScanState state) {
     if (startsWith(text, state.index, "*@")) {
-      inRazorComment = false;
+      razorProtectedState.inRazorComment = false;
       state.index += 2;
     } else {
       state.index++;
@@ -354,14 +346,14 @@ public final class TemplateConditionalScopeTracker {
 
   private void consumeCSharpLineCommentCharacter(String text, FragmentScanState state) {
     if (isLineBreak(text.charAt(state.index))) {
-      inCSharpLineComment = false;
+      razorProtectedState.inCSharpLineComment = false;
     }
     state.index++;
   }
 
   private void consumeCSharpBlockCommentCharacter(String text, FragmentScanState state) {
     if (startsWith(text, state.index, "*/")) {
-      inCSharpBlockComment = false;
+      razorProtectedState.inCSharpBlockComment = false;
       state.index += 2;
     } else {
       state.index++;
@@ -369,7 +361,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private void consumeCSharpStringCharacter(String text, FragmentScanState state) {
-    CSharpStringContext context = csharpStringContexts.peek();
+    CSharpStringContext context = razorProtectedState.csharpStringContexts.peek();
     if (context.rawQuoteCount > 0) {
       consumeCSharpRawStringCharacter(text, state, context);
       return;
@@ -416,7 +408,7 @@ public final class TemplateConditionalScopeTracker {
     } else if (!context.verbatim && current == '\\') {
       context.escaped = true;
     } else if (current == context.delimiter && (current != '"' || quoteCount >= context.delimiterWidth)) {
-      csharpStringContexts.pop();
+      razorProtectedState.csharpStringContexts.pop();
       state.index += context.delimiterWidth;
       return;
     }
@@ -427,7 +419,7 @@ public final class TemplateConditionalScopeTracker {
     int quoteCount = consecutiveQuoteCount(text, state.index);
     if (quoteCount >= context.rawQuoteCount) {
       state.index += quoteCount;
-      csharpStringContexts.pop();
+      razorProtectedState.csharpStringContexts.pop();
     } else {
       state.index += Math.max(quoteCount, 1);
     }
@@ -448,7 +440,7 @@ public final class TemplateConditionalScopeTracker {
     int rawQuoteCount = delimiterWidth == 1 && quoteCount >= CSHARP_RAW_STRING_MIN_QUOTE_COUNT ? quoteCount : 0;
     boolean verbatim = rawQuoteCount == 0 && current == '"' && hasVerbatimPrefix(text, state.index);
     boolean interpolated = rawQuoteCount == 0 && current == '"' && hasInterpolatedPrefix(text, state.index);
-    csharpStringContexts.push(new CSharpStringContext(current, delimiterWidth, rawQuoteCount, verbatim, interpolated));
+    razorProtectedState.csharpStringContexts.push(new CSharpStringContext(current, delimiterWidth, rawQuoteCount, verbatim, interpolated));
     state.index += rawQuoteCount > 0 ? rawQuoteCount : delimiterWidth;
     return true;
   }
@@ -471,7 +463,7 @@ public final class TemplateConditionalScopeTracker {
       return false;
     }
     if (startsWith(text, state.index, "@*")) {
-      inRazorComment = true;
+      razorProtectedState.inRazorComment = true;
       state.index += 2;
       return true;
     }
@@ -479,12 +471,12 @@ public final class TemplateConditionalScopeTracker {
       return false;
     }
     if (startsWith(text, state.index, "/*")) {
-      inCSharpBlockComment = true;
+      razorProtectedState.inCSharpBlockComment = true;
       state.index += 2;
       return true;
     }
     if (startsWith(text, state.index, "//")) {
-      inCSharpLineComment = true;
+      razorProtectedState.inCSharpLineComment = true;
       state.index += 2;
       return true;
     }
@@ -523,9 +515,9 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private boolean isCSharpGenericTypeArgument(TagNode node) {
-    return csharpGenericTypeOwnerInitial != '\0'
+    return razorProtectedState.csharpGenericTypeOwnerInitial != '\0'
       && isInRazorCodeContext()
-      && (!HtmlConstants.hasKnownHTMLTag(node) || Character.isUpperCase(csharpGenericTypeOwnerInitial))
+      && (!HtmlConstants.hasKnownHTMLTag(node) || Character.isUpperCase(razorProtectedState.csharpGenericTypeOwnerInitial))
       && CSHARP_GENERIC_ARGUMENT_PATTERN.matcher(node.getCode()).matches();
   }
 
