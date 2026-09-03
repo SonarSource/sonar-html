@@ -137,19 +137,6 @@ public class Helpers {
   }
 
   /**
-   * Returns true when {@code name} looks like a component/custom-element reference rather than a
-   * native HTML tag: PascalCase or kebab-case. Check this ahead of any known-tag whitelist, since
-   * a component can share its name with a native tag case-insensitively
-   * (e.g. Vue's {@code <Input>}, Ant Design's {@code Input} component).
-   *
-   * @param name the tag name to test
-   * @return true if the name is a component reference
-   */
-  public static boolean isComponentReference(String name) {
-    return startsWithUpperCase(name) || isKebabCase(name);
-  }
-
-  /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
    * @param node the tag node whose ancestors are inspected

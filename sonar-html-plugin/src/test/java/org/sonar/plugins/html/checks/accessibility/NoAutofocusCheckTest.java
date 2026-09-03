@@ -76,14 +76,16 @@ class NoAutofocusCheckTest {
 
   @Test
   void customElementPropInNonVueFileShouldNotBeFlagged() {
-    // The exemption is not gated on the .vue extension: a custom tag is never a known HTML element
+    // The kebab-case/unknown-tag exemption is not gated on the .vue extension, but PascalCase is:
+    // outside Vue, a known HTML tag typed in caps (e.g. <BUTTON>) is still just the native tag.
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/NoAutofocusCheck/CustomElementInHtmlFile.html"),
       new NoAutofocusCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-      // Only the native <input> should be flagged
       .next().atLine(6)
+      .next().atLine(9)
+      .next().atLine(10)
       .noMore();
   }
 }

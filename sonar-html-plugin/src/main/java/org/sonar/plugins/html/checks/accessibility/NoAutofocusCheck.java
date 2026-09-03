@@ -36,8 +36,12 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if (autofocusProperty == null) {
       return;
     }
-    // Components/custom elements use `autofocus` as a prop, not the DOM attribute; checked before the tag whitelist since names can collide case-insensitively, e.g. Vue's <Input>.
-    if (Helpers.isComponentReference(node.getNodeName()) || !hasKnownHTMLTag(node)) {
+    // Kebab-case is always a custom element (no native tag has a hyphen); PascalCase only means a
+    // component in Vue, since HTML tag names are otherwise case-insensitive, e.g. plain <BUTTON>.
+    String nodeName = node.getNodeName();
+    boolean componentReference = Helpers.isKebabCase(nodeName)
+      || (Helpers.isVueFile(getHtmlSourceCode()) && Helpers.startsWithUpperCase(nodeName));
+    if (componentReference || !hasKnownHTMLTag(node)) {
       return;
     }
     // A DOM-property binding (`:x`, `v-bind:x`, `[x]`) bound to literal false never sets the property, unlike a static "false" string.

@@ -129,12 +129,4 @@ class HelpersTest {
     assertThat(Helpers.isKebabCase("")).isFalse();
   }
 
-  @Test
-  void is_component_reference_detects_pascal_or_kebab_case() {
-    assertThat(Helpers.isComponentReference("CustomInput")).isTrue();
-    assertThat(Helpers.isComponentReference("Input")).isTrue();
-    assertThat(Helpers.isComponentReference("custom-input")).isTrue();
-    assertThat(Helpers.isComponentReference("input")).isFalse();
-  }
-
 }
