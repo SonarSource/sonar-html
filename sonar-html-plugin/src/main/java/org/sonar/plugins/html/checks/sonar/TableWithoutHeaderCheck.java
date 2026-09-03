@@ -99,7 +99,10 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private boolean isTable(TagNode node) {
     String nodeName = node.getNodeName();
-    return isVueFile ? "table".equals(nodeName) : TABLE_TAG.equalsIgnoreCase(nodeName);
+    // Vue resolves PascalCase and camelCase names as components. An all-uppercase spelling of a
+    // native tag still renders a native table, however, so it remains subject to this rule.
+    return TABLE_TAG.equalsIgnoreCase(nodeName)
+      && (!isVueFile || !Helpers.isVueComponentName(nodeName) || "TABLE".equals(nodeName));
   }
 
   private static boolean isNestedTableBoundary(TagNode node) {

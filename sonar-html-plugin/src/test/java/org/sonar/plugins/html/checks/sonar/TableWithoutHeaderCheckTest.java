@@ -58,12 +58,13 @@ class TableWithoutHeaderCheckTest {
   }
 
   @Test
-  void only_lowercase_table_tags_are_native_in_vue_files() {
+  void native_table_tags_are_case_insensitive_in_vue_files() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/TableWithoutHeaderCheck/native-tables.VUE"),
       new TableWithoutHeaderCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".")
       .next().atLine(4).withMessage("Add \"<th>\" headers to this \"<table>\".")
       .noMore();
   }

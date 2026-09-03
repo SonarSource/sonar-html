@@ -517,14 +517,12 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
-  void remappedAspPrefixIsNotAssumedToContainBuiltInControls() {
+  void additionalAspPrefixRegistrationKeepsBuiltInControlsAvailable() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsRemappedAspPrefix.aspx"),
         new NoDuplicateIDCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(10).withMessage("Duplicate id \"remapped-asp-prefix-id\" found. First occurrence was on line 5.")
-        .noMore();
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
   }
 
   @Test

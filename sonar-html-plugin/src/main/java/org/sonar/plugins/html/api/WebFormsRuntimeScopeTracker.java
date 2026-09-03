@@ -162,10 +162,11 @@ public final class WebFormsRuntimeScopeTracker {
     String normalizedPrefix = tagPrefix.toLowerCase(Locale.ROOT);
     String namespace = directive.getAttribute("namespace");
     if (namespace != null && !namespace.isBlank()) {
+      // A prefix can be registered for several namespaces. In particular, the built-in "asp"
+      // prefix already maps to both System.Web.UI and System.Web.UI.WebControls, so an additional
+      // registration must not hide the built-in controls.
       if (WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(namespace)) {
         namingContainerPrefixes.add(normalizedPrefix);
-      } else {
-        namingContainerPrefixes.remove(normalizedPrefix);
       }
       return;
     }
