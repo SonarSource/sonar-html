@@ -112,14 +112,29 @@ class HelpersTest {
   }
 
   @Test
-  void is_pascal_case_detects_uppercase_after_first_character() {
-    assertThat(Helpers.isPascalCase("CustomInput")).isTrue();
-    assertThat(Helpers.isPascalCase("BLink")).isTrue();
-    // matches any uppercase after index 0, so camelCase also returns true despite the name
-    assertThat(Helpers.isPascalCase("customInput")).isTrue();
-    assertThat(Helpers.isPascalCase("input")).isFalse();
-    assertThat(Helpers.isPascalCase("Input")).isFalse();
-    assertThat(Helpers.isPascalCase("")).isFalse();
+  void starts_with_upper_case_detects_first_character_only() {
+    assertThat(Helpers.startsWithUpperCase("CustomInput")).isTrue();
+    assertThat(Helpers.startsWithUpperCase("BLink")).isTrue();
+    assertThat(Helpers.startsWithUpperCase("Input")).isTrue();
+    // camelCase is not PascalCase: the uppercase letter is not the first character
+    assertThat(Helpers.startsWithUpperCase("customInput")).isFalse();
+    assertThat(Helpers.startsWithUpperCase("input")).isFalse();
+    assertThat(Helpers.startsWithUpperCase("")).isFalse();
+  }
+
+  @Test
+  void is_kebab_case_detects_hyphen() {
+    assertThat(Helpers.isKebabCase("custom-input")).isTrue();
+    assertThat(Helpers.isKebabCase("input")).isFalse();
+    assertThat(Helpers.isKebabCase("")).isFalse();
+  }
+
+  @Test
+  void is_component_reference_detects_pascal_or_kebab_case() {
+    assertThat(Helpers.isComponentReference("CustomInput")).isTrue();
+    assertThat(Helpers.isComponentReference("Input")).isTrue();
+    assertThat(Helpers.isComponentReference("custom-input")).isTrue();
+    assertThat(Helpers.isComponentReference("input")).isFalse();
   }
 
 }

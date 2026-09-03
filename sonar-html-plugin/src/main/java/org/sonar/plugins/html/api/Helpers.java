@@ -114,19 +114,39 @@ public class Helpers {
   }
 
   /**
-   * Checks if a tag name uses PascalCase (has an uppercase letter after the first character).
-   * In Vue templates, PascalCase indicates a component reference, not an HTML element.
+   * Returns true when {@code name} starts with an uppercase letter, the convention Vue (and other
+   * frameworks) use to write a PascalCase component reference in a template.
    *
    * @param name the tag name to test
-   * @return true if the name is PascalCase
+   * @return true if the first character is uppercase
    */
-  public static boolean isPascalCase(String name) {
-    for (int i = 1; i < name.length(); i++) {
-      if (Character.isUpperCase(name.charAt(i))) {
-        return true;
-      }
-    }
-    return false;
+  public static boolean startsWithUpperCase(String name) {
+    return !name.isEmpty() && Character.isUpperCase(name.charAt(0));
+  }
+
+  /**
+   * Returns true when {@code name} contains a hyphen. No native HTML tag name has one, so a
+   * hyphen marks a custom element or component reference (Vue kebab-case, Angular/Web Components
+   * selectors).
+   *
+   * @param name the tag name to test
+   * @return true if the name contains a hyphen
+   */
+  public static boolean isKebabCase(String name) {
+    return name.indexOf('-') >= 0;
+  }
+
+  /**
+   * Returns true when {@code name} looks like a component/custom-element reference rather than a
+   * native HTML tag: PascalCase or kebab-case. Check this ahead of any known-tag whitelist, since
+   * a component can share its name with a native tag case-insensitively
+   * (e.g. Vue's {@code <Input>}, Ant Design's {@code Input} component).
+   *
+   * @param name the tag name to test
+   * @return true if the name is a component reference
+   */
+  public static boolean isComponentReference(String name) {
+    return startsWithUpperCase(name) || isKebabCase(name);
   }
 
   /**

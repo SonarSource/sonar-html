@@ -36,18 +36,15 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if (autofocusProperty == null) {
       return;
     }
-    // Components and custom elements are skipped: `autofocus` there is a prop, not the DOM attribute.
-    if (!hasKnownHTMLTag(node)) {
+    // Components/custom elements use `autofocus` as a prop, not the DOM attribute; checked before the tag whitelist since names can collide case-insensitively, e.g. Vue's <Input>.
+    if (Helpers.isComponentReference(node.getNodeName()) || !hasKnownHTMLTag(node)) {
       return;
     }
-    // DOM-property bindings (`:x`, `v-bind:x`, `[x]`) bound to literal false never set the property, unlike a static "false" string.
-    if (isDomPropertyBoundToFalse(autofocusProperty)) {
-      return;
+    // A DOM-property binding (`:x`, `v-bind:x`, `[x]`) bound to literal false never sets the property, unlike a static "false" string.
+    if (!isDomPropertyBoundToFalse(autofocusProperty) && !isDialogOrPopover(node)
+        && !Helpers.hasAncestorMatching(node, NoAutofocusCheck::isDialogOrPopover)) {
+      createViolation(node, MESSAGE);
     }
-    if (isDialogOrPopover(node) || Helpers.hasAncestorMatching(node, NoAutofocusCheck::isDialogOrPopover)) {
-      return;
-    }
-    createViolation(node, MESSAGE);
   }
 
   private static boolean isDomPropertyBoundToFalse(Attribute property) {

@@ -16,7 +16,6 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Locale;
 import java.util.Set;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
@@ -72,11 +71,11 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
 
     // In Vue files, PascalCase tags are components, not HTML elements
     // e.g., <BLink> is a Vue Bootstrap component, not the deprecated <blink> tag
-    if (isVueFile && Helpers.isPascalCase(nodeName)) {
+    if (isVueFile && Helpers.startsWithUpperCase(nodeName)) {
       return false;
     }
 
-    return UNSUPPORTED_TAGS.contains(nodeName.toUpperCase(Locale.ENGLISH));
+    return UNSUPPORTED_TAGS.stream().anyMatch(nodeName::equalsIgnoreCase);
   }
 
 }
