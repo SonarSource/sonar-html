@@ -95,6 +95,15 @@ class HelpersTest {
   }
 
   @Test
+  void identifies_vue_component_names() {
+    assertThat(Helpers.isVueComponentName("Blink")).isTrue();
+    assertThat(Helpers.isVueComponentName("BLink")).isTrue();
+    assertThat(Helpers.isVueComponentName("bLink")).isTrue();
+    assertThat(Helpers.isVueComponentName("MARQUEE")).isTrue();
+    assertThat(Helpers.isVueComponentName("blink")).isFalse();
+  }
+
+  @Test
   void is_web_forms_file_recognizes_web_forms_suffixes() {
     assertThat(Helpers.isWebFormsFile(sourceCode("page.aspx"))).isTrue();
     assertThat(Helpers.isWebFormsFile(sourceCode("control.ascx"))).isTrue();

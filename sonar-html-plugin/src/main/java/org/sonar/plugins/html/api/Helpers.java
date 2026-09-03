@@ -132,6 +132,25 @@ public class Helpers {
   }
 
   /**
+   * Returns whether a tag name can denote a Vue component. In addition to PascalCase, Vue accepts
+   * camelCase names and existing checks have historically treated all-capitalized names as components.
+   *
+   * @param name the tag name to inspect
+   * @return true when the name uses one of the supported component-name forms
+   */
+  public static boolean isVueComponentName(String name) {
+    if (isPascalCase(name)) {
+      return true;
+    }
+    for (int i = 1; i < name.length(); i++) {
+      if (Character.isUpperCase(name.charAt(i))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
    * @param node the tag node whose ancestors are inspected

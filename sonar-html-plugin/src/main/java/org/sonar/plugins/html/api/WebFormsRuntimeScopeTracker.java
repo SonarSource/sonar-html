@@ -107,10 +107,13 @@ public final class WebFormsRuntimeScopeTracker {
 
     String localName = node.getLocalName().toLowerCase(Locale.ROOT);
     if (isNamingContainer(node, localName)) {
+      boolean registeredUserControl = isRegisteredUserControl(node);
       contexts.put(node, new NodeContext(
         node,
         new ScopeIdentity(),
-        localName,
+        // User controls do not adopt built-in template semantics even when their TagName matches
+        // a standard control such as Repeater.
+        registeredUserControl ? "" : localName,
         nodeGeneratedClientId,
         null,
         null,
@@ -233,8 +236,12 @@ public final class WebFormsRuntimeScopeTracker {
 
   private boolean isNamingContainer(TagNode node, String localName) {
     return isServerControl(node)
-      && (registeredUserControls.contains(node.getNodeName().toLowerCase(Locale.ROOT))
+      && (isRegisteredUserControl(node)
         || (NAMING_CONTAINERS.contains(localName) && hasKnownPrefix(node)));
+  }
+
+  private boolean isRegisteredUserControl(TagNode node) {
+    return registeredUserControls.contains(node.getNodeName().toLowerCase(Locale.ROOT));
   }
 
   private boolean isWizard(TagNode node, String localName) {

@@ -534,7 +534,8 @@ class NoDuplicateIDCheckTest {
         new NoDuplicateIDCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(12).withMessage("Duplicate id \"same-user-control-scope\" found. First occurrence was on line 11.")
+        .next().atLine(13).withMessage("Duplicate id \"same-user-control-scope\" found. First occurrence was on line 12.")
+        .next().atLine(21).withMessage("Duplicate id \"same-built-in-named-user-control-scope\" found. First occurrence was on line 18.")
         .noMore();
   }
 
