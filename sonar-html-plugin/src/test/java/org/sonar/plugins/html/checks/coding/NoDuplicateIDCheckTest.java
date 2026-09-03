@@ -517,6 +517,17 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void webFormsDirectivesApplyRegardlessOfDocumentOrder() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsDirectiveOrdering.aspx"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(19).withMessage("Duplicate id \"late-page-mode-id\" found. First occurrence was on line 14.")
+        .noMore();
+  }
+
+  @Test
   void staticClientIdsInheritedFromWebFormsControl() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/webFormsStaticControl.ascx"),

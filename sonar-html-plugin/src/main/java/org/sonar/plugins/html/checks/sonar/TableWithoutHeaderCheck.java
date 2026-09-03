@@ -18,6 +18,7 @@ package org.sonar.plugins.html.checks.sonar;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.check.Rule;
@@ -98,7 +99,19 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   }
 
   private boolean isTable(TagNode node) {
-    return isVueFile ? "table".equals(node.getNodeName()) : TABLE_TAG.equalsIgnoreCase(node.getNodeName());
+    String nodeName = node.getNodeName();
+    // PascalCase names are Vue components. Native HTML tags are conventionally lowercase, while
+    // all-uppercase spellings remain valid because HTML tag names are case-insensitive.
+    return TABLE_TAG.equalsIgnoreCase(nodeName)
+      && (!isVueFile || isAllLowerCase(nodeName) || isAllUpperCase(nodeName));
+  }
+
+  private static boolean isAllLowerCase(String value) {
+    return value.equals(value.toLowerCase(Locale.ROOT));
+  }
+
+  private static boolean isAllUpperCase(String value) {
+    return value.equals(value.toUpperCase(Locale.ROOT));
   }
 
   private static boolean isTableScope(TagNode node) {

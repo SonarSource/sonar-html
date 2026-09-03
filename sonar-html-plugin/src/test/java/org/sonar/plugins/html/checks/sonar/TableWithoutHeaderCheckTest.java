@@ -58,6 +58,18 @@ class TableWithoutHeaderCheckTest {
   }
 
   @Test
+  void native_table_tags_are_recognized_in_vue_files_with_uppercase_extensions() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/native-tables.VUE"),
+      new TableWithoutHeaderCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .next().atLine(4).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .noMore();
+  }
+
+  @Test
   void table_tag_remains_case_insensitive_outside_vue() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/TableWithoutHeaderCheck/mixed-case.html"),
