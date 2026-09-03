@@ -114,6 +114,29 @@ public class Helpers {
   }
 
   /**
+   * Returns true when {@code name} starts with an uppercase letter, the convention Vue (and other
+   * frameworks) use to write a PascalCase component reference in a template.
+   *
+   * @param name the tag name to test
+   * @return true if the first character is uppercase
+   */
+  public static boolean startsWithUpperCase(String name) {
+    return !name.isEmpty() && Character.isUpperCase(name.charAt(0));
+  }
+
+  /**
+   * Returns true when {@code name} contains a hyphen. No native HTML tag name has one, so a
+   * hyphen marks a custom element or component reference (Vue kebab-case, Angular/Web Components
+   * selectors).
+   *
+   * @param name the tag name to test
+   * @return true if the name contains a hyphen
+   */
+  public static boolean isKebabCase(String name) {
+    return name.indexOf('-') >= 0;
+  }
+
+  /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
    * @param node the tag node whose ancestors are inspected

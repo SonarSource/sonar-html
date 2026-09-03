@@ -20,7 +20,10 @@ import java.util.Arrays;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
+
+import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 
 @Rule(key = "S9379")
 public class NoAutofocusCheck extends AbstractPageCheck {
@@ -29,13 +32,32 @@ public class NoAutofocusCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (!node.hasProperty("autofocus")) {
+    Attribute autofocusProperty = node.getProperty("autofocus");
+    if (autofocusProperty == null) {
       return;
     }
-    if (isDialogOrPopover(node) || Helpers.hasAncestorMatching(node, NoAutofocusCheck::isDialogOrPopover)) {
+    // Kebab-case is always a custom element (no native tag has a hyphen); PascalCase only means a
+    // component in Vue, since HTML tag names are otherwise case-insensitive, e.g. plain <BUTTON>.
+    String nodeName = node.getNodeName();
+    boolean componentReference = Helpers.isKebabCase(nodeName)
+      || (Helpers.isVueFile(getHtmlSourceCode()) && Helpers.startsWithUpperCase(nodeName));
+    if (componentReference || !hasKnownHTMLTag(node)) {
       return;
     }
-    createViolation(node, MESSAGE);
+    // A DOM-property binding (`:x`, `v-bind:x`, `[x]`) bound to literal false never sets the property, unlike a static "false" string.
+    if (!isDomPropertyBoundToFalse(autofocusProperty) && !isDialogOrPopover(node)
+        && !Helpers.hasAncestorMatching(node, NoAutofocusCheck::isDialogOrPopover)) {
+      createViolation(node, MESSAGE);
+    }
+  }
+
+  private static boolean isDomPropertyBoundToFalse(Attribute property) {
+    String value = property.getValue();
+    if (value == null || !"false".equals(value.trim())) {
+      return false;
+    }
+    return TagNode.domPropertyBindingNames("autofocus").stream()
+      .anyMatch(name -> name.equalsIgnoreCase(property.getName()));
   }
 
   private static boolean isDialogOrPopover(TagNode node) {

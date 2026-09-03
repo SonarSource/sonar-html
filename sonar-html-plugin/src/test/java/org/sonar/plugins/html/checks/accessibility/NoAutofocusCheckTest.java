@@ -54,6 +54,38 @@ class NoAutofocusCheckTest {
       .next().atLine(10)
       .next().atLine(11)
       .next().atLine(13)
+      .next().atLine(15)
+      .next().atLine(16)
+      .noMore();
+  }
+
+  @Test
+  void vueComponentPropShouldNotBeFlagged() {
+    // CustomInput / custom-input / Input are Vue components; autofocus there is a prop, not the
+    // DOM attribute - Input collides case-insensitively with the native <input> tag but must
+    // still be treated as a component
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoAutofocusCheck/VueComponents.vue"),
+      new NoAutofocusCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      // Only the native <input> should be flagged
+      .next().atLine(14)
+      .noMore();
+  }
+
+  @Test
+  void customElementPropInNonVueFileShouldNotBeFlagged() {
+    // The kebab-case/unknown-tag exemption is not gated on the .vue extension, but PascalCase is:
+    // outside Vue, a known HTML tag typed in caps (e.g. <BUTTON>) is still just the native tag.
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoAutofocusCheck/CustomElementInHtmlFile.html"),
+      new NoAutofocusCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(6)
+      .next().atLine(9)
+      .next().atLine(10)
       .noMore();
   }
 }
