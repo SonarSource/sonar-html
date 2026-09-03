@@ -221,7 +221,7 @@
 
 <asp:Wizard ID="wizardStepScopes" runat="server">
   <WizardSteps>
-    <asp:WizardStep ID="firstScopedStep" runat="server">
+    <asp:WizardStep ID="firstScopedStep">
       <asp:Label ID="wizard-step-scope-id" runat="server" />
     </asp:WizardStep>
     <asp:WizardStep ID="secondScopedStep" runat="server">
@@ -231,7 +231,7 @@
 </asp:Wizard>
 <asp:CreateUserWizard ID="createUserWizardStepScopes" runat="server">
   <WizardSteps>
-    <asp:CreateUserWizardStep ID="createUserScopedStep" runat="server">
+    <asp:CreateUserWizardStep ID="createUserScopedStep">
       <ContentTemplate><asp:Label ID="create-user-wizard-step-scope-id" runat="server" /></ContentTemplate>
     </asp:CreateUserWizardStep>
     <asp:CompleteWizardStep ID="completeScopedStep" runat="server">

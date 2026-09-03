@@ -276,7 +276,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private boolean isWebFormsWizardStep(TagNode node, String localName) {
-    return WEBFORMS_WIZARD_STEP_SCOPES.contains(localName) && isKnownWebFormsControl(node);
+    return WEBFORMS_WIZARD_STEP_SCOPES.contains(localName) && hasKnownWebFormsPrefix(node);
   }
 
   private boolean isWebFormsWizard(TagNode node, String localName) {
@@ -284,9 +284,13 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private boolean isKnownWebFormsControl(TagNode node) {
+    return hasKnownWebFormsPrefix(node) && isServerControl(node);
+  }
+
+  private boolean hasKnownWebFormsPrefix(TagNode node) {
     String nodeName = node.getNodeName();
     int prefixEnd = nodeName.indexOf(':');
-    if (prefixEnd <= 0 || !isServerControl(node)) {
+    if (prefixEnd <= 0) {
       return false;
     }
     String tagPrefix = nodeName.substring(0, prefixEnd).toLowerCase(Locale.ROOT);

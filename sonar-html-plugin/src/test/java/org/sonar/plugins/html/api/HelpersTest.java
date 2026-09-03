@@ -95,6 +95,15 @@ class HelpersTest {
   }
 
   @Test
+  void is_razor_file_recognizes_razor_suffixes_ignoring_case() {
+    assertThat(Helpers.isRazorFile(sourceCode("view.cshtml"))).isTrue();
+    assertThat(Helpers.isRazorFile(sourceCode("view.CSHTML"))).isTrue();
+    assertThat(Helpers.isRazorFile(sourceCode("view.VBHTML"))).isTrue();
+    assertThat(Helpers.isCshtmlFile(sourceCode("view.CSHTML"))).isTrue();
+    assertThat(Helpers.isRazorFile(sourceCode("view.html"))).isFalse();
+  }
+
+  @Test
   void is_server_side_file_recognizes_template_suffixes() {
     assertThat(Helpers.isServerSideFile(sourceCode("page.jsp"))).isTrue();
     assertThat(Helpers.isServerSideFile(sourceCode("page.jspf"))).isTrue();

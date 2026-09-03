@@ -45,6 +45,7 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.plugins.html.analyzers.ComplexityVisitor;
 import org.sonar.plugins.html.analyzers.PageCountLines;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.checks.HtmlIssue;
@@ -121,7 +122,7 @@ public final class HtmlSensor implements Sensor {
       HtmlSourceCode sourceCode = new HtmlSourceCode(inputFile);
 
       try (Reader reader = new InputStreamReader(inputFile.inputStream(), inputFile.charset())) {
-        PageLexer lexer = inputFile.filename().endsWith(".vue") ? new VueLexer() : new PageLexer();
+        PageLexer lexer = Helpers.isVueFile(sourceCode) ? new VueLexer() : new PageLexer();
         scanner.scan(lexer.parse(reader), sourceCode);
         saveMetrics(sensorContext, sourceCode);
         saveLineLevelMeasures(inputFile, sourceCode);
