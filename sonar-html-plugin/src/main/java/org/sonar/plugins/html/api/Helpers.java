@@ -150,6 +150,11 @@ public class Helpers {
     return false;
   }
 
+  /** Returns whether an element is explicitly marked as an ASP.NET server control. */
+  public static boolean isServerControl(TagNode node) {
+    return "server".equalsIgnoreCase(node.getAttribute("runat"));
+  }
+
   /**
    * Returns true if any ancestor of {@code node} satisfies {@code predicate}.
    *
@@ -170,7 +175,8 @@ public class Helpers {
 
   /**
    * Returns true if {@code node} has a template-like ancestor: HTML {@code <template>},
-   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*} with
+   * {@code runat="server"}).
    *
    * @param node the tag node whose ancestors are inspected
    * @return true if any ancestor matches a template-like scope
@@ -181,7 +187,8 @@ public class Helpers {
 
   /**
    * Returns true if {@code node} is a template-like wrapper: HTML {@code <template>},
-   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*} with
+   * {@code runat="server"}).
    * These elements do not contribute to the rendered DOM and can be treated as transparent.
    *
    * @param node the tag node to test
@@ -194,7 +201,7 @@ public class Helpers {
     }
     return "template".equalsIgnoreCase(name)
       || "ng-template".equalsIgnoreCase(name)
-      || startsWithIgnoreCase(name, "asp:");
+      || (startsWithIgnoreCase(name, "asp:") && isServerControl(node));
   }
 
   private static boolean startsWithIgnoreCase(String value, String prefix) {

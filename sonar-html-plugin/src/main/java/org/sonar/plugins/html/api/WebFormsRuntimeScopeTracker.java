@@ -60,7 +60,8 @@ public final class WebFormsRuntimeScopeTracker {
     "wizardstep", "templatedwizardstep", "createuserwizardstep", "completewizardstep");
   private static final Set<String> FORM_MODE_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate");
-  // Pager rows implement INonBindingContainer and therefore have a distinct naming scope.
+  // Header and footer render alongside each active form mode. PagerTemplate is deliberately
+  // excluded because pager rows implement INonBindingContainer and have a distinct naming scope.
   private static final Set<String> SHARED_FORM_TEMPLATE_SCOPES = Set.of(
     "headertemplate", "footertemplate");
 
@@ -99,7 +100,7 @@ public final class WebFormsRuntimeScopeTracker {
     NodeContext parentContext = context(node.getParent());
     Boolean nodeMode = usesGeneratedClientId(node.getAttribute(CLIENT_ID_MODE_ATTRIBUTE));
     boolean nodeGeneratedClientId = nodeMode == null ? parentContext.generatedClientId() : nodeMode;
-    if (isServerControl(node) && parentContext.namingContainer() != null && nodeGeneratedClientId) {
+    if (Helpers.isServerControl(node) && parentContext.namingContainer() != null && nodeGeneratedClientId) {
       scopes.put(node, new Scope(
         parentContext.scopeIdentity(),
         templateScopes(parentContext)));
@@ -159,8 +160,13 @@ public final class WebFormsRuntimeScopeTracker {
       return;
     }
     String normalizedPrefix = tagPrefix.toLowerCase(Locale.ROOT);
-    if (WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(directive.getAttribute("namespace"))) {
-      namingContainerPrefixes.add(normalizedPrefix);
+    String namespace = directive.getAttribute("namespace");
+    if (namespace != null && !namespace.isBlank()) {
+      if (WEBFORMS_CONTROLS_NAMESPACE.equalsIgnoreCase(namespace)) {
+        namingContainerPrefixes.add(normalizedPrefix);
+      } else {
+        namingContainerPrefixes.remove(normalizedPrefix);
+      }
       return;
     }
     String tagName = directive.getAttribute("tagname");
@@ -174,7 +180,8 @@ public final class WebFormsRuntimeScopeTracker {
     if (node == null) {
       return rootContext();
     }
-    return contexts.getOrDefault(node, rootContext());
+    NodeContext context = contexts.get(node);
+    return context == null ? rootContext() : context;
   }
 
   private NodeContext rootContext() {
@@ -235,7 +242,7 @@ public final class WebFormsRuntimeScopeTracker {
   }
 
   private boolean isNamingContainer(TagNode node, String localName) {
-    return isServerControl(node)
+    return Helpers.isServerControl(node)
       && (isRegisteredUserControl(node)
         || (NAMING_CONTAINERS.contains(localName) && hasKnownPrefix(node)));
   }
@@ -254,7 +261,7 @@ public final class WebFormsRuntimeScopeTracker {
   }
 
   private boolean isKnownControl(TagNode node) {
-    return hasKnownPrefix(node) && isServerControl(node);
+    return hasKnownPrefix(node) && Helpers.isServerControl(node);
   }
 
   private boolean hasKnownPrefix(TagNode node) {
@@ -267,10 +274,6 @@ public final class WebFormsRuntimeScopeTracker {
     // Project-wide web.config registrations are unavailable during a file-level check. Unknown
     // prefixes stay conservative because their runtime type may not implement INamingContainer.
     return namingContainerPrefixes.contains(tagPrefix);
-  }
-
-  private static boolean isServerControl(TagNode node) {
-    return "server".equalsIgnoreCase(node.getAttribute("runat"));
   }
 
   @Nullable
