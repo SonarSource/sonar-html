@@ -197,7 +197,13 @@ public final class WebFormsRuntimeScopeTracker {
   }
 
   private String wizardStepScope(TagNode wizardStep) {
-    return wizardStepScopes.computeIfAbsent(wizardStep, key -> "wizard-step-" + nextWizardStepId++);
+    String scope = wizardStepScopes.get(wizardStep);
+    if (scope == null) {
+      scope = "wizard-step-" + nextWizardStepId;
+      nextWizardStepId++;
+      wizardStepScopes.put(wizardStep, scope);
+    }
+    return scope;
   }
 
   @Nullable
