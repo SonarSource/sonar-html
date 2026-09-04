@@ -16,6 +16,10 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
+import java.util.Locale;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.HtmlConstants;
@@ -28,9 +32,16 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
 
   private static final String MESSAGE = "Move this \"scope\" attribute to a \"th\" element, or remove it.";
 
+  // Spellings of a "scope" attribute; excludes Vue's ":[scope]" dynamic argument, whose target is only known at runtime.
+  private static final Set<String> SCOPE_ATTRIBUTE_NAMES = Stream.concat(
+      Stream.of("scope", "[attr.scope]", "attr.scope"),
+      TagNode.domPropertyBindingNames("scope").stream())
+    .map(name -> name.toLowerCase(Locale.ROOT))
+    .collect(Collectors.toUnmodifiableSet());
+
   @Override
   public void startElement(TagNode node) {
-    if (!node.hasProperty("scope") || "th".equalsIgnoreCase(node.getNodeName()) || isTemplateTag(node)) {
+    if (!hasScopeAttribute(node) || "th".equalsIgnoreCase(node.getNodeName()) || isTemplateTag(node)) {
       return;
     }
     // A custom component or unknown tag: "scope" may be an arbitrary prop, unrelated to table headers.
@@ -38,6 +49,11 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
       return;
     }
     createViolation(node, MESSAGE);
+  }
+
+  private static boolean hasScopeAttribute(TagNode node) {
+    return node.getAttributes().stream()
+      .anyMatch(a -> SCOPE_ATTRIBUTE_NAMES.contains(a.getName().toLowerCase(Locale.ROOT)));
   }
 
   private static boolean isTemplateTag(TagNode node) {
