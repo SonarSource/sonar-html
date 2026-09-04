@@ -61,6 +61,7 @@ class ScopeAttributeOnlyOnThCheckTest {
       new ScopeAttributeOnlyOnThCheck());
 
     checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(17)
       .noMore();
   }
 }

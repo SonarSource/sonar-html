@@ -12,4 +12,7 @@
   <todo-list>
     <template scope="props">{{ props.text }}</template>
   </todo-list>
+
+  <!-- Native tag inside a Vue template is still flagged -->
+  <td scope="row">Total</td>
 </template>
