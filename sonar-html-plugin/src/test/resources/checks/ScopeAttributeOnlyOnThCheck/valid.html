@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th scope="row">Total</th>
+    <td>42</td>
+  </tr>
+</table>
+<th scope="col">Total</th>
+<TH SCOPE="rowgroup">Total</TH>
+<Th scope="row">Total</Th>
+<th></th>
+<div></div>
+<td>Total</td>
+<th [scope]="computedScope"></th>
+<div :data-scope="x"></div>
+<!-- Vue dynamic argument: the bound attribute name comes from the runtime value of "x", not from "scope" -->
+<div :[scope]="x"></div>
+<!-- Kebab-case is always a custom element, even outside Vue files -->
+<data-th scope="row">Total</data-th>
