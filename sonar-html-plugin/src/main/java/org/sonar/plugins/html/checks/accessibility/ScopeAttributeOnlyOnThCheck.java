@@ -41,7 +41,8 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
 
   @Override
   public void startElement(TagNode node) {
-    if (!hasScopeAttribute(node) || "th".equalsIgnoreCase(node.getNodeName()) || isTemplateTag(node)) {
+    // Vue 2.0-2.4 scoped slots use a bare "scope" attribute on <template>, unrelated to table headers.
+    if (!hasScopeAttribute(node) || "th".equalsIgnoreCase(node.getNodeName()) || Helpers.isTemplateLikeTag(node)) {
       return;
     }
     // A custom component or unknown tag: "scope" may be an arbitrary prop, unrelated to table headers.
@@ -54,11 +55,6 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
   private static boolean hasScopeAttribute(TagNode node) {
     return node.getAttributes().stream()
       .anyMatch(a -> SCOPE_ATTRIBUTE_NAMES.contains(a.getName().toLowerCase(Locale.ROOT)));
-  }
-
-  private static boolean isTemplateTag(TagNode node) {
-    // Vue 2.0-2.4 scoped slots use a bare "scope" attribute on <template>, unrelated to table headers.
-    return "template".equalsIgnoreCase(node.getNodeName());
   }
 
   private boolean isComponentReference(TagNode node) {
