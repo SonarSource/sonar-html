@@ -1,0 +1,51 @@
+<h2>Why is this an issue?</h2>
+<p>The <code>scope</code> attribute tells assistive technology which cells a table header labels: it associates a <code>th</code> cell with the row(s)
+or column(s) it applies to, so a screen reader can announce the correct header when a user navigates through the data cells.</p>
+<p>The HTML specification only defines <code>scope</code> on the <code>th</code> element: it is, in the words of the specification itself, "only
+conforming for th elements". Placing it on any other element does not associate that cell with anything, so users relying on assistive technology
+get no benefit from it, and the markup becomes invalid.</p>
+<p>The <code>td</code> element is a special case: HTML4 allowed <code>scope</code> on a data cell, but HTML5 deprecated that usage, keeping
+<code>scope</code> valid only on <code>th</code>. Code that still carries <code>scope</code> on a <code>td</code> is most likely leftover from that
+older practice.</p>
+<h2>How to fix it</h2>
+<p>Move the <code>scope</code> attribute to the <code>th</code> element that acts as the header for the row, column, row group, or column group, or
+remove the attribute if the element is not a table header.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td scope="row"&gt;Total&lt;/td&gt;
+    &lt;td&gt;42&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th scope="row"&gt;Total&lt;/th&gt;
+    &lt;td&gt;42&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+<p>A <code>scope</code> attribute on a tag that is not a recognized native HTML element (a Vue or Angular component, or a custom element, in
+PascalCase or kebab-case) is not flagged: on a custom component, <code>scope</code> may be an arbitrary prop unrelated to table headers, and the
+analyzer cannot resolve what it is actually used for.</p>
+<pre>
+&lt;HeaderCell scope="row"&gt;Total&lt;/HeaderCell&gt;
+&lt;header-cell scope="row"&gt;Total&lt;/header-cell&gt;
+</pre>
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li>MDN web docs - <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/th#scope">th: scope attribute</a></li>
+  <li>WHATWG HTML Standard - <a href="https://html.spec.whatwg.org/multipage/tables.html#attr-th-scope">The scope attribute</a></li>
+  <li>WCAG - <a href="https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html">Understanding Success Criterion 1.3.1: Info and
+  Relationships</a></li>
+  <li>WCAG - <a href="https://www.w3.org/WAI/WCAG22/Understanding/parsing.html">Understanding Success Criterion 4.1.1: Parsing</a></li>
+</ul>
+<h3>Related rules</h3>
+<ul>
+  <li>{rule:Web:S1827} - Attributes deprecated in HTML5 should not be used</li>
+</ul>
