@@ -59,6 +59,7 @@
     "S8720",
     "S8732",
     "S9379",
+    "S9380",
     "TableHeaderHasIdOrScopeCheck",
     "UnsupportedTagsInHtml5Check"
   ]
