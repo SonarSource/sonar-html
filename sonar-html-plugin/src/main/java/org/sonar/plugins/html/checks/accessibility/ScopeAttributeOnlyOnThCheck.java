@@ -25,6 +25,7 @@ import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.checks.EmbeddedHtmlCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 @Rule(key = "S9380")
@@ -53,8 +54,22 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
   }
 
   private static boolean hasScopeAttribute(TagNode node) {
-    return node.getAttributes().stream()
-      .anyMatch(a -> SCOPE_ATTRIBUTE_NAMES.contains(a.getName().toLowerCase(Locale.ROOT)));
+    return node.getAttributes().stream().anyMatch(ScopeAttributeOnlyOnThCheck::isEffectiveScopeAttribute);
+  }
+
+  private static boolean isEffectiveScopeAttribute(Attribute attribute) {
+    return SCOPE_ATTRIBUTE_NAMES.contains(attribute.getName().toLowerCase(Locale.ROOT))
+      && !isDomPropertyBoundToNullish(attribute);
+  }
+
+  // A DOM-property binding (`:scope`, `v-bind:scope`, `[scope]`) bound to literal null/undefined never sets the attribute.
+  private static boolean isDomPropertyBoundToNullish(Attribute property) {
+    String value = property.getValue();
+    if (value == null || !("null".equals(value.trim()) || "undefined".equals(value.trim()))) {
+      return false;
+    }
+    return TagNode.domPropertyBindingNames("scope").stream()
+      .anyMatch(name -> name.equalsIgnoreCase(property.getName()));
   }
 
   private boolean isComponentReference(TagNode node) {

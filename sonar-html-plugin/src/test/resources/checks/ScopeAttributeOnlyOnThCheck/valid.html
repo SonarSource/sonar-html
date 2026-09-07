@@ -16,3 +16,7 @@
 <div :[scope]="x"></div>
 <!-- Kebab-case is always a custom element, even outside Vue files -->
 <data-th scope="row">Total</data-th>
+<!-- A DOM-property binding bound to literal null/undefined never sets the attribute at runtime -->
+<div :scope="null"></div>
+<div v-bind:scope="undefined"></div>
+<div [scope]=" null "></div>
