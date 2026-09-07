@@ -75,15 +75,7 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
   private boolean isComponentReference(TagNode node) {
     String nodeName = node.getNodeName();
     // Kebab-case is always a custom element; PascalCase only means a component in Vue files.
-    return isKebabCase(nodeName) || (Helpers.isVueFile(getHtmlSourceCode()) && startsWithUpperCase(nodeName));
-  }
-
-  private static boolean isKebabCase(String name) {
-    return name.indexOf('-') >= 0;
-  }
-
-  private static boolean startsWithUpperCase(String name) {
-    return !name.isEmpty() && Character.isUpperCase(name.charAt(0));
+    return Helpers.isKebabCase(nodeName) || (Helpers.isVueFile(getHtmlSourceCode()) && Helpers.startsWithUpperCase(nodeName));
   }
 
 }
