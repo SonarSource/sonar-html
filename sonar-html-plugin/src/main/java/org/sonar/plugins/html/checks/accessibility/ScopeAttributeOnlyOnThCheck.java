@@ -31,12 +31,13 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S9380")
 public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements EmbeddedHtmlCheck {
 
+  private static final String SCOPE = "scope";
   private static final String MESSAGE = "Move this \"scope\" attribute to a \"th\" element, or remove it.";
 
   // Spellings of a "scope" attribute; excludes Vue's ":[scope]" dynamic argument, whose target is only known at runtime.
   private static final Set<String> SCOPE_ATTRIBUTE_NAMES = Stream.concat(
-      Stream.of("scope", "[attr.scope]", "attr.scope"),
-      TagNode.domPropertyBindingNames("scope").stream())
+      Stream.of(SCOPE, "[attr.scope]", "attr.scope"),
+      TagNode.domPropertyBindingNames(SCOPE).stream())
     .map(name -> name.toLowerCase(Locale.ROOT))
     .collect(Collectors.toUnmodifiableSet());
 
@@ -68,7 +69,7 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
     if (value == null || !("null".equals(value.trim()) || "undefined".equals(value.trim()))) {
       return false;
     }
-    return TagNode.domPropertyBindingNames("scope").stream()
+    return TagNode.domPropertyBindingNames(SCOPE).stream()
       .anyMatch(name -> name.equalsIgnoreCase(property.getName()));
   }
 
