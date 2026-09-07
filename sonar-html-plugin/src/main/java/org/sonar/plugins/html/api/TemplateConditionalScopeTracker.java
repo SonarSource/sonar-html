@@ -589,7 +589,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private boolean isInPersistentRazorComment() {
-    return inRazorComment || inCSharpLineComment || inCSharpBlockComment;
+    return razorProtectedState.isInPersistentComment();
   }
 
   /**
@@ -956,15 +956,9 @@ public final class TemplateConditionalScopeTracker {
       pendingRenderedClosingBraceDepth = -1;
       pendingRenderedRazorCodeBlockClosing = false;
       razorCodeBraceDepth = 0;
-      inRazorExplicitText = false;
-      resetCSharpProtectedState();
+      razorProtectedState.inRazorExplicitText = false;
+      razorProtectedState.resetCSharpState();
     }
-  }
-
-  private void resetCSharpProtectedState() {
-    inCSharpLineComment = false;
-    inCSharpBlockComment = false;
-    csharpStringContexts.clear();
   }
 
   /**
@@ -1444,6 +1438,47 @@ public final class TemplateConditionalScopeTracker {
       this.rawQuoteCount = rawQuoteCount;
       this.verbatim = verbatim;
       this.interpolated = interpolated;
+    }
+  }
+
+  /**
+   * Groups the Razor and C# state that persists across text fragments: comments, explicit text
+   * lines, open string literals, and the identifier preceding a possible generic type argument.
+   */
+  private static final class RazorProtectedState {
+
+    private final Deque<CSharpStringContext> csharpStringContexts = new ArrayDeque<>();
+    private boolean inRazorComment;
+    private boolean inRazorExplicitText;
+    private boolean inCSharpLineComment;
+    private boolean inCSharpBlockComment;
+    private char csharpGenericTypeOwnerInitial;
+
+    private void reset() {
+      inRazorComment = false;
+      inRazorExplicitText = false;
+      csharpGenericTypeOwnerInitial = '\0';
+      resetCSharpState();
+    }
+
+    private void resetCSharpState() {
+      inCSharpLineComment = false;
+      inCSharpBlockComment = false;
+      csharpStringContexts.clear();
+    }
+
+    /**
+     * Returns whether the scan is inside Razor or C# content that is not rendered as markup.
+     */
+    private boolean isInNonRenderedContent() {
+      return inRazorComment || inCSharpLineComment || inCSharpBlockComment || !csharpStringContexts.isEmpty();
+    }
+
+    /**
+     * Returns whether the scan is inside a comment that may span several text fragments.
+     */
+    private boolean isInPersistentComment() {
+      return inRazorComment || inCSharpLineComment || inCSharpBlockComment;
     }
   }
 
