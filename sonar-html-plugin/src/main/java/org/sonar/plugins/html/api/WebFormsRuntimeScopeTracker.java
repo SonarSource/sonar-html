@@ -215,9 +215,12 @@ public final class WebFormsRuntimeScopeTracker {
     TagNode step = wizard.step();
     String navigationTemplate = wizard.navigationTemplate();
     if (navigationTemplate != null) {
+      if (step == null) {
+        return Set.of(navigationTemplate);
+      }
       // CustomNavigationTemplate is declared inside a step but rendered in a container of its own,
       // so its scope stays distinct from the content template of the same step.
-      return Set.of(step == null ? navigationTemplate : navigationTemplate + "-" + wizardStepScope(step));
+      return Set.of(navigationTemplate + "-" + wizardStepScope(step));
     }
     if (step != null) {
       return Set.of(wizardStepScope(step));
