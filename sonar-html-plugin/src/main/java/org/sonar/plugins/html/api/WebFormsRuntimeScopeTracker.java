@@ -58,6 +58,14 @@ public final class WebFormsRuntimeScopeTracker {
     "usernametemplate", "questiontemplate");
   private static final Set<String> WIZARD_STEP_SCOPES = Set.of(
     "wizardstep", "templatedwizardstep", "createuserwizardstep", "completewizardstep");
+  // Every navigation template is instantiated in a BaseNavigationTemplateContainer of its own, and
+  // CustomNavigationTemplate gets one such container per step, so each renders in a distinct naming
+  // scope. HeaderTemplate and SideBarTemplate are deliberately excluded: their containers are naming
+  // containers only in the default table rendering, and a LayoutTemplate instantiates them in a
+  // plain Control that shares the wizard scope.
+  private static final Set<String> WIZARD_NAVIGATION_TEMPLATE_SCOPES = Set.of(
+    "startnavigationtemplate", "stepnavigationtemplate", "finishnavigationtemplate",
+    "customnavigationtemplate");
   private static final Set<String> FORM_MODE_TEMPLATE_SCOPES = Set.of(
     "itemtemplate", "edititemtemplate", "insertitemtemplate");
   // Header and footer render alongside each active form mode. PagerTemplate is deliberately
@@ -86,6 +94,9 @@ public final class WebFormsRuntimeScopeTracker {
     namingContainerPrefixes.add("asp");
     nextWizardStepId = 1;
     isWebFormsFile = Helpers.isWebFormsFile(sourceCode);
+    // Without a Page or Control directive, the framework default of generated client IDs applies.
+    // A site-wide <pages clientIDMode="Static" /> in web.config would override it, but project
+    // configuration is out of reach of a file-level check, so that case stays unreported.
     pageGeneratedClientId = true;
     if (isWebFormsFile) {
       collectDirectives(nodes);
@@ -118,7 +129,7 @@ public final class WebFormsRuntimeScopeTracker {
         nodeGeneratedClientId,
         null,
         null,
-        null));
+        WizardContext.NONE));
       return;
     }
 
@@ -131,7 +142,7 @@ public final class WebFormsRuntimeScopeTracker {
       parentContext.generatedClientId(),
       nearestMatching(localName, TEMPLATE_SCOPES, parentContext.templateKind()),
       nearestMatching(localName, EXCLUSIVE_TEMPLATE_SCOPES, parentContext.exclusiveTemplateKind()),
-      wizardStep(node, localName, parentContext.wizardStep())));
+      wizardContext(node, localName, parentContext.wizard())));
   }
 
   @Nullable
@@ -186,7 +197,7 @@ public final class WebFormsRuntimeScopeTracker {
   }
 
   private NodeContext rootContext() {
-    return new NodeContext(null, null, "", pageGeneratedClientId, null, null, null);
+    return new NodeContext(null, null, "", pageGeneratedClientId, null, null, WizardContext.NONE);
   }
 
   private Set<String> templateScopes(NodeContext context) {
@@ -194,12 +205,26 @@ public final class WebFormsRuntimeScopeTracker {
       return dataTemplateScopes(context.containerName(), context.templateKind());
     }
     if (WIZARD_NAMING_CONTAINERS.contains(context.containerName())) {
-      if (context.wizardStep() != null) {
-        return Set.of(wizardStepScope(context.wizardStep()));
-      }
-      return wizardScopes.computeIfAbsent(context.namingContainer(), this::collectWizardStepScopes);
+      return wizardTemplateScopes(context);
     }
     return context.exclusiveTemplateKind() == null ? Set.of() : Set.of(context.exclusiveTemplateKind());
+  }
+
+  private Set<String> wizardTemplateScopes(NodeContext context) {
+    WizardContext wizard = context.wizard();
+    TagNode step = wizard.step();
+    String navigationTemplate = wizard.navigationTemplate();
+    if (navigationTemplate != null) {
+      // CustomNavigationTemplate is declared inside a step but rendered in a container of its own,
+      // so its scope stays distinct from the content template of the same step.
+      return Set.of(step == null ? navigationTemplate : navigationTemplate + "-" + wizardStepScope(step));
+    }
+    if (step != null) {
+      return Set.of(wizardStepScope(step));
+    }
+    // Header, side bar and layout content renders alongside every step and is not guaranteed to sit
+    // in a naming container of its own, so it shares the scope of all the steps.
+    return wizardScopes.computeIfAbsent(context.namingContainer(), this::collectWizardStepScopes);
   }
 
   private static Set<String> dataTemplateScopes(String containerName, String templateKind) {
@@ -237,9 +262,11 @@ public final class WebFormsRuntimeScopeTracker {
     return scope;
   }
 
-  @Nullable
-  private TagNode wizardStep(TagNode node, String localName, @Nullable TagNode inheritedWizardStep) {
-    return inheritedWizardStep == null && isWizardStep(node, localName) ? node : inheritedWizardStep;
+  private WizardContext wizardContext(TagNode node, String localName, WizardContext inherited) {
+    TagNode inheritedStep = inherited.step();
+    return new WizardContext(
+      inheritedStep == null && isWizardStep(node, localName) ? node : inheritedStep,
+      nearestMatching(localName, WIZARD_NAVIGATION_TEMPLATE_SCOPES, inherited.navigationTemplate()));
   }
 
   private boolean isNamingContainer(TagNode node, String localName) {
@@ -313,6 +340,11 @@ public final class WebFormsRuntimeScopeTracker {
     boolean generatedClientId,
     @Nullable String templateKind,
     @Nullable String exclusiveTemplateKind,
-    @Nullable TagNode wizardStep) {
+    WizardContext wizard) {
+  }
+
+  /** The innermost wizard step and navigation template enclosing a node, if any. */
+  private record WizardContext(@Nullable TagNode step, @Nullable String navigationTemplate) {
+    private static final WizardContext NONE = new WizardContext(null, null);
   }
 }

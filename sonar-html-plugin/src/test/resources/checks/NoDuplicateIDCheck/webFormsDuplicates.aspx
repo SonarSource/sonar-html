@@ -167,3 +167,17 @@
     </asp:WizardStep>
   </WizardSteps>
 </asp:Wizard>
+<asp:Wizard ID="sameWizardNavigationScope" runat="server">
+  <WizardSteps>
+    <asp:TemplatedWizardStep ID="sameNavigationScopeStep" runat="server">
+      <CustomNavigationTemplate>
+        <asp:Label ID="same-wizard-navigation-scope" runat="server" />
+        <asp:TextBox ID="same-wizard-navigation-scope" runat="server" />
+      </CustomNavigationTemplate>
+    </asp:TemplatedWizardStep>
+  </WizardSteps>
+  <StartNavigationTemplate>
+    <asp:Label ID="same-start-navigation-scope" runat="server" />
+    <asp:TextBox ID="same-start-navigation-scope" runat="server" />
+  </StartNavigationTemplate>
+</asp:Wizard>

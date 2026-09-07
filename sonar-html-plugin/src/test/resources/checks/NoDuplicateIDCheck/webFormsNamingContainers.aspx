@@ -240,6 +240,27 @@
   </WizardSteps>
 </asp:CreateUserWizard>
 
+<asp:Wizard ID="wizardNavigationTemplateScopes" runat="server">
+  <WizardSteps>
+    <asp:WizardStep ID="startStep" runat="server" />
+    <asp:WizardStep ID="finishStep" runat="server" />
+  </WizardSteps>
+  <StartNavigationTemplate><asp:Button ID="wizard-navigation-scope-id" runat="server" /></StartNavigationTemplate>
+  <StepNavigationTemplate><asp:Button ID="wizard-navigation-scope-id" runat="server" /></StepNavigationTemplate>
+  <FinishNavigationTemplate><asp:Button ID="wizard-navigation-scope-id" runat="server" /></FinishNavigationTemplate>
+</asp:Wizard>
+<asp:Wizard ID="customNavigationTemplateScopes" runat="server">
+  <WizardSteps>
+    <asp:TemplatedWizardStep ID="firstTemplatedStep" runat="server">
+      <ContentTemplate><asp:Label ID="custom-navigation-scope-id" runat="server" /></ContentTemplate>
+      <CustomNavigationTemplate><asp:Button ID="custom-navigation-scope-id" runat="server" /></CustomNavigationTemplate>
+    </asp:TemplatedWizardStep>
+    <asp:TemplatedWizardStep ID="secondTemplatedStep" runat="server">
+      <CustomNavigationTemplate><asp:Button ID="custom-navigation-scope-id" runat="server" /></CustomNavigationTemplate>
+    </asp:TemplatedWizardStep>
+  </WizardSteps>
+</asp:Wizard>
+
 <asp:ListView ID="nestedTemplateScopes" runat="server">
   <LayoutTemplate>
     <asp:Label ID="nested-template-scope-id" runat="server" />
