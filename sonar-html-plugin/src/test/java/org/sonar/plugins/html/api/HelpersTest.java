@@ -110,4 +110,23 @@ class HelpersTest {
     assertThat(Helpers.isServerSideFile(sourceCode("page.htm"))).isFalse();
     assertThat(Helpers.isServerSideFile(sourceCode("page.xml"))).isFalse();
   }
+
+  @Test
+  void starts_with_upper_case_detects_first_character_only() {
+    assertThat(Helpers.startsWithUpperCase("CustomInput")).isTrue();
+    assertThat(Helpers.startsWithUpperCase("BLink")).isTrue();
+    assertThat(Helpers.startsWithUpperCase("Input")).isTrue();
+    // camelCase is not PascalCase: the uppercase letter is not the first character
+    assertThat(Helpers.startsWithUpperCase("customInput")).isFalse();
+    assertThat(Helpers.startsWithUpperCase("input")).isFalse();
+    assertThat(Helpers.startsWithUpperCase("")).isFalse();
+  }
+
+  @Test
+  void is_kebab_case_detects_hyphen() {
+    assertThat(Helpers.isKebabCase("custom-input")).isTrue();
+    assertThat(Helpers.isKebabCase("input")).isFalse();
+    assertThat(Helpers.isKebabCase("")).isFalse();
+  }
+
 }

@@ -42,6 +42,13 @@ container instead of autofocusing it directly on page load.</p>
   &lt;input autofocus /&gt;
 &lt;/div&gt;
 </pre>
+<p>An <code>autofocus</code> attribute on a tag that is not a recognized native HTML element (a Vue or Angular component, or a custom element, in
+PascalCase or kebab-case) is not flagged, since the analyzer cannot resolve how such a tag renders. Frameworks like Vue pass undeclared attributes
+through to the component’s root element by default, so such code can still autofocus an element:</p>
+<pre>
+&lt;CustomInput autofocus /&gt;
+&lt;custom-input autofocus /&gt;
+</pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>
 <ul>

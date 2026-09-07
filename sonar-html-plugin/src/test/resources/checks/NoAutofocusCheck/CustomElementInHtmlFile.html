@@ -1,0 +1,10 @@
+<!-- Custom element / component in a plain .html file - autofocus here is a prop, not the DOM attribute -->
+<custom-input autofocus></custom-input>
+<CustomInput autofocus></CustomInput>
+
+<!-- Native input - SHOULD still be flagged -->
+<input autofocus />
+
+<!-- HTML tag names are case-insensitive outside Vue - these are still the native tags and SHOULD be flagged -->
+<BUTTON autofocus></BUTTON>
+<INPUT AUTOFOCUS />
