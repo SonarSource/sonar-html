@@ -10,6 +10,9 @@ older practice.</p>
 <h2>How to fix it</h2>
 <p>Move the <code>scope</code> attribute to the <code>th</code> element that acts as the header for the row, column, row group, or column group, or
 remove the attribute if the element is not a table header.</p>
+<p>Custom elements and components (kebab-case tags, PascalCase Vue components) are not flagged, since <code>scope</code> may be an arbitrary prop
+unrelated to the native HTML attribute. The bare <code>scope</code> attribute on Vue’s <code>&lt;template&gt;</code> (2.x scoped slots) is also
+excluded, as it is unrelated to table headers.</p>
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
 <pre data-diff-id="1" data-diff-type="noncompliant">
@@ -28,13 +31,6 @@ remove the attribute if the element is not a table header.</p>
     &lt;td&gt;42&lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
-</pre>
-<p>A <code>scope</code> attribute on a tag that is not a recognized native HTML element (a Vue or Angular component, or a custom element, in
-PascalCase or kebab-case) is not flagged: on a custom component, <code>scope</code> may be an arbitrary prop unrelated to table headers, and the
-analyzer cannot resolve what it is actually used for.</p>
-<pre>
-&lt;HeaderCell scope="row"&gt;Total&lt;/HeaderCell&gt;
-&lt;header-cell scope="row"&gt;Total&lt;/header-cell&gt;
 </pre>
 <h2>Resources</h2>
 <h3>Documentation</h3>
