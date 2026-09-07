@@ -106,48 +106,11 @@ public class Helpers {
   }
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {
-    return normalizedFilename(code).endsWith(".cshtml");
+    return code.inputFile().filename().endsWith(".cshtml");
   }
 
   public static boolean isVueFile(HtmlSourceCode code) {
-    return normalizedFilename(code).endsWith(".vue");
-  }
-
-  /**
-   * Returns whether a tag name uses Vue's PascalCase component syntax.
-   *
-   * @param name the tag name to inspect
-   * @return true when the name starts with an uppercase character and contains lowercase content
-   */
-  public static boolean isPascalCase(String name) {
-    if (name.isEmpty() || !Character.isUpperCase(name.charAt(0))) {
-      return false;
-    }
-    for (int i = 1; i < name.length(); i++) {
-      if (Character.isLowerCase(name.charAt(i))) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Returns whether a tag name can denote a Vue component. In addition to PascalCase, Vue accepts
-   * camelCase names and existing checks have historically treated all-capitalized names as components.
-   *
-   * @param name the tag name to inspect
-   * @return true when the name uses one of the supported component-name forms
-   */
-  public static boolean isVueComponentName(String name) {
-    if (isPascalCase(name)) {
-      return true;
-    }
-    for (int i = 1; i < name.length(); i++) {
-      if (Character.isUpperCase(name.charAt(i))) {
-        return true;
-      }
-    }
-    return false;
+    return code.inputFile().filename().endsWith(".vue");
   }
 
   /** Returns whether an element is explicitly marked as an ASP.NET server control. */
@@ -216,12 +179,18 @@ public class Helpers {
    * @return true if the file is a Razor view, false otherwise
    */
   public static boolean isRazorFile(HtmlSourceCode code) {
-    String filename = normalizedFilename(code);
+    String filename = code.inputFile().filename();
     return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
   }
 
+  /**
+   * Returns true when the source file is an ASP.NET WebForms page (.aspx) or user control (.ascx).
+   *
+   * @param code the source under analysis
+   * @return true if the file is a WebForms page or user control, false otherwise
+   */
   public static boolean isWebFormsFile(HtmlSourceCode code) {
-    String filename = normalizedFilename(code);
+    String filename = code.inputFile().filename().toLowerCase(Locale.ROOT);
     return filename.endsWith(".aspx") || filename.endsWith(".ascx");
   }
 
@@ -255,16 +224,12 @@ public class Helpers {
   }
   
   public static boolean isServerSideFile(HtmlSourceCode code) {
-    String filename = normalizedFilename(code);
+    String filename = code.inputFile().filename();
     for (String suffix : SERVER_SIDE_SUFFIXES) {
       if (filename.endsWith(suffix)) {
         return true;
       }
     }
     return false;
-  }
-
-  private static String normalizedFilename(HtmlSourceCode code) {
-    return code.inputFile().filename().toLowerCase(Locale.ROOT);
   }
 }
