@@ -17,10 +17,12 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.Arrays;
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
@@ -29,6 +31,13 @@ import static org.sonar.plugins.html.api.HtmlConstants.hasKnownHTMLTag;
 public class NoAutofocusCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.";
+
+  private boolean isVueFile;
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    isVueFile = Helpers.isVueFile(getHtmlSourceCode());
+  }
 
   @Override
   public void startElement(TagNode node) {
@@ -40,7 +49,7 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     // component in Vue, since HTML tag names are otherwise case-insensitive, e.g. plain <BUTTON>.
     String nodeName = node.getNodeName();
     boolean componentReference = Helpers.isKebabCase(nodeName)
-      || (Helpers.isVueFile(getHtmlSourceCode()) && Helpers.startsWithUpperCase(nodeName));
+      || (isVueFile && Helpers.startsWithUpperCase(nodeName));
     if (componentReference || !hasKnownHTMLTag(node)) {
       return;
     }
