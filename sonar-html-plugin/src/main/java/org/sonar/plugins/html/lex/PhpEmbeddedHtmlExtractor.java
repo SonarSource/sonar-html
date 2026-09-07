@@ -735,16 +735,17 @@ final class PhpEmbeddedHtmlExtractor {
       if (this == o) {
         return true;
       }
-      if (!(o instanceof StringLiteral other)) {
+      if (!(o instanceof StringLiteral(var otherValue, var otherLineOffset, var otherColumnOffset, var otherInterpolated,
+        var otherSourceColumns, var otherRawStart, var otherRawEnd))) {
         return false;
       }
-      return lineOffset == other.lineOffset
-        && columnOffset == other.columnOffset
-        && interpolated == other.interpolated
-        && rawStart == other.rawStart
-        && rawEnd == other.rawEnd
-        && java.util.Objects.equals(value, other.value)
-        && Arrays.deepEquals(sourceColumns, other.sourceColumns);
+      return lineOffset == otherLineOffset
+        && columnOffset == otherColumnOffset
+        && interpolated == otherInterpolated
+        && rawStart == otherRawStart
+        && rawEnd == otherRawEnd
+        && java.util.Objects.equals(value, otherValue)
+        && Arrays.deepEquals(sourceColumns, otherSourceColumns);
     }
 
     @Override
