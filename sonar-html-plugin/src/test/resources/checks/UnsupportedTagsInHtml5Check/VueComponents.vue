@@ -13,5 +13,11 @@
 
     <!-- kebab-case Vue components - should NOT be flagged -->
     <b-link to="/home">Home</b-link>
+
+    <!-- camelCase is not a native tag spelling either - should NOT be flagged -->
+    <bLink to="/home">Home</bLink>
+
+    <!-- all-uppercase starts with a capital, so Vue resolves it as a component too -->
+    <MARQUEE>Scrolling</MARQUEE>
   </div>
 </template>
