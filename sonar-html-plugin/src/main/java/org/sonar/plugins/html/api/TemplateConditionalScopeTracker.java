@@ -17,7 +17,9 @@
 package org.sonar.plugins.html.api;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -237,7 +239,36 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public boolean isInConditional(TagNode node) {
-    return hasOpenConditionalScope() || hasConditionalAttribute(node);
+    return isInOpenConditionalScope() || !conditionalAttributeScopes(node).isEmpty();
+  }
+
+  /**
+   * Returns whether the current position is inside a text-based or JSTL conditional scope.
+   *
+   * @return whether an open conditional scope is active
+   */
+  public boolean isInOpenConditionalScope() {
+    return hasOpenConditionalScope();
+  }
+
+  /**
+   * Returns active conditional-attribute hosts from outermost to innermost.
+   *
+   * @param node the current start tag
+   * @return the conditional-attribute hosts containing the tag
+   */
+  public List<TagNode> conditionalAttributeScopes(TagNode node) {
+    List<TagNode> scopes = new ArrayList<>();
+    for (var elements = openElements.descendingIterator(); elements.hasNext();) {
+      TagNode element = elements.next();
+      if (hasConditionalAttribute(element)) {
+        scopes.add(element);
+      }
+    }
+    if (hasConditionalAttribute(node) && (openElements.isEmpty() || openElements.peek() != node)) {
+      scopes.add(node);
+    }
+    return scopes;
   }
 
   /**

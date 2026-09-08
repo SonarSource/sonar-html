@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.html.checks.coding;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,12 +49,14 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   // IDs seen outside any conditional - these are the "authoritative" IDs
   private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
   private final WebFormsRuntimeScopeTracker webFormsScopeTracker = new WebFormsRuntimeScopeTracker();
+  private final Map<RuntimeId, List<ConditionalIdOccurrence>> conditionalIds = new HashMap<>();
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
 
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
     webFormsScopeTracker.reset(nodes, getHtmlSourceCode());
+    conditionalIds.clear();
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
   }
 
@@ -88,11 +91,57 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       return;
     }
     List<RuntimeId> runtimeIds = runtimeIds(node, idValue);
-    if (conditionalScope.isInConditional(node)) {
+    if (conditionalScope.isInOpenConditionalScope()) {
+      reportDuplicateAgainstUnconditionalId(node, runtimeIds);
+      return;
+    }
+
+    List<TagNode> attributeScopes = conditionalScope.conditionalAttributeScopes(node);
+    if (!attributeScopes.isEmpty()) {
+      reportDuplicateAgainstUnconditionalId(node, runtimeIds);
+      registerConditionalId(node, runtimeIds, attributeScopes);
+    } else if (TemplateConditionalScopeTracker.isConditionalAttributeHost(node)) {
       reportDuplicateAgainstUnconditionalId(node, runtimeIds);
     } else {
       registerUnconditionalId(node, runtimeIds);
     }
+  }
+
+  /**
+   * Registers an ID found inside conditional-attribute hosts and reports a coexisting duplicate.
+   *
+   * @param node the element containing the ID
+   * @param idValue the static ID value
+   * @param attributeScopes the active conditional-attribute hosts
+   */
+  private void registerConditionalId(TagNode node, List<RuntimeId> runtimeIds, List<TagNode> attributeScopes) {
+    for (RuntimeId runtimeId : runtimeIds) {
+      List<ConditionalIdOccurrence> occurrences = conditionalIds.computeIfAbsent(runtimeId, ignored -> new ArrayList<>());
+      for (ConditionalIdOccurrence occurrence : occurrences) {
+        if (canCoexist(attributeScopes, occurrence.attributeScopes())) {
+          createViolation(node, duplicateIdMessage(runtimeId.value(), occurrence.line()));
+          break;
+        }
+      }
+      occurrences.add(new ConditionalIdOccurrence(attributeScopes, node.getStartLinePosition()));
+    }
+  }
+
+  /**
+   * Determines whether IDs under two conditional-host paths can be rendered together.
+   *
+   * @param firstScopes the first conditional-host path
+   * @param secondScopes the second conditional-host path
+   * @return whether the paths share every host they have in common
+   */
+  private static boolean canCoexist(List<TagNode> firstScopes, List<TagNode> secondScopes) {
+    int sharedDepth = Math.min(firstScopes.size(), secondScopes.size());
+    for (int index = 0; index < sharedDepth; index++) {
+      if (firstScopes.get(index) != secondScopes.get(index)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private boolean shouldIgnoreId(@Nullable String idValue) {
@@ -154,4 +203,6 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   private record RuntimeId(String value, @Nullable ScopeIdentity scopeIdentity, @Nullable String templateScope) {
   }
 
+  private record ConditionalIdOccurrence(List<TagNode> attributeScopes, int line) {
+  }
 }

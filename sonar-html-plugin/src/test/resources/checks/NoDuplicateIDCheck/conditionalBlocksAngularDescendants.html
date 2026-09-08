@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div *ngIf="testNgIf">
+  <span id="test">Hello world!</span>
+</div>
+
+<div *ngIf="!testNgIf">
+  <span id="test">Not Hello world!</span>
+</div>
+
+<div *ngIf="showDetails">
+  <span id="inside-branch">First</span>
+  <span id="inside-branch">Second</span>
+</div>
+
+<span id="shared">Always rendered</span>
+<div *ngIf="showDetails">
+  <span id="shared">Conditionally rendered</span>
+</div>
+
+<div *ngIf="showParent">
+  <span id="nested">Outer scope</span>
+  <div *ngIf="showChild">
+    <span id="nested">Nested scope</span>
+  </div>
+</div>
+</body>
+</html>
