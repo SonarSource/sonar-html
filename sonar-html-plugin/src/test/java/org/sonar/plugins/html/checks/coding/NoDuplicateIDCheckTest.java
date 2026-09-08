@@ -92,6 +92,21 @@ class NoDuplicateIDCheckTest {
         .noMore();
   }
 
+  /**
+   * Handles descendant IDs in distinct Vue conditional hosts without hiding coexisting duplicates.
+   */
+  @Test
+  void vueConditionalAttributeDescendants() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksVueDescendants.vue"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(10).withMessage("Duplicate id \"inside-branch\" found. First occurrence was on line 9.")
+        .next().atLine(14).withMessage("Duplicate id \"shared\" found. First occurrence was on line 12.")
+        .noMore();
+  }
+
   @Test
   void razorSwitchBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
@@ -126,6 +141,22 @@ class NoDuplicateIDCheckTest {
     // Only the actual duplicate outside conditionals should be flagged
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(35).withMessage("Duplicate id \"badge\" found. First occurrence was on line 34.")
+        .noMore();
+  }
+
+  /**
+   * Handles descendant IDs in distinct Angular conditional hosts without hiding coexisting duplicates.
+   */
+  @Test
+  void angularConditionalAttributeDescendants() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularDescendants.html"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(14).withMessage("Duplicate id \"inside-branch\" found. First occurrence was on line 13.")
+        .next().atLine(19).withMessage("Duplicate id \"shared\" found. First occurrence was on line 17.")
+        .next().atLine(25).withMessage("Duplicate id \"nested\" found. First occurrence was on line 23.")
         .noMore();
   }
 
