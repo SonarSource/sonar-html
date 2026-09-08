@@ -162,6 +162,25 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void reportsDescendantIdsInConditionalHostsThatCanCoexist() {
+    HtmlSourceCode angularSourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularCoexistingDescendants.html"),
+        new NoDuplicateIDCheck());
+    HtmlSourceCode vueSourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksVueCoexistingDescendants.vue"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(angularSourceCode.getIssues())
+        .next().atLine(5).withMessage("Duplicate id \"independent\" found. First occurrence was on line 4.")
+        .next().atLine(7).withMessage("Duplicate id \"same-condition\" found. First occurrence was on line 6.")
+        .noMore();
+    checkMessagesVerifier.verify(vueSourceCode.getIssues())
+        .next().atLine(4).withMessage("Duplicate id \"independent\" found. First occurrence was on line 3.")
+        .next().atLine(6).withMessage("Duplicate id \"same-condition\" found. First occurrence was on line 5.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.cshtml"),

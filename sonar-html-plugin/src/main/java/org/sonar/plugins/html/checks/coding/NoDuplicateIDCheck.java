@@ -135,11 +135,13 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
    * @param secondScopes the second conditional-host path
    * @return whether the paths share every host they have in common
    */
-  private static boolean canCoexist(List<TagNode> firstScopes, List<TagNode> secondScopes) {
+  private boolean canCoexist(List<TagNode> firstScopes, List<TagNode> secondScopes) {
     int sharedDepth = Math.min(firstScopes.size(), secondScopes.size());
     for (int index = 0; index < sharedDepth; index++) {
-      if (firstScopes.get(index) != secondScopes.get(index)) {
-        return false;
+      TagNode firstScope = firstScopes.get(index);
+      TagNode secondScope = secondScopes.get(index);
+      if (firstScope != secondScope) {
+        return !conditionalScope.areMutuallyExclusive(firstScope, secondScope);
       }
     }
     return true;
