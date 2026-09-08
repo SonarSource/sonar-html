@@ -142,17 +142,20 @@ public class Helpers {
   }
 
   /**
-   * Returns true when Vue resolves {@code name} as a component rather than as a native HTML element.
+   * Returns true when {@code name} carries an uppercase character, so it cannot be the native
+   * spelling of an HTML element in a Vue template.
    *
    * <p>Vue's template compiler treats a tag as a component when its first character is uppercase,
-   * and otherwise whenever the name is not a known native tag. Native tag names are only ever
-   * spelled in lowercase, so for any spelling of a native tag it is the presence of an uppercase
-   * character anywhere that makes the name a component reference: {@code <Table>}, {@code <TABLE>}
-   * and {@code <tAble>} all resolve to a component, while {@code <table>} is the native element.
-   * This is broader than {@link #startsWithUpperCase(String)}, which misses camelCase names.
+   * and otherwise whenever the name is not a known native tag; native tag names are only ever
+   * spelled in lowercase. So {@code <Table>}, {@code <TABLE>} and {@code <tAble>} all resolve to a
+   * component, while {@code <table>} is the native element. This is broader than
+   * {@link #startsWithUpperCase(String)}, which misses camelCase names.
+   *
+   * <p>It is not a complete component test: hyphenated names are all-lowercase yet still
+   * components, so combine it with {@link #isKebabCase(String)} when a full test is needed.
    *
    * @param name the tag name to test
-   * @return true if Vue would resolve the name as a component
+   * @return true if the name contains an uppercase character
    */
   public static boolean isVueComponentName(String name) {
     for (int i = 0; i < name.length(); i++) {

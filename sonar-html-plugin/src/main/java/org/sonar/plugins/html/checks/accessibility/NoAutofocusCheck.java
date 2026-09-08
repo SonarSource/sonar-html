@@ -45,11 +45,12 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if (autofocusProperty == null) {
       return;
     }
-    // Kebab-case is always a custom element (no native tag has a hyphen); PascalCase only means a
-    // component in Vue, since HTML tag names are otherwise case-insensitive, e.g. plain <BUTTON>.
+    // Kebab-case is always a custom element (no native tag has a hyphen). Any other casing only
+    // means a component in Vue, since HTML tag names are otherwise case-insensitive, e.g. plain
+    // <BUTTON>.
     String nodeName = node.getNodeName();
     boolean componentReference = Helpers.isKebabCase(nodeName)
-      || (isVueFile && Helpers.startsWithUpperCase(nodeName));
+      || (isVueFile && Helpers.isVueComponentName(nodeName));
     if (componentReference || !hasKnownHTMLTag(node)) {
       return;
     }
