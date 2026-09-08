@@ -40,12 +40,14 @@ public final class TemplateConditionalScopeTracker {
   );
 
   private static final Set<String> VUE_CONDITIONAL_ATTRS = Set.of(
-    "v-if", "v-else-if", "v-else", "v-for"
+    "v-if", "v-else-if", "v-else"
   );
 
   private static final Set<String> ANGULAR_CONDITIONAL_ATTRS = Set.of(
-    "*ngIf", "*ngFor", "*ngSwitchCase", "*ngSwitchDefault"
+    "*ngIf", "*ngSwitchCase", "*ngSwitchDefault"
   );
+
+  private static final Set<String> LOOP_ATTRIBUTES = Set.of("v-for", "*ngFor");
 
   private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern CSHARP_BLOCK_START_PATTERN = Pattern.compile("(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
@@ -239,7 +241,7 @@ public final class TemplateConditionalScopeTracker {
   }
 
   public boolean isInConditional(TagNode node) {
-    return isInOpenConditionalScope() || !conditionalAttributeScopes(node).isEmpty();
+    return isInOpenConditionalScope() || isConditionalAttributeHost(node) || !conditionalAttributeScopes(node).isEmpty();
   }
 
   /**
@@ -261,14 +263,24 @@ public final class TemplateConditionalScopeTracker {
     List<TagNode> scopes = new ArrayList<>();
     for (var elements = openElements.descendingIterator(); elements.hasNext();) {
       TagNode element = elements.next();
-      if (hasConditionalAttribute(element)) {
+      if (hasConditionalBranchAttribute(element)) {
         scopes.add(element);
       }
     }
-    if (hasConditionalAttribute(node) && (openElements.isEmpty() || openElements.peek() != node)) {
+    if (hasConditionalBranchAttribute(node) && (openElements.isEmpty() || openElements.peek() != node)) {
       scopes.add(node);
     }
     return scopes;
+  }
+
+  /**
+   * Returns whether a tag has a conditional or repeating template attribute.
+   *
+   * @param node the start tag to inspect
+   * @return whether the tag carries a conditional or loop attribute
+   */
+  public boolean isConditionalAttributeHost(TagNode node) {
+    return hasConditionalBranchAttribute(node) || hasAnyAttribute(node, LOOP_ATTRIBUTES);
   }
 
   /**
@@ -1250,7 +1262,7 @@ public final class TemplateConditionalScopeTracker {
     return "style".equalsIgnoreCase(node.getNodeName());
   }
 
-  private static boolean hasConditionalAttribute(TagNode node) {
+  private static boolean hasConditionalBranchAttribute(TagNode node) {
     return hasAnyAttribute(node, VUE_CONDITIONAL_ATTRS)
       || hasAnyAttribute(node, ANGULAR_CONDITIONAL_ATTRS);
   }

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div *ngFor="let item of items"><span id="angular-loop">First</span></div>
+<div *ngIf="enabled"><span id="angular-loop">Second</span></div>
+<div v-for="item in items"><span id="vue-loop">First</span></div>
+<div v-if="enabled"><span id="vue-loop">Second</span></div>
+<div *ngFor="let item of items" id="loop-host">First</div>
+<div id="loop-host">Second</div>
+</body>
+</html>
