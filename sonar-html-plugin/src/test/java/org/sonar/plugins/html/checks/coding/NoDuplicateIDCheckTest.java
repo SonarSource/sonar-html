@@ -158,6 +158,7 @@ class NoDuplicateIDCheckTest {
         .next().atLine(19).withMessage("Duplicate id \"shared\" found. First occurrence was on line 17.")
         .next().atLine(20).withMessage("Duplicate id \"shared\" found. First occurrence was on line 17.")
         .next().atLine(26).withMessage("Duplicate id \"nested\" found. First occurrence was on line 24.")
+        .next().atLine(33).withMessage("Duplicate id \"conditional-first\" found. First occurrence was on line 31.")
         .noMore();
   }
 

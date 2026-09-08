@@ -35,16 +35,23 @@ import org.sonar.plugins.html.node.TextNode;
  */
 public final class TemplateConditionalScopeTracker {
 
+  private static final String VUE_IF_ATTRIBUTE = "v-if";
+  private static final String VUE_ELSE_IF_ATTRIBUTE = "v-else-if";
+  private static final String VUE_ELSE_ATTRIBUTE = "v-else";
+  private static final String ANGULAR_IF_ATTRIBUTE = "*ngIf";
+  private static final String ANGULAR_SWITCH_CASE_ATTRIBUTE = "*ngSwitchCase";
+  private static final String ANGULAR_SWITCH_DEFAULT_ATTRIBUTE = "*ngSwitchDefault";
+
   private static final Set<String> JSTL_CONDITIONAL_TAGS = Set.of(
     "c:if", "c:when", "c:otherwise", "c:choose"
   );
 
   private static final Set<String> VUE_CONDITIONAL_ATTRS = Set.of(
-    "v-if", "v-else-if", "v-else"
+    VUE_IF_ATTRIBUTE, VUE_ELSE_IF_ATTRIBUTE, VUE_ELSE_ATTRIBUTE
   );
 
   private static final Set<String> ANGULAR_CONDITIONAL_ATTRS = Set.of(
-    "*ngIf", "*ngSwitchCase", "*ngSwitchDefault"
+    ANGULAR_IF_ATTRIBUTE, ANGULAR_SWITCH_CASE_ATTRIBUTE, ANGULAR_SWITCH_DEFAULT_ATTRIBUTE
   );
 
   private static final Set<String> LOOP_ATTRIBUTES = Set.of("v-for", "*ngFor");
@@ -279,7 +286,7 @@ public final class TemplateConditionalScopeTracker {
    * @param node the start tag to inspect
    * @return whether the tag carries a conditional or loop attribute
    */
-  public boolean isConditionalAttributeHost(TagNode node) {
+  public static boolean isConditionalAttributeHost(TagNode node) {
     return hasConditionalBranchAttribute(node) || hasAnyAttribute(node, LOOP_ATTRIBUTES);
   }
 
@@ -290,15 +297,15 @@ public final class TemplateConditionalScopeTracker {
    * @param secondScope the second conditional host
    * @return whether the two hosts are mutually exclusive
    */
-  public boolean areMutuallyExclusive(TagNode firstScope, TagNode secondScope) {
+  public static boolean areMutuallyExclusive(TagNode firstScope, TagNode secondScope) {
     return areOppositeAngularIfBranches(firstScope, secondScope)
       || areVueConditionalBranches(firstScope, secondScope)
       || areAngularSwitchBranches(firstScope, secondScope);
   }
 
   private static boolean areOppositeAngularIfBranches(TagNode firstScope, TagNode secondScope) {
-    String firstCondition = firstScope.getAttribute("*ngIf");
-    String secondCondition = secondScope.getAttribute("*ngIf");
+    String firstCondition = firstScope.getAttribute(ANGULAR_IF_ATTRIBUTE);
+    String secondCondition = secondScope.getAttribute(ANGULAR_IF_ATTRIBUTE);
     return firstCondition != null
       && secondCondition != null
       && areOppositeConditions(firstCondition, secondCondition);
@@ -329,15 +336,15 @@ public final class TemplateConditionalScopeTracker {
     while (index >= 0 && hasVueElseAttribute(siblings.get(index))) {
       index--;
     }
-    return index >= 0 && siblings.get(index).hasAttribute("v-if") ? siblings.get(index) : null;
+    return index >= 0 && siblings.get(index).hasAttribute(VUE_IF_ATTRIBUTE) ? siblings.get(index) : null;
   }
 
   private static boolean hasVueConditionalAttribute(TagNode node) {
-    return node.hasAttribute("v-if") || node.hasAttribute("v-else-if") || node.hasAttribute("v-else");
+    return node.hasAttribute(VUE_IF_ATTRIBUTE) || node.hasAttribute(VUE_ELSE_IF_ATTRIBUTE) || node.hasAttribute(VUE_ELSE_ATTRIBUTE);
   }
 
   private static boolean hasVueElseAttribute(TagNode node) {
-    return node.hasAttribute("v-else-if") || node.hasAttribute("v-else");
+    return node.hasAttribute(VUE_ELSE_IF_ATTRIBUTE) || node.hasAttribute(VUE_ELSE_ATTRIBUTE);
   }
 
   private static boolean areAngularSwitchBranches(TagNode firstScope, TagNode secondScope) {
@@ -345,14 +352,14 @@ public final class TemplateConditionalScopeTracker {
     if (parent == null || parent != secondScope.getParent() || !isAngularSwitchHost(parent)) {
       return false;
     }
-    if (firstScope.hasAttribute("*ngSwitchDefault")) {
-      return !secondScope.hasAttribute("*ngSwitchDefault") && secondScope.hasAttribute("*ngSwitchCase");
+    if (firstScope.hasAttribute(ANGULAR_SWITCH_DEFAULT_ATTRIBUTE)) {
+      return !secondScope.hasAttribute(ANGULAR_SWITCH_DEFAULT_ATTRIBUTE) && secondScope.hasAttribute(ANGULAR_SWITCH_CASE_ATTRIBUTE);
     }
-    if (secondScope.hasAttribute("*ngSwitchDefault")) {
-      return firstScope.hasAttribute("*ngSwitchCase");
+    if (secondScope.hasAttribute(ANGULAR_SWITCH_DEFAULT_ATTRIBUTE)) {
+      return firstScope.hasAttribute(ANGULAR_SWITCH_CASE_ATTRIBUTE);
     }
-    String firstCase = firstScope.getAttribute("*ngSwitchCase");
-    String secondCase = secondScope.getAttribute("*ngSwitchCase");
+    String firstCase = firstScope.getAttribute(ANGULAR_SWITCH_CASE_ATTRIBUTE);
+    String secondCase = secondScope.getAttribute(ANGULAR_SWITCH_CASE_ATTRIBUTE);
     return firstCase != null && secondCase != null && areDistinctLiteralValues(firstCase, secondCase);
   }
 
@@ -365,7 +372,19 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private static boolean isLiteralValue(String value) {
-    return value.matches("(?i:true|false|null|undefined|-?\\d+(?:\\.\\d+)?|['\\\"].*['\\\"])");
+    String normalizedValue = value.toLowerCase(Locale.ROOT);
+    return "true".equals(normalizedValue)
+      || "false".equals(normalizedValue)
+      || "null".equals(normalizedValue)
+      || "undefined".equals(normalizedValue)
+      || value.matches("-?\\d+(?:\\.\\d+)?")
+      || isQuoted(value);
+  }
+
+  private static boolean isQuoted(String value) {
+    return value.length() >= 2
+      && (value.startsWith("'") || value.startsWith("\""))
+      && (value.endsWith("'") || value.endsWith("\""));
   }
 
   /**
