@@ -181,6 +181,18 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void reportsDescendantIdsInRepeatingHosts() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksLoopDescendants.html"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(5).withMessage("Duplicate id \"angular-loop\" found. First occurrence was on line 4.")
+        .next().atLine(7).withMessage("Duplicate id \"vue-loop\" found. First occurrence was on line 6.")
+        .noMore();
+  }
+
+  @Test
   void razorConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.cshtml"),
