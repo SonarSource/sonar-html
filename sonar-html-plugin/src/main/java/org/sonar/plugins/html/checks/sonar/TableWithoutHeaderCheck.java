@@ -98,10 +98,16 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
   }
 
   private boolean isTable(TagNode node) {
-    return isVueFile ? "table".equals(node.getNodeName()) : TABLE_TAG.equalsIgnoreCase(node.getNodeName());
+    String nodeName = node.getNodeName();
+    // A native table is only ever spelled in lowercase, so in a Vue file any other casing names a
+    // component. This mirrors how UnsupportedTagsInHtml5Check classifies deprecated tag names.
+    return TABLE_TAG.equalsIgnoreCase(nodeName)
+      && !(isVueFile && Helpers.isVueComponentName(nodeName));
   }
 
-  private static boolean isTableScope(TagNode node) {
+  private static boolean isNestedTableBoundary(TagNode node) {
+    // A Vue <Table> component is not itself checked as a native table, but its slot content must
+    // not provide a header for an outer native table, so every case variant remains a boundary.
     return TABLE_TAG.equalsIgnoreCase(node.getNodeName());
   }
 
@@ -117,7 +123,7 @@ public class TableWithoutHeaderCheck extends AbstractPageCheck {
 
   private static boolean hasHeader(TagNode node) {
     return node.getChildren().stream().anyMatch(TableWithoutHeaderCheck::isTableHeader) ||
-      node.getChildren().stream().filter(child -> !isTableScope(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
+      node.getChildren().stream().filter(child -> !isNestedTableBoundary(child)).anyMatch(TableWithoutHeaderCheck::hasHeader);
   }
 
   private static boolean isTableHeader(TagNode node) {

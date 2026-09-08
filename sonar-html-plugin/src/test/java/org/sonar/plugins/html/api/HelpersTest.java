@@ -82,7 +82,32 @@ class HelpersTest {
   @Test
   void is_vue_file_recognizes_vue_suffix() {
     assertThat(Helpers.isVueFile(sourceCode("component.vue"))).isTrue();
+    assertThat(Helpers.isVueFile(sourceCode("component.VUE"))).isTrue();
     assertThat(Helpers.isVueFile(sourceCode("component.html"))).isFalse();
+  }
+
+  @Test
+  void identifies_vue_component_names() {
+    // Vue resolves a tag as a component unless it is the all-lowercase native spelling.
+    assertThat(Helpers.isVueComponentName("Blink")).isTrue();
+    assertThat(Helpers.isVueComponentName("BLink")).isTrue();
+    assertThat(Helpers.isVueComponentName("bLink")).isTrue();
+    assertThat(Helpers.isVueComponentName("MARQUEE")).isTrue();
+    assertThat(Helpers.isVueComponentName("Table")).isTrue();
+    assertThat(Helpers.isVueComponentName("TABLE")).isTrue();
+    assertThat(Helpers.isVueComponentName("blink")).isFalse();
+    assertThat(Helpers.isVueComponentName("table")).isFalse();
+    assertThat(Helpers.isVueComponentName("b-link")).isFalse();
+    assertThat(Helpers.isVueComponentName("")).isFalse();
+  }
+
+  @Test
+  void file_suffixes_are_matched_ignoring_case() {
+    assertThat(Helpers.isRazorFile(sourceCode("view.CSHTML"))).isTrue();
+    assertThat(Helpers.isRazorFile(sourceCode("view.VBHTML"))).isTrue();
+    assertThat(Helpers.isRazorFile(sourceCode("view.html"))).isFalse();
+    assertThat(Helpers.isCshtmlFile(sourceCode("view.CSHTML"))).isTrue();
+    assertThat(Helpers.isServerSideFile(sourceCode("page.ASPX"))).isTrue();
   }
 
   @Test

@@ -58,6 +58,19 @@ class TableWithoutHeaderCheckTest {
   }
 
   @Test
+  void only_lowercase_table_is_native_in_vue_files() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/TableWithoutHeaderCheck/native-tables.VUE"),
+      new TableWithoutHeaderCheck());
+
+    // Only <table> is the native element; <TABLE>, <Table> and <tAble> resolve to components.
+    // The uppercase file extension must still be recognized as Vue.
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(2).withMessage("Add \"<th>\" headers to this \"<table>\".")
+      .noMore();
+  }
+
+  @Test
   void table_tag_remains_case_insensitive_outside_vue() {
     HtmlSourceCode sourceCode = TestHelper.scan(
       new File("src/test/resources/checks/TableWithoutHeaderCheck/mixed-case.html"),

@@ -106,11 +106,11 @@ public class Helpers {
   }
 
   public static boolean isCshtmlFile(HtmlSourceCode code) {
-    return code.inputFile().filename().endsWith(".cshtml");
+    return normalizedFilename(code).endsWith(".cshtml");
   }
 
   public static boolean isVueFile(HtmlSourceCode code) {
-    return code.inputFile().filename().endsWith(".vue");
+    return normalizedFilename(code).endsWith(".vue");
   }
 
   /** Returns whether an element is explicitly marked as an ASP.NET server control. */
@@ -139,6 +139,31 @@ public class Helpers {
    */
   public static boolean isKebabCase(String name) {
     return name.indexOf('-') >= 0;
+  }
+
+  /**
+   * Returns true when {@code name} carries an uppercase character, so it cannot be the native
+   * spelling of an HTML element in a Vue template.
+   *
+   * <p>Vue's template compiler treats a tag as a component when its first character is uppercase,
+   * and otherwise whenever the name is not a known native tag; native tag names are only ever
+   * spelled in lowercase. So {@code <Table>}, {@code <TABLE>} and {@code <tAble>} all resolve to a
+   * component, while {@code <table>} is the native element. This is broader than
+   * {@link #startsWithUpperCase(String)}, which misses camelCase names.
+   *
+   * <p>It is not a complete component test: hyphenated names are all-lowercase yet still
+   * components, so combine it with {@link #isKebabCase(String)} when a full test is needed.
+   *
+   * @param name the tag name to test
+   * @return true if the name contains an uppercase character
+   */
+  public static boolean isVueComponentName(String name) {
+    for (int i = 0; i < name.length(); i++) {
+      if (Character.isUpperCase(name.charAt(i))) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -202,7 +227,7 @@ public class Helpers {
    * @return true if the file is a Razor view, false otherwise
    */
   public static boolean isRazorFile(HtmlSourceCode code) {
-    String filename = code.inputFile().filename();
+    String filename = normalizedFilename(code);
     return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
   }
 
@@ -213,7 +238,7 @@ public class Helpers {
    * @return true if the file is a WebForms page or user control, false otherwise
    */
   public static boolean isWebFormsFile(HtmlSourceCode code) {
-    String filename = code.inputFile().filename().toLowerCase(Locale.ROOT);
+    String filename = normalizedFilename(code);
     return filename.endsWith(".aspx") || filename.endsWith(".ascx");
   }
 
@@ -247,12 +272,16 @@ public class Helpers {
   }
   
   public static boolean isServerSideFile(HtmlSourceCode code) {
-    String filename = code.inputFile().filename();
+    String filename = normalizedFilename(code);
     for (String suffix : SERVER_SIDE_SUFFIXES) {
       if (filename.endsWith(suffix)) {
         return true;
       }
     }
     return false;
+  }
+
+  private static String normalizedFilename(HtmlSourceCode code) {
+    return code.inputFile().filename().toLowerCase(Locale.ROOT);
   }
 }

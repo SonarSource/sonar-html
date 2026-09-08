@@ -25,6 +25,7 @@ import org.sonar.api.batch.fs.InputFile;
 import com.sonarsource.scanner.engine.sensor.test.fixtures.TestInputFileBuilder;
 import org.sonar.plugins.html.analyzers.ComplexityVisitor;
 import org.sonar.plugins.html.analyzers.PageCountLines;
+import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.lex.PageLexer;
 import org.sonar.plugins.html.lex.VueLexer;
@@ -55,7 +56,8 @@ public class TestHelper {
     );
 
     HtmlAstScanner walker = new HtmlAstScanner(List.of(new PageCountLines(), new ComplexityVisitor()));
-    PageLexer lexer = file.getName().endsWith(".vue") ? new VueLexer() : new PageLexer();
+    // Same predicate as HtmlSensor, so fixtures are parsed through the production lexer choice.
+    PageLexer lexer = Helpers.isVueFile(result) ? new VueLexer() : new PageLexer();
     walker.addVisitor(visitor);
     walker.scan(
       lexer.parse(fileReader),

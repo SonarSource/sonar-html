@@ -10,6 +10,10 @@
          (e.g. Ant Design's Input) - PascalCase still wins over the tag whitelist, so should NOT be flagged -->
     <Input autofocus />
 
+    <!-- Vue component (camelCase) - Vue resolves it as a component because no native tag is
+         spelled that way, so should NOT be flagged -->
+    <textArea autofocus />
+
     <!-- Native input - SHOULD still be flagged -->
     <input autofocus />
   </div>

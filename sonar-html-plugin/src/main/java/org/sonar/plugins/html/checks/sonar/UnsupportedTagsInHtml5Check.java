@@ -69,9 +69,9 @@ public class UnsupportedTagsInHtml5Check extends AbstractPageCheck {
   private boolean isUnsupportedTag(TagNode node) {
     String nodeName = node.getNodeName();
 
-    // In Vue files, PascalCase tags are components, not HTML elements
-    // e.g., <BLink> is a Vue Bootstrap component, not the deprecated <blink> tag
-    if (isVueFile && Helpers.startsWithUpperCase(nodeName)) {
+    // In Vue files any tag name carrying an uppercase character is a component, not an HTML
+    // element, e.g. both <BLink> and <bLink> are Vue Bootstrap components rather than <blink>.
+    if (isVueFile && Helpers.isVueComponentName(nodeName)) {
       return false;
     }
 
