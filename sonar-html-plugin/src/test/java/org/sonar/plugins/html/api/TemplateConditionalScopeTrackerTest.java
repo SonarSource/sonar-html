@@ -662,6 +662,31 @@ class TemplateConditionalScopeTrackerTest {
     assertThat(isConditionalAtLine(nodes, "div", 3)).isFalse();
   }
 
+  @Test
+  void tracks_nested_conditional_attribute_scopes() {
+    List<Node> nodes = parse("""
+      <div *ngIf="parent">
+        <section v-if="child">
+          <span id="nested">Inside</span>
+        </section>
+      </div>
+      """);
+
+    assertThat(isConditionalAtLine(nodes, "span", 3)).isTrue();
+    assertThat(conditionalAttributeScopesAtLine(nodes, "span", 3))
+      .extracting(TagNode::getStartLinePosition)
+      .containsExactly(1, 2);
+  }
+
+  @Test
+  void tracks_unclosed_void_conditional_attribute_hosts() {
+    List<Node> nodes = parse("<input *ngIf=\"enabled\" id=\"conditional-input\">");
+
+    assertThat(conditionalAttributeScopesAtLine(nodes, "input", 1))
+      .extracting(TagNode::getStartLinePosition)
+      .containsExactly(1);
+  }
+
   private static List<Node> parse(String content) {
     return new PageLexer().parse(new StringReader(content));
   }
@@ -689,6 +714,32 @@ class TemplateConditionalScopeTrackerTest {
           tracker.startElement(tagNode);
           if (tagNode == target) {
             return tracker.isInConditional(tagNode);
+          }
+          if (tagNode.hasEnd()) {
+            tracker.endElement(tagNode);
+          }
+        }
+      }
+    }
+    throw new IllegalArgumentException("Target tag was not encountered during scan");
+  }
+
+  private static List<TagNode> conditionalAttributeScopesAtLine(List<Node> nodes, String tagName, int startLine) {
+    TagNode target = findTag(nodes, tagName, startLine);
+    TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+    tracker.reset(true);
+    for (Node node : nodes) {
+      if (node instanceof TextNode textNode) {
+        tracker.visitText(textNode);
+      } else if (node instanceof DirectiveNode directiveNode) {
+        tracker.visitDirective(directiveNode);
+      } else if (node instanceof TagNode tagNode) {
+        if (tagNode.isEndElement()) {
+          tracker.endElement(tagNode);
+        } else {
+          tracker.startElement(tagNode);
+          if (tagNode == target) {
+            return tracker.conditionalAttributeScopes(tagNode);
           }
           if (tagNode.hasEnd()) {
             tracker.endElement(tagNode);

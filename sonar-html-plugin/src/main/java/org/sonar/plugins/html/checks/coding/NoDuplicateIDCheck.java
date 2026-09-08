@@ -38,7 +38,9 @@ import org.sonar.plugins.html.node.TextNode;
  *
  * To reduce false positives, this rule:
  * 1. Is lenient with IDs inside conditional blocks (e.g., @if/@else, v-if/v-else, c:if, {% if %}).
- *    IDs inside conditionals are only checked against IDs found outside any conditional block.
+ *    IDs inside text-based conditionals are only checked against IDs found outside any conditional block.
+ *    Descendant IDs under conditional attributes are checked against IDs outside conditional hosts and against
+ *    other conditional paths unless those paths are known to be mutually exclusive.
  * 2. Ignores IDs that contain dynamic/template expressions (e.g., @variable, {{expression}}, ${var})
  *    since these will be unique at runtime.
  * 3. Accounts for generated ASP.NET WebForms client IDs inside repeated naming containers.
@@ -129,11 +131,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   /**
-   * Determines whether IDs under two conditional-host paths can be rendered together.
+   * Determines whether two conditional-host paths might be rendered together.
    *
    * @param firstScopes the first conditional-host path
    * @param secondScopes the second conditional-host path
-   * @return whether the paths share every host they have in common
+   * @return false only when the paths diverge through known mutually exclusive hosts
    */
   private boolean canCoexist(List<TagNode> firstScopes, List<TagNode> secondScopes) {
     int sharedDepth = Math.min(firstScopes.size(), secondScopes.size());
@@ -164,6 +166,9 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   private void registerUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
     Integer firstOccurrenceLine = firstOccurrence(runtimeIds);
+    if (firstOccurrenceLine == null) {
+      firstOccurrenceLine = firstConditionalOccurrence(runtimeIds);
+    }
     for (RuntimeId runtimeId : runtimeIds) {
       unconditionalIds.putIfAbsent(runtimeId, node.getStartLinePosition());
     }
@@ -179,6 +184,21 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       Integer occurrenceLine = unconditionalIds.get(runtimeId);
       if (occurrenceLine != null && (firstOccurrenceLine == null || occurrenceLine < firstOccurrenceLine)) {
         firstOccurrenceLine = occurrenceLine;
+      }
+    }
+    return firstOccurrenceLine;
+  }
+
+  @Nullable
+  private Integer firstConditionalOccurrence(List<RuntimeId> runtimeIds) {
+    Integer firstOccurrenceLine = null;
+    for (RuntimeId runtimeId : runtimeIds) {
+      List<ConditionalIdOccurrence> occurrences = conditionalIds.get(runtimeId);
+      if (occurrences != null && !occurrences.isEmpty()) {
+        int occurrenceLine = occurrences.get(0).line();
+        if (firstOccurrenceLine == null || occurrenceLine < firstOccurrenceLine) {
+          firstOccurrenceLine = occurrenceLine;
+        }
       }
     }
     return firstOccurrenceLine;
