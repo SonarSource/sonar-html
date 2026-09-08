@@ -55,7 +55,10 @@ public final class TemplateConditionalScopeTracker {
   );
 
   private static final Set<String> LOOP_ATTRIBUTES = Set.of("v-for", "*ngFor");
+  private static final Set<String> LITERAL_VALUES = Set.of("true", "false", "null", "undefined");
 
+  private static final Pattern NUMERIC_LITERAL_PATTERN = Pattern.compile("-?\\d+(?:\\.\\d+)?");
+  private static final Pattern QUOTED_LITERAL_PATTERN = Pattern.compile("['\\\"].*['\\\"]");
   private static final Pattern RAZOR_BLOCK_START_PATTERN = Pattern.compile("@(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern CSHARP_BLOCK_START_PATTERN = Pattern.compile("(if|switch)\\s*\\(", Pattern.CASE_INSENSITIVE);
   private static final Pattern CSHARP_GENERIC_ARGUMENT_PATTERN = Pattern.compile("<\\s*[\\p{L}_][\\p{L}\\p{N}_.,:?\\[\\]\\s<>]*>");
@@ -372,19 +375,9 @@ public final class TemplateConditionalScopeTracker {
   }
 
   private static boolean isLiteralValue(String value) {
-    String normalizedValue = value.toLowerCase(Locale.ROOT);
-    return "true".equals(normalizedValue)
-      || "false".equals(normalizedValue)
-      || "null".equals(normalizedValue)
-      || "undefined".equals(normalizedValue)
-      || value.matches("-?\\d+(?:\\.\\d+)?")
-      || isQuoted(value);
-  }
-
-  private static boolean isQuoted(String value) {
-    return value.length() >= 2
-      && (value.startsWith("'") || value.startsWith("\""))
-      && (value.endsWith("'") || value.endsWith("\""));
+    return LITERAL_VALUES.contains(value.toLowerCase(Locale.ROOT))
+      || NUMERIC_LITERAL_PATTERN.matcher(value).matches()
+      || QUOTED_LITERAL_PATTERN.matcher(value).matches();
   }
 
   /**
