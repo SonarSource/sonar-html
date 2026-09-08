@@ -193,6 +193,15 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void ignoresDescendantIdsInDistinctAngularSwitchCases() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularSwitchCaseDescendants.html"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
   void razorConditionalBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocks.cshtml"),
