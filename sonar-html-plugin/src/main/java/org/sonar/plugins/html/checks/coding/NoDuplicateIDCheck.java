@@ -98,8 +98,9 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
 
     List<TagNode> attributeScopes = conditionalScope.conditionalAttributeScopes(node);
     if (!attributeScopes.isEmpty()) {
-      reportDuplicateAgainstUnconditionalId(node, runtimeIds);
-      registerConditionalId(node, runtimeIds, attributeScopes);
+      if (!reportDuplicateAgainstUnconditionalId(node, runtimeIds)) {
+        registerConditionalId(node, runtimeIds, attributeScopes);
+      }
     } else if (TemplateConditionalScopeTracker.isConditionalAttributeHost(node)) {
       reportDuplicateAgainstUnconditionalId(node, runtimeIds);
     } else {
@@ -150,11 +151,13 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       || Helpers.isDynamicValue(idValue, getHtmlSourceCode());
   }
 
-  private void reportDuplicateAgainstUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
+  private boolean reportDuplicateAgainstUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
     Integer firstOccurrenceLine = firstOccurrence(runtimeIds);
     if (firstOccurrenceLine != null) {
       createViolation(node, duplicateIdMessage(runtimeIds.get(0).value(), firstOccurrenceLine));
+      return true;
     }
+    return false;
   }
 
   private void registerUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
