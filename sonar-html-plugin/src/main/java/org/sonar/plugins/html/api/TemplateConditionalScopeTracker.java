@@ -272,6 +272,91 @@ public final class TemplateConditionalScopeTracker {
   }
 
   /**
+   * Returns whether two conditional-attribute hosts cannot render together.
+   *
+   * @param firstScope the first conditional host
+   * @param secondScope the second conditional host
+   * @return whether the two hosts are mutually exclusive
+   */
+  public boolean areMutuallyExclusive(TagNode firstScope, TagNode secondScope) {
+    return areOppositeAngularIfBranches(firstScope, secondScope)
+      || areVueConditionalBranches(firstScope, secondScope)
+      || areAngularSwitchBranches(firstScope, secondScope);
+  }
+
+  private static boolean areOppositeAngularIfBranches(TagNode firstScope, TagNode secondScope) {
+    String firstCondition = firstScope.getAttribute("*ngIf");
+    String secondCondition = secondScope.getAttribute("*ngIf");
+    return firstCondition != null
+      && secondCondition != null
+      && areOppositeConditions(firstCondition, secondCondition);
+  }
+
+  private static boolean areOppositeConditions(String firstCondition, String secondCondition) {
+    Condition first = Condition.from(firstCondition);
+    Condition second = Condition.from(secondCondition);
+    return first.expression().equals(second.expression()) && first.negationCount() % 2 != second.negationCount() % 2;
+  }
+
+  private static boolean areVueConditionalBranches(TagNode firstScope, TagNode secondScope) {
+    TagNode firstBranchStart = vueConditionalBranchStart(firstScope);
+    return firstBranchStart != null && firstBranchStart == vueConditionalBranchStart(secondScope);
+  }
+
+  @Nullable
+  private static TagNode vueConditionalBranchStart(TagNode scope) {
+    if (!hasVueConditionalAttribute(scope)) {
+      return null;
+    }
+    TagNode parent = scope.getParent();
+    if (parent == null) {
+      return null;
+    }
+    List<TagNode> siblings = parent.getChildren();
+    int index = siblings.indexOf(scope);
+    while (index >= 0 && hasVueElseAttribute(siblings.get(index))) {
+      index--;
+    }
+    return index >= 0 && siblings.get(index).hasAttribute("v-if") ? siblings.get(index) : null;
+  }
+
+  private static boolean hasVueConditionalAttribute(TagNode node) {
+    return node.hasAttribute("v-if") || node.hasAttribute("v-else-if") || node.hasAttribute("v-else");
+  }
+
+  private static boolean hasVueElseAttribute(TagNode node) {
+    return node.hasAttribute("v-else-if") || node.hasAttribute("v-else");
+  }
+
+  private static boolean areAngularSwitchBranches(TagNode firstScope, TagNode secondScope) {
+    TagNode parent = firstScope.getParent();
+    if (parent == null || parent != secondScope.getParent() || !isAngularSwitchHost(parent)) {
+      return false;
+    }
+    if (firstScope.hasAttribute("*ngSwitchDefault")) {
+      return !secondScope.hasAttribute("*ngSwitchDefault") && secondScope.hasAttribute("*ngSwitchCase");
+    }
+    if (secondScope.hasAttribute("*ngSwitchDefault")) {
+      return firstScope.hasAttribute("*ngSwitchCase");
+    }
+    String firstCase = firstScope.getAttribute("*ngSwitchCase");
+    String secondCase = secondScope.getAttribute("*ngSwitchCase");
+    return firstCase != null && secondCase != null && areDistinctLiteralValues(firstCase, secondCase);
+  }
+
+  private static boolean isAngularSwitchHost(TagNode node) {
+    return node.hasAttribute("[ngSwitch]") || node.hasAttribute("ngSwitch");
+  }
+
+  private static boolean areDistinctLiteralValues(String firstValue, String secondValue) {
+    return isLiteralValue(firstValue) && isLiteralValue(secondValue) && !firstValue.equals(secondValue);
+  }
+
+  private static boolean isLiteralValue(String value) {
+    return value.matches("(?i:true|false|null|undefined|-?\\d+(?:\\.\\d+)?|['\\\"].*['\\\"])");
+  }
+
+  /**
    * Returns whether the current lexer position is inside Razor or C# content that is not rendered.
    * HTML-like tags in these regions are still emitted by the generic HTML lexer and must be ignored
    * by checks that reason about rendered elements.
@@ -1510,6 +1595,43 @@ public final class TemplateConditionalScopeTracker {
      */
     private boolean isInPersistentComment() {
       return inRazorComment || inCSharpLineComment || inCSharpBlockComment;
+    }
+  }
+
+  private record Condition(String expression, int negationCount) {
+
+    private static Condition from(String condition) {
+      String expression = stripOuterParentheses(condition.replaceAll("\\s+", ""));
+      int negationCount = 0;
+      while (expression.startsWith("!")) {
+        negationCount++;
+        expression = stripOuterParentheses(expression.substring(1));
+      }
+      return new Condition(expression, negationCount);
+    }
+
+    private static String stripOuterParentheses(String expression) {
+      while (expression.startsWith("(") && expression.endsWith(")")) {
+        int depth = 0;
+        boolean surroundsExpression = true;
+        for (int index = 0; index < expression.length() - 1; index++) {
+          char character = expression.charAt(index);
+          if (character == '(') {
+            depth++;
+          } else if (character == ')') {
+            depth--;
+            if (depth == 0) {
+              surroundsExpression = false;
+              break;
+            }
+          }
+        }
+        if (!surroundsExpression) {
+          break;
+        }
+        expression = expression.substring(1, expression.length() - 1);
+      }
+      return expression;
     }
   }
 
