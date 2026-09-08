@@ -86,6 +86,14 @@ class HelpersTest {
   }
 
   @Test
+  void is_web_forms_file_recognizes_web_forms_suffixes() {
+    assertThat(Helpers.isWebFormsFile(sourceCode("page.aspx"))).isTrue();
+    assertThat(Helpers.isWebFormsFile(sourceCode("control.ascx"))).isTrue();
+    assertThat(Helpers.isWebFormsFile(sourceCode("page.ASPX"))).isTrue();
+    assertThat(Helpers.isWebFormsFile(sourceCode("page.html"))).isFalse();
+  }
+
+  @Test
   void is_server_side_file_recognizes_template_suffixes() {
     assertThat(Helpers.isServerSideFile(sourceCode("page.jsp"))).isTrue();
     assertThat(Helpers.isServerSideFile(sourceCode("page.jspf"))).isTrue();

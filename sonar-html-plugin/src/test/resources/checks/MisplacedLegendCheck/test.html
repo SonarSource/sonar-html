@@ -73,13 +73,13 @@
 </my-fieldset>
 
 <!-- Compliant: legend inside an ASP.NET WebForms server control (transparent wrapper) -->
-<asp:Panel>
+<asp:Panel runat="server">
   <legend>Group title</legend>
 </asp:Panel>
 
 <!-- Compliant: ASP.NET WebForms server control nested inside another element -->
 <div>
-  <asp:Panel>
+  <asp:Panel runat="server">
     <legend>Group title</legend>
   </asp:Panel>
 </div>

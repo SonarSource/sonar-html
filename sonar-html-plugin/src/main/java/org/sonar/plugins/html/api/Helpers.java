@@ -16,12 +16,12 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.Locale;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
-
-import java.util.function.Predicate;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class Helpers {
 
@@ -113,6 +113,11 @@ public class Helpers {
     return code.inputFile().filename().endsWith(".vue");
   }
 
+  /** Returns whether an element is explicitly marked as an ASP.NET server control. */
+  public static boolean isServerControl(TagNode node) {
+    return "server".equalsIgnoreCase(node.getAttribute("runat"));
+  }
+
   /**
    * Returns true when {@code name} starts with an uppercase letter, the convention Vue (and other
    * frameworks) use to write a PascalCase component reference in a template.
@@ -156,7 +161,8 @@ public class Helpers {
 
   /**
    * Returns true if {@code node} has a template-like ancestor: HTML {@code <template>},
-   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*} with
+   * {@code runat="server"}).
    *
    * @param node the tag node whose ancestors are inspected
    * @return true if any ancestor matches a template-like scope
@@ -167,7 +173,8 @@ public class Helpers {
 
   /**
    * Returns true if {@code node} is a template-like wrapper: HTML {@code <template>},
-   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*}).
+   * Angular {@code <ng-template>}, or an ASP.NET WebForms server control ({@code asp:*} with
+   * {@code runat="server"}).
    * These elements do not contribute to the rendered DOM and can be treated as transparent.
    *
    * @param node the tag node to test
@@ -180,7 +187,7 @@ public class Helpers {
     }
     return "template".equalsIgnoreCase(name)
       || "ng-template".equalsIgnoreCase(name)
-      || startsWithIgnoreCase(name, "asp:");
+      || (startsWithIgnoreCase(name, "asp:") && isServerControl(node));
   }
 
   private static boolean startsWithIgnoreCase(String value, String prefix) {
@@ -197,6 +204,17 @@ public class Helpers {
   public static boolean isRazorFile(HtmlSourceCode code) {
     String filename = code.inputFile().filename();
     return filename.endsWith(".cshtml") || filename.endsWith(".vbhtml");
+  }
+
+  /**
+   * Returns true when the source file is an ASP.NET WebForms page (.aspx) or user control (.ascx).
+   *
+   * @param code the source under analysis
+   * @return true if the file is a WebForms page or user control, false otherwise
+   */
+  public static boolean isWebFormsFile(HtmlSourceCode code) {
+    String filename = code.inputFile().filename().toLowerCase(Locale.ROOT);
+    return filename.endsWith(".aspx") || filename.endsWith(".ascx");
   }
 
   /**

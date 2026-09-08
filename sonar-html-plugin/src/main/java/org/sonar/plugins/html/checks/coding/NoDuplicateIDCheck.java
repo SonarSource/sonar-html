@@ -19,10 +19,13 @@ package org.sonar.plugins.html.checks.coding;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.TemplateConditionalScopeTracker;
+import org.sonar.plugins.html.api.WebFormsRuntimeScopeTracker;
+import org.sonar.plugins.html.api.WebFormsRuntimeScopeTracker.ScopeIdentity;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
 import org.sonar.plugins.html.node.Node;
@@ -37,17 +40,20 @@ import org.sonar.plugins.html.node.TextNode;
  *    IDs inside conditionals are only checked against IDs found outside any conditional block.
  * 2. Ignores IDs that contain dynamic/template expressions (e.g., @variable, {{expression}}, ${var})
  *    since these will be unique at runtime.
+ * 3. Accounts for generated ASP.NET WebForms client IDs inside repeated naming containers.
  */
 @Rule(key = "S7930")
 public class NoDuplicateIDCheck extends AbstractPageCheck {
 
   // IDs seen outside any conditional - these are the "authoritative" IDs
-  private final Map<String, Integer> unconditionalIds = new HashMap<>();
+  private final Map<RuntimeId, Integer> unconditionalIds = new HashMap<>();
+  private final WebFormsRuntimeScopeTracker webFormsScopeTracker = new WebFormsRuntimeScopeTracker();
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
 
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalIds.clear();
+    webFormsScopeTracker.reset(nodes, getHtmlSourceCode());
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
   }
 
@@ -64,6 +70,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   @Override
   public void startElement(TagNode node) {
     conditionalScope.startElement(node);
+    webFormsScopeTracker.startElement(node);
     handleIdAttribute(node);
   }
 
@@ -80,10 +87,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
     if (shouldIgnoreId(idValue)) {
       return;
     }
+    List<RuntimeId> runtimeIds = runtimeIds(node, idValue);
     if (conditionalScope.isInConditional(node)) {
-      reportDuplicateAgainstUnconditionalId(node, idValue);
+      reportDuplicateAgainstUnconditionalId(node, runtimeIds);
     } else {
-      registerUnconditionalId(node, idValue);
+      registerUnconditionalId(node, runtimeIds);
     }
   }
 
@@ -93,22 +101,57 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       || Helpers.isDynamicValue(idValue, getHtmlSourceCode());
   }
 
-  private void reportDuplicateAgainstUnconditionalId(TagNode node, String idValue) {
-    Integer firstOccurrenceLine = unconditionalIds.get(idValue);
+  private void reportDuplicateAgainstUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
+    Integer firstOccurrenceLine = firstOccurrence(runtimeIds);
     if (firstOccurrenceLine != null) {
-      createViolation(node, duplicateIdMessage(idValue, firstOccurrenceLine));
+      createViolation(node, duplicateIdMessage(runtimeIds.get(0).value(), firstOccurrenceLine));
     }
   }
 
-  private void registerUnconditionalId(TagNode node, String idValue) {
-    Integer firstOccurrenceLine = unconditionalIds.putIfAbsent(idValue, node.getStartLinePosition());
-    if (firstOccurrenceLine != null) {
-      createViolation(node, duplicateIdMessage(idValue, firstOccurrenceLine));
+  private void registerUnconditionalId(TagNode node, List<RuntimeId> runtimeIds) {
+    Integer firstOccurrenceLine = firstOccurrence(runtimeIds);
+    for (RuntimeId runtimeId : runtimeIds) {
+      unconditionalIds.putIfAbsent(runtimeId, node.getStartLinePosition());
     }
+    if (firstOccurrenceLine != null) {
+      createViolation(node, duplicateIdMessage(runtimeIds.get(0).value(), firstOccurrenceLine));
+    }
+  }
+
+  @Nullable
+  private Integer firstOccurrence(List<RuntimeId> runtimeIds) {
+    Integer firstOccurrenceLine = null;
+    for (RuntimeId runtimeId : runtimeIds) {
+      Integer occurrenceLine = unconditionalIds.get(runtimeId);
+      if (occurrenceLine != null && (firstOccurrenceLine == null || occurrenceLine < firstOccurrenceLine)) {
+        firstOccurrenceLine = occurrenceLine;
+      }
+    }
+    return firstOccurrenceLine;
+  }
+
+  private List<RuntimeId> runtimeIds(TagNode node, String idValue) {
+    WebFormsRuntimeScopeTracker.Scope scope = webFormsScopeTracker.scope(node);
+    ScopeIdentity identity = scope == null ? null : scope.identity();
+    Set<String> templateScopes = scope == null ? Set.of() : scope.templateScopes();
+    if (templateScopes.isEmpty()) {
+      return List.of(new RuntimeId(idValue, identity, null));
+    }
+    return templateScopes.stream()
+      .map(templateScope -> new RuntimeId(idValue, identity, templateScope))
+      .toList();
   }
 
   private static String duplicateIdMessage(String idValue, int firstOccurrenceLine) {
     return String.format("Duplicate id \"%s\" found. First occurrence was on line %d.",
       idValue, firstOccurrenceLine);
   }
+
+  /**
+   * Scope key for a duplicate-id lookup. Each naming-container node receives a distinct identity object,
+   * independently of {@link TagNode#equals(Object)}.
+   */
+  private record RuntimeId(String value, @Nullable ScopeIdentity scopeIdentity, @Nullable String templateScope) {
+  }
+
 }
