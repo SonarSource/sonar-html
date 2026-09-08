@@ -156,7 +156,8 @@ class NoDuplicateIDCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(14).withMessage("Duplicate id \"inside-branch\" found. First occurrence was on line 13.")
         .next().atLine(19).withMessage("Duplicate id \"shared\" found. First occurrence was on line 17.")
-        .next().atLine(25).withMessage("Duplicate id \"nested\" found. First occurrence was on line 23.")
+        .next().atLine(20).withMessage("Duplicate id \"shared\" found. First occurrence was on line 17.")
+        .next().atLine(26).withMessage("Duplicate id \"nested\" found. First occurrence was on line 24.")
         .noMore();
   }
 
