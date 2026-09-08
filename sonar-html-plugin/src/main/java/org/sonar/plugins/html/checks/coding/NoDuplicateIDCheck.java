@@ -143,7 +143,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
       TagNode firstScope = firstScopes.get(index);
       TagNode secondScope = secondScopes.get(index);
       if (firstScope != secondScope) {
-        return !conditionalScope.areMutuallyExclusive(firstScope, secondScope);
+        return !TemplateConditionalScopeTracker.areMutuallyExclusive(firstScope, secondScope);
       }
     }
     return true;
