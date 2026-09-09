@@ -88,7 +88,7 @@ public class WebRulingTest {
       .setSourceEncoding("UTF-8")
       .setProperty("sonar.html.file.suffixes", "xhtml,html,php,erb")
       .setProperty("sonar.jsp.file.suffixes", "jspf,jsp")
-      .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected").getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/web/project").getFile().getAbsolutePath())
       .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
       .setProperty("sonar.lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.exclusions", "external_webkit-jb-mr1/LayoutTests/fast/encoding/*utf*")
