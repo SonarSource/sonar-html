@@ -17,8 +17,13 @@
 package org.sonar.plugins.html.checks.coding;
 
 import java.io.File;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.sonar.plugins.html.checks.CheckMessagesVerifier;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -92,21 +97,6 @@ class NoDuplicateIDCheckTest {
         .noMore();
   }
 
-  /**
-   * Handles descendant IDs in distinct Vue conditional hosts without hiding coexisting duplicates.
-   */
-  @Test
-  void vueConditionalAttributeDescendants() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksVueDescendants.vue"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(10).withMessage("Duplicate id \"inside-branch\" found. First occurrence was on line 9.")
-        .next().atLine(14).withMessage("Duplicate id \"shared\" found. First occurrence was on line 12.")
-        .noMore();
-  }
-
   @Test
   void razorSwitchBlocks() {
     HtmlSourceCode sourceCode = TestHelper.scan(
@@ -144,92 +134,44 @@ class NoDuplicateIDCheckTest {
         .noMore();
   }
 
-  /**
-   * Handles descendant IDs in distinct Angular conditional hosts without hiding coexisting duplicates.
-   */
-  @Test
-  void angularConditionalAttributeDescendants() {
+  @ParameterizedTest
+  @MethodSource("conditionalAttributeDescendantCases")
+  void handlesConditionalAttributeDescendants(String fixture, ExpectedIssue[] expectedIssues) {
     HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularDescendants.html"),
-        new NoDuplicateIDCheck());
+      new File("src/test/resources/checks/NoDuplicateIDCheck/" + fixture),
+      new NoDuplicateIDCheck());
 
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(14).withMessage("Duplicate id \"inside-branch\" found. First occurrence was on line 13.")
-        .next().atLine(19).withMessage("Duplicate id \"shared\" found. First occurrence was on line 17.")
-        .next().atLine(20).withMessage("Duplicate id \"shared\" found. First occurrence was on line 17.")
-        .next().atLine(26).withMessage("Duplicate id \"nested\" found. First occurrence was on line 24.")
-        .next().atLine(33).withMessage("Duplicate id \"conditional-first\" found. First occurrence was on line 31.")
-        .noMore();
+    CheckMessagesVerifier verifier = checkMessagesVerifier.verify(sourceCode.getIssues());
+    for (ExpectedIssue expectedIssue : expectedIssues) {
+      verifier.next().atLine(expectedIssue.line())
+        .withMessage("Duplicate id \"%s\" found. First occurrence was on line %d."
+          .formatted(expectedIssue.id(), expectedIssue.firstOccurrenceLine()));
+    }
+    verifier.noMore();
   }
 
-  @Test
-  void reportsDescendantIdsInConditionalHostsThatCanCoexist() {
-    HtmlSourceCode angularSourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularCoexistingDescendants.html"),
-        new NoDuplicateIDCheck());
-    HtmlSourceCode vueSourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksVueCoexistingDescendants.vue"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(angularSourceCode.getIssues())
-        .next().atLine(5).withMessage("Duplicate id \"independent\" found. First occurrence was on line 4.")
-        .next().atLine(7).withMessage("Duplicate id \"same-condition\" found. First occurrence was on line 6.")
-        .noMore();
-    checkMessagesVerifier.verify(vueSourceCode.getIssues())
-        .next().atLine(4).withMessage("Duplicate id \"independent\" found. First occurrence was on line 3.")
-        .next().atLine(6).withMessage("Duplicate id \"same-condition\" found. First occurrence was on line 5.")
-        .noMore();
+  private static Stream<Arguments> conditionalAttributeDescendantCases() {
+    return Stream.of(
+      Arguments.of("conditionalBlocksVueDescendants.vue", new ExpectedIssue[] {
+        new ExpectedIssue(10, "inside-branch", 9), new ExpectedIssue(14, "shared", 12) }),
+      Arguments.of("conditionalBlocksAngularDescendants.html", new ExpectedIssue[] {
+        new ExpectedIssue(14, "inside-branch", 13), new ExpectedIssue(19, "shared", 17),
+        new ExpectedIssue(20, "shared", 17), new ExpectedIssue(26, "nested", 24),
+        new ExpectedIssue(33, "conditional-first", 31), new ExpectedIssue(66, "ambiguous-template", 65) }),
+      Arguments.of("conditionalBlocksAngularCoexistingDescendants.html", new ExpectedIssue[] {
+        new ExpectedIssue(5, "independent", 4), new ExpectedIssue(7, "same-condition", 6) }),
+      Arguments.of("conditionalBlocksVueCoexistingDescendants.vue", new ExpectedIssue[] {
+        new ExpectedIssue(4, "independent", 3), new ExpectedIssue(6, "same-condition", 5) }),
+      Arguments.of("conditionalBlocksLoopDescendants.html", new ExpectedIssue[] {
+        new ExpectedIssue(5, "angular-loop", 4), new ExpectedIssue(7, "vue-loop", 6) }),
+      Arguments.of("conditionalBlocksAngularSwitchCaseDescendants.html", new ExpectedIssue[] {}),
+      Arguments.of("conditionalBlocksAngularSwitchCaseEdgeCases.html", new ExpectedIssue[] {
+        new ExpectedIssue(12, "matching-strings", 11), new ExpectedIssue(17, "dynamic-case", 16) }),
+      Arguments.of("conditionalBlocksVueRootDescendants.html", new ExpectedIssue[] {}),
+      Arguments.of("conditionalBlocksAngularParenthesizedConditions.html", new ExpectedIssue[] {}));
   }
 
-  @Test
-  void reportsDescendantIdsInRepeatingHosts() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksLoopDescendants.html"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(5).withMessage("Duplicate id \"angular-loop\" found. First occurrence was on line 4.")
-        .next().atLine(7).withMessage("Duplicate id \"vue-loop\" found. First occurrence was on line 6.")
-        .noMore();
-  }
-
-  @Test
-  void ignoresDescendantIdsInDistinctAngularSwitchCases() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularSwitchCaseDescendants.html"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
-  }
-
-  @Test
-  void handlesAngularSwitchCaseSyntaxAndLiterals() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularSwitchCaseEdgeCases.html"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues())
-        .next().atLine(12).withMessage("Duplicate id \"matching-strings\" found. First occurrence was on line 11.")
-        .next().atLine(17).withMessage("Duplicate id \"dynamic-case\" found. First occurrence was on line 16.")
-        .noMore();
-  }
-
-  @Test
-  void ignoresDescendantIdsInRootVueConditionalBranches() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksVueRootDescendants.html"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
-  }
-
-  @Test
-  void ignoresDescendantIdsInOppositeParenthesizedAngularConditions() {
-    HtmlSourceCode sourceCode = TestHelper.scan(
-        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularParenthesizedConditions.html"),
-        new NoDuplicateIDCheck());
-
-    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  private record ExpectedIssue(int line, String id, int firstOccurrenceLine) {
   }
 
   @Test

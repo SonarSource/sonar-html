@@ -52,5 +52,17 @@
 <ng-template #alternateTemplate>
   <span id="property-template">Hidden</span>
 </ng-template>
+
+<div *ngIf="showThen; then thenTemplate">
+  <span id="then-template">Not rendered</span>
+</div>
+<ng-template #thenTemplate>
+  <span id="then-template">Rendered</span>
+</ng-template>
+
+<div *ngIf="showFirst; else sharedTemplate"><span id="first-branch">First</span></div>
+<div *ngIf="showSecond; else sharedTemplate"><span id="second-branch">Second</span></div>
+<div *ngIf="showFirst"><span id="ambiguous-template">Also first</span></div>
+<ng-template #sharedTemplate><span id="ambiguous-template">Fallback</span></ng-template>
 </body>
 </html>

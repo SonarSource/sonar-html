@@ -77,7 +77,6 @@ public final class TemplateConditionalScopeTracker {
   private static final Set<String> LITERAL_VALUES = Set.of("true", "false", "null", "undefined");
 
   private static final Pattern NUMERIC_LITERAL_PATTERN = Pattern.compile("-?\\d+(?:\\.\\d+)?");
-  private static final Pattern QUOTED_LITERAL_PATTERN = Pattern.compile("'(?:\\\\.|[^'\\\\])*'|\"(?:\\\\.|[^\"\\\\])*\"");
   private static final Pattern ANGULAR_TEMPLATE_REFERENCE_PATTERN = Pattern.compile(
     "(?:^|;)\\s*(else|then)\\s+([\\p{Alnum}_$-]+)", Pattern.CASE_INSENSITIVE
   );
@@ -315,6 +314,16 @@ public final class TemplateConditionalScopeTracker {
   }
 
   /**
+   * Returns whether the current element is inside an Angular {@code ngIf} host that delegates its
+   * rendered view to a {@code then} template.
+   *
+   * @return whether the element cannot be rendered because an explicit {@code then} template is used
+   */
+  public boolean isInsideAngularIfThenHost() {
+    return openElements.stream().anyMatch(TemplateConditionalScopeTracker::hasAngularThenTemplate);
+  }
+
+  /**
    * Returns whether a tag has a conditional or repeating template attribute.
    *
    * @param node the start tag to inspect
@@ -446,22 +455,30 @@ public final class TemplateConditionalScopeTracker {
 
   private void registerAngularTemplateScopes(List<Node> nodes) {
     for (Node node : nodes) {
-      if (!(node instanceof TagNode tagNode) || tagNode.isEndElement()) {
-        continue;
+      if (node instanceof TagNode tagNode && !tagNode.isEndElement()) {
+        registerAngularTemplateScopes(tagNode);
       }
-      String conditionText = angularIfCondition(tagNode);
-      if (conditionText == null) {
-        continue;
-      }
+    }
+  }
+
+  private void registerAngularTemplateScopes(TagNode node) {
+    String conditionText = angularIfCondition(node);
+    if (conditionText != null) {
       Condition condition = Condition.fromAngularIf(conditionText);
-      registerAngularTemplateScope(angularIfTemplateReference(tagNode, conditionText, "then"), condition);
-      registerAngularTemplateScope(angularIfTemplateReference(tagNode, conditionText, "else"), condition.opposite());
+      registerAngularTemplateScope(angularIfTemplateReference(node, conditionText, "then"), condition);
+      registerAngularTemplateScope(angularIfTemplateReference(node, conditionText, "else"), condition.opposite());
     }
   }
 
   private void registerAngularTemplateScope(@Nullable String templateReference, Condition condition) {
-    if (templateReference != null) {
-      conditionalAttributeState.angularTemplateScopes.put(templateReference, new AngularIfScope(condition.expression(), condition.negationCount()));
+    if (templateReference == null) {
+      return;
+    }
+    AngularIfScope existingScope = conditionalAttributeState.angularTemplateScopes.get(templateReference);
+    if (existingScope == null) {
+      conditionalAttributeState.angularTemplateScopes.put(templateReference, AngularIfScope.from(condition));
+    } else if (!existingScope.matches(condition)) {
+      conditionalAttributeState.angularTemplateScopes.put(templateReference, AngularIfScope.ambiguous());
     }
   }
 
@@ -488,6 +505,11 @@ public final class TemplateConditionalScopeTracker {
       }
     }
     return getAttribute(node, "then".equals(branch) ? ANGULAR_IF_THEN_ATTRIBUTES : ANGULAR_IF_ELSE_ATTRIBUTES);
+  }
+
+  private static boolean hasAngularThenTemplate(TagNode node) {
+    String condition = angularIfCondition(node);
+    return condition != null && angularIfTemplateReference(node, condition, "then") != null;
   }
 
   @Nullable
@@ -534,11 +556,28 @@ public final class TemplateConditionalScopeTracker {
     if (NUMERIC_LITERAL_PATTERN.matcher(trimmedValue).matches()) {
       return "number:" + new BigDecimal(trimmedValue).stripTrailingZeros().toPlainString();
     }
-    if (QUOTED_LITERAL_PATTERN.matcher(trimmedValue).matches()) {
+    if (isUnescapedQuotedLiteral(trimmedValue)) {
       String contents = trimmedValue.substring(1, trimmedValue.length() - 1);
-      return contents.contains("\\") ? null : "string:" + contents;
+      return "string:" + contents;
     }
     return null;
+  }
+
+  private static boolean isUnescapedQuotedLiteral(String value) {
+    if (value.length() < 2) {
+      return false;
+    }
+    char quote = value.charAt(0);
+    if ((quote != '\'' && quote != '"') || value.charAt(value.length() - 1) != quote) {
+      return false;
+    }
+    for (int index = 1; index < value.length() - 1; index++) {
+      char character = value.charAt(index);
+      if (character == quote || character == '\\') {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -1808,7 +1847,21 @@ public final class TemplateConditionalScopeTracker {
     @Nullable String angularSwitchCase) {
   }
 
-  private record AngularIfScope(String expression, int negationCount) {
+  private record AngularIfScope(@Nullable String expression, int negationCount) {
+
+    private static AngularIfScope from(Condition condition) {
+      return new AngularIfScope(condition.expression(), condition.negationCount());
+    }
+
+    private static AngularIfScope ambiguous() {
+      return new AngularIfScope(null, 0);
+    }
+
+    private boolean matches(Condition condition) {
+      return expression != null
+        && expression.equals(condition.expression())
+        && negationCount == condition.negationCount();
+    }
   }
 
   private record Condition(String expression, int negationCount) {
@@ -1835,7 +1888,23 @@ public final class TemplateConditionalScopeTracker {
     private static String angularIfExpression(String condition) {
       int microsyntaxStart = condition.indexOf(';');
       String expression = microsyntaxStart >= 0 ? condition.substring(0, microsyntaxStart) : condition;
-      return expression.replaceFirst("\\s+as\\s+.*$", "").trim();
+      int aliasStart = angularIfAliasStart(expression);
+      return (aliasStart >= 0 ? expression.substring(0, aliasStart) : expression).trim();
+    }
+
+    private static int angularIfAliasStart(String expression) {
+      int aliasStart = expression.indexOf("as");
+      while (aliasStart >= 0) {
+        int afterAlias = aliasStart + 2;
+        if (aliasStart > 0
+          && afterAlias < expression.length()
+          && Character.isWhitespace(expression.charAt(aliasStart - 1))
+          && Character.isWhitespace(expression.charAt(afterAlias))) {
+          return aliasStart;
+        }
+        aliasStart = expression.indexOf("as", afterAlias);
+      }
+      return -1;
     }
 
     private static String stripOuterParentheses(String expression) {

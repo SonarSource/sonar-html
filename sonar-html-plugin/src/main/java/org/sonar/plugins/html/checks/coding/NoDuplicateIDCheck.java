@@ -86,7 +86,7 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private void handleIdAttribute(TagNode node) {
-    if (conditionalScope.isInNonRenderedRazorContent()) {
+    if (conditionalScope.isInNonRenderedRazorContent() || conditionalScope.isInsideAngularIfThenHost()) {
       return;
     }
     String idValue = node.getAttribute("id");
