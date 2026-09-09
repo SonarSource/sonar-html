@@ -64,5 +64,13 @@
 <div *ngIf="showSecond; else sharedTemplate"><span id="second-branch">Second</span></div>
 <div *ngIf="showFirst"><span id="ambiguous-template">Also first</span></div>
 <ng-template #sharedTemplate><span id="ambiguous-template">Fallback</span></ng-template>
+
+<input *ngIf="showVoid; then voidTemplate" id="void-then-template">
+<ng-template #voidTemplate><span id="void-then-template">Rendered</span></ng-template>
+
+<div *ngIf="sameCondition; else parityTemplate"><span id="first-parity-branch">First</span></div>
+<div *ngIf="!!sameCondition; else parityTemplate"><span id="second-parity-branch">Second</span></div>
+<div *ngIf="sameCondition"><span id="negation-parity-template">Shown</span></div>
+<ng-template #parityTemplate><span id="negation-parity-template">Hidden</span></ng-template>
 </body>
 </html>

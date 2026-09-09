@@ -319,8 +319,9 @@ public final class TemplateConditionalScopeTracker {
    *
    * @return whether the element cannot be rendered because an explicit {@code then} template is used
    */
-  public boolean isInsideAngularIfThenHost() {
-    return openElements.stream().anyMatch(TemplateConditionalScopeTracker::hasAngularThenTemplate);
+  public boolean isInsideAngularIfThenHost(TagNode node) {
+    return hasAngularThenTemplate(node)
+      || openElements.stream().anyMatch(TemplateConditionalScopeTracker::hasAngularThenTemplate);
   }
 
   /**
@@ -1860,7 +1861,7 @@ public final class TemplateConditionalScopeTracker {
     private boolean matches(Condition condition) {
       return expression != null
         && expression.equals(condition.expression())
-        && negationCount == condition.negationCount();
+        && negationCount % 2 == condition.negationCount() % 2;
     }
   }
 
