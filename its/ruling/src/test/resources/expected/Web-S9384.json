@@ -1,0 +1,101 @@
+{
+"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html": [
+33
+],
+"project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html": [
+33
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp": [
+941
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html": [
+84
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html": [
+81
+],
+"project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html": [
+234,
+2584,
+6803,
+84117
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/indexeddb-persists.html": [
+11
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/localstorage-empty-database.html": [
+11
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/spatial-navigation/spatial-navigation-test-cases.html": [
+94
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/faq.html": [
+1609
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/genindex.html": [
+493,
+493,
+505,
+525,
+525,
+587,
+595,
+595,
+611,
+615,
+643,
+647,
+647,
+651,
+667,
+927,
+951,
+955,
+959,
+987,
+991,
+991,
+1246,
+1650,
+1650,
+1662,
+1682,
+1682,
+1794,
+1802,
+1802,
+1814,
+1830,
+1886,
+1890,
+1890,
+1894,
+1906,
+2082,
+2106,
+2110,
+2114,
+2142,
+2146,
+2146,
+2170,
+2199,
+2449,
+2489,
+3103,
+3115,
+3135,
+3139,
+3333,
+3393,
+3397,
+3689
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/glossary.html": [
+292,
+614
+],
+"project:phpMyAdmin-4.0.4-english/doc/html/index.html": [
+114
+]
+}
