@@ -32,7 +32,7 @@ jobs:
       - &maven_cache
         uses: ./.github/actions/maven-cache
       - id: build_maven
-        uses: SonarSource/ci-github-actions/build-maven@v1
+        uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy-pull-request: true
           artifactory-reader-role: private-reader
@@ -43,14 +43,12 @@ jobs:
   build-windows:
     needs: [build]
     runs-on: github-windows-latest-m
-    env:
-      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     steps:
       - *checkout
       - *mise
       - *maven_cache
       - name: Build Maven (no deploy)
-        uses: SonarSource/ci-github-actions/build-maven@v1
+        uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy: false
           artifactory-reader-role: private-reader
