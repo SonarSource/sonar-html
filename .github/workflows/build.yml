@@ -50,7 +50,7 @@ jobs:
       - *mise
       - *maven_cache
       - name: Build Maven (no deploy)
-        uses: SonarSource/ci-github-actions/build-maven@master
+        uses: SonarSource/ci-github-actions/build-maven@v1
         with:
           deploy: false
           artifactory-reader-role: private-reader
