@@ -203,6 +203,27 @@ class NoDuplicateIDCheckTest {
   }
 
   @Test
+  void handlesAngularSwitchCaseSyntaxAndLiterals() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularSwitchCaseEdgeCases.html"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(12).withMessage("Duplicate id \"matching-strings\" found. First occurrence was on line 11.")
+        .next().atLine(17).withMessage("Duplicate id \"dynamic-case\" found. First occurrence was on line 16.")
+        .noMore();
+  }
+
+  @Test
+  void ignoresDescendantIdsInRootVueConditionalBranches() {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+        new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksVueRootDescendants.html"),
+        new NoDuplicateIDCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
   void ignoresDescendantIdsInOppositeParenthesizedAngularConditions() {
     HtmlSourceCode sourceCode = TestHelper.scan(
         new File("src/test/resources/checks/NoDuplicateIDCheck/conditionalBlocksAngularParenthesizedConditions.html"),

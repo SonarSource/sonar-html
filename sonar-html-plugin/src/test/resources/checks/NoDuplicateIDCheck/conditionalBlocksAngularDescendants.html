@@ -31,5 +31,26 @@
   <span id="conditional-first">Conditional occurrence</span>
 </div>
 <span id="conditional-first">Unconditional occurrence</span>
+
+<div *ngIf="isAdmin">
+  <div *ngIf="editing"><input id="nested-exclusive"></div>
+</div>
+<div *ngIf="isUser">
+  <div *ngIf="!editing"><input id="nested-exclusive"></div>
+</div>
+
+<div *ngIf="showDetails as details; else hiddenDetails">
+  <span id="microsyntax-template">Visible</span>
+</div>
+<ng-template #hiddenDetails>
+  <span id="microsyntax-template">Hidden</span>
+</ng-template>
+
+<ng-container [ngIf]="showAlternate" [ngIfElse]="alternateTemplate">
+  <span id="property-template">Visible</span>
+</ng-container>
+<ng-template #alternateTemplate>
+  <span id="property-template">Hidden</span>
+</ng-template>
 </body>
 </html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div [ngSwitch]="selection">
+  <ng-template ngSwitchCase="'a'"><span id="desugared-switch">First</span></ng-template>
+  <ng-template ngSwitchCase="'b'"><span id="desugared-switch">Second</span></ng-template>
+  <ng-template ngSwitchDefault><span id="desugared-switch">Default</span></ng-template>
+</div>
+
+<div [ngSwitch]="selection">
+  <div *ngSwitchCase="'A'"><span id="matching-strings">First</span></div>
+  <div *ngSwitchCase='"A"'><span id="matching-strings">Second</span></div>
+</div>
+
+<div [ngSwitch]="selection">
+  <div *ngSwitchCase="'a' + suffix"><span id="dynamic-case">First</span></div>
+  <div *ngSwitchCase="'b'"><span id="dynamic-case">Second</span></div>
+</div>
+
+<div [ngSwitch]="selection">
+  <div *ngSwitchCase=" 1"><span id="trimmed-number">First</span></div>
+  <div *ngSwitchCase="2"><span id="trimmed-number">Second</span></div>
+</div>
+</body>
+</html>
