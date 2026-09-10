@@ -19,8 +19,6 @@ permissions:
 jobs:
   build:
     runs-on: github-ubuntu-latest-m
-    outputs:
-      build_number: ${{ steps.build_maven.outputs.BUILD_NUMBER }}
     steps:
       - &checkout
         name: Checkout source code
@@ -32,7 +30,7 @@ jobs:
       - &maven_cache
         uses: ./.github/actions/maven-cache
       - id: build_maven
-        uses: SonarSource/ci-github-actions/build-maven@v1
+        uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy-pull-request: true
           artifactory-reader-role: private-reader
@@ -43,14 +41,12 @@ jobs:
   build-windows:
     needs: [build]
     runs-on: github-windows-latest-m
-    env:
-      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     steps:
       - *checkout
       - *mise
       - *maven_cache
       - name: Build Maven (no deploy)
-        uses: SonarSource/ci-github-actions/build-maven@master
+        uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           deploy: false
           artifactory-reader-role: private-reader
@@ -62,8 +58,6 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
-    env:
-      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     permissions:
       id-token: write
       contents: read
@@ -71,7 +65,7 @@ jobs:
       - *checkout
       - *mise
       - &config_maven
-        uses: SonarSource/ci-github-actions/config-maven@v1
+        uses: SonarSource/ci-github-actions/config-maven@v2
         with:
           artifactory-reader-role: private-reader
       - &secrets
@@ -98,8 +92,6 @@ jobs:
     if: github.event_name == 'schedule'
     needs: [build]
     runs-on: github-ubuntu-latest-m
-    env:
-      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     permissions:
       id-token: write
       contents: read
@@ -119,8 +111,6 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
-    env:
-      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     permissions:
       id-token: write
       contents: write
@@ -236,8 +226,6 @@ jobs:
     if: github.event_name == 'schedule'
     needs: [build]
     runs-on: github-ubuntu-latest-s
-    env:
-      BUILD_NUMBER: ${{ needs.build.outputs.build_number }}
     strategy:
       matrix:
         include:
@@ -252,7 +240,7 @@ jobs:
       - *checkout
       - *mise
       - *maven_cache
-      - uses: SonarSource/ci-github-actions/build-maven@v1
+      - uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
@@ -290,7 +278,7 @@ jobs:
         with:
           version: 2026.9.1
           cache_save: false
-      - uses: SonarSource/ci-github-actions/promote@v1
+      - uses: SonarSource/ci-github-actions/promote@v2
         with:
           promote-pull-request: true
 
