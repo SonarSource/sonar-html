@@ -177,4 +177,34 @@ class AccessibilityUtilsTest {
     node.getAttributes().add(new Attribute(attributeName, attributeValue));
     return node;
   }
+
+  @ParameterizedTest
+  @MethodSource("hiddenByDisplayNone")
+  void detectsElementsHiddenByDisplayNone(TagNode node) {
+    assertThat(AccessibilityUtils.isHiddenByDisplayNone(node)).isTrue();
+  }
+
+  private static Stream<Arguments> hiddenByDisplayNone() {
+    return Stream.of(
+      Arguments.of(tag("hidden", "")),
+      Arguments.of(tag("hidden", "hidden")),
+      Arguments.of(tag("style", "display:none")),
+      Arguments.of(tag("style", "display: none;")),
+      Arguments.of(tag("style", "DISPLAY : NONE")),
+      Arguments.of(tag("style", "color: red; display: none")));
+  }
+
+  @ParameterizedTest
+  @MethodSource("notHiddenByDisplayNone")
+  void doesNotFlagElementsThatAreNotHiddenByDisplayNone(TagNode node) {
+    assertThat(AccessibilityUtils.isHiddenByDisplayNone(node)).isFalse();
+  }
+
+  private static Stream<Arguments> notHiddenByDisplayNone() {
+    return Stream.of(
+      Arguments.of(new TagNode()),
+      Arguments.of(tag("style", "color: red")),
+      Arguments.of(tag("style", "display: block")),
+      Arguments.of(tag("aria-hidden", "true")));
+  }
 }
