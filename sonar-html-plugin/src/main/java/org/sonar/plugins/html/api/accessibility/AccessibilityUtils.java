@@ -19,6 +19,7 @@ package org.sonar.plugins.html.api.accessibility;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
@@ -63,6 +64,8 @@ public class AccessibilityUtils {
     .flatMap(List::stream)
     .map(name -> name.toLowerCase(Locale.ROOT))
     .collect(Collectors.toUnmodifiableSet());
+
+  private static final Pattern DISPLAY_NONE_PATTERN = Pattern.compile("display\\s*:\\s*none", Pattern.CASE_INSENSITIVE);
 
   private AccessibilityUtils() {
     // utility class
@@ -116,6 +119,21 @@ public class AccessibilityUtils {
       ) ||
         "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
     );
+  }
+
+  /**
+   * Returns whether {@code element} is unconditionally hidden from every user via the native
+   * {@code hidden} boolean attribute or an inline {@code style="display: none"}. Unlike
+   * {@link #isHiddenFromScreenReader}, this does not inspect CSS classes or computed styles —
+   * only the two purely syntactic, unambiguous signals.
+   */
+  public static boolean isHiddenByDisplayNone(TagNode element) {
+    return element.hasAttribute("hidden") || DISPLAY_NONE_PATTERN.matcher(getStyleOrEmpty(element)).find();
+  }
+
+  private static String getStyleOrEmpty(TagNode element) {
+    String style = element.getAttribute("style");
+    return style == null ? "" : style;
   }
 
   public static boolean isDisabledElement(TagNode element) {
