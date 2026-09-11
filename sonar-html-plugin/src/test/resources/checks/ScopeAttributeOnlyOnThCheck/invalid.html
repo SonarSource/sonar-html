@@ -10,3 +10,6 @@
 <Caption scope="row">Total</Caption>
 <!-- Unlike null/undefined, a DOM-property binding of literal "false" still sets the (non-boolean) attribute -->
 <span :scope="false"></span>
+<!-- Angular attribute binding syntax -->
+<div [attr.scope]="dynamicScope"></div>
+<div attr.scope="row"></div>
