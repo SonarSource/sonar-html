@@ -41,6 +41,13 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
     .map(name -> name.toLowerCase(Locale.ROOT))
     .collect(Collectors.toUnmodifiableSet());
 
+  // A binding (`:scope`, `v-bind:scope`, `[scope]`, `[attr.scope]`) bound to literal null/undefined never sets the attribute.
+  private static final Set<String> NULLISH_AWARE_BINDINGS = Stream.concat(
+      Stream.of("[attr." + SCOPE + "]"),
+      TagNode.domPropertyBindingNames(SCOPE).stream())
+    .map(name -> name.toLowerCase(Locale.ROOT))
+    .collect(Collectors.toUnmodifiableSet());
+
   @Override
   public void startElement(TagNode node) {
     // Vue 2.0-2.4 scoped slots use a bare "scope" attribute on <template>, unrelated to table headers.
@@ -63,14 +70,14 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
       && !isDomPropertyBoundToNullish(attribute);
   }
 
-  // A DOM-property binding (`:scope`, `v-bind:scope`, `[scope]`) bound to literal null/undefined never sets the attribute.
   private static boolean isDomPropertyBoundToNullish(Attribute property) {
     String value = property.getValue();
-    if (value == null || !("null".equals(value.trim()) || "undefined".equals(value.trim()))) {
+    if (value == null) {
       return false;
     }
-    return TagNode.domPropertyBindingNames(SCOPE).stream()
-      .anyMatch(name -> name.equalsIgnoreCase(property.getName()));
+    String trimmed = value.trim();
+    return ("null".equals(trimmed) || "undefined".equals(trimmed))
+      && NULLISH_AWARE_BINDINGS.contains(property.getName().toLowerCase(Locale.ROOT));
   }
 
   private boolean isComponentReference(TagNode node) {

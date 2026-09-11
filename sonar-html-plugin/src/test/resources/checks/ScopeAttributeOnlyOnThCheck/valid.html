@@ -20,3 +20,6 @@
 <div :scope="null"></div>
 <div v-bind:scope="undefined"></div>
 <div [scope]=" null "></div>
+<!-- Angular attribute binding bound to literal null/undefined also removes the attribute entirely -->
+<div [attr.scope]="null"></div>
+<div [attr.scope]="undefined"></div>

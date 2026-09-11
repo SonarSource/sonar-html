@@ -54,6 +54,7 @@ class ScopeAttributeOnlyOnThCheckTest {
       .next().atLine(12)
       .next().atLine(14)
       .next().atLine(15)
+      .next().atLine(17)
       .noMore();
   }
 

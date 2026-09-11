@@ -13,3 +13,5 @@
 <!-- Angular attribute binding syntax -->
 <div [attr.scope]="dynamicScope"></div>
 <div attr.scope="row"></div>
+<!-- Unlike the bracketed binding, this is a literal attribute value, not a null/undefined expression -->
+<div attr.scope="null"></div>
