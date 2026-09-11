@@ -13,6 +13,19 @@
 <h3>What is the potential impact?</h3>
 <p>Duplicate <code>id</code> attributes can break JavaScript functionality, cause inconsistent styling, and create accessibility barriers. Users may
 be unable to interact with certain page elements, and assistive technologies may not work correctly.</p>
+<h3>Exceptions</h3>
+<p>ASP.NET WebForms server controls are exempt when their effective <code>ClientIDMode</code> is <code>AutoID</code> or <code>Predictable</code>.
+Naming containers and data-bound templates prefix the declared <code>ID</code> at runtime, so equal declared IDs that render in separate runtime
+scopes do not produce duplicate HTML IDs.</p>
+<pre>
+&lt;asp:Repeater ID="first" runat="server"&gt;
+  &lt;ItemTemplate&gt;&lt;asp:Label ID="status" runat="server" /&gt;&lt;/ItemTemplate&gt;
+&lt;/asp:Repeater&gt;
+&lt;asp:Repeater ID="second" runat="server"&gt;
+  &lt;ItemTemplate&gt;&lt;asp:Label ID="status" runat="server" /&gt;&lt;/ItemTemplate&gt;
+&lt;/asp:Repeater&gt;
+</pre>
+<p>With <code>ClientIDMode="Static"</code>, the declared <code>ID</code> is rendered unchanged, so it must still be unique across the document.</p>
 <h2>How to fix it</h2>
 <p>Ensure each element has a unique <code>id</code> value. You can remove unnecessary <code>id</code> attributes or rename them to be unique.</p>
 <h3>Code examples</h3>
