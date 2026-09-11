@@ -62,9 +62,10 @@ the platform:</p>
   <li><code>&lt;a&gt;</code>,</li>
   <li><code>&lt;summary&gt;</code>.</li>
 </ul>
-<p>Native controls with an implicit <code>textbox</code>, <code>checkbox</code>, <code>radio</code>, or <code>listbox</code> role are also skipped.
-This includes text inputs, <code>&lt;textarea&gt;</code>, <code>&lt;input type="checkbox"&gt;</code>, <code>&lt;input type="radio"&gt;</code>, and
-<code>&lt;select&gt;</code>.</p>
+<p>Native controls with an implicit <code>textbox</code>, <code>checkbox</code>, <code>radio</code>, <code>combobox</code>, or <code>listbox</code>
+role are also skipped. This includes text inputs, <code>&lt;textarea&gt;</code>, <code>&lt;input type="checkbox"&gt;</code>, <code>&lt;input
+type="radio"&gt;</code>, and <code>&lt;select&gt;</code>. A <code>&lt;select&gt;</code> has the implicit <code>combobox</code> role by default and the
+<code>listbox</code> role when it has the <code>multiple</code> attribute or a <code>size</code> greater than 1.</p>
 <p>Be aware that the anchor exception is broad: only an <code>&lt;a&gt;</code> with an <code>href</code> attribute is actually focusable and activated
 by Enter — an <code>&lt;a onClick&gt;</code> without <code>href</code> behaves like inert text from the keyboard. For button-like actions inside the
 page, prefer <code>&lt;button&gt;</code> over a bare <code>&lt;a&gt;</code>.</p>
