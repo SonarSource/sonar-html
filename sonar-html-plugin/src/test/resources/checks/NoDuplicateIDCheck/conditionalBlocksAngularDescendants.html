@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div *ngIf="testNgIf">
+  <span id="test">Hello world!</span>
+</div>
+
+<div *ngIf="!testNgIf">
+  <span id="test">Not Hello world!</span>
+</div>
+
+<div *ngIf="showDetails">
+  <span id="inside-branch">First</span>
+  <span id="inside-branch">Second</span>
+</div>
+
+<span id="shared">Always rendered</span>
+<div *ngIf="showDetails">
+  <span id="shared">Conditionally rendered</span>
+  <span id="shared">Also conditionally rendered</span>
+</div>
+
+<div *ngIf="showParent">
+  <span id="nested">Outer scope</span>
+  <div *ngIf="showChild">
+    <span id="nested">Nested scope</span>
+  </div>
+</div>
+
+<div *ngIf="showConditionalFirst">
+  <span id="conditional-first">Conditional occurrence</span>
+</div>
+<span id="conditional-first">Unconditional occurrence</span>
+
+<div *ngIf="isAdmin">
+  <div *ngIf="editing"><input id="nested-exclusive"></div>
+</div>
+<div *ngIf="isUser">
+  <div *ngIf="!editing"><input id="nested-exclusive"></div>
+</div>
+
+<div *ngIf="showDetails as details; else hiddenDetails">
+  <span id="microsyntax-template">Visible</span>
+</div>
+<ng-template #hiddenDetails>
+  <span id="microsyntax-template">Hidden</span>
+</ng-template>
+
+<ng-container [ngIf]="showAlternate" [ngIfElse]="alternateTemplate">
+  <span id="property-template">Visible</span>
+</ng-container>
+<ng-template #alternateTemplate>
+  <span id="property-template">Hidden</span>
+</ng-template>
+
+<div *ngIf="showThen; then thenTemplate">
+  <span id="then-template">Not rendered</span>
+</div>
+<ng-template #thenTemplate>
+  <span id="then-template">Rendered</span>
+</ng-template>
+
+<div *ngIf="showFirst; else sharedTemplate"><span id="first-branch">First</span></div>
+<div *ngIf="showSecond; else sharedTemplate"><span id="second-branch">Second</span></div>
+<div *ngIf="showFirst"><span id="ambiguous-template">Also first</span></div>
+<ng-template #sharedTemplate><span id="ambiguous-template">Fallback</span></ng-template>
+
+<input *ngIf="showVoid; then voidTemplate" id="void-then-template">
+<ng-template #voidTemplate><span id="void-then-template">Rendered</span></ng-template>
+
+<div *ngIf="sameCondition; else parityTemplate"><span id="first-parity-branch">First</span></div>
+<div *ngIf="!!sameCondition; else parityTemplate"><span id="second-parity-branch">Second</span></div>
+<div *ngIf="sameCondition"><span id="negation-parity-template">Shown</span></div>
+<ng-template #parityTemplate><span id="negation-parity-template">Hidden</span></ng-template>
+</body>
+</html>

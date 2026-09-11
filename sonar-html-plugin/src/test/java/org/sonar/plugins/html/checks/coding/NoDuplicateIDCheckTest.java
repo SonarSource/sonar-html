@@ -17,8 +17,13 @@
 package org.sonar.plugins.html.checks.coding;
 
 import java.io.File;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.sonar.plugins.html.checks.CheckMessagesVerifier;
 import org.sonar.plugins.html.checks.CheckMessagesVerifierRule;
 import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
@@ -127,6 +132,46 @@ class NoDuplicateIDCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(35).withMessage("Duplicate id \"badge\" found. First occurrence was on line 34.")
         .noMore();
+  }
+
+  @ParameterizedTest
+  @MethodSource("conditionalAttributeDescendantCases")
+  void handlesConditionalAttributeDescendants(String fixture, ExpectedIssue[] expectedIssues) {
+    HtmlSourceCode sourceCode = TestHelper.scan(
+      new File("src/test/resources/checks/NoDuplicateIDCheck/" + fixture),
+      new NoDuplicateIDCheck());
+
+    CheckMessagesVerifier verifier = checkMessagesVerifier.verify(sourceCode.getIssues());
+    for (ExpectedIssue expectedIssue : expectedIssues) {
+      verifier.next().atLine(expectedIssue.line())
+        .withMessage("Duplicate id \"%s\" found. First occurrence was on line %d."
+          .formatted(expectedIssue.id(), expectedIssue.firstOccurrenceLine()));
+    }
+    verifier.noMore();
+  }
+
+  private static Stream<Arguments> conditionalAttributeDescendantCases() {
+    return Stream.of(
+      Arguments.of("conditionalBlocksVueDescendants.vue", new ExpectedIssue[] {
+        new ExpectedIssue(10, "inside-branch", 9), new ExpectedIssue(14, "shared", 12) }),
+      Arguments.of("conditionalBlocksAngularDescendants.html", new ExpectedIssue[] {
+        new ExpectedIssue(14, "inside-branch", 13), new ExpectedIssue(19, "shared", 17),
+        new ExpectedIssue(20, "shared", 17), new ExpectedIssue(26, "nested", 24),
+        new ExpectedIssue(33, "conditional-first", 31), new ExpectedIssue(66, "ambiguous-template", 65) }),
+      Arguments.of("conditionalBlocksAngularCoexistingDescendants.html", new ExpectedIssue[] {
+        new ExpectedIssue(5, "independent", 4), new ExpectedIssue(7, "same-condition", 6) }),
+      Arguments.of("conditionalBlocksVueCoexistingDescendants.vue", new ExpectedIssue[] {
+        new ExpectedIssue(4, "independent", 3), new ExpectedIssue(6, "same-condition", 5) }),
+      Arguments.of("conditionalBlocksLoopDescendants.html", new ExpectedIssue[] {
+        new ExpectedIssue(5, "angular-loop", 4), new ExpectedIssue(7, "vue-loop", 6) }),
+      Arguments.of("conditionalBlocksAngularSwitchCaseDescendants.html", new ExpectedIssue[] {}),
+      Arguments.of("conditionalBlocksAngularSwitchCaseEdgeCases.html", new ExpectedIssue[] {
+        new ExpectedIssue(12, "matching-strings", 11), new ExpectedIssue(17, "dynamic-case", 16) }),
+      Arguments.of("conditionalBlocksVueRootDescendants.html", new ExpectedIssue[] {}),
+      Arguments.of("conditionalBlocksAngularParenthesizedConditions.html", new ExpectedIssue[] {}));
+  }
+
+  private record ExpectedIssue(int line, String id, int firstOccurrenceLine) {
   }
 
   @Test
