@@ -56,3 +56,38 @@
   <a href="/x/2">Proceed</a>
   <a href="/x/1">Proceed</a>
 </div>
+
+<!-- Compliant: hidden link (aria-hidden) is excluded from comparison -->
+<div>
+  <a href="/hidden/1" aria-hidden="true" tabindex="-1">Hidden</a>
+  <a href="/hidden/2">Hidden</a>
+</div>
+
+<!-- Compliant: hidden link (hidden attribute) is excluded from comparison -->
+<div>
+  <a href="/hattr/1" hidden>Hattr</a>
+  <a href="/hattr/2">Hattr</a>
+</div>
+
+<!-- Compliant: hidden link (display:none) is excluded from comparison -->
+<div>
+  <a href="/style/1" style="display: none;">Styled</a>
+  <a href="/style/2">Styled</a>
+</div>
+
+<!-- Compliant: same parent, conditional branches never render together -->
+<div>
+{% if condition %}
+  <a href="/user/1/edit">Edit</a>
+{% else %}
+  <a href="/user/2/edit">Edit</a>
+{% endif %}
+</div>
+
+<!-- Non-Compliant: conditional link still checked against the unconditional baseline -->
+<div>
+  <a href="/version/1">Version</a>
+{% if condition %}
+  <a href="/version/2">Version</a>          <!-- Non-Compliant -->
+{% endif %}
+</div>

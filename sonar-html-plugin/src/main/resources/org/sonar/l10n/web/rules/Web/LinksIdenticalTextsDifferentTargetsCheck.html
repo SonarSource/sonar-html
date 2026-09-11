@@ -5,6 +5,10 @@ technologies that list all links on a page will present the user with two indist
 each link. Links in separate containers (different <code>&lt;article&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;div&gt;</code>, or other elements)
 are intentionally not flagged: WCAG 2.4.4 explicitly allows identical link text when the surrounding context (for example, the enclosing list item or
 table row) provides disambiguation.</p>
+<p>Links that are hidden from every user (<code>aria-hidden="true"</code>, the <code>hidden</code> attribute, or an inline <code>style="display:
+none"</code>) are not perceivable and so cannot cause this confusion; they are excluded from comparison. Likewise, links that can never render at the
+same time—for example, one in an <code>@if</code> branch and the other in the matching <code>@else</code>—are not flagged against each other, since a
+user can never actually be presented with both.</p>
 <h3>Noncompliant code example</h3>
 <pre>
 &lt;div&gt;
