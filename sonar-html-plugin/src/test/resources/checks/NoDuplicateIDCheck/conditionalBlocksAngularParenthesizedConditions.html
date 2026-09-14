@@ -7,5 +7,17 @@
 <div *ngIf="!((showDetails))">
   <span id="parenthesized-branch">Hidden</span>
 </div>
+<div *ngIf="!(first || second)">
+  <span id="parenthesized-compound-branch">Hidden</span>
+</div>
+<div *ngIf="first || second">
+  <span id="parenthesized-compound-branch">Shown</span>
+</div>
+<div *ngIf="!first || second">
+  <span id="unparenthesized-compound-branch">First</span>
+</div>
+<div *ngIf="first || second">
+  <span id="unparenthesized-compound-branch">Second</span>
+</div>
 </body>
 </html>

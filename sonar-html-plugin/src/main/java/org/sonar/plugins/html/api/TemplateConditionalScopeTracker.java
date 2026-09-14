@@ -1876,10 +1876,31 @@ public final class TemplateConditionalScopeTracker {
       String expression = stripOuterParentheses(condition.replaceAll("\\s+", ""));
       int negationCount = 0;
       while (expression.startsWith("!")) {
+        String negatedExpression = expression.substring(1);
+        if (hasTopLevelBooleanOperator(negatedExpression)) {
+          return new Condition(expression, 0);
+        }
         negationCount++;
-        expression = stripOuterParentheses(expression.substring(1));
+        expression = stripOuterParentheses(negatedExpression);
       }
       return new Condition(expression, negationCount);
+    }
+
+    private static boolean hasTopLevelBooleanOperator(String expression) {
+      int parenthesisDepth = 0;
+      for (int index = 0; index < expression.length() - 1; index++) {
+        char character = expression.charAt(index);
+        if (character == '(') {
+          parenthesisDepth++;
+        } else if (character == ')') {
+          parenthesisDepth--;
+        } else if (parenthesisDepth == 0
+          && ((character == '&' && expression.charAt(index + 1) == '&')
+            || (character == '|' && expression.charAt(index + 1) == '|'))) {
+          return true;
+        }
+      }
+      return false;
     }
 
     private Condition opposite() {
