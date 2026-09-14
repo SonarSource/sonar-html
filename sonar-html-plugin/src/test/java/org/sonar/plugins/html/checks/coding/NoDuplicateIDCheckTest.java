@@ -168,7 +168,8 @@ class NoDuplicateIDCheckTest {
       Arguments.of("conditionalBlocksAngularSwitchCaseEdgeCases.html", new ExpectedIssue[] {
         new ExpectedIssue(12, "matching-strings", 11), new ExpectedIssue(17, "dynamic-case", 16) }),
       Arguments.of("conditionalBlocksVueRootDescendants.html", new ExpectedIssue[] {}),
-      Arguments.of("conditionalBlocksAngularParenthesizedConditions.html", new ExpectedIssue[] {}));
+      Arguments.of("conditionalBlocksAngularParenthesizedConditions.html", new ExpectedIssue[] {
+        new ExpectedIssue(20, "unparenthesized-compound-branch", 17) }));
   }
 
   private record ExpectedIssue(int line, String id, int firstOccurrenceLine) {
