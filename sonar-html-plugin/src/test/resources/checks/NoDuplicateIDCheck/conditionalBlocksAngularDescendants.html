@@ -72,5 +72,15 @@
 <div *ngIf="!!sameCondition; else parityTemplate"><span id="second-parity-branch">Second</span></div>
 <div *ngIf="sameCondition"><span id="negation-parity-template">Shown</span></div>
 <ng-template #parityTemplate><span id="negation-parity-template">Hidden</span></ng-template>
+
+<div *ngIf="loggedIn">
+  <div *ngIf="isAdmin"><span id="misaligned-exclusive">Deep</span></div>
+</div>
+<div *ngIf="!isAdmin"><span id="misaligned-exclusive">Shallow</span></div>
+
+<div *ngIf="!isAdmin"><span id="misaligned-exclusive-reversed">Shallow</span></div>
+<div *ngIf="loggedIn">
+  <div *ngIf="isAdmin"><span id="misaligned-exclusive-reversed">Deep</span></div>
+</div>
 </body>
 </html>

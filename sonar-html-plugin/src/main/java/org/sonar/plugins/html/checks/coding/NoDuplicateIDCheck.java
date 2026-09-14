@@ -86,11 +86,11 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
   }
 
   private void handleIdAttribute(TagNode node) {
-    if (conditionalScope.isInNonRenderedRazorContent() || conditionalScope.isInsideAngularIfThenHost(node)) {
-      return;
-    }
     String idValue = node.getAttribute("id");
     if (shouldIgnoreId(idValue)) {
+      return;
+    }
+    if (conditionalScope.isInNonRenderedRazorContent() || conditionalScope.isInsideAngularIfThenHost(node)) {
       return;
     }
     List<RuntimeId> runtimeIds = runtimeIds(node, idValue);
@@ -157,17 +157,16 @@ public class NoDuplicateIDCheck extends AbstractPageCheck {
    *
    * @param firstScopes the first conditional-host path
    * @param secondScopes the second conditional-host path
-   * @return false only when the paths diverge through known mutually exclusive hosts
+   * @return false when the paths contain known mutually exclusive hosts
    */
   private static boolean canCoexist(
     List<ConditionalAttributeScope> firstScopes,
     List<ConditionalAttributeScope> secondScopes) {
-    int sharedDepth = Math.min(firstScopes.size(), secondScopes.size());
-    for (int index = 0; index < sharedDepth; index++) {
-      ConditionalAttributeScope firstScope = firstScopes.get(index);
-      ConditionalAttributeScope secondScope = secondScopes.get(index);
-      if (TemplateConditionalScopeTracker.areMutuallyExclusive(firstScope, secondScope)) {
-        return false;
+    for (ConditionalAttributeScope firstScope : firstScopes) {
+      for (ConditionalAttributeScope secondScope : secondScopes) {
+        if (TemplateConditionalScopeTracker.areMutuallyExclusive(firstScope, secondScope)) {
+          return false;
+        }
       }
     }
     return true;
