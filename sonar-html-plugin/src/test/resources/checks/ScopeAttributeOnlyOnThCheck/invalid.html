@@ -1,0 +1,17 @@
+<td scope="row">Total</td>
+<td scope="col">Total</td>
+<div scope="row"></div>
+<span :scope="dynamicScope"></span>
+<div>
+  <td scope="rowgroup">Total</td>
+</div>
+<TD SCOPE="colgroup">Total</TD>
+<!-- Outside Vue, PascalCase doesn't signal a component: this is still the native <caption> tag -->
+<Caption scope="row">Total</Caption>
+<!-- Unlike null/undefined, a DOM-property binding of literal "false" still sets the (non-boolean) attribute -->
+<span :scope="false"></span>
+<!-- Angular attribute binding syntax -->
+<div [attr.scope]="dynamicScope"></div>
+<div attr.scope="row"></div>
+<!-- Unlike the bracketed binding, this is a literal attribute value, not a null/undefined expression -->
+<div attr.scope="null"></div>
