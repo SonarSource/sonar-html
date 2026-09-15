@@ -33,18 +33,18 @@ else
 </div>
 
 <!-- Compliant: link inside a C# block comment inside a Razor code block is not rendered, so it is ignored -->
+<div>
 @{
     /* <a href="/offer/1">Offer</a> */
 }
-<div>
   <a href="/offer/2">Offer</a>
 </div>
 
 <!-- Compliant: link inside a C# line comment inside a Razor code block is not rendered, so it is ignored -->
+<div>
 @{
     // <a href="/deal/1">Deal</a>
 }
-<div>
   <a href="/deal/2">Deal</a>
 </div>
 
