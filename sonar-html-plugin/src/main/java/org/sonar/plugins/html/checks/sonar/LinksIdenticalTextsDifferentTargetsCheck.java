@@ -70,7 +70,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       line = node.getStartLinePosition();
       linkParent = node.getParent();
       linkHidden = isHiddenLink(node) || conditionalScope.isInNonRenderedRazorContent();
-      linkInConditional = conditionalScope.isInConditional(node);
+      linkInConditional = conditionalScope.isInOpenConditionalScope() || !conditionalScope.conditionalAttributeScopes(node).isEmpty();
     }
   }
 
