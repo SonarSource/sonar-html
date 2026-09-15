@@ -42,7 +42,18 @@ class LinksIdenticalTextsDifferentTargetsCheckTest {
         .next().atLine(38)
         .next().atLine(44)
         .next().atLine(56).withMessage("Use distinct texts or point to the same target for this link and the one at line 55.")
-        .next().atLine(57).withMessage("Use distinct texts or point to the same target for this link and the one at line 56.");
+        .next().atLine(57).withMessage("Use distinct texts or point to the same target for this link and the one at line 56.")
+        .next().atLine(91).withMessage("Use distinct texts or point to the same target for this link and the one at line 89.")
+        .noMore();
+  }
+
+  @Test
+  void razor() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinksIdenticalTextsDifferentTargetsCheck.cshtml"), new LinksIdenticalTextsDifferentTargetsCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(23).withMessage("Use distinct texts or point to the same target for this link and the one at line 20.")
+        .noMore();
   }
 
 }
