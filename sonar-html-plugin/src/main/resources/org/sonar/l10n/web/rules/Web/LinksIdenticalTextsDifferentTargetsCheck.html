@@ -5,29 +5,29 @@ technologies that list all links on a page will present the user with two indist
 each link. Links in separate containers (different <code>&lt;article&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;div&gt;</code>, or other elements)
 are intentionally not flagged: WCAG 2.4.4 explicitly allows identical link text when the surrounding context (for example, the enclosing list item or
 table row) provides disambiguation.</p>
-<h3>Noncompliant code example</h3>
-<pre>
+<h3>Exceptions</h3>
+<p>This rule only considers <code>&lt;a&gt;</code> elements.</p>
+<p>A link with no accessible name at all is not considered by this rule; see {rule:Web:S6827}.</p>
+<p>A link that is hidden from every user, for example with <code>aria-hidden="true"</code>, the <code>hidden</code> attribute, or
+<code>style="display: none"</code>, is not considered by this rule either, since it cannot cause confusion for anyone.</p>
+<p>In Razor files (<code>.cshtml</code>, <code>.vbhtml</code>), links inside a Razor comment or a C# comment are not considered either, since they are
+never rendered.</p>
+<p>A link inside a conditional block (for example, an <code>@if</code>/<code>@else</code> pair, a <code>v-if</code>/<code>v-else</code> pair, or a
+JSTL <code>&lt;c:if&gt;</code>) is only compared against links that appear outside any conditional block in the same parent. Two links that both sit
+inside conditional blocks are therefore never flagged against each other, even when their branches are independent rather than mutually exclusive.</p>
+<h3>Code examples</h3>
+<h4>Noncompliant code example</h4>
+<pre data-diff-id="1" data-diff-type="noncompliant">
 &lt;div&gt;
-  &lt;a href="/user/1/edit"&gt;Edit&lt;/a&gt;  &lt;!-- Noncompliant; same text, different targets, same parent --&gt;
-  &lt;a href="/user/2/edit"&gt;Edit&lt;/a&gt;
+  &lt;a href="/user/1/edit"&gt;Edit&lt;/a&gt;
+  &lt;a href="/user/2/edit"&gt;Edit&lt;/a&gt; &lt;!-- Noncompliant: use distinct texts or point to the same target for this link and the one above --&gt;
 &lt;/div&gt;
 </pre>
-<h3>Compliant solution</h3>
-<pre>
-&lt;!-- Different containers: context disambiguates each link --&gt;
-&lt;article&gt;&lt;h2&gt;First post&lt;/h2&gt;&lt;p&gt;…&lt;/p&gt;&lt;a href="/posts/1"&gt;Read more&lt;/a&gt;&lt;/article&gt;
-&lt;article&gt;&lt;h2&gt;Second post&lt;/h2&gt;&lt;p&gt;…&lt;/p&gt;&lt;a href="/posts/2"&gt;Read more&lt;/a&gt;&lt;/article&gt;
-
-&lt;!-- Same container, but with distinct text --&gt;
+<h4>Compliant solution</h4>
+<pre data-diff-id="1" data-diff-type="compliant">
 &lt;div&gt;
   &lt;a href="/user/1/edit"&gt;Edit Alice&lt;/a&gt;
   &lt;a href="/user/2/edit"&gt;Edit Bob&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;!-- Same container, same text, same target --&gt;
-&lt;div&gt;
-  &lt;a href="/help"&gt;Help&lt;/a&gt;
-  &lt;a href="/help"&gt;Help&lt;/a&gt;
 &lt;/div&gt;
 </pre>
 <h2>Resources</h2>
@@ -36,5 +36,9 @@ table row) provides disambiguation.</p>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context">WCAG 2.2 - 2.4.4 Link Purpose (In Context)</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification">WCAG 2.2 - 3.2.4 Consistent Identification</a></li>
   <li>W3C - <a href="https://www.w3.org/WAI/WCAG22/Techniques/html/H30">H30: Providing link text</a></li>
+</ul>
+<h3>Related rules</h3>
+<ul>
+  <li>{rule:Web:S6827} - Anchors should contain accessible content</li>
 </ul>
 
