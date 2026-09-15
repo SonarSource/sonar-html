@@ -47,4 +47,13 @@ class LinksIdenticalTextsDifferentTargetsCheckTest {
         .noMore();
   }
 
+  @Test
+  void razor() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/LinksIdenticalTextsDifferentTargetsCheck.cshtml"), new LinksIdenticalTextsDifferentTargetsCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+        .next().atLine(23).withMessage("Use distinct texts or point to the same target for this link and the one at line 20.")
+        .noMore();
+  }
+
 }
