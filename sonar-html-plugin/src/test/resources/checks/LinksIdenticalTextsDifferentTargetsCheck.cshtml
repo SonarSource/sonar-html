@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Test</title></head>
+<body>
+
+<!-- Compliant: Razor @if/@else branches never render together -->
+<div>
+@if (Model.ShowFirst)
+{
+    <a href="/user/1/edit">Edit</a>
+}
+else
+{
+    <a href="/user/2/edit">Edit</a>
+}
+</div>
+
+<!-- Non-Compliant: conditional link still checked against the unconditional baseline -->
+<div>
+  <a href="/version/1">Version</a>
+@if (Model.ShowExtra)
+{
+    <a href="/version/2">Version</a>          <!-- Non-Compliant -->
+}
+</div>
+
+<!-- Compliant: link inside a Razor comment is not rendered, so it is ignored -->
+<div>
+@*
+  <a href="/promo/1">Promo</a>
+*@
+  <a href="/promo/2">Promo</a>
+</div>
+
+<!-- Compliant: link inside a C# block comment inside a Razor code block is not rendered, so it is ignored -->
+<div>
+@{
+    /* <a href="/offer/1">Offer</a> */
+}
+  <a href="/offer/2">Offer</a>
+</div>
+
+<!-- Compliant: link inside a C# line comment inside a Razor code block is not rendered, so it is ignored -->
+<div>
+@{
+    // <a href="/deal/1">Deal</a>
+}
+  <a href="/deal/2">Deal</a>
+</div>
+
+</body>
+</html>
