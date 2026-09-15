@@ -650,16 +650,40 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
-  void treats_conditional_attributes_as_conditional_scopes() {
+  void identifies_conditional_attribute_hosts() {
     List<Node> nodes = parse("""
       <div v-if="flag" id="vue">Inside</div>
       <div *ngIf="flag" id="angular">Inside</div>
       <div id="plain">Outside</div>
       """);
 
-    assertThat(isConditionalAtLine(nodes, "div", 1)).isTrue();
-    assertThat(isConditionalAtLine(nodes, "div", 2)).isTrue();
-    assertThat(isConditionalAtLine(nodes, "div", 3)).isFalse();
+    assertThat(TemplateConditionalScopeTracker.isConditionalAttributeHost(findTag(nodes, "div", 1))).isTrue();
+    assertThat(TemplateConditionalScopeTracker.isConditionalAttributeHost(findTag(nodes, "div", 2))).isTrue();
+    assertThat(TemplateConditionalScopeTracker.isConditionalAttributeHost(findTag(nodes, "div", 3))).isFalse();
+  }
+
+  @Test
+  void tracks_nested_conditional_attribute_scopes() {
+    List<Node> nodes = parse("""
+      <div *ngIf="parent">
+        <section v-if="child">
+          <span id="nested">Inside</span>
+        </section>
+      </div>
+      """);
+
+    assertThat(conditionalAttributeScopesAtLine(nodes, "span", 3))
+      .extracting(TemplateConditionalScopeTracker.ConditionalAttributeScope::startLine)
+      .containsExactly(1, 2);
+  }
+
+  @Test
+  void tracks_unclosed_void_conditional_attribute_hosts() {
+    List<Node> nodes = parse("<input *ngIf=\"enabled\" id=\"conditional-input\">");
+
+    assertThat(conditionalAttributeScopesAtLine(nodes, "input", 1))
+      .extracting(TemplateConditionalScopeTracker.ConditionalAttributeScope::startLine)
+      .containsExactly(1);
   }
 
   private static List<Node> parse(String content) {
@@ -672,7 +696,7 @@ class TemplateConditionalScopeTrackerTest {
 
   private static boolean isConditional(List<Node> nodes, TagNode target) {
     TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
-    tracker.reset(true);
+    tracker.reset(true, nodes);
     return isConditional(nodes, target, tracker);
   }
 
@@ -688,7 +712,36 @@ class TemplateConditionalScopeTrackerTest {
         } else {
           tracker.startElement(tagNode);
           if (tagNode == target) {
-            return tracker.isInConditional(tagNode);
+            return tracker.isInOpenConditionalScope();
+          }
+          if (tagNode.hasEnd()) {
+            tracker.endElement(tagNode);
+          }
+        }
+      }
+    }
+    throw new IllegalArgumentException("Target tag was not encountered during scan");
+  }
+
+  private static List<TemplateConditionalScopeTracker.ConditionalAttributeScope> conditionalAttributeScopesAtLine(
+    List<Node> nodes,
+    String tagName,
+    int startLine) {
+    TagNode target = findTag(nodes, tagName, startLine);
+    TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+    tracker.reset(true, nodes);
+    for (Node node : nodes) {
+      if (node instanceof TextNode textNode) {
+        tracker.visitText(textNode);
+      } else if (node instanceof DirectiveNode directiveNode) {
+        tracker.visitDirective(directiveNode);
+      } else if (node instanceof TagNode tagNode) {
+        if (tagNode.isEndElement()) {
+          tracker.endElement(tagNode);
+        } else {
+          tracker.startElement(tagNode);
+          if (tagNode == target) {
+            return tracker.conditionalAttributeScopes(tagNode);
           }
           if (tagNode.hasEnd()) {
             tracker.endElement(tagNode);
@@ -701,7 +754,7 @@ class TemplateConditionalScopeTrackerTest {
 
   private static TemplateConditionalScopeTracker scan(List<Node> nodes) {
     TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
-    tracker.reset(true);
+    tracker.reset(true, nodes);
     for (Node node : nodes) {
       if (node instanceof TextNode textNode) {
         tracker.visitText(textNode);
