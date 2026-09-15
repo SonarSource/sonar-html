@@ -3,8 +3,8 @@
   "type": "CODE_SMELL",
   "code": {
     "impacts": {
-      "MAINTAINABILITY": "LOW",
-      "RELIABILITY": "LOW"
+      "MAINTAINABILITY": "MEDIUM",
+      "RELIABILITY": "MEDIUM"
     },
     "attribute": "CONVENTIONAL"
   },
