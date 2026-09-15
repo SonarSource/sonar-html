@@ -1,10 +1,17 @@
 {
   "title": "Links with identical texts should have identical targets",
   "type": "CODE_SMELL",
+  "code": {
+    "impacts": {
+      "MAINTAINABILITY": "LOW",
+      "RELIABILITY": "LOW"
+    },
+    "attribute": "CONVENTIONAL"
+  },
   "status": "ready",
   "remediation": {
     "func": "Constant\/Issue",
-    "constantCost": "15min"
+    "constantCost": "5min"
   },
   "tags": [
     "accessibility"
