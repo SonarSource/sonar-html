@@ -7,7 +7,7 @@
 
 set -e
 
-EXPECTED_DIR="its/ruling/src/test/resources/expected"
+EXPECTED_DIR="its/ruling/src/test/resources/expected/project"
 SOURCES_BASE="its/sources"
 SOURCES_REPO="https://github.com/SonarCommunity/web-test-sources"
 MAX_SNIPPETS=10

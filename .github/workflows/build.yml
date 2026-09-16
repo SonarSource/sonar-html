@@ -164,7 +164,7 @@ jobs:
               echo "Last commit was an auto-update, skipping to prevent infinite loop"
             elif [ -d "its/ruling/target/actual" ]; then
               # Sync ruling results
-              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/
+              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/project/
 
               git config user.name "github-actions[bot]"
               git config user.email "github-actions[bot]@users.noreply.github.com"
