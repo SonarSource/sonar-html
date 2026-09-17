@@ -155,16 +155,19 @@ public class AccessibilityUtils {
   @Nullable
   private static String lastDeclarationValue(String style, String property) {
     String lastValue = null;
+    String importantValue = null;
     for (String declaration : style.split(";")) {
       int colonIndex = declaration.indexOf(':');
-      if (colonIndex < 0) {
+      if (colonIndex < 0 || !property.equalsIgnoreCase(declaration.substring(0, colonIndex).trim())) {
         continue;
       }
-      if (property.equalsIgnoreCase(declaration.substring(0, colonIndex).trim())) {
-        lastValue = declaration.substring(colonIndex + 1);
+      String value = declaration.substring(colonIndex + 1);
+      lastValue = value;
+      if (value.toLowerCase(Locale.ROOT).contains("!important")) {
+        importantValue = value;
       }
     }
-    return lastValue;
+    return importantValue != null ? importantValue : lastValue;
   }
 
   /**
