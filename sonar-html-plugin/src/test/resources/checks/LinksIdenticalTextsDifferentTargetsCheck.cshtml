@@ -65,6 +65,15 @@ else
 }
 </div>
 
+<!-- Compliant: links guarded by mutually exclusive conditional attributes are not compared, even inside the same text branch -->
+<div>
+@if (Model.ShowSection)
+{
+    <a href="/a" *ngIf="isAdmin">Manage</a>
+    <a href="/b" *ngIf="!isAdmin">Manage</a>
+}
+</div>
+
 <!-- Compliant: link inside a Razor comment is not rendered, so it is ignored -->
 <div>
 @*
