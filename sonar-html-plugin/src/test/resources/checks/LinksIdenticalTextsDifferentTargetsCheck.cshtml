@@ -33,8 +33,7 @@ else
   <a href="/plan/2">Plan</a>          <!-- Non-Compliant -->
 </div>
 
-<!-- Known limitation: only the first of two mutually exclusive branches is remembered, so an
-     unconditional sibling matching that first branch hides a mismatch with the other branch -->
+<!-- Non-Compliant: unconditional sibling is checked against every remembered branch, not just the first -->
 <div>
 @if (Model.ShowFirst)
 {
@@ -44,7 +43,16 @@ else
 {
     <a href="/branch/2">Branch</a>
 }
-  <a href="/branch/1">Branch</a>          <!-- False Negative: differs from the else branch, but matches the remembered if branch -->
+  <a href="/branch/1">Branch</a>          <!-- Non-Compliant: matches the if branch, but differs from the else branch -->
+</div>
+
+<!-- Non-Compliant: two links guaranteed to render together in the same conditional branch -->
+<div>
+@if (Model.ShowExtra)
+{
+    <a href="/edit/1">Edit</a>
+    <a href="/edit/2">Edit</a>          <!-- Non-Compliant -->
+}
 </div>
 
 <!-- Compliant: link inside a Razor comment is not rendered, so it is ignored -->

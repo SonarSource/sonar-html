@@ -45,8 +45,7 @@ class LinksIdenticalTextsDifferentTargetsCheckTest {
         .next().atLine(57).withMessage("Use distinct texts or point to the same target for this link and the one at line 56.")
         .next().atLine(91).withMessage("Use distinct texts or point to the same target for this link and the one at line 89.")
         .next().atLine(100).withMessage("Use distinct texts or point to the same target for this link and the one at line 98.")
-        // Known limitation, no violation expected for the "branch" links: only the first of two
-        // mutually exclusive branches is remembered, so the else-branch mismatch is missed.
+        .next().atLine(119).withMessage("Use distinct texts or point to the same target for this link and the one at line 118.")
         .noMore();
   }
 
@@ -57,8 +56,8 @@ class LinksIdenticalTextsDifferentTargetsCheckTest {
     checkMessagesVerifier.verify(sourceCode.getIssues())
         .next().atLine(23).withMessage("Use distinct texts or point to the same target for this link and the one at line 20.")
         .next().atLine(33).withMessage("Use distinct texts or point to the same target for this link and the one at line 31.")
-        // Known limitation, no violation expected for the "branch" links: only the first of two
-        // mutually exclusive branches is remembered, so the else-branch mismatch is missed.
+        .next().atLine(46).withMessage("Use distinct texts or point to the same target for this link and the one at line 44.")
+        .next().atLine(54).withMessage("Use distinct texts or point to the same target for this link and the one at line 53.")
         .noMore();
   }
 
