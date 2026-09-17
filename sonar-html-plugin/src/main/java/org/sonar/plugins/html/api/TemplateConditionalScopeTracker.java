@@ -1293,6 +1293,7 @@ public final class TemplateConditionalScopeTracker {
       pendingConditionalBranchRazorBrace = true;
     }
     pendingConditionalBranchOpenings++;
+    conditionalAttributeState.conditionalBranchGeneration++;
     state.index = continuationIndex;
     return true;
   }
