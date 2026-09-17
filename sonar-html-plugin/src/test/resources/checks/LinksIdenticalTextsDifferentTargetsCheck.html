@@ -56,3 +56,85 @@
   <a href="/x/2">Proceed</a>
   <a href="/x/1">Proceed</a>
 </div>
+
+<!-- Compliant: hidden link (aria-hidden) is excluded from comparison -->
+<div>
+  <a href="/hidden/1" aria-hidden="true" tabindex="-1">Hidden</a>
+  <a href="/hidden/2">Hidden</a>
+</div>
+
+<!-- Compliant: hidden link (hidden attribute) is excluded from comparison -->
+<div>
+  <a href="/hattr/1" hidden>Hattr</a>
+  <a href="/hattr/2">Hattr</a>
+</div>
+
+<!-- Compliant: hidden link (display:none) is excluded from comparison -->
+<div>
+  <a href="/style/1" style="display: none;">Styled</a>
+  <a href="/style/2">Styled</a>
+</div>
+
+<!-- Compliant: hidden link (property-bound hidden="true") is excluded from comparison -->
+<div>
+  <a href="/bound/1" [hidden]="true">Bound</a>
+  <a href="/bound/2">Bound</a>
+</div>
+
+<!-- Compliant: hidden link (property-bound style to a display:none literal) is excluded from comparison -->
+<div>
+  <a href="/boundstyle/1" [attr.style]="'display:none'">BoundStyle</a>
+  <a href="/boundstyle/2">BoundStyle</a>
+</div>
+
+<!-- Non-Compliant: property-bound hidden="false" is not statically known to be hidden, so it is still compared -->
+<div>
+  <a href="/notbound/1" [hidden]="false">NotBound</a>
+  <a href="/notbound/2">NotBound</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Compliant: same parent, conditional branches never render together -->
+<div>
+{% if condition %}
+  <a href="/user/1/edit">Edit</a>
+{% else %}
+  <a href="/user/2/edit">Edit</a>
+{% endif %}
+</div>
+
+<!-- Non-Compliant: conditional link still checked against the unconditional baseline -->
+<div>
+  <a href="/version/1">Version</a>
+{% if condition %}
+  <a href="/version/2">Version</a>          <!-- Non-Compliant -->
+{% endif %}
+</div>
+
+<!-- Non-Compliant: conditional link appearing before its unconditional sibling is still compared -->
+<div>
+{% if condition %}
+  <a href="/plan/1">Plan</a>
+{% endif %}
+  <a href="/plan/2">Plan</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Known limitation: Twig/Jinja style {% if %}/{% else %} has no signal telling branches apart,
+     so only the first of two mutually exclusive branches is remembered, hiding a mismatch with the other -->
+<div>
+{% if condition %}
+  <a href="/branch/1">Branch</a>
+{% else %}
+  <a href="/branch/2">Branch</a>
+{% endif %}
+  <a href="/branch/1">Branch</a>          <!-- False Negative: differs from the else branch, but matches the remembered if branch -->
+</div>
+
+<!-- Non-Compliant: two links guaranteed to render together in the same JSTL branch -->
+<div>
+<c:choose>
+<c:when test="${x}">
+  <a href="/edit/1">Edit</a>
+  <a href="/edit/2">Edit</a>          <!-- Non-Compliant -->
+</c:when>
+</c:choose>
+</div>
