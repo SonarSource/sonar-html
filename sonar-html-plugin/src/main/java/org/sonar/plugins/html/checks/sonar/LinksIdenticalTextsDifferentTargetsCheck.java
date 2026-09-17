@@ -77,8 +77,13 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       line = node.getStartLinePosition();
       linkParent = node.getParent();
       linkHidden = isHiddenLink(node) || conditionalScope.isInNonRenderedRazorContent();
-      linkInConditional = conditionalScope.isInOpenConditionalScope() || !conditionalScope.conditionalAttributeScopes(node).isEmpty();
-      linkBranchId = conditionalScope.isInOpenConditionalScope() ? conditionalScope.currentConditionalBranchId() : null;
+      List<TemplateConditionalScopeTracker.ConditionalAttributeScope> attributeScopes = conditionalScope.conditionalAttributeScopes(node);
+      linkInConditional = conditionalScope.isInOpenConditionalScope() || !attributeScopes.isEmpty();
+      // A link guarded by its own conditional attribute may be mutually exclusive with a sibling in
+      // the same text branch, so it gets no branch identity.
+      linkBranchId = attributeScopes.isEmpty() && conditionalScope.isInOpenConditionalScope()
+        ? conditionalScope.currentConditionalBranchId()
+        : null;
     }
   }
 
