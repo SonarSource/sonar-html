@@ -55,6 +55,16 @@ else
 }
 </div>
 
+<!-- Non-Compliant: three links in the same branch — each later conflict is checked against the first, not the previous one -->
+<div>
+@if (Model.ShowExtra)
+{
+    <a href="/x/1">Proceed</a>
+    <a href="/x/2">Proceed</a>          <!-- Non-Compliant -->
+    <a href="/x/3">Proceed</a>          <!-- Non-Compliant -->
+}
+</div>
+
 <!-- Compliant: link inside a Razor comment is not rendered, so it is ignored -->
 <div>
 @*
