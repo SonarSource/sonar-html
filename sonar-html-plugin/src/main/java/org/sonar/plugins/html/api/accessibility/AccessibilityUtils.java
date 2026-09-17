@@ -65,7 +65,8 @@ public class AccessibilityUtils {
     .map(name -> name.toLowerCase(Locale.ROOT))
     .collect(Collectors.toUnmodifiableSet());
 
-  private static final Pattern DISPLAY_NONE_PATTERN = Pattern.compile("display\\s*:\\s*none", Pattern.CASE_INSENSITIVE);
+  private static final Pattern DISPLAY_NONE_VALUE_PATTERN = Pattern.compile("^\\s*none\\b", Pattern.CASE_INSENSITIVE);
+  private static final String DISPLAY = "display";
   private static final String HIDDEN = "hidden";
 
   private AccessibilityUtils() {
@@ -129,7 +130,7 @@ public class AccessibilityUtils {
    * this does not inspect CSS classes or computed styles — only these purely syntactic, unambiguous signals.
    */
   public static boolean isHiddenByDisplayNone(TagNode element) {
-    return isHiddenAttribute(element) || DISPLAY_NONE_PATTERN.matcher(getStyleOrEmpty(element)).find();
+    return isHiddenAttribute(element) || isHiddenByDisplayStyle(element);
   }
 
   private static boolean isHiddenAttribute(TagNode element) {
@@ -141,9 +142,46 @@ public class AccessibilityUtils {
     return !isBindingForm(hidden, HIDDEN) || "true".equalsIgnoreCase(hidden.getValue());
   }
 
+  private static boolean isHiddenByDisplayStyle(TagNode element) {
+    String lastDisplayValue = lastDeclarationValue(getStyleOrEmpty(element), DISPLAY);
+    return lastDisplayValue != null && DISPLAY_NONE_VALUE_PATTERN.matcher(lastDisplayValue).find();
+  }
+
+  /**
+   * Returns the value of the last {@code property: value} declaration in a semicolon-separated CSS
+   * declaration list, honoring the cascade rule that a later declaration overrides an earlier one
+   * for the same property. Returns {@code null} when {@code property} is absent.
+   */
+  @Nullable
+  private static String lastDeclarationValue(String style, String property) {
+    String lastValue = null;
+    for (String declaration : style.split(";")) {
+      int colonIndex = declaration.indexOf(':');
+      if (colonIndex < 0) {
+        continue;
+      }
+      if (property.equalsIgnoreCase(declaration.substring(0, colonIndex).trim())) {
+        lastValue = declaration.substring(colonIndex + 1);
+      }
+    }
+    return lastValue;
+  }
+
+  /**
+   * Returns the {@code style} declaration text: the raw value for a plain attribute, or the
+   * unwrapped literal for a property-bound one (e.g. {@code [attr.style]="'display:none'"}).
+   * A bound value that isn't a static string literal cannot be resolved, so it yields no text.
+   */
   private static String getStyleOrEmpty(TagNode element) {
-    String style = element.getPropertyValue("style");
-    return style == null ? "" : style;
+    Attribute style = element.getProperty("style");
+    if (style == null) {
+      return "";
+    }
+    if (!isBindingForm(style, "style")) {
+      return style.getValue();
+    }
+    String literal = unwrapStaticStringLiteral(style.getValue());
+    return literal == null ? "" : literal;
   }
 
   public static boolean isDisabledElement(TagNode element) {

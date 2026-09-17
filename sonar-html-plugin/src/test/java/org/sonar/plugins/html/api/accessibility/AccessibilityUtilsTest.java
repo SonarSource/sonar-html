@@ -197,7 +197,9 @@ class AccessibilityUtilsTest {
       Arguments.of(tag(":hidden", "true")),
       Arguments.of(tag("[attr.hidden]", "true")),
       Arguments.of(tag("[attr.style]", "'display:none'")),
-      Arguments.of(tag("[style]", "'display: none'")));
+      Arguments.of(tag("[style]", "'display: none'")),
+      Arguments.of(tag("style", "display: block; display: none")),
+      Arguments.of(tag("style", "display: none !important")));
   }
 
   @ParameterizedTest
@@ -214,6 +216,8 @@ class AccessibilityUtilsTest {
       Arguments.of(tag("aria-hidden", "true")),
       Arguments.of(tag("[hidden]", "false")),
       Arguments.of(tag("[hidden]", "isHidden")),
-      Arguments.of(tag("[style]", "isHiddenStyle")));
+      Arguments.of(tag("[style]", "isHiddenStyle")),
+      Arguments.of(tag("style", "display: none; display: block")),
+      Arguments.of(tag("style", "display: nonexistent")));
   }
 }
