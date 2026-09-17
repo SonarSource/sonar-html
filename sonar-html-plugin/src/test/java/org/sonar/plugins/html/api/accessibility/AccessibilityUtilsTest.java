@@ -191,7 +191,13 @@ class AccessibilityUtilsTest {
       Arguments.of(tag("style", "display:none")),
       Arguments.of(tag("style", "display: none;")),
       Arguments.of(tag("style", "DISPLAY : NONE")),
-      Arguments.of(tag("style", "color: red; display: none")));
+      Arguments.of(tag("style", "color: red; display: none")),
+      Arguments.of(tag("[hidden]", "true")),
+      Arguments.of(tag("v-bind:hidden", "true")),
+      Arguments.of(tag(":hidden", "true")),
+      Arguments.of(tag("[attr.hidden]", "true")),
+      Arguments.of(tag("[attr.style]", "'display:none'")),
+      Arguments.of(tag("[style]", "'display: none'")));
   }
 
   @ParameterizedTest
@@ -205,6 +211,9 @@ class AccessibilityUtilsTest {
       Arguments.of(new TagNode()),
       Arguments.of(tag("style", "color: red")),
       Arguments.of(tag("style", "display: block")),
-      Arguments.of(tag("aria-hidden", "true")));
+      Arguments.of(tag("aria-hidden", "true")),
+      Arguments.of(tag("[hidden]", "false")),
+      Arguments.of(tag("[hidden]", "isHidden")),
+      Arguments.of(tag("[style]", "isHiddenStyle")));
   }
 }

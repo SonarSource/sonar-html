@@ -66,6 +66,7 @@ public class AccessibilityUtils {
     .collect(Collectors.toUnmodifiableSet());
 
   private static final Pattern DISPLAY_NONE_PATTERN = Pattern.compile("display\\s*:\\s*none", Pattern.CASE_INSENSITIVE);
+  private static final String HIDDEN = "hidden";
 
   private AccessibilityUtils() {
     // utility class
@@ -115,7 +116,7 @@ public class AccessibilityUtils {
     return (
       (
         "input".equalsIgnoreCase(element.getNodeName()) &&
-          "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
+          HIDDEN.equalsIgnoreCase(element.getPropertyValue("type"))
       ) ||
         "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
     );
@@ -123,16 +124,25 @@ public class AccessibilityUtils {
 
   /**
    * Returns whether {@code element} is unconditionally hidden from every user via the native
-   * {@code hidden} boolean attribute or an inline {@code style="display: none"}. Unlike
-   * {@link #isHiddenFromScreenReader}, this does not inspect CSS classes or computed styles —
-   * only the two purely syntactic, unambiguous signals.
+   * {@code hidden} boolean attribute (plain or property-bound to {@code true}) or an inline
+   * {@code style="display: none"} (plain or property-bound). Unlike {@link #isHiddenFromScreenReader},
+   * this does not inspect CSS classes or computed styles — only these purely syntactic, unambiguous signals.
    */
   public static boolean isHiddenByDisplayNone(TagNode element) {
-    return element.hasAttribute("hidden") || DISPLAY_NONE_PATTERN.matcher(getStyleOrEmpty(element)).find();
+    return isHiddenAttribute(element) || DISPLAY_NONE_PATTERN.matcher(getStyleOrEmpty(element)).find();
+  }
+
+  private static boolean isHiddenAttribute(TagNode element) {
+    Attribute hidden = element.getProperty(HIDDEN);
+    if (hidden == null) {
+      return false;
+    }
+    // a plain boolean attribute is hidden regardless of its value; a bound one only when bound to true.
+    return !isBindingForm(hidden, HIDDEN) || "true".equalsIgnoreCase(hidden.getValue());
   }
 
   private static String getStyleOrEmpty(TagNode element) {
-    String style = element.getAttribute("style");
+    String style = element.getPropertyValue("style");
     return style == null ? "" : style;
   }
 

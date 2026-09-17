@@ -43,9 +43,10 @@ class LinksIdenticalTextsDifferentTargetsCheckTest {
         .next().atLine(44)
         .next().atLine(56).withMessage("Use distinct texts or point to the same target for this link and the one at line 55.")
         .next().atLine(57).withMessage("Use distinct texts or point to the same target for this link and the one at line 56.")
-        .next().atLine(91).withMessage("Use distinct texts or point to the same target for this link and the one at line 89.")
-        .next().atLine(100).withMessage("Use distinct texts or point to the same target for this link and the one at line 98.")
-        .next().atLine(119).withMessage("Use distinct texts or point to the same target for this link and the one at line 118.")
+        .next().atLine(93).withMessage("Use distinct texts or point to the same target for this link and the one at line 92.")
+        .next().atLine(109).withMessage("Use distinct texts or point to the same target for this link and the one at line 107.")
+        .next().atLine(118).withMessage("Use distinct texts or point to the same target for this link and the one at line 116.")
+        .next().atLine(137).withMessage("Use distinct texts or point to the same target for this link and the one at line 136.")
         .noMore();
   }
 
