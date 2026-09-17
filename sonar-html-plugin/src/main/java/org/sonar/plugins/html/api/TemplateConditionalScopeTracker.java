@@ -181,6 +181,7 @@ public final class TemplateConditionalScopeTracker {
     flushPendingBranchContinuation();
     if (isJstlConditionalTag(node)) {
       tagConditionalDepth++;
+      conditionalAttributeState.conditionalBranchGeneration++;
     }
     if (isScriptTag(node)) {
       scriptDepth++;
@@ -287,6 +288,23 @@ public final class TemplateConditionalScopeTracker {
    */
   public boolean isInOpenConditionalScope() {
     return hasOpenConditionalScope();
+  }
+
+  /**
+   * Returns an identity for the current conditional branch, equal only between positions guaranteed to render together.
+   *
+   * @return a branch identity, or {@code null} when none can be reliably determined
+   */
+  @Nullable
+  public Object currentConditionalBranchId() {
+    if (!hasOpenConditionalScope()) {
+      return null;
+    }
+    if (textConditionalDepth != braceBasedTextConditionalDepth) {
+      // an untracked (Twig/Jinja, PHP colon-style) branch is open somewhere above us
+      return null;
+    }
+    return conditionalAttributeState.conditionalBranchGeneration;
   }
 
   /**
@@ -1333,6 +1351,7 @@ public final class TemplateConditionalScopeTracker {
     int continuationIndex = conditionalContinuationEndIndex(text, state.index - 1);
     if (continuationIndex >= 0) {
       pendingConditionalBranchOpenings++;
+      conditionalAttributeState.conditionalBranchGeneration++;
       state.index = continuationIndex;
     } else {
       closeBraceBasedConditional();
@@ -1363,6 +1382,7 @@ public final class TemplateConditionalScopeTracker {
       return false;
     }
     pendingConditionalBranchOpenings++;
+    conditionalAttributeState.conditionalBranchGeneration++;
     state.index = continuationIndex;
     return true;
   }
@@ -1388,6 +1408,7 @@ public final class TemplateConditionalScopeTracker {
   private void openBraceBasedConditional() {
     braceBasedTextConditionalDepth++;
     pendingConditionalBranchOpenings++;
+    conditionalAttributeState.conditionalBranchGeneration++;
     clearConditionalHeaderTracking();
   }
 
@@ -1412,6 +1433,7 @@ public final class TemplateConditionalScopeTracker {
    */
   private void openConsumedBraceBasedConditional() {
     braceBasedTextConditionalDepth++;
+    conditionalAttributeState.conditionalBranchGeneration++;
     clearConditionalHeaderTracking();
   }
 
@@ -1830,10 +1852,13 @@ public final class TemplateConditionalScopeTracker {
     private final Map<String, AngularIfScope> angularTemplateScopes = new HashMap<>();
     @Nullable
     private String rootVueConditionalBranchStartKey;
+    // Shared bookkeeping, unrelated to conditional attributes: identifies the current text/JSTL branch.
+    private long conditionalBranchGeneration;
 
     private void reset() {
       angularTemplateScopes.clear();
       rootVueConditionalBranchStartKey = null;
+      conditionalBranchGeneration = 0;
     }
   }
 
