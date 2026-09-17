@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Test</title></head>
+<body>
+
+<!-- Compliant: Razor @if/@else branches never render together -->
+<div>
+@if (Model.ShowFirst)
+{
+    <a href="/user/1/edit">Edit</a>
+}
+else
+{
+    <a href="/user/2/edit">Edit</a>
+}
+</div>
+
+<!-- Non-Compliant: conditional link still checked against the unconditional baseline -->
+<div>
+  <a href="/version/1">Version</a>
+@if (Model.ShowExtra)
+{
+    <a href="/version/2">Version</a>          <!-- Non-Compliant -->
+}
+</div>
+
+<!-- Non-Compliant: conditional link appearing before its unconditional sibling is still compared -->
+<div>
+@if (Model.ShowExtra)
+{
+    <a href="/plan/1">Plan</a>
+}
+  <a href="/plan/2">Plan</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Non-Compliant: unconditional sibling is checked against every remembered branch, not just the first -->
+<div>
+@if (Model.ShowFirst)
+{
+    <a href="/branch/1">Branch</a>
+}
+else
+{
+    <a href="/branch/2">Branch</a>
+}
+  <a href="/branch/1">Branch</a>          <!-- Non-Compliant: matches the if branch, but differs from the else branch -->
+</div>
+
+<!-- Non-Compliant: two links guaranteed to render together in the same conditional branch -->
+<div>
+@if (Model.ShowExtra)
+{
+    <a href="/edit/1">Edit</a>
+    <a href="/edit/2">Edit</a>          <!-- Non-Compliant -->
+}
+</div>
+
+<!-- Non-Compliant: three links in the same branch — each later conflict is checked against the first, not the previous one -->
+<div>
+@if (Model.ShowExtra)
+{
+    <a href="/x/1">Proceed</a>
+    <a href="/x/2">Proceed</a>          <!-- Non-Compliant -->
+    <a href="/x/3">Proceed</a>          <!-- Non-Compliant -->
+}
+</div>
+
+<!-- Compliant: link inside a Razor comment is not rendered, so it is ignored -->
+<div>
+@*
+  <a href="/promo/1">Promo</a>
+*@
+  <a href="/promo/2">Promo</a>
+</div>
+
+<!-- Compliant: link inside a C# block comment inside a Razor code block is not rendered, so it is ignored -->
+<div>
+@{
+    /* <a href="/offer/1">Offer</a> */
+}
+  <a href="/offer/2">Offer</a>
+</div>
+
+<!-- Compliant: link inside a C# line comment inside a Razor code block is not rendered, so it is ignored -->
+<div>
+@{
+    // <a href="/deal/1">Deal</a>
+}
+  <a href="/deal/2">Deal</a>
+</div>
+
+<!-- Compliant: @if/@else branches never render together, even when their braces live in rendered markup nested inside a Razor code block -->
+@{
+  <section>
+    @if (Model.ShowPrimary)
+    {
+        <a href="/nested/1">Nested</a>
+    }
+    else
+    {
+        <a href="/nested/2">Nested</a>
+    }
+  </section>
+}
+
+</body>
+</html>
