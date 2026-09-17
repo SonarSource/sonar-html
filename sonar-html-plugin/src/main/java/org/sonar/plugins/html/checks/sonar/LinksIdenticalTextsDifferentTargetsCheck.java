@@ -42,6 +42,8 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   // Only holds links seen outside any conditional branch: the only occurrences guaranteed to
   // render, and therefore the only reliable baseline to compare other links against.
   private final Map<TagNode, Map<String, Link>> unconditionalLinksByParent = new IdentityHashMap<>();
+  // Same keying as above. Holds the first conditional link per parent/text, so a later unconditional sibling can still be compared against it.
+  private final Map<TagNode, Map<String, Link>> pendingConditionalLinksByParent = new IdentityHashMap<>();
 
   private final StringBuilder text = new StringBuilder();
   private String target = "";
@@ -51,6 +53,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   @Override
   public void startDocument(List<Node> nodes) {
     unconditionalLinksByParent.clear();
+    pendingConditionalLinksByParent.clear();
     inLink = false;
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
   }
@@ -110,16 +113,21 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
 
     Map<String, Link> siblingLinks = unconditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>());
     Link previousLink = siblingLinks.get(upperText);
-    if (previousLink == null) {
-      registerBaseline(siblingLinks, upperText);
-    } else if (!target.equals(previousLink.getTarget())) {
-      createViolation(line, "Use distinct texts or point to the same target for this link and the one at line " + previousLink.getLine() + ".");
-      registerBaseline(siblingLinks, upperText);
+    if (previousLink == null && !linkInConditional) {
+      // No unconditional baseline: check for a conditional sibling seen earlier in document order.
+      Map<String, Link> pendingLinks = pendingConditionalLinksByParent.get(linkParent);
+      previousLink = pendingLinks == null ? null : pendingLinks.get(upperText);
     }
-  }
 
-  private void registerBaseline(Map<String, Link> siblingLinks, String upperText) {
-    if (!linkInConditional) {
+    if (previousLink != null && !target.equals(previousLink.getTarget())) {
+      createViolation(line, "Use distinct texts or point to the same target for this link and the one at line " + previousLink.getLine() + ".");
+    }
+
+    if (linkInConditional) {
+      if (previousLink == null) {
+        pendingConditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>()).putIfAbsent(upperText, new Link(line, target));
+      }
+    } else {
       siblingLinks.put(upperText, new Link(line, target));
     }
   }

@@ -24,6 +24,29 @@ else
 }
 </div>
 
+<!-- Non-Compliant: conditional link appearing before its unconditional sibling is still compared -->
+<div>
+@if (Model.ShowExtra)
+{
+    <a href="/plan/1">Plan</a>
+}
+  <a href="/plan/2">Plan</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Known limitation: only the first of two mutually exclusive branches is remembered, so an
+     unconditional sibling matching that first branch hides a mismatch with the other branch -->
+<div>
+@if (Model.ShowFirst)
+{
+    <a href="/branch/1">Branch</a>
+}
+else
+{
+    <a href="/branch/2">Branch</a>
+}
+  <a href="/branch/1">Branch</a>          <!-- False Negative: differs from the else branch, but matches the remembered if branch -->
+</div>
+
 <!-- Compliant: link inside a Razor comment is not rendered, so it is ignored -->
 <div>
 @*
