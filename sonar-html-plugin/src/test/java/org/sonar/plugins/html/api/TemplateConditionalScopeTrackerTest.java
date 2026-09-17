@@ -679,6 +679,23 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void reports_different_branch_ids_across_if_else_in_rendered_markup_inside_a_razor_code_block() {
+    List<Node> nodes = parse("""
+      @{
+        <section>
+          @if (Model.ShowPrimary) {
+            <div id="choice">First</div>
+          } else {
+            <div id="choice">Second</div>
+          }
+        </section>
+      }
+      """);
+
+    assertThat(branchIdAtLine(nodes, "div", 4)).isNotEqualTo(branchIdAtLine(nodes, "div", 6));
+  }
+
+  @Test
   void reports_different_branch_ids_for_jstl_siblings() {
     List<Node> nodes = parse("""
       <c:choose>

@@ -89,5 +89,19 @@ else
   <a href="/deal/2">Deal</a>
 </div>
 
+<!-- Compliant: @if/@else branches never render together, even when their braces live in rendered markup nested inside a Razor code block -->
+@{
+  <section>
+    @if (Model.ShowPrimary)
+    {
+        <a href="/nested/1">Nested</a>
+    }
+    else
+    {
+        <a href="/nested/2">Nested</a>
+    }
+  </section>
+}
+
 </body>
 </html>
