@@ -75,6 +75,24 @@
   <a href="/style/2">Styled</a>
 </div>
 
+<!-- Compliant: hidden link (property-bound hidden="true") is excluded from comparison -->
+<div>
+  <a href="/bound/1" [hidden]="true">Bound</a>
+  <a href="/bound/2">Bound</a>
+</div>
+
+<!-- Compliant: hidden link (property-bound style to a display:none literal) is excluded from comparison -->
+<div>
+  <a href="/boundstyle/1" [attr.style]="'display:none'">BoundStyle</a>
+  <a href="/boundstyle/2">BoundStyle</a>
+</div>
+
+<!-- Non-Compliant: property-bound hidden="false" is not statically known to be hidden, so it is still compared -->
+<div>
+  <a href="/notbound/1" [hidden]="false">NotBound</a>
+  <a href="/notbound/2">NotBound</a>          <!-- Non-Compliant -->
+</div>
+
 <!-- Compliant: same parent, conditional branches never render together -->
 <div>
 {% if condition %}
