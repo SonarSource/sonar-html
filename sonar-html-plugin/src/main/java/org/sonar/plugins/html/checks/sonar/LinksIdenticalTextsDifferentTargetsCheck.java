@@ -16,11 +16,13 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.TemplateConditionalScopeTracker;
@@ -37,13 +39,15 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   private boolean inLink;
   private boolean linkHidden;
   private boolean linkInConditional;
+  @Nullable
+  private Object linkBranchId;
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
   // Outer key: parent TagNode (null = document root). Inner key: uppercased link text.
   // Only holds links seen outside any conditional branch: the only occurrences guaranteed to
   // render, and therefore the only reliable baseline to compare other links against.
   private final Map<TagNode, Map<String, Link>> unconditionalLinksByParent = new IdentityHashMap<>();
-  // Same keying as above. Holds the first conditional link per parent/text, so a later unconditional sibling can still be compared against it.
-  private final Map<TagNode, Map<String, Link>> pendingConditionalLinksByParent = new IdentityHashMap<>();
+  // Same keying as above, plus branch identity (null when a branch can't be reliably told apart from a sibling).
+  private final Map<TagNode, Map<String, Map<Object, Link>>> pendingConditionalLinksByParent = new IdentityHashMap<>();
 
   private final StringBuilder text = new StringBuilder();
   private String target = "";
@@ -74,6 +78,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       linkParent = node.getParent();
       linkHidden = isHiddenLink(node) || conditionalScope.isInNonRenderedRazorContent();
       linkInConditional = conditionalScope.isInOpenConditionalScope() || !conditionalScope.conditionalAttributeScopes(node).isEmpty();
+      linkBranchId = conditionalScope.isInOpenConditionalScope() ? conditionalScope.currentConditionalBranchId() : null;
     }
   }
 
@@ -113,10 +118,13 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
 
     Map<String, Link> siblingLinks = unconditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>());
     Link previousLink = siblingLinks.get(upperText);
-    if (previousLink == null && !linkInConditional) {
-      // No unconditional baseline: check for a conditional sibling seen earlier in document order.
-      Map<String, Link> pendingLinks = pendingConditionalLinksByParent.get(linkParent);
-      previousLink = pendingLinks == null ? null : pendingLinks.get(upperText);
+    if (previousLink == null) {
+      Map<Object, Link> pendingBranches = pendingBranches(upperText);
+      if (linkInConditional) {
+        previousLink = linkBranchId == null ? null : pendingBranches.get(linkBranchId);
+      } else {
+        previousLink = firstConflictingLink(pendingBranches, target);
+      }
     }
 
     if (previousLink != null && !target.equals(previousLink.getTarget())) {
@@ -124,12 +132,31 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     }
 
     if (linkInConditional) {
-      if (previousLink == null) {
-        pendingConditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>()).putIfAbsent(upperText, new Link(line, target));
-      }
+      pendingConditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>())
+        .computeIfAbsent(upperText, k -> new HashMap<>())
+        .putIfAbsent(linkBranchId, new Link(line, target));
     } else {
       siblingLinks.put(upperText, new Link(line, target));
     }
+  }
+
+  private Map<Object, Link> pendingBranches(String upperText) {
+    Map<String, Map<Object, Link>> byText = pendingConditionalLinksByParent.get(linkParent);
+    if (byText == null) {
+      return Collections.emptyMap();
+    }
+    return byText.getOrDefault(upperText, Collections.emptyMap());
+  }
+
+  @Nullable
+  private static Link firstConflictingLink(Map<Object, Link> pendingBranches, String target) {
+    Link earliest = null;
+    for (Link candidate : pendingBranches.values()) {
+      if (!target.equals(candidate.getTarget()) && (earliest == null || candidate.getLine() < earliest.getLine())) {
+        earliest = candidate;
+      }
+    }
+    return earliest;
   }
 
   private static boolean isA(TagNode node) {
