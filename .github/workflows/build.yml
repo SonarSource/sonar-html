@@ -234,6 +234,7 @@ jobs:
     needs: [build]
     runs-on: github-ubuntu-latest-s
     strategy:
+      fail-fast: false
       matrix:
         include:
           - platform: sqc-eu
