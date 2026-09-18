@@ -139,7 +139,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     }
 
     if (previousLink != null && !target.equals(previousLink.getTarget())) {
-      createViolation(line, "Use distinct texts or point to the same target for this link and the one at line " + previousLink.getLine() + ".");
+      createViolation(line, "Use a distinct text or label, or point to the same target for this link and the one on line " + previousLink.getLine() + ".");
     }
 
     if (linkInConditional) {
