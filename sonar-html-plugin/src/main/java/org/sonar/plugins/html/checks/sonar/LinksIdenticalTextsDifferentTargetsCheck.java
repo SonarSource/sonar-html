@@ -41,13 +41,17 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   private boolean linkInConditional;
   @Nullable
   private Object linkBranchId;
+  @Nullable
+  private String linkLabelledBy;
+  @Nullable
+  private String linkAriaLabel;
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
-  // Outer key: parent TagNode (null = document root). Inner key: uppercased link text.
+  // Outer key: parent TagNode (null = document root). Inner key: the link's accessible name, see NameKey.
   // Only holds links seen outside any conditional branch: the only occurrences guaranteed to
   // render, and therefore the only reliable baseline to compare other links against.
-  private final Map<TagNode, Map<String, Link>> unconditionalLinksByParent = new IdentityHashMap<>();
+  private final Map<TagNode, Map<NameKey, Link>> unconditionalLinksByParent = new IdentityHashMap<>();
   // Same keying as above, plus branch identity (null when a branch can't be reliably told apart from a sibling).
-  private final Map<TagNode, Map<String, Map<Object, Link>>> pendingConditionalLinksByParent = new IdentityHashMap<>();
+  private final Map<TagNode, Map<NameKey, Map<Object, Link>>> pendingConditionalLinksByParent = new IdentityHashMap<>();
 
   private final StringBuilder text = new StringBuilder();
   private String target = "";
@@ -77,6 +81,8 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       line = node.getStartLinePosition();
       linkParent = node.getParent();
       linkHidden = isHiddenLink(node) || conditionalScope.isInNonRenderedRazorContent();
+      linkLabelledBy = nonDynamicPropertyValue(node, "aria-labelledby");
+      linkAriaLabel = nonDynamicPropertyValue(node, "aria-label");
       List<TemplateConditionalScopeTracker.ConditionalAttributeScope> attributeScopes = conditionalScope.conditionalAttributeScopes(node);
       linkInConditional = conditionalScope.isInOpenConditionalScope() || !attributeScopes.isEmpty();
       // A link guarded by its own conditional attribute may be mutually exclusive with a sibling in
@@ -116,15 +122,15 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   }
 
   private void recordOrCompareLink() {
-    String upperText = text.toString().toUpperCase(Locale.ENGLISH).trim();
-    if (upperText.isEmpty()) {
+    NameKey nameKey = computeNameKey();
+    if (nameKey == null) {
       return;
     }
 
-    Map<String, Link> siblingLinks = unconditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>());
-    Link previousLink = siblingLinks.get(upperText);
+    Map<NameKey, Link> siblingLinks = unconditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>());
+    Link previousLink = siblingLinks.get(nameKey);
     if (previousLink == null) {
-      Map<Object, Link> pendingBranches = pendingBranches(upperText);
+      Map<Object, Link> pendingBranches = pendingBranches(nameKey);
       if (linkInConditional) {
         previousLink = linkBranchId == null ? null : pendingBranches.get(linkBranchId);
       } else {
@@ -138,19 +144,58 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
 
     if (linkInConditional) {
       pendingConditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>())
-        .computeIfAbsent(upperText, k -> new HashMap<>())
+        .computeIfAbsent(nameKey, k -> new HashMap<>())
         .putIfAbsent(linkBranchId, new Link(line, target));
     } else {
-      siblingLinks.put(upperText, new Link(line, target));
+      siblingLinks.put(nameKey, new Link(line, target));
     }
   }
 
-  private Map<Object, Link> pendingBranches(String upperText) {
-    Map<String, Map<Object, Link>> byText = pendingConditionalLinksByParent.get(linkParent);
-    if (byText == null) {
+  /**
+   * Accessible-name comparison key, by precedence: {@code aria-labelledby} (id-ref), then
+   * {@code aria-label}, then text content.
+   */
+  @Nullable
+  private NameKey computeNameKey() {
+    if (linkLabelledBy != null) {
+      String normalized = normalizeWhitespace(linkLabelledBy);
+      if (!normalized.isEmpty()) {
+        return new NameKey(NameSource.LABELLEDBY, normalized);
+      }
+    }
+    if (linkAriaLabel != null) {
+      String normalized = linkAriaLabel.toUpperCase(Locale.ENGLISH).trim();
+      if (!normalized.isEmpty()) {
+        return new NameKey(NameSource.LABEL, normalized);
+      }
+    }
+    String upperText = text.toString().toUpperCase(Locale.ENGLISH).trim();
+    return upperText.isEmpty() ? null : new NameKey(NameSource.TEXT, upperText);
+  }
+
+  private static String normalizeWhitespace(String value) {
+    return value.trim().replaceAll("\\s+", " ");
+  }
+
+  /**
+   * Returns the value of {@code propertyName} on {@code node}, or {@code null} when the attribute
+   * is absent, blank, or a template/server-side expression whose runtime value can't be known statically.
+   */
+  @Nullable
+  private String nonDynamicPropertyValue(TagNode node, String propertyName) {
+    String value = node.getPropertyValue(propertyName);
+    if (value == null || value.isBlank() || Helpers.isDynamicValue(value, getHtmlSourceCode())) {
+      return null;
+    }
+    return value;
+  }
+
+  private Map<Object, Link> pendingBranches(NameKey nameKey) {
+    Map<NameKey, Map<Object, Link>> byName = pendingConditionalLinksByParent.get(linkParent);
+    if (byName == null) {
       return Collections.emptyMap();
     }
-    return byText.getOrDefault(upperText, Collections.emptyMap());
+    return byName.getOrDefault(nameKey, Collections.emptyMap());
   }
 
   @Nullable
@@ -186,6 +231,20 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       return target;
     }
 
+  }
+
+  /**
+   * The ARIA source a link's accessible-name comparison key was derived from. Kept distinct from
+   * the key's value so links compared via different sources (e.g. an id reference vs. literal text)
+   * never collide even if their normalized values happen to match.
+   */
+  private enum NameSource {
+    LABELLEDBY,
+    LABEL,
+    TEXT
+  }
+
+  private record NameKey(NameSource source, String value) {
   }
 
 }

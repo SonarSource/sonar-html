@@ -7,6 +7,12 @@ are intentionally not flagged: WCAG 2.4.4 explicitly allows identical link text 
 table row) provides disambiguation.</p>
 <h3>Exceptions</h3>
 <p>This rule only considers <code>&lt;a&gt;</code> elements.</p>
+<p>When present, <code>aria-labelledby</code> or <code>aria-label</code> determines the name compared instead of the visible text, since that is
+what a screen reader announces for the link. <code>aria-labelledby</code> takes precedence over <code>aria-label</code>, which in turn takes
+precedence over the visible text. <code>aria-labelledby</code> is compared by its id reference rather than by resolving the text of the referenced
+element, so two links referencing different ids are never flagged against each other even if the referenced elements happen to contain the same
+text; for the same reason, a link identified by <code>aria-labelledby</code> or <code>aria-label</code> is never compared against a link identified
+by its plain visible text.</p>
 <p>A link with no text content is not considered by this rule; a completely empty link is reported by {rule:Web:S6827} instead.</p>
 <p>A link that is hidden from assistive technologies, for example with <code>aria-hidden="true"</code>, or hidden from every user, for example with
 the <code>hidden</code> attribute or <code>style="display: none"</code>, is not considered by this rule either, since it would never be announced by
