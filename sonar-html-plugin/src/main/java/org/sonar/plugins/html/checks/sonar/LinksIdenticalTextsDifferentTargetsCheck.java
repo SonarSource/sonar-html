@@ -164,7 +164,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       }
     }
     if (linkAriaLabel != null) {
-      String normalized = linkAriaLabel.toUpperCase(Locale.ENGLISH).trim();
+      String normalized = normalizeWhitespace(linkAriaLabel).toUpperCase(Locale.ENGLISH);
       if (!normalized.isEmpty()) {
         return new NameKey(NameSource.LABEL, normalized);
       }
