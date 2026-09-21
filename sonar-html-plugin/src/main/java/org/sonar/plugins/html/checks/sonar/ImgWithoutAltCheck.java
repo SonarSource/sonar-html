@@ -31,7 +31,11 @@ import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "ImgWithoutAltCheck")
 public class ImgWithoutAltCheck extends AbstractPageCheck {
-  private static final String MESSAGE = "Provide alternative text for this element.";
+  private static final String IMG_MESSAGE = "This <img> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String AREA_MESSAGE = "This <area> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String INPUT_IMAGE_MESSAGE = "This <input type=\"image\"> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String SVG_MESSAGE = "This <svg> lacks an accessible name; add a \"title\" child, \"aria-label\", or \"aria-labelledby\", " +
+    "or mark it as decorative (e.g. aria-hidden or role=\"presentation\").";
 
   /**
    * Tracks one currently-open {@code <svg>}: whether it is already known to need no accessible
@@ -59,8 +63,16 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    if (requiresAlternativeText(node)) {
-      createViolation(node, MESSAGE);
+    if (isImgTag(node) && !hasImgAlternativeText(node)) {
+      createViolation(node, IMG_MESSAGE);
+      return;
+    }
+    if (isImageInput(node) && !hasRequiredAlternativeText(node)) {
+      createViolation(node, INPUT_IMAGE_MESSAGE);
+      return;
+    }
+    if (isAreaTag(node) && !hasRequiredAlternativeText(node)) {
+      createViolation(node, AREA_MESSAGE);
       return;
     }
     if (isSvgTag(node)) {
@@ -110,7 +122,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     if (isSvgTag(node)) {
       openSvgs.pop();
       if (!current.exempt && !current.titleTextFound) {
-        createViolation(current.svgNode, MESSAGE);
+        createViolation(current.svgNode, SVG_MESSAGE);
       }
     }
   }
@@ -121,17 +133,6 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
 
   private static boolean isTitleTag(TagNode node) {
     return "TITLE".equalsIgnoreCase(node.getNodeName());
-  }
-
-  /**
-   * Returns whether the current element should raise S1077 immediately.
-   *
-   * @param node the element being visited
-   * @return {@code true} when the element is missing its required alternative text
-   */
-  private static boolean requiresAlternativeText(TagNode node) {
-    return (isImgTag(node) && !hasImgAlternativeText(node)) ||
-      ((isImageInput(node) || isAreaTag(node)) && !hasRequiredAlternativeText(node));
   }
 
   private static boolean isImgTag(TagNode node) {
