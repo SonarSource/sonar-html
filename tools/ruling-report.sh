@@ -85,9 +85,19 @@ get_github_url() {
 }
 
 # Function to get file content from base branch
+# Tries the exact path first, then falls back to known legacy locations
+# to handle file moves (e.g. expected/Foo.json -> expected/project/Foo.json)
 get_base_content() {
   local file_path="$1"
-  git show "${BASE_BRANCH}:${file_path}" 2>/dev/null || echo "{}"
+  local content
+  content=$(git show "${BASE_BRANCH}:${file_path}" 2>/dev/null) && { echo "$content"; return; }
+
+  # Fallback: try legacy flat expected/ directory (before project/ subdirectory was introduced)
+  local filename
+  filename=$(basename "$file_path")
+  content=$(git show "${BASE_BRANCH}:its/ruling/src/test/resources/expected/${filename}" 2>/dev/null) && { echo "$content"; return; }
+
+  echo "{}"
 }
 
 # Start report
