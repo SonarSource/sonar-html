@@ -63,6 +63,23 @@ class ImgWithoutAltCheckTest {
   }
 
   @Test
+  void detectsSvgWithoutAccessibleName() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckSvg.html"), new ImgWithoutAltCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage(MESSAGE)
+      .next().atLine(3)
+      .next().atLine(5)
+      .next().atLine(13)
+      .next().atLine(14)
+      .next().atLine(15)
+      .next().atLine(16)
+      .next().atLine(23)
+      .next().atLine(28)
+      .noMore();
+  }
+
+  @Test
   void rejectsEmptyThymeleafAlternativeText() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckThymeleaf.html"), new ImgWithoutAltCheck());
 
