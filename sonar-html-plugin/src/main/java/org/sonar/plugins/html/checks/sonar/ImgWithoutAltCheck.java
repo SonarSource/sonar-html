@@ -16,31 +16,123 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Thymeleaf;
+import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
+import org.sonar.plugins.html.api.accessibility.SvgAccessibleName;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.ExpressionNode;
+import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
+import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "ImgWithoutAltCheck")
 public class ImgWithoutAltCheck extends AbstractPageCheck {
-  private static final String MESSAGE = "Provide alternative text for this element.";
+  private static final String IMG_MESSAGE = "This <img> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String AREA_MESSAGE = "This <area> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String INPUT_IMAGE_MESSAGE = "This <input type=\"image\"> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String SVG_MESSAGE = "This <svg> lacks an accessible name; add a \"title\" child, \"aria-label\", or \"aria-labelledby\", " +
+    "or mark it as decorative (e.g. aria-hidden or role=\"presentation\").";
 
-  @Override
-  public void startElement(TagNode node) {
-    if (requiresAlternativeText(node)) {
-      createViolation(node, MESSAGE);
+  /**
+   * Tracks one currently-open {@code <svg>}: whether it is already known to need no accessible
+   * name (hidden from AT, or decorative), and whether a direct-child {@code <title>} with
+   * non-blank text has been found while streaming through its children.
+   */
+  private static final class SvgTracker {
+    private final TagNode svgNode;
+    private final boolean exempt;
+    private boolean trackingTitle;
+    private boolean titleTextFound;
+
+    private SvgTracker(TagNode svgNode, boolean exempt) {
+      this.svgNode = svgNode;
+      this.exempt = exempt;
     }
   }
 
-  /**
-   * Returns whether the current element should raise S1077 immediately.
-   *
-   * @param node the element being visited
-   * @return {@code true} when the element is missing its required alternative text
-   */
-  private static boolean requiresAlternativeText(TagNode node) {
-    return (isImgTag(node) && !hasImgAlternativeText(node)) ||
-      ((isImageInput(node) || isAreaTag(node)) && !hasRequiredAlternativeText(node));
+  private final Deque<SvgTracker> openSvgs = new ArrayDeque<>();
+
+  @Override
+  public void startDocument(List<Node> nodes) {
+    openSvgs.clear();
+  }
+
+  @Override
+  public void startElement(TagNode node) {
+    if (isImgTag(node) && !hasImgAlternativeText(node)) {
+      createViolation(node, IMG_MESSAGE);
+      return;
+    }
+    if (isImageInput(node) && !hasRequiredAlternativeText(node)) {
+      createViolation(node, INPUT_IMAGE_MESSAGE);
+      return;
+    }
+    if (isAreaTag(node) && !hasRequiredAlternativeText(node)) {
+      createViolation(node, AREA_MESSAGE);
+      return;
+    }
+    if (isSvgTag(node)) {
+      boolean exempt = hasAccessibleName(node)
+        || SvgAccessibleName.isHiddenFromAssistiveTech(node)
+        || SvgAccessibleName.hasEffectivelyPresentationalRole(node);
+      openSvgs.push(new SvgTracker(node, exempt));
+      return;
+    }
+    SvgTracker current = openSvgs.peek();
+    if (current != null && !current.exempt && isTitleTag(node) && node.getParent() == current.svgNode) {
+      current.trackingTitle = true;
+      if (AccessibilityUtils.hasNonEmptyTemplateTextAttribute(node)) {
+        // th:text/th:utext/v-text/v-html or an [innerHTML]/[innerText]/[textContent] binding
+        // supplies the title's text at render time; we can't see the value, so assume it's there.
+        current.titleTextFound = true;
+      }
+    }
+  }
+
+  @Override
+  public void characters(TextNode textNode) {
+    SvgTracker current = openSvgs.peek();
+    if (current != null && current.trackingTitle && !textNode.isBlank()) {
+      current.titleTextFound = true;
+    }
+  }
+
+  @Override
+  public void expression(ExpressionNode node) {
+    // JSP-style <%= ... %> expression inside the tracked <title>: value unknown, assume present.
+    SvgTracker current = openSvgs.peek();
+    if (current != null && current.trackingTitle) {
+      current.titleTextFound = true;
+    }
+  }
+
+  @Override
+  public void endElement(TagNode node) {
+    SvgTracker current = openSvgs.peek();
+    if (current == null) {
+      return;
+    }
+    if (current.trackingTitle && isTitleTag(node)) {
+      current.trackingTitle = false;
+    }
+    if (isSvgTag(node)) {
+      openSvgs.pop();
+      if (!current.exempt && !current.titleTextFound) {
+        createViolation(current.svgNode, SVG_MESSAGE);
+      }
+    }
+  }
+
+  private static boolean isSvgTag(TagNode node) {
+    return "SVG".equalsIgnoreCase(node.getNodeName());
+  }
+
+  private static boolean isTitleTag(TagNode node) {
+    return "TITLE".equalsIgnoreCase(node.getNodeName());
   }
 
   private static boolean isImgTag(TagNode node) {
