@@ -189,6 +189,17 @@ jobs:
             HAS_DIFFERENCES=false
           fi
 
+          # Truncate ruling report if it would exceed GitHub's 65536 character limit for comments.
+          # Truncating before composing comment.md ensures the status footer is always preserved.
+          MAX_REPORT_LENGTH=64000
+          if [ "$(wc -c < ruling-report.md)" -gt "$MAX_REPORT_LENGTH" ]; then
+            head -c "$MAX_REPORT_LENGTH" ruling-report.md | iconv -c -f utf-8 -t utf-8 > r.tmp
+            # close an unbalanced code fence
+            if [ $(( $(grep -c '^```' r.tmp) % 2 )) -eq 1 ]; then printf '\n```\n' >> r.tmp; fi
+            printf '\n\n⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling JSON files for full details._\n' >> r.tmp
+            mv r.tmp ruling-report.md
+          fi
+
           # Build comment based on state
           if [ "$HAS_DIFFERENCES" = "true" ]; then
             {
@@ -216,19 +227,6 @@ jobs:
                 echo "✅ **No changes to ruling expected issues in this PR**"
               fi
             } > comment.md
-          fi
-
-          # Truncate comment if it exceeds GitHub's 65536 character limit for comments
-          MAX_COMMENT_LENGTH=65000
-          if [ "$(wc -c < comment.md)" -gt "$MAX_COMMENT_LENGTH" ]; then
-            head -c "$MAX_COMMENT_LENGTH" comment.md > comment-truncated.md
-            {
-              echo ""
-              echo ""
-              echo "---"
-              echo "⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling JSON files for full details._"
-            } >> comment-truncated.md
-            mv comment-truncated.md comment.md
           fi
 
           # Find existing ruling comment and update it, or create new one
