@@ -161,7 +161,7 @@ jobs:
               echo "Last commit was an auto-update, skipping to prevent infinite loop"
             elif [ -d "its/ruling/target/actual" ]; then
               # Sync ruling results
-              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/
+              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/project/
 
               git config user.name "github-actions[bot]"
               git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -216,6 +216,19 @@ jobs:
                 echo "✅ **No changes to ruling expected issues in this PR**"
               fi
             } > comment.md
+          fi
+
+          # Truncate comment if it exceeds GitHub's 65536 character limit for comments
+          MAX_COMMENT_LENGTH=65000
+          if [ "$(wc -c < comment.md)" -gt "$MAX_COMMENT_LENGTH" ]; then
+            head -c "$MAX_COMMENT_LENGTH" comment.md > comment-truncated.md
+            {
+              echo ""
+              echo ""
+              echo "---"
+              echo "⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling JSON files for full details._"
+            } >> comment-truncated.md
+            mv comment-truncated.md comment.md
           fi
 
           # Find existing ruling comment and update it, or create new one
