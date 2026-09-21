@@ -21,8 +21,10 @@ import java.util.Deque;
 import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Thymeleaf;
+import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
 import org.sonar.plugins.html.api.accessibility.SvgAccessibleName;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.Node;
 import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.node.TextNode;
@@ -71,6 +73,11 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     SvgTracker current = openSvgs.peek();
     if (current != null && !current.exempt && isTitleTag(node) && node.getParent() == current.svgNode) {
       current.trackingTitle = true;
+      if (AccessibilityUtils.hasNonEmptyTemplateTextAttribute(node)) {
+        // th:text/th:utext/v-text/v-html or an [innerHTML]/[innerText]/[textContent] binding
+        // supplies the title's text at render time; we can't see the value, so assume it's there.
+        current.titleTextFound = true;
+      }
     }
   }
 
@@ -78,6 +85,15 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   public void characters(TextNode textNode) {
     SvgTracker current = openSvgs.peek();
     if (current != null && current.trackingTitle && !textNode.isBlank()) {
+      current.titleTextFound = true;
+    }
+  }
+
+  @Override
+  public void expression(ExpressionNode node) {
+    // JSP-style <%= ... %> expression inside the tracked <title>: value unknown, assume present.
+    SvgTracker current = openSvgs.peek();
+    if (current != null && current.trackingTitle) {
       current.titleTextFound = true;
     }
   }

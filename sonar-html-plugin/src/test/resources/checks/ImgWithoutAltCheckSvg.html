@@ -26,3 +26,9 @@
 <svg :aria-hidden="isDecorative"></svg>
 <svg [role]="dynamicRole"></svg>
 <svg><svg><title>Inner</title></svg></svg>
+<svg><title th:text="#{logo}"></title></svg>
+<svg><title><%= label %></title></svg>
+<svg><title v-text="label"></title></svg>
+<svg><title v-html="label"></title></svg>
+<svg><title [textContent]="label"></title></svg>
+<svg><title [innerHTML]="label"></title></svg>
