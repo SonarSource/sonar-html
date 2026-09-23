@@ -1,0 +1,42 @@
+{
+"project:Silverpeas-Core-master/war-core/src/main/webapp/defaultReInitPassword.jsp": [
+94
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp": [
+185
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/click-label.html": [
+37,
+38
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/form/test1.html": [
+39,
+43
+],
+"project:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html": [
+123,
+124,
+149,
+173,
+174,
+175
+],
+"project:external_webkit-jb-mr1/Tools/TestResultServer/templates/uploadform.html": [
+13,
+17,
+21
+],
+"project:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
+422
+],
+"project:voten/resources/assets/js/components/passport/Clients.vue": [
+103,
+117,
+171,
+185
+],
+"project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+86,
+95
+]
+}

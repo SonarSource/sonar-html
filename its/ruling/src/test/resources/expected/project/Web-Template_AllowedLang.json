@@ -1,0 +1,20 @@
+{
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/hanarei-blog32-fc2-com.html": [
+2
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/japanese-encoding-mix.html": [
+2
+],
+"project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html": [
+18829,
+18832,
+18850,
+18853,
+18869,
+18872,
+18947,
+18951,
+18962,
+84860
+]
+}

@@ -1,0 +1,47 @@
+{
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/autofill-popup-location.html": [
+18
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb": [
+19
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb": [
+18
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_comment_form.html.erb": [
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_edit_comment_form.html.erb": [
+6
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb": [
+66
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_severity_form.html.erb": [
+7
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_show_modal.html.erb": [
+5
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_shared_form.html.erb": [
+5
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb": [
+13
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb": [
+13
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb": [
+15
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb": [
+17
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb": [
+17
+],
+"project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb": [
+16
+]
+}

@@ -1,0 +1,43 @@
+{
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/DOMContextMenuEvent.html": [
+47
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animate-duration.html": [
+49,
+54,
+59
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/bugzilla-6821.html": [
+51
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/canvas-mask-redraw.html": [
+60
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/computed-transform-value.html": [
+25
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image.html": [
+23
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-with-div-or-image-as-data-image.html": [
+43
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/hover-subframe-1.html": [
+25
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/hover-subframe-2.html": [
+25
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/transition-delay.html": [
+47
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/transition-events.html": [
+79
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/win/contextmenu-key2.html": [
+1
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/statusbubble.html": [
+66
+]
+}
