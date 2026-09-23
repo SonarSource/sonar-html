@@ -46,6 +46,7 @@ jobs:
           name: build-output-${{ steps.build_maven.outputs.BUILD_NUMBER }}
           path: '**/target'
           retention-days: 3
+          overwrite: true
 
       # Publish the deployed plugin version for the pvf
       - run: printf '%s\n' "$PROJECT_VERSION" > candidate-version.txt
