@@ -1,0 +1,2014 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "notifications" : [ ],
+        "rules" : [ ],
+        "taxa" : [ ],
+        "locations" : [ ],
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false,
+        "supportedTaxonomies" : [ ]
+      },
+      "extensions" : [ ]
+    },
+    "invocations" : [ ],
+    "language" : "en-US",
+    "versionControlProvenance" : [ ],
+    "artifacts" : [ ],
+    "logicalLocations" : [ ],
+    "graphs" : [ ],
+    "results" : [ {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"agenda\" found. First occurrence was on line 574.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 580,
+            "endLine" : 580,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"GroupId\" found. First occurrence was on line 321.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 323,
+            "endLine" : 323,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"admin-treeview\" found. First occurrence was on line 66.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 72,
+            "endLine" : 72,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"space-icon\" found. First occurrence was on line 137.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 143,
+            "endLine" : 143,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"EDform\" found. First occurrence was on line 186.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 200,
+            "endLine" : 200,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"termsCell\" found. First occurrence was on line 329.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/thesaurus.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 331,
+            "endLine" : 331,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/media-default-playback-rate.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 80,
+            "endLine" : 80,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/media-default-playback-rate.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 81,
+            "endLine" : 81,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/media-default-playback-rate.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 82,
+            "endLine" : 82,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/media-default-playback-rate.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 85,
+            "endLine" : 85,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/media-default-playback-rate.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 86,
+            "endLine" : 86,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 21.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/onbeforeunload-close_with_javascript.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 28,
+            "endLine" : 28,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 51,
+            "endLine" : 51,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54,
+            "endLine" : 54,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 63,
+            "endLine" : 63,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 66,
+            "endLine" : 66,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 75,
+            "endLine" : 75,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 78,
+            "endLine" : 78,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 93,
+            "endLine" : 93,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 96,
+            "endLine" : 96,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 106,
+            "endLine" : 106,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 109,
+            "endLine" : 109,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 119,
+            "endLine" : 119,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 122,
+            "endLine" : 122,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 138,
+            "endLine" : 138,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 142,
+            "endLine" : 142,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 161,
+            "endLine" : 161,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 164,
+            "endLine" : 164,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 173,
+            "endLine" : 173,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 176,
+            "endLine" : 176,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 191,
+            "endLine" : 191,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 194,
+            "endLine" : 194,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 211,
+            "endLine" : 211,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 213,
+            "endLine" : 213,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"test\" found. First occurrence was on line 20.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/textfield-onblur.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "endLine" : 34,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"import-button\" found. First occurrence was on line 228.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 229,
+            "endLine" : 229,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"most-violated-rules-<%= widget.id -%>-<%= severity -%>\" found. First occurrence was on line 58.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 66,
+            "endLine" : 66,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41,
+            "endLine" : 41,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 98,
+            "endLine" : 98,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/action_plans/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 99,
+            "endLine" : 99,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"alerts\" found. First occurrence was on line 14.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"block_<%= widget.id -%>\" found. First occurrence was on line 21.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_widget.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "endLine" : 38,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"copy-<%= filter.name.parameterize -%>\" found. First occurrence was on line 60.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/manage.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 111,
+            "endLine" : 111,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"crumbs\" found. First occurrence was on line 8.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_breadcrumb.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 44,
+            "endLine" : 44,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"crumbs-ops\" found. First occurrence was on line 9.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_breadcrumb.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 45,
+            "endLine" : 45,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"bc\" found. First occurrence was on line 19.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_breadcrumb.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55,
+            "endLine" : 55,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"copy-<%= filter.name.parameterize -%>\" found. First occurrence was on line 67.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/manage.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 118,
+            "endLine" : 118,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"rule_<%= u(diff.rule.key) -%>\" found. First occurrence was on line 52.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/compare.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 79,
+            "endLine" : 79,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"rule_<%= u(diff.rule.key) -%>\" found. First occurrence was on line 52.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/compare.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 109,
+            "endLine" : 109,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"version_<%= index -%>_change\" found. First occurrence was on line 66.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/history.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 75,
+            "endLine" : 75,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"duplLoading-<%= group_index -%>\" found. First occurrence was on line 12.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/resource/_duplications_source_snippet.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 24,
+            "endLine" : 24,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S7930",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Duplicate id \"rule_available_since_<%= rule.id -%>\" found. First occurrence was on line 117.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/_rule.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 119,
+            "endLine" : 119,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    } ],
+    "runAggregates" : [ ],
+    "redactionTokens" : [ ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "threadFlowLocations" : [ ],
+    "taxonomies" : [ ],
+    "addresses" : [ ],
+    "translations" : [ ],
+    "policies" : [ ],
+    "webRequests" : [ ],
+    "webResponses" : [ ]
+  } ],
+  "inlineExternalProperties" : [ ]
+}
