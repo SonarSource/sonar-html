@@ -84,6 +84,16 @@ class ImgWithoutAltCheckTest {
   }
 
   @Test
+  void exemptsDecorativeImg() {
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckDecorative.html"), new ImgWithoutAltCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues())
+      .next().atLine(1).withMessage(IMG_MESSAGE)
+      .next().atLine(4)
+      .noMore();
+  }
+
+  @Test
   void rejectsEmptyThymeleafAlternativeText() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckThymeleaf.html"), new ImgWithoutAltCheck());
 

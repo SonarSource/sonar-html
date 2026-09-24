@@ -25,10 +25,10 @@ import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.sonar.plugins.html.api.accessibility.SvgAccessibleName.hasEffectivelyPresentationalRole;
-import static org.sonar.plugins.html.api.accessibility.SvgAccessibleName.isHiddenFromAssistiveTech;
+import static org.sonar.plugins.html.api.accessibility.AccessibleNameExemption.hasEffectivelyPresentationalRole;
+import static org.sonar.plugins.html.api.accessibility.AccessibleNameExemption.isHiddenFromAssistiveTech;
 
-class SvgAccessibleNameTest {
+class AccessibleNameExemptionTest {
 
   @Test
   void notHiddenByDefault() {

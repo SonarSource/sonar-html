@@ -22,7 +22,7 @@ import java.util.List;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
-import org.sonar.plugins.html.api.accessibility.SvgAccessibleName;
+import org.sonar.plugins.html.api.accessibility.AccessibleNameExemption;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.ExpressionNode;
 import org.sonar.plugins.html.node.Node;
@@ -77,8 +77,8 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     }
     if (isSvgTag(node)) {
       boolean exempt = hasAccessibleName(node)
-        || SvgAccessibleName.isHiddenFromAssistiveTech(node)
-        || SvgAccessibleName.hasEffectivelyPresentationalRole(node);
+        || AccessibleNameExemption.isHiddenFromAssistiveTech(node)
+        || AccessibleNameExemption.hasEffectivelyPresentationalRole(node);
       openSvgs.push(new SvgTracker(node, exempt));
       return;
     }
@@ -149,13 +149,18 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
   }
 
   /**
-   * Returns whether an image element exposes alternative text.
+   * Returns whether an image element exposes alternative text, or is exempt from needing one
+   * because it is hidden from assistive technology or marked decorative (e.g. {@code role="presentation"}).
    *
    * @param node the image element to inspect
-   * @return {@code true} when the image has an alt-like alternative text
+   * @return {@code true} when the image has an alt-like alternative text, or does not need one
    */
   private static boolean hasImgAlternativeText(TagNode node) {
-    return node.hasProperty("alt") || hasAccessibleName(node) || hasThymeleafAltAttribute(node);
+    return node.hasProperty("alt")
+      || hasAccessibleName(node)
+      || hasThymeleafAltAttribute(node)
+      || AccessibleNameExemption.isHiddenFromAssistiveTech(node)
+      || AccessibleNameExemption.hasEffectivelyPresentationalRole(node);
   }
 
   /**

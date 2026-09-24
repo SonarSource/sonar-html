@@ -23,23 +23,23 @@ import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 /**
- * Whether an inline {@code <svg>} is exempt from needing an accessible name because it is hidden
- * from assistive technology or is effectively decorative. Not knowing (an Angular/Vue binding
- * controls {@code aria-hidden}/{@code role}) is treated the same as being exempt, to avoid flagging
- * an SVG whose real, runtime value we cannot see statically.
+ * Whether an element is exempt from needing an accessible name because it is hidden from
+ * assistive technology or is effectively decorative. Not knowing (an Angular/Vue binding controls
+ * {@code aria-hidden}/{@code role}) is treated the same as being exempt, to avoid flagging an
+ * element whose real, runtime value we cannot see statically.
  */
-public final class SvgAccessibleName {
+public final class AccessibleNameExemption {
 
-  private SvgAccessibleName() {
+  private AccessibleNameExemption() {
   }
 
   /**
-   * Returns whether {@code svg} is hidden from assistive technology: {@code aria-hidden="true"} on
-   * the element itself or on any ancestor, or {@code aria-hidden} bound via an Angular/Vue property
-   * binding (on itself or an ancestor) whose runtime value cannot be determined statically.
+   * Returns whether {@code element} is hidden from assistive technology: {@code aria-hidden="true"}
+   * on the element itself or on any ancestor, or {@code aria-hidden} bound via an Angular/Vue
+   * property binding (on itself or an ancestor) whose runtime value cannot be determined statically.
    */
-  public static boolean isHiddenFromAssistiveTech(TagNode svg) {
-    return isHiddenOrHasBoundVisibility(svg) || Helpers.hasAncestorMatching(svg, SvgAccessibleName::isHiddenOrHasBoundVisibility);
+  public static boolean isHiddenFromAssistiveTech(TagNode element) {
+    return isHiddenOrHasBoundVisibility(element) || Helpers.hasAncestorMatching(element, AccessibleNameExemption::isHiddenOrHasBoundVisibility);
   }
 
   private static boolean isHiddenOrHasBoundVisibility(TagNode node) {
@@ -51,17 +51,17 @@ public final class SvgAccessibleName {
   }
 
   /**
-   * Returns whether {@code svg} has an effectively presentational/decorative role: the first valid,
-   * non-abstract token of its {@code role} attribute's fallback list is {@code presentation} or
-   * {@code none}, or {@code role} is bound via an Angular/Vue property binding whose runtime value
-   * cannot be determined statically.
+   * Returns whether {@code element} has an effectively presentational/decorative role: the first
+   * valid, non-abstract token of its {@code role} attribute's fallback list is {@code presentation}
+   * or {@code none}, or {@code role} is bound via an Angular/Vue property binding whose runtime
+   * value cannot be determined statically.
    */
-  public static boolean hasEffectivelyPresentationalRole(TagNode svg) {
-    Attribute roleProperty = svg.getProperty("role");
+  public static boolean hasEffectivelyPresentationalRole(TagNode element) {
+    Attribute roleProperty = element.getProperty("role");
     if (roleProperty != null && AccessibilityUtils.isBindingForm(roleProperty, "role")) {
       return true;
     }
-    String roleAttr = svg.getAttribute("role");
+    String roleAttr = element.getAttribute("role");
     if (roleAttr == null || roleAttr.isBlank()) {
       return false;
     }
