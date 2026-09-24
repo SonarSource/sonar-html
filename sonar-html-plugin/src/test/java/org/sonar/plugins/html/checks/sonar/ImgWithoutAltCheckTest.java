@@ -85,6 +85,14 @@ class ImgWithoutAltCheckTest {
   }
 
   @Test
+  void knownLimitationDoesNotResolveAriaLabelledbyReference() {
+    // aria-labelledby's referenced id is never resolved, left out on purpose (see PR #850 discussion_r4073255142).
+    HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckSvgAriaLabelledbyResolution.html"), new ImgWithoutAltCheck());
+
+    checkMessagesVerifier.verify(sourceCode.getIssues()).noMore();
+  }
+
+  @Test
   void exemptsDecorativeImg() {
     HtmlSourceCode sourceCode = TestHelper.scan(new File("src/test/resources/checks/ImgWithoutAltCheckDecorative.html"), new ImgWithoutAltCheck());
 
