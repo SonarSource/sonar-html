@@ -25,11 +25,12 @@ import org.sonar.plugins.html.checks.TestHelper;
 import org.sonar.plugins.html.visitor.HtmlSourceCode;
 
 class ImgWithoutAltCheckTest {
-  private static final String IMG_MESSAGE = "This <img> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String IMG_MESSAGE = "This <img> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\")."
+    + " Alternatively, mark it as decorative (e.g. aria-hidden or role=\"presentation\").";
   private static final String AREA_MESSAGE = "This <area> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
   private static final String INPUT_IMAGE_MESSAGE = "This <input type=\"image\"> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
-  private static final String SVG_MESSAGE = "This <svg> lacks an accessible name; add a \"title\" child, \"aria-label\", or \"aria-labelledby\", " +
-    "or mark it as decorative (e.g. aria-hidden or role=\"presentation\").";
+  private static final String SVG_MESSAGE = "This <svg> lacks an accessible name; add a \"title\" child, \"aria-label\", or \"aria-labelledby\"."
+    + " Alternatively, mark it as decorative (e.g. aria-hidden or role=\"presentation\").";
 
   @RegisterExtension
   public CheckMessagesVerifierRule checkMessagesVerifier = new CheckMessagesVerifierRule();

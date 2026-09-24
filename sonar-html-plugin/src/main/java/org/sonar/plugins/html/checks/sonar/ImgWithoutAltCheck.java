@@ -31,11 +31,12 @@ import org.sonar.plugins.html.node.TextNode;
 
 @Rule(key = "ImgWithoutAltCheck")
 public class ImgWithoutAltCheck extends AbstractPageCheck {
-  private static final String IMG_MESSAGE = "This <img> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
-  private static final String AREA_MESSAGE = "This <area> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
-  private static final String INPUT_IMAGE_MESSAGE = "This <input type=\"image\"> lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
-  private static final String SVG_MESSAGE = "This <svg> lacks an accessible name; add a \"title\" child, \"aria-label\", or \"aria-labelledby\", " +
-    "or mark it as decorative (e.g. aria-hidden or role=\"presentation\").";
+  private static final String MISSING_ALT_MESSAGE_TEMPLATE = "This %s lacks an accessible name; add an \"alt\" attribute (or \"aria-label\"/\"aria-labelledby\").";
+  private static final String DECORATIVE_HINT = " Alternatively, mark it as decorative (e.g. aria-hidden or role=\"presentation\").";
+  private static final String IMG_MESSAGE = String.format(MISSING_ALT_MESSAGE_TEMPLATE, "<img>") + DECORATIVE_HINT;
+  private static final String AREA_MESSAGE = String.format(MISSING_ALT_MESSAGE_TEMPLATE, "<area>");
+  private static final String INPUT_IMAGE_MESSAGE = String.format(MISSING_ALT_MESSAGE_TEMPLATE, "<input type=\"image\">");
+  private static final String SVG_MESSAGE = "This <svg> lacks an accessible name; add a \"title\" child, \"aria-label\", or \"aria-labelledby\"." + DECORATIVE_HINT;
 
   /**
    * Tracks one currently-open {@code <svg>}: whether it is already known to need no accessible
