@@ -122,8 +122,8 @@ public class AccessibilityUtils {
 
   /**
    * Returns whether {@code element} carries the native {@code hidden} boolean attribute, plain or
-   * property-bound to {@code true}. Unlike {@link #isHiddenFromScreenReader}, this does not inspect
-   * CSS classes or inline styles — only this purely syntactic, unambiguous signal.
+   * property-bound to {@code true}. Unlike {@link #isHiddenFromScreenReader}, which checks
+   * {@code aria-hidden}, this detects elements hidden from every user.
    */
   public static boolean hasHiddenAttribute(TagNode element) {
     Attribute hidden = element.getProperty(HIDDEN);
