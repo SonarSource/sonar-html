@@ -45,13 +45,11 @@ class AccessibilityUtilsTest {
       Arguments.of(tag("hidden", "hidden"), true),
       // the "until-found" value still removes the element from the AT tree until it is revealed
       Arguments.of(tag("hidden", "until-found"), true),
-      // Angular/Vue bindings: the runtime value can't be resolved statically, so any binding
-      // spelling of "hidden" is treated as hidden to avoid a false positive
-      Arguments.of(tag("[hidden]", "isCollapsed"), true),
-      Arguments.of(tag(":hidden", "isCollapsed"), true),
-      Arguments.of(tag("v-bind:hidden", "isCollapsed"), true),
-      Arguments.of(tag("[attr.hidden]", "isCollapsed"), true),
-      Arguments.of(tag("attr.hidden", "isCollapsed"), true),
+      // a bound "hidden" is not a literal match: this shared helper is used by callers (e.g.
+      // AnchorsHaveContentCheck) for which assuming "hidden" would itself cause a false positive,
+      // so indeterminate bindings are resolved by callers that need it, like AccessibleNameExemption
+      Arguments.of(tag("[hidden]", "isCollapsed"), false),
+      Arguments.of(tag(":hidden", "isCollapsed"), false),
       Arguments.of(tag("aria-hidden", "true"), true),
       Arguments.of(tag("aria-hidden", "false"), false),
       Arguments.of(inputOfType("hidden"), true),

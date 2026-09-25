@@ -29,3 +29,5 @@
 <a :[innerHTML]="linkLabel"></a>                <!-- Noncompliant -->
 <a><button hidden></button></a>                 <!-- Noncompliant -->
 <a><button hidden></button>Click me</a>
+<a><img src="img.jpg" [hidden]="isMobile"/></a>
+<a><img src="img.jpg" :hidden="isMobile"/></a>

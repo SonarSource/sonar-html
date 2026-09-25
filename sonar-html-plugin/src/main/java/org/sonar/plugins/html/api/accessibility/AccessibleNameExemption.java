@@ -25,8 +25,8 @@ import org.sonar.plugins.html.node.TagNode;
 /**
  * Whether an element is exempt from needing an accessible name because it is hidden from
  * assistive technology or is effectively decorative. Not knowing (an Angular/Vue binding controls
- * {@code aria-hidden}/{@code role}) is treated the same as being exempt, to avoid flagging an
- * element whose real, runtime value we cannot see statically.
+ * {@code aria-hidden}/{@code hidden}/{@code role}) is treated the same as being exempt, to avoid
+ * flagging an element whose real, runtime value we cannot see statically.
  */
 public final class AccessibleNameExemption {
 
@@ -35,8 +35,9 @@ public final class AccessibleNameExemption {
 
   /**
    * Returns whether {@code element} is hidden from assistive technology: {@code aria-hidden="true"}
-   * on the element itself or on any ancestor, or {@code aria-hidden} bound via an Angular/Vue
-   * property binding (on itself or an ancestor) whose runtime value cannot be determined statically.
+   * or the {@code hidden} attribute, on the element itself or on any ancestor, or either one bound
+   * via an Angular/Vue property binding (on itself or an ancestor) whose runtime value cannot be
+   * determined statically.
    */
   public static boolean isHiddenFromAssistiveTech(TagNode element) {
     return isHiddenOrHasBoundVisibility(element) || Helpers.hasAncestorMatching(element, AccessibleNameExemption::isHiddenOrHasBoundVisibility);
@@ -47,7 +48,11 @@ public final class AccessibleNameExemption {
       return true;
     }
     Attribute ariaHidden = node.getProperty("aria-hidden");
-    return ariaHidden != null && AccessibilityUtils.isBindingForm(ariaHidden, "aria-hidden");
+    if (ariaHidden != null && AccessibilityUtils.isBindingForm(ariaHidden, "aria-hidden")) {
+      return true;
+    }
+    Attribute hidden = node.getProperty("hidden");
+    return hidden != null && AccessibilityUtils.isBindingForm(hidden, "hidden");
   }
 
   /**

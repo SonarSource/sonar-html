@@ -115,8 +115,7 @@ public class AccessibilityUtils {
           "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
       ) ||
         "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden")) ||
-        // also matches Angular/Vue bindings of "hidden", whose runtime value is unresolvable
-        element.hasProperty("hidden")
+        element.hasAttribute("hidden")
     );
   }
 
