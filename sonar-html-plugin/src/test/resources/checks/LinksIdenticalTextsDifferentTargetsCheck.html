@@ -56,3 +56,139 @@
   <a href="/x/2">Proceed</a>
   <a href="/x/1">Proceed</a>
 </div>
+
+<!-- Compliant: hidden link (aria-hidden) is excluded from comparison -->
+<div>
+  <a href="/hidden/1" aria-hidden="true" tabindex="-1">Hidden</a>
+  <a href="/hidden/2">Hidden</a>
+</div>
+
+<!-- Compliant: hidden link (hidden attribute) is excluded from comparison -->
+<div>
+  <a href="/hattr/1" hidden>Hattr</a>
+  <a href="/hattr/2">Hattr</a>
+</div>
+
+<!-- Compliant: hidden link (property-bound hidden="true") is excluded from comparison -->
+<div>
+  <a href="/bound/1" [hidden]="true">Bound</a>
+  <a href="/bound/2">Bound</a>
+</div>
+
+<!-- Compliant: both links are hidden by a grandparent's aria-hidden, even though neither the link nor
+     its immediate parent carries any hidden-related attribute -->
+<section aria-hidden="true">
+  <div>
+    <a href="/ancestorhidden/1">AncestorHidden</a>
+    <a href="/ancestorhidden/2">AncestorHidden</a>
+  </div>
+</section>
+
+<!-- Compliant: both links are hidden by a grandparent's hidden attribute -->
+<section hidden>
+  <div>
+    <a href="/ancestorhattr/1">AncestorHattr</a>
+    <a href="/ancestorhattr/2">AncestorHattr</a>
+  </div>
+</section>
+
+<!-- Non-Compliant: property-bound hidden="false" is not statically known to be hidden, so it is still compared -->
+<div>
+  <a href="/notbound/1" [hidden]="false">NotBound</a>
+  <a href="/notbound/2">NotBound</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Compliant: same parent, conditional branches never render together -->
+<div>
+{% if condition %}
+  <a href="/user/1/edit">Edit</a>
+{% else %}
+  <a href="/user/2/edit">Edit</a>
+{% endif %}
+</div>
+
+<!-- Non-Compliant: conditional link still checked against the unconditional baseline -->
+<div>
+  <a href="/version/1">Version</a>
+{% if condition %}
+  <a href="/version/2">Version</a>          <!-- Non-Compliant -->
+{% endif %}
+</div>
+
+<!-- Non-Compliant: conditional link appearing before its unconditional sibling is still compared -->
+<div>
+{% if condition %}
+  <a href="/plan/1">Plan</a>
+{% endif %}
+  <a href="/plan/2">Plan</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Known limitation: Twig/Jinja style {% if %}/{% else %} has no signal telling branches apart,
+     so only the first of two mutually exclusive branches is remembered, hiding a mismatch with the other -->
+<div>
+{% if condition %}
+  <a href="/branch/1">Branch</a>
+{% else %}
+  <a href="/branch/2">Branch</a>
+{% endif %}
+  <a href="/branch/1">Branch</a>          <!-- False Negative: differs from the else branch, but matches the remembered if branch -->
+</div>
+
+<!-- Non-Compliant: two links guaranteed to render together in the same JSTL branch -->
+<div>
+<c:choose>
+<c:when test="${x}">
+  <a href="/edit/1">Edit</a>
+  <a href="/edit/2">Edit</a>          <!-- Non-Compliant -->
+</c:when>
+</c:choose>
+</div>
+
+<!-- Compliant: aria-label takes precedence over differing visible text, and matches here -->
+<div>
+  <a href="/account/1" aria-label="Account settings">Edit</a>
+  <a href="/account/1" aria-label="Account settings">Manage</a>
+</div>
+
+<!-- Non-Compliant: same aria-label, different targets, even though visible text differs -->
+<div>
+  <a href="/profile/1" aria-label="Your profile">Edit</a>
+  <a href="/profile/2" aria-label="Your profile">Manage</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Compliant: aria-labelledby takes precedence over aria-label/text, and matches here -->
+<div>
+  <a href="/order/1" aria-labelledby="order-title" aria-label="ignored">Edit</a>
+  <a href="/order/1" aria-labelledby="order-title" aria-label="different">Manage</a>
+</div>
+
+<!-- Non-Compliant: same aria-labelledby id reference, different targets -->
+<div>
+  <a href="/ticket/1" aria-labelledby="ticket-title">Edit</a>
+  <a href="/ticket/2" aria-labelledby="ticket-title">Manage</a>          <!-- Non-Compliant -->
+</div>
+
+<!-- Compliant (known limitation): aria-labelledby is compared by its raw id reference, not by
+     resolving the referenced elements' text, so different ids pointing at identically-worded
+     elements are not linked together even though they point to different destinations -->
+<h2 id="title-a">Overview</h2>
+<h2 id="title-b">Overview</h2>
+<div>
+  <a href="/report/1" aria-labelledby="title-a">Open</a>
+  <a href="/report/2" aria-labelledby="title-b">Open</a>
+</div>
+
+<!-- Compliant: an id reference is never compared against literal text or an aria-label, even
+     when the strings coincide -->
+<div>
+  <a href="/task/1" aria-labelledby="TASKS">Open</a>
+  <a href="/task/2">TASKS</a>
+  <a href="/task/3" aria-label="TASKS">Open</a>
+</div>
+
+<!-- Non-Compliant: a dynamic aria-label can't be resolved statically, so comparison falls back to
+     the identical visible text -->
+<div>
+  <a href="/item/1" aria-label="{{ dynamicLabel }}">Item</a>
+  <a href="/item/2" aria-label="{{ dynamicLabel }}">Item</a>          <!-- Non-Compliant -->
+</div>

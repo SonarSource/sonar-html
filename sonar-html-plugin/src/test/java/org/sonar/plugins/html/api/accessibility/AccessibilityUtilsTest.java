@@ -177,4 +177,35 @@ class AccessibilityUtilsTest {
     node.getAttributes().add(new Attribute(attributeName, attributeValue));
     return node;
   }
+
+  @ParameterizedTest
+  @MethodSource("hasHiddenAttribute")
+  void detectsHiddenAttribute(TagNode node) {
+    assertThat(AccessibilityUtils.hasHiddenAttribute(node)).isTrue();
+  }
+
+  private static Stream<Arguments> hasHiddenAttribute() {
+    return Stream.of(
+      Arguments.of(tag("hidden", "")),
+      Arguments.of(tag("hidden", "hidden")),
+      Arguments.of(tag("[hidden]", "true")),
+      Arguments.of(tag("v-bind:hidden", "true")),
+      Arguments.of(tag(":hidden", "true")),
+      Arguments.of(tag("[attr.hidden]", "true")));
+  }
+
+  @ParameterizedTest
+  @MethodSource("doesNotHaveHiddenAttribute")
+  void doesNotDetectHiddenAttribute(TagNode node) {
+    assertThat(AccessibilityUtils.hasHiddenAttribute(node)).isFalse();
+  }
+
+  private static Stream<Arguments> doesNotHaveHiddenAttribute() {
+    return Stream.of(
+      Arguments.of(new TagNode()),
+      Arguments.of(tag("style", "display: none")),
+      Arguments.of(tag("aria-hidden", "true")),
+      Arguments.of(tag("[hidden]", "false")),
+      Arguments.of(tag("[hidden]", "isHidden")));
+  }
 }
