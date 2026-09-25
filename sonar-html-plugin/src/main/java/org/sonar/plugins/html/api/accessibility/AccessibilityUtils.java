@@ -64,6 +64,8 @@ public class AccessibilityUtils {
     .map(name -> name.toLowerCase(Locale.ROOT))
     .collect(Collectors.toUnmodifiableSet());
 
+  private static final String HIDDEN = "hidden";
+
   private AccessibilityUtils() {
     // utility class
   }
@@ -112,10 +114,24 @@ public class AccessibilityUtils {
     return (
       (
         "input".equalsIgnoreCase(element.getNodeName()) &&
-          "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
+          HIDDEN.equalsIgnoreCase(element.getPropertyValue("type"))
       ) ||
         "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
     );
+  }
+
+  /**
+   * Returns whether {@code element} carries the native {@code hidden} boolean attribute, plain or
+   * property-bound to {@code true}. Unlike {@link #isHiddenFromScreenReader}, this does not inspect
+   * CSS classes or inline styles — only this purely syntactic, unambiguous signal.
+   */
+  public static boolean hasHiddenAttribute(TagNode element) {
+    Attribute hidden = element.getProperty(HIDDEN);
+    if (hidden == null) {
+      return false;
+    }
+    // a plain boolean attribute is hidden regardless of its value; a bound one only when bound to true.
+    return !isBindingForm(hidden, HIDDEN) || "true".equalsIgnoreCase(hidden.getValue());
   }
 
   public static boolean isDisabledElement(TagNode element) {
