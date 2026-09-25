@@ -93,8 +93,22 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     }
   }
 
+  /**
+   * Returns whether {@code node} or any of its ancestors is hidden from every user. Hiding a
+   * container also hides everything inside it, so a link can be invisible without carrying any
+   * hidden-related attribute itself.
+   */
   private static boolean isHiddenLink(TagNode node) {
-    return AccessibilityUtils.isHiddenFromScreenReader(node) || AccessibilityUtils.isHiddenByDisplayNone(node);
+    for (TagNode current = node; current != null; current = current.getParent()) {
+      if (isHidden(current)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean isHidden(TagNode node) {
+    return AccessibilityUtils.isHiddenFromScreenReader(node) || AccessibilityUtils.hasHiddenAttribute(node);
   }
 
   private static String getTarget(TagNode node) {

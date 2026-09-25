@@ -69,23 +69,28 @@
   <a href="/hattr/2">Hattr</a>
 </div>
 
-<!-- Compliant: hidden link (display:none) is excluded from comparison -->
-<div>
-  <a href="/style/1" style="display: none;">Styled</a>
-  <a href="/style/2">Styled</a>
-</div>
-
 <!-- Compliant: hidden link (property-bound hidden="true") is excluded from comparison -->
 <div>
   <a href="/bound/1" [hidden]="true">Bound</a>
   <a href="/bound/2">Bound</a>
 </div>
 
-<!-- Compliant: hidden link (property-bound style to a display:none literal) is excluded from comparison -->
-<div>
-  <a href="/boundstyle/1" [attr.style]="'display:none'">BoundStyle</a>
-  <a href="/boundstyle/2">BoundStyle</a>
-</div>
+<!-- Compliant: both links are hidden by a grandparent's aria-hidden, even though neither the link nor
+     its immediate parent carries any hidden-related attribute -->
+<section aria-hidden="true">
+  <div>
+    <a href="/ancestorhidden/1">AncestorHidden</a>
+    <a href="/ancestorhidden/2">AncestorHidden</a>
+  </div>
+</section>
+
+<!-- Compliant: both links are hidden by a grandparent's hidden attribute -->
+<section hidden>
+  <div>
+    <a href="/ancestorhattr/1">AncestorHattr</a>
+    <a href="/ancestorhattr/2">AncestorHattr</a>
+  </div>
+</section>
 
 <!-- Non-Compliant: property-bound hidden="false" is not statically known to be hidden, so it is still compared -->
 <div>

@@ -179,45 +179,33 @@ class AccessibilityUtilsTest {
   }
 
   @ParameterizedTest
-  @MethodSource("hiddenByDisplayNone")
-  void detectsElementsHiddenByDisplayNone(TagNode node) {
-    assertThat(AccessibilityUtils.isHiddenByDisplayNone(node)).isTrue();
+  @MethodSource("hasHiddenAttribute")
+  void detectsHiddenAttribute(TagNode node) {
+    assertThat(AccessibilityUtils.hasHiddenAttribute(node)).isTrue();
   }
 
-  private static Stream<Arguments> hiddenByDisplayNone() {
+  private static Stream<Arguments> hasHiddenAttribute() {
     return Stream.of(
       Arguments.of(tag("hidden", "")),
       Arguments.of(tag("hidden", "hidden")),
-      Arguments.of(tag("style", "display:none")),
-      Arguments.of(tag("style", "display: none;")),
-      Arguments.of(tag("style", "DISPLAY : NONE")),
-      Arguments.of(tag("style", "color: red; display: none")),
       Arguments.of(tag("[hidden]", "true")),
       Arguments.of(tag("v-bind:hidden", "true")),
       Arguments.of(tag(":hidden", "true")),
-      Arguments.of(tag("[attr.hidden]", "true")),
-      Arguments.of(tag("[attr.style]", "'display:none'")),
-      Arguments.of(tag("[style]", "'display: none'")),
-      Arguments.of(tag("style", "display: block; display: none")),
-      Arguments.of(tag("style", "display: none !important")));
+      Arguments.of(tag("[attr.hidden]", "true")));
   }
 
   @ParameterizedTest
-  @MethodSource("notHiddenByDisplayNone")
-  void doesNotFlagElementsThatAreNotHiddenByDisplayNone(TagNode node) {
-    assertThat(AccessibilityUtils.isHiddenByDisplayNone(node)).isFalse();
+  @MethodSource("doesNotHaveHiddenAttribute")
+  void doesNotDetectHiddenAttribute(TagNode node) {
+    assertThat(AccessibilityUtils.hasHiddenAttribute(node)).isFalse();
   }
 
-  private static Stream<Arguments> notHiddenByDisplayNone() {
+  private static Stream<Arguments> doesNotHaveHiddenAttribute() {
     return Stream.of(
       Arguments.of(new TagNode()),
-      Arguments.of(tag("style", "color: red")),
-      Arguments.of(tag("style", "display: block")),
+      Arguments.of(tag("style", "display: none")),
       Arguments.of(tag("aria-hidden", "true")),
       Arguments.of(tag("[hidden]", "false")),
-      Arguments.of(tag("[hidden]", "isHidden")),
-      Arguments.of(tag("[style]", "isHiddenStyle")),
-      Arguments.of(tag("style", "display: none; display: block")),
-      Arguments.of(tag("style", "display: nonexistent")));
+      Arguments.of(tag("[hidden]", "isHidden")));
   }
 }

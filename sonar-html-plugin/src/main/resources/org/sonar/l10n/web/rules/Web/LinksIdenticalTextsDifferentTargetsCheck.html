@@ -15,8 +15,8 @@ text; for the same reason, a link identified by <code>aria-labelledby</code> or 
 by its plain visible text.</p>
 <p>A link with no text content is not considered by this rule; a completely empty link is reported by {rule:Web:S6827} instead.</p>
 <p>A link that is hidden from assistive technologies, for example with <code>aria-hidden="true"</code>, or hidden from every user, for example with
-the <code>hidden</code> attribute or <code>style="display: none"</code>, is not considered by this rule either, since it would never be announced by
-the screen reader that lists all links on the page.</p>
+the <code>hidden</code> attribute, is not considered by this rule either, since it would never be announced by the screen reader that lists all
+links on the page. This also applies when the link inherits that state from an ancestor: hiding a container hides everything inside it.</p>
 <p>A link inside a conditional block, for example an <code>@if</code>/<code>@else</code> pair or an anchor carrying
 <code>v-if</code>/<code>v-else</code>, is not compared against a link in a different branch of the same condition.</p>
 <h3>Code examples</h3>
