@@ -18,6 +18,7 @@ package org.sonar.plugins.html.analyzers;
 
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -28,6 +29,7 @@ public class ComplexityVisitor extends AbstractPageCheck {
 
   private static final Set<String> OPERATORS = Set.of("&&", "||", "and", "or");
   private static final Set<String> TAGS = Set.of("catch", "choose", "if", "forEach", "forTokens", "when");
+  private static final Pattern WHITESPACE_PATTERN = Pattern.compile("[ \t\n]");
 
   private int complexity;
 
@@ -52,7 +54,7 @@ public class ComplexityVisitor extends AbstractPageCheck {
     // count complexity in expressions
     for (Attribute a : node.getAttributes()) {
       if (isUnifiedExpression(a.getValue())) {
-        String[] tokens = a.getValue().split("[ \t\n]");
+        String[] tokens = WHITESPACE_PATTERN.split(a.getValue());
 
         for (String token : tokens) {
           if (OPERATORS.contains(token)) {
