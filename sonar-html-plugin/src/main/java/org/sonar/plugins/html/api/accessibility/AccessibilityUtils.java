@@ -114,7 +114,9 @@ public class AccessibilityUtils {
         "input".equalsIgnoreCase(element.getNodeName()) &&
           "hidden".equalsIgnoreCase(element.getPropertyValue("type"))
       ) ||
-        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
+        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden")) ||
+        // also matches Angular/Vue bindings of "hidden", whose runtime value is unresolvable
+        element.hasProperty("hidden")
     );
   }
 

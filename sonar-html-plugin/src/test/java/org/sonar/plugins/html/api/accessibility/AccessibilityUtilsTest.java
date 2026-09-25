@@ -27,9 +27,42 @@ import org.sonar.plugins.html.node.TagNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.getTemplateTextValue;
+import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.isHiddenFromScreenReader;
 import static org.sonar.plugins.html.api.accessibility.AccessibilityUtils.unwrapStaticStringLiteral;
 
 class AccessibilityUtilsTest {
+
+  @ParameterizedTest
+  @MethodSource("hiddenElements")
+  void detectsElementsHiddenFromScreenReader(TagNode element, boolean expected) {
+    assertThat(isHiddenFromScreenReader(element)).isEqualTo(expected);
+  }
+
+  private static Stream<Arguments> hiddenElements() {
+    return Stream.of(
+      Arguments.of(new TagNode(), false),
+      Arguments.of(tag("hidden", ""), true),
+      Arguments.of(tag("hidden", "hidden"), true),
+      // the "until-found" value still removes the element from the AT tree until it is revealed
+      Arguments.of(tag("hidden", "until-found"), true),
+      // Angular/Vue bindings: the runtime value can't be resolved statically, so any binding
+      // spelling of "hidden" is treated as hidden to avoid a false positive
+      Arguments.of(tag("[hidden]", "isCollapsed"), true),
+      Arguments.of(tag(":hidden", "isCollapsed"), true),
+      Arguments.of(tag("v-bind:hidden", "isCollapsed"), true),
+      Arguments.of(tag("[attr.hidden]", "isCollapsed"), true),
+      Arguments.of(tag("attr.hidden", "isCollapsed"), true),
+      Arguments.of(tag("aria-hidden", "true"), true),
+      Arguments.of(tag("aria-hidden", "false"), false),
+      Arguments.of(inputOfType("hidden"), true),
+      Arguments.of(inputOfType("text"), false));
+  }
+
+  private static TagNode inputOfType(String type) {
+    TagNode node = tag("type", type);
+    node.setNodeName("input");
+    return node;
+  }
 
   @ParameterizedTest
   @MethodSource("staticStringLiterals")

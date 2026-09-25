@@ -17,7 +17,6 @@
 package org.sonar.plugins.html.api.accessibility;
 
 import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -30,86 +29,61 @@ import static org.sonar.plugins.html.api.accessibility.AccessibleNameExemption.i
 
 class AccessibleNameExemptionTest {
 
-  @Test
-  void notHiddenByDefault() {
-    assertThat(isHiddenFromAssistiveTech(svg())).isFalse();
-  }
-
-  @Test
-  void hiddenViaOwnAriaHidden() {
+  @ParameterizedTest(name = "[{index}] onAncestor={0}, attribute={1}={2} -> {3}")
+  @MethodSource("hiddenFromAssistiveTechCases")
+  void resolvesHiddenFromAssistiveTech(boolean onAncestor, String attributeName, String attributeValue, boolean expected) {
     TagNode svg = svg();
-    svg.getAttributes().add(new Attribute("aria-hidden", "true"));
-    assertThat(isHiddenFromAssistiveTech(svg)).isTrue();
+    TagNode target = svg;
+    if (onAncestor) {
+      target = tag("div");
+      svg.setParent(target);
+    }
+    if (attributeName != null) {
+      target.getAttributes().add(new Attribute(attributeName, attributeValue));
+    }
+    assertThat(isHiddenFromAssistiveTech(svg)).isEqualTo(expected);
   }
 
-  @Test
-  void notHiddenWhenAriaHiddenIsFalse() {
-    TagNode svg = svg();
-    svg.getAttributes().add(new Attribute("aria-hidden", "false"));
-    assertThat(isHiddenFromAssistiveTech(svg)).isFalse();
+  private static Stream<Arguments> hiddenFromAssistiveTechCases() {
+    return Stream.of(
+      Arguments.of(false, null, null, false),
+      Arguments.of(false, "aria-hidden", "true", true),
+      Arguments.of(false, "aria-hidden", "false", false),
+      Arguments.of(true, "aria-hidden", "true", true),
+      Arguments.of(false, "hidden", "", true),
+      Arguments.of(true, "hidden", "", true),
+      // Angular/Vue bindings are indeterminate at analysis time, so they are treated as hidden
+      Arguments.of(false, "[hidden]", "isCollapsed", true),
+      Arguments.of(true, ":hidden", "isCollapsed", true),
+      Arguments.of(false, "[aria-hidden]", "isDecorative", true),
+      Arguments.of(true, ":aria-hidden", "isDecorative", true));
   }
 
-  @Test
-  void hiddenViaInheritedAriaHidden() {
-    TagNode ancestor = tag("div");
-    ancestor.getAttributes().add(new Attribute("aria-hidden", "true"));
-    TagNode svg = svg();
-    svg.setParent(ancestor);
-    assertThat(isHiddenFromAssistiveTech(svg)).isTrue();
-  }
-
-  @Test
-  void indeterminateWhenOwnAriaHiddenIsAngularBound() {
-    TagNode svg = svg();
-    svg.getAttributes().add(new Attribute("[aria-hidden]", "isDecorative"));
-    assertThat(isHiddenFromAssistiveTech(svg)).isTrue();
-  }
-
-  @Test
-  void indeterminateWhenAncestorAriaHiddenIsVueBound() {
-    TagNode ancestor = tag("div");
-    ancestor.getAttributes().add(new Attribute(":aria-hidden", "isDecorative"));
-    TagNode svg = svg();
-    svg.setParent(ancestor);
-    assertThat(isHiddenFromAssistiveTech(svg)).isTrue();
-  }
-
-  @ParameterizedTest
+  @ParameterizedTest(name = "[{index}] {0}={1} -> {2}")
   @MethodSource("presentationalRoleCases")
-  void resolvesEffectivelyPresentationalRole(String roleAttributeValue, boolean expected) {
+  void resolvesEffectivelyPresentationalRole(String attributeName, String attributeValue, boolean expected) {
     TagNode svg = svg();
-    if (roleAttributeValue != null) {
-      svg.getAttributes().add(new Attribute("role", roleAttributeValue));
+    if (attributeName != null) {
+      svg.getAttributes().add(new Attribute(attributeName, attributeValue));
     }
     assertThat(hasEffectivelyPresentationalRole(svg)).isEqualTo(expected);
   }
 
   private static Stream<Arguments> presentationalRoleCases() {
     return Stream.of(
-      Arguments.of((String) null, false),
-      Arguments.of("", false),
-      Arguments.of("presentation", true),
-      Arguments.of("none", true),
-      Arguments.of("img", false),
+      Arguments.of(null, null, false),
+      Arguments.of("role", "", false),
+      Arguments.of("role", "presentation", true),
+      Arguments.of("role", "none", true),
+      Arguments.of("role", "img", false),
       // the fallback list is read left to right; the first valid, non-abstract token wins
-      Arguments.of("unknown-role presentation", true),
-      Arguments.of("unknown-role", false),
+      Arguments.of("role", "unknown-role presentation", true),
+      Arguments.of("role", "unknown-role", false),
       // an abstract role is skipped, same as an unknown one
-      Arguments.of("widget presentation", true));
-  }
-
-  @Test
-  void indeterminateWhenRoleIsAngularBound() {
-    TagNode svg = svg();
-    svg.getAttributes().add(new Attribute("[role]", "dynamicRole"));
-    assertThat(hasEffectivelyPresentationalRole(svg)).isTrue();
-  }
-
-  @Test
-  void indeterminateWhenRoleIsVueBound() {
-    TagNode svg = svg();
-    svg.getAttributes().add(new Attribute(":role", "dynamicRole"));
-    assertThat(hasEffectivelyPresentationalRole(svg)).isTrue();
+      Arguments.of("role", "widget presentation", true),
+      // Angular/Vue bindings are indeterminate at analysis time, so they are treated as presentational
+      Arguments.of("[role]", "dynamicRole", true),
+      Arguments.of(":role", "dynamicRole", true));
   }
 
   private static TagNode svg() {
