@@ -39,11 +39,10 @@ jobs:
           maven-args: '-T1C'
 
       # Publish the deployed plugin version for the pvf
-      - run: printf '%s\n' "$PROJECT_VERSION" > candidate-version.txt
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - name: Prepare PVF candidate version
+        uses: SonarSource/core-languages-tooling-public/prepare-pvf@master
         with:
-          name: candidate-version
-          path: candidate-version.txt
+          build-version: ${{ env.PROJECT_VERSION }}
 
   build-windows:
     needs: [build]
