@@ -1,0 +1,44 @@
+{
+  "sonar-master:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/libraries/public/test.html": [
+    10,
+    11
+  ],
+  "sonar-master:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/page/public/test.html": [
+    10,
+    11
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/500.html": [
+    37
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/encryption_configuration/generate_secret_form.html.erb": [
+    17
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/encryption_configuration/index.html.erb": [
+    31
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb": [
+    158,
+    195,
+    198,
+    199,
+    200
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/maintenance/index.html.erb": [
+    14,
+    16,
+    16
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/markdown/help.html.erb": [
+    17
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/index.html": [
+    210,
+    220,
+    221,
+    222,
+    229,
+    230,
+    231,
+    232
+  ]
+}

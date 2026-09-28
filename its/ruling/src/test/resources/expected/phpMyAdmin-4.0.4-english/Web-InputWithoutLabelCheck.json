@@ -1,0 +1,98 @@
+{
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/config.html": [
+    4862
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/copyright.html": [
+    100
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/credits.html": [
+    624
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/developers.html": [
+    84
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/faq.html": [
+    1746
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/genindex.html": [
+    3671
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/glossary.html": [
+    596
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/index.html": [
+    175
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/intro.html": [
+    148
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/other.html": [
+    100
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/privileges.html": [
+    134
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/require.html": [
+    136
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/search.html": [
+    68
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/setup.html": [
+    447
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/transformations.html": [
+    205
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/user.html": [
+    101
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/doc/html/vendors.html": [
+    113
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/examples/signon.php": [
+    55,
+    56,
+    57,
+    58
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/display_create_database.lib.php": [
+    28
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/display_create_table.lib.php": [
+    52,
+    56
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php": [
+    228,
+    234
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
+    282,
+    285,
+    302,
+    330
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
+    197,
+    416
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/pmd_pdf.php": [
+    143
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/setup/frames/config.inc.php": [
+    31
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/tbl_gis_visualization.php": [
+    136
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/tbl_indexes.php": [
+    278,
+    300,
+    316,
+    329
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/view_operations.php": [
+    91
+  ]
+}

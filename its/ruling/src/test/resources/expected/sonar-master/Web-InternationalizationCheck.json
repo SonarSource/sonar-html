@@ -1,0 +1,120 @@
+{
+  "sonar-master:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/libraries/public/test.html": [
+    9,
+    15
+  ],
+  "sonar-master:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/page/public/test.html": [
+    9
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/500.html": [
+    6,
+    37
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/index.html.erb": [
+    37
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dependencies/index.html.erb": [
+    63
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/encryption_configuration/generate_secret_form.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/encryption_configuration/index.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/groups/index.html.erb": [
+    4,
+    9,
+    10,
+    11,
+    12
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/groups/select_user.html.erb": [
+    26
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/manual_rules/index.html.erb": [
+    8,
+    9
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_display_list.html.erb": [
+    131
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb": [
+    18
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/metrics/index.html.erb": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    82
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/links.html.erb": [
+    24,
+    24
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/edit_groups.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/edit_users.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project_roles/index.html.erb": [
+    1,
+    5,
+    6,
+    7,
+    12,
+    23
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_default_project_groups.html.erb": [
+    6
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_default_project_users.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_groups.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/roles/edit_users.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/setup/form.html.erb": [
+    4
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/system/index.html.erb": [
+    4,
+    36
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/updatecenter/index.html.erb": [
+    11,
+    13,
+    14,
+    15
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/updatecenter/updates.html.erb": [
+    20
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/index.html.erb": [
+    4,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
+    16,
+    17,
+    23,
+    24
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/diagnostics.erb": [
+    4
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/index.html": [
+    222
+  ]
+}
