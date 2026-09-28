@@ -167,8 +167,16 @@ jobs:
           path: ruling-artifacts/actual
       - name: Update expected results
         env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           HEAD_REF: ${{ github.head_ref }}
         run: |
+          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+          if [ "$CURRENT_HEAD_SHA" != "$EXPECTED_HEAD_SHA" ]; then
+            echo 'PR head changed since ruling ran; refusing to apply stale results.' >&2
+            exit 1
+          fi
           if git log -1 --format=%B | grep -q '🤖 Generated with GitHub Actions'; then
             echo 'Last commit was an auto-update; skipping.'
             exit 0
@@ -180,7 +188,8 @@ jobs:
           git add its/ruling/src/test/resources/expected/
           if ! git diff --staged --quiet; then
             git commit -m $'Update ruling results\n\n🤖 Generated with GitHub Actions'
-            git push origin "HEAD:$HEAD_REF"
+            # A concurrent PR update makes this non-fast-forward push fail.
+            git push origin "HEAD:refs/heads/$HEAD_REF"
           fi
 
   analyze-shadows:
