@@ -50,12 +50,10 @@ public class NoAutofocusCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    List<Attribute> autofocusProperties = node.getAttributes().stream()
+    // A false-bound spelling doesn't rule out another, effective spelling of "autofocus" on the same element.
+    boolean hasEffectiveAutofocusAttribute = node.getAttributes().stream()
       .filter(a -> AUTOFOCUS_ATTRIBUTE_NAMES.contains(a.getName().toLowerCase(Locale.ROOT)))
-      .toList();
-    // allMatch, not anyMatch: a false-bound spelling (e.g. no-JS/SSR fallback overridden by `:autofocus="false"`) suppresses the violation.
-    boolean hasEffectiveAutofocusAttribute = !autofocusProperties.isEmpty()
-      && autofocusProperties.stream().allMatch(a -> !isDomPropertyBoundToFalse(a));
+      .anyMatch(a -> !isDomPropertyBoundToFalse(a));
     if (!hasEffectiveAutofocusAttribute) {
       return;
     }
