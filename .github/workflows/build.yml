@@ -167,8 +167,17 @@ jobs:
           path: ruling-artifacts/actual
       - name: Update expected results
         env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           HEAD_REF: ${{ github.head_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
+          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+          if [ "$CURRENT_HEAD_SHA" != "$EXPECTED_HEAD_SHA" ]; then
+            echo 'PR head changed since ruling ran; refusing to apply stale results.' >&2
+            exit 1
+          fi
           if git log -1 --format=%B | grep -q '🤖 Generated with GitHub Actions'; then
             echo 'Last commit was an auto-update; skipping.'
             exit 0
@@ -180,7 +189,16 @@ jobs:
           git add its/ruling/src/test/resources/expected/
           if ! git diff --staged --quiet; then
             git commit -m $'Update ruling results\n\n🤖 Generated with GitHub Actions'
-            git push origin "HEAD:$HEAD_REF"
+            # A concurrent PR update makes this non-fast-forward push fail.
+            git push origin "HEAD:refs/heads/$HEAD_REF"
+            # Pushes made with GITHUB_TOKEN do not trigger push or PR workflows.
+            # Dispatch verification and reporting against the commit just pushed.
+            NEW_HEAD_SHA=$(git rev-parse HEAD)
+            gh workflow run build.yml --ref "$HEAD_REF"
+            if ! gh workflow run ruling-diff-comment.yml --ref "$HEAD_REF" \
+              -f pr-number="$PR_NUMBER" -f base-sha="$BASE_SHA" -f head-sha="$NEW_HEAD_SHA"; then
+              echo 'Ruling comment dispatch failed; rerun Ruling Diff Comment manually.' >&2
+            fi
           fi
 
   analyze-shadows:
