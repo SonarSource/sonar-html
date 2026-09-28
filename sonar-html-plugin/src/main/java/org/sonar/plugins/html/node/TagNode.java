@@ -18,9 +18,9 @@ package org.sonar.plugins.html.node;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
+import org.sonar.plugins.html.api.FrameworkAttributeBindings;
 
 /**
  * Defines a tag.
@@ -47,63 +47,18 @@ public class TagNode extends Node {
   }
 
   /**
-   * The spellings that bind the DOM property named {@code propertyName} itself: Angular {@code [x]},
-   * Vue {@code v-bind:x} and {@code :x}. Callers that must not accept the wider set matched by
-   * {@link #getProperty(String)} — the attribute bindings {@code [attr.x]}/{@code attr.x}, which
-   * write an HTML attribute rather than the DOM property, and Vue's dynamic argument {@code :[x]},
-   * whose target is only known at runtime — share this definition instead of respelling it.
-   */
-  public static List<String> domPropertyBindingNames(String propertyName) {
-    return List.of("[" + propertyName + "]", "v-bind:" + propertyName, ":" + propertyName);
-  }
-
-  /**
-   * Every static spelling that can set {@code propertyName}, except Vue's dynamic-argument form
-   * ({@code :[x]}), whose target name is only known at runtime:
-   * - the plain attribute {@code x}
-   * - the {@link #domPropertyBindingNames(String)} DOM-property bindings
-   * - the Angular attribute bindings {@code [attr.x]} and {@code attr.x}
-   */
-  private static List<String> staticAttributeSpellings(String propertyName) {
-    return Stream.concat(
-      Stream.of(propertyName, "[attr." + propertyName + "]", "attr." + propertyName),
-      domPropertyBindingNames(propertyName).stream())
-      .toList();
-  }
-
-  /**
-   * {@link #staticAttributeSpellings(String)} plus Vue's dynamic-argument form ({@code :[x]}):
-   * getProperty() has always treated it as a match, unlike staticAttributeSpellings()/getStaticProperty(),
-   * even though its actual bound name is only known at runtime.
-   */
-  private static List<String> propertySpellings(String propertyName) {
-    return Stream.concat(
-      staticAttributeSpellings(propertyName).stream(),
-      Stream.of(":[" + propertyName + "]"))
-      .toList();
-  }
-
-  /**
    *  This method takes into account the property binding mechanism of angular and vue.js. See SONARHTML-92, SONARHTML-113, SONARHTML-118, SONARHTML-158
    */
   @Nullable
   public Attribute getProperty(String propertyName) {
-    return findAttribute(propertySpellings(propertyName));
-  }
-
-  /**
-   * Like {@link #getProperty(String)}, but never matches Vue's dynamic-argument form
-   * ({@code :[x]}), whose target name is only known at runtime.
-   */
-  @Nullable
-  public Attribute getStaticProperty(String propertyName) {
-    return findAttribute(staticAttributeSpellings(propertyName));
-  }
-
-  @Nullable
-  private Attribute findAttribute(List<String> spellings) {
+    List<String> attributeSpellings = FrameworkAttributeBindings.staticAttributeSpellings(propertyName);
+    // Vue's dynamic-argument form: the actual bound name is only known at runtime, but getProperty()
+    // has always treated it as a match, unlike FrameworkAttributeBindings.staticAttributeSpellings().
+    String vueSquaredShorthandProperty = ":[" + propertyName + "]";
     for (Attribute a : attributes) {
-      if (containsIgnoreCase(spellings, a.getName())) {
+      String attributeName = a.getName();
+      if (containsIgnoreCase(attributeSpellings, attributeName)
+          || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
         return a;
       }
     }
