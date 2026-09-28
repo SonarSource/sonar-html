@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! [[ "$BASE_SHA" =~ ^[0-9a-f]{40}$ ]] || ! git cat-file -e "${BASE_SHA}^{commit}"; then
+  echo 'Invalid or unavailable ruling report base commit.' >&2
+  exit 1
+fi
+if [ "$(git rev-parse HEAD)" != "$HEAD_SHA" ]; then
+  echo 'Checked-out commit does not match the requested ruling report head.' >&2
+  exit 1
+fi
+
+BASE_BRANCH="$BASE_SHA" ./tools/ruling-report.sh > ruling-report.md
+
+EXISTING_COMMENT_ID="$(gh api --paginate \
+  "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments?per_page=100" \
+  --jq '.[] | select(.body | startswith("<!-- ruling-report -->")) | .id' | sed -n '1p')"
+
+if [ ! -s ruling-report.md ]; then
+  if [ -n "$EXISTING_COMMENT_ID" ]; then
+    gh api "repos/${GITHUB_REPOSITORY}/issues/comments/${EXISTING_COMMENT_ID}" -X DELETE
+  fi
+  echo 'No committed ruling result changes; any older ruling comment was cleared.'
+  exit 0
+fi
+
+{
+  echo '<!-- ruling-report -->'
+  cat ruling-report.md
+} > comment.md
+
+if [ "$(wc -c < comment.md)" -gt 64000 ]; then
+  head -c 64000 comment.md | iconv -c -f utf-8 -t utf-8 > comment-truncated.md
+  if [ $(( $(grep -c '^```' comment-truncated.md) % 2 )) -eq 1 ]; then
+    printf '\n```\n' >> comment-truncated.md
+  fi
+  printf '\n\n_(truncated; see the committed JSON files for the complete results)_\n' >> comment-truncated.md
+  mv comment-truncated.md comment.md
+fi
+
+if [ -n "$EXISTING_COMMENT_ID" ]; then
+  gh api "repos/${GITHUB_REPOSITORY}/issues/comments/${EXISTING_COMMENT_ID}" \
+    -X PATCH -F body=@comment.md
+else
+  gh pr comment "$PR_NUMBER" --body-file comment.md
+fi
