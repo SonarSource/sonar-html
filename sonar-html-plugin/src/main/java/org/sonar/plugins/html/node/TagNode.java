@@ -64,7 +64,7 @@ public class TagNode extends Node {
    * - the {@link #domPropertyBindingNames(String)} DOM-property bindings
    * - the Angular attribute bindings {@code [attr.x]} and {@code attr.x}
    */
-  public static List<String> staticAttributeSpellings(String propertyName) {
+  private static List<String> staticAttributeSpellings(String propertyName) {
     return Stream.concat(
       Stream.of(propertyName, "[attr." + propertyName + "]", "attr." + propertyName),
       domPropertyBindingNames(propertyName).stream())
@@ -84,6 +84,21 @@ public class TagNode extends Node {
       String attributeName = a.getName();
       if (containsIgnoreCase(attributeSpellings, attributeName)
           || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
+        return a;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Like {@link #getProperty(String)}, but never matches Vue's dynamic-argument form
+   * ({@code :[x]}), whose target name is only known at runtime.
+   */
+  @Nullable
+  public Attribute getStaticProperty(String propertyName) {
+    List<String> attributeSpellings = staticAttributeSpellings(propertyName);
+    for (Attribute a : attributes) {
+      if (containsIgnoreCase(attributeSpellings, a.getName())) {
         return a;
       }
     }

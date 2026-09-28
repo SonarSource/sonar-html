@@ -18,9 +18,11 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 import java.util.Locale;
+import javax.annotation.Nullable;
 
 @Rule(key="S7929")
 public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
@@ -34,12 +36,9 @@ public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
       return;
     }
 
-    String autoplayAttr = element.getAttribute("autoplay");
-    String mutedAttr = element.getAttribute("muted");
-
     // Normalize values (null-safe)
-    boolean autoplay = "true".equalsIgnoreCase(autoplayAttr);
-    boolean muted = "true".equalsIgnoreCase(mutedAttr);
+    boolean autoplay = "true".equalsIgnoreCase(valueOf(element.getStaticProperty("autoplay")));
+    boolean muted = "true".equalsIgnoreCase(valueOf(element.getStaticProperty("muted")));
 
     // Rule applicability
     if (autoplay && !muted) {
@@ -50,5 +49,10 @@ public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
               )
       );
     }
+  }
+
+  @Nullable
+  private static String valueOf(@Nullable Attribute attribute) {
+    return attribute == null ? null : attribute.getValue();
   }
 }

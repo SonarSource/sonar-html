@@ -34,11 +34,6 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
   private static final String SCOPE = "scope";
   private static final String MESSAGE = "Move this \"scope\" attribute to a \"th\" element, or remove it.";
 
-  // Spellings of a "scope" attribute; excludes Vue's ":[scope]" dynamic argument, whose target is only known at runtime.
-  private static final Set<String> SCOPE_ATTRIBUTE_NAMES = TagNode.staticAttributeSpellings(SCOPE).stream()
-    .map(name -> name.toLowerCase(Locale.ROOT))
-    .collect(Collectors.toUnmodifiableSet());
-
   // A binding (`:scope`, `v-bind:scope`, `[scope]`, `[attr.scope]`) bound to literal null/undefined never sets the attribute.
   private static final Set<String> NULLISH_AWARE_BINDINGS = Stream.concat(
       Stream.of("[attr." + SCOPE + "]"),
@@ -48,8 +43,10 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
 
   @Override
   public void startElement(TagNode node) {
+    Attribute scopeAttribute = node.getStaticProperty(SCOPE);
     // Vue 2.0-2.4 scoped slots use a bare "scope" attribute on <template>, unrelated to table headers.
-    if (!hasScopeAttribute(node) || "th".equalsIgnoreCase(node.getNodeName()) || Helpers.isTemplateLikeTag(node)) {
+    if (scopeAttribute == null || isDomPropertyBoundToNullish(scopeAttribute)
+        || "th".equalsIgnoreCase(node.getNodeName()) || Helpers.isTemplateLikeTag(node)) {
       return;
     }
     // A custom component or unknown tag: "scope" may be an arbitrary prop, unrelated to table headers.
@@ -57,15 +54,6 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
       return;
     }
     createViolation(node, MESSAGE);
-  }
-
-  private static boolean hasScopeAttribute(TagNode node) {
-    return node.getAttributes().stream().anyMatch(ScopeAttributeOnlyOnThCheck::isEffectiveScopeAttribute);
-  }
-
-  private static boolean isEffectiveScopeAttribute(Attribute attribute) {
-    return SCOPE_ATTRIBUTE_NAMES.contains(attribute.getName().toLowerCase(Locale.ROOT))
-      && !isDomPropertyBoundToNullish(attribute);
   }
 
   private static boolean isDomPropertyBoundToNullish(Attribute property) {
