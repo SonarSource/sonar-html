@@ -32,7 +32,8 @@ fi
 } > comment.md
 
 if [ "$(wc -c < comment.md)" -gt 64000 ]; then
-  head -c 64000 comment.md | iconv -c -f utf-8 -t utf-8 > comment-truncated.md
+  # iconv exits nonzero when the byte cutoff splits a UTF-8 character.
+  head -c 64000 comment.md | { iconv -c -f utf-8 -t utf-8 || true; } > comment-truncated.md
   if [ $(( $(grep -c '^```' comment-truncated.md) % 2 )) -eq 1 ]; then
     printf '\n```\n' >> comment-truncated.md
   fi
