@@ -1,0 +1,1565 @@
+{
+  "Silverpeas-Core-master:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/look/login/Login.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/notFound.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/processManager/DemandeConges/DemandeConges.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/processManager/DemandeDeMission/printForm/DemandeDeMission_print.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/repositorySharing/explorer.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/repositorySharing/generic-elts/gradientSVG.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/it-test-core/src/test/resources/com/silverpeas/converter/wysiwyg2.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/css/tn3/tn3.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/font/handwritting.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/legal/agpl-3.0-standalone.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/screenshots.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/Error404.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/Login.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/POPUP/jsp/checkPopup.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/POPUP/jsp/readMessage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/checkSilvermail.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/errorpage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/graphicBox.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/main.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readMessage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/readSendedNotification.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/redirect.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/sendedUserNotifications.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DisplaySilverTrace.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/DomainsBarSilverpeasV5.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/ExploitationSilverTrace.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/MainFrameSilverpeasV5.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/Map.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/SessionTimeout.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/accessForbidden.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/alreadyRegistered.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/appInMaintenance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/casAuthenticationError.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/cipherkey.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/documentNotFound.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageDataStorageQuota.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMain.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMainMax.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageMainMin.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpagePopup.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/errorpageTrapped.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/frameBottomSilverpeasV5.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/goBack.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/import.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/importFrameSet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/newRegistration.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/pdcSearchSilverpeasV5.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/popupError.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/redirectAppInMaintenance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registerFromRemoteSocialNetwork.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registrationFailed.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/registrationSuccess.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/spaceInMaintenance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/agenda.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/busyTime.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/calendar.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/category.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/chooseWorkingDays.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/exportIcal.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/importCalendar.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/importIcal.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/importSettings.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/journal.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/reloadMainFrame.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/synchroIcal.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/tentative.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/close.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/messageOk.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/sendMessage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/alertUserPeas/jsp/writeMessage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/applicationIndexer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/AjaxFileUpload.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/checkAttachment.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/checkIn.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/editAttachedFiles.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/publicVersions.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/warning_locked.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/Idle.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/IdleSilverpeasV5.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/PasteError.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/clipboard/jsp/clipboard.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/comment/jsp/comments.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/communicationUser/jsp/checkCommunicationUser.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/communicationUser/jsp/connectedUsers.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/communicationUser/jsp/discussion.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/communicationUser/jsp/historyMessages.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultChangePassword.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultForcePasswordChange.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestion.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultLoginQuestionSelection.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordAboutToExpire.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultPasswordExpired.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultReInitPassword.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultResetPassword.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/demo/keycode/index.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/demo/menu/index.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/demo/popup/index.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/directory/jsp/directory.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/explorer/jsp/explorer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/close.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/view.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/genericPanelPeas.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/genericPanelPeas/jsp/goBack.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/headLog.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/downloadPdf.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/downloadZip.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/nothingToExport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/pingExport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/selectExportMode.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/viewSPExchange.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/importExportPeas/jsp/welcome.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/inputLogin.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/inputPassword.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/checkICenter.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/iCenterList.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/newICenter.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/interestCenterPeas/jsp/usedICenter.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/closeWindow.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainContent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainCreate.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainNavigation.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSQLCreate.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSynchro.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSynchroPing.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSynchroReport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/dynamicSynchroReport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/goBack.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupContent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupCreate.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupImport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/groupManagers.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/jobDomain.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userContent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userCreate.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userImport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/userView.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/usersCsvImport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/welcome.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/jobManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/manageMaintenance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobManagerPeas/jsp/topBarManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobOrganizationPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobOrganizationPeas/jsp/jobOrganization.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobOrganizationPeas/jsp/jopUserView.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobSearchPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobSearchPeas/jsp/jobSearchResult.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/UpdateJobStartPage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/bin.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/closeWindow.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentInfo.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createInstance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/createSpace.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/descriptionProfileInstance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/descriptionSpaceManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/error.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/goBack.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/importFrameSet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/jobStartPageNav.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/placeComponentAfter.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/placeSpaceAfter.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/roleInstance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/spaceLook.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/spaceManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/startPageInfo.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/updateInstance.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/updateSpace.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/welcome.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/loginAuto.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/confirm.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/linkManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/myLinksPeas/jsp/viewLinks.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/notificationUser/jsp/notificationSender.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/FakeContent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/addPdc_test.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/askOnceResultsForm.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/askOnceSearchForm.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/axisManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/checkAdvancedSearch.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/checkPdc.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/closeWrapper.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultNavigation.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchInit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/consultSearchResult.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/directValuesAxis.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/directValuesTree.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/editValue.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearchXML.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/moveValue.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newDaughterValue.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/newMotherValue.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/pdc.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/pdcInComponent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionAdd.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionEdit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positions.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/positionsInComponent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/predefinedClassification.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/redirectToComponent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/refreshFromUserSelect.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/reload.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/reloadAxis.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/reloadPdc.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/resultSearchToSelect.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContextInComponent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchDomainSelection.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchToSelect.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/tree.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilization.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationAdd.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationChoose.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/utilizationEdit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/value.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/viewValueManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/webTab.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/subscription.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/subscriptionList.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionComponent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcSubscriptionPeas/jsp/viewSubscriptionTheme.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/peasCore/jsp/close.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/checkPersonalization.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/editNotification.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/editPreference.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/paramNotif.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/paramNotif2.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/personalizationPeas/jsp/personalization_Notification.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/addColumnList.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/adminPortlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/column.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/columnSet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/language.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/main.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletAdminBarre.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletDummyComponent.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletList.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/portletTitle.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/column.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/admin.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/change-layout.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deployer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/desktop.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/header.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/modify-window.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/spaceDesktop.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/tabs.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/undeploy-portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/main.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitle.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemax.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletTitlemin.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmax.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/portletmin.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/unknown.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/componentInstance/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/componentInstance/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/componentInstance/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/favoriteQueries/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/favoriteQueries/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/favoriteQueries/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/helloSilverpeas/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/iframe/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/iframe/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/iframe/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/lastPublications/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/lastPublications/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/lastPublications/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myBookmarks/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myBookmarks/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myBookmarks/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myCheckOutFiles/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myCheckOutFiles/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myCheckOutFiles/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myNotifications/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myNotifications/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myNotifications/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myTodos/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myTodos/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/myTodos/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/nextEvents/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/nextEvents/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/nextEvents/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/portletImport.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/quickInfos/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/quickInfos/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/quickInfos/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/spaceResponsibles/edit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/spaceResponsibles/help.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlets/jsp/spaceResponsibles/portlet.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/profil/jsp/ProfilPrive.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/redirect.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/closeWrapper.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/closeWrapperMultiple.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/elementView.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/goBack.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/selectionCart.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selectionPeas/jsp/selectionPeas.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/confirmTicket.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/displayTicketInfo.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/invalidTicket.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/ticketManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/viewTickets.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/checkSilverStatistics.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/connections.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/exportDataAccess.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/exportViewConnection.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewConnection.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewCrossPDCAccess.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewEvolutionAccess.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewEvolutionVolumeSizeServer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewFrequence.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolume.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeServer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeServices.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewVolumeSizeServer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/writeMessage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverpeasinfos.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/channelFB.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/invitationDialog.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfile.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfileTabIdentity.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabInvitations.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabNetworks.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabSettings.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabWall.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/notificationDialog.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/statistic/jsp/checkStatistic.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/statistic/jsp/detailByUser.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/statistic/jsp/readingControl.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/subscription/jsp/subscriptionpanel.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/closeWindow.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldAccessPath.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldDate.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldExplorer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldFile.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldGroup.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldImage.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldJdbc.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldLdap.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldMultipleUser.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldMultivalues.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldPdc.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldSequence.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldText.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldTextarea.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldTime.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldURL.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldUser.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldVideo.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fieldWysiwyg.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/fields.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/template.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/templateHeader.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/templateDesigner/jsp/welcome.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/checkThesaurus.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/choiceAssignUser.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/choiceAssignVoca.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/closeWindow.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/createVocabulary.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/editAssignments.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/editVocabulary.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/errorCreateVocabulary.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/errorUpdateVocabulary.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/manageAssignments.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/selectVocabulary.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/thesaurus.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/validateAssignUser.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thesaurusPeas/jsp/validateAssignVoca.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thumbnail/jsp/thumbnailHeader.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/thumbnail/jsp/thumbnailManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/checkTodo.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/todo.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/todo/jsp/todoEdit.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/tools/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/tools/index.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/Gallery_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/Gallery_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/Gallery_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeDraft_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeDraft_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeDraft_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeNormal_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeNormal_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeNormal_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/VersioningPublic_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/VersioningPublic_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/VersioningPublic_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/VersioningWork_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/VersioningWork_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/VersioningWork_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationFolderAndFilesDraft_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationFolderAndFiles_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationFoldersAndFilesDraft_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationFoldersAndFilesDraft_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationFoldersAndFiles_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationFoldersAndFiles_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationMultiFilesDraft_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationMultiFilesDraft_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationMultiFilesDraft_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationMultiFiles_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationMultiFiles_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationMultiFiles_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationShort_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationShort_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanationShort_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanation_de.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanation_en.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/explanation_fr.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/util/icons/gradientSVG.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connection.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/connectionManager.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/webConnections/jsp/viewConnections.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/actions.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/check.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/dataFolder.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editAction.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editColumns.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editConsequence.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editContextualDesignation.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editForm.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editInput.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editItem.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editParameter.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editParticipant.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editQualifiedUsers.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editRelatedUser.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editRole.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/editState.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/errorpageMain.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/forms.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/importWorkflow.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/participants.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/presentation.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/redirect.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/reset.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/roles.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/states.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/userInfos.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/welcome.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/workflowDesigner/jsp/workflow.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/checkScc.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/LICENSE.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/adobeair/sample.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/ajax.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/api.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/api_dialog.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/asp/index.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/autogrow.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/bbcode.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/devtools.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/divreplace.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/enterkey.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/fullpage.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/index.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/jqueryadapter.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/output_for_flash.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/output_html.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/output_xhtml.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/php/index.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/placeholder.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/readonly.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/replacebyclass.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/replacebycode.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/sharedspaces.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/skins.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/stylesheetparser.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/tableresize.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/ui_color.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/ui_languages.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_source/plugins/wsc/dialogs/ciframe.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_source/plugins/wsc/dialogs/tmpFrameset.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/wsc/dialogs/ciframe.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/wsc/dialogs/tmpFrameset.html": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/htmlDisplayer.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/htmlEditor.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/uploadFile.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/uploadWebsiteFile.jsp": [
+    0
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/test/webapp/util/javaScript/silverpeas-datechecker.test.html": [
+    0
+  ]
+}

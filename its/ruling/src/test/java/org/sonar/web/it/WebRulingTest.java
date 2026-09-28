@@ -48,6 +48,14 @@ public class WebRulingTest {
 
   private static final String LANGUAGE = "web";
   private static final String REPOSITORY_KEY = "Web";
+  private static final List<String> PROJECT_KEYS = Arrays.asList(
+    "custom",
+    "external_webkit-jb-mr1",
+    "phpMyAdmin-4.0.4-english",
+    "Silverpeas-Core-master",
+    "sonar-master",
+    "voten"
+  );
 
   @ClassRule
   public static OrchestratorRule orchestrator = OrchestratorRule.builderEnv()
@@ -74,13 +82,18 @@ public class WebRulingTest {
 
   @Test
   public void ruling() throws Exception {
-    File litsDifferencesFile = FileLocation.of("target/differences").getFile();
-    String projectKey = "project";
+    for (String projectKey : PROJECT_KEYS) {
+      runRuling(projectKey);
+    }
+  }
+
+  private void runRuling(String projectKey) throws Exception {
+    File litsDifferencesFile = FileLocation.of("target/differences/" + projectKey).getFile();
     orchestrator.getServer().provisionProject(projectKey, projectKey);
     orchestrator.getServer().associateProjectToQualityProfile(projectKey, LANGUAGE, "rules");
     SonarScanner build = SonarScanner.create()
       .setProperty("sonar.scanner.skipJreProvisioning", "true")
-      .setProjectDir(FileLocation.of("../sources").getFile())
+      .setProjectDir(FileLocation.of("../sources/" + projectKey).getFile())
       .setProjectKey(projectKey)
       .setProjectName(projectKey)
       .setProjectVersion("1")
@@ -89,7 +102,7 @@ public class WebRulingTest {
       .setProperty("sonar.html.file.suffixes", "xhtml,html,php,erb")
       .setProperty("sonar.jsp.file.suffixes", "jspf,jsp")
       .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/" + projectKey).getFile().getAbsolutePath())
-      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual").getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual/" + projectKey).getFile().getAbsolutePath())
       .setProperty("sonar.lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.exclusions", "external_webkit-jb-mr1/LayoutTests/fast/encoding/*utf*")
       .setProperty("sonar.cpd.exclusions", "**/*")

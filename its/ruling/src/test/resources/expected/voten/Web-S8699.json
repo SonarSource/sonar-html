@@ -1,0 +1,21 @@
+{
+  "voten:voten/resources/assets/js/components/CommentForm.vue": [
+    38
+  ],
+  "voten:voten/resources/assets/js/components/Messages.vue": [
+    226
+  ],
+  "voten:voten/resources/assets/js/components/passport/Clients.vue": [
+    100,
+    168
+  ],
+  "voten:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+    83
+  ],
+  "voten:voten/resources/views/backend/channels.blade.php": [
+    16
+  ],
+  "voten:voten/resources/views/backend/users.blade.php": [
+    16
+  ]
+}

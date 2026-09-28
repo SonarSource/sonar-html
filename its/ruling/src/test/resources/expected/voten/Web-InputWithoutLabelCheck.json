@@ -1,0 +1,52 @@
+{
+  "voten:voten/resources/assets/js/components/ChannelSettings.vue": [
+    17
+  ],
+  "voten:voten/resources/assets/js/components/UserSettingsEditProfile.vue": [
+    17
+  ],
+  "voten:voten/resources/assets/js/components/passport/Clients.vue": [
+    106,
+    120,
+    174,
+    188
+  ],
+  "voten:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+    89,
+    144
+  ],
+  "voten:voten/resources/views/backend/announcements.blade.php": [
+    19,
+    25,
+    31
+  ],
+  "voten:voten/resources/views/backend/appointed-users.blade.php": [
+    15,
+    23
+  ],
+  "voten:voten/resources/views/backend/channels.blade.php": [
+    18
+  ],
+  "voten:voten/resources/views/backend/emails/index.blade.php": [
+    30,
+    54,
+    60,
+    66,
+    72,
+    76
+  ],
+  "voten:voten/resources/views/backend/firewall.blade.php": [
+    19,
+    72,
+    127,
+    133,
+    194
+  ],
+  "voten:voten/resources/views/backend/user.blade.php": [
+    202,
+    245
+  ],
+  "voten:voten/resources/views/backend/users.blade.php": [
+    18
+  ]
+}

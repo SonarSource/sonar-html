@@ -1,0 +1,13 @@
+{
+  "voten:voten/resources/views/backend/emails/index.blade.php": [
+    54,
+    72,
+    76
+  ],
+  "voten:voten/resources/views/layouts/guest.blade.php": [
+    54
+  ],
+  "voten:voten/resources/views/layouts/no-sidebar.blade.php": [
+    40
+  ]
+}

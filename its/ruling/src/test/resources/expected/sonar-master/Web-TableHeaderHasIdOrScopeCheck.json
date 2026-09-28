@@ -1,0 +1,10 @@
+{
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/comparison/index.html.erb": [
+    197,
+    205
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/updatecenter/index.html.erb": [
+    14,
+    15
+  ]
+}

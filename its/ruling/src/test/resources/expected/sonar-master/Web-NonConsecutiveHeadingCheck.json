@@ -1,0 +1,182 @@
+{
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/comments_duplications.html.erb": [
+    19
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb": [
+    14
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/coverage.html.erb": [
+    43
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb": [
+    57
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_metric.html.erb": [
+    37
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_resources.html.erb": [
+    34
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb": [
+    39
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/action_plans.html.erb": [
+    18
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_per_assignee.html.erb": [
+    35
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_statuses.html.erb": [
+    15
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/it_coverage.html.erb": [
+    76
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/rules.html.erb": [
+    15
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/size.html.erb": [
+    19
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/time_machine.html.erb": [
+    76
+  ],
+  "sonar-master:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/timeline.html.erb": [
+    148
+  ],
+  "sonar-master:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/lcom4.html.erb": [
+    14
+  ],
+  "sonar-master:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/response_for_class.html.erb": [
+    13
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_global_notifications.html.erb": [
+    1
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb": [
+    1
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/_new.html.erb": [
+    1
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/index.html.erb": [
+    37
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/components/index.html.erb": [
+    21
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_header.html.erb": [
+    18
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb": [
+    9
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dependencies/index.html.erb": [
+    37
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb": [
+    48
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/measures.html.erb": [
+    24
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb": [
+    48
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_copy_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_edit_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_save_as_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_iframe.html.erb": [
+    2
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb": [
+    170
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_projects.html.erb": [
+    12
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_nolayout.html.erb": [
+    2
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/markdown/help.html.erb": [
+    2
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb": [
+    6
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb": [
+    6
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_restore_form.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/index.html.erb": [
+    27
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/inheritance.html.erb": [
+    32
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/_snapshot_title.html.erb": [
+    3
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/widgets/issues/_issues_list_widget.html.erb": [
+    5
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules/_show_modal.html.erb": [
+    3
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/index.html.erb": [
+    134
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/server_id_configuration/index.html.erb": [
+    30
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/login.html.erb": [
+    6
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/new.html.erb": [
+    10
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_properties.html.erb": [
+    34
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/setup/form.html.erb": [
+    4
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/new.html.erb": [
+    6
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb": [
+    16
+  ]
+}
