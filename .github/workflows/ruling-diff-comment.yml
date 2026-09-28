@@ -1,0 +1,45 @@
+name: Ruling Diff Comment
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: Pull request number
+        required: true
+        type: string
+      base-sha:
+        description: Base commit SHA
+        required: true
+        type: string
+      head-sha:
+        description: Head commit SHA
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.pr-number || github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  ruling-diff-comment:
+    if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.fork == false && github.actor != 'dependabot[bot]')
+    runs-on: github-ubuntu-latest-m
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.head-sha || github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          submodules: true
+      - name: Post committed ruling diff
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ inputs.pr-number || github.event.pull_request.number }}
+          BASE_SHA: ${{ inputs.base-sha || github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ inputs.head-sha || github.event.pull_request.head.sha }}
+        run: bash tools/ruling-diff-comment.sh
