@@ -34,3 +34,6 @@
 <input :autofocus="false" />
 <input v-bind:autofocus="false" />
 <input [autofocus]="false" />
+<input :[autofocus]="x" />
+<!-- Known pattern: a bare attribute shipped for no-JS/SSR fallback, explicitly overridden once the framework binding takes over -->
+<input :autofocus="false" autofocus />
