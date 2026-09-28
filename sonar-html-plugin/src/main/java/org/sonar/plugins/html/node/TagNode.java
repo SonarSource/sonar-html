@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
+import org.sonar.plugins.html.api.FrameworkAttributeBindings;
 
 /**
  * Defines a tag.
@@ -46,30 +47,17 @@ public class TagNode extends Node {
   }
 
   /**
-   * The spellings that bind the DOM property named {@code propertyName} itself: Angular {@code [x]},
-   * Vue {@code v-bind:x} and {@code :x}. Callers that must not accept the wider set matched by
-   * {@link #getProperty(String)} — the attribute bindings {@code [attr.x]}/{@code attr.x}, which
-   * write an HTML attribute rather than the DOM property, and Vue's dynamic argument {@code :[x]},
-   * whose target is only known at runtime — share this definition instead of respelling it.
-   */
-  public static List<String> domPropertyBindingNames(String propertyName) {
-    return List.of("[" + propertyName + "]", "v-bind:" + propertyName, ":" + propertyName);
-  }
-
-  /**
    *  This method takes into account the property binding mechanism of angular and vue.js. See SONARHTML-92, SONARHTML-113, SONARHTML-118, SONARHTML-158
    */
   @Nullable
   public Attribute getProperty(String propertyName) {
-    List<String> domPropertyBindings = domPropertyBindingNames(propertyName);
-    String angularAttrProperty = "[attr." + propertyName + "]";
-    String shortAngularAttrProperty = "attr." + propertyName;
+    List<String> attributeSpellings = FrameworkAttributeBindings.staticAttributeSpellings(propertyName);
+    // Vue's dynamic-argument form: the actual bound name is only known at runtime, but getProperty()
+    // has always treated it as a match, unlike FrameworkAttributeBindings.staticAttributeSpellings().
     String vueSquaredShorthandProperty = ":[" + propertyName + "]";
     for (Attribute a : attributes) {
       String attributeName = a.getName();
-      if (propertyName.equalsIgnoreCase(attributeName)
-          || containsIgnoreCase(domPropertyBindings, attributeName)
-          || angularAttrProperty.equalsIgnoreCase(attributeName) || shortAngularAttrProperty.equalsIgnoreCase(attributeName)
+      if (containsIgnoreCase(attributeSpellings, attributeName)
           || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
         return a;
       }

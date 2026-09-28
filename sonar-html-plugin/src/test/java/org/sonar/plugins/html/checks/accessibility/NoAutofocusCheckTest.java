@@ -56,6 +56,7 @@ class NoAutofocusCheckTest {
       .next().atLine(13)
       .next().atLine(15)
       .next().atLine(16)
+      .next().atLine(17)
       .noMore();
   }
 

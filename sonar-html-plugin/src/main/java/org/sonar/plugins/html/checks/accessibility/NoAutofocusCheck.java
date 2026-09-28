@@ -18,7 +18,11 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.FrameworkAttributeBindings;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.Attribute;
@@ -32,6 +36,11 @@ public class NoAutofocusCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.";
 
+  // Spellings of an "autofocus" attribute; excludes Vue's ":[autofocus]" dynamic argument, whose target is only known at runtime.
+  private static final Set<String> AUTOFOCUS_ATTRIBUTE_NAMES = FrameworkAttributeBindings.staticAttributeSpellings("autofocus").stream()
+    .map(name -> name.toLowerCase(Locale.ROOT))
+    .collect(Collectors.toUnmodifiableSet());
+
   private boolean isVueFile;
 
   @Override
@@ -41,8 +50,11 @@ public class NoAutofocusCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    Attribute autofocusProperty = node.getProperty("autofocus");
-    if (autofocusProperty == null) {
+    // A false-bound spelling doesn't rule out another, effective spelling of "autofocus" on the same element.
+    boolean hasEffectiveAutofocusAttribute = node.getAttributes().stream()
+      .filter(a -> AUTOFOCUS_ATTRIBUTE_NAMES.contains(a.getName().toLowerCase(Locale.ROOT)))
+      .anyMatch(a -> !isDomPropertyBoundToFalse(a));
+    if (!hasEffectiveAutofocusAttribute) {
       return;
     }
     // Kebab-case is always a custom element (no native tag has a hyphen). Any other casing only
@@ -54,9 +66,7 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if (componentReference || !hasKnownHTMLTag(node)) {
       return;
     }
-    // A DOM-property binding (`:x`, `v-bind:x`, `[x]`) bound to literal false never sets the property, unlike a static "false" string.
-    if (!isDomPropertyBoundToFalse(autofocusProperty) && !isDialogOrPopover(node)
-        && !Helpers.hasAncestorMatching(node, NoAutofocusCheck::isDialogOrPopover)) {
+    if (!isDialogOrPopover(node) && !Helpers.hasAncestorMatching(node, NoAutofocusCheck::isDialogOrPopover)) {
       createViolation(node, MESSAGE);
     }
   }
@@ -66,7 +76,7 @@ public class NoAutofocusCheck extends AbstractPageCheck {
     if (value == null || !"false".equals(value.trim())) {
       return false;
     }
-    return TagNode.domPropertyBindingNames("autofocus").stream()
+    return FrameworkAttributeBindings.domPropertyBindingNames("autofocus").stream()
       .anyMatch(name -> name.equalsIgnoreCase(property.getName()));
   }
 
