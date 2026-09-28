@@ -18,9 +18,6 @@ package org.sonar.plugins.html.checks.accessibility;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -35,10 +32,6 @@ public class NoAutofocusCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.";
 
-  private static final Set<String> AUTOFOCUS_ATTRIBUTE_NAMES = TagNode.staticAttributeSpellings("autofocus").stream()
-    .map(name -> name.toLowerCase(Locale.ROOT))
-    .collect(Collectors.toUnmodifiableSet());
-
   private boolean isVueFile;
 
   @Override
@@ -48,10 +41,7 @@ public class NoAutofocusCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    Attribute autofocusProperty = node.getAttributes().stream()
-      .filter(a -> AUTOFOCUS_ATTRIBUTE_NAMES.contains(a.getName().toLowerCase(Locale.ROOT)))
-      .findFirst()
-      .orElse(null);
+    Attribute autofocusProperty = node.getStaticProperty("autofocus");
     if (autofocusProperty == null) {
       return;
     }

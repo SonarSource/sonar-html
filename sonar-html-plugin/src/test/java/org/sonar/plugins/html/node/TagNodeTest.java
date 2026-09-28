@@ -16,6 +16,7 @@
  */
 package org.sonar.plugins.html.node;
 
+import javax.annotation.CheckForNull;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,11 +24,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TagNodeTest {
 
   @Test
-  void staticAttributeSpellings() {
-    assertThat(TagNode.staticAttributeSpellings("scope"))
-      .containsExactlyInAnyOrder("scope", "[attr.scope]", "attr.scope", "[scope]", "v-bind:scope", ":scope")
-      // the dynamic-argument form's bound name is only known at runtime, so it is not a "scope" spelling
-      .doesNotContain(":[scope]");
+  void getStaticPropertyMatchesEveryStaticSpelling() {
+    assertThat(staticPropertyValue("scope", "scope")).isEqualTo("value");
+    assertThat(staticPropertyValue("scope", "[scope]")).isEqualTo("value");
+    assertThat(staticPropertyValue("scope", "v-bind:scope")).isEqualTo("value");
+    assertThat(staticPropertyValue("scope", ":scope")).isEqualTo("value");
+    assertThat(staticPropertyValue("scope", "[attr.scope]")).isEqualTo("value");
+    assertThat(staticPropertyValue("scope", "attr.scope")).isEqualTo("value");
+
+    // the dynamic-argument form's bound name is only known at runtime, so it is never a "scope" match
+    assertThat(staticPropertyValue("scope", ":[scope]")).isNull();
   }
 
   @Test
@@ -35,10 +41,20 @@ class TagNodeTest {
     TagNode node = new TagNode();
     node.getAttributes().add(new Attribute(":[name5]", "value5"));
 
-    // getProperty() keeps matching it (unlike staticAttributeSpellings()), since callers relying on it predate the new helper
+    // getProperty() keeps matching it, since callers relying on it predate getStaticProperty()
     assertThat(node.hasProperty("name5")).isTrue();
     assertThat(node.getPropertyValue("name5")).isEqualTo("value5");
-    assertThat(TagNode.staticAttributeSpellings("name5")).doesNotContain(":[name5]");
+
+    // getStaticProperty() never matches it, unlike getProperty()
+    assertThat(node.getStaticProperty("name5")).isNull();
+  }
+
+  @CheckForNull
+  private static String staticPropertyValue(String propertyName, String attributeName) {
+    TagNode node = new TagNode();
+    node.getAttributes().add(new Attribute(attributeName, "value"));
+    Attribute property = node.getStaticProperty(propertyName);
+    return property == null ? null : property.getValue();
   }
 
   @Test
