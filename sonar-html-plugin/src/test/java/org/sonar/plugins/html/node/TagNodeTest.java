@@ -23,6 +23,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TagNodeTest {
 
   @Test
+  void staticAttributeSpellings() {
+    assertThat(TagNode.staticAttributeSpellings("scope"))
+      .containsExactlyInAnyOrder("scope", "[attr.scope]", "attr.scope", "[scope]", "v-bind:scope", ":scope")
+      // the dynamic-argument form's bound name is only known at runtime, so it is not a "scope" spelling
+      .doesNotContain(":[scope]");
+  }
+
+  @Test
+  void vueDynamicArgumentIsOnlyMatchedByGetProperty() {
+    TagNode node = new TagNode();
+    node.getAttributes().add(new Attribute(":[name5]", "value5"));
+
+    // getProperty() keeps matching it (unlike staticAttributeSpellings()), since callers relying on it predate the new helper
+    assertThat(node.hasProperty("name5")).isTrue();
+    assertThat(node.getPropertyValue("name5")).isEqualTo("value5");
+    assertThat(TagNode.staticAttributeSpellings("name5")).doesNotContain(":[name5]");
+  }
+
+  @Test
   void property() {
     TagNode node = createNode();
     assertThat(node.getAttributes()).hasSize(4);
