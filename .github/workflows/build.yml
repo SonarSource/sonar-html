@@ -37,6 +37,15 @@ jobs:
           artifactory-deployer-role: qa-deployer
           sonar-platform: next
           maven-args: '-T1C'
+      # build-maven does not deploy workflow_dispatch runs from ordinary PR branches.
+      # Pass the built plugin directly to verification jobs instead.
+      - name: Save plugin for dispatched verification
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: verification-plugin
+          path: sonar-html-plugin/target/sonar-html-plugin-${{ env.PROJECT_VERSION }}.jar
+          if-no-files-found: error
 
       # Publish the deployed plugin version for the pvf
       - name: Prepare PVF candidate version
@@ -85,6 +94,24 @@ jobs:
             development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
       - *maven_cache
       - uses: ./.github/actions/orchestrator-cache
+      - &verification_plugin
+        name: Download plugin for dispatched verification
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: verification-plugin
+          path: verification-plugin
+      - &install_verification_plugin
+        name: Install plugin for dispatched verification
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          JAR=$(find verification-plugin -name 'sonar-html-plugin-*.jar' -print -quit)
+          test -n "$JAR"
+          VERSION=$(basename "$JAR" .jar)
+          VERSION=${VERSION#sonar-html-plugin-}
+          mvn org.apache.maven.plugins:maven-install-plugin:3.1.4:install-file \
+            -Dfile="$JAR" -DgroupId=org.sonarsource.html \
+            -DartifactId=sonar-html-plugin -Dversion="$VERSION" -Dpackaging=jar -B
       - name: Run QA tests
         env: &qa_env
           SONARSOURCE_QA: true
@@ -117,6 +144,8 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
+    outputs:
+      ruling-results-saved: ${{ steps.save_ruling.outcome == 'success' }}
     permissions:
       id-token: write
       contents: write
@@ -132,6 +161,8 @@ jobs:
       - *secrets
       - *maven_cache
       - uses: ./.github/actions/orchestrator-cache
+      - *verification_plugin
+      - *install_verification_plugin
       - name: Run ruling tests
         id: ruling
         env: *qa_env
@@ -141,6 +172,7 @@ jobs:
         if: failure()
         run: ./tools/ruling-debug-script.sh
       - name: Save ruling results
+        id: save_ruling
         if: always() && github.event_name == 'pull_request' && steps.ruling.outcome == 'failure'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -151,7 +183,7 @@ jobs:
   ruling-update:
     name: Update ruling results
     needs: ruling
-    if: always() && github.event_name == 'pull_request' && needs.ruling.result == 'failure'
+    if: always() && github.event_name == 'pull_request' && needs.ruling.outputs.ruling-results-saved == 'true'
     runs-on: github-ubuntu-latest-m
     permissions:
       contents: write
@@ -167,8 +199,17 @@ jobs:
           path: ruling-artifacts/actual
       - name: Update expected results
         env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           HEAD_REF: ${{ github.head_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
+          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+          if [ "$CURRENT_HEAD_SHA" != "$EXPECTED_HEAD_SHA" ]; then
+            echo 'PR head changed since ruling ran; refusing to apply stale results.' >&2
+            exit 1
+          fi
           if git log -1 --format=%B | grep -q '🤖 Generated with GitHub Actions'; then
             echo 'Last commit was an auto-update; skipping.'
             exit 0
@@ -180,7 +221,21 @@ jobs:
           git add its/ruling/src/test/resources/expected/
           if ! git diff --staged --quiet; then
             git commit -m $'Update ruling results\n\n🤖 Generated with GitHub Actions'
-            git push origin "HEAD:$HEAD_REF"
+            # A concurrent PR update makes this non-fast-forward push fail.
+            git push origin "HEAD:refs/heads/$HEAD_REF"
+            # Pushes made with GITHUB_TOKEN do not trigger push or PR workflows.
+            # Dispatch verification and reporting against the commit just pushed.
+            NEW_HEAD_SHA=$(git rev-parse HEAD)
+            DISPATCH_FAILED=0
+            gh workflow run build.yml --ref "$HEAD_REF" || {
+              echo 'Verification build dispatch failed.' >&2
+              DISPATCH_FAILED=1
+            }
+            if ! gh workflow run ruling-diff-comment.yml --ref "$HEAD_REF" \
+              -f pr-number="$PR_NUMBER" -f base-sha="$BASE_SHA" -f head-sha="$NEW_HEAD_SHA"; then
+              echo 'Ruling comment dispatch failed; rerun Ruling Diff Comment manually.' >&2
+            fi
+            exit "$DISPATCH_FAILED"
           fi
 
   analyze-shadows:
