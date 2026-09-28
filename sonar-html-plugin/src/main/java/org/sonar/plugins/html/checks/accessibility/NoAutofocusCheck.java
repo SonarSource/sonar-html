@@ -41,7 +41,7 @@ public class NoAutofocusCheck extends AbstractPageCheck {
 
   @Override
   public void startElement(TagNode node) {
-    Attribute autofocusProperty = node.getProperty("autofocus");
+    Attribute autofocusProperty = node.getStaticProperty("autofocus");
     if (autofocusProperty == null) {
       return;
     }

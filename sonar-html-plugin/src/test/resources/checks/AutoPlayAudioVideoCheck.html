@@ -13,5 +13,16 @@
     <video autoplay="true" muted="false" loop></video> <!-- Noncompliant -->
     <audio autoplay="true" muted="false"></audio> <!-- Noncompliant -->
 
+    <video [autoplay]="true" [muted]="true"></video>
+    <audio :autoplay="true" :muted="true"></audio>
+    <video [autoplay]="false" [muted]="false"></video>
+
+    <video [autoplay]="true" [muted]="false"></video> <!-- Noncompliant -->
+    <audio :autoplay="true" :muted="false"></audio> <!-- Noncompliant -->
+    <video v-bind:autoplay="true" v-bind:muted="false"></video> <!-- Noncompliant -->
+    <audio [attr.autoplay]="true" [attr.muted]="false"></audio> <!-- Noncompliant -->
+
+    <video :[autoplay]="true" muted="false"></video>
+
 </body>
 </html>
