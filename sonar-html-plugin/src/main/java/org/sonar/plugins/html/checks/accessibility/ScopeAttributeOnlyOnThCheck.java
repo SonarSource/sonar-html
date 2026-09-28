@@ -35,9 +35,7 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
   private static final String MESSAGE = "Move this \"scope\" attribute to a \"th\" element, or remove it.";
 
   // Spellings of a "scope" attribute; excludes Vue's ":[scope]" dynamic argument, whose target is only known at runtime.
-  private static final Set<String> SCOPE_ATTRIBUTE_NAMES = Stream.concat(
-      Stream.of(SCOPE, "[attr.scope]", "attr.scope"),
-      TagNode.domPropertyBindingNames(SCOPE).stream())
+  private static final Set<String> SCOPE_ATTRIBUTE_NAMES = TagNode.staticAttributeSpellings(SCOPE).stream()
     .map(name -> name.toLowerCase(Locale.ROOT))
     .collect(Collectors.toUnmodifiableSet());
 
