@@ -11,7 +11,8 @@ if [ "$(git rev-parse HEAD)" != "$HEAD_SHA" ]; then
   exit 1
 fi
 
-BASE_BRANCH="$BASE_SHA" ./tools/ruling-report.sh > ruling-report.md
+REPORT_BASE_SHA="$(git merge-base "$BASE_SHA" HEAD)"
+BASE_BRANCH="$REPORT_BASE_SHA" ./tools/ruling-report.sh > ruling-report.md
 
 EXISTING_COMMENT_ID="$(gh api --paginate \
   "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments?per_page=100" \
