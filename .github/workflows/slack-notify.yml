@@ -1,0 +1,21 @@
+name: Slack notify on CI failure
+
+on:
+  check_suite:
+    types: [completed]
+
+permissions:
+  checks: read
+  id-token: write
+
+jobs:
+  notify:
+    runs-on: github-ubuntu-latest-s
+    steps:
+      - name: Notify Slack on build failure
+        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@master
+        with:
+          slack-channel: squad-corelang-notifs
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event.check_suite.head_branch }}
+          conclusion: ${{ github.event.check_suite.conclusion }}
