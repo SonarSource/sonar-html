@@ -72,22 +72,23 @@ public class TagNode extends Node {
   }
 
   /**
+   * {@link #staticAttributeSpellings(String)} plus Vue's dynamic-argument form ({@code :[x]}):
+   * getProperty() has always treated it as a match, unlike staticAttributeSpellings()/getStaticProperty(),
+   * even though its actual bound name is only known at runtime.
+   */
+  private static List<String> propertySpellings(String propertyName) {
+    return Stream.concat(
+      staticAttributeSpellings(propertyName).stream(),
+      Stream.of(":[" + propertyName + "]"))
+      .toList();
+  }
+
+  /**
    *  This method takes into account the property binding mechanism of angular and vue.js. See SONARHTML-92, SONARHTML-113, SONARHTML-118, SONARHTML-158
    */
   @Nullable
   public Attribute getProperty(String propertyName) {
-    List<String> attributeSpellings = staticAttributeSpellings(propertyName);
-    // Vue's dynamic-argument form: the actual bound name is only known at runtime, but getProperty()
-    // has always treated it as a match, unlike staticAttributeSpellings().
-    String vueSquaredShorthandProperty = ":[" + propertyName + "]";
-    for (Attribute a : attributes) {
-      String attributeName = a.getName();
-      if (containsIgnoreCase(attributeSpellings, attributeName)
-          || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
-        return a;
-      }
-    }
-    return null;
+    return findAttribute(propertySpellings(propertyName));
   }
 
   /**
@@ -96,9 +97,13 @@ public class TagNode extends Node {
    */
   @Nullable
   public Attribute getStaticProperty(String propertyName) {
-    List<String> attributeSpellings = staticAttributeSpellings(propertyName);
+    return findAttribute(staticAttributeSpellings(propertyName));
+  }
+
+  @Nullable
+  private Attribute findAttribute(List<String> spellings) {
     for (Attribute a : attributes) {
-      if (containsIgnoreCase(attributeSpellings, a.getName())) {
+      if (containsIgnoreCase(spellings, a.getName())) {
         return a;
       }
     }
