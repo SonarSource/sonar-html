@@ -75,7 +75,7 @@
     <orchestrator.version>6.4.3.4676</orchestrator.version>
     <junit.version>4.13.2</junit.version>
     <assertj.version>3.27.7</assertj.version>
-    <mockito.version>5.23.0</mockito.version>
+    <mockito.version>5.24.0</mockito.version>
 
     <artifactsToPublish>${project.groupId}:sonar-html-plugin:jar</artifactsToPublish>
     <jdk.min.version>21</jdk.min.version>
