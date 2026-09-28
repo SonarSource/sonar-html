@@ -1,0 +1,42 @@
+{
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/media-default-playback-rate.html": [
+    80,
+    81,
+    82,
+    85,
+    86
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/onbeforeunload-close_with_javascript.html": [
+    28
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/select_hr.html": [
+    51,
+    54,
+    63,
+    66,
+    75,
+    78,
+    93,
+    96,
+    106,
+    109,
+    119,
+    122,
+    138,
+    142,
+    161,
+    164,
+    173,
+    176,
+    191,
+    194,
+    211,
+    213
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/textfield-onblur.html": [
+    34
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html": [
+    229
+  ]
+}

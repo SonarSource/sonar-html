@@ -1,0 +1,21 @@
+{
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/display_create_table.lib.php": [
+    60
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/mult_submits.inc.php": [
+    289,
+    306,
+    322
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/libraries/schema/User_Schema.class.php": [
+    163,
+    225,
+    482
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/tbl_indexes.php": [
+    340
+  ],
+  "phpMyAdmin-4.0.4-english:phpMyAdmin-4.0.4-english/view_operations.php": [
+    97
+  ]
+}

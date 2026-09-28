@@ -1,0 +1,20 @@
+{
+  "voten:voten/resources/views/env-to-js-data.blade.php": [
+    1
+  ],
+  "voten:voten/resources/views/google-analytics.blade.php": [
+    2
+  ],
+  "voten:voten/resources/views/home.blade.php": [
+    26,
+    54
+  ],
+  "voten:voten/resources/views/php-to-js-data.blade.php": [
+    2,
+    16
+  ],
+  "voten:voten/resources/views/welcome.blade.php": [
+    26,
+    54
+  ]
+}

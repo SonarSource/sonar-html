@@ -1,0 +1,92 @@
+{
+  "voten:voten/resources/assets/js/components/AdminPanelSuggestedChannels.vue": [
+    50
+  ],
+  "voten:voten/resources/assets/js/components/KeyboardShortcutsGuide.vue": [
+    10
+  ],
+  "voten:voten/resources/assets/js/components/MarkdownGuide.vue": [
+    14
+  ],
+  "voten:voten/resources/assets/js/components/passport/AuthorizedClients.vue": [
+    15
+  ],
+  "voten:voten/resources/assets/js/components/passport/Clients.vue": [
+    28
+  ],
+  "voten:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue": [
+    30
+  ],
+  "voten:voten/resources/views/backend/announcements.blade.php": [
+    54
+  ],
+  "voten:voten/resources/views/backend/appointed-users.blade.php": [
+    33
+  ],
+  "voten:voten/resources/views/backend/channel.blade.php": [
+    28
+  ],
+  "voten:voten/resources/views/backend/channels.blade.php": [
+    28
+  ],
+  "voten:voten/resources/views/backend/dashboard.blade.php": [
+    65,
+    207
+  ],
+  "voten:voten/resources/views/backend/firewall.blade.php": [
+    32,
+    85,
+    145,
+    207
+  ],
+  "voten:voten/resources/views/backend/spams/comments.blade.php": [
+    29
+  ],
+  "voten:voten/resources/views/backend/spams/multiple-accounts.blade.php": [
+    17
+  ],
+  "voten:voten/resources/views/backend/spams/submissions.blade.php": [
+    29
+  ],
+  "voten:voten/resources/views/backend/user.blade.php": [
+    64
+  ],
+  "voten:voten/resources/views/backend/users.blade.php": [
+    28
+  ],
+  "voten:voten/resources/views/vendor/mail/html/button.blade.php": [
+    1,
+    4,
+    7
+  ],
+  "voten:voten/resources/views/vendor/mail/html/footer.blade.php": [
+    3
+  ],
+  "voten:voten/resources/views/vendor/mail/html/layout.blade.php": [
+    26,
+    29,
+    35
+  ],
+  "voten:voten/resources/views/vendor/mail/html/panel.blade.php": [
+    1,
+    4
+  ],
+  "voten:voten/resources/views/vendor/mail/html/promotion.blade.php": [
+    1
+  ],
+  "voten:voten/resources/views/vendor/mail/html/promotion/button.blade.php": [
+    1,
+    4
+  ],
+  "voten:voten/resources/views/vendor/mail/html/subcopy.blade.php": [
+    1
+  ],
+  "voten:voten/resources/views/vendor/notifications/email.blade.php": [
+    66,
+    69,
+    82,
+    107,
+    148,
+    174
+  ]
+}

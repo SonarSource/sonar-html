@@ -1,0 +1,23 @@
+{
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/click-label.html": [
+    37,
+    38
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/LayoutTests/fast/dom/HTMLLabelElement/form/test1.html": [
+    39,
+    43
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html": [
+    123,
+    124,
+    149,
+    173,
+    174,
+    175
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Tools/TestResultServer/templates/uploadform.html": [
+    13,
+    17,
+    21
+  ]
+}

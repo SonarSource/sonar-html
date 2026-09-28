@@ -1,0 +1,19 @@
+{
+  "voten:voten/resources/assets/js/components/Comment.vue": [
+    86
+  ],
+  "voten:voten/resources/assets/js/components/Messages.vue": [
+    30
+  ],
+  "voten:voten/resources/assets/js/components/pages/Credits.vue": [
+    136
+  ],
+  "voten:voten/resources/views/backend/spams/comments.blade.php": [
+    53,
+    60
+  ],
+  "voten:voten/resources/views/backend/spams/submissions.blade.php": [
+    53,
+    60
+  ]
+}

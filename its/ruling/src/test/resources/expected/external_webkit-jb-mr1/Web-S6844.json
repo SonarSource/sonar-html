@@ -1,0 +1,20 @@
+{
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/onunload-form-submit-crash.html": [
+    3
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/pre-tab-selection-rect.html": [
+    44,
+    49,
+    54,
+    59
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/target_new-1.html": [
+    7,
+    8,
+    9
+  ],
+  "external_webkit-jb-mr1:external_webkit-jb-mr1/Source/WebCore/manual-tests/window-open-features-parsing.html": [
+    28,
+    37
+  ]
+}
