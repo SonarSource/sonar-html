@@ -40,6 +40,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   private boolean inLink;
   private boolean linkHidden;
   private boolean linkInConditional;
+  private boolean linkInTextConditional;
   @Nullable
   private Object linkBranchId;
   private List<ConditionalAttributeScope> linkAttributeScopes = List.of();
@@ -114,7 +115,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     Link previous = link.branchId() == null ? null : pendingBranchLinks.get(link.branchId());
     if (previous != null) {
       reportIfConflicting(link, previous);
-    } else if (link.branchId() == null && !link.attributeScopes().isEmpty()) {
+    } else if (link.branchId() == null && !link.inTextConditional() && !link.attributeScopes().isEmpty()) {
       LinkRecord conflict = firstNonExclusiveConflict(pendingAttributeScopedLinks, link);
       reportIfConflicting(link, conflict == null ? null : new Link(conflict.line(), conflict.target()));
       pendingAttributeScopedLinks.add(link);
@@ -186,10 +187,11 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       linkLabelledBy = nonDynamicPropertyValue(node, "aria-labelledby");
       linkAriaLabel = nonDynamicPropertyValue(node, "aria-label");
       linkAttributeScopes = conditionalScope.conditionalAttributeScopes(node);
-      linkInConditional = conditionalScope.isInOpenConditionalScope() || !linkAttributeScopes.isEmpty();
+      linkInTextConditional = conditionalScope.isInOpenConditionalScope();
+      linkInConditional = linkInTextConditional || !linkAttributeScopes.isEmpty();
       // A link guarded by its own conditional attribute may be mutually exclusive with a sibling in
       // the same text branch, so it gets no branch identity.
-      linkBranchId = linkAttributeScopes.isEmpty() && conditionalScope.isInOpenConditionalScope()
+      linkBranchId = linkAttributeScopes.isEmpty() && linkInTextConditional
         ? conditionalScope.currentConditionalBranchId()
         : null;
     }
@@ -242,7 +244,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     if (nameKey == null) {
       return;
     }
-    links.add(new LinkRecord(linkParent, nameKey, target, line, linkInConditional, linkBranchId, linkAttributeScopes));
+    links.add(new LinkRecord(linkParent, nameKey, target, line, linkInConditional, linkInTextConditional, linkBranchId, linkAttributeScopes));
   }
 
   /**
@@ -292,6 +294,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
    * A single rendered, non-hidden {@code <a>}, collected during traversal for comparison in {@code endDocument()}.
    *
    * @param conditional whether this link is inside a text/JSTL conditional block or under a conditional-attribute host
+   * @param inTextConditional whether this link is inside an open text/JSTL conditional block
    * @param branchId identity of the enclosing text/JSTL branch, or {@code null} when not applicable or not reliably known
    * @param attributeScopes the conditional-attribute hosts (e.g. {@code *ngIf}, {@code v-if}) containing this link
    */
@@ -301,6 +304,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     String target,
     int line,
     boolean conditional,
+    boolean inTextConditional,
     @Nullable Object branchId,
     List<ConditionalAttributeScope> attributeScopes) {
   }

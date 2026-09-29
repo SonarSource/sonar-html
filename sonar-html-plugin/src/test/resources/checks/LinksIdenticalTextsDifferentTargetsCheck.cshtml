@@ -74,6 +74,19 @@ else
 }
 </div>
 
+<!-- Compliant: mutually exclusive Razor branches never render together, even when both links carry
+     the same (non-opposite) Angular conditional attribute, which alone would not rule out a conflict -->
+<div>
+@if (Model.ShowFirst)
+{
+    <a *ngIf="ready" href="/a">Edit</a>
+}
+else
+{
+    <a *ngIf="ready" href="/b">Edit</a>
+}
+</div>
+
 <!-- Compliant: link inside a Razor comment is not rendered, so it is ignored -->
 <div>
 @*
