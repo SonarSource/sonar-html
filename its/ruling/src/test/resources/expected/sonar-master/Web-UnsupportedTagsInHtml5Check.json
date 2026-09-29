@@ -1,0 +1,13 @@
+{
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb": [
+    158
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/server_id_configuration/index.html.erb": [
+    20
+  ],
+  "sonar-master:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/rails-2.3.15/html/index.html": [
+    255,
+    266,
+    266
+  ]
+}

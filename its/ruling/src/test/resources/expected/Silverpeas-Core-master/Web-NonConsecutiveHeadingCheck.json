@@ -1,0 +1,89 @@
+{
+  "Silverpeas-Core-master:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/processManager/DemandeDeMission/printForm/DemandeDeMission_print.html": [
+    15
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html": [
+    2
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html": [
+    2
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/legal/agpl-3.0-standalone.html": [
+    9
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/screenshots.html": [
+    44
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/errorpage.jsp": [
+    97
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/accessForbidden.jsp": [
+    56
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/documentNotFound.jsp": [
+    70
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/AjaxFileUpload.html": [
+    62
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+    196
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainContent.jsp": [
+    171
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp": [
+    137
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/error.jsp": [
+    72
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp": [
+    53
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp": [
+    59
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portlet.jsp": [
+    40
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
+    48
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/undeploy-portlet.jsp": [
+    51
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp": [
+    885
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfile.jsp": [
+    79
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp": [
+    197
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp": [
+    69
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/subscription/jsp/subscriptionpanel.jsp": [
+    555
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp": [
+    86
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/tools/index.jsp": [
+    55
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html": [
+    37
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html": [
+    43
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/divreplace.html": [
+    106
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html": [
+    20
+  ]
+}

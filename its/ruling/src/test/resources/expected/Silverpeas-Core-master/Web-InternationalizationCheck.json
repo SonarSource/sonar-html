@@ -1,0 +1,406 @@
+{
+  "Silverpeas-Core-master:Silverpeas-Core-master/it-test-core/src/test/resources/com/silverpeas/converter/wysiwyg2.html": [
+    47,
+    90,
+    95,
+    113,
+    116
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html": [
+    12,
+    30,
+    34,
+    35,
+    37
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html": [
+    12,
+    30,
+    34,
+    35,
+    37
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/css/tn3/tn3.html": [
+    5
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/font/handwritting.html": [
+    25
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/legal/agpl-3.0-standalone.html": [
+    17
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/src/site/resources/screenshots.html": [
+    7,
+    50,
+    57,
+    64,
+    70,
+    71,
+    78,
+    84,
+    85,
+    91,
+    92,
+    98,
+    99,
+    105,
+    106,
+    112,
+    113,
+    119,
+    120,
+    127
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/ExploitationSilverTrace.jsp": [
+    313,
+    395,
+    396,
+    397,
+    398,
+    399,
+    421,
+    422,
+    424,
+    439,
+    465
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/TopBarSilverpeasV5.jsp": [
+    71
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/agenda/jsp/importCalendar.jsp": [
+    57,
+    57
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/applicationIndexer.jsp": [
+    176
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/applicationIndexer/jsp/didYouMeanIndexer.jsp": [
+    154
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp": [
+    247
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/defaultLogin.jsp": [
+    167,
+    173
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/demo/menu/index.jsp": [
+    117,
+    139
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/form/jsp/editor.jsp": [
+    337,
+    337,
+    337,
+    337,
+    337,
+    337
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainSynchro.jsp": [
+    84,
+    85,
+    86,
+    87
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalResult.jsp": [
+    581,
+    588
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/globalSearch.jsp": [
+    671,
+    678
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchContext.jsp": [
+    624
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/admin/colHeader.jsp": [
+    144
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/silverpeasinfos.jsp": [
+    31,
+    41
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp": [
+    106,
+    106,
+    106,
+    106,
+    106,
+    126,
+    126,
+    126,
+    126,
+    126
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeDraft_de.html": [
+    8
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeDraft_en.html": [
+    8
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeDraft_fr.html": [
+    8
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeNormal_de.html": [
+    8
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeNormal_en.html": [
+    8
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/upload/ModeNormal_fr.html": [
+    8
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html": [
+    49,
+    50,
+    53,
+    56,
+    70,
+    73,
+    78,
+    93,
+    93,
+    100,
+    113,
+    114,
+    116,
+    116,
+    125,
+    128,
+    128,
+    141,
+    141,
+    151,
+    181,
+    184,
+    185,
+    188,
+    188,
+    205,
+    215,
+    215,
+    223,
+    228,
+    243,
+    254,
+    254,
+    254,
+    254,
+    255,
+    258,
+    259,
+    260,
+    261,
+    262,
+    264,
+    265,
+    265,
+    287,
+    293,
+    293,
+    307,
+    309,
+    310,
+    310,
+    328,
+    333,
+    333,
+    333,
+    337,
+    343,
+    348,
+    371,
+    412,
+    421,
+    421,
+    427,
+    433,
+    439,
+    440,
+    445,
+    446,
+    449,
+    455,
+    456,
+    460,
+    467,
+    489,
+    490,
+    492,
+    506,
+    517,
+    519,
+    526,
+    532,
+    537,
+    623,
+    695,
+    699,
+    815,
+    825,
+    829,
+    829,
+    831,
+    842,
+    843,
+    845,
+    848,
+    851,
+    1498
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html": [
+    54,
+    57,
+    87
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/LICENSE.html": [
+    1282
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/adobeair/sample.html": [
+    40
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/ajax.html": [
+    93
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/api.html": [
+    187
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/api_dialog.html": [
+    193
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/asp/index.html": [
+    99
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/autogrow.html": [
+    21,
+    21,
+    35,
+    46,
+    64,
+    79,
+    103
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/bbcode.html": [
+    20,
+    120
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/devtools.html": [
+    21,
+    34,
+    42,
+    89
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/divreplace.html": [
+    149
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/enterkey.html": [
+    43,
+    45,
+    46,
+    56,
+    63,
+    79,
+    110
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/fullpage.html": [
+    24,
+    37,
+    54,
+    77
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/index.html": [
+    35,
+    50,
+    62,
+    112
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/jqueryadapter.html": [
+    61,
+    94
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/output_for_flash.html": [
+    270
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/output_html.html": [
+    280
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/output_xhtml.html": [
+    23,
+    23,
+    176
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/php/index.html": [
+    43
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/placeholder.html": [
+    21,
+    26,
+    36,
+    53,
+    76
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/readonly.html": [
+    53,
+    86
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/replacebyclass.html": [
+    24,
+    29,
+    29,
+    59
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/replacebycode.html": [
+    30,
+    92
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/sharedspaces.html": [
+    33,
+    34,
+    48,
+    97
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/skins.html": [
+    21,
+    31,
+    105
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/stylesheetparser.html": [
+    21,
+    22,
+    25,
+    33,
+    51,
+    88
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/tableresize.html": [
+    21,
+    21,
+    38,
+    55,
+    110
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/ui_color.html": [
+    25,
+    32,
+    37,
+    37,
+    42,
+    124
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/ui_languages.html": [
+    32,
+    33,
+    33,
+    38,
+    46,
+    129
+  ],
+  "Silverpeas-Core-master:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html": [
+    20,
+    47,
+    60,
+    78,
+    79,
+    80
+  ]
+}
