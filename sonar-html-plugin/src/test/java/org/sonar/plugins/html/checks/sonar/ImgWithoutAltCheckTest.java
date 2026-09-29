@@ -81,6 +81,7 @@ class ImgWithoutAltCheckTest {
       .next().atLine(16)
       .next().atLine(23)
       .next().atLine(28)
+      .next().atLine(36)
       .noMore();
   }
 
