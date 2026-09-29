@@ -89,20 +89,23 @@ public class WebRulingTest {
 
   private void runRuling(String projectKey) throws Exception {
     File litsDifferencesFile = FileLocation.of("target/differences/" + projectKey).getFile();
+    File litsActualDir = FileLocation.of("target/actual/" + projectKey).getFile();
+    Files.createDirectories(litsDifferencesFile.toPath().getParent());
+    Files.createDirectories(litsActualDir.toPath());
     orchestrator.getServer().provisionProject(projectKey, projectKey);
     orchestrator.getServer().associateProjectToQualityProfile(projectKey, LANGUAGE, "rules");
     SonarScanner build = SonarScanner.create()
       .setProperty("sonar.scanner.skipJreProvisioning", "true")
-      .setProjectDir(FileLocation.of("../sources/" + projectKey).getFile())
+      .setProjectDir(FileLocation.of("../sources").getFile())
       .setProjectKey(projectKey)
       .setProjectName(projectKey)
       .setProjectVersion("1")
-      .setSourceDirs(".")
+      .setSourceDirs(projectKey)
       .setSourceEncoding("UTF-8")
       .setProperty("sonar.html.file.suffixes", "xhtml,html,php,erb")
       .setProperty("sonar.jsp.file.suffixes", "jspf,jsp")
       .setProperty("sonar.lits.dump.old", FileLocation.of("src/test/resources/expected/" + projectKey).getFile().getAbsolutePath())
-      .setProperty("sonar.lits.dump.new", FileLocation.of("target/actual/" + projectKey).getFile().getAbsolutePath())
+      .setProperty("sonar.lits.dump.new", litsActualDir.getAbsolutePath())
       .setProperty("sonar.lits.differences", litsDifferencesFile.getAbsolutePath())
       .setProperty("sonar.exclusions", "external_webkit-jb-mr1/LayoutTests/fast/encoding/*utf*")
       .setProperty("sonar.cpd.exclusions", "**/*")
