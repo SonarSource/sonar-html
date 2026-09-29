@@ -78,7 +78,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     }
     if (isSvgTag(node)) {
       boolean exempt = hasAccessibleName(node)
-        || AccessibleNameExemption.isHiddenFromAssistiveTech(node)
+        || AccessibleNameExemption.isEffectivelyHiddenFromScreenReader(node)
         || AccessibleNameExemption.hasEffectivelyPresentationalRole(node);
       openSvgs.push(new SvgTracker(node, exempt));
       return;
@@ -160,7 +160,7 @@ public class ImgWithoutAltCheck extends AbstractPageCheck {
     return node.hasProperty("alt")
       || hasAccessibleName(node)
       || hasThymeleafAltAttribute(node)
-      || AccessibleNameExemption.isHiddenFromAssistiveTech(node)
+      || AccessibleNameExemption.isEffectivelyHiddenFromScreenReader(node)
       || AccessibleNameExemption.hasEffectivelyPresentationalRole(node);
   }
 

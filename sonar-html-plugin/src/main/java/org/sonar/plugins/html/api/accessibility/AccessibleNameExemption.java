@@ -39,7 +39,7 @@ public final class AccessibleNameExemption {
    * via an Angular/Vue property binding (on itself or an ancestor) whose runtime value cannot be
    * determined statically.
    */
-  public static boolean isHiddenFromAssistiveTech(TagNode element) {
+  public static boolean isEffectivelyHiddenFromScreenReader(TagNode element) {
     return isHiddenOrHasBoundVisibility(element) || Helpers.hasAncestorMatching(element, AccessibleNameExemption::isHiddenOrHasBoundVisibility);
   }
 

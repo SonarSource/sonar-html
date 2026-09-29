@@ -25,13 +25,13 @@ import org.sonar.plugins.html.node.TagNode;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.plugins.html.api.accessibility.AccessibleNameExemption.hasEffectivelyPresentationalRole;
-import static org.sonar.plugins.html.api.accessibility.AccessibleNameExemption.isHiddenFromAssistiveTech;
+import static org.sonar.plugins.html.api.accessibility.AccessibleNameExemption.isEffectivelyHiddenFromScreenReader;
 
 class AccessibleNameExemptionTest {
 
   @ParameterizedTest(name = "[{index}] onAncestor={0}, attribute={1}={2} -> {3}")
-  @MethodSource("hiddenFromAssistiveTechCases")
-  void resolvesHiddenFromAssistiveTech(boolean onAncestor, String attributeName, String attributeValue, boolean expected) {
+  @MethodSource("effectivelyHiddenFromScreenReaderCases")
+  void resolvesEffectivelyHiddenFromScreenReader(boolean onAncestor, String attributeName, String attributeValue, boolean expected) {
     TagNode svg = svg();
     TagNode target = svg;
     if (onAncestor) {
@@ -41,10 +41,10 @@ class AccessibleNameExemptionTest {
     if (attributeName != null) {
       target.getAttributes().add(new Attribute(attributeName, attributeValue));
     }
-    assertThat(isHiddenFromAssistiveTech(svg)).isEqualTo(expected);
+    assertThat(isEffectivelyHiddenFromScreenReader(svg)).isEqualTo(expected);
   }
 
-  private static Stream<Arguments> hiddenFromAssistiveTechCases() {
+  private static Stream<Arguments> effectivelyHiddenFromScreenReaderCases() {
     return Stream.of(
       Arguments.of(false, null, null, false),
       Arguments.of(false, "aria-hidden", "true", true),
