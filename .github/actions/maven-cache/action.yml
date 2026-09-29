@@ -1,5 +1,10 @@
 name: Setup Maven Cache
-description: Sets up Maven cache with restore-only behavior on non-default branches
+description: Sets up Maven cache with an explicit writer on the default branch
+
+inputs:
+  save:
+    description: Whether this job owns the Maven cache on the default branch
+    default: 'false'
 
 runs:
   using: composite
@@ -13,8 +18,8 @@ runs:
         echo "maven-hash=$HASH" >> $GITHUB_OUTPUT
         echo "cache-month=$MONTH" >> $GITHUB_OUTPUT
 
-    - name: Restore Maven cache (branches)
-      if: github.ref_name != github.event.repository.default_branch
+    - name: Restore Maven cache (read-only jobs)
+      if: github.ref_name != github.event.repository.default_branch || inputs.save != 'true'
       uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/.m2/repository
@@ -22,7 +27,7 @@ runs:
         restore-keys: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
 
     - name: Cache Maven dependencies (default branch)
-      if: github.ref_name == github.event.repository.default_branch
+      if: github.ref_name == github.event.repository.default_branch && inputs.save == 'true'
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/.m2/repository
