@@ -16,7 +16,7 @@
  */
 package org.sonar.plugins.html.checks.sonar;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.TemplateConditionalScopeTracker;
+import org.sonar.plugins.html.api.TemplateConditionalScopeTracker.ConditionalAttributeScope;
 import org.sonar.plugins.html.api.accessibility.AccessibilityUtils;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 import org.sonar.plugins.html.node.DirectiveNode;
@@ -41,17 +42,16 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   private boolean linkInConditional;
   @Nullable
   private Object linkBranchId;
+  private List<ConditionalAttributeScope> linkAttributeScopes = List.of();
   @Nullable
   private String linkLabelledBy;
   @Nullable
   private String linkAriaLabel;
   private final TemplateConditionalScopeTracker conditionalScope = new TemplateConditionalScopeTracker();
-  // Outer key: parent TagNode (null = document root). Inner key: the link's accessible name, see NameKey.
-  // Only holds links seen outside any conditional branch: the only occurrences guaranteed to
-  // render, and therefore the only reliable baseline to compare other links against.
-  private final Map<TagNode, Map<NameKey, Link>> unconditionalLinksByParent = new IdentityHashMap<>();
-  // Same keying as above, plus branch identity (null when a branch can't be reliably told apart from a sibling).
-  private final Map<TagNode, Map<NameKey, Map<Object, Link>>> pendingConditionalLinksByParent = new IdentityHashMap<>();
+
+  // Every non-hidden, rendered <a> is appended here as it closes; comparisons happen once,
+  // in endDocument(), once every link in the document is known.
+  private final List<LinkRecord> links = new ArrayList<>();
 
   private final StringBuilder text = new StringBuilder();
   private String target = "";
@@ -60,10 +60,112 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
 
   @Override
   public void startDocument(List<Node> nodes) {
-    unconditionalLinksByParent.clear();
-    pendingConditionalLinksByParent.clear();
+    links.clear();
     inLink = false;
     conditionalScope.reset(Helpers.isRazorFile(getHtmlSourceCode()));
+  }
+
+  @Override
+  public void endDocument() {
+    Map<TagNode, Map<NameKey, List<LinkRecord>>> groupsByParent = new IdentityHashMap<>();
+    for (LinkRecord link : links) {
+      groupsByParent.computeIfAbsent(link.parent(), k -> new HashMap<>())
+        .computeIfAbsent(link.nameKey(), k -> new ArrayList<>())
+        .add(link);
+    }
+    for (Map<NameKey, List<LinkRecord>> groupsByName : groupsByParent.values()) {
+      for (List<LinkRecord> group : groupsByName.values()) {
+        compareGroup(group);
+      }
+    }
+  }
+
+  /**
+   * Compares links sharing the same parent and accessible name, in document order, against a
+   * baseline established by the first link outside any conditional block.
+   */
+  private void compareGroup(List<LinkRecord> group) {
+    Link baseline = null;
+    Map<Object, Link> pendingBranchLinks = new HashMap<>();
+    List<LinkRecord> pendingAttributeScopedLinks = new ArrayList<>();
+
+    for (LinkRecord link : group) {
+      if (!link.conditional()) {
+        Link previous = baseline == null ? firstConflictingLink(pendingBranchLinks, link.target()) : baseline;
+        reportIfConflicting(link, previous);
+        baseline = new Link(link.line(), link.target());
+      } else if (baseline != null) {
+        reportIfConflicting(link, baseline);
+      } else {
+        compareConditionalWithoutBaseline(link, pendingBranchLinks, pendingAttributeScopedLinks);
+      }
+    }
+  }
+
+  /**
+   * Compares a conditional link against earlier ones seen before any unconditional baseline was
+   * established in its group: one in the same text/JSTL branch, or one whose conditional
+   * attributes are not mutually exclusive with its own.
+   */
+  private void compareConditionalWithoutBaseline(
+    LinkRecord link,
+    Map<Object, Link> pendingBranchLinks,
+    List<LinkRecord> pendingAttributeScopedLinks) {
+    Link previous = link.branchId() == null ? null : pendingBranchLinks.get(link.branchId());
+    if (previous != null) {
+      reportIfConflicting(link, previous);
+    } else if (link.branchId() == null && !link.attributeScopes().isEmpty()) {
+      LinkRecord conflict = firstNonExclusiveConflict(pendingAttributeScopedLinks, link);
+      reportIfConflicting(link, conflict == null ? null : new Link(conflict.line(), conflict.target()));
+      pendingAttributeScopedLinks.add(link);
+    }
+    pendingBranchLinks.putIfAbsent(link.branchId(), new Link(link.line(), link.target()));
+  }
+
+  private void reportIfConflicting(LinkRecord link, @Nullable Link previous) {
+    if (previous != null && !link.target().equals(previous.getTarget())) {
+      createViolation(link.line(), "Use a distinct text or label, or point to the same target for this link and the one on line " + previous.getLine() + ".");
+    }
+  }
+
+  @Nullable
+  private static Link firstConflictingLink(Map<Object, Link> pendingBranches, String target) {
+    Link earliest = null;
+    for (Link candidate : pendingBranches.values()) {
+      if (!target.equals(candidate.getTarget()) && (earliest == null || candidate.getLine() < earliest.getLine())) {
+        earliest = candidate;
+      }
+    }
+    return earliest;
+  }
+
+  /**
+   * Returns the earliest previously seen conditional-attribute-scoped link that conflicts with
+   * {@code link} and is not guaranteed mutually exclusive with it (e.g. sharing the same
+   * {@code *ngIf} host, as opposed to opposite {@code v-if}/{@code v-else} branches).
+   */
+  @Nullable
+  private static LinkRecord firstNonExclusiveConflict(List<LinkRecord> pending, LinkRecord link) {
+    LinkRecord earliest = null;
+    for (LinkRecord candidate : pending) {
+      if (!link.target().equals(candidate.target())
+        && canCoexist(link.attributeScopes(), candidate.attributeScopes())
+        && (earliest == null || candidate.line() < earliest.line())) {
+        earliest = candidate;
+      }
+    }
+    return earliest;
+  }
+
+  private static boolean canCoexist(List<ConditionalAttributeScope> firstScopes, List<ConditionalAttributeScope> secondScopes) {
+    for (ConditionalAttributeScope firstScope : firstScopes) {
+      for (ConditionalAttributeScope secondScope : secondScopes) {
+        if (TemplateConditionalScopeTracker.areMutuallyExclusive(firstScope, secondScope)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   @Override
@@ -74,7 +176,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   @Override
   public void startElement(TagNode node) {
     conditionalScope.startElement(node);
-    if (isA(node)) {
+    if (isAnchorElement(node)) {
       inLink = true;
       text.delete(0, text.length());
       target = getTarget(node);
@@ -83,11 +185,11 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
       linkHidden = isHiddenLink(node) || conditionalScope.isInNonRenderedRazorContent();
       linkLabelledBy = nonDynamicPropertyValue(node, "aria-labelledby");
       linkAriaLabel = nonDynamicPropertyValue(node, "aria-label");
-      List<TemplateConditionalScopeTracker.ConditionalAttributeScope> attributeScopes = conditionalScope.conditionalAttributeScopes(node);
-      linkInConditional = conditionalScope.isInOpenConditionalScope() || !attributeScopes.isEmpty();
+      linkAttributeScopes = conditionalScope.conditionalAttributeScopes(node);
+      linkInConditional = conditionalScope.isInOpenConditionalScope() || !linkAttributeScopes.isEmpty();
       // A link guarded by its own conditional attribute may be mutually exclusive with a sibling in
       // the same text branch, so it gets no branch identity.
-      linkBranchId = attributeScopes.isEmpty() && conditionalScope.isInOpenConditionalScope()
+      linkBranchId = linkAttributeScopes.isEmpty() && conditionalScope.isInOpenConditionalScope()
         ? conditionalScope.currentConditionalBranchId()
         : null;
     }
@@ -127,42 +229,20 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
   @Override
   public void endElement(TagNode node) {
     conditionalScope.endElement(node);
-    if (isA(node)) {
+    if (isAnchorElement(node)) {
       inLink = false;
       if (!linkHidden) {
-        recordOrCompareLink();
+        collectLink();
       }
     }
   }
 
-  private void recordOrCompareLink() {
+  private void collectLink() {
     NameKey nameKey = computeNameKey();
     if (nameKey == null) {
       return;
     }
-
-    Map<NameKey, Link> siblingLinks = unconditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>());
-    Link previousLink = siblingLinks.get(nameKey);
-    if (previousLink == null) {
-      Map<Object, Link> pendingBranches = pendingBranches(nameKey);
-      if (linkInConditional) {
-        previousLink = linkBranchId == null ? null : pendingBranches.get(linkBranchId);
-      } else {
-        previousLink = firstConflictingLink(pendingBranches, target);
-      }
-    }
-
-    if (previousLink != null && !target.equals(previousLink.getTarget())) {
-      createViolation(line, "Use a distinct text or label, or point to the same target for this link and the one on line " + previousLink.getLine() + ".");
-    }
-
-    if (linkInConditional) {
-      pendingConditionalLinksByParent.computeIfAbsent(linkParent, k -> new HashMap<>())
-        .computeIfAbsent(nameKey, k -> new HashMap<>())
-        .putIfAbsent(linkBranchId, new Link(line, target));
-    } else {
-      siblingLinks.put(nameKey, new Link(line, target));
-    }
+    links.add(new LinkRecord(linkParent, nameKey, target, line, linkInConditional, linkBranchId, linkAttributeScopes));
   }
 
   /**
@@ -204,27 +284,25 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
     return value;
   }
 
-  private Map<Object, Link> pendingBranches(NameKey nameKey) {
-    Map<NameKey, Map<Object, Link>> byName = pendingConditionalLinksByParent.get(linkParent);
-    if (byName == null) {
-      return Collections.emptyMap();
-    }
-    return byName.getOrDefault(nameKey, Collections.emptyMap());
-  }
-
-  @Nullable
-  private static Link firstConflictingLink(Map<Object, Link> pendingBranches, String target) {
-    Link earliest = null;
-    for (Link candidate : pendingBranches.values()) {
-      if (!target.equals(candidate.getTarget()) && (earliest == null || candidate.getLine() < earliest.getLine())) {
-        earliest = candidate;
-      }
-    }
-    return earliest;
-  }
-
-  private static boolean isA(TagNode node) {
+  private static boolean isAnchorElement(TagNode node) {
     return "A".equalsIgnoreCase(node.getNodeName());
+  }
+
+  /**
+   * A single rendered, non-hidden {@code <a>}, collected during traversal for comparison in {@code endDocument()}.
+   *
+   * @param conditional whether this link is inside a text/JSTL conditional block or under a conditional-attribute host
+   * @param branchId identity of the enclosing text/JSTL branch, or {@code null} when not applicable or not reliably known
+   * @param attributeScopes the conditional-attribute hosts (e.g. {@code *ngIf}, {@code v-if}) containing this link
+   */
+  private record LinkRecord(
+    TagNode parent,
+    NameKey nameKey,
+    String target,
+    int line,
+    boolean conditional,
+    @Nullable Object branchId,
+    List<ConditionalAttributeScope> attributeScopes) {
   }
 
   private static class Link {
@@ -247,11 +325,7 @@ public class LinksIdenticalTextsDifferentTargetsCheck extends AbstractPageCheck 
 
   }
 
-  /**
-   * The ARIA source a link's accessible-name comparison key was derived from. Kept distinct from
-   * the key's value so links compared via different sources (e.g. an id reference vs. literal text)
-   * never collide even if their normalized values happen to match.
-   */
+  // Which source an accessible-name key came from, so different sources never collide.
   private enum NameSource {
     LABELLEDBY,
     LABEL,

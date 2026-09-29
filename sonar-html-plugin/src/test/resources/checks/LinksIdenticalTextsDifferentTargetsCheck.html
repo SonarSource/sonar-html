@@ -144,6 +144,13 @@
 </c:choose>
 </div>
 
+<!-- Non-Compliant: two links sharing the same conditional-attribute host, which is not mutually
+     exclusive with itself, are guaranteed to render together -->
+<div *ngIf="x">
+  <a href="/shared/1">Edit</a>
+  <a href="/shared/2">Edit</a>          <!-- Non-Compliant -->
+</div>
+
 <!-- Compliant: aria-label takes precedence over differing visible text, and matches here -->
 <div>
   <a href="/account/1" aria-label="Account settings">Edit</a>
