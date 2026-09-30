@@ -29,9 +29,12 @@ jobs:
           version: 2026.9.13
       - &maven_cache
         uses: ./.github/actions/maven-cache
+        with:
+          save: ${{ github.job == 'build' || github.job == 'build-windows' }}
       - id: build_maven
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
+          disable-caching: 'true'
           deploy-pull-request: true
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
@@ -54,6 +57,7 @@ jobs:
       - name: Build Maven (no deploy)
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
+          disable-caching: 'true'
           deploy: false
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
@@ -70,10 +74,16 @@ jobs:
     steps:
       - *checkout
       - *mise
+      - &maven_its_cache
+        uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-its
+          save: ${{ github.job == 'qa' }}
       - &config_maven
         uses: SonarSource/ci-github-actions/config-maven@v2
         with:
           artifactory-reader-role: private-reader
+          disable-caching: 'true'
       - &secrets
         name: Vault
         id: secrets
@@ -83,7 +93,6 @@ jobs:
             development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
-      - *maven_cache
       - uses: ./.github/actions/orchestrator-cache
       - name: Run QA tests
         env: &qa_env
@@ -104,9 +113,9 @@ jobs:
     steps:
       - *checkout
       - *mise
+      - *maven_its_cache
       - *config_maven
       - *secrets
-      - *maven_cache
       # No orchestrator cache: SQ:DEV moves daily, the cache key would never hit.
       - name: Run QA tests against SQ:DEV
         env: *qa_env
@@ -128,9 +137,12 @@ jobs:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - *mise
+      - uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-ruling
+          save: 'true'
       - *config_maven
       - *secrets
-      - *maven_cache
       - uses: ./.github/actions/orchestrator-cache
       - name: Run ruling tests
         id: ruling
@@ -257,9 +269,13 @@ jobs:
     steps:
       - *checkout
       - *mise
-      - *maven_cache
+      - uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-shadows
+          save: ${{ matrix.platform == 'sqc-eu' }}
       - uses: SonarSource/ci-github-actions/build-maven@v2
         with:
+          disable-caching: 'true'
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
           maven-args: "-Dsonar.projectKey=${{ matrix.project-key }} -Dsonar.organization=sonarsource -Pcoverage-report -Dmaven.install.skip=true -Dmaven.deploy.skip=true"
