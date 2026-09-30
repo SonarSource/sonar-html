@@ -1,0 +1,380 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "notifications" : [ ],
+        "rules" : [ ],
+        "taxa" : [ ],
+        "locations" : [ ],
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false,
+        "supportedTaxonomies" : [ ]
+      },
+      "extensions" : [ ]
+    },
+    "invocations" : [ ],
+    "language" : "en-US",
+    "versionControlProvenance" : [ ],
+    "artifacts" : [ ],
+    "logicalLocations" : [ ],
+    "graphs" : [ ],
+    "results" : [ {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/src/site/resources/screenshots.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19,
+            "endLine" : 19,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/app.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "endLine" : 11,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/app.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "endLine" : 12,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/backend-layout.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16,
+            "endLine" : 16,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/backend-layout.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/guest.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/guest.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "endLine" : 15,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/no-sidebar.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S5725",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Add integrity and crossorigin=\"anonymous\" attributes to this element to enforce integrity checks.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/layouts/no-sidebar.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "endLine" : 15,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    } ],
+    "runAggregates" : [ ],
+    "redactionTokens" : [ ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "threadFlowLocations" : [ ],
+    "taxonomies" : [ ],
+    "addresses" : [ ],
+    "translations" : [ ],
+    "policies" : [ ],
+    "webRequests" : [ ],
+    "webResponses" : [ ]
+  } ],
+  "inlineExternalProperties" : [ ]
+}

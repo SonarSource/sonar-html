@@ -1,0 +1,190 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "notifications" : [ ],
+        "rules" : [ ],
+        "taxa" : [ ],
+        "locations" : [ ],
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false,
+        "supportedTaxonomies" : [ ]
+      },
+      "extensions" : [ ]
+    },
+    "invocations" : [ ],
+    "language" : "en-US",
+    "versionControlProvenance" : [ ],
+    "artifacts" : [ ],
+    "logicalLocations" : [ ],
+    "graphs" : [ ],
+    "results" : [ {
+      "ruleId" : "Web:S4645",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "A </script> was found without a relating opening <script> tag. This may be caused by nested script tags.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/fast/encoding/decoder-allow-null-chars.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S4645",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "A </script> was found without a relating opening <script> tag. This may be caused by nested script tags.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/fast/encoding/mismatched-end-tag.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S4645",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "A </script> was found without a relating opening <script> tag. This may be caused by nested script tags.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/gtk/plugin-resize-scroll.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S4645",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "A </script> was found without a relating opening <script> tag. This may be caused by nested script tags.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/qt/plugin-iframe.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    } ],
+    "runAggregates" : [ ],
+    "redactionTokens" : [ ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "threadFlowLocations" : [ ],
+    "taxonomies" : [ ],
+    "addresses" : [ ],
+    "translations" : [ ],
+    "policies" : [ ],
+    "webRequests" : [ ],
+    "webResponses" : [ ]
+  } ],
+  "inlineExternalProperties" : [ ]
+}

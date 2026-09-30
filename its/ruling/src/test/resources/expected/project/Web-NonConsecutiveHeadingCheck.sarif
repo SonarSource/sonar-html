@@ -1,0 +1,6536 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "notifications" : [ ],
+        "rules" : [ ],
+        "taxa" : [ ],
+        "locations" : [ ],
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false,
+        "supportedTaxonomies" : [ ]
+      },
+      "extensions" : [ ]
+    },
+    "invocations" : [ ],
+    "language" : "en-US",
+    "versionControlProvenance" : [ ],
+    "artifacts" : [ ],
+    "logicalLocations" : [ ],
+    "graphs" : [ ],
+    "results" : [ {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/config-core/src/main/config/web/weblib.war/processManager/DemandeDeMission/printForm/DemandeDeMission_print.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "endLine" : 15,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test-without_keys.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2,
+            "endLine" : 2,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/lib-core/src/test/resources/com/silverpeas/wysiwyg/dynamicvalue/test.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2,
+            "endLine" : 2,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/src/site/resources/legal/agpl-3.0-standalone.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9,
+            "endLine" : 9,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/src/site/resources/screenshots.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 44,
+            "endLine" : 44,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/SILVERMAIL/jsp/errorpage.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 97,
+            "endLine" : 97,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/accessForbidden.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 56,
+            "endLine" : 56,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/admin/jsp/documentNotFound.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 70,
+            "endLine" : 70,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/AjaxFileUpload.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 62,
+            "endLine" : 62,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 196,
+            "endLine" : 196,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/jobDomainPeas/jsp/domainContent.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 171,
+            "endLine" : 171,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/componentsList.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 137,
+            "endLine" : 137,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/error.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 72,
+            "endLine" : 72,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 53,
+            "endLine" : 53,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 59,
+            "endLine" : 59,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portlet.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40,
+            "endLine" : 40,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 48,
+            "endLine" : 48,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/undeploy-portlet.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 51,
+            "endLine" : 51,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 885,
+            "endLine" : 885,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfile.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 79,
+            "endLine" : 79,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfile.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 197,
+            "endLine" : 197,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/profil/profilPublic.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 69,
+            "endLine" : 69,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/subscription/jsp/subscriptionpanel.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 555,
+            "endLine" : 555,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/tools/domainSP2LDAP/domainSP2LDAP.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 86,
+            "endLine" : 86,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/tools/index.jsp",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55,
+            "endLine" : 55,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/CHANGES.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "endLine" : 37,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/INSTALL.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 43,
+            "endLine" : 43,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/_samples/divreplace.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 106,
+            "endLine" : 106,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/wysiwyg/jsp/ckeditor/plugins/media/mediaplayer-5.9/readme.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 20,
+            "endLine" : 20,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/html/level1/core/resources/COPYRIGHT.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/core/resources/COPYRIGHT.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/events/resources/COPYRIGHT.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/resources/COPYRIGHT.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level1/core/resources/COPYRIGHT.xhtml",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "endLine" : 13,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/core/resources/COPYRIGHT.xhtml",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "endLine" : 13,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/events/resources/COPYRIGHT.xhtml",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "endLine" : 13,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/resources/COPYRIGHT.xhtml",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "endLine" : 13,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level3/core/resources/COPYRIGHT.xhtml",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/LayoutTests/fast/encoding/denormalised-voiced-japanese-chars.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 8,
+            "endLine" : 8,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/SunSpider/hosted/sunspider.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "endLine" : 37,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/SunSpider/hosted/versions.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "endLine" : 38,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/TEMPLATE.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 36,
+            "endLine" : 36,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/driver-TEMPLATE.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38,
+            "endLine" : 38,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/SunSpider/resources/results-TEMPLATE.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "endLine" : 37,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/JavaScriptCore/tests/mozilla/expected.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6,
+            "endLine" : 6,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animate-none.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 164,
+            "endLine" : 164,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/autofill-popup-location.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9,
+            "endLine" : 9,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/canvas-mask-redraw.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55,
+            "endLine" : 55,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/dom/form-control-for-label.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7,
+            "endLine" : 7,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-with-div-or-image-as-data-image.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "endLine" : 34,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/hash-ref.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9,
+            "endLine" : 9,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/keep_spelling_markers.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2,
+            "endLine" : 2,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/popup-width-restriction-within-screen.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/textarea-reset-default-value.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 11,
+            "endLine" : 11,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/transition-events.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 76,
+            "endLine" : 76,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Tools/CSSTestSuiteHarness/harness/harness.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 208,
+            "endLine" : 208,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/queuestatus.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Tools/Scripts/webkitpy/tool/commands/data/rebaselineserver/index.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 95,
+            "endLine" : 95,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Tools/iExploder/iexploder-1.3.2/htdocs/index.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7,
+            "endLine" : 7,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/db_tracking.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 73,
+            "endLine" : 73,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/doc/html/copyright.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "endLine" : 35,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/doc/html/developers.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "endLine" : 35,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/doc/html/glossary.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "endLine" : 34,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/doc/html/index.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "endLine" : 34,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/doc/html/search.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "endLine" : 39,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/doc/html/user.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "endLine" : 35,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/libraries/display_import.lib.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 186,
+            "endLine" : 186,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/prefs_manage.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 232,
+            "endLine" : 232,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/setup/frames/config.inc.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 25,
+            "endLine" : 25,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/setup/frames/index.inc.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 107,
+            "endLine" : 107,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/setup/lib/form_processing.lib.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 45,
+            "endLine" : 45,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:phpMyAdmin-4.0.4-english/transformation_overview.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 21,
+            "endLine" : 21,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/comments_duplications.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19,
+            "endLine" : 19,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/complexity.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/coverage.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 43,
+            "endLine" : 43,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/events.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 57,
+            "endLine" : 57,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_metric.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "endLine" : 37,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_resources.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "endLine" : 34,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/hotspots/hotspot_most_violated_rules.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39,
+            "endLine" : 39,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/action_plans.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 18,
+            "endLine" : 18,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_per_assignee.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 35,
+            "endLine" : 35,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/issues/unresolved_issues_statuses.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "endLine" : 15,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/it_coverage.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 76,
+            "endLine" : 76,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/rules.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 15,
+            "endLine" : 15,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/size.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19,
+            "endLine" : 19,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/time_machine.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 76,
+            "endLine" : 76,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-core-plugin/src/main/resources/org/sonar/plugins/core/widgets/timeline.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 148,
+            "endLine" : 148,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/lcom4.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/plugins/sonar-design-plugin/src/main/resources/org/sonar/plugins/design/ui/widgets/response_for_class.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "endLine" : 13,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_global_notifications.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1,
+            "endLine" : 1,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/account/_per_project_notifications.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1,
+            "endLine" : 1,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/_new.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1,
+            "endLine" : 1,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/alerts/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "endLine" : 37,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/components/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 21,
+            "endLine" : 21,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/confirm/_confirm.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboard/_header.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 18,
+            "endLine" : 18,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_create_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9,
+            "endLine" : 9,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_delete_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dashboards/_edit_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/dependencies/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 37,
+            "endLine" : 37,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/issues.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 48,
+            "endLine" : 48,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/drilldown/measures.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 24,
+            "endLine" : 24,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_delete_comment_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issue/_issue.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 48,
+            "endLine" : 48,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_copy_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_edit_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/issues/_save_as_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_iframe.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2,
+            "endLine" : 2,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_layout.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 170,
+            "endLine" : 170,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_menu_projects.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "endLine" : 12,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/layouts/_nolayout.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2,
+            "endLine" : 2,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/markdown/help.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 2,
+            "endLine" : 2,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_copy_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_edit_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/measures/_save_as_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6,
+            "endLine" : 6,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_copy_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_create_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_rename_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6,
+            "endLine" : 6,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/_restore_form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 27,
+            "endLine" : 27,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/profiles/inheritance.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 32,
+            "endLine" : 32,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/_snapshot_title.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/project/widgets/issues/_issues_list_widget.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules/_show_modal.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/rules_configuration/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 134,
+            "endLine" : 134,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/server_id_configuration/index.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "endLine" : 30,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/login.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6,
+            "endLine" : 6,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/sessions/new.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/settings/_properties.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "endLine" : 34,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/setup/form.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4,
+            "endLine" : 4,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/app/views/users/new.html.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 6,
+            "endLine" : 6,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:sonar-master/sonar-server/src/main/webapp/WEB-INF/gems/gems/actionpack-2.3.15/lib/action_controller/templates/rescues/_request_and_response.erb",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 16,
+            "endLine" : 16,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/AdminPanelDashboard.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 62,
+            "endLine" : 62,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/AdminPanelInactiveChannels.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4,
+            "endLine" : 4,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/AdminPanelStatistics.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/AdminPanelSuggestedChannels.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4,
+            "endLine" : 4,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/AdminPanelUsers.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/BookmarkedChannel.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "endLine" : 12,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/BookmarkedUser.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 12,
+            "endLine" : 12,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ChannelSearchItem.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9,
+            "endLine" : 9,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ChannelSettings.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/CommentForm.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 23,
+            "endLine" : 23,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/EmojiPicker.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 14,
+            "endLine" : 14,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/FindChannels.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4,
+            "endLine" : 4,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/FindChannelsItem.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/GuestSidebar.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 87,
+            "endLine" : 87,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/Messages.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 122,
+            "endLine" : 122,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ModeratorPanelBanUsers.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ModeratorPanelBlockDomains.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ModeratorPanelModerators.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ModeratorPanelReportedComments.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ModeratorPanelReportedSubmissions.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/ModeratorPanelRules.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/NoMoreItems.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 4,
+            "endLine" : 4,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/Notifications.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 17,
+            "endLine" : 17,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/Rules.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 28,
+            "endLine" : 28,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/Submission.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 190,
+            "endLine" : 190,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/SubmissionChannelHeader.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 10,
+            "endLine" : 10,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H1.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/SuggestedChannel.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 20,
+            "endLine" : 20,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/Tour.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41,
+            "endLine" : 41,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/UserSearchItem.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 9,
+            "endLine" : 9,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/UserSettingsDeleteAccount.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/UserSettingsEditAccount.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/UserSettingsEditEmailAndPassword.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/UserSettingsEditProfile.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 3,
+            "endLine" : 3,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/pages/Credits.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 30,
+            "endLine" : 30,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/passport/Clients.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 80,
+            "endLine" : 80,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H3.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/passport/PersonalAccessTokens.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 63,
+            "endLine" : 63,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/submission/ImgSubmission.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 52,
+            "endLine" : 52,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/assets/js/components/submission/TextSubmission.vue",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 53,
+            "endLine" : 53,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:NonConsecutiveHeadingCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Do not skip level H2.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/backend/messages.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 5,
+            "endLine" : 5,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    } ],
+    "runAggregates" : [ ],
+    "redactionTokens" : [ ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "threadFlowLocations" : [ ],
+    "taxonomies" : [ ],
+    "addresses" : [ ],
+    "translations" : [ ],
+    "policies" : [ ],
+    "webRequests" : [ ],
+    "webResponses" : [ ]
+  } ],
+  "inlineExternalProperties" : [ ]
+}

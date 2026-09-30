@@ -195,7 +195,7 @@ jobs:
             head -c "$MAX_REPORT_LENGTH" ruling-report.md | iconv -c -f utf-8 -t utf-8 > r.tmp
             # close an unbalanced code fence
             if [ $(( $(grep -c '^```' r.tmp) % 2 )) -eq 1 ]; then printf '\n```\n' >> r.tmp; fi
-            printf '\n\n⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling JSON files for full details._\n' >> r.tmp
+            printf '\n\n⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling files for full details._\n' >> r.tmp
             mv r.tmp ruling-report.md
           fi
 

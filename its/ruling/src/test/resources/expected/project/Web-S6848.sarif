@@ -1,0 +1,608 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "notifications" : [ ],
+        "rules" : [ ],
+        "taxa" : [ ],
+        "locations" : [ ],
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false,
+        "supportedTaxonomies" : [ ]
+      },
+      "extensions" : [ ]
+    },
+    "invocations" : [ ],
+    "language" : "en-US",
+    "versionControlProvenance" : [ ],
+    "artifacts" : [ ],
+    "logicalLocations" : [ ],
+    "graphs" : [ ],
+    "results" : [ {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/DOMContextMenuEvent.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 47,
+            "endLine" : 47,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animate-duration.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 49,
+            "endLine" : 49,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animate-duration.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54,
+            "endLine" : 54,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/animate-duration.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 59,
+            "endLine" : 59,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/bugzilla-6821.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 51,
+            "endLine" : 51,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/canvas-mask-redraw.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 60,
+            "endLine" : 60,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/computed-transform-value.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 25,
+            "endLine" : 25,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-image.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 23,
+            "endLine" : 23,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/drag-with-div-or-image-as-data-image.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 43,
+            "endLine" : 43,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/hover-subframe-1.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 25,
+            "endLine" : 25,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/resources/hover-subframe-2.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 25,
+            "endLine" : 25,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/transition-delay.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 47,
+            "endLine" : 47,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/transition-events.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 79,
+            "endLine" : 79,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/win/contextmenu-key2.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1,
+            "endLine" : 1,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    }, {
+      "ruleId" : "Web:S6848",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.",
+        "arguments" : [ ]
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/statusbubble.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 66,
+            "endLine" : 66,
+            "charOffset" : -1,
+            "byteOffset" : -1
+          }
+        },
+        "logicalLocations" : [ ],
+        "annotations" : [ ],
+        "relationships" : [ ]
+      } ],
+      "stacks" : [ ],
+      "codeFlows" : [ ],
+      "graphs" : [ ],
+      "graphTraversals" : [ ],
+      "relatedLocations" : [ ],
+      "suppressions" : [ ],
+      "rank" : -1.0,
+      "attachments" : [ ],
+      "workItemUris" : [ ],
+      "fixes" : [ ],
+      "taxa" : [ ]
+    } ],
+    "runAggregates" : [ ],
+    "redactionTokens" : [ ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "threadFlowLocations" : [ ],
+    "taxonomies" : [ ],
+    "addresses" : [ ],
+    "translations" : [ ],
+    "policies" : [ ],
+    "webRequests" : [ ],
+    "webResponses" : [ ]
+  } ],
+  "inlineExternalProperties" : [ ]
+}

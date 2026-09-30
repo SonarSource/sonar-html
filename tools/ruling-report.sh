@@ -30,17 +30,16 @@ if [ -z "$CHANGED_FILES" ]; then
   exit 0
 fi
 
-# Function to extract line numbers from JSON for a specific file
-get_lines_for_file() {
-  local json_file="$1"
-  local file_key="$2"
-  jq -r --arg key "$file_key" '.[$key] // [] | .[]' "$json_file" 2>/dev/null | sort -n
-}
-
-# Function to get all file keys from a JSON file
-get_file_keys() {
-  local json_file="$1"
-  jq -r 'keys[]' "$json_file" 2>/dev/null
+# Function to list the issues of a ruling file as sorted "file<TAB>line" entries.
+# Supports SARIF files (LITS >= 0.13) and the legacy {"file": [lines]} JSON format.
+# Issues without a region (file-level issues) are reported on line 0, as in the legacy format.
+list_issues() {
+  jq -r 'if type == "object" and has("runs") then
+           .runs[].results[].locations[0].physicalLocation
+           | "\(.artifactLocation.uri)\t\(.region.startLine // 0)"
+         else
+           to_entries[] | .key as $key | .value[] | "\($key)\t\(.)"
+         end' 2>/dev/null | LC_ALL=C sort
 }
 
 # Function to show code snippet around a line
@@ -97,18 +96,26 @@ get_base_content() {
   filename=$(basename "$file_path")
   content=$(git show "${BASE_BRANCH}:its/ruling/src/test/resources/expected/${filename}" 2>/dev/null) && { echo "$content"; return; }
 
+  # Fallback: try the legacy JSON sibling of a SARIF file (before LITS 0.13)
+  if [[ "$file_path" == *.sarif ]]; then
+    content=$(git show "${BASE_BRANCH}:${file_path%.sarif}.json" 2>/dev/null) && { echo "$content"; return; }
+  fi
+
   echo "{}"
 }
 
-# Start report
-echo "## Ruling Report"
-echo ""
-echo "The following ruling changes are in this PR:"
-echo ""
+report_started=false
 
 # Process each changed file
 for file_path in $CHANGED_FILES; do
-  rule_name=$(basename "$file_path" .json)
+  # A legacy JSON file replaced by a SARIF file is compared as part of the SARIF file
+  if [[ "$file_path" == *.json ]] && [[ ! -f "$file_path" ]] && [[ -f "${file_path%.json}.sarif" ]]; then
+    continue
+  fi
+
+  rule_name=$(basename "$file_path")
+  rule_name="${rule_name%.json}"
+  rule_name="${rule_name%.sarif}"
 
   # Get current content
   if [ -f "$file_path" ]; then
@@ -123,58 +130,61 @@ for file_path in $CHANGED_FILES; do
   # Create temp files for comparison
   base_tmp=$(mktemp)
   current_tmp=$(mktemp)
-  echo "$base_content" > "$base_tmp"
-  echo "$current_content" > "$current_tmp"
+  echo "$base_content" | list_issues > "$base_tmp"
+  echo "$current_content" | list_issues > "$current_tmp"
 
-  echo "### Rule: \`$rule_name\`"
-  echo ""
+  # Find removed issues (in base but not in current) and added issues (in current but not in base)
+  removed=$(LC_ALL=C comm -23 "$base_tmp" "$current_tmp" | sort -t$'\t' -k1,1 -k2,2n)
+  added=$(LC_ALL=C comm -13 "$base_tmp" "$current_tmp" | sort -t$'\t' -k1,1 -k2,2n)
 
-  # Get all unique file keys from both versions
-  all_keys=$(cat <(jq -r 'keys[]' "$base_tmp" 2>/dev/null) <(jq -r 'keys[]' "$current_tmp" 2>/dev/null) | sort -u)
+  # Clean up temp files
+  rm -f "$base_tmp" "$current_tmp"
 
   removed_count=0
   added_count=0
   removed_snippets=""
   added_snippets=""
 
-  for file_key in $all_keys; do
-    base_lines=$(get_lines_for_file "$base_tmp" "$file_key")
-    current_lines=$(get_lines_for_file "$current_tmp" "$file_key")
+  while IFS=$'\t' read -r file_key line_num; do
+    [[ -z "$file_key" ]] && continue
+    removed_count=$((removed_count + 1))
+    if [[ "$removed_count" -le "$MAX_SNIPPETS" ]]; then
+      github_url=$(get_github_url "$file_key" "$line_num")
+      removed_snippets+="[**${file_key#project:}:${line_num}**](${github_url})"$'\n'
+      removed_snippets+="\`\`\`html"$'\n'
+      removed_snippets+="$(show_snippet "$(resolve_source_path "$file_key")" "$line_num")"$'\n'
+      removed_snippets+="\`\`\`"$'\n\n'
+    fi
+  done <<< "$removed"
 
-    # Find removed lines (in base but not in current)
-    removed=$(comm -23 <(echo "$base_lines" | grep -v '^$' | sort -n) <(echo "$current_lines" | grep -v '^$' | sort -n) 2>/dev/null || true)
+  while IFS=$'\t' read -r file_key line_num; do
+    [[ -z "$file_key" ]] && continue
+    added_count=$((added_count + 1))
+    if [[ "$added_count" -le "$MAX_SNIPPETS" ]]; then
+      github_url=$(get_github_url "$file_key" "$line_num")
+      added_snippets+="[**${file_key#project:}:${line_num}**](${github_url})"$'\n'
+      added_snippets+="\`\`\`html"$'\n'
+      added_snippets+="$(show_snippet "$(resolve_source_path "$file_key")" "$line_num")"$'\n'
+      added_snippets+="\`\`\`"$'\n\n'
+    fi
+  done <<< "$added"
 
-    # Find added lines (in current but not in base)
-    added=$(comm -13 <(echo "$base_lines" | grep -v '^$' | sort -n) <(echo "$current_lines" | grep -v '^$' | sort -n) 2>/dev/null || true)
+  # Skip rules without issue-level differences (e.g. formatting or JSON to SARIF migration only)
+  if [[ "$removed_count" -eq 0 && "$added_count" -eq 0 ]]; then
+    continue
+  fi
 
-    source_path=$(resolve_source_path "$file_key")
-    display_path="${file_key#project:}"
+  # Start report on the first rule with differences
+  if [[ "$report_started" = false ]]; then
+    echo "## Ruling Report"
+    echo ""
+    echo "The following ruling changes are in this PR:"
+    echo ""
+    report_started=true
+  fi
 
-    for line_num in $removed; do
-      removed_count=$((removed_count + 1))
-      if [ "$removed_count" -le "$MAX_SNIPPETS" ]; then
-        github_url=$(get_github_url "$file_key" "$line_num")
-        removed_snippets+="[**${display_path}:${line_num}**](${github_url})"$'\n'
-        removed_snippets+="\`\`\`html"$'\n'
-        removed_snippets+="$(show_snippet "$source_path" "$line_num")"$'\n'
-        removed_snippets+="\`\`\`"$'\n\n'
-      fi
-    done
-
-    for line_num in $added; do
-      added_count=$((added_count + 1))
-      if [ "$added_count" -le "$MAX_SNIPPETS" ]; then
-        github_url=$(get_github_url "$file_key" "$line_num")
-        added_snippets+="[**${display_path}:${line_num}**](${github_url})"$'\n'
-        added_snippets+="\`\`\`html"$'\n'
-        added_snippets+="$(show_snippet "$source_path" "$line_num")"$'\n'
-        added_snippets+="\`\`\`"$'\n\n'
-      fi
-    done
-  done
-
-  # Clean up temp files
-  rm -f "$base_tmp" "$current_tmp"
+  echo "### Rule: \`$rule_name\`"
+  echo ""
 
   # Output removed issues section
   if [ "$removed_count" -gt 0 ]; then
@@ -183,7 +193,7 @@ for file_path in $CHANGED_FILES; do
     echo ""
     echo "$removed_snippets"
     if [ "$removed_count" -gt "$MAX_SNIPPETS" ]; then
-      echo "_...and $((removed_count - MAX_SNIPPETS)) more (see ruling JSON files for full list)_"
+      echo "_...and $((removed_count - MAX_SNIPPETS)) more (see ruling files for full list)_"
       echo ""
     fi
     echo "</details>"
@@ -197,16 +207,10 @@ for file_path in $CHANGED_FILES; do
     echo ""
     echo "$added_snippets"
     if [ "$added_count" -gt "$MAX_SNIPPETS" ]; then
-      echo "_...and $((added_count - MAX_SNIPPETS)) more (see ruling JSON files for full list)_"
+      echo "_...and $((added_count - MAX_SNIPPETS)) more (see ruling files for full list)_"
       echo ""
     fi
     echo "</details>"
-    echo ""
-  fi
-
-  # If no line changes detected but file changed, note it
-  if [ "$removed_count" -eq 0 ] && [ "$added_count" -eq 0 ]; then
-    echo "_File changed but no line-level differences detected (possibly formatting only)_"
     echo ""
   fi
 done
