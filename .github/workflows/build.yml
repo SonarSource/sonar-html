@@ -320,7 +320,7 @@ jobs:
     needs: [build, build-windows, qa, ruling, promote]
     if: >-
       always()
-      && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
+      && (github.ref_name == github.event.repository.default_branch || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
       && contains(needs.*.result, 'failure')
     runs-on: github-ubuntu-latest-s
     permissions:
