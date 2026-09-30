@@ -2,6 +2,9 @@ name: Setup Maven Cache
 description: Sets up Maven cache with an explicit writer on the default branch
 
 inputs:
+  key-prefix:
+    description: Cache family owned by a job
+    default: 'maven'
   save:
     description: Whether this job owns the Maven cache on the default branch
     default: 'false'
@@ -23,16 +26,20 @@ runs:
       uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/.m2/repository
-        key: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
-        restore-keys: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
+        key: ${{ inputs.key-prefix }}-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
+        restore-keys: |
+          ${{ inputs.key-prefix }}-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
+          maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
 
     - name: Cache Maven dependencies (default branch)
       if: github.ref_name == github.event.repository.default_branch && inputs.save == 'true'
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/.m2/repository
-        key: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
-        restore-keys: maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
+        key: ${{ inputs.key-prefix }}-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-${{ steps.keys.outputs.maven-hash }}
+        restore-keys: |
+          ${{ inputs.key-prefix }}-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
+          maven-${{ runner.os }}-${{ steps.keys.outputs.cache-month }}-
 
     - name: Remove restored sonar-html artifacts
       shell: bash

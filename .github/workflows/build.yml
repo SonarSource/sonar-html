@@ -27,9 +27,10 @@ jobs:
         uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           version: 2026.9.13
-      - uses: ./.github/actions/maven-cache
+      - &maven_cache
+        uses: ./.github/actions/maven-cache
         with:
-          save: 'true'
+          save: ${{ github.job == 'build' || github.job == 'build-windows' }}
       - id: build_maven
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
@@ -52,9 +53,7 @@ jobs:
     steps:
       - *checkout
       - *mise
-      - uses: ./.github/actions/maven-cache
-        with:
-          save: 'true'
+      - *maven_cache
       - name: Build Maven (no deploy)
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
@@ -75,8 +74,11 @@ jobs:
     steps:
       - *checkout
       - *mise
-      - &maven_cache
+      - &maven_its_cache
         uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-its
+          save: ${{ github.job == 'qa' }}
       - &config_maven
         uses: SonarSource/ci-github-actions/config-maven@v2
         with:
@@ -111,7 +113,7 @@ jobs:
     steps:
       - *checkout
       - *mise
-      - *maven_cache
+      - *maven_its_cache
       - *config_maven
       - *secrets
       # No orchestrator cache: SQ:DEV moves daily, the cache key would never hit.
@@ -135,7 +137,10 @@ jobs:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - *mise
-      - *maven_cache
+      - uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-ruling
+          save: 'true'
       - *config_maven
       - *secrets
       - uses: ./.github/actions/orchestrator-cache
@@ -264,7 +269,10 @@ jobs:
     steps:
       - *checkout
       - *mise
-      - *maven_cache
+      - uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-shadows
+          save: ${{ matrix.platform == 'sqc-eu' }}
       - uses: SonarSource/ci-github-actions/build-maven@v2
         with:
           disable-caching: 'true'
