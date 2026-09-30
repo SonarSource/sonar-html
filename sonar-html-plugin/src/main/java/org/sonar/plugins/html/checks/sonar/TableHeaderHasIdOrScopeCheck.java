@@ -17,12 +17,12 @@
 package org.sonar.plugins.html.checks.sonar;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.api.HtmlTable;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -81,23 +81,15 @@ public class TableHeaderHasIdOrScopeCheck extends AbstractPageCheck {
   private static Set<TagNode> headersNeedingIdOrScope(HtmlTable table) {
     Set<TagNode> firstRow = table.firstRow();
     Set<TagNode> firstColumn = table.firstColumn();
-    Set<TagNode> nonExempt = new LinkedHashSet<>();
-    for (TagNode header : table.allHeaders()) {
-      if (!firstRow.contains(header) && !firstColumn.contains(header)) {
-        nonExempt.add(header);
-      }
-    }
-    return nonExempt;
+    return table.allHeaders().stream()
+      .filter(header -> !firstRow.contains(header) && !firstColumn.contains(header))
+      .collect(Collectors.toCollection(LinkedHashSet::new));
   }
 
   private static List<TagNode> filterCells(TagNode trNode) {
-    List<TagNode> cells = new ArrayList<>();
-    for (TagNode child : trNode.getChildren()) {
-      if (HtmlTable.isTh(child) || HtmlTable.isTd(child)) {
-        cells.add(child);
-      }
-    }
-    return cells;
+    return trNode.getChildren().stream()
+      .filter(child -> HtmlTable.isTh(child) || HtmlTable.isTd(child))
+      .toList();
   }
 
   private static boolean isTrTag(TagNode node) {

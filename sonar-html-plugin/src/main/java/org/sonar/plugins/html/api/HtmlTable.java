@@ -23,6 +23,7 @@ import java.util.EnumMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import org.sonar.plugins.html.node.TagNode;
 
@@ -201,13 +202,10 @@ public class HtmlTable {
   }
 
   private static Set<TagNode> cellsAtGridColumn(List<List<TagNode>> grid, int col) {
-    Set<TagNode> result = new LinkedHashSet<>();
-    for (List<TagNode> row : grid) {
-      if (col < row.size() && row.get(col) != null) {
-        result.add(row.get(col));
-      }
-    }
-    return result;
+    return grid.stream()
+      .filter(row -> col < row.size() && row.get(col) != null)
+      .map(row -> row.get(col))
+      .collect(Collectors.toCollection(LinkedHashSet::new));
   }
 
   /** True iff the node is a {@code <th>} element (case-insensitive). */
