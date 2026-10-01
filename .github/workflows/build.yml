@@ -43,12 +43,12 @@ jobs:
           sonar-platform: none
           maven-args: '-Pcoverage -T1C'
 
-      - name: Upload build output for scanning
+      - name: Upload Maven build as pipeline artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: build-output-${{ steps.build_maven.outputs.BUILD_NUMBER }}
           path: '**/target'
-          retention-days: 3
+          retention-days: 7
           overwrite: true
 
       # Publish the deployed plugin version for the pvf
@@ -57,8 +57,8 @@ jobs:
         with:
           build-version: ${{ env.PROJECT_VERSION }}
 
-  scan:
-    name: Scan
+  analysis:
+    name: NEXT analysis
     needs: build
     runs-on: github-ubuntu-latest-m
     permissions:
@@ -73,12 +73,11 @@ jobs:
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: build-output-${{ needs.build.outputs.build-number }}
-      - uses: SonarSource/ci-github-actions/build-maven@66c890622c26a71ea49efeb7e269bd58be455e77 # PR 348; re-pin to @v2 once merged
+      - uses: SonarSource/ci-github-actions/build-maven@66c890622c26a71ea49efeb7e269bd58be455e77 # PR 348; re-pin after skip-build ships in @v2
         with:
           deploy: false
           skip-build: true
           artifactory-reader-role: private-reader
-          artifactory-deployer-role: qa-deployer
           sonar-platform: next
           maven-args: '-T1C'
 
@@ -336,7 +335,7 @@ jobs:
           shadow2_platform: SQC-US
 
   promote:
-    needs: [build, scan, build-windows, qa, ruling]
+    needs: [build, analysis, build-windows, qa, ruling]
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
