@@ -23,6 +23,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TagNodeTest {
 
   @Test
+  void vueDynamicArgumentIsOnlyMatchedByGetProperty() {
+    TagNode node = new TagNode();
+    node.getAttributes().add(new Attribute(":[name5]", "value5"));
+
+    // getProperty() keeps matching it, since callers relying on it predate FrameworkAttributeBindings.staticAttributeSpellings()
+    assertThat(node.hasProperty("name5")).isTrue();
+    assertThat(node.getPropertyValue("name5")).isEqualTo("value5");
+  }
+
+  @Test
   void property() {
     TagNode node = createNode();
     assertThat(node.getAttributes()).hasSize(4);
