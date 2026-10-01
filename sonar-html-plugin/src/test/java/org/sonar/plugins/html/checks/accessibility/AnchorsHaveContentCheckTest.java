@@ -44,6 +44,7 @@ class AnchorsHaveContentCheckTest {
         .next().atLine(27)
         .next().atLine(28)
         .next().atLine(29)
+        .next().atLine(30)
         .noMore();
   }
 

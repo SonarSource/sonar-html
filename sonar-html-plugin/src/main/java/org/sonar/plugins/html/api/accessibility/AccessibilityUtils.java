@@ -116,7 +116,8 @@ public class AccessibilityUtils {
         "input".equalsIgnoreCase(element.getNodeName()) &&
           HIDDEN.equalsIgnoreCase(element.getPropertyValue("type"))
       ) ||
-        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden"))
+        "true".equalsIgnoreCase(element.getPropertyValue("aria-hidden")) ||
+        element.hasAttribute("hidden")
     );
   }
 
