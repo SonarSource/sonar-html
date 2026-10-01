@@ -24,15 +24,14 @@ import org.sonar.plugins.html.node.TagNode;
 
 import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 
 @Rule(key="S7929")
 public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
 
   // Spellings of an "autoplay"/"muted" attribute; excludes Vue's ":[x]" dynamic argument, whose target is only known at runtime.
-  private static final Set<String> AUTOPLAY_ATTRIBUTE_NAMES = staticSpellingsLowerCase("autoplay");
-  private static final Set<String> MUTED_ATTRIBUTE_NAMES = staticSpellingsLowerCase("muted");
+  private static final Set<String> AUTOPLAY_ATTRIBUTE_NAMES = FrameworkAttributeBindings.staticAttributeSpellings("autoplay");
+  private static final Set<String> MUTED_ATTRIBUTE_NAMES = FrameworkAttributeBindings.staticAttributeSpellings("muted");
 
   @Override
   public void startElement(TagNode element) {
@@ -61,15 +60,9 @@ public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
   @CheckForNull
   private static String firstMatchingValue(TagNode element, Set<String> attributeNames) {
     return element.getAttributes().stream()
-      .filter(a -> attributeNames.contains(a.getName().toLowerCase(Locale.ROOT)))
+      .filter(a -> attributeNames.contains(a.getName()))
       .findFirst()
       .map(Attribute::getValue)
       .orElse(null);
-  }
-
-  private static Set<String> staticSpellingsLowerCase(String propertyName) {
-    return FrameworkAttributeBindings.staticAttributeSpellings(propertyName).stream()
-      .map(name -> name.toLowerCase(Locale.ROOT))
-      .collect(Collectors.toUnmodifiableSet());
   }
 }
