@@ -18,6 +18,7 @@ package org.sonar.plugins.html.node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 import org.sonar.plugins.html.api.FrameworkAttributeBindings;
@@ -51,27 +52,18 @@ public class TagNode extends Node {
    */
   @Nullable
   public Attribute getProperty(String propertyName) {
-    List<String> attributeSpellings = FrameworkAttributeBindings.staticAttributeSpellings(propertyName);
-    // Vue's dynamic-argument form: the actual bound name is only known at runtime, but getProperty()
+    Set<String> attributeSpellings = FrameworkAttributeBindings.staticAttributeSpellings(propertyName);
+    // Vue's dynamic-argument form: the actual bound name is only known at runtime, but this method
     // has always treated it as a match, unlike FrameworkAttributeBindings.staticAttributeSpellings().
     String vueSquaredShorthandProperty = ":[" + propertyName + "]";
     for (Attribute a : attributes) {
       String attributeName = a.getName();
-      if (containsIgnoreCase(attributeSpellings, attributeName)
+      if (attributeSpellings.contains(attributeName)
           || vueSquaredShorthandProperty.equalsIgnoreCase(attributeName)) {
         return a;
       }
     }
     return null;
-  }
-
-  private static boolean containsIgnoreCase(List<String> names, String name) {
-    for (String candidate : names) {
-      if (candidate.equalsIgnoreCase(name)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   @Nullable

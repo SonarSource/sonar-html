@@ -16,6 +16,8 @@
  */
 package org.sonar.plugins.html.api;
 
+import java.util.List;
+import java.util.Locale;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,6 +36,27 @@ class FrameworkAttributeBindingsTest {
       .containsExactlyInAnyOrder("scope", "[attr.scope]", "attr.scope", "[scope]", "v-bind:scope", ":scope")
       // the dynamic-argument form's bound name is only known at runtime, so it is not a "scope" spelling
       .doesNotContain(":[scope]");
+  }
+
+  // AssertJ's contains() compares with equals(), so lookups go through Set.contains() to exercise the set's ordering.
+  @Test
+  void spellingsAreCaseInsensitive() {
+    assertThat(List.of("SCOPE", "Scope", "[SCOPE]", "V-BIND:SCOPE", ":SCOPE", "[ATTR.SCOPE]"))
+      .allMatch(FrameworkAttributeBindings.staticAttributeSpellings("scope")::contains);
+    assertThat(List.of("[innerhtml]", "V-BIND:INNERHTML", ":innerHtml"))
+      .allMatch(FrameworkAttributeBindings.domPropertyBindingNames("innerHTML")::contains);
+  }
+
+  @Test
+  void caseInsensitiveMatchingIsLocaleIndependent() {
+    Locale original = Locale.getDefault();
+    try {
+      // Turkish: 'i'/'I' case-fold to 'İ'/'ı', not 'I'/'i'
+      Locale.setDefault(Locale.forLanguageTag("tr"));
+      assertThat(List.of("TITLE")).allMatch(FrameworkAttributeBindings.staticAttributeSpellings("title")::contains);
+    } finally {
+      Locale.setDefault(original);
+    }
   }
 
 }

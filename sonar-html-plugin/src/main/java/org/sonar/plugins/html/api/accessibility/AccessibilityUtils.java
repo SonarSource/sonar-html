@@ -16,8 +16,7 @@
  */
 package org.sonar.plugins.html.api.accessibility;
 
-import java.util.List;
-import java.util.Locale;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
@@ -47,8 +46,8 @@ public class AccessibilityUtils {
   public static final Set<String> TEXT_CONTENT_PROPERTIES = Set.of("innerHTML", "innerText", "textContent");
 
   /**
-   * Every spelling that binds a {@link #TEXT_CONTENT_PROPERTIES} entry as a DOM property, lowercased
-   * so attributes can be matched case-insensitively in one pass. Built from
+   * Every spelling that binds a {@link #TEXT_CONTENT_PROPERTIES} entry as a DOM property, matched
+   * case-insensitively. Built from
    * {@link FrameworkAttributeBindings#domPropertyBindingNames(String)}, which deliberately excludes:
    * <ul>
    *   <li>Angular {@code [attr.x]}/{@code attr.x}: these write an HTML <em>attribute</em> named
@@ -61,9 +60,10 @@ public class AccessibilityUtils {
    */
   private static final Set<String> TEXT_CONTENT_BINDINGS = TEXT_CONTENT_PROPERTIES.stream()
     .map(FrameworkAttributeBindings::domPropertyBindingNames)
-    .flatMap(List::stream)
-    .map(name -> name.toLowerCase(Locale.ROOT))
-    .collect(Collectors.toUnmodifiableSet());
+    .flatMap(Set::stream)
+    .collect(Collectors.collectingAndThen(
+      Collectors.toCollection(FrameworkAttributeBindings::newCaseInsensitiveSet),
+      Collections::unmodifiableSet));
 
   private static final String HIDDEN = "hidden";
 
@@ -95,7 +95,7 @@ public class AccessibilityUtils {
   @CheckForNull
   private static String getBoundTextContent(TagNode element) {
     for (Attribute attribute : element.getAttributes()) {
-      if (TEXT_CONTENT_BINDINGS.contains(attribute.getName().toLowerCase(Locale.ROOT))
+      if (TEXT_CONTENT_BINDINGS.contains(attribute.getName())
         && !Thymeleaf.isEmptyValue(attribute.getValue())) {
         return attribute.getValue();
       }

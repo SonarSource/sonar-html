@@ -16,11 +16,14 @@
  */
 package org.sonar.plugins.html.api;
 
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Every spelling Angular and Vue use to bind an attribute or DOM property named {@code propertyName}.
+ * The returned sets match case-insensitively and locale-independently, like HTML attribute names.
  */
 public final class FrameworkAttributeBindings {
 
@@ -33,8 +36,8 @@ public final class FrameworkAttributeBindings {
    * Vue {@code v-bind:x} and {@code :x}. Excludes the attribute bindings ({@code [attr.x]}/{@code attr.x})
    * matched by {@link #staticAttributeSpellings(String)}, which write an HTML attribute instead.
    */
-  public static List<String> domPropertyBindingNames(String propertyName) {
-    return List.of("[" + propertyName + "]", "v-bind:" + propertyName, ":" + propertyName);
+  public static Set<String> domPropertyBindingNames(String propertyName) {
+    return caseInsensitiveSetOf("[" + propertyName + "]", "v-bind:" + propertyName, ":" + propertyName);
   }
 
   /**
@@ -44,11 +47,25 @@ public final class FrameworkAttributeBindings {
    * - the {@link #domPropertyBindingNames(String)} DOM-property bindings
    * - the Angular attribute bindings {@code [attr.x]} and {@code attr.x}
    */
-  public static List<String> staticAttributeSpellings(String propertyName) {
-    return Stream.concat(
-      Stream.of(propertyName, "[attr." + propertyName + "]", "attr." + propertyName),
-      domPropertyBindingNames(propertyName).stream())
-      .toList();
+  public static Set<String> staticAttributeSpellings(String propertyName) {
+    Set<String> spellings = newCaseInsensitiveSet();
+    Collections.addAll(spellings, propertyName, "[attr." + propertyName + "]", "attr." + propertyName);
+    spellings.addAll(domPropertyBindingNames(propertyName));
+    return Collections.unmodifiableSet(spellings);
+  }
+
+  /**
+   * An empty, mutable set matching like the ones returned here, for callers combining spellings.
+   * {@link String#CASE_INSENSITIVE_ORDER} is locale-independent, unlike a bare {@code toLowerCase()}.
+   */
+  public static Set<String> newCaseInsensitiveSet() {
+    return new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+  }
+
+  private static Set<String> caseInsensitiveSetOf(String... values) {
+    Set<String> set = newCaseInsensitiveSet();
+    set.addAll(Arrays.asList(values));
+    return Collections.unmodifiableSet(set);
   }
 
 }
