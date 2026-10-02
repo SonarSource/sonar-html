@@ -1,0 +1,269 @@
+{
+"project:Silverpeas-Core-master/war-core/src/main/webapp/sharing/jsp/displayTicketInfo.jsp": [
+71
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLBodyElement07.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLBodyElement08.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLBodyElement09.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLBodyElement10.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLBodyElement11.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLBodyElement12.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument01.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument02.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument03.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument04.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument05.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument07.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument08.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument09.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument10.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument11.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument12.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument13.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument14.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument15.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument16.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument17.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument18.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument19.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument20.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument21.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument22.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument23.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument24.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument25.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument26.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLDocument27.html": [
+22
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement01.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement02.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement03.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement04.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement05.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement06.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement07.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement08.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement09.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement10.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement11.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/html/level2/html/HTMLImageElement12.html": [
+9
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement07.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement08.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement09.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement10.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement11.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement12.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument01.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument02.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument03.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument04.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument05.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument07.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument08.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument09.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument10.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument11.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument12.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument13.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument14.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument15.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument16.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument17.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument18.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument19.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument20.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument21.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument22.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument23.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument24.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument25.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument26.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLDocument27.xhtml": [
+24
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement01.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement02.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement03.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement04.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement05.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement06.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement07.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement08.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement09.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement10.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement11.xhtml": [
+11
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLImageElement12.xhtml": [
+11
+]
+}

@@ -1,0 +1,24 @@
+{
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/dashboard.html": [
+28,
+31
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/includes/singlequeuestatus.html": [
+6,
+8
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/patch.html": [
+9,
+9,
+15,
+16
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/queuestatus.html": [
+35,
+36,
+66
+],
+"project:external_webkit-jb-mr1/Tools/QueueStatusServer/templates/recentstatus.html": [
+46
+]
+}

@@ -1,0 +1,312 @@
+{
+"project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/roleInstance.jsp": [
+148
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/addPdc_test.jsp": [
+98
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/searchResult.jsp": [
+183
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/pdcPeas/jsp/webTab.jsp": [
+150,
+151
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/create-portlet.jsp": [
+91
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/deploy-portlet.jsp": [
+70
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp": [
+72,
+76
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp": [
+92
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myContactProfil/myContactProfileTabIdentity.jsp": [
+41
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabIdentity.jsp": [
+70
+],
+"project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabSettings.jsp": [
+38
+],
+"project:external_webkit-jb-mr1/Examples/NetscapeCoreAnimationMoviePlugin/test.html": [
+8
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement01.xhtml": [
+7
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement02.xhtml": [
+7
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement03.xhtml": [
+7
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement04.xhtml": [
+7
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement05.xhtml": [
+7
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/HTMLBodyElement06.xhtml": [
+7
+],
+"project:external_webkit-jb-mr1/LayoutTests/dom/xhtml/level2/html/body01.xhtml": [
+7
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/040.html": [
+2
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/encoding/resources/041.html": [
+2
+],
+"project:external_webkit-jb-mr1/LayoutTests/fast/xpath/4XPath/Borrowed/od_20000608.html": [
+1
+],
+"project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html": [
+196,
+1256,
+3883,
+4103,
+6365,
+7614,
+8738,
+9731,
+9978,
+11080,
+12588,
+12603,
+13428,
+15589,
+17421,
+17607,
+17815,
+18199,
+18926,
+21903,
+22498,
+23114,
+23253,
+23374,
+23380,
+23400,
+23406,
+23623,
+24770,
+25530,
+25563,
+26313,
+27178,
+27256,
+27615,
+27924,
+28674,
+29238,
+31113,
+31115,
+31134,
+35233,
+35234,
+35238,
+35239,
+35240,
+35241,
+35243,
+35247,
+35252,
+39872,
+40259,
+40972,
+41001,
+43718,
+46332,
+46342,
+46424,
+46450,
+46685,
+46693,
+46925,
+47018,
+47063,
+48031,
+48113,
+48114,
+48321,
+49509,
+49641,
+49962,
+50331,
+54786,
+55366,
+55465,
+56597,
+56784,
+57058,
+57063,
+58215,
+58620,
+59720,
+59737,
+59755,
+60660,
+60837,
+61148,
+61149,
+61150,
+61152,
+61224,
+61810,
+62032,
+62051,
+62065,
+62112,
+62560,
+63282,
+63292,
+63344,
+63613,
+64963,
+65491,
+66876,
+66877,
+66887,
+66992,
+67061,
+67597,
+67744,
+67754,
+67769,
+67774,
+67780,
+67786,
+67793,
+67798,
+67809,
+67815,
+67825,
+67827,
+67832,
+67840,
+67854,
+67859,
+67874,
+67880,
+67886,
+67892,
+67898,
+69105,
+69108,
+69176,
+69184,
+69245,
+69265,
+69652,
+69726,
+69814,
+69906,
+70096,
+70142,
+70258,
+70291,
+70333,
+70384,
+70428,
+70512,
+70563,
+70727,
+70788,
+70816,
+70836,
+70868,
+70899,
+70939,
+70976,
+71056,
+71092,
+71128,
+71165,
+71247,
+71312,
+71911,
+71916,
+71918,
+71920,
+71922,
+71924,
+71926,
+71928,
+71930,
+71932,
+71933,
+71935,
+71936,
+71966,
+73510,
+73563,
+73599,
+73622,
+73627,
+74868,
+76224,
+76940,
+77665,
+79088,
+81940,
+82111,
+82131,
+83274,
+83827,
+83837,
+83854,
+83880,
+83886,
+83920,
+83958,
+84013,
+84056,
+84288,
+84300,
+84316,
+84355,
+84945
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/NPN_Invoke/test.html": [
+8
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/liveconnect-applet-array-parameters.html": [
+25
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plugins/windowed.html": [
+67
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/plugins/windowless.html": [
+67
+],
+"project:external_webkit-jb-mr1/Source/WebCore/manual-tests/qt/plugin-sibling-frame-include.html": [
+10
+],
+"project:external_webkit-jb-mr1/Source/WebKit/chromium/tests/data/pageserialization/top_frame.html": [
+23
+],
+"project:voten/resources/assets/js/components/AdminPanelInactiveChannels.vue": [
+55
+],
+"project:voten/resources/assets/js/components/FullSubmission.vue": [
+62
+],
+"project:voten/resources/assets/js/components/NewSubmission.vue": [
+87,
+216
+],
+"project:voten/resources/assets/js/components/SubmissionFooter.vue": [
+3,
+14
+],
+"project:voten/resources/assets/js/components/pages/Credits.vue": [
+115
+]
+}
