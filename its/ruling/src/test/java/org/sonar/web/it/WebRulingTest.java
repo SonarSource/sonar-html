@@ -80,7 +80,7 @@ public class WebRulingTest {
     orchestrator.getServer().associateProjectToQualityProfile(projectKey, LANGUAGE, "rules");
     SonarScanner build = SonarScanner.create()
       .setProperty("sonar.scanner.skipJreProvisioning", "true")
-      .setProjectDir(FileLocation.of("../sources").getFile())
+      .setProjectDir(FileLocation.of("../sources/" + projectKey).getFile())
       .setProjectKey(projectKey)
       .setProjectName(projectKey)
       .setProjectVersion("1")
