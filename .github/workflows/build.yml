@@ -9,6 +9,8 @@ on:
     - cron: '0 2 * * *'  # Nightly at 2 AM UTC — drives SQ:DEV QA, shadow analyses, and IRIS
 
 concurrency:
+  # PR and dispatched verification runs use separate groups so the dispatch
+  # cannot cancel the still-running update job that started it.
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
@@ -148,6 +150,7 @@ jobs:
     runs-on: github-ubuntu-latest-m
     outputs:
       ruling-results-saved: ${{ steps.save_ruling.outcome == 'success' }}
+      analyzed-sha: ${{ steps.analyzed.outputs.sha }}
     permissions:
       id-token: write
       contents: read
@@ -155,13 +158,23 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Record analyzed commit
+        id: analyzed
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - *mise
       - *config_maven
       - *secrets
       - *maven_cache
       - uses: ./.github/actions/orchestrator-cache
+      # PR builds test the merge commit. Ruling fixtures belong to the PR head,
+      # so build the analyzer from that same head before generating results.
+      - name: Build analyzer from ruling head
+        if: github.event_name == 'pull_request'
+        env:
+          MAVEN_OPTS: -Xmx2g
+        run: mvn -pl sonar-html-plugin -am install -DskipTests -Dmaven.deploy.skip=true -B -e -V
       - *verification_plugin
       - *install_verification_plugin
       - name: Run ruling tests
@@ -172,9 +185,18 @@ jobs:
       - name: Show ruling differences
         if: failure()
         run: ./tools/ruling-debug-script.sh
-      - name: Save ruling results
+      - name: Prepare ruling results
+        id: prepare_ruling
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.ruling.outcome == 'failure' }}
+        run: |
+          # The differences file proves LITS reached the comparison. The marker
+          # lets upload-artifact preserve a valid snapshot with zero JSON files.
+          test -f its/ruling/target/differences
+          test -d its/ruling/target/actual
+          touch its/ruling/target/actual/ruling-results-complete.txt
+      - name: Upload ruling results
         id: save_ruling
-        if: always() && github.event_name == 'pull_request' && steps.ruling.outcome == 'failure'
+        if: ${{ !cancelled() && steps.prepare_ruling.outcome == 'success' }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: actual_html
@@ -184,8 +206,10 @@ jobs:
   ruling-update:
     name: Update ruling results
     needs: ruling
-    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && needs.ruling.outputs.ruling-results-saved == 'true'
+    if: ${{ !cancelled() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && needs.ruling.outputs.ruling-results-saved == 'true' }}
     runs-on: github-ubuntu-latest-m
+    outputs:
+      results-updated: ${{ steps.update.outputs.updated }}
     permissions:
       contents: write
       actions: write
@@ -199,33 +223,40 @@ jobs:
           name: actual_html
           path: ruling-artifacts/actual
       - name: Update expected results
+        id: update
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          EXPECTED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          ANALYZED_SHA: ${{ needs.ruling.outputs.analyzed-sha }}
           HEAD_REF: ${{ github.head_ref }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
-          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
-          if [ "$CURRENT_HEAD_SHA" != "$EXPECTED_HEAD_SHA" ]; then
-            echo 'PR head changed since ruling ran; refusing to apply stale results.' >&2
+          if [ "$(git rev-parse HEAD)" != "$ANALYZED_SHA" ]; then
+            echo 'Checked-out commit does not match the analyzed ruling commit.' >&2
             exit 1
+          fi
+          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+          if [ "$CURRENT_HEAD_SHA" != "$ANALYZED_SHA" ]; then
+            echo '::notice::PR head changed since ruling ran; skipping stale results.'
+            exit 0
           fi
           if git log -1 --format=%B | grep -q '🤖 Generated with GitHub Actions'; then
             echo 'Last commit was an auto-update; skipping.'
             exit 0
           fi
-          test -n "$(find ruling-artifacts/actual -name '*.json' -print -quit)"
-          cp -r ruling-artifacts/actual/. its/ruling/src/test/resources/expected/project/
+          test -f ruling-artifacts/actual/ruling-results-complete.txt
+          rsync -a --delete --exclude='ruling-results-complete.txt' \
+            ruling-artifacts/actual/ its/ruling/src/test/resources/expected/project/
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add its/ruling/src/test/resources/expected/
+          git add -A its/ruling/src/test/resources/expected/project/
           if ! git diff --staged --quiet; then
             git commit -m $'Update ruling results\n\n🤖 Generated with GitHub Actions'
             # A concurrent PR update makes this non-fast-forward push fail.
             git push origin "HEAD:refs/heads/$HEAD_REF"
             # Pushes made with GITHUB_TOKEN do not trigger push or PR workflows.
             # Dispatch verification and reporting against the commit just pushed.
+            echo 'updated=true' >> "$GITHUB_OUTPUT"
             NEW_HEAD_SHA=$(git rev-parse HEAD)
             DISPATCH_FAILED=0
             gh workflow run build.yml --ref "$HEAD_REF" || {
@@ -237,6 +268,44 @@ jobs:
               echo 'Ruling comment dispatch failed; rerun Ruling Diff Comment manually.' >&2
             fi
             exit "$DISPATCH_FAILED"
+          fi
+
+  ruling-feedback:
+    name: Report ruling status
+    needs: [ruling, ruling-update]
+    if: ${{ !cancelled() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && github.actor != 'dependabot[bot]' && (needs.ruling.result == 'success' || needs.ruling.result == 'failure') }}
+    runs-on: github-ubuntu-latest-m
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Update ruling failure status
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          RULING_RESULT: ${{ needs.ruling.result }}
+          RESULTS_UPDATED: ${{ needs.ruling-update.outputs.results-updated }}
+        run: |
+          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
+          if [ "$CURRENT_HEAD_SHA" != "$EVENT_HEAD_SHA" ] && [ "$RESULTS_UPDATED" != true ]; then
+            echo '::notice::PR head changed; leaving ruling status to the newer run.'
+            exit 0
+          fi
+          STATUS_COMMENT_ID=$(gh api --paginate \
+            "repos/${{ github.repository }}/issues/$PR_NUMBER/comments?per_page=100" \
+            --jq '.[] | select(.body | startswith("<!-- ruling-status -->")) | .id' | sed -n '1p')
+          if [ "$RULING_RESULT" = failure ] && [ "$RESULTS_UPDATED" != true ]; then
+            printf '%s\n' '<!-- ruling-status -->' \
+              '⚠️ Ruling tests failed and the expected results were not auto-updated. Check the ruling and update job logs.' > ruling-status.md
+            if [ -n "$STATUS_COMMENT_ID" ]; then
+              gh api "repos/${{ github.repository }}/issues/comments/$STATUS_COMMENT_ID" \
+                -X PATCH -F body=@ruling-status.md
+            else
+              gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
+                -X POST -F body=@ruling-status.md
+            fi
+          elif [ -n "$STATUS_COMMENT_ID" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/$STATUS_COMMENT_ID" -X DELETE
           fi
 
   analyze-shadows:
@@ -287,7 +356,7 @@ jobs:
   promote:
     needs: [build, build-windows, qa, ruling]
     # The promotion action cannot promote workflow_dispatch runs on ordinary PR branches.
-    if: github.event_name != 'workflow_dispatch' || github.ref_name == github.event.repository.default_branch || startsWith(github.ref_name, 'branch-') || startsWith(github.ref_name, 'dogfood-on-')
+    if: github.event_name != 'workflow_dispatch' || github.ref_name == github.event.repository.default_branch || startsWith(github.ref_name, 'branch-') || startsWith(github.ref_name, 'dogfood-')
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
