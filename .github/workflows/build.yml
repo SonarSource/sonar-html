@@ -37,7 +37,8 @@ jobs:
           deploy-pull-request: true
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
-          sonar-platform: next
+          # Smoke PR only: SonarQube Next is returning 503 during scanner bootstrap.
+          sonar-platform: none
           maven-args: '-T1C'
       # build-maven does not deploy workflow_dispatch runs from ordinary PR branches.
       # Pass the built plugin directly to verification jobs instead.
