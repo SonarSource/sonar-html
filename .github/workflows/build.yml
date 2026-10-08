@@ -26,7 +26,7 @@ jobs:
       - &mise
         uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
         with:
-          version: 2026.9.15
+          version: 2026.9.17
       - &maven_cache
         uses: ./.github/actions/maven-cache
         with:
@@ -310,7 +310,7 @@ jobs:
       - *checkout
       - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
         with:
-          version: 2026.9.15
+          version: 2026.9.17
           cache_save: false
       - uses: SonarSource/ci-github-actions/promote@v2
         with:
