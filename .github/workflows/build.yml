@@ -33,6 +33,13 @@ jobs:
         uses: ./.github/actions/maven-cache
         with:
           save: ${{ github.job == 'build' || github.job == 'build-windows' }}
+      # Build-number refs only track a number; use the existing base commit so
+      # claiming a PR number does not create refs containing workflow changes.
+      - name: Claim PR build number
+        if: github.event_name == 'pull_request'
+        uses: SonarSource/ci-github-actions/get-build-number@v2
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.base.sha }}
       - id: build_maven
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
@@ -60,6 +67,12 @@ jobs:
   analysis:
     name: NEXT analysis
     needs: build
+    # Match build-maven's should_scan policy; other refs only build and deploy.
+    if: >-
+      github.event_name == 'pull_request' ||
+      github.ref_name == github.event.repository.default_branch ||
+      startsWith(github.ref_name, 'branch-') ||
+      startsWith(github.ref_name, 'feature/long/')
     runs-on: github-ubuntu-latest-m
     permissions:
       id-token: write
@@ -317,7 +330,7 @@ jobs:
 
   iris:
     if: github.event_name == 'schedule'
-    needs: [build, analyze-shadows]
+    needs: [build, analysis, analyze-shadows]
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
@@ -335,6 +348,13 @@ jobs:
           shadow2_platform: SQC-US
 
   promote:
+    if: >-
+      !cancelled()
+      && needs.build.result == 'success'
+      && needs.build-windows.result == 'success'
+      && needs.qa.result == 'success'
+      && needs.ruling.result == 'success'
+      && (needs.analysis.result == 'success' || needs.analysis.result == 'skipped')
     needs: [build, analysis, build-windows, qa, ruling]
     runs-on: github-ubuntu-latest-s
     permissions:
@@ -351,7 +371,7 @@ jobs:
           promote-pull-request: true
 
   notify-build-failure:
-    needs: [build, build-windows, qa, ruling, promote]
+    needs: [build, analysis, build-windows, qa, ruling, promote]
     if: >-
       always()
       && (github.ref_name == github.event.repository.default_branch || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
