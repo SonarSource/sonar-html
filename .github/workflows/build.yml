@@ -33,13 +33,6 @@ jobs:
         uses: ./.github/actions/maven-cache
         with:
           save: ${{ github.job == 'build' || github.job == 'build-windows' }}
-      # Build-number refs only track a number; use the existing base commit so
-      # claiming a PR number does not create refs containing workflow changes.
-      - name: Claim PR build number
-        if: github.event_name == 'pull_request'
-        uses: SonarSource/ci-github-actions/get-build-number@v2
-        env:
-          GITHUB_SHA: ${{ github.event.pull_request.base.sha }}
       - id: build_maven
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
