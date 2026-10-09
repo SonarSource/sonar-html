@@ -65,7 +65,7 @@ public class HtmlTestSuite {
   }
 
   static String sonarVersion() {
-    return Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("LATEST_RELEASE");
+    return Optional.ofNullable(System.getProperty("sonar.runtimeVersion")).orElse("DEV");
   }
 
   public static SonarScanner createSonarScanner() {
