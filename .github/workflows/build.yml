@@ -26,9 +26,9 @@ jobs:
         name: Checkout source code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - &mise
-        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
         with:
-          version: 2026.9.13
+          version: 2026.9.17
       - &maven_cache
         uses: ./.github/actions/maven-cache
         with:
@@ -342,13 +342,32 @@ jobs:
       contents: write
     steps:
       - *checkout
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+      - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
         with:
-          version: 2026.9.13
+          version: 2026.9.17
           cache_save: false
       - uses: SonarSource/ci-github-actions/promote@v2
         with:
           promote-pull-request: true
+
+  notify-build-failure:
+    needs: [build, build-windows, qa, ruling, promote]
+    if: >-
+      always()
+      && (github.ref_name == github.event.repository.default_branch || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
+      && contains(needs.*.result, 'failure')
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      actions: read
+      id-token: write # required for vault-action-wrapper in the shared slack-notify action
+    steps:
+      - name: Slack Notification
+        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@v1
+        with:
+          slack-channel: squad-corelang-notifs
+          branch-patterns: ${{ format('{0},branch-*,dogfood-*', github.event.repository.default_branch) }}
+          github-token: ${{ github.token }}
+          branch: ${{ github.ref_name }}
 
   releasability:
     runs-on: github-ubuntu-latest-s
