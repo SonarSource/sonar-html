@@ -103,25 +103,6 @@ jobs:
         run: |
           mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
-  qa-dev:
-    if: github.event_name == 'schedule'
-    needs: [build]
-    runs-on: github-ubuntu-latest-m
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - *checkout
-      - *mise
-      - *maven_its_cache
-      - *config_maven
-      - *secrets
-      # No orchestrator cache: SQ:DEV moves daily, the cache key would never hit.
-      - name: Run QA tests against SQ:DEV
-        env: *qa_env
-        run: |
-          mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
-
   ruling:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
