@@ -78,3 +78,32 @@ test('a complete HTML snapshot with zero issues deletes all obsolete expectation
   helper(f, 'sync-results', [actual, expected]);
   assert.equal(existsSync(path.join(f.workspace, expected, 'project/Web-S1234.json')), false);
 });
+
+for (const invalidEntry of [
+  'Web-S1234.json',
+  'project/project/Web-S1234.json',
+  'project/Web-S1234.sarif',
+]) {
+  test(`HTML synchronization rejects ${invalidEntry} before deleting expectations`, t => {
+    const f = fixture(t);
+    const actual = rulingConfig['new-results-path'];
+    const expected = rulingConfig['old-results-path'];
+    mkdirSync(path.join(f.workspace, actual, 'project'), { recursive: true });
+    f.write(`${actual}/ruling-results-complete.txt`, '');
+    f.write(`${actual}/${invalidEntry}`, {});
+    const baseline = `${expected}/project/Web-S1234.json`;
+    f.write(baseline, { 'project:page.html': [1] });
+    assert.throws(() => helper(f, 'sync-results', [actual, expected]), /Unexpected result entry|Unsupported result entry/);
+    assert.deepEqual(JSON.parse(readFileSync(path.join(f.workspace, baseline))), {
+      'project:page.html': [1],
+    });
+  });
+}
+
+test('HTML reports reject SARIF expectations instead of silently omitting their changes', t => {
+  const f = fixture(t);
+  f.write('display-results/project/Web-S1234.sarif', { runs: [] });
+  assert.throws(() => helper(f, 'generate-report', ['display-results'], {
+    BASE_SHA: f.merge,
+  }), /SARIF ruling reports are not supported/);
+});

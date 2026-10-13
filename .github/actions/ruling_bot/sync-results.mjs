@@ -71,17 +71,21 @@ async function mirrorDirectory(source, destination) {
 
   for (const projectEntry of projectEntries) {
     if (!projectEntry.isDirectory()) {
-      continue;
+      if (projectEntry.isFile() && projectEntry.name === 'ruling-results-complete.txt') {
+        continue;
+      }
+      throw new Error(`Unexpected result entry at snapshot root: ${projectEntry.name}; expected <project>/<language>-<rule>.json`);
     }
     const project = projectEntry.name;
     const projectDir = path.join(source, project);
     const fileEntries = await readdir(projectDir, { withFileTypes: true });
 
     for (const fileEntry of fileEntries) {
-      if (fileEntry.isFile()) {
-        const destKey = path.join(project, fileEntry.name);
-        allFiles.set(destKey, path.join(projectDir, fileEntry.name));
+      if (!fileEntry.isFile() || !fileEntry.name.endsWith('.json')) {
+        throw new Error(`Unsupported result entry: ${project}/${fileEntry.name}; expected JSON ruling files`);
       }
+      const destKey = path.join(project, fileEntry.name);
+      allFiles.set(destKey, path.join(projectDir, fileEntry.name));
     }
   }
 
