@@ -650,6 +650,89 @@ class TemplateConditionalScopeTrackerTest {
   }
 
   @Test
+  void reports_same_branch_id_within_one_uncontinued_conditional() {
+    List<Node> nodes = parse("""
+      @if (Model.ShowPrimary)
+      {
+        <div id="first">First</div>
+        <div id="second">Second</div>
+      }
+      """);
+
+    assertThat(branchIdAtLine(nodes, "div", 3)).isEqualTo(branchIdAtLine(nodes, "div", 4));
+  }
+
+  @Test
+  void reports_different_branch_ids_across_if_else() {
+    List<Node> nodes = parse("""
+      @if (Model.ShowPrimary)
+      {
+        <div id="choice">First</div>
+      }
+      else
+      {
+        <div id="choice">Second</div>
+      }
+      """);
+
+    assertThat(branchIdAtLine(nodes, "div", 3)).isNotEqualTo(branchIdAtLine(nodes, "div", 7));
+  }
+
+  @Test
+  void reports_different_branch_ids_across_if_else_in_rendered_markup_inside_a_razor_code_block() {
+    List<Node> nodes = parse("""
+      @{
+        <section>
+          @if (Model.ShowPrimary) {
+            <div id="choice">First</div>
+          } else {
+            <div id="choice">Second</div>
+          }
+        </section>
+      }
+      """);
+
+    assertThat(branchIdAtLine(nodes, "div", 4)).isNotEqualTo(branchIdAtLine(nodes, "div", 6));
+  }
+
+  @Test
+  void reports_different_branch_ids_for_jstl_siblings() {
+    List<Node> nodes = parse("""
+      <c:choose>
+        <c:when test="${a}">
+          <div id="choice">First</div>
+        </c:when>
+        <c:when test="${b}">
+          <div id="choice">Second</div>
+        </c:when>
+      </c:choose>
+      """);
+
+    assertThat(branchIdAtLine(nodes, "div", 3)).isNotEqualTo(branchIdAtLine(nodes, "div", 6));
+  }
+
+  @Test
+  void reports_no_branch_id_for_twig_and_php_colon_conditionals() {
+    List<Node> twigNodes = parse("""
+      {% if condition %}
+        <div id="choice">First</div>
+      {% else %}
+        <div id="choice">Second</div>
+      {% endif %}
+      """);
+    List<Node> phpColonNodes = parse("""
+      <?php if (random_int(0, 1)): ?>
+        <div id="choice">First</div>
+      <?php else: ?>
+        <div id="choice">Second</div>
+      <?php endif; ?>
+      """);
+
+    assertThat(branchIdAtLine(twigNodes, "div", 2)).isNull();
+    assertThat(branchIdAtLine(phpColonNodes, "div", 2)).isNull();
+  }
+
+  @Test
   void identifies_conditional_attribute_hosts() {
     List<Node> nodes = parse("""
       <div v-if="flag" id="vue">Inside</div>
@@ -713,6 +796,32 @@ class TemplateConditionalScopeTrackerTest {
           tracker.startElement(tagNode);
           if (tagNode == target) {
             return tracker.isInOpenConditionalScope();
+          }
+          if (tagNode.hasEnd()) {
+            tracker.endElement(tagNode);
+          }
+        }
+      }
+    }
+    throw new IllegalArgumentException("Target tag was not encountered during scan");
+  }
+
+  private static Object branchIdAtLine(List<Node> nodes, String tagName, int startLine) {
+    TagNode target = findTag(nodes, tagName, startLine);
+    TemplateConditionalScopeTracker tracker = new TemplateConditionalScopeTracker();
+    tracker.reset(true, nodes);
+    for (Node node : nodes) {
+      if (node instanceof TextNode textNode) {
+        tracker.visitText(textNode);
+      } else if (node instanceof DirectiveNode directiveNode) {
+        tracker.visitDirective(directiveNode);
+      } else if (node instanceof TagNode tagNode) {
+        if (tagNode.isEndElement()) {
+          tracker.endElement(tagNode);
+        } else {
+          tracker.startElement(tagNode);
+          if (tagNode == target) {
+            return tracker.currentConditionalBranchId();
           }
           if (tagNode.hasEnd()) {
             tracker.endElement(tagNode);

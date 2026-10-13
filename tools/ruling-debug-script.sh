@@ -1,6 +1,6 @@
 #!/bin/bash
 
-default_actual_dir="its/ruling/target/actual"
+default_actual_dir="its/ruling/target/actual/project"
 
 expected_dir="its/ruling/src/test/resources/expected/project"
 actual_dir="${1:-$default_actual_dir}"

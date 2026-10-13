@@ -9,8 +9,6 @@ on:
     - cron: '0 2 * * *'  # Nightly at 2 AM UTC — drives SQ:DEV QA, shadow analyses, and IRIS
 
 concurrency:
-  # PR and dispatched verification runs use separate groups so the dispatch
-  # cannot cancel the still-running update job that started it.
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
@@ -21,39 +19,73 @@ permissions:
 jobs:
   build:
     runs-on: github-ubuntu-latest-m
+    outputs:
+      build-number: ${{ steps.build_maven.outputs.BUILD_NUMBER }}
     steps:
       - &checkout
         name: Checkout source code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - &mise
-        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
         with:
-          version: 2026.9.11
+          version: 2026.9.17
       - &maven_cache
         uses: ./.github/actions/maven-cache
+        with:
+          save: ${{ github.job == 'build' || github.job == 'build-windows' }}
       - id: build_maven
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
+          disable-caching: 'true'
           deploy-pull-request: true
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
-          sonar-platform: next
-          maven-args: '-T1C'
-      # build-maven does not deploy workflow_dispatch runs from ordinary PR branches.
-      # Pass the built plugin directly to verification jobs instead.
-      - name: Save plugin for dispatched verification
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+          sonar-platform: none
+          maven-args: '-Pcoverage -T1C'
+
+      - name: Upload Maven build as pipeline artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: verification-plugin
-          path: sonar-html-plugin/target/sonar-html-plugin-${{ env.PROJECT_VERSION }}.jar
-          if-no-files-found: error
+          name: build-output-${{ steps.build_maven.outputs.BUILD_NUMBER }}
+          path: '**/target'
+          retention-days: 7
+          overwrite: true
 
       # Publish the deployed plugin version for the pvf
       - name: Prepare PVF candidate version
         uses: SonarSource/core-languages-tooling-public/prepare-pvf@master
         with:
           build-version: ${{ env.PROJECT_VERSION }}
+
+  analysis:
+    name: NEXT analysis
+    needs: build
+    # Match build-maven's should_scan policy; other refs only build and deploy.
+    if: >-
+      github.event_name == 'pull_request' ||
+      github.ref_name == github.event.repository.default_branch ||
+      startsWith(github.ref_name, 'branch-') ||
+      startsWith(github.ref_name, 'feature/long/')
+    runs-on: github-ubuntu-latest-m
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build-number }}
+    steps:
+      - *checkout
+      - *mise
+      - *maven_cache
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: build-output-${{ needs.build.outputs.build-number }}
+      - uses: SonarSource/ci-github-actions/build-maven@v2
+        with:
+          deploy: false
+          skip-build: true
+          artifactory-reader-role: private-reader
+          sonar-platform: next
+          maven-args: '-T1C'
 
   build-windows:
     needs: [build]
@@ -65,6 +97,7 @@ jobs:
       - name: Build Maven (no deploy)
         uses: SonarSource/ci-github-actions/build-maven@v2
         with:
+          disable-caching: 'true'
           deploy: false
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
@@ -81,10 +114,16 @@ jobs:
     steps:
       - *checkout
       - *mise
+      - &maven_its_cache
+        uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-its
+          save: ${{ github.job == 'qa' }}
       - &config_maven
         uses: SonarSource/ci-github-actions/config-maven@v2
         with:
           artifactory-reader-role: private-reader
+          disable-caching: 'true'
       - &secrets
         name: Vault
         id: secrets
@@ -94,28 +133,7 @@ jobs:
             development/github/token/licenses-ro token | GITHUB_TOKEN_LICENSES;
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
-      - *maven_cache
       - uses: ./.github/actions/orchestrator-cache
-      - &verification_plugin
-        name: Download plugin for dispatched verification
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: verification-plugin
-          path: verification-plugin
-      - &install_verification_plugin
-        name: Install plugin for dispatched verification
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          JAR=$(find verification-plugin -name 'sonar-html-plugin-*.jar' -print -quit)
-          test -n "$JAR"
-          VERSION=$(basename "$JAR" .jar)
-          VERSION=${VERSION#sonar-html-plugin-}
-          # The plugin POM refers to this root POM as its parent.
-          mvn -N install -DskipTests -B
-          mvn org.apache.maven.plugins:maven-install-plugin:3.1.4:install-file \
-            -Dfile="$JAR" -DgroupId=org.sonarsource.html \
-            -DartifactId=sonar-html-plugin -Dversion="$VERSION" -Dpackaging=jar -B
       - name: Run QA tests
         env: &qa_env
           SONARSOURCE_QA: true
@@ -123,189 +141,135 @@ jobs:
           ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
           ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
         run: |
-          mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
-
-  qa-dev:
-    if: github.event_name == 'schedule'
-    needs: [build]
-    runs-on: github-ubuntu-latest-m
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - *checkout
-      - *mise
-      - *config_maven
-      - *secrets
-      - *maven_cache
-      # No orchestrator cache: SQ:DEV moves daily, the cache key would never hit.
-      - name: Run QA tests against SQ:DEV
-        env: *qa_env
-        run: |
           mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
     if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
-    outputs:
-      ruling-results-saved: ${{ steps.save_ruling.outcome == 'success' }}
-      analyzed-sha: ${{ steps.analyzed.outputs.sha }}
     permissions:
       id-token: write
-      contents: read
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: false
-      - name: Record analyzed commit
-        id: analyzed
-        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - *mise
+      - uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-ruling
+          save: 'true'
       - *config_maven
       - *secrets
-      - *maven_cache
       - uses: ./.github/actions/orchestrator-cache
-      # PR builds test the merge commit. Ruling fixtures belong to the PR head,
-      # so build the analyzer from that same head before generating results.
-      - name: Build analyzer from ruling head
-        if: github.event_name == 'pull_request'
-        env:
-          MAVEN_OPTS: -Xmx2g
-        run: mvn -pl sonar-html-plugin -am install -DskipTests -Dmaven.deploy.skip=true -B -e -V
-      - *verification_plugin
-      - *install_verification_plugin
       - name: Run ruling tests
         id: ruling
         env: *qa_env
         run: |
-          mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+          mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Show ruling differences
         if: failure()
         run: ./tools/ruling-debug-script.sh
-      - name: Prepare ruling results
-        id: prepare_ruling
-        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.ruling.outcome == 'failure' }}
-        run: |
-          # The differences file proves LITS reached the comparison. The marker
-          # lets upload-artifact preserve a valid snapshot with zero JSON files.
-          test -f its/ruling/target/differences
-          test -d its/ruling/target/actual
-          touch its/ruling/target/actual/ruling-results-complete.txt
-      - name: Upload ruling results
-        id: save_ruling
-        if: ${{ !cancelled() && steps.prepare_ruling.outcome == 'success' }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: actual_html
-          path: its/ruling/target/actual/
-          if-no-files-found: error
-
-  ruling-update:
-    name: Update ruling results
-    needs: ruling
-    if: ${{ !cancelled() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && needs.ruling.outputs.ruling-results-saved == 'true' }}
-    runs-on: github-ubuntu-latest-m
-    outputs:
-      results-updated: ${{ steps.update.outputs.updated }}
-    permissions:
-      contents: write
-      actions: write
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Download ruling results
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: actual_html
-          path: ruling-artifacts/actual
-      - name: Update expected results
-        id: update
+      - name: Update ruling and comment on PR
+        if: always() && github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          ANALYZED_SHA: ${{ needs.ruling.outputs.analyzed-sha }}
           HEAD_REF: ${{ github.head_ref }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_REF: ${{ github.base_ref }}
+          RULING_FAILED: ${{ steps.ruling.outcome == 'failure' }}
         run: |
-          if [ "$(git rev-parse HEAD)" != "$ANALYZED_SHA" ]; then
-            echo 'Checked-out commit does not match the analyzed ruling commit.' >&2
-            exit 1
-          fi
-          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
-          if [ "$CURRENT_HEAD_SHA" != "$ANALYZED_SHA" ]; then
-            echo '::notice::PR head changed since ruling ran; skipping stale results.'
-            exit 0
-          fi
-          if git log -1 --format=%B | grep -q '🤖 Generated with GitHub Actions'; then
-            echo 'Last commit was an auto-update; skipping.'
-            exit 0
-          fi
-          test -f ruling-artifacts/actual/ruling-results-complete.txt
-          rsync -a --delete --exclude='ruling-results-complete.txt' \
-            ruling-artifacts/actual/ its/ruling/src/test/resources/expected/project/
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -A its/ruling/src/test/resources/expected/project/
-          if ! git diff --staged --quiet; then
-            git commit -m $'Update ruling results\n\n🤖 Generated with GitHub Actions'
-            # A concurrent PR update makes this non-fast-forward push fail.
-            git push origin "HEAD:refs/heads/$HEAD_REF"
-            # Pushes made with GITHUB_TOKEN do not trigger push or PR workflows.
-            # Dispatch verification and reporting against the commit just pushed.
-            echo 'updated=true' >> "$GITHUB_OUTPUT"
-            NEW_HEAD_SHA=$(git rev-parse HEAD)
-            DISPATCH_FAILED=0
-            gh workflow run build.yml --ref "$HEAD_REF" || {
-              echo 'Verification build dispatch failed.' >&2
-              DISPATCH_FAILED=1
-            }
-            if ! gh workflow run ruling-diff-comment.yml --ref "$HEAD_REF" \
-              -f pr-number="$PR_NUMBER" -f base-sha="$BASE_SHA" -f head-sha="$NEW_HEAD_SHA"; then
-              echo 'Ruling comment dispatch failed; rerun Ruling Diff Comment manually.' >&2
+          MARKER="<!-- ruling-report -->"
+
+          # Auto-update ruling files when the ruling test failed
+          RULING_UPDATED=false
+          if [ "$RULING_FAILED" = "true" ]; then
+            # Check if last commit was already an auto-update (prevent infinite loop)
+            LAST_COMMIT_MSG=$(git log -1 --format=%B)
+            if echo "$LAST_COMMIT_MSG" | grep -q "🤖 Generated with GitHub Actions"; then
+              echo "Last commit was an auto-update, skipping to prevent infinite loop"
+            elif [ -d "its/ruling/target/actual" ]; then
+              # Sync ruling results
+              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/project/
+
+              git config user.name "github-actions[bot]"
+              git config user.email "github-actions[bot]@users.noreply.github.com"
+
+              git add its/ruling/src/test/resources/expected/
+
+              if ! git diff --staged --quiet; then
+                git commit -m "Update ruling results
+
+          🤖 Generated with GitHub Actions"
+                git push origin "$HEAD_REF"
+                RULING_UPDATED=true
+              fi
             fi
-            exit "$DISPATCH_FAILED"
           fi
 
-  ruling-feedback:
-    name: Report ruling status
-    needs: [ruling, ruling-update]
-    if: ${{ !cancelled() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false && github.actor != 'dependabot[bot]' && (needs.ruling.result == 'success' || needs.ruling.result == 'failure') }}
-    runs-on: github-ubuntu-latest-m
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Update ruling failure status
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          RULING_RESULT: ${{ needs.ruling.result }}
-          RESULTS_UPDATED: ${{ needs.ruling-update.outputs.results-updated }}
-        run: |
-          CURRENT_HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/$PR_NUMBER" --jq '.head.sha')
-          if [ "$CURRENT_HEAD_SHA" != "$EVENT_HEAD_SHA" ] && [ "$RESULTS_UPDATED" != true ]; then
-            echo '::notice::PR head changed; leaving ruling status to the newer run.'
-            exit 0
+          # Generate ruling report (compares current branch vs PR base branch)
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+          BASE_BRANCH="origin/$BASE_REF" ./tools/ruling-report.sh > ruling-report.md || true
+
+          # Check if there are ruling differences
+          if [ -s ruling-report.md ]; then
+            HAS_DIFFERENCES=true
+          else
+            HAS_DIFFERENCES=false
           fi
-          STATUS_COMMENT_ID=$(gh api --paginate \
-            "repos/${{ github.repository }}/issues/$PR_NUMBER/comments?per_page=100" \
-            --jq '.[] | select(.body | startswith("<!-- ruling-status -->")) | .id' | sed -n '1p')
-          if [ "$RULING_RESULT" = failure ] && [ "$RESULTS_UPDATED" != true ]; then
-            printf '%s\n' '<!-- ruling-status -->' \
-              '⚠️ Ruling tests failed and the expected results were not auto-updated. Check the ruling and update job logs.' > ruling-status.md
-            if [ -n "$STATUS_COMMENT_ID" ]; then
-              gh api "repos/${{ github.repository }}/issues/comments/$STATUS_COMMENT_ID" \
-                -X PATCH -F body=@ruling-status.md
-            else
-              gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
-                -X POST -F body=@ruling-status.md
-            fi
-          elif [ -n "$STATUS_COMMENT_ID" ]; then
-            gh api "repos/${{ github.repository }}/issues/comments/$STATUS_COMMENT_ID" -X DELETE
+
+          # Truncate ruling report if it would exceed GitHub's 65536 character limit for comments.
+          # Truncating before composing comment.md ensures the status footer is always preserved.
+          MAX_REPORT_LENGTH=64000
+          if [ "$(wc -c < ruling-report.md)" -gt "$MAX_REPORT_LENGTH" ]; then
+            head -c "$MAX_REPORT_LENGTH" ruling-report.md | iconv -c -f utf-8 -t utf-8 > r.tmp
+            # close an unbalanced code fence
+            if [ $(( $(grep -c '^```' r.tmp) % 2 )) -eq 1 ]; then printf '\n```\n' >> r.tmp; fi
+            printf '\n\n⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling JSON files for full details._\n' >> r.tmp
+            mv r.tmp ruling-report.md
+          fi
+
+          # Build comment based on state
+          if [ "$HAS_DIFFERENCES" = "true" ]; then
+            {
+              echo "$MARKER"
+              cat ruling-report.md
+              echo ""
+              echo "---"
+              if [ "$RULING_UPDATED" = "true" ]; then
+                echo "✅ **Ruling has been auto-updated.** A verification build will run automatically."
+              elif [ "$RULING_FAILED" = "true" ]; then
+                echo "⚠️ **Ruling tests failed.** Please review the differences above."
+              else
+                echo "✅ **Ruling tests passed.**"
+              fi
+            } > comment.md
+          else
+            {
+              echo "$MARKER"
+              echo "## Ruling Report"
+              echo ""
+              if [ "$RULING_FAILED" = "true" ]; then
+                echo "⚠️ **Ruling tests failed** but no file differences were detected."
+                echo "Check the build logs for details."
+              else
+                echo "✅ **No changes to ruling expected issues in this PR**"
+              fi
+            } > comment.md
+          fi
+
+          # Find existing ruling comment and update it, or create new one
+          EXISTING_COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
+            --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1 || true)
+
+          if [ -n "$EXISTING_COMMENT_ID" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/$EXISTING_COMMENT_ID" \
+              -X PATCH -F body=@comment.md
+          else
+            gh pr comment "$PR_NUMBER" --body-file comment.md
           fi
 
   analyze-shadows:
@@ -326,9 +290,13 @@ jobs:
     steps:
       - *checkout
       - *mise
-      - *maven_cache
+      - uses: ./.github/actions/maven-cache
+        with:
+          key-prefix: maven-shadows
+          save: ${{ matrix.platform == 'sqc-eu' }}
       - uses: SonarSource/ci-github-actions/build-maven@v2
         with:
+          disable-caching: 'true'
           artifactory-reader-role: private-reader
           artifactory-deployer-role: qa-deployer
           maven-args: "-Dsonar.projectKey=${{ matrix.project-key }} -Dsonar.organization=sonarsource -Pcoverage-report -Dmaven.install.skip=true -Dmaven.deploy.skip=true"
@@ -336,7 +304,7 @@ jobs:
 
   iris:
     if: github.event_name == 'schedule'
-    needs: [build, analyze-shadows]
+    needs: [build, analysis, analyze-shadows]
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
@@ -354,22 +322,46 @@ jobs:
           shadow2_platform: SQC-US
 
   promote:
-    needs: [build, build-windows, qa, ruling]
-    # The promotion action cannot promote workflow_dispatch runs on ordinary PR branches.
-    if: github.event_name != 'workflow_dispatch' || github.ref_name == github.event.repository.default_branch || startsWith(github.ref_name, 'branch-') || startsWith(github.ref_name, 'dogfood-')
+    if: >-
+      !cancelled()
+      && needs.build.result == 'success'
+      && needs.build-windows.result == 'success'
+      && needs.qa.result == 'success'
+      && needs.ruling.result == 'success'
+      && (needs.analysis.result == 'success' || needs.analysis.result == 'skipped')
+    needs: [build, analysis, build-windows, qa, ruling]
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
       contents: write
     steps:
       - *checkout
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+      - uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
         with:
-          version: 2026.9.11
+          version: 2026.9.17
           cache_save: false
       - uses: SonarSource/ci-github-actions/promote@v2
         with:
           promote-pull-request: true
+
+  notify-build-failure:
+    needs: [build, analysis, build-windows, qa, ruling, promote]
+    if: >-
+      always()
+      && (github.ref_name == github.event.repository.default_branch || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
+      && contains(needs.*.result, 'failure')
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      actions: read
+      id-token: write # required for vault-action-wrapper in the shared slack-notify action
+    steps:
+      - name: Slack Notification
+        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@v1
+        with:
+          slack-channel: squad-corelang-notifs
+          branch-patterns: ${{ format('{0},branch-*,dogfood-*', github.event.repository.default_branch) }}
+          github-token: ${{ github.token }}
+          branch: ${{ github.ref_name }}
 
   releasability:
     runs-on: github-ubuntu-latest-s

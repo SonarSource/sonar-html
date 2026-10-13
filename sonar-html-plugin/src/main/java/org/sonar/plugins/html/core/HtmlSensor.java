@@ -214,8 +214,7 @@ public final class HtmlSensor implements Sensor {
   }
 
   private static boolean supportsIssueResolution(SensorContext context) {
-    return context.runtime().getProduct() != SonarProduct.SONARLINT
-      && context.runtime().getApiVersion().isGreaterThanOrEqual(ISSUE_RESOLUTION_API_MIN_VERSION);
+    return context.runtime().getApiVersion().isGreaterThanOrEqual(ISSUE_RESOLUTION_API_MIN_VERSION);
   }
 
 }

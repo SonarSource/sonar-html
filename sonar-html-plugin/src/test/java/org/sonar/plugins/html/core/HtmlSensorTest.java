@@ -192,7 +192,7 @@ class HtmlSensorTest {
   }
 
   @Test
-  void sonar_resolve_is_ignored_in_sonarlint() {
+  void sonar_resolve_is_saved_in_sonarlint() {
     tester.setRuntime(TestSonarRuntime.forSonarLint(Version.create(13, 6)));
     DefaultInputFile inputFile = createInputFile("sonar-resolve.html", String.join("\n",
       "<div>",
@@ -202,7 +202,12 @@ class HtmlSensorTest {
 
     sensor.execute(tester);
 
-    assertThat(issueResolutions(inputFile)).isEmpty();
+    assertThat(issueResolutions(inputFile)).singleElement().satisfies(issueResolution -> {
+      assertThat(issueResolution.status()).isEqualTo(IssueResolution.Status.DEFAULT);
+      assertThat(issueResolution.ruleKeys()).containsExactly(RuleKey.of(HtmlRulesDefinition.REPOSITORY_KEY, "S5256"));
+      assertThat(issueResolution.comment()).isEqualTo("reason");
+      assertThat(issueResolution.textRange().start().line()).isEqualTo(2);
+    });
   }
 
   @Test
