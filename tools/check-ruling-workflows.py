@@ -2,6 +2,7 @@
 """Check the ruling handoff and mutation contract; requires PyYAML."""
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import tempfile
@@ -43,6 +44,32 @@ for name in ("qa", "ruling"):
     assert download["with"]["name"] == "build-output-${{ needs.build.outputs.build-number }}"
     assert any(s.get("name") == "Install the tested analyzer" for s in job["steps"])
 
+# Classifier JARs share the same prefix. Exercise the real install step with both
+# a sources JAR and the packaged analyzer, then with the analyzer missing.
+install = next(s["run"] for s in producer["steps"] if s.get("name") == "Install the tested analyzer")
+with tempfile.TemporaryDirectory(prefix="html-ruling-plugin-") as tmp:
+    root = Path(tmp)
+    target = root / "sonar-html-plugin/target"
+    target.mkdir(parents=True)
+    (target / "sonar-html-plugin-3.33.0.9748-sources.jar").touch()
+    plugin = target / "sonar-html-plugin-3.33.0.9748.jar"
+    plugin.touch()
+    commands = root / "commands"
+    commands.mkdir()
+    mvn = commands / "mvn"
+    mvn.write_text('#!/bin/bash\nprintf "%s\\n" "$*" >> "$INSTALL_LOG"\n')
+    mvn.chmod(0o755)
+    log = root / "install.log"
+    env = dict(os.environ, PATH=str(commands) + os.pathsep + os.environ["PATH"],
+               PROJECT_VERSION="3.33.0.9748", INSTALL_LOG=str(log))
+    subprocess.run(["bash", "-e", "-c", install], cwd=root, env=env, check=True)
+    assert "-Dfile=sonar-html-plugin/target/sonar-html-plugin-3.33.0.9748.jar" in log.read_text()
+    assert "sources.jar" not in log.read_text()
+    plugin.unlink()
+    before = log.read_text()
+    assert subprocess.run(["bash", "-e", "-c", install], cwd=root, env=env).returncode != 0
+    assert log.read_text() == before
+
 assert "steps.ruling.outcome" in producer["outputs"]["ruling-outcome"]
 assert "steps.save_ruling.outcome" in producer["outputs"]["ruling-results-saved"]
 assert "GITHUB_RUN_ATTEMPT" in step(producer, "ruling_artifact")["run"]
@@ -82,6 +109,8 @@ assert "inputs.head-sha || github.sha" in report["concurrency"]["group"]
 for job in (updater, report_job, cleanup["jobs"]["cleanup"]):
     assert "ruling-bot-pr-" in job["concurrency"]["group"]
     assert job["concurrency"]["queue"] == "max"
+    runtime = next(s for s in job["steps"] if s.get("uses", "").startswith("actions/setup-node@"))
+    assert runtime["with"]["node-version"] == "22"
 assert "head.repo.fork == false" in report_job["if"]
 assert "dependabot" in report_job["if"]
 assert cleanup["on"]["pull_request_target"]["types"] == ["closed"]
