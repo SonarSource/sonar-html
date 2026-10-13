@@ -88,6 +88,8 @@ jobs:
           maven-args: '-T1C'
 
   build-windows:
+    env: &built_version
+      BUILD_NUMBER: ${{ needs.build.outputs.build-number }}
     needs: [build]
     runs-on: github-windows-latest-m
     steps:
@@ -105,6 +107,7 @@ jobs:
           maven-args: '-T1C'
 
   qa:
+    env: *built_version
     if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: github-ubuntu-latest-m
@@ -134,6 +137,23 @@ jobs:
             development/kv/data/repox url | ARTIFACTORY_URL;
             development/artifactory/token/SonarSource-sonar-html-private-reader access_token | ARTIFACTORY_ACCESS_TOKEN;
       - uses: ./.github/actions/orchestrator-cache
+      - &download_tested_plugin
+        name: Download the tested build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: build-output-${{ needs.build.outputs.build-number }}
+      - &install_tested_plugin
+        name: Install the tested analyzer
+        run: |
+          JAR=$(find sonar-html-plugin/target -name 'sonar-html-plugin-*.jar' -print -quit)
+          test -n "$JAR"
+          VERSION=$(basename "$JAR" .jar)
+          VERSION=${VERSION#sonar-html-plugin-}
+          test "$VERSION" = "$PROJECT_VERSION"
+          mvn -N install -DskipTests -B
+          mvn org.apache.maven.plugins:maven-install-plugin:3.1.4:install-file \
+            -Dfile="$JAR" -DgroupId=org.sonarsource.html \
+            -DartifactId=sonar-html-plugin -Dversion="$VERSION" -Dpackaging=jar -B
       - name: Run QA tests
         env: &qa_env
           SONARSOURCE_QA: true
@@ -144,19 +164,34 @@ jobs:
           mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
   ruling:
-    if: github.actor != 'dependabot[bot]'
+    if: github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false)
     needs: [build]
+    env: *built_version
     runs-on: github-ubuntu-latest-m
+    outputs:
+      ruling-outcome: ${{ steps.ruling.outcome }}
+      ruling-results-saved: ${{ steps.save_ruling.outcome == 'success' }}
+      tested-base-sha: ${{ steps.tested_merge.outputs.base_sha }}
+      results-artifact-name: ${{ steps.ruling_artifact.outputs.name }}
     permissions:
       id-token: write
-      contents: write
-      pull-requests: write
+      contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
           submodules: true
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
+      - name: Capture the tested PR base
+        id: tested_merge
+        if: github.event_name == 'pull_request'
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse 'HEAD^2')" = "$TESTED_PR_HEAD_SHA"
+          echo "base_sha=$(git rev-parse 'HEAD^1')" >> "$GITHUB_OUTPUT"
+        env:
+          TESTED_PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       - *mise
       - uses: ./.github/actions/maven-cache
         with:
@@ -165,112 +200,100 @@ jobs:
       - *config_maven
       - *secrets
       - uses: ./.github/actions/orchestrator-cache
+      - *download_tested_plugin
+      - *install_tested_plugin
+      - name: Name saved ruling results
+        id: ruling_artifact
+        # BEGIN GENERATED ARTIFACT NAME
+        # Owned by config.mjs / provenance.mjs / .github/ruling-bot.config.mjs; run generate-config.mjs.
+        run: echo "name=actual_html-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+        # END GENERATED ARTIFACT NAME
       - name: Run ruling tests
         id: ruling
         env: *qa_env
-        run: |
-          mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+        run: mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=DEV -Dmaven.test.redirectTestOutputToFile=false -B -e -V
       - name: Show ruling differences
         if: failure()
         run: ./tools/ruling-debug-script.sh
-      - name: Update ruling and comment on PR
-        if: always() && github.event_name == 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          HEAD_REF: ${{ github.head_ref }}
-          BASE_REF: ${{ github.base_ref }}
-          RULING_FAILED: ${{ steps.ruling.outcome == 'failure' }}
+      - name: Prepare ruling results
+        id: prepare_ruling
+        if: ${{ !cancelled() && steps.ruling.outcome == 'failure' }}
         run: |
-          MARKER="<!-- ruling-report -->"
+          # Prove comparison completed; retain a valid snapshot with zero JSON files.
+          test -f its/ruling/target/differences
+          mkdir -p its/ruling/target/actual/project
+          touch its/ruling/target/actual/ruling-results-complete.txt
+      - name: Save generated ruling results
+        id: save_ruling
+        if: ${{ !cancelled() && steps.prepare_ruling.outcome == 'success' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ steps.ruling_artifact.outputs.name }}
+          # BEGIN GENERATED RESULTS PATH
+          # Owned by config.mjs / provenance.mjs / .github/ruling-bot.config.mjs; run generate-config.mjs.
+          path: its/ruling/target/actual/
+          # END GENERATED RESULTS PATH
+          if-no-files-found: error
 
-          # Auto-update ruling files when the ruling test failed
-          RULING_UPDATED=false
-          if [ "$RULING_FAILED" = "true" ]; then
-            # Check if last commit was already an auto-update (prevent infinite loop)
-            LAST_COMMIT_MSG=$(git log -1 --format=%B)
-            if echo "$LAST_COMMIT_MSG" | grep -q "🤖 Generated with GitHub Actions"; then
-              echo "Last commit was an auto-update, skipping to prevent infinite loop"
-            elif [ -d "its/ruling/target/actual" ]; then
-              # Sync ruling results
-              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/project/
-
-              git config user.name "github-actions[bot]"
-              git config user.email "github-actions[bot]@users.noreply.github.com"
-
-              git add its/ruling/src/test/resources/expected/
-
-              if ! git diff --staged --quiet; then
-                git commit -m "Update ruling results
-
-          🤖 Generated with GitHub Actions"
-                git push origin "$HEAD_REF"
-                RULING_UPDATED=true
-              fi
-            fi
-          fi
-
-          # Generate ruling report (compares current branch vs PR base branch)
-          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
-          BASE_BRANCH="origin/$BASE_REF" ./tools/ruling-report.sh > ruling-report.md || true
-
-          # Check if there are ruling differences
-          if [ -s ruling-report.md ]; then
-            HAS_DIFFERENCES=true
-          else
-            HAS_DIFFERENCES=false
-          fi
-
-          # Truncate ruling report if it would exceed GitHub's 65536 character limit for comments.
-          # Truncating before composing comment.md ensures the status footer is always preserved.
-          MAX_REPORT_LENGTH=64000
-          if [ "$(wc -c < ruling-report.md)" -gt "$MAX_REPORT_LENGTH" ]; then
-            head -c "$MAX_REPORT_LENGTH" ruling-report.md | iconv -c -f utf-8 -t utf-8 > r.tmp
-            # close an unbalanced code fence
-            if [ $(( $(grep -c '^```' r.tmp) % 2 )) -eq 1 ]; then printf '\n```\n' >> r.tmp; fi
-            printf '\n\n⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling JSON files for full details._\n' >> r.tmp
-            mv r.tmp ruling-report.md
-          fi
-
-          # Build comment based on state
-          if [ "$HAS_DIFFERENCES" = "true" ]; then
-            {
-              echo "$MARKER"
-              cat ruling-report.md
-              echo ""
-              echo "---"
-              if [ "$RULING_UPDATED" = "true" ]; then
-                echo "✅ **Ruling has been auto-updated.** A verification build will run automatically."
-              elif [ "$RULING_FAILED" = "true" ]; then
-                echo "⚠️ **Ruling tests failed.** Please review the differences above."
-              else
-                echo "✅ **Ruling tests passed.**"
-              fi
-            } > comment.md
-          else
-            {
-              echo "$MARKER"
-              echo "## Ruling Report"
-              echo ""
-              if [ "$RULING_FAILED" = "true" ]; then
-                echo "⚠️ **Ruling tests failed** but no file differences were detected."
-                echo "Check the build logs for details."
-              else
-                echo "✅ **No changes to ruling expected issues in this PR**"
-              fi
-            } > comment.md
-          fi
-
-          # Find existing ruling comment and update it, or create new one
-          EXISTING_COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
-            --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1 || true)
-
-          if [ -n "$EXISTING_COMMENT_ID" ]; then
-            gh api "repos/${{ github.repository }}/issues/comments/$EXISTING_COMMENT_ID" \
-              -X PATCH -F body=@comment.md
-          else
-            gh pr comment "$PR_NUMBER" --body-file comment.md
-          fi
+  ruling-update:
+    name: Update ruling results
+    needs: ruling
+    if: >-
+      !cancelled()
+      && github.actor != 'dependabot[bot]'
+      && (github.event_name == 'pull_request' || github.ref_name == github.event.repository.default_branch)
+      && (needs.ruling.outputs.ruling-outcome == 'success' || needs.ruling.outputs.ruling-results-saved == 'true')
+    concurrency:
+      group: ${{ github.event_name == 'pull_request' && format('ruling-bot-pr-{0}', github.event.pull_request.number) || format('ruling-bot-branch-{0}', github.ref_name) }}
+      cancel-in-progress: false
+      queue: max
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+      - uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
+        with:
+          version: 2026.9.17
+          install_args: node
+      - name: Download generated ruling results
+        if: needs.ruling.outputs.ruling-results-saved == 'true'
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ${{ needs.ruling.outputs.results-artifact-name }}
+          # BEGIN GENERATED RESULTS PATH
+          # Owned by config.mjs / provenance.mjs / .github/ruling-bot.config.mjs; run generate-config.mjs.
+          path: its/ruling/target/actual/
+          # END GENERATED RESULTS PATH
+      - name: Update ruling results
+        id: ruling_update
+        uses: ./.github/actions/ruling_bot
+        with:
+          github-token: ${{ github.token }}
+          # BEGIN GENERATED CALLER PROVENANCE
+          # Owned by config.mjs / provenance.mjs / .github/ruling-bot.config.mjs; run generate-config.mjs.
+          pr-number: ${{ github.event.pull_request.number || '' }}
+          tested-base-sha: ${{ needs.ruling.outputs.tested-base-sha }}
+          ruling-failed: ${{ needs.ruling.outputs.ruling-results-saved == 'true' }}
+          is-pull-request: ${{ github.event_name == 'pull_request' }}
+          target-ref: ${{ github.head_ref || github.ref_name }}
+          tested-head-sha: ${{ github.event.pull_request.head.sha || github.sha }}
+          # END GENERATED CALLER PROVENANCE
+          # BEGIN GENERATED CALLER CONFIG
+          # Owned by config.mjs / provenance.mjs / .github/ruling-bot.config.mjs; run generate-config.mjs.
+          results-artifact-name: ${{ needs.ruling.outputs.results-artifact-name }}
+          # END GENERATED CALLER CONFIG
+      # BEGIN GENERATED DISPATCH RECORD
+      # Owned by config.mjs / provenance.mjs / .github/ruling-bot.config.mjs; run generate-config.mjs.
+      - name: Record ruling report dispatch
+        if: always() && steps.ruling_update.outputs.report-requested == 'true'
+        run: echo 'Independent ruling report dispatch succeeded.'
+      # END GENERATED DISPATCH RECORD
 
   analyze-shadows:
     if: github.event_name == 'schedule'
@@ -328,8 +351,9 @@ jobs:
       && needs.build-windows.result == 'success'
       && needs.qa.result == 'success'
       && needs.ruling.result == 'success'
+      && (needs.ruling-update.result == 'success' || needs.ruling-update.result == 'skipped')
       && (needs.analysis.result == 'success' || needs.analysis.result == 'skipped')
-    needs: [build, analysis, build-windows, qa, ruling]
+    needs: [build, analysis, build-windows, qa, ruling, ruling-update]
     runs-on: github-ubuntu-latest-s
     permissions:
       id-token: write
@@ -345,7 +369,7 @@ jobs:
           promote-pull-request: true
 
   notify-build-failure:
-    needs: [build, analysis, build-windows, qa, ruling, promote]
+    needs: [build, analysis, build-windows, qa, ruling, ruling-update, promote]
     if: >-
       always()
       && (github.ref_name == github.event.repository.default_branch || startsWith(github.ref, 'refs/heads/branch-') || startsWith(github.ref, 'refs/heads/dogfood-'))
