@@ -137,9 +137,9 @@ jobs:
       - name: Run QA tests
         env: &qa_env
           SONARSOURCE_QA: true
-          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault)['GITHUB_TOKEN_LICENSES'] }}
-          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_URL }}
-          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault).ARTIFACTORY_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault || '{}')['GITHUB_TOKEN_LICENSES'] }}
+          ARTIFACTORY_URL: ${{ fromJSON(steps.secrets.outputs.vault || '{}').ARTIFACTORY_URL }}
+          ARTIFACTORY_ACCESS_TOKEN: ${{ fromJSON(steps.secrets.outputs.vault || '{}').ARTIFACTORY_ACCESS_TOKEN }}
         run: |
           mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
 
