@@ -107,6 +107,14 @@ configuration. Both HTML result directories contain the sonar-lits `<project>/<l
 layout. Helper scripts resolve relative to the action installation; data paths resolve relative to
 the tested checkout (`github.workspace`, or `repository-path` for the reporter).
 
+Synchronization validates the entire snapshot before deleting expectations. Only project
+directories with JSON files and the root completion marker are accepted. Flat root results,
+nested directories, and other result formats fail visibly. Reporting also rejects changed SARIF
+files rather than silently omitting them. The unmerged HTML [#869](https://github.com/SonarSource/sonar-html/pull/869)
+changes the result layout and source submodule path; its integration must update the producer
+and shared configuration together. The unmerged [#855](https://github.com/SonarSource/sonar-html/pull/855)
+migrates expectations to SARIF and must add report support as part of that migration.
+
 Result and source paths may be relative or absolute within that checkout. Valid paths are
 normalized relative to the caller's checkout before dispatch. Reporter preflight exposes the
 validated absolute download destination, so artifact download and report generation also agree

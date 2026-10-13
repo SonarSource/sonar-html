@@ -77,6 +77,10 @@ function getChangedFiles(oldResultsPath) {
       '\0',
     ),
   ];
+  const sarifFiles = changedFiles.filter(filePath => filePath.endsWith('.sarif'));
+  if (sarifFiles.length > 0) {
+    throw new Error(`SARIF ruling reports are not supported; update the report renderer before migrating expectations: ${sarifFiles.join(', ')}`);
+  }
   return [
     ...new Set(changedFiles.filter(Boolean).filter(filePath => filePath.endsWith('.json'))),
   ].sort((left, right) => left.localeCompare(right));
