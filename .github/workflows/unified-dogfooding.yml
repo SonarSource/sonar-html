@@ -1,0 +1,56 @@
+name: Unified Dogfooding scans
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and test for shadow scans
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      id-token: write
+      contents: write
+    env:
+      BUILD_NUMBER: ${{ needs.build.outputs.build-number }}
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
+        with:
+          version: 2026.9.17
+      - uses: SonarSource/ci-github-actions/build-maven@v2
+        with:
+          deploy: false
+          deploy-pull-request: false
+          artifactory-reader-role: private-reader
+          artifactory-deployer-role: qa-deployer
+          maven-args: '-Pcoverage -T1C'
+          run-shadow-scans: true
+
+  run_iris:
+    name: Run Iris
+    needs: build
+    if: ${{ !cancelled() && needs.analyze.result == 'success' }}
+    concurrency:
+      group: iris-${{ github.ref }}
+      cancel-in-progress: false
+      queue: single
+    runs-on: github-ubuntu-latest-s
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: SonarSource/unified-dogfooding-actions/run-iris@v1
+        with:
+          primary_project_key: org.sonarsource.html:html
+          primary_platform: Next
+          shadow1_project_key: org.sonarsource.html:html
+          shadow1_platform: SQC-EU
+          shadow2_project_key: org.sonarsource.html:html
+          shadow2_platform: SQC-US
