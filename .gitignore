@@ -35,6 +35,7 @@ Thumbs.db
 Desktop.ini
 
 coverage/
+node_modules/
 
 # ---- Claude Code
 .claude/

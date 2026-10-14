@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ET
 
 import yaml
 
@@ -27,6 +28,24 @@ report = document(".github/workflows/ruling-diff-comment.yml")
 cleanup = document(".github/workflows/ruling-fix-cleanup.yml")
 jobs = build["jobs"]
 producer, updater = jobs["ruling"], jobs["ruling-update"]
+
+# Coverage must come from the tested checkout and reach analysis before scanning.
+bot_tests = jobs["bot-tests"]
+assert bot_tests["permissions"] == {"contents": "read"}
+assert bot_tests["steps"][0]["with"]["persist-credentials"] == "false"
+assert any(s.get("run") == "npm run coverage" for s in bot_tests["steps"])
+coverage_upload = next(s for s in bot_tests["steps"] if s.get("name") == "Save ruling bot coverage")
+analysis = jobs["analysis"]
+assert "bot-tests" in analysis["needs"]
+coverage_download = next(s for s in analysis["steps"] if s.get("name") == "Download ruling bot coverage")
+assert coverage_upload["with"]["name"] == coverage_download["with"]["name"]
+assert coverage_upload["with"]["if-no-files-found"] == "error"
+report_path = coverage_download["with"]["path"] + "/lcov.info"
+assert coverage_upload["with"]["path"] == report_path
+properties = ET.parse(ROOT / "pom.xml").getroot().find("{*}properties")
+lcov_path = properties.find("{*}sonar.javascript.lcov.reportPaths").text
+assert lcov_path == "${maven.multiModuleProjectDirectory}/" + report_path
+assert properties.find("{*}sonar.coverage.exclusions").text == ".github/actions/ruling_bot/tests/**"
 
 assert producer["permissions"]["contents"] == "read"
 checkout = producer["steps"][0]["with"]
@@ -97,7 +116,10 @@ assert "submodules" not in updater["steps"][0]["with"]
 assert "ruling-update" in jobs["promote"]["needs"]
 assert "needs.ruling-update.result" in jobs["promote"]["if"]
 assert "analysis" in jobs["promote"]["needs"]
+assert "bot-tests" in jobs["promote"]["needs"]
+assert "needs.bot-tests.result == 'success'" in jobs["promote"]["if"]
 assert "ruling-update" in jobs["notify-build-failure"]["needs"]
+assert "bot-tests" in jobs["notify-build-failure"]["needs"]
 assert jobs["releasability"]["needs"] == ["promote"]
 
 report_job = report["jobs"]["ruling-diff-comment"]

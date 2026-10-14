@@ -59,11 +59,15 @@ Branches must contain the current reporter workflow and bot before dispatching i
 ### Validate bot changes
 
 ```sh
-node --test .github/actions/ruling_bot/tests/*.test.mjs
-node .github/actions/ruling_bot/generate-config.mjs --check
+npm ci --prefix .github/actions/ruling_bot --ignore-scripts
+npm run coverage --prefix .github/actions/ruling_bot
 python3 tools/check-ruling-workflows.py
 git diff --check
 ```
 
 The Node suite uses temporary Git repositories and mocked GitHub responses.
 The workflow check requires PyYAML. These checks do not publish fixes or comments.
+Build runs the Node suite in its read-only `Ruling bot tests` job. Its LCOV artifact
+is imported by NEXT analysis; bot tests are excluded from coverage calculations.
+Coverage includes helper subprocesses and unloaded production files. Test failures
+block promotion and participate in protected-branch failure notifications.

@@ -1,0 +1,10 @@
+{
+  "all": true,
+  "include": [
+    ".github/actions/ruling_bot/*.mjs",
+    ".github/ruling-bot.config.mjs"
+  ],
+  "exclude": [".github/actions/ruling_bot/tests/**"],
+  "reporter": ["text", "lcovonly"],
+  "reports-dir": "coverage/ruling-bot"
+}

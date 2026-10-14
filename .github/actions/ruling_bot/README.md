@@ -419,11 +419,20 @@ rather than substituting another tested tree or silently discarding expectation 
 node --test .github/actions/ruling_bot/tests/*.test.mjs
 ```
 
+CI runs this suite and the generation check with `npm run coverage` from this
+directory after `npm ci --ignore-scripts`. The pinned c8 development dependency
+collects V8 coverage from the tests and their helper subprocesses, including
+production files that were never loaded. The `ruling-bot-coverage` artifact
+contains `coverage/ruling-bot/lcov.info`; NEXT analysis downloads it before scanning.
+Test files are excluded from coverage calculations. The bot itself has no npm
+runtime dependency. Bot test failures block analysis and promotion and participate
+in protected-branch failure notifications.
+
 The tests use real temporary Git repositories/local remotes and mocked GitHub responses. They
 exercise divergent base/PR histories, artifact/configuration handoff, actual pushes and lease
 failures, successful/failing reports, stale retries, ownership, and closure/merge/retargeting.
 They do not mutate GitHub or execute the analyzer/ruling suite. Run them locally when changing the
-bot; they are not scheduled by CI.
+bot; they also run in CI.
 
 ### Checklist for every ruling-bot PR
 
@@ -436,8 +445,8 @@ bot; they are not scheduled by CI.
    path. Preserve existing coverage; document an intentional supersession when replacing a test.
 4. For behavior or configuration changes, run the full local suite above,
    `node .github/actions/ruling_bot/generate-config.mjs --check`,
-   formatting for changed files, and `git diff --check`. The suite is opt-in: a green Build alone
-   does not establish that these regression tests ran. Documentation-only changes need link,
+   formatting for changed files, and `git diff --check`. CI runs the same suite with coverage.
+   Documentation-only changes need link,
    formatting and generation checks; keep transient CI status and test counts in the PR.
 5. Review workflow permissions, dispatch inputs, artifact/output handoff, shared queues, and
    downstream dependency lists when those surfaces change. Recheck them after rebasing or resolving

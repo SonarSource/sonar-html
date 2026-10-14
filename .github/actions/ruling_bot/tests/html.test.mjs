@@ -68,6 +68,23 @@ test('HTML reports can disable snippets and retain root source links for legacy 
   assert.doesNotMatch(body, /\/project\/page.html|\/ImgWithoutAltCheck\/web|```/);
 });
 
+test('the local report command forwards repository configuration to its renderer subprocess', t => {
+  const f = fixture(t);
+  const expected = 'custom-expectations';
+  f.write('.github/ruling-bot.config.mjs', `export default ${JSON.stringify({
+    ...rulingConfig,
+    'old-results-path': expected,
+    'sources-path': '',
+    'sources-repo-url': 'https://example.test/html/blob/main',
+    'rspec-base-url': '',
+  })};`);
+  f.write(`${expected}/project/Web-S1234.json`, { 'project:page.html': [2] });
+  const body = helper(f, 'local-report', [], { BASE_SHA: f.merge });
+  assert.match(body, /page\.html:2/);
+  assert.ok(body.includes('https://example.test/html/blob/main/page.html#L2'));
+  assert.doesNotMatch(body, /sonarsource.github.io\/rspec|```/);
+});
+
 test('a complete HTML snapshot with zero issues deletes all obsolete expectations', t => {
   const f = fixture(t);
   const actual = rulingConfig['new-results-path'];
