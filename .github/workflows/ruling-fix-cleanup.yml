@@ -1,0 +1,28 @@
+name: Close obsolete ruling fix PRs
+on:
+  pull_request_target:
+    types: [closed]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  cleanup:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: github-ubuntu-latest-s
+    concurrency:
+      group: ruling-bot-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+      queue: max
+    steps:
+      # Closed-event handling executes only trusted default-branch code, never PR code.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - uses: ./.github/actions/ruling_bot/cleanup
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-number: ${{ github.event.pull_request.number }}
+          target-ref: ${{ github.event.pull_request.head.ref }}

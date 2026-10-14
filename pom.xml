@@ -71,6 +71,8 @@
     <sonarqube.api.impl.version>26.10.0.133078</sonarqube.api.impl.version>
     <sonarqube.sonar.ws.version>26.10.0.133078</sonarqube.sonar.ws.version>
     <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/coverage/java/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.javascript.lcov.reportPaths>${maven.multiModuleProjectDirectory}/coverage/ruling-bot/lcov.info</sonar.javascript.lcov.reportPaths>
+    <sonar.coverage.exclusions>.github/actions/ruling_bot/tests/**</sonar.coverage.exclusions>
     <sonar.sca.exclusions>its/**</sonar.sca.exclusions>
     <orchestrator.version>6.4.3.4676</orchestrator.version>
     <junit.version>4.13.2</junit.version>
