@@ -43,6 +43,8 @@ class AutoPlayAudioVideoCheckTest {
             .next().atLine(21).withMessage("<audio> element plays automatically with audio and is not muted.")
             .next().atLine(22).withMessage("<video> element plays automatically with audio and is not muted.")
             .next().atLine(23).withMessage("<audio> element plays automatically with audio and is not muted.")
+            .next().atLine(28).withMessage("<video> element plays automatically with audio and is not muted.")
+            .next().atLine(30).withMessage("<video> element plays automatically with audio and is not muted.")
             .noMore();
   }
 }

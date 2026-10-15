@@ -24,5 +24,11 @@
 
     <video :[autoplay]="true" muted="false"></video>
 
+    <!-- Two spellings of the same property: only the first one encountered is read, so attribute order decides -->
+    <video autoplay="true" [autoplay]="false" muted="false"></video> <!-- Noncompliant -->
+    <video [autoplay]="false" autoplay="true" muted="false"></video>
+    <video autoplay="true" muted="false" [muted]="true"></video> <!-- Noncompliant -->
+    <video autoplay="true" [muted]="true" muted="false"></video>
+
 </body>
 </html>
