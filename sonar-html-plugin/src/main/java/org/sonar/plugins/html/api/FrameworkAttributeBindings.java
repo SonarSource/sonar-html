@@ -16,10 +16,9 @@
  */
 package org.sonar.plugins.html.api;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Set;
-import java.util.TreeSet;
+
+import static org.sonar.plugins.html.api.CaseInsensitiveStrings.caseInsensitiveSetOf;
 
 /**
  * Every spelling Angular and Vue use to bind an attribute or DOM property named {@code propertyName}.
@@ -48,24 +47,7 @@ public final class FrameworkAttributeBindings {
    * - the Angular attribute bindings {@code [attr.x]} and {@code attr.x}
    */
   public static Set<String> staticAttributeSpellings(String propertyName) {
-    Set<String> spellings = newCaseInsensitiveSet();
-    Collections.addAll(spellings, propertyName, "[attr." + propertyName + "]", "attr." + propertyName);
-    spellings.addAll(domPropertyBindingNames(propertyName));
-    return Collections.unmodifiableSet(spellings);
-  }
-
-  /**
-   * An empty, mutable set matching like the ones returned here, for callers combining spellings.
-   * {@link String#CASE_INSENSITIVE_ORDER} is locale-independent, unlike a bare {@code toLowerCase()}.
-   */
-  public static Set<String> newCaseInsensitiveSet() {
-    return new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-  }
-
-  private static Set<String> caseInsensitiveSetOf(String... values) {
-    Set<String> set = newCaseInsensitiveSet();
-    set.addAll(Arrays.asList(values));
-    return Collections.unmodifiableSet(set);
+    return caseInsensitiveSetOf(domPropertyBindingNames(propertyName), propertyName, "[attr." + propertyName + "]", "attr." + propertyName);
   }
 
 }

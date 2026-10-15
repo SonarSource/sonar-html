@@ -16,9 +16,9 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import java.util.Collections;
 import java.util.Set;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.CaseInsensitiveStrings;
 import org.sonar.plugins.html.api.FrameworkAttributeBindings;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.HtmlConstants;
@@ -37,14 +37,8 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
   private static final Set<String> SCOPE_ATTRIBUTE_NAMES = FrameworkAttributeBindings.staticAttributeSpellings(SCOPE);
 
   // A binding (`:scope`, `v-bind:scope`, `[scope]`, `[attr.scope]`) bound to literal null/undefined never sets the attribute.
-  private static final Set<String> NULLISH_AWARE_BINDINGS = nullishAwareBindings();
-
-  private static Set<String> nullishAwareBindings() {
-    Set<String> bindings = FrameworkAttributeBindings.newCaseInsensitiveSet();
-    bindings.add("[attr." + SCOPE + "]");
-    bindings.addAll(FrameworkAttributeBindings.domPropertyBindingNames(SCOPE));
-    return Collections.unmodifiableSet(bindings);
-  }
+  private static final Set<String> NULLISH_AWARE_BINDINGS =
+    CaseInsensitiveStrings.caseInsensitiveSetOf(FrameworkAttributeBindings.domPropertyBindingNames(SCOPE), "[attr." + SCOPE + "]");
 
   @Override
   public void startElement(TagNode node) {

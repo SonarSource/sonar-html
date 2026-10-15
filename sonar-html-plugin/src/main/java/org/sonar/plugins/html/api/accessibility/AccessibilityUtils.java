@@ -21,6 +21,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
+import org.sonar.plugins.html.api.CaseInsensitiveStrings;
 import org.sonar.plugins.html.api.FrameworkAttributeBindings;
 import org.sonar.plugins.html.api.Thymeleaf;
 import org.sonar.plugins.html.node.Attribute;
@@ -62,7 +63,7 @@ public class AccessibilityUtils {
     .map(FrameworkAttributeBindings::domPropertyBindingNames)
     .flatMap(Set::stream)
     .collect(Collectors.collectingAndThen(
-      Collectors.toCollection(FrameworkAttributeBindings::newCaseInsensitiveSet),
+      Collectors.toCollection(CaseInsensitiveStrings::newCaseInsensitiveSet),
       Collections::unmodifiableSet));
 
   private static final String HIDDEN = "hidden";
