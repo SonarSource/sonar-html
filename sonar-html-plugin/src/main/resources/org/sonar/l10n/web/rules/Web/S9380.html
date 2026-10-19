@@ -2,17 +2,16 @@
 <p>The <code>scope</code> attribute tells assistive technology which cells a table header labels: it associates a <code>th</code> cell with the row(s)
 or column(s) it applies to, so a screen reader can announce the correct header when a user navigates through the data cells.</p>
 <p>The HTML specification only defines <code>scope</code> on the <code>th</code> element: it is, in the words of the specification itself, "only
-conforming for th elements". Placing it on any other element does not associate that cell with anything, so users relying on assistive technology
-get no benefit from it, and the markup becomes invalid.</p>
+conforming for th elements". Placing it on any other element does not associate that cell with anything, so users relying on assistive technology get
+no benefit from it, and the markup becomes invalid.</p>
 <p>The <code>td</code> element is a special case: HTML4 allowed <code>scope</code> on a data cell, but HTML5 deprecated that usage, keeping
 <code>scope</code> valid only on <code>th</code>. Code that still carries <code>scope</code> on a <code>td</code> is most likely leftover from that
 older practice.</p>
-<h2>How to fix it</h2>
 <p>Move the <code>scope</code> attribute to the <code>th</code> element that acts as the header for the row, column, row group, or column group, or
 remove the attribute if the element is not a table header.</p>
 <p>Custom elements and components (kebab-case tags, PascalCase Vue components) are not flagged, since <code>scope</code> may be an arbitrary prop
-unrelated to the native HTML attribute. The bare <code>scope</code> attribute on Vue’s <code>&lt;template&gt;</code> (2.x scoped slots) is also
-excluded, as it is unrelated to table headers.</p>
+unrelated to the native HTML attribute. The bare <code>scope</code> attribute on a template wrapper is also excluded, as none of these render as an
+actual table cell: Vue’s <code>&lt;template&gt;</code> (2.x scoped slots) or Angular’s <code>&lt;ng-template&gt;</code>.</p>
 <h3>Code examples</h3>
 <h4>Noncompliant code example</h4>
 <pre data-diff-id="1" data-diff-type="noncompliant">
