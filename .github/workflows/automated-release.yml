@@ -31,10 +31,6 @@ on:
         description: "New version to release (without -SNAPSHOT; if left empty, the current minor version will be auto-incremented)"
         required: false
         type: string
-      rule-props-changed:
-        description: "Rule metadata properties changed in this release"
-        type: boolean
-        default: false
 
 jobs:
   release:
@@ -50,7 +46,7 @@ jobs:
       project-name: "SonarHTML"
       plugin-name: "html"
       jira-project-key: "SONARHTML"
-      rule-props-changed: ${{ github.event.inputs.rule-props-changed == 'true' }}
+      rule-props-changed: false
       short-description: ${{ github.event.inputs.short-description }}
       sq-ide-short-description: ${{ github.event.inputs.sq-ide-short-description }}
       new-version: ${{ github.event.inputs.new-version }}
