@@ -17,8 +17,8 @@
 package org.sonar.plugins.html.api;
 
 import java.util.List;
-import java.util.Locale;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.util.DefaultLocale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,15 +48,10 @@ class FrameworkAttributeBindingsTest {
   }
 
   @Test
+  @DefaultLocale("tr")
   void caseInsensitiveMatchingIsLocaleIndependent() {
-    Locale original = Locale.getDefault();
-    try {
-      // Turkish: 'i'/'I' case-fold to 'İ'/'ı', not 'I'/'i'
-      Locale.setDefault(Locale.forLanguageTag("tr"));
-      assertThat(List.of("TITLE")).allMatch(FrameworkAttributeBindings.staticAttributeSpellings("title")::contains);
-    } finally {
-      Locale.setDefault(original);
-    }
+    // Turkish: 'i'/'I' case-fold to 'İ'/'ı', not 'I'/'i'
+    assertThat(List.of("TITLE")).allMatch(FrameworkAttributeBindings.staticAttributeSpellings("title")::contains);
   }
 
 }

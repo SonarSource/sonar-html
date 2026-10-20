@@ -17,9 +17,9 @@
 package org.sonar.plugins.html.api;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.util.DefaultLocale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -59,15 +59,10 @@ class CaseInsensitiveStringsTest {
   }
 
   @Test
+  @DefaultLocale("tr")
   void matchingIsLocaleIndependent() {
-    Locale original = Locale.getDefault();
-    try {
-      // Turkish: 'i'/'I' case-fold to 'İ'/'ı', not 'I'/'i'
-      Locale.setDefault(Locale.forLanguageTag("tr"));
-      assertThat(List.of("TITLE")).allMatch(CaseInsensitiveStrings.caseInsensitiveSetOf("title")::contains);
-    } finally {
-      Locale.setDefault(original);
-    }
+    // Turkish: 'i'/'I' case-fold to 'İ'/'ı', not 'I'/'i'
+    assertThat(List.of("TITLE")).allMatch(CaseInsensitiveStrings.caseInsensitiveSetOf("title")::contains);
   }
 
 }
