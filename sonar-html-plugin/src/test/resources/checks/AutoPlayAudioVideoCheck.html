@@ -13,5 +13,22 @@
     <video autoplay="true" muted="false" loop></video> <!-- Noncompliant -->
     <audio autoplay="true" muted="false"></audio> <!-- Noncompliant -->
 
+    <video [autoplay]="true" [muted]="true"></video>
+    <audio :autoplay="true" :muted="true"></audio>
+    <video [autoplay]="false" [muted]="false"></video>
+
+    <video [autoplay]="true" [muted]="false"></video> <!-- Noncompliant -->
+    <audio :autoplay="true" :muted="false"></audio> <!-- Noncompliant -->
+    <video v-bind:autoplay="true" v-bind:muted="false"></video> <!-- Noncompliant -->
+    <audio [attr.autoplay]="true" [attr.muted]="false"></audio> <!-- Noncompliant -->
+
+    <video :[autoplay]="true" muted="false"></video>
+
+    <!-- Two spellings of the same property: only the first one encountered is read, so attribute order decides -->
+    <video autoplay="true" [autoplay]="false" muted="false"></video> <!-- Noncompliant -->
+    <video [autoplay]="false" autoplay="true" muted="false"></video>
+    <video autoplay="true" muted="false" [muted]="true"></video> <!-- Noncompliant -->
+    <video autoplay="true" [muted]="true" muted="false"></video>
+
 </body>
 </html>

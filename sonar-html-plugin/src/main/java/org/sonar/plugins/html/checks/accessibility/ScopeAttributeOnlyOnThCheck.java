@@ -16,11 +16,10 @@
  */
 package org.sonar.plugins.html.checks.accessibility;
 
-import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.CaseInsensitiveStrings;
+import org.sonar.plugins.html.api.FrameworkAttributeBindings;
 import org.sonar.plugins.html.api.Helpers;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
@@ -35,23 +34,20 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
   private static final String MESSAGE = "Move this \"scope\" attribute to a \"th\" element, or remove it.";
 
   // Spellings of a "scope" attribute; excludes Vue's ":[scope]" dynamic argument, whose target is only known at runtime.
-  private static final Set<String> SCOPE_ATTRIBUTE_NAMES = Stream.concat(
-      Stream.of(SCOPE, "[attr.scope]", "attr.scope"),
-      TagNode.domPropertyBindingNames(SCOPE).stream())
-    .map(name -> name.toLowerCase(Locale.ROOT))
-    .collect(Collectors.toUnmodifiableSet());
+  private static final Set<String> SCOPE_ATTRIBUTE_NAMES = FrameworkAttributeBindings.staticAttributeSpellings(SCOPE);
 
   // A binding (`:scope`, `v-bind:scope`, `[scope]`, `[attr.scope]`) bound to literal null/undefined never sets the attribute.
-  private static final Set<String> NULLISH_AWARE_BINDINGS = Stream.concat(
-      Stream.of("[attr." + SCOPE + "]"),
-      TagNode.domPropertyBindingNames(SCOPE).stream())
-    .map(name -> name.toLowerCase(Locale.ROOT))
-    .collect(Collectors.toUnmodifiableSet());
+  private static final Set<String> NULLISH_AWARE_BINDINGS =
+    CaseInsensitiveStrings.caseInsensitiveSetOf(FrameworkAttributeBindings.domPropertyBindingNames(SCOPE), "[attr." + SCOPE + "]");
 
   @Override
   public void startElement(TagNode node) {
+    // A nullish-bound spelling doesn't rule out another, effective spelling of "scope" on the same element.
+    boolean hasEffectiveScopeAttribute = node.getAttributes().stream()
+      .filter(a -> SCOPE_ATTRIBUTE_NAMES.contains(a.getName()))
+      .anyMatch(a -> !isDomPropertyBoundToNullish(a));
     // Vue 2.0-2.4 scoped slots use a bare "scope" attribute on <template>, unrelated to table headers.
-    if (!hasScopeAttribute(node) || "th".equalsIgnoreCase(node.getNodeName()) || Helpers.isTemplateLikeTag(node)) {
+    if (!hasEffectiveScopeAttribute || "th".equalsIgnoreCase(node.getNodeName()) || Helpers.isTemplateLikeTag(node)) {
       return;
     }
     // A custom component or unknown tag: "scope" may be an arbitrary prop, unrelated to table headers.
@@ -61,15 +57,6 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
     createViolation(node, MESSAGE);
   }
 
-  private static boolean hasScopeAttribute(TagNode node) {
-    return node.getAttributes().stream().anyMatch(ScopeAttributeOnlyOnThCheck::isEffectiveScopeAttribute);
-  }
-
-  private static boolean isEffectiveScopeAttribute(Attribute attribute) {
-    return SCOPE_ATTRIBUTE_NAMES.contains(attribute.getName().toLowerCase(Locale.ROOT))
-      && !isDomPropertyBoundToNullish(attribute);
-  }
-
   private static boolean isDomPropertyBoundToNullish(Attribute property) {
     String value = property.getValue();
     if (value == null) {
@@ -77,7 +64,7 @@ public class ScopeAttributeOnlyOnThCheck extends AbstractPageCheck implements Em
     }
     String trimmed = value.trim();
     return ("null".equals(trimmed) || "undefined".equals(trimmed))
-      && NULLISH_AWARE_BINDINGS.contains(property.getName().toLowerCase(Locale.ROOT));
+      && NULLISH_AWARE_BINDINGS.contains(property.getName());
   }
 
   private boolean isComponentReference(TagNode node) {
