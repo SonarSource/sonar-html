@@ -15,3 +15,6 @@
 <div attr.scope="row"></div>
 <!-- Unlike the bracketed binding, this is a literal attribute value, not a null/undefined expression -->
 <div attr.scope="null"></div>
+<!-- A nullish-bound spelling doesn't rule out another, non-nullish spelling of "scope" on the same element -->
+<td :scope="null" scope="col">Total</td>
+<div [attr.scope]="undefined" [scope]="'row'"></div>

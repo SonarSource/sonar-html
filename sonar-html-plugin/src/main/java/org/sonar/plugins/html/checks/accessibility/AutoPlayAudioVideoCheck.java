@@ -17,13 +17,21 @@
 package org.sonar.plugins.html.checks.accessibility;
 
 import org.sonar.check.Rule;
+import org.sonar.plugins.html.api.FrameworkAttributeBindings;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
+import org.sonar.plugins.html.node.Attribute;
 import org.sonar.plugins.html.node.TagNode;
 
 import java.util.Locale;
+import java.util.Set;
+import javax.annotation.CheckForNull;
 
 @Rule(key="S7929")
 public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
+
+  // Spellings of an "autoplay"/"muted" attribute; excludes Vue's ":[x]" dynamic argument, whose target is only known at runtime.
+  private static final Set<String> AUTOPLAY_ATTRIBUTE_NAMES = FrameworkAttributeBindings.staticAttributeSpellings("autoplay");
+  private static final Set<String> MUTED_ATTRIBUTE_NAMES = FrameworkAttributeBindings.staticAttributeSpellings("muted");
 
   @Override
   public void startElement(TagNode element) {
@@ -34,12 +42,9 @@ public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
       return;
     }
 
-    String autoplayAttr = element.getAttribute("autoplay");
-    String mutedAttr = element.getAttribute("muted");
-
     // Normalize values (null-safe)
-    boolean autoplay = "true".equalsIgnoreCase(autoplayAttr);
-    boolean muted = "true".equalsIgnoreCase(mutedAttr);
+    boolean autoplay = "true".equalsIgnoreCase(firstMatchingValue(element, AUTOPLAY_ATTRIBUTE_NAMES));
+    boolean muted = "true".equalsIgnoreCase(firstMatchingValue(element, MUTED_ATTRIBUTE_NAMES));
 
     // Rule applicability
     if (autoplay && !muted) {
@@ -50,5 +55,14 @@ public class AutoPlayAudioVideoCheck extends AbstractPageCheck {
               )
       );
     }
+  }
+
+  @CheckForNull
+  private static String firstMatchingValue(TagNode element, Set<String> attributeNames) {
+    return element.getAttributes().stream()
+      .filter(a -> attributeNames.contains(a.getName()))
+      .findFirst()
+      .map(Attribute::getValue)
+      .orElse(null);
   }
 }
