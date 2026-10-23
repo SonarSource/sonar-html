@@ -22,7 +22,7 @@ import org.sonar.plugins.html.api.HtmlConstants;
 
 public class Html extends AbstractLanguage {
 
-  private Configuration configuration;
+  private final Configuration configuration;
 
   public Html(Configuration configuration) {
     super(HtmlConstants.LANGUAGE_KEY, HtmlConstants.LANGUAGE_NAME);

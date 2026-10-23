@@ -22,7 +22,7 @@ import org.sonar.plugins.html.api.HtmlConstants;
 
 public class Jsp extends AbstractLanguage {
 
-  private Configuration configuration;
+  private final Configuration configuration;
 
   public Jsp(Configuration configuration) {
     super(HtmlConstants.JSP_LANGUAGE_KEY, HtmlConstants.JSP_LANGUAGE_NAME);
