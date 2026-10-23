@@ -101,7 +101,7 @@ public class HeaderCheck extends AbstractPageCheck {
 
     private boolean result = false;
     private int lineNumber = 0;
-    private String[] expectedLines;
+    private final String[] expectedLines;
 
     HeaderLinesProcessor(String[] expectedLines) {
       this.expectedLines = expectedLines;
