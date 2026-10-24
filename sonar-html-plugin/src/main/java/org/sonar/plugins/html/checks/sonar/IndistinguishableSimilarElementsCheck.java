@@ -37,9 +37,9 @@ public class IndistinguishableSimilarElementsCheck extends AbstractPageCheck {
 
   private static final Set<String> VUE_CONDITIONAL_ATTRS = Set.of("v-if", "v-else-if", "v-else", "v-for");
 
-  private List<TagNode> navs = new LinkedList<>();
-  private List<TagNode> asides = new LinkedList<>();
-  private List<TagNode> elements = new LinkedList<>();
+  private final List<TagNode> navs = new LinkedList<>();
+  private final List<TagNode> asides = new LinkedList<>();
+  private final List<TagNode> elements = new LinkedList<>();
 
   @Override
   public void startDocument(List<Node> nodes) {
