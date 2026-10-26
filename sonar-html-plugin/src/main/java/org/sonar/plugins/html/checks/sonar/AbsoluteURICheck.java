@@ -35,7 +35,7 @@ public class AbsoluteURICheck extends AbstractPageCheck {
     "object.classid,object.codebase,object.data,object.usemap,q.cite,script.src,audio.src,button.formaction,command.icon,embed.src," +
     "html.manifest,input.formaction,source.src,video.poster,video.src";
 
-  private Matcher matcher = Pattern.compile("[A-Za-z0-9]*://.*").matcher("");
+  private final Matcher matcher = Pattern.compile("[A-Za-z0-9]*://.*").matcher("");
 
   @RuleProperty(
     key = "attributes",

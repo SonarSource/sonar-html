@@ -32,7 +32,7 @@ import org.sonar.plugins.html.node.TagNode;
 @Rule(key = "S5258")
 public class LayoutTableWithSemanticMarkupCheck extends AbstractPageCheck {
 
-  private Deque<Boolean> isWithinLayoutTable = new LinkedList<>();
+  private final Deque<Boolean> isWithinLayoutTable = new LinkedList<>();
 
   @Override
   public void startDocument(List<Node> nodes) {
