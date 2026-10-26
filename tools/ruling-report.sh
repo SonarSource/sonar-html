@@ -8,7 +8,7 @@
 set -e
 
 EXPECTED_DIR="its/ruling/src/test/resources/expected/project"
-SOURCES_BASE="its/sources"
+SOURCES_BASE="its/sources/project"
 SOURCES_REPO="https://github.com/SonarCommunity/web-test-sources"
 MAX_SNIPPETS=10
 
@@ -72,7 +72,7 @@ show_snippet() {
 # Function to resolve source file path from project key
 resolve_source_path() {
   local file_key="$1"
-  local relative_path="${file_key#project:}"
+  local relative_path="${file_key#*:}"
   echo "$SOURCES_BASE/$relative_path"
 }
 
@@ -80,7 +80,7 @@ resolve_source_path() {
 get_github_url() {
   local file_key="$1"
   local line_num="$2"
-  local relative_path="${file_key#project:}"
+  local relative_path="${file_key#*:}"
   echo "${SOURCES_REPO}/blob/${SOURCES_SHA}/${relative_path}#L${line_num}"
 }
 
@@ -148,7 +148,7 @@ for file_path in $CHANGED_FILES; do
     added=$(comm -13 <(echo "$base_lines" | grep -v '^$' | sort -n) <(echo "$current_lines" | grep -v '^$' | sort -n) 2>/dev/null || true)
 
     source_path=$(resolve_source_path "$file_key")
-    display_path="${file_key#project:}"
+    display_path="${file_key#*:}"
 
     for line_num in $removed; do
       removed_count=$((removed_count + 1))
