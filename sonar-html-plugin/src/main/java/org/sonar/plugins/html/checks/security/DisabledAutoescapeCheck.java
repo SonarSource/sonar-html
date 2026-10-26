@@ -44,8 +44,8 @@ public class DisabledAutoescapeCheck extends AbstractPageCheck {
       Matcher lineMatcher = pattern.matcher(lines.get(i));
       while (lineMatcher.find()) {
         int issueLine = i + textNode.getStartLinePosition();
-        int startColumn = i != 0 ? lineMatcher.start() : (textNode.getStartColumnPosition() + lineMatcher.start());
-        int endColumn = i != 0 ? lineMatcher.end() : (textNode.getStartColumnPosition() + lineMatcher.end());
+        int startColumn = i == 0 ? (textNode.getStartColumnPosition() + lineMatcher.start()) : lineMatcher.start();
+        int endColumn = i == 0 ? (textNode.getStartColumnPosition() + lineMatcher.end()) : lineMatcher.end();
         createViolation(issueLine, startColumn, issueLine, endColumn, MESSAGE);
         raisedWithPreciseLocation = true;
       }
