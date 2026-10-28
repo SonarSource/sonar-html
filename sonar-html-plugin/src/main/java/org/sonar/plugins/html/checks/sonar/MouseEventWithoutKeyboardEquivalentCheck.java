@@ -71,7 +71,7 @@ public class MouseEventWithoutKeyboardEquivalentCheck extends AbstractPageCheck 
       if (roleAttributeValue != null && Helpers.isDynamicValue(roleAttributeValue, getHtmlSourceCode())) {
         return;
       }
-      String[] roles = new String[]{};
+      String[] roles = {};
 
       if (roleAttributeValue != null) {
         roles = roleAttributeValue.split(" ");

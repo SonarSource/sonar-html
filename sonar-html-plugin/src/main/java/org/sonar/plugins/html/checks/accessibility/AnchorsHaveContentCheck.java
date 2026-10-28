@@ -34,7 +34,7 @@ public class AnchorsHaveContentCheck extends AbstractPageCheck {
 
   private static final String MESSAGE = "Anchors must have content and the content must be accessible by a screen reader.";
 
-  private Deque<Anchor> anchors = new ArrayDeque<>();
+  private final Deque<Anchor> anchors = new ArrayDeque<>();
 
   private static class Anchor {
     final TagNode node;
