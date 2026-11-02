@@ -375,7 +375,7 @@ jobs:
       id-token: write # required for vault-action-wrapper in the shared slack-notify action
     steps:
       - name: Slack Notification
-        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@v1
+        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@master
         with:
           slack-channel: squad-corelang-notifs
           branch-patterns: ${{ format('{0},branch-*,dogfood-*', github.event.repository.default_branch) }}
