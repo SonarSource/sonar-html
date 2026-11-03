@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:S6822",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided.",
-        "arguments" : [ ]
+        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 100,
+            "startColumn" : 25,
             "endLine" : 100,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 43
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6822",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided.",
-        "arguments" : [ ]
+        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 168,
+            "startColumn" : 25,
             "endLine" : 168,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 43
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6822",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided.",
-        "arguments" : [ ]
+        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 83,
+            "startColumn" : 25,
             "endLine" : 83,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 67
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6822",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided.",
-        "arguments" : [ ]
+        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 42,
+            "startColumn" : 3,
             "endLine" : 42,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 97
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6822",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided.",
-        "arguments" : [ ]
+        "text" : "The element form has an implicit role of form. Defining this explicitly is redundant and should be avoided."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,37 +124,15 @@
           },
           "region" : {
             "startLine" : 36,
+            "startColumn" : 3,
             "endLine" : 36,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 97
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

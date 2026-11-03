@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"agenda\" found. First occurrence was on line 574.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"agenda\" found. First occurrence was on line 574."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 580,
+            "startColumn" : 1,
             "endLine" : 580,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 19
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"GroupId\" found. First occurrence was on line 321.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"GroupId\" found. First occurrence was on line 321."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 323,
+            "startColumn" : 19,
             "endLine" : 323,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 55
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"admin-treeview\" found. First occurrence was on line 66.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"admin-treeview\" found. First occurrence was on line 66."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 72,
+            "startColumn" : 1,
             "endLine" : 72,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 27
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"space-icon\" found. First occurrence was on line 137.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"space-icon\" found. First occurrence was on line 137."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 143,
+            "startColumn" : 122,
             "endLine" : 143,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 327
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"EDform\" found. First occurrence was on line 186.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"EDform\" found. First occurrence was on line 186."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 200,
+            "startColumn" : 1,
             "endLine" : 200,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 89
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"termsCell\" found. First occurrence was on line 329.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"termsCell\" found. First occurrence was on line 329."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 331,
+            "startColumn" : 9,
             "endLine" : 331,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 98
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 80,
+            "startColumn" : 13,
             "endLine" : 80,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 79
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 81,
+            "startColumn" : 13,
             "endLine" : 81,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 82,
+            "startColumn" : 13,
             "endLine" : 82,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 85,
+            "startColumn" : 13,
             "endLine" : 85,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 52
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"controls\" found. First occurrence was on line 79."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 86,
+            "startColumn" : 13,
             "endLine" : 86,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 59
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 21.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 21."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,34 +316,20 @@
           },
           "region" : {
             "startLine" : 51,
+            "startColumn" : 1,
             "endLine" : 51,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -534,34 +340,20 @@
           },
           "region" : {
             "startLine" : 54,
+            "startColumn" : 1,
             "endLine" : 54,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -572,34 +364,20 @@
           },
           "region" : {
             "startLine" : 63,
+            "startColumn" : 1,
             "endLine" : 63,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -610,34 +388,20 @@
           },
           "region" : {
             "startLine" : 66,
+            "startColumn" : 1,
             "endLine" : 66,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -648,34 +412,20 @@
           },
           "region" : {
             "startLine" : 75,
+            "startColumn" : 1,
             "endLine" : 75,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -686,34 +436,20 @@
           },
           "region" : {
             "startLine" : 78,
+            "startColumn" : 1,
             "endLine" : 78,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -724,34 +460,20 @@
           },
           "region" : {
             "startLine" : 93,
+            "startColumn" : 1,
             "endLine" : 93,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -762,34 +484,20 @@
           },
           "region" : {
             "startLine" : 96,
+            "startColumn" : 1,
             "endLine" : 96,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -800,34 +508,20 @@
           },
           "region" : {
             "startLine" : 106,
+            "startColumn" : 1,
             "endLine" : 106,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -838,34 +532,20 @@
           },
           "region" : {
             "startLine" : 109,
+            "startColumn" : 1,
             "endLine" : 109,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -876,34 +556,20 @@
           },
           "region" : {
             "startLine" : 119,
+            "startColumn" : 1,
             "endLine" : 119,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -914,34 +580,20 @@
           },
           "region" : {
             "startLine" : 122,
+            "startColumn" : 1,
             "endLine" : 122,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -952,34 +604,20 @@
           },
           "region" : {
             "startLine" : 138,
+            "startColumn" : 1,
             "endLine" : 138,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -990,34 +628,20 @@
           },
           "region" : {
             "startLine" : 142,
+            "startColumn" : 1,
             "endLine" : 142,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -1028,34 +652,20 @@
           },
           "region" : {
             "startLine" : 161,
+            "startColumn" : 1,
             "endLine" : 161,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -1066,34 +676,20 @@
           },
           "region" : {
             "startLine" : 164,
+            "startColumn" : 1,
             "endLine" : 164,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -1104,34 +700,20 @@
           },
           "region" : {
             "startLine" : 173,
+            "startColumn" : 1,
             "endLine" : 173,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -1142,34 +724,20 @@
           },
           "region" : {
             "startLine" : 176,
+            "startColumn" : 1,
             "endLine" : 176,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -1180,34 +748,20 @@
           },
           "region" : {
             "startLine" : 191,
+            "startColumn" : 1,
             "endLine" : 191,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -1218,34 +772,20 @@
           },
           "region" : {
             "startLine" : 194,
+            "startColumn" : 1,
             "endLine" : 194,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"success\" found. First occurrence was on line 43.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"success\" found. First occurrence was on line 43."
       },
       "locations" : [ {
         "id" : -1,
@@ -1256,34 +796,20 @@
           },
           "region" : {
             "startLine" : 211,
+            "startColumn" : 1,
             "endLine" : 211,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"failure\" found. First occurrence was on line 45."
       },
       "locations" : [ {
         "id" : -1,
@@ -1294,34 +820,20 @@
           },
           "region" : {
             "startLine" : 213,
+            "startColumn" : 1,
             "endLine" : 213,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"test\" found. First occurrence was on line 20.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"test\" found. First occurrence was on line 20."
       },
       "locations" : [ {
         "id" : -1,
@@ -1332,34 +844,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 48
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"import-button\" found. First occurrence was on line 228.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"import-button\" found. First occurrence was on line 228."
       },
       "locations" : [ {
         "id" : -1,
@@ -1370,34 +868,20 @@
           },
           "region" : {
             "startLine" : 229,
+            "startColumn" : 9,
             "endLine" : 229,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 56
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"most-violated-rules-<%= widget.id -%>-<%= severity -%>\" found. First occurrence was on line 58.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"most-violated-rules-<%= widget.id -%>-<%= severity -%>\" found. First occurrence was on line 58."
       },
       "locations" : [ {
         "id" : -1,
@@ -1408,34 +892,20 @@
           },
           "region" : {
             "startLine" : 66,
+            "startColumn" : 7,
             "endLine" : 66,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 88
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40."
       },
       "locations" : [ {
         "id" : -1,
@@ -1446,34 +916,20 @@
           },
           "region" : {
             "startLine" : 41,
+            "startColumn" : 13,
             "endLine" : 41,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 27
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40."
       },
       "locations" : [ {
         "id" : -1,
@@ -1484,34 +940,20 @@
           },
           "region" : {
             "startLine" : 98,
+            "startColumn" : 15,
             "endLine" : 98,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 29
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"desc\" found. First occurrence was on line 40."
       },
       "locations" : [ {
         "id" : -1,
@@ -1522,34 +964,20 @@
           },
           "region" : {
             "startLine" : 99,
+            "startColumn" : 15,
             "endLine" : 99,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 29
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"alerts\" found. First occurrence was on line 14.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"alerts\" found. First occurrence was on line 14."
       },
       "locations" : [ {
         "id" : -1,
@@ -1560,34 +988,20 @@
           },
           "region" : {
             "startLine" : 17,
+            "startColumn" : 3,
             "endLine" : 17,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"block_<%= widget.id -%>\" found. First occurrence was on line 21.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"block_<%= widget.id -%>\" found. First occurrence was on line 21."
       },
       "locations" : [ {
         "id" : -1,
@@ -1598,34 +1012,20 @@
           },
           "region" : {
             "startLine" : 38,
+            "startColumn" : 3,
             "endLine" : 38,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 51
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"copy-<%= filter.name.parameterize -%>\" found. First occurrence was on line 60.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"copy-<%= filter.name.parameterize -%>\" found. First occurrence was on line 60."
       },
       "locations" : [ {
         "id" : -1,
@@ -1636,34 +1036,20 @@
           },
           "region" : {
             "startLine" : 111,
+            "startColumn" : 17,
             "endLine" : 111,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 179
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"crumbs\" found. First occurrence was on line 8.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"crumbs\" found. First occurrence was on line 8."
       },
       "locations" : [ {
         "id" : -1,
@@ -1674,34 +1060,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 3,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 20
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"crumbs-ops\" found. First occurrence was on line 9.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"crumbs-ops\" found. First occurrence was on line 9."
       },
       "locations" : [ {
         "id" : -1,
@@ -1712,34 +1084,20 @@
           },
           "region" : {
             "startLine" : 45,
+            "startColumn" : 5,
             "endLine" : 45,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 25
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"bc\" found. First occurrence was on line 19.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"bc\" found. First occurrence was on line 19."
       },
       "locations" : [ {
         "id" : -1,
@@ -1750,34 +1108,20 @@
           },
           "region" : {
             "startLine" : 55,
+            "startColumn" : 5,
             "endLine" : 55,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 17
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"copy-<%= filter.name.parameterize -%>\" found. First occurrence was on line 67.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"copy-<%= filter.name.parameterize -%>\" found. First occurrence was on line 67."
       },
       "locations" : [ {
         "id" : -1,
@@ -1788,34 +1132,20 @@
           },
           "region" : {
             "startLine" : 118,
+            "startColumn" : 17,
             "endLine" : 118,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 181
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"rule_<%= u(diff.rule.key) -%>\" found. First occurrence was on line 52.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"rule_<%= u(diff.rule.key) -%>\" found. First occurrence was on line 52."
       },
       "locations" : [ {
         "id" : -1,
@@ -1826,34 +1156,20 @@
           },
           "region" : {
             "startLine" : 79,
+            "startColumn" : 15,
             "endLine" : 79,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 54
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"rule_<%= u(diff.rule.key) -%>\" found. First occurrence was on line 52.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"rule_<%= u(diff.rule.key) -%>\" found. First occurrence was on line 52."
       },
       "locations" : [ {
         "id" : -1,
@@ -1864,34 +1180,20 @@
           },
           "region" : {
             "startLine" : 109,
+            "startColumn" : 15,
             "endLine" : 109,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 54
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"version_<%= index -%>_change\" found. First occurrence was on line 66.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"version_<%= index -%>_change\" found. First occurrence was on line 66."
       },
       "locations" : [ {
         "id" : -1,
@@ -1902,34 +1204,20 @@
           },
           "region" : {
             "startLine" : 75,
+            "startColumn" : 17,
             "endLine" : 75,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 200
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"duplLoading-<%= group_index -%>\" found. First occurrence was on line 12.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"duplLoading-<%= group_index -%>\" found. First occurrence was on line 12."
       },
       "locations" : [ {
         "id" : -1,
@@ -1940,34 +1228,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 7,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 50
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S7930",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Duplicate id \"rule_available_since_<%= rule.id -%>\" found. First occurrence was on line 117.",
-        "arguments" : [ ]
+        "text" : "Duplicate id \"rule_available_since_<%= rule.id -%>\" found. First occurrence was on line 117."
       },
       "locations" : [ {
         "id" : -1,
@@ -1978,37 +1252,15 @@
           },
           "region" : {
             "startLine" : 119,
+            "startColumn" : 9,
             "endLine" : 119,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

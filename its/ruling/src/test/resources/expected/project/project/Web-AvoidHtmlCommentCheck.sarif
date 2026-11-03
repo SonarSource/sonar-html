@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 323,
+            "startColumn" : 1,
             "endLine" : 323,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 109
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 148,
+            "startColumn" : 1,
             "endLine" : 148,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 99
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 183,
+            "startColumn" : 1,
             "endLine" : 183,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 94
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 91,
+            "startColumn" : 1,
             "endLine" : 91,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 12
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 92,
+            "startColumn" : 1,
             "endLine" : 92,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 44
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 47,
+            "startColumn" : 1,
             "endLine" : 47,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 108
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 57,
+            "startColumn" : 1,
             "endLine" : 57,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 11
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:AvoidHtmlCommentCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure that the HTML comment does not contain sensitive information.",
-        "arguments" : [ ]
+        "text" : "Make sure that the HTML comment does not contain sensitive information."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,37 +196,15 @@
           },
           "region" : {
             "startLine" : 38,
+            "startColumn" : 1,
             "endLine" : 38,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

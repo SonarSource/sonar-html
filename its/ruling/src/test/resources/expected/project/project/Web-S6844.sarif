@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 291,
+            "startColumn" : 249,
             "endLine" : 291,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 404
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 156,
+            "startColumn" : 11,
             "endLine" : 156,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 249,
+            "startColumn" : 24,
             "endLine" : 249,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 74
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 301,
+            "startColumn" : 15,
             "endLine" : 301,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 95
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 180,
+            "startColumn" : 11,
             "endLine" : 180,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 184,
+            "startColumn" : 39,
             "endLine" : 184,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 108,
+            "startColumn" : 11,
             "endLine" : 108,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 77
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 112,
+            "startColumn" : 39,
             "endLine" : 112,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 240,
+            "startColumn" : 80,
             "endLine" : 240,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 140
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 101,
+            "startColumn" : 11,
             "endLine" : 101,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 76
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 121,
+            "startColumn" : 11,
             "endLine" : 121,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 76
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 121,
+            "startColumn" : 15,
             "endLine" : 121,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 81
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,34 +316,20 @@
           },
           "region" : {
             "startLine" : 141,
+            "startColumn" : 39,
             "endLine" : 141,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -534,34 +340,20 @@
           },
           "region" : {
             "startLine" : 110,
+            "startColumn" : 11,
             "endLine" : 110,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 77
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -572,34 +364,20 @@
           },
           "region" : {
             "startLine" : 114,
+            "startColumn" : 39,
             "endLine" : 114,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -610,34 +388,20 @@
           },
           "region" : {
             "startLine" : 99,
+            "startColumn" : 9,
             "endLine" : 99,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 102
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -648,34 +412,20 @@
           },
           "region" : {
             "startLine" : 104,
+            "startColumn" : 11,
             "endLine" : 104,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 77
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -686,34 +436,20 @@
           },
           "region" : {
             "startLine" : 108,
+            "startColumn" : 39,
             "endLine" : 108,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 84
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -724,34 +460,20 @@
           },
           "region" : {
             "startLine" : 378,
+            "startColumn" : 62,
             "endLine" : 378,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 204
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -762,34 +484,20 @@
           },
           "region" : {
             "startLine" : 383,
+            "startColumn" : 27,
             "endLine" : 383,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 169
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -800,34 +508,20 @@
           },
           "region" : {
             "startLine" : 388,
+            "startColumn" : 6,
             "endLine" : 388,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 154
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -838,34 +532,20 @@
           },
           "region" : {
             "startLine" : 393,
+            "startColumn" : 6,
             "endLine" : 393,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 157
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -876,34 +556,20 @@
           },
           "region" : {
             "startLine" : 399,
+            "startColumn" : 6,
             "endLine" : 399,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 157
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -914,34 +580,20 @@
           },
           "region" : {
             "startLine" : 404,
+            "startColumn" : 6,
             "endLine" : 404,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 159
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -952,34 +604,20 @@
           },
           "region" : {
             "startLine" : 409,
+            "startColumn" : 6,
             "endLine" : 409,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 158
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -990,34 +628,20 @@
           },
           "region" : {
             "startLine" : 415,
+            "startColumn" : 6,
             "endLine" : 415,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 160
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1028,34 +652,20 @@
           },
           "region" : {
             "startLine" : 420,
+            "startColumn" : 6,
             "endLine" : 420,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 164
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1066,34 +676,20 @@
           },
           "region" : {
             "startLine" : 425,
+            "startColumn" : 6,
             "endLine" : 425,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 158
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1104,34 +700,20 @@
           },
           "region" : {
             "startLine" : 430,
+            "startColumn" : 6,
             "endLine" : 430,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 156
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1142,34 +724,20 @@
           },
           "region" : {
             "startLine" : 436,
+            "startColumn" : 4,
             "endLine" : 436,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 145
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1180,34 +748,20 @@
           },
           "region" : {
             "startLine" : 241,
+            "startColumn" : 11,
             "endLine" : 241,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 71
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1218,34 +772,20 @@
           },
           "region" : {
             "startLine" : 118,
-            "endLine" : 118,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 20,
+            "endLine" : 120,
+            "endColumn" : 181
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1256,34 +796,20 @@
           },
           "region" : {
             "startLine" : 56,
+            "startColumn" : 15,
             "endLine" : 56,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 322
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1294,34 +820,20 @@
           },
           "region" : {
             "startLine" : 202,
+            "startColumn" : 10,
             "endLine" : 202,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1332,34 +844,20 @@
           },
           "region" : {
             "startLine" : 204,
+            "startColumn" : 13,
             "endLine" : 204,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 76
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1370,34 +868,20 @@
           },
           "region" : {
             "startLine" : 206,
+            "startColumn" : 4,
             "endLine" : 206,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 71
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1408,34 +892,20 @@
           },
           "region" : {
             "startLine" : 207,
+            "startColumn" : 4,
             "endLine" : 207,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1446,34 +916,20 @@
           },
           "region" : {
             "startLine" : 209,
+            "startColumn" : 4,
             "endLine" : 209,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 83
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1484,34 +940,20 @@
           },
           "region" : {
             "startLine" : 210,
+            "startColumn" : 4,
             "endLine" : 210,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1522,34 +964,20 @@
           },
           "region" : {
             "startLine" : 133,
+            "startColumn" : 126,
             "endLine" : 133,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 188
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1560,34 +988,20 @@
           },
           "region" : {
             "startLine" : 209,
+            "startColumn" : 22,
             "endLine" : 209,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 94
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1598,34 +1012,20 @@
           },
           "region" : {
             "startLine" : 211,
+            "startColumn" : 9,
             "endLine" : 211,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 79
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1636,34 +1036,20 @@
           },
           "region" : {
             "startLine" : 212,
+            "startColumn" : 24,
             "endLine" : 212,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 96
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1674,34 +1060,20 @@
           },
           "region" : {
             "startLine" : 65,
+            "startColumn" : 4,
             "endLine" : 65,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 88
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1712,34 +1084,20 @@
           },
           "region" : {
             "startLine" : 66,
+            "startColumn" : 4,
             "endLine" : 66,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 131
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1750,34 +1108,20 @@
           },
           "region" : {
             "startLine" : 67,
+            "startColumn" : 4,
             "endLine" : 67,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 143
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1788,34 +1132,20 @@
           },
           "region" : {
             "startLine" : 68,
+            "startColumn" : 4,
             "endLine" : 68,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 141
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1826,34 +1156,20 @@
           },
           "region" : {
             "startLine" : 69,
+            "startColumn" : 4,
             "endLine" : 69,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 129
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1864,34 +1180,20 @@
           },
           "region" : {
             "startLine" : 70,
+            "startColumn" : 4,
             "endLine" : 70,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 129
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1902,34 +1204,20 @@
           },
           "region" : {
             "startLine" : 76,
+            "startColumn" : 6,
             "endLine" : 76,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 117
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1940,34 +1228,20 @@
           },
           "region" : {
             "startLine" : 37,
+            "startColumn" : 46,
             "endLine" : 37,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 202
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -1978,34 +1252,20 @@
           },
           "region" : {
             "startLine" : 40,
+            "startColumn" : 32,
             "endLine" : 40,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 188
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2016,34 +1276,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 1,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 65
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2054,34 +1300,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 10,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 60
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2092,34 +1324,20 @@
           },
           "region" : {
             "startLine" : 49,
+            "startColumn" : 10,
             "endLine" : 49,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 60
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2130,34 +1348,20 @@
           },
           "region" : {
             "startLine" : 54,
+            "startColumn" : 10,
             "endLine" : 54,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 60
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2168,34 +1372,20 @@
           },
           "region" : {
             "startLine" : 59,
+            "startColumn" : 10,
             "endLine" : 59,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 60
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2206,34 +1396,20 @@
           },
           "region" : {
             "startLine" : 7,
+            "startColumn" : 14,
             "endLine" : 7,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2244,34 +1420,20 @@
           },
           "region" : {
             "startLine" : 8,
+            "startColumn" : 14,
             "endLine" : 8,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 62
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2282,34 +1444,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 14,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 69
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2320,34 +1468,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 44
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2358,34 +1492,20 @@
           },
           "region" : {
             "startLine" : 37,
+            "startColumn" : 1,
             "endLine" : 37,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 63
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2396,34 +1516,20 @@
           },
           "region" : {
             "startLine" : 80,
-            "endLine" : 80,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 81,
+            "endColumn" : 45
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2434,34 +1540,20 @@
           },
           "region" : {
             "startLine" : 85,
+            "startColumn" : 5,
             "endLine" : 85,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 111
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2472,34 +1564,20 @@
           },
           "region" : {
             "startLine" : 89,
+            "startColumn" : 5,
             "endLine" : 89,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 114
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2510,34 +1588,20 @@
           },
           "region" : {
             "startLine" : 94,
+            "startColumn" : 5,
             "endLine" : 94,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 79
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2548,34 +1612,20 @@
           },
           "region" : {
             "startLine" : 98,
-            "endLine" : 98,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 99,
+            "endColumn" : 39
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2586,34 +1636,20 @@
           },
           "region" : {
             "startLine" : 103,
+            "startColumn" : 5,
             "endLine" : 103,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 104
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2624,34 +1660,20 @@
           },
           "region" : {
             "startLine" : 107,
-            "endLine" : 107,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 108,
+            "endColumn" : 65
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2662,34 +1684,20 @@
           },
           "region" : {
             "startLine" : 112,
+            "startColumn" : 5,
             "endLine" : 112,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 89
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2700,34 +1708,20 @@
           },
           "region" : {
             "startLine" : 121,
-            "endLine" : 121,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 122,
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2738,34 +1732,20 @@
           },
           "region" : {
             "startLine" : 126,
+            "startColumn" : 5,
             "endLine" : 126,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 95
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2776,34 +1756,20 @@
           },
           "region" : {
             "startLine" : 131,
-            "endLine" : 131,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 132,
+            "endColumn" : 39
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2814,34 +1780,20 @@
           },
           "region" : {
             "startLine" : 136,
+            "startColumn" : 5,
             "endLine" : 136,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 91
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2852,34 +1804,20 @@
           },
           "region" : {
             "startLine" : 140,
+            "startColumn" : 5,
             "endLine" : 140,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 96
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2890,34 +1828,20 @@
           },
           "region" : {
             "startLine" : 145,
+            "startColumn" : 5,
             "endLine" : 145,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2928,34 +1852,20 @@
           },
           "region" : {
             "startLine" : 158,
-            "endLine" : 158,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 159,
+            "endColumn" : 44
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -2966,34 +1876,20 @@
           },
           "region" : {
             "startLine" : 172,
-            "endLine" : 172,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 173,
+            "endColumn" : 115
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3004,34 +1900,20 @@
           },
           "region" : {
             "startLine" : 176,
-            "endLine" : 176,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 177,
+            "endColumn" : 113
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3042,34 +1924,20 @@
           },
           "region" : {
             "startLine" : 109,
+            "startColumn" : 13,
             "endLine" : 109,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 107
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3080,34 +1948,20 @@
           },
           "region" : {
             "startLine" : 110,
+            "startColumn" : 13,
             "endLine" : 110,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 151
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3118,34 +1972,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 13,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 84
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3156,34 +1996,20 @@
           },
           "region" : {
             "startLine" : 102,
+            "startColumn" : 1,
             "endLine" : 102,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 112
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3194,34 +2020,20 @@
           },
           "region" : {
             "startLine" : 35,
+            "startColumn" : 5,
             "endLine" : 35,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 241
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3232,34 +2044,20 @@
           },
           "region" : {
             "startLine" : 45,
+            "startColumn" : 17,
             "endLine" : 45,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 114
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3270,34 +2068,20 @@
           },
           "region" : {
             "startLine" : 52,
-            "endLine" : 52,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 15,
+            "endLine" : 53,
+            "endColumn" : 76
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3308,34 +2092,20 @@
           },
           "region" : {
             "startLine" : 67,
+            "startColumn" : 7,
             "endLine" : 67,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 64
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3346,34 +2116,20 @@
           },
           "region" : {
             "startLine" : 167,
+            "startColumn" : 23,
             "endLine" : 167,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 93
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3384,34 +2140,20 @@
           },
           "region" : {
             "startLine" : 174,
+            "startColumn" : 23,
             "endLine" : 174,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 113
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3422,34 +2164,20 @@
           },
           "region" : {
             "startLine" : 179,
+            "startColumn" : 23,
             "endLine" : 179,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 95
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3460,34 +2188,20 @@
           },
           "region" : {
             "startLine" : 221,
+            "startColumn" : 23,
             "endLine" : 221,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 89
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3498,34 +2212,20 @@
           },
           "region" : {
             "startLine" : 224,
+            "startColumn" : 23,
             "endLine" : 224,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 93
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3536,34 +2236,20 @@
           },
           "region" : {
             "startLine" : 226,
+            "startColumn" : 21,
             "endLine" : 226,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 114
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3574,34 +2260,20 @@
           },
           "region" : {
             "startLine" : 20,
+            "startColumn" : 7,
             "endLine" : 20,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3612,34 +2284,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 7,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 91
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3650,34 +2308,20 @@
           },
           "region" : {
             "startLine" : 12,
+            "startColumn" : 5,
             "endLine" : 12,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 78
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3688,34 +2332,20 @@
           },
           "region" : {
             "startLine" : 7,
+            "startColumn" : 11,
             "endLine" : 7,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 92
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3726,34 +2356,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 13,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 130
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3764,34 +2380,20 @@
           },
           "region" : {
             "startLine" : 52,
+            "startColumn" : 11,
             "endLine" : 52,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 90
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3802,34 +2404,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 7,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3840,34 +2428,20 @@
           },
           "region" : {
             "startLine" : 15,
+            "startColumn" : 7,
             "endLine" : 15,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3878,34 +2452,20 @@
           },
           "region" : {
             "startLine" : 37,
+            "startColumn" : 7,
             "endLine" : 37,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3916,34 +2476,20 @@
           },
           "region" : {
             "startLine" : 153,
-            "endLine" : 153,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 17,
+            "endLine" : 154,
+            "endColumn" : 94
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3954,34 +2500,20 @@
           },
           "region" : {
             "startLine" : 74,
-            "endLine" : 74,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 19,
+            "endLine" : 75,
+            "endColumn" : 96
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -3992,34 +2524,20 @@
           },
           "region" : {
             "startLine" : 15,
+            "startColumn" : 7,
             "endLine" : 15,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4030,34 +2548,20 @@
           },
           "region" : {
             "startLine" : 4,
+            "startColumn" : 7,
             "endLine" : 4,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 81
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4068,34 +2572,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 5,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 89
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4106,34 +2596,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 5,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 95
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4144,34 +2620,20 @@
           },
           "region" : {
             "startLine" : 55,
+            "startColumn" : 11,
             "endLine" : 55,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4182,34 +2644,20 @@
           },
           "region" : {
             "startLine" : 56,
+            "startColumn" : 11,
             "endLine" : 56,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 102
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4220,34 +2668,20 @@
           },
           "region" : {
             "startLine" : 66,
+            "startColumn" : 7,
             "endLine" : 66,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 106
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4258,34 +2692,20 @@
           },
           "region" : {
             "startLine" : 72,
+            "startColumn" : 11,
             "endLine" : 72,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 86
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4296,34 +2716,20 @@
           },
           "region" : {
             "startLine" : 74,
+            "startColumn" : 11,
             "endLine" : 74,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 86
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4334,34 +2740,20 @@
           },
           "region" : {
             "startLine" : 76,
+            "startColumn" : 14,
             "endLine" : 76,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 85
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4372,34 +2764,20 @@
           },
           "region" : {
             "startLine" : 87,
+            "startColumn" : 13,
             "endLine" : 87,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 86
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4410,34 +2788,20 @@
           },
           "region" : {
             "startLine" : 89,
+            "startColumn" : 13,
             "endLine" : 89,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 86
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4448,34 +2812,20 @@
           },
           "region" : {
             "startLine" : 103,
+            "startColumn" : 9,
             "endLine" : 103,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 121
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4486,34 +2836,20 @@
           },
           "region" : {
             "startLine" : 113,
+            "startColumn" : 11,
             "endLine" : 113,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 137
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4524,34 +2860,20 @@
           },
           "region" : {
             "startLine" : 117,
+            "startColumn" : 17,
             "endLine" : 117,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 107
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4562,34 +2884,20 @@
           },
           "region" : {
             "startLine" : 125,
+            "startColumn" : 17,
             "endLine" : 125,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 129
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4600,34 +2908,20 @@
           },
           "region" : {
             "startLine" : 133,
+            "startColumn" : 17,
             "endLine" : 133,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 127
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4638,34 +2932,20 @@
           },
           "region" : {
             "startLine" : 18,
+            "startColumn" : 3,
             "endLine" : 18,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4676,34 +2956,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 7,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4714,34 +2980,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 7,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4752,34 +3004,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 7,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4790,34 +3028,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 95,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 160
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4828,34 +3052,20 @@
           },
           "region" : {
             "startLine" : 4,
+            "startColumn" : 101,
             "endLine" : 4,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 168
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4866,34 +3076,20 @@
           },
           "region" : {
             "startLine" : 5,
+            "startColumn" : 94,
             "endLine" : 5,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 158
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4904,34 +3100,20 @@
           },
           "region" : {
             "startLine" : 173,
+            "startColumn" : 50,
             "endLine" : 173,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 115
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4942,34 +3124,20 @@
           },
           "region" : {
             "startLine" : 176,
+            "startColumn" : 49,
             "endLine" : 176,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 113
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -4980,34 +3148,20 @@
           },
           "region" : {
             "startLine" : 179,
+            "startColumn" : 52,
             "endLine" : 179,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 119
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5018,34 +3172,20 @@
           },
           "region" : {
             "startLine" : 2,
+            "startColumn" : 3,
             "endLine" : 2,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 90
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5056,34 +3196,20 @@
           },
           "region" : {
             "startLine" : 8,
+            "startColumn" : 3,
             "endLine" : 8,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 170
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5094,34 +3220,20 @@
           },
           "region" : {
             "startLine" : 2,
+            "startColumn" : 3,
             "endLine" : 2,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 132
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5132,34 +3244,20 @@
           },
           "region" : {
             "startLine" : 2,
+            "startColumn" : 3,
             "endLine" : 2,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 89
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5170,34 +3268,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 95,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 160
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5208,34 +3292,20 @@
           },
           "region" : {
             "startLine" : 4,
+            "startColumn" : 101,
             "endLine" : 4,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 168
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5246,34 +3316,20 @@
           },
           "region" : {
             "startLine" : 5,
+            "startColumn" : 94,
             "endLine" : 5,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 158
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5284,34 +3340,20 @@
           },
           "region" : {
             "startLine" : 2,
+            "startColumn" : 3,
             "endLine" : 2,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 138
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5322,34 +3364,20 @@
           },
           "region" : {
             "startLine" : 26,
+            "startColumn" : 7,
             "endLine" : 26,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5360,34 +3388,20 @@
           },
           "region" : {
             "startLine" : 32,
+            "startColumn" : 7,
             "endLine" : 32,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5398,34 +3412,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 7,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5436,34 +3436,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 7,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 72
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5474,34 +3460,20 @@
           },
           "region" : {
             "startLine" : 31,
+            "startColumn" : 7,
             "endLine" : 31,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 82
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5512,34 +3484,20 @@
           },
           "region" : {
             "startLine" : 21,
+            "startColumn" : 7,
             "endLine" : 21,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 74
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5550,34 +3508,20 @@
           },
           "region" : {
             "startLine" : 19,
+            "startColumn" : 7,
             "endLine" : 19,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 83
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5588,34 +3532,20 @@
           },
           "region" : {
             "startLine" : 82,
+            "startColumn" : 15,
             "endLine" : 82,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 186
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5626,34 +3556,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 11,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 99
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5664,34 +3580,20 @@
           },
           "region" : {
             "startLine" : 66,
+            "startColumn" : 17,
             "endLine" : 66,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 200
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5702,34 +3604,20 @@
           },
           "region" : {
             "startLine" : 75,
+            "startColumn" : 17,
             "endLine" : 75,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 200
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5740,34 +3628,20 @@
           },
           "region" : {
             "startLine" : 85,
+            "startColumn" : 19,
             "endLine" : 85,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 115
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5778,34 +3652,20 @@
           },
           "region" : {
             "startLine" : 101,
+            "startColumn" : 17,
             "endLine" : 101,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 216
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5816,34 +3676,20 @@
           },
           "region" : {
             "startLine" : 113,
+            "startColumn" : 19,
             "endLine" : 113,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 123
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5854,34 +3700,20 @@
           },
           "region" : {
             "startLine" : 121,
+            "startColumn" : 19,
             "endLine" : 121,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 222
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5892,34 +3724,20 @@
           },
           "region" : {
             "startLine" : 131,
+            "startColumn" : 19,
             "endLine" : 131,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 125
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5930,34 +3748,20 @@
           },
           "region" : {
             "startLine" : 15,
+            "startColumn" : 7,
             "endLine" : 15,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -5968,34 +3772,20 @@
           },
           "region" : {
             "startLine" : 61,
+            "startColumn" : 15,
             "endLine" : 61,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 75
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6006,34 +3796,20 @@
           },
           "region" : {
             "startLine" : 43,
+            "startColumn" : 11,
             "endLine" : 43,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 221
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6044,34 +3820,20 @@
           },
           "region" : {
             "startLine" : 19,
-            "endLine" : 19,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 11,
+            "endLine" : 20,
+            "endColumn" : 173
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6082,34 +3844,20 @@
           },
           "region" : {
             "startLine" : 32,
-            "endLine" : 32,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 33,
+            "endColumn" : 80
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6120,34 +3868,20 @@
           },
           "region" : {
             "startLine" : 52,
+            "startColumn" : 9,
             "endLine" : 52,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6158,34 +3892,20 @@
           },
           "region" : {
             "startLine" : 25,
-            "endLine" : 25,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 9,
+            "endLine" : 26,
+            "endColumn" : 150
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6196,34 +3916,20 @@
           },
           "region" : {
             "startLine" : 48,
+            "startColumn" : 9,
             "endLine" : 48,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 121
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6234,34 +3940,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 18,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 90
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6272,34 +3964,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 5,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 103
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6310,34 +3988,20 @@
           },
           "region" : {
             "startLine" : 19,
+            "startColumn" : 4,
             "endLine" : 19,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 103
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6844",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Anchor tags should not be used as buttons.",
-        "arguments" : [ ]
+        "text" : "Anchor tags should not be used as buttons."
       },
       "locations" : [ {
         "id" : -1,
@@ -6348,37 +4012,15 @@
           },
           "region" : {
             "startLine" : 18,
+            "startColumn" : 5,
             "endLine" : 18,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 70
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

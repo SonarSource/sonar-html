@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 5,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 50
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 14,
+            "startColumn" : 1,
             "endLine" : 14,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 280
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 16,
-            "endLine" : 16,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 17,
+            "endColumn" : 117
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 10,
-            "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 5,
+            "endLine" : 12,
+            "endColumn" : 77
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 1,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 134
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 6,
+            "startColumn" : 1,
             "endLine" : 6,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 96
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 6,
+            "startColumn" : 1,
             "endLine" : 6,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 141
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 22,
-            "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 4,
+            "endLine" : 26,
+            "endColumn" : 55
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S4084",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add subtitles and description files for this video.",
-        "arguments" : [ ]
+        "text" : "Add subtitles and description files for this video."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,37 +220,15 @@
           },
           "region" : {
             "startLine" : 19,
-            "endLine" : 19,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "startColumn" : 4,
+            "endLine" : 23,
+            "endColumn" : 63
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

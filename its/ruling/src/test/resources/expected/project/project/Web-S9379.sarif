@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 18,
+            "startColumn" : 11,
             "endLine" : 18,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 35
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 19,
+            "startColumn" : 9,
             "endLine" : 19,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 133
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 18,
+            "startColumn" : 9,
             "endLine" : 18,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 133
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 7,
+            "startColumn" : 9,
             "endLine" : 7,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 82
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 6,
+            "startColumn" : 9,
             "endLine" : 6,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 82
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 66,
+            "startColumn" : 7,
             "endLine" : 66,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 106
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 7,
+            "startColumn" : 9,
             "endLine" : 7,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 5,
+            "startColumn" : 3,
             "endLine" : 5,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 105
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 5,
+            "startColumn" : 5,
             "endLine" : 5,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 157
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 13,
+            "startColumn" : 9,
             "endLine" : 13,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 108
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 13,
+            "startColumn" : 9,
             "endLine" : 13,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 130
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 15,
+            "startColumn" : 9,
             "endLine" : 15,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 130
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,34 +316,20 @@
           },
           "region" : {
             "startLine" : 17,
+            "startColumn" : 9,
             "endLine" : 17,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 104
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -534,34 +340,20 @@
           },
           "region" : {
             "startLine" : 17,
+            "startColumn" : 9,
             "endLine" : 17,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 114
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S9379",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users.",
-        "arguments" : [ ]
+        "text" : "Remove this \"autofocus\" attribute, as it can reduce usability and accessibility for users."
       },
       "locations" : [ {
         "id" : -1,
@@ -572,37 +364,15 @@
           },
           "region" : {
             "startLine" : 16,
+            "startColumn" : 9,
             "endLine" : 16,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 103
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

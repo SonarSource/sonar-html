@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 75 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 75 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -38,30 +26,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/displayAttachedFiles.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 24 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 24 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -70,30 +44,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/attachment/jsp/editAttachedFiles.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 13 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 13 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -102,30 +62,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/jobStartPagePeas/jsp/spaceLook.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 19 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 19 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -134,30 +80,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/layout-1.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 12 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 12 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -166,30 +98,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/portlet/jsp/jsr/portletSP.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 13 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 13 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -198,30 +116,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/selection/jsp/userpanel.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 11 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 11 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,30 +134,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccess.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 14 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 14 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -262,30 +152,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewAccessPDC.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 13 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 13 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -294,30 +170,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewConnection.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 20 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 20 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -326,30 +188,16 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/silverStatisticsPeas/jsp/viewCrossPDCAccess.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ComplexityCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Split this file to reduce complexity per file from 14 to no more than the 10 authorized.",
-        "arguments" : [ ]
+        "text" : "Split this file to reduce complexity per file from 14 to no more than the 10 authorized."
       },
       "locations" : [ {
         "id" : -1,
@@ -358,33 +206,11 @@
             "uri" : "project:Silverpeas-Core-master/war-core/src/main/webapp/socialNetwork/jsp/myProfil/myProfileTabSettings.jsp",
             "index" : -1
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

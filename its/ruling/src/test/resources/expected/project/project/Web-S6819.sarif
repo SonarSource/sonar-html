@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 1,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 23
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 2,
+            "startColumn" : 1,
             "endLine" : 2,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 26
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 1,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 26
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <img> or <svg> instead of the img role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <img> or <svg> instead of the img role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 1,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 21
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <img> or <svg> instead of the img role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <img> or <svg> instead of the img role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 2,
+            "startColumn" : 1,
             "endLine" : 2,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 32
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <img> or <svg> instead of the img role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <img> or <svg> instead of the img role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 1,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 37
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 1,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 36
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 76,
+            "startColumn" : 9,
             "endLine" : 76,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 86
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 144,
+            "startColumn" : 9,
             "endLine" : 144,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 84
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 59,
+            "startColumn" : 9,
             "endLine" : 59,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 85
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <dialog> instead of the dialog role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 127,
+            "startColumn" : 9,
             "endLine" : 127,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 85
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 26,
+            "startColumn" : 17,
             "endLine" : 26,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 86
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6819",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices.",
-        "arguments" : [ ]
+        "text" : "Use <button> or <input> instead of the button role to ensure accessibility across all devices."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,37 +316,15 @@
           },
           "region" : {
             "startLine" : 27,
+            "startColumn" : 17,
             "endLine" : 27,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 55
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 36,
+            "startColumn" : 1,
             "endLine" : 36,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 41,
+            "startColumn" : 1,
             "endLine" : 41,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 71
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 29,
+            "startColumn" : 1,
             "endLine" : 29,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 69,
+            "startColumn" : 1,
             "endLine" : 69,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 53,
+            "startColumn" : 1,
             "endLine" : 53,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,34 +316,20 @@
           },
           "region" : {
             "startLine" : 49,
+            "startColumn" : 1,
             "endLine" : 49,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -534,34 +340,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 3 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 3 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -572,34 +364,20 @@
           },
           "region" : {
             "startLine" : 58,
+            "startColumn" : 1,
             "endLine" : 58,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -610,34 +388,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 3 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 3 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -648,34 +412,20 @@
           },
           "region" : {
             "startLine" : 63,
+            "startColumn" : 1,
             "endLine" : 63,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -686,34 +436,20 @@
           },
           "region" : {
             "startLine" : 35,
+            "startColumn" : 1,
             "endLine" : 35,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 70
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -724,34 +460,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 1,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -762,34 +484,20 @@
           },
           "region" : {
             "startLine" : 46,
+            "startColumn" : 1,
             "endLine" : 46,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -800,34 +508,20 @@
           },
           "region" : {
             "startLine" : 27,
+            "startColumn" : 1,
             "endLine" : 27,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 32
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -838,34 +532,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 1,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -876,34 +556,20 @@
           },
           "region" : {
             "startLine" : 55,
+            "startColumn" : 1,
             "endLine" : 55,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -914,34 +580,20 @@
           },
           "region" : {
             "startLine" : 69,
+            "startColumn" : 1,
             "endLine" : 69,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -952,34 +604,20 @@
           },
           "region" : {
             "startLine" : 71,
+            "startColumn" : 1,
             "endLine" : 71,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -990,34 +628,20 @@
           },
           "region" : {
             "startLine" : 66,
+            "startColumn" : 1,
             "endLine" : 66,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1028,34 +652,20 @@
           },
           "region" : {
             "startLine" : 70,
+            "startColumn" : 1,
             "endLine" : 70,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1066,34 +676,20 @@
           },
           "region" : {
             "startLine" : 69,
+            "startColumn" : 1,
             "endLine" : 69,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1104,34 +700,20 @@
           },
           "region" : {
             "startLine" : 67,
+            "startColumn" : 1,
             "endLine" : 67,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1142,34 +724,20 @@
           },
           "region" : {
             "startLine" : 54,
+            "startColumn" : 1,
             "endLine" : 54,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1180,34 +748,20 @@
           },
           "region" : {
             "startLine" : 74,
+            "startColumn" : 1,
             "endLine" : 74,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1218,34 +772,20 @@
           },
           "region" : {
             "startLine" : 27,
+            "startColumn" : 1,
             "endLine" : 27,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 32
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1256,34 +796,20 @@
           },
           "region" : {
             "startLine" : 65,
+            "startColumn" : 1,
             "endLine" : 65,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1294,34 +820,20 @@
           },
           "region" : {
             "startLine" : 52,
+            "startColumn" : 1,
             "endLine" : 52,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1332,34 +844,20 @@
           },
           "region" : {
             "startLine" : 107,
+            "startColumn" : 1,
             "endLine" : 107,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1370,34 +868,20 @@
           },
           "region" : {
             "startLine" : 97,
+            "startColumn" : 1,
             "endLine" : 97,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1408,34 +892,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 1,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1446,34 +916,20 @@
           },
           "region" : {
             "startLine" : 70,
+            "startColumn" : 1,
             "endLine" : 70,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1484,34 +940,20 @@
           },
           "region" : {
             "startLine" : 35,
+            "startColumn" : 1,
             "endLine" : 35,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1522,34 +964,20 @@
           },
           "region" : {
             "startLine" : 37,
+            "startColumn" : 1,
             "endLine" : 37,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1560,34 +988,20 @@
           },
           "region" : {
             "startLine" : 35,
+            "startColumn" : 1,
             "endLine" : 35,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1598,34 +1012,20 @@
           },
           "region" : {
             "startLine" : 33,
+            "startColumn" : 1,
             "endLine" : 33,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1636,34 +1036,20 @@
           },
           "region" : {
             "startLine" : 35,
+            "startColumn" : 1,
             "endLine" : 35,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1674,34 +1060,20 @@
           },
           "region" : {
             "startLine" : 35,
+            "startColumn" : 1,
             "endLine" : 35,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1712,34 +1084,20 @@
           },
           "region" : {
             "startLine" : 35,
+            "startColumn" : 1,
             "endLine" : 35,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1750,34 +1108,20 @@
           },
           "region" : {
             "startLine" : 32,
+            "startColumn" : 1,
             "endLine" : 32,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1788,34 +1132,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 1,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1826,34 +1156,20 @@
           },
           "region" : {
             "startLine" : 45,
+            "startColumn" : 1,
             "endLine" : 45,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1864,34 +1180,20 @@
           },
           "region" : {
             "startLine" : 45,
+            "startColumn" : 1,
             "endLine" : 45,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1902,34 +1204,20 @@
           },
           "region" : {
             "startLine" : 32,
+            "startColumn" : 1,
             "endLine" : 32,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1940,34 +1228,20 @@
           },
           "region" : {
             "startLine" : 32,
+            "startColumn" : 1,
             "endLine" : 32,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 58
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1978,34 +1252,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2016,34 +1276,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2054,34 +1300,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2092,34 +1324,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2130,34 +1348,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2168,34 +1372,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2206,34 +1396,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2244,34 +1420,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2282,34 +1444,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2320,34 +1468,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2358,34 +1492,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 28
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2396,34 +1516,20 @@
           },
           "region" : {
             "startLine" : 73,
+            "startColumn" : 1,
             "endLine" : 73,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2434,34 +1540,20 @@
           },
           "region" : {
             "startLine" : 63,
+            "startColumn" : 1,
             "endLine" : 63,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 3 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 3 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2472,34 +1564,20 @@
           },
           "region" : {
             "startLine" : 30,
+            "startColumn" : 1,
             "endLine" : 30,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 3 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 3 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2510,34 +1588,20 @@
           },
           "region" : {
             "startLine" : 30,
+            "startColumn" : 1,
             "endLine" : 30,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 66
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2548,34 +1612,20 @@
           },
           "region" : {
             "startLine" : 77,
+            "startColumn" : 1,
             "endLine" : 77,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2586,34 +1636,20 @@
           },
           "region" : {
             "startLine" : 65,
+            "startColumn" : 1,
             "endLine" : 65,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2624,34 +1660,20 @@
           },
           "region" : {
             "startLine" : 72,
+            "startColumn" : 1,
             "endLine" : 72,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2662,34 +1684,20 @@
           },
           "region" : {
             "startLine" : 82,
+            "startColumn" : 1,
             "endLine" : 82,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2700,34 +1708,20 @@
           },
           "region" : {
             "startLine" : 61,
+            "startColumn" : 1,
             "endLine" : 61,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2738,34 +1732,20 @@
           },
           "region" : {
             "startLine" : 67,
+            "startColumn" : 1,
             "endLine" : 67,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2776,34 +1756,20 @@
           },
           "region" : {
             "startLine" : 72,
+            "startColumn" : 1,
             "endLine" : 72,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2814,34 +1780,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2852,34 +1804,20 @@
           },
           "region" : {
             "startLine" : 28,
+            "startColumn" : 1,
             "endLine" : 28,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:MultiplePageDirectivesCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Combine these 2 page directives into one.",
-        "arguments" : [ ]
+        "text" : "Combine these 2 page directives into one."
       },
       "locations" : [ {
         "id" : -1,
@@ -2890,37 +1828,15 @@
           },
           "region" : {
             "startLine" : 106,
+            "startColumn" : 1,
             "endLine" : 106,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 57
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

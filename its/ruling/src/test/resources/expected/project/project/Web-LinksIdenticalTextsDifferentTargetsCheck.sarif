@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 1764.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 1764."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 1765,
+            "startColumn" : 1,
             "endLine" : 1765,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 130
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 7717.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 7717."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 7717,
+            "startColumn" : 1,
             "endLine" : 7717,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 199
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 19591.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 19591."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 19592,
+            "startColumn" : 1,
             "endLine" : 19592,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 92
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 19592.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 19592."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 19593,
+            "startColumn" : 1,
             "endLine" : 19593,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 119
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 23169.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 23169."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 23170,
+            "startColumn" : 1,
             "endLine" : 23170,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 86
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 27286.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 27286."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 27290,
+            "startColumn" : 1,
             "endLine" : 27290,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 101
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 31950.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 31950."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 31951,
+            "startColumn" : 1,
             "endLine" : 31951,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 107
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 38737.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 38737."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 38738,
+            "startColumn" : 1,
             "endLine" : 38738,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 89
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 38917.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 38917."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 38919,
+            "startColumn" : 1,
             "endLine" : 38919,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 84
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39564.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39564."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 39565,
+            "startColumn" : 1,
             "endLine" : 39565,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 236
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39729.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39729."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 39730,
+            "startColumn" : 1,
             "endLine" : 39730,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 121
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39922.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39922."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 39925,
+            "startColumn" : 1,
             "endLine" : 39925,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 103
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39976.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39976."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,34 +316,20 @@
           },
           "region" : {
             "startLine" : 39979,
+            "startColumn" : 1,
             "endLine" : 39979,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 93
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40392.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40392."
       },
       "locations" : [ {
         "id" : -1,
@@ -534,34 +340,20 @@
           },
           "region" : {
             "startLine" : 40393,
+            "startColumn" : 1,
             "endLine" : 40393,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 90
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40393.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40393."
       },
       "locations" : [ {
         "id" : -1,
@@ -572,34 +364,20 @@
           },
           "region" : {
             "startLine" : 40394,
+            "startColumn" : 1,
             "endLine" : 40394,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 112
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40394.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40394."
       },
       "locations" : [ {
         "id" : -1,
@@ -610,34 +388,20 @@
           },
           "region" : {
             "startLine" : 40395,
+            "startColumn" : 1,
             "endLine" : 40395,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 142
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40395.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40395."
       },
       "locations" : [ {
         "id" : -1,
@@ -648,34 +412,20 @@
           },
           "region" : {
             "startLine" : 40396,
+            "startColumn" : 1,
             "endLine" : 40396,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 165
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 41221.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 41221."
       },
       "locations" : [ {
         "id" : -1,
@@ -686,34 +436,20 @@
           },
           "region" : {
             "startLine" : 41227,
+            "startColumn" : 1,
             "endLine" : 41227,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 91
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54775.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54775."
       },
       "locations" : [ {
         "id" : -1,
@@ -724,34 +460,20 @@
           },
           "region" : {
             "startLine" : 54775,
+            "startColumn" : 1,
             "endLine" : 54775,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 107
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54777.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54777."
       },
       "locations" : [ {
         "id" : -1,
@@ -762,34 +484,20 @@
           },
           "region" : {
             "startLine" : 54777,
+            "startColumn" : 1,
             "endLine" : 54777,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 181
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54778.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54778."
       },
       "locations" : [ {
         "id" : -1,
@@ -800,34 +508,20 @@
           },
           "region" : {
             "startLine" : 54778,
+            "startColumn" : 1,
             "endLine" : 54778,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 104
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54779.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54779."
       },
       "locations" : [ {
         "id" : -1,
@@ -838,34 +532,20 @@
           },
           "region" : {
             "startLine" : 54779,
+            "startColumn" : 1,
             "endLine" : 54779,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 122
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54801.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54801."
       },
       "locations" : [ {
         "id" : -1,
@@ -876,34 +556,20 @@
           },
           "region" : {
             "startLine" : 54802,
+            "startColumn" : 1,
             "endLine" : 54802,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 95
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54805.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54805."
       },
       "locations" : [ {
         "id" : -1,
@@ -914,34 +580,20 @@
           },
           "region" : {
             "startLine" : 54805,
+            "startColumn" : 1,
             "endLine" : 54805,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 179
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54806.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54806."
       },
       "locations" : [ {
         "id" : -1,
@@ -952,34 +604,20 @@
           },
           "region" : {
             "startLine" : 54806,
+            "startColumn" : 1,
             "endLine" : 54806,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 147
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54773.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54773."
       },
       "locations" : [ {
         "id" : -1,
@@ -990,34 +628,20 @@
           },
           "region" : {
             "startLine" : 54889,
+            "startColumn" : 1,
             "endLine" : 54889,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 82
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 55094.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 55094."
       },
       "locations" : [ {
         "id" : -1,
@@ -1028,34 +652,20 @@
           },
           "region" : {
             "startLine" : 55096,
+            "startColumn" : 1,
             "endLine" : 55096,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 156
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 55114.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 55114."
       },
       "locations" : [ {
         "id" : -1,
@@ -1066,34 +676,20 @@
           },
           "region" : {
             "startLine" : 55116,
+            "startColumn" : 1,
             "endLine" : 55116,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 154
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 56982.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 56982."
       },
       "locations" : [ {
         "id" : -1,
@@ -1104,34 +700,20 @@
           },
           "region" : {
             "startLine" : 56988,
+            "startColumn" : 1,
             "endLine" : 56988,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 126
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 61911.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 61911."
       },
       "locations" : [ {
         "id" : -1,
@@ -1142,34 +724,20 @@
           },
           "region" : {
             "startLine" : 61913,
+            "startColumn" : 1,
             "endLine" : 61913,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 184
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 64491.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 64491."
       },
       "locations" : [ {
         "id" : -1,
@@ -1180,34 +748,20 @@
           },
           "region" : {
             "startLine" : 64491,
+            "startColumn" : 1,
             "endLine" : 64491,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 147
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 64491.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 64491."
       },
       "locations" : [ {
         "id" : -1,
@@ -1218,34 +772,20 @@
           },
           "region" : {
             "startLine" : 64493,
+            "startColumn" : 1,
             "endLine" : 64493,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 550
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 74.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 74."
       },
       "locations" : [ {
         "id" : -1,
@@ -1256,34 +796,20 @@
           },
           "region" : {
             "startLine" : 94,
+            "startColumn" : 1,
             "endLine" : 94,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 241
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 32.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 32."
       },
       "locations" : [ {
         "id" : -1,
@@ -1294,34 +820,20 @@
           },
           "region" : {
             "startLine" : 34,
+            "startColumn" : 1,
             "endLine" : 34,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 96
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 11.",
-        "arguments" : [ ]
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 11."
       },
       "locations" : [ {
         "id" : -1,
@@ -1332,37 +844,15 @@
           },
           "region" : {
             "startLine" : 13,
+            "startColumn" : 1,
             "endLine" : 13,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 56
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

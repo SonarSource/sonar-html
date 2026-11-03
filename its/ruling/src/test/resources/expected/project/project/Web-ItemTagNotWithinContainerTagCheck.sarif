@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 217,
+            "startColumn" : 11,
             "endLine" : 217,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 15
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 216,
+            "startColumn" : 11,
             "endLine" : 216,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 15
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <dd> item tag by a <dl> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <dd> item tag by a <dl> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 109,
+            "startColumn" : 1,
             "endLine" : 109,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 1,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <LI> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 12,
+            "startColumn" : 1,
             "endLine" : 12,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 13,
+            "startColumn" : 1,
             "endLine" : 13,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 766,
+            "startColumn" : 48,
             "endLine" : 766,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 67
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 1015,
+            "startColumn" : 48,
             "endLine" : 1015,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 67
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 3,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 29
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,34 +316,20 @@
           },
           "region" : {
             "startLine" : 5,
+            "startColumn" : 5,
             "endLine" : 5,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 70
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -534,34 +340,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 3,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 7
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -572,34 +364,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 3,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 22
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -610,34 +388,20 @@
           },
           "region" : {
             "startLine" : 12,
+            "startColumn" : 5,
             "endLine" : 12,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -648,34 +412,20 @@
           },
           "region" : {
             "startLine" : 15,
+            "startColumn" : 5,
             "endLine" : 15,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -686,34 +436,20 @@
           },
           "region" : {
             "startLine" : 26,
+            "startColumn" : 5,
             "endLine" : 26,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 54
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -724,34 +460,20 @@
           },
           "region" : {
             "startLine" : 32,
+            "startColumn" : 5,
             "endLine" : 32,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 52
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -762,34 +484,20 @@
           },
           "region" : {
             "startLine" : 38,
+            "startColumn" : 5,
             "endLine" : 38,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 56
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -800,34 +508,20 @@
           },
           "region" : {
             "startLine" : 44,
+            "startColumn" : 5,
             "endLine" : 44,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 54
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -838,34 +532,20 @@
           },
           "region" : {
             "startLine" : 50,
+            "startColumn" : 5,
             "endLine" : 50,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 54
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -876,34 +556,20 @@
           },
           "region" : {
             "startLine" : 56,
+            "startColumn" : 5,
             "endLine" : 56,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 53
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -914,34 +580,20 @@
           },
           "region" : {
             "startLine" : 64,
+            "startColumn" : 5,
             "endLine" : 64,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 9
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -952,34 +604,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 1,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -990,34 +628,20 @@
           },
           "region" : {
             "startLine" : 7,
+            "startColumn" : 1,
             "endLine" : 7,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1028,34 +652,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 1,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1066,34 +676,20 @@
           },
           "region" : {
             "startLine" : 1,
+            "startColumn" : 1,
             "endLine" : 1,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 5
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1104,34 +700,20 @@
           },
           "region" : {
             "startLine" : 3,
+            "startColumn" : 3,
             "endLine" : 3,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 29
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1142,34 +724,20 @@
           },
           "region" : {
             "startLine" : 5,
+            "startColumn" : 5,
             "endLine" : 5,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 70
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1180,34 +748,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 3,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 7
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1218,34 +772,20 @@
           },
           "region" : {
             "startLine" : 10,
+            "startColumn" : 3,
             "endLine" : 10,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 22
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1256,34 +796,20 @@
           },
           "region" : {
             "startLine" : 86,
+            "startColumn" : 5,
             "endLine" : 86,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1294,34 +820,20 @@
           },
           "region" : {
             "startLine" : 89,
+            "startColumn" : 5,
             "endLine" : 89,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 31
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1332,34 +844,20 @@
           },
           "region" : {
             "startLine" : 97,
+            "startColumn" : 5,
             "endLine" : 97,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 113
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1370,34 +868,20 @@
           },
           "region" : {
             "startLine" : 106,
+            "startColumn" : 5,
             "endLine" : 106,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 118
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1408,34 +892,20 @@
           },
           "region" : {
             "startLine" : 110,
+            "startColumn" : 5,
             "endLine" : 110,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 119
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1446,34 +916,20 @@
           },
           "region" : {
             "startLine" : 114,
+            "startColumn" : 5,
             "endLine" : 114,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 117
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1484,34 +940,20 @@
           },
           "region" : {
             "startLine" : 119,
+            "startColumn" : 5,
             "endLine" : 119,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1522,34 +964,20 @@
           },
           "region" : {
             "startLine" : 126,
+            "startColumn" : 7,
             "endLine" : 126,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 136
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1560,34 +988,20 @@
           },
           "region" : {
             "startLine" : 134,
+            "startColumn" : 5,
             "endLine" : 134,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 147
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1598,34 +1012,20 @@
           },
           "region" : {
             "startLine" : 142,
+            "startColumn" : 5,
             "endLine" : 142,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 152
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1636,34 +1036,20 @@
           },
           "region" : {
             "startLine" : 149,
+            "startColumn" : 5,
             "endLine" : 149,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 44
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:ItemTagNotWithinContainerTagCheck",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one.",
-        "arguments" : [ ]
+        "text" : "Surround this <li> item tag by a <ul>, <ol> or <menu> container one."
       },
       "locations" : [ {
         "id" : -1,
@@ -1674,37 +1060,15 @@
           },
           "region" : {
             "startLine" : 176,
+            "startColumn" : 5,
             "endLine" : 176,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 9
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }

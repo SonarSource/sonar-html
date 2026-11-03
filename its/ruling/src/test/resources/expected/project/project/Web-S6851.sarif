@@ -5,31 +5,19 @@
     "tool" : {
       "driver" : {
         "name" : "LITS",
-        "notifications" : [ ],
-        "rules" : [ ],
-        "taxa" : [ ],
-        "locations" : [ ],
         "language" : "en-US",
         "contents" : [ "localizedData", "nonLocalizedData" ],
-        "isComprehensive" : false,
-        "supportedTaxonomies" : [ ]
-      },
-      "extensions" : [ ]
+        "isComprehensive" : false
+      }
     },
-    "invocations" : [ ],
     "language" : "en-US",
-    "versionControlProvenance" : [ ],
-    "artifacts" : [ ],
-    "logicalLocations" : [ ],
-    "graphs" : [ ],
     "results" : [ {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -40,34 +28,20 @@
           },
           "region" : {
             "startLine" : 71,
+            "startColumn" : 1,
             "endLine" : 71,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 87
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -78,34 +52,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -116,34 +76,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -154,34 +100,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -192,34 +124,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -230,34 +148,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -268,34 +172,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -306,34 +196,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -344,34 +220,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -382,34 +244,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -420,34 +268,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -458,34 +292,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -496,34 +316,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -534,34 +340,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -572,34 +364,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -610,34 +388,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -648,34 +412,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -686,34 +436,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -724,34 +460,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -762,34 +484,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -800,34 +508,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -838,34 +532,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -876,34 +556,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -914,34 +580,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -952,34 +604,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -990,34 +628,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1028,34 +652,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1066,34 +676,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1104,34 +700,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1142,34 +724,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1180,34 +748,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1218,34 +772,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1256,34 +796,20 @@
           },
           "region" : {
             "startLine" : 22,
+            "startColumn" : 1,
             "endLine" : 22,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 135
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1294,34 +820,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1332,34 +844,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1370,34 +868,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1408,34 +892,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1446,34 +916,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1484,34 +940,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1522,34 +964,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1560,34 +988,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1598,34 +1012,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1636,34 +1036,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1674,34 +1060,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1712,34 +1084,20 @@
           },
           "region" : {
             "startLine" : 9,
+            "startColumn" : 1,
             "endLine" : 9,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1750,34 +1108,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1788,34 +1132,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1826,34 +1156,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1864,34 +1180,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1902,34 +1204,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1940,34 +1228,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -1978,34 +1252,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2016,34 +1276,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2054,34 +1300,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2092,34 +1324,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2130,34 +1348,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2168,34 +1372,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2206,34 +1396,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2244,34 +1420,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2282,34 +1444,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2320,34 +1468,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2358,34 +1492,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2396,34 +1516,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2434,34 +1540,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2472,34 +1564,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2510,34 +1588,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2548,34 +1612,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2586,34 +1636,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2624,34 +1660,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2662,34 +1684,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2700,34 +1708,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2738,34 +1732,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2776,34 +1756,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2814,34 +1780,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2852,34 +1804,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2890,34 +1828,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2928,34 +1852,20 @@
           },
           "region" : {
             "startLine" : 24,
+            "startColumn" : 1,
             "endLine" : 24,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 120
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -2966,34 +1876,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3004,34 +1900,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3042,34 +1924,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3080,34 +1948,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3118,34 +1972,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3156,34 +1996,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3194,34 +2020,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3232,34 +2044,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3270,34 +2068,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3308,34 +2092,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3346,34 +2116,20 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     }, {
       "ruleId" : "Web:S6851",
       "ruleIndex" : -1,
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag.",
-        "arguments" : [ ]
+        "text" : "Remove redundant word \"image\" from the \"alt\" attribute of your \"img\" tag."
       },
       "locations" : [ {
         "id" : -1,
@@ -3384,37 +2140,15 @@
           },
           "region" : {
             "startLine" : 11,
+            "startColumn" : 1,
             "endLine" : 11,
-            "charOffset" : -1,
-            "byteOffset" : -1
+            "endColumn" : 196
           }
-        },
-        "logicalLocations" : [ ],
-        "annotations" : [ ],
-        "relationships" : [ ]
+        }
       } ],
-      "stacks" : [ ],
-      "codeFlows" : [ ],
-      "graphs" : [ ],
-      "graphTraversals" : [ ],
-      "relatedLocations" : [ ],
-      "suppressions" : [ ],
-      "rank" : -1.0,
-      "attachments" : [ ],
-      "workItemUris" : [ ],
-      "fixes" : [ ],
-      "taxa" : [ ]
+      "rank" : -1.0
     } ],
-    "runAggregates" : [ ],
-    "redactionTokens" : [ ],
     "newlineSequences" : [ "\r\n", "\n" ],
-    "threadFlowLocations" : [ ],
-    "taxonomies" : [ ],
-    "addresses" : [ ],
-    "translations" : [ ],
-    "policies" : [ ],
-    "webRequests" : [ ],
-    "webResponses" : [ ]
-  } ],
-  "inlineExternalProperties" : [ ]
+    "columnKind" : "utf16CodeUnits"
+  } ]
 }
