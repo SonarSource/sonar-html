@@ -17,7 +17,7 @@
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Move this \"scope\" attribute to a \"th\" element, or remove it. (SARIF validation)"
+        "text" : "Move this \"scope\" attribute to a \"th\" element, or remove it."
       },
       "locations" : [ {
         "id" : -1,
