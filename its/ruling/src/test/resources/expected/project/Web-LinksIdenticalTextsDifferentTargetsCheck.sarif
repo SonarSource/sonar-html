@@ -1,0 +1,858 @@
+{
+  "$schema" : "https://json.schemastore.org/sarif-2.1.0.json",
+  "version" : "2.1.0",
+  "runs" : [ {
+    "tool" : {
+      "driver" : {
+        "name" : "LITS",
+        "language" : "en-US",
+        "contents" : [ "localizedData", "nonLocalizedData" ],
+        "isComprehensive" : false
+      }
+    },
+    "language" : "en-US",
+    "results" : [ {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 1764."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 1765,
+            "startColumn" : 1,
+            "endLine" : 1765,
+            "endColumn" : 130
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 7717."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 7717,
+            "startColumn" : 1,
+            "endLine" : 7717,
+            "endColumn" : 199
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 19591."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19592,
+            "startColumn" : 1,
+            "endLine" : 19592,
+            "endColumn" : 92
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 19592."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 19593,
+            "startColumn" : 1,
+            "endLine" : 19593,
+            "endColumn" : 119
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 23169."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 23170,
+            "startColumn" : 1,
+            "endLine" : 23170,
+            "endColumn" : 86
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 27286."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 27290,
+            "startColumn" : 1,
+            "endLine" : 27290,
+            "endColumn" : 101
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 31950."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 31951,
+            "startColumn" : 1,
+            "endLine" : 31951,
+            "endColumn" : 107
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 38737."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38738,
+            "startColumn" : 1,
+            "endLine" : 38738,
+            "endColumn" : 89
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 38917."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 38919,
+            "startColumn" : 1,
+            "endLine" : 38919,
+            "endColumn" : 84
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39564."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39565,
+            "startColumn" : 1,
+            "endLine" : 39565,
+            "endColumn" : 236
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39729."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39730,
+            "startColumn" : 1,
+            "endLine" : 39730,
+            "endColumn" : 121
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39922."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39925,
+            "startColumn" : 1,
+            "endLine" : 39925,
+            "endColumn" : 103
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 39976."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 39979,
+            "startColumn" : 1,
+            "endLine" : 39979,
+            "endColumn" : 93
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40392."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40393,
+            "startColumn" : 1,
+            "endLine" : 40393,
+            "endColumn" : 90
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40393."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40394,
+            "startColumn" : 1,
+            "endLine" : 40394,
+            "endColumn" : 112
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40394."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40395,
+            "startColumn" : 1,
+            "endLine" : 40395,
+            "endColumn" : 142
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 40395."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 40396,
+            "startColumn" : 1,
+            "endLine" : 40396,
+            "endColumn" : 165
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 41221."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 41227,
+            "startColumn" : 1,
+            "endLine" : 41227,
+            "endColumn" : 91
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54775."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54775,
+            "startColumn" : 1,
+            "endLine" : 54775,
+            "endColumn" : 107
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54777."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54777,
+            "startColumn" : 1,
+            "endLine" : 54777,
+            "endColumn" : 181
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54778."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54778,
+            "startColumn" : 1,
+            "endLine" : 54778,
+            "endColumn" : 104
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54779."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54779,
+            "startColumn" : 1,
+            "endLine" : 54779,
+            "endColumn" : 122
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54801."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54802,
+            "startColumn" : 1,
+            "endLine" : 54802,
+            "endColumn" : 95
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54805."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54805,
+            "startColumn" : 1,
+            "endLine" : 54805,
+            "endColumn" : 179
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54806."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54806,
+            "startColumn" : 1,
+            "endLine" : 54806,
+            "endColumn" : 147
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 54773."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 54889,
+            "startColumn" : 1,
+            "endLine" : 54889,
+            "endColumn" : 82
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 55094."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55096,
+            "startColumn" : 1,
+            "endLine" : 55096,
+            "endColumn" : 156
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 55114."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 55116,
+            "startColumn" : 1,
+            "endLine" : 55116,
+            "endColumn" : 154
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 56982."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 56988,
+            "startColumn" : 1,
+            "endLine" : 56988,
+            "endColumn" : 126
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 61911."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 61913,
+            "startColumn" : 1,
+            "endLine" : 61913,
+            "endColumn" : 184
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 64491."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 64491,
+            "startColumn" : 1,
+            "endLine" : 64491,
+            "endColumn" : 147
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 64491."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/PerformanceTests/Parser/resources/html5.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 64493,
+            "startColumn" : 1,
+            "endLine" : 64493,
+            "endColumn" : 550
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 74."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:external_webkit-jb-mr1/Source/WebCore/manual-tests/spatial-navigation/spatial-navigation-test-cases.html",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 94,
+            "startColumn" : 1,
+            "endLine" : 94,
+            "endColumn" : 241
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 32."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/vendor/pagination/default.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 34,
+            "startColumn" : 1,
+            "endLine" : 34,
+            "endColumn" : 96
+          }
+        }
+      } ],
+      "rank" : -1.0
+    }, {
+      "ruleId" : "Web:LinksIdenticalTextsDifferentTargetsCheck",
+      "ruleIndex" : -1,
+      "kind" : "fail",
+      "level" : "warning",
+      "message" : {
+        "text" : "Use a distinct text or label, or point to the same target for this link and the one on line 11."
+      },
+      "locations" : [ {
+        "id" : -1,
+        "physicalLocation" : {
+          "artifactLocation" : {
+            "uri" : "project:voten/resources/views/vendor/pagination/simple-default.blade.php",
+            "index" : -1
+          },
+          "region" : {
+            "startLine" : 13,
+            "startColumn" : 1,
+            "endLine" : 13,
+            "endColumn" : 56
+          }
+        }
+      } ],
+      "rank" : -1.0
+    } ],
+    "newlineSequences" : [ "\r\n", "\n" ],
+    "columnKind" : "utf16CodeUnits"
+  } ]
+}

@@ -192,104 +192,14 @@ jobs:
       - name: Show ruling differences
         if: failure()
         run: ./tools/ruling-debug-script.sh
+      - name: Prepare ruling artifact
+        if: always() && github.event_name == 'pull_request' && steps.ruling.outcome == 'failure'
+        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@master
       - name: Update ruling and comment on PR
         if: always() && github.event_name == 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          HEAD_REF: ${{ github.head_ref }}
-          BASE_REF: ${{ github.base_ref }}
-          RULING_FAILED: ${{ steps.ruling.outcome == 'failure' }}
-        run: |
-          MARKER="<!-- ruling-report -->"
-
-          # Auto-update ruling files when the ruling test failed
-          RULING_UPDATED=false
-          if [ "$RULING_FAILED" = "true" ]; then
-            # Check if last commit was already an auto-update (prevent infinite loop)
-            LAST_COMMIT_MSG=$(git log -1 --format=%B)
-            if echo "$LAST_COMMIT_MSG" | grep -q "🤖 Generated with GitHub Actions"; then
-              echo "Last commit was an auto-update, skipping to prevent infinite loop"
-            elif [ -d "its/ruling/target/actual" ]; then
-              # Sync ruling results
-              cp -r its/ruling/target/actual/* its/ruling/src/test/resources/expected/project/
-
-              git config user.name "github-actions[bot]"
-              git config user.email "github-actions[bot]@users.noreply.github.com"
-
-              git add its/ruling/src/test/resources/expected/
-
-              if ! git diff --staged --quiet; then
-                git commit -m "Update ruling results
-
-          🤖 Generated with GitHub Actions"
-                git push origin "$HEAD_REF"
-                RULING_UPDATED=true
-              fi
-            fi
-          fi
-
-          # Generate ruling report (compares current branch vs PR base branch)
-          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
-          BASE_BRANCH="origin/$BASE_REF" ./tools/ruling-report.sh > ruling-report.md || true
-
-          # Check if there are ruling differences
-          if [ -s ruling-report.md ]; then
-            HAS_DIFFERENCES=true
-          else
-            HAS_DIFFERENCES=false
-          fi
-
-          # Truncate ruling report if it would exceed GitHub's 65536 character limit for comments.
-          # Truncating before composing comment.md ensures the status footer is always preserved.
-          MAX_REPORT_LENGTH=64000
-          if [ "$(wc -c < ruling-report.md)" -gt "$MAX_REPORT_LENGTH" ]; then
-            head -c "$MAX_REPORT_LENGTH" ruling-report.md | iconv -c -f utf-8 -t utf-8 > r.tmp
-            # close an unbalanced code fence
-            if [ $(( $(grep -c '^```' r.tmp) % 2 )) -eq 1 ]; then printf '\n```\n' >> r.tmp; fi
-            printf '\n\n⚠️ _Report truncated: exceeded GitHub comment size limit. See ruling JSON files for full details._\n' >> r.tmp
-            mv r.tmp ruling-report.md
-          fi
-
-          # Build comment based on state
-          if [ "$HAS_DIFFERENCES" = "true" ]; then
-            {
-              echo "$MARKER"
-              cat ruling-report.md
-              echo ""
-              echo "---"
-              if [ "$RULING_UPDATED" = "true" ]; then
-                echo "✅ **Ruling has been auto-updated.** A verification build will run automatically."
-              elif [ "$RULING_FAILED" = "true" ]; then
-                echo "⚠️ **Ruling tests failed.** Please review the differences above."
-              else
-                echo "✅ **Ruling tests passed.**"
-              fi
-            } > comment.md
-          else
-            {
-              echo "$MARKER"
-              echo "## Ruling Report"
-              echo ""
-              if [ "$RULING_FAILED" = "true" ]; then
-                echo "⚠️ **Ruling tests failed** but no file differences were detected."
-                echo "Check the build logs for details."
-              else
-                echo "✅ **No changes to ruling expected issues in this PR**"
-              fi
-            } > comment.md
-          fi
-
-          # Find existing ruling comment and update it, or create new one
-          EXISTING_COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/$PR_NUMBER/comments" \
-            --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" | head -1 || true)
-
-          if [ -n "$EXISTING_COMMENT_ID" ]; then
-            gh api "repos/${{ github.repository }}/issues/comments/$EXISTING_COMMENT_ID" \
-              -X PATCH -F body=@comment.md
-          else
-            gh pr comment "$PR_NUMBER" --body-file comment.md
-          fi
+        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@master
+        with:
+          ruling-failed: ${{ steps.ruling.outcome == 'failure' }}
 
   analyze-shadows:
     if: github.event_name == 'schedule'
@@ -375,7 +285,7 @@ jobs:
       id-token: write # required for vault-action-wrapper in the shared slack-notify action
     steps:
       - name: Slack Notification
-        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@v1
+        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@master
         with:
           slack-channel: squad-corelang-notifs
           branch-patterns: ${{ format('{0},branch-*,dogfood-*', github.event.repository.default_branch) }}
