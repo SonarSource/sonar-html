@@ -17,7 +17,7 @@
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element."
+        "text" : "Add an \"aria-label\" or \"aria-labbelledby\" attribute to this element. (RC-800)"
       },
       "locations" : [ {
         "id" : -1,
