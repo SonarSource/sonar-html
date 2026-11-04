@@ -17,7 +17,7 @@
       "kind" : "fail",
       "level" : "warning",
       "message" : {
-        "text" : "Make sure using target=\"_blank\" and rel=\"opener\" is safe here. (RC-800)"
+        "text" : "Make sure using target=\"_blank\" and rel=\"opener\" is safe here."
       },
       "locations" : [ {
         "id" : -1,
