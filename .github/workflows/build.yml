@@ -53,7 +53,7 @@ jobs:
 
       # Publish the deployed plugin version for the pvf
       - name: Prepare PVF candidate version
-        uses: SonarSource/core-languages-tooling-public/prepare-pvf@2f354ee8cd3041744f065bc51ab9b8d223646df7
+        uses: SonarSource/core-languages-tooling-public/prepare-pvf@v1
         with:
           build-version: ${{ env.PROJECT_VERSION }}
 
@@ -194,10 +194,10 @@ jobs:
         run: ./tools/ruling-debug-script.sh
       - name: Prepare ruling artifact
         if: always() && github.event_name == 'pull_request' && steps.ruling.outcome == 'failure'
-        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@2f354ee8cd3041744f065bc51ab9b8d223646df7
+        uses: SonarSource/core-languages-tooling-public/prepare-ruling-artifact@v1
       - name: Update ruling and comment on PR
         if: always() && github.event_name == 'pull_request'
-        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@2f354ee8cd3041744f065bc51ab9b8d223646df7
+        uses: SonarSource/core-languages-tooling-public/ruling-update-and-notify@v1
         with:
           ruling-failed: ${{ steps.ruling.outcome == 'failure' }}
 
@@ -285,7 +285,7 @@ jobs:
       id-token: write # required for vault-action-wrapper in the shared slack-notify action
     steps:
       - name: Slack Notification
-        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@2f354ee8cd3041744f065bc51ab9b8d223646df7
+        uses: SonarSource/core-languages-tooling-public/common-actions/slack-notify@v1
         with:
           slack-channel: squad-corelang-notifs
           branch-patterns: ${{ format('{0},branch-*,dogfood-*', github.event.repository.default_branch) }}
