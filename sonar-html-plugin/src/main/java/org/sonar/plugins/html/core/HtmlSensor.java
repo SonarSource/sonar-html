@@ -60,6 +60,7 @@ import org.sonar.plugins.html.visitor.HtmlSourceCode;
 import org.sonar.plugins.html.visitor.NoSonarScanner;
 import org.sonar.plugins.html.visitor.SonarResolveScanner;
 
+// See docs/systems/verification.md for the SonarQube Server and IDE test boundary.
 public final class HtmlSensor implements Sensor {
   private static final Logger LOG = Loggers.get(HtmlSensor.class);
   private static final Version ISSUE_RESOLUTION_API_MIN_VERSION = Version.create(13, 5);

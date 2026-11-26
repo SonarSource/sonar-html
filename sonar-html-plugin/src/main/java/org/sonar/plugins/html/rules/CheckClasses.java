@@ -24,6 +24,7 @@ import org.reflections.Reflections;
 import org.sonar.check.Rule;
 import org.sonar.plugins.html.checks.AbstractPageCheck;
 
+// See docs/systems/rule-metadata.md for how registered checks map to generated resources.
 public final class CheckClasses {
   private CheckClasses() {
   }
