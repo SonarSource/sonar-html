@@ -13,14 +13,15 @@ sources:
 
 ## Run locally
 
-1. Build and install the current plugin and use the [root commands](../../AGENTS.md#commands). The QA profile resolves a plugin from Maven and copies it into the analyzer's build output; a stale installed SNAPSHOT can test older code.
-2. Configure Maven for Repox read access. `.github/workflows/build.yml` gets `ARTIFACTORY_URL`, `ARTIFACTORY_ACCESS_TOKEN` and the read-only GitHub license token (`GITHUB_TOKEN`) from Vault. Get authorized credentials before running Enterprise QA; do not print them or copy them into the checkout.
-3. Orchestrator loads `~/.sonar/orchestrator/orchestrator.properties` before the environment for the license token. If the license fetch fails, check for a stale `github.token` there before assuming `GITHUB_TOKEN` is invalid.
-4. Before ruling, initialize the `its/sources/project/` submodule (`SonarCommunity/web-test-sources`) at the revision pinned by this repository. Report missing access rather than analyzing substitute sources.
+1. Configure Maven for Repox read access. `.github/workflows/build.yml` gets `ARTIFACTORY_URL`, `ARTIFACTORY_ACCESS_TOKEN` and the read-only GitHub license token (`GITHUB_TOKEN`) from Vault. Get authorized credentials before running Enterprise QA; do not print them or copy them into the checkout. Check prerequisites with `mise run doctor`.
+2. For Enterprise tests, Orchestrator reads `github.token` from `~/.sonar/orchestrator/orchestrator.properties` before `GITHUB_TOKEN`. Replace or remove a stale property even if the environment token is valid.
+3. Run `mise run build:plugin` from this checkout before local QA and ruling. The QA profile copies the plugin from Maven into the analyzer's build output; a stale shared SNAPSHOT can test older code. Rebuild if another checkout installed the same SNAPSHOT.
+4. Run `mise run its` for both QA suites, `mise run its:sonarqube` for Server, or `mise run its:sonarlint` for IDE. Server defaults to `LATEST_RELEASE`; use `mise run its:sonarqube --runtime DEV` to override it (`its` also accepts `--runtime`).
+5. Before `mise run ruling:check`, run `git submodule update --init -- its/sources/project` to check out the pinned `SonarCommunity/web-test-sources` revision. Report missing access rather than analyzing substitute sources.
 
 ## Review ruling differences
 
-`its/ruling/src/test/resources/expected/project/` holds the expected SARIF files. When ruling fails, run `./tools/ruling-debug-script.sh` from the root to compare them with the generated SARIF under the ruling module's `target` directory. Review changes in issue locations and messages; update the expectations only for intended analyzer changes. The `ruling-update-and-notify` action in the build workflow can comment on the PR or propose refreshed expectations.
+`its/ruling/src/test/resources/expected/project/` holds the expected SARIF files. After a ruling run produces reports, run `mise run ruling:diff` to compare the generated and expected SARIF. Review the issue locations and messages, then run `mise run ruling:update` only if you intend to accept those results. Inspect the Git diff and rerun `mise run ruling:check` to verify the new expectations. The `ruling-update-and-notify` action in the build workflow can comment on the PR or propose refreshed expectations.
 
 ## Shared ruling reference
 

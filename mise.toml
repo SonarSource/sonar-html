@@ -1,3 +1,81 @@
+# See AGENTS.md#commands for the local verification loop.
 [tools]
 java = "21.0"
 maven = "3.9"
+
+[task_config]
+shell = "bash -e -c"
+
+[tasks."test:plugin"]
+description = "Run plugin unit tests, optionally selecting a class or class#method"
+usage = 'arg "[test]" help="Surefire test selector"'
+run = '''
+mvn -B -T1C -pl sonar-html-plugin ${usage_test:+"-Dtest=$usage_test"} test
+'''
+
+[tasks."test:plugin:changed"]
+description = "Run the plugin tests affected by changes since the merge base with origin/master"
+run = "python3 -B tools/changed_plugin_tests.py"
+
+[tasks."compile:plugin"]
+description = "Compile the analyzer without running tests"
+run = "mvn -B -T1C -pl sonar-html-plugin compile"
+
+[tasks."lint:license-headers"]
+description = "Check source headers using the goal bound to Maven validate"
+run = "mvn -B -pl sonar-html-plugin com.mycila:license-maven-plugin:check@enforce-license-headers"
+
+[tasks."format:license-headers"]
+description = "Apply the repository's source headers"
+run = "mvn -B -pl sonar-html-plugin com.mycila:license-maven-plugin:format@enforce-license-headers"
+
+[tasks."build:plugin"]
+description = "Clean, test, verify, and install the plugin artifact for local QA and ruling"
+run = "mvn -B -T1C clean install"
+
+[tasks."its:sonarqube"]
+description = "Run Enterprise SonarQube integration tests with the installed or CI plugin"
+usage = 'flag "--runtime <version>" default="LATEST_RELEASE" help="Orchestrator SonarQube runtime (e.g. DEV)"'
+run = '''
+SONARSOURCE_QA=true mvn -f its/pom.xml -pl plugin verify -Pqa "-Dsonar.runtimeVersion=$usage_runtime" -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+'''
+
+[tasks."its:sonarlint"]
+description = "Run SonarQube for IDE integration tests with the installed or CI plugin"
+run = "SONARSOURCE_QA=true mvn -f its/pom.xml -pl sonarlint-tests verify -Pqa -Dmaven.test.redirectTestOutputToFile=false -B -e -V"
+
+[tasks.its]
+description = "Run both integration suites in one Maven reactor"
+usage = 'flag "--runtime <version>" default="LATEST_RELEASE" help="Orchestrator SonarQube runtime (e.g. DEV)"'
+run = '''
+SONARSOURCE_QA=true mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa "-Dsonar.runtimeVersion=$usage_runtime" -Dmaven.test.redirectTestOutputToFile=false -B -e -V
+'''
+
+[tasks."ruling:check"]
+description = "Run Enterprise ruling over the pinned corpus and compare against expected SARIF"
+run = "SONARSOURCE_QA=true mvn -f its/ruling/pom.xml clean verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V"
+
+[tasks."ruling:diff"]
+description = "Show SARIF differences from the latest ruling run"
+run = "python3 -B tools/ruling_results.py diff"
+
+[tasks."ruling:update"]
+description = "Replace expected SARIF with the latest ruling results after review"
+run = "python3 -B tools/ruling_results.py update"
+
+[tasks."analyze:changed"]
+description = "Analyze changed files with Vortex (not the CI NEXT upload)"
+run = "sonar analyze agentic --project org.sonarsource.html:html --base origin/master --depth DEEP"
+
+[tasks.check]
+description = "Run the clean plugin build, including license headers, unit tests, and package verification"
+depends = ["build:plugin"]
+
+[tasks.ci]
+description = "Run the local build, QA, ruling, and Vortex gates without publishing"
+run = [{ task = "check" }, { task = "its" }, { task = "ruling:check" }, { task = "analyze:changed" }]
+
+[tasks.doctor]
+description = "Report local prerequisites for each task without exposing credentials"
+quiet = true
+run = "python3 -B tools/doctor.py"
