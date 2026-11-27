@@ -6,23 +6,13 @@ Analyzer changes can affect all three products and the HTML performance validati
 
 ## Commands
 
-Run from the repository root with the Java and Maven versions in `mise.toml`. Activate mise in your shell or use `mise exec --` for Maven.
+Run from the repository root. Use Bash (Git Bash on Windows) and Python 3.9+ for the local tasks. Run `mise install`, then `mise tasks` to list commands and `mise run doctor` to check prerequisites.
 
-```bash
-mise install
-mvn clean install
-mvn test -Dtest=LabelHasAssociatedControlCheckTest -pl sonar-html-plugin
-mvn test -Dtest=LabelHasAssociatedControlCheckTest#razor -pl sonar-html-plugin
-```
-
-After building the plugin, configure the credentials in [Integration tests](docs/systems/integration-tests.md). These are the CI QA and ruling commands; only ruling needs the submodule.
-
-```bash
-export SONARSOURCE_QA=true
-mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
-git submodule update --init
-mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V
-```
+- Fast loop: `mise run compile:plugin` or `mise run test:plugin:changed`, then `mise run lint:license-headers`, then `mise run analyze:changed` (Vortex, not NEXT upload).
+- Run all unit tests with `mise run test:plugin`, or pass a class or method, e.g. `mise run test:plugin 'LabelHasAssociatedControlCheckTest#razor'`.
+- Fix headers with `mise run format:license-headers`. Run `mise run check` for a clean, tested build; it runs `build:plugin`, which installs the artifact for QA and ruling.
+- See [Integration tests](docs/systems/integration-tests.md) before running `its`, `its:sonarqube [--runtime <version>]`, `its:sonarlint`, `ruling:check`, `ruling:diff`, or `ruling:update`.
+- With all prerequisites met, `mise run ci` runs the local build, QA, ruling, and Vortex gates without publishing.
 
 ## Constraints
 

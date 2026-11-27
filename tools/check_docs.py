@@ -21,7 +21,6 @@ import yaml
 AGENT_FILE = "AGENTS.md"
 INDEX_FILE = "index.md"
 SKILL_FILE = "SKILL.md"
-QA_ENV = "SONARSOURCE_QA=true"
 ROOT_AGENTS = Path(AGENT_FILE)
 DOCS = Path("docs")
 CONVENTIONS = DOCS / "documentation-conventions.md"
@@ -34,13 +33,11 @@ MISE = Path("mise.toml")
 TEST_ROOT = Path("sonar-html-plugin/src/test/java")
 TEST_CLASS = "LabelHasAssociatedControlCheckTest"
 REQUIRED_SECTIONS = ("Scope", "Commands", "Constraints", "Documentation")
-LOCAL_COMMANDS = (
-    "mise install",
-    "mvn clean install",
-    f"mvn test -Dtest={TEST_CLASS} -pl sonar-html-plugin",
-    f"mvn test -Dtest={TEST_CLASS}#razor -pl sonar-html-plugin",
-    "git submodule update --init",
-)
+QA_COMMANDS = {
+    "qa": ("mise", "run", "its"),
+    "qa-dev": ("mise", "run", "its", "--runtime", "DEV"),
+    "ruling": ("mise", "run", "ruling:check"),
+}
 VORTEX_BLOCK = re.compile(
     r"^<!-- sonar:begin:sonarqube-agentic-analysis-protocol -->\n.*?"
     r"^<!-- sonar:end:sonarqube-agentic-analysis-protocol -->$", re.MULTILINE | re.DOTALL
@@ -177,26 +174,15 @@ def command_lines(script):
             yield tuple(shlex.split(line))
 
 
-def workflow_commands(root, report):
-    expected = set()
+def check_workflow_commands(root, report):
     try:
         jobs = yaml.safe_load((root / BUILD).read_text(encoding="utf-8"))["jobs"]
-        actions = {step.get("uses", "").partition("@")[0] for step in jobs["build"]["steps"]}
-        if not {"jdx/mise-action", "SonarSource/ci-github-actions/build-maven"} <= actions:
-            report.error(BUILD, "build job no longer uses mise and build-maven; review AGENTS.md Commands")
-        for job in ("qa", "ruling"):
-            maven = [
-                argv for step in jobs[job]["steps"]
-                if str(step.get("env", {}).get("SONARSOURCE_QA")).lower() == "true"
-                for argv in command_lines(step.get("run", "")) if argv[0] == "mvn"
-            ]
-            if len(maven) != 1:
-                report.error(BUILD, f"expected one Maven command with SONARSOURCE_QA=true in the {job} job")
-            else:
-                expected.add(maven[0])
+        for job, expected in QA_COMMANDS.items():
+            commands = [argv for step in jobs[job]["steps"] for argv in command_lines(step.get("run", ""))]
+            if commands.count(expected) != 1:
+                report.error(BUILD, f"expected `{' '.join(expected)}` in the {job} job")
     except (OSError, KeyError, TypeError, ValueError, AttributeError, yaml.YAMLError) as exc:
-        report.error(BUILD, f"cannot read build, qa and ruling jobs: {exc}")
-    return expected
+        report.error(BUILD, f"cannot read QA and ruling jobs: {exc}")
 
 
 def check_unit_test_target(root, paths, report):
@@ -207,41 +193,50 @@ def check_unit_test_target(root, paths, report):
         report.error(tests[0], f"the test method in AGENTS.md Commands ({TEST_CLASS}#razor) no longer exists")
 
 
-def check_mise_toolchain(root, report):
+def mise_tasks(root, report):
     try:
-        tools = tomllib.loads((root / MISE).read_text(encoding="utf-8")).get("tools", {})
+        config = tomllib.loads((root / MISE).read_text(encoding="utf-8"))
+        tools = config.get("tools", {})
         for tool in ("java", "maven"):
             version = tools.get(tool)
             if isinstance(version, dict):
                 version = version.get("version")
             if not nonempty(version):
                 report.error(MISE, f"[tools] must declare a {tool} version for AGENTS.md Commands")
+        return {name for name, task in config.get("tasks", {}).items() if not task.get("hide")}
     except (OSError, ValueError, AttributeError) as exc:
-        report.error(MISE, f"cannot read the mise toolchain: {exc}")
+        report.error(MISE, f"cannot read the mise toolchain and tasks: {exc}")
+        return set()
 
+
+def command_snippets(body):
+    for token in body:
+        is_shell = token.type == "fence" and token.info.strip().partition(" ")[0] in {"", "bash", "sh", "shell", "zsh"}
+        if is_shell or token.type == "code_block":
+            yield from token.content.splitlines()
+        else:
+            yield from (child.content for child in (token.children or []) if child.type == "code_inline")
 
 
 def check_commands(root, body, report):
-    check_mise_toolchain(root, report)
-    expected = {tuple(command.split()) for command in LOCAL_COMMANDS} | workflow_commands(root, report)
-    actual = set()
-    for token in body:
-        is_shell = token.type == "fence" and token.info.strip().partition(" ")[0] in {"", "bash", "sh", "shell", "zsh"}
-        if token.type != "code_block" and not is_shell:
+    tasks = mise_tasks(root, report)
+    check_workflow_commands(root, report)
+    documented = set()
+    for line in command_snippets(body):
+        words = line.split()
+        if not words:
             continue
-        try:
-            actual.update(command_lines(token.content))
-        except ValueError as exc:
-            report.error(ROOT_AGENTS, f"invalid shell command in Commands: {exc}")
-    if ("export", QA_ENV) not in actual and not any(
-        token.type == "inline" and QA_ENV in token.content for token in body
-    ):
-        report.error(ROOT_AGENTS, f"Commands must document {QA_ENV} for QA and ruling")
-    actual.discard(("export", QA_ENV))
-    for command in sorted(expected - actual):
-        report.error(ROOT_AGENTS, f"Commands is missing `{' '.join(command)}` (match build.yml for QA and ruling)")
-    for command in sorted(actual - expected):
-        report.error(ROOT_AGENTS, f"Commands has an unexpected command: `{' '.join(command)}`")
+        if words[0] == "mvn":
+            report.error(ROOT_AGENTS, "Commands must use mise tasks instead of raw Maven commands")
+        elif words[:2] == ["mise", "run"] and len(words) >= 3:
+            task = words[2]
+            if task not in tasks:
+                report.error(ROOT_AGENTS, f"Commands refers to an unknown task `{task}`")
+            documented.add(task)
+        elif words[0] in tasks:
+            documented.add(words[0])
+    for task in sorted(tasks - documented):
+        report.error(ROOT_AGENTS, f"Commands is missing mise task `{task}`")
 
 
 def check_root_sections(root, document, report):

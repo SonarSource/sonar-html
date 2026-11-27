@@ -12,8 +12,8 @@ from unittest.mock import patch
 import check_docs
 
 
-QA = "mvn -f its/pom.xml -pl plugin,sonarlint-tests verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V"
-RULING = "mvn -f its/ruling/pom.xml verify -Pqa -Dsonar.runtimeVersion=LATEST_RELEASE -Dmaven.test.redirectTestOutputToFile=false -B -e -V"
+QA = "mise run its"
+RULING = "mise run ruling:check"
 CANONICAL = ".agents/skills/regenerate-rule-metadata/SKILL.md"
 CLAUDE_SKILL = ".claude/skills/regenerate-rule-metadata/SKILL.md"
 TEST_TARGET = "sonar-html-plugin/src/test/java/LabelHasAssociatedControlCheckTest.java"
@@ -33,17 +33,8 @@ class CheckDocsTest(unittest.TestCase):
 
             ## Commands
 
-            Run QA with `SONARSOURCE_QA=true` and credentials.
-
-            ```bash
-            mise install
-            mvn clean install
-            mvn test -Dtest=LabelHasAssociatedControlCheckTest -pl sonar-html-plugin
-            mvn test -Dtest=LabelHasAssociatedControlCheckTest#razor -pl sonar-html-plugin
-            {QA}
-            git submodule update --init
-            {RULING}
-            ```
+            Run `mise run test:plugin 'LabelHasAssociatedControlCheckTest#razor'` first.
+            Configure credentials before running `its` and `ruling:check`.
 
             ## Constraints
 
@@ -60,7 +51,16 @@ class CheckDocsTest(unittest.TestCase):
             {VORTEX_END}
             """)
         self.put("CLAUDE.md", "@AGENTS.md\n")
-        self.put("mise.toml", '[tools]\njava = "21.0"\nmaven = "3.9"\n')
+        self.put("mise.toml", '''[tools]
+java = "21.0"
+maven = "3.9"
+[tasks."test:plugin"]
+run = "mvn test"
+[tasks.its]
+run = "mvn verify"
+[tasks."ruling:check"]
+run = "mvn verify"
+''')
         self.put(".github/workflows/build.yml", f"""\
             jobs:
               build:
@@ -69,15 +69,13 @@ class CheckDocsTest(unittest.TestCase):
                   - uses: SonarSource/ci-github-actions/build-maven@v2
               qa:
                 steps:
-                  - env: &qa_env
-                      SONARSOURCE_QA: true
-                    run: |
-                      {QA}
+                  - run: {QA}
+              qa-dev:
+                steps:
+                  - run: {QA} --runtime DEV
               ruling:
                 steps:
-                  - env: *qa_env
-                    run: |
-                      {RULING}
+                  - run: {RULING}
             """)
         self.doc("docs/index.md", "`docs/documentation-conventions.md` and [systems][sys].\n\n[sys]: systems/index.md",
                  'okf_version: "0.2"\n')
@@ -132,13 +130,12 @@ class CheckDocsTest(unittest.TestCase):
     def assert_error(self, expected):
         self.assertIn(expected, "\n".join(self.check().errors))
 
-    def test_valid_tree_accepts_relative_links_root_paths_and_qa_prose(self):
+    def test_valid_tree_accepts_relative_links_root_paths_and_task_references(self):
         report = self.check()
         self.assertEqual([], report.errors)
         self.assertEqual([], report.warnings)
 
-    def test_valid_tree_accepts_export_and_an_exact_nested_import(self):
-        self.modify("AGENTS.md", QA, "export SONARSOURCE_QA=true\n" + QA)
+    def test_valid_tree_accepts_an_exact_nested_import(self):
         self.modify("AGENTS.md", "(docs/)", "(docs/) and `component/AGENTS.md`")
         self.put("component/AGENTS.md", "# Component\n\nInstructions for the component.\n")
         (self.root / "component/CLAUDE.md").write_bytes(b"@AGENTS.md\r\n")
@@ -185,20 +182,23 @@ class CheckDocsTest(unittest.TestCase):
         self.assert_error("stale_after must be a YYYY-MM-DD date")
 
     def test_workflow_flag_drift_and_missing_mise_tool(self):
-        self.modify(".github/workflows/build.yml", QA, QA.replace(" -B", " -B -U"))
+        self.modify(".github/workflows/build.yml", "--runtime DEV", "--runtime LATEST_RELEASE")
         self.modify("mise.toml", 'maven = "3.9"\n', "")
         errors = "\n".join(self.check().errors)
         self.assertIn("mise.toml: [tools] must declare a maven version", errors)
-        self.assertIn(QA.replace(" -B", " -B -U"), errors)
-        self.assertIn(f"unexpected command: `{QA}`", errors)
+        self.assertIn("expected `mise run its --runtime DEV` in the qa-dev job", errors)
 
     def test_unit_test_method_must_exist(self):
         self.modify(TEST_TARGET, "void razor()", "void razorSyntax()")
         self.assert_error("(LabelHasAssociatedControlCheckTest#razor) no longer exists")
 
-    def test_qa_environment_must_be_documented(self):
-        self.modify("AGENTS.md", "`SONARSOURCE_QA=true` and credentials", "credentials")
-        self.assert_error("Commands must document SONARSOURCE_QA=true")
+    def test_commands_require_public_tasks_and_no_raw_maven(self):
+        self.modify("AGENTS.md", "`its`", "`mvn verify`")
+        self.modify("AGENTS.md", "`ruling:check`", "`mise run ruling:typo`")
+        errors = "\n".join(self.check().errors)
+        self.assertIn("Commands is missing mise task `its`", errors)
+        self.assertIn("Commands must use mise tasks instead of raw Maven commands", errors)
+        self.assertIn("Commands refers to an unknown task `ruling:typo`", errors)
 
     def test_required_sections_must_be_ordered(self):
         self.modify("AGENTS.md", "## Commands", "## Build")

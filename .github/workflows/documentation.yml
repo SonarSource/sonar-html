@@ -18,8 +18,8 @@ jobs:
           python-version: '3.13'
       - name: Install documentation checker dependencies
         run: python -m pip install --no-cache-dir markdown-it-py==4.0.0 PyYAML==6.0.3
-      - name: Test documentation checker
-        run: python -B -m unittest discover -s tools -p test_check_docs.py
+      - name: Test repository tools and check Maven task parity
+        run: python -B -m unittest discover -s tools
       - name: Check repository documentation
         run: python -B tools/check_docs.py
       - name: Lint Markdown
