@@ -41,6 +41,7 @@ Run from the repository root. Use Bash (Git Bash on Windows) and Python 3.9+ for
 
 The owner is `@SonarSource/code-quality-dynamic-languages-squad`, as recorded in `.github/CODEOWNERS`.
 If required Vault or Repox access or the ruling submodule is unavailable, stop the affected check and report the blocker to the owner; do not substitute a mock for that check.
+If the SonarQube CLI is not logged in to Next, stop the Vortex check and report the blocker.
 
 ## Verification before merge
 
@@ -51,34 +52,37 @@ Read [Verification](docs/systems/verification.md) before reporting check results
 - [SonarSource/rspec](https://github.com/SonarSource/rspec) is the source of rule specs. With repository access, look under `rules/<S-key>/html` for the HTML variant and in its parent folder for shared metadata.
 - For **Unify Ruling Workflows Across Code Quality Repositories** and its Confluence retrieval path, see [Integration tests](docs/systems/integration-tests.md#shared-ruling-reference).
 
+For the Vortex commands below, pass `--project org.sonarsource.html:html` to target the Next project.
+
 <!-- sonar:begin:sonarqube-agentic-analysis-protocol -->
 # Vortex analysis protocol
 
-Vortex analysis is the final confirmation layer at the end of every turn in which you wrote to one or more files in the workspace (create, edit, patch, format — any tool call that changed file contents on disk).
+These instructions were installed by `sonar integrate` at the user's request. Vortex analysis checks the final change set for issues before you reply.
 
-**Trigger:** the moment before you send your final reply for the turn.
+At the end of a turn that changed file contents in the workspace (create, edit, patch, or format), run Vortex analysis before your final reply or handoff. Analyze all files changed in the turn in one command.
 
-When the trigger fires, you **MUST** run Vortex analysis on the full set of files you modified this turn — **one command, not a per-file loop**.
-
-**Preferred:** pass every path you modified this turn in a single invocation (repeat `--file` for each path). Use paths **relative to the project root** (e.g. `src/foo.ts`). For end-of-turn analysis, **always** pass `--depth DEEP` — even when you changed only one file — so cross-file findings are included.
+Pass each modified path with `--file`, relative to the directory you run the command from (for example, `src/foo.ts`). Use `--depth DEEP` even for one file so the analysis includes cross-file findings.
 
 ```bash
-sonar analyze agentic --project org.sonarsource.html:html --depth DEEP --file <path/to/file1> --file <path/to/file2>
+sonar analyze agentic --depth DEEP --file <path/to/file1> --file <path/to/file2>
 ```
 
-**Fallback:** when you cannot reliably list every modified path (e.g. you did not track them, or git state is the only source of truth), use the git change set with DEEP analysis:
+If you cannot reliably list every modified path, analyze the git change set with DEEP depth:
 
 ```bash
-sonar analyze agentic --project org.sonarsource.html:html --depth DEEP
+sonar analyze agentic --depth DEEP
 ```
 
-Per-edit hooks run faster STANDARD analysis. End-of-turn analysis must always use `--depth DEEP` (including a single `--file`). Use `--depth STANDARD` only for optional faster passes — never for the mandatory end-of-turn run.
+Per-edit hooks use faster STANDARD analysis. The end-of-turn check uses DEEP depth, including when only one file changed.
 
-Non-negotiable rules:
+In a repository with several Sonar projects (a monorepo), the directory you run the command from decides what is analyzed. From the monorepo root, one command analyzes every changed file against the project that owns it. From inside one project, only that project is analyzed: a `--file` path outside the current directory is rejected, and changes in other projects are listed as not analyzed. Run the command from a directory that contains every file changed this turn, usually the monorepo root. Files owned by no project are skipped in the change-set report and rejected as `--file` paths; leave them out rather than retrying.
 
-1. Mid-turn edits do **not** need Vortex analysis — only the final on-disk state matters. Skipping Vortex analysis at end-of-turn is a protocol violation.
-2. Run Vortex analysis **before** sending your final reply, marking the task done, or handing control back to the user.
-3. If Vortex analysis reports issues on lines you touched in this turn, fix them, then re-run Vortex analysis on the same scope (change set or explicit file list). Repeat until clean (or only pre-existing findings on lines you did not touch remain). Pre-existing findings on untouched lines are out of scope — do not "fix" them unless the user asked.
-4. If Vortex analysis is skipped (no SonarQube Cloud connection, or no project configured), state the skip reason to the user once and continue — do not retry.
-5. Do not suppress, summarize away, or omit Vortex analysis findings from your reply. Surface them verbatim.
+After the analysis:
+
+1. If no project is configured, stop analysis attempts for this session. A routine skip needs no mention in the final reply unless the user asks about Vortex analysis. If the user asks for Vortex analysis or configures a project, run the analysis again and report any error.
+2. If analysis finds issues on lines you changed this turn, fix them and re-run the same scope. Continue until no touched-line findings remain. Leave findings on untouched lines to their existing owners unless the user asks you to address them.
+3. If analysis is skipped for another reason (for example, no SonarQube Cloud connection), state the reason once in your reply and continue without retrying this session.
+4. Include any remaining Vortex findings verbatim in your reply.
 <!-- sonar:end:sonarqube-agentic-analysis-protocol -->
+
+Do not fix expected Vortex findings in `sonar-html-plugin/src/test/resources/checks/**`, `its/sources/**`, or `its/ruling/src/test/resources/expected/**`.
