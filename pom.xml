@@ -56,7 +56,7 @@
 
   <issueManagement>
     <system>JIRA</system>
-    <url>https://jira.sonarsource.com/browse/SONARHTML</url>
+    <url>https://jira.sonarsource.com/browse/HTML</url>
   </issueManagement>
 
   <properties>

@@ -23,7 +23,7 @@ Useful links
 ------------
 
 * [Project homepage](https://redirect.sonarsource.com/plugins/web.html)
-* [Issue tracking](https://jira.sonarsource.com/browse/SONARHTML/)
+* [Issue tracking](https://jira.sonarsource.com/browse/HTML/)
 * [Available rules](https://rules.sonarsource.com/html)
 * [SonarQube Community Forum](https://community.sonarsource.com/)
 
