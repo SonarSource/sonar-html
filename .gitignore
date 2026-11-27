@@ -37,4 +37,4 @@ Desktop.ini
 coverage/
 
 # ---- Claude Code
-.claude/
+.claude/settings.local.json

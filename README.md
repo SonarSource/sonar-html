@@ -19,59 +19,23 @@ To learn more about Sonar’s HTML analysis, visit the [Sonar website](https://w
 
 <!-- sonar-marketing:end -->
 
-Useful links
-------------
+## Useful links
 
 * [Project homepage](https://redirect.sonarsource.com/plugins/web.html)
-* [Issue tracking](https://jira.sonarsource.com/browse/SONARHTML/)
 * [Available rules](https://rules.sonarsource.com/html)
 * [SonarQube Community Forum](https://community.sonarsource.com/)
 
-Have question or feedback?
---------------------------
+## Questions and feedback
 
 To provide feedback (request a feature, report a bug etc.) use the [SonarQube Community Forum](https://community.sonarsource.com/). Please do not forget to specify the language (HTML!), plugin version and SonarQube version.
 
-If you have a question on how to use plugin (and the [docs](https://docs.sonarqube.org/latest/analysis/languages/html/) don't help you), we also encourage you to use the community forum.
+For analysis setup, see the [HTML analysis documentation](https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/languages/html).
 
+## Contributing
 
-### Build the Project and Run Unit Tests
+For build and test commands, start with [AGENTS.md](AGENTS.md). See the [engineering docs](docs/index.md) for analyzer behavior and verification.
 
-To build the plugin and run its unit tests, execute this command from the project's root directory:
-
-    mvn clean install
-or
-
-    mvn clean verify
-
-### Integration Tests
-
-By default, Integration Tests (ITs) are skipped during build. If you want to run them, you need first to retrieve the related projects which are used as input:
-
-    git submodule init 
-    git submodule update
-
-Integration tests consist of Plugin tests and Ruling tests. To run them both you need to activate its profile (Make sure you've built the project and plugin .jar is up-to-date before running its, otherwise you might receive outdated results):
-
-    mvn verify -Pits
-
-#### Plugin Test
-
-The "Plugin Test" is an integration test suite which verifies plugin features such as metric calculation etc. To launch it:
-
-    cd its/plugin 
-    mvn verify
-
-#### Ruling Test
-
-The "Ruling Test" are an integration test suite which launches the analysis of a large code base, saves the issues created by the plugin in report files, and then compares those results to the set of expected issues (stored as JSON files). Launch ruling test:
-
-    cd its/ruling
-    mvn verify
-
-### License
-
-Copyright 2010-2024 SonarSource.
+## License
 
 SonarQube analyzers released after November 29, 2024, including patch fixes for prior versions, are published under the [Sonar Source-Available License Version 1 (SSALv1)](LICENSE.txt).
 

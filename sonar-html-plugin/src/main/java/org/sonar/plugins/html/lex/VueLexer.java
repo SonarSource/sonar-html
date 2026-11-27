@@ -27,6 +27,7 @@ import org.sonar.plugins.html.node.TagNode;
 
 /**
  * Lexical analysis of Vue.js Single File Components.
+ * See docs/systems/parsing.md for the template boundary.
  */
 public class VueLexer extends PageLexer {
 

@@ -1,0 +1,16 @@
+globs:
+  - '**/*.{md,markdown}'
+ignores:
+  # A PR form, not documentation; its first line is a fill-in prompt.
+  - .github/PULL_REQUEST_TEMPLATE.md
+  - its/sources/project/**
+  - '**/node_modules/**'
+gitignore: true
+config:
+  # The managed Vortex and Marketing text must not be rewrapped or reheaded.
+  MD013: false
+  MD025: false
+  # README starts with a logo and badge; tool imports and adapters can be titleless.
+  MD041: false
+  MD033:
+    allowed_elements: [a, img, p, picture, source]

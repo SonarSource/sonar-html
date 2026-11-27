@@ -25,6 +25,7 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.plugins.html.api.HtmlConstants;
 import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
+// See docs/systems/rule-metadata.md for generated metadata and the default profile.
 public final class HtmlRulesDefinition implements RulesDefinition {
 
   public static final String REPOSITORY_KEY = "Web";

@@ -26,8 +26,8 @@ import org.sonar.plugins.html.node.TagNode;
 import org.sonar.plugins.html.visitor.DefaultNodeVisitor;
 
 /**
- * Abtract superclass for checks.
-
+ * Abstract superclass for checks.
+ * See docs/systems/rule-tests.md for rule fixture and issue assertions.
  */
 public abstract class AbstractPageCheck extends DefaultNodeVisitor {
 

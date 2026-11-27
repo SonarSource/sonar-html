@@ -37,7 +37,7 @@ import org.sonar.sslr.channel.CodeReader;
 
 /**
  * Lexical analysis of a web page.
-
+ * See docs/systems/parsing.md for template syntax boundaries.
  */
 @SuppressWarnings("unchecked")
 public class PageLexer {
