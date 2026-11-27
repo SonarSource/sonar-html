@@ -45,7 +45,7 @@ jobs:
     with:
       project-name: "SonarHTML"
       plugin-name: "html"
-      jira-project-key: "SONARHTML"
+      jira-project-key: "HTML"
       rule-props-changed: false
       short-description: ${{ github.event.inputs.short-description }}
       sq-ide-short-description: ${{ github.event.inputs.sq-ide-short-description }}
